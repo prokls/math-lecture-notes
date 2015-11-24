@@ -1,0 +1,4353 @@
+\documentclass[a4paper,landscape,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman,english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{csquotes}
+\usepackage{imakeidx}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{rotating}
+\usepackage{bbold}
+
+\title{Linear Algebra -- Lecture Notes}
+\author{Lukas Prokop}
+\date{winter term 2015}
+
+\newcommand\meta[3]{This #1 took place on #2 (#3).\par}
+\newcommand\set[1]{\left\{#1\right\}}
+\newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand\card[1]{\left|\,#1\,\right|}
+\newcommand\divides[2]{#1\,\mid\,#2}
+\newcommand\mathspace{\hspace{20pt}}
+\newcommand\Q{\mathbb{Q}}
+\newcommand\nope{\lightning}
+\newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
+\newcommand\TODO{\fbox{\textsc{ToDo} content incomplete/incorrect}{ }}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{defi}{Definition}
+\newtheorem{ex}{Example}
+\newtheorem{rem}{Remark}
+\newtheorem{cor}{Corollary}
+
+\DeclarePairedDelimiter\norm\lVert\rVert
+
+\pagestyle{fancy}
+\fancyhf{}
+\chead{\Large{\textsc{Linear Algebra I -- Lecture Notes}}}
+\lfoot{\makebox[\columnwidth]{\thepage}}
+\rfoot{\makebox[\columnwidth]{\number\numexpr\value{page}+1}\stepcounter{page}}
+\setlength{\headheight}{18pt}
+
+\parindent0pt
+\parskip5pt
+
+\makeindex[name={German},title={German keywords}]
+\makeindex[name={English},title={English keywords}]
+\twocolumn
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\clearpage
+\meta{Lecture}{5th of Oct 2015}{Prof. Franz Lehner}
+
+Weekly schedule:
+
+\begin{table}[!ht]
+  \begin{tabular}{rcl}
+    \hline \hline
+    Mon & 08:15--09:45 & KF 06.01 \\
+    Tue & 08:15--09:45 & TU P2 \\
+    Tue & 10:15 & BE 01, Konversatorium \\
+    Wed & 13:00--15:00 & UE + Onlinekreuzesystem, Deadline 11:00 \\
+    Mon, Tue, Thu & * & Tutorien \\
+    \hline \hline
+  \end{tabular}
+\end{table}
+
+Exams:
+\begin{enumerate}
+  \item VO-Prüfung (schriftlich, 3 Termine pro Semester, ohne Unterlagen)
+  \item 2 UE-Prüfungen (25.11, 27.01, 1 DIN A4 Blatt)
+\end{enumerate}
+
+\textbf{What is linear algebra?}
+\begin{itemize}
+  % TODO: notation in greek letters
+  \item Arithmetics
+  \item Geometry
+  \item Analysis / infinitesimal computation
+\end{itemize}
+
+100 years ago, the following branch of mathematics was introduced:
+\begin{itemize}
+  \item Algebra: abstract computational operations (fields, groups, rings, etc)
+  \begin{itemize}
+    \item Linear algebra (branch of algebra, related to vector computations)
+  \end{itemize}
+\end{itemize}
+
+Mathematics is the search for statements of the structure: \emph{If A, then B}.
+
+\section{Set theory, logic and linear equations}
+\subsection{Axiomatic definition of a set}
+
+Georg Kantor (1869)
+\begin{quote}
+  Unter einer Menge verstehen wir eine Zusammenfassung von \emph{bestimmten}
+  \emph{wohlunterschiedenen} Objekten unserer Anschauung oder unsres Denkens
+  (welche die Objekte der Menge $M$ genannt werden) zu einem Ganzen.
+\end{quote}
+\begin{quote}
+  We define a set as a combination of defined well-distinguishable objects of
+  our perception and our minds (which are denoted set $M$) to a whole unit.
+\end{quote}
+
+Hence for every object $x$ one of these statements hold:
+\begin{itemize}
+    \item $x$ is part of $M$: $x \in M$
+    \item $x$ is not part of $M$: $x \in M$
+\end{itemize}
+
+\subsection{Notation for set theory}
+
+Approaches for notations:
+\begin{itemize}
+  \item Enumeration
+    \begin{itemize}
+      \item $\set{1,2, 3}$, $\set{a, b, \text{teddy bear}, \text{lecture hall HS 06.01}}$
+      \item Integers (in this lecture: without zero): $\mathbb{N} = \set{0, 1, 2, \ldots}$
+      \item $\set{1, 2, 3, \ldots}$: integers, end undetermined
+      \item $\set{1, 2, \ldots, n}$: integers from 1 to $n$
+      \item $\set{x, y, \ldots, z}$: general finite set
+    \end{itemize}
+  \item Description
+    \begin{itemize}
+      \item $\set{1, 4, 9, 16, \ldots}$
+      \item $\set{n | n \text{ is square of an integer}}$
+      \item $\set{n | \text{there exists } k \in \mathbb{N} \text{ such that } n = k^2} = \set{k^2 | k \in \mathbb{N}}$
+    \end{itemize}
+  \item Defined set with shortcuts
+    \begin{itemize}
+      \item $\mathbb{N}$
+      \item $\mathbb{Z} = \set{0, \pm 1, \pm 2, \ldots}$
+      \item $\mathbb{Q} = \set{\frac{p}{q} | p \in \mathbb{Z}, q \in \mathbb{N}}$
+      \item $\mathbb{R} = $ complex definition, see analysis
+      \item $\mathbb{C} = \setdef{x + y}{x, y \in \mathbb{R}}$
+      \item $\set{} = \emptyset$ as the empty set
+      \item M. Bourbaki, \enquote{Elements of mathematics}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Examples for custom sets}
+
+\begin{description}
+  \item[\enquote{The set of all competent politicians}]
+    Not well-defined, opinion-based
+  \item[\enquote{The set of all visible fix stars}]
+    Depends on definition of visibility, are tools allowed?, opinion-based
+\end{description}
+
+\subsection{Russell's paradoxon}
+
+Russell 1901, Zeromelo 1902
+
+$M$ = \enquote{the set of all sets} = \enquote{the set of all sets that does not contain itself}
+
+\subsection{Berrys paradoxon}
+
+$M_{12}$ = set of all integers describable with at most 11 words \\
+$n$ is the smallest number not describable with at most 11 words
+
+So $n$ is not contained in $M_{12}$. But $n$ itself is now described with 11 words.
+So it's contained? Paradoxon.
+
+\subsection{Axiomatic system of Zermelo-Frauenkel}
+
+\begin{enumerate}
+  \item For all sets $A, B$ it holds that $A = B$ iff $x \in A$ then also $x \in B$.
+  \item An empty set exists. Hence for all $x$ it holds that $x \notin \emptyset$.
+  \item If $A$ and $B$ are sets, then also $\set{A, B}$.
+  \item If $A$ and $B$ are sets, then also the union of  $A \cup B$ is a set.
+  \item An infinite set exists.
+  \item If $A$ is a set, then also the power set $\mathcal{P}(A) = \set{B | B \subseteq A}$
+\end{enumerate}
+
+\subsection{Basics of logic}
+
+Aristoteles and Organon % TODO: greek notation
+
+Organon called the system \enquote{analytics}.
+
+\begin{quote}
+  A \emph{statement} is a linguistic unit which is \emph{true} or \emph{false}.
+\end{quote}
+
+Examples:
+\begin{itemize}
+  \item Sokrates is a human.
+  \item 7 is a prime number.
+  \item 5 is an even number.
+  \item There exists only one universe.
+\end{itemize}
+
+The last example has an unknown truth value.
+Constructivists: \enquote{Unknown means false}.
+Pragmatics: \enquote{Unknown means unknown}.
+
+Other examples for unknown truth values:
+\begin{itemize}
+  \item Today is monday.
+  \item A. Gabalier has a beautiful voice.
+\end{itemize}
+
+Epimenides
+\begin{quote}
+  All crets are liars.
+\end{quote}
+
+Russell:
+\begin{quote}
+  This statement is wrong.
+\end{quote}
+
+\subsection{Gödel's incompleteness theorem}
+
+Kurt Gödel (1930)
+\begin{quote}
+  In every formal system statements exist that
+  are true, but not provable.
+\end{quote}
+
+Example: \enquote{This statement is not provable.}
+
+\subsection{A correction}
+
+Due to these contradictions:
+\begin{quote}
+  A \emph{statement} is a linguistic unit for which it makes sense to ask:
+  is it \emph{true} or \emph{false}?
+\end{quote}
+
+\subsection{Formal logic}
+
+\begin{description}
+  \item[Negation]
+    $\neg A$ means the truth value of $A$ is inverted
+  \item[Conjunction]
+    $A \land B$ is true, if $A$ and $B$ is true
+\end{description}
+
+Attention!
+\begin{itemize}
+  \item Eating and drinking forbidden (actually: \enquote{no eating or drinking})
+  \item Solutions for $x^2 = 1$: $x_1 = 1$ and $x_2 = -1$ (\enquote{actually: $x_1 = 1$ \emph{or} $x_2 = -1$})
+\end{itemize}
+
+\begin{description}
+  \item[Disjunction]
+    $A \lor B$ is true, if $A$ or $B$ is true (latin \enquote{vel})
+  \item[Exclusive disjunction]
+    $A \dot\lor B$ is true if $A$ or $B$ but not both are true (latin \enquote{out})
+  \item[Equivalence]
+    $A \leftrightarrow B$ is true if both share the same truth value ($\neg (A \dot\lor B)$)
+  \item[Implication / subjunction]
+    $A \implies B$ is true if $A$ is false or $A$ is true and $B$ is false.
+    $A$ implies $B$. Deutsch: \enquote{A ist hinreichend für B. B ist notwendig für A.}
+\end{description}
+
+\subsection{Definition}
+
+Two logical statements are equivalent if for every variable assignment,
+the same truth value is evaluated ($P(A_1, \ldots, A_n) \leftrightarrow Q(A_1, \ldots, A_n)$).
+
+\subsection{Logical laws by DeMorgan}
+
+\begin{align*}
+  \neg(A \land B) &\Leftrightarrow \neg A \lor \neg B \\
+\end{align*}
+
+\meta{Lecture}{6th of Oct 2015}{Prof. Franz Lehner}
+
+\[ \card{\mathbb{N}} = \aleph_0 \]
+
+\subsection{Proofs}
+
+A sentence is a statement of kind:
+\[ A \implies B \]
+
+$A$ is our requirement. $B$ is our conclusion.
+A proof is showing that $B$ holds under assumption of $A$.
+
+\subsection{Statement}
+
+\begin{quote}
+  Let $n \in \mathbb{N}$ be odd, than $n^2$ is odd.
+\end{quote}
+
+Proof:
+\begin{itemize}
+  \item[$A$.] $n$ is even and $n \in \mathbb{N}$, hence there exists some
+           $k \in \mathbb{N}_0$ such that $n = 2k + 1$
+  \item[$B$.] $n^2$ is odd, hence it holds that $l \in \mathbb{N}_0$ such that
+           $n^2 = 2l + 1$
+\end{itemize}
+
+We know, $n = 2k + 1$
+
+\[ \Rightarrow n^2 = (2k + 1)^2 = 4k^2 + 4k + 1 = 2\cdot(2k^2 + 2k) + 1 \]
+with $l = 2k^2 + 2k$, statement $B$ holds. Direct proof.
+
+\subsubsection{Contraposition law}
+
+\[ A \implies B \Leftrightarrow \neg B \implies \neg A \]
+
+A so-called \enquote{indirect proof}.
+
+\begin{quote}
+  If $n^2$ is even, than $n$ is even.
+\end{quote}
+
+\begin{itemize}
+  \item[$A$.] $n^2$ is even
+  \item[$B$.] $n$ is even
+  \item[$\neg B$.] $n$ is odd
+  \item[$\neg A$.] $n$ is odd
+\end{itemize}
+
+We already have shown,
+
+\[ \neg B \implies \neg A \]
+
+hence also $A \implies B$ is true.
+
+\subsection{Proof by contradiction}
+
+\[ A \lor \neg A \]
+
+Tertium nondatur \\
+hence if $\neg A$ is false, then $A$ is true.
+
+\subsubsection{$\sqrt{2}$ is irrational}
+
+\[ \sqrt{2} \not\in \mathbb{Q} \]
+
+Proof:
+
+\begin{itemize}
+  \item[$A$.] Let $x \in \mathbb{R}$ such that $x^2 = 2$ and $x > 0$ and let $\sqrt{2}$ be that number
+  \item[$B$.] $\sqrt{2} \not\in \mathbb{Q}$
+\end{itemize}
+
+Assume $\neg B$ hence $\sqrt{2} \in \mathbb{Q}$. We find a contradiction.
+
+$\sqrt{2} \in \mathbb{Q}$ then there exists some $p \in \mathbb{Z}, q \in \mathbb{N}$ such that $\sqrt{2} = \frac{p}{q}$.
+
+Wlog (without loss of generality), we assume that the fraction is irreducible. Hence $\operatorname{gcd}(p, q) = 1$.
+
+Therefore $\sqrt{2}$ has the following property.
+\begin{align*}
+  \sqrt{2} &= \frac{p}{q} \\
+  (\sqrt{2})^2 &= 2 \\
+  \frac{p^2}{q^2} &= 2 \\
+  \Rightarrow p^2 &= 2 q^2 \\
+  \Rightarrow p^2 \text{ is even} \\
+  \Rightarrow p \text { is even }
+\end{align*}
+
+hence there exists some $k \in \mathbb{N}$ such that $p = 2k$
+
+\begin{align*}
+  (2k)^2 &= 2q^2 \\
+  4k^2 &= 2q^2 \\
+  2k^2 &= q^2 \\
+  \Rightarrow q^2 \text{ is even} \\
+  \Rightarrow q \text{ is even} \\
+\end{align*}
+
+hence there is some $l \in \mathbb{N}$ such that $q = 2l$.
+
+\[ \sqrt{2} = \frac{2k}{2l} \]
+
+is not reduced. This is contradictory to our original statement.
+
+\[ \operatorname{gcd}(p,q) = \operatorname{gcd}(2k, 2l) \]
+\[ \geq 2 \neq 1 \]
+
+$\Rightarrow \neg B$ is wrong, so $B$ is true.
+
+\subsection{Remark about constructivism}
+
+A few mathematicians deny \enquote{tertium non datur}.
+For those $A \lor \neg A$ means that there is no proof for either statement.
+
+\subsubsection{$a^b$ is irrational with $a, b \in \mathbb{R}$}
+
+Proof: We know that $\sqrt{2} \not\in \mathbb{Q}$.
+
+\[
+    \left(\sqrt{2}^{\sqrt{2}}\right)^{\sqrt{2}}
+    = \sqrt{2}^{\sqrt{2}\cdot\sqrt{2}}
+    = \sqrt{2}^2
+    = 2^{\in \mathbb{Q}}
+\]
+
+\begin{enumerate}
+  \item[case 1:]
+    $\sqrt{2}^{\sqrt{2}}$ is irrational
+    $\Rightarrow$ choose $a = \sqrt{2}^{\sqrt{2}} \not\in \mathbb{Q},
+    b = \sqrt{2} \not\in \mathbb{Q}, a^b \in \mathbb{Q}$
+  \item[case 2:]
+    $\sqrt{2}^{\sqrt{2}} \in \mathbb{Q}$
+    choose $a = \sqrt{2} \not\in \mathbb{Q}$ and $b = \sqrt{2} \not\in \mathbb{Q}$
+    and $a^b \in \mathbb{Q}$.
+\end{enumerate}
+
+With other means means that $\sqrt{2}^{\sqrt{2}} \not\in \mathbb{Q}$.
+
+\subsection{Agreement}
+
+A \emph{predicate} is an expression which depends on variable and
+by insertion of values, a statement is created.
+
+\[ P(n) \Leftrightarrow \text{ $n$ is even} \]
+
+is not a statement unless we define $n$.
+
+\[ P(2) \Leftrightarrow \text{2 is even} \]
+\[ P(3) \Leftrightarrow \text{3 is even} \]
+
+\subsection{Quantifiers}
+
+\[ Q(n) \Leftrightarrow \left(P(n = 2k + 1) \implies P(n^2 = 2l + 1)\right) \]
+
+hence the statement
+\[ Q(1) \land Q(2) \land Q(3) \land Q(4) \land Q(5) \ldots \]
+
+Notation:
+\[ \bigwedge_{n \in \mathbb{N}} Q(n) \:\text{ or }\: \forall n \in \mathbb{N}: Q(n) \]
+
+So we can briefly write:
+\[ \bigwedge_{n \in \mathbb{N}} Q(n) \]
+meaning for all $n \in \mathbb{N}$ it holds that \enquote{$n$ is odd implies $n^2$ is odd}.
+
+$\bigwedge$ is called \enquote{all quantifier}.
+
+Analogously for $P(1) \lor P(2) \lor P(3) \lor \ldots$ is true if there is some $n$ such that $P(n)$ is true.
+
+\[ \bigvee_{n \in \mathbb{N}} P(n) \Leftrightarrow \exists n: P(n) \]
+
+Variant:
+\[ \dot\bigvee_{x \in X} P(x) \]
+
+there exists \emph{exactly one} $x$ such that $P(x)$ holds.
+
+\[ \exists! x \in X: P(x) \]
+
+\subsection{Proof using quantifiers}
+
+There exists some prime number:
+
+\begin{itemize}
+  \item $\bigwedge_{n \in \mathbb{N}} n \in \mathbb{P}$
+        where $\mathbb{P}$ is the set of prime numbers.
+  \item An integer is a prime number, if it does not have real divisor.
+        \[
+            \divides{k}{n} \: = \text{$k$ divides $n$}
+            \Leftrightarrow \bigvee_{l \in \mathbb{N}} k\cdot l = n
+        \] \[
+            \bigwedge_{n \in \mathbb{N}} n \in \mathbb{P}
+              \leftrightarrow \neg \bigvee_{k \in \mathbb{N}} (k > 1) \land (k < n) \land (\divides{k}{n})
+        \]
+\end{itemize}
+
+\subsection{Negation with quantifiers}
+
+\[ \neg(A \land B) \Leftrightarrow \neg A \lor \neg B \]
+\[ \neg \bigwedge_{x \in X} P(x) \Leftrightarrow \bigvee_{x \in X} \neg P(x) \]
+
+\subsection{Relation between set theory and boolean algebra}
+
+\begin{align*}
+  A \cap B &= \setdef{x}{x \in A \land x \in B} \\
+  A \cup B &= \setdef{x}{x \in A \lor x \in B} \\
+  A \triangle B &= \setdef{x}{x \in A \dot\lor x \in B} \mathspace \text{\enquote{symbolic difference}} \\
+  A \setminus B &= \setdef{x}{x \in A \land x \notin B}
+\end{align*}
+\begin{align*}
+  A^C &= \setdef{x \in U}{x \not\in A} \mathspace \text{\enquote{complement in $U$, the universe}} \\
+      &= U \setminus A \\
+  A \subseteq B &\Leftrightarrow \bigwedge_{x \in A} x \in B \\
+                &\Leftrightarrow \bigwedge_{x} \left(x \in A \implies x \in B\right) \\
+  A = B &\Leftrightarrow \bigwedge_x x \in A \Leftrightarrow x \in B
+\end{align*}
+
+Let $A_i$ with $i \in I$ (where $I$ is the index set) be sets than
+\[ \bigcap_{i \in I} A_i = \setdef{x}{\bigwedge_{i \in I} x \in A_i} \mathspace \text{intersection of all $A_i$} \]
+\[ \bigcup_{i \in I} A_i = \setdef{x}{\bigvee_i x \in A_i} \mathspace \text{union of all $A_i$} \]
+
+\[
+    \bigcap_{i \in I} A_i \cap \bigcap_{j \in J} A_j
+    = \bigcap_{i \in I \cup J} A_i
+    = \setdef{x}{\bigwedge_{i \in I \cup J} x \in A_i}
+\]
+
+What happens at $I = \emptyset$?
+\[ \bigwedge_{x \in \emptyset} P(x) \Leftrightarrow W \mathspace\text{is always true} \]
+
+This is axiomatic:
+\[ \bigwedge_{x \in \emptyset} P(x) \mathspace \text{is always true} \]
+
+$I = \mathbb{R}$, for every $x \in \mathbb{R}$ a set $A_x$ is given
+\[ \bigcap_{x \in \mathbb{R}} A_x = \setdef{y}{\bigwedge_{x \in \mathbb{R}} y \in A_x} \]
+\[ \bigvee_{x \in \emptyset} Q(x) \mathspace\text{is always false} \]
+
+\section{Power sets}
+
+Let $A$ be a set.
+\[ P(A) = 2^A = \setdef{B}{B \subseteq A} \]
+is called a \enquote{power set} of $A$.
+
+\[ P(\emptyset) = \set{\emptyset} \]
+\[ P(P(\emptyset)) = \set{\emptyset, \set{\emptyset}} \]
+
+Let $A, B$ be sets.
+The following set is called \enquote{cartesian product} (lat. renatus cartesius) (by René Descartes, 17th century)
+\[ A \times B = \setdef{(a, b)}{a \in A, b \in B} \]
+
+Followingly,
+\begin{align*}
+  A^2 &= A \times A \\
+  A^n &= \underbrace{A \times A \times \ldots}_{n} \\
+  A \times B \times C &= \setdef{(a, b, c)}{a \in A, b \in B, c \in C} \\
+  A^n &= \setdef{(a_1, \ldots, a_n)}{a_i \in A} \\
+  A^I &= \setdef{(a_i)_{i \in I}}{a_i \in A}
+\end{align*}
+
+3ary tuples are called \enquote{triples}.
+$(a_i)_{i \in I}$ is called family of elements (where $I$ is an index set).
+
+\section{Relations of sets}
+
+A \emph{relation} on a set is a subset
+\[ R \subseteq X \times X \]
+
+Notation: $x R y$ means $x$ is in relation with $y$. Hence $(x, y) \in R$.
+
+Example: $X$ is the set of austrians. The relation is marriage.
+  Be aware that every married couple occurs twice. Once as $(x, y)$ and once as $(y, x)$.
+
+\meta{Lecture}{12th of Oct 2015}{Prof. Franz Lehner}
+
+A relation of a set $X$ is a subset $R \subseteq X \times X$. We denote $x R y$ iff $(x,y) \in R$.
+
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{crlccccc}
+     \hline \hline
+      i & set & $R$ \\
+     \hline
+      0 & $X = \set{\text{Austrian}}$ & \enquote{married} \\
+      1 & $X = \set{\text{Austrian}}$ & same location of birth \\
+      2 & $X = \mathbb{R}$ & $x \leq y$ \\
+      3 & $X$ arbitrary & $x = y$ \\
+      4 & $X = \mathbb{N}$ & $\divides{x}{y}$ \\
+      5 & $X = \mathbb{Z}, \text{defined } n \in \mathbb{N}$ & $\divides{n}{x - y}$ \\
+      6 & $X = \set{a, b, c}$ & $R = \set{(a, a), (a, c), (b, b), (c, a), (c, c)}$ \\
+     \hline \hline
+    \end{tabular} \\[5pt]
+    \begin{tabular}{crlccccc}
+     \hline \hline
+        i & reflexive & symmetrical & anti-sym. & transitive & konnex \\
+     \hline
+        0 & false & true & false & false & false \\
+        1 & true & true & false & true & false \\
+        2 & true & false & true & true & true \\
+        3 & true & true & true & true & false \\
+        4 & true & false & true & true & false \\
+        5 & true & true & false & true & false \\
+        6 & true & true & false & true & false \\
+     \hline \hline
+    \end{tabular}
+    \caption{Examples for relations and their properties}
+  \end{center}
+\end{table}
+
+A \emph{relation} $R$ operating on a set $X$ is called
+\begin{description}
+  \item[reflexive] \hfill{} \\
+    if $\bigwedge_{x \in X} x R x$ (hence $(x, x) \in \mathbb{R}$)
+  \item[symmetrical] \hfill{} \\
+    if $\bigwedge_{x \in X}{y \in X} \left(xRy \implies yRx\right)$
+  \item[anti-symmetrical] \hfill{} \\
+    if $\bigwedge_{x \in X} \bigwedge_{y \in X} (xRy \land yRx \implies x=y)$
+  \item[transitive] \hfill{} \\
+    if $\bigwedge_{x \in X} \bigwedge_{y \in X} \bigwedge_{z \in X} (xRy \land yRz) \implies xRz$
+  \item[konnvex] \hfill{} \\
+    if $\bigwedge_{x \in X} \bigwedge_{y \in X} (xRy \lor yRx)$
+\end{description}
+
+A relation satisfying reflexivity, symmetry and transitivity is called \emph{equivalence relation}.
+Examples 2, 4, 6 and 7 are equivalence relations.
+
+A relation satisfying reflexivity, anti-symmetry and transitivity is called \emph{order relation}.
+Examples 3, 4 and 5 are order relations.
+
+A relation satisfying reflexivity, anti-symmetry, transitivity and konnvexivity is called \emph{total order}.
+Example 2 is a total order.
+
+Let $\sim$ be an equivalence relation operating on set $X$.
+For $x \in X$,
+\[ [x] = \setdef{y \in X}{x \sim y} \]
+is called equivalence class of $x$.
+
+Examples:
+\begin{itemize}
+  \item $[x] = \setdef{y}{y \text{ has the same location of birth}}$
+  \item $[x] = \setdef{y}{x = y} = \set{x}$
+  \item $[x] = \setdef{y}{\divides{n}{x - y}} = \setdef{y}{x - y = q\cdot n} = \setdef{y}{y = x - q \cdot n} = \setdef{x + k \cdot n}{k \in \mathbb{Z}}$
+  \item $[a] = \set{a, c}, [b] = \set{b}, [c] = \set{a, c}$
+\end{itemize}
+
+$X / \sim = \setdef{[x]}{x = X}$ is called \emph{factor set} or \emph{quotient set}.
+
+Examples:
+\begin{itemize}
+  \item $X / \sim = \set{\set{\text{Graz}}, \set{\text{Linz}}, \set{\text{Wien}}, \dots}$
+  \item $X / \sim = \setdef{\set{x}}{x \in X}$
+  \item $\mathbb{Z} / \sim = \set{[0], [1], [2], \ldots, [n-1]}$
+     \[ n = 0 + 1 \cdot n \in [0] \]
+     \[ 0 = n - 1 \cdot n \in [n] \]
+\end{itemize}
+
+A \emph{system of representatives} is a subset $S \subseteq X$ such that
+\[ \bigwedge_{[x] \in X / \sim} \dot\bigvee_{s \in S} s \in [x] \]
+
+Examples:
+\begin{itemize}
+  \item The mayor of a city.
+  \item $S = X$
+  \item $S = \set{0, \ldots, n - 1}$
+\end{itemize}
+
+\begin{theorem}
+  \label{satz-1.2.9}
+  Let $\sim$ be an equivalence relation operating on $X$.
+  Then it holds that
+  \[ \bigwedge_{x,y \in X} \left(x \sim y \iff [x] = [y]\right) \]
+\end{theorem}
+
+Proof:
+Let $x,y \in X$ be arbitrary elements such that $x \sim y$.
+Show that $[x] \subseteq [y] \land [y] \subseteq [x]$.
+It suffices to show that $[x] \subseteq [y]$ because $x,y$ can be arbitrary.
+
+Show $\bigwedge_{z \in [x]} z \in [y]$.
+Let $z \in [x] \implies x \sim z$. Furthermore $x \sim y \xrightarrow{symmetrical} y \sim x$.
+Hence $y \sim x \land x \sim z \xrightarrow{transitive} y \sim z \implies z \in [y]$.
+Hence $[x] \subseteq [y]$. Hence $[x] = [y]$.
+
+If $[x] = [y]$, then $y \in [y]$ (because its reflexive) hence $y \in [x] \implies x \sim y$.
+
+Let $X$ be a set. A \emph{partition} of $X$ is a subset $Z \subseteq \mathcal{P}(X)$.
+$Z$ is the set of subsets of $X$ such that
+
+\begin{itemize}
+  \item $\bigcup_{A = Z} A = X$
+  \item $\bigwedge_{A,B \in Z} \left(A \neq B \implies A \cap B = \emptyset\right)$
+    \[ \iff \bigwedge_{x \in X} \bigvee_{A \in Z} x \in A \]
+\end{itemize}
+
+\begin{theorem}
+  Let $X$ be a non-empty set.
+  \begin{itemize}
+    \item
+      Let $\sim$ be an equivalence relation operating on $X$,
+      then $X / \sim$ is a partition of $X$.
+    \item
+      Let $Z \subseteq \mathcal{P}(X)$ a partition of $X$.
+      There is exactly one equivalence relation $\sim$ on $X$
+      such that $X / \sim = Z$.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Let $\sim$ be an equivalence relation on $X$.
+  Then $X / \sim = \setdef{[x]}{x \in X} \subseteq \mathcal{P}(x)$
+
+  \begin{itemize}
+    \item We need to show that $\bigcup_{x \in X} [x] = X$.
+      \begin{align*}
+        \bigwedge_{x \in X} x \sim y &\implies \bigwedge_{x \in X} x \in [x] \\
+                                   &\implies \bigwedge_{x \in X} x \in \bigcup_{y \in X} [y] \\
+                                   &\implies X \subseteq \bigcup_{y \in X} [y]
+      \end{align*}
+    \item Furthermore we need to show that
+          $\bigwedge_{x,y \in X} [x] \cap [y] \neq \emptyset \implies [x] = [y] \iff x \sim y$.
+      \begin{align*}
+          \text{Let } [x] \cap [y] \neg \emptyset & \bigvee_z z \in [x] \cap [y] \\
+              & \bigvee_z z \in [x] \land z \in [y] \\
+          \text{definition of equivalence class} & \implies x \sim z \land y \sim z \\
+          \text{symmetrical} & \implies \bigvee_z x \sim z \land z \sim y \\
+          & \xrightarrow{transitive} x \sim y \\
+          & \xrightarrow{theorem~\ref{satz-1.2.9}} [x] = [y]
+      \end{align*}
+  \end{itemize}
+\end{proof}
+
+\meta{Lecture}{13rd of Oct 2015}{Prof. Franz Lehner}
+
+A \emph{function} (or mapping) between two sets $X$ and $Y$
+\[ f: X \rightarrow Y \]
+\[ x \mapsto f(x) \]
+is a relation assigning every element $x \in X$ some $f(x) \in Y$.
+
+$X$ is called domain and $Y$ is called co-domain (also range or image).
+$f(x)$ is called image of $x$ under $f$.
+We can find a symbolic expression for a function or explicitly enumerate all mappings possibilities.
+
+Examples:
+\begin{align*}
+  f_1: \mathbb{R} &\rightarrow \mathbb{R} \\
+                x &\rightarrow x^2 \\
+  f_2: \set{0,1}  &\rightarrow \mathbb{R} \\
+                0 &\rightarrow 1
+                1 &\rightarrow \pi \\
+  f_3: \mathcal{P}(x) &\rightarrow \mathcal{P}(x) \\
+                A &\mapsto X \setminus A
+\end{align*}
+
+Let $\sim$ be an equivalence relation operating on set $X$.
+
+\begin{align*}
+  f_4: X &\rightarrow X/\sim \\
+       x &\mapsto [x] \\
+  f_5: \mathbb{R} \times \mathbb{R} &\rightarrow \mathbb{R} \\
+       (x,y) &\mapsto x+y
+\end{align*}
+
+Remarks:
+\begin{enumerate}
+  \item
+    Domain and codomain are part of the definition of a function.
+    A function is unambiguously defined by some graph:
+
+  \item
+    \[ G_f = \setdef{(x, f(x))}{x \in X} \subseteq X \times Y \]
+    therefore a relation between $X$ and $Y$ such that every $x \in X$
+    occurs exactly once.
+    \[ \bigwedge_{x\in X} \dot\bigvee_{y\in Y} (x,y) \in G_f \]
+
+  \item
+    Two functions $f: X \rightarrow Y$, $f: U \rightarrow V$ are
+    equivalent iff $X = U$, $Y = V$ and $\bigwedge_{x \in X} f(x) = g(x)$.
+
+    Hence the domain and codomain must be equivalent.
+
+  \item
+    The function $\text{id}_X: X \rightarrow X$ is called \enquote{identity}.
+
+  \item
+    Let $A \subseteq X$ be a subset.
+    \[ \mathbb{1}_A = \chi_A: X \rightarrow \set{0,1} \]
+    \[
+       x \rightarrow \begin{cases}
+         1 & \text{if } x \in A \\
+         0 & \text{if } x \notin A
+       \end{cases}
+    \]
+    This function is called \emph{indicator function of $A$}
+    or \emph{characteristic function of $A$}.
+
+  \item
+    Every function $f: X \rightarrow \set{0,1}$ is the indicator
+    function of a subset of $X$, namely $f = \mathbb{1}_A$
+    where $A = \setdef{x \in X}{f(x) = 1}$.
+\end{enumerate}
+
+Let $A \subseteq X$ be a subset of $f: X \rightarrow Y$.
+Then $f\mid_A: A \rightarrow Y$ with $a \mapsto f(a)$ is
+called \emph{restriction} of $f$ to $A$.
+
+$f\mid_A$ is not defined outside $A$.
+
+Let $f: X \rightarrow Y$ be a function defined for $B \subseteq Y$.
+\[ f^{-1}(B) = \setdef{x \in X}{f(x) \in B} \subseteq X \]
+Therefore we define the domain function
+\[ f^{-1}: \mathcal{P}(Y) \rightarrow \mathcal{P}(X) \]
+
+$f^{-1}(B)$ can be empty.
+
+If $B = \set{y}$ then we write $f^{-1}(y)$ instead of $f^{-1}(\set{y})$.
+\[ f^{-1}(1) = f^{-1}(\set{1}) = \set{+1, -1} \]
+\[ f^{-1}(-1) = \emptyset \]
+\[ f(\set{1, 2}) = \set{1,4} \]
+\[ f(\set{+1, -1}) = \set{1} \]
+
+Analogously $f$ indicates a function
+\[ \tilde f: \mathcal{P}(X) \rightarrow \mathcal{P}(Y) \]
+\[ A \mapsto f(A) = \setdef{f(x)}{x \in A} \]
+
+Remark:
+\[ f^{-1}(B) = \bigcup_{b \in B} f^{-1}(b) \]
+
+A function $f: X \rightarrow Y$ is called \emph{injective} iff
+\[ \bigwedge_{x_1,x_2 \in X} (x_1 \neq x_2 \implies f(x) \neq f(x_2)) \]
+\[ \iff \bigwedge_{x_1,x_2 \in X} (f(x_1) = f(x_2) \implies x_1 = x_2) \]
+
+A function is called \emph{surjective} iff
+\[ \bigwedge_{y \in Y} \bigvee_{x \in X} f(x) = y \]
+
+A function is called \emph{bijective} iff a function is injective and surjective.
+\[ \bigwedge_{y \in Y} \dot\bigvee_{x \in X} f(x) = y \]
+
+For a bijective function $f^{-1}$ is called \emph{inverse function}.
+\[ f^{-1}: Y \rightarrow X \]
+\[ y \mapsto \text{\small every distinct $x$ such that $f(x) = y$} \]
+
+Be aware that $f^{-1}(y)$ sometimes means $f^{-1}(\set{y})$.
+
+Examples:
+\begin{itemize}
+  \item
+    $f: x \mapsto 3x$ in $\mathbb{R} \rightarrow \mathbb{R}$ is injective and surjective.
+    Therefore it is also bijective.
+  \item
+    $f: x \mapsto x^2$ in $\mathbb{R} \rightarrow \mathbb{R}$ is not injective and not surjective.
+    We have a restriction:
+    \[ \tilde f: \mathbb{R}_0^+ \rightarrow \mathbb{R}_0^+ \]
+    With this domain, the function is bijective.
+  \item
+    $f: x \mapsto x^3$ in $\mathbb{R} \rightarrow \mathbb{R}$ is bijective.
+  \item
+    $f: A \mapsto A^C = X \setminus A$ in $\mathcal{P}(X) \rightarrow \mathcal{P}(X)$.
+    Injective if $A \neq B$. Wlog $x \in A$, $x \not\in B$
+    \[ \Rightarrow x \notin A^C, x \in B^C \Rightarrow B^C \neq A^C \]
+    Surjective: Given $B \subseteq X$, find $A \subseteq X$ such that
+    \[ f(A) = A^C = B \]
+    Yes, if $A = B^C$ that $A^C = (B^C)^C = B$.
+    The inverse function is the function itself.
+\end{itemize}
+
+A function is called \emph{involution} if its inverse function is the function itself.
+
+Let $f: X \rightarrow Y$ and $g: Y \rightarrow Z$ be functions, the function
+\[ g \circ f: X \rightarrow Z\]
+\[ x \mapsto g(f(x)) \]
+is called composition of $f$ and $g$.
+
+\begin{theorem}
+Let $f: X\rightarrow Y$, $g: Y\rightarrow Z$ and $h: Z \rightarrow U$ be functions.
+\[ X \xrightarrow{f} Y \xrightarrow{g} Z \xrightarrow{h} U \]
+Then
+\[ h\circ(g\circ f) \stackrel{?}{=} (h\circ g)\circ f \]
+\end{theorem}
+
+\begin{proof}
+$h\circ (g\circ f)$ and $(h\circ g) \circ f$ bounded from $X$ to $U$.
+\[
+    (h\circ (g\circ f))(x) =
+    h(g\circ f(x)) =
+    h(g(f(x))) =
+    h\circ g(f(x)) =
+    (h\circ g)\circ f(x)
+\]
+\end{proof}
+
+\begin{theorem}
+  Let $X \xrightarrow{f} Y \xrightarrow{g} Z$ be functions.
+  If $f$ and $g$ are injective/surjective or bijective,
+  then $g\circ f$ has the same property.
+\end{theorem}
+
+\begin{proof}
+  Let $f$, $g$ be injective. So $g\circ f$ must also be injective.
+
+  Let $x_1,x_2 \in X$ such that $g\circ f(x_1) = g\circ f(x_1)$.
+  We need to show $x_1 = x_2$.
+
+  \[ g\circ f(x_1) = g\circ f(x_2) \]
+  \[ \Rightarrow g(f(x(_1)) = g(f(x_2)) \]
+  \[ \Rightarrow y_1 = f(x_1), y_2 = f(x_2) \]
+  \[ g(y_1) = g(y_2) \xRightarrow{g \text{ injective}} Y_1 = Y_2 \]
+  \[ \Rightarrow f(x_1) = f(x_2) \xRightarrow{f \text{ injective}} x_1 = x_2 \]
+\end{proof}
+
+Remarks:
+\begin{enumerate}
+  \item
+    If $f: X \rightarrow Y$  is bijective, then $f^{-1}: Y \rightarrow X$ and it holds that
+    \[ f\circ f^{-1} = \operatorname{id}_Y \]
+    \[ f^{-1}\circ f = \operatorname{id}_X \]
+
+  \item
+    Let $f,g$ be bijective, then $(g\circ f)^{-1} = f^{-1} \circ g^{-1}$.
+    \[ X \xrightarrow{f} Y \xrightarrow{g} Z \]
+    Is $g\circ f$ bijective? Is $g$ or $f$ bijective?
+\end{enumerate}
+
+\section{Solutions to linear equation systems}
+
+A linear equation system is an equation system of structure:
+
+\begin{align*}
+  a_{1,1} x_1 + a_{1,2} x_2 + \ldots + a_{1,n} x_n &= b_1 \\
+  a_{2,1} x_1 + a_{2,2} x_2 + \ldots + a_{2,n} x_n &= b_2 \\
+    \vdots                                     &= \vdots \\
+  a_{n,1} x_1 + a_{n,2} x_2 + \ldots + a_{n,n} x_n &= b_n
+\end{align*}
+with coefficients $a_{ij}$, $b_i \in \mathbb{R}$ for all $i \in \set{1,2,\ldots,n}$ and $j \in \set{1,2,\ldots,n}$.
+$x_1,x_2,\ldots,x_n$ are the unknown variables.
+
+$ax+b$ is linear whereas $ax^2 + bx + c$ is non-linear.
+
+A particular solution of the equation system is an n-tuple $(x_1, \ldots, x_n)$,
+which satisfies the equation.
+
+The scheme
+\begin{displaymath}
+  \begin{bmatrix}
+    a_{1,1} & a_{1,2} & \ldots & a_{1,n} \\
+    a_{2,1} & a_{2,2} & \ldots & a_{2,n} \\
+    \vdots &        & \ddots & \vdots \\
+    a_{m,1} & a_{m,2} & \ldots & a_{m,n}
+  \end{bmatrix}
+\end{displaymath}
+is called matrix of the equation system.
+
+The equation system is called homogeneous if all $b_i = 0$.
+A homogeneous system always has at least one solution; $(0, 0, \ldots, 0)$.
+
+\[ ax = b \implies x = \frac ba \]
+Case distinction:
+\begin{description}
+  \item[Case 1 with $a \neq 0$]
+    $x = \frac ba$ has a distinct solution
+  \item[Case 2 with $a = 0, b \neq 0$]
+    has no solution
+  \item[Case 3 with $a = 0, b = 0$]
+    every $x$ is a solution
+\end{description}
+
+\begin{ex}
+Let $n = 2$ and $m=1$.
+\[ a_1 x + a_2 y = b \]
+No distinct solution.
+
+Case distinction:
+\begin{description}
+  \item[$a_2 \neq 0$]
+    \[ y = \frac{-a_1 x + b}{a_2} \]
+    $x$ is arbitrary.
+  \item[$a_2 = 0$]
+    \[ a_1 x = b \]
+    $y$ is arbitrary. Case distinction:
+    \begin{description}
+      \item[$a_1 \neq 0$] $x = \frac{b}{a_1}$
+      \item[$a_1 = 0, b = 0$] $0 = 0 \implies \mathbb{R}$ as solution
+      \item[$a_1 = 0, b \neq 0$] no solution
+    \end{description}
+\end{description}
+\end{ex}
+
+\[ n = 2, m = 2 \]
+\begin{align*}
+  a_{1,1} x + a_{1,2} y &= b_1 \\
+  a_{2,1} x + a_{2,2} y &= b_2
+\end{align*}
+
+Case distinction:
+\begin{description}
+  \item[Case 1]
+    intersection between two lines (exactly one solution)
+  \item[Case 2]
+    two parallel lines (no solution)
+  \item[Case 3]
+    one line (infinite solution)
+\end{description}
+
+\subsection{Substitution}
+
+\begin{ex}
+  Example for case 1.
+
+  \begin{align*}
+    x + y &= 1 \\
+    x - y &= 2
+  \end{align*}
+
+  We subtract the second from the first equation.
+  \[ 0 - 2y = 1 \]
+  \[ \Rightarrow y = -\frac12 \]
+  \[ \Rightarrow x = 1 - y = \frac32 \]
+  Distinct solution $(\frac32, -\frac12)$.
+\end{ex}
+
+\begin{ex}
+  Example for case 2.
+
+  \begin{align*}
+     x +  y &= 1 \\
+    2x + 2y &= -1
+  \end{align*}
+
+  We subtract equation two minus the first equation taken two times.
+  \[ 0 + 0 = -3 \]
+  No solution.
+\end{ex}
+
+\begin{ex}
+  Example for case 3.
+
+  \begin{align*}
+    x + y &= 1 \\
+    2x + 2y &= 2 \\
+  \end{align*}
+
+  We take the second equation minus two times the first equation.
+  \[ 0 + 0 = 0 \]
+  $0 \cdot y = 0$ is a solution for every possible $y \in \mathbb{R}$.
+  Free variable $t$ with $y = t$.
+  \[ x = 1 - y = 1 - t \]
+  Solution set:
+  \[ \setdef{(1 - t, t)}{t \in \mathbb{R}} \]
+\end{ex}
+
+\meta{Lecture}{19th of Oct 2015}{Prof. Franz Lehner}
+
+What if there are 2 unknown variables, but more equations?
+
+% TODO: drawings
+\begin{description}
+  \item[Case 4]
+    a solution, where only two lines intersect. But not all three at one time.
+  \item[Case 5]
+    Two equations are equivalent, but other equations are parallel or intersecting.
+\end{description}
+
+What if there are 3 unknown variables, but only one equation?
+
+\begin{description}
+  \item[Case 6]
+    No unique solution. Express one variable by others.
+    Equation describes a layer.
+\end{description}
+
+What if there are three variables and two equations?
+
+\begin{description}
+  \item[Case 7] Two layers intersect in one line
+  \item[Case 8] Two layers are parallel
+\end{description}
+
+What if there are three variables and three equations?
+
+\begin{description}
+  \item[Case 9] Intersection of three layers in one point
+\end{description}
+
+Or in general: point, line, layer, no solution or $\mathbb{R}^3$.
+On a line we have one degree of freedom whereas $\mathbb{R}^3$ gives us three degrees of freeedom.
+
+\paragraph{Example}
+\begin{align*}
+  -x  +y +2z &= 2 \\
+  3x  -y  +z  &=6 \\
+  -x +3y +4z &= 4
+\end{align*}
+
+We use Gauss-Jordan elimination:
+
+\begin{align*}
+  2 + 3\cdot 1 & 0\cdot 2y - 7z = 12 \\
+  3 - 1        & 2y + 2z = 2
+\end{align*}
+
+The following equation system then has the same solution:
+
+\begin{align*}
+  -x + y + 2z &= 2 \\
+  2y + 7z &= 12 \\
+  2y + 2z &= 2
+\end{align*}
+
+We again use Gauss-Jordan elimination:
+
+\begin{align*}
+  2 - 3 & 0 + 5z = 10
+\end{align*}
+
+Therefore we derived:
+\[ -x + y + 2z = 2 \]
+\[ 2y + 2z = 2 \]
+\[ 5z = 10 \]
+
+Then $z = 2$, $y = -1$ and $x = 1$ follows.
+
+Different notation (to save time \& space, matrix notation):
+\[
+  \left(\begin{array}{ccc|c}
+    -1 &  1 &  2 &  2 \\
+     3 & -1 &  1 &  6 \\
+    -1 &  3 &  4 &  4 \\
+   \hline
+     0 &  2 &  7 & 12 \\
+     0 &  2 &  2 &  2 \\
+   \hline
+       &  0 &  5 & 10
+  \end{array}\right)
+\] \[
+  \left(\begin{array}{ccc|c}
+    -1 &  1 &  2 & 2 \\
+     0 &  2 &  2 & 2 \\
+     0 &  0 &  5 & 10 \\
+   \hline
+    -1 &  1 &  2 & 2 \\
+     0 &  1 &  1 & 1 \\
+     0 &  0 &  1 & 2
+  \end{array}\right)
+\] \[
+  \left(\begin{array}{ccc|c}
+    -1 &  1 &  0 & -2 \\
+     0 &  1 &  0 & -1 \\
+     0 &  0 &  1 & 2 \\
+   \hline
+    -1 &  0 &  0 & -1 \\
+     0 &  1 &  0 & -1 \\
+     0 &  0 &  1 & 2 \\
+   \hline
+    -x &  0 &  0 & -1 \\
+     0 &  y &  0 & -1 \\
+     0 &  0 &  z & 2
+  \end{array}\right)
+\]
+
+Distinct solution.
+
+\paragraph{Another example:}
+
+\begin{align*}
+  x + y + z &= 1 \\
+  x - 2z + 2z &= 2 \\
+  4x + y + 3z &= 5
+\end{align*}
+
+\[
+  \left(\begin{array}{ccc|c}
+     1 &  1 &  1 & 1 \\
+     1 & -2 &  2 & 2 \\
+     4 &  1 &  5 & 5 \\
+   \hline
+     0 & -3 &  1 & 1 \\
+     0 & -3 &  1 & 1 \\
+   \hline
+     0 &  0 &  0 & 0
+  \end{array}\right)
+\]
+
+We encountered a tautology $0 = 0$. We have two pivot rows left:
+
+\[
+  \left(\begin{array}{ccc|c}
+     1 &  1 &  1 & 1 \\
+     0 & -3 &  1 & 1 \\
+   \hline
+     1 &  4 &  0 & 0 \\
+     0 & -3 &  1 & 1 \\
+   \hline
+     x & +4y &    &= 0 \\
+     0 & -3y & +z &= 1
+  \end{array}\right)
+\]
+
+$y$ can be chosen arbitrarily. $y = t$ once $y$ has been defined.
+\[ z = 1 + 3y = 1 + 3t \]
+\[ x = -4y = -4t \]
+
+The solution set is given as:
+\[ \setdef{(-4t, t, 1 + 3t)}{t \in \mathbb{R}} \]
+
+This is a line in $\mathbb{R}^3$.
+
+\paragraph{Example without solution}
+\begin{align*}
+  3x + 2y + z & =3 \\
+  2x +  y + z &= 0 \\
+  6x + 2y + z &= 6
+\end{align*}
+
+\[
+  \left(\begin{array}{ccc|c}
+      3 &  2 &  1 & 3 \\
+      2 &  1 &  1 & 0 \\
+      6 &  2 &  4 & 6 \\
+   \hline
+     -1 & -1 &  0 & -3 \\
+     -6 & -6 &  0 & -6 \\
+   \hline
+     0 &   0 &  0 & 12
+  \end{array}\right)
+\]
+
+There is no solution to $0 = 12$. Therefore no solution is possible for the equation system.
+
+\subsection{Gauss-Jordan elimination algorithm}
+
+\begin{enumerate}
+  \item Write matrix
+  \item Find $a_{ij} \neq 0$ (\enquote{pivot element} which was not a pivot element before, $i$-th row = pivot row, $j$-th row = pivot column)
+    \begin{enumerate}
+      \item mark $a_{ij}$
+      \item subtract $\frac{a_{kj}}{a_{ij}}$ times i-th row from the k-th row for every $k \neq i$.
+        In the j-th row a zero is created.
+    \end{enumerate}
+  \item If no new pivot element can be found:
+    \begin{enumerate}
+      \item Delete all rows, which only have 0s on the left and right side
+      \item If there is a row which contains only 0s on the left side
+        \begin{enumerate}
+          \item If right-hand side is not 0, \textsc{No Solution!}
+          \item If right-hand side is 0, apply back substitution meaning
+          \item Iterate over all pivot elements in reversed order and create 0 in corresponding pivot column
+          \item All columns which look like the pivot column, are assigned to free parameters
+          \item those $x_j$, which are assigned to pivot columns, can be represented by the right side and free parameters
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\paragraph{Example with 4 equations}
+\label{sec:1-4-6}
+
+\[
+  \left(\begin{array}{cccc|c}
+     1 &  2 &  3 &  4 &  5 \\
+     1 &  0 &  1 & -2 & -3 \\
+     2 &  3 &  4 &  5 &  6 \\
+     1 &  1 &  1 &  1 &  1 \\
+   \hline
+     0 & -2 & -2 & -6 & -8 \\
+     0 & -1 & -2 & -3 & -4 \\
+     0 & -1 & -2 & -3 & -4 \\
+  \end{array}\right)
+\]
+
+First row is pivot row. First column is pivot column.
+2nd row and 2nd column have not been pivot elements yet.
+
+\[
+  \left(\begin{array}{cccc|c}
+    0 &  0 &  2 &  0 &  0
+  \end{array}\right)
+\]
+
+Therefore $2x_3 = 0$.
+
+\[
+  \left(\begin{array}{cccc|c}
+     0 &  0 &  0 &  0 &  0
+  \end{array}\right)
+\]
+
+We have found an equivalent system:
+
+\[
+  \left(\begin{array}{cccc|c}
+     1 &  2 &  3 &  4 &  5 \\
+     0 & -1 & -2 & -3 & -4 \\
+     0 &  0 &  2 &  0 &  0 \\
+  \end{array}\right)
+\]
+
+$4$ is a free parameter. Therefore we set $x_4 = t$.
+From $2x_3 = 0$, $x_3 = 0$ follows.
+
+\[
+  \left(\begin{array}{cccc|c}
+     1 &  2 &  0 &  4 &  5 \\
+     0 & -1 &  0 & -3 & -4 \\
+     0 &  0 &  1 &  0 &  0 \\
+   \hline
+     1 &  0 &  0 & -2 & -3 \\
+     0 & -1 &  0 & -3 & -4 \\
+     0 &  0 &  1 &  0 &  0
+  \end{array}\right)
+\]
+
+\begin{align*}
+  x_4 &= t \\
+  x_3 &= 0 \\
+  -x_2 - 3x_4 &= -4 \\
+  x_2 = 4 - 3x_4 &= 4 - 3t \\
+  x_1 - 2x_4 &= -3 \\
+  x_1 = -3 + 2x_4 &= -3 + 2t
+\end{align*}
+
+Solution set: $\setdef{(-3 + 2t, 4 - 3t, 0, t)}{t \in \mathbb{R}}$
+
+\section{Vector spaces}
+
+A vector is an element of $\mathbb{R}^n$ ($\mathbb{R}^n = \mathbb{R} \times \mathbb{R} \times \ldots \times \mathbb{R}$):
+\[ \setdef{\vec{a_1 \\ a_2 \\ vdots \\ a_n}}{a_i \in \mathbb{R}} \]
+Column vectors or n-tuples in $\mathbb{R}^n$.
+
+We define addition:
+\[
+  \vec{a_1 \\ a_2 \\ \vdots \\ a_n} +
+  \vec{b_1 \\ b_2 \\ \vdots \\ b_n} \coloneq
+  \vec{a_1 + b_1 \\ a_2 + b_2 \\ \vdots \\ a_n + b_n}
+\]
+
+Multiplication for $\lambda \in \mathbb{R}$:
+\[
+    \lambda \cdot \vec{a_1 \\ a_2 \\ \vdots \\ a_n} \coloneq
+    \vec{\lambda a_1 \\ \lambda a_2 \\ \vdots \lambda a_n}
+\]
+
+Geometric interpretation for $n=1,2,3,\ldots$:
+  For $n \leq 3$ we can think of $n$-tuples as points on lines, layers or within the room.
+
+Let $S$ be the set of all pairs of points ($A, B$). Consider it as directed path from $A$ to $B$.
+Equivalence relation on $S$:
+\[ (A, B) \sim (A', B') \]
+if $(A', B')$ comes from $(A, B)$ using a parallel translation.
+
+Is parallel translation an equivalence relation?
+\begin{description}
+  \item[reflexivity]
+    $(A, B) \sim (A, B)$, \checkmark
+  \item[symmetry]
+    if $(A, B) \sim (A', B')$ then also $(A', B') \sim (A, B)$,
+    inversed parallel translation,
+    \checkmark
+  \item[transitivity]
+    if $(A, B) \sim (A', B')$ and $(A', B') \sim (A'', B'')$, then $(A, B) \sim (A'', B'')$,
+    composition of parallel translations, \checkmark
+\end{description}
+
+A vector is therefore an equivalence class of directed paths.
+
+\[ \overrightarrow{PQ} = [(P, Q)] \]
+
+The set of vectors is in bijection with the set pof points.
+In every equivalence class there is one representative of structure $(0, A)$.
+$\overrightarrow{0A}$ is called position vector (dt. Ortsvektor) to $A$.
+
+\paragraph{Addition of vectors} (diagonal of a parallelogram)
+  % TODO: drawing: Vector a, vector b, vector a+b
+  % TODO: drawing: Vector a, vector b, vector a-b with b in reversed direction
+
+\paragraph{Multiplication of vectors} (stretching)
+  % TODO: drawing: vector a, lambda times a
+
+\subsection{Properties}
+
+\subsubsection{Addition}
+
+Commutativity law:
+\[ a + b = b + a \]
+
+Associativity law:
+\[ a + (b + c) = (a + b) + c \]
+
+Zero vector:
+\[ a + -a = 0 \]
+
+\subsubsection{Multiplication}
+
+Associativity law:
+\[ \lambda \cdot (\mu \cdot a) = (\lambda \cdot \mu) \cdot a \]
+
+Distributivity law:
+\[ (\lambda + \mu) \cdot a = \lambda a + \mu a \]
+\[ \mu \cdot (a + b) = \lambda a + \lambda b \]
+
+\subsection{Applications}
+\subsubsection{Diagonals of a parallelogram}
+
+% TODO: drawing: parallelogram with C, B, A, D (clockwise). S is the intersection of the diagonals
+
+The diagonals of a parallelogram intersect exactly on the halfway of the whole diagonal.
+Hence we claim $\card{AS} = \card{SC}$ and $\card{BS} = \card{SD}$.
+Let $M$ be the midpoint of $\overline{AC}$ and $N$ be the midpoint of $\overline{BD}$.
+Then $M = N$ must hold.
+
+% TODO: drawing: parallelogram with C, B, A, D (clockwise). S is the intersection of the diagonals. Point 0 is outside and has two arcs pointing to A and B.
+
+Let's assume the opposite ($M \neq N$).
+\[ \overrightarrow{CM} = \overrightarrow{OA} + \frac12 \overrightarrow{AC} \]
+\[ = \overrightarrow{0A} - \frac12 \left(\overrightarrow{AB} + \overrightarrow{BC}\right) \]
+\begin{align*}
+  \overrightarrow{0N} &= \overrightarrow{0B} + \frac12 \overrightarrow{BD} \\
+    &= \overrightarrow{0A} + \overrightarrow{AB} + \frac12 \overrightarrow{BD} \\
+    &= \overrightarrow{0A} + \overrightarrow{AB} + \frac12 \left(\overrightarrow{BC} + \overrightarrow{CD}\right) \\
+    &= \overrightarrow{0A} + \overrightarrow{AB} + \frac12 \left(\overrightarrow{AD} + \overrightarrow{BA}\right) \\
+    &= \overrightarrow{0A} + \overrightarrow{AB} + \frac12 \overrightarrow{AD} - \frac12 \overrightarrow{AB} \\
+    &= \overrightarrow{0A} + \frac12 \overrightarrow{AB} + \frac12 \overrightarrow{AD} \\
+    &= \overrightarrow{0M}
+\end{align*}
+
+\subsubsection{Line crossing two points}
+
+% TODO: drawing: P_1 and P_2 are crossed by a line
+
+The line crossing two points $P_1$ and $P_2$ is defined as
+\[ \setdef{\overrightarrow{0P_1} + t \cdot \overrightarrow{P_1 P_2}}{t \in \mathbb{R}} \]
+\[ = \setdef{\overrightarrow{0P_1} + t \cdot \left(\overrightarrow{0P_2} - \overrightarrow{0P_1}\right)}{t \in \mathbb{R}} \]
+
+\subsubsection{A layer can be defined by three points}
+
+A layer can be defined by three points $P_1$, $P_2$ and $P_3$.
+
+\[ \setdef{\overrightarrow{0P_1} + s \cdot \overrightarrow{P_1 P_2} + t \cdot \overrightarrow{P_1 P_3}}{s, t \in \mathbb{R}} \]
+
+\subsection{Algebraic structures}
+
+A set $M$ with a mapping $\circ: M \times M \rightarrow M$ ($(x, y) \mapsto x \circ y$)
+is called \emph{Magma} or \emph{algebraic structure}.
+
+\subsubsection{Examples}
+
+Examples for $M$:
+
+\[ \mathbb{N}, \mathbb{Q}, \mathbb{R}, \mathbb{Z}, \mathbb{C} \]
+
+Examples for mappings $\circ$:
+
+\[ \circ = +, \cdot \]
+\[ x \circ y = x + y \]
+\[ x \circ y = x \cdot y \]
+
+\begin{enumerate}
+  \item Example $M = \mathbb{N}$ and $x \circ y = x^y$.
+  \item Example $M = \set{\pm 1}$ and $x \circ t = x \cdot y$.
+
+    \begin{table}[!ht]
+      \begin{center}
+        \begin{tabular}{c|cc}
+         & +1 & -1 \\
+        \hline
+          +1 & +1 & -1 \\
+          -1 & -1 & +1
+        \end{tabular}
+        \caption{composition table}
+      \end{center}
+    \end{table}
+
+  \item Example $M = \mathcal{P}(X)$ and
+    \[
+      A \circ B =
+      \begin{cases}
+        A \cap B \\
+        A \cup B \\
+        A \triangle B
+      \end{cases}
+    \]
+
+  \item Example $M = \set{a, b, c, e}$ and
+
+    \begin{table}[!ht]
+      \begin{center}
+        \begin{tabular}{c|cccc}
+            & a & b & c & e \\
+         \hline
+          a & e & c & b & a \\
+          b & c & e & a & b \\
+          c & b & a & e & c \\
+          e & a & b & c & e \\
+        \end{tabular}
+        \caption{composition table}
+      \end{center}
+    \end{table}
+
+  \item
+    Example $A = \set{a, b, c, \dots}$ where the set is the alphabet.
+    Then $M = \setdef{a_1, \ldots, a_n}{n \in \mathbb{N}, a_i \in A}$ is the set of words.
+    Then our composition is defined as
+    \[ a_1 \ldots a_m \circ b_1 \ldots b_n = a_1 \ldots a_m b_1 \cdot b_n \]
+    $A^*$ is the set of possible words.
+    $A^+$ is defined as $A^* \setminus \set{\varepsilon}$ where $\varepsilon$ is the empty word.
+
+  \item
+    Example $M = X^X = \set{f: X \rightarrow X}$ of an arbitrary set. $f \circ g$ is the composition (compute $f$ after $g$).
+\end{enumerate}
+
+\subsection{Compositions}
+
+Let $(M, a)$ be a Magma. The composition is called
+
+\begin{description}
+  \item[associative if]
+    \[ \bigwedge_{x,y,z \in M} (x \circ y) \circ z = x \circ (y \circ z) \]
+  \item[commutative if]
+    \[ \bigwedge_{x,y \in M} x \circ y = y \circ x \]
+\end{description}
+
+All examples above are associative\footnote{Assuming the first example uses addition. $x^y$ is not associative.}.
+The last two examples are not commutative; others are\footnote{Assuming the first example uses addition. $x^y$ is not commutative.}
+
+An element $e \in M$ is called
+\begin{description}
+  \item[left-neutral if] \[ \bigwedge_{x \in M} e \circ x = x \]
+  \item[right-neutral if] \[ \bigwedge_{x \in M} x \circ e = x \]
+\end{description}
+A neutral element is left- and right-neutral.
+
+Applied to the examples:
+\begin{enumerate}
+  \item $0$ acts as neutral element in addition. $1$ is the neutral element of multiplication.
+  \item $1$ is the neutral element
+  \item $A \cap B$ ($X$ as neutral element), $A \cup B$ ($\emptyset$ as neutral element), $A \triangle B$ is left for the practicals
+  \item $e$ as neutral element
+  \item $\varepsilon$ as neutral element
+  \item identity function acts as neutral element, $\operatorname{id} \circ f = f' = f \circ \operatorname{id}$
+\end{enumerate}
+
+Let $(M, \circ)$ be a magna with a neutral element $e$.
+Let $x \in M$, then $y \in M$ is called
+\begin{description}
+  \item[left-inverse if] $y \circ x = e$
+  \item[right-inverse if] $x \circ y = e$
+\end{description}
+An \emph{inverse} element to $x$ is left- and right-inverse simultaneously.
+$x$ is \emph{invertible} if an inverse element exists.
+
+Applied to examples:
+\begin{enumerate}
+  \item
+    $(\mathbb{N}_0, +)$ has no inverse element.
+    $(\mathbb{Z}, +)$ has an inverse element to $x$: $-x$.
+    Same for $\mathbb{Q}$ and $\mathbb{R}$.
+    $(\mathbb{N}, \cdot)$ has inverse element $\set{1}$.
+    All non-zero elements in $(\mathbb{Q}, \cdot)$ are invertible.
+
+  \item
+    $(\mathbb{Z}, \cdot)$ has inverse elements $\set{\pm 1}$.
+
+  \item
+    $A \cap B = X$: inverse elements are $\set{X}$.
+    $A \cup B = \emptyset$: inverse elements are $\set{\emptyset}$
+    $A \triangle B$ is left as an exercise.
+
+  \item
+    All elements are invertible to themselves
+
+  \item
+    For $a_1, \ldots, a_m$, the invertible elements are $\set{\varepsilon}$
+
+  \item
+    The invertible elements are defined by any bijective mapping $X \rightarrow X$.
+\end{enumerate}
+
+A \emph{semigroup} is a magma with associative composition.
+A \emph{monoid} is a semigroup with a neutral element.
+A group is a monoid where every element is invertible.
+An \emph{abelian group} (or commutative group) is a semigroup, monoid or group with a commutative composition.
+
+\fbox{Niels Henrik Abel (1802--1829)}
+
+Examples:
+\begin{enumerate}
+  \item $(\mathbb{N}, +)$ is a semi-group.
+        $(\mathbb{N}_0, +)$ is a monoid.
+        $(\mathbb{N}, \cdot)$ is a monoid.
+        $(\mathbb{Z}, +)$ is a group.
+        $(\mathbb{Z}, \cdot)$ is a monoid.
+        $(\mathbb{Q} \setminus \set{0}, \cdot)$ is a group.
+        $(\mathbb{R} \setminus \set{0}, \cdot)$ and $(\mathbb{C} \setminus \set{0}, \cdot)$ are also groups.
+        All of them are abelian.
+  \item is a group and abelian.
+  \item $(\mathcal{P}(X), \cap)$ and $(\mathcal{P}(X), \cup)$ are monoids. $(\mathcal{P}(X), \triangle)$ is an abelian group.
+  \item is an abelian group
+  \item $(A^+, \cdot$ is a semi-group (non-commutative). $(A^*, \circ$ is a monoid (non-commutative).
+        \[ \mathbb{N} = A^t \text{ where } A = \set{a} \]
+  \item $(X^X, \circ)$ is a non-commutative monoid
+\end{enumerate}
+
+\begin{theorem}
+  A magma ($G, \circ$) is a group iff
+  \begin{description}
+    \item[G1] $\bigwedge_{x,y,z} (x \circ y) \circ z = x \circ (y \circ z) \hspace{20pt} \text{\enquote{associative}}$
+    \item[G2] $\bigvee_{e \in G} \bigwedge_{x} e \circ x = x \hspace{20pt} \text{\enquote{left-neutral element}}$
+    \item[G3] $\bigwedge_x \bigvee_y y \circ x = e \hspace{20pt} \text{\enquote{left-inverse element}}$
+  \end{description}
+  Neutral elements are necessarily right-neutral / right-inverse.
+\end{theorem}
+
+\begin{proof}
+  Show that
+  \begin{itemize}
+    \item[i.] any left-neutral element is right-neutral
+    \item[ii.] left-inverse elements are right-inverse
+  \end{itemize}
+
+  \begin{itemize}
+    \item[ii.]  Let $x, y \in G$. $y$ is left-inverse to $x$: $y \circ x = e$.
+      Show that $x \circ y = e$.
+      \[ x \circ y = e \circ (x \circ y) = (z \circ y) \circ (x \circ y) \]
+      From G3 it follows that
+      \[ \bigvee_{z} z \circ y = e \]
+      From associativity it follows that $z \circ (y \circ x) \circ y \Rightarrow z \circ (e \circ z) \Rightarrow z \circ y = e$.
+    \item[i.]
+      Let $x, y \in G$ with inverse elements $x^{-1}$ and $y^{-1}$.
+      Let $z = y^{-1} \circ x^{-1}$. Then,
+      \begin{align*}
+        (x \circ y) \circ z &= (x \circ y) \circ (y^{-1} \circ x^{-1}) \\
+          &= x \circ \underbrace{y \circ y^{-1}}_{e} \circ x^{-1} \\
+          &= x \circ e \circ x^{-1} \\
+          &= x \circ x^{-1} \\
+          &= e
+      \end{align*}
+      So $x \circ y$ is right-invertible (analogously left-invertible)
+      \[ \Rightarrow x \circ y \in G \]
+
+      %Let $x \in G$. Show that $x \circ e = x$.
+
+      %Let $y$ be a left-inverse of $x$
+      %\[ \Rightarrow z \circ x = e \Rightarrow x \circ e = x \circ (z \circ x) \]
+      %\[ \Rightarrow (x \circ z) \circ x \Rightarrow e \circ x \Rightarrow x \]
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-2-10}
+  Let $(G, \cdot)$ be a group.
+  \begin{enumerate}
+    \item The neutral element is unique
+    \item Inverse elements are unique (therefore every element has exactly one inverse)
+    \item Equivalence laws:
+      \[ \bigwedge_{x,y,z \in G} x \circ z = y \circ z \implies x = z \]
+      \[ \bigwedge_{x,y,z \in G} z \circ x = z \circ y \implies x = y \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Let $e'$ be another neutral element:
+      \[ e' \underbrace{=}_{e \text{ is neutral}} e' \circ e \underbrace{=}_{e' \text{ is neutral}} e \]
+    \item Let $y, y'$ be two inverse elements to $x$
+      \[ y \circ x = e = x \circ y \]
+      \[ y' \circ x = e = x \circ y' \]
+      Show that $y = y'$:
+      \[ y = y \circ e = y \circ (x \circ y') = (y \circ x) \circ y' = e \circ y' = y' \]
+    \item Let $x \circ z = y \circ z$. Let $w$ be inverse to $z$: $z \circ w = e$.
+      \[ (x \circ z) \circ w = (y \circ z) \circ w \]
+      \[ x \circ (z \circ w) = y \circ (z \circ w) \]
+      \[ x \circ e = y \circ e \]
+      \[ x = y \]
+  \end{enumerate}
+\end{proof}
+
+\begin{itemize}
+  \item The unique inverse element of theorem~\ref{satz-2-10} (2) of $x$ is denoted with $x^{-1}$.
+  \item
+    Abelian groups are typically written additive.
+    In $(G, +)$ the inverse element is denoted $-x$.
+\end{itemize}
+
+\begin{theorem}
+  \label{satz-2-12}
+  Let $(M, \cdot)$ be a monoid. Then $\setdef{x \in M}{x \text{ is invertible}}$ is a group.
+\end{theorem}
+
+\begin{proof}
+  Let $G = \setdef{x \in M}{x \text{ is invertible}}$.
+  Show that
+  \begin{enumerate}
+    \item If $x, y \in G$, then also $x \circ y \in G$.
+    \item Associativity is inherited from $M$.
+    \item A neutral element $e \in G$ exists.
+    \item All elements are invertible in $G$.
+  \end{enumerate}
+
+  Proof:
+  \begin{enumerate}
+    \item Let $x, y \in G$ with inverse $x^{-1}, y^{-1}$.
+      Let $z = y^{-1} \circ x^{-1}$.
+      Then it holds that
+      \begin{align*}
+        (x \circ y) \circ z &= (x \circ y) \circ (y^{-1} \circ x^{-1}) \\
+          &= x \circ y \circ y^{-1} \circ x^{-1} \\
+          &= x \circ e \circ x^{-1} \\
+          &= x \circ x^{-1} \\
+          &= e
+      \end{align*}
+      \[ x \circ y \text{ is right invertible (analogously: left invertible)} \]
+      \[ \Rightarrow x \circ y \in G \]
+    \item follows immediately
+    \item $e \circ e = e \implies e \text{ is invertible} \implies e \in G$
+    \item $x \in G \implies x^{-1} \in G$ because $x^{-1} \circ x = e \implies (x^{-1})^{-1} = x$
+  \end{enumerate}
+\end{proof}
+
+\meta{Lecture}{27th of Oct 2015}{Prof. Franz Lehner}
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{ll}
+     \hline
+      Magma & $(M, \circ)$, $\circ: M \times M \rightarrow M$ \\
+      Semigroup & +associative \\
+      Monoid & +neutral element $e$: $e \circ a = a = a \circ e$ \\
+      Group & invertibility of all elements: $\bigwedge_x \bigvee_y x\circ y = e = y \circ x$ \\
+     \hline
+    \end{tabular}
+    \caption{Group theory cheatsheet}
+  \end{center}
+\end{table}
+
+\begin{theorem}
+  \label{satz-2-9}
+  Let $(M,\circ)$ be a group.
+  \begin{align*}
+    \stackrel{G1}{\Rightarrow} & \text{ associative } \\
+    \stackrel{G2}{\Rightarrow} & \bigvee_e \bigwedge_x e \circ x = x \\
+    \stackrel{G3}{\Rightarrow} & \bigvee_x \bigwedge_y y \circ x = e
+  \end{align*}
+
+  Show that
+  \begin{itemize}
+      \item[i.] A left-neutral element is right-neutral
+      \item[ii.] Left-inverse elements are also right-inverse
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  \begin{itemize}
+    \item[ii.]
+      Let $x \in G \stackrel{G3}{\Rightarrow} \bigvee_y y \circ x = e$.
+      Show that $x \circ y = e$.
+      \begin{align*}
+        x \circ y \stackrel{G2}{=} e \circ (x \circ y) &= (z \circ y) \circ (x \circ y) \\
+        \stackrel{G3}{\Rightarrow} \bigvee_{z} z \circ y = e \\
+        &\stackrel{G1}{=} z \circ (y \circ x) \circ y \\
+        &= z \circ (e \circ y) \\
+        &= z \circ y = e
+      \end{align*}
+    \item[i.]
+      Let $x \in G$, show that $x \circ e = x$. Let $y$ be left-inverse to $x$.
+      $e = y \circ x$.
+      \[ x \circ e = x \circ (y \circ x) \stackrel{G1}{=} (x \circ y) \circ x = e \circ x \stackrel{G2}{=} x \]
+      \[ \Rightarrow e \text{ is also right-neutral} \]
+  \end{itemize}
+\end{proof}
+
+How do we construct groups? We select an associative $(M, \circ)$.
+$G = \setdef{x \in M}{x \text{ invertible}}$ is a group.
+
+\begin{cor}
+  \[ (M, \circ) = (X^X, \circ) = \set{f: X \rightarrow X} \]
+  \[ S_X = \set{f: X \rightarrow X \text{ bijective}} \]
+  $(S_X, \circ)$ is a group ($\circ$ is composition of functions)
+  and is called \emph{symmetric group} over $X$ or \emph{permutation group} (if $\card{X} < \infty$).
+\end{cor}
+
+\begin{cor}
+  Let $X = \set{1, \ldots, n}$. Let $\pi: \set{1, \ldots, n} \rightarrow \set{1, \ldots, n}$ bijective.
+  Then $\pi$ is typically written as scheme
+  \[
+    \begin{pmatrix}
+       1 & 2 & \ldots & n \\
+       \vdots & \vdots & \ddots & \vdots \\
+       \pi(1) & \pi(2) & \ldots & \pi(n)
+    \end{pmatrix}
+  \]
+  is called \emph{permutation} (rearrangement).
+
+  For finite sets $f: \set{1, \ldots, n} \rightarrow \set{1, \ldots, n}$ is bijective.
+  $\Leftrightarrow$ $f$ is injective. $\Leftrightarrow$ $f$ is surjective.
+  This does not hold for infinite sets.
+  \[ f: \mathbb{N} \rightarrow \mathbb{N} \]
+  \[ f(n) = 2n \]
+  is injective, but not surjective
+\end{cor}
+
+\[
+  S_2
+    = S_{\set{1,2}}
+    = \set{\begin{pmatrix} 1 & 2 \\ 1 & 2 \end{pmatrix}, \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}}
+\] \[
+  =
+  \set{\begin{array}{ccc} 1 & \mapsto & 2 \\ 1 & \mapsto & 2 \end{array}, \begin{array}{ccc} 1 & \mapsto & 2 \\ 2 & \mapsto & 1 \end{array}}
+\] \[
+  S_3
+    = S_{\set{1,2,3}}
+    = \set{
+      \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{pmatrix},
+    }
+\] \[
+  \card{S_n} = n!
+\]
+
+$S_3$ is non-commutative!
+\[ \neg \bigwedge_{\pi, \phi \in S_3} \pi \circ \varphi = \varphi \circ \pi \]
+
+\begin{ex}
+  \[
+    \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix}
+    \hspace{10pt}
+    \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix}
+  \]
+  \[
+    \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix}
+      \circ \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix}
+      = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix}
+      \neq \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix}
+      \circ \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix}
+      = \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix}
+  \]
+\end{ex}
+
+\begin{ex}
+  \label{bsp-2-14}
+  Symmetry group of a rectangle:
+  The group of motions, which keeps the rectangle invariant
+  (ie. the rectangle is mapped to itself)
+  \begin{itemize}
+    \item \emph{not} translation
+    \item rotation
+    \item mirroring
+  \end{itemize}
+
+  Horizontal mirroring:
+  \[
+    h \stackrel{\sim}{=}
+    \begin{pmatrix}
+      A & B & C & D \\
+      D & C & B & A
+    \end{pmatrix}
+  \]
+
+  Vertical mirroring:
+  \[
+    V \stackrel\sim=
+    \begin{pmatrix}
+      A & B & C & D \\
+      B & A & D & C
+    \end{pmatrix}
+  \]
+  \[
+    d_\pi \stackrel\sim=
+    \begin{pmatrix}
+      A & B & C & D \\
+      C & D & A & B
+    \end{pmatrix}
+  \]
+
+  Notes to create composition table:
+  \[
+    v \circ h =
+    \begin{pmatrix}
+      A & B & C & D \\
+      D & C & B & A \\
+      C & D & A & B
+    \end{pmatrix}
+    = \begin{pmatrix}
+      A & B & C & D \\
+      C & D & A & B
+    \end{pmatrix}
+    = d_\pi
+  \]
+  \[ (v \circ h)^{-1} = d_\pi^{-1} = d_\pi \]
+  \[ h^{-1} \circ v^{-1} = h \circ v \]
+  \[ h \circ d_\pi = h\circ (h\circ v) = (h \circ h) \circ v = \text{id} \circ v = v \]
+
+  \begin{table}[!ht]
+    \begin{center}
+      \begin{tabular}{c|cccc}
+       \hline \hline
+        $\circ     $ & $\text{id} $ & $h        $ & $v        $ & $d_\pi    $ \\
+       \hline
+        $\text{id} $ & $\text{id} $ & $h        $ & $v        $ & $d_\pi    $ \\
+        $h         $ & $h         $ & $\text{id}$ & $d_\pi    $ & $v        $ \\
+        $v         $ & $v         $ & $d_\pi    $ & $\text{id}$ & $h        $ \\
+        $d_\pi     $ & $d_\pi     $ & $v        $ & $h        $ & $\text{id}$ \\
+       \hline \hline
+      \end{tabular}
+      \caption{
+        Composition table for symmetry group of rectangles.
+        The diagonal $\text{id}$ represents that all elements are inverse to themselves.
+        This table is symmetrical. Therefore this group is commutative.
+      }
+    \end{center}
+  \end{table}
+\end{ex}
+
+\begin{theorem}
+  \label{2.15}
+  Computations modulo $n$. The relation
+  \[ x \equiv y \mod{n} \Leftrightarrow \divides{n}{x - y} \]
+  is an equivalence relation on $\mathbb{Z}$.
+  The equivalence classes
+  \[ [x]_n = \setdef{x + q \circ n}{q \in \mathbb{Z}} \]
+  are called \emph{residuo modulo classes} or \emph{congruence classes modulo n}.
+
+  A system of representatives is
+  \[ \set{0, \ldots, n-1} \]
+  Factor set:
+  \[ \mathbb{Z}_n := \mathbb{Z}/n = \mathbb{Z}/n\mathbb{Z} := \mathbb{Z}/\equiv_n \]
+  We define addition and multiplication
+  \[ [x]_n + [y]_n := [x + y]_n \]
+  \[ [x]_n \cdot [y]_n := [x \cdot y]_n \]
+\end{theorem}
+
+Are we allowed to define it like that?
+What about $[x]_n = [x + n]_n$?
+Does the definition not depend on the definition of the system of representatives?
+
+\begin{theorem}
+  \label{Satz-2.16}
+  \begin{itemize}
+    \item[(i)] The addition on $\mathbb{Z}_n$ is well-defined if
+      \[ x \equiv x' \mod{n} \qquad \text{(ie. $[x]_n = [x']_n)$} \]
+      and
+      \[ y \equiv y' \mod{n} \qquad \text{(ie. $[y]_n = [y']_n)$} \]
+      then also $x + y \equiv x' + y' \mod{n}$ (ie. $[x+y]_n = [x' + y']_n$).
+
+      $(\mathbb{Z}_n, +)$ is an abelian group with neutral element $[0]_n$
+      and inverse elements $-[x]_n = [-x]_n$.
+    \item[(ii)] The multiplication on $\mathbb{Z}_n$ is well-defined if
+      \[ x \equiv x' \mod{n} \]
+      and
+      \[ y \equiv y' \mod{n} \]
+      then also $x \circ y \equiv x' \cdot y' \mod{n}$ (ie. $[x\cdot y]_n = [x'\cdot y']_n$).
+      $(\mathbb{Z}_n, \cdot)$ is a commutative matroid with neutral element $[1]_n$.
+      $\mathbb{Z}_n^* = \mathbb{Z}_n \setminus \set{[0]_n}$ is a group if $n \in \mathbb{P}$
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Let $x = x' \mod{n}$ and $y = y' \mod{n}$. Show that $x + y = x' + y'$ and $x\cdot y = x' \cdot y'$.
+  $\divides{n}{x-x'}$ and $\divides{n}{y - y'}$. Show that
+  \[ \divides{n}{(x+y) - (x' + y')} \text{ and } \divides{n}{x\cdot y - x'\cdot y'} \]
+
+  So for addition,
+  \[ \bigvee_k x - x' = k \cdot n \]
+  \[ \bigvee_l y - y' = l \cdot n \]
+  \begin{align*}
+    \Rightarrow (x + y) - (x' - y')
+      &= x + y - x' - y' \\
+      &= x - x' + y - y' \\
+      &= k \cdot n + l \cdot n \\
+      &= (k + l) \cdot n \\
+      &= \divides{n}{(x + y) - (x' + y')}
+  \end{align*}
+
+  For multiplication,
+  \begin{align*}
+    x \cdot y
+      &= (x' + kn) \cdot (y' + ln) \\
+      &= (x' \cdot y') + (k \cdot n \cdot y') + x' \cdot l \cdot n + k \cdot n \cdot l \cdot n \\
+      &= x' \cdot y' + n (R\cdot y' + l \cdot x' + k \cdot l \cdot n)
+  \end{align*}
+  \[ xy - x' y' = \text{ multiple of } n \]
+  \[ \Rightarrow \divides{n}{xy - x'y'} \]
+\end{proof}
+
+\begin{ex}
+  $(\mathbb{Z}_n, +)$ is a group?
+  \begin{itemize}
+    \item We show G1:
+      \[ \left([x]_n + [y]_n\right) + [z]_n \stackrel?= [x]_n + \left([y]_n + [z]_n\right) \]
+      \[ [x+y]_n + [z]_n \stackrel?= [x]_n + [y + z]_n \]
+      \[ \Rightarrow [(x + y) + z]_n = [x + (y + z)]_n \]
+    \item We show G2, by definition of $[0]_n$ as neutral element
+      \[ [x]_n + [0]_n = [x + 0]_n = [x]_n \]
+    \item We show G3, by definition of $[-x]_n$ as neutral element
+      \[ [x]_n + [-x]_n = [x - x]_n = [0]_n \]
+      Analogously,
+      \[ \left([x]_n \cdot [y]_n\right) \cdot [z]_n = [x]_n \left([y]_n \cdot [z]_n\right) \]
+      \[ [x]_n \cdot [1]_n = [x1]_n = [x]_n \]
+      Therefore $[1]_n$ is the neutral element for multiplication
+  \end{itemize}
+
+  What is the inverse for multiplication?
+  It is immediate, that $[0]_n$ has no inverse for multiplication.
+  \[ [0]_n \cdot [x]_n = [0]_n \neq [1]_n \]
+  in $\mathbb{Z}_n\setminus \set{[0]_n}$?
+
+  Case distinction:
+  \begin{description}
+    \item[$n \not\in \mathbb{P}$]
+      \[ \Rightarrow \bigvee_{1 < n_1, n_2 < n} n = n_1 \cdot n_2 \]
+      \[ [n_1]_n \cdot [n_2]_n = [n_1 \cdot n_2]_n = [n]_n = [0]_n \]
+      \[ \Rightarrow [n_1]_n \text{ has not inverse element!} \]
+      Assume
+      \[ \bigvee_{[x]_n} [n_1]_n \cdot [x]_n = [1]_n \]
+      \[ \Rightarrow [n_2] \cdot [n_1] \cdot [x]_n = [n_2]_n [1]_n \]
+      \[ \Rightarrow [0]_n = [n_2]_n \]
+      This is a contradiction. No inverse can exist.
+    \item[$n \in \mathbb{P}$]
+      Beforehand, for prime numbers $p$ it holds that
+      \[ \divides{p}{ab} \Rightarrow \divides{p}{a} \lor \divides{p}{b} \]
+
+      \begin{theorem}
+        We claim that every $[x]_n \neq [0]_n$ has an inverse.
+      \end{theorem}
+      \begin{proof}
+        \[ V_X = \set{[x], [2x], [3x], \ldots, [(n-1) x]} \text{ multiples of } [x]_n \]
+        Then $[0]_n \not\in V_x$. Assume
+        \[ \bigvee_k [k\cdot x]_n = [0]_x \]
+        therefore
+        \[ \bigvee_k k \cdot x \equiv 0 \mod{n} \]
+        \[ \Rightarrow \divides{n}{kx} \]
+        \[ \Rightarrow \divides{n}{k} \lor \divides{n}{x} \]
+        \[ \Rightarrow \divides{n}{x} \]
+        \[ \Rightarrow [x]_n \]
+        \[ \Rightarrow [0]_n \]
+        This is a contradiction.
+      \end{proof}
+
+      \begin{theorem}
+        All entries of $V_X$ are different.
+      \end{theorem}
+      \begin{proof}
+        Assume
+        \[ \bigvee_{1 \leq k, l \leq n-1} [kx]_n = [lx]_n \]
+        \[ [kx]_n - [lx]_n = [0]_n \]
+        \[ [(k-l) x] = [0]_n \]
+        \[ \Rightarrow (k-l) x \equiv 0 \mod{n} \]
+        \[ \Rightarrow \divides{n}{(k-l)x} \]
+        \[ \Rightarrow \divides{n}{k-l} \lor \divides{n}{x} \]
+        The second condition cannot hold.
+        \[ \Rightarrow k - l = 0 \]
+        Requirement: $[x]_n \neq [0]_n$.
+      \end{proof}
+
+      \[ \Rightarrow \set{[x]_n, [2x]_n, \ldots, [(n-1)x]} \subseteq \set{[1], [2], \ldots, [n-1]} \]
+      are all different.
+      \[ \Rightarrow \bigvee_{k}: [kv]_n = [1]_n \]
+      \[ \Rightarrow [k]_n = [x]_n^{-1} \]
+      $k$ is constructed using the Euclidean algorithm.
+  \end{description}
+\end{ex}
+
+\begin{ex}
+  \begin{table}[!ht]
+    \begin{center}
+      \begin{tabular}{c|ccccc}
+        $+$ & 0 & 1 & 2 & 3 & 4 \\
+          0 & 0 & 1 & 2 & 3 & 4 \\
+          1 & 1 & 2 & 3 & 4 & 0 \\
+          2 & 2 & 3 & 4 & 0 & 1 \\
+          3 & 3 & 4 & 0 & 1 & 2 \\
+          4 & 4 & 0 & 1 & 2 & 3
+      \end{tabular}
+      \caption{Composition table for $(\mathbb{Z}_5, +)$}
+    \end{center}
+  \end{table}
+  \begin{table}[!ht]
+    \begin{center}
+      \begin{tabular}{c|ccccc}
+        $\cdot$ & 0 & 1 & 2 & 3 & 4 \\
+              0 & 0 & 0 & 0 & 0 & 0 \\
+              1 & 0 & 1 & 2 & 3 & 4 \\
+              2 & 0 & 2 & 4 & 1 & 3 \\
+              3 & 0 & 3 & 1 & 4 & 2 \\
+              4 & 0 & 4 & 3 & 2 & 1
+      \end{tabular}
+      \caption{
+        Composition table for $(\mathbb{Z}_5, \cdot)$.
+        Every row is a permutation of the first row.
+        Every row (except $0$) has a $1$ element is therefore invertible.
+      }
+    \end{center}
+  \end{table}
+  \begin{table}[!ht]
+    \begin{center}
+      \begin{tabular}{c|ccccc}
+        $\cdot$ & 1 & 2 & 3 & 4 \\
+              1 & 1 & 2 & 3 & 4 & 5 \\
+              2 & 2 & 4 & 0 & 2 & 4 \\
+              3 & 3 & 0 & 3 & 0 & 3 \\
+              4 & 4 & 2 & 0 & 4 & 2 \\
+              4 & 5 & 4 & 3 & 2 & 1
+      \end{tabular}
+      \caption{
+        Composition table for $(\mathbb{Z}_6, \cdot)$.
+        $1$ and $5$ have a $1$-element and is therefore invertible.
+      }
+    \end{center}
+  \end{table}
+
+  In general $[x]_n$ is invertible iff $\gcd{(x, n)} = 1$.
+
+  \begin{table}[!ht]
+    \begin{center}
+      \begin{tabular}{c|ccccc}
+        $+$ & 0 & 1 \\
+          0 & 0 & 1 \\
+          1 & 1 & 0
+      \end{tabular}
+      \caption{Composition table for $(\mathbb{Z}_2, +)$}
+    \end{center}
+  \end{table}
+  \begin{table}[!ht]
+    \begin{center}
+      \begin{tabular}{c|ccccc}
+        $\cdot$ & +1 & -1 \\
+             +1 & +1 & -1 \\
+             -1 & -1 & +1
+      \end{tabular}
+      \caption{Composition table for $(\set{\pm 1}, \cdot)$}
+    \end{center}
+  \end{table}
+
+  \[ h: \mathbb{Z}_2 \rightarrow \set{\pm 1} \]
+  \[ [0]_2 \rightarrow +1 \]
+  \[ [1]_2 \rightarrow -2 \]
+  The composition table of $\mathbb{Z}_2$ maps to composition table of $\set{\pm 1}$.
+
+  Therefore
+  \[ h([x] + [y]) = h([x]) \cdot h([y]) \forall [x], [y] \]
+\end{ex}
+
+\index[German]{\foreignlanguage{ngerman}{Homomorphismus}}
+\index[English]{Homomorphism}
+\index[German]{\foreignlanguage{ngerman}{Gruppenhomomorphismus}}
+\index[English]{Group homomorphism}
+\begin{defi}
+  Let $(G_1, \circ)$ and $(G_2, \circ)$ be 2 groups. A map
+  \[ h: G_1 \rightarrow G_2 \]
+  is called group-homomorphism if it holds that
+  $\bigwedge_{x,y \in G_1} h(x \circ_1 y) = h(x) \circ_2 h(y)$.
+\end{defi}
+
+\meta{Lecture}{3rd of November 2015}{Franz Lehner}
+
+\index[English]{Embedding}
+\index[German]{\foreignlanguage{ngerman}{Einbettung}}
+\index[English]{Field embedding}
+\index[German]{\foreignlanguage{ngerman}{Epimorphismus}}
+\index[English]{Epimorphism}
+\index[German]{\foreignlanguage{ngerman}{Isomorphismus}}
+\index[English]{Isomorphism}
+\begin{defi}
+  Let $(G_1, \circ_1)$ and $(G_2, \circ_2)$ be groups. A mapping $h: G_1 \rightarrow G_2$
+  is called group-homomorphism if $h(a \circ_1 b) = h(a) \circ_2 h(b)$ for all $a, b \in G_1$.
+
+  Additionally
+  \begin{itemize}
+    \item if $h$ is injective, the mapping is called \enquote{field embedding}.
+    \item if $h$ is surjective, the mapping is called \enquote{epimorphism}.
+    \item if $h$ is bijective, the mapping is called \enquote{isomorphism}.
+    \item two groups are called isomorph, if there exists some isomorphism.
+  \end{itemize}
+\end{defi}
+
+\begin{ex}
+  \begin{tabular}{c|cc}
+    $(\mathbb Z_2, +)$ & $0$ & $1$ \\
+  \hline
+                   $0$ & $0$ & $1$ \\
+                   $1$ & $1$ & $0$
+  \end{tabular}
+  $G_1 = \mathbb Z_2, \circ_1 = +$
+  \begin{tabular}{c|cc}
+    $(\set{\pm 1}, \cdot)$ & $+1$ & $-1$ \\
+  \hline
+                      $+1$ & $+1$ & $-1$ \\
+                      $-1$ & $-1$ & $+1$
+  \end{tabular}
+  $G_2 = \set{+1, -1}, \circ_2 = \cdot$
+
+  \[ h: \mathbb Z_2 \rightarrow \set{\pm 1} \]
+  \[ [0]_2 \mapsto +1 \]
+  \[ [1]_2 \mapsto -1 \]
+  preserves $h([a] + [b]) = h([a]) \cdot h([b])$ are isomorphic: $(\mathbb{Z}_2, +) \tilde{=} (\set{\pm 1}, \cdot)$.
+\end{ex}
+
+\index[German]{\foreignlanguage{ngerman}{Endomorphismus}}
+\index[English]{Endomorphism}
+\begin{defi}
+  A homomorphism $G \rightarrow G$ is called \emph{endomorphism}.
+  An isomorphism $G \rightarrow G$ (bijective endomorphism) is called \emph{automorphism}.
+\end{defi}
+
+\begin{ex}
+  \begin{enumerate}
+    \item $(\mathbb Z, +)$ with fixed $n \in \mathbb N$.
+      \[ h_n: \mathbb Z \rightarrow \mathbb Z \]
+      \[ h_n: x \mapsto n \cdot x \]
+      Is an endomorphism.
+
+      Show that
+      \begin{align*}
+        h_n(x + y) &= h_n(x) + h_n(y) \\
+        n(x + y) &= n\cdot x + n \cdot y
+      \end{align*}
+      No epimorphism for $n \geq 2$.
+    \item
+      \[ g: \mathbb Z \rightarrow \mathbb Z \]
+      \[ x \mapsto x + 1 \]
+
+      \[ g(1 + 1) \stackrel?= 3 \]
+      \[ g(1) + g(1) \stackrel?= 1 + 1 +1 \]
+      \[ 4 \neq 3 \]
+    \item
+      \[ q_n: (\mathbb Z, +) \rightarrow (\mathbb Z_n, +) \]
+      \[ a \mapsto [a]_n \]
+      Show that
+      \begin{align*}
+        q_n(a + b) &= q_n(a) + q_n(b) \\
+        q_n(a + b) &= [a + b]_n \\
+                   &= [a]_n + [b]_n \\
+                   &= q_n(a) + q_n(b)
+      \end{align*}
+      \[ [0]_n = q_n(0) = q_n(n) \]
+      \[ [1]_n = q_n(1) \]
+      \[ \vdots \]
+      \[ [n-1] = q_n(n-1) \]
+      Epimorphism, but no isomorphism.
+    \item
+      \[ (\mathbb R^*, \cdot) \rightarrow (\set{\pm 1}, \cdot) \]
+      $\mathbb R^* = \mathbb R \setminus \set{0}$
+      \[ \operatorname{sign}: x \mapsto \operatorname{sign}(x) \]
+      \[ \operatorname{sign}(x\cdot y) = \operatorname{sign}(x) \cdot \operatorname{sign}(y) \]
+      is a group homomorphism and epimorphism, but no isomorphism.
+    \item
+      \[ h: (\mathbb Z, +) \rightarrow (\mathbb Z, +) \]
+      \[ x \mapsto -x \]
+      \[ h(x + y) = -(x + y) = -x-y = h(x) + h(y) \]
+      is homomorphism.
+
+      It is surjective ($x = h(-x)$) and injective ($h(x) = h(y) \Rightarrow x = y$).
+      Therefore it is an isomorphism.
+    \item
+      \[ (\mathbb R^+ = ]0, \infty[, \cdot) \rightarrow (\mathbb R, +) \]
+      \[ x \mapsto \log(x) \]
+
+      \[ \log(x \cdot y) = \log(x) + \log(y) \]
+      Is a group homomorphism, epimorphism and isomorphism.
+  \end{enumerate}
+\end{ex}
+
+\begin{theorem}
+  \begin{enumerate}
+    \item
+      The composition of homomorphisms is a homomorphism.
+
+      Let
+      \[ q: (G_1, \circ_1) \rightarrow (G_2, \circ_2) \]
+      \[ h: (G_2, \circ_2) \rightarrow (G_3, \circ_3) \]
+      be homomorphisms, then $h \circ q: (G_1, \circ_1) \rightarrow (G_3, \circ_3)$
+      is a homomorphism.
+
+    \item
+      The inverse mapping of an isomorphism is an isomorphism.
+    \item
+      Isomorphism is an equivalence relation on the \enquote{set of all groups}.
+      Therefore on an arbitrary set of groups the relation
+      $G_1 \tilde{=} G_2$ is an equivalence relation.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \[ h \circ g(a \circ_1 b) = h \circ g(a) \circ_3 h\circ g(b) \]
+      \begin{align*}
+        (h \circ g)(a \circ_1 b) &= h(g(a \circ_1 b)) \\
+            &\stackrel{\text{g is homomorphous}}{=} h(g(a) \circ_2 g(b)) \\
+            &\stackrel{\text{h is homomorphous}}{=} h(g(a)) \circ_3 h(g(b)) \\
+            &= (h \circ g)(a) \circ_3 (h \circ g)(b)
+      \end{align*}
+    \item To be worked through in the practicals.
+    \item To be worked through in the practicals.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Let $(G_1, \circ_1)$ and $(G_2, \circ_2)$ be groups with a neutral element
+  $e_1 \in G_1$ and $e_2 \in G_2$ and $h: G_1 \rightarrow G_2$ is a homomorphism.
+  Then it holds that
+  \begin{enumerate}
+    \item $h(e_1) = e_2$
+    \item $h(x^{-1}) = h(x)^{-1} \forall x \in G_1$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \begin{align*}
+                  h(e_1) &= h(e_1) \circ e_2 \\
+                  h(e_1) &= h(e_1 \circ e_1) \\
+                         &= h(e_1) \circ h(e_1) \\
+        h(e_1) \circ e_2 &= h(e_1) \circ h(e_1)
+      \end{align*}
+      Cutback law in $G_2 \Rightarrow e_2 = h(e_1)$
+
+    \item
+      \[ h(x^{-1}) = h(x)^{-1} \Leftrightarrow h(x) \circ h(x^{-1}) = e_2 \]
+      \begin{align*}
+        h(x) \circ_2 h(x^{-1}) &= h(x \circ_1 x^{-1})
+          &\stackrel{\text{homomorphism}}{=} h(e_1) \\
+          &\stackrel{\text{bc (1)}}{=} e_2
+      \end{align*}
+      Therefore $h(x^{-1}) \circ_2 h(x) = e_2$.
+
+      $\Rightarrow h(x^{-1})$ is left- and rightinverse to $h(x)$.
+      $\Rightarrow h(x)^{-1} = h(x^{-1})$.
+  \end{enumerate}
+\end{proof}
+
+\begin{defi}
+  \label{satz-2-22}
+  A subgroup of a group $(G, \circ)$ is a non-empty subset $H \subseteq G$ such that
+  \begin{enumerate}
+    \item $\bigwedge_{a,b \in H} a \circ b \in H$
+    \item $\bigwedge_{a \in H} a^{-1} \in H$
+  \end{enumerate}
+  Notation: $H \leq G$.
+\end{defi}
+
+\begin{ex}
+  \[ (\mathbb Z, +) \subseteq (\mathbb Q, +) \qquad\checkmark \]
+  \[ (\mathbb N, +) \subseteq (\mathbb Q, +) \qquad\nope \]
+  \[ (\mathbb Q, +) \subseteq (\mathbb R, +) \qquad\checkmark \]
+  \[ (\mathbb Q, +) \subseteq (\mathbb C, +) \qquad\checkmark \]
+  $n \in \mathbb N$ is fixed:
+  \[ n = \mathbb Z = \setdef{n \cdot k}{k \in \mathbb Z} \leq \mathbb Z \]
+  \begin{enumerate}
+    \item $n \cdot k + n \cdot l = n \cdot (k + l) \in n\cdot\mathbb Z$
+    \item $-nk = n (-k) \in n\cdot\mathbb Z$
+  \end{enumerate}
+\end{ex}
+
+\begin{theorem}
+  \[ S_n \leq S_{n+1} \]
+  \begin{align*}
+    S_n &= \set{f: \set{1, \dots, n} \rightarrow \set{1, \dots, n} \text{ is bijective}} \\
+    S_{n+1} &= \set{f: \set{1, \dots, n+1} \rightarrow \set{1, \dots, n+1} \text{ is bijective}}
+  \end{align*}
+  So $S_n \leq S_{n+1}$ cannot hold, right? $S_n$ cannot be a subgroup.
+
+  Wrong, we interpreted it wrongfully:
+  There is a subset $H \subseteq S_{n+1}$ which is a subgroup as by theorem~\ref{satz-2-22}
+  such that $S_n \tilde{=} H$.
+  \[ H = \setdef{f: \set{1, \dots, n+1} \rightarrow \set{1, \dots, n+1}}{f \text{ is bijective}} \]
+  \[ \Rightarrow H \tilde{=} S_n \]
+\end{theorem}
+
+\begin{cor}
+  \[ \mathbb Z \rightarrow n \cdot \mathbb Z \leq \mathbb Z \]
+  \[ x \mapsto n \cdot x \]
+  is bijective.
+  \[ \Rightarrow \mathbb Z \tilde{=} n \cdot \mathbb Z \]
+  \[ \Rightarrow \mathbb Z \text{ is isomorphous to its own subgroup} \]
+\end{cor}
+
+\begin{rem}
+  \begin{enumerate}
+    \item
+      Let $H \leq G$ be a subgroup, then $e \in H$.
+
+      Because with $H \neq \emptyset$, let $x \in H$.
+      From the group definition it follows that $x^{-1} \in H$
+      and therefore $x \circ x^{-1} \in H$ with $x \circ x^{-1} = e$.
+    \item $(H, \circ)$ is a group.
+  \end{enumerate}
+\end{rem}
+
+\begin{theorem}
+  Let $(G_1, \circ_1)$ and $(G_2, \circ_2)$ be groups.
+  \[ h: G_1 \rightarrow G_2 \text{ is a homomorphism} \]
+  \[ H_1 \leq G_1 \qquad H_2 \leq G_2 \qquad \text{ are subgroups} \]
+  Then it holds that
+  \begin{enumerate}
+    \item $h(H_1) \leq G_2$
+    \item $h^{-1}(H_2) \leq G_1$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      Let $h(H_1) \leq G_2$.
+      \begin{align*}
+        \Rightarrow & \bigwedge_{u,v \in h(H_1)} u \circ_2 v \in h(H_1) \\
+        \Rightarrow & \bigwedge_{x,y \in H_1} h(x) \circ h(y) \in h(H_1) \\
+        \Rightarrow & \bigwedge_{x,y \in H_1} \bigvee_{z \in H_1} h(x) \circ h(y) = h(z)
+      \end{align*}
+      $h$ is a homomorphism:
+      \[ \Rightarrow h(x) \circ_2 h(y) = h(x \circ_1 y) \]
+      \[ \Rightarrow \text{choose } z = x \circ_1 y \in H_1 \text{ because } H_1 \leq G_1 \]
+    \item
+      Let $u \in h(H_1)$. We need to show that $u^{-1} \in h(H_1)$.
+      Find $a \in H_1$ such that $u^{-1} = h(a)$.
+      Let $b \in H_1$ with $h(b) = u$
+      \[ \Rightarrow u^{-1} = h(b)^{-1} = h(b^{-1}) \in h(H_1) \]
+      then $b^{-1} \in H_1$.
+  \end{enumerate}
+\end{proof}
+
+\begin{rem}
+  Always two \emph{trivial subgroups} of a group $G$ exist, namely
+  \[ H = G \]
+  \[ H = \set{e} \]
+
+  One example which only has two trivial subgroups is $(\mathbb Z_p, +)$.
+\end{rem}
+
+\begin{defi}
+  Let $h: G_1 \rightarrow G_2$ be a homomorphism.
+  Then $h^{-1}(\set{e_2})$ is a subgroup of $G_1$
+  and is called \emph{kernel} of a homomorphism.
+
+  \[ \operatorname{kernel}(h) = \setdef{x \in G_1}{h(x) = e_2} \]
+
+  $h(G_1) \leq G_2$ is a subgroup and is called \emph{image of $h$},
+  denoted $\operatorname{im}(h) = h(G_1)$.
+\end{defi}
+
+\begin{defi}
+  A \emph{ring} is a tuple $(R, +, \cdot)$ with $R \neq \emptyset$ and
+  $+, \cdot$ are combinations $R \times R \rightarrow R$, such that
+  \begin{enumerate}
+    \item $(R, +)$ is an abelian group (\enquote{additive group})
+    \item $(R, \cdot)$ is a semigroup (\enquote{multiplicative semigroup})
+    \item distributive laws hold
+  \end{enumerate}
+  \[ (a + b) \cdot c = a \cdot c + b \cdot c \]
+  \[ a \cdot (b + c) = a \cdot b + a \cdot c \]
+
+  Examples include: $(\mathbb Z, +, \cdot), (\mathbb Q, +, \cdot)$ and $(\mathbb R, +, \cdot)$.
+
+  A ring is called \emph{commutative} if $(R, \cdot)$ is commutative.
+  If $(R, \cdot)$ is a monoid, then $(R, +, \cdot)$ is a ring with a one-element.
+  The neutral element with respect to $+$ is called zero-element.
+
+  Inverse elements with respect to $+$ are denoted as $-x$.
+  Inverse elements with respect to $\cdot$ are denoted as $x^{-1}$.
+\end{defi}
+
+\begin{ex}
+  $(\mathbb Z, +, \cdot)$ is a commutative ring with a one-element.
+  The same applies for $(\mathbb Z, +, \cdot)$, $(\mathbb R, +, \cdot)$, $(\mathbb Q, +, \cdot)$ and $(\mathbb C, +, \cdot)$.
+
+  \[ \mathbb R[x] = \setdef{a_0 + a_1 x + \dots + a_n x^n}{n \in \mathbb N_0, a_i \in \mathbb R} \]
+  is the ring of polynomials with respect to addition and multiplication (as we know it in $\mathbb R$).
+  The one element with respect to multiplication is $1$ (because $a \cdot (1 \cdot x^0 _+ 0 \cdot \dots) = a$).
+  \[ (1 + x)^{-1} = \sum_{n=0}^\infty (-x)^n \not\in \mathbb R[x] \]
+  \[ (a_0 \cdot x^0)^{-1} = \frac1{a_0} x^0 \]
+  Only constant polynomials are invertible.
+\end{ex}
+
+\begin{theorem}
+  \label{satz-2-29}
+  $(\mathbb Z_n, +, \cdot)$ is a commutative ring with a one-element.
+\end{theorem}
+
+\begin{proof}
+  $(\mathbb Z_n, +)$ is a group.
+  $(\mathbb Z_n, \cdot)$ is a monoid.
+  They are commutative.
+  We have already proven that.
+
+  What remains to show is the distributive law:
+  \begin{align*}
+    ([a]_n + [b]_n) \cdot [c]_n \\
+    &= [a + b]_n \cdot [c]_n \\
+    &= [(a + b) \cdot c]_n \\
+    &= [a\cdot c + b\cdot c]_n \\
+    &= [a \cdot c]_n + [b \cdot c]_n \\
+    &= [a]_n \cdot [c]_n + [b]_n \cdot [c]_n
+  \end{align*}
+\end{proof}
+
+\meta{lecture}{9th of Nov 2015}{Franz Lehner}
+
+\begin{defi}
+  Let $(R, +, \cdot)$ be a ring. An element $x \in R$ is called zero-divisor
+  if $\bigvee_{y \in R} y \neq 0 \land x \cdot y = 0$.
+  $R$ is called zero-divisor-free if it does not contain zero-divisors.
+\end{defi}
+
+\begin{theorem}
+  $(\mathbb Z_n, +, \cdot)$ is zero-divisor-free
+  $\Leftrightarrow n \in \mathbb P$
+\end{theorem}
+
+\begin{defi}
+  Let $(R_1, +_1, \cdot_1)$ and $(R_2, +_2, \cdot_2)$ be rings.
+  A mapping $h: R_1 \rightarrow R_2$ is called \emph{ring homomorphism}
+  if
+  \[ \bigwedge_{a,b \in R} h(a +_1 b) = h(a) +_2 h(b) \]
+  \[ \bigwedge_{a,b \in R} h(a \cdot_1 b) = h(a) \cdot_2 h(b) \]
+\end{defi}
+
+\begin{ex}
+  \[ (\mathbb Z, +, \cdot) \rightarrow (\mathbb Z_n, +, \cdot) \]
+  \[ x \mapsto [x]_n \]
+\end{ex}
+
+\begin{defi}
+  A field is a commutative ring $(K, +, \cdot)$ with $1$ in which each element
+  $a \in K \setminus \set{0}$ has an inverse element.
+  Therefore $(K \setminus \set{0}, \cdot)$ is an abelian group.
+
+  We denote $\frac1x$ instead of $x^{-1}$.
+\end{defi}
+
+\begin{ex}
+  $(\mathbb Q, +, \cdot)$,
+  $(\mathbb R, +, \cdot)$,
+  $(\mathbb Z_p, +, \cdot)$
+  for $p \in \mathbb P$, not $(\mathbb Z, +, \cdot)$.
+\end{ex}
+
+\begin{cor}
+  \hfill{}
+  \begin{enumerate}
+    \item A field is zero-divisor-free (but not the opposite, $\mathbb Z$ as example)
+    \item The zero-element of a non-trivial ring cannot have an inverse
+    \item Let $\card{R} \geq 2$, then
+      \[ \underbrace{0}_{\text{zero element}} \neq \underbrace{1}_{\text{one element}} \]
+  \end{enumerate}
+\end{cor}
+
+\begin{quote}
+  \begin{otherlanguage}{ngerman}
+    \enquote{Es ändert nichts an dem Ganzen, aber sie haben ein besseres Gefühl.}
+    (Franz Lehner)
+  \end{otherlanguage}
+\end{quote}
+
+\begin{proof}
+  One possible trivial ring is:
+  \[ R = \set{a} \]
+  \[ a + a \coloneqq a \qquad a \cdot a \coloneqq a \]
+
+  \begin{enumerate}
+    \item[3.]
+      Select $a \not R \setminus \set{0}$. Then
+      \[ 1 \cdot a = a \]
+      \[ 0 \cdot a = 0 \]
+      \[ \Rightarrow 1 \neq 0 \]
+    \item[1.]
+      Let $a, b \in K \setminus \set{a}$.
+      Assume $a \cdot b = 0$.
+      \[
+        \Rightarrow 0 = a^{-1} \cdot 0 \cdot b^{-1}
+        = a^{-1} \cdot (a \cdot b) \cdot b^{-1}
+        = (a^{-1} \cdot a) \cdot (b \cdot b^{-1})
+        = 1 \cdot 1
+        = 1
+      \] \[ \Rightarrow 0 = 1 \qquad\lightning \]
+    \item[2.]
+      Let $a$ be inverse to $0$.
+      \[ \Rightarrow a \cdot 0 = 1 \]
+      \[ \Rightarrow a = 0 \]
+    \item[4.]
+      \[ \bigwedge_{a \in R} a \cdot 0 = 0 \]
+      \[ a \cdot 0 = a \cdot (0 + 0) \]
+      \[ a \cdot 0 = a \cdot 0 + a \cdot 0 \]
+      \[ \Rightarrow a \cdot 0 + 0 = a \cdot 0 + a \cdot 0 \]
+      \[ \Rightarrow a \cdot 0 = 0 \]
+  \end{enumerate}
+\end{proof}
+
+\begin{defi}
+  \emph{(field extensions.)}
+  The equation $x^2 - 2 = 0$ has no solution in $\mathbb Q$.
+  We claim:
+  $K = \setdef{a + b \sqrt{2}}{a,b \in \mathbb Q}$ is a field.
+  The proof will be provided in the practicals.
+
+  So a field $K$ with $\mathbb Q \subsetneq K \subsetneq \mathbb R$
+  is a field extension for $\mathbb Q$.
+\end{defi}
+
+\begin{defi}
+  \emph{(complex numbers).}
+  The equation $x^2 + 1 = 0$ has no solution in $\mathbb R$ because $x^2 > 0$
+  $\forall x \in \mathbb R$. Assume some $i$ exists with $i^2 = -1$
+  (therefore $i = \sqrt{-1}$) with
+  \begin{align*}
+    (a + bi) + (c + di) &= a + c + (b + d)i \\
+    (a + bi) (c + di) &= ac + adi + bic + bdi^2 \\
+      &= ac - bd + (ad + bc) i
+  \end{align*}
+
+  Then,
+  \begin{align*}
+    \frac{1}{a + bi} &= \frac{1}{a + bi} \cdot \frac{a - bi}{a - bi} \\
+        &= \frac{a - bi}{a^2 - (bi)^2} \\
+        &= \frac{a - bi}{a^2 + b^2}
+  \end{align*}
+  with $a^2 + b^2 \neq 0$ (does not hold for $a = b = 0$).
+
+  We define the complex numbers as $\mathbb C = \mathbb R^2$
+  with operations
+  \begin{align*}
+    (a, b) + (c, d) &\coloneqq (a + c, b + d) \\
+    (a, b) \cdot (c, d) &\coloneqq (ac - bd, ad + bc)
+  \end{align*}
+
+  We denote:
+  \begin{align*}
+    0 &= (0, 0) \\
+    1 &= (1, 0) \\
+    i &= (0, 1)
+  \end{align*}
+  Every $z \in \mathbb C$ has the structure $(a, b) = a \cdot 1 + b \cdot i$.
+\end{defi}
+
+\begin{theorem}
+  \begin{enumerate}
+    \item $(\mathbb C, +, \cdot)$ is a field (proof: provided in practicals).
+    \item $\mathbb C$ contains $\mathbb R$ as subfield. Therefore
+      \[ l: \mathbb R \rightarrow \mathbb C \]
+      \[ x \mapsto x + 0 \cdot i = (x, \circ) \]
+      $\mathbb R$ is identified with $l(\mathbb R)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{cor}
+  \[
+    \underbrace{\mathbb Z \subseteq \mathbb Q \subseteq \mathbb Q(\sqrt{2})}_{\aleph_0}
+    \subseteq \underbrace{\mathbb R \subseteq \mathbb C}_{\aleph_1}
+  \]
+  Also:
+  \[
+    \mathbb Z \subseteq \mathbb Q \subseteq \mathbb Q(\sqrt{3})
+    \subseteq \mathbb R \subseteq \mathbb C
+  \]
+  Off topic: Peano curve.
+\end{cor}
+
+\begin{defi}
+  \emph{(Fundamental theorem of algebra.)}
+  In $\mathbb C$ every polynomial $x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 = 0$
+  has $n$ solutions.
+
+  Therefore $\mathbb C$ is algebraically closed (but there exist transcendal extensions).
+\end{defi}
+
+\begin{defi}
+  \emph{(quaternions.)}
+  $\mathbb R^4$ has a ring structure such that every element is invertible,
+  but it is not commutative (division ring with elements called \emph{quaternions}).
+\end{defi}
+
+\begin{defi}
+  Let $z = x + iy$ be some element in $\mathbb C$.
+  Then $\Re(z) = x$ (real part) and $\Im(z) = y$ (imaginary part) of $\mathbb Z$.
+  $\overline{z} = x - iy$ is called complex conjugate of $z$. $i$ is defined
+  as solution of the equation $x^2 + 1 = 0$.
+
+  Geometrically, the real part if represented on the x-axis and the imaginary part
+  is quantified on the y-axis.
+
+  \begin{itemize}
+    \item
+      The addition of two complex numbers then geometrically corresponds to
+      vector addition in $\mathbb R^2$.
+
+      Complex numbers in polar coordinates are defined with
+      \[ x + iy = r(\cos{\varphi} + i \cdot \sin{\varphi}) \]
+      \[ \Rightarrow r = \sqrt{x^2 + y^2} \]
+      \[ \Rightarrow \varphi = \arctan{\frac yx} \]
+    \item The multiplication looks like this:
+      \begin{align*}
+        &= (x_1 + i y_1) \cdot (x_2 + i y_2) \\
+        &= r_1 (\cos{\varphi_1} + i \sin{\varphi_i}) \cdot r_2 (\cos{\varphi_2} + i \sin{\varphi_2}) \\
+        &= r_1 r_2 (\cos{\varphi_1} \cos{\varphi_2} - \sin{\varphi_1} \sin{\varphi_2} + i (\sin{\varphi_1} \cos{\varphi_2} + \cos{\varphi_1} \sin{\varphi_2})) \\
+        &= r_1 r_2 (\cos{(\varphi_1 + \varphi_2)} + i \sin{(\varphi_1 + \varphi_2)})
+      \end{align*}
+      So geometrically this is rotation by $\varphi$ with scaling by factor $r$.
+  \end{itemize}
+
+  From this the Eulerian equation follows\footnote{but can only be seen easily with the Taylor series expansion of $e$}.
+  \[ e^{i \varphi} = \cos{\varphi} + i \sin\varphi \]
+\end{defi}
+
+\section{Vector spaces}
+
+\begin{defi}
+  Let $(K, +, \cdot)$ be a field.
+  A vector space of $K$ is a tuple $(V, \oplus, \circledcirc)$
+  if $V \neq \emptyset$.
+  \begin{itemize}
+    \item
+      $V \times V \rightarrow V$ \\
+      $(\lambda, \mu) \mapsto v \oplus \mu$
+    \item
+      $K \times V \rightarrow V$ \\
+      $(\lambda, \mu) \rightarrow \lambda \circledcirc v$
+  \end{itemize}
+  such that
+  \begin{enumerate}
+    \item $(V, \oplus)$ is an abelian group.
+    \item associative law holds:
+      \[
+        \bigwedge_{v \in V} \bigwedge_{\lambda \in K} \bigwedge_{\mu \in K} (\lambda \cdot \mu) \circledcirc v
+        = \lambda \circledcirc (\mu \circledcirc v)
+      \]
+    \item distributive law holds:
+      \[
+        \bigwedge_{\lambda \in K} \bigwedge_{v,w \in V} \lambda \circledcirc (v \oplus w) = (\lambda \circledcirc v) \oplus (\lambda \circledcirc w)
+      \] \[
+        \bigwedge_{\lambda, \mu \in K} \bigwedge_{v \in V} (\lambda + \mu) \circledcirc v = (\lambda \circledcirc v) \oplus (\mu \circledcirc v)
+      \]
+    \item Furthermore,
+      \[ \bigwedge_{v \in V} 1 \circledcirc v = v \]
+  \end{enumerate}
+\end{defi}
+
+\begin{rem}
+  The elements of $V$ are called \emph{vectors}.
+  The elements of $K$ are called \emph{scalars}.
+  Furthermore we simplify notation:
+  \begin{itemize}
+    \item $+$ instead of $\oplus$ (vector addition)
+    \item $\cdot$ instead of $\circledcirc$ (vector multiplication)
+  \end{itemize}
+\end{rem}
+
+\begin{ex}
+  \begin{enumerate}
+    \item
+      \[ K^n = \setdef{\begin{pmatrix} \xi_1 \\ \vdots \\ \xi_n \end{pmatrix}}{\xi \in K} \]
+      \[
+        \text{ with }
+        \begin{pmatrix} \xi_1 \\ \vdots \\ \xi_n \end{pmatrix}
+        + \begin{pmatrix} \eta_1 \\ \vdots \\ \eta_n \end{pmatrix}
+        = \begin{pmatrix} \xi_1 + \eta_1 \\ \vdots \\ \xi_n + \eta_n \end{pmatrix}
+      \] \[
+        \text{ and }
+        \lambda \cdot \begin{pmatrix} \xi_1 \\ \vdots \\ \xi_n \end{pmatrix}
+        = \begin{pmatrix} \lambda \xi_1 \\ \vdots \\ \lambda \xi_n \end{pmatrix}
+      \]
+
+    \item
+      \[
+        K^{m\times n} = \setdef{
+          \begin{pmatrix}
+            a_{1,1} & \ldots & a_{1,n} \\
+            \vdots & \ddots & \vdots \\
+            a_{m,1} & \ldots & a_{m,n}
+          \end{pmatrix}
+        }{a_{i,j} \in K}
+      \]
+      is the so-called component notation. Addition and mutliplication is done
+      component-wise.
+
+    \item
+      Let $X$ be an arbitrary set.
+      \[ K^X = \set{f: X \rightarrow K \quad \text{function}} \]
+      \[ (f + g)(x) \coloneqq f(x) + g(x) \]
+      \[ (\lambda f)(x) \coloneqq \lambda (f(x)) \]
+      \[ \Rightarrow f + g, \lambda \cdot f \in K^X \]
+  \end{enumerate}
+\end{ex}
+
+\begin{proof}
+  \begin{description}
+    \item[(a) is a special case of (c)]
+      Specifically $X = \set{1, \ldots, n}$.
+      Every function $f: \set{1, \ldots, n} \rightarrow K$ is uniquely defined
+      by vector $\begin{pmatrix} f(1) \\ \vdots \\ f(n) \end{pmatrix}$.
+      On the opposite site, every vector
+      $\begin{pmatrix} \varepsilon_1 \\ \vdots \\ \varepsilon_n \end{pmatrix}$
+      is a function $f: \set{1, \ldots, n} \rightarrow K$ with $k \mapsto \varepsilon_k$.
+    \item[(d)]
+      \[ X = \mathbb N \qquad K^{\mathbb N} = \setdef{(\varepsilon_n)_{n \in \mathbb N}}{\varepsilon_i \in \mathbb K} \]
+      is the space of all sequences.
+  \end{description}
+\end{proof}
+
+\begin{defi}
+  If $(K, +, \cdot)$ is a ring, the structure is called \emph{module}.
+\end{defi}
+
+\begin{cor}
+  \[ \lambda (u + v) = \lambda u + \lambda v \]
+  \[ (\lambda + \mu) v = \lambda v + \mu v \]
+  \[ 1 \cdot v = v \]
+  \[ (\lambda \mu) v = \lambda (\mu v) \]
+\end{cor}
+
+\begin{ex}
+  Let $(K^n, +, \cdot)$ be a field.
+  \[ K^X = \set{f: X \rightarrow K} \]
+
+  \[ \bigwedge_{x \in X} (f + g)(x) = f(x) + g(x) \]
+  \[ \bigwedge_{x \in X} (\lambda f)(x) = \lambda f(x) \]
+\end{ex}
+
+\begin{cor}
+  \begin{enumerate}
+    \item[(e)]
+      $\mathbb R$ is a vector space over $\mathbb Q$.
+      $(\mathbb R, +)$ is an abelian group.
+      \[ \cdot: \mathbb Q \times \mathbb R \rightarrow \mathbb R \]
+      \[ (\lambda \in \mathbb Q, x \in \mathbb R) \mapsto \lambda \cdot x \in \mathbb R \]
+      \[ \mathbb R = \mathbb Q^X \]
+      but $\mathbb Q$ is \emph{not} a vector space over $\mathbb R$.
+  \end{enumerate}
+\end{cor}
+
+$K$ has a zero element denoted $0$.
+$(V, +)$ has a neutral element; also denoted $0$.
+You should infer from context which one is meant.
+At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
+
+\begin{theorem}
+  This is a direct result following from the axioms.
+  Let $(V, +, \cdot)$ be a vector space over $K$.
+  \begin{enumerate}
+    \item $\bigwedge_{v \in \mathbb V} 0 \cdot v = \underline{0}$
+    \item $\bigwedge_{\lambda \in K} \lambda \cdot \underline{0} = \underline{0}$
+    \item $\bigwedge_{v \in V} \bigwedge_{\lambda \in K} \lambda \cdot v = \underline{0} \Rightarrow \lambda = 0 \lor v = \underline{0}$
+    \item $\bigwedge_{v \in V} (-1) \cdot v = -v$ with $-v$ as neutral element in $(V, +)$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item For the zero element it holds,
+      \[ 0 \cdot v = (0 + 0) \cdot v \underbrace{=}_{\text{distr. law}} 0 \cdot v + 0 \cdot v \]
+      but also $0 \cdot v + \underline{0} \Rightarrow 0 \cdot v + \underline{0} = 0\cdot v + 0\cdot v$.
+      $\underline{0} = 0\cdot v$.
+    \item
+      \[ \lambda \cdot \underline{0} = \lambda (\underline{0} + \underline{0}) = \lambda \underline{0} + \lambda \underline{0} \]
+      \[ \lambda \cdot \underline{0} = \lambda \cdot \underline{0} + \underline{0} \Rightarrow \underline{0} = \lambda \cdot \underline{0} \]
+    \item
+      \[ \lambda v = 0 \Rightarrow \lambda = 0 \lor v = 0 \]
+      \[
+          A \rightarrow B \lor C \Leftrightarrow (\neg A \lor B \lor C)
+          \Leftrightarrow \neg(A \land \neg B) \lor C
+          \Leftrightarrow A \land \neg B \rightarrow C
+      \]
+      We show: $(\lambda v = 0 \land \lambda \neq 0) \Rightarrow v = 0$.
+      \begin{proof}
+        \[ \lambda \cdot v = \underline{0} \Rightarrow \lambda^{-1}(\lambda \cdot v) = \lambda^{-1} \cdot \underline{0} \]
+        \[ (\lambda^{-1} \lambda) \cdot v = \underline{0} \]
+        \[ v = 1 \cdot v = \underline{0} \]
+      \end{proof}
+    \item We need to show: $(-1) \cdot v + v = 0$
+
+      Hence, $(-1)\cdot v$ is the additive inverse to $v$.
+      \begin{align*}
+        (-1) \cdot v + v &= (-1) \cdot v + 1 \cdot v \\
+            &= (-1 + 1) \cdot v \\
+            &= 0 \cdot v \\
+            &\xRightarrow{\text{first law}} \underline{0}
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\subsection{Subspaces, linear independence and bases}
+
+\begin{defi}
+  Let $(V, +, \cdot)$ be a vector space over $K$.
+  A subset $U \subseteq V$ is called \emph{subspace of $V$} if
+  \begin{description}
+    \item[U1:] $U \neq \emptyset$
+    \item[U2:] $\bigwedge_{u,v \in U} u + v \in U$
+    \item[U3:] $\bigwedge_{\lambda \in K} \bigwedge_{u \in U} \lambda u \in U$
+  \end{description}
+\end{defi}
+
+\begin{proof}
+  \[ \bigwedge_{u \in U} -u \in U \]
+  Choose $\lambda = -1$ in subspace and multiply as in theorem 4.  % TODO: reference
+\end{proof}
+
+\begin{cor}
+  The \emph{trivial} subspaces are $U = V$ and $U = \set{0}$.
+\end{cor}
+
+\begin{theorem}
+  \label{satz-3-3}
+  (subspace criterion.)
+  Let $U \subseteq V$ be a subspace.
+  \[ \Leftrightarrow U \neq \emptyset \land \bigwedge_{\lambda,\mu \in K} \bigwedge_{u,v \in U} \lambda u + \mu v \in U \]
+\end{theorem}
+
+\begin{proof}
+  Let $\lambda, \mu \in K$ and $u,v \in U$.
+  \begin{align*}
+    \textbf{U3} &\Rightarrow \lambda u \in U \land \mu v \in U \\
+    \textbf{U2} &\Rightarrow \lambda u + \mu v \in U
+  \end{align*}
+
+  So \textbf{U1} is immediate, \textbf{U2} follows with $\lambda = \mu = 1$ and \textbf{U3} follows with $v = 0$ and $\mu = 0$.
+\end{proof}
+
+\begin{theorem}
+  Let $(V, +, \cdot)$ be a vector space. $U \subseteq V$ is a subspace.
+  Then
+  \[ \left(U, +|_{U \times U}, \cdot |_{K \times U}\right) \]
+  is a vector space.
+\end{theorem}
+
+\begin{proof}
+  Associativity and distributivity gets inherited.
+  $(U, +)$ is a group.
+  \[ -u = (-1) \cdot u \underbrace{\in}_{\textbf{U3}} U \]
+\end{proof}
+
+\begin{ex}
+  \begin{enumerate}
+    \item $\mathbb R$ is a vector space over $\mathbb Q$.
+      \[ \mathbb Q \subseteq \mathbb R \text{ is a subspace} \]
+    \item $V = \mathbb R^2$ with $U = \setdef{(x, y) \in R^2}{x + y = 0} = \setdef{(t, -t)}{t \in \mathbb R}$.
+      Claim: $U$ is a subspace.
+
+      \begin{proof}
+        \begin{description}
+          \item[\textbf{U1}]
+            $U \neq \emptyset$ because $(0, 0) \in U$.
+            \[ \lambda, \mu \in \mathbb R \qquad u,v \in U \]
+            Show that $\lambda u + \mu v \in U$.
+            \begin{proof}
+              \[ u = (s, -s) \text{ for some element in } \mathbb R \]
+              \[ v = (t, -t) \quad t \in \mathbb R \]
+              \begin{align*}
+                \lambda u + \mu v &= \lambda (s, -s) + \mu (t, -1) \\
+                  &= (\lambda s - \mu t, \mu t, -\mu t) \\
+                  &= (\lambda s + \mu t, -\lambda s - \mu t) \\
+                  &= (r, -r) \text{ with } r = \lambda s + \mu t \\
+                  &\subseteq U
+              \end{align*}
+            \end{proof}
+        \end{description}
+      \end{proof}
+
+    \item $V = \mathbb R^2$ with $U = \setdef{(x, y) \in \mathbb R^2}{x + y = 1}$
+      is not a subspace. $U \neq \emptyset$.
+      \[ (0, 1) \in U \]
+      \[ (1, 0) \in U \]
+      \[ (0, 1) + (1, 0) = (1, 1) \not\in U \]
+  \end{enumerate}
+\end{ex}
+
+\begin{rem}
+  A subspace always contains the zero-vector:
+  \[ U \neq \emptyset \Rightarrow \bigvee_{u} u \in U \xRightarrow{\textbf{U3}} \underline{0} = 0 \cdot u \in U \]
+\end{rem}
+
+\begin{rem}
+  What is the usual approach to find possible subspaces?
+  \begin{itemize}
+    \item Is $\underline{0} \in U$? If no, no subspace exists.
+    \item Else yes, $U \neq \emptyset$
+  \end{itemize}
+  We proceed with the subspace criterion.
+\end{rem}
+
+\subsection{Construction of subspaces}
+
+\begin{theorem}
+  \label{satz-3-6}
+  Let $(V, +, \cdot)$ be vector over $K$. Let $I$ be an index set.
+  Let $(U_i)_{i \in I}$ be a family of subspaces $U_i \subseteq V$.
+  Then $\bigcap_{i \in I} U_i$ is a subspace.
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[\textbf{U1}]
+      \[ \bigcap_{i \in I} U_i \neq \emptyset \]
+      \[ \bigwedge_{i \in I} 0 \in U_i \Rightarrow 0 \in \bigcap_{i \in I} U_i = \setdef{u}{\bigwedge_{i \in I} u \in U_i} \]
+      \[ \Rightarrow \bigcap_{i \in I} U_i \neq \emptyset \]
+    \item[\textbf{UR}]
+      We need to show $\lambda, \mu \in K, a, b \in \bigcap_{i \in I} U_i$
+      then $\lambda a + \mu b \in \bigcap_{i \in I} U_i$.
+
+      \[
+          \bigwedge_{i \in I} a \in U_i \land b \in U_i
+          \xRightarrow{\text{all } U_i \text{ are subspaces}}
+          \bigwedge_{i \in I} \lambda a + \mu b \in U_i
+      \]
+      \[ \Rightarrow \lambda a + \mu b \in \bigcap_{i \in I} U_i \]
+  \end{description}
+\end{proof}
+
+\begin{rem}
+  An equivalent statement for $U_1 \cup U_2$ does not hold!
+  Unions of subspaces must not be subspaces.
+
+  \begin{itemize}
+    \item $U_1 = \setdef{(x, 0)}{x \in \mathbb R}$
+    \item $U_2 = \setdef{(0, y)}{y \in \mathbb R}$
+  \end{itemize}
+
+  \[ u = (1, 0) \in U_1 \subseteq U_1 \cup U_2 \]
+  \[ v = (0, 1) \in U_2 \subseteq U_1 \cup U_2 \]
+  \[ u + v = (1, 1) \not\in U_1 \cup U_2 \]
+
+  To construct a new subspace from $U_1 \cup U_2$ we need to extend it.
+\end{rem}
+
+\begin{defi}
+  Let $(V, +, \cdot)$ be a vector space in $K$.
+  \[ M \subseteq V \]
+  The linear hull of $M$ is the smallest subspace of $V$, which contains $M$:
+  \[ [M] \coloneqq \bigcap\setdef{U \subseteq V}{U \cup R \text{ such that } M \subseteq U} \]
+  This is a subspace by theorem~\ref{satz-3-6}.
+  For $M = 0$,
+  \[ [\emptyset] = \set{0} \]
+  We also say $[M]$ is the \emph{subspace generated by $M$}.
+\end{defi}
+
+\begin{rem}
+  $[M]$ is well-defined.
+
+  At least one subspace exists which contains $M$:
+  \[ U = V \Rightarrow [M] \neq \emptyset \]
+
+  Every subspace $U \subseteq V$ which contains $M$,
+  contains also $[M]$ because $M$ occurs in $M \subseteq U$ as intersection.
+  Therefore $[M] \subseteq U$.
+
+  This construction is not constructive!
+  We know that one smallest subspace exists, but don't know what it looks like.
+
+  There is no known method to determine whether the given vector $v \in V$ is in
+  $[M]$ or not.
+\end{rem}
+
+\begin{ex}
+  (second most simple case.)
+  \[ M = \set{a} \]
+  Case distinction:
+  \begin{description}
+    \item[Case 1: $a = 0$]
+      \[ [\set{0}] = \set{0} \]
+    \item[Case 2: $a \neq 0$] \hfill{} \\
+      From \textbf{U1} it follows that $[\set{a}] \neq \emptyset$ because $0,a \in [\set{a}]$. \\
+      From \textbf{U3} it follows that $\lambda,a \in [\set{a}] \forall \lambda \in K$.
+      \[ K\cdot a \coloneqq [\set{a}] = \setdef{\lambda a}{\lambda \in K} \]
+
+      We look at a subfield:
+      Let $u, v \in K \cdot a$ and $\lambda, \mu \in K$. Show that
+      \[ \lambda u + \mu v \in K \cdot a \]
+      \[
+          \bigwedge_{\alpha \in K} u = \alpha \cdot a \qquad
+          \bigwedge_{\beta \in K} v = \beta \cdot a
+      \]  \[
+        \lambda u + \mu u = \lambda (\alpha \cdot a) + \mu (\beta \cdot a)
+      \]
+
+      Associativity: $(\lambda \cdot \alpha) \cdot a + (\mu \cdot \beta) \cdot a$ \\
+      Distributivity: $(\lambda \cdot \alpha + \mu \cdot \beta) \cdot a \in K \cdot a$
+
+      Using these laws the subfield is actually a plane.
+      So we look at the more general case in the next theorem.
+  \end{description}
+\end{ex}
+
+\begin{theorem}
+  Let $(V, +, \cdot)$ be a vector space over $K$ with $a_1, \ldots, a_n \in V$.
+
+  A \emph{linear combination} of vectors $a_1, \ldots, a_n$ is a vector of structure
+  \[ \lambda_1 \cdot a_1 + \lambda_2 \cdot a_2 + \ldots + \lambda_n \cdot a_n \]
+  with $\lambda_i \in K$.
+
+  Let $\emptyset \neq M \subseteq V$, then a linear combination of $M$ is a vector of structure
+  \[ \lambda_1 \cdot a_1 + \lambda_2 \cdot a_2 + \ldots + \lambda_n \cdot a_n \]
+  with $a_i \in M$, $\lambda_i \in K$ and $n \in \mathbb N$.
+
+  Construction of arbitrary finitely many vectors.
+
+  \[ L(M) = \setdef{\lambda_1 a_1 + \ldots + \lambda_n a_n}{n \in \mathbb N, a_i \in M, \lambda_i \in K} \]
+  is the set of all linear combinations.
+  We define $L(\emptyset) \coloneqq \set{0} = [\emptyset]$.
+
+  \[ L(\set{a}) \stackrel!= \setdef{\lambda \cdot a}{\lambda \in K} = K \cdot a = [\set{a}] \]
+\end{theorem}
+
+\begin{theorem}
+  \label{satz-3-12}
+  Let $(V, +, \cdot)$ be a vector space over $K$.
+  \[ M \subseteq V \text{ as subset} \]
+  Then $[M] = L(M)$.
+\end{theorem}
+
+\begin{proof}
+  Show that,
+  \begin{itemize}
+    \item $[M] \subseteq L(M)$ therefore $L(M)$ is subspace which contains $M$.
+    \item $L(M) \subseteq [M]$ therefore every subspace containing $M$, contains also $L(M)$.
+  \end{itemize}
+
+  We need to show $M \subseteq L(M)$.
+  $L(M)$ is a subspace.
+  \begin{description}
+    \item[U1] $L(M) \neq \emptyset$
+      if $M = \emptyset \Rightarrow$ by definition.
+      If $M \neq \emptyset \Rightarrow M \subseteq L(M)$.
+  \end{description}
+
+  $M \subseteq L(M)$. Let $a \in M \Rightarrow a = 1 \cdot a \in L(M)$
+  \[ n = 1 \qquad a_1 = a \qquad \lambda_1 = 1 \]
+
+
+  $M \subseteq L(M)$.
+  $L(M)$ is a subspace.
+
+
+  Subfield:
+  Let $u,v \in L(M)$ and $\lambda, \mu \in K$. Then also $\lambda u + \mu v \in L(M)$.
+  Let $u = \lambda_1 a_1 + \ldots + \lambda_m a_m$ with $\lambda_i \in K$ and $a_i \in M$.
+  Let $v = \mu_1 b_1 + \ldots + \mu_n b_n$ with $\mu_i \in K, b_i \in M$.
+
+  \begin{align*}
+      \lambda u + \mu v
+        &= \lambda(\lambda_1 a_1 + \ldots + \lambda_m a_m) + \mu(\mu_1 b_1 + \ldots \mu_n b_n) \\
+        &= \lambda \lambda_1 + \ldots + \lambda \lambda_m a_m + \mu \mu_1 b_1 + \ldots + \mu \mu_n b_n \\
+        &= v_1 c_1 + \ldots + v_{m+n} c_n \in L(M)
+  \end{align*}
+  with
+  \[
+    c_i = \begin{cases}
+      a_i & i \leq m \in M \\
+      b_{i-m} & i \geq m + 1
+    \end{cases}
+  \] \[
+    v_i = \begin{cases}
+      \lambda \cdot \lambda_i & i \leq i \leq n \\
+      \mu \mu_{i-m} & m + 1 \leq i \leq m+n
+    \end{cases}
+  \]
+\end{proof}
+
+\meta{lecture}{16th of Nov 2015}{Franz Lehner}
+
+\subsection{Revision}
+
+\[ U \subseteq V \qquad U \neq \emptyset \]
+\begin{description}
+  \item[(1)] $U \neq \emptyset$
+  \item[(UR)] $a, b \in U \rightarrow \lambda a + \mu b$
+\end{description}
+
+Therefore every linear combination is also in $U$.
+
+\[ M \subseteq V \text{ subset} \]
+\[ [M] = \text{ smallest vector space which contains } V \coloneqq \bigcap_{U \subseteq V} U \supseteq \set{0} \]
+
+\[ L(M) = \setdef{\lambda v_1 + \ldots + \lambda_n v_n}{n \in \mathbb N, \lambda \in K, v_n \in M} \]
+
+\begin{theorem}
+  \[ [M] = L(M) \]
+  \[ [M] \subseteq L(M) \]
+  \[ L(M) \subseteq [M] \]
+\end{theorem}
+
+\TODO
+
+\begin{proof}
+  It suffices to show, that every subspace $U$, which contains $M$, contains also $L(M)$.
+  Every $U$ in intersection $\bigcap_{\substack{U \\ M \subseteq U}} U$ contains also $L(M)$.
+  \[ \lambda_1, \ldots, \lambda_n \in K \Rightarrow L(M) \subseteq \bigcap_{U} U \]
+  Let $v_1,$
+\end{proof}
+
+\begin{rem}
+  If $M \subseteq V$ is itself a subvector space
+  \[ \Rightarrow [M] = M \]
+  \begin{itemize}
+    \item ?? arbitrary ??
+    \item Regarding notation: ?? \TODO
+  \end{itemize}
+
+  Notation:
+  \[ \sum_{a \in M} \lambda_a \cdot a \]
+  \TODO
+\end{rem}
+
+\begin{ex}
+  \[ V = \mathbb R^3 \qquad K = \mathbb R \]
+  \[ M = \set{\begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}} \]
+  \[ [M] = L(M) = \setdef{\lambda \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} + \mu \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}}{\lambda, \mu \in \mathbb R} \]
+  \[ = \setdef{\begin{pmatrix} \lambda \\ \lambda \\ \lambda + \mu \end{pmatrix}}{\lambda, \mu \in \mathbb R} \]
+  \[ = \setdef{\begin{pmatrix} \lambda \\ \lambda \\ \mu' \end{pmatrix}}{\lambda, \mu' \in \mathbb R} \]
+  \[ = \setdef{\begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix}}{x_1 = x_2} \]
+\end{ex}
+
+\begin{ex}
+  \[ V = (\mathbb Z_3)^3 \qquad K = \mathbb Z_3 \]
+  \[ V = \setdef{\begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix}}{x \in \mathbb Z_3} \]
+  \[ \card{(Z\mathbb Z_3)^3} = 3^3 = 27 \]
+  \[ M = \set{\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}} \]
+  \[ L(M) = \setdef{\lambda_1 \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + \lambda_2 \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} + \lambda_2 \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}}{\lambda_1, \lambda_2, \lambda_3 \in \mathbb Z_3} \]
+  \[ = \setdef{\begin{pmatrix} \lambda1_ + \lambda_3 \\ \lambda_1 + \lambda_2 \\ \lambda_2 + \lambda_3 \end{pmatrix}}{\lambda_2 \in \mathbb Z^3} \]
+  \[
+      = \setdef{\begin{pmatrix}\mu_2 \\ \mu_1 \\ \mu_2 \end{pmatrix}}{\mu_1, \mu_2 \in \mathbb Z_3}
+      = L(\set{\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}})
+  \] \TODO \[
+      \Rightarrow \text{ vector } \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} \text{ is useless}
+  \]
+  \[
+      \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}
+      \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} +
+      \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} \in
+      L(\set{\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}})
+  \]
+\end{ex}
+
+\begin{rem}
+  \[ M \subseteq V \text{ subset} \]
+  Let $a \in L(M)$ then $L(M) = L(M \cup \set{a})$.
+  Therefore linear hull does not increase.
+
+  \TODO
+
+  Let
+  \[ w \in L(M \cup \set{a}) \]
+  \[ \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_k} \bigvee_{\lambda_1, \ldots, \lambda_k} w = \lambda_1 w_1 + \lambda n w_n \]
+  \TODO
+
+  Case distinction:
+  \begin{description}
+    \item[Case 1] all $w \in M \Rightarrow  w \in L(M)$
+    \item[Case 2] one of the $w_i$ equals $a$.
+      Wlog. $w_1 = a$. Therefore $w_i \neq a$ for $i \neq 1$.
+      \[ w = \lambda_1 a + \lambda_2 w_2 + \ldots + \lambda_k w_k \]
+      \[
+        \underbrace{= \lambda_1(\mu_1 v_1 + \ldots + \mu_n v_n) + \lambda_2 w_2}_{\text{all } v_k, w_k \in M}
+        + \ldots + \lambda_k w_k \in L(M)
+      \]
+  \end{description}
+  In other words, let $a \in M$, if $a \in L(M \setminus \set{a})$ then $L(M) = L(M \setminus \set{a})$.
+
+  Question: Is there always a minimal generating system? Can we determine whether $M$ is minimal?
+\end{rem}
+
+\begin{defi}
+  Let $(V, +)$ be a vector space over $K$.
+  A tuple $(v_1, \ldots, v_k) \in V$ is called linear independent, iff
+  \[ \bigwedge_{\lambda_1, \ldots, \lambda_n \in K} {\lambda}_1 v_1 + \lambda_2 v_2 + \ldots + \lambda_n v_n = 0 \]
+  \[ \Rightarrow \lambda_1 = \lambda_2 = \ldots = \lambda_n = 0 \]
+\end{defi}
+
+\begin{ex}
+  \[ \begin{pmatrix}1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} \]
+  is linear independent.
+  \[ \lambda_1 \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} + \lambda_2 \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \]
+  \[ \begin{pmatrix} \lambda_1 \\ \lambda_2 \\ \lambda_1 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \]
+  \[ \Rightarrow \lambda_1 = 0 \land \lambda_2 = 0 \]
+\end{ex}
+
+\begin{ex}
+  \[ \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} \]
+  is not linear independent!
+  \[ \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \]
+  \[ \lambda_1 =  1 \qquad \lambda_2 = 1 \qquad \lambda_3 = -1 \]
+\end{ex}
+
+\begin{theorem}
+  For a family $(U_i)_{i \in I}$ mit an arbitrary index set $I$ is called linear independent
+  iff
+  \TODO
+\end{theorem}
+
+\begin{theorem}
+  A subset $M \subseteq V$ is called linear independent if for every subfamily $v_1, \ldots, v_n$ every pairwise distinct $v_i \in M$ are linear independent.
+  A \emph{family} $(v_i)_{i \in I}$ is a mapping
+  \[ f: I \rightarrow V \]
+  \[ i \mapsto v_i \]
+  In comparison with sets elements are allowed to have duplicates. Every element has a fixed index.
+  An $n$-tuple is a finite family: mapping $\set{1, \ldots, n} \rightarrow V$.
+\end{theorem}
+
+\begin{theorem}
+  A rather informal statement:
+  \enquote{The vectors $v_1, \ldots, v_k$ are linear independent} iff the tuples $(v_1, \ldots, v_n)$ are linear independent.
+\end{theorem}
+
+\begin{defi}
+  % TODO: verify
+  $(v_i)_{i \in \emptyset}$ is defined to be linear independent.
+\end{defi}
+
+\begin{cor}
+  A one-tuple is linear dependent.
+  \[ 1 \cdot 0 = 0 \]
+  An $n$-tuple $v$ is linear independent iff $v \neq 0$.
+  If $v \neq 0$ and $\lambda v =0$, then $\lambda = 0$ must hold.
+\end{cor}
+
+\begin{cor}
+  Let
+  \[ (v_1, \ldots, v_n) \subseteq V \]
+  be a tuple. If $v_k = 0$ for some $k$, then $(v_1, \ldots, v_k)$ is linear dependent.
+  \[ 0 \cdot v_1 + 0 \cdot v_2 + \ldots + 1 \cdot v_k + 0 \cdot k_{k + 1} + \ldots + 0 \cdot v_n = 0 \]
+  \[
+      \lambda_1 = \begin{cases}
+        1 & i = k \\
+        0 & i \neq k
+      \end{cases}
+  \]
+\end{cor}
+
+\begin{cor}
+  If $v_k = v_l$ for some $k \neq l$, then $(v_1, \ldots, v_n)$ is linear dependent.
+  \[ 0 v_1 + \ldots + 0 v_{k - 1} + 1 \cdot v_k + 0 \cdot v_{k+1} \]
+  \[  \ldots (-1) v_l + 0 v_{l+1} + \ldots + 0 \cdot v_n = 0 \]
+  \[
+    \lambda_1 = \begin{cases}
+      1  & i = k \\
+      -1 & i = l \\
+      0  & \text{else}
+    \end{cases}
+  \]
+\end{cor}
+
+\begin{cor}
+  If $M \subseteq V$ is linear independent and $N \subseteq M$,
+  $N$ is also linear independent.
+\end{cor}
+
+\begin{cor}
+  \[ (v_1, \ldots, v_n) \text{ is linear independent} \]
+  \[ \bigvee_{\lambda_1, \ldots, \lambda_n \in K} \lambda_1 v_1 + \ldots + \lambda_n v_n = 0 \]
+  \[\Rightarrow \bigvee_{k \in \set{1, \ldots, n}} \bigvee_{\lambda_1, \ldots, \lambda_n} v_l = \lambda_1 v_1 + \ldots + \lambda_n v_n \]
+
+  Therefore one vector exists which can be represented using the other vectors.
+\end{cor}
+
+\begin{ex}
+  \[ \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \]
+  are linear independent.
+  \[ \lambda_1 \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} + \lambda_2 \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} \lambda_1 \\ \lambda_1 \\ \lambda_1 + \lambda_2 \end{pmatrix} \stackrel?= \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \]
+\end{ex}
+
+\begin{ex}
+  \[ \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} \]
+  is linear independent. But
+  \[ \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} \]
+  is linear independent.
+
+  \[ \lambda_1 = 0 \qquad \lambda_1 + \lambda_2 = 0 \]
+  \[ \Rightarrow \lambda_1 - \lambda_2 = 0 \]
+\end{ex}
+
+\begin{cor}
+  \[ V = K^n \]
+  The unit vector is defined as
+  \[ e_i = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} \]
+  where the $1$ is given in row $i$.
+
+  $(e_1, \ldots, e_n)$ is linear independent.
+  \[ \lambda_1 e_1 + \ldots + \lambda_n e_n = \begin{pmatrix} 0 \\ \vdots \\ 0 \end{pmatrix} \]
+  then for all $\lambda_i = 0 $.
+\end{cor}
+
+\begin{theorem}
+  Let $v_1, \ldots, v_n \in V$. Then it holds equivalently,
+  \begin{enumerate}
+    \item $(v_1, \ldots, v_n)$ is linear independent.
+    \item
+        $\bigwedge_{v \in L(\set{v_1, \ldots, v_n})} \bigwedge_{\lambda_1, \ldots, \lambda_n \in K} v
+        = \lambda_1 v_1 + \ldots + \lambda_n v_n$
+    \item $\bigwedge_{k \in \set{1, \ldots, n}} v_k \not\in L(\set{v_1, v_{k-1}, v_{k+1}, \ldots, v_n})
+        = \set{v_1, \ldots, v_{\hat{k}}, \ldots, v_n}$
+    \item $\bigwedge_{k \in \set{1, \ldots, n}} L(\set{v_1, \ldots, v_{k-1} v_{l+1}, \ldots, v_n})
+        \not\in L(\set{v_1, v_2, \ldots, v_n})$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Circle conclusion:$ 1 \rightarrow 2 \rightarrow 3 \rightarrow 4 \rightarrow 1$.
+
+  For every $v \in L(v_1, \ldots, v_n)$, $\bigwedge_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n$.
+  But is it unique? Assume $v = \mu_1 v_1 + \ldots + \mu_n v_n$.
+  Show that for all $\lambda_i = \mu$.
+  \[ \Rightarrow v - v = \lambda_1 v_1  + \ldots + \lambda_n v_n - (\lambda_1 v_1 + \ldots + \lambda_n v_n) \]
+  \[ 0 = (\lambda_1 - \mu_1) v_1 + (\lambda_2 - \mu_2) v_2 + \ldots + (\lambda_n - \mu_n) v_n \]
+  linear independence $\Rightarrow \mu_1 - \mu = 0  \qquad \lambda_n - \mu_n = 0$
+  Therefore for all, $\lambda_i = \mu_i$.
+
+  Assume \[ \bigvee_k U_k \in L(\set{v_1, \ldots, v_{\hat{k}}, \ldots, v_n}) \]
+  \[ \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} v_k = \lambda_1 v_1 + \ldots + \lambda_{n-1} N_{k-1} + 0 + \lambda_{k+1} v_{k+1} + \ldots + \lambda_n v_n \]
+  \[ \bigvee_{\lambda_1, \ldots, \lambda_n} v_k = 0 v_1 + \ldots + 0 v_{k-1} + 1 \cdot v_k + 0 v_{k+1} + 0 \cdot v_n \]
+
+  So $v_k$ has two different representations, this is a contradiction.
+
+
+  \TODO
+
+
+  Let $\lambda_1 v_1 + \ldots + \lambda_n v_n = 0$.
+  Show that all $\lambda_i = 0 $.
+  Assume $\bigwedge_{k} v_k = 0$.
+  \[ \Rightarrow \lambda \]
+  \TODO
+
+  \[ \Rightarrow v_k \in L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) \]
+  \[ \Rightarrow L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) = L(\set{v_1, \ldots, v_k, \ldots, v_n}) \]
+
+  This is a contradiction to (4).
+\end{proof}
+
+\meta{lecture}{17th of November 2015}{Franz Lehner}
+
+\[ \underbrace{[M]}_{\text{smallest subspace} \supseteq M} = \underbrace{L(M)}_{\text{set of all linear combinations}} \]
+
+Conditions (from yesterday):
+\begin{align*}
+  &\Leftrightarrow \bigwedge_{v \in L(\set{v_1, \ldots, v_n})} \dot\bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n \\
+  &\Leftrightarrow \bigwedge_k v_k \not\in L(\set{v_1, \ldots, \hat{v_{k}}, \ldots, v_n}) \\
+  &\Leftrightarrow \bigwedge_{v \in L(M)} \bigvee_{n \in \mathbb N} \dot\bigvee_{v_1, \ldots, v_n \in M} \bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n
+\end{align*}
+
+In general: $M \subseteq V$ is called linear independent, if every subfamily of $p_n$ different element is linear independent.
+
+\[ L(M) = V \]
+
+\begin{defi}
+  \begin{itemize}
+    \item A family/set $S \subseteq V$ is called \emph{generating system} if $V = [S] = L(S)$.
+      \enquote{$V$ is generated by $S$.}
+    \item $V$ is called \emph{finitely generated} if a finite generating system exists.
+    \item A \emph{basis} of a vectorspace $V$ is a linear independent generating system.
+      Therefore a family $B = (b_i)_{i \in I} \subseteq V$ such that $L(B) = V$, $B$ is linear independent.
+  \end{itemize}
+\end{defi}
+
+\begin{rem}
+  \begin{itemize}
+    \item
+      $(b_i)_{i \in I}$ is a basis of $V$. If
+      \begin{itemize}
+        \item every element is a linear combination of a finite subfamily $b_{i_1}, \ldots, b_{i_n}$.
+        \item every finite subfamily is linear independent.
+      \end{itemize}
+    \item
+      $(b_i)_{i \in \emptyset}$ is basis of $\set{0}$.
+    \item
+      if $(b_1, \ldots, b_n)$ is a basis of $V$ then also every permutation $(b_{i_1}, \ldots, b_{i_n})$ (addition is commutative).
+  \end{itemize}
+\end{rem}
+
+\begin{ex}
+  In $K^n$.
+  Let $e_i = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}$ be the unit vector,
+  then $(e_1, e_2, \ldots, e_n)$ is a basis of $K^n$; specifically called \emph{canonical basis} (or \emph{standard basis}).
+\end{ex}
+
+\begin{rem}
+  $e_i$ is linear independent.
+  \[
+      \sum_{i=1}^n \lambda_i e_i
+      = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}
+      = 0
+  \]
+  \[ \Leftrightarrow \text{ all } \lambda_i = 0 \]
+  Every vector is reachable by a linear combination of $e_i$.
+\end{rem}
+
+\begin{ex}
+  \[ K[X] \coloneqq V = K^{\mathbb N_0} = \setdef{(a_n)_{n \geq 0}}{a_n \in K} \]
+  Is the vector space of all sequences.
+  \[ e_i = (0, \ldots, 1, 0, \ldots) \qquad i \in \mathbb N_0 \]
+  where $1$ is given on the i-th position.
+  If $\sum \lambda_i e_i = (0, 0, \ldots) \Rightarrow$  all $\lambda_i = 0$
+  and $(\lambda_0, \lambda_1, \ldots) \Rightarrow (e_i)_{i \in \mathbb N_0}$ is linear independent.
+
+  Is not a basis, because $1$ can never be reached.
+  \[ (1, 1, 1, 1, \ldots) \in \mathbb R^{\mathbb N_0} \]
+  \[ \sum_{i=0}^n e_i = (1, 1, 1, \ldots, 1, 0, 0, 0, \ldots) + (1, 1, 1, \ldots) \]
+  for all $n \in \mathbb N$. In linear combinations only finitely many summands are allowed.
+  \[ L\left((e_i)_{i \in \mathbb N_0}\right) = \text{ vector space of all sequences } (a_n)_{n \in \mathbb N_0} \text{ with arb. many } a_n \neq 0 \]
+  is a subspace: $(a_1, \ldots, a_n, 0, \ldots, 0) + (b_1, \ldots, b_n, 0, \ldots, 0)$.
+  Without loss of generality: $m \leq n$.
+  \[ = (a_1 + b_1, \ldots, a_m + b_m, b_{m+1}, \ldots, b_n, 0, \ldots, 0) \]
+  $(e_i)_{i \in \mathbb Z_0}$ is a basis of $K[X]$; the vector space of polynomials and vector space of finite sequences.
+\end{ex}
+
+We identify the vector space of finite sequences with the vector space of formal polynomials:
+\[ K[X] = \setdef{a_0 + a_1 x + \ldots + a_n x^n}{n \in \mathbb N_0, a_i \in K} \]
+\begin{align*}
+    &= (a_0 + a_1 x + \ldots + a_n x^n) + (b_0 + b_1 x + \ldots + b_n x^n) \\
+    &= (a_0 + b_0) + (a_1 + b_1)x + \ldots + (a_m + b_m)x^m + b_{m+1} x^{m+1} + b_n x^n
+\end{align*}
+Without loss of generality
+
+Instead of a unit vector $e_i$ the formal polynomial $x^i$ occurs.
+\[ \Rightarrow (x^n)_{n \geq 0} \text{ is a basis of } K[X] \]
+\[ \deg{p(x)} = \max\setdef{i}{a_i \neq 0} = n \]
+is the \emph{degree of the polynomial}.
+\[ p(x) = a_0 + q_1 x + q_x x^2 + \ldots a_n x^n \]
+\[ \deg{0} \coloneqq -\infty \]
+
+Every formal polynomial $p(x) = a_0 + a_1 x + \ldots + a_n x^n$ induces a polynomial function
+\[ K \rightarrow K \]
+\[ \xi \mapsto a_0 + a_1 \xi + \ldots + a_n \xi^n \in K \]
+
+If $K$ has infinite cardinality, then the polynomial function defines the formal polynomial uniquely.
+
+\begin{theorem}
+  \textbf{Attention!} This does not hold if the field is finite!
+\end{theorem}
+\begin{proof}
+  There are $\card{K^K} = \card{K}^{\card{K}}$ different functions of $K \rightarrow K$.
+  For example for $K = \mathbb Z_2$ there are $2^2$ functions in $\mathbb Z_2 \rightarrow \mathbb Z_2$.
+  \[ \mathbb Z_2[x] = \setdef{a_0 + a_1 x + \ldots + a_n x^n}{n \in \mathbb N_0, a_n \in \mathbb Z_2} \]
+  There are $2^{n+1}$ polynomials of degree $n$. So they cannot be unique (no bijective function can exist
+  to map $2^2$ elements to $2^{n+1}$ elements).
+\end{proof}
+
+Does $K^{\mathbb N_0}$ have a basis?
+Does every vector space have a basis?
+
+\begin{theorem}
+  Every vector space has a basis.
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[Case 1]
+      $V$ is generated finitely.
+
+      Let $(v_1, \ldots, v_n)$ be a finite generating system. If $(v_1, \ldots, v_n)$ is linear independent, we are done.
+      Otherwise we already know that (by a previous theorem)
+      \[ \bigvee_{k \in \set{1, \ldots, n}} v_k \in L(v_1, \ldots, \hat{v_k},  v_n) \]
+      \[ \Rightarrow L(v_1, \ldots, v_n) = L(v_1, \ldots, \hat{v_k}, \ldots, v_n) = V \]
+      \begin{itemize}
+        \item is this set linear independent, then this set is a basis.
+        \item if not, then repeat this step.
+      \end{itemize}
+
+      Because originally only finitely many $v_i$ were given, this algorithm must terminate after finitely many steps.
+      The resulting system is linear independent and a generating system.
+      Therefore the result is a basis.
+
+      This algorithm fails for $V$ which are not generated finitely.
+  \end{description}
+
+  Every vector space has a basis iff you believe in the axiom of choice.
+\end{proof}
+
+\index[English]{Axiom of choice}
+\index[German]{\foreignlanguage{ngerman}{Auswahlaxiom (axiom of choice)}}
+\index[English]{Hausdorff-Banach-Tarski paradoxon}
+\index[German]{\foreignlanguage{ngerman}{Hausdorff-Banach-Tarski Paradoxon}}
+\begin{rem}
+  Whether every vector space has a basis depends on your faith in the Axiom of Choice (AC).
+
+  The axiom of choice states: Let $(S_i)_{i \in I}$ be a family of sets.
+  Then some $(x_i)_{i \in I}$ exist such that $\bigwedge_{i \in I} x_i \in S_i$.
+
+  Example 1:
+  \[ (A)_{A \subseteq \mathbb N} \]
+  $(x_A){A \subseteq \mathbb N}$ such that $x_A = \min{A}$.
+  A selection was made for every subset.
+
+  Example 2:
+  \[ (A)_{A \subseteq \mathbb R} \]
+  $(x_A)_{A \subseteq \mathbb R}$ such that $x_A \in A \forall A$.
+  Such a selection cannot be made.
+
+  Constructivists: You cannot state it explicitly, so it is not true. \\
+  General mathematicians: Well, we cannot state it, but just take one.
+
+  A consequence of the axiom of choice is the \href{https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox}{Hausdorff-Banach-Tarski paradox}:
+
+  Consider a sphere in $\mathbb R^3$.
+  Cut the sphere in 5 parts.
+  Then you can move the parts such that two identical copies of the original sphere is created.
+
+  The Hausdorff-Banach-Tarski paradox is equivalent to the axiom of choice.
+
+  Constructivists do not believe in the axiom of choice and therefore the Hausdorff-Banach-Tarski paradox does not hold.
+  The majority of mathematicians assume the axiom of choice, but following they need to accept the Hausdorff-Banach-Tarski paradox.
+\end{rem}
+
+\index[English]{Zermelo-Fraenkel set theory (ZF)}
+\index[German]{Zermelo-Fraenkel Mengenlehre (ZF)}
+\begin{rem}
+  The axiom of choice is \TODO of the other axioms of Zermelo-Fraenkel set theory (ZF).
+  If ZF is contradiction-free, so is ZF + AC.
+\end{rem}
+
+\begin{theorem}
+  \label{thm:vector-space-statements}
+  Let $V$ be a vector space over $K$
+  \[ B = (b_i)_{i \in I} \subseteq V \]
+  Then it holds equivalently, that
+  \begin{enumerate}
+    \item $B$ is a basis.
+    \item Every $v \in V$ can be represented uniquely as linear combination of $B$:
+      \[
+          \bigwedge_{v \in V} \bigvee_{n} \dot\bigvee_{i_1, \ldots, i_n} \dot\bigvee_{\lambda_1, \ldots, \lambda_n} v
+          = \lambda_1 v_{i,1} + \ldots + \lambda_n b_{i,n}
+      \]
+    \item $B$ is a maximal linear independent family.
+    \item $B$ is a minimal generating system.
+  \end{enumerate}
+\end{theorem}
+
+\index[English]{Minimal generating system}
+\index[German]{Minimales Erzeugendensystem}
+\begin{rem}
+  What does \emph{minimal} mean?
+
+  Minimal means no smaller generating system exists.
+  Minimal does not mean, it is the smallest generating system.
+
+  Example:
+  \[ \mathbb R^2: \set{\begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix}} \]
+  is a generating system. This is also a generating system:
+  \[ \set{\begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \end{pmatrix}} \]
+  is also a generating system.
+\end{rem}
+
+\begin{proof}
+  We prove Theorem~\ref{thm:vector-space-statements}.
+
+  We use circular reasoning (dt. Zirkelschluss).
+  \begin{description}
+    \item[$1 \rightarrow 2$]
+      Basis $\Rightarrow L(B) = V$ \\
+      Let $v \in V \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}$.
+
+      We need to show uniqueness of representation: Assume $v = \mu_1 b_{j_1} + \mu_2 b_{j_2} + \ldots + \mu_m b_{j_m}$.
+      We fill up the vectors such that $m = n$ and $j_k = i_k$.
+
+      Therefore
+      \[ v = \mu_1 \cdot b_{j_1} + \ldots + \mu_n b_{i_n} \]
+      \[
+          \Rightarrow 0 = v - v = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}
+          - (\mu_1 b_{i_1} + \ldots + \mu_n b_{i_n})
+          = (\lambda_1 - \mu_1) b_{i_1} + \ldots + (\lambda_n - \mu_n) b_{i_n}
+      \]
+      $(b_i)$ are linear independent $\Rightarrow \bigwedge_{k \in \set{1, \ldots, n}} \lambda_k = \mu_k$.
+    \item[$2 \rightarrow 1$]
+      From 2 it follows that $L(B) = V$.
+      Show that it is linear independent.
+
+      Let $\lambda_1 + b_{i_1} + \ldots + \lambda_n b_{i_n} = 0$.
+      Condition 2 for the vector $v = 0$ implies that it is the same representation
+      like $0 b_{i_1} + \ldots + 0 b_{i_n} = 0$.
+      So have two representations of the vector $v = 0$.
+      $\Rightarrow$ all $\lambda_k = 0$. Therefore $B$ is linear independent and therefore a linear basis.
+    \item[$1 \rightarrow 3$]
+      From 1 it follows that $B$ is linear independent.
+      $B$ maximal means that $\bigwedge_{v \in V\setminus B} B' = B \cup \set{v}$ is not linear independent any more.
+
+      Let $v \in V \setminus B$, but $L(B) = V$ there exists $\lambda_1, \ldots, \lambda_n$ and $b_{i_1}, \ldots, b_{i_n}$
+      such that $v = \lambda_1 b_{i_1} + \ldots + \lambda_{n} b_{i_n}$.
+      Therefore $\lambda_1 b_{i_1} + \lambda_2 b_{i_2} + \ldots + \lambda_n b_{i_n} - v = 0$
+      Then a linear combination of $B \cup \set{v}$ is the coefficient of $v$. $-1 \neq 0$.
+      $\Rightarrow B' \cup \set{v}$ is not linear independent.
+    \item[$3 \rightarrow 4$]
+      Let $B$ be a maximal linear independent family.
+
+      \begin{enumerate}
+        \item Show that $B$ is generating system and minimal.
+
+          Every $v \in V$ is contained in $L(B)$. Let $v \in V$.
+          Case distinction:
+          \begin{itemize}
+            \item $v \in B \Rightarrow v \in L(B)$
+            \item $v \not\in B$.
+              From 3 it follows that $B \cup \set{v}$ is linear dependent.
+              \[
+                  \Rightarrow \bigvee_{\lambda_0, \lambda_1, \ldots, \lambda_n} \bigvee_{b_{i_1}, \ldots, b_{i_n} \in B}
+                  \lambda_0 v + \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n} = 0
+              \]
+              But not all $\lambda_0, \ldots, \lambda_n$ can be 0.
+              If it would hold that $\lambda_0 = 0$, then $\lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n} = 0$.
+              \[ \Rightarrow \lambda_i = 0 \text{ because } B \text{ is linear independent} \]
+              Therefore $\lambda_0$ cannot be $0$.
+
+              $\lambda_i \neq 0 \Rightarrow \text{ division allowed}$.
+              \[ \lambda_0 \cdot v = -\lambda_1 v_{i_1} - \ldots - \lambda_n b_{i_n} \]
+              \[ \Rightarrow v = -\frac{\lambda_1}{\lambda_0} b_{i_1} + \ldots - \frac{\lambda_1}{\lambda_0} b_{i_n} \in L(B) \]
+
+              This holds for every $v \in V$, therefore $V = L(B)$.
+            \item
+              $B$ is a minimal generating system.
+              Assume $B' = B \setminus \set{b_{i_0}}$ is also generating system.
+              Therefore \[ L(B \setminus \set{b_{i_0}}) = V \]
+              \[ \Rightarrow b_{i_0} \in L(B \setminus \set{b_{i_0}}) \]
+              \[ \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} \bigvee_{i_1, \ldots, i_n \neq i_0} = \lambda 1 b_{i_1} + \ldots + \lambda_n b_{i_n} \]
+              \[ \Rightarrow \lambda_n b_{i_1} + \ldots + \lambda_n b_{i_n} - b_{i_0} = 0 \]
+              The coefficient of $b_{i_0}$ is $\lambda_0 = - 1 \neq 0$.
+              This contradicts, because $B$ is linear independent.
+          \end{itemize}
+      \end{enumerate}
+  \end{description}
+\end{proof}
+
+\meta{lecture}{23rd of November 2015}{Franz Lehner}
+
+\subsection{Revision}
+
+A basis is a linear independent generating system.
+
+\[ \lambda_1 b_1 + \dots + \lambda_n b_n = 0 \]
+\[ \Rightarrow \lambda_i = 0 \]
+
+$v=0$ has a unique representation as linear combination of the basis $B$.
+
+\begin{theorem}
+  \label{3-24}
+  Let $V$ be a vector space. Let $B$ be a basis $(b_i)_{i \in I} \subseteq V$.
+  Then the following statements are equivalent:
+  \begin{enumerate}
+    \item $B$ is a basis.
+    \item Every $v \in V$ has a unique representation as linear combination of $B$.
+    \item $B$ is a maximal linear independent family.
+    \item $B$ is a minimal generating system.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  We have already shown 1 to 3 to 4. We prove 4 to 1.
+
+  Let $B$ be a minimal generating system. Show that $B$ is linear independent.
+  Proof by contradiction.
+
+  Assume $B$ is not linear independent.
+  Then there are coefficients $(\lambda_1, \dots, \lambda_n) \neq (0, \dots, 0)$
+  such that
+  \[ \lambda_1 b_{i_1} + \dots + \lambda_n b_{i_n} = 0 \]
+  There exists some $k$ such that $\lambda_k \neq 0$.
+  \[ \Rightarrow \lambda_k \cdot b_{i_k} = -\sum_{j\neq k} \lambda_k \]
+  \[ b_{i_k} = -\sum_{j\neq k} \frac{\lambda_j}{\lambda_k} b_{i_j} \]
+  \[ \Rightarrow b_{i_k} \in L(B \setminus \set{b_{i_k}}) \]
+  \[
+    L(B \setminus \set{b_{i_k}})
+    = L(B \setminus \set{b_{i_k}}) \cup \set{b_{i_k}}
+    = L(B) = V
+  \]
+  $B \setminus \set{b_{i_k}}$ is also a generating system, but smaller.
+  So $B$ is not minimal.
+\end{proof}
+
+How can we construct/find bases?
+
+\index[English]{Exchange lemma}
+\index[German]{\foreignlanguage{ngerman}{Austauschlemma}}
+\begin{theorem}[Exchange lemma]
+  \label{lemma-3-26}
+  Let $B = (b_1, \ldots, b_n)$ be basis in vector space $V$.
+  Let $v \in V \setminus \set{0}$ with $v \neq 0$.
+  Let
+  \[ v = \sum_{i=1}^n \lambda_i \cdot b_i \]
+  If $\lambda_k \neq 0$ then $B' = (b_1, \dots, b_{k-1}, v, b_{k+1}, \dots, b_n)$ is also a basis of $V$.
+\end{theorem}
+
+\begin{proof}
+  We need to show that
+  \begin{itemize}
+    \item $B'$ is linear independent.
+    \item $B'$ is generating system.
+  \end{itemize}
+
+  \begin{enumerate}
+    \item
+      Let $\mu_1, \dots, \mu_k \in K$.
+      \[ \mu_1 b_1 + \ldots + \mu_{k-1} b_{k-1} + \mu_k v + \mu_{k+1} b_{k+1} + \dots + \mu_n b_n = 0 \]
+
+      Show that all $\mu_i = 0$.
+      \begin{align*}
+        0 &= \sum_{i \neq k} \mu_i b_i + \mu_k v \\
+          &= \sum_{i \neq k} \mu_i b_i + \mu_k \left(\sum_{i=1}^n \lambda_i \cdot b_i\right) \\
+          &= \sum_{i \neq k} \mu_i b_i + \sum_{i \neq k} \mu_k \lambda_i b_i + \mu_k \lambda_k b_k \\
+          &= \sum_{j \neq k} (\mu_k + \mu_k \lambda_i) b_i + \mu_k \lambda_k b_k \\
+          &= \text{ is linear combination of B}
+      \end{align*}
+
+      \[ \mu_k \cdot \lambda_k = 0 \xRightarrow{\lambda_k \neq 0} \mu_k = 0 \]
+      \[ \Rightarrow \mu_i + \mu_k \lambda_i = 0 \Rightarrow \mu_i = 0 \text{ for all } i \neq k \]
+      \[ \Rightarrow \forall \mu_i = 0 \]
+    \item $L(B') = V$.
+      It suffices t show that $b_k \in L(B')$.
+
+      Then it holds that
+      \[ L(B') = L(B' \cup \set{b_k}) \]
+      \[ B' \cup \set{b_k} = (B \setminus \set{b_k}) \cup \set{b_k} \cup \set{v} = B \cup \set{v} \]
+      \[ \Rightarrow L(B \cup \set{v}) \supseteq L(B) = V \quad\checkmark \]
+      \[ v = \sum_{i=1}^n \lambda_i b_i = \sum_{i \neq k} \lambda_i b_i + \lambda_k b_k  \Rightarrow \lambda_k b_k = v - \sum_{i \neq k} \lambda_i b_i \]
+      \[ \lambda_k \neq 0 \Rightarrow b_k = \frac{1}{\lambda_k} v - \sum_{i \neq k} \frac{\lambda_i}{\lambda_k} b_i \in L(B') \]
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Steinitz exchange lemma}
+\index[German]{\foreignlanguage{ngerman}{Austauschlemma von Steinitz}}
+\begin{theorem}[Steinitz exchange lemma]
+  \label{steinitz-lemma}
+  Let $V$ be a vector space over a field $K$.
+  Let $B = (b_1, \ldots, b_n)$ be a basis.
+  Let $(v_1, \dots, v_n) \subseteq V$ be linear independent.
+
+  Then it holds that
+  \begin{itemize}
+    \item $r \leq n$
+    \item The following is a basis of $V$:
+      \[ \bigvee_{i_1, \dots, i_{n+1} \in \set{1, \dots, n}} (v_1, \dots, v_r, b_{i_1}, \dots, b_{i_{n-r}}) \]
+      Followingly $v_1, \dots, v_r$ can be exchanged as basis.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Complete induction over number of elements and using the exchange lemma.
+  \begin{description}
+    \item[induction base $r=1$] \hfill{}
+      \begin{enumerate}
+        \item
+          Let $(v_1)$ be linear independent. Then $v_1 \neq 0$. Then $B \neq \emptyset$.
+          Then $n \geq 1 = r = 1 \quad \checkmark$.
+
+        \item
+          Let $v_1 = \sum \lambda_i b_i \neq 0$.
+          So there exists some $k$ with $\lambda_k \neq 0$.
+          From the exchange lemma it follows that $(v_1, b_1, \dots, b_{k-1}, b_{k+1}, \dots, b_n)$ is a basis.
+      \end{enumerate}
+    \item[induction step $r \rightarrow r+1$] \hfill{} \\
+      Let $v_{1}, \dots, v_{r+1}$ be linear independent.
+      \[ \Rightarrow v_1, \ldots, v_r \text{ is also linear independent} \]
+      \[ \text{induction hypothesis} \Rightarrow \bigvee_{j_1, \dots, j_{n-r}} (v_1 \ldots, v_r, b_{j_1}, \dots, b_{j_{n-r}}) \text{ is a basis} \]
+      \begin{enumerate}
+        \item $r \leq n$
+
+          We need to show that $r+1 \leq n$.
+
+          We already know $r \leq n$ and we need to exclude that $r = n$.
+          In that case $r + 1 \leq n$ holds (with $r < n)$.
+
+          Assume
+          \[ r = n \Rightarrow (v_1, \ldots, v_r) \text{ is a basis} \]
+          \[ \Rightarrow (v_1, \dots, v_r) \text{ is maximal linear independent family} \]
+          \[ \Rightarrow (v_1, \dots, v_{r + 1}) \text{ is not linear independent} \]
+
+          This is a contradiction to our assumption.
+          So $r < n \Rightarrow r+1 \leq n$.
+
+        \item
+          We apply the exchange lemma to $v_{r+1}$ and the basis $(v_1, \dots, v_r, b_{i_1}, \dots, b_{i_{n - r}})$.
+          Let $V_{r+1} = \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^{n-r} \mu_j b_{i_j}$
+          so either $\lambda_i$ or some $\mu_j \neq 0$.
+
+          \textbf{Claim.} At least one $\mu_j \neq 0$. Otherwise $v_1, \dots, v_{r+1}$ is not linear independent
+          because otherwise $v_{r+1} = \sum_{i=1}^n \lambda_i v_i$ would be linear combination of other $v_i$s.
+
+          Let $\mu_k \neq 0$. Then we have a new basis $(v_1, \dots, v_{r+1}, b_{i_1}, \dots, b_{i_{k-1}}, b_{i_{k+1}}, \dots, b_{i_{n-r}})$. So we remove $b_{i_k}$.
+      \end{enumerate}
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  Let $V$ be a vector space over $K$.
+  \begin{itemize}
+    \item If $V$ has a finite basis, then all bases are finite.
+    \item For every two bases $(b_1, \dots, b_m)$ and $(b'_1, \dots, b'_n)$ it holds that $m = n$.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  \begin{itemize}
+    \item
+      Let $(b_1, \dots, b_n)$ be a finite basis of $V$.
+      Let $(v_i)_{i \in I}$ be linear independent in $V$.
+
+      \[ \Rightarrow \bigwedge_{r} v_{i_1}, \dots, v_{i_r} \text{ linear independent} \]
+      \[ \Rightarrow r \leq n \]
+      \[ \Rightarrow \card{I} \leq n \]
+
+      So every basis has at most $n$ elements.
+
+    \item
+      Let $(b'_1, \dots, b'_r)$ be another basis $\Rightarrow$ maximal linear independent family $\Rightarrow r \leq n$.
+      From Steinitz' exchange lemma it follows that
+      \[ \bigvee_{j_1, \dots, j_{n-r}} (b'_1, \dots, b'_r, b_{j_1}, \dots, b_{j_{n-r}}) \text{ is a basis} \]
+      \[ (b'_1, \dots, b'_r) \text{ is maximal linear independent family} \]
+      \[ (b'_1, \dots, b'_r, b_j, \dots, b_{j_{n-r}}) \text{ is also linear independent} \]
+      \[ \Rightarrow n - r = 0 \Rightarrow n = r \]
+  \end{itemize}
+\end{proof}
+
+\begin{rem}
+  \label{3-29}
+  $V$ has a basis. $V$ is finitely generated.
+\end{rem}
+
+\begin{proof}
+  $\Rightarrow$ follows immediately.
+
+  $\Leftarrow$ use negative vectors until linear independent family remains.
+\end{proof}
+
+\index[English]{Dimension of a vector space}
+\index[German]{\foreignlanguage{ngerman}{Dimension (Vektorraum)}}
+\index[German]{\foreignlanguage{ngerman}{Vektorraumdimension}}
+\index[English]{Finitely dimensional}
+\index[German]{\foreignlanguage{ngerman}{Endlich dimensional}}
+\index[English]{Infinitely dimensional}
+\index[German]{\foreignlanguage{ngerman}{Unendlich dimensional}}
+\begin{defi}
+  Let $V$ be a vector space over $K$.
+  Assume $V$ has a finite basis.
+  Then the uniquely determinable number $n = \dim{V}$ is called dimension of the vector space.
+  And $V$ is called \emph{finitely dimensional}.
+
+  Otherwise $\dim{V} = \infty$. $V$ is called \emph{infinitely dimensional}.
+\end{defi}
+
+\begin{ex}
+  \[ \dim{R^3} = 3 \]
+  \[ \dim{\emptyset} = 0 \]
+  \[ \dim{K^n} = n \]
+  \[ \dim{K^m} = \card{M} \]
+  \[ \dim{K[x]} = \infty \text{ \dots vector space of polynomials} \]
+
+  Remember that $K[x] = \setdef{a_0 + a_1 x + \dots + a_n x^n}{n \in \mathbb N \text{ arbitrary}, a_i \in K}$.
+  \[ \Rightarrow (x^n)_{n \in \mathbb N} \text{ is basis } \Rightarrow \dim{K[x]} = \infty \]
+\end{ex}
+
+\begin{theorem}[Basis extension theorem] % TODO translate Basisergänzungssatz
+  (Steinitz' exchange lemma for finite vector spaces)
+
+  Let $V$ be a vector space with $\dim{v} = n < \infty$.
+  Then every linear independent family $(v_1, \dots, v_r)$ can be extended to a basis.
+\end{theorem}
+
+\begin{proof}
+  Let $(b_1, \dots, b_n)$ be a basis.
+  From Steinitz' exchange lemma it follows that $r \leq n$ and
+  \[ \bigvee_{j_1, \dots, j_{n-r}} (v_1, \dots, v_r, b_{j_1}, \dots, b_{j_{n-r}}) \]
+  is basis (maximal linear independent family).
+\end{proof}
+
+\begin{theorem}[Basis selection theorem]
+  If $(v_1, \dots, v_r)$ is a generating system of $V$ (with $\dim{V} = n$).
+  Then $r \geq n$ and $\bigvee_{j_1, \dots, j_n} (v_{j_1}, \dots, v_{j_n})$ is a basis of $V$.
+\end{theorem}
+
+\begin{proof}
+  If $(v_1, \dots, v_r)$ is linear independent, then it is already a basis.
+  If it is linear dependent, then
+  \[ \bigvee_{k} v_k \in L(v_1, \dots, v_{k-1}, v_{k+1}, \dots, v_r) \]
+  \[ \Rightarrow L(v_1, \dots, v_r) = L(v_1, \dots, v_{k-1}, v_{k+1}, \dots, v_r) = V \]
+  We iterate this step until a linear independent family remains.
+\end{proof}
+
+\subsection{Summary for finite vector spaces}
+In a finite generating vector space $V$
+\begin{itemize}
+  \item every basis has the same number of elements ($\dim{V} = n$).
+  \item every linear independent family has at most $\dim{V}$ elements.
+  \item every generating system has at least $\dim{V}$ elements.
+\end{itemize}
+
+\begin{theorem}
+  \label{satz-3-34}
+  Let $V$ be a vector space with $\dim{V} = n \in \mathbb N$.
+  Let $v_1, \dots, v_n \in V$.
+  Then the following statements are equivalent:
+  \begin{enumerate}
+    \item $(v_1, \dots, v_n)$ is basis.
+    \item $L(V_1, \dots, v_n) = V$
+    \item $(v_1, \dots, v_n)$ is linear independent.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[1 to 2] follows immediately.
+    \item[2 to 3]
+      \[ L(v_1, \dots, v_n) = V \]
+      From the basis extension theorem it follows that $v_{i_1}, \dots, v_{i_r}$ is a basis.
+      \[ \dim{V} = n \Rightarrow r=n \Rightarrow i = 1, \dots, n \]
+      So we cannot remove any elements, so $(v_1, \dots, v_n)$ is already a basis.
+    \item[3 to 1]
+      Follows analogously with the basis extension theorem.
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-3-35}
+  Let $V$ be a vector space with $\dim{V} < \infty$ und $U \subseteq V$.
+  Then it holds that,
+  \begin{itemize}
+    \item $\dim{U} \leq \dim{V}$.
+    \item $\dim{U} = \dim{V} \Leftrightarrow U = V$
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  \begin{itemize}
+    \item
+      $U$ is finitely dimensional.
+
+      Then every linear independent family in $U$ is linear independent in $V$.
+      Therefore $\leq \dim{V}$ elements.
+
+      Let $v_1, \dots, v_r$ be basis of $U$.
+      \[ \Rightarrow r \leq \dim{V} \quad\checkmark \]
+    \item
+      Let $n \coloneqq \dim{U} = \dim{V}$. Let $(u_1, \dots, u_n)$ be basis of $U$.
+      \[ \Rightarrow (u_1, \dots, u_n) \text{ is linear independent in } V \]
+      \[ \Rightarrow (u_1, \dots, u_n) \text{ is basis of } V \]
+      From Theorem~\ref{satz-3-34}~(3) it follows that $U = L(u_1, \dots, u_n) = V$.
+  \end{itemize}
+\end{proof}
+
+\subsection{Revision}
+
+\begin{itemize}
+  \item It will turn out that vector spaces with the same dimension are isomorphic.
+  \item The dimension of a vector is the cardinality of every basis.
+  \item It is also the maximal cardinality of a linear independent family.
+  \item It is also the minimal cardinality of a generating system.
+\end{itemize}
+
+How do we find a basis?
+
+\begin{itemize}
+  \item If a generating system is given, remove elements until it is linear independent.
+  \item Otherwise add elements as long as the system remains linear independent.
+\end{itemize}
+
+\subsection{Representation of vector spaces}
+
+\meta{lecture}{24th of November 2015}{Franz Lehner}
+
+\index[English]{Coordinates}
+\index[German]{\foreignlanguage{ngerman}{Koordinates eines Vektorraums}}
+\begin{defi}
+  Let $V$ be a vector space over $K$. Let $B = (b_1, \dots, b_n)$ be the basis of $V$.
+  Then every $v \in V$ has a unique decomposition $v = \sum_{i=1}^n \lambda_i b_i$.
+  The uniquely determinable coefficients $\lambda_i$ are called \emph{coordinates} of $v$ with respect t $B$.
+
+  \[ (v)_B \coloneqq \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \]
+  is called \emph{coordinates vector} of $v$.
+
+  The mapping
+  \[ \Phi_B: V \rightarrow K^n \]
+  \[ v \mapsto \begin{pmatrix} \lambda_1 \\ \lambda_2 \\ \vdots \\ \lambda_n \end{pmatrix} \]
+  is called \emph{coordinate mapping}.
+
+  It follows immediately that $\Phi_B$ is bijective.
+\end{defi}
+
+\begin{ex}
+  \[ V = R_3[x] = \setdef{a_0 + a_1 x + a_2 x^2 + a_3 x^3}{a_i \in \mathbb R} \]
+  \[ B = (1 + x, 1 - x, 1 + x + x^2, x^2 + x^3) \text{ is basis of } V \]
+
+  To prove that $B$ is a basis, it suffices to show that they are linear independent (because the dimension $4$ reveals that $4$ elements are required).
+
+  \[ \lambda_1 (1+x) + \lambda_2 (1-x) + \lambda_3(1+x+x^2) + \lambda_4(x^2+x^3) = 0 \]
+  \[ (\lambda_1 + \lambda_2 + \lambda_3) \cdot 1 + (\lambda_1 - \lambda_2 + \lambda_3) x + (\lambda_3 + \lambda_4) x^2 + \lambda_4 x^3 = 0 \text{ (zero polynomial!)} \]
+  \begin{align*}
+    \text{coefficient comparison} &\Rightarrow \lambda_1 + \lambda_2 + \lambda_3 = 0 \\
+      &\Rightarrow \lambda_1 - \lambda_2 + \lambda_3 = 0 \\
+      &\Rightarrow \lambda_3 + \lambda_4 = 0 \\
+      &\Rightarrow \lambda_4 = 0 \\
+    \text{coefficient comparison} &\Rightarrow \lambda_1 + \lambda_2 = 0 \\
+      &\Rightarrow \lambda_1 - \lambda_2 = 0 \\
+    \text{coefficient comparison} &\Rightarrow 2 \lambda_1 = 0 \\
+      &\Rightarrow \lambda_2 = 0
+  \end{align*}
+
+  $\Rightarrow B$ is linear independent $\land \card{B} = \dim{V} \Rightarrow B$ is basis (follows from Theorem~\ref{satz-3-34}).
+
+  Find the coordinates of the polynomial:
+  \[ p(x) = 3 + x - 3x^2 + x^3 \text{ with respect to } B \]
+
+  Therefore we search for $\lambda_1, \lambda_2, \lambda_3, \lambda_4$ such that,
+  \[ p(x) = \lambda_1 (1 + x) + \lambda_2 (1 - x) + \lambda_3 (1 + x + x^2) + \lambda_4 (x^2 + x^3) \]
+  \[ = (\lambda_1 + \lambda_2 + \lambda_3) \cdot 1 + (\lambda_1 - \lambda_2 + \lambda_3) \cdot x + (\lambda_3 + \lambda_4) x^2 + \lambda_4 x^3 \]
+
+  Using coefficient comparison we get
+  \begin{align*}
+    \lambda_1 + \lambda_2 + \lambda_3 &= 3 \\
+    \lambda_1 - \lambda_2 + \lambda_3 &= 1 \\
+                \lambda_3 + \lambda_4 &= -3 \\
+                            \lambda_4 &= 1
+  \end{align*}
+  \begin{align*}
+    \lambda_3 &= -3 - \lambda_4 = -4 \\
+    \lambda_1 + \lambda_2 &= 3 - (-4) = 7 \\
+    \lambda_1 - \lambda_2 = 1 - (-4) = 5
+  \end{align*}
+  \begin{align*}
+    2\lambda_1 = 12 &\Rightarrow \lambda_1 = 6 \\
+    \lambda_2 = &7 - \lambda_1 = 1
+  \end{align*}
+
+  So,
+  \[ \Phi_B: \mathbb R_3[x] \Rightarrow \mathbb R^4 \]
+  \[ \Phi_B(p(x)) = \begin{pmatrix} 6 \\ 1 \\ -4 \\ 1 \end{pmatrix} \]
+\end{ex}
+
+\begin{theorem}
+  \label{satz-3-38}
+  Let $B$ be a basis of $V$.
+  $v, w \in V$ with coordinates:
+  \[ \Phi_B(v) = \begin{pmatrix} \xi_1 \\ \vdots \\ \xi_n \end{pmatrix} \qquad \Phi_B(w) = \begin{pmatrix} \eta_1 \\ \vdots \\ \eta_n \end{pmatrix} \]
+  Then it holds that
+  \[ \Phi_B(v+w) = \begin{pmatrix} \xi_1 + \eta_1 \\ \vdots \\ \xi_n + \eta_n \end{pmatrix} = \underbrace{\Phi_B(v) + \Phi_B(w)}_{\text{addition in } K^n} \]
+  \[ \Phi_B(\lambda \cdot v) = \begin{pmatrix} \lambda \cdot \xi_1 \\ \vdots \\ \lambda \cdot \xi_n \end{pmatrix} = \lambda \cdot \Phi_B(v) \]
+\end{theorem}
+
+\begin{ex}
+  \label{ex-3-39}
+  Let $V$ be a vector space with basis $B$.
+  $v_1, \dots, v_k \in V$ are linear independent.
+
+  \[ \Leftrightarrow \Phi_B(v_1) \dots \Phi_B(v_k) \text{ are linear independent in } K^n \]
+\end{ex}
+
+\section{Construction of vector spaces}
+
+\begin{rem}
+  We have already seen $U, W \subseteq$ subspaces
+  $\Rightarrow U \cap W$ is subspace, but not $U \cup W$.
+\end{rem}
+
+\begin{defi}
+  $V$ is a vector space. $U, W \subseteq V$ are subspaces.
+  Then $[U \cup W]$ is the \emph{sum of subspaces $U$ and $W$}
+  \[
+      =: U+W
+      = \bigcap \setdef{z}{z \subseteq V, U \subseteq Z, W \subseteq Z}
+  \] \[
+      = L(U \cup W)
+      = \setdef{\sum \lambda_i u_i + \lambda \mu_i w_j}{u_i \in U, w_j \in W}
+  \]
+\end{defi}
+
+\begin{theorem}
+  \label{satz-4-2}
+  \[ U + W = \setdef{u+w}{u \in U, w \in W} \]
+\end{theorem}
+
+\begin{proof}
+  Let $E \coloneqq \setdef{u+w}{u \in U, w \in W}$.
+  The claim is that $[U \cup W] = E$.
+
+  We want to show that $E$ is a subspace, $U \subseteq E, W \subseteq E$.
+
+  To show that $E$ is a subspace, we show:
+  \begin{description}
+    \item[(UR)] Let $v \in E, v' \in E, \lambda, \mu \in K$.
+      Show that $\lambda \cdot v + \mu v' \in E$.
+
+      \begin{align*}
+         v \in E &\Rightarrow \bigvee_{u \in U} \bigvee_{w \in W} v = u + w \\
+         v' \in E &\Rightarrow \bigvee_{u' \in U} \bigvee_{w' \in W} v' = u' + w \\
+         \lambda v + \mu v' &= \lambda(u + w) + \mu(u' + w') \\
+         &= \underbrace{(\lambda u + \mu v')}_{\in U} + \underbrace{(\lambda w + \mu w')}_{\in W} \in E
+      \end{align*}
+
+      $U \subseteq E$ is obvious. $u = u + 0 \in E$. \\
+      $W \subseteq E$: Every $w \in W$ is $w = 0 + w \in E$.
+
+    \item[${[}U \cup W{]} \supseteq E$]
+      We need to show every subspace $Z \subseteq V$, which contains $U \cup W$, contains also $E$.
+
+      Let $Z$ be a subspace. Let $v \in E$. Show that $v \in Z$.
+
+      \[ v \in E \Rightarrow \bigvee_{u \in U} \bigvee_{w \in W} v = u + w \]
+      \[ u \in U \subseteq Z \Rightarrow u \in Z \]
+      \[ w \in W \subseteq Z \Rightarrow w \in Z \]
+      \[ \Rightarrow u + w \in Z \text{ because } Z \text{ is subspace} \]
+  \end{description}
+\end{proof}
+
+\begin{ex}
+  Let $V = \mathbb R^4$.
+  \[ U = \setdef{\begin{pmatrix} \xi \\ \eta \\ \xi \\ \eta \end{pmatrix}}{\xi, \eta \in \mathbb R} \]
+  \[ W = \setdef{\begin{pmatrix} \xi \\ \xi \\ \eta \\ \eta \end{pmatrix}}{\xi, \eta \in \mathbb R} \]
+  \[ U + W = ? \]
+  Determine the basis of $U + W$.
+
+  We guess the basis of $U$ is $\left(\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix}\right)$.
+  We guess the basis of $W$ is $\left(\begin{pmatrix} 1 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \\ 1 \end{pmatrix}\right)$.
+
+  \[ U = L\left(\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix}\right) = \setdef{\xi \begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix} + \eta \begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix}}{\xi, \eta \in \mathbb R} \]
+  \[ W = L\left(\begin{pmatrix} 1 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \\ 1 \end{pmatrix}\right) = \setdef{\xi \begin{pmatrix} 1 \\ 1 \\ 0 \\ 0 \end{pmatrix} + \eta \begin{pmatrix} 0 \\ 0 \\ 1 \\ 1 \end{pmatrix}}{\xi, \eta \in \mathbb R} \]
+
+  \begin{quote}
+    \foreignlanguage{ngerman}{So\dots und jetzt ist das Alphabet aus! (Franz Lehner)}
+  \end{quote}
+
+  \begin{align*}
+    U+W
+    &= \setdef{u+w}{u \in U, w \in W} \\
+    &= \setdef{
+        \xi \begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix} +
+        \eta \begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix} +
+        \chi \begin{pmatrix} 1 \\ 1 \\ 0 \\ 0 \end{pmatrix} +
+        w \begin{pmatrix} 1 \\ 1 \\ 0 \\ 0 \end{pmatrix}
+      }{\xi, \eta, \chi, w} \\
+    &= L\left(\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix},
+        \begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix},
+        \begin{pmatrix} 1 \\ 1 \\ 0 \\ 0 \end{pmatrix},
+        \begin{pmatrix} 0 \\ 0 \\ 1 \\ 1 \end{pmatrix}\right)
+  \end{align*}
+
+  \[ 1 \cdot \vecfour 1010 + 1 \cdot \vecfour 0101 - 1 \cdot \vecfour 1100 - 1 \cdot \vecfour 0011 = \vecfour 0000 \]
+  The linear combination gives $\vecfour 0000 \Rightarrow$ is not linear independent!
+
+  \[ \vecfour 0011 = \vecfour 1010 + \vecfour 0101 - \vecfour 1100 \in L\left(\vecfour 1010, \vecfour 0101, \vecfour 1100\right) \]
+  \[ \Rightarrow \text{linear hull stays the same, if we remove } \vecfour 0011 \]
+  \[ U+W = L\left(\vecfour 1010, \vecfour 0101, \vecfour 1100\right) \]
+  Linear independence:
+  \[ \lambda \vecfour 1010 + \mu \vecfour 0101 + \gamma \vecfour 1100 = \vecfour 0000 \]
+  \[ \vecfour{\lambda+\gamma}{\mu+\gamma}{\lambda}{\mu} = \vecfour 0000 \Rightarrow \lambda = 0, \mu = 0 \Rightarrow \gamma = 0 \]
+  \[ \left(\vecfour 1010, \vecfour 0101, \vecfour 1100\right) \text{ is linear independent and basis of } U + W \]
+
+  \[ \Rightarrow \dim(U + W) = 3 \]
+  \[ \dim{U} = 2 \qquad \dim{W} = 2 \]
+\end{ex}
+
+\begin{theorem}
+  \label{lemma-4-4}
+  Let $V$ be a vector space. $M, N \subseteq V$.
+  \[ L(M \cup N) = L(M) + L(N) \]
+  We will show this in the practicals.
+\end{theorem}
+
+\begin{ex}
+  \[ U \cap W = \setdef{\vecfour{\xi}{\xi}{\xi}{\xi}}{\xi \in \mathbb R} \]
+  \[ \dim(U \cap W) = 1 \]
+  \[ \text{Basis is } \vecfour 1111 \]
+
+  \[ \dim(U+W) = 2 + 2 - 1 \]
+\end{ex}
+
+\begin{theorem}
+  Let $V$ be a vector space. $U, W \subseteq V$ are finite-dimensional subspaces.
+  Then
+  \[ \dim(U + W) + \dim(U \cap W) = \dim U + \dim W \]
+\end{theorem}
+
+\index[German]{\foreignlanguage{ngerman}{Siebformel}}
+\index[English]{Inclusion-exclusion principle}
+\begin{theorem}[Inclusion-exclusion principle]
+  In German, it is called \foreignlanguage{ngerman}{Siebformel}.
+
+  \[ \card{A \cup B} = \card{A} + \card{B} - \card{A \cap B} \]
+  \[ \card{A \cup B \cup C} = \card{A} + \card{B} + \card{C} - \card{A \cap B} - \card{A \cap C} - \card{B \cap C} + \card{A \cap B \cap C} \]
+  for $\dim(U + W + Z)$ the analogous equation is \textbf{wrong}!
+\end{theorem}
+
+\begin{proof}
+  Determine bases for all involved spaces.
+
+  Begin with the smallest space. Use the basis extension theorem.
+  Let $v_1, \dots, v_r$ be basis of $U \cap W$.
+  The basis extension theorem for $U$ stats the $U \cap W$ is subspace of $U$.
+  \[ \bigvee_{u_1, \dots, u_p} (v_1, \dots, v_r, u_1, \dots, u_p) \text{ is basis of } U \]
+  Analogously for $W$
+  \[ \bigvee_{w_1, \dots, w_q} (v_1, \dots, v_r, w_1, \dots, w_q) \text{ is basis of } W \]
+
+  Therefore
+  \[ U = L(\setdef{v_1, \dots, v_r, u_1, \dots, u_p}) \]
+  \[ W = L(v_1, \dots, v_r, w_1, \dots, w_q) \]
+  \[ U + W = L(v_1, \dots, v_r, u_1, \dots, u_p, w_1, \dots, w_q) \]
+  Assume $v_1, \dots, v_r, u_1, \dots, u_p, w_1, \dots, w_q$ are linear independent.
+  \begin{align*}
+        \dim(U+W) &= r + p + q \\
+          \dim(U) &= r+p \\
+          \dim(W) &= r-q \\
+    \dim(U\cap W) &= r
+  \end{align*}
+  $\Rightarrow$ the equation holds.
+
+  It remains to show that $B$ is linear independent.
+
+  Intermediate step:
+  \[ U \cap L(w_1, \dots, w_q) = \set{0} \]
+  Let $v \in U \cap L(w_1, \dots, w_q) \subseteq U \cap W \Rightarrow v \in U \land v \in L(w_1, \dots, w_q)$.
+  \[ \Rightarrow \bigvee_{\lambda_1, \dots, \lambda_r, \mu, \dots, \mu_p} v = \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j \]
+  \[ \Rightarrow \bigvee_{\mu_1, \dots, \mu_q} v = \sum_{k=1}^q \mu_k w_k \]
+
+  \[ v \in U \cap W \Rightarrow \bigvee_{\xi_1, \dots \xi_r} v = \sum_{l=1}^r \xi_l v_l \]
+  Consider $v$ in $W$:
+  \[ 0 = v - v = \sum_{k=1}^q v_k w_k - \sum_{l=1}^r \xi_l v_l \]
+  \[ (v_1, \dots, v_r, w_1, \dots, w_q) \text{ is basis of } W \]
+  \[ \Rightarrow \text{ linear independence} \]
+
+  $v$ in $W$ is linear combination which results in $0$. Therefore all coefficients are zero.
+  \[ \Rightarrow v = 0 \]
+
+  The last step remains: $B$ is linear independent.
+  \[ B = (v_1, \dots, v_r, u_1, \dots, u_p, w_1, \dots, w_q) \]
+  Let $(\lambda_i)^r_{i=1}, (\mu_j)^p_{j=1}, (\mu_k)_{k=1}^q \in K$.
+  \[ \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j + \sum_{k=1}^q \mu_k w_k = 0 \]
+  Show that all $\lambda_i$, all $\mu_j$ and all $\mu_k$ are zero.
+
+  \[ a \coloneqq \underbrace{\sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j}_{\in U} + -\underbrace{\sum_{k=1}^q \mu_k w_k}_{\in L(w_1, \dots, w_q)} \]
+  \[ \Rightarrow a \in U \cap L(w_1, \dots, w_q) = \set{0} \]
+  \[ \Rightarrow a = 0 \Rightarrow \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j = 0 \]
+  \[ \sum_{k=1}^q \mu_k w_k = 0 \]
+
+  $v_1, \dots, v_r, u_1 \dots, u_p$ are bases in U $\Rightarrow$ linear independent.
+
+  From $0 \Rightarrow \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j = 0$ it follows
+  that $\lambda_1 = \dots = \lambda_r = 0$ and $\mu_1 = \dots = \mu_p = 0$.
+
+  \[ (\mu_1, \dots, \mu_r, w_1, \dots, w_q) \text{ is basis in } W \]
+  So $\Rightarrow$ linear independence $\Rightarrow (w_1, \dots, w_q)$ is linear independent.
+
+  From $\sum_{k=1}^q \mu_k w_k = 0$ it follows that $\mu_1, \dots, \mu_q = 0$.
+
+  So the idea of this proof was to split $B$ into two sums.
+  We showed that their intersection is empty.
+  Then we showed that they result in zero individually.
+\end{proof}
+
+\begin{rem}
+  In this proof we have seen that every $v \in U + W$ has a unique representation $v = a + b + c$.
+  \[ U+W = \setdef{u+w}{u \in U, w \in W} \]
+  \[ a \in U \cap W = L(v_1, \dots, v_r) \]
+  \[ b \in L(u_1, \dots, u_p) \]
+  \[ c \in L(w_1, \dots, w_q) \]
+  The representation $v = u + w$ is \emph{not} unique with $u \in U, w \in W$ (unless $U \cap W = \set{0}$).
+  \[ v = \underbrace{(a + b)}_{\in U} + \underbrace{c}_{\in W} = \underbrace{b}_{\in U} + \underbrace{(a + c)}_{\in W} \]
+\end{rem}
+
+\begin{defi}
+  The sum $U+W$ of two subspaces is called \emph{direct} if
+  \[ \bigwedge_{v \in U+W} \dot\bigvee_{u\in U} \dot\bigvee_{w \in W} v = u + w \]
+  If this holds, then we write $U \dot{+} W$ for the direct sum (or alternatively $U \oplus V$).
+\end{defi}
+
+\begin{theorem}
+  \label{satz-4-8}
+  The sum $U+W$ is direct $\Leftrightarrow U \cap W = \set{0}$.
+\end{theorem}
+\begin{proof}
+  Let $v \in U \cap W$.
+  \[ \Rightarrow v = \underbrace{v}_{\in U} + \underbrace{0}_{\in W} = \underbrace{0}_{\in U} + \underbrace{v}_{\in W} \]
+  From the uniqueness of the decomposition it follows that $v = 0$.
+
+  \[ u, u' \in U \qquad w, w' \in W\]
+  We need to show that $u = u'$ and $w = w'$.
+  Let $v \in U + W$ with the representation $v = u + w = u + w'$.
+  \[ 0 = v - v = u + w - (u' + w') = (u - u') + (w - w') \]
+  \[ a \coloneqq \underbrace{u' - u}_{\in U} = \underbrace{w - w'}_{\in W} \]
+  \[ \Rightarrow a \in U \cap W = \set{0} \]
+  \[ \Rightarrow a = 0 \Rightarrow u' = u \land w = w' \]
+  Coefficient is zero, so $v = 0$.
+\end{proof}
+
+\clearpage
+\begin{otherlanguage}{ngerman}
+\printindex[German]
+\end{otherlanguage}
+\printindex[English]
+
+\end{document}
