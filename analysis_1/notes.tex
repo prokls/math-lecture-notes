@@ -1,0 +1,2696 @@
+% TODO: make \item[$key$] math in keys bold
+\documentclass[a4paper,landscape,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman,english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{csquotes}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage[makeindex]{imakeidx}
+\usepackage{marvosym}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{wasysym}
+
+\parskip5pt
+\parindent0pt
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{defi}{Definition}
+\newtheorem{rem}{Remark}
+\newtheorem{ex}{Example}
+\newtheorem{cor}{Corollary}
+\newtheorem{lemma}{Lemma}
+
+\newcommand\okay{\qquad\checkmark}
+\newcommand\set[1]{\left\{#1\right\}}
+\newcommand\setdef[2]{\left\{#1\,|\,#2\right\}}
+\newcommand\abs[1]{\left|#1\right|}
+\newcommand\seq[1]{{\left(#1\right)}_{n \in \mathbb N}}
+\newcommand\card[1]{\left|\,#1\,\right|}
+\newcommand\meta[3]{\hrule{} This #1 took place on #2 with lecturer #3.\par}
+\newcommand\done{\hspace{10pt}\checkmark}
+
+\pagestyle{fancy}
+\fancyhf{}
+\chead{\Large{\textsc{Mathematical Analysis I -- Lecture Notes}}}
+\lfoot{\makebox[\columnwidth]{\thepage}}
+\rfoot{\makebox[\columnwidth]{\number\numexpr\value{page}+1}\stepcounter{page}}
+\setlength{\headheight}{18pt}
+
+\makeindex[name={German},title={German keywords}]
+\makeindex[name={English},title={English keywords}]
+\twocolumn
+
+\title{
+  Mathematical analysis 1 -- Lecture notes \\
+  \small{course by Wolfgang Ring}
+}
+\author{Lukas Prokop}
+\date{Oct 2015 to Jan 2016}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\clearpage
+\section{Modern logic}
+
+\meta{lecture}{1st of October 2015}{Wolfgang Ring}
+
+\index[German]{\foreignlanguage{ngerman}{Kurt Gödel}}
+\index[English]{Gödel's incompleteness theorem}
+\index[German]{\foreignlanguage{ngerman}{Gödelsches Invollständigkeitstheorem}}
+\index[English]{propositional logic}
+\index[German]{\foreignlanguage{ngerman}{Aussagenlogik}}
+\index[English]{implication}
+\index[German]{\foreignlanguage{ngerman}{Implikation}}
+\index[English]{Direct proof}
+\index[German]{\foreignlanguage{ngerman}{Direkter Beweis}}
+\index[English]{Indirect proof}
+\index[German]{\foreignlanguage{ngerman}{Indirekter Beweis}}
+\index[English]{Proof by contradiction}
+\index[German]{\foreignlanguage{ngerman}{Beweis durch Widerspruch}}
+\index[English]{DeMorgan's Laws}
+\index[German]{\foreignlanguage{ngerman}{DeMorgansche Gesetze}}
+\index[English]{Associative law (logic)}
+\index[German]{\foreignlanguage{ngerman}{Assoziativgesetz (Logik)}}
+\index[English]{Distributive law (logic)}
+\index[German]{\foreignlanguage{ngerman}{Distributivgesetz (Logik)}}
+\index[English]{Commutative law (logic)}
+\index[German]{\foreignlanguage{ngerman}{Kommutativgesetz (Logik)}}
+\index[English]{Peano's axioms}
+\index[German]{\foreignlanguage{ngerman}{Peano-Axiome}}
+\begin{itemize}
+  \item motivation for visiting university
+  \item Kurt Gödel: Gödel's incompleteness theorem
+  \item propositional logic (and/or/implication/equivalence operation)
+  \begin{itemize}
+    \item $p \implies q$: \enquote{p implies q} (\enquote{notwendig}), \enquote{q requires p} (\enquote{hinreichend})
+    \item Indirect proof: $(\neg q \implies \neg p) \Leftrightarrow (p \implies q)$
+    \item Proof by contradiction: claim $p$, claim $\neg q$, show that $p \land \neg q$ is not possible
+    \item commutative law: $a \land b \Leftrightarrow b \land a$
+    \item associative law: $a \land (b \land c) = (a \land b) \land c$
+    \item distributive law: $(a \land b) \lor c) = (a \lor c) \land (b \lor c)$
+    \item DeMorgan's law: $\neg (a \land b) \Leftrightarrow (\neg a) \lor (\neg b)$
+  \end{itemize}
+  \item First-order logic
+  \begin{itemize}
+    \item $\forall x \in \mathbb{N}: x \in \mathbb{R}$
+    \item $\forall x \in M: P(x)$
+    \item $\neg \left[(\forall x \in M) P(x)\right] \Leftrightarrow \exists x \in M: \neg P(x)$
+  \end{itemize}
+  \item Peano's axioms: rationale for induction proofs
+\end{itemize}
+
+The lecture on 8th of October 2015 got cancelled spontaneously.
+
+\section{Binary operations}
+\meta{lecture}{12th of October 2015}{Wolfgang Ring}
+
+Literature recommendation:
+\begin{itemize}
+  \item \enquote{\foreignlanguage{ngerman}{Analysis 1 (Mathematik für das Lehramt)}}, Oliver Deiser
+\end{itemize}
+
+Let $A$ and $B$ be statements.
+
+\index[German]{\foreignlanguage{ngerman}{Äquivalenz von logischen Ausdrücken}}
+\index[English]{Equivalence of logical expressions}
+\begin{itemize}
+  \item Logical equivalence is given iff the truthtable of both expressions is the same.
+  \item $\neg (\neg A) \iff A$
+  \item $(A \lor B) \iff (B \lor A)$
+  \item $(A \land B) \iff (B \land A)$
+  \item $a \implies b$: implication
+\end{itemize}
+
+Boolean Laws:
+\begin{align}
+  \neg(A \implies B)       &\iff A \land \neg B \\
+  A \iff B                 &\implies (A \implies B) \land (B \implies A) \\
+\intertext{\enquote{contraposition} or \enquote{indirect proof}}
+  \neg B \implies \neg A   & \\
+  A \implies B             &\iff (\neg B \implies \neg A) \\
+  (A \iff B)               &\iff (\neg A \iff \neg B) \\
+  \neg (A \land B)         &\iff \neg A \lor \neg B \\
+  \neg (A \lor B)          &\iff \neg A \land \neg B \\
+  \neg (A \implies B)      &\iff (A \land \neg B) \\
+  A \land (B \lor C)       &\iff ((A \land B) \lor (A \land C)) \\
+  A \lor (B \land C)       &\iff ((A \lor B) \land (A \lor C)) \\
+  (A \implies B)           &\iff (\neg A \lor B) \\
+\intertext{\enquote{proof by contradiction}}
+  \left((A \implies B) \land (A \implies \neg B)\right) &\implies \neg A \\
+\intertext{\enquote{conclusion}}
+  \left((A \implies B) \land (B \implies C)\right) &\implies (A \implies C)
+\end{align}
+
+\[ A \lor B \Leftrightarrow \neg (\neg A) \lor \neg (\neg B) \Leftrightarrow \neg (\neg A \land \neg B) \]
+\[ \neg(A \lor B) \Leftrightarrow \neg(\neg (\neg A) \lor (\neg B)) \]
+
+Distributive laws:
+\begin{itemize}
+  \item $(A \lor B) \land C \Leftrightarrow (A \land C) \lor (A \land C)$
+  \item $(A \land B) \lor C \Leftrightarrow (A \lor C) \land (B \lor C)$
+\end{itemize}
+
+\subsection{Tautologies}
+
+\index[English]{Tautology}
+\index[German]{\foreignlanguage{ngerman}{Tautologie}}
+A \emph{tautology} is the composition of statements, which always yields the truth value
+true, independent of the truth value of its subexpressions.
+
+\index[English]{Law of excluded middle}
+\index[German]{\foreignlanguage{ngerman}{Satz vom ausgeschlossenen Dritten}}
+Examples of tautologies:
+\begin{description}
+  \item[\enquote{Law of excluded middle}] $A \lor \neg A$
+  \item[equivalences are always tautologies] $A \leftrightarrow \neg (\neg A)$
+  \item[implication of itself] $A \rightarrow A$
+\end{description}
+
+\index[English]{Chain inference}
+\index[German]{\foreignlanguage{ngerman}{Schlusskette} (chain inference)}
+Tautology with multiple statements:
+\begin{description}
+  \item[implication with or and not] $(A \rightarrow B) \leftrightarrow (\neg A \lor B)$
+  \item[proof by contradiction] $[(A \rightarrow B) \land (A \rightarrow \neg B)] \rightarrow \neg A$
+  \item[chain inference] $[(A \rightarrow B) \land (B \rightarrow C)] \rightarrow (A \rightarrow C)$
+\end{description}
+
+
+\meta{lecture}{14th of Oct 2015}{Wolfgang Ring}
+
+\begin{proof}
+  We prove, $[(A \rightarrow B) \land (A \rightarrow \neg B)] \rightarrow \neg A$.
+
+  \begin{align*}
+    (A \rightarrow B) \land (A \rightarrow \neg B) &\iff (\neg A \lor B) \land (\neg A \lor \neg B) \\
+      &\iff \underbrace{(B \land \neg B)}_{\bot} \lor \neg A \\
+      &\iff \neg A
+  \end{align*}
+
+  Special case: $A = B$.
+  \[ (A \rightarrow A) \land (A \rightarrow \neg A) \rightarrow \neg A \]
+  \[ (A \rightarrow \neg A) \rightarrow \neg A \]
+\end{proof}
+
+\subsection{Negation of a tautology}
+\index[English]{contradiction}
+\index[German]{\foreignlanguage{ngerman}{Widerspruch}}
+\begin{itemize}
+  \item is called \emph{contradiction}.
+  \item has always truth value false.
+\end{itemize}
+
+\begin{proof}
+  \[ (A \lor B) \rightarrow C \Leftrightarrow \neg (A \lor B) \lor C \Leftrightarrow (\neg A \land \neg B) \lor C \]
+  \[ (\neg A \lor C) \land (\neg B \lor C) \Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \]
+
+  \begin{align*}
+    (A \lor B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \\
+    (A \land B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \lor (B \rightarrow C) \\
+    A \rightarrow (B \land C) &\Leftrightarrow (A \rightarrow B) \land (A \rightarrow C) \\
+    A \rightarrow (B \lor C) &\Leftrightarrow (A \rightarrow B) \lor (A \rightarrow C)
+  \end{align*}
+\end{proof}
+
+\begin{proof}[Example proof by contradiction: Number of prime numbers]
+  We prove a statement by Euklid of Alexandria, 300 BC:
+  \begin{quote}
+    The number of prime numbers is infinite.
+  \end{quote}
+
+  Assume the number of prime numbers is finite.
+  Then there exists some $N \in \mathbb N$ such that $\mathbb P = \set{P_1, P_2, \ldots, P_n}$
+  is the set of all prime numbers.
+
+  Every integer can be represented as product of prime numbers.
+  Therefore for every integer there exists at least one prime number that divides this number (without remainder).
+
+  Let $m = p_1 \cdot p_2 \cdot \ldots \cdot p_N + 1$.
+  Let $a$ be a prime number that divides $m$.
+
+  It holds that: Every $p_i \in \mathbb P$ is not a divisor of $m$.
+  Because when dividing $\frac{m}{p_i}$, the remainder is always one.
+
+  So $q \in \mathbb P$, so there exists more than $N$ prime numbers (at least $N+1$).
+  This contradicts with our assumption, that only $N$ prime numbers exist.
+
+  Therefore always one more prime number exists. So the number of prime numbers is infinite.
+\end{proof}
+
+\subsection{Quantifiers}
+
+\index[English]{Quantifiers}
+\index[German]{\foreignlanguage{ngerman}{Quantoren}}
+Quantified statements are statements, in which objects of a set occur.
+
+\emph{Example:} Let $P(x) = (x > 0)$. Its truth value cannot be determined
+if the set $X$ is not defined.
+
+\begin{defi}
+  Let $M$ be a set, $x \in M$ and $P(x)$ a predicate.
+
+  The composed statement: for every $x \in M$, it holds that $P(x)$ is true,
+  if the truth value of $P(x)$ is always true independent of the selection of $x \in M$.
+\end{defi}
+
+\begin{ex}
+  Let $M = \mathbb R$ and $P(x) = (x^2 + 1 > 0)$.
+
+  This is true for all $x \in M$.
+  We denote: $\forall x \in M: P(x)$.
+\end{ex}
+
+\begin{ex}
+  Let $M = \mathbb R$ and $P(x) = (x^2 - 1 > 0)$.
+
+  This is \emph{not} true for all $x \in M$.
+  We denote: $\exists x \in M: \neg P(x)$.
+\end{ex}
+
+\index[English]{Existence quantifier}
+\index[German]{\foreignlanguage{ngerman}{Exististiert Quantor}}
+\index[English]{For all quantifier}
+\index[English]{All quantifier}
+\index[German]{\foreignlanguage{ngerman}{Für alle Quantor}}
+\index[German]{\foreignlanguage{ngerman}{All-Quantor}}
+\begin{defi}
+  $\forall x \in M: P(x)$ does not hold if and only if $\exists x \in M: \neg P(x)$.
+
+  $\forall$ is called \emph{all quantifier}.
+  $\exists$ is called \emph{existence quantifier}.
+
+  Negation works as follows:
+  \[ \neg\left(\forall x \in M: P(x)\right) \Leftrightarrow \exists x \in M: \neg P(x) \]
+  \[ \neg\left(\exists x \in M: P(x)\right) \Leftrightarrow \forall x \in M: \neg P(x) \]
+\end{defi}
+
+
+\meta{lecture}{15th of Oct 2015}{Wolfgang Ring}
+
+\[ \forall x \in M: (P(x) \land Q(x)) \iff (\forall x \in X: P(x)) \land (\forall y \in M: Q(y))) \]
+
+\[ \forall x \in M: (P(x) \lor Q(x)) \leftrightarrow (\forall x \in M: P(x)) \land (\forall x \in M: Q(x)) \]
+
+Counterexample:
+\[ M = \mathbb{R} \hspace{10pt} P(x) := ( x > 0 ) \hspace{10pt} \]
+
+A statement $B$ is stronger than $C$ if $C$
+
+\subsection{Composition of several quantifiers}
+
+\begin{enumerate}
+  \item The order of quantfiers matters.
+  \item
+    For every real number $x$, there exists an integer $n \in \mathbb{N}$ with the property $n > x$:
+    \[ \forall x \in \mathbb{R} \exists n \in \mathbb{N}: n > x \]
+    The statement does not hold if the order is changed.
+    \[ \exists n \in \mathbb{N} \forall x \in \mathbb{R}: n > x \]
+\end{enumerate}
+
+\section{Sets}
+
+\index[English]{Set theory}
+\index[German]{\foreignlanguage{ngerman}{Mengenlehre}}
+We consider objects, which we call \emph{sets}.
+For every set $M$ and every element $x$, it holds that
+\[ x \in M \lor \neg(x \in M) \]
+
+Consider the set $L = \set{M: M \text{ is a set and } M \not\in M}$.
+Does $L \not\in L$ or $L \in L$ hold?
+
+If $L \not\in L$, then $L$ satisfies the definition and therefore $L \in L$.
+If $L \in L$, then elements of $L$ satisfy the property; therefore $L \not\in L$.
+
+\index[English]{Set operations}
+\index[German]{\foreignlanguage{ngerman}{Mengenoperationen}}
+\index[English]{Union}
+\index[German]{\foreignlanguage{ngerman}{Vereinigungsmenge}}
+\index[English]{Intersection}
+\index[German]{\foreignlanguage{ngerman}{Durchschnitt}}
+\index[English]{Subset}
+\index[German]{\foreignlanguage{ngerman}{Untermenge}}
+\index[English]{Complete induction}
+\index[German]{\foreignlanguage{ngerman}{Vollständige Induktion}}
+Set operations:
+\begin{itemize}
+  \item union
+  \item intersection
+  \item subsets
+  \item $\forall S: \emptyset \subseteq S$
+  \item complete induction
+\end{itemize}
+
+\begin{theorem} (Pythagoreans, 450~BC)
+  \[ \forall n \in \mathbb N_+: \sum_{k=1}^n k = 1 + 2 + 3 + \dots + n = \frac{n (n+1)}{2} \]
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[Induction base $n = 1$] \hfill{} \\
+      \[ P(1): 1 = \frac{1 (1+1)}{2} \quad\checkmark \]
+    \item[Induction step $n \rightarrow n + 1$] \hfill{} \\
+      Assume $P(n)$ is true.
+      So $(1 + 2 + \dots + n) = \frac{n (n+1)}{2}$.
+      \[ [(1 + 2 + \dots + n) + (n + 1)] = \frac{n(n+1)}{2} + (n+1) = (n+1) \left(\frac n2 + 1\right) \]
+      \[ = (n+1) \cdot \frac{(n+2)}{2} = \frac{(n+1)(n+2)}{2} \quad\checkmark \]
+  \end{description}
+
+  So, it simply holds that:
+  \[ s = 1 + 2 + 3 + \dots + n \]
+  \[ 2 \cdot s = \underbrace{n}_{\text{number of items}} \cdot \underbrace{(n + 1)}_{\text{sum}} \Rightarrow s = \frac{n \cdot (n + 1)}{2} \]
+\end{proof}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200px]{img/triangular_number.pdf}
+    \caption{Illustration of the triangular number (illustrative proof)}
+  \end{center}
+\end{figure}
+
+\meta{lecture}{21st of October 2015}{Ring Wolfgang}
+
+\index[English]{Bernoulli inequality}
+\index[German]{\foreignlanguage{ngerman}{Bernoullis Ungleichung}}
+Previously: Bernoulli Inequation $(1+x)^n > 1 + nx$
+
+\begin{itemize}
+  \item Let $X$ be a set. $M = \set{x \in X: P(x)}$.
+  \item $\mathbb N = \set{0,1,2,3,4, \dots}$ \dots \enquote{enumerating set representation}
+  \item $M = \setdef{x \in X}{P(x)}$, $N = \setdef{x \in X}{Q(x)}$
+  \item $M \cup N = \setdef{x \in X}{P(x) \lor Q(x)}$
+  \item Let $X$ be a set. $A_0 \subseteq X$, $A_1 \subseteq X$, $A_2 \subseteq X$, etc
+  \item $\forall n \in \mathbb N: A_n \subseteq X$
+  \item $A_0 \cup A_1 \cup A_2 \cup \dots = \bigcup_{n=1}^\infty A_{n} = \setdef{x \in X}{(x \in A_0) \lor (x \in A_1) \lor \dots} = \setdef{x \in X}{\exists n \in \mathbb N: x \in A_n}$
+  \item $A_0 \cap A_1 \cap A_2 \cap \dots = \bigcap_{n=1}^\infty A_n = \setdef{x \in X}{\forall n \in \mathbb N: x \in A_n}$
+\end{itemize}
+
+\index[English]{Cartesian product}
+\index[German]{\foreignlanguage{ngerman}{Kartesisches Produkt}}
+\begin{defi}
+  Let $A$ and $B$ sets. The \emph{cartesian product of $A$ and $B$} is given as:
+  \[ A \times B = \setdef{(x, y)}{x \in A, y \in B} \]
+  This operation is not commutative!
+\end{defi}
+
+\begin{defi}
+  We denote $\mathbb R \times \mathbb R = \mathbb R^2$.
+\end{defi}
+
+\begin{ex}
+  \begin{align*}
+    A &= \set{a, b, c, d, e, f, g, h} \\
+    B &= \set{1, 2, 3, 4, 5, 6, 7, 8} \\
+    A \times B &= \set{(a, 1), (a, 2), (a, 3), \dots, (a, 8), (b, 1), (b, 2), \dots}
+  \end{align*}
+\end{ex}
+
+\begin{ex}
+  \[ \mathbb R \times \mathbb R = \setdef{(x, y)}{x, y \in \mathbb R} \]
+  e.g. $(1, \frac98) \in \mathbb R \times \mathbb R$.
+\end{ex}
+
+\begin{defi}
+  Let $A_1, A_2, \dots, A_n$ be sets.
+  \[ A_n = A_1 \times A_2 \times \dots \times A_n = \setdef{(a_1, a_2, \dots, a_n)}{a_i \in A_i \text{ for } i = 1, 2, \dots, n} \]
+  instead of $\underbrace{A \times A \times \dots \times A}_{n \text{ times}} = A^n$.
+\end{defi}
+
+\index[English]{power set}
+\index[German]{\foreignlanguage{ngerman}{Potenzmenge}}
+\begin{defi}
+  Let $X$ be a set. Then $\mathcal P(X)$ is the \emph{power set} of $x$.
+  \[ \mathcal P(X) = \setdef{A}{A \subseteq X} \]
+\end{defi}
+
+\index[English]{mapping}
+\index[German]{\foreignlanguage{ngerman}{Abbildung}}
+\index[English]{domain}
+\index[German]{\foreignlanguage{ngerman}{Definitionsmenge}}
+\index[English]{co-domain}
+\index[German]{\foreignlanguage{ngerman}{Bildmenge}}
+\begin{defi}
+  Let $A$ and $B$ be sets.
+  A \emph{mapping} $f$ from $A$ to $B$ (denoted $f: A \rightarrow B$) is an assignment,
+  such that for every $x \in A$ one $y \in B$ is assigned. We denote the corresponding
+  $y \in B$ for some $x \in A$ with $y = f(x)$. $A$ is called domain, $B$ is called co-domain.
+\end{defi}
+
+\begin{defi}[Alternative definition of mappings]
+  A mapping $f$ is a subset of $A \times B$ which fulfills the following properties:
+  \begin{itemize}
+    \item $\forall x \in A: \left(\exists y \in B: (x, y) \in f\right)$
+    \item $\forall x \in A \land (y_1, y_2 \in B): \left[(x_1,y_1) \in f \land (x_1, y_2) \in f\right] \implies y_1 = y_2$
+  \end{itemize}
+  Notation:
+  \[ (x, y) \not\in f \Leftrightarrow y = f(x) \]
+  \[ \setdef{(x, f(x)) \in}{x \in A} \Rightarrow \text{graph from f} \]
+\end{defi}
+
+\index[English]{Injective function}
+\index[German]{\foreignlanguage{ngerman}{Injektive Funktion}}
+\index[English]{Surjective function}
+\index[English]{Co-domain}
+\index[German]{\foreignlanguage{ngerman}{Urbildmenge}}
+\index[German]{\foreignlanguage{ngerman}{Surjektive Funktion}}
+\index[English]{Co-domain}
+\index[German]{\foreignlanguage{ngerman}{Urbildmenge}}
+\begin{defi}
+  Let $f: A \rightarrow B$ be a mapping.
+  \begin{itemize}
+    \item The mapping $f$ is called surjective, if $\forall y \in B: \exists x \in A: y = f(x)$.
+    \item The mapping $f$ is called injective, if $\forall x_1, x_2 \in A: (f(x_1) = f(x_2) \Rightarrow x_1 = x_2)$.
+    \item Let $B' \subseteq B$. Then we denote $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ as the \emph{codomain of $f$}.
+
+      Attention! The codomain distinguishes itself from the inverse function $f^{-1}$!
+    \item Let $A' \subseteq A$. Then we call $f(A') = \setdef{f(x)}{x \in A} \subseteq B$ the \emph{image of $A'$} under $f$.
+
+      Special case: $A' = A$, then $f(A) \subseteq B$ is image of $A$ under $f$.
+
+      Let $f: A \rightarrow B$ be a mapping. We define $f: A \rightarrow f(A) \subseteq B$ with
+      $\tilde f(x) = f(x)$ for all $x \in A$. The mapping $\tilde f$ is surjective $\forall y \in f(A)$ there exists one $x \in A$ such that $y = f(x)$.
+    \item A mapping is called \emph{bijective} iff the mapping is surjective and injective.
+  \end{itemize}
+\end{defi}
+
+\subsection{Integers}
+
+\begin{defi}[Bernoulli's inequality]
+  Let $x \in \mathbb R$ with $x > -1$ and $x \neq 0$.
+  Let $n \in \mathbb N$ with $n > 1$. Then it holds that
+  \[ (1 + x)^n > 1 + nx \]
+\end{defi}
+
+\begin{proof}
+  Proof by complete induction.
+  \begin{description}
+    \item[induction base $n = 2$]
+      \[ (1 + x)^2 = 1 + 2x + x^2 > 1 + 2x \quad\checkmark \]
+      because $x^2 > 0$ for $x \neq 0$.
+    \item[induction step $n \rightarrow n+1$]
+      Assume $(1+x)^2 > 1 + n$, then $x > -1$ and $x \neq 0$.
+      \[ (1 + x)^{n+1} = (1 + x)^n \cdot \underbrace{(1 + x)}_{>0} > (1+nx) \cdot (1 + x) \]
+      \[ = (1 + nx + x + nx^2) = (1 + (n+1)\cdot x + \underbrace{nx^2}_{>0}) > 1 + (n + 1) \cdot x \]
+  \end{description}
+\end{proof}
+
+\index[English]{Bijective function}
+\index[German]{\foreignlanguage{ngerman}{Bijektive Funktion}}
+\index[English]{Composition of functions}
+\index[German]{\foreignlanguage{ngerman}{Verknüpfung von Funktionen}}
+\index[English]{Identity function}
+\index[German]{\foreignlanguage{ngerman}{Identitätsfunktion}}
+\index[English]{Inverse function}
+\index[German]{\foreignlanguage{ngerman}{Inverse Funktion}}
+Back to sets and functions:
+\begin{itemize}
+  \item injective, surjective, bijective function
+  \item composition of functions: Let $f: X \rightarrow Y$ and $g: Y \rightarrow Z$. $g \circ f: X \rightarrow Z$ is defined as $g(f(x))$ (\enquote{g after f}).
+  \item Let $f$ and $g$ be mappings. If $f$ and $g$ are injective, $f \circ g$ is injective. If $f$ and $g$ are surjective, $f \circ g$ is surjective. If $f$ and $g$ are bijective, $f \circ g$ is bijective.
+  \item Identity function, $f \circ \operatorname{id} = \operatorname{id} \circ f = f$
+  \item properties of an inverse function, $f \circ f^{-1}: X \rightarrow X$, $f^{-1} \circ f: X \rightarrow X$
+\end{itemize}
+
+\meta{lecture}{21st of Oct 2015}{Wolfgang Ring}
+
+\section{Summation notation}
+
+\[ \sum_{k=h}^{l} a_k \]
+
+Iteration over all values from $l$ to $h$ (inclusive) and evaluation of
+the enclosed expression with $k$ as iteration value.
+
+Laws:
+\begin{align}
+    \sum_{k=l}^{h} a_k &= \sum_{i=l}^h a_i \\
+    \sum_{k=l}^{h} (a_k + b_k)
+        &= \left(\sum_{k=l}^h a_k\right) + \left(\sum_{k=l}^h b_k\right) \\
+    \sum_{k=0}^{h} a_k
+        &= a_0 + \sum_{k=1}^{h} a_k
+        & \text{\enquote{Extraction of the initial value}} \\
+    \sum_{k=0}^{h} a_k
+        &= a_{h} + \sum_{k=0}^{h-1} a_k
+        & \text{\enquote{Extraction of the final value}} \\
+    \sum_{k=u+n}^{h+n} a_k
+        &= \sum_{k=u}^{h} a_{k+n}
+        & \text{\enquote{index shifting}} \\
+    \sum_{k=l}^h \lambda \cdot a_k
+        &= \lambda \cdot \sum_{k=l}^h a_k
+        & \text{\enquote{extraction of a constant $\lambda$}} \\
+    \sum_{k=0}^n n
+        &= \frac{n (n+1)}{2}
+        & \text{\enquote{triangular sum}}
+\end{align}
+
+We consider $S_n = \set{(a_1, a_2, \ldots, a_n): a_i \in M_n \forall i = 1, \ldots, n
+\text{ with } a_i \neq a_j} \subseteq M_n \times M_n \times \dots \times M_n$.
+$S_n$ is the set of all arrangements of the numbers $1, \ldots, n$.
+
+Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
+
+\begin{theorem}
+  It holds that $\card{S_n} = n!$ for all $n \in \mathbb{N}$
+\end{theorem}
+
+\begin{proof}
+  Proof by induction over $n$.
+  \begin{description}
+    \item[Induction base]
+      $n=1$:
+        $M_1 = \set{1}, S_1 = \set{(1)} \Rightarrow \card{S_1} = 1 = 1! \done$
+    \item[Induction step]
+      $n\rightarrow n+1$:
+        \[
+          S_{n+1} = \set{(a_1, a_2, \ldots, a_n) :
+              a_i \in M_{n+1} \forall i \in M_{n+1},
+              a_i \neq a_j \text{ for } i \neq j}
+        \]
+        For $l \in M_{n+1}$: \[
+          W_l = \set{(a_1, \ldots, a_{n+1}) \in S_{n+1}: a_l = n+1}
+        \]
+        It holds that $W_l \cap W_j = \emptyset$ for $l \neq j$
+        and $S_{n+1} = W_i \cup W_l \cup W_j \cup \ldots \cup W_{n+1}$.
+        Then it holds that $\card{S_{n+1}} = \card{W_1} + \card{W_2} + \ldots + \card{W_{n+1}} = \sum_{l=1}^{n+1} \card{W_l}$
+
+        \begin{theorem}
+          Claim: For every $l \in M_{n+1}$ it holds that $\card{W_l} = \card{S_n} = n!$.
+        \end{theorem}
+        \begin{proof}
+          We build a bijective map $\phi_l: W_l \rightarrow S_n$.
+          \[
+              W_l = \set{(a_1, a_2, \ldots, a_{l-1}, n+1, a_{l+1}, \ldots, a_{n+1}}
+          \]\[
+                  :a_i \in M_n, \forall i \neq l, a_i \neq a_j \forall i \neq j
+          \] \[
+              \phi\left((a_1, a_2, \ldots, a_{l-1}, n+1, a_{l+1}, \ldots, a_{n+1})\right)
+          \] \[
+                  = (a_1, a_2, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1}) \in S_n
+          \]
+
+          $S_n$ is surjective.
+          Let $(b_1, \ldots, b_n) \in S_n$, then it holds that $(b_1, \ldots, b_{l-1}, n+1, b_l, \ldots, b_n) \in W_l$
+          \[ \phi_l((b_1, \ldots, b_{l-1}, n+1, b_l, \ldots, b_n)) = (b_1, \ldots, b_n) \]
+
+          $S_n$ is injective.
+          \[
+              \phi_l((a_1, \ldots, a_{l-1}, n+1, a_{l+1}, \ldots, a_{n+1}))
+          \] \[
+                  = \phi_l((a_1, \ldots, a_{l-1}, n+1, a_{l+1}, \dots, a_{n+1}))
+          \] \[
+               \Rightarrow
+               (a_1, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1}) =
+               (a_1, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1})
+          \]
+          $\phi$ is bijective.
+        \end{proof}
+
+        Therefore $\card{W_l} = \card{S_n} = n!$.
+        Therefore $\card{S_{n+1}} = \sum_{l=1}^{n+1} \card{S_n} = \sum_{l=1}^{n+1} n! = (n + 1) n! = (n + 1)!$
+  \end{description}
+\end{proof}
+
+\begin{rem}
+  Let $f: M_n \rightarrow M_n$. $f$ is represented as
+  \[  (1, 2, 3, 4, \ldots, n-1, n) \rightarrow (f(1), f(2), f(3), f(4), \ldots, f(n-1), f(n))  \]
+  Therefore $(f(1), f(2), \ldots, f(n)) \in S_n$. Analogously every $(a_1, \ldots, a_n) \in S_n$
+  defined by $f(k) = a_k$ for $k=1,\ldots,n$ is a bijective mapping $f: M_n \rightarrow M_n$.
+  Therefore we set $S_n = \set{f: M_n \rightarrow M_n: f \text{ is bijective}}$.
+  $S_n$ is called symmetric group of $n$ elements.
+\end{rem}
+
+\begin{defi}
+  Let $n \in \mathbb{N}$, $k \in \mathbb{N}$ with $k \leq n$.
+  We define \begin{align*}
+    \binom{n}{k} &= \frac{n!}{k! (n-k)!}   & \text{\enquote{binomial coefficient $n$ choose $k$}}
+  \end{align*}
+\end{defi}
+
+It holds that
+\begin{align*}
+  \binom{n}{k} &= \frac{1\cdot 2\cdot 3\cdot \ldots \cdot n}{(1 \cdot 2 \cdot \ldots \cdot k) (1 \cdot 2 \cdot 3 \cdot \ldots \cdot (n-k))} \\
+               &= \frac{n (n-1) \cdot \ldots \cdot (k+1)}{(1 \cdot 2 \cdot 3 \cdot \ldots \cdot (n-k))}
+\end{align*}
+
+Factorial laws:
+\begin{align*}
+  \binom 10 &= \frac{n!}{0! (n-0)!} = 1 \qquad \forall n \in \mathbb{N} \\
+  \binom nn &= \frac{n!}{n! (n - n)!} = \frac{n!}{n! \cdot 1} = 1 \\
+  \binom{n}{n-k} &= \frac{n!}{(n-k!)(n - n + k)!} = \frac{n!}{k! (n-k)!} = \binom nk & \text{\enquote{symmetrical}}
+\end{align*}
+
+A recursive definition is given by
+\begin{align*}
+    \binom nk &= \binom{n-1}{k-1} + \binom{n-1}{k}
+    & n \geq 1, 1 \leq k \leq n-1
+\end{align*}
+
+\begin{proof}
+  \begin{align*}
+      \binom{n-1}{k-1} + \binom{n+1}{k}
+          &= \frac{(n-1)!}{(n-1)! (n-1 - (k-1))!} \\
+          &= \frac{(n-1)!}{k! (n-1-k)!} \\
+      &= \frac{(n-1)!}{(k-1)! (n-k)!} + \binom{(n-1)!}{k! (n-1-k)!} \\
+      &= \frac{k \cdot (n-1)! + (n-k)(n-1)!}{k! (n-k)!} \\
+      &= \frac{n (n-1)!}{k!(n-1)!} = \frac{n!}{k! (n-k)!} \\
+      &= \binom nk
+  \end{align*}
+\end{proof}
+
+\subsection{Arrangement in Pascal's triangle}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/pascals_triangle.pdf}
+    \caption{Pascal's triangle}
+  \end{center}
+\end{figure}
+
+\begin{theorem}
+  Let $T_n^k = \set{A \subseteq M_n: \card{A} = k}$.
+  Then it holds that $\card{T_n^k} = \binom nk$.
+
+  Example: $T_3^2 = \set{\set{1, 2}, \set{1, 3}, \set{2, 3}}$.
+
+  $\card{T_3^2} = \binom 32 = \frac{3!}{2! 1!} = \frac 62 = 3$
+\end{theorem}
+
+\begin{proof}
+  Let $n$ be fixed. Induction for $k$.
+  \begin{description}
+    \item[Induction base] $k=0$
+      \begin{align*}
+        T_n^0        &= \set{\emptyset} \\
+        \card{T_n^0} &= 1 = \binom n0
+      \end{align*}
+    \item[Induction step] $k\rightarrow k+1$
+      \begin{align*}
+        T_n^k &= \underbrace{\set{\set{a_1, \ldots, a_k}: a_1 \in M_n, (i = 1, \ldots, k), a_i \neq a_j \text{ for } i \neq j}}_{A_1} \\
+              &\cup \underbrace{\set{\set{a_1, \ldots, a_{k-1}} \cup [n] \in M_{n-1}}}_{A_2} \\
+        \card{T_N^k} &= \card{A_1} + \card{A_2}
+      \end{align*}
+  \end{description}
+\end{proof}
+
+\meta{lecture}{28th of October 2015}{Ring Wolfgang}
+
+Let $A, B$ be sets and define
+\[ A \setminus B = \set{x: x \in A \land x \not\in B} \]
+Then the domain of $A \setminus B$ is \enquote{A without B}.
+
+\begin{theorem}
+  \[ T_n^x = \set{x \subseteq M_x: \card{X} = x} \]
+  Let $k \in \mathbb{N}$ and $0 \leq k \leq 1$.
+  \[ \card{T_n^x} = \binom{1}{k} \]
+  There are exactly $\binom{n}{k}$ k-ary subsets of $M_n$.
+\end{theorem}
+
+\begin{proof}
+  \[
+      M_0 = \emptyset \qquad
+      T_0^0 = \set{\emptyset} \qquad
+      \card{T_n^0} = 1 = \binom{0}{n}
+  \]
+  Proof by complete induction over $n$ of the following statement:
+  \[
+    \forall n \in \mathbb{N}: \forall k \in \mathbb{N} \text{ with } 0 \leq k \leq n:
+    \card{T_n^k} = \binom{n}{k}
+  \]
+  \begin{description}
+    \item[Induction base]
+      $n = 0$ is fine.
+      For $n = 1$ there are two cases: $k = 0$ or $k = 1$.
+      \[ M_1 = \set{1} \]
+      \[ T_1^0 = \set{\emptyset} \qquad \card{T_1^0} = 1 = \binom{1}{0} \]
+      \[ T_1^1 = \set{\set{1}} \qquad \card{T_1^1} = 1 = \binom{1}{1} \]
+      Is also fine.
+    \item[Induction step]
+      The hypothesis is our assumption:
+      \[ \forall 0 \leq k \leq 1: \card{T_n^k} = \binom{n}{k} \]
+
+      Consider $M_{n+1}$. Special case $k = 0$:
+      \[ T_{n+1}^0 = \set{\emptyset} \qquad \card{T_{n+1}^0 = 1 = \binom{n+1}{0}} \]
+
+      Special case $k = n + 1$:
+      \[ T_n^{} = \set{M_{n+1}} \qquad \card{T_N{n+1}^{n+1}} = 1 = \binom{n+1}{n+1} \]
+
+      Let $1 \leq k \leq n$.
+      \[ T_{n+1}^x TODO \]
+
+      Union is disjoint $\Rightarrow \card{T_{n+1}^k} = \card{R_{n+1}^k} + \card{S_{n+1}^k}$
+
+      \[ R_{n+1}^k = \set{A \subseteq M_n: \card{A} = k} = T_n^k \]
+      \[ \card{R_{n+1}^k} = \card{T_n^k} = \binom{n}{k} \]
+      by induction hypothesis.
+      \[ S_{n+1}^k = \set{A \subseteq M_{n+1}: A = A' \cup \set{n+1}: A' \subseteq M_n: \card{A'} = k - 1} \]
+      We prove $\card{S_{n+1}^k} = \card{T_n^{k-1}}$.
+      \[ f: S_{n+1}^k \rightarrow T_n^{k-1} \]
+      \[ f(A) = f(A' \cup \set{n+1}) = A' \]
+
+      $f$ is bijective.
+      $f$ is surjective: Let $A' \in T_n^k$ define $A = A' \cup \set{n+1} \in S_{n+1}^n$ and $f(A) = A'$.
+      $f$ is injective: Let $f(A) = f(B)$ and $A = A' \cup \set{n+1} \in S_{n+1}^k$.
+
+      $B = B' \cup \set{n+1} \in S_{n+1}^k$. $A', B' \in T_n^{k-1}$.
+
+      \[ f(A) = f(B) \Rightarrow A' = B' \Rightarrow A' \cup \set{n+1} = B' \cup \set{n+1} \Rightarrow A = B \]
+      \[ \card{S_{n+1}^k} = \card{T_n^{k-1}} \stackrel{\text{ind. hypo.}}{=} \binom{n}{k-1} \]
+      Therefore $\card{T_{n+1}^k} = \binom nn = \binom n{k-1} = \binom{n+1}{k}$.
+      The last equation follows from the recursive definition of binomial coefficients.
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  \textbf{(Binomial theorem).}
+
+  Let $a, b \in \mathbb{R}$ (or $a, b \in \mathbb{C}$). Then it holds that
+  \[ (a + b)^n = \sum_{k=0}^n \binom{n}{k} a^k b^{n-k} \]
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      Proof by induction over $n$.
+      \begin{description}
+        \item[Induction step] $n=0$: $(a + b)^0 = 1$
+          \[ \sum_{k=0}^0 \binom{0}{k} a^k b^{0-k} = \binom{0}{0} a^0 b^0 = 1 \]
+        \item[Induction step] $n \rightarrow n + 1$
+          \[
+            (a + b)^{n+1} = (a + b)^n \cdot (a + b)
+            = \left(\sum_{k=0}^n \binom nk a^n b^{n-k}\right) (a + b)
+          \] \[
+            = \sum_{k=0}^n \binom nk a^{k+1} b^{n-k} + \sum_{k=0}^n \binom nk a^k b^{n-k+1}
+          \] \[
+            = \underbrace{\sum_{n=0}^{n-1} \binom nk a^{k+1} b^{n-k}}_{\substack{\text{index shift} \\ h + 1 = j, h =0 \\ \Rightarrow j=1, h = j-1, h=n-1 \\ \Rightarrow j = n}} +
+              \underbrace{\binom nk a^{n+1} \cdot b^0}_{a^{n-1}} +
+              \sum_{k=1}^n \binom nk a^k b^{n+1-k} +
+              \binom n0 a^0 b^{n+1}
+          \] \[
+            \sum_{j=1}^n \binom{n}{j-1} a^j b^{n-(j-1)}
+            + \sum_{k=1}^n \binom nk a^k b^{n+1-k} + \binom {n+1}{n+1} a^{n+1}
+            + \binom{n+1}{0} b^{n+1}
+          \]
+          Renaming $j$ to $k$:
+          \[
+            = \sum_{k=1}^n \underbrace{\left[\binom{n}{k-1} + \binom nk\right]}_{\binom{n+1}{k} \text{ by recursive definition}} a^k b^{n+1-k}
+            + \binom{n+1}{n+1} a^{n+1} b^0
+            + \binom{n+1}{0} a^0 b^{n+1}
+          \] \[
+            = \sum_{k=0}^{n+1} \binom{n+1}{k} a^k b^{n+1-k}
+          \]
+          Therefore the binomial theorem holds for $n+1$.
+      \end{description}
+  \end{enumerate}
+\end{proof}
+
+\meta{lecture}{29th of October 2015}{Ring Wolfgang}
+
+\[ \forall a, b \in \mathbb{R}, n \in \mathbb{N}: (a + b)^n = \sum_{k=1}^n \binom{n}{k} a^k b^{n-k}  \]
+\begin{description}
+  \item[Induction base] $n = 0, n = 1$ follows immediately
+  \item[Induction step]
+    \[ (a + b)^n = \underbrace{(a + b)(a + b)(a + b)(a + b)\dots(a + b)}_{n \text{ times}} \]
+    When multiplying the products $a^n b^{n-k}$ are created ($0 \leq k \leq n$).
+    $a^n b^{n-k}$ are created iff $a$ is the factor resulting from $k$ parenthesis groups and
+    $b$ originates from the remaining $(n-k)$ groups.
+    There are exactly $\binom{n}{k}$ possibilities to select from $n$ groups.
+    $a^k b^{n-k}$ occurs $\binom nk$ times.
+    Therefore
+    \[ (a + b)^n = \sum_{k=0}^n \binom nk a^k b^{n-k} \]
+    This is a rather informal proof, but suffices at this point.
+\end{description}
+
+\section{Arithmetics of numbers}
+
+We consider two fundamental arithmetic operators and determine fundamental properties.
+
+\begin{defi}
+  Let $K$ be a set where two arithmetic operators are defined:
+  Therefore $\forall a,b \in K$ let $a + b \in K$ and $a \cdot b \in K$.
+
+  We require the following properties:
+  \begin{itemize}
+    \item[\textbf{A1}] $\forall a,b \in K: a + b = b + a$
+    \item[\textbf{A2}] $\forall a,b,c \in K: (a + b) + c = a + (b + c)$
+    \item[\textbf{A3}] $\exists 0 \in K \forall a \in K: a + 0 = a$
+    \item[\textbf{A4}] $\forall a \in K \exists \tilde{a}: a + \tilde{a} = 0$
+  \end{itemize}
+  Then $(K, +)$ is a commutative group (\enquote{abelian group}).
+  In general we denote $\tilde{a}$ as $-a$.
+  We define $a - b = a + (-b)$ (\enquote{subtraction}).
+
+  \begin{itemize}
+    \item[\textbf{M1}] $\forall a,b \in K: a \cdot b = b \cdot a$
+    \item[\textbf{M2}] $\forall a,b,c \in K: a \cdot (b \cdot c) = (a \cdot b) \cdot c$
+    \item[\textbf{M3}] $\exists 1 \in K: a \cdot 1 = a \forall a \in K$ (neutral element)
+    \item[\textbf{M4}] $\forall a \in K \setminus \set{0} \exists \hat a: \hat a \cdot a = 1$
+  \end{itemize}
+  In general we denote $\hat a$ as $a^{-1}$.
+
+  We set $\frac ab = a \cdot b^{-1}$.
+  \[ \frac{1}{b} = 1 \cdot b^{-1} \text{ for } b \neq 0 \]
+\end{defi}
+
+\begin{defi}[Composition]
+  Compatibility of $+$ and $\cdot$:
+  \begin{itemize}
+    \item[\textbf{D}] $\forall a,b,c \in K: a \cdot (b + c) = a \cdot b + a \cdot c$
+  \end{itemize}
+  Under these conditions $K$ is called a \emph{field}.
+\end{defi}
+
+\begin{ex}
+  Examples for fields: $\mathbb{Q}, \mathbb{R}, \mathbb{C}$.
+
+  In every field it holds that
+  \begin{itemize}
+    \item the inverse element of $a$ is unique ($\tilde a$ is unique).
+      Let $-a$ be the inverse element of $a$ and $a + b = 0 \Rightarrow b = -a$
+      \begin{proof}
+        TODO
+        \[ (a + (-a)) + (b + 0) = a + b =  \]
+      \end{proof}
+    \item $0 \cdot a = 0$
+      \begin{proof}
+        \[ 0 = 0 + 0 \]
+        follows from \textbf{D}.
+        \[ 0 \cdot a = (0 + 0) \cdot a = 0 \cdot a + 0 \cdot a \]
+        \[ 0 \cdot a + (-0 \cdot a) = 0 \cdot a + [0 \cdot a + (-0 \cdot a)] \]
+        \[ 0 = 0 \cdot a \]
+      \end{proof}
+    \item $-a = (-1) \cdot a$
+      \begin{proof}
+        \begin{align*}
+          a + (-1) \cdot a = (1 + (-1)) a = 0 \\
+          a + (-1) \cdot a = 0 \\
+          -a = (-1) \cdot a \\
+        \end{align*}
+      \end{proof}
+  \end{itemize}
+\end{ex}
+
+\subsection{Integers and the field of rational numbers $\mathbb{Q}$}
+
+For $\mathbb{N}$, \textbf{A1}, \textbf{A2} and \textbf{A3}.
+If $n \geq m$, then also $n - m \in \mathbb{N}$.
+$n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
+
+\begin{cor}
+  Extension:
+  \[ \mathbb{Z} = \set{0, 1, -1, 2, -2, 3, \ldots} = \mathbb{N}_+ \cup \set{0} \cup \set{-n: n \leq \mathbb N_0} \]
+  We define $-0 \coloneqq 0$ and $\forall n \in \mathbb{N}_+$ let $n + (-n) \coloneqq 0$.
+
+  Therefore for every $z \in \mathbb{Z}$ exists some $\tilde z$ such that $z + \tilde z = 0$.
+  \begin{itemize}
+    \item $z \in \mathbb{Z}_+ \Rightarrow \tilde z = -z$
+    \item $z = 0 \Rightarrow \tilde z = 0$
+    \item $z = -n$ for $n \in \mathbb{N}_+$
+    \item $\tilde z = n$
+  \end{itemize}
+  \[ \forall z \in \mathbb{Z} \exists \tilde z \in \mathbb{Z}: z + \tilde z = 0 \]
+  In general we denote $\tilde z = (-z)$.
+  Also $-(-z) = z$.
+
+  For $z,w \in \mathbb{Z}$:
+  \[
+    z + w =
+    \begin{cases}
+      z + w       & z,w \in \mathbb{N} \\
+      (-z) + (-w) & -z, -w \in \mathbb{N} \\
+      z - (-w)    & z, -w \in \mathbb{N} \text{ and } z > (-w) \\
+      -((-w) - z) & z, -w \in \mathbb{N} \text{ and } (-w) > z
+    \end{cases}
+  \] \[
+    z\cdot w =
+    \begin{cases}
+      z \cdot w       & z,w \in \mathbb{N} \\
+      (-z)(-w)        & -z, -w \in \mathbb{N} \\
+      -((-z) \cdot w) & -z \in \mathbb{N}, w \in \mathbb{N}
+    \end{cases}
+  \]
+
+  In $\mathbb{Z}$ the properties \textbf{A1}, \textbf{A2}, \textbf{A3}, \textbf{A4},
+  \textbf{M1}, \textbf{M2}, \textbf{M3} and \textbf{D} hold.
+\end{cor}
+
+\begin{defi}
+  \[ \mathbb{Q} = \set{\frac mn: m,n \in \mathbb{Z}, n \neq 0} \]
+  where $\frac mn = \frac{m'}{n'} \Leftrightarrow m \cdot n' = n \cdot m'$.
+  $\mathbb{Q}$ is called the set of rational numbers.
+
+  We define
+  \[ \frac mn + \frac kl \coloneqq \frac{ml + nk}{nl} \]
+  \[ \frac mn \cdot \frac kl = \frac{mk}{nl} \]
+
+  Show that
+  \[ \frac mn = \frac{m'}{n'} \text{ and } \frac kl = \frac{k'}{l'} \]
+  \[ \Rightarrow \frac{ml + nk}{nl} = \frac{m'l' + n'k'}{n'l'} \]
+  \[ \Rightarrow (ml + nk)(n' l') = (m' l' + n' k') \]
+  \[ \Leftrightarrow mn' \cdot ll' + nn' \cdot kl = m'n \cdot ll' + nn' \cdot k' l \]
+  Analogously for $\frac mn \cdot \frac kl$.
+
+  \textbf{A1}--\textbf{A4}, \textbf{M1}--\textbf{M4} and \textbf{D} hold for $\mathbb{Q}$.
+
+  For $z \in \mathbb{Z}$ we set $z = \frac z1$.
+  Therefore it holds that $\mathbb{Z} \subseteq \mathbb{Q}$.
+  $0 = \frac 01$ and $\frac mn + 0 = \frac mn + \frac 01 = \frac{m\cdot 1 + n\cdot 0}{n\cdot 1} = \frac{m \cdot 1}{n\cdot 1} = \frac mn$.
+  $0$ is neutral in regards of addition in $\mathbb{Q}$.
+
+  Inverse element in regards of addition:
+  \[ \frac mn + \frac{-m}n = \frac{mn + (-m)n}{n^2} = \frac{(m + (-m)) n}{n \cdot n} = \frac{0n}{n^2} = \frac 01 \]
+  because $0 \cdot 1 = 0 \cdot n^2$.
+
+  Concerning multiplication:
+  \[ 1 = \frac 11 \qquad \frac mn \cdot \frac 11 = \frac{m\cdot 1}{n\cdot 1} = \frac mn \]
+  $1$ is a neutral element in regards of multiplication in $\mathbb{Q}$.
+
+  Let $\frac mn \in \mathbb{Q} \setminus \set{0} \Rightarrow m \neq 0 \Rightarrow \frac nm \in \mathbb{Q}$ and $\frac mn \frac nm = \frac{mn}{mn} = \frac 11$. TODO: verify
+  because $m \cdot n \cdot 1 = 1\cdot m \cdot n$.
+\end{defi}
+
+\begin{cor}
+  \[ \forall \frac mn \in \mathbb{Q}: -\frac mn = \frac{-m}{n} \]
+  \[ \forall \frac mn \in \mathbb{Q} \setminus \set{0}: \left(\frac mn\right)^{-1} = \left(\frac nm\right) \]
+  Therefore $\mathbb{Q}$ is a field.
+\end{cor}
+
+\meta{lecture}{30th of October 2015}{Ring Wolfgang}
+
+Literature:
+\begin{itemize}
+  \item Eblinghaus et al., \enquote{Zahlen}, Springer Verlag
+  \item E. Landau: \enquote{Grundlagen der Analysis}, uses Peano axioms to build calculus
+\end{itemize}
+
+\begin{defi}
+  Let $K$ be a field. We assume that $K$ is taken from two sets: $K = K_+ \cup \set{0} \cup K_-$
+  with $0 \not\in K_+, 0 \not\in K_-$. It holds that
+  \begin{itemize}
+    \item $\forall a \in K$ it holds that either $a \in K_+$ or $a = 0$ or $a \in K_+$ \\
+          $a \in K_+ \Leftrightarrow -a \in K_-$
+    \item $\forall a, b \in K_+$: $a + b \in K \land a\cdot b \in K$
+  \end{itemize}
+  If those properties are satisfied, such a field is called an \emph{ordered field}.
+  Instead of $a \in K_+$ we write $a > 0$ (namely \enquote{positive numbers})
+  and $a < 0$ for $a \in K_-$ correspondingly (namely \enquote{negative numbers}).
+
+  For arbitrary $a, b \in K$ we define
+  \[ a > b \Leftrightarrow a - b > 0 \]
+  It holds that $a > b \Leftrightarrow b < a$.
+  \[ a \geq b \Leftrightarrow a > b \lor a = b \]
+\end{defi}
+
+\begin{lemma}
+  Let $K$ be an ordered field. Then it holds that
+  \begin{enumerate}
+    \item $a \in K_+ \land b \in K_- \Rightarrow a \cdot b \in K_-$ \\
+          $a \in K_- \land b \in K_- \Rightarrow a \cdot b \in K_+$
+    \item $\forall a, b \in K$ one of the following relations hold:
+          \[ a > b \lor a = b \lor a < b \]
+          Therefore $<$ defines a total order on $K$.
+    \item $\forall a, b, c \in K: [(a < b) \land (b < c) \implies a < c]$ \\
+          Therefore $<$ is transitive.
+    \item If $a > b > 0$ then $\frac1a < \frac1b$
+          If $a > 0$ holds, then also $a^{-1} = \frac1a > 0$.
+    \item $\forall a, b, c \in K: a < b \implies a + c < b + c$
+    \item $\forall a, b \in K: \forall c > 0: [a > b \implies ac > bc]$ \\
+          $\forall a, b \in K: \forall c < 0: [a > b \implies ac < bc]$
+    \item $\forall a \in K \setminus \set{0}: a^2 = a \cdot a > 0$
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+    \item We know from the practicals: $\forall a,b \in K: (-a)(-b) = ab$
+      \[ (-a) b = -(ab) \]
+      Let $a \in K_+, b \in K_-$, therefore $a \in K_+$, $(-b) \in K_-$,
+      then it holds that $ab = (-a)(-b) = -(a(-b)) \in K_-$.
+      Let $a \in K_-$ and $b \in K_-$ therefore $(-0) \in K_+ \land (-b) \in K_+
+      \implies ab = (-a)(-b) \in K_+$.
+    \item Let $a, b \in K$. Then one of the following properties hold:
+      \[ a - b > 0 \lor a - b = 0 \lor a - b < 0 \]
+      Equivalently,
+      \[ a > b \lor a = b \lor a < b \]
+    \item Let $a > b$ and $b > c$. Therefore $a - b > 0$ and $b - c > 0$.
+      \[ \Rightarrow (a - b) + (b - c) > 0 \]
+      \[ a(- b + b) - c > 0 \]
+      \[ a - c > 0 \Leftrightarrow a > c \]
+    \item Let $a > 0 \Rightarrow a^{-1} \neq 0$.
+      Assume $\frac{1}{a} = a^{-1} < 0 \Rightarrow a^{-1} \cdot a = 1 < 0$.
+      Otherwise it holds that $1 = 1 \cdot 1 = 1^2 > 0 \lightning$
+    \item Let $a > b > 0$. Then it holds that
+      \[
+          a^{-1} b^{-1} (b - a)
+          = a^{-1} b^{-1} b - a^{-1} b^{-1} a
+          = -a^{-1} \cdot b^{-1}
+          = \frac1a \cdot \frac1b
+          \Rightarrow a^{-1} < b^{-1}
+      \]
+    \item $a < b$ therefore $a - b < 0 \Rightarrow a + c - c - b < 0 \Rightarrow (a + c) - (b + c) < 0$
+      \[ \Leftrightarrow a + c < b + c \]
+    \item Let $a > b, c > 0 \Rightarrow (a - b) > 0 \Rightarrow (a - b) \cdot c > 0 \Rightarrow ac - bc > 0
+      \Rightarrow ac > bc$. For the second statement, it holds analogously:
+      $a < b, c < 0 \Rightarrow (a - b) < 0 \Rightarrow (a - b) \cdot c < 0 \Rightarrow ac - bc < 0
+        \Rightarrow ac < bc$
+    \item $a > 0 \Rightarrow a \cdot a > 0$.
+      Let $a < 0 \Rightarrow (-a) > 0$. It holds $a \cdot a = (-a)(-a) > 0$.
+      Therefore the square of two numbers is always positive.
+  \end{enumerate}
+\end{proof}
+
+\begin{rem}
+  $\mathbb{C}$ is not an ordered ordered field.
+  $\mathbb{N}$, $\mathbb{Z}$ and $\mathbb{Q}$ are ordered.
+\end{rem}
+
+\begin{rem}
+  Let $q \in \mathbb{Q}$.
+  \begin{itemize}
+    \item[a)] Let $m,n \in \mathbb{N}_+$ such that $q = \frac mn$ then $q > 0$.
+    \item[b)] Let $m,n \in \mathbb{N}_+$ such that $q = -\frac mn$ then $q < 0$.
+  \end{itemize}
+
+  We show that $\mathbb{Q} = \mathbb{Q}_+ \cup \set{0} \cup \mathbb{Q}_-$.
+  Every $q \in \mathbb{Q}$ has a representation of either a) or b), but not both.
+  $\mathbb{Q}_+ \cap \mathbb{Q}_- = \emptyset$.
+
+  \[
+    q \neq 0 \Rightarrow q = \begin{cases}
+      \frac mn & m,n \in \mathbb{N}_+ \\
+      -\frac mn & m,n \in \mathbb{N}_+ \\
+      -\frac mn & m,n \in \mathbb{N}_+ \\
+      \frac{-m}{-n} & m,n \in \mathbb{N}_+
+    \end{cases}
+  \]
+  \[ q = \frac{n}{-m} = \frac{-n}{m} \]
+  because $nm = (-n)(-m)$.
+  \[ q = \frac{-m}{-n} = \frac mn \]
+  because $(-m) \cdot n = m \cdot (-n)$.
+\end{rem}
+
+\begin{rem}
+  We want to show that $\mathbb{Q}_+ \cap \mathbb{Q}_- = \emptyset$.
+  Let $q \in \mathbb{Q}_+ \cap \mathbb{Q}_-$.
+  \[ q = \frac mn = -\frac{m'}{n'} \qquad m,n,m',n' \in \mathbb{N}_+ \]
+  \[ \Rightarrow n \cdot n' = (-m') n \]
+  \[ \Rightarrow \underbrace{\underbrace{mn'}_{\in \mathbb{N}_+} + \underbrace{m' n}_{\in \mathbb{N}_+}}_{\in \mathbb{N}_+} = 0 \qquad\text{\Lightning} \]
+
+  Furthermore $p \in \mathbb{Q}_+ \land q \in \mathbb{Q}_+$
+  \[ \Rightarrow p + q \in \mathbb{Q}_+ \land pq \in \mathbb{Q}_+ \]
+  \[ \Rightarrow p = \frac kl \qquad q = \frac mn \qquad k,l,m,n \in \mathbb{N}_+ \]
+  \[ p + q = \frac{\overbrace{kn + ml}^{\in \mathbb{N}_+}}{nm} \in \mathbb{Q}_+ \]
+  \[ pq = \frac{k}{l} \cdot \frac mn = \frac{\overbrace{km}^{\in \mathbb{N}_+}}{\underbrace{ln}_{\in \mathbb{N}_+}} \in \mathbb{Q}_+ \]
+\end{rem}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200px]{img/irrational_number.pdf}
+    \caption{Illustration of an irrational number}
+  \end{center}
+\end{figure}
+
+\begin{defi}
+  Let $K$ be an ordered field $a \in K$.
+  The absolute value of $a$ is defined as
+  \[
+    \abs{a} = \begin{cases}
+      a & \text{ if } a \in K_+ \\
+      0 & \text{ if } a = 0 \\
+      -a & \text{ if } a \in K_-
+    \end{cases}
+  \]
+\end{defi}
+
+\begin{rem}
+  Let $K$ be an ordered field. Then it holds that
+  \[ \mathbb{Q} \subseteq K \subseteq \mathbb{R} \]
+  except for isomorphism.
+\end{rem}
+
+\begin{theorem}
+  \[ \forall a, b \in K: \abs{a + b} \leq \abs{a} + \abs{b} \qquad \text{\enquote{Triangle inequality}} \]
+  %\[ \abs{a \cdot b} = \abs{a} \cdot \abs{b} \]
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[Case 1]
+      \[ a \cdot b > 0 \Rightarrow a \cdot b > 0: \abs{ab} = ab \qquad \abs{a}\cdot\abs{b} = ab \]
+    \item[Case 2]
+      \[ a > 0, b < 0: a \cdot b < 0: \abs{ab} = -ab \qquad \abs{a} \cdot \abs{b} = a \cdot (-b) \]
+      \[ b < 0 \Rightarrow -b > 0 \Rightarrow b < -b \Rightarrow \underbrace{a + b}_{\abs{a + b}} < \underbrace{a - b}_{\abs{a} + \abs{b}} \]
+    \item[Case 3]
+      \[ a < 0, b < 0: a \cdot b > 0: \abs{ab} = ab \qquad \abs{a} = -a \qquad \abs{b} = -b  \]
+      \[ \abs{a} \cdot \abs{b} = -a \cdot -b = a b \]
+    \item[Case 4]
+      \[ a > 0, b < 0: a + b < 0 \]
+      \[ \abs{a} = a \qquad \abs{b} = b \qquad \abs{a + b} = -(a + b) = -a - b \]
+      \[ a > 0 \Rightarrow -a < 0 \qquad -a - b < a - b \]
+      \[ -(a + b) = \abs{a + b} \]
+  \end{description}
+\end{proof}
+
+\meta{lecture}{4th of November 2015}{Wolfgang Ring}
+
+\subsection{Laws for absolute values}
+
+\begin{theorem}
+  Let $y \geq 0$. Then it holds that $\abs{x} \leq y \Leftrightarrow -y \leq x \land x \leq y$
+\end{theorem}
+
+\begin{proof}
+  First direction $\Rightarrow$:
+  \[
+    \abs{x} = \begin{cases}
+      x & \text{for } x \geq 0\\
+      -x & \text{for } x < 0
+    \end{cases}
+  \]
+  \begin{description}
+    \item[Case 1] Let $x \geq 0$. Then
+      \[ \abs{x} \leq y \Rightarrow x \leq y \Rightarrow -y \leq x \]
+      because $-y \leq 0 \land x \geq 0$ anyways.
+    \item[Case 2] Let $x < 0$, therefore $\abs{x} = -x$. Because
+      \[ -x \leq y \Rightarrow x \geq -y \]
+      $x \leq y$ holds anyways because $x < 0$ and $y \geq 0$.
+  \end{description}
+
+  Second direction $\Leftarrow$:
+
+  Let $-y \leq x \leq y$.
+  \begin{description}
+    \item[Case 1] $x \geq 0: \abs{x} = x \leq y$ because of the second inequality.
+    \item[Case 2] $x < 0: \abs{x} = -x$
+      \[ -(-1) \Rightarrow -(-y) \geq -x \text{ or equivalently } y \geq -x = \abs{x} \]
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  \[ \abs{x} = 0 \Leftrightarrow x = 0 \]
+  \[ \forall a \in K: \abs{a} = \abs{-a} \]
+  \[ \forall \varepsilon > 0: \abs{x - y} \leq \varepsilon \Rightarrow x = y \]
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[First direction $\Rightarrow$]
+      Without loss of generality: $x \geq y$.
+
+      \[ x \neq y \Rightarrow \exists \varepsilon > 0: \abs{x - y} > \varepsilon \]
+
+      Let $x \neq y$. Because $x \geq y$ holds, so does $x > y$. Therefore $x - y > 0$.
+      We define $\varepsilon = \frac{x-y}{2} < x - y$
+
+      \[ 2 = 1 + 1 > 1 \]
+      \[ 2^{-1} = \frac12 < 1 = 1^{-1} \]
+
+      Therefore it holds that $\varepsilon: \abs{x-y} = x - y > \frac12(x - y) = \varepsilon > 0$.
+
+    \item[Second direction $\Leftarrow$]
+      $x = y \Rightarrow \abs{x-y} = 0 \leq \varepsilon \forall \varepsilon > 0$
+  \end{description}
+\end{proof}
+
+\index[English]{Inversed triangle inequality}
+\index[German]{\foreignlanguage{ngerman}{Umgekehrte Dreiecksungleichung}}
+\begin{theorem}[Inversed triangle inequality]
+  Let $a, b \in K$. Then it holds that
+  \[ \abs{\abs{a} - \abs{b}} \leq \abs{a - b} \]
+\end{theorem}
+
+\begin{proof}
+  Show that $-\abs{a - b} \leq \abs{a} - \abs{b} \leq \abs{a - b}$.
+  \begin{description}
+    \item[First inequality]
+      \[ \abs{b} = \abs{b - a + a} \leq \abs{b - a} + \abs{a} \Rightarrow -\abs{a - b} \leq \abs{a} - \abs{b} \]
+    \item[Second inequality]
+      \[ \abs{a} = \abs{a - b + b} \leq \abs{a - b} + \abs{b} \Rightarrow \abs{a} - \abs{b} \leq \abs{a - b} \]
+  \end{description}
+\end{proof}
+
+\meta{lecture}{5th of November 2015}{Wolfgang Ring}
+
+\begin{defi}
+  \textbf{Intervals.}
+  Let $a, b \in K$.
+  \[ (a,b) = \setdef{x \in K}{(x > a) \land (x < b)} \]
+  \[ [a, b) = \setdef{x \in K}{(x \geq a) \land (x < b)} \]
+  \[ (a, b] = \setdef{x \in K}{(x > a) \land (x \leq b)} \]
+  \[ [a, b] = \setdef{x \in K}{(x \geq a) \land (x \leq b)} \]
+\end{defi}
+
+\index[English]{interval length}
+\index[German]{\foreignlanguage{ngerman}{Intervalllänge}}
+\index[English]{open interval}
+\index[German]{\foreignlanguage{ngerman}{Offenes Intervall}}
+\index[English]{closed interval}
+\index[German]{\foreignlanguage{ngerman}{Geschlossenes Intervall}}
+
+\begin{theorem}[Laws for intervals]
+  \begin{align}
+    (a, b) &= \emptyset \text{ if } b \leq a \\
+    [a, b] &= \emptyset \text{ if } b < a \\
+    [a, a] &= \set{a}
+  \end{align}
+  If $I$ is an non-empty interval (hence $I \neq \emptyset$),
+  then $\card{I} = b - a$ is called \emph{length of the interval}.
+  Furthermore
+  \begin{align}
+    (a, \infty) &= \setdef{x \in K}{x > a} \\
+    [a, \infty) &= \setdef{x \in K}{x \geq a} \\
+    (-\infty, a) &= \setdef{x \in K}{x < a} \\
+    (-\infty, a] &= \setdef{x \in K}{x \leq a}
+  \end{align}
+\end{theorem}
+
+\begin{theorem}
+  $\mathbb Q$ is arithmetically incomplete.
+\end{theorem}
+
+\begin{proof}
+  We define a mapping from $\mathbb N_+$ to $\mathbb N$:
+  Let $n \in \mathbb N_+$ then we know that $n$ can be represented distinctly
+  as product of prime numbers. Let $\operatorname{Z}(n)$ be the number of twos
+  in the prime product representation.
+
+  Examples:
+  \[ \operatorname{Z}(14) = \operatorname{Z}(2 \cdot 7) = 1 \]
+  \[ \operatorname{Z}(15) = \operatorname{Z}(3 \cdot 5) = 0 \]
+  \[ \operatorname{Z}(24) = \operatorname{Z}(2 \cdot 2 \cdot 2 \cdot 3) = 3 \]
+
+  It holds that $\operatorname{Z}(2n) = \operatorname{Z}(n) + 1 \forall n \in \mathbb N_+$
+  and $\operatorname{Z}(n^2) = \operatorname{Z}(n) \cdot 2 \forall n \in \mathbb N_+$.
+
+  We claim,
+  \[ \not\exists q: q = \frac mn \text{ with } q^2 = 2 \]
+  Proof by contradiction:
+  \begin{enumerate}
+    \item Assume $\left(\frac mn\right)^2 = 2$.
+    \item Then $\frac{m^2}{n^2} = 2$.
+    \item Then $m^2 = 2 \cdot n^2$.
+    \item With $Z(m^2) = 2\cdot \operatorname{Z}(n)$.
+    \item With $\operatorname{Z}(2\cdot n^2) = \operatorname{Z}(n^2) + 1 = 2 \cdot \operatorname{Z}(n) + 1$.
+    \item If $m^2 = 2n^2$, then $\operatorname{Z}(m^2)$ must be even and $\operatorname{Z}(2\cdot n^2)$ must be odd.
+    \item Then equality cannot be satisfied $\lightning$
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  $\mathbb Q$ is geometrically incomplete.
+
+  We consider an infinite straight number line.
+  We define $\mathbb R$ as ordered field with properties:
+  \begin{description}
+    \item[Archimedean property]
+      $\mathbb N \subseteq \mathbb R$ with $\forall x \in \mathbb R: \exists n \in \mathbb N: x < n$
+
+      \[ \mathbb N \subseteq \mathbb R \forall n \in \mathbb N: -n \in \mathbb N \]
+      \[ \Rightarrow \forall n \in \mathbb N_+: n^{-1} \in \mathbb R \]
+      \[ \Rightarrow \mathbb Z \subseteq \mathbb R \]
+
+      Therefore $\forall m \in \mathbb N: m \cdot \frac1n = \frac mn \in \mathbb R
+      \Rightarrow \mathbb Q \subseteq \mathbb R$.
+
+      \begin{defi}
+        Let $I_0, I_1, \dots, I_z$. $(I_n)_{n \in \mathbb N}$ is a sequence of closed intervals with
+        \begin{enumerate}
+          \item $\forall a \in \mathbb N: I_{n+1} \subseteq I_n$
+          \item $\forall \varepsilon > 0 \exists n \in \mathbb N: n \geq N \Rightarrow \card{I_n} < \varepsilon$
+        \end{enumerate}
+      \end{defi}
+
+    \item[Completeness axiom]
+      Let $(I_n)_{n \in \mathbb N}$ be nested intervals in $\mathbb R$.
+      Then there exists some $x \in \mathbb R: x \in I_n: \forall n \in \mathbb N_+$.
+
+      Be aware, there exists only \emph{one} $x \in \mathbb R$ with the property:
+      $x \in I_n \forall n \in \mathbb N$.
+
+      Assume $x \in I_n$ and $y \in I_n \forall n \in \mathbb N$ and $x \neq y$.
+      \[ \card{\beta - \alpha} \leq b - a = \card{I} \]
+
+      \begin{proof}
+        Without loss of generality: $\alpha \leq \beta$.
+        Then it holds that $\card{\beta - \alpha} = \beta - \alpha \leq \beta
+        + (-\alpha) \leq b + (-\alpha) = b - a = \card{I}$.
+        \[ a \leq \alpha \Rightarrow -a \geq -\alpha \]
+
+        Consider arbitrary small $\varepsilon > 0$ and $N \in \mathbb N$ sufficiently large,
+        such that $\card{I_n} < \varepsilon$. Because $x,y \in I_n \Rightarrow
+        \card{x - y} < \varepsilon \Rightarrow x = y$.
+      \end{proof}
+  \end{description}
+\end{theorem}
+
+\begin{cor}
+  From the Archimedean property it follows that,
+  \[ \forall \varepsilon > 0: \exists N \in \mathbb N: n \geq N \Rightarrow \frac1n < \varepsilon \]
+\end{cor}
+
+\begin{proof}
+  Let $x > \frac1\varepsilon \in \mathbb R$.
+  Archimedean property: $\exists N \in \mathbb N: N > x$.
+
+  For $n \geq \mathbb N$ it holds that $n > x > 0 \Rightarrow \frac1n < \frac1x = \varepsilon$.
+\end{proof}
+
+\begin{cor}
+  Let $p \in \mathbb R, p > 1 \forall x \in \mathbb R: n \geq N \Rightarrow p^n > x$.
+\end{cor}
+
+\begin{proof}
+  $p > 1 + u$ with $u = p - 1$
+  \[ p^n = (1 + u)^n \underbrace{>}_{\text{Bernoulli}} 1 - nu = 1 + n(p-1) \]
+  Let $x \in \mathbb R$ arbitrary, select $N \in \mathbb N: \frac{x-1}{p-1} < N$.
+
+  Then it holds for $n \geq N:$
+  \[
+    \frac{x-1}{\underbrace{p-1}_{>0}}
+    \Leftrightarrow x - 1 < n\cdot(p-1)
+    \Leftrightarrow x < 1 + n(p-1) < p^n
+  \]
+\end{proof}
+
+\begin{theorem}
+  Let $q \in \mathbb R$ with $\card{q} < 1$. Then it holds that
+  \[
+    \forall \varepsilon > 0 \exists N \in \mathbb N:
+    n \geq N \Rightarrow \abs{q^n} = \abs{q}^n < \varepsilon
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let $s = \card{q} \geq 0$. Consider $q > 0$. Then
+  \begin{align*}
+    q^n &= 0 \\
+    \abs{q^n} &= 0 \\
+    \card{q}^n &< \varepsilon \forall \varepsilon > 0 \forall n \in \mathbb N
+  \end{align*}
+
+  Let $q \neq 0$, then $0 < s < 1$. Let $p = \frac1s \Rightarrow p > 1$.
+  Choose arbitrary $\varepsilon > 0$ and $x = \frac1\varepsilon$.
+  Because of the Completeness axiom
+  \[ \exists N \in \mathbb N: n \geq N \Rightarrow p^n > X \]
+  So it holds that
+  \[ \frac1{p^n} = S^n < \frac1x = \varepsilon \forall n \geq N \]
+  \[ \Rightarrow \left(\abs{q}\right)^n = \abs{q^n} \]
+\end{proof}
+
+\begin{theorem}
+  Let $x \in \mathbb R, x > 0$ and let $k \in \mathbb N_+$.
+  Then there exists a distinct $y \in \mathbb R$ with $y \geq 0$
+  such that
+  \[ y^k = x \]
+  We denote $y = \sqrt[k]{x}$ and conclude there exists $k$-th root numbers.
+\end{theorem}
+
+\begin{proof}
+  Idea: Construct nested intervals.
+
+  $(I_n)_{n \in \mathbb N}$ such that $y \in \bigcap_{n \in \mathbb N} I_n$
+  satisfies the property that $y^k = x$.
+
+  \[ 0 \leq y_1 < y_2 \Rightarrow y_1^k < y_2^k \]
+
+  We define $J_0 = [a_0, b_0]$ with $a_0 = 0$ and $b_0 = 1 + x$.
+  Then it holds that
+  \[ a_0^k = 0^k = 0 \leq x \]
+  \[ b_0^k = (1 + x)^k = 1 + k_n + \binom{k}{2} x^2 + \dots + x^k \geq 1 + kx > 0 \]
+\end{proof}
+
+\meta{lecture}{6th of November 2015}{Wolfgang Ring}
+
+\begin{theorem}
+  We prove:
+  \[ 0 \leq y_1 < y_2 \Rightarrow y_1^k \leq y_2^k \]
+\end{theorem}
+\begin{proof}
+  A short proof by a student:
+  \begin{description}
+    \item[$k=2$] \[ y^{k+1} = y^k \cdot y < y_2^k x < y_2^k y_2 = y^{k+1} \]
+    \item[$k\rightarrow k+1$] \[ y_1^2 < y_2^2 \]
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  Let $a, b \in K$ and $k \in \mathbb N$.
+  Then it holds that
+  \[ a^k - b^k = (a - b)\left(\sum_{j=0}^{k-1} a^{k-1-j} b^j\right) \]
+  \[ a^2 - b^2 = (a - b)(a + b) \]
+  \[ a^3 - b^3 = (a - b)(a^2 + ab + b^2) \]
+\end{theorem}
+
+\begin{proof}
+  \[
+    (a - b)\left(\sum_{j=0}^{k-1} a^{k-j-1} b^j\right)
+    = \sum_{j=0}^{j-1} a^{k-j} b^j - \sum_{j=0}^{k-1} a^{k-j-1} b^{j+1}
+  \] \[
+    = a^k + \sum_{j=1}^{k-1} a^{k-j} b^j - \underbrace{b^{k-1}}_{j=k-1} - \sum_{j=0}^{k-2} a^{k-j-1} b^{j+1}
+  \] \[
+    = a^k - b^k + \sum_{j=1}^{k-1} a^{k-j} b^j - \sum_{l=1}^{k-1} a^{k-l} b^l
+  \] \[
+    = a^k
+  \]
+\end{proof}
+
+\begin{theorem}
+  Let $y_2 > y_1$ then
+  \[ y_2^k - y_1^k = \underbrace{(y_2 - y_1)}_{> 0} \underbrace{\left(\sum_{j=0}^{k-1} y_2^{k-j-1} y_1^j\right)}_{> 0} \]
+  \[ \Rightarrow y_2^k - y_1^k > 0 \]
+\end{theorem}
+
+\begin{proof}
+  \[ \forall x \geq 0 \in \mathbb R: \exists y \geq 0 \in \mathbb R: y^k = x \text{ with } k \in \mathbb N_+ \]
+  Special case $x = 0$ and $y = 0$ is the solution.
+
+  Let $x > 0$: We construct $y$ with $y \in \bigcap_{k=0}^\infty I_n$
+  where $I_n$ are nested intervals.
+  Specifically $I_n$ must have the properties:
+  \begin{itemize}
+    \item $I_n = [a_1, b_n]$ with $a^k \leq x, b_n^k \geq x \quad \forall n \in \mathbb N$
+    \item $I_{n+1} \subseteq I_n: \card{I_n} = \frac12 \card{I_{n+1}} = \left(\frac12\right)^n \card{I_0}$
+  \end{itemize}
+
+  \[ n = 0 \qquad I_0 = [0, x-1] \]
+  \[ a_0 = b \qquad b_0 = x + 1 \]
+  \[ a_0^k = 0 < x \qquad\checkmark \]
+  \[ b_0^k = (1 + x)^k = 1 + kx + \binom k2 x^2 + \dots + x^k > 1 + kx > x \text{ for } k \geq 1 \]
+
+  Let $I_n$ be given: $I_n = [a_n, b_n]$.
+  Define $m_n = \frac12 (a_n + b_n)$
+  \begin{description}
+    \item[Case 1]
+      \[ m_n^k \geq x \Rightarrow \text{ let } a_{n+1} = a_n, b_{n+1} = m \]
+      \[ I_{n+1} = [a_n, m_n] \subseteq [a_n, b_n] = I_n \]
+      \[ \card{I_{n+1}} = m_n - a_n = \frac12 a_n + \frac12 b_n - a_n \]
+      \[ \frac12 (b_n - a_n) = \frac12 \card{I_n} \]
+      \[ a_{n+1}^k = a^k \leq x \quad\checkmark \]
+      All conditions are satisfied.
+    \item[Case 2] $m_n^k < x: $
+      Let $a_{n+1} = m_1, b_{n+1} = b_n$.
+      It holds that $a_{n+1} = m_n < x, b_{n+1} = b_n \geq x \quad\checkmark$.
+      Furthermore it holds that $I_{n+1} \subseteq I$ and $\card{I_{n+1}} = \frac12 \card{I_n}$.
+
+      $I_n$ is set of nested intervals.
+      Let $\varepsilon > 0$ be arbitrary. Then
+      \[ \exists N \in \mathbb N: n \geq N \Rightarrow \left(\frac12\right)^n < \frac{\varepsilon}{1 + x} \]
+
+      For those $n \geq N$ it holds that
+      \[
+          \card{I_n} = \left(\frac12\right)^n \card{I_{0}}
+          = \left(\frac12\right)^n (x + 1)
+          < \frac{\varepsilon}{1 + x} \cdot (1 + x)
+      \]
+
+      Let $y \in I_n \forall n \in \mathbb N$.
+      Further nesting of intervals:
+      \[ (I_n)_{n \in \mathbb N} \text{ with } I_n = [a_n^k, b_n^k] \]
+      It holds that
+      \[
+          a_n \leq a_{n+1} < b_{n+1} \leq b_n \text{ because } I_{n+1} \subseteq I_n
+          \Rightarrow a_n^b \leq a_{n+1}^k < b_{n+1}^k \leq b_n^k
+      \]
+
+      Length of $I_n$:
+      \[ I_n = b_n^k - a_n^k = (b_n - a_n) \sum_{j=0}^{k-1} a_n^{k-1-j} b_n^j \]
+      Because $I_n \leq I_0 \Rightarrow a_n < b_0 \Rightarrow b_n \leq b_0$,
+      \[ < (b_n - b_0) \sum_{j=0}^{k-1} b_0^{k-1-j} b_0^{j} \]
+      \[ = (b_n - a_n) k b_0^k = (b_n - a_n) k (1 + x)^k \]
+
+      Let $\varepsilon > 0$ be arbitrary. Find some $N \in \mathbb N$ with $n \geq N$:
+      \[ \card{I_n} = (b_n - a_n) < \frac{\varepsilon}{k (1 + x)^k} \]
+      For those $n$ it holds that
+      \[ \card{I_n} < \card{I_n} \cdot k (1 - x)^k < \frac{\varepsilon}{k (1 + x)^k} k (1 + x)^k = \varepsilon \]
+
+      Therefore $(I_n)_{n \in \mathbb N}$ a set of nested intervals.
+
+      $\exists z \in \mathbb R$ with $z \in \lfloor a_n^k, b_n^k\rfloor: \forall n \in \mathbb N$
+      and $z$ is unique. By construction of $I_n$ it holds that $a_n^k \leq x \leq b_n^k$
+      \[ \Rightarrow x \in I_n \forall n \in \mathbb N \Rightarrow x = z \in \bigcap_{n \in \mathbb N} I_n. \]
+
+      On the opposite side it holds that $y \in I_n$ (hence $a_n \leq y \leq b_n \Rightarrow a_n^k \leq y^k \leq b_n^k$).
+      So $y^k \in I_n \forall n \in \mathbb N \Rightarrow y^k = z = x$.
+      So we have found some $y^k$ which is $x$. But is $y \geq 0$ with $y^k = x$ unique?
+
+      Let $y_1 \neq y_2$ with $y_1^k = y_2^k = x$ and without loss of generality,
+      \[ 0 \leq y_1 < y_2 \Rightarrow y_1^k < y_2^k \quad\lightning \]
+      So, $y$ is unique.
+  \end{description}
+\end{proof}
+
+\subsection{Supremum property in $\mathbb R$}
+
+\begin{defi}
+  Let $A \subseteq \mathbb R$.
+  \begin{itemize}
+    \item We call $A$ to be \emph{bounded above} if there exists some $u \in \mathbb R$ such that $\forall a \in A: a \leq u$.
+    \item A number $u$ with that property is called \emph{upper bound of $A$}.
+    \item We call $A$ to be \emph{bounded below} if there exists some $l \in \mathbb R$ such that $\forall a \in A: a \geq l$.
+    \item A number $l$ with that property is called \emph{lower bound of $A$}.
+    \item $A$ is called \emph{bounded} if there exists a lower and upper bound of $A$.
+  \end{itemize}
+\end{defi}
+
+\begin{cor}
+  Let $(a, b)$ be bounded.
+  Let $u$ be its upper bound and let $v \geq u$.
+  Then $v$ is also an upper bound of $(a, b)$.
+\end{cor}
+
+\meta{lecture}{11th of November 2015}{Wolfgang Ring}
+
+\begin{defi}
+  Let $A$ be bounded above.
+  Assume $s \in \mathbb R$ has the properties
+  \begin{enumerate}
+    \item $s$ is an upper bound for $A$
+    \item $\forall \sigma \in \mathbb R: \sigma < S$: $\sigma$ is not an upper bound for $A$.
+  \end{enumerate}
+  If those properties are satisfied, we call $s$ \emph{supremum of $A$}.
+  A supremum $s$ is always the smallest upper bound of $A$.
+  We denote $s = \sup{A}$.
+
+  There exists at most one supremum for $A$. Let $s_1$ and $s_2$ be two suprema,
+  then $s_1 \neq s_2$. So wlog. $\sigma_1 < \sigma_2$. This invalidates the supremum
+  property of $s_2 \Rightarrow s_1$ is not a supremum of $A$ $\lightning$.
+
+  Analogously an \emph{infimum of $A$} is the greatest lower bound of $A$.
+  Let $A$ be bounded below. $t \in \mathbb R$ is called \emph{infimum of $A$}
+  if
+  \begin{enumerate}
+    \item $\forall a \in A: t \leq a$ (t is a lower bound of $A$)
+    \item $\forall x > t$ so $x$ is no lower bound of $A$
+      \[ \Leftrightarrow \exists a \in A: a < x \]
+  \end{enumerate}
+  We denote $t = \inf{A}$.
+\end{defi}
+
+\begin{defi}
+  Let $A \subseteq \mathbb R$. We call $u \in \mathbb R$ \emph{maximum of $A$}
+  denoted $u = \max{A}$ if
+  \begin{enumerate}
+    \item $u \in A$ (is element of $A$)
+    \item $\forall a \in A: a \leq u$ (is an upper bound)
+  \end{enumerate}
+  $l \in \mathbb R$ denoted $l = \min{A}$ is called minimum of $A$ if
+  \begin{enumerate}
+    \item $l \in A$ (is element of $A$)
+    \item $\forall a \in A: l \leq a$ ($l$ is a lower bound)
+  \end{enumerate}
+\end{defi}
+
+\begin{theorem}
+  Let $A \subseteq R$ and $u$ be the maximum of $A$. Then it holds that
+  $u = \sup{A}$. If $l = \min{A} \Rightarrow l = \inf{A}$.
+\end{theorem}
+
+\begin{proof}
+  We need to show, that $l$ is an upper bound of $A$.
+  This follows by definition.
+  For $x < u$ it holds that $x$ not an upper bound.
+
+  Let $x < u$, because $u \in A$ there exists some element $y$ in $A$
+  with $y > x$. Therefore $x$ is not an upper bound of $A$.
+\end{proof}
+
+\begin{ex}
+  \[ A = \set{1, \frac12, \frac13, \ldots} = \set{\frac1n: n \in \mathbb N_+} \]
+  Then it holds that $1 \in A$ and $1 \geq \frac1n \forall n \in \mathbb N_+$.
+  Therefore $1 = \max{A} = \sup{A}$.
+
+  $0 = \inf{A}$, because $0$ is a lower bound of $A$ ($\frac1n > 0 \forall n \in \mathbb N_+$).
+  Let $\varepsilon > 0$, then $\exists N \in \mathbb N: n \geq N
+  \Rightarrow \frac1n \leq \varepsilon$. Therefore $\varepsilon$ is not a lower bound of $A$.
+
+  So $A$ does not have a minimum, because otherwise $l = \max{A} = \inf{A} = 0$.
+\end{ex}
+
+\begin{theorem}
+  Let $A \neq \emptyset$ and $A \subseteq \mathbb R$ be bounded above.
+  So some $s = \sup{A} \in \mathbb R$ exists (therefore $\mathbb R$ has a supremum property).
+\end{theorem}
+
+\begin{proof}
+  We construct nested intervals $(I_n){{n \in \mathbb N}}$ such that
+  for $s \in \bigcap_{n \in \mathbb N} I_n$ gilt $s = \sup{A}$.
+  We construct $I_{n+1}$ inductively using $I_n$
+
+  \begin{description}
+    \item[Case $n = 0$] \hfill{} \\
+      Because $A \neq 0$, we select $a_0 \in A$.
+      Because $A$ is bounded above, $\exists b_0 \in \mathbb R$
+      such that $b_0$ is an upper bound of $A$.
+      We define $I_0 = [a_0, b_0]$.
+    \item[Case $n \rightarrow n + 1$] \hfill{} \\
+      Let $a_0 = b_0$, then it holds that $b_0$ is upper bound and $b_0 \in A$.
+      We call that terminating condition.
+      Therefore $b_0 = \max{A} = \sup{A}$ and the supremum was found.
+      Instead of $n$ we use $n + 1$.
+      Let $I_0 = [a_n, b_n]$ with $a_n \neq b_n$ and $a_n \in A$,
+      $b_n$ is an upper bound of $A$. Furthermore it holds that
+      \[ \card{I_n} \leq \left(\frac12\right)^n \card{I_0} \]
+
+      Consider $I_{n+1}$ such that the same properties are satisfied.
+      Let $m_1 = \frac12 (a_1 + b_1)$. It holds that $a_n < m_n < b_n$.
+
+      \begin{description}
+        \item[Case $m_n$ is an upper bound of $A$]
+          Then we set $a_{n+1} = a_n \in A$ and
+          $b_{n+1} = m_n$ is an upper bound of $A$.
+          \[ \card{I_{n+1}} = b_{n+1} + a_{n+1} = \frac12 (b_n + a_n) - a_n \]
+          \[
+            = \frac12 b_1 - \frac12 a_n = \frac12 \card{I_n}
+            \leq \left(\frac12\right)^n \card{I_0}
+            = \left(\frac12\right)^{n+1} \card{I_n}
+            \qquad \checkmark
+          \]
+        \item[Case $m_n$ is not an upper bound of $A$]
+          Therefore $\exists x \in A$ with $x > m_n$.
+          \begin{description}
+            \item[Subcase $x = b_1$]
+              So $b_1$ is an upper bound.
+              Therefore $x \in A$ and $x$ is upper bound.
+              \[ x = \max{A} = \sup{A} \]
+              We found the supremum.
+            \item[Subcase $m_n < x < b_n$]
+              Let $a_{n+1} = x \in A$ and $b_{n + 1} = b_n$ is an upper bound
+              and
+              \[
+                  I_{n + 1} = b_{n+1} - a_{n+1} - b_n - x
+                  < b_n - m_n - b_n - \frac12 (b_n + a_n) + \frac12 (b_n - a_n)
+              \] \[
+                  = \frac12 \card{I_n} \leq \left(\frac12\right)^{n+1} \card{I_0}
+              \]
+              We have found supremum $s = \sup{A}$.
+          \end{description}
+          If in any case the terminating condition holds, then we have found
+          the supremum.
+
+          The remaining case is $\forall n \in \mathbb: a_n < b_n, a_n \in A, b_n$
+          is upper bound of $A$.
+          \[ \card{I_n} = b_n - a_n \leq \left(\frac12\right)^n \card{I_0} \]
+          Consider $\varepsilon > 0$ and $N$ such that $n \geq N \Rightarrow
+          \left(\frac12\right)^n < \frac{\varepsilon}{\card{I_n}}$.
+          For those $n$ it holds that
+          \[ \card{I_n} \leq \left(\frac12\right)^n \card{I_0} < \frac{\varepsilon}{\card{I_0}} \card{I_0} = \varepsilon \]
+          Therefore $(I_n)_{n \in \mathbb N}$ are nested intervals.
+      \end{description}
+  \end{description}
+\end{proof}
+
+What remains for completeness:
+  $s \in \mathbb R, s \in I_n: \forall n \in N$.
+  We need to show that $s = \sup{A}$.
+
+\meta{lecture}{12th of November 2015}{Wolfgang Ring}
+
+\begin{theorem}
+  Completeness of $\mathbb{R}$:
+  \[ \exists s \in \mathbb R: s \in I_n \forall n \in \mathbb N \]
+\end{theorem}
+
+\begin{proof}[\textbf{Proof} cont]
+  Every set with an upper bound has a supremum.
+
+  We construct $(I_n)_{n \in \mathbb N}$ with $I_n = [a_n, b_n]$ and $I_{n+1} \subseteq I_n$.
+  $\forall n \in \mathbb N: a_n \in A$, $b_n$ is the upper bound of $A$.
+  \[ \card{I_{n+1}} \leq \frac12 \card{I_n} \leq \left(\frac12\right)^{n+1} \card{I_0} \]
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/proof_interval.pdf}
+      \caption[width=200pt]{Relation of $a_n$ and $b_n$ and $J_{n+1}$}
+    \end{center}
+  \end{figure}
+
+  Consider $I_{n+1} \subseteq I_n$ with $a_n < b_n \forall n \in \mathbb N$.
+  \[ \card{I_n} \leq \left(\frac12\right)^n \card{I_0} \]
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/proof_interval2.pdf}
+      \caption[width=200pt]{Illustration of $s$ between $a_n$ and $b_n$}
+    \end{center}
+  \end{figure}
+
+  \begin{enumerate}
+    \item
+      Claim: $s$ is $\sup{A}$.
+
+      We need to show (by contradiction):
+      $S$ is upper bound of $A$. Assume $a \in A$ and $a > s$.
+      Let $\varepsilon = a - s > 0$ and choose $N$ sufficiently large such that
+      \[ \card{I_n} < \varepsilon = a - s \]
+      Then it holds that
+      \[
+          b_N
+          = \underbrace{b_n - a_n}_{\varepsilon} \not|
+          \underbrace{a_N}_{< s} < s + \varepsilon
+          = a
+      \]
+      \[ \Rightarrow b_N < a \in A \qquad\lightning \]
+      Because $b_n$ is an upper bound.
+
+    \item
+      $\forall \sigma < s$ it holds that $\sigma$ is not an upper bound of $A$.
+      Let $\sigma < s$ and $\varepsilon = s - \sigma > 0$ and choose $n \in N$
+      large enough such that $b_N - a_N < \varepsilon$. Then it holds that
+      \begin{align*}
+        a_N &= a_N - b_N + b_N \\
+            &> -\varepsilon + s \\
+            &= -s + \sigma + s = \sigma \qquad \checkmark
+      \end{align*}
+      Therefore it holds that $s$ is smallest upper bound of $A$ and therefore
+      supremum.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Every set with a lower bound in $\mathbb R$ has an infimum.
+  Every set with an upper bound in $\mathbb R$ has an supremum.
+\end{theorem}
+
+\begin{theorem}
+  Remember that $M$ has the same cardinality like $A$ if $\varphi: M \rightarrow A$.
+  $\varphi$ is bijective, $M$ is called countably infinite
+  if $M$ has the same cardinality like $\mathbb N$.
+
+  Let $\varphi: \mathbb N \rightarrow M$ be bijective therefore
+  $M = \set{\varphi(1), \varphi(2), \varphi(3), \ldots} = \setdef{\varphi(n)}{n \in \mathbb N}$
+  and $\varphi(i) \neq \varphi(j)$ for $i \neq j$.
+
+  \textbf{Notation.} $\varphi(n) = m_n$.
+
+  $M = \set{m_0, m_1, m_2, \ldots}$ with $m_i \neq m_j$ for $i \neq j$.
+  $\varphi$ is a complete enumeration of all elements of $M$.
+
+  Therefore every element of $M$ has the structure: $m_n$ with $i \in \mathbb N$.
+\end{theorem}
+
+\begin{theorem}
+  \[ \mathbb Q^+ = \set{\frac mn, m \in \mathbb N, n \in \mathbb N_+} \]
+  The set $\mathbb Q^+$ is countably infinite.
+\end{theorem}
+
+\begin{proof}
+  We enumerate the elements of $\mathbb Q^+$.
+
+  %\begin{table}[!h]
+  %  \begin{center}
+  %    \begin{tabular}{c|cccccccc}
+  %        \multicolumn{8}{c}{Enumerator} \\
+  %      Denominator: 1 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \ldots \\
+  %        $2$ & $\frac12$ & $\frac22$ & $\frac32$ & $\frac42$ & $\frac52$ & $\frac62$ & $\frac72$ & \ldots \\
+  %        $3$ & $\frac13$ & $\frac23$ & $\frac33$ & $\frac43$ & $\frac53$ & $\frac63$ & $\frac73$ & \ldots \\
+  %        $4$ & $\frac14$ & $\frac24$ & $\frac34$ & $\frac44$ & $\frac54$ & $\frac64$ & $\frac74$ & \ldots \\
+  %        $5$ & $\frac15$ & $\frac25$ & $\frac35$ & $\frac45$ & $\frac55$ & $\frac65$ & $\frac75$ & \ldots
+  %    \end{tabular}
+  %    \caption{
+  %      A complete enumeration of $\mathbb Q^+$ (diagonalization argument)
+  %      The enumeration goes as follows:
+  %      $1 \rightarrow 0, 2 \rightarrow 1, \frac12 \rightarrow 2, \frac13 \rightarrow 3$
+  %      and $\frac22$ is skipped, because it occurs already as $\frac22$.
+  %      We traverse the whole matrix diagonally.
+  %    }
+  %  \end{center}
+  %\end{table}
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=\textwidth]{img/enumeration_of_Q.pdf}
+      \caption{
+        A complete enumeration of $\mathbb Q^+$ (diagonalization argument).
+        We traverse the whole matrix diagonally. The blue numbers indicate the
+        enumeration and red lines cross out values already enumerated.
+        On the right-hand side the general order of the enumeration is illustrated.
+      }
+    \end{center}
+  \end{figure}
+
+  \[ \mathbb Q_+ = \set{q_0, q_1, q_2, \ldots} \]
+  \[ \mathbb Q_- = \set{-q_0, -q_1, -q_2, \ldots} \]
+  \[ \mathbb Q = \set{0, q_0, -q_0, q_1, -q_1, \ldots} \]
+  An enumeration exists. So $\mathbb Q$ is countably infinite.
+\end{proof}
+
+\index[English]{uncountability}
+\index[English]{\begin{otherlanguage}{ngerman}überabzählbar\end{otherlanguage}}
+\begin{theorem}
+  There is no bijective relation $\varphi: \mathbb N \rightarrow \mathbb R$.
+  Therefore we call $\mathbb R$ \emph{uncountable}.
+\end{theorem}
+
+\begin{proof}
+  We provide a proof by contradiction.
+  Assume $\mathbb R = \set{x_0, x_1, x_2, x_3, \ldots}$ is countable.
+
+  We construct nested intervals.
+  \begin{description}
+    \item[Case $\mathbf{n = 0}$]
+      \[ I_0 = [x_0 + 1, x_0 + 2] \]
+      Let $\card{I_0} = 1$ and $x_0 \not\in I_0$.
+
+      \begin{figure}[!t]
+        \begin{center}
+          \includegraphics[width=200px]{img/interval_I0.pdf}
+          \caption{Construction of a nested interval and its $I_0$}
+        \end{center}
+      \end{figure}
+
+    \item[$n \rightarrow n + 1$]
+      Assume $I_{0} \dots I_n$ were already defined with $x_k \notin I_k$ for $0 \leq k \leq n$.
+      \[ I_{k+1} \leq I_k \text{ for } k = 0, \dots, n-1 \]
+      \[ \card{I_k} = \left(\frac13\right)^k \]
+
+      \begin{figure}[!t]
+        \begin{center}
+          \includegraphics[width=200px]{img/interval_In.pdf}
+          \caption{Construction of a nested interval and its $I_n$}
+        \end{center}
+      \end{figure}
+
+      We construct $I_{n+1}$. Let $I_n = [a_n, b_n]$.
+      \begin{align*}
+        I_n^1 &= \left[a_n, \frac23 a_n + \frac13 b_n\right] \\
+        I_n^2 &= \left[\frac23 a_n + \frac13 b_n, \frac13 a_n + \frac23 b_n\right] \\
+        I_n^3 &= \left[\frac13 a_n + \frac23 b_n, b_n\right]
+      \end{align*}
+      So $x_n$ certainly is not contained in all three intervals $I_n^1$, $I_n^2$
+      and $I_n^3$ because $I_n^1 \cap I_N^2 \cap I_N^3 = \emptyset$.
+      Choose $I_{n+1}$ as one of the three intervals $I_n^l$ with $x_{n+1} \not\in I_n^l = I_{n+1}$.
+      $I_{n+1} < I_n$.
+      \[ \card{I_{n+1}} = \frac13 I_{n} = \left(\frac13\right)^{n+1} \]
+      For $\varepsilon > 0$ it holds that there exists some $N \in \mathbb N$
+      such that $n \geq N \Rightarrow \card{I_1} = \left(\frac13\right)^n < \varepsilon$.
+      Therefore nested intervals $I_n$ are given.
+
+      Let $x \in \mathbb R$ such that $\forall n \in \mathbb N: X \in I_n$
+      (because of completeness law). Then it holds that $\forall x_n: x \neq x_n$.
+      $x \in I_n$ and $x_n \not\in I_n$.
+      Therefore $x \in \set{x_0, x_1, x_2, \ldots} = \mathbb R$.
+
+      This contradicts with the assumption that $\mathbb R$ is countable.
+  \end{description}
+\end{proof}
+
+\section[Complex numbers]{Complex numbers $\mathbb C$}
+
+We introduce a new arithmetic unit denoted $i$, which extends the field $\mathbb R$.
+Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
+\begin{align}
+  \forall a, b \in \mathbb R: a + bi = 0 &\Leftrightarrow a = 0 \land b = 0 \\
+  i^2 &= -1 \\
+  \text{associativity,} & \text{ commutativity etc holds}
+\end{align}
+
+\meta{lecture}{13th of November 2015}{Wolfgang Ring}
+
+\begin{defi}
+  We consider an \enquote{arithmetic element} $i$ extending $\mathbb R$ (\enquote{adjungiert}). % TODO: translate to english
+  Arithmetic operations are well-defined for $i$. Associativity and commutativity holds.
+  It holds that
+  \begin{itemize}
+    \item $a + ib = 0$ with $a,b \in \mathbb R \Leftrightarrow a = 0 \land b = 0$
+    \item $i^2 = -1$ i.e. $i^2 + 1 = 0$.
+    \item Arithmetic operations still hold.
+  \end{itemize}
+
+  By the first law,
+  \[
+    a + ib = a' + ib' \Leftrightarrow (a - a') + i(b - b') = 0
+    \Leftrightarrow a - a' = 0 \land b - b' = 0 \text{ therefore }
+    a = a' \land b = b'
+  \]
+
+  By the second law, $i$ is the solution of the quadratic equation $i^2 + 1 = 0$.
+
+  Let $z = a + ib$ a complex number. We call $i$ the \enquote{imaginary unit}.
+  \[ \mathbb C = \set{z = a + ib : a,b \in \mathbb R} \]
+  $\mathbb C$ is the field of complex numbers with the following properties:
+  \begin{itemize}
+    \item For addition, it holds that
+      \[ (a + ib) + (c + id) = (a + b) + i (b + d) \subseteq \mathbb C \]
+      and
+      \[ (a + ib) + (-a - ib) = (a - a) + i(b - b) = 0 + i \cdot 0 = 0 \]
+    \item For multiplication, it holds that
+      \[ (a + ib) \cdot (c + id) = (ac + \underbrace{(i)^2}_{=-1} b d) + i (bc + ad) \]
+      \[ (ac - bd) + i (bc + ad) \]
+    \item Laws $\mathbf{A_n}$ to $\mathbf{A_4}$, $\mathbf{M_1}$ to $\mathbf{M_3}$ and $\mathbf{D}$ hold.
+    \item The one element exists:
+      \[ 1 = 1 + 0 \cdot i \]
+      \[ (a + i \cdot b) (1 + i \cdot 0) = (a + (i)^2 \cdot 0) + i (b + 0) = a + ib \]
+    \item \textbf{M4} holds: Let $z \in \mathbb C \setminus \set{0}$.
+      Let $z = a + ib$ and $\neg(a = 0 \land b = 0) \Leftrightarrow a^2 + b^2 > 0$.
+  \end{itemize}
+
+  We define
+  \[ w = \frac{a}{a^2 + b^2} - i \frac{b}{a^2 + b^2} \]
+  \[ z \cdot w = \left(a + ib\right) \left(\frac{a}{a^2 + b^2} - i \frac{b}{a^2 + b^2}\right) \]
+  \[
+      = \left(\underbrace{\frac{a^2}{a^2 + b^2} - \frac{b \cdot (-b)}{a^2 + b^2}}_{=1}\right)
+      + i \cdot \left(\underbrace{\frac{ba}{a^2 + b^2} - \frac{a\cdot b}{a^2 + b^2}}_{=0}\right)
+  \] \[
+    = 1 + i \cdot 0 = 1
+  \]
+  Therefore $w = z^{-1} = \frac1z$.
+
+  Therefore $\mathbb C$ is a field.
+\end{defi}
+
+\begin{figure}[p]
+  \begin{center}
+    \includegraphics[width=200px]{img/complex_numbers_illustration.pdf}
+    \caption{Illustration of complex numbers}
+  \end{center}
+  \begin{center}
+    \includegraphics[width=200px]{img/complex_numbers_addition.pdf}
+    \caption{Illustration of complex number addition}
+  \end{center}
+  \begin{center}
+    \includegraphics[width=200px]{img/complex_numbers_conjugate.pdf}
+    \caption{Illustration of the complex conjugate}
+  \end{center}
+\end{figure}
+
+We denote
+\begin{align*}
+  a &= \Re(z) \\
+  b &= \Im(z) \\
+  \overline{z} &= a - ib \\
+  \abs{z} &= \sqrt{a^2 + b^2}
+\end{align*}
+
+$a$ is called \emph{real part of $z$}. $b$ is called \emph{imaginary part of $z$}.
+$z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
+
+\begin{theorem}
+  \[  \overline{(\overline{z})} = z  \]
+\end{theorem}
+
+\begin{proof}
+  \[ \overline{(\overline{z})} = \overline{(a - ib)} = (a - (-ib)) = a + ib  = z \]
+\end{proof}
+
+\begin{theorem}
+  \[ \Re{z} = \frac12 (z + \overline z) \]
+\end{theorem}
+
+\begin{theorem}
+  \[ \frac12(z + \overline{z}) = \frac12(a + ib + a - ib) = \frac12 (2a) = a \checkmark \]
+\end{theorem}
+
+\begin{theorem}
+  \[ \Im{z} = \frac{1}{2i} (z - \overline{z}) \]
+\end{theorem}
+
+\begin{proof}
+  \[ \frac{1}{2i} (a + ib - (a - ib)) = \frac{1}{2i} (2ib) = b \checkmark \]
+\end{proof}
+
+\begin{theorem}
+  \[ z \in \mathbb R \Leftrightarrow z = \overline{z} \]
+\end{theorem}
+\begin{proof}
+  \[ z = a \in \mathbb R \Rightarrow \overline{z} = a = z \]
+  On the opposite, let $z = \overline{z}$ therefore
+  \[ a = ib = a - ib \Rightarrow 2ib = 0 \Rightarrow b = 0 \]
+  Therefore $z = a \in \mathbb R$.
+\end{proof}
+
+\begin{theorem}
+  \[ z \in i \mathbb R = \set{ib : b \in \mathbb R} \Leftrightarrow z = -\overline{z} \]
+  Proof follows analogously.
+\end{theorem}
+
+\begin{theorem}
+  It holds that $\abs{z} = \sqrt{z \cdot \overline{z}}$.
+\end{theorem}
+
+\begin{proof}
+  \[ \sqrt{z \cdot \overline{z}} = ((a + ib)(a - ib))^{\frac12} \]
+  \[ = (a^2 - (ib)^2)^{\frac12} = (a^2 - i^2 b^2)^{\frac12} \]
+  \[ = (a^2 + b^2)^{\frac12} = \abs{z} \quad\checkmark \]
+\end{proof}
+
+\begin{theorem}
+  Let $z, w \in \mathbb C$:
+  \[ \overline{(zw)} = \overline z \cdot \overline w \]
+\end{theorem}
+
+\begin{proof}
+  \[ z = a + ib \qquad w = c + id \]
+  \[ zw = (ac - bd) + i (bc + ad) \]
+  \[ \overline{zw} = (ac - bd) - i (bc + ad) \]
+  \[ \overline{zw} = a - ib \qquad \overline{w} = c - id \]
+  \[
+      \overline{z} \cdot \overline{w} = (ac - (-b) (-d)) + i (-bc + a(-d))
+        = (ac - bd) - i (bc + ad)
+  \]
+\end{proof}
+
+\begin{cor}
+  \[ \overline{z + w} = \overline{z} + \overline{w} \]
+\end{cor}
+
+\begin{theorem}
+  \[ \abs{zw} = \abs{z} \cdot \abs{w} \]
+\end{theorem}
+\begin{proof}
+  \[ \abs{z \cdot w} = (zw) \cdot(\overline{z \cdot w})^{\frac12} \]
+  \[
+      = (z \cdot \overline z \cdot w \cdot \overline w)^{\frac12}
+      = (z \cdot \overline z)^{\frac12} \cdot (w \cdot \overline w)^{\frac12}
+      = \abs{z} \cdot \abs{w}
+  \]
+\end{proof}
+
+\begin{theorem}
+  \[ z = 0 \Leftrightarrow \abs{z} = 0 \in \mathbb R \]
+\end{theorem}
+
+\begin{proof}
+  \[ z = 0 = 0 + i 0 \Rightarrow \abs{z} = \sqrt{0^2 + 0^2} = 0 \]
+  Let $\abs{z} = \sqrt{a^2 + b^2} = 0 \Rightarrow a^2 + b^2 = 0$.
+  \[ \Rightarrow a = 0 \land b = 0 \]
+\end{proof}
+
+\begin{theorem}
+  \[ \abs{\Re{z}} = \abs{a} = \sqrt{a^2} \leq \sqrt{a^2 + b^2} = \abs{z} \]
+  \[ \abs{\Im{z}} = \abs{b} = \sqrt{b^2} \leq \sqrt{a^2 + b^2} = \abs{z} = \]
+\end{theorem}
+
+\begin{theorem}
+  The triangle inequality holds:
+  \[ \forall z, w \in \mathbb C: \abs{z + w} \leq \abs{z} + \abs{w} \]
+\end{theorem}
+
+\begin{rem}
+  Let $0 \leq y_1 < y_2$ with $y_1, y_2 \in \mathbb R$.
+  Let $k \in \mathbb N_+$. Then it holds that
+  \[ \sqrt[k]{y_1} < \sqrt[k]{y_2} \]
+\end{rem}
+
+\begin{proof}
+  Indirect proof: Let $\sqrt[k]{y_1} \geq \sqrt[k]{y_2} \geq 0$.
+  \[ \Rightarrow \left(\sqrt[k]{y_1}\right)^k \geq \left(\sqrt[k]{y_2}\right)^k \]
+  therefore $y_1 \geq y_2$. This is the negation of our assumption.
+\end{proof}
+
+\begin{proof}[\textbf{Proof} of the triangle inequality]
+  We show that $\abs{z + w}^2 \leq \left(\abs{z} + \abs{w}\right)^2$.
+  \[
+      \abs{z + w}^2 = (z + w)(\overline z + \overline w)
+      = \underbrace{z \overline z}_{\abs{z}^2} + w \overline z
+      + z \overline w + \underbrace{w \overline w}_{\abs{w}^2}
+  \]
+  \begin{align*}
+      &= 2 \Re{(w \overline{z})} \\
+      &= (w \overline{z} + \underbrace{\overline{(w \cdot \overline z)}}_{\overline w \cdot \overline z = \overline w \cdot z} \\
+      &= \abs{z}^2 + 2\Re{(w \cdot \overline z)} + \abs{w}^2 \\
+      &\leq \abs{z}^2 + 2\abs{\Re{(w \cdot \overline z)}} + \abs{w}^2 \\
+      &\leq \abs{z}^2 + 2 \cdot \abs{w \cdot \overline{z}} + \abs{w}^2 \\
+      &= \abs{z}^2 + 2 \cdot \abs{w} \cdot \abs{\overline{z}} + \abs{z}^2 \\
+      &= \abs{z}^2 + 2 \cdot \abs{w} \cdot \abs{z} + \abs{w}^2 \\
+      &= \left(\abs{z} + \abs{w}\right)^2
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  In our previous proof there was a small loop hole: We need to show that
+  \[ \abs{z} = \abs{\overline z} \]
+\end{theorem}
+
+\begin{proof}
+  \[ \sqrt{a^2 + b^2} = \sqrt{a^2 + (-b)^2} = \sqrt{a^2 + b^2} \]
+\end{proof}
+
+\subsection{Interpretation of multiplication}
+
+Multiplication with $i$. Let $z = a + ib$.
+\[ iz = i\cdot a + i^2 \cdot b = (-b) + i a \]
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200px]{img/complex_number_multiplication.pdf}
+    \caption{Multiplication corresponds to a rotation by $90^\circ$}
+  \end{center}
+\end{figure}
+
+Multiplication with $i$ rotates $z$ counter-clockwise by $90^\circ$
+in the plane.
+
+Let $z \in \mathbb C$ and $w = c + id$.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200px]{img/complex_numbers_multiplication_with_b.pdf}
+    \caption{
+      In regards of multiplication with $w$ the complex number $z$ is scaled by $\abs{w}$
+      and then rotated by an angle which is given between $w$ and the positive real axis.
+      % Drehstreckung
+    }
+  \end{center}
+\end{figure}
+
+\meta{lecture}{18th of November 2015}{Wolfgang Ring}
+
+\subsection{Taking roots}
+
+\[ \forall a \in \mathbb R: a \geq 0 \forall n \in \mathbb N_+: \exists x \geq 0 \in \mathbb R: x^n = a \]
+
+Taking the n-th root only works for positive integers, because $\forall x \geq 0: x^2 \geq 0$
+and no solution in $\mathbb R$ exists for the equation $x^2 = -1$.
+
+In $\mathbb C$ it holds that $\forall w \in \mathbb C \setminus \set{0}$.
+$\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equation$ z^n = w$.
+
+\section{Sequences of real and complex numbers}
+
+\index[English]{Sequences}
+\index[German]{\foreignlanguage{ngerman}{Folge}}
+\begin{defi}
+  Let $a$ be a mapping $\mathbb N \rightarrow \mathbb R$ is called \emph{sequence} of real numbers.
+  \[ \forall n \in \mathbb N: a(b) \in \mathbb R \]
+  We denote $a_n \coloneqq a(n)$.
+  Instead of $a: \mathbb N \rightarrow \mathbb C$ we write $(a_n)_{n \in \mathbb N} = (a_0, a_1, \ldots)$.
+
+  Analogously for the complex numbers $\mathbb C$ and general sets $X$.
+\end{defi}
+
+\begin{ex}
+  $a_n = \sqrt[n]{2} \frac{1}{n + 1}$ with $(a_n)_{n \in \mathbb N}$. Or simply:
+  \[ \left(\sqrt[n]{2}\frac{1}{n + 1}\right)_{n \in \mathbb N} \]
+\end{ex}
+
+\begin{ex}
+  Let $(I_n)_{n \in \mathbb N}$ be nested intervals.
+  Therefore $(I_n)_{n \in \mathbb N}$ is a sequence of elements in $X = \set{[a,b]: a,b \in \mathbb R, a \leq b}$.
+\end{ex}
+
+\begin{defi}
+  Let $(a_n)_{n \in \mathbb N}$ be a real sequence.
+  $(a_n)_{n \in \mathbb N}$ is called \emph{bounded above} if $o \in \mathbb R$ exists such that $\forall n \in \mathbb N: a_n \leq o$.
+  $(a_n)_{n \in \mathbb N}$ is called \emph{bounded below} if $u \in \mathbb R$ exists such that $\forall n \in \mathbb N: a_n \geq u$.
+
+  $(a_n)_{n \in \mathbb N}$ is called bounded, if $(a_n)_{n \in \mathbb N}$ is bounded above and below.
+\end{defi}
+
+\index[English]{Monotonic function}
+\index[German]{\foreignlanguage{ngerman}{Monotonie}}
+\begin{ex}
+  $(a_n)_{n \in \mathbb N}$ with $a_n = \frac{n}{n+1}$ is bounded below by $0$
+  and bounded above by $1$: $n \leq n+1 \Rightarrow n \frac{1}{n+1} < \frac{n+1}{n+1} = 1 \checkmark$.
+\end{ex}
+
+\begin{defi}
+  \begin{itemize}
+    \item $(a_n)_{n \in \mathbb N}$ is called \emph{monotonically increasing} if $\forall n \in \mathbb N: a_{n+1} \geq a_n$.
+    \item $(a_n)_{n \in \mathbb N}$ is called \emph{monotonically decreasing} if $\forall n \in \mathbb N: a_{n+1} \leq a_n$.
+    \item $(a_n)_{n \in \mathbb N}$ is called \emph{monotonically strictly increasing} if $\forall n \in \mathbb N: a_{n+1} > a_n$.
+    \item $(a_n)_{n \in \mathbb N}$ is called \emph{monotonically strictly decreasing} if $\forall n \in \mathbb N: a_{n+1} > a_n$.
+  \end{itemize}
+  In $\mathbb C$, elements are not ordered, hence no complex sequences can be given.
+  Let $(a_n)_{n \in \mathbb N}$ a complex sequence. We define:
+  \begin{itemize}
+    \item $(a_n)_{n \in \mathbb N}$ is called bounded if $(\card{a_n})_{n \in \mathbb N}$ is a bounded real sequence.
+    Hence $\exists o \in \mathbb R: \forall n \in \mathbb N: \card{a_n} \leq o$.
+    \item The lower bound is implicitly given by $0$.
+  \end{itemize}
+\end{defi}
+
+\begin{ex}
+  $a_n \coloneqq i^n$ and $(a_n)_{n \in \mathbb N} = (1, i, -1, -i, 1, i, -1, -i, 1, i, -1, \dots)$
+  \[ \card{1} = 1 \qquad \card{-1} = 1 \qquad \card{i} = \sqrt{0^2 + 1^2} = 1 \qquad \card{-i} = \sqrt{0^2 + (-1)^2} = 1 \]
+  So $\left(\card{a_n}\right)_{n \in \mathbb N} = (1, 1, 1, 1, 1, \dots)$.
+  It holds that
+  \[ \card{z} = \card{-z} = \card{\overline{z}} \]
+\end{ex}
+
+\index[English]{convergent}
+\index[German]{\foreignlanguage{ngerman}{Konvergent}}
+\index[English]{divergent}
+\index[German]{\foreignlanguage{ngerman}{Divergent}}
+\begin{defi}
+  Let $\seq{a_n}$ be a sequence of $\mathbb C$ and let $a \in \mathbb C$.
+  We state: $(a_n)_{n \in \mathbb N}$ has a limit (lat. limes) $a$ if
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \card{a_n - a} < \varepsilon\right] \]
+  We denote
+  \[ \lim_{n \to \infty} a_n = a \]
+  The distance $\card{a_n - a}$ becomes arbitrary small, if $n$ is sufficiently large.
+
+  A sequence, which has a limit, is called \emph{convergent}. A sequence, which does not have a limit, is called \emph{divergent}.
+\end{defi}
+
+\begin{rem}
+  Sometimes we consider mappings $a: \mathbb N_+ \rightarrow \mathbb C$, which we also call sequences:
+  \[ a \leftrightarrow (a_1, a_2, \ldots) \]
+\end{rem}
+
+\begin{ex}
+  \[ a_n = \frac1n \]
+  We know:
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \frac1n < \varepsilon \]
+  Therefore
+  \[ \lim_{n \to \infty} \frac1n = 0 \]
+\end{ex}
+
+Let $q \in \mathbb C$, $\card{q} < 1$.
+
+We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \card{q^n - 0} < \varepsilon$.
+\[ \lim_{n\to\infty} q^n = 0 \]
+
+\meta{lecture}{19th of November 2015}{Wolfgang Ring}
+
+\begin{rem}
+  Consider $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \card{a_n - a} < \varepsilon\right]$
+  as a circle with radius $\varepsilon$. So if $n$ is sufficiently large,
+  all new sequence numbers are located inside the circle.
+\end{rem}
+
+\begin{lemma}
+  A sequence $(a_n)_{n \in \mathbb N}$ with $a_n \in \mathbb C$ can have at most one limit.
+\end{lemma}
+\begin{proof}
+  Assume $a$ and $b$ are limes of $(a_n)_{n \in \mathbb N}$. Then we prove:
+  \[ \forall \varepsilon > 0: \abs{a - b} < \varepsilon \]
+  \[ \Rightarrow a = b \]
+  Let $\varepsilon > 0$ arbitrary:
+  Because $a = \lim_{n \to \infty} a_n$ there exists
+  \[ N_1 \in \mathbb N: [n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}2] \]
+  Because $b = \lim_{n \to \infty} b_n$ there exists
+  \[ N_1 \in \mathbb N: [n \geq N_1 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2] \]
+  Let $N = \max(N_1, N_2)$, hence $N \geq N_1 \land N \geq N \geq N_2$.
+  \[ \Rightarrow \card{a_N - a} < \frac{\varepsilon}{2} \land \card{a_N - b} < \frac{\varepsilon}{2} \]
+  \[ \abs{a - b} = |a \underbrace{- a_N + a_N}_0 - b| \leq \underbrace{\abs{a - a_N}}_{< \frac{\varepsilon}2} + \underbrace{\abs{a_N - b}}_{< \frac{\varepsilon}2} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \]
+\end{proof}
+
+\begin{theorem}[Well-known convergent sequences.] \hfill{}
+  \begin{enumerate}
+    \item
+      Let $s = \frac pq \in \mathbb Q_+$ and $n \in \mathbb N_+$. Consider $\left(\frac 1{n^2}\right)_{n \in \mathbb N}$.
+      \[ n^s = n^{\frac pq} \coloneqq \sqrt[q]{n^q} \]
+      It holds that
+      \[ \lim_{n \to \infty} \frac{1}{n^s} = 0 \]
+    \item Let $q \in \mathbb C, \abs{q} < 1$. Then it holds that
+      \[ \lim_{n \to \infty} q^n = 0 \]
+    \item Let $a \in \mathbb R, a > 0, n \in \mathbb N_+$. Then it holds that
+      \[ \lim_{n \to \infty} \sqrt[n]{a} = 0 \]
+    \item It holds that $(n \in \mathbb N_+)$
+      \[ \lim_{n \to \infty} \sqrt[n]{n} = 1 \]
+    \item Let $z \in \mathbb C: \abs{z} > 1$. Let $k \in \mathbb N$.
+      Then it holds that \[ \lim_{n \to \infty} \frac{n^k}{z^n} = 0 \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{rem}[Remark to sequence 5]
+  $\abs{z^n}$ grows faster then $n^k$.
+\end{rem}
+
+\begin{proof}[\textbf{Proof} of sequence 1]
+  Let $0 \leq x_n < x_2$.
+  \[ \Rightarrow 0 \leq x_1^p < x_2^p \Rightarrow \sqrt[q]{x_1^p} < \sqrt[q]{x_2^p} \]
+  Therefore $f(x) = x^s$ is strongly monotonic rising for $x \in (0, \infty)$.
+  Let $\varepsilon > 0$ arbitrary and $N > \frac1{\varepsilon^{\frac1s}} = \varepsilon^{\frac1s} = \varepsilon^{-\frac qp}$.
+  Then it holds that $n \geq N$:
+  \[ \abs{\frac1{n^s} - 0} = \frac{1}{n^s} \leq \frac{1}{N^s} \]
+  \[ \frac{1}{n^s} < \frac{1}{N^s} \implies n^s \geq N^s \]
+  \[
+      \frac{1}{n^s} \leq \frac{1}{N^s} < \frac{1}{\left(\frac{1}{\varepsilon^{\frac1s}}\right)^s}
+      = \frac{1}{\frac1\varepsilon}
+      = \varepsilon
+  \]
+\end{proof}
+
+\begin{proof}[\textbf{Proof} of sequence 2]
+  Already done.
+\end{proof}
+
+\begin{proof}[\textbf{Proof} of sequence 3]
+  \begin{description}
+    \item[case $a > 1$]
+      Let $a > 1$. Consider $\varepsilon > 0$.
+      Show that $\abs{\sqrt[n]{a} - 1} < \varepsilon$ for sufficiently large $n$.
+      \[ x_n = \sqrt[n]{a} - 1 = \abs{\sqrt[n]{a} - 1} \]
+      \[ a > 1 \implies \sqrt[n]{a} > \sqrt[n]{1} = 1 \implies \sqrt[n]{a} - 1 > 0 \]
+      It holds that $x_n + 1 = \sqrt[n]{q}$, i.e. $(x_n + 1)^n = a$.
+      \[ a = (\underbrace{x_1}_{> 0} + 1)^n \underbrace{>}_{\text{Bernoulli}} 1 + n \cdot x_n \]
+      \[ \Rightarrow x_n < \frac{a - 1}{n} \]
+      \[ N > \frac{a - 1}{\varepsilon} \xRightarrow{\text{for } x \geq N} \abs{\sqrt[n]{a} - 1} = x_n \]
+      \[ < \frac{a - 1}{n} \leq \frac{a - 1}{N} < \frac{a - 1}{\frac{a - 1}{2}} = \varepsilon \]
+    \item[case $a = 1$]
+      \[ \sqrt[n]{a} = \sqrt[n]{1} = 1 \]
+      \[ \left(\sqrt[n]{a}\right)_{n \in \mathbb N} = (1, 1, 1, 1, \dots) \]
+      has the limit $1$.
+    \item[case $0 < a < 1$]
+      Let $0 < a < 1 \Rightarrow 0 < \sqrt[n]{q} < \sqrt[n]{1} = 1$.
+      \[ x_n = 1 - \sqrt[n]{a} > 0 \]
+      Show that $\forall \varepsilon > 0 \exists N \in \mathbb N: [n \geq N \Rightarrow x_n < \varepsilon]$.
+      \[
+          x_n
+          = 1 - \sqrt[n]{a} = \sqrt[n]{a} \left(\frac{1}{\sqrt[n]{a}} - 1\right)
+          = \sqrt[n]{a} \left(\sqrt[n]{\frac1a} - 1\right) < \left(\sqrt[n]{a'} - 1\right)
+      \]
+      with $a' = \frac1a > 1$.
+      From case $a > 1$ we already know
+      \[ \exists N \in \mathbb N: \left[n \geq N \Rightarrow \abs{\sqrt[n]{a'} - 1} = \sqrt[n]{a'} - 1 < \varepsilon\right] \]
+      \[ \Rightarrow x_n < \varepsilon \]
+  \end{description}
+\end{proof}
+
+\begin{proof}[\textbf{Proof} of sequence 4]
+  This proof works similar to the proof of sequence 3.
+  \[ x_n = \sqrt[n]{n} - 1 > 0 \text{ for } n \geq 2 \]
+  Therefore $\abs{x_n} = x_n$. Let $\varepsilon > 0$ be arbitrary.
+  \[ x_n + 1 = \sqrt[n]{n} \quad\text{ i.e. }\quad (x_n + 1)^n = n \]
+  \[
+      n = (1 + x_n)^n
+      = 1 + \underbrace{nx_n}_{> 0} + \underbrace{\binom n2 x_n^2}_{> 0} + \underbrace{\binom n3 x_n^3}_{>0} + \underbrace{\dots + x_n^n}_{> 0}
+      > 1 + \binom n2 x_n^2
+  \]
+  All expressions we remove are positive (but we don't remove all positive expressions).
+  \[ x_n^2 < \frac{n-1}{\binom n2} = \frac{n-1}{\frac{n(n-1)}{2 \cdot 1}} = \frac2n \]
+  \[ x_n < \sqrt{\frac2n} \]
+  Choose $N > \frac2{\varepsilon^2}$. Then it holds for $n \geq N$ that
+  \[ x_n < \sqrt{\frac2n} < \sqrt{\frac2N} < \sqrt{\frac2{\frac2{\varepsilon^2}}} = \varepsilon \]
+
+  Consider $\sqrt{\frac2n} < \varepsilon$ hence $\frac2n < \varepsilon^2$ hence $n > \frac2{\varepsilon^2}$.
+\end{proof}
+
+\begin{proof}[\textbf{Proof} of sequence 5]
+  \[ \abs{z} > 1 \text{ thus } x = \abs{z} - 1 > 0 \text{ it holds that } \abs{z} = 1 + x \]
+  We show that for $\varepsilon > 0$ arbitrary, there exists $N \in \mathbb N$:
+  \[ n \geq N \implies \abs{\frac{n^k}{z^n} - 0} = \abs{\frac{n^k}{z^n}} = \frac{n^k}{\abs{z}^n} < \varepsilon \]
+
+  Let $\varepsilon > 0$ be given,
+  \begin{itemize}
+    \item
+      For $n > 2k$ it holds that $n - k > n - \frac{n}2 = \frac{n}2$.
+      \[ \abs{z}^n = (1 + x)^n = \sum_{j=0}^n \binom{n}{j} x^j > \underbrace{\binom{n}{k + 1}}_{j=k+1} x^{k+1} \]
+      \[ n > 2k \geq k + 1 \]
+      \[
+          \underbrace{\binom{n}{k + 1}}_{j=k+1} x^{k+1}
+          = \frac{\overbrace{n}^{>\frac{n}2} \overbrace{(n-1)}^{>\frac{n}2} \overbrace{(n-2)}^{>\frac{n}2} \dots \overbrace{(n-k)}^{>\frac{n}2}}{(k+1)!} x^{k+1}
+          > \frac{\frac{n^{k+1}}{2^{n+1}}}{(k+1)!} x^{n+1}
+      \]
+      Therefore $\abs{z}^n > \frac{n^{k+1}}{2^{k+1} (k+1)!} x^{k+1}$.
+      So,
+      \[
+          \frac{n^k}{\abs{z}^n} <
+          \frac{n^k \cdot 2^{k+1} (k+1)!}{n^{k+1} \cdot x^{k+1}} =
+          \underbrace{\frac{2^{k+1} (k+1)!}{x^{n+1}}}_{\substack{= \text{ constant } \land\ >0 \\ \eqqcolon\ M}} \cdot \frac1n
+          = M \cdot \frac1n
+      \] \[
+          \frac{n^k}{\abs{z}^n} < M \cdot \frac1n \text{ for } n > 2k
+      \]
+      Consider $N$ such that $N > \frac{M}{\varepsilon}$ and $N > 2k$.
+      Then it holds that
+      \[ \frac{n^k}{\abs{z}^n} < M \frac1n \leq \frac{M}{N} < \frac{M}{\frac{M}{\varepsilon}} = \varepsilon \]
+  \end{itemize}
+\end{proof}
+
+\begin{lemma}
+  Every convergent sequence is bounded (in $\mathbb C$).
+\end{lemma}
+
+\begin{proof}
+  Let $(a_n)_{n \in \mathbb N}$ be convergent.
+  This means especially e.g. $\varepsilon = 13$.
+
+  \[ \exists N \in \mathbb N \text{ s.t. } \left[n \geq N \implies \abs{a_n - a} < 13\right] \]
+  Consider $O > 0$ such that
+  \[ O = \max\set{\abs{a_0}, \abs{a_1}, \abs{a_2}, \ldots, \abs{a_{N-1}}, \abs{a} + 13} \]
+  So $O \geq \abs{a_n}$ for $n \in \set{0, \dots, N}$.
+  Then for $0 \leq n < N$ it holds that $\abs{a_n} < O. \quad\checkmark$
+
+  For $n \geq N$ it holds that
+  \[ \abs{a_n} = \abs{a_n - a + a} \leq \underbrace{\abs{a_n - a}}_{< 13} + \abs{a} < \underbrace{13 + \abs{a}}_{\leq O} \]
+  Therefore $(\abs{a_n})_{n \in \mathbb N}$ is bounded in $\mathbb R$
+  and followingly $(\abs{a_n})_{n \in \mathbb N}$ is bounded in $\mathbb C$.
+\end{proof}
+
+\begin{theorem}
+  Let $\lim_{n \to \infty} a_n = a$ and $\lim_{n \to \infty} b_n = b$.
+  Then the following laws hold:
+  \begin{itemize}
+    \item $\lim_{n \to \infty} (a_n + b_n)$ is convergent with limes $a + b$
+    \item $\lim_{n \to \infty} (a_n \cdot b_n)$ is convergent with limes $a \cdot b$
+    \item $\lim_{n \to \infty} \frac{a_n}{b_n}$ is convergent with limes $\frac{a}{b}$ if $ \forall n \in \mathbb N: b_n \neq 0 \land b \neq 0$.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Let $\varepsilon > 0$ arbitrary. Because $(a_n)_{n \in \mathbb N}$ is convergent,
+      \[ \exists N_1: [n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}{2}] \]
+      $(b_n)$ is convergent hence
+      \[ \exists N_2: [n \geq N_2 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2] \]
+      $N = \max\set{N_1, N_2}$, hence for $n \geq N$ both statements above hold.
+      Let $n \geq N$, then the triangle inequality holds:
+      \[ \abs{(a_n + b_n) - (a + b)} = \abs{(a_n - a) + (b_n - b)} \leq \abs{\underbrace{a_n}_{<\frac\varepsilon2} - a} + \abs{\underbrace{b_n}_{<\frac\varepsilon2} - b} < \varepsilon \]
+
+    \item $(a_n)_{n \in \mathbb N}$ is convergent and therefore also bounded. Therefore,
+      \[ \exists m \geq 0: \forall n \in \mathbb N: \abs{a_n} \leq m \]
+
+      $\sqrt{b_n}$ is convergent, hence
+      \[ \exists N_1: n \geq N_1: \Rightarrow \abs{b_n - b} < \frac\varepsilon2 \cdot \frac1{m+1} \]
+
+      $(a_n)_{n \in \mathbb N}$ is convergent, hence
+      \[ \exists N_2 \leq N: n \geq N_2 \Rightarrow \abs{a_n - a} < \frac\varepsilon2 \frac{1}{\abs{b} + 1} \]
+
+      $N = \max\set{N_1, N_2}$. For $n \geq N$ both relations above hold.
+      Let $n \geq N:$
+      \[
+          \abs{a_n b_n - ab}
+          = \abs{a_n b_n - a_n b + a_n b - ab}
+      \] \[
+          \leq \abs{a_n (b_n - b)} + \abs{b(a_n - a)} = \abs{a_n} \abs{b_n - b} + \abs{b} \abs{a_n - a}
+      \] \[
+          \leq m \frac{\varepsilon}{2} \frac{1}{m+1} + \abs{b} \frac{\varepsilon}{2} \frac{1}{\abs{b} + 1} < \frac{\varepsilon}{2} \cdot 1 + \frac{\varepsilon}{2} \cdot 1 = \varepsilon
+      \]
+    \item Left for the practicals.
+  \end{enumerate}
+\end{proof}
+
+\subsection{Laws for convergent complex sequences}
+
+\begin{theorem}
+  Let $(a_n)_{n \in \mathbb N}$ be convergent with limes $a$, $(a_n \rightarrow a)$. Then it holds that
+  \begin{itemize}
+    \item $\left(\Re{a_n}\right)_{n \in \mathbb N}$ is convergent.
+      \[ \lim_{n \to \infty} \left(\Re{a_n}\right) = \Re{a} \]
+    \item $\left(\Im{a_n}\right)_{n \in \mathbb N}$ is convergent.
+      \[ \lim_{n \to \infty} \left(\Im{a_n}\right) = \Im{a} \]
+    \item $\left(\abs{a_n}\right)_{n \in \mathbb N}$ is a convergent real sequence.
+      \[ \lim_{n \to \infty} \abs{a_n} = \abs{a} \]
+    \item $\left(\overline{a_n}\right)_{n \in \mathbb N}$ is convergent with
+      \[ \lim_{n \to \infty} \overline{a_n} = \overline{a} \]
+  \end{itemize}
+
+  On the opposite, let $\sqrt{a_n}$ with $a_n = \alpha_n + i \beta_n$ a sequence of complex numbers.
+  Let $\seq{\alpha_n}$ and $\seq{\beta_n}$ be convergent with limes $\alpha$ i.e. $\beta$.
+  Then $\seq{a_n}$ is a convergent complex sequence with limes $a = \alpha+\beta i$.
+\end{theorem}
+
+\begin{proof}
+  Let $\varepsilon > 0$. Consider $N$ such that $n \geq N \Rightarrow \abs{a_n - a} < \varepsilon$.
+  \[ \underbrace{\abs{a_n - a}}_{(\alpha_n - \alpha) + (\beta_n - \beta)i} = \sqrt{(\alpha_n - \alpha)^2 + (\beta_n - \beta)^2} \]
+
+  TODO
+
+  Therefore $(\alpha_n) = \seq{\Re{a_n}}$ is convergent.
+  $(\beta_n) = \seq{\Im{a_n}}$ is convergent.
+
+  Let $\varepsilon > 0$. Consider $N$ such that $n \geq N \Rightarrow \abs{a_n - a} < \varepsilon$.
+  \[
+      \abs{\abs{a_n} - \abs{a}}
+      \underbrace{\leq}_{\text{inverse triangular inequality}}
+      \abs{a_n - a} < \varepsilon \text{ for } n \geq N
+  \]
+  Now we need to show $\alpha_n \rightarrow \alpha$ and $\beta_n \rightarrow \beta$
+  \[ \Rightarrow a_n \rightarrow a \]
+  Let $\varepsilon > 0$ be arbitrary.
+  Because $\seq{\alpha_n}$ be convergent, there exists $N_1 \in \mathbb N$:
+  \[ n \geq N_1 \Rightarrow \abs{\alpha_1 - \alpha} < \frac{\varepsilon}{\sqrt{2}} \]
+  $\seq{\beta_n}$ is convergent. So,
+  \[ \exists N_2 \in \mathbb N: n \geq N_2 \]
+  \[ \abs{\beta_n - \beta} < \frac{\varepsilon}{\sqrt{2}} \]
+  For $N = \max\set{N_1, N_2}$ and $n \geq N$ both relations hold.
+
+  Let $n \geq N$:
+  \[ \abs{a_n - a} = \abs{(\alpha_n - \alpha) + i (\beta_n - \beta)} \]
+  \[
+      = \sqrt{(\alpha_n - \alpha)^2 + (\beta_n - \beta)^2}
+      < \sqrt{\frac{\varepsilon^2}{2} + \frac{\varepsilon^2}{2}}
+      = \sqrt{\varepsilon^2} = \varepsilon
+  \]
+
+  Let $a_n = \alpha_n + i \beta_n$ is convergent with limes $\alpha + i \beta$ which is $a$.
+  \[ \Rightarrow \lim_{n \to \infty} \alpha_n = \alpha \land \lim_{n \to \infty} \beta_n = \beta \]
+  \[ \Rightarrow \lim_{n \to \infty} (-\beta_n) = -\beta \qquad\text{\enquote{multiplication rule}} \]
+  \[ \Rightarrow (\overline{a_n})_{n \in \mathbb N} = (\underbrace{\alpha_n}_{\text{convergent}} - \underbrace{i \beta_n}_{\text{convergent}})_{n \in \mathbb N} \]
+  \[ \Rightarrow \lim_{n \to \infty} \overline{a_n} = \alpha - i \beta = \overline{a} \]
+\end{proof}
+
+\subsection{Other laws for complex sequences}
+
+\begin{theorem}
+  Let $\seq{a_n}$ and $\seq{b_n}$ be convergent in $\mathbb R$ with limes $a$ (i.e. $b$)
+  and it must hold that $\forall n \in \mathbb N: a_n \leq b_n$. Then also $a \leq b$.
+\end{theorem}
+
+\begin{proof}
+  Consider $a - b = \varepsilon > 0$.
+  \[ \exists N_1 \in \mathbb N: n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}{2} \]
+  \[ \exists N_2 \in \mathbb N: n \geq N_2 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}{2} \]
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.3\textwidth]{img/limes.pdf}
+      \caption{the sequences $a_n$, $b_n$ and limes $a$, $b$ and $\varepsilon$ in relation}
+    \end{center}
+  \end{figure}
+
+  For $N = \max\sqrt{N_1, N_2}$:
+  \[
+      b_N
+      = b_N - b + b \leq b + \abs{b_N - b} < b \frac{\varepsilon}{2}
+      = b + \frac{a - b}{2}
+      = \frac12 (a + b)
+  \] \[
+      a_N
+      = \underbrace{a_N - a}_{\geq -\abs{a_n - a}} + a \geq a - \abs{a_n - a} > a - \frac{\varepsilon}{2}
+      = a - \frac{a - b}{2}
+      = \frac12 (a + b)
+  \] \[
+      b_N < \frac12 (a + b) < d_N
+  \]
+
+  Attention:
+  \[ a_n < b_n \not\Rightarrow a < b \]
+
+  Example: $a_n = 0$, $b_n = \frac1n$.
+\end{proof}
+
+\subsection{Convergence criteria}
+
+Are there criteria such that if they have a specific structure, they are obivously convergent?
+
+\index[German]{\foreignlanguage{ngerman}{Einschließungsregel}}
+\index[English]{Squeeze theorem}
+\subsubsection{Squeeze theorem}
+
+\begin{theorem}
+  Let $\seq{A_n}$ and $\seq{B_n}$ convergent real sequence with $\lim_{n \to \infty} A_n = \lim_{n \to \infty} B_n = A$.
+  Let $\seq{a_n}$ be a sequence and $M \in \mathbb N$ such that
+  \[ \forall n \geq M: A_n \leq a_n \leq B_n \]
+  Then it holds that $\seq{a_n}$ is also convergent and $\lim{a_n} = A$.
+\end{theorem}
+
+\begin{proof}
+  Let $\varepsilon > 0$ be arbitrary.
+  Consider $N$ such that,
+  \begin{itemize}
+    \item $M \geq M$
+    \item $n \geq N \Rightarrow \abs{A_n - A} < \varepsilon$
+    \item $n \geq N \Rightarrow \abs{B_n - A} < \varepsilon$
+  \end{itemize}
+  Then it holds that for $n \geq N$:
+  \[
+    \left.\begin{array}{c}
+      A - a_n \leq A - A_n \leq \abs{A - A_n} < \varepsilon \\
+      a_n - A \leq B_n - A \leq \abs{B_n - A} < \varepsilon
+    \end{array}\right\} \text{ = 1}
+  \] \[
+    \Rightarrow \abs{a_n - A} < \varepsilon
+  \] \[
+    \lim_{n \to \infty} a_N = A
+  \]
+\end{proof}
+
+\begin{ex}
+  Let $S \in \mathbb Q_+$. Then it holds that
+  \[ \lim_{n \to \infty} \left(\sqrt[n]{n^s}\right) = 1 \]
+  We apply the squeeze theorem:
+  \[ n^2 \geq 1 \forall n \in \mathbb N \]
+  \[ \Rightarrow \sqrt[n]{n^s} \geq 1 \]
+
+  Let $k \in \mathbb N_+$. Then it holds that
+  \[ \lim_{n \to \infty} \sqrt[n]{n^k} = \lim_{n \to \infty} \underbrace{\sqrt[n]{n} \sqrt[n]{n} \dots \sqrt[n]{n}}_{k \text { times}} \]
+  \[ = 1 \cdot 1 \cdot 1 \dots = 1 \]
+
+  For the last two lines we actually need to read them from right to left.
+
+  Let $s = \frac pq$.
+  \[ \Rightarrow n^s = n^{\frac pq} \leq q \cdot \left(n \frac{p}{q}\right)^q = n^p \]
+  \[ q \geq 1 \Rightarrow \sqrt[n]{n^s}  \leq \underbrace{\sqrt[n]{n^p}}_{\text{convergent with limes }1} \qquad p \in \mathbb N \]
+  Then it holds that $\lim_{n \to \infty} \sqrt[n]{n^s} = 1$ with the squeezing theorem.
+\end{ex}
+
+\begin{rem}
+  Let $A \subseteq \mathbb R$ be bounded above. Then it holds that
+  \[
+      S = \sup{A}
+      \Leftrightarrow
+          s \text{ is upper bound of } A \land
+          \forall \varepsilon > 0 \exists a \in A: a > s - \varepsilon
+  \]
+\end{rem}
+
+\begin{proof}
+  Implication from left to right:
+  Let $s = \sup{A}$. Then it holds that $s$ is upper bound of $A$
+  and $s - \varepsilon <  s$ is not an upper bound. Therefore $\exists a \in A: a > s - \varepsilon$.
+
+  Implication from right to left:
+  Consider that both statements on the RHS hold. So $s$ is an upper bound.
+  We need to show that any $t$ is not an upper bound with $t > s$.
+  Let $t < s, s - t = \varepsilon > 0$. Therefore $t = s - \varepsilon$.
+  Because of the right statement $\exists a \in A: a > s - \varepsilon = t$ therefore $t$ is not an upper bound.
+\end{proof}
+
+\begin{rem}
+  Analogously:
+  \[ \sigma = \inf{A} \Leftrightarrow \sigma \text{ is lower bound} \land \forall \varepsilon > 0 \exists a \in A: a < \sigma + \varepsilon \]
+\end{rem}
+
+\begin{theorem}
+  Let $(a_n)_{n \in \mathbb N}$ be a bounded monotonic sequence.
+  Then $\seq{a_n}$ has a limes $a$ with
+  \begin{itemize}
+    \item $a = \sup\set{a_n: n \in \mathbb N}$ if $\seq{a_n}$ is monotonically increasing.
+    \item $a = \inf\set{a_n: n \in \mathbb N}$ if $\seq{a_n}$ is monotonically decreasing.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Let $\seq{a_n}$ be monotonically increasing. Let $a = \sup\set{a_n: n \in \mathbb N}$.
+  Let $\varepsilon > 0$ be arbitrary. Because $a$ is a supremum, there exists $a_N \in \set{a_n: n \in \mathbb N}$
+  such that $a_N > a - \varepsilon$.
+  \[ \Rightarrow \underbrace{a - a_N}_{\geq 0} < \varepsilon \]
+  because $a$ is an upper bound. Therefore
+  \[ \abs{a - a_N} < \varepsilon \]
+  Let $n \geq N$ then it holds that
+  \[ \abs{a - a_n} \underbrace{=}_{a \text{ is upper bound}} a - a_n \leq a - a_N \]
+  because $a_N \leq a_n$ is increasing:
+  \[ a - a_N < \varepsilon \]
+  Therefore $\lim_{n \rightarrow \infty} a_n = a$.
+\end{proof}
+
+
+
+
+\clearpage
+\begin{otherlanguage}{ngerman}
+\printindex[German]
+\end{otherlanguage}
+\printindex[English]
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
