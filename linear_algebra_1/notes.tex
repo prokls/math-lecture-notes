@@ -57,7 +57,7 @@
 \tableofcontents
 
 \clearpage
-\meta{Lecture}{5th of Oct 2015}{Prof. Franz Lehner}
+\meta{lecture}{5th of Oct 2015}{Prof. Franz Lehner}
 
 Weekly schedule:
 
@@ -275,7 +275,7 @@ the same truth value is evaluated ($P(A_1, \ldots, A_n) \leftrightarrow Q(A_1, \
   \neg(A \land B) &\Leftrightarrow \neg A \lor \neg B \\
 \end{align*}
 
-\meta{Lecture}{6th of Oct 2015}{Prof. Franz Lehner}
+\meta{lecture}{6th of Oct 2015}{Prof. Franz Lehner}
 
 \[ \card{\mathbb{N}} = \aleph_0 \]
 
@@ -545,7 +545,7 @@ Notation: $x R y$ means $x$ is in relation with $y$. Hence $(x, y) \in R$.
 Example: $X$ is the set of austrians. The relation is marriage.
   Be aware that every married couple occurs twice. Once as $(x, y)$ and once as $(y, x)$.
 
-\meta{Lecture}{12th of Oct 2015}{Prof. Franz Lehner}
+\meta{lecture}{12th of Oct 2015}{Prof. Franz Lehner}
 
 A relation of a set $X$ is a subset $R \subseteq X \times X$. We denote $x R y$ iff $(x,y) \in R$.
 
@@ -703,7 +703,7 @@ $Z$ is the set of subsets of $X$ such that
   \end{itemize}
 \end{proof}
 
-\meta{Lecture}{13rd of Oct 2015}{Prof. Franz Lehner}
+\meta{lecture}{13rd of Oct 2015}{Prof. Franz Lehner}
 
 A \emph{function} (or mapping) between two sets $X$ and $Y$
 \[ f: X \rightarrow Y \]
@@ -1021,7 +1021,7 @@ Case distinction:
   \[ \setdef{(1 - t, t)}{t \in \mathbb{R}} \]
 \end{ex}
 
-\meta{Lecture}{19th of Oct 2015}{Prof. Franz Lehner}
+\meta{lecture}{19th of Oct 2015}{Prof. Franz Lehner}
 
 What if there are 2 unknown variables, but more equations?
 
@@ -1687,7 +1687,7 @@ Examples:
   \end{enumerate}
 \end{proof}
 
-\meta{Lecture}{27th of Oct 2015}{Prof. Franz Lehner}
+\meta{lecture}{27th of Oct 2015}{Prof. Franz Lehner}
 
 \begin{table}
   \begin{center}
@@ -1960,8 +1960,8 @@ Does the definition not depend on the definition of the system of representative
   \begin{itemize}
     \item We show G1:
       \[ \left([x]_n + [y]_n\right) + [z]_n \stackrel?= [x]_n + \left([y]_n + [z]_n\right) \]
-      \[ [x+y]_n + [z]_n \stackrel?= [x]_n + [y + z]_n \]
-      \[ \Rightarrow [(x + y) + z]_n = [x + (y + z)]_n \]
+      \[ [x+y]_n + [z]_n \stackrel?= [x]_n + \left[y + z\right]_n \]
+      \[ \Rightarrow \left[(x + y) + z\right]_n = \left[x + (y + z)\right]_n \]
     \item We show G2, by definition of $[0]_n$ as neutral element
       \[ [x]_n + [0]_n = [x + 0]_n = [x]_n \]
     \item We show G3, by definition of $[-x]_n$ as neutral element
@@ -2124,7 +2124,7 @@ Does the definition not depend on the definition of the system of representative
   $\bigwedge_{x,y \in G_1} h(x \circ_1 y) = h(x) \circ_2 h(y)$.
 \end{defi}
 
-\meta{Lecture}{3rd of November 2015}{Franz Lehner}
+\meta{lecture}{3rd of November 2015}{Franz Lehner}
 
 \index[English]{Embedding}
 \index[German]{\foreignlanguage{ngerman}{Einbettung}}
@@ -3028,11 +3028,11 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   Case distinction:
   \begin{description}
     \item[Case 1: $a = 0$]
-      \[ [\set{0}] = \set{0} \]
+      \[ \left[\set{0}\right] = \set{0} \]
     \item[Case 2: $a \neq 0$] \hfill{} \\
-      From \textbf{U1} it follows that $[\set{a}] \neq \emptyset$ because $0,a \in [\set{a}]$. \\
-      From \textbf{U3} it follows that $\lambda,a \in [\set{a}] \forall \lambda \in K$.
-      \[ K\cdot a \coloneqq [\set{a}] = \setdef{\lambda a}{\lambda \in K} \]
+      From \textbf{U1} it follows that $\left[\set{a}\right] \neq \emptyset$ because $0,a \in \left[\set{a}\right]$. \\
+      From \textbf{U3} it follows that $\lambda,a \in \left[\set{a}\right] \forall \lambda \in K$.
+      \[ K\cdot a \coloneqq \left[\set{a}\right] = \setdef{\lambda a}{\lambda \in K} \]
 
       We look at a subfield:
       Let $u, v \in K \cdot a$ and $\lambda, \mu \in K$. Show that
@@ -3067,9 +3067,9 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
 
   \[ L(M) = \setdef{\lambda_1 a_1 + \ldots + \lambda_n a_n}{n \in \mathbb N, a_i \in M, \lambda_i \in K} \]
   is the set of all linear combinations.
-  We define $L(\emptyset) \coloneqq \set{0} = [\emptyset]$.
+  We define $L(\emptyset) \coloneqq \set{0} = \left[\emptyset\right]$.
 
-  \[ L(\set{a}) \stackrel!= \setdef{\lambda \cdot a}{\lambda \in K} = K \cdot a = [\set{a}] \]
+  \[ L(\set{a}) \stackrel!= \setdef{\lambda \cdot a}{\lambda \in K} = K \cdot a = \left[\set{a}\right] \]
 \end{theorem}
 
 \begin{theorem}
@@ -4134,7 +4134,7 @@ How do we find a basis?
 
 \begin{proof}
   Let $E \coloneqq \setdef{u+w}{u \in U, w \in W}$.
-  The claim is that $[U \cup W] = E$.
+  The claim is that $\left[U \cup W\right] = E$.
 
   We want to show that $E$ is a subspace, $U \subseteq E, W \subseteq E$.
 
