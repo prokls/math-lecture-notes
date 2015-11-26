@@ -1,0 +1,1489 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{baskervald}
+\usepackage{csquotes}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{mdframed}
+\usepackage{pifont}
+\usepackage{stmaryrd}
+\usepackage{wasysym}
+\usepackage{xcolor}
+
+\theoremstyle{definition}
+\newmdtheoremenv[%
+  backgroundcolor=white,
+  linecolor=white!60!black,
+  linewidth=3pt]{ex}{Exercise}
+
+\parskip5pt
+\parindent0pt
+
+\newcommand\abs[1]{\left|\thinspace #1\thinspace\right|}
+\newcommand\set[1]{\left\{#1\right\}}
+\newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand\card[1]{\left|\,#1\,\right|}
+\newcommand\yes{\checkmark}
+\newcommand\no{\ding{55}}
+
+\title{Analysis 1 -- Practicals}
+\author{Lukas Prokop}
+\date{October 2015 to January 2016}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\clearpage
+\section{Exercise 1}
+\begin{ex}
+  Let $p$, $q$ and $r$ be statements. Prove the distributive law using the truth table:
+  \[ p \land (q \lor r) \Leftrightarrow (p \land q) \lor (p \land r) \]
+\end{ex}
+
+\begin{table}[!h]
+  \begin{center}
+    \begin{tabular}{ccc|cc|ccc}
+        $p$ & $q$ & $r$ & $(q \lor r)$ & $(p \land (q \lor r))$ & $(p \land q)$ & $(p \land r)$ & $(p \land q) \lor (p \land r)$ \\
+      \hline
+        0 & 0 & 0       & 0 & 0                                 & 0 & 0 & 0 \\
+        0 & 0 & 1       & 1 & 0                                 & 0 & 0 & 0 \\
+        0 & 1 & 0       & 1 & 0                                 & 0 & 0 & 0 \\
+        0 & 1 & 1       & 1 & 0                                 & 0 & 0 & 0 \\
+        1 & 0 & 0       & 0 & 0                                 & 0 & 0 & 0 \\
+        1 & 0 & 1       & 1 & 1                                 & 0 & 1 & 1 \\
+        1 & 1 & 0       & 1 & 1                                 & 1 & 0 & 1 \\
+        1 & 1 & 1       & 1 & 1                                 & 1 & 1 & 1
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Therefore the truthtable of both statements is equivalent.
+Two boolean statements are equivalent iff their truthtable is equivalent.
+
+\section{Exercise 2}
+\begin{ex}
+  Formalize the following colloquial combination of statements $p$, $q$ and $r$
+  in propositional calculus. Furthermore always create the negation:
+  \begin{itemize}
+    \item \enquote{Under the assumption, that $p$ or $q$ holds, we conclude that $r$ cannot be true.}
+    \item \enquote{It's a requirement for $r$, that $p$ and $q$ hold.}
+    \item \enquote{$p$ or $q$ holds, but $p$ and $q$ exclude each other}
+  \end{itemize}
+\end{ex}
+
+\begin{itemize}
+  \item \enquote{Under the assumption, that $p$ or $q$ holds, we conclude that $r$ cannot be true.}
+    \[ (p \lor q) \rightarrow \neg r \]
+    Negation: $(p \lor q) \land r$
+  \item \enquote{It's a requirement for $r$, that $p$ and $q$ hold.}
+    \[ r \rightarrow (p \land q) \]
+    Negation: $r \land (\neg p \lor \neg q)$
+  \item \enquote{$p$ or $q$ holds, but $p$ and $q$ exclude each other}
+    \[ (p \lor q) \land \neg (p \land q) \]
+    \[ \Leftrightarrow (p \dot\lor q) \Leftrightarrow (p \oplus q) \]
+    Negation: $p \leftrightarrow q$
+\end{itemize}
+
+\section{Exercise 3}
+\begin{ex}
+  Mister Travelmuch bought a Eurail ticket in August 1980 and has organized a large journey.
+  When moving flats, he list his photo album, he tries to remember,
+  which cities of Paris, Madrid and Rome he visited.
+
+  He remembers:
+  \begin{itemize}
+    \item If he was not in Madrid, then he was in Paris and Rome.
+    \item If he was in Paris, he was not in Madrid and not in Rome.
+    \item If he was not in Paris, he was also not in Rome.
+  \end{itemize}
+
+  Use appropriate variables for the statements and help Mister Travelmuch
+  determining which cities (or city) he visited in 1980.
+\end{ex}
+
+Let $M$, $P$ and $R$ be visits to Madrid, Pairs and Rome respectively.
+We formalize:
+
+\begin{align*}
+  \neg M &\implies (P \land R) \\
+       P &\implies (\neg M \land \neg R) \\
+  \neg P &\implies \neg R
+\end{align*}
+
+As far as all three conditions need to be satisfied, we conjoint them:
+\[
+    \left[\neg M \rightarrow (P \land R)\right] \land
+    \left[P \rightarrow (\neg M \land \neg R)\right] \land
+    \left[\neg P \rightarrow \neg R\right]
+\]
+
+We apply $(a \rightarrow b) \Leftrightarrow (\neg a \lor b)$ to all three statements:
+\[
+    \left[\neg(\neg M) \lor (P \land R)\right] \land
+    \left[\neg P \lor (\neg M \land \neg R)\right] \land
+    \left[\neg(\neg P) \lor \neg R\right]
+\]
+\dots and $\neg(\neg A) \Leftrightarrow A$:
+\[
+    \left[M \lor (P \land R)\right] \land
+    \left[\neg P \lor (\neg M \land \neg R)\right] \land
+    \left[P \lor \neg R\right]
+\]
+\dots and the distributive law holds:
+\[
+    \left[(M \lor P) \land (M \lor R)\right] \land
+    \left[(\neg P \land \neg M) \lor (\neg P \land \neg R)\right] \land
+    \left[P \lor \neg R\right]
+\]
+We reorder statements:
+\[
+    \left[(M \lor P) \land (M \lor R) \land (P \lor \neg R)\right] \land
+    \left[(\neg P \land \neg M) \lor (\neg P \land \neg R)\right]
+\]
+\dots and again the distributive law:
+\[
+    \left[(M \lor P) \land (M \lor R) \land (P \lor \neg R) \land (\neg P \land \neg M)\right] \lor
+    \left[(M \lor P) \land (M \lor R) \land (P \lor \neg R) \land (\neg P \land \neg R)\right]
+\]
+\[
+    \left[(M \lor P) \land \neg P \land \neg M\right] \lor
+    \left[(M \lor P) \land (M \lor R) \land (P \lor \neg R) \land (\neg P \land \neg R)\right]
+\]
+
+The left-hand side cannot be satisfied, but $M \land \neg P \land \neg R$ holds for the right side.
+So,
+\begin{itemize}
+  \item In 1980, he was in Madrid.
+  \item In 1980, he was not in Paris.
+  \item In 1980, he was not in Rome.
+\end{itemize}
+
+\section{Exercise 4}
+\begin{ex}
+  Let $X$ be a set. Formalize the following colloquial combination of statements
+  $p(x)$, $q(x)$, $r(x)$ and $s(x, y)$ with the help of quantifiers. Also create
+  the negation:
+  \begin{enumerate}
+    \item \enquote{For all elements $x$ of the set $X$ for which $p(x)$ holds, also $q(x)$ or $r(x)$ holds.}
+    \item \enquote{For all $x$ in $X$, there is one $y$ in $Y$ such that $s(x,y)$ holds.}
+    \item \enquote{If $p(x)$ is not wrong for all $x$ in $X$, then $q(y)$ is true for at least one $y$ in $Y$.}
+  \end{enumerate}
+\end{ex}
+
+\begin{enumerate}
+  \item \enquote{For all elements $x$ of the set $X$ for which $p(x)$ holds, also $q(x)$ or $r(x)$ holds.}
+    \[ \forall x \in X: p(x) \rightarrow q(x) \lor r(x) \]
+    \[ \text{negation: }  \exists x \in X: p(x) \land (\neg q(x) \land \neg r(x)) \]
+  \item \enquote{For all $x$ in $X$, there is one $y$ in $Y$ such that $s(x,y)$ holds.}
+    \[ \forall x \in X \exists y \in Y: s(x, y) \]
+    \[ \text{negation: }  \exists x \in X \forall y \in Y: \neg s(x, y) \]
+  \item \enquote{If $p(x)$ is not wrong for all $x$ in $X$, then $q(y)$ is true for at least one $y$ in $Y$.}
+    \[ (\exists x \in X: p(x)) \rightarrow (\exists y \in X: q(y)) \]
+    \[ \text{negation: }  (\exists x \in X: p(x)) \land (\forall y \in X: \neg q(y)) \]
+\end{enumerate}
+
+
+\section{Exercise 5}
+\begin{ex}
+  Prove in three ways (direct, indirect, by contradiction):
+  \[ \forall x \in \mathbb R: x^3 + 2x > 0 \Rightarrow x > 0 \]
+\end{ex}
+
+Consider $\phi$ to be given and $\varphi$ to be our conclusion.
+Then the three ways of proving work as follows:
+\begin{description}
+  \item[Direct proof] $\phi \implies \varphi$
+  \item[Indirect proof] $\neg\varphi \implies \neg\phi$ \\
+    Because $\varphi \lor \neg\phi \Leftrightarrow \neg\phi \lor \varphi \Leftrightarrow \phi \rightarrow \varphi$.
+  \item[Proof by contradiction] $(\neg (\phi \implies \varphi) \implies \bot) \implies (\phi \implies \varphi)$ \\
+    Because $((\phi \rightarrow \varphi) \lor \bot) \rightarrow (\phi \rightarrow \varphi)
+    \Leftrightarrow (\phi \rightarrow \varphi) \rightarrow (\phi \rightarrow \varphi)$.
+\end{description}
+
+\begin{description}
+  \item[Direct proof]
+    Assume,
+    \[ x(x^2 + 2) > 0 \]
+    This requires that
+    \begin{itemize}
+      \item both factors are non-zero
+      \item and
+        \begin{itemize}
+          \item both factors are negative, or
+          \item both factors are positive
+        \end{itemize}
+    \end{itemize}
+    So,
+    \[ (x \neq 0 \land (x^2 + 2) \neq 0) \land \left[(x < 0 \land (x^2 + 2) < 0) \lor (x > 0 \land (x^2 + 2) > 0)\right] \]
+    As far as a square cannot be negative, $(x^2 + 2) < 0$ does not hold.
+    \[ (x \neq 0 \land (x^2 + 2) \neq 0) \land \left[(x > 0 \land (x^2 + 2) > 0)\right] \]
+    Therefore it must hold that
+    \[ (x \neq 0) \land (x^2 + 2 \neq 0) \land (x > 0) \land (x^2 + 2 > 0) \]
+    And so it holds that $x > 0$.
+  \item[Indirect proof]
+    Assume $x \leq 0$.
+    Then $x \cdot x^2 \leq 0$.
+    And also $x \cdot (x^2 + 2) \leq 0$.
+    Which is $x^3 + 2x \leq 0$.
+  \item[Proof by contradiction]
+    Assume $x (x^2 + 2) > 0 \implies x \leq 0$.
+    \[ \forall x \in \mathbb R: x \cdot \underbrace{(x^2 + 2)}_{\geq 2} > 0 \implies x \leq 0 \]
+    \[ \forall x \in \mathbb R: \underbrace{x}_{\Rightarrow \geq 0} \cdot \underbrace{(x^2 + 2)}_{\geq 2} > 0 \implies x \leq 0 \]
+    \[ \forall x \in \mathbb R: x > 0 \implies x \leq 0 \]
+    \[ \text{\lightning} \]
+    \[ \Rightarrow \forall x \in \mathbb R: x \cdot (x^2 + 2) > 0 \implies x > 0 \]
+\end{description}
+
+\section{Exercise 6}
+
+\begin{ex}
+  Let $p$, $q$ and $r$ be statements. Show that
+  \begin{itemize}
+    \item $(p \implies q) \iff \neg (p \implies \neg q)$  \hspace{30pt} \enquote{proof by contradiction}
+    \item $\left[p \implies (q \lor r)\right] \iff \left[(p \land \neg q) \implies r\right]$
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 6a}
+
+\[ (p \implies q) \iff \neg (p \land \neg q) \]
+\[ (\neg p \lor q) \iff (\neg p \lor q) \]
+
+\subsection{Exercise 6b}
+
+\begin{align*}
+  \left(p \rightarrow (q \lor r)\right) &\iff \left((p \land \neg q) \rightarrow r\right) \\
+  \neg p \lor (q \lor r) &\iff \neg (p \land \neg q) \lor r \\
+  (\neg p \lor q) \lor r &\iff (\neg p \lor q) \lor r
+\end{align*}
+
+\section{Exercise 7}
+
+\begin{ex}
+  Let $A$, $B$, $C$ and $D$ be sets. Prove that
+  \begin{itemize}
+    \item $(A \setminus B) \cap (A \setminus C) = A \setminus (B \cup C)$
+    \item $(A \setminus B) \cap (C \setminus D) = (A \setminus D) \cap (C \setminus B)$
+    \item $B \subseteq A \implies B = A \setminus (A \setminus B)$
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 7a}
+\[ (A \setminus B) \cap (A \setminus C) = A \setminus (B \cup C) \]
+
+Let $a$ be a variable which is true if the considered element is contained in $A$.
+$\neg a$ is analogously not. Same for $b$ and $c$. Then:
+
+\begin{align*}
+  (a \land \neg b) \land (a \land \neg c) &= a \land \neg (b \lor c) \\
+  a \land \neg b \land a \land \neg c &= a \land (\neg b \land \neg c) \\
+  a \land \neg b \land \neg c &= a \land \neg b \land \neg c \\
+  \top &= \top
+\end{align*}
+
+\subsection{Exercise 7b}
+\begin{align*}
+  (A \setminus B) \cap (C \setminus D) &= (A \setminus D) \cap (C \setminus B) \\
+  (a \land \neg b) \land (c \land \neg d) &= (a \land \neg d) \land (c \land \neg b) \\
+  a \land \neg b \land \neg c &= a \land \neg b \land \neg c \\
+  \top &= \top
+\end{align*}
+
+\subsection{Exercise 7c}
+
+\[ B \subseteq A \Rightarrow B = A \setminus (A \setminus B) \]
+
+\begin{align*}
+  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \left[
+          x \in B \leftrightarrow x \in A \land (\underbrace{x \not\in A}_{\bot} \lor x \in B)))
+      \right] \\
+  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \left[
+          x \in B \leftrightarrow x \in A \land x \in B
+      \right] \\
+  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \left[
+          (x \in B \rightarrow \implies x \in A \land \underbrace{x \in B}_{\top}) \land
+          \underbrace{(x \in A \land x \in B \implies x \in B)}_{\top}
+      \right] \\
+  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies (x \in B \rightarrow x \in A) \\
+  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \top \\
+                                                 &\top
+\end{align*}
+
+
+\section{Exercise 8}
+
+\begin{ex}
+  Let $X$ be a set with $X \neq \emptyset$ and $X \neq \set{\emptyset}$. Of which of the following sets is
+  (a) the set $X$, (b) the set $\set{X}$, element of subset?
+\end{ex}
+
+\begin{table}[!h]
+ \begin{center}
+  \begin{tabular}{rcc}
+   \hline\hline
+    $S$ \ op           & $x \in S$                    & $X \subseteq S$ \\
+   \hline
+    $\set{\set{X}, X}$ & \yes (2nd arg)               & \no (recursive def required) \\
+    $X$                & \no (recursive def required) & \yes ($X = X$) \\
+    $\emptyset \cap \set{X} = \emptyset$ & \no        & \no (unless $X = \emptyset$) \\
+    $\set{X} \setminus \set{\set{X}} = \set{X}$ & \yes (1st arg) & \no (recursive definition required) \\
+    $\set{X} \cup X$   & \yes (1st arg)               & \yes ($X = X$) \\
+    $\set{X} \cup \set{\emptyset}$ & \yes (1st arg)   & \no (recursive definition required)
+  \end{tabular}
+ \end{center}
+\end{table}
+
+
+\section{Exercise 9}
+
+\centerline{ $(0, \infty)$ is the set $\mathbb{R}_{>0}$ }
+
+\subsection{Exercise 9a}
+
+Prove in three ways the following statement:
+\[
+    \forall x \in (0, \infty) \forall y \in (0, \infty):
+    x \neq y \implies \frac xy + \frac yx > 2
+\]
+
+\paragraph{direct proof}
+\begin{align*}
+  x &\neq y \\
+  x - y &\neq 0 \\
+  (x - y)^2 &\neq 0 \\
+  (x - y)^2 &> 0 \\
+  x^2 - 2xy + y^2 &> 0    & x,y \in \mathbb{R}_{>0} \Rightarrow xy > 0 \\
+  \frac{x^2}{xy} - \frac{2xy}{xy} + \frac{y^2}{xy} &> 0 \\
+  \frac{x}{y} - 2 + \frac yx &> 0 \\
+  \frac xy + \frac yx &> 2
+\end{align*}
+
+\paragraph{indirect proof}
+\begin{align*}
+  \forall x \in (0, \infty) \forall y \in (0, \infty): &\frac xy + \frac yx \leq 2 \Rightarrow x = y \\
+   \frac{x^2}{xy} + \frac{y^2}{xy} &\leq 2 \\
+   x^2 + y^2 &\leq 2xy \\
+   x^2 - 2xy + y^2 &\leq 0 \\
+   (x - y)^2 &\leq 0
+   (x - y)^2 &= 0 \\
+   x - y &= 0 \\
+   x &= y
+\end{align*}
+
+\paragraph{proof by contradiction}
+\begin{align*}
+  \forall x \in (0, \infty) \forall y \in (0, \infty): &x \neq y \Rightarrow \frac xy + \frac yx \leq 2
+\end{align*}
+
+\subsection{Exercise 9b}
+\subsection{Exercise 9c}
+
+
+\clearpage
+\section{Reminder}
+
+If $n < m$, then the \emph{empty sum} $\sum_{k=m}^n a_k$ has value $0$,
+and the \emph{empty product} $\prod_{k=m}^n a_k$ has value $1$.
+
+\section{Exercise 18}
+\begin{ex}
+  Let $n \in \mathbb{N}_+$. Show that
+  \[ \prod_{k=2}^n \left(1 - \frac1k\right) = \frac1n . \]
+\end{ex}
+
+\begin{description}
+  \item[Induction base] $n = 1$
+    \[ \prod_{k=2}^1 \dots = 1 = \frac11 \qquad\checkmark \]
+  \item[Induction step] $n \rightarrow n + 1$
+    \begin{align*}
+      \prod_{k=2}^{n+1} \left(1 - \frac{1}{k}\right) &= \frac{1}{n+1} \\
+      \prod_{k=2}^{n} \left(1 - \frac{1}{k}\right) \left(1 - \frac{1}{n+1}\right) &= \frac{1}{n+1} \\
+      \frac 1n \left(1 - \frac{1}{n+1}\right) &= \frac{1}{n+1} \\
+      \frac 1n \cdot \frac{n+1-1}{n+1} &= \frac{1}{n+1} \\
+      \frac nn &= 1 \qquad\checkmark
+    \end{align*}
+\end{description}
+
+Actually, can be rewritten as
+\[ \prod_{k=2}^n \left(\frac{k-1}{k}\right) \]
+\[ = \frac12 \cdot \frac23 \cdot \frac34 \cdot \frac45 \dots \frac{n-1}{n} \]
+\[ = \frac1n \]
+So this is the multiplication equivalent of telescoping sums.
+
+\section{Exercise 19}
+
+\begin{ex}
+  $X$ and $Y$ are non-empty sets and $f: X \rightarrow Y$ is a mapping.
+  Furthermore let $A \subseteq X$ and $B \subseteq Y$.
+  \begin{enumerate}
+    \item Prove that $A \subseteq f^{-1}(f(A))$ and $B \supseteq f(f^{-1}(B))$
+    \item Show (by providing counterexamples) that in the inclusions of (1)
+      no equivalence is given.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 19.1}
+
+%A function is invertible iff it is injective:
+%\[ \forall y \in Y \not\exists x_1, x_2 \in X: f(x_1) = f(x_2) = y \]
+%\[ \forall y \in Y \forall x_1, x_2 \in X: x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2) \]
+
+Show that,
+\[ a \in A \Rightarrow a \in f^{-1}(f(A)) \]
+
+So we take $a$ and map it to the codomain:
+\[ f(a) \in f(A) \]
+We denote the result as $y$:
+\[ y \coloneqq f(a) \]
+Because
+\[ f^{-1}(x) = \setdef{x \in A}{f(x) \in B} \]
+we know that $a$ originates from:
+\[ a \in f^{-1}(f(A)) \]
+
+It is very important here to distinguish between \emph{domain}/\emph{codomain}
+and \emph{function}/\emph{inverse function}. Because an inverse function implies
+that the corresponding function is injective. Assuming this fact, the exercise
+is immediate. But we are talking about domains and co-domains here.
+
+As second exercise we need to show that,
+\[ B \supseteq f\left(f^{-1}\left(B\right)\right) \]
+
+We need the definition that,
+\[ f^{-1}(B) = \setdef{x' \in X}{f(x') \in B} \]
+
+\[ y' \in f(f^{-1}(B)) \]
+Does $y' \in B$ hold? Yes, because \dots
+\[ y' \in f\left(f^{-1}(B)\right) \Rightarrow \exists x' \in f^{-1}(B) \]
+\[ \Rightarrow y' \in B \]
+
+\subsection{Exercise 19.2}
+
+Show that,
+\[ \exists f: A \subsetneq f^{-1}(f(A)) \]
+
+We use a surjective, but not injective function.
+
+\[ f: \set{1,2} \rightarrow \set{a} \]
+\[ 1 \mapsto a \]
+\[ 2 \mapsto a \]
+
+\begin{align*}
+  A &= \set{1} \\
+  f(A) &= \set{a} \\
+  f^{-1}(f(A)) &= \set{1, 2}
+\end{align*}
+
+Show that,
+\[ \exists f: A \subsetneq f(f^{-1}(A)) \]
+
+We use an injective, but not surjective function.
+
+\[ f: \set{1} \rightarrow \set{a, b} \]
+\[ 1 \mapsto a \]
+
+\begin{align*}
+  B &= \set{b} \\
+  f^{-1}(B) &= \emptyset \\
+  f(f^{-1}(B)) &= \emptyset
+\end{align*}
+
+\section{Exercise 20}
+
+\begin{ex}
+  Prove the following variant of Bernoulli's inequality: For $x \in \mathbb{R}$
+  with $0 < x < 1$ and $n \in \mathbb{N}_+$ it holds that
+  \[ (1 - x)^n < \frac{1}{1 + nx}. \]
+\end{ex}
+\begin{align*}
+  (1 + x)^n &\geq 1 + nx \\
+  \frac{(1 + x)^n}{1 + nx} &\geq \frac{1 + nx}{1 + nx} \\
+  \frac{(1 + x)^n}{1 + nx} &\geq 1 \\
+  \frac{(1 - x)^n (1 + x)^n}{(1 - x)^n (1 + nx)} &\geq 1 \\
+  \frac{(1 - x)^n (1 + x)^n}{(1 + nx)} &\geq (1 - x)^n \\
+  \frac{\left((1 - x)(1 + x)\right)^n}{(1 + nx)} &\geq (1 - x)^n \\
+  \frac{\left(1 - x^2\right)^n}{(1 + nx)} &\geq (1 - x)^n \\
+  \frac{\overbrace{\left(1 - x^2\right)^n}^{\text{interval }(0,1)}}{(1 + nx)} &\geq (1 - x)^n \\
+  \frac{1}{(1 + nx)} &> (1 - x)^n \\
+\end{align*}
+
+% (1-x)/(1+nx) < 1/(1+(n+1)x)
+% (1-x)(1+(n+1)x) < 1 + nx
+% 1 + nx + x - x - x^2(n+1) < 1 + nx
+% -x^2 (n+1) < 0
+% true
+
+\section{Exercise 21}
+
+\begin{ex}
+  $X$ and $Y$ are nonempty sets and $f: X \rightarrow Y$ is a mapping.
+  \begin{itemize}
+    \item[a)]
+      Show that the following holds: For all $A, B \subseteq X$
+      \[ f(A \cap B) \subseteq f(A) \cap f(B). \]
+    \item[b)]
+      Show that the following statements are equivalent:
+      \begin{enumerate}
+        \item $f$ is injective.
+        \item For all $A, B \subseteq X$ it holds that $f(A \cap B) \supseteq f(A) \cap f(B)$
+        \item For all $A, B \subseteq X$ it holds that $f(A \cap B) = f(A) \cap f(B)$
+      \end{enumerate}
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 21a}
+
+Let $C = A \cap B$. Case distinction:
+\begin{description}
+  \item[$A = B = C$]
+    \begin{align*}
+         f(A \cap B) &= \setdef{f(x)}{x \in A} \\
+      f(A) \cap f(B) &= f(A) \\
+                     &= \setdef{f(x)}{x \in A}
+    \end{align*}
+  \item[$C = A \dot\lor C = B$]
+    wlog. $C = A$.
+    \begin{align*}
+         f(A \cap B) &= f(A) \\
+                     &= \setdef{f(x)}{x \in A} \\
+      f(A) \cap f(B) &= \setdef{f(x)}{x \in A} \cap \setdef{f(x)}{x \in B} \\
+                     &= \setdef{f(x)}{x \in A \land x \not\in (B \setminus A)} \\
+                     &= \setdef{f(x)}{x \in A}
+    \end{align*}
+  \item[$C = \emptyset$]
+    \begin{align*}
+      f(A \cap B)    &= f(\emptyset) \\
+                     &= \emptyset \\
+      f(A) \cap f(B) &= \setdef{f(x)}{x \in A} \cap \setdef{f(x)}{x \in B}
+    \end{align*}
+\end{description}
+
+So,
+\[ C \neq \emptyset \Rightarrow f(A \cap B) = f(A) \cap f(B) \]
+
+But if $C = 0$, we get zero values on the left-hand side and zero to $\card{A} + \card{B}$ values on the right-hand side.
+So,
+\[ C = \emptyset \Rightarrow f(A \cap B) \subseteq f(A) \cap f(B) \]
+
+\subsection{Exercise 21b}
+
+We prove $3$ with $1$:
+
+Let $C = A \cap B$. $f$ is injective, meaning
+\[ \forall x_1, x_2 \in X: x_1 \neq x_2 \Rightarrow f(x_1) \cap f(x_2) \]
+
+Case distinction:
+\begin{description}
+  \item[$A = B = C$]
+    \begin{align*}
+         f(A \cap B) &= \setdef{f(x)}{x \in A} \\
+      f(A) \cap f(B) &= f(A) \\
+                     &= \setdef{f(x)}{x \in A}
+    \end{align*}
+  \item[$C = A \dot\lor C = B$] \hfill{} \\
+    wlog. $C = A$ meaning $A \subsetneq B$
+    \begin{align*}
+         f(A \cap B) &= f(A) \\
+                     &= \setdef{f(x)}{x \in A} \\
+      f(A) \cap f(B) &= \setdef{f(x)}{x \in A} \cap \setdef{f(x)}{x \in B} \\
+                     &= \setdef{f(x)}{x \in A \land x \not\in (B \setminus A)} \\
+                     &= \setdef{f(x)}{x \in A}
+    \end{align*}
+  \item[$C = \emptyset$]
+    \begin{align*}
+      f(A \cap B)    &= f(\emptyset) \\
+                     &= \emptyset \\
+      f(A) \cap f(B) &= \emptyset
+    \end{align*}
+    Every element in $A$ is distinct from values in $B$.
+    Therefore $\forall x_1 \in A, x_2 \in B: f(x_1) \neq f(x_2)$ because of injectivity.
+    The intersection of all $f(x_i)$ is therefore empty.
+\end{description}
+
+\section{Exercise 22}
+
+\begin{ex}
+  Let $n \in \mathbb{N}$. Use the following idea to derive an equation for the sum of powers of three.
+  \[ \sum_{k=1}^n \left(k^4 - (k - 1)^4\right) \]
+  This sum can be written in two different ways:
+  \begin{itemize}
+    \item As telescoping sum (the initial and trailing value will be left)
+    \item (First resolve the parentheses.)
+      As combination of sums of the third, second, first and zero-th power.
+      With that (and known equations for sums of smaller powers)
+      we can compute $\sum_{k=1}^n k^3$.
+  \end{itemize}
+\end{ex}
+
+We look at the telescoping sum:
+\begin{align*}
+  \sum_{k=1}^n (k^4 - (k-1)^4)
+    &= \left(1^4 - (1 - 1)^4\right) + \left(2^4 - (2-1)^4\right) + \left(3^4 - (3-1)^4\right) \\
+    &+ \dots + \left((n-1)^4 - ((n-1)-1)^4\right) + \left(n^4 - (n-1)^4\right) \\
+    &= -0^4 + n^4 \\
+    &= n^4
+\end{align*}
+
+Then we use the combination of sums of lower powers.
+\begin{align*}
+  \sum_{k=1}^n (k^4 - (k-1)^4)
+    &= \sum_{k=1}^n (k^4 - (k^4 - 4k^3 + 6k^2 - 4k + 1)) \\
+    &= \sum_{k=1}^n (k^4 - k^4 + 4k^3 - 6k^2 + 4k - 1) \\
+    &= \sum_{k=1}^n (4k^3 - 6k^2 + 4k - 1) \\
+    &= \sum_{k=1}^n 4k^3 - \sum_{k=1}^n 6k^2 + \sum_{k=1}^n 4k - \sum_{k=1}^n 1 \\
+    &= \sum_{k=1}^n 4k^3 - 6\frac{2n^3 + 3n^2 + n}{6} + 4\frac{n(n+1)}{2} - n \\
+    &= \sum_{k=1}^n 4k^3 - 2n^3 - n^2
+\end{align*}
+
+Therefore,
+\[ n^4 = \sum_{k=1}^n 4k^3 - 2n^3 - n^2 \]
+\[ \sum_{k=1}^n 4k^3 = n^4 + 2n^3 + n^2 \]
+\[ \sum_{k=1}^n k^3 = \frac{n^4 + 2n^3 + n^2}{4} \]
+
+\section{Exercise 23}
+
+\begin{ex}
+  Let $n \in \mathbb{N}$. Prove that
+  \[ \sum_{k=0}^n \binom nk = 2^n \]
+  and if $n \geq 1$,
+  \[ \sum_{k=0}^n (-1)^k \binom nk = 0 \]
+\end{ex}
+
+Binomial theorem with $x=1, y=1$:
+
+\begin{align*}
+  \sum_{k=0}^n \binom nk 1^n 1^{n-k} &= (1 + 1)^n \\
+  \sum_{k=0}^n \binom nk &= 2^n
+\end{align*}
+
+If $n \geq 1$,
+\begin{align*}
+  \sum_{k=0}^n (-1)^k \binom{n}{k}
+    &= \sum_{k=0}^n (-1)^k \left(\binom{n-1}{k} + \binom{n-1}{k-1}\right) \\
+    &= \sum_{k=0}^n (-1)^k \binom{n-1}{k} + \sum_{k=0}^n (-1)^k \binom{n-1}{k-1} \\
+    &= (-1)^n \binom{n-1}{n} + \sum_{k=0}^{n-1} (-1)^k \binom{n-1}{k} + \sum_{k=0}^n (-1)^k \binom{n-1}{k-1} \\
+    &= \underbrace{(-1)^n \binom{n-1}{n}}_0 + \sum_{k=0}^{n-1} (-1)^k \binom{n-1}{k} + \sum_{k=1}^{n} (-1)^k \binom{n-1}{k-1} + \underbrace{(-1)^0 \binom{n-1}{-1}}_0 \\
+    &= \sum_{k=0}^{n-1} (-1)^k \binom{n-1}{k} + \sum_{k=0}^{n-1} (-1)^{k+1} \binom{n-1}{k} \\
+    &= \sum_{k=0}^{n-1} (-1)^k \binom{n-1}{k} - (-1) \sum_{k=0}^{n-1} (-1)^{k+1} \binom{n-1}{k} \\
+    &= \sum_{k=0}^{n-1} (-1)^k \binom{n-1}{k} - \sum_{k=0}^{n-1} (-1)^{k + 2} \binom{n-1}{k} \\
+    &= \sum_{k=0}^{n-1} (-1)^k \binom{n-1}{k} - \sum_{k=0}^{n-1} (-1)^k \binom{n-1}{k} \\
+    &= 0
+\end{align*}
+
+\clearpage
+\section{Exercise 24}
+\begin{ex}
+  Let $k, n \in \mathbb N_+$ with $k \leq n$. Determine the number of vectors
+  of length $k$ with pairwise different entries from $M_n = \set{1, 2, \ldots, n}$.
+\end{ex}
+
+This question is covered by the field of combinatorics.
+
+\[ (a_0, a_1, a_2, \dots) \neq (a_0, a_2, a_1, \dots) \]
+The order of elements is relevant. Therefore a variation, not combination, is given.
+The number of combinations without repetitions would be given by the binomial
+coefficient $n \choose k$ (the number of ways to choose $k$ of $n$ elements
+disregarding their order). For variations the formula $n^k$ holds to select $k$
+elements among $n$ arbitrarily often (hence with repetition).
+
+We model the given situation as
+\begin{itemize}
+  \item \enquote{variation without repetition}
+  \item i.e. \enquote{$k$-permutations of $n$}
+  \item i.e. the $k$-th falling factorial power $n^{\underline{k}}$ of $n$
+\end{itemize}
+
+The formula is given by,
+\[ P_k^n = \frac{n!}{(n-k)!} \]
+
+We can estimate it in the following way:
+Consider a combination without repetition represented by the formula $n \choose k$:
+\[ {n \choose k} = \frac{n!}{k! (n - k)!} \]
+
+So because we have a variation, not combination, the order of elements is relevant.
+Therefore given some combination, there are $k!$ possible arrangements. Given the vector
+(and also combination) $(1, 2, 3)$ there are $k!$ possible arrangements (variations)
+$\set{(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$.
+Indeed it holds that
+\[ \frac{3!}{(3 - 3)!} = \frac61 = 6 \]
+
+This argument explains why $k!$ in the denominator is omitted for variations w/o repetitions.
+
+\begin{table}[!h]
+  \begin{center}
+    \begin{tabular}{c|cccccc}
+      combinations & \multicolumn{6}{c}{variations} \\
+    \hline
+      $(123)$ & $(123)$ & $(132)$ & $(213)$ & $(231)$ & $(312)$ & $(321)$ \\
+      $(124)$ & $(124)$ & $(142)$ & $(214)$ & $(241)$ & $(412)$ & $(421)$ \\
+      $(134)$ & $(134)$ & $(143)$ & $(314)$ & $(341)$ & $(413)$ & $(431)$ \\
+      $(234)$ & $(234)$ & $(243)$ & $(324)$ & $(342)$ & $(423)$ & $(432)$
+    \end{tabular}
+    \caption{Combinations and variations for $n=4$ of $k=3$}
+  \end{center}
+\end{table}
+
+\section{Exercise 25}
+\begin{ex}
+  Let $K$ be a field and $a,b,c \in K$. Show (using the field axioms):
+  \begin{enumerate}[(a)]
+    \item $-(-a) = a$.
+    \item $(-a)(-b) = ab$.
+    \item $a + b = a + c \Rightarrow b = c$.
+    \item From $a \neq 0$ and $ab = ac$ follows $b = c$.
+    \item Is $a \neq 0$, then there is exactly one $x \in K$ with $ax + b = c$.
+  \end{enumerate}
+\end{ex}
+
+The field axioms are defined as follows:
+\begin{itemize}
+  \item[\textbf{A1}] $\forall a,b \in K: a + b = b + a$
+  \item[\textbf{A2}] $\forall a,b,c \in K: (a + b) + c = a + (b + c)$
+  \item[\textbf{A3}] $\exists 0 \in K \forall a \in K: a + 0 = a$
+  \item[\textbf{A4}] $\forall a \in K \exists \tilde{a}: a + \tilde{a} = 0$
+  \item[\textbf{M1}] $\forall a,b \in K: a \cdot b = b \cdot a$
+  \item[\textbf{M2}] $\forall a,b,c \in K: a \cdot (b \cdot c) = (a \cdot b) \cdot c$
+  \item[\textbf{M3}] $\exists 1 \in K: a \cdot 1 = a \forall a \in K$ (neutral element)
+  \item[\textbf{M4}] $\forall a \in K \setminus \set{0} \exists \hat a: \hat a \cdot a = 1$
+  \item[\textbf{D}] $\forall a,b,c \in K: a \cdot (b + c) = a \cdot b + a \cdot c$
+\end{itemize}
+
+\subsection{Exercise 25.a}
+
+\begin{align*}
+                  A4 &\Rightarrow \forall a \in K \exists -a: a + (-a) = 0 \\
+  \text{equivalence} &\Rightarrow a + (-a) - (-a) = 0 - (-a) \\
+                  A1 &\Rightarrow a + (-a) - (-a) = -(-a) + 0 \\
+                  A3 &\Rightarrow a + (-a) - (-a) = -(-a) \\
+                  A4 &\Rightarrow a + 0 = -(-a) \\
+                  A3 &\Rightarrow a = -(-a)
+\end{align*}
+
+\subsection{Exercise 25.b}
+
+We have proven in the lecture: \textbf{M5}: $-a = (-1) \cdot a$
+
+% TODO: show that $-(a a) = (-1) (a a) = (-a) a$
+
+First, we show \textbf{M7}
+\begin{align*}
+     &= a \cdot (-a) \\
+  M5 &\Rightarrow a \cdot (-1) \cdot a \\
+  M1 &\Rightarrow (-1) \cdot a \cdot a \\
+     &\Rightarrow - (a \cdot a) \\
+\end{align*}
+
+Secondly, we show (actually we have already shown that in the lecture) \textbf{M6}
+\begin{align*}
+                        D &\Rightarrow \forall a,b,c \in K: a \cdot (b + c) = a \cdot b + a \cdot c \\
+                          & [\text{we choose } \quad a \coloneqq a, \quad b \coloneqq a, \quad c \coloneqq (-a)] \\
+                          &\Rightarrow a \cdot (a + (-a)) = a \cdot a + a \cdot (-a) \\
+                       A3 &\Rightarrow a \cdot 0 = a \cdot a + a \cdot (-a) \\
+  \text{previous theorem} &\Rightarrow a \cdot 0 = a \cdot a + (- (a \cdot a)) \\
+                       A4 &\Rightarrow a \cdot 0 = 0
+\end{align*}
+
+Finally, we show
+\begin{align*}
+  \text{previous theorem} &\Rightarrow (-a) \cdot 0 = 0 \\
+                       A4 &\Rightarrow (-a) \cdot (b + (-b)) = 0 \\
+                        D &\Rightarrow (-a) \cdot b + (-a) (-b) = 0 \\
+       \text{equivalence} &\Rightarrow ab + (-a) b + (-a) (-b) = ab + 0 \\
+                       M1 &\Rightarrow ab + (-a) b + (-a) (-b) = 0 + ab \\
+                       A3 &\Rightarrow ab + (-a) b + (-a) (-b) = ab \\
+                       M6 &\Rightarrow ab - a b + (-a) (-b) = ab \\
+                       A4 &\Rightarrow 0 + (-a) (-b) = ab \\
+                       A3 &\Rightarrow (-a) (-b) = ab
+\end{align*}
+
+\subsection{Exercise 25.c}
+
+\begin{align*}
+                     & a + b = a + c \\
+  \text{equivalence} &\Rightarrow a + b + (-a) = a + c + (-a) \\
+                  A1 &\Rightarrow (a + (-a)) + b = (a + (-a)) + c \\
+                  A4 &\Rightarrow 0 + b = 0 + c \\
+                  A3 &\Rightarrow b = c
+\end{align*}
+
+\subsection{Exercise 25.d}
+
+\begin{align*}
+                     & a \neq 0 \land ab = ac \\
+  \text{equivalence} &\Rightarrow aba^{-1} = aca^{-1} \\
+                  M1 &\Rightarrow aa^{-1}b = aa^{-1}c \\
+                  M4 &\Rightarrow 1b = 1c \\
+                  M3 &\Rightarrow b = c
+\end{align*}
+
+\subsection{Exercise 25.e}
+
+Proof by contradiction.
+Assume $x_1, x_2 \in K$ with $x_1 \neq x_2$ then $\exists r \in K$:
+\[ ax_1 = r \qquad ax_2 = r \]
+\[ ax_1 = ax_2 \]
+
+\begin{align*}
+                     &\Rightarrow ax_1 = ax_2 \\
+  \text{equivalence} &\Rightarrow a^{-1} ax_1 = a^{-1} ax_2 \\
+                  M4 &\Rightarrow 1x_1 = 1x_2 \\
+                  M3 &\Rightarrow x_1 = x_2
+\end{align*}
+
+This is a contradiction to our assumption $x_1 \neq x_2$.
+Therefore $x$ is distinct.
+
+\section{Exercise 26}
+\begin{ex}
+  Let $n \in \mathbb N_+$. Prove that
+  \[ \sum_{k=0}^n \binom{2n}{2k} = \sum_{k=1}^n \binom{2n}{2k-1} = 2^{2n-1}. \]
+\end{ex}
+
+\subsection{Exercise 26.1: $\sum_{k=0}^n \binom{2n}{2k} = \sum_{k=1}^n \binom{2n}{2k-1}$ - approach 1}
+
+\begin{proof}
+  \begin{align*}
+    \sum_{k=0}^n \binom{2n}{2k}
+      &= \sum_{k=1}^{n-1} \binom{2n}{2k} + 1 + 1 \\
+      &= \sum_{k=1}^{n-1} \left[\binom{2n-1}{2k} + \binom{2n-1}{2k-1}\right] + 1 + 1 \\
+      &= \sum_{k=1}^{n-1} \binom{2n-1}{2k} + \sum_{k=1}^{n-1} \binom{2n-1}{2k-1} + 1 + 1 \\
+      &= \sum_{k=2}^{n} \binom{2n-1}{2(k - 1)} + \sum_{k=1}^{n-1} \binom{2n-1}{2k-1} + 1 + 1 \\
+      &= \sum_{k=1}^{n} \binom{2n-1}{2k-2} + \sum_{k=1}^{n-1} \binom{2n-1}{2k-1} + 1 \\
+      &= \sum_{k=1}^{n-1} \binom{2n-1}{2k-2} + \sum_{k=1}^{n-1} \binom{2n-1}{2k-1} + \binom{2n-1}{2n-2} + 1 \\
+      &= \sum_{k=1}^{n-1} \left[\binom{2n-1}{2k-2} + \binom{2n-1}{2k-1}\right] + \binom{2n-1}{2n-2} + 1 \\
+      &= \sum_{k=1}^{n-1} \binom{2n}{2k-1} + \left[1 + \binom{2n-1}{2n-2}\right] \\
+      &= \sum_{k=1}^{n-1} \binom{2n}{2k-1} + \left[\binom{2n-1}{2n-1} + \binom{2n-1}{2n-2}\right] \\
+      &= \sum_{k=1}^{n-1} \binom{2n}{2k-1} + \binom{2n}{2n-1} \\
+      &= \sum_{k=1}^{n} \binom{2n}{2k-1}
+  \end{align*}
+\end{proof}
+
+\subsection{Exercise 26.1: $\sum_{k=0}^n \binom{2n}{2k} = \sum_{k=1}^n \binom{2n}{2k-1}$ - approach 2}
+
+\begin{proof}
+  Idea: Consider $(1-1)^{2n}$ and split even/odd $k$s.
+  \begin{align*}
+    (1 - 1)^{2n} &= \sum_{k=0}^{2n} \binom{2n}{k} (-1)^k 1^{2n-k} & \text{[binomial theorem]} \\
+               0 &= \sum_{k=0}^n \binom{2n}{2k} (-1)^{2k} + \sum_{k=1}^n \binom{2n}{2k-1} (-1)^{2k-1} \\
+                 &= \sum_{k=0}^n \binom{2n}{2k} + \sum_{k=1}^n \binom{2n}{2k-1} (-1) & \text{[$(-1)^\text{even}$ is $1$, $(-1)^\text{odd}$ is $-1$]} \\
+                 &= \sum_{k=0}^n \binom{2n}{2k} - \sum_{k=1}^n \binom{2n}{2k-1} \\
+    \sum_{k=1}^n \binom{2n}{2k-1} &= \sum_{k=0}^n \binom{2n}{2k} \\
+  \end{align*}
+\end{proof}
+
+\subsection{Exercise 26.2: $\sum_{k=0}^n \binom{2n}{2k}$}
+
+\begin{proof}
+  Idea: Consider $(1+1)^{2n}$ and odd+even provides the factor 2 we need to divide with.
+  \begin{align*}
+    (1 + 1)^{2n} &= \sum_{k=0}^{2n} \binom{2n}{k} 1^k 1^{2n-k} & \text{[binomial theorem]} \\
+          2^{2n} &= \sum_{k=0}^{2n} \binom{2n}{k} \\
+                 &= \sum_{k=0}^{n} \binom{2n}{2k} + \sum_{k=1}^{n} \binom{2n}{2k-1} & \text{[split even and odd]} \\
+                 &= \sum_{k=0}^{n} \binom{2n}{2k} + \sum_{k=0}^{n} \binom{2n}{2k} & \text{[from previous result]} \\
+                 &= 2\sum_{k=0}^{n} \binom{2n}{2k} \\
+    \frac{2^{2n}}{2} &= \sum_{k=0}^{n} \binom{2n}{2k} \\
+        2^{2n-1} &= \sum_{k=0}^{n} \binom{2n}{2k}
+  \end{align*}
+\end{proof}
+
+\section{Exercise 27}
+\begin{ex}
+  Let $x \in \mathbb R \setminus \set{0}$. Show:
+  Let $x + \frac1x \in \mathbb{Z}$, then $x^n + \frac1{x^n} \in \mathbb{Z}$
+  for all $n \in \mathbb{N}$ (Remark: Consider $(x + \frac1x)^n$.)
+\end{ex}
+
+So we need to show that,
+\[
+  x \in \mathbb{R} \setminus \set{0}: \forall n \in \mathbb N:
+  x + \frac1x \in \mathbb Z \implies x^n + \frac1{x^n} \in \mathbb Z
+\]
+
+First we need to cover some fundamentals,
+\begin{itemize}
+  \item $a, b \in \mathbb Z \implies (a + b) \in \mathbb Z$
+  \item $a, b \in \mathbb Z \implies (a \cdot b) \in \mathbb Z \implies \forall n \in \mathbb N: a^n \in \mathbb Z$
+\end{itemize}
+
+\begin{proof}
+  \begin{description}
+    \item[IB: $n = 0$]
+      \begin{align*}
+        \forall x \in \mathbb{R} \setminus \set{0}: x + \frac1x \in \mathbb{Z} & \\
+        &\Rightarrow x = 1: 1 + \frac11 \in \mathbb Z \\
+        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: x^0 + \frac1{x^0} \in \mathbb Z \\
+        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: n = 0: x^n + \frac1{x^n} \in \mathbb Z \\
+      \end{align*}
+    \item[IB: $n = 1$]
+      \begin{align*}
+        \forall x \in \mathbb{R} \setminus \set{0}: x + \frac1x \in \mathbb{Z} & \\
+        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: x^1 + \frac1{x^1} \in \mathbb Z \\
+        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: n = 1: x^n + \frac1{x^n} \in \mathbb Z \\
+      \end{align*}
+    \item[IS: $n \rightarrow n + 1$]
+      Okay, how does the induction step for an implication look like?
+      \begin{align*}
+        \left((a \rightarrow b) \rightarrow (a \rightarrow d)\right)
+          &= \neg (\neg a \lor b) \lor (\neg a \lor d) \\
+          &= (a \land \neg b) \lor \neg a \lor d \\
+          &= ((a \lor \neg a) \land (\neg a \lor \neg b)) \lor d \\
+          &= (\neg a \lor \neg b) \lor d \\
+          &= (a \land b) \rightarrow d
+      \end{align*}
+      Therefore we can assume
+      \[ \left(x + \frac1x \in \mathbb Z\right) \land \left(x^n + \frac1{x^n} \in \mathbb Z\right) \]
+      and need to prove that this follows:
+      \[ x^{n+1} + \frac1{x^{n+1}} \in \mathbb Z \]
+
+      \begin{align*}
+        \left(x^n + \frac1{x^n} \in \mathbb Z\right)
+          &= \left(x^n + \frac1{x^n}\right)\left(x + \frac1x\right) \in \mathbb Z \\
+          &= \left(x^n \cdot x + \frac1{x^n}\cdot x + x^n \cdot \frac1x + \frac1{x^n}\cdot \frac1x\right) \in \mathbb Z \\
+          &= \left(x^{n+1} + x^{-n+1} + x^{n-1} + x^{-n-1}\right) \in \mathbb Z \\
+          &= \left(x^{n+1} + x^{-n-1} + x^{n-1} + x^{-n+1}\right) \in \mathbb Z \\
+          &= \left(x^{n+1} + \frac1{x^{n+1}}\right) + \underbrace{\left(x^{n-1} + \frac1{x^{n-1}}\right)}%
+            _{\substack{\in \mathbb Z \text{ because of induction hypothesis} \\ \text{and we have a 2-step induction}}} \in \mathbb Z \\
+          &= \left(x^{n+1} + \frac1{x^{n+1}}\right) \in \mathbb Z
+      \end{align*}
+  \end{description}
+\end{proof}
+
+%\begin{align*}
+%  x + \frac1x &\in \mathbb{Z} \\
+%  \left(x + \frac1x\right)^n &\in \mathbb{Z} \\
+%  \sum_{k=0}^n \binom nk x^{n-k} \left(\frac1x\right)^k &\in \mathbb{Z} \\
+%  \binom n0 x^n \left(\frac1x\right)^0 + \binom nn x^{n-n} \left(\frac1x\right)^n + \sum_{k=1}^{n-1} \binom nk x^{n-k} \left(\frac1x\right)^k &\in \mathbb{Z} \\
+%  x^n + \frac1{x^n} + \sum_{k=1}^{n-1} \underbrace{\binom nk}_{\in \mathbb N} \underbrace{\underbrace{x^{n-k}}_{x^{n-k}} \underbrace{\left(\frac1x\right)^k}_{x^{-k}}}_{x^{n-2k}} &\in \mathbb{Z}
+%\end{align*}
+
+\section{Exercise 28}
+\begin{ex}
+  Let $K$ be an ordered field and $a, b \in K_+$. Show:
+  \[ a < b \Rightarrow a^2 < b^2 \]
+  Especially the mapping $f: K_+ \cup \set{0} \rightarrow K_+ \cup \set{0},
+  a \mapsto a^2$ is injective.
+\end{ex}
+
+We already know,
+\begin{description}
+  \item[\textbf{U1}] $\forall a, b \in K: a < b \Leftrightarrow b > a$
+  \item[\textbf{U2}] $\forall a \in K: a^2 = a\cdot a$
+  \item[\textbf{U3}] $\forall c \in K_+: a > b \Rightarrow ac > bc$
+  \item[\textbf{M1}] $\forall a, b \in K: a \cdot b = b \cdot a$
+\end{description}
+
+\begin{proof}
+  \begin{align*}
+    a < b: \hspace{10pt}
+      & U1 \Rightarrow b > a \\
+      & U1 \Rightarrow b\cdot a > a\cdot a & \text{[yes, $a$ originates from $K_+$]} \\
+      & U2 \Rightarrow b\cdot a > a^2 \\
+    b > a: \hspace{10pt}
+      & U1 \Rightarrow b\cdot b > a\cdot b & \text{[yes, $b$ originates from $K_+$]} \\
+      & U2 \Rightarrow b^2 > a\cdot b \\
+      & M1 \Rightarrow b^2 > b\cdot a \\
+    b^2 > b\cdot a \land b\cdot a > a^2: \hspace{10pt}
+      & U3 \Rightarrow b^2 > a^2 \\
+      & U1 \Rightarrow a^2 < b^2
+  \end{align*}
+  \[ \Rightarrow \forall a, b \in K_+: a < b \Rightarrow a^2 < b^2 \]
+\end{proof}
+
+Injectivity:
+\[ \forall a_1, a_2 \in K_+ \cup \set{0}: a_1 \neq a_2 \Rightarrow a_1^2 \neq a_2^2 \]
+
+\begin{proof}
+  First we consider $a = 0$. In this case, $a = 0$ and $a^2 = a \cdot a = 0 \cdot 0 = 0$
+  according to the axiom $0 \cdot a = 0$ we have proven in the lecture.
+  So for $a = 0$, there is only one $a$ for which the square is zero, which is $0$.
+
+  We can proceed in $K_+$. Proof by contradiction:
+  \[ \exists a_1, a_2 \in K_+: a_1 \neq a_2 \Rightarrow a_1^2 = a_2^2 \]
+
+  \[
+    a_1 \neq a_2 \Leftrightarrow a_1 < a_2 \dot\lor a_1 > a_2
+  \]
+  because $a_1$ and $a_2$ are elements of an ordered field.
+
+  \begin{description}
+    \item[Case 1: $a_1 < a_2$]
+      \[ a_1 < a_2 \Rightarrow a_1^2 < a_2^2 \]
+    \item[Case 2: $a_1 > a_2$]
+      \[ a_1 > a_2 \Rightarrow a_1^2 > a_2^2 \]
+  \end{description}
+
+  Therefore either $a_1^2 < a_2^2$ or $a_1^2 > a_2^2$. So
+  \[ a_1^2 \neq a_2^2 \]
+  This contradicts and therefore $\not\exists a_1, a_2 \in K_+: a_1 \neq a_2 \Rightarrow a_1^2 = a_2^2$
+  or because we covered $a = 0$,
+  \[ \not\exists a_1, a_2 \in K_+ \cup \set{0}: a_1 \neq a_2 \Rightarrow a_1^2 = a_2^2 \]
+\end{proof}
+
+\section{Exercise 29}
+\begin{ex}
+  Let $K$ be an ordered field and $a,b \in K$. Show:
+  \[ \abs{a + b} = \abs{a} + \abs{b} \Leftrightarrow ab \geq 0 \]
+\end{ex}
+
+Triangular inequality:
+\[ \forall a, b \in K: \abs{a + b} \leq \abs{a} + \abs{b} \]
+
+Absolute values are defined with,
+\[
+  \abs{a} = \begin{cases}
+     a & a \in K_+ \\
+     0 & a = 0 \\
+    -a & a \in K_-
+  \end{cases}
+\]
+
+\begin{proof}
+  Case distinction:
+  \begin{description}
+    \item[$a = 0, b = 0$]
+      \begin{align*}
+        \abs{a + b} &\leq \abs{a} + \abs{b} \\
+        \abs{a + 0} &\leq \abs{a} + \abs{0} \\
+        A3 \Rightarrow \abs{a} &\leq \abs{a} + 0 \\
+        A3 \Rightarrow \abs{a} &= \abs{a} \\
+      \end{align*}
+    \item[$a > 0, b = 0$]
+      \begin{align*}
+        \abs{a + b} &\leq \abs{a} + \abs{b} \\
+        \abs{a + 0} &\leq \abs{a} + \abs{0} \\
+        A3 \Rightarrow \abs{a} &\leq \abs{a} + 0 \\
+        A3 \Rightarrow \abs{a} &= \abs{a} \\
+      \end{align*}
+    \item[$a = 0, b > 0$]
+      \begin{align*}
+        \abs{a + b} &\leq \abs{a} + \abs{b} \\
+        \abs{0 + b} &\leq \abs{0} + \abs{b} \\
+        A3 \Rightarrow \abs{b} &\leq 0 + \abs{b} \\
+        A3 \Rightarrow \abs{b} &= \abs{b} \\
+      \end{align*}
+    \item[$a > 0, b > 0$]
+      \begin{align*}
+        \underbrace{\abs{a + b}}_{\in K_+} &\leq \underbrace{\abs{a}}_{\in K_+} + \underbrace{\abs{b}}_{\in K_+} \\
+        (a + b) &\leq (a) + (b) \\
+        A2 \Rightarrow a + b &\leq a + b \\
+        a + b &= a + b \\
+      \end{align*}
+  \end{description}
+\end{proof}
+
+\section{Exercise 33}
+
+\[ [a_n, b_n], [c_n, d_n], a_n \leq \alpha \leq b_n, c_n \leq \gamma \leq d_n \]
+\[ \forall \varepsilon > 0 \exists N(\varepsilon): \abs{a_n - b_n} < \varepsilon \forall n \geq N(\varepsilon) \]
+\[
+    \left[\frac{1}{b_n}, \frac{1}{a_n}\right] \rightarrow \frac{1}{b_n} \leq \frac{1}{b_{n+1}} \leq \frac{1}{\alpha} \leq \frac{1}{a_{n+1}} \leq \frac{1}{a_n}
+\] \[
+  \card{\frac{1}{b_n} - \frac{1}{a_n}}
+  = \frac{a_n - b_n}{a_n b_n}
+  = \frac{\card{a_n - b_n}}{\card{a_n}\card{b_n}} \leq \frac{\varepsilon}{\card{a_1} \alpha}
+  = \varepsilon'
+\]
+
+Important: our approximation $a_n \geq a_1 > 0$ and $b_n \geq \alpha$ is independent of $n$!
+\[
+  \forall \varepsilon' > 0 \exists N(\varepsilon'): \card{\frac1{b_n} - \frac1{a_n}} < \varepsilon'
+\] \[
+  \card{a_n c_n - b_n d_n} = \card{a_n c_n - \alpha c_n + \alpha c_n - \alpha c_n + \alpha \gamma - b_n \gamma + b_n \gamma - b_n d_n}
+\] \[
+  \leq \underbrace{\card{a_n - \alpha}}_{<\varepsilon} \underbrace{\card{c_n}}_{\leq \gamma} + \card{\alpha} \underbrace{\card{c_n - \gamma}}_{<\varepsilon} + \underbrace{\card{\gamma}}_{1} \underbrace{\card{\alpha - b_n}}_{<\varepsilon} + \underbrace{\card{b_n}}_{b_1} \underbrace{\card{\gamma - d_n}}_{<\varepsilon} < \varepsilon\underbrace{(2\gamma + \alpha + b_1)}_{=c} = \varepsilon'
+\]
+
+
+\section{Exercise 35}
+
+This exercise was delayed until 26th of November 2015 (later then the other exercises here).
+
+\[ (a_n)_{n \in \mathbb N} \text{ is sequence with } \lim_{n \to \infty} a_n = a \in \mathbb R \]
+\[ (b_n)_{n \in \mathbb N} \text{ is sequence with } \lim_{n \to \infty} b_n = b \in \mathbb R \]
+Furthermore $b \neq 0$.
+
+\subsection{Part 1}
+
+\[ \lim_{n\to\infty} a_n = a \land \lim_{n\to\infty} b_n = b \neq 0 \]
+Let $\varepsilon > 0$ be arbitrary.
+
+Claim: $\exists k \in \mathbb N \forall n \geq k: \card{b_n} > \frac{\card{b}}{2}$.
+
+Proof: Let $\varepsilon > 0$. Consider $\varepsilon = \frac{\card{b}}{2}$.
+
+For $\varepsilon = \frac{\card{b}}{2} > 0$:
+\[ \exists k \in \mathbb N: \forall n \geq k: \card{b_n - b} < \frac{\card{b}}{2} = \varepsilon \]
+\begin{align*}
+  \forall n \geq k: \card{b_n}
+      &= \card{b_n - b + b} \geq \card{\card{b} - \underbrace{\card{b - b_n}}_{<\frac{\card{b}}{2}}} \\
+      &> \card{b} - \card{b - b_n} \\
+      &> \card{b} - \frac{\card{b}}{2} \\
+      &= \frac{\card{b}}{2}
+\end{align*}
+
+Claim:
+\[ \text{sequence } \left(\frac{1}{b_n}\right)_{n \in \mathbb N} \land \exists \lim\left(\frac{1}{b_n}\right) = \frac1b \]
+
+Proof:
+For $\frac{\varepsilon \card{b}^2}{2}:$
+\[ \exists N \in \mathbb N: \forall n \geq N: \card{b_n - b} < \frac{\varepsilon \card{b}^2}{2} \]
+
+It holds that $\forall n \geq N:$
+\[ \card{\frac1{b_n} - \frac1b} = \card{\frac{b - b_n}{b_n \cdot b}} = \frac{\card{b - b_n}}{\card{b_n} \cdot \card{b}} < \frac{\varepsilon \cdot \frac{\card{b}^2}{2}}{\frac{\card{b}}{b} \card{b}} = \varepsilon \]
+\[ \lim_{n\to\infty} \frac{a_n}{b_n} = \lim_{n\to\infty} a_n \cdot \lim_{n\to\infty} \frac{1}{b_n} = a \cdot \frac1b \cdot \frac{a}{b} \]
+
+Or a direct proof:
+\begin{align*}
+  \card{\frac{a_n}{b_n} - \frac{a}{b}}
+    &= \card{\frac{a_n b - ab_n}{b_n b}} \\
+    &= \frac{\card{a_n b - a b + a b - a b_n}}{\card{b_n} \card{b}} \\
+    &\leq \frac{\card{b} \card{a_n - a} + \card{a} \card{b_n - b}}{\frac{\card{b}}{2} \cdot \card{b}} \\
+    &\leq C \cdot \varepsilon
+\end{align*}
+
+\subsection{Part 2}
+
+
+\section{Exercise 36}
+
+\[ A = \setdef{\frac{1}{2^m} + \frac{1}{n}}{m,n \in \mathbb N_+} \]
+
+Assumption: $\min{a} = 0$
+
+\[ 0 \not\in A \]
+\[ \frac{1}{2^N} + \frac{1}{N} < 2\varepsilon \]
+\[ \forall \varepsilon > 0 \exists N \in \mathbb N_+: (m \geq N \Rightarrow \card{\frac{1}{2^m} - 0} < \varepsilon) \]
+\[ \frac{1}{2^N} < \varepsilon \]
+\[ n \geq N \Rightarrow \card{\frac1n - 0} < \varepsilon \]
+
+Assume $\exists s > 0$ is our lower bound.
+\[ \exists m: \frac{1}{2^m} < \frac{s}{2} = \varepsilon \]
+\[ \varepsilon = \frac{s}{2}: \exists N: \frac{1}{N} < \frac{S}{2} \]
+\[ \rightarrow \underbrace{\frac{1}{sm} + \frac{1}{N}}_{\in A} < s \]
+\[ \Rightarrow \inf{A} = 0 \]
+
+Remark: When starting this exercise, always estimate whether a maximum/minimum exists.
+If so, you can save time to prove supremum/infimum.
+
+\[ \frac{1}{2^{m+1}} < \frac{1}{2^m} \forall m \]
+\[ \frac{1}{N+1} < \frac{1}{N} \forall N \]
+
+Therefore $\max{A}$ is when $m,n$ is as small as possible:
+\[ \frac12 + \frac11 = \frac32 \]
+\[ \max(A) = \frac32 = \sup(A) \]
+
+\[ B = \setdef{\frac{x}{1+x}}{x \in \mathbb R, x \geq 0} \]
+
+$\min(B) = 0$ because $0 \leq \frac{x}{1 + x} \forall x \geq 0 \land \left.\frac{x}{1+x} \right|_{x = 0} = 0$.
+
+\[ \frac{x}{1+x} < 1 \Leftrightarrow x < 1 + x \Leftrightarrow 0 < 1 \forall x \geq 0 \]
+
+Is $1$ an upper bound and $1 \not\in B$?
+
+Assume $\exists s < 1$:
+\[ \frac{x}{1 + x} \leq s \]
+\[ x \leq s(1 + x) \]
+\[ x(1-s) \leq 0 \]
+\[ 1 - s > 0 \]
+\[ \Rightarrow \sup(B) = 1 \land \not\exists \max(B) \]
+
+\section{Exercise 37}
+
+\[ I = [a, b) = \setdef{x \in \mathbb R}{a \leq x < b} \]
+\[ a = \min{[a,b)} \Rightarrow a \text{ is } \inf([a, b)) \]
+\[ a \in [a,b): \forall x \in [a,b): a \leq x \Rightarrow \min(I) = a \Rightarrow \inf(I) = a \]
+
+$b$ is upper bound:
+\[ b \not\in [a,b) \text{ by definition } \forall x \in [a,b): b > x \]
+
+Claim: $b$ is the smallest upper bound. \\
+Assume: $\exists b' < b: b'$ is upper bound.
+
+\[ b' \in [a,b) \quad\underbrace{\lightning}_{\text{because } \mathbb R \text{ is complete}} \]
+
+\section{Exercise 38}
+
+\begin{ex}
+  Let $A$ and $B$ two non-empty, bounded by below subseteq of $\mathbb R$. Prove that
+  \[ \inf(A \cup B) = \min\set{\inf(A), \inf(B)} \]
+\end{ex}
+
+Without loss of generality, $\inf{A} \leq \inf{B}$:
+
+Let $a \in A$ and $b \in B$ arbitrary.
+This implies that $a \geq \inf{A}$ and $b \geq \inf{B} \geq \inf{A}$.
+\[ \Rightarrow \forall x \in (A \cup B): x \geq \inf{A} \]
+
+\[ \Rightarrow \inf(A) \geq \inf(A \cup B) \]
+
+Because extending a set $A$ with additional elements,
+the infimum cannot be increased, but only decreased.
+
+\[ \Rightarrow \inf(A) \leq \inf(A \cup B) \]
+
+\begin{align*}
+  x \in A: & \inf\set{\inf{A}, \inf{B}} \leq \inf(A) \leq x \\
+  x \in B: & \inf\set{\inf{A}, \inf{B}} \leq \inf(B) \leq x
+\end{align*}
+\[ \forall x \in A \cup B: \underbrace{\min\set{\inf{A}, \inf{B}}}_{\text{lower bound}} \leq x \]
+
+\[ \Rightarrow \inf(A \cup B) \leq \min\set{\inf(A), \inf(B)} \]
+
+\[ \Rightarrow \inf(A) = \inf(A \cup B) \]
+
+\section{Exercise 39}
+\subsection{Exercise 39a}
+\[ \sup_{y \in Y} \inf_{x \in X} f(x, y) \leq \inf_{x \in X} \sup_{y \in Y} f(x, y) \]
+\[ \underbrace{\inf_{x \in X} f(x, y) \leq f(x, y)}_{\sup_{y \in Y}} \leq \sup_{y \in Y} f(x, y) \]
+\[ \sup_{y \in Y} \inf_{x \in X} f(x, y) \leq \sup_{y \in Y} f(x, y) \]
+\[ \sup_{y \in Y}{\inf_{x \in X} f(x, y)} = \inf_{x \in X} \sup_{y \in Y} \inf_{x \in X} f(x, y) \leq \inf_{x \in X} \sup_{y \in Y} f(x, y) \quad \checkmark \]
+
+\subsection{Exercise 39b}
+\[ f: (x, y) \mapsto 1_{\set{ x \geq 0, y \geq 0} \cup \set{x < 0, y < 0}} \]
+\[ \sup_{y \in Y} f(x, y) = 1 \forall x \]
+\[ \inf_{x \in X} \sup_{y \in Y} f(x, y) = 1 \]
+\[ \inf_{x \in X} f(x, y) = 0 \forall y \in [-1, 1] \]
+\[ \sup_{y \in Y} \inf_{x \in X} f(x, y) = 0 < 1 \]
+
+\section{Exercise 40}
+
+\subsection{Exercise 40.a.1}
+\[
+    \frac{5+i}{2+3i} \cdot \frac{2 - 3i}{2 - 3i}
+    = \frac{10 - 15i + 2i - 3i^2}{-6i + 4 + 6i - 9i^2}
+    = \frac{10 - 13i + 3}{4 + 9}
+    = \frac{13 - 13i}{13}
+    = 1 - i
+\]
+
+\subsection{Exercise 40.a.2}
+\begin{align*}
+  z^2 &= \frac{1 + \sqrt{3}i}{2} \\
+  z^2 &= \pm \sqrt{\frac12 + \frac{\sqrt{3}i}{2}} \\
+  z^2 &= \pm \sqrt{\frac{9 + 6\sqrt{3} i - 3}{12}} \\
+  z^2 &= \pm \sqrt{\frac{(3 + \sqrt{3}i)^2}{12}} \\
+  z^2 &= \pm \frac{3 + \sqrt{3}i}{\sqrt{12}} \\
+  z^2 &= \pm \left(\frac{\sqrt{3}}{2} + i\frac12\right)
+\end{align*}
+
+\subsection{Exercise 40.b.1}
+\[ M_1 = \setdef{z \in \mathbb C \setminus \set{0}}{\card{\frac1z} < 2} \]
+\[
+    \abs{\frac1z}
+    = \abs{\frac1{a + bi}}
+    = \frac{\abs{1}}{\abs{a + bi}}
+    = \frac{1}{\sqrt{a^2 + b^2}}
+\] \[
+    \Rightarrow \frac{1}{\sqrt{a^2 + b^2}} < 2
+\] \[
+    \Rightarrow \frac12 < \sqrt{a^2 + b^2}
+\] \[
+    \Rightarrow \frac14 < a^2 + b^2
+\]
+
+Illustrated we draw a circle originating in $(0, 0)$ with radius $\frac12$.
+The solution set is the whole plane excluding everything what is part of the circle.
+
+\subsection{Exercise 40.b.2}
+\[ M_2 = \setdef{z \in \mathbb C}{\Im((1 + i)z) = 0} \]
+\[ \Im(z + zi) \]
+
+TODO
+
+
+\section{Exercise 41}
+
+\[ A_n \coloneqq (-\infty, a_n)_{n \in \mathbb N} \qquad A \coloneqq \bigcup_{n \in \mathbb N} A_n \]
+\[ B_n \coloneqq (b_n, \infty)_{n \in \mathbb N} \qquad B \coloneqq \bigcup_{n \in \mathbb N} B_n \]
+
+\[ \forall n \in \mathbb N: x \in I_n \]
+
+Show that $x = \sup{A} = \inf{B}$.
+
+Because $I_n$ are nested intervals it holds that
+\[ a_1 \leq \dots \leq a_n \leq a_{n+1} \leq x \]
+
+Because
+\[ \forall \varepsilon > 0 \exists N: N \geq n: 0 \leq x - a_x \leq b_n - a_n \leq \varepsilon \]
+it holds that
+\[ x = \sup(a_n) \]
+
+Let $y \in A$.
+\[ \exists n \in \mathbb N: y \in A_n \Rightarrow y < a_n \leq x \]
+\[ \Rightarrow y \in A: y < x \]
+Therefore $x$ is an upper bound. Is it the only upper bound?
+
+Assume another upper bound $x'$ exists.
+\[ x' < x = \lim){n\to\infty} a_n \]
+\[ \Rightarrow \exists N \in \mathbb N: x' < a_n \qquad \forall n \geq M \]
+\[ \varepsilon = \frac{x - x'}{2} \]
+\[ \Rightarrow \exists y \in A_{n+1} \]
+\[ y > x' \]
+This is a contradiction and therefore $x$ is the distinct upper bound.
+
+The proof for the infimum works analogously.
+
+It only remains to show that $x \not\in A$.
+\[ \forall a_n \neq x \Rightarrow \exists a_{n+k}: a_n < a_{n+k} \]
+
+\section{Exercise 42}
+Give the limes for the following sequences:
+
+\subsection{Exercise 42.a}
+\[ a_n = \frac{5n+2}{3n+7} \]
+
+\begin{align*}
+  \lim_{n\to\infty} a_n &= \frac{5n+2}{3n+7} \\
+      &= \frac{\lim_{n\to\infty} 5n+2}{\lim_{n\to\infty} 3n+7} \\
+      &= \frac{\lim_{n\to\infty} 5n + \lim_{n\to\infty} 2}{\lim_{n\to\infty} 3n + \lim_{n\to\infty} 7} \\
+      &= \frac{n(5 + \frac2n)}{n(3+\frac7n)} \\
+      &= \frac{5 + \overbrace{\frac2n}^{\to0}}{3+\underbrace{\frac7n}_{\to0}} \\
+      &= \frac53
+\end{align*}
+
+This works only if the denominator is non-zero. $\lim_{n\to\infty} (3 + \frac7n)$ turns out to be non-zero.
+
+\subsection{Exercise 42.b}
+\[ b_n = \frac{2n^2-4n+5}{n^3+2\sqrt{n}} \]
+
+First, we make a remark, that $\lim_{n\to\infty} \frac1{n^2} = 0$. Why, because
+\[ \lim_{n\to\infty} \frac1{n^2} = \left(\lim_{n\to\infty} \frac1n\right) \cdot \left(\lim_{n\to\infty} \frac1n\right) = 0 \]
+This can be generalized for $\lim_{n\to\infty} \frac1{n^k} = 0$ with $k\in\mathbb N_+$.
+
+\begin{align*}
+  \lim_{n\to\infty} b_n &= \frac{2n^2 - 4n + 5}{n^3 + 2\sqrt{n}} \\
+    &= \frac{n^3\cdot\left(\frac2n - \frac4{n^2} + \frac5{n^2}\right)}{n^3\cdot\left(1 + 2\frac{n^{0.5}}{n^3}\right)} \\
+    &= \frac{\frac2n - \frac4{n^2} + \frac5{n^3}}{1 + 2\cdot \frac1{n^{2.5}}} \\
+    &= \frac{\frac2n - \frac4{n^2} + \frac5{n^3}}{\frac{n^{2.5}}{n^{2.5}}} \\
+    &= \frac{2n^{1.5} - 4n^{0.5} + 5n^{0.5}}{n^{2.5} + 2} \cdot \frac{\frac1{n^{2.5}}}{\frac1{n^{2.5}}} \\
+    &= \frac{2n^{-1} - 4n^{-2} + 5n^{-3}}{1 + 2n^{-2.5}} \\
+    &= \frac01
+\end{align*}
+
+Or generally:
+\[ 2n^2 - 4n + 5 \leq 2n^2 + 4n^2 + 5n^2 \leq 11n^2 \]
+
+\[ 0 \leq b_n \leq \frac{11n^2}{n^3} = \underbrace{\frac{11}{n}}_{\to0} \]
+
+\subsection{Exercise 42.c}
+\[ c_n = \sqrt{4n^2+2n+3} \]
+
+\begin{align*}
+  c_n &= \sqrt{4n^2+2n+3} \cdot \frac{\sqrt{4n^2 + 2n + 3}}{\sqrt{4n^2 + 2n + 3} + 2n} \\
+      &= \dots \\
+      &= \frac{2 + \frac3n}{\sqrt{4 + \frac2n + \frac3{n^2}} + 2} \\
+      &= \frac24 \\
+      &= \frac12
+\end{align*}
+
+\subsection{Exercise 42.d}
+\[ d_n = \binom{n}{k} n^{-k} \text{ with } n \in \mathbb N \text{ for a fixed } k \in \mathbb N_+ \]
+
+\begin{align*}
+  d_n &= \binom{n}{k} n^{-k} \\
+      &= \frac{n!}{k! (n-k)! n^k} \\
+      &= \frac{n \cdot (n-1) \cdot \dots \cdot 1}{k! (n-k)! n^k} \\
+      &= \frac{n \cdot (n-1) \cdot \ldots \cdot 1}{k! (n-k)! n^k} \\
+      &= \frac{(1 - \frac1n)(1 - \frac2n) \cdot \ldots \cdot (1 - \frac{k-1}{n}) \cdot (n-k) \cdot \ldots \cdot 1}{k! (n-k)!} \\
+      &= \frac{(n-k)!}{k! (n-k)!} \\
+      &= \frac{1}{k!}
+\end{align*}
+
+Or better we write:
+\begin{align*}
+  \frac{n!}{k! (n-k)!}
+    &= \frac{\prod_{i=0}^{n-1} (n-i)}{\prod_{j=k}^{n-1} (n-j)} \\
+    &= \frac{1}{k!} \prod_{j=0}^{k-1} (n-j) n^{-k} \\
+    &= \frac{1}{k!} \prod_{j=0}^{k-1} \left[(n-j) \cdot \frac1n\right] \\
+    &= \frac1{k!} \prod_{j=0}^{k-1} \left(1 - \frac{j}{n}\right) \\
+  \lim_{n\to\infty} \frac1{k!} \prod_{j=0}^{k-1} \left(1 - \frac{j}{n}\right)
+    &= \frac1{k!} \lim_{n\to\infty} \prod_{j=0}^{k-1} \left(1 - \frac{j}n\right) & \text{ [if limes exist]} \\
+    &= \frac1{k!} \prod_{j=0}^{k-1} \underbrace{\lim_{n\to\infty} \left(1 - \frac{j}{n}\right)}_{=1} \\
+    &= \frac1{k!} \forall j = 0, \dots, k-1
+\end{align*}
+
+\section{Exercise 43}
+\begin{ex}
+  Let $(a_n)_{n \in \mathbb N}$ be a sequence in $\mathbb R_+$ with $\lim_{n\to\infty} \frac{a_{n+1}}{a_n} = q$.
+  Prove that
+  \[
+    (a_n)_{n \in \mathbb N}
+    \begin{cases}
+      \text{converges} & \text{ if } q < 1 \\
+      \text{diverges} & \text{ if } q > 1
+    \end{cases}
+  \]
+  In case $q=1$ no statement about the convergence of $(a_n)_{n \in \mathbb N}$ can be made.
+\end{ex}
+
+\[ \lim_{n \to \infty} \frac{a_{n+1}}{a_n} = q \]
+
+\subsection{Examples for $q = 1$}
+
+\[ a_n = \frac{1}{n+1} \qquad \frac{a_{n+1}}{a_n} \frac{n+1}{n+2} \to_{n\to\infty} 1 \qquad a_m \searrow 0 \]
+\[ a_n = n+1 \qquad \frac{a_{n+1}}{a_n} = \frac{n+2}{n+1} \to_{n\to\infty} 1 \qquad a_n \nearrow 0 \]
+
+\subsection{Proof for $q < 1$}
+
+\[ \exists \underbrace{\varepsilon}_{=\frac{q+1}{2} - a} > 0: q + \varepsilon < 1 \]
+
+If $n$ is sufficiently large:
+\[ \card{\frac{a_{n+1}}{a_n} - q} < \varepsilon \Rightarrow \frac{a_{n+1}}{a_n} \in (q - \varepsilon, q + \varepsilon) \]
+\begin{align*}
+  0 \leq a_{n+1} &\leq (q + \varepsilon) a_n \\
+  0 \leq a_{n+2} &\leq (q + \varepsilon)^2 a_n \\
+           \dots & \\
+  0 \leq a_{n+k} &\leq (q + \varepsilon)^k a_n \\
+\end{align*}
+
+By induction it holds that
+\[ 0 \leq a_{n+k} \leq {\underbrace{(q + \varepsilon)}_{\tilde{q} < 1}}^k a_1 \to_{k\rightarrow\infty} 0 \]
+
+This follows from the squeeze theorem.
+
+\[ \forall q > 1 \exists \varepsilon > 0: q - \varepsilon > 1 \]
+
+\[ a_{n+1} > (q - \varepsilon) a_n \]
+\[ a_{n+k} > {\underbrace{(q - \varepsilon)}_{\tilde q > 1}}^k a_n \]
+
+\[ \lim_{n\to\infty} \tilde q^k = +\infty \]
+\[ \tilde q > 1 \]
+
+\section{Exercise 44}
+\begin{ex}
+  Let $(a_n)_{n \in \mathbb N}$ be a zero sequence in $\mathbb R$ and $(b_n)_{n \in \mathbb N}$ a bounded sequence in $\mathbb R$.
+  Prove that $(a_n b_n)_{n \in \mathbb N}$ is a zero sequence.
+\end{ex}
+
+Because $(b_n)_{n \in \mathbb N}$ is bounded some $d$ exists such that
+\[ \forall \varepsilon > 0: \exists N \in \mathbb N: n \geq N: \card{a_n - 0} < \varepsilon \]
+
+Consider $\lim_{n\to\infty} (a_n \cdot b_n) = 0$.
+
+We need to show that
+\[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: \card{a_n \cdot b_n - 0} < \varepsilon \cdot d \]
+
+Where $\varepsilon \cdot d$ is epsilon multiplied with constant $d$.
+This is a hand-crafted value (meaning that we selected it intentionally and will turn out to solve our problem). Now we elaborate on the relation:
+
+\begin{align*}
+  \card{a_n \cdot b_n} &< \varepsilon \cdot d \\
+  \card{a_n} \cdot \card{b_n} &< \varepsilon \cdot d \\
+  \card{a_n} \cdot d &< \varepsilon \cdot d \\
+  \card{a_n} &< \varepsilon
+\end{align*}
+
+Because $a_n < \varepsilon$ it holds that some constant exists for a sufficiently large $N$ such that $\card{a_n \cdot b_n}$ is always smaller than some constant $\varepsilon$.
+
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
