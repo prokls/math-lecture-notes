@@ -94,7 +94,7 @@
     \item Proof by contradiction: claim $p$, claim $\neg q$, show that $p \land \neg q$ is not possible
     \item commutative law: $a \land b \Leftrightarrow b \land a$
     \item associative law: $a \land (b \land c) = (a \land b) \land c$
-    \item distributive law: $(a \land b) \lor c) = (a \lor c) \land (b \lor c)$
+    \item distributive law: $(a \land b) \lor c = (a \lor c) \land (b \lor c)$
     \item DeMorgan's law: $\neg (a \land b) \Leftrightarrow (\neg a) \lor (\neg b)$
   \end{itemize}
   \item First-order logic
@@ -178,15 +178,15 @@ Examples of tautologies:
 Tautology with multiple statements:
 \begin{description}
   \item[implication with or and not] $(A \rightarrow B) \leftrightarrow (\neg A \lor B)$
-  \item[proof by contradiction] $[(A \rightarrow B) \land (A \rightarrow \neg B)] \rightarrow \neg A$
-  \item[chain inference] $[(A \rightarrow B) \land (B \rightarrow C)] \rightarrow (A \rightarrow C)$
+  \item[proof by contradiction] $\left[(A \rightarrow B) \land (A \rightarrow \neg B)\right] \rightarrow \neg A$
+  \item[chain inference] $\left[(A \rightarrow B) \land (B \rightarrow C)\right] \rightarrow (A \rightarrow C)$
 \end{description}
 
 
 \meta{lecture}{14th of Oct 2015}{Wolfgang Ring}
 
 \begin{proof}
-  We prove, $[(A \rightarrow B) \land (A \rightarrow \neg B)] \rightarrow \neg A$.
+  We prove, $\left[(A \rightarrow B) \land (A \rightarrow \neg B)\right] \rightarrow \neg A$.
 
   \begin{align*}
     (A \rightarrow B) \land (A \rightarrow \neg B) &\iff (\neg A \lor B) \land (\neg A \lor \neg B) \\
@@ -358,7 +358,7 @@ Set operations:
     \item[Induction step $n \rightarrow n + 1$] \hfill{} \\
       Assume $P(n)$ is true.
       So $(1 + 2 + \dots + n) = \frac{n (n+1)}{2}$.
-      \[ [(1 + 2 + \dots + n) + (n + 1)] = \frac{n(n+1)}{2} + (n+1) = (n+1) \left(\frac n2 + 1\right) \]
+      \[ \left[(1 + 2 + \dots + n) + (n + 1)\right] = \frac{n(n+1)}{2} + (n+1) = (n+1) \left(\frac n2 + 1\right) \]
       \[ = (n+1) \cdot \frac{(n+2)}{2} = \frac{(n+1)(n+2)}{2} \quad\checkmark \]
   \end{description}
 
@@ -879,7 +879,7 @@ We consider two fundamental arithmetic operators and determine fundamental prope
         \[ 0 = 0 + 0 \]
         follows from \textbf{D}.
         \[ 0 \cdot a = (0 + 0) \cdot a = 0 \cdot a + 0 \cdot a \]
-        \[ 0 \cdot a + (-0 \cdot a) = 0 \cdot a + [0 \cdot a + (-0 \cdot a)] \]
+        \[ 0 \cdot a + (-0 \cdot a) = 0 \cdot a + \left[0 \cdot a + (-0 \cdot a)\right] \]
         \[ 0 = 0 \cdot a \]
       \end{proof}
     \item $-a = (-1) \cdot a$
@@ -1012,13 +1012,13 @@ Literature:
     \item $\forall a, b \in K$ one of the following relations hold:
           \[ a > b \lor a = b \lor a < b \]
           Therefore $<$ defines a total order on $K$.
-    \item $\forall a, b, c \in K: [(a < b) \land (b < c) \implies a < c]$ \\
+    \item $\forall a, b, c \in K: \left[(a < b) \land (b < c) \implies a < c\right]$ \\
           Therefore $<$ is transitive.
     \item If $a > b > 0$ then $\frac1a < \frac1b$
           If $a > 0$ holds, then also $a^{-1} = \frac1a > 0$.
     \item $\forall a, b, c \in K: a < b \implies a + c < b + c$
-    \item $\forall a, b \in K: \forall c > 0: [a > b \implies ac > bc]$ \\
-          $\forall a, b \in K: \forall c < 0: [a > b \implies ac < bc]$
+    \item $\forall a, b \in K: \forall c > 0: \left[a > b \implies ac > bc\right]$ \\
+          $\forall a, b \in K: \forall c < 0: \left[a > b \implies ac < bc\right]$
     \item $\forall a \in K \setminus \set{0}: a^2 = a \cdot a > 0$
   \end{enumerate}
 \end{lemma}
@@ -1257,7 +1257,7 @@ Literature:
     [a, a] &= \set{a}
   \end{align}
   If $I$ is an non-empty interval (hence $I \neq \emptyset$),
-  then $\card{I} = b - a$ is called \emph{length of the interval}.
+  then $\abs{I} = b - a$ is called \emph{length of the interval}.
   Furthermore
   \begin{align}
     (a, \infty) &= \setdef{x \in K}{x > a} \\
@@ -1319,7 +1319,7 @@ Literature:
         Let $I_0, I_1, \dots, I_z$. $(I_n)_{n \in \mathbb N}$ is a sequence of closed intervals with
         \begin{enumerate}
           \item $\forall a \in \mathbb N: I_{n+1} \subseteq I_n$
-          \item $\forall \varepsilon > 0 \exists n \in \mathbb N: n \geq N \Rightarrow \card{I_n} < \varepsilon$
+          \item $\forall \varepsilon > 0 \exists n \in \mathbb N: n \geq N \Rightarrow \abs{I_n} < \varepsilon$
         \end{enumerate}
       \end{defi}
 
@@ -1331,17 +1331,17 @@ Literature:
       $x \in I_n \forall n \in \mathbb N$.
 
       Assume $x \in I_n$ and $y \in I_n \forall n \in \mathbb N$ and $x \neq y$.
-      \[ \card{\beta - \alpha} \leq b - a = \card{I} \]
+      \[ \abs{\beta - \alpha} \leq b - a = \abs{I} \]
 
       \begin{proof}
         Without loss of generality: $\alpha \leq \beta$.
-        Then it holds that $\card{\beta - \alpha} = \beta - \alpha \leq \beta
-        + (-\alpha) \leq b + (-\alpha) = b - a = \card{I}$.
+        Then it holds that $\abs{\beta - \alpha} = \beta - \alpha \leq \beta
+        + (-\alpha) \leq b + (-\alpha) = b - a = \abs{I}$.
         \[ a \leq \alpha \Rightarrow -a \geq -\alpha \]
 
         Consider arbitrary small $\varepsilon > 0$ and $N \in \mathbb N$ sufficiently large,
-        such that $\card{I_n} < \varepsilon$. Because $x,y \in I_n \Rightarrow
-        \card{x - y} < \varepsilon \Rightarrow x = y$.
+        such that $\abs{I_n} < \varepsilon$. Because $x,y \in I_n \Rightarrow
+        \abs{x - y} < \varepsilon \Rightarrow x = y$.
       \end{proof}
   \end{description}
 \end{theorem}
@@ -1376,7 +1376,7 @@ Literature:
 \end{proof}
 
 \begin{theorem}
-  Let $q \in \mathbb R$ with $\card{q} < 1$. Then it holds that
+  Let $q \in \mathbb R$ with $\abs{q} < 1$. Then it holds that
   \[
     \forall \varepsilon > 0 \exists N \in \mathbb N:
     n \geq N \Rightarrow \abs{q^n} = \abs{q}^n < \varepsilon
@@ -1384,11 +1384,11 @@ Literature:
 \end{theorem}
 
 \begin{proof}
-  Let $s = \card{q} \geq 0$. Consider $q > 0$. Then
+  Let $s = \abs{q} \geq 0$. Consider $q > 0$. Then
   \begin{align*}
     q^n &= 0 \\
     \abs{q^n} &= 0 \\
-    \card{q}^n &< \varepsilon \forall \varepsilon > 0 \forall n \in \mathbb N
+    \abs{q}^n &< \varepsilon \forall \varepsilon > 0 \forall n \in \mathbb N
   \end{align*}
 
   Let $q \neq 0$, then $0 < s < 1$. Let $p = \frac1s \Rightarrow p > 1$.
@@ -1472,7 +1472,7 @@ Literature:
   Specifically $I_n$ must have the properties:
   \begin{itemize}
     \item $I_n = [a_1, b_n]$ with $a^k \leq x, b_n^k \geq x \quad \forall n \in \mathbb N$
-    \item $I_{n+1} \subseteq I_n: \card{I_n} = \frac12 \card{I_{n+1}} = \left(\frac12\right)^n \card{I_0}$
+    \item $I_{n+1} \subseteq I_n: \abs{I_n} = \frac12 \abs{I_{n+1}} = \left(\frac12\right)^n \abs{I_0}$
   \end{itemize}
 
   \[ n = 0 \qquad I_0 = [0, x-1] \]
@@ -1486,14 +1486,14 @@ Literature:
     \item[Case 1]
       \[ m_n^k \geq x \Rightarrow \text{ let } a_{n+1} = a_n, b_{n+1} = m \]
       \[ I_{n+1} = [a_n, m_n] \subseteq [a_n, b_n] = I_n \]
-      \[ \card{I_{n+1}} = m_n - a_n = \frac12 a_n + \frac12 b_n - a_n \]
-      \[ \frac12 (b_n - a_n) = \frac12 \card{I_n} \]
+      \[ \abs{I_{n+1}} = m_n - a_n = \frac12 a_n + \frac12 b_n - a_n \]
+      \[ \frac12 (b_n - a_n) = \frac12 \abs{I_n} \]
       \[ a_{n+1}^k = a^k \leq x \quad\checkmark \]
       All conditions are satisfied.
     \item[Case 2] $m_n^k < x: $
       Let $a_{n+1} = m_1, b_{n+1} = b_n$.
       It holds that $a_{n+1} = m_n < x, b_{n+1} = b_n \geq x \quad\checkmark$.
-      Furthermore it holds that $I_{n+1} \subseteq I$ and $\card{I_{n+1}} = \frac12 \card{I_n}$.
+      Furthermore it holds that $I_{n+1} \subseteq I$ and $\abs{I_{n+1}} = \frac12 \abs{I_n}$.
 
       $I_n$ is set of nested intervals.
       Let $\varepsilon > 0$ be arbitrary. Then
@@ -1501,7 +1501,7 @@ Literature:
 
       For those $n \geq N$ it holds that
       \[
-          \card{I_n} = \left(\frac12\right)^n \card{I_{0}}
+          \abs{I_n} = \left(\frac12\right)^n \abs{I_{0}}
           = \left(\frac12\right)^n (x + 1)
           < \frac{\varepsilon}{1 + x} \cdot (1 + x)
       \]
@@ -1522,9 +1522,9 @@ Literature:
       \[ = (b_n - a_n) k b_0^k = (b_n - a_n) k (1 + x)^k \]
 
       Let $\varepsilon > 0$ be arbitrary. Find some $N \in \mathbb N$ with $n \geq N$:
-      \[ \card{I_n} = (b_n - a_n) < \frac{\varepsilon}{k (1 + x)^k} \]
+      \[ \abs{I_n} = (b_n - a_n) < \frac{\varepsilon}{k (1 + x)^k} \]
       For those $n$ it holds that
-      \[ \card{I_n} < \card{I_n} \cdot k (1 - x)^k < \frac{\varepsilon}{k (1 + x)^k} k (1 + x)^k = \varepsilon \]
+      \[ \abs{I_n} < \abs{I_n} \cdot k (1 - x)^k < \frac{\varepsilon}{k (1 + x)^k} k (1 + x)^k = \varepsilon \]
 
       Therefore $(I_n)_{n \in \mathbb N}$ a set of nested intervals.
 
@@ -1652,7 +1652,7 @@ Literature:
       Instead of $n$ we use $n + 1$.
       Let $I_0 = [a_n, b_n]$ with $a_n \neq b_n$ and $a_n \in A$,
       $b_n$ is an upper bound of $A$. Furthermore it holds that
-      \[ \card{I_n} \leq \left(\frac12\right)^n \card{I_0} \]
+      \[ \abs{I_n} \leq \left(\frac12\right)^n \abs{I_0} \]
 
       Consider $I_{n+1}$ such that the same properties are satisfied.
       Let $m_1 = \frac12 (a_1 + b_1)$. It holds that $a_n < m_n < b_n$.
@@ -1661,11 +1661,11 @@ Literature:
         \item[Case $m_n$ is an upper bound of $A$]
           Then we set $a_{n+1} = a_n \in A$ and
           $b_{n+1} = m_n$ is an upper bound of $A$.
-          \[ \card{I_{n+1}} = b_{n+1} + a_{n+1} = \frac12 (b_n + a_n) - a_n \]
+          \[ \abs{I_{n+1}} = b_{n+1} + a_{n+1} = \frac12 (b_n + a_n) - a_n \]
           \[
-            = \frac12 b_1 - \frac12 a_n = \frac12 \card{I_n}
-            \leq \left(\frac12\right)^n \card{I_0}
-            = \left(\frac12\right)^{n+1} \card{I_n}
+            = \frac12 b_1 - \frac12 a_n = \frac12 \abs{I_n}
+            \leq \left(\frac12\right)^n \abs{I_0}
+            = \left(\frac12\right)^{n+1} \abs{I_n}
             \qquad \checkmark
           \]
         \item[Case $m_n$ is not an upper bound of $A$]
@@ -1683,7 +1683,7 @@ Literature:
                   I_{n + 1} = b_{n+1} - a_{n+1} - b_n - x
                   < b_n - m_n - b_n - \frac12 (b_n + a_n) + \frac12 (b_n - a_n)
               \] \[
-                  = \frac12 \card{I_n} \leq \left(\frac12\right)^{n+1} \card{I_0}
+                  = \frac12 \abs{I_n} \leq \left(\frac12\right)^{n+1} \abs{I_0}
               \]
               We have found supremum $s = \sup{A}$.
           \end{description}
@@ -1692,11 +1692,11 @@ Literature:
 
           The remaining case is $\forall n \in \mathbb: a_n < b_n, a_n \in A, b_n$
           is upper bound of $A$.
-          \[ \card{I_n} = b_n - a_n \leq \left(\frac12\right)^n \card{I_0} \]
+          \[ \abs{I_n} = b_n - a_n \leq \left(\frac12\right)^n \abs{I_0} \]
           Consider $\varepsilon > 0$ and $N$ such that $n \geq N \Rightarrow
-          \left(\frac12\right)^n < \frac{\varepsilon}{\card{I_n}}$.
+          \left(\frac12\right)^n < \frac{\varepsilon}{\abs{I_n}}$.
           For those $n$ it holds that
-          \[ \card{I_n} \leq \left(\frac12\right)^n \card{I_0} < \frac{\varepsilon}{\card{I_0}} \card{I_0} = \varepsilon \]
+          \[ \abs{I_n} \leq \left(\frac12\right)^n \abs{I_0} < \frac{\varepsilon}{\abs{I_0}} \abs{I_0} = \varepsilon \]
           Therefore $(I_n)_{n \in \mathbb N}$ are nested intervals.
       \end{description}
   \end{description}
@@ -1718,7 +1718,7 @@ What remains for completeness:
 
   We construct $(I_n)_{n \in \mathbb N}$ with $I_n = [a_n, b_n]$ and $I_{n+1} \subseteq I_n$.
   $\forall n \in \mathbb N: a_n \in A$, $b_n$ is the upper bound of $A$.
-  \[ \card{I_{n+1}} \leq \frac12 \card{I_n} \leq \left(\frac12\right)^{n+1} \card{I_0} \]
+  \[ \abs{I_{n+1}} \leq \frac12 \abs{I_n} \leq \left(\frac12\right)^{n+1} \abs{I_0} \]
 
   \begin{figure}[!h]
     \begin{center}
@@ -1728,7 +1728,7 @@ What remains for completeness:
   \end{figure}
 
   Consider $I_{n+1} \subseteq I_n$ with $a_n < b_n \forall n \in \mathbb N$.
-  \[ \card{I_n} \leq \left(\frac12\right)^n \card{I_0} \]
+  \[ \abs{I_n} \leq \left(\frac12\right)^n \abs{I_0} \]
 
   \begin{figure}[!h]
     \begin{center}
@@ -1744,7 +1744,7 @@ What remains for completeness:
       We need to show (by contradiction):
       $S$ is upper bound of $A$. Assume $a \in A$ and $a > s$.
       Let $\varepsilon = a - s > 0$ and choose $N$ sufficiently large such that
-      \[ \card{I_n} < \varepsilon = a - s \]
+      \[ \abs{I_n} < \varepsilon = a - s \]
       Then it holds that
       \[
           b_N
@@ -1820,7 +1820,7 @@ What remains for completeness:
   %\end{table}
   \begin{figure}[!h]
     \begin{center}
-      \includegraphics[width=\textwidth]{img/enumeration_of_Q.pdf}
+      \includegraphics[width=0.5\textwidth]{img/enumeration_of_Q.pdf}
       \caption{
         A complete enumeration of $\mathbb Q^+$ (diagonalization argument).
         We traverse the whole matrix diagonally. The blue numbers indicate the
@@ -1850,8 +1850,8 @@ What remains for completeness:
   We construct nested intervals.
   \begin{description}
     \item[Case $\mathbf{n = 0}$]
-      \[ I_0 = [x_0 + 1, x_0 + 2] \]
-      Let $\card{I_0} = 1$ and $x_0 \not\in I_0$.
+      \[ I_0 = \left[x_0 + 1, x_0 + 2\right] \]
+      Let $\abs{I_0} = 1$ and $x_0 \not\in I_0$.
 
       \begin{figure}[!t]
         \begin{center}
@@ -1863,7 +1863,7 @@ What remains for completeness:
     \item[$n \rightarrow n + 1$]
       Assume $I_{0} \dots I_n$ were already defined with $x_k \notin I_k$ for $0 \leq k \leq n$.
       \[ I_{k+1} \leq I_k \text{ for } k = 0, \dots, n-1 \]
-      \[ \card{I_k} = \left(\frac13\right)^k \]
+      \[ \abs{I_k} = \left(\frac13\right)^k \]
 
       \begin{figure}[!t]
         \begin{center}
@@ -1882,9 +1882,9 @@ What remains for completeness:
       and $I_n^3$ because $I_n^1 \cap I_N^2 \cap I_N^3 = \emptyset$.
       Choose $I_{n+1}$ as one of the three intervals $I_n^l$ with $x_{n+1} \not\in I_n^l = I_{n+1}$.
       $I_{n+1} < I_n$.
-      \[ \card{I_{n+1}} = \frac13 I_{n} = \left(\frac13\right)^{n+1} \]
+      \[ \abs{I_{n+1}} = \frac13 I_{n} = \left(\frac13\right)^{n+1} \]
       For $\varepsilon > 0$ it holds that there exists some $N \in \mathbb N$
-      such that $n \geq N \Rightarrow \card{I_1} = \left(\frac13\right)^n < \varepsilon$.
+      such that $n \geq N \Rightarrow \abs{I_1} = \left(\frac13\right)^n < \varepsilon$.
       Therefore nested intervals $I_n$ are given.
 
       Let $x \in \mathbb R$ such that $\forall n \in \mathbb N: X \in I_n$
@@ -2215,18 +2215,18 @@ $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equ
   In $\mathbb C$, elements are not ordered, hence no complex sequences can be given.
   Let $(a_n)_{n \in \mathbb N}$ a complex sequence. We define:
   \begin{itemize}
-    \item $(a_n)_{n \in \mathbb N}$ is called bounded if $(\card{a_n})_{n \in \mathbb N}$ is a bounded real sequence.
-    Hence $\exists o \in \mathbb R: \forall n \in \mathbb N: \card{a_n} \leq o$.
+    \item $(a_n)_{n \in \mathbb N}$ is called bounded if $(\abs{a_n})_{n \in \mathbb N}$ is a bounded real sequence.
+    Hence $\exists o \in \mathbb R: \forall n \in \mathbb N: \abs{a_n} \leq o$.
     \item The lower bound is implicitly given by $0$.
   \end{itemize}
 \end{defi}
 
 \begin{ex}
   $a_n \coloneqq i^n$ and $(a_n)_{n \in \mathbb N} = (1, i, -1, -i, 1, i, -1, -i, 1, i, -1, \dots)$
-  \[ \card{1} = 1 \qquad \card{-1} = 1 \qquad \card{i} = \sqrt{0^2 + 1^2} = 1 \qquad \card{-i} = \sqrt{0^2 + (-1)^2} = 1 \]
-  So $\left(\card{a_n}\right)_{n \in \mathbb N} = (1, 1, 1, 1, 1, \dots)$.
+  \[ \abs{1} = 1 \qquad \abs{-1} = 1 \qquad \abs{i} = \sqrt{0^2 + 1^2} = 1 \qquad \abs{-i} = \sqrt{0^2 + (-1)^2} = 1 \]
+  So $\left(\abs{a_n}\right)_{n \in \mathbb N} = (1, 1, 1, 1, 1, \dots)$.
   It holds that
-  \[ \card{z} = \card{-z} = \card{\overline{z}} \]
+  \[ \abs{z} = \abs{-z} = \abs{\overline{z}} \]
 \end{ex}
 
 \index[English]{convergent}
@@ -2236,10 +2236,10 @@ $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equ
 \begin{defi}
   Let $\seq{a_n}$ be a sequence of $\mathbb C$ and let $a \in \mathbb C$.
   We state: $(a_n)_{n \in \mathbb N}$ has a limit (lat. limes) $a$ if
-  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \card{a_n - a} < \varepsilon\right] \]
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \abs{a_n - a} < \varepsilon\right] \]
   We denote
   \[ \lim_{n \to \infty} a_n = a \]
-  The distance $\card{a_n - a}$ becomes arbitrary small, if $n$ is sufficiently large.
+  The distance $\abs{a_n - a}$ becomes arbitrary small, if $n$ is sufficiently large.
 
   A sequence, which has a limit, is called \emph{convergent}. A sequence, which does not have a limit, is called \emph{divergent}.
 \end{defi}
@@ -2257,15 +2257,15 @@ $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equ
   \[ \lim_{n \to \infty} \frac1n = 0 \]
 \end{ex}
 
-Let $q \in \mathbb C$, $\card{q} < 1$.
+Let $q \in \mathbb C$, $\abs{q} < 1$.
 
-We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \card{q^n - 0} < \varepsilon$.
+We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \abs{q^n - 0} < \varepsilon$.
 \[ \lim_{n\to\infty} q^n = 0 \]
 
 \meta{lecture}{19th of November 2015}{Wolfgang Ring}
 
 \begin{rem}
-  Consider $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \card{a_n - a} < \varepsilon\right]$
+  Consider $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \abs{a_n - a} < \varepsilon\right]$
   as a circle with radius $\varepsilon$. So if $n$ is sufficiently large,
   all new sequence numbers are located inside the circle.
 \end{rem}
@@ -2279,11 +2279,11 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
   \[ \Rightarrow a = b \]
   Let $\varepsilon > 0$ arbitrary:
   Because $a = \lim_{n \to \infty} a_n$ there exists
-  \[ N_1 \in \mathbb N: [n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}2] \]
+  \[ N_1 \in \mathbb N: \left[n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}2\right] \]
   Because $b = \lim_{n \to \infty} b_n$ there exists
-  \[ N_1 \in \mathbb N: [n \geq N_1 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2] \]
+  \[ N_1 \in \mathbb N: \left[n \geq N_1 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2\right] \]
   Let $N = \max(N_1, N_2)$, hence $N \geq N_1 \land N \geq N \geq N_2$.
-  \[ \Rightarrow \card{a_N - a} < \frac{\varepsilon}{2} \land \card{a_N - b} < \frac{\varepsilon}{2} \]
+  \[ \Rightarrow \abs{a_N - a} < \frac{\varepsilon}{2} \land \abs{a_N - b} < \frac{\varepsilon}{2} \]
   \[ \abs{a - b} = |a \underbrace{- a_N + a_N}_0 - b| \leq \underbrace{\abs{a - a_N}}_{< \frac{\varepsilon}2} + \underbrace{\abs{a_N - b}}_{< \frac{\varepsilon}2} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \]
 \end{proof}
 
@@ -2347,7 +2347,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
     \item[case $0 < a < 1$]
       Let $0 < a < 1 \Rightarrow 0 < \sqrt[n]{q} < \sqrt[n]{1} = 1$.
       \[ x_n = 1 - \sqrt[n]{a} > 0 \]
-      Show that $\forall \varepsilon > 0 \exists N \in \mathbb N: [n \geq N \Rightarrow x_n < \varepsilon]$.
+      Show that $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \Rightarrow x_n < \varepsilon\right]$.
       \[
           x_n
           = 1 - \sqrt[n]{a} = \sqrt[n]{a} \left(\frac{1}{\sqrt[n]{a}} - 1\right)
@@ -2434,27 +2434,31 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \begin{theorem}
   Let $\lim_{n \to \infty} a_n = a$ and $\lim_{n \to \infty} b_n = b$.
   Then the following laws hold:
-  \begin{itemize}
+  \begin{enumerate}
     \item $\lim_{n \to \infty} (a_n + b_n)$ is convergent with limes $a + b$
     \item $\lim_{n \to \infty} (a_n \cdot b_n)$ is convergent with limes $a \cdot b$
     \item $\lim_{n \to \infty} \frac{a_n}{b_n}$ is convergent with limes $\frac{a}{b}$ if $ \forall n \in \mathbb N: b_n \neq 0 \land b \neq 0$.
-  \end{itemize}
+  \end{enumerate}
 \end{theorem}
 
 \begin{proof}
   \begin{enumerate}
     \item Let $\varepsilon > 0$ arbitrary. Because $(a_n)_{n \in \mathbb N}$ is convergent,
-      \[ \exists N_1: [n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}{2}] \]
+      \[ \exists N_1: \left[n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}{2}\right] \]
       $(b_n)$ is convergent hence
-      \[ \exists N_2: [n \geq N_2 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2] \]
+      \[ \exists N_2: \left[n \geq N_2 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2\right] \]
       $N = \max\set{N_1, N_2}$, hence for $n \geq N$ both statements above hold.
       Let $n \geq N$, then the triangle inequality holds:
-      \[ \abs{(a_n + b_n) - (a + b)} = \abs{(a_n - a) + (b_n - b)} \leq \abs{\underbrace{a_n}_{<\frac\varepsilon2} - a} + \abs{\underbrace{b_n}_{<\frac\varepsilon2} - b} < \varepsilon \]
+      \[
+          \abs{(a_n + b_n) - (a + b)}
+          = \abs{(a_n - a) + (b_n - b)}
+          \leq \underbrace{\abs{a_n - a}}_{<\frac\varepsilon2} + \underbrace{\abs{b_n - b}}_{<\frac\varepsilon2} < \varepsilon
+      \]
 
     \item $(a_n)_{n \in \mathbb N}$ is convergent and therefore also bounded. Therefore,
       \[ \exists m \geq 0: \forall n \in \mathbb N: \abs{a_n} \leq m \]
 
-      $\sqrt{b_n}$ is convergent, hence
+      $\seq{b_n}$ is convergent, hence
       \[ \exists N_1: n \geq N_1: \Rightarrow \abs{b_n - b} < \frac\varepsilon2 \cdot \frac1{m+1} \]
 
       $(a_n)_{n \in \mathbb N}$ is convergent, hence
@@ -2679,7 +2683,126 @@ Are there criteria such that if they have a specific structure, they are obivous
   Therefore $\lim_{n \rightarrow \infty} a_n = a$.
 \end{proof}
 
+\meta{lecture}{25th of November 2015}{Wolfgang Ring}
 
+Let $\seq{a_n}$ be a real sequence.
+If $\seq{a_n}$ is bounded and monotonous.
+Then $\seq{a_n} \in \mathbb N$ is convergent.
+
+\paragraph{Example: Wallis product}
+
+\fbox{John Wallis (1616--1703)}
+
+\[
+    p_n
+    = \frac{2 \cdot 4 \cdot 6 \cdot \ldots \cdot 2n}{1 \cdot 3 \cdot 5 \dots \ldots \cdot (2n-1)}
+    = \prod_{k=1}^n \frac{2k}{2k-1}
+\]
+
+Consider
+\[ \alpha_n = \frac{p_n}{\sqrt{n}} \qquad \beta_n = \frac{p_n}{\sqrt{n+1}} \]
+
+We need to show that
+\begin{itemize}
+  \item $(\alpha_n)$ is monotonously decreasing
+  \item $(\beta_n)$ is monotonously increasing
+\end{itemize}
+\[ \forall n \in \mathbb N: n \geq 1: \alpha_n > \beta_n \]
+
+Both are convergent.
+
+\begin{enumerate}
+  \item Show that,
+    \[
+        \alpha_{n+1} < \alpha_n \Leftrightarrow
+        \frac{\alpha_{n+1}}{\alpha_n} < 1 \Leftrightarrow
+        \frac{(\alpha_{n+1})^2}{(\alpha_n)^2} < 1
+    \] \[
+        \left(\frac{\alpha_{n+1}}{\alpha_n}\right)^2 = \left(
+            \frac{\frac{2 \cdot 4 \cdot 6 \cdot \ldots \cdot (2n+2)}{1 \cdot 3 \cdot 5 \cdot \ldots \cdot (2n-1) \cdot (n+1)}}%
+            {\frac{2\cdot4\cdot \ldots \cdot 2n}{1 \cdot 3 \cdot 5 \cdot \ldots \cdot (2n+1)}}
+            \cdot \frac{\frac{1}{\sqrt{n+1}}}{\frac{1}{\sqrt{n+1}}}
+        \right)^2
+    \] \[
+        = \frac{(2n+2)^2 \cdot n}{(2n+1)^2 (n + 1)}
+        = \frac{4n^3+8n^2+4n}{(4n^2 + 4n + 1)\cdot(n+1)}
+        = \frac{4n^3+8n^2+4n}{4n^3+8n^2+5n+1}
+        < 1
+    \]
+  \item We show,
+    \[
+        \left(\frac{\beta_{n+1}}{\beta_n}\right)^2
+        = \frac{(2n+2)^2 \cdot (n+1)}{(2n+1)^2 \cdot (n+2)}
+        = \frac{(4n^2 + 8n + 4) (n+1)}{(4n^2+2n+1) (n+2)}
+    \] \[
+        = \frac{4n^3+12n^2+12n+4}{4n^3 + 12n^2 + 9n + 2}
+        > 1 \Rightarrow \beta_{n+1} > \beta_n \Rightarrow \beta_n \text{ is monotonically increasing}
+    \]
+
+    Let $p = \lim_{n\to\infty} a_n$ and $p' = \lim_{n\to\infty} b_n$.
+
+    \[ \beta_n = \frac{p_n}{\sqrt{n}} \cdot \frac{\sqrt{n}}{\sqrt{n+1}} = \alpha_n \cdot \sqrt{\frac{n}{n+1}} \]
+    \[ \lim_{n\to\infty} \beta_n = \lim_{n\to\infty} \alpha_n \sqrt{\frac{n}{n+1}} = \lim_{n\to\infty} \alpha_n \cdot \underbrace{\lim_{n\to\infty} \sqrt{\frac{n}{n+1}}}_{=1} \]
+    \[ \Rightarrow \lim_{n\to\infty} \beta_n = \lim_{n\to\infty} a_n \Rightarrow p = p' \]
+    It holds that $p = \lim_{n\to\infty} \frac{p_n}{\sqrt{n}} = \sqrt{n}$.
+\end{enumerate}
+
+\subsection{Bolzano-Weierstrass theorem}
+\index[English]{Bolzano-Weierstrass theorem}
+\index[German]{\foreignlanguage{ngerman}{Satz von Bolzano-Weierstraß}}
+\fbox{Bernard Bolzano (1781--1848), Karl Weierstrass (1815--1897)}
+
+\index[English]{limit point}
+\index[German]{\foreignlanguage{ngerman}{Häufungspunkt}}
+\begin{defi}
+  Let $\seq{a_n}$ be a complex sequence.
+  The complex number $a$ is called \emph{limit point} (german \enquote{\foreignlanguage{ngerman}{Häufungspunkt}})
+  of $\seq{a}$ if $\forall \varepsilon > 0: \abs{a_n - a} < \varepsilon$ for infinitely many indices $n \in \mathbb N$.
+  Hence infinitely many numbers of the sequence lie within a circle with center $a$ and radius $\varepsilon$.
+\end{defi}
+
+\begin{figure}[!t]
+  \begin{center}
+    \includegraphics{img/limit_point.pdf}
+    \caption{
+      Illustration of a limit point in the Euclidean plane.
+      The point is represented as circle with radius $\varepsilon$.
+      Finitely many points lie outside the limit point; infinitely many inside.
+    }
+  \end{center}
+\end{figure}
+
+\begin{rem}
+  Let $\seq{a_n}$ be convergent with limit $a$.
+  Then it holds that $a$ is the only limit point of the sequence $\seq{a_n}$.
+\end{rem}
+
+\begin{proof}
+  Let $\seq{a_n}$ be convergent. Let
+  \[ \varepsilon > 0 \exists N \in \mathbb N: n \geq N \Rightarrow \abs{a_n - a} \]
+  Therefore $\forall n \in \set{N, N+1, N+2, \dots}$ it holds that $\abs{a_n - a} < \varepsilon$.
+  Assume $a' \in \mathbb C$ is another limit point with $a \neq a'$.
+  Let
+  \[ \varepsilon = \frac{\abs{a - a'}}{2} > 0 \]
+  Let $N \in \mathbb N$ such that $\forall n \geq N: \abs{a_n - a} < \varepsilon$.
+  \[
+    \Rightarrow n \in \mathbb N: \abs{a' - a_n}
+      = \abs{a' - a + a - a_n}
+      = \abs{a' - a - (a_n - a)} \geq \abs{a' - a} - \abs{a_n - a}
+  \] \[
+      = 2\varepsilon - \abs{a_n - a} > 2\varepsilon - \varepsilon
+      = \varepsilon
+  \]
+  At most for $n \in \set{1, \dots, N-1}$ it is possible that $\abs{a_n - a'} < \varepsilon$.
+\end{proof}
+
+\begin{rem}
+  $a_n = (-1)^n$ has the limit points $+1$ and $-1$.
+\end{rem}
+
+
+
+The lecture on 26th of November 2015 got cancelled.
 
 
 \clearpage
