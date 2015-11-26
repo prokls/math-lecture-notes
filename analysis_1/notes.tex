@@ -1995,7 +1995,7 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \end{proof}
 
 \begin{theorem}
-  \[ \Re{z} = \frac12 (z + \overline z) \]
+  \[ \Re(z) = \frac12 (z + \overline z) \]
 \end{theorem}
 
 \begin{theorem}
@@ -2003,7 +2003,7 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \end{theorem}
 
 \begin{theorem}
-  \[ \Im{z} = \frac{1}{2i} (z - \overline{z}) \]
+  \[ \Im(z) = \frac{1}{2i} (z - \overline{z}) \]
 \end{theorem}
 
 \begin{proof}
@@ -2078,8 +2078,8 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \end{proof}
 
 \begin{theorem}
-  \[ \abs{\Re{z}} = \abs{a} = \sqrt{a^2} \leq \sqrt{a^2 + b^2} = \abs{z} \]
-  \[ \abs{\Im{z}} = \abs{b} = \sqrt{b^2} \leq \sqrt{a^2 + b^2} = \abs{z} = \]
+  \[ \abs{\Re(z)} = \abs{a} = \sqrt{a^2} \leq \sqrt{a^2 + b^2} = \abs{z} \]
+  \[ \abs{\Im(z)} = \abs{b} = \sqrt{b^2} \leq \sqrt{a^2 + b^2} = \abs{z} = \]
 \end{theorem}
 
 \begin{theorem}
@@ -2483,17 +2483,17 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \begin{theorem}
   Let $(a_n)_{n \in \mathbb N}$ be convergent with limes $a$, $(a_n \rightarrow a)$. Then it holds that
   \begin{itemize}
-    \item $\left(\Re{a_n}\right)_{n \in \mathbb N}$ is convergent.
-      \[ \lim_{n \to \infty} \left(\Re{a_n}\right) = \Re{a} \]
-    \item $\left(\Im{a_n}\right)_{n \in \mathbb N}$ is convergent.
-      \[ \lim_{n \to \infty} \left(\Im{a_n}\right) = \Im{a} \]
+    \item $\left(\Re(a_n)\right)_{n \in \mathbb N}$ is convergent.
+      \[ \lim_{n \to \infty} \left(\Re(a_n)\right) = \Re(a) \]
+    \item $\left(\Im(a_n)\right)_{n \in \mathbb N}$ is convergent.
+      \[ \lim_{n \to \infty} \left(\Im(a_n)\right) = \Im(a) \]
     \item $\left(\abs{a_n}\right)_{n \in \mathbb N}$ is a convergent real sequence.
       \[ \lim_{n \to \infty} \abs{a_n} = \abs{a} \]
     \item $\left(\overline{a_n}\right)_{n \in \mathbb N}$ is convergent with
       \[ \lim_{n \to \infty} \overline{a_n} = \overline{a} \]
   \end{itemize}
 
-  On the opposite, let $\sqrt{a_n}$ with $a_n = \alpha_n + i \beta_n$ a sequence of complex numbers.
+  On the opposite, let $\seq{a_n}$ with $a_n = \alpha_n + i \beta_n$ a sequence of complex numbers.
   Let $\seq{\alpha_n}$ and $\seq{\beta_n}$ be convergent with limes $\alpha$ i.e. $\beta$.
   Then $\seq{a_n}$ is a convergent complex sequence with limes $a = \alpha+\beta i$.
 \end{theorem}
@@ -2504,8 +2504,8 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 
   TODO
 
-  Therefore $(\alpha_n) = \seq{\Re{a_n}}$ is convergent.
-  $(\beta_n) = \seq{\Im{a_n}}$ is convergent.
+  Therefore $(\alpha_n) = \seq{\Re(a_n)}$ is convergent.
+  $(\beta_n) = \seq{\Im(a_n)}$ is convergent.
 
   Let $\varepsilon > 0$. Consider $N$ such that $n \geq N \Rightarrow \abs{a_n - a} < \varepsilon$.
   \[
@@ -2557,7 +2557,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
     \end{center}
   \end{figure}
 
-  For $N = \max\sqrt{N_1, N_2}$:
+  For $N = \max\set{N_1, N_2}$:
   \[
       b_N
       = b_N - b + b \leq b + \abs{b_N - b} < b \frac{\varepsilon}{2}
