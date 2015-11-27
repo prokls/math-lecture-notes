@@ -1,4 +1,3 @@
-% TODO: make \item[$key$] math in keys bold
 \documentclass[a4paper,landscape,twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -1965,6 +1964,8 @@ Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
     \includegraphics[width=200px]{img/complex_numbers_illustration.pdf}
     \caption{Illustration of complex numbers}
   \end{center}
+\end{figure}
+\begin{figure}[!ht]
   \begin{center}
     \includegraphics[width=200px]{img/complex_numbers_addition.pdf}
     \caption{Illustration of complex number addition}
@@ -2755,10 +2756,7 @@ Both are convergent.
     It holds that $p = \lim_{n\to\infty} \frac{p_n}{\sqrt{n}} = \sqrt{n}$.
 \end{enumerate}
 
-\subsection{Bolzano-Weierstrass theorem}
-\index[English]{Bolzano-Weierstrass theorem}
-\index[German]{\foreignlanguage{ngerman}{Satz von Bolzano-Weierstraß}}
-\fbox{Bernard Bolzano (1781--1848), Karl Weierstrass (1815--1897)}
+\subsection{On limit points and subsequences}
 
 \index[English]{limit point}
 \index[German]{\foreignlanguage{ngerman}{Häufungspunkt}}
@@ -2808,10 +2806,215 @@ Both are convergent.
   $a_n = (-1)^n$ has the limit points $+1$ and $-1$.
 \end{rem}
 
-
-
 The lecture on 26th of November 2015 got cancelled.
 
+\meta{lecture}{27th of November 2015}{Wolfgang Ring}
+
+\begin{defi}
+  Let $a \in \mathbb C$ and $r > 0$ and
+  \[ B(a, r) = \setdef{z \in \mathbb C}{\abs{z - a} < r} \]
+  and we call $B(a, r)$ an \emph{open} circle with center $a$ and radius $r$.
+  So the circle itself is not part of the set, unlike the following set:
+  \[ B'(a, r) = \setdef{z \in \mathbb C}{\abs{z - a} \leq r} \]
+\end{defi}
+
+Let $a$ be a limit point of $\seq{a_n} \Leftrightarrow \forall \varepsilon > 0$.
+$B(a, \varepsilon)$ contains infinitely many sequence numbers.
+
+\begin{ex}
+  \[ a_n = \frac12 \left[1 + (-1)^n \left(\frac{1-n}{n}\right)\right] \qquad n \geq 1 \]
+  \[ \Rightarrow a_1 = \frac12 \quad a_2 = \frac14 \quad a_3 = \frac56 \]
+  \[ a_4 = \frac18 \quad a_5 = \frac{9}{10} \quad a_6 = \frac{1}{12} \quad a_7 = \frac{13}{14} \]
+  \begin{quote}
+    \foreignlanguage{ngerman}{\enquote{$\frac56$? Ah, passt ma eh bessa.} (Wolfgang Ring)}
+  \end{quote}
+
+  Estimated limit points: $a = 0, b = 1$.
+
+  \begin{proof}
+    Let $\varepsilon > 0$ and $a = 0$. We consider sequence numbers with even index.
+    So for indices it holds that $n = 2k$.
+    \begin{align*}
+      \abs{a_{2k} - 0}
+        &= \abs{\frac12(1 + \underbrace{(-1)^{2k}}_{+1} \left(\frac{1-2k}{2k}\right))} \\
+        &= \frac12 \abs{1 + \frac{1-2k}{2k}} \\
+        &= \frac12 \abs{\frac{2k + 1 - 2k}{2k}} \\
+        &= \frac1{4k} < \varepsilon \text{ if } \underbrace{k > \frac{1}{4\varepsilon}}_{\substack{\text{infinitely many ks} \\ \text{satisfy the relation}}}
+    \end{align*}
+
+    Let $\varepsilon > 0$ and $b = 1$. We consider sequence numbers of structure $n = 2k+1$.
+    \begin{align*}
+      \abs{a_{2k+1} - 1}
+        &= \abs{\frac12 \left[1 + \underbrace{(-1)^{2k+1}}_{=-1} \left[\frac{1 - (2k+1)}{2k+1}\right]\right] - 1} \\
+        &= \abs{\frac12 \left[1 - \frac{-2k}{2k+1}\right] - 1} \\
+        &= \abs{\frac12 \frac{2k+1+2k}{2k+1} - 1} \\
+        &= \abs{\frac{4k+1}{4k+2} - 1} \\
+        &= \abs{\frac{4k+1 - 4k-2}{4k+2}} \\
+        &= \frac{1}{4k+2} \\
+        &< \varepsilon
+    \end{align*}
+    \[ \text{ if } 4k+2 > \frac1\varepsilon \Rightarrow \underbrace{k}_{\substack{\text{infinitely many} \\ \text{indices}}} > \frac14 \left(\frac1\varepsilon - 2\right) \]
+  \end{proof}
+\end{ex}
+
+\begin{ex}
+  $\seq{c_n}$ is defined with $c_n = i^n$.
+  \[ \seq{c_n} = (1, i, -1, -i, 1, i, -1, -i, 1 \dots) \]
+
+  What are its limit points?
+\end{ex}
+
+\index[English]{Subsequence}
+\index[German]{\foreignlanguage{ngerman}{Teilfolge}}
+\begin{defi}
+  Let $\seq{a_n}$ with $a_n \in \mathbb C$. For example,
+  \[ (1, \frac12, \frac13, \frac14, \frac15, \frac16, \dots) \]
+  We remove some elements
+  \[ (1, \frac13, \frac14, \frac16, \dots) \]
+  A \emph{subsequence} is created.
+  We also reenumerate the numbers:
+  \[ (\underbrace{1}_{n_0}, \underbrace{\frac13}_{n_1}, \underbrace{\frac14}_{n_2}, \underbrace{\frac16}_{n_3}, \dots) \]
+  Let $n: \mathbb N \to \mathbb N$ be strictly monotonically increasing.
+  Therefore
+  \[ \forall k \in \mathbb N: n (k+1) > n(k) \Rightarrow n_{k+1} > n_k \]
+  We call $\seq{n_k}$ an \emph{index subsequence} and $\left(a_{n_k}\right)_{k \in \mathbb N}$ is called subsequence of $\seq{a_n}$.
+\end{defi}
+
+\begin{lemma}
+  Let $\seq{a_n}$ be convergent with limes $a$ and $\left(a_{n_k}\right)_{k \in \mathbb N}$ a subsequence of $\seq{a_n}$.
+  Then also the subsequence is convergent and has the same limes $a$.
+\end{lemma}
+\begin{proof}
+  For every subsequence index $n_k$ with $k \in \mathbb N$ it holds that $n_k \geq k$.
+
+  Proof by induction: $k=0$
+  \begin{description}
+    \item[$n_0 \in \mathbb N$] \[ n_0 \geq 0 = k \qquad\checkmark \]
+    \item[$n_k \geq k$]
+      Because $\underbrace{n_{k+1}}_{\in \mathbb N} > n_k$ (strictly monotonic).
+      Therefore,
+      \[ n_{k+1} \geq n_k + 1 > k + 1 \]
+  \end{description}
+
+  Proof of limes: $\lim_{k\to\infty} a_{n_k} = a$.
+  Let $\varepsilon > 0$. Because $\seq{a_n}$ is convergent, it holds that
+  $\exists N \in \mathbb N: n \geq N \Rightarrow \abs{a_n - a} < \varepsilon$.
+  Let $k \geq N$. This holds because $n_k \geq k \geq N: \abs{a_{n_k} - a} < \varepsilon$.
+  Therefore $\left(a_{n_k}\right)_{k \in \mathbb N}$ has limes $a$.
+\end{proof}
+
+\begin{lemma}
+  Let $\seq{a_n}$ be a sequence in $\mathbb C$. Then it holds that
+  $a \in \mathbb C$ is limit point if and only if there exists some subsequence
+  $\left(a_{n_k}\right)_{k \in \mathbb N}$ with $\lim_{k \to \infty} a_{n_k} = a$.
+\end{lemma}
+\begin{proof}
+  We first prove direction $\Leftarrow$.
+
+  Assume $\left(a_{n_k}\right)_{k \in \mathbb N}$ is a convergent subsequence
+  of $\seq{a_n}$ with limes $a$.
+  Let $\varepsilon > 0$.
+  \[ \exists N \in \mathbb N: k \geq N \Rightarrow \abs{a_{n_k} - a} < \varepsilon \]
+  Therefore $B(a, \varepsilon)$ has infinitely many sequence numbers of $\left(a_{n_k}\right)_{k\in\mathbb N}$
+  and therefore also infinitely many sequence numbers of $\seq{a_n}$.
+
+  We prove direction $\Rightarrow$.
+
+  We build a convergent subsequence. Consider $k \in \mathbb N$ with $k \geq 1$.
+  \[ \varepsilon_k = \frac1k \]
+  We define $n_0 = 0$ and $a_{n_0} = a_0$.
+  Assume $a_{n_0}, a_{n_1}, \dots, a_{n_{k-1}}$ are already defined.
+
+  Definition of $a_{n_k}$: In $B(a, \varepsilon_k)$ there are infinitely many sequence numbers of $\seq{a_n}$.
+  We consider $n_k > n_{k-1}$ and $a_{n_k} \in B(a, \varepsilon_k)$.
+
+  Then it holds that $\lim_{k\to\infty} a_{n_k} = a$.
+  Let $\varepsilon > 0$ be arbitrary. Consider $K > \frac1\varepsilon$.
+  Hence $\varepsilon > \frac1K = \varepsilon_K$ for all $k \geq K$ it holds that
+  $n_k \geq n_K$ and $\abs{a_{n_k} - a} < \varepsilon_k = \frac1k \leq \frac1K < \varepsilon$.
+\end{proof}
+
+\subsection{Bolzano-Weierstrass theorem}
+\index[English]{Bolzano-Weierstrass theorem}
+\index[German]{\foreignlanguage{ngerman}{Satz von Bolzano-Weierstraß}}
+\fbox{Bernard Bolzano (1781--1848), Karl Weierstrass (1815--1897)}
+
+\begin{theorem}
+  Every bounded sequence of real numbers has a limit point in $\mathbb R$.
+\end{theorem}
+\begin{proof}
+  Let $\seq(a_n)$ be a bounded sequence in $\mathbb R$, hence $\exists M > 0$
+  such that all sequence numbers $a_n$ in $I_0 = [-M, M]$ and let
+  $F_0 = \setdef{n \in \mathbb N}{a_n \in I_0} = \mathbb N$ (index set). $F_0$ is infinite.
+  We build nested intervals with the properties:
+  \begin{itemize}
+    \item $I_{n+1} \subseteq I_n$
+    \item $\abs{I_{n+1}} = \frac12 \abs{I_n}$
+    \item $F_n = \setdef{k \in \mathbb N}{a_k \in I_n}$ is infinite.
+  \end{itemize}
+
+  This construction is inductive:
+  \begin{description}
+    \item[induction base] $I_0 \checkmark$
+    \item[induction step]
+      Let $I_n$ be given. $I_n = [A_n, M_n]$ and $L_n = [M_n, B_n]$.
+      It holds that $I_n \subseteq I_n \land L_n \subseteq I_n$
+      and $\card{J_n} = \frac12 \abs{I_n} \land \abs{L_n} = \frac12 \abs{I_n}$.
+      Because there are infinitely many sequence numbers of $\seq{a_n}$ in $I_n$
+      and $I_n = J_n \cup L_n$ in at least one subinterval there have to be
+      infinitely many sequence numbers.
+
+      Therefore select $I_{n+1} = J_n$ if $J_n$ contains infinitely many sequence numbers
+      and consider $I_{n+1} = L_n$ if $J_n$ contains only finitely many sequence numbers.
+      Therefore $I_{n+1}$ contains infinitely many sequence numbers.
+      \[ F_{n+1} = \setdef{k \in \mathbb N}{a_k \in I_{n+1}} \]
+      is infinite.
+      So $(I_n)_{n \in \mathbb N}$ is a nested interval.
+  \end{description}
+
+  Let $a \in \bigcap_{n \in \mathbb N} I_n$ (completeness of $\mathbb R$).
+
+  Claim:
+  $a$ is limit point of $\seq{a_n}$. Let $\varepsilon > 0$ be given and $n$ sufficiently large,
+  such that $\abs{I_n} = B_n - A_n < \varepsilon$.
+  Then it holds that for every $x \in I_n$ that $\abs{x - a} \leq B_n - A_n < \varepsilon$ (with $x \in I_n, a \in I_n$).
+  Because $I_n$ contains infinitely many sequence numbers of $\seq{a_n}$, it holds that
+  infinitely many sequence numbers $a_k$ satisfy the relation $\abs{a_n - a} < \varepsilon$.
+  Therefore $a$ is limit point of $\seq{a_n}$.
+\end{proof}
+
+\begin{cor}[typical definition of the Bolzano-Weierstrass theorem]
+  Every bounded sequence in $\mathbb R$ has a convergent subsequence.
+\end{cor}
+
+\begin{theorem}[Bolzano-Weierstrass theorem in $\mathbb C$]
+  Let $\seq{a_n}$ be a bounded sequence in $\mathbb C$.
+  Then $\seq{a_n}$ has a convergent subsequence and
+  therefore also at least one limit point in $\mathbb C$.
+\end{theorem}
+\begin{proof}
+  Let $\seq{a_n}$ be bounded. $a_n = \alpha_n + i \beta_n$.
+  So $\seq{\alpha_n}$ is bounded in $\mathbb R$ as well as
+  $\seq{\beta_n}$ is bounded in $\mathbb R$.
+
+  Consider a convergent subsequence of $\seq{\alpha_n}$,
+  $\left(\alpha_{n_k}\right)_{k \in \mathbb N}$ with
+  $\lim_{k\to\infty} \alpha_{n_k} = \alpha$.
+  Now consider $\left(\beta_{n_k}\right)_{k \in \mathbb N}$ is bounded.
+  From the Bolzano-Weierstrass theorem it follows that there
+  exists a convergent subsequence $\left(\beta_{n_{k_l}}\right)_{l \in \mathbb N}$
+  with $\beta = \lim_{l\to\infty} \beta_{n_{k_l}}$.
+
+  $\left(\alpha_{n_{k_l}}\right)_{l \in \mathbb l}$ is subsequence of
+  $\left(\alpha_{n_{k_l}}\right)$ TODO
+  convergent with limit point $\alpha$.
+
+  Let $a_{n_{k_l}} = \alpha_{n_{k_l}} + i \beta_{n_{k_l}}$
+  be a subsequence of $(a_n)_{n\in\mathbb N}$.
+
+  Real and imaginary parts are convergent, therefore $\lim_{l\to\infty} a_{n_{k_l}} = a = \alpha + i \beta$.
+  Therefore $\seq{a_n}$ contains a convergent subsequence.
+\end{proof}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
