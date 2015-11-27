@@ -1098,6 +1098,60 @@ Important: our approximation $a_n \geq a_1 > 0$ and $b_n \geq \alpha$ is indepen
   \leq \underbrace{\card{a_n - \alpha}}_{<\varepsilon} \underbrace{\card{c_n}}_{\leq \gamma} + \card{\alpha} \underbrace{\card{c_n - \gamma}}_{<\varepsilon} + \underbrace{\card{\gamma}}_{1} \underbrace{\card{\alpha - b_n}}_{<\varepsilon} + \underbrace{\card{b_n}}_{b_1} \underbrace{\card{\gamma - d_n}}_{<\varepsilon} < \varepsilon\underbrace{(2\gamma + \alpha + b_1)}_{=c} = \varepsilon'
 \]
 
+\section{Exercise 34}
+
+\begin{ex}
+  Let $f: X \rightarrow Y$ be a mapping. Prove that:
+  \begin{enumerate}
+    \item If a mapping $g: Y \rightarrow X$ with $g \circ f = \text{id}_X$ exists, $f$ is injective.
+    \item If a mapping $h: Y \rightarrow X$ with $f \circ h = \text{id}_Y$ exists, $f$ is surjective.
+  \end{enumerate}
+  \textbf{Remark.} $\text{id}_X$ is the identity function over the set $X$.
+    The identity function is always defined as $f: X \rightarrow X$ with $x \mapsto x$.
+\end{ex}
+
+\subsection{Exercise 34.1}
+%
+So given that $g: Y \rightarrow X$ exists with $g \circ f = \text{id}_X$,
+let $x \in X$.
+\[ x \in X \Rightarrow f(x) \in Y \Rightarrow g(f(x)) = x \Leftrightarrow \text{id}_X(x) = x \]
+
+To show injectivity, we need to show for all $x_1, x_2 \in X$:
+\[ f(x_1) = f(x_2) \Rightarrow x_1 = x_2 \]
+
+Consider two arbitrary values $x_1, x_2 \in X$.
+\[ f(x_1) = f(x_2) \]
+\[ \Rightarrow g(f(x_1)) = g(f(x_2)) \]
+\[ \Rightarrow x_1 = x_2 \]
+
+As far as $x_1$ and $x_2$ are two arbitrary elements of $X$, this holds for any pair of elements of $X$.
+We have directly proven injectivity of $f$.
+
+\subsection{Exercise 34.2}
+%
+Given that $h: Y \rightarrow X$ exists with $f \circ h = \text{id}_Y$,
+let $y \in Y$.
+\[ y \in Y \Rightarrow h(y) \in X \Rightarrow f(h(y)) \in Y \Leftrightarrow \text{id}_Y(y) = y \]
+
+To show surjectivity, we need to show for all $y_1, y_2 \in Y$:
+\[ \forall y \in Y \exists x \in X: f(x) = y \]
+
+Consider an arbitrary value $y \in Y$. Because of the existence of the identity function, it holds that:
+\[ f(h(y)) = y \]
+We define $h(y)$ as an intermediate value with a different name:
+\[ x \coloneqq h(y) \]
+\[ \Rightarrow \exists x \in X: f(x) = y \]
+
+We have show that for any arbitrary value $y \in Y$. So it holds for any value of $Y$:
+\[ \Rightarrow \forall y \in Y \exists x \in X: f(x) = y \]
+
+We have directly proven surjectivity of $f$.
+
+
+
+
+\subsection{Exercise 34.2}
+
 
 \section{Exercise 35}
 
