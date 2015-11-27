@@ -56,7 +56,7 @@
 \tableofcontents
 
 \clearpage
-\section{Modern logic}
+\section{Propositional logic}
 
 \meta{lecture}{1st of October 2015}{Wolfgang Ring}
 
@@ -107,7 +107,7 @@
 
 The lecture on 8th of October 2015 got cancelled spontaneously.
 
-\section{Binary operations}
+\section{First-Order Logic}
 \meta{lecture}{12th of October 2015}{Wolfgang Ring}
 
 Literature recommendation:
@@ -346,10 +346,11 @@ Set operations:
   \item complete induction
 \end{itemize}
 
+\index{Triangular number}
+\index{\foreignlanguage{ngerman}{Dreieckszahl}}
 \begin{theorem} (Pythagoreans, 450~BC)
   \[ \forall n \in \mathbb N_+: \sum_{k=1}^n k = 1 + 2 + 3 + \dots + n = \frac{n (n+1)}{2} \]
 \end{theorem}
-
 \begin{proof}
   \begin{description}
     \item[Induction base $\mathbf{n = 1}$] \hfill{} \\
@@ -375,10 +376,6 @@ Set operations:
 
 \meta{lecture}{21st of October 2015}{Ring Wolfgang}
 
-\index[English]{Bernoulli inequality}
-\index[German]{\foreignlanguage{ngerman}{Bernoullis Ungleichung}}
-Previously: Bernoulli Inequation $(1+x)^n > 1 + nx$
-
 \begin{itemize}
   \item Let $X$ be a set. $M = \set{x \in X: P(x)}$.
   \item $\mathbb N = \set{0,1,2,3,4, \dots}$ \dots \enquote{enumerating set representation}
@@ -390,6 +387,7 @@ Previously: Bernoulli Inequation $(1+x)^n > 1 + nx$
   \item $A_0 \cap A_1 \cap A_2 \cap \dots = \bigcap_{n=1}^\infty A_n = \setdef{x \in X}{\forall n \in \mathbb N: x \in A_n}$
 \end{itemize}
 
+\subsection{Cartesian product}
 \index[English]{Cartesian product}
 \index[German]{\foreignlanguage{ngerman}{Kartesisches Produkt}}
 \begin{defi}
@@ -421,6 +419,7 @@ Previously: Bernoulli Inequation $(1+x)^n > 1 + nx$
   instead of $\underbrace{A \times A \times \dots \times A}_{n \text{ times}} = A^n$.
 \end{defi}
 
+\subsection{Power set}
 \index[English]{power set}
 \index[German]{\foreignlanguage{ngerman}{Potenzmenge}}
 \begin{defi}
@@ -428,17 +427,19 @@ Previously: Bernoulli Inequation $(1+x)^n > 1 + nx$
   \[ \mathcal P(X) = \setdef{A}{A \subseteq X} \]
 \end{defi}
 
+\section{Mappings and functions}
 \index[English]{mapping}
 \index[German]{\foreignlanguage{ngerman}{Abbildung}}
 \index[English]{domain}
 \index[German]{\foreignlanguage{ngerman}{Definitionsmenge}}
 \index[English]{co-domain}
-\index[German]{\foreignlanguage{ngerman}{Bildmenge}}
+\index[German]{\foreignlanguage{ngerman}{Zielmenge}}
 \begin{defi}
   Let $A$ and $B$ be sets.
   A \emph{mapping} $f$ from $A$ to $B$ (denoted $f: A \rightarrow B$) is an assignment,
   such that for every $x \in A$ one $y \in B$ is assigned. We denote the corresponding
-  $y \in B$ for some $x \in A$ with $y = f(x)$. $A$ is called domain, $B$ is called co-domain.
+  $y \in B$ for some $x \in A$ with $y = f(x)$.
+  $A$ is called \emph{domain}, $B$ is called \emph{co-domain}.
 \end{defi}
 
 \begin{defi}[Alternative definition of mappings]
@@ -455,37 +456,49 @@ Previously: Bernoulli Inequation $(1+x)^n > 1 + nx$
 \index[English]{Injective function}
 \index[German]{\foreignlanguage{ngerman}{Injektive Funktion}}
 \index[English]{Surjective function}
-\index[English]{Co-domain}
-\index[German]{\foreignlanguage{ngerman}{Urbildmenge}}
 \index[German]{\foreignlanguage{ngerman}{Surjektive Funktion}}
-\index[English]{Co-domain}
+\index[English]{Bijective function}
+\index[German]{\foreignlanguage{ngerman}{Bijektive Funktion}}
+\index[English]{Image}
+\index[German]{\foreignlanguage{ngerman}{Bildmenge}}
+\index[English]{Preimage}
 \index[German]{\foreignlanguage{ngerman}{Urbildmenge}}
 \begin{defi}
   Let $f: A \rightarrow B$ be a mapping.
   \begin{itemize}
-    \item The mapping $f$ is called surjective, if $\forall y \in B: \exists x \in A: y = f(x)$.
-    \item The mapping $f$ is called injective, if $\forall x_1, x_2 \in A: (f(x_1) = f(x_2) \Rightarrow x_1 = x_2)$.
-    \item Let $B' \subseteq B$. Then we denote $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ as the \emph{codomain of $f$}.
+    \item
+      The mapping $f$ is called \emph{surjective},
+      if $\forall y \in B: \exists x \in A: y = f(x)$.
+    \item
+      The mapping $f$ is called \emph{injective}, if
+      \[ \forall x_1, x_2 \in A: (f(x_1) = f(x_2) \Rightarrow x_1 = x_2). \]
+    \item
+      Let $B' \subseteq B$. Then we denote $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ as the \emph{preimage of $f$}.
 
-      Attention! The codomain distinguishes itself from the inverse function $f^{-1}$!
-    \item Let $A' \subseteq A$. Then we call $f(A') = \setdef{f(x)}{x \in A} \subseteq B$ the \emph{image of $A'$} under $f$.
+      Attention! The preimage distinguishes itself from the domain (it is a subset)
+      and the inverse function $f^{-1}$ (a function must not be invertible to have a preimage)!
+    \item
+      Let $A' \subseteq A$. Then we call $f(A') = \setdef{f(x)}{x \in A} \subseteq B$ the \emph{image of $A'$} under $f$.
 
-      Special case: $A' = A$, then $f(A) \subseteq B$ is image of $A$ under $f$.
+      Special case: $A' = A$, then $f(A) \subseteq B$ is the image of $A$ under $f$.
 
       Let $f: A \rightarrow B$ be a mapping. We define $f: A \rightarrow f(A) \subseteq B$ with
       $\tilde f(x) = f(x)$ for all $x \in A$. The mapping $\tilde f$ is surjective $\forall y \in f(A)$ there exists one $x \in A$ such that $y = f(x)$.
-    \item A mapping is called \emph{bijective} iff the mapping is surjective and injective.
+    \item
+      A mapping is called \emph{bijective}
+      iff the mapping is surjective and injective.
   \end{itemize}
 \end{defi}
 
-\subsection{Integers}
+\subsection{Bernoulli's inequality}
 
+\index[English]{Bernoulli inequality}
+\index[German]{\foreignlanguage{ngerman}{Bernoullis Ungleichung}}
 \begin{defi}[Bernoulli's inequality]
   Let $x \in \mathbb R$ with $x > -1$ and $x \neq 0$.
   Let $n \in \mathbb N$ with $n > 1$. Then it holds that
   \[ (1 + x)^n > 1 + nx \]
 \end{defi}
-
 \begin{proof}
   Proof by complete induction.
   \begin{description}
@@ -507,7 +520,8 @@ Previously: Bernoulli Inequation $(1+x)^n > 1 + nx$
 \index[German]{\foreignlanguage{ngerman}{Identitätsfunktion}}
 \index[English]{Inverse function}
 \index[German]{\foreignlanguage{ngerman}{Inverse Funktion}}
-Back to sets and functions:
+% TODO: extend
+Back to sets and functions (notes missing):
 \begin{itemize}
   \item injective, surjective, bijective function
   \item composition of functions: Let $f: X \rightarrow Y$ and $g: Y \rightarrow Z$. $g \circ f: X \rightarrow Z$ is defined as $g(f(x))$ (\enquote{g after f}).
@@ -516,14 +530,16 @@ Back to sets and functions:
   \item properties of an inverse function, $f \circ f^{-1}: X \rightarrow X$, $f^{-1} \circ f: X \rightarrow X$
 \end{itemize}
 
+\section{About sums of integers}
 \meta{lecture}{21st of Oct 2015}{Wolfgang Ring}
 
-\section{Summation notation}
-
-\[ \sum_{k=h}^{l} a_k \]
-
-Iteration over all values from $l$ to $h$ (inclusive) and evaluation of
-the enclosed expression with $k$ as iteration value.
+\begin{defi}
+  The summation notation is defined as,
+  \[ \sum_{k=h}^{l} a_k \]
+  Iteration over all values from $l$ to $h$ (inclusive) and evaluation of
+  the enclosed expression with $k$ as iteration value. The resulting terms
+  are added up and the sum gives the result of the summation expression.
+\end{defi}
 
 Laws:
 \begin{align}
@@ -552,6 +568,8 @@ We consider $S_n = \set{(a_1, a_2, \ldots, a_n): a_i \in M_n \forall i = 1, \ldo
 $S_n$ is the set of all arrangements of the numbers $1, \ldots, n$.
 
 Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
+
+\subsection{Factorials}
 
 \begin{theorem}
   It holds that $\card{S_n} = n!$ for all $n \in \mathbb{N}$
@@ -623,6 +641,7 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
   $S_n$ is called symmetric group of $n$ elements.
 \end{rem}
 
+\subsection{Binomial coefficients}
 \begin{defi}
   Let $n \in \mathbb{N}$, $k \in \mathbb{N}$ with $k \leq n$.
   We define \begin{align*}
@@ -665,7 +684,11 @@ A recursive definition is given by
 \begin{figure}[!h]
   \begin{center}
     \includegraphics{img/pascals_triangle.pdf}
-    \caption{Pascal's triangle}
+    \caption{
+      Pascal's triangle describes binomial coefficients.
+      It's structure is given by adding up the two numbers above a number.
+      The margins are defined by $1$. For example $6$ is given by ${4 \choose 2}$.
+    }
   \end{center}
 \end{figure}
 
@@ -763,9 +786,8 @@ Then the domain of $A \setminus B$ is \enquote{A without B}.
   \end{description}
 \end{proof}
 
-\begin{theorem}
-  \textbf{(Binomial theorem).}
-
+\subsection{Binomial theorem}
+\begin{theorem}[Binomial theorem]
   Let $a, b \in \mathbb{R}$ (or $a, b \in \mathbb{C}$). Then it holds that
   \[ (a + b)^n = \sum_{k=0}^n \binom{n}{k} a^k b^{n-k} \]
 \end{theorem}
@@ -785,17 +807,21 @@ Then the domain of $A \setminus B$ is \enquote{A without B}.
             = \sum_{k=0}^n \binom nk a^{k+1} b^{n-k} + \sum_{k=0}^n \binom nk a^k b^{n-k+1}
           \] \[
             = \underbrace{\sum_{n=0}^{n-1} \binom nk a^{k+1} b^{n-k}}_{\substack{\text{index shift} \\ h + 1 = j, h =0 \\ \Rightarrow j=1, h = j-1, h=n-1 \\ \Rightarrow j = n}} +
-              \underbrace{\binom nk a^{n+1} \cdot b^0}_{a^{n-1}} +
-              \sum_{k=1}^n \binom nk a^k b^{n+1-k} +
+              \underbrace{\binom nk a^{n+1} \cdot b^0}_{a^{n-1}}
+          \] \[
+            + \sum_{k=1}^n \binom nk a^k b^{n+1-k} +
               \binom n0 a^0 b^{n+1}
           \] \[
             \sum_{j=1}^n \binom{n}{j-1} a^j b^{n-(j-1)}
-            + \sum_{k=1}^n \binom nk a^k b^{n+1-k} + \binom {n+1}{n+1} a^{n+1}
+            + \sum_{k=1}^n \binom nk a^k b^{n+1-k}
+          \] \[
+            + \binom{n+1}{n+1} a^{n+1}
             + \binom{n+1}{0} b^{n+1}
           \]
           Renaming $j$ to $k$:
           \[
             = \sum_{k=1}^n \underbrace{\left[\binom{n}{k-1} + \binom nk\right]}_{\binom{n+1}{k} \text{ by recursive definition}} a^k b^{n+1-k}
+          \] \[
             + \binom{n+1}{n+1} a^{n+1} b^0
             + \binom{n+1}{0} a^0 b^{n+1}
           \] \[
@@ -985,6 +1011,7 @@ Literature:
   \item E. Landau: \enquote{Grundlagen der Analysis}, uses Peano axioms to build calculus
 \end{itemize}
 
+\subsection{Ordered fields}
 \begin{defi}
   Let $K$ be a field. We assume that $K$ is taken from two sets: $K = K_+ \cup \set{0} \cup K_-$
   with $0 \not\in K_+, 0 \not\in K_-$. It holds that
@@ -1061,6 +1088,7 @@ Literature:
   \end{enumerate}
 \end{proof}
 
+\subsection{Remarks about some common fields}
 \begin{rem}
   $\mathbb{C}$ is not an ordered ordered field.
   $\mathbb{N}$, $\mathbb{Z}$ and $\mathbb{Q}$ are ordered.
@@ -1130,11 +1158,11 @@ Literature:
   except for isomorphism.
 \end{rem}
 
+\subsection{Triangle inequality}
 \begin{theorem}
   \[ \forall a, b \in K: \abs{a + b} \leq \abs{a} + \abs{b} \qquad \text{\enquote{Triangle inequality}} \]
   %\[ \abs{a \cdot b} = \abs{a} \cdot \abs{b} \]
 \end{theorem}
-
 \begin{proof}
   \begin{description}
     \item[Case 1]
@@ -1231,10 +1259,10 @@ Literature:
   \end{description}
 \end{proof}
 
+\subsection{Intervals}
 \meta{lecture}{5th of November 2015}{Wolfgang Ring}
 
-\begin{defi}
-  \textbf{Intervals.}
+\begin{defi}[Intervals]
   Let $a, b \in K$.
   \[ (a,b) = \setdef{x \in K}{(x > a) \land (x < b)} \]
   \[ [a, b) = \setdef{x \in K}{(x \geq a) \land (x < b)} \]
@@ -1294,10 +1322,11 @@ Literature:
     \item With $Z(m^2) = 2\cdot \operatorname{Z}(n)$.
     \item With $\operatorname{Z}(2\cdot n^2) = \operatorname{Z}(n^2) + 1 = 2 \cdot \operatorname{Z}(n) + 1$.
     \item If $m^2 = 2n^2$, then $\operatorname{Z}(m^2)$ must be even and $\operatorname{Z}(2\cdot n^2)$ must be odd.
-    \item Then equality cannot be satisfied $\lightning$
+    \item Then equality cannot be satisfied \lightning
   \end{enumerate}
 \end{proof}
 
+\subsection{Archimedean property and Completeness axiom}
 \begin{theorem}
   $\mathbb Q$ is geometrically incomplete.
 
@@ -1543,8 +1572,16 @@ Literature:
   \end{description}
 \end{proof}
 
-\subsection{Supremum property in $\mathbb R$}
-
+\section{Supremum property of $\mathbb R$}
+\subsection{Boundedness in $\mathbb R$}
+\index[English]{bounded}
+\index[German]{\foreignlanguage{ngerman}{beschränkt}}
+\index[English]{bounded below}
+\index[German]{\foreignlanguage{ngerman}{beschränkt nach unten}}
+\index[English]{bounded above}
+\index[German]{\foreignlanguage{ngerman}{beschränkt nach oben}}
+\index[English]{lower bound}
+\index[English]{upper bound}
 \begin{defi}
   Let $A \subseteq \mathbb R$.
   \begin{itemize}
@@ -1564,6 +1601,11 @@ Literature:
 
 \meta{lecture}{11th of November 2015}{Wolfgang Ring}
 
+\subsection{Supremum and infimum in $\mathbb R$}
+\index[English]{supremum}
+\index[German]{\foreignlanguage{ngerman}{Supremum}}
+\index[English]{infimum}
+\index[German]{\foreignlanguage{ngerman}{Infimum}}
 \begin{defi}
   Let $A$ be bounded above.
   Assume $s \in \mathbb R$ has the properties
@@ -1577,7 +1619,7 @@ Literature:
 
   There exists at most one supremum for $A$. Let $s_1$ and $s_2$ be two suprema,
   then $s_1 \neq s_2$. So wlog. $\sigma_1 < \sigma_2$. This invalidates the supremum
-  property of $s_2 \Rightarrow s_1$ is not a supremum of $A$ $\lightning$.
+  property of $s_2 \Rightarrow s_1$ is not a supremum of $A$ \lightning.
 
   Analogously an \emph{infimum of $A$} is the greatest lower bound of $A$.
   Let $A$ be bounded below. $t \in \mathbb R$ is called \emph{infimum of $A$}
@@ -1591,8 +1633,7 @@ Literature:
 \end{defi}
 
 \begin{defi}
-  Let $A \subseteq \mathbb R$. We call $u \in \mathbb R$ \emph{maximum of $A$}
-  denoted $u = \max{A}$ if
+  Let $A \subseteq \mathbb R$. We denote $u = \max{A}$ for the \emph{maximum of $A$} if
   \begin{enumerate}
     \item $u \in A$ (is element of $A$)
     \item $\forall a \in A: a \leq u$ (is an upper bound)
