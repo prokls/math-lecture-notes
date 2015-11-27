@@ -245,14 +245,14 @@ Then the three ways of proving work as follows:
 \begin{ex}
   Let $p$, $q$ and $r$ be statements. Show that
   \begin{itemize}
-    \item $(p \implies q) \iff \neg (p \implies \neg q)$  \hspace{30pt} \enquote{proof by contradiction}
-    \item $\left[p \implies (q \lor r)\right] \iff \left[(p \land \neg q) \implies r\right]$
+    \item $(p \rightarrow q) \iff \neg (p \land \neg q)$  \hspace{30pt} \enquote{proof by contradiction}
+    \item $\left[p \rightarrow (q \lor r)\right] \iff \left[(p \land \neg q) \rightarrow r\right]$
   \end{itemize}
 \end{ex}
 
 \subsection{Exercise 6a}
 
-\[ (p \implies q) \iff \neg (p \land \neg q) \]
+\[ (p \rightarrow q) \iff \neg (p \land \neg q) \]
 \[ (\neg p \lor q) \iff (\neg p \lor q) \]
 
 \subsection{Exercise 6b}
@@ -264,7 +264,7 @@ Then the three ways of proving work as follows:
 \end{align*}
 
 \section{Exercise 7}
-
+%
 \begin{ex}
   Let $A$, $B$, $C$ and $D$ be sets. Prove that
   \begin{itemize}
@@ -276,10 +276,9 @@ Then the three ways of proving work as follows:
 
 \subsection{Exercise 7a}
 \[ (A \setminus B) \cap (A \setminus C) = A \setminus (B \cup C) \]
-
+%
 Let $a$ be a variable which is true if the considered element is contained in $A$.
-$\neg a$ is analogously not. Same for $b$ and $c$. Then:
-
+$\neg a$ analogously means not contained. Same for $b$ and $c$. Then:
 \begin{align*}
   (a \land \neg b) \land (a \land \neg c) &= a \land \neg (b \lor c) \\
   a \land \neg b \land a \land \neg c &= a \land (\neg b \land \neg c) \\
@@ -291,28 +290,28 @@ $\neg a$ is analogously not. Same for $b$ and $c$. Then:
 \begin{align*}
   (A \setminus B) \cap (C \setminus D) &= (A \setminus D) \cap (C \setminus B) \\
   (a \land \neg b) \land (c \land \neg d) &= (a \land \neg d) \land (c \land \neg b) \\
-  a \land \neg b \land \neg c &= a \land \neg b \land \neg c \\
+  a \land \neg b \land c \land \neg d &= a \land \neg b \land c \land \neg d \\
   \top &= \top
 \end{align*}
 
 \subsection{Exercise 7c}
-
 \[ B \subseteq A \Rightarrow B = A \setminus (A \setminus B) \]
-
+%
 \begin{align*}
-  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \left[
+  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
+          x \in B \leftrightarrow x \in A \land \neg (x \in A \land x \not\in B)))
+      \right] \\
+  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
           x \in B \leftrightarrow x \in A \land (\underbrace{x \not\in A}_{\bot} \lor x \in B)))
       \right] \\
-  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \left[
+  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
           x \in B \leftrightarrow x \in A \land x \in B
       \right] \\
-  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \left[
-          (x \in B \rightarrow \implies x \in A \land \underbrace{x \in B}_{\top}) \land
-          \underbrace{(x \in A \land x \in B \implies x \in B)}_{\top}
+  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
+          (x \in B \rightarrow x \in A \land \underbrace{x \in B}_{\top}) \land
+          \underbrace{(x \in A \land x \in B \rightarrow x \in B)}_{\top}
       \right] \\
-  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies (x \in B \rightarrow x \in A) \\
-  \forall x \in X: (x \in B \Rightarrow x \in A) &\implies \top \\
-                                                 &\top
+  \forall x \in X: (x \in B \rightarrow x \in A) &\implies (x \in B \rightarrow x \in A)
 \end{align*}
 
 
@@ -325,16 +324,24 @@ $\neg a$ is analogously not. Same for $b$ and $c$. Then:
 
 \begin{table}[!h]
  \begin{center}
-  \begin{tabular}{rcc}
+  \begin{tabular}{rclcl}
    \hline\hline
-    $S$ \ op           & $x \in S$                    & $X \subseteq S$ \\
+    $\downarrow \ S \qquad \text{op} \rightarrow$
+        & \multicolumn{2}{l}{$x \in S$} & \multicolumn{2}{l}{$X \subseteq S$} \\
    \hline
-    $\set{\set{X}, X}$ & \yes (2nd arg)               & \no (recursive def required) \\
-    $X$                & \no (recursive def required) & \yes ($X = X$) \\
-    $\emptyset \cap \set{X} = \emptyset$ & \no        & \no (unless $X = \emptyset$) \\
-    $\set{X} \setminus \set{\set{X}} = \set{X}$ & \yes (1st arg) & \no (recursive definition required) \\
-    $\set{X} \cup X$   & \yes (1st arg)               & \yes ($X = X$) \\
-    $\set{X} \cup \set{\emptyset}$ & \yes (1st arg)   & \no (recursive definition required)
+    $\set{\set{X}, X}$
+        & \yes & 2nd argument            & \no  & impossible to build \\
+    $X$
+        & \no  & impossible to build     & \yes & $X = X$ \\
+    $\emptyset \cap \set{X} = \emptyset$
+        & \no  &                         & \no  & unless $X = \emptyset$ \\
+    $\set{X} \setminus \set{\set{X}} = \set{X}$
+        & \yes & 1st argument            & \no  & impossible to build \\
+    $\set{X} \cup X$
+        & \yes & 1st argument            & \yes & $X = X$ \\
+    $\set{X} \cup \set{\emptyset}$
+        & \yes & 1st argument            & \no  & impossible to build \\
+   \hline
   \end{tabular}
  \end{center}
 \end{table}
@@ -370,26 +377,130 @@ Prove in three ways the following statement:
    \frac{x^2}{xy} + \frac{y^2}{xy} &\leq 2 \\
    x^2 + y^2 &\leq 2xy \\
    x^2 - 2xy + y^2 &\leq 0 \\
-   (x - y)^2 &\leq 0
+   (x - y)^2 &\leq 0 \\
    (x - y)^2 &= 0 \\
    x - y &= 0 \\
    x &= y
 \end{align*}
 
 \paragraph{proof by contradiction}
+\[ \forall x \in (0, \infty) \forall y \in (0, \infty): x \neq y \Rightarrow \frac xy + \frac yx \leq 2 \]
 \begin{align*}
-  \forall x \in (0, \infty) \forall y \in (0, \infty): &x \neq y \Rightarrow \frac xy + \frac yx \leq 2
+  x - y &\neq 0 \\
+  x^2 - 2xy + y^2 &\neq 0 \\
+  x^2 - 2xy + y^2 &> 0 \\
+  \frac{x^2}{xy} - 2 + \frac{y^2}{xy} &> 0 \\
+  \underbrace{\frac{x}{y}}_{>0} + \underbrace{\frac{y}{x}}_{>0} &> 2 \\
+    &\text{\lightning}
 \end{align*}
 
 \subsection{Exercise 9b}
-\subsection{Exercise 9c}
+%
+Let $z = \frac{x}{y}$ and illustrate the inequality geometrically.
 
+\[ \frac{x}{y} + \frac{y}{x} > 2 \Rightarrow z + z^{-1} > 2 \]
 
-\clearpage
+\begin{figure}[!ht]
+  \begin{center}
+    \includegraphics[width=200pt]{img/9b.png}
+    \caption{Plot for $z + z^{-1} > 2$ (Exercise 9b)}
+  \end{center}
+\end{figure}
+
 \section{Reminder}
 
 If $n < m$, then the \emph{empty sum} $\sum_{k=m}^n a_k$ has value $0$,
 and the \emph{empty product} $\prod_{k=m}^n a_k$ has value $1$.
+
+\section{Exercise 10}
+\begin{ex} \hfill{}
+  \begin{itemize}
+    \item Provide a concise definition of \enquote{n is an even number}
+          and \enquote{n is an odd number} using the existence quantifier.
+    \item Prove $\forall n \in \mathbb Z: n \text{ is even} \Leftrightarrow n^2 \text{ is even}$ \\
+          \textbf{Hint:} Prove $\Leftarrow$ using an indirect proof.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 10a}
+\begin{align*}
+  n \text{ is even} &\Rightarrow \exists a \in \mathbb Z: n = 2a \\
+  n \text{ is odd} &\Rightarrow \exists a \in \mathbb Z: n = 2a + 1
+\end{align*}
+
+\subsection{Exercise 10b}
+\[
+    \forall n \in \mathbb Z \exists a_1 \in \mathbb Z \exists a_2 \in \mathbb Z:
+    n = 2a_1 \Leftrightarrow n^2 = 2a_2
+\]
+
+\begin{description}
+  \item[Direction $\Rightarrow$] \hfill{} \\
+    \[ n = 2a_1 \Rightarrow n^2 = 4a_1^2 \]
+    Let $a_1 = \sqrt{\frac{a_2}{2}}$.
+    \[ n^2 = 4\left(\sqrt{\frac{a_2}{2}}\right)^2 \Rightarrow n^2 = 2a_2 \]
+    Such an $a_2$ always exists. Proof finished.
+  \item[Direction $\Leftarrow$] \hfill{} \\
+    \[ n^2 \neq 2a_2 \Rightarrow n \neq 2a_1 \]
+    Taking the square root preserves the parity of the value\footnote{
+    Because an even number times an even number yields an even number.
+    An odd number times an odd number yields an odd number.}.
+    \[ n = \sqrt{2a_2 + 1} \]
+    So $\sqrt{2a_2 + 1}$ gives an odd number.
+    But this structure cannot match $2a_1$, which represents an even number.
+    This shows a contradiction and $n \neq 2a_1$ holds.
+\end{description}
+
+\section{Exercise 11}
+\begin{ex}
+  For the following statement give
+  \begin{enumerate}
+    \item an indirect proof
+    \item a proof using Exercise 6b
+  \end{enumerate}
+  \[
+      \forall x \in \mathbb R \forall y \in \mathbb R:
+      xy \not\in \mathbb Q \Rightarrow x \not\in \mathbb Q \lor y \not\in \mathbb Q
+  \]
+\end{ex}
+
+\subsection{Exercise 11.1}
+\[ \forall x \in \mathbb R \forall y \in \mathbb R: x \in \mathbb Q \land y \in \mathbb Q \Rightarrow xy \in \mathbb Q \]
+\[ \forall x \in \mathbb R \forall y \in \mathbb R \exists p_0, p_1 \in \mathbb R \exists q_0, q_1 \in \mathbb R \setminus \set{0}: \]
+\[
+    \left(x = \frac{p_0}{q_0}\right) \land \left(y = \frac{p_1}{q_1}\right)
+    \Rightarrow \left(\exists p_2 \in \mathbb R \exists q_2 \in \mathbb R \setminus \set{0}: xy = \frac{p_2}{q_2} \right)
+\] \[
+    xy = \frac{\overbrace{p_0 p_1}^{\in \mathbb R}}{\underbrace{q_0 q_1}_{\in \mathbb R \setminus \set{0}}}
+    \Rightarrow xy = \frac{p_2}{q_2} \text{ for } p_2 = p_0 \cdot p_1 \text{ and } q_2 = q_0 \cdot q_1
+\]
+
+\subsection{Exercise 11.2}
+\[ (p \Rightarrow (q \lor r)) \Leftrightarrow ((p \land \neg q) \Rightarrow r) \]
+\[
+    (xy \not\in \mathbb Q \Rightarrow \left(x \not\in \mathbb Q \lor y \not\in \mathbb Q\right)) \Leftrightarrow
+    ((xy \not\in \mathbb Q \land x \in \mathbb Q) \Rightarrow y \not\in \mathbb Q)
+\]
+
+\[
+    \forall x,y \in \mathbb R: \left(
+      \substack{
+      \left(\not\exists p_2 \in \mathbb R \not\exists q_2 \in \mathbb R \setminus \set{0}: xy = \frac{p_2}{q_2}\right) \land \\
+      \left(\exists p_0 \in \mathbb R \exists q_0 \in \mathbb R \setminus \set{0}: x = \frac{p_0}{q_0}\right)}
+    \right) \Rightarrow \left(\not\exists p_1 \in \mathbb R \not\exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right)
+\]
+
+Recognize $p_2 = p_0 \cdot p_1$ and $q_2 = q_0 \cdot q_1$.
+
+Therefore the conjunction yields the $y \not\in \mathbb Q$ because $x \in \mathbb Q$.
+
+\[
+    \forall x \in \mathbb R \forall y \in \mathbb R:
+    \left(\not\exists p_1 \in \mathbb R \exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right) \Rightarrow
+    \left(\not\exists p_1 \in \mathbb R \exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right)
+\]
+
+This statement is true. The proof is complete.
 
 \section{Exercise 18}
 \begin{ex}
