@@ -84,7 +84,7 @@
 \index[English]{Peano's axioms}
 \index[German]{\foreignlanguage{ngerman}{Peano-Axiome}}
 \begin{itemize}
-  \item motivation for visiting university
+  \item Discussion about motivation for visiting university
   \item Kurt Gödel: Gödel's incompleteness theorem
   \item propositional logic (and/or/implication/equivalence operation)
   \begin{itemize}
@@ -2945,7 +2945,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   Every bounded sequence of real numbers has a limit point in $\mathbb R$.
 \end{theorem}
 \begin{proof}
-  Let $\seq(a_n)$ be a bounded sequence in $\mathbb R$, hence $\exists M > 0$
+  Let $\seq{a_n}$ be a bounded sequence in $\mathbb R$, hence $\exists M > 0$
   such that all sequence numbers $a_n$ in $I_0 = [-M, M]$ and let
   $F_0 = \setdef{n \in \mathbb N}{a_n \in I_0} = \mathbb N$ (index set). $F_0$ is infinite.
   We build nested intervals with the properties:
@@ -2957,13 +2957,14 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
 
   This construction is inductive:
   \begin{description}
-    \item[induction base] $I_0 \checkmark$
+    \item[induction base] $I_0 \quad \checkmark$
     \item[induction step]
-      Let $I_n$ be given. $I_n = [A_n, M_n]$ and $L_n = [M_n, B_n]$.
-      It holds that $I_n \subseteq I_n \land L_n \subseteq I_n$
+      Let $I_n = [A_n, B_n]$ be given and $M_n = \frac12(A_n + B_n)$.
+      Let $J_n = [A_n, M_n]$ and $L_n = [M_n, B_n]$.
+      It holds that $J_n \subseteq I_n \land L_n \subseteq I_n$
       and $\card{J_n} = \frac12 \abs{I_n} \land \abs{L_n} = \frac12 \abs{I_n}$.
       Because there are infinitely many sequence numbers of $\seq{a_n}$ in $I_n$
-      and $I_n = J_n \cup L_n$ in at least one subinterval there have to be
+      and $I_n = J_n \cup L_n$, in at least one subinterval there have to be
       infinitely many sequence numbers.
 
       Therefore select $I_{n+1} = J_n$ if $J_n$ contains infinitely many sequence numbers
@@ -3002,13 +3003,13 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   Consider a convergent subsequence of $\seq{\alpha_n}$,
   $\left(\alpha_{n_k}\right)_{k \in \mathbb N}$ with
   $\lim_{k\to\infty} \alpha_{n_k} = \alpha$.
-  Now consider $\left(\beta_{n_k}\right)_{k \in \mathbb N}$ is bounded.
+  Now consider bounded $\left(\beta_{n_k}\right)_{k \in \mathbb N}$.
   From the Bolzano-Weierstrass theorem it follows that there
   exists a convergent subsequence $\left(\beta_{n_{k_l}}\right)_{l \in \mathbb N}$
   with $\beta = \lim_{l\to\infty} \beta_{n_{k_l}}$.
 
-  $\left(\alpha_{n_{k_l}}\right)_{l \in \mathbb l}$ is subsequence of
-  $\left(\alpha_{n_{k_l}}\right)$ TODO
+  $\left(\alpha_{n_{k_l}}\right)_{l \in \mathbb N}$ is subsequence of
+  $\left(\alpha_{n_k}\right)_{k \in \mathbb N}$
   convergent with limit point $\alpha$.
 
   Let $a_{n_{k_l}} = \alpha_{n_{k_l}} + i \beta_{n_{k_l}}$
