@@ -3915,6 +3915,7 @@ How can we construct/find bases?
 \end{ex}
 
 \begin{theorem}[Basis extension theorem] % TODO translate Basisergänzungssatz
+  \label{basis-extension}
   (Steinitz' exchange lemma for finite vector spaces)
 
   Let $V$ be a vector space with $\dim{v} = n < \infty$.
@@ -4236,6 +4237,7 @@ How do we find a basis?
 \index[German]{\foreignlanguage{ngerman}{Siebformel}}
 \index[English]{Inclusion-exclusion principle}
 \begin{theorem}[Inclusion-exclusion principle]
+  \label{inclusion-exclusion}
   In German, it is called \foreignlanguage{ngerman}{Siebformel}.
 
   \[ \card{A \cup B} = \card{A} + \card{B} - \card{A \cap B} \]
@@ -4343,6 +4345,300 @@ How do we find a basis?
   \[ \Rightarrow a = 0 \Rightarrow u' = u \land w = w' \]
   Coefficient is zero, so $v = 0$.
 \end{proof}
+
+\meta{lecture}{30th of November 2015}{Franz Lehner}
+\begin{theorem}
+  \label{satz-4-5b}
+  \[ \dim(U + W) = \dim(U) + \dim(W) - \dim(U \cap W) \]
+  If $U \cap W = \set{0}$ then the dimension is directly the sum $\dim(U) + \dim(W)$.
+\end{theorem}
+
+\[ U + W = [U \cup W] = \setdef{u+w}{u \in U, w \in W} \]
+A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ is unique.
+
+\begin{theorem}
+  The sum is direct if and only if $U \cap W = \set{0}$.
+\end{theorem}
+
+\begin{theorem}
+  \label{satz-4-9}
+  Vector space $V$, $\dim(V) < \infty$.
+  Then $U,W \subseteq V$ are subspaces.
+
+  The following statements are equivalent:
+  \begin{itemize}
+    \item $V = U \dot{+} W$
+    \item $V = U + W \land \dim(V) = \dim(U) + \dim(W)$
+    \item $U \cap W = \set{0} \land \dim(V) = \dim(U) + \dim(W)$
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[1 implies 2]
+      \[ V = U \dot{+} W \]
+      \[ \Rightarrow V = U + W \land U \cap W = \set{0} \text{ Theorem~\ref{satz-4-8}} \]
+      \[ \xRightarrow{\text{Theorem~\ref{satz-4-5b}}} \dim(U + W) = \dim(U) + \dim(W) \]
+    \item[2 implies 3]
+      We use theorem~\ref{satz-4-5b}.
+      \[ \dim(U + W) = \dim(U) + \dim(W) - \dim(U \cap W) \]
+      \[ \Rightarrow \dim(V) = \dim(V) - \dim(U \cap W) \]
+      \[ \dim(U+W) = \dim(V) \text{ because } U + W = V \]
+      \[ \dim(U) + \dim(W) = \dim(V) \text{ is required} \]
+      \[ \Rightarrow \dim(U \cap W) = 0 \]
+      \[ \Rightarrow U \cap W = \set{0} \]
+    \item[3 implies 1]
+      \[ U \cap W = \set{0} \land \dim(U) + \dim(W) = \dim(V) \]
+      \[ \xRightarrow{\text{Theorem~ref{satz-4-5b}}} \dim(U+W) = \dim(U) + \dim(W) - \dim(\set{0}) \]
+      \[ \dim(U+W) = \dim(U) + \dim(W) \]
+      \[ U + W \subseteq V \land \dim(U+W) = \dim(V) \Rightarrow U + W = V \]
+  \end{description}
+\end{proof}
+
+\begin{ex}
+  Consider $\mathbb R^2$. Let $U$ be a subspace of dimension 1 which goes through $(0, 0)$.
+  Is there some $W \subseteq \mathbb R^2$ such that $\mathbb R^2 = U \dot{+} W$.
+  Yes, this holds for all lines $W \neq U$ (with $\dim(W) = 1$) which go through $(0, 0)$.
+\end{ex}
+
+\index[English]{Complementary space}
+\index[German]{\foreignlanguage{ngerman}{Komplementärraum}}
+\begin{theorem}
+  \label{satz-4-10}
+  Let $V$ be a vector space with $\dim(V) < \infty$. Then it holds that
+  \[ \bigwedge_{U \subseteq V \text{ subspace}} \bigvee_{W \subseteq V \text{ subspace}} V = U \dot{+} W \]
+  $W$ is called \emph{complementary space of $U$}.
+\end{theorem}
+
+\begin{rem}
+  \begin{enumerate}
+    \item Complementary spaces are not uniquely defined!
+    \item If $\dim(V) = \infty$, then the question for existence of complementary spaces is difficult
+      (depends on correctness of axiom of choice, covered in the complex analysis course)
+  \end{enumerate}
+\end{rem}
+
+\begin{proof}
+  Let $u_1, \dots, u_n$ be basis of $U \subseteq V$.
+  We use the basis extension theorem~\ref{basis-extension}.
+  \[ \Rightarrow \bigvee_{w_1, \dots, w_n \in V} (u_1, \dots, u_v, w_1, \dots, w_m) \text{ is basis of } V \]
+  Then $W = L(w_1, \dots, w_m)$ is a complementary space.
+
+  We need to show that $V = U \dot{+} W$.
+  Therefore $V = U + W$ and $U \cap W = \set{0}$.
+
+  \begin{enumerate}
+    \item
+      Let $u \in V$. Find $u \in U, w \in W$ such that $v = u + w$.
+
+      $B$ is basis
+      \[
+        \Rightarrow \bigvee_{\lambda_1, \dots, \lambda_m} \bigvee_{\mu_1, \dots, \mu_m} v
+        = \underbrace{\lambda_1 u_1 + \dots + \lambda_r u_r}_{= u \in U} + \underbrace{\mu_1 w_1 + \dots + \mu_m w_m}_{= w \in W}
+        = u + w \in U + W
+      \]
+    \item
+      Let $v \in U \cap W$.
+      \[ v \in U \Rightarrow \bigvee_{\lambda_1, \dots, \lambda_r} v = \lambda_1 u_1 + \dots + \lambda_r u_r \]
+      \[ v \in W \Rightarrow \bigvee_{\mu_1, \dots, \mu_m} v = \mu_1 w_1 + \dots + \mu_m w_m \]
+      \[ \Rightarrow 0 = v - v = \lambda_1 u_1 + \dots + \lambda_r u_r - \mu_1 w_1 - \dots - \mu_m w_m \]
+      is linear combination of $B$, which results in $0$. The basis is linear independent,
+      therefore all $\lambda_i = 0$ and $\mu_j = 0$. Therefore $v = 0$.
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Sum of subspaces}
+\index[German]{\foreignlanguage{ngerman}{Summe der Unterräume}}
+\begin{theorem}
+  \label{satz-4-12}
+  Let $V$ be a vector space. Let $U_1, \dots, U_m \subseteq V$ be subspaces.
+  Then $U_1 + \dots + U_m = [U_1 \cup \dots \cup U_m]$ is the \emph{sum of subspaces}
+  and it holds that $U_1 + \dots + U_m = \setdef{u_1 + \dots + u_m}{u_i \in U_i}$.
+
+  The proof is provided in the practicals.
+  \[ U_1 + (U_2 + U_3) = (U_1 + U_2) + U_3 \]
+
+  \textbf{Attention!}
+  The inclusion-exclusion principle~\ref{inclusion-exclusion} does not hold for the dimension.
+\end{theorem}
+
+\index[English]{Direct sum}
+\index[German]{\foreignlanguage{ngerman}{Direkte Summe}}
+\index[English]{Projection}
+\index[German]{\foreignlanguage{ngerman}{Projektion}}
+\begin{defi}
+  Let $U_1, \dots, U_m \subseteq V$ be subspaces.
+  The sum $W = U_1 + \dots + U_m$ is called \emph{direct}, if
+  \[ \bigwedge_{w \in W} \dot\bigvee_{u_1 \in U_1} \dots \dot\bigvee_{u_m \in U_m} w = u_1 + \dots + u_m \]
+  Therefore the decomposition must be unique. We denote:
+  \[ W = U_1 \dot{+} U_2 \dot{+} \dots \dot{+} U_m \]
+
+  The resulting mapping
+  \[ \pi_{\mathbb R}: W \rightarrow U_k \]
+  \[ w \mapsto u_k \]
+  is called \emph{projection} on $U_k$.
+\end{defi}
+
+\begin{theorem}
+  The characterization $U + W$ is direct $\Leftrightarrow U \cap W = \set{0}$
+  cannot be generalized.
+  It does not suffices that $U_1 \cap \dots \cap U_m = \set{0}$
+\end{theorem}
+
+\begin{theorem}
+  \label{satz-4-14}
+  Let $V$ be a vectorspace. Let $U_1, \dots, U_m \subseteq V$ be subspaces
+  with $U_i \neq \set{0}$.
+
+  Then the sum $W = U_1 + \dots + U_m$ is direct.
+  Therefore every family $(u_1, \dots, u_m)$ with $u_i \in U_i \setminus \set{0}$ is linear independent.
+\end{theorem}
+\begin{proof}
+  Proof direction $\Rightarrow$.
+
+  Let $u_i \in U_i \setminus \set{0}$.
+  Show that if $\sum_{i=1}^m \lambda_i u_i = 0 \Rightarrow \lambda_i = 0 \forall i$.
+
+  Followingly therefore $\lambda_i = 0 \forall i$ and then $\lambda_i \cdot u_i = 0$.
+  From $u_i \neq 0 \forall i$ it follows that, $\lambda_i = 0$.
+
+  Assume $\sum_{i=1}^m \lambda_i u_i = 0$.
+  \[ \sum_{i=0}^m w_i \qquad w_i = \lambda_i u_i \in U_i \]
+  $\Rightarrow$ decomposition of vector $0$ in components from $U_i$.
+
+  If the sum is direct, then the decomposition must be the same.
+  \[ 0 = 0 + 0 + \dots + 0 \]
+\end{proof}
+\begin{proof}
+  Proof direction $\Leftarrow$.
+
+  Let $w \in W$ with $w = \sum_{i = 1}^m u_i$.
+  Show that the decomposition is unique.
+
+  Let $w = \sum_{i=1}^m w_i$ is a different decomposition.
+  Show that all $u_i = u_i'$
+  \[ 0 = w - w = \sum_{i=1}^m (u_i - u_i') \]
+
+  Let
+  \[
+    w_i = \begin{cases}
+      u_i - u_i' & \text{if } u_i \neq u_i' \\
+      z_i \in U_i \setminus \set{0} & \text{arbitrary}
+    \end{cases}
+    \Rightarrow w_i \neq 0
+  \]
+  Correspondingly
+  \[
+    \lambda_i = \begin{cases}
+      1 & u_i \neq u_i' \\
+      0 & u_i = u_i
+    \end{cases}
+  \]
+
+  \[ \sum_{i=1}^m \lambda_i \cdot w_i = 0 \]
+  \[ = \sum_{\substack{i \\ u_i \neq u_i'}} u_i - u_i' + \sum_{\substack{i \\ u_i \neq u_i'}} 0 \cdot z_i = 0 \]
+  \[ w_i \text{ is linear indep.} \Rightarrow \lambda_i = 0 \forall i \Rightarrow \bigwedge_{\substack{i \\ \lambda_i = 1 \text{ does not occur}}} u_i = u_i' \]
+\end{proof}
+
+\begin{quote}
+  \foreignlanguage{ngerman}{\enquote{Die Sache ist an sich klar. Nur wenn man sie niederschreibt, wird sie unklar.} (Franz Lehner)}
+\end{quote}
+
+\begin{theorem}
+  \label{satz-4-15}
+  Let $V$ be a vector space. $\dim(V) < \infty$.
+  \[ U_1, \dots, U_m \subseteq V \text{ are subspaces}, U_i \neq \set{0} \]
+  Then the following statements are equivalent:
+  \begin{enumerate}
+    \item $W = U_1 + \dots + U_m$ is direct.
+    \item For every choice of basis $B_i \subseteq U_i$, $B_1 \cup \dots \cup B_m$ is basis of $W$.
+    \item $\dim(W) = \sum_{i=1}^m \dim(U_i)$
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item[2 to 3] follows immediately.
+    \item[1 to 2]
+      Let $W = U_1 \dot{+} \dots \dot{+} U_m$.
+      Let $B_i = (U_{i,1}, \dots, U_{i,\sqrt{i}})$ be basis of $U_i$ for all $i$.
+
+      We need to show that $B_1 \cup \dots B_m$ is basis of $W$. Therefore,
+      \begin{enumerate}
+        \item $L(B_1 \cup \dots \cup B_m) = W$
+        \item $B_1 \cup \dots \cup B_m$ is linear independent.
+      \end{enumerate}
+      We prove those statements:
+      \begin{enumerate}
+        \item \[ L(B_1 \cup \dots \cup B_m) = L(B_1) + \dots + L(B_m) = U_1 + \dots + U_m = W \]
+        \item $B_i \cup \dots \cup B_m$ is linear independent.
+          \[ B_1 \cup \dots \cup B_m = \setdef{b_{ij}}{i \in \set{1, \dots, m}, j \in \set{1, \dots, r_j}} \]
+
+          Let $\lambda_i \in K$ with $i \in \set{1, \dots, m}$ and $j \in \set{1, \dots, r_i}$.
+          Such that
+          \[ \sum_{i=1}^m \sum_{j=1}^r \lambda_{ij} \mu_{ij} = 0 \]
+
+          Show that all $\lambda_{ij} = 0$.
+
+          Let $w_i = \sum_{i=1}^r_i \lambda_{ij} u_{ij} \in U_i$.
+          \[ \Rightarrow \sum_{i=1}^m w_i = 0 \]
+          The sum of $U_i$ is direct.
+          Therefore the vector $0$ has a unique decomposition.
+          Therefore all $w_i = 0$.
+          \[ \Rightarrow \sum_{j=1}^{r_i} = \lambda_{ij} u_{ij} = 0 \forall i \]
+          $u_{ij}$ is basis of $U_i$.  So it is linear independent.
+          So $\lambda_{ij} = 0 \forall j \in \set{1, \dots, r_i}$.
+
+          This holds for every $i$
+          \[ \Rightarrow \lambda_{ij} = 0 \qquad \forall i \forall j \]
+      \end{enumerate}
+    \item[3 implies 1]
+      Let $B_i = (u_{i,1}, u_{i,2}, \dots, u_{i,r_i})$ be basis of $U_i$
+      and $B = B_1 \cup \dots \cup B_m$ is basis of $W$.
+
+      Show that every $w \in W$ has a unique decomposition.
+      \[ w = w_1 + \dots + w_m \text{ with } w_i \in U_i \]
+      Let $w = w'_1 + \dots + w_m'$ be a different decomposition.
+
+      Let $w_i = \sum_{j=1}^{r_i} \lambda_{ij} u_{ij}$ be a decomposition of $w_i$ in regards of basis $B_i$.
+      \begin{align*}
+        w_i' &= \sum_{j=1}^{r_i} \mu_{ij} u_{ij} \\
+        \Rightarrow w &= \sum_{i=1}^m \left(\sum_{j=1}^{r_i} \lambda_{ij} u_{ij}\right) \\
+         &= \sum_{i=1}^m \left(\sum_{j=1}^{r_i} \mu_{ij}, u_{ij}\right)
+      \end{align*}
+      Let $(u_{ij})$ be basis of $W$. Therefore all $\lambda_{ij} = \mu_{ij}$.
+      Therefore $w_i = w_i'$ for all $i$. So the decomposition is unique.
+  \end{enumerate}
+\end{proof}
+
+\begin{rem}[Special case]
+  \[ (b_1, \dots, b_m) \text{ is basis of } W \]
+  \[ \Leftrightarrow w = L(b_1) \dot{+} L(b_2) \dot{+} \dots \dot{+} L(b_m) \]
+\end{rem}
+
+\index[English]{Direct product}
+\index[German]{\foreignlanguage{ngerman}{direktes Produkt}}
+\index[English]{Outer product}
+\index[German]{\foreignlanguage{ngerman}{äußeres Produkt}}
+\begin{theorem}
+  \label{satz-4-16}
+  Let $V, W$ be vector spaces over $K$.
+
+  Given vector space $X$ such that $X = V,W$.
+  For example, $V = K[x]$ and $W = K^3$.
+
+  Then also
+  \[ V \times W = \setdef{(u,w)}{u \in V, w \in W} \]
+  with the operations
+  \[ (v,w) + (v',w') = (v + v', w + w') \]
+  \[ \lambda \cdot (v, w) = (\lambda v, \lambda w) \]
+
+  A vector space with vector $0$ (which is $(0_v, 0_w)$)
+  and an inverse element
+  \[ -(v, w) = (-v, -w) \]
+  is called \emph{direct product} $V \times W$
+  or called \emph{outer sum} $V \oplus W$
+  (but not $V \otimes W$ which is the tensor product).
+\end{theorem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
