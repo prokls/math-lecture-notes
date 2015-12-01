@@ -20,6 +20,7 @@
 \date{winter term 2015}
 
 \newcommand\meta[3]{This #1 took place on #2 (#3).\par}
+\newcommand\abs[1]{|\,#1\,|}
 \newcommand\set[1]{\left\{#1\right\}}
 \newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
 \newcommand\card[1]{\left|\,#1\,\right|}
@@ -35,6 +36,8 @@
 \newtheorem{ex}{Example}
 \newtheorem{rem}{Remark}
 \newtheorem{cor}{Corollary}
+
+\DeclareMathOperator\Hom{Hom}
 
 \DeclarePairedDelimiter\norm\lVert\rVert
 
@@ -4579,7 +4582,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 
           Show that all $\lambda_{ij} = 0$.
 
-          Let $w_i = \sum_{i=1}^r_i \lambda_{ij} u_{ij} \in U_i$.
+          Let $w_i = \sum_{i=1}^r \lambda_{ij} u_{ij} \in U_i$.
           \[ \Rightarrow \sum_{i=1}^m w_i = 0 \]
           The sum of $U_i$ is direct.
           Therefore the vector $0$ has a unique decomposition.
@@ -4632,13 +4635,305 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   \[ (v,w) + (v',w') = (v + v', w + w') \]
   \[ \lambda \cdot (v, w) = (\lambda v, \lambda w) \]
 
-  A vector space with vector $0$ (which is $(0_v, 0_w)$)
+  Given a vector space with vector $0$ (which is $(0_v, 0_w)$)
   and an inverse element
   \[ -(v, w) = (-v, -w) \]
-  is called \emph{direct product} $V \times W$
-  or called \emph{outer sum} $V \oplus W$
+  The product $V \times W$ (or denoted $V \oplus W$)
+  is called \emph{direct product} or \emph{outer sum}
   (but not $V \otimes W$ which is the tensor product).
 \end{theorem}
+
+\begin{theorem}
+  \label{satz-4-17}
+  If $\dim(V), \dim(W) < \infty$. Then $\dim(V \oplus W) = \dim(V) + \dim(W)$.
+\end{theorem}
+\begin{proof}
+  We are going to construct an appropriate basis.
+  Let $(v_1, \dots, v_m)$ be a basis in $V$.
+  Let $(w_1, \dots, w_n)$ be a basis in $W$.
+
+  Our claim is that $((u_1, 0), (u_2, 0), \dots, (u_m, 0), (0, w_1), (0, w_2), \dots, (0, w_n)) = B$
+  is a basis of $V \oplus W$.
+
+  Show that
+  \begin{enumerate}
+    \item $B$ is linear independent.
+    \item $L(B) = V \oplus W$
+  \end{enumerate}
+
+  Proof:
+  \begin{enumerate}
+    \item Let
+      \[ \lambda_1, \dots, \lambda_{m+n} \in K \text{ such that } \sum_{i=1}^{m} \lambda_i (v_i, 0) + \sum_{j=1}^n \lambda_{m+j} (0, w_j) = (0, 0) \]
+      Show that all $\lambda_i = 0$.
+      \[ = \sum_{i=1}^m (\lambda_i v_i, 0) + \sum_{j=1}^n (0, \lambda_{m+j} w_j) \]
+      \[ = \left(\sum_{i=1}^m (\lambda_i v_i, 0)\right) + \left(0, \sum_{j=1}^n \lambda_{m+j} w_j\right) \]
+      \[ = \left(\sum_{i=1}^m \lambda_i v_i, \sum_{j=1}^n \lambda_{m+j} w_j\right) \stackrel{?}{=} (0_v, 0_w) \]
+      \[ \Rightarrow \sum_{i=1}^m \lambda_i v_i = 0_v \land \sum_{j=1}^n \lambda_{m+j} w_j = 0_w \]
+      $(v_1, \dots, v_m)$ is linear independent.
+      \[ \Rightarrow \lambda_1 = \dots = \lambda_m = 0 \qquad \Rightarrow \lambda_{m+1} = \dots = \lambda_{m+n} = 0 \]
+    \item Let $(v, w) \in V \oplus W$.
+      \[ \leadsto \bigvee_{\lambda_i, \dots, \lambda_m} v = \sum_{i=1}^m \lambda_i v_i \]
+      \[ \bigvee_{\mu_1, \dots, \mu_n} w = \sum_{j=1}^n \mu_j w_j \]
+      \begin{align*}
+        (v, w) &= \left(\sum_{i=1}^m \lambda_i v_i, \sum_{j=1}^n \mu_j w_j \right) \\
+               &= \left(\sum_{i=1}^m \lambda_i v_i, 0\right) + \left(0, \sum_{j=1}^n \mu_j w_j\right) \\
+               &= \left(\sum_{i=1}^m \lambda_i (v_i, 0) + \sum_{j=1}^n \mu_j (0, w_j)\right) \in L(B)
+      \end{align*}
+      Every $(v, w) \in V \oplus W$ is in $L(B)$. $V \oplus W \subseteq L(B)$.
+  \end{enumerate}
+\end{proof}
+
+\begin{rem}
+  Let $V_1$ and $V_2$ be vector spaces.
+  \[ V = V_1 \oplus V_2 \]
+  Then we can identify $V_1$ with the subspace
+  \[ U_1 = \setdef{(v_1, 0)}{v_1 \in V_1} \subseteq V_1 \oplus V_2 \]
+  analogously
+  \[ V_2 \stackrel\sim{=} U_2 = \setdef{(0, v_2)}{v_2 \in V_2} \subseteq V_1 \oplus V_2 \]
+  and it holds that
+  \[ V_1 \oplus V_2 = U_1 \dot{+} U_2 \]
+\end{rem}
+
+\begin{theorem}
+  Let $I$ be an index set.
+  For every $i \in I$, let $V_i$ be a vector space over $K$.
+
+  Direct product:
+  \[ \prod_{i \in I} V_i = \times_{i \in I} V_i = \setdef{(v_i)_{i \in I}}{v_i \in V_i \forall i} \]
+  Direct outer sum:
+  \[ \oplus_{i \in I} V_i = \setdef{(v_i)_{i \in I}}{v_i \in V_i \text{ and only finitely many } v_i \neq 0} \]
+
+  They are vector spaces in regards of operations:
+  \[ (v_i)_{i \in I} + (w_i)_{i \in I} = (v_i + w_i)_{i \in I} \qquad \lambda \cdot (v_i)_{i \in I} = (\lambda \cdot v_i)_{i \in I} \]
+
+  \[ \oplus_{i \in I} V_i \subsetneq \prod_{i \in I} V_i \text{ if $I$ is infinite} \]
+\end{theorem}
+
+\begin{ex}
+  \[ \mathbb R^{\mathbb N} = \prod_{n \in \mathbb N} \mathbb R \]
+  \begin{align*}
+    \oplus_{n \in \mathbb N} \mathbb R
+      &= \setdef{(x_n)_{n \in \mathbb N}}{\bigvee_{n \in \mathbb N} \bigwedge_{n \geq n_0} x_n = 0} \\
+      &= \setdef{(x_0, x_1, \dots, x_n, 0, \dots)}{n \in \mathbb N, x_i \in \mathbb R} \\
+      &\stackrel{\sim}= \mathbb R[x]
+  \end{align*}
+  In between there are \emph{many} other spaces (complex analysis discusses that).
+
+  For example, $c_0 = \setdef{(x_n)}{\lim_{n \to \infty} x_n = 0}$.
+  \[ \lim_{n \to \infty} (a_n + b_n) = \lim_{n\to\infty} a_n + \lim_{n\to\infty} b_n \]
+  \[ \lim_{n \to \infty} \lambda a_n = \lambda \lim_{n\to\infty} a_n \]
+  Because this holds, we have two operations for a vector space. This is actually a vector space (over the set of convergent sequences).
+
+  \[ \mathbb R^{\mathbb N} \coloneqq \oplus_{n \in \mathbb N} \mathbb R \subsetneq c_0 \subsetneq \mathbb R^{\mathbb N} \]
+  with
+  \[ c = \setdef{(x_n)}{\lim x_n \text{ exists}} = c_0 \oplus L((1, 1, 1, \dots)). \]
+
+  \[ l^\infty = \setdef{(x_n)_{n \in \mathbb N}}{x_n \in \mathbb R \land \sup_n(\abs{x_n}) < \infty} \]
+  \[ \mathbb R^{(\mathbb N)} \subsetneq c_0 \subsetneq c \subsetneq l^\infty \subsetneq \mathbb R^{\mathbb N} \]
+
+  Every convergent sequence $(x_n)$ is uniquely representable as $(y_n) + \lambda(1, 1, 1, \dots)$ with $(y_n) \in c_0$.
+\end{ex}
+
+\begin{rem}
+  \[ \left(\mathbb Z_n, +\right) \]
+  Is a factor set $\mathbb Z_n = \mathbb Z / n\mathbb Z$.
+
+  Factorization in regards of relation:
+  \[ x \equiv_1 y \Leftrightarrow n \divides x - y \Leftrightarrow x-y \in n\mathbb Z \]
+
+  Let $(G, +)$ be an abelian group. $H \subseteq G$ as subgroup.
+  So this is a equivalence relation:
+  \[ x \equiv_H y \Leftrightarrow x - y \in H \]
+\end{rem}
+
+\index[English]{Linear manifold}
+\index[German]{\foreignlanguage{ngerman}{Lineare Mannigfaltigkeit}}
+\begin{theorem}[Applied to vector spaces]
+  \label{satz-4-21}
+  Let $V$ be a vector space over $K$. $U \subseteq V$ is a subspace.
+
+  \begin{enumerate}
+    \item
+      The relation
+      \[ v \sim_u w \Leftrightarrow v - w \in U \]
+      is an equivalence relation in $V$.
+    \item
+      The equivalence class of a vector $v \in V$ is
+      \[ [v]_u = \setdef{w}{w -v \in U} = \setdef{v+u}{u \in U} = v + U \]
+      is called \emph{linear manifold}.
+
+      (Consider a vector $v$ and a line $U$. $v + U$ is the set of all lines parallel to $U$ and going through $v$.)
+    \item
+      \[ \bigwedge_{v,v',w,w' \in V} v \sim_U v' \land w \sim_U w' \Rightarrow v+w \sim_U v' + w' \]
+      \[ \bigwedge_{\lambda \in K} \bigwedge_{v,v' \in V} v \sim_U v' \Rightarrow \lambda v \sim_U \lambda v' \]
+      We therefore define
+
+      \TODO
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \begin{description}
+        \item[reflexive] $v \sim_U v \Leftrightarrow v-v \in U$
+        \item[symmetrical] $v \sim_U w \Leftrightarrow v-w \in U \Rightarrow w-v \in U \Rightarrow w \sim_U v$
+        \item[transitive] $v \sim_U w \land w \sim_U z \Rightarrow v-w \in U, w - z \in U$
+          and $v - z = (v - w) + (w - z) \in U$.
+      \end{description}
+    \item Follows immediately.
+    \item
+      \[ v - v' \in U, w - w' \in U \Rightarrow v-v'+w-w' \in U \]
+      \[ (v+w') - (v'+w') \]
+      Here we can see, that this will not work in non-commutative groups\footnote{We need at least the requirement of a normal divisor.
+      \[ xHx^{-1} = H \quad\forall x \in G \]}.
+    \item $v - v' \in U \Rightarrow \lambda v - \lambda v' = \lambda(v - v') \in U$
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Factor space}
+\index[German]{\foreignlanguage{ngerman}{Faktorraum}}
+\index[English]{Quotient space}
+\index[German]{\foreignlanguage{ngerman}{Quotientenraum}}
+\begin{theorem}
+  \label{satz-4-22}
+  The set of equivalence classes $V/U$:
+  % TODO: better typesetting for V/U
+  \[ V/U \coloneqq \left(V/\sim U, +, \cdot\right) \]
+  with the operations
+  \[ [v]_U + [w]_U \coloneqq [v+w]_U \]
+  \[ \left[\Rightarrow v+U + w+U = (v+w)+U\right] \]
+  \[ \lambda\cdot [v]_U \coloneqq [\lambda v]_U \]
+  \[ \left[\Rightarrow \lambda \cdot (v + U) = \lambda v + U\right] \]
+  is a vector space with neutral element
+  \[ [0]_U = U \]
+  and inverse element
+  \[ -[v]_U = [-v]_U = -v + U \]
+  and is called \emph{factor space} or \emph{quotient space}.
+\end{theorem}
+\begin{proof}
+  The operations of Theorem~\ref{satz-4-21} are well-defined.
+  The distributive laws:
+  \[ \lambda \cdot ([v]_U + [w]_U) \stackrel{!}{=} \lambda [v]_U + \lambda [w]_U \]
+  \[ = \lambda \cdot [v + w]_U \]
+  \[ = [\lambda(v+w)]_U \]
+  \[ = [\lambda v + \lambda u]_U \]
+  \[ = [\lambda v]_U + [\lambda w]_U \]
+  \[ = \lambda[v]_U + \lambda[w]_U \]
+\end{proof}
+
+\begin{ex}
+  \label{bsp-4-25}
+  \[ V = \mathbb R^3 \]
+  \[
+    U = \setdef{\begin{pmatrix} x \\ y \\ 0\end{pmatrix}}{x,y \in \mathbb R}
+      = L\left(\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\right)
+  \] \[
+    \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} + U
+      = \setdef{\begin{pmatrix} v_1 + x \\ v_2 + y \\ v_3 \end{pmatrix}}{x,y \in \mathbb R}
+      = \setdef{\begin{pmatrix} x' \\ y' \\ v_3 \end{pmatrix}}{x,y \in \mathbb R}
+  \]
+  $V/U$ is the plane parallel to the x-y-plane.
+  \[
+    \left(\begin{pmatrix} 0 \\ 0 \\ z \end{pmatrix} + U\right)
+    + \left(\begin{pmatrix} 0 \\ 0 \\ z \end{pmatrix} + U\right)
+    = \left(\begin{pmatrix} 0 \\ 0 \\ z_1 + z_2 \end{pmatrix} + U\right)
+  \]
+  \[ V/U \stackrel\sim{=} \mathbb R \]
+\end{ex}
+
+\begin{theorem}
+  \label{satz-4-24}
+  Let $\dim(V) < \infty$.
+  \[ U \subseteq V \text{ is a subspace} \]
+  Then $\dim(V/U) = \dim(V) - \dim(U)$.
+\end{theorem}
+\begin{proof}
+  Let $(u_1, \dots, u_r)$ be a basis of $U$.
+  The basis extension theorem allows us to extend this set with
+  $(w_1, \dots, w_n)$ such that $(u_1, \dots, u_r, w_1, \dots, w_n)$ is basis of $V$.
+
+  Claim: $\tilde{B} = (w_1 + U, w_2 + U, \dots, w_m + U)$ is basis of $V / U$.
+
+  These are exactly the equivalence classes of elements with basis of $V$,
+  which are not mapped to $0 + U$ ($[0]_U$).
+
+  We need to prove that this is a basis:
+  \begin{enumerate}
+    \item Linear independence of $\tilde{B}$
+    \item $L(\tilde{B}) = V / U$
+  \end{enumerate}
+  So,
+  \begin{enumerate}
+    \item
+      Let $\lambda_1, \dots, \lambda_m \in K$ such that $\lambda_1 (w_1 + U) + \dots + \lambda_m (w_m + U) = [0]_U$.
+      \[ \lambda_1 w_1 + \dots + \lambda_m w_m + U = U \]
+      \[ \Rightarrow \lambda_1 w_1 + \dots + \lambda_m w_m \in U \]
+      We know: $U \cap L(w_1, \dots, w_m) = \set{0}$. So,
+      \[ \lambda_1 w_1 + \dots + \lambda_m w_m \cap L(w_1, \dots, w_m) = \set{0} \]
+      because the basis of $U$ is linear independent of $L(w_1, \dots, w_m)$.
+      \[ \Rightarrow \lambda_1 w_1 + \dots + \lambda_m w_m = 0 \]
+      \[ \Rightarrow \lambda_i = 0 \text{ because } (w_1, \dots, w_m) \text{ is linear independent (part of a basis)} \]
+    \item
+      $L(\tilde{B}) \subseteq V/U$ is obvious.
+
+      Let $v + U \in V/U$
+      \[ \Rightarrow v = \sum_{i=1}^r \lambda_i u_i + \sum_{i=1}^m \lambda_{r+i} w_i \]
+      Decomposition in regards of basis $B$ of $V$.
+      \[ v + U  = \underbrace{\sum_{i=1}^r \lambda_i u_i}_{\in U} + \sum_{i=1}^m \lambda_{r+i} w_i + U \]
+      \[ = \sum_{i=1}^m \lambda_{r+i} w_i + U \]
+      \[ = \sum_{i=1}^m \lambda_{r+i} \left(w_i + U\right) \in L(\tilde{B}) \]
+  \end{enumerate}
+\end{proof}
+
+\subsection{Conclusion}
+
+What did we do in this section?
+\begin{itemize}
+  \item $U+W$ (sums)
+  \item $U\dot{+}W$ (direct sums)
+  \item $V\oplus W, V \times W$ (outer sums)
+  \item $\prod_{i \in I} V_i, \oplus_{i \in I} V_i$
+  \item $V / U$
+\end{itemize}
+
+\section{Linear mappings}
+\begin{defi}
+  Let $V, W$ be vector spaces over $K$.
+  A mapping $f: V \rightarrow W$ is called \emph{vector raum homomorphism}
+  or \emph{linear} if
+  \[ \bigwedge_{v,w\in V} f(v+w) = f(v) + f(w) \qquad \text{\enquote{additivity}} \]
+  \[ \bigwedge_{\lambda \in K} \bigwedge_{v} f(\lambda v) = \lambda f(v)  \qquad \text{\enquote{multiplicity}} \]
+  We denote:
+  \[ \Hom(V, W) = \setdef{f: V \rightarrow W}{f \text{ is linear}} \]
+\end{defi}
+
+\begin{theorem}
+  \label{satz-5-2}
+  $f: V \rightarrow W$ is linear
+  \[ \Leftrightarrow \bigwedge_{\lambda,\mu \in K} \bigwedge_{v,w \in V} f(\lambda v + \mu w) = \lambda f(v) + \mu f(w) \]
+  \[ \Leftrightarrow \bigwedge_{\lambda \in K} \bigwedge_{v,w \in V} f(\lambda v + w) = \lambda f(v) + f(w) \]
+\end{theorem}
+
+\begin{ex}
+  \label{bsp-5-3}
+  \[ V = \mathbb R = W \]
+  Let $f: \mathbb R \rightarrow \mathbb R$ be linear.
+  $x \mapsto k \cdot x$ with $k \in \mathbb R$ fixed.
+
+  As in high school: $f(x) = kx + d$.
+\end{ex}
+\begin{ex}
+  \[ \text{id}: V \rightarrow V \]
+  \[ x \mapsto x \]
+\end{ex}
+\begin{ex}
+  $V$ with base $(b_1, b_2, \dots, b_n)$.
+  \[ \bigwedge_{v \in V} \bigvee_{\lambda_1, \dots, \lambda_n} v = \lambda_1 b_1  + \dots + \lambda_n b_n \]
+  \[ \Phi_B: V \rightarrow K^n \text{ is linear} \]
+  \[ v \mapsto \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \]
+  To be discussed in the practicals.
+\end{ex}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
