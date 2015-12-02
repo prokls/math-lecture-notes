@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="150"
+   height="150"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="capacity_scaling_algo_proof_edge.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path3788"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-2"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3788-5"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.84"
+     inkscape:cx="75.520833"
+     inkscape:cy="75"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-902.36218)">
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3753"
+       sodipodi:cx="42.838543"
+       sodipodi:cy="70.703125"
+       sodipodi:rx="20.442707"
+       sodipodi:ry="53.255207"
+       d="m 63.28125,70.703125 c 0,29.412035 -9.152512,53.255205 -20.442707,53.255205 -11.290195,0 -20.442707,-23.84317 -20.442707,-53.255205 0,-29.412039 9.152512,-53.255207 20.442707,-53.255207 11.290195,0 20.442707,23.843168 20.442707,53.255207 z"
+       transform="translate(-12,896.36218)" />
+    <path
+       transform="translate(76,896.36218)"
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3753-8"
+       sodipodi:cx="42.838543"
+       sodipodi:cy="70.703125"
+       sodipodi:rx="24.869791"
+       sodipodi:ry="53.255207"
+       d="m 67.708334,70.703125 c 0,29.412035 -11.134585,53.255205 -24.869791,53.255205 -13.735206,0 -24.869791,-23.84317 -24.869791,-53.255205 0,-29.412039 11.134585,-53.255207 24.869791,-53.255207 13.735206,0 24.869791,23.843168 24.869791,53.255207 z" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 39.84375,939.85176 c 22.706792,-23.8994 48.94968,-14.48641 68.22917,0"
+       id="path3773"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 107.58071,985.5975 c -22.706787,23.8995 -47.647591,14.4865 -66.927078,0"
+       id="path3773-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4243"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium Basic;-inkscape-font-specification:Gentium Basic"
+       transform="translate(13.020833,905.47676)"><flowRegion
+         id="flowRegion4245"><rect
+           id="rect4247"
+           width="44.791668"
+           height="27.604166"
+           x="11.458333"
+           y="120.05209" /></flowRegion><flowPara
+         id="flowPara4249"
+         style="font-size:16px">X</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4243-3"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium Basic;-inkscape-font-specification:Gentium Basic"
+       transform="translate(103.92188,905.6994)"><flowRegion
+         id="flowRegion4245-3"><rect
+           id="rect4247-0"
+           width="44.791668"
+           height="27.604166"
+           x="11.458333"
+           y="120.05209" /></flowRegion><flowPara
+         id="flowPara4249-4"
+         style="font-size:16px">X<flowSpan
+   style="font-size:65.00091553%;baseline-shift:super"
+   id="flowSpan4278">C</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4243-8"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium Basic;-inkscape-font-specification:Gentium Basic"
+       transform="translate(59.390625,879.66815)"><flowRegion
+         id="flowRegion4245-5"><rect
+           id="rect4247-4"
+           width="44.791668"
+           height="27.604166"
+           x="11.458333"
+           y="120.05209" /></flowRegion><flowPara
+         id="flowPara4249-2"
+         style="font-size:16px">0</flowPara></flowRoot>  </g>
+</svg>
