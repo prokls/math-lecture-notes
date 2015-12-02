@@ -3068,6 +3068,144 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   Therefore $\seq{a_n}$ contains a convergent subsequence.
 \end{proof}
 
+\meta{lecture}{2nd of December 2015}{Wolfgang Ring}
+\begin{theorem}[Weierstrass-Bolzano theorem]
+  Every bounded sequence in $\mathbb C$ has a convergent subsequence.
+\end{theorem}
+
+\begin{theorem}[Convergence]
+  Let $(x_n)_{n \in \mathbb N}$ be convergent in $\mathbb C$ with limes $x$.
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: \abs{x_n - x} < \varepsilon \]
+\end{theorem}
+
+\index[English]{Distance function}
+\index[German]{\foreignlanguage{ngerman}{Distanzfunktion}}
+\index[English]{Metric}
+\index[German]{\foreignlanguage{ngerman}{Metrik}}
+\index[English]{Metric space}
+\index[German]{\foreignlanguage{ngerman}{Metrischer Raum}}
+\begin{defi}[Metric space]
+  Let $X$ be a set. We call $d: X \times X \rightarrow \mathbb R$ a \emph{distance function} (or \emph{metric}) on $X$ if,
+  \begin{itemize}
+    \item $\forall x \in X: d(x, x) = 0$
+    \item $\forall x,y \in X: d(x, y) = d(y, x)$ (symmetry)
+    \item $\forall x,y,z \in X: d(x,z) \leq d(x,y) + d(y,z)$ (triangle inequality)
+  \end{itemize}
+  $(X, d)$ is called \emph{metric space}.
+\end{defi}
+\begin{ex}
+  $X = \mathbb C$, $d(x, y) = \abs{x - y}$.
+\end{ex}
+
+\begin{defi}[Convergence with metric spaces]
+  Let $X$ be a metric space. $(x_n)_{n \in \mathbb N}$ is a sequence of elements in $X$.
+  Let $x \in X$. We call $\seq{x_n}$ convergent with limes $x$ if
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: d(x_n, x) < \varepsilon \]
+\end{defi}
+
+
+\index[English]{pre-compact}
+\index[German]{\foreignlanguage{ngerman}{präkompakt}}
+\begin{defi}
+  Let $K \subseteq X$ be a subset of the metrical space $X$. We call $K$ \emph{pre-compact}
+  if every sequence $\seq{a_n}$ with $a_n \in K$ has a convergent subsequence.
+  $K$ is called compact if the limes $a$ of the convergent subsequence is also in $K$.
+\end{defi}
+
+\begin{defi}
+  In $\mathbb C$ it holds that every bounded set is pre-compact.
+\end{defi}
+
+\subsection{Cauchy sequences in $\mathbb R$ and $\mathbb C$}
+
+\fbox{Augustin-Louis Cauchy (1789--1857)}
+
+\index[English]{Cauchy sequence}
+\index[German]{\foreignlanguage{ngerman}{Cauchyfolge}}
+\index[English]{Fundamental sequence}
+\index[German]{\foreignlanguage{ngerman}{Fundamentalfolge}}
+\begin{defi}
+  Let $\seq{a_n}$ be a sequence in $\mathbb C$.
+  We call $\seq{a_n}$ a \emph{Cauchy sequence} (fundamental sequence) if
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \land m \geq N \Rightarrow \abs{a_n - a_m} < \varepsilon \]
+\end{defi}
+\begin{defi}[Cauchy sequence in a metric space]
+  Let $\seq{a_n}$ be a sequence in $X$.
+  We call $\seq{a_n}$ a \emph{Cauchy sequence} (fundamental sequence) if
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \land m \geq N \Rightarrow d(a_n, a_m) < \varepsilon \]
+\end{defi}
+
+\begin{lemma}
+  Every convergent sequence $\seq{a_n}$ in $\mathbb C$ is a Cauchy sequence.
+\end{lemma}
+\begin{proof}
+  Let $\seq{a_n}$ be convergent with limes $a$.
+  Let $\varepsilon > 0$ be arbitrary.
+
+  Convergence implies that $\exists N \in \mathbb N: n \geq N \Rightarrow \abs{a_n - a} < \frac\varepsilon2$.
+  For $m,n \geq N$ it holds that
+  \[
+      \abs{a_n - a_m}
+      = \abs{a_n - a + a - a_m}
+      \leq \underbrace{\abs{a_n - a}}_{< \frac\varepsilon2 \text{ because } n \geq N} + \underbrace{\abs{a - a_m}}_{< \frac\varepsilon2 \text{ because } m \geq N}
+  \]
+\end{proof}
+
+\begin{lemma}
+  Every Cauchy sequence $\seq{a_n}$ in $\mathbb C$ is bounded.
+\end{lemma}
+\begin{proof}
+  Let $\seq{a_n}$ be a Cauchy sequence in $\mathbb C$.
+  The Cauchy condition for $\varepsilon = 1$ states:
+  \[ \exists N \in \mathbb N: \forall m,n \geq N: \abs{a_n - a_m} < 1 \]
+  specifically $m = N: \forall n \geq N$
+  \[ \abs{a_n - a_N} < 1 \]
+  Therefore $\abs{a_n} = \abs{a_n - a_N + a_N} \leq \underbrace{\abs{a_n - a_N}}_{<1} + \abs{A_N} < \abs{a_N} + 1$.
+
+  Let $m = \max\set{\abs{a_0}, \abs{a_1}, \dots, \abs{a_{N-1}}}$
+  and $M = \max\set{m, \abs{A_N} + 1}$.
+
+  Then for $n \leq N - 1$ it holds that
+  \[ \abs{a_n} \leq m \leq M \]
+  and for $n \geq N$ it holds that
+  \[ \abs{a_n} \leq \abs{a_N} + 1 \leq M \]
+  Therefore $\forall n \in \mathbb N: \abs{a_n} \leq M$.
+  Therefore $\seq{a_n}$ is bounded.
+\end{proof}
+
+\index[English]{Completeness of $\mathbb C$}
+\index[German]{\foreignlanguage{ngerman}{Vollständigkeit von $\mathbb C$}}
+\begin{theorem}[Cauchy sequences and limes]
+  Every Cauchy sequence in $\mathbb C$ has a limes and is therefore convergent.
+  Followingly we call $\mathbb C$ to be \emph{complete}.
+\end{theorem}
+\begin{proof}
+  Let $\seq{a_n}$ be a Cauchy sequence in $\mathbb C$.
+  We know that $\seq{a_n}$ is bounded.
+  From the Bolzano-Weierstrass theorem it follows that a limit point $a$
+  of $\seq{a_n}$ exists. Let $\varepsilon > 0$ be arbitrary.
+  \begin{enumerate}
+    \item We choose $N \leq \mathbb N$ sufficiently large such that
+      \[ n,m \geq N \Rightarrow \abs{a_n - a_m} < \frac\varepsilon2 \]
+    \item Because $B(a, \frac\varepsilon2)$ contains infinitely many sequence numbers ($a$ is limit point),
+      $K \geq N$ exists with $\abs{a - a_K} < \frac{\varepsilon}{2}$.
+  \end{enumerate}
+  Let $n \geq N$. Then
+  \[
+      \abs{a_n - a}
+      = \abs{a_n - a_K + a_K - a} \leq \underbrace{\abs{a_n - a_K}}_{< \frac\varepsilon2 \text{ (Cauchy seq.)}} + \underbrace{\abs{a_K - a}}_{< \frac\varepsilon2 \text{ (limit point $a$)}}
+      < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon
+  \]
+  Therefore $\seq{a_n}$ is convergent with limes $a$.
+
+  We have proven that if $\seq{a_n}$ has a limit point, this limit point is also its limes.
+
+  We concluded: nested intervals $\Rightarrow$ compactness / Bolzano-Weierstrass theorem $\Rightarrow$ completeness.
+
+  Actually nested intervals are equivalent to completeness.
+\end{proof}
+
+
 \clearpage
 \begin{otherlanguage}{ngerman}
 \printindex[German]
