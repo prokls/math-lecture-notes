@@ -2903,9 +2903,14 @@ iff a $b$-flow exists in $G$. If $b$-flow exists, then $f$ restricted by $E(G)$ 
 
 \textbf{Observation.}
   There exists a max \flow st with value
-  \[ \sum_{v \in V(G), b(v) > 0} b(v) \]
+  \[ \sum_{v \in V(G), b(v) > 0} b(v) \text{ in G'} \]
 
-TODO: drawing
+\begin{figure}[ht]
+ \begin{center}
+  \includegraphics{img/mcfp_observation.pdf}
+  \caption{MFCP observation}
+ \end{center}
+\end{figure}
 
 \[ \Leftrightarrow b-\text{flow in } G \]
 
@@ -4905,7 +4910,7 @@ Considerations:
     \end{itemize}
 
   \item[6]
-    $A$ is total unimodular $\Rightarrow (A | -A)$ is total unimodular (analogously to item 4)
+    $A$ is total unimodular $\Rightarrow (A | -A)$ is total unimodular (analogously to item~4)
 \end{enumerate}
 
 \textbf{Attention!}
@@ -4921,7 +4926,7 @@ Considerations:
       \caption{Counterexample structure}
     \end{center}
   \end{figure}
-  As exercise, find a counterexample with $\det(C) \notin \set{0, \pm 1}$
+  As exercise, find a counterexample with $\det(C) \notin \set{0, \pm 1}$ but $A$ and $B$ are total unimodular.
 
 \begin{theorem}\label{satz-7.1}
   (Hoffman \& Kruskal, 1956)
@@ -4981,14 +4986,58 @@ Considerations:
               \label{fig:matstr}
             \end{center}
           \end{figure}
-          where $\hat B$ is created by column and row permutations of $B$.
+          where $\hat B$ is created by column and row permutations of $B$. See
+          \begin{figure}[!ht]
+            \begin{center}
+              \includegraphics{img/matrix_structure_2.pdf}
+              \caption{Matrix structure, part 2}
+              \label{fig:matstr2}
+            \end{center}
+          \end{figure}
+          \begin{figure}[!ht]
+            \begin{center}
+              \includegraphics{img/matrix_structure_3.pdf}
+              \caption{Matrix structure, part 3}
+              \label{fig:matstr3}
+            \end{center}
+          \end{figure}
+          Figure~\ref{fig:matstr2} is integral of bullet item 1.
+          Figure~\ref{fig:matstr3} (equivalent to Figure~\ref{fig:matstr2}) is integral $\Rightarrow \hat{B}^{-1}$ is integral.
+
+          \[
+            \hat{B} = P_\pi^t BP_\pi \Rightarrow \hat{B}^{-1} = (P_\pi^t BP_\pi)^{-1} = P_\pi^{-1} B^{-1} P\pi
+          \] \[
+            B^{-1} = P_\pi B^{-1} p_\pi^t \text{ is integral}
+          \]
       \end{itemize}
 
     \item[$3 \Rightarrow 1$]
       Let $B$ be a quadratic submatrix of $A$.
-      % TODO
+      If $\det(B) = 0$, we are done. Else $\det(B) \neq 0$ and $B^{-1}$ is integral, then $\det(B^{-1}) \in \mathbb{Z}$.
+      $\det(B^{-1}) = \frac1{\det(B)}$ is integral $\Rightarrow \det(B) \in \set{\pm 1}$.
   \end{itemize}
 \end{proof}
+
+\textbf{Corollary.}
+  Let $A \in \mathbb{Z}^{m\times n}$ be total unimodular. Then it holds $\fall b \in \mathbb{Z}^m \fall c \in \mathbb{Z}^n$ that
+  \begin{figure}[!ht]
+    \begin{center}
+      \includegraphics{img/lp.pdf}
+      \caption{Linear programming problem}
+      \label{fig:matstr3}
+    \end{center}
+  \end{figure}
+  \[
+    \max\set{c^t x: Ax \leq b, x \geq 0, x \in \mathbb{Z}}
+      = \min\set{b^t y: A^t y \leq c, y \geq 0, y \in \mathbb{Z}^m}
+  \]
+  This is equivalent (because of Theorem~\ref{satz-7.1})
+  \[
+    \max\set{c^tx: Ax \leq b, x \geq 0}
+      = \min\set{b^ty: A^t y \leq c, y \geq 0}
+  \]
+  This is the \emph{duality of linear programming}.
+
 
 \begin{theorem}\label{satz-7.2}
   (Heller \& Tompkins, 1959)
@@ -4996,9 +5045,40 @@ Considerations:
   $A$ is total unimodular if there exists a partition $(R, T)$ of the rows in $A$ $(R \dotcup T = \set{1, 2, \ldots, m}$) such that
   \begin{itemize}
     \item if column $j$ contains two $\pm 1$ entries, then the corresponding rows belong to different parts of the partition.
+    \item if column $j$ contains one $+1$ and one $-1$ entry, then the corresponding rows belong to the same part of the partition.
   \end{itemize}
 \end{theorem}
-  % TODO
+
+\begin{proof}
+  Let $B$ be a quadratic submatrix of $A$ with $B = (b_{ij})$. Show that $\det(B) \in \set{0, \pm 1}$.
+
+  Induction over number of rows of $B$. $B \in \set{0, \pm 1}^{k \times k}$.
+  \begin{description}
+    \item[Induction base]
+      $k=1$ is fine.
+    \item[Induction step]
+      Assume that the hypothesis holds for $B \in \set{0, \pm 1}^{(k-1)\times (k-1)}$
+      We want to show that it holds for $B \in \set{0, \pm 1}^{k\times k}$.
+
+      \begin{itemize}
+        \item If $B$ contains zero-column, then $\det(B) = 0$
+        \item If column $j$ has exactly one non-zero entry, the structure of Figure~\ref{fig:heller_hopkins_matstr} occurs.
+          \begin{figure}[!ht]
+            \begin{center}
+              \includegraphics{img/heller_hopkins.pdf}
+              \caption{Matrix structure for induction step, case 2}
+              \label{fig:heller_hopkins_matstr}
+            \end{center}
+          \end{figure}
+          Compute $\det(B)$ with development along column $j$ and apply induction assumption.
+        \item Every column has two non-zero entries.
+          Let $j$ be an arbitrary column index.
+          \[ \sum_{i \in R} b_{ij} = \sum_{i\in T} b_{ij} \fall j \]
+          It follows that rows of $B$ are linearly dependent. Hence $\det(B) = 0$.
+      \end{itemize}
+  \end{description}
+\end{proof}
+
 
 \textbf{Remarks:}
 \begin{itemize}
@@ -5013,25 +5093,39 @@ Considerations:
     Let $G$ be digraph $(a_{ve}): A \in \set{0, \pm 1}^{\card{V(G)} \times \card{E(G)}}$.
     \[
       a_{ve} = \begin{cases}
-        0 & v \cap e = \diameter \\
-        1 & e = (v, ?) \\
-        -1 & e = (?, v)
+        0   & v \cap e = \diameter \\
+        1   & e = (v, ?) \\
+        -1  & e = (?, v)
       \end{cases}
     \]
     Partition is $R = V(G)$ and $T = \diameter$.
 
   \item
     Vertex-edge incidence matrices of complete bipartite graphs:
+    \begin{figure}[!ht]
+      \begin{center}
+        \includegraphics{img/edge_vertex_matrix.pdf}
+        \caption{Example edges and vertices}
+        \label{fig:example-edges-vertices}
+      \end{center}
+    \end{figure}
     \[
       \card{A} = n \qquad B = m \quad (\card{A} + \card{B}) \times \card{E(G)}
     \] \[
       (a_{v,e}) = A = \set{0, + 1}
     \] \[
       a_{v,e} = \begin{cases}
-       1 & e \cap v \neq 0 \\
-       a_{e_{(n-1) m + 1}} & \text{else}
+       1   & e \cap v \neq \{\} \\
+       0   & \text{else}
       \end{cases}
     \]
+    \begin{figure}[!ht]
+      \begin{center}
+        \includegraphics{img/vertex_edge_matrix_structure.pdf}
+        \caption{Example edges and vertices matrix}
+        \label{fig:example-edges-vertices-matrix}
+      \end{center}
+    \end{figure}
 \end{itemize}
 
 \dateref{19th of January 2015}
@@ -5813,6 +5907,7 @@ Let $(E, \mathcal{F})$ be an IDS. The dual of $(E, \mathcal{F})$ is the family o
 
 \begin{theorem}
   \label{corollary-8.10}
+  \label{satz-8.10}
   $B^*$ base of $(E, \mathcal{F}^*) \Leftrightarrow \exists$ base $B$ of $(E, \mathcal{F})$ with $B^* = B^C$ and $(E, \mathcal{F}^*)$ its dual. Let $r$ and $r^*$ be the corresponding rank functions.
   Then it holds that
   \begin{itemize}
@@ -5822,7 +5917,7 @@ Let $(E, \mathcal{F})$ be an IDS. The dual of $(E, \mathcal{F})$ is the family o
 \end{theorem}
 
 \textbf{Example.}
-  $(M(G))^* = M(G^*) \fall G$ planar
+  $(M(G))^* = M(G^*) \fall G$ planar. A dual graph contains one vertex per area and 1 infinite area. An edge between 2 new vertices is created, if they are neighbors (share one edge). $(M(G))^* = M(G^*) \fall G \text{ planar}$.
   \begin{figure}[!ht]
     \begin{center}
       \includegraphics{img/duality.pdf}
@@ -5830,14 +5925,214 @@ Let $(E, \mathcal{F})$ be an IDS. The dual of $(E, \mathcal{F})$ is the family o
     \end{center}
   \end{figure}
 
-\begin{theorem}
-  \label{satz-8.10}
-  Let $(E, \mathcal{F})$ be an IDS. TODO
-\end{theorem}
 
 \dateref{27th of January 2015}
 
-TODO
+\begin{theorem}
+  \label{satz-8.11}
+  Let $G$ be a connected planar graph with an arbitrary planar embedding.
+  Let $G^*$ be the planar duality of $G$. Let $M(G)$ be the graphical matroid of $G$.
+  It holds that
+    \[ M^*(G) = (M(G))^* = M(G^*) \]
+
+  Furthermore $G$ is planar if and only if $(M(G))^*$ is graphical;
+  hence if a graph $G'$ with $M(G') = (M(G))^*$ exists.
+
+  If $G$ is planar, then $G'$ is isomorphic to a planar embedding of $G^*$.
+\end{theorem}
+
+\subsection{The greedy algorithm}
+%
+Let $(E, \mathcal{F})$ be a IDS and $c: E \rightarrow \mathbb{R}_+$ (without loss of generality).
+A maximization problem is given by $\max\set{c(F) := \sum_{c \in F} c(e): F \in \mathcal{F}}$.
+
+\begin{algorithm}
+  \caption{BEST-IN greedy algorithm}
+  \label{greedy-algorithm}
+  \given{IDS $(E, \mathcal{F})$, independent oracle, $c: E \rightarrow \mathbb{R}_+$}
+  \find{An independent set $F \in \mathcal{F}$}
+\begin{algorithmic}[1]
+  \State Sort edges $E = \set{e_1, e_2, \ldots, e_n}$ such that $c(e_1) \geq c(e_2) \geq \ldots \geq c(e_n)$
+  \State $F := \diameter$
+  \For{$i$ from $1$ to $n$}
+    \If{$F \cup \set{e_i} \in \mathcal{F}$}
+      \State $F := F \cup \set{e_i}$
+    \EndIf
+  \EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+  \caption{WORST-OUT greedy algorithm}
+  \label{worst-out-greedy-algorithm}
+  \given{An IDS $(E, \mathcal{F})$ is given by base supersets oracle (does given set contain a base?)}
+  \find{$B$ base of $(E, \mathcal{F})$}
+\begin{algorithmic}[1]
+  \State Sort edges $E = \set{e_1, e_2, \ldots, e_n}$ such that $c(e_1) \geq c(e_2) \geq \ldots \geq c(e_n)$
+  \State $F := E$
+  \For{$i$ from $1$ to $n$}
+    \If{$F | \set{e_i}$ contains base}
+      \State $F := F | \set{e_i}$
+    \EndIf
+  \EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{Definition.}
+  2 oracles $O_1$ and $O_2$ are called equivalent if $O_1(O_2)$ can be simulated by a polynomial algorithm using an Oracel $O_2(O_1)$ (in both directions!).
+
+  Let $O_1$ be an independent oracle. Let $O_2$ be a base superset oracle.
+  For general IDS $O_1$ and $O_2$ are not equivalent.
+
+\subsection[IDS for TSP]{IDS for TSP on $K_n$ (complete graph)}
+%
+$E$ are edges and $\mathcal{F}$ is the subset of Hamiltonian cycles.
+
+$O_1$ is polynomial?
+  $F \in \mathcal{F}$ (TM Hamiltonian cycle) $\Leftrightarrow$ $\deg_F(v) \leq 2$ and no subcycles can be computed in polynomial time
+
+$O_2$ is polynomial? (Base OM oracle)
+  $F \leq E(K_n)$. $\exists$ base $B$ of $(E, \mathcal{F})$ with $B \subseteq F$?
+  Bases are Hamiltonian cycle. Hence not polynomial. Contradiction. Is actually NP-hard.
+
+One direction $O_1$ is simple. $O_2$ difficult\dots other way also possible?
+
+IDS for shortest s-t-path system ($F$ are edges in s-t-path (parts of the path; base is complete path)).
+  $O_2$ is polynomial?
+    $F \subseteq E(G)$ is there a base $B$ with $B \subseteq F$?
+    Hence ``Does some \gath st exist in $(V(G), F)$?''.
+    Polynomial behavior follows.
+
+  $O_1$ is polynomial?
+    $F \subseteq \mathcal{F}$: Is $F$ independent $\Leftrightarrow$ ``$F$ is subset of a \gath st in G?''
+    This is NP-complete problem and hence likely not polynomial (Korte and Monna, 1979)
+
+$O_1$ and $O_2$ are for general IDS in complexity independent of each other.
+
+\textbf{Remark.}
+  If $(E, \mathcal{F})$ is a matroid, then $O_1$ (rank oracle) and $O_2$ (closure oracle) equivalent under each other.
+  \emph{But} don't have an equivalent base oracle (oracle for determination of an dependent TM with minimal cardinality)
+
+
+\begin{theorem}
+  \label{satz-8.12}
+  (Jenkyns, Korte, Hausmann, 1978)
+  Let $(E, \mathcal{F})$ be an IDS and $c: E \rightarrow \mathbb{R}_+$. Denote $G(E, \mathcal{F}, c)$ as the costs of a solution determined by the BEST-IN-GREEDY algorithm. Denote $\operatorname{OPT}(E, \mathcal{F}, c)$ as the costs of an optimal solution (both for the maximization problem the GREEDY-IN algorithm is tackling).
+
+  Then it holds that
+  \[
+      q(E, \mathcal{F})
+        \leq \frac{G(E, \mathcal{F}, c)}{\operatorname{OPT}(E, \mathcal{F}, c)}
+        \underbrace{\leq}_{\text{\tiny{trivial}}} 1
+        \fall c: E \rightarrow \mathbb{R}_+
+  \]
+\end{theorem}
+
+Furthermore the best lower bound is $\exists c: E \rightarrow \mathbb{R}_+$ with $q(E, \mathcal{F}) = \frac{G(E, \mathcal{F}, c)}{\operatorname{OPT}(E, \mathcal{F}, c)}$.
+
+\begin{proof}
+  $E = \set{e_1, e_2, \ldots, e_n}$ with $c(e_1) \geq c(e_2) \geq \ldots \geq c(e_n)$.
+  Let $G_n$ be the solution determined by BEST-IN-GREEDY and $O_n$ be an optimal solution.
+  Let $E_j = \set{e_1, e_2, \ldots, e_j}$, $G_j = G_n \cap E_j$, $O_j = O_n \cap E_j \fall j = 0, 1, \ldots, n$.
+  Let $d_j = c(e_j) - c(e_{j+1}) \geq 0 \fall j = 1,\ldots,n-1$ and $d_n = c(e_n)$.
+
+  \begin{itemize}
+    \item $\fall j: Oj \in \mathcal{F} \Rightarrow \card{O_j} \leq r(E_j)$
+    \item $G_j$ is base of $E_j$. Hence $G_j$ is inclusive maximal independent submatrix of $E_j$,
+      otherwise $\exists \overline{G_j} \supsetneqq G_j$ with $\overline{G_j} \subseteq E_j$ (where $E_j = \set{e_1, \ldots, e_j}$) and $\overline{G_j} \in \mathcal{F}$. This contradicts with the way BEST-IN-GREEDY works.
+  \end{itemize}
+\end{proof}
+
+$\card{G_j} \geq \rho(E_j)$
+\[ q(E, \mathcal{F}) = \min_{X \subseteq E} \frac{\rho(X)}{r(X)} \leq \frac{\rho(x)}{r(x)} \]
+\[ \rho(X) \geq q(E, \mathcal{F}) r(X) \fall X \subseteq E \]
+\begin{align*}
+  G(E, \mathcal{F}, c) &= c(G_n) = \sum^n_{j=1} \underbrace{\left(\card{G_j} - \card{G_{j-1}}\right)}_{1 \text{ or } 0 \text{ depending on } e_j} c(e_j) = \sum_{e_j \in G_n} c(e_j) \\
+    &= (\card{G_1} - \underbrace{\card{G_0}}_{=0}) c(e_1) + (\card{G_2} - \card{G_1}) c(e_2) + \ldots + (\card{G_n} - \card{G_{n-1}}) c(e_n) \\
+    &= \card{G_1} \underbrace{\left(c(e_1) - c(e_2)\right)}_{d_1} + \card{G_2} \underbrace{\left(c(e_2) + c(e_3)\right)}_{d_2} + \ldots + \card{G_n} \underbrace{c(e_n)}_{d_n} \\
+    &= \sum^n_{j=1} \card{G_j} d_j \geq \sum_{j=1}^n \rho(E_j) d_j \geq q(E, \mathcal{F}) \sum_{j=1}^n r(E_j) d_j \\
+    &\geq \card{O_1} (c(1) - c(2)) + \ldots + \card{O_n} c(e_n) = \card{O_1} c(e_1) + (\card{O_2} - \card{O_1}) c(e_2) + \ldots + (\card{O_n} - \card{O_{n-1}}) c(e_n) \\
+    &\geq q(E, \mathcal{F}) \sum_{j=1}^n \left(\card{O_j} - \card{O_{j-1}}\right) c(e_j)
+    &= q(E, \mathcal{F}) c(O_n)
+\end{align*}
+
+\[
+  \Rightarrow
+  \frac{G(E, \mathcal{F}, c)}{\operatorname{OPT}(E, \mathcal{F}, c)}
+  = \frac{c(G_n)}{c(O_n)}
+  \geq q(E, \mathcal{F})
+\]
+
+$\card{O_j} - \card{O_{j+1}}$ is again either 0 or 1 depending on existence of $j$ in $O_{j+1} \ldots O_n$.
+
+Furthermore we also show now that the bound $q(E, \mathcal{F})$ is optimal:
+Let $F \subseteq E$ with $q(E, \mathcal{F}) = \frac{\rho(F)}{r(F)} = \min_{X \subseteq E} \frac{\rho(X)}{r(X)}$.
+Let $B_1$ and $B_2$ bases of $F$ such that $\card{B_2} = r(F)$ where $r$ is the cardinality of the greatest independent submatrix and $\card{B_1} = \rho(F)$.
+Let $\overline{c}: E \rightarrow \mathbb{R}_+$ with
+\[
+  \overline{c}(e) = \begin{cases}
+    1 & e \in F \\
+    0 & \text{else}
+  \end{cases}
+\]
+
+BEST-IN-GREEDY: Sort $E = \set{e_1, \ldots, e_n}$ with $\overline{c}(e_1) \geq c(e_2) \geq \ldots \geq \overline{c}(e_n)$ where $B_1 = \set{e_1, \ldots, e_{\card{B_1}}}$. This returns $B_1$ (because $e_1, \ldots, e_{\card{B_1}}$ must be connected first and $B_1$ is base and therefore has maximal cardinality). Then $G(E, \mathcal{F}, \overline{c}) = \card{B_1} = \rho(F)$.
+
+\[ \operatorname{OPT}(E, \mathcal{F}, \overline{c}) = \card{B_2} = r(F) \]
+$r(F)$ is the cardinality of a maximal independent set. The weights are 1. $r(F)$ is optimal.
+
+\[ q(E, \mathcal{F}) = \frac{\rho(F)}{r(F)} = \frac{G(E, \mathcal{F}, \overline{c})}{\operatorname{OPT}(E, \mathcal{F}, \overline{c})} \]
+$\Rightarrow$ minimal $q(E, \mathcal{F})$ is always achieved by at least one $c$.
+
+\begin{theorem}
+  \label{satz-8.13}
+  (Edmonds, Rado, 1971)
+  An IDS $(E, \mathcal{F})$ is a matroix if and only if the BEST-IN-GREEDY algorithm provides an optimal solution for the maximization problem $\fall c: E \rightarrow{R}_+$.
+\end{theorem}
+
+\begin{proof}
+  From Theorem~\ref{satz-8.12} it follows that
+  \[
+      q(E, \mathcal{F})
+        \leq \frac{G(E, \mathcal{F}, c)}{\operatorname{OPT}(E, \mathcal{F}, c)}
+        \leq 1  \fall c: E \rightarrow \mathbb{R}_+
+  \]
+  From Theorem~\ref{proposition-8.3} it follows that $(E, \mathcal{F})$ is matroid $\Leftrightarrow q(E, \mathcal{F}) = 1$. Because the lower bound is always reached, it follows
+  \[
+    (E, \mathcal{F}) \text{ is matroid }
+      \Leftrightarrow
+    \frac{G(E, \mathcal{F}, c)}{\operatorname{OPT}(E, \mathcal{F}, c)}
+    = 1 \fall c: E \rightarrow \mathbb{R}_+
+  \]
+\end{proof}
+
+\textbf{Remark.}
+  For matroids, minimization and maximization problems are equivalent.
+  Hence the maximization problem handled by the GREEDY-IN algorithm is equivalent to $\min\set{\overline{c}(B) = \sum_{e \in B}\overline{c}(e): B \text{ is base of } (E, \mathcal{F})}$ where $\overline{c}(e) = M - c(e)$ with $M = \max_{e \in E} \card{c(e)} + 1$.
+
+
+\begin{theorem}
+  \label{satz-8.14}
+  (Edmonds 1971, polyedric representation)
+  Let $(E, \mathcal{F})$ be a matroid and $r: E \rightarrow \mathbb{Z}_+$ be a rank function.
+  Then the matroid polytop $P(E, \mathcal{F})$ (convex hull of incidence vectors of all independent sets) is given by:
+  \[ P(E, \mathcal{F}) = \set{x \in \mathbb{R}^{\card{E}}: x \geq 0, \sum_{e \in A} x_e \leq r(A) \fall A \subseteq E} \]
+  \[
+    F \in \mathcal{F}  \qquad
+    \underbrace{x^F(e)}_{\text{incidence vectors}} = \begin{cases} 1 & e \in F \\ 0 & \text{else} \end{cases} \qquad
+    \sum_{e \in A} x^F_e = \card{A \cap F} \leq r(A)
+  \]
+  We conclude: $x^F \in P(E, \mathcal{F}) \fall F \in \mathcal{F}$.
+\end{theorem}
+
+\textbf{Example.}
+  $P(M(G))$ is the graphical matroid of the graph connected components.
+
+  \[
+    P(M(G)) = \set{x \in \mathbb{R}^{\set{E(G)}}: x \geq 0,
+      \underbrace{\sum_{e \in A} x_e \leq n - 1}_{\text{independent of components of $M(G)$ are forests}} \fall A \subsetneqq E(G),
+      \sum_{e \in A} x_e = n - 1, A = E(G)}
+  \]
 
 \printindex
 

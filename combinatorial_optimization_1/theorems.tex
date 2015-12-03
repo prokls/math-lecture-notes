@@ -427,7 +427,7 @@ Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. A potential of $(G, 
 
   \begin{figure}[ht]
    \begin{center}
-    \includegraphics{satz_5_8.pdf}
+    \includegraphics{img/satz_5_8.pdf}
     \caption{Proof of theorem~\ref{satz-5.8}}
    \end{center}
   \end{figure}
@@ -544,6 +544,7 @@ Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. A potential of $(G, 
   $A$ is total unimodular if there exists a partition $(R, T)$ of the rows in $A$ $(R \dotcup T = \set{1, 2, \ldots, m}$) such that
   \begin{itemize}
     \item if column $j$ contains two $\pm 1$ entries, then the corresponding rows belong to different parts of the partition.
+    \item if column $j$ contains one $+1$ and one $-1$ entry, then the corresponding rows belong to the same part of the partition.
   \end{itemize}
 \end{theorem}
 \begin{theorem}
@@ -629,7 +630,7 @@ Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. A potential of $(G, 
 
       \begin{figure}[!ht]
         \begin{center}
-          \includegraphics{matroid_example_for_4.pdf}
+          \includegraphics{img/matroid_example_for_4.pdf}
           \caption{Example for Theorem~\ref{proposition-8.1} bullet point 4. $k_2 = 1, k_3 = 2, k_5 = 1$}
           \label{fig:prop81-4-example}
         \end{center}
@@ -655,7 +656,7 @@ Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. A potential of $(G, 
 
       \begin{figure}[!ht]
         \begin{center}
-          \includegraphics{matroid_4_edge.pdf}
+          \includegraphics{img/matroid_4_edge.pdf}
           \label{fig:prop81-4-edge}
         \end{center}
       \end{figure}
@@ -665,7 +666,7 @@ Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. A potential of $(G, 
 
       \begin{figure}[!ht]
         \begin{center}
-          \includegraphics{matroid_4_edge2.pdf}
+          \includegraphics{img/matroid_4_edge2.pdf}
           \label{fig:prop81-4-edge2}
         \end{center}
       \end{figure}
@@ -777,6 +778,7 @@ Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. A potential of $(G, 
 \end{theorem}
 \begin{theorem}
   \label{corollary-8.10}
+  \label{satz-8.10}
   $B^*$ base of $(E, \mathcal{F}^*) \Leftrightarrow \exists$ base $B$ of $(E, \mathcal{F})$ with $B^* = B^C$ and $(E, \mathcal{F}^*)$ its dual. Let $r$ and $r^*$ be the corresponding rank functions.
   Then it holds that
   \begin{itemize}
@@ -785,7 +787,46 @@ Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. A potential of $(G, 
   \end{itemize}
 \end{theorem}
 \begin{theorem}
-  \label{satz-8.10}
-  Let $(E, \mathcal{F})$ be an IDS. TODO
+  \label{satz-8.11}
+  Let $G$ be a connected planar graph with an arbitrary planar embedding.
+  Let $G^*$ be the planar duality of $G$. Let $M(G)$ be the graphical matroid of $G$.
+  It holds that
+    \[ M^*(G) = (M(G))^* = M(G^*) \]
+
+  Furthermore $G$ is planar if and only if $(M(G))^*$ is graphical;
+  hence if a graph $G'$ with $M(G') = (M(G))^*$ exists.
+
+  If $G$ is planar, then $G'$ is isomorphic to a planar embedding of $G^*$.
+\end{theorem}
+\begin{theorem}
+  \label{satz-8.12}
+  (Jenkyns, Korte, Hausmann, 1978)
+  Let $(E, \mathcal{F})$ be an IDS and $c: E \rightarrow \mathbb{R}_+$. Denote $G(E, \mathcal{F}, c)$ as the costs of a solution determined by the BEST-IN-GREEDY algorithm. Denote $\operatorname{OPT}(E, \mathcal{F}, c)$ as the costs of an optimal solution (both for the maximization problem the GREEDY-IN algorithm is tackling).
+
+  Then it holds that
+  \[
+      q(E, \mathcal{F})
+        \leq \frac{G(E, \mathcal{F}, c)}{\operatorname{OPT}(E, \mathcal{F}, c)}
+        \underbrace{\leq}_{\text{\tiny{trivial}}} 1
+        \fall c: E \rightarrow \mathbb{R}_+
+  \]
+\end{theorem}
+\begin{theorem}
+  \label{satz-8.13}
+  (Edmonds, Rado, 1971)
+  An IDS $(E, \mathcal{F})$ is a matroix if and only if the BEST-IN-GREEDY algorithm provides an optimal solution for the maximization problem $\fall c: E \rightarrow{R}_+$.
+\end{theorem}
+\begin{theorem}
+  \label{satz-8.14}
+  (Edmonds 1971, polyedric representation)
+  Let $(E, \mathcal{F})$ be a matroid and $r: E \rightarrow \mathbb{Z}_+$ be a rank function.
+  Then the matroid polytop $P(E, \mathcal{F})$ (convex hull of incidence vectors of all independent sets) is given by:
+  \[ P(E, \mathcal{F}) = \set{x \in \mathbb{R}^{\card{E}}: x \geq 0, \sum_{e \in A} x_e \leq r(A) \fall A \subseteq E} \]
+  \[
+    F \in \mathcal{F}  \qquad
+    \underbrace{x^F(e)}_{\text{incidence vectors}} = \begin{cases} 1 & e \in F \\ 0 & \text{else} \end{cases} \qquad
+    \sum_{e \in A} x^F_e = \card{A \cap F} \leq r(A)
+  \]
+  We conclude: $x^F \in P(E, \mathcal{F}) \fall F \in \mathcal{F}$.
 \end{theorem}
 \end{document}
