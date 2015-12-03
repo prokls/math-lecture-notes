@@ -1,4 +1,3 @@
-% TODO: atrophied == degenerated
 \documentclass{article}
 %\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
 \usepackage[german,english]{babel}
@@ -4503,7 +4502,7 @@ This algorithm by Edmonds determines a perfect (or cardinality-maximal) matching
 \begin{theorem}\label{proposition-6.9}
   Let $G'$ be a graph constructed by iterative contraction of odd cycles as in Edmonds Blossom Algorithm. Let $M'$ be a matching in $G'$ and $T$ be a $M'$-alternating tree in $G$, such that $\fall w \in A(T)$ is $w$ a contracted vertex.
 
-  It follows if $T$ becomes atrophied (no edges left), then $G$ has no perfect matching.
+  It follows if $T$ becomes degenerated (no edges left), then $G$ has no perfect matching.
 \end{theorem}
 
 \begin{proof}
@@ -4578,7 +4577,7 @@ Apply Edmonds Blossom Algorithm:
   \item Output claims ``no perfect matching exists in $G$''
 \end{itemize}
 
-Let $T_1$ be an atrophied tree, which results in output of the second kind.
+Let $T_1$ be an degenerated tree, which results in output of the second kind.
 Remove $T_1(E(T_1))$ from $G$ (hence the edges of $T_1$), let resulting graph be $G_1$.
 Let $M_1$ be the matching evaluated by Edmonds Blossom Algorithm.
 Let $M_2 := M_1 \setminus E(T_1)$.
@@ -4587,7 +4586,7 @@ At termination either
 \begin{itemize}
   \item $M_2$ (transformed) is perfect matching in $G_1$
   \item there does not exist a perfect matching in $G_1$.
-    Let $T_2$ be an atrophied tree regarding $M_2$ in $G$.
+    Let $T_2$ be an degenerated tree regarding $M_2$ in $G$.
 \end{itemize}
 
 Repeat this procedure as long as either a perfect matching in the current graph can be found or no edges survive.
@@ -4596,14 +4595,14 @@ Let $k$ be the number of repetitions (must be finite, because every repetition r
 
 Case distinction:
 \begin{enumerate}
-  \item $k$ repetitions terminate with atrophied tree.
-    Let $T_1, T_2, \ldots, T_k$ be atrophied trees and $M_1, M_2, \ldots, M_k$ the matchings at termination at the corresponding iterations of Edmonds Blossom Algorithm.
+  \item $k$ repetitions terminate with degenerated tree.
+    Let $T_1, T_2, \ldots, T_k$ be degenerated trees and $M_1, M_2, \ldots, M_k$ the matchings at termination at the corresponding iterations of Edmonds Blossom Algorithm.
   \item $k$ repetitions terminate with a perfect matching in $G_{k-1}$.
-    Let $T_1, \ldots, T_{k-1}$ be atrophied trees and $M_1, \ldots, M_k$ matchings as in the first case.
+    Let $T_1, \ldots, T_{k-1}$ be degenerated trees and $M_1, \ldots, M_k$ matchings as in the first case.
 \end{enumerate}
 
 Let $M := \bigcup_{i=1}^k M_i$. We show $M$ is solution to the given problem.
-Removal from atrophied tree isolates all vertices in tree because if not all incidenting edges are in the tree, the tree is atrophied.
+Removal from degenerated tree isolates all vertices in tree because if not all incidenting edges are in the tree, the tree is degenerated.
 
 \index{deficiency}
 \begin{definition}
