@@ -63,7 +63,7 @@
 \makeatother
 
 \newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
-\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2}
 
 \DeclareMathOperator{\push}{push}
 \DeclareMathOperator{\ex}{ex}
@@ -95,7 +95,9 @@
 % metadata
 \title{
   Combinatorial Optimization 1 \\
-  \large{Lecture notes, University of Technology Graz}
+  \large{Lecture notes, University of Technology Graz} \\
+  \small{Lecture held by Prof. Eranda Dragoti-Çela} \\
+  \small{With additional notes by the lecture by Prof. Bettina Klinz}
 }
 \date{\today}
 \author{Lukas Prokop}
@@ -182,7 +184,7 @@ Where $w$ is called weight. Two common cost functions:
 
 \section{Problem 1: Drill machine problem}
 %
-A drill machine must drill holes onto a board. Drill heads move vertically. Boards move horizontally. Movements happen with constant speed. Movements can happen simultaneous. Drilling is not consider as movement. With these assumptions the time necessary to drill all holes is directly proportional to the path taken by the drill head and board.
+A drill machine must drill holes onto a board. Drill heads move vertically. Boards move horizontally. Movements happen with constant speed. Movements can happen simultaneous. Drilling is not considered as movement. With these assumptions the time necessary to drill all holes is direct proportional to the path taken by the drill head and board.
 
 \[
     \text{production time} \propto \text{path(drill head, board)}
@@ -219,7 +221,7 @@ The drill machine problem as generic problem (sum problem):
 
 \section{Problem 2: Scheduling problem}
 %
-\given{We have $m$ workers and $n$ tasks. We assume that every task must be completed by some worker. Not necessarily every task can by done by any worker. Let $S_i \subseteq \set{1, 2, \ldots, m}$ the set of workers, that can complete job $i$ where $1 \leq i \leq n$. All workers of $S_i$ complete task $i$ with the same speed. Let $t_i$ be the required time to complete job $i$. Every task can be completed by several workers. Every worker can work on several tasks, but \emph{not} simultaneously.}
+\given{We have $m$ workers and $n$ tasks. We assume that every task must be completed by some worker. Not necessarily every task can by done by every worker. Let $S_i \subseteq \set{1, 2, \ldots, m}$ be the set of workers, that can complete job $i$; with $1 \leq i \leq n$. All workers of $S_i$ complete task $i$ with the same speed. Let $t_i$ be the required time to complete job $i$. Every task can be completed by several workers. Every worker can work on several tasks, but \emph{not} simultaneously.}
 \find{Define a work schedule to minimize the total time to complete all tasks (bottleneck problem).}
 
 We define $t_{ij}$ as the length of time interval in which worker $j$ completes job $i$ such that $t_i = \sum_{j \in S_i} t_{i,j} \fall 1 \leq i \leq n$. The work time of worker $j$ is defined as $\sum_{i: j \in S_i} t_{i,j}$ and time to complete is defined $\max_{1 \leq j \leq m, i: j \in S_i} \sum t_{ij} \rightarrow \text{min}$. The completeness time is called ``makespan''.
@@ -227,7 +229,7 @@ We define $t_{ij}$ as the length of time interval in which worker $j$ completes 
 \section{Partial enumeration}
 %
 \given{$n \in \mathcal{N}, n \geq 3, \set{p_1, p_2, \ldots, p_n}\ \text{ are points on a plane}$}
-\find{a permutation $\pi^* \in S_n$ with $c(\pi^*) = \sum_{i=1}^{n-1} d_\infty(P_{\pi^*(i)}, P_{\pi^*}(i+1))$ minimized}
+\find{a permutation $\pi^* \in S_n$ with $c(\pi^*) = \sum_{i=1}^{n-1} d_\infty(P(\pi^*(i)), P_{\pi^*}(i+1))$ minimized}
 
 \begin{enumerate}
   \item Let $\pi(i) = i, \pi^*(i) = i, \fall 1 \leq i \leq n, i = n - 1$
@@ -244,7 +246,7 @@ We define $t_{ij}$ as the length of time interval in which worker $j$ completes 
 
 \subsection{Working principle}
 %
-In every step the algorithm finds the (lexicograpical) next possible value for $\pi(i)$ without duplicates of $\pi(1), \pi(2), \ldots, \pi(i-1)$. If this is impossible, then reduce $i$ by 1 (backtracking appraoch). Otherwise we set $\pi(i)$ to our new value $k$. If $i = n$ then a new permutation is given and costs are evaluated and compared, otherwise the algorithm tries all possible values $\pi(i+1)\ldots \pi(n)$ and starts with $\pi(i+1) = 0$ with $i$ being incremented successively.
+In every step the algorithm finds the (lexicograpical) next possible value for $\pi(i)$ without duplicates of $\pi(1), \pi(2), \ldots, \pi(i-1)$. If this is impossible, then reduce $i$ by 1 (backtracking approach). Otherwise we set $\pi(i)$ to our new value $k$. If $i = n$ then a new permutation is given and costs are evaluated and compared, otherwise the algorithm tries all possible values $\pi(i+1)\ldots \pi(n)$ and starts with $\pi(i+1) = 0$ with $i$ being incremented successively.
 
 Hence the algorithm generates all permutation in lexicographical order.
 
@@ -274,13 +276,13 @@ A finite, deterministic algorithm is a sequence of valid inputs and instructions
 
 Logarithms are always considered with base $2$ here.
 
-\textbf{Inputsize.} We denote the size of the input for $x$ with $\operatorname{size}(x)$. For some rational input $x$ the size $\operatorname{size}(x)$ is the number of $0$ and $1$ in the binary representation.
+\textbf{Inputsize.} We denote the size of the input for $x$ with $\operatorname{size}(x)$. For some rational input $x$ the $\operatorname{size}(x)$ is the number of $0$ and $1$ in the binary representation.
 
 \begin{enumerate}
   \item Let $A$ be an algorithm which accepts inputs $x \in \mathcal{X}$. Let $f: \mathbb{N} \rightarrow \mathbb{R}_+$. If there is some constant $\alpha > 0$, such that $A \fall x \in X$ terminates the computation after at maximum $\alpha f(\operatorname{size}(x))$ elementary steps, we say ``$A$ has a \emph{time complexity} of $\mathcal{O}(f)$''.
 
   \index{polynomial runtime}
-  \item An algorithm $A$ with rational inputs has a \emph{polynomial} runtime (or ``is polynomial'') iff $\exists k \in \mathbb{N_0}$
+  \item An algorithm $A$ with rational inputs has a \emph{polynomial} runtime (or ``is polynomial'') iff $\exists k \in \mathbb N_0$
     \begin{enumerate}
       \item $A$ has a time complexity of $\mathcal{O}(n^k)$
       \item all intermediate values of the computation can be stored with $\mathcal{O}(n^k)$ bits
@@ -307,17 +309,17 @@ The runtime of a polynomial algorithm is a function of the input. The runtime of
 \[
   G = (V, E) \qquad e \in E \text{ is } e = \set{x, y} \text{ with } x, y \in V
 \]
-where $V(G)$ is the set of vertices of G and $E(G)$ is the set of edges of G. One of the earliest problems in combinatorial optimization is the computation of minimal spanning trees.
+where $V(G)$ is the set of vertices of G and $E(G)$ is the set of edges of G. One of the earliest problems in combinatorial optimization is the computation of minimum spanning trees.
 
-\subsection{Minimal spanning tree problem (MST)}
+\subsection{Minimum spanning tree problem (MST)}
 %
-\given{Undirected graph $G$, c, $E(G) \rightarrow \mathbb(R)$}
-\find{Find a spanning tree $T$ with minimal weight $c(T) = \sum_{e \in T} c(e)$ in $G$ or determine ``$G$ is not connected''.}
+\given{Undirected graph $G$, $c: E(G) \rightarrow \mathbb(R)$}
+\find{Find a spanning tree $T$ with minimum weight $c(T) = \sum_{e \in T} c(e)$ in $G$ or determine ``$G$ is not connected''.}
 
 \subsection{Maximum weight forest problem (MWF)}
 %
 \given{Undirected graph $G$, $c: E(G) \rightarrow \mathbb(R)$}
-\find{A spanning forest $F$ (cyclefree subgraph with vertices set $V(G)$) with maximum weight}
+\find{A spanning forest $F$ (cyclefree subgraph with vertex set $V(G)$) with maximum weight}
 \[
   c(F) := \sum_{e \in F} c(e) \in G
 \]
@@ -396,7 +398,7 @@ Let $(G, i)$ be an instance of MST and $T$ be a spanning tree in $G$. In this ca
 %
 \begin{figure}[t]
   \begin{center}
-    \includegraphics{img/ab.pdf}
+    \includegraphics[width=140pt]{img/ab.pdf}
     \caption{Sketch for $a \Rightarrow b$}
   \end{center}
 \end{figure}
@@ -463,7 +465,7 @@ $T^* - f + e_i$ is an optimal spanning tree and has $i(T^* - f + e_i) > i(T^*)$.
   Krukal's algorithm is correct.
 \end{theorem}
 
-From the previous theorem we can derive: $\fall c = \set{x, y} \notin E(T)$ we can say $c(f) \leq c(e) \fall f$ edges from the \gath xy in $T$.
+From the previous theorem we can derive: $\fall e = \set{x, y} \notin E(T)$ we can say $c(f) \leq c(e) \fall f$ edges from the \gath xy in $T$.
 \[
     (x, y) = e \notin E(T) \Rightarrow e_i \text{ closes cycle with } E(T) \cap \set{e_1, \ldots, e_{i-1}}
 \] \[
@@ -483,7 +485,7 @@ From the previous theorem we can derive: $\fall c = \set{x, y} \notin E(T)$ we c
 
 \textbf{Definition.}
   A connected branching is called \emph{arborescence}. The vertex $r$ with $\operatorname{deg}^-(r) = 0$ is called \emph{root}.
-  An arborescence is the directed-graph form of a rooted tree.
+  An arborescence is the directed-graph equivalent of a rooted tree.
 
 \textbf{Notation.}
   \[
@@ -526,7 +528,7 @@ How can we create such a branching?
   \item At the beginning (after initialization): $B = (V(G), 0)$.
 \end{enumerate}
 
-Be aware that checking whether $\set{v, w}$ create a cycle with $T$, consider that $w$ must be in the same connected component in $T$ (or $B$).
+Be aware that checking whether $\set{v, w}$ creates a cycle with $T$, consider that $w$ must be in the same connected component in $T$ (or $B$).
 We can check this in $\mathcal{O}(\log{n})$.
 
 In branching:
@@ -735,7 +737,7 @@ This \gath{b_i}{a_i} does not exist in $C$. Otherwise he would be forced to use 
 
 Let $e = (x, y)$ be the last edge of the \gath{b_i}{a_i} which is outside of the cycle. $y = b_j$ must hold because otherwise there are two discharging edges in $B$, which is a contradiction.
 
-\subsection{Edmonds' branching algorithm}
+\subsection[Edmonds' branching algorithm]{Edmonds' branching algorithm (1967)}
 %
 \begin{algorithm}
   \caption{Edmonds' branching algorithm (book: page~153)}
@@ -847,7 +849,7 @@ If $c \in E(G) \rightarrow \mathbb{R}$
 \subsection{Single source shortest path problems (SSSP)}
 %
 \given{$G=(V,E)$ is a digraph, $c: E(G) \rightarrow \mathbb{R}, s \in V(G)$}
-\find{$\fall v \in V(G)$ find a shhortest \gath st in $G$}
+\find{$\fall v \in V(G)$ find a shortest \gath st in $G$}
 
 Consider a digraph $G$ where $c(e) = -1 \fall e \in E(G)$ and $s,t \in V(G)$. The shortest path is to visit all edges infinitely. A \gath st has at maximum $n-2$ vertices
 \[
@@ -1340,7 +1342,7 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
   \For{$k=1$ to $n$}
     \For{all $x \in V(G)$}
       \State $F_K(x) := \infty$
-      \For{all $(\card{w}, x) \in \delta^-(x)$}
+      \For{all $(w, x) \in \delta^-(x)$}
         \If{$F_{K-1}(w) + c(w, x) < F_K(x)$}
           \State $F_K(x) := F_{K-1}(w) + c(w, x)$
           \State $P_K(x) := w$
@@ -1370,7 +1372,7 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
 
   \begin{enumerate}
     \item In steps 2 and 3, $F_K(x) \fall 0 \leq k \leq n$ is computed correctly (proof is analogous to proof of Bellman-Ford-algorithm).
-    \item If algorithm terminates in step 4, then $G$ is acyclic. Otherwise $\exists x in V(G)$ where $F_n(x)$ is finite $\Rightarrow$ no termination in step 4.
+    \item If algorithm terminates in step 4, then $G$ is acyclic. Otherwise $\exists x \in V(G)$ where $F_n(x)$ is finite $\Rightarrow$ no termination in step 4.
     \item Consider $(G', c')$ with $c'(e) = c(e) - \mu(G, c) \fall e \in E(G)$. Algorithm runs with $(G', c')$ exactly the same like $(G, c)$ only with $F_k'(x) = F_k(x) - \mu(G', c) \fall x \fall k$.
     \item If we select some $x$ in step 5, then $\mu(G', c') = 0 = \max_{0 \leq k \leq n} \frac{F_n(x) - F_K(x)}{n-k}$ is satisfied (follows from Karp's theorem). So $F_n(x) = \operatorname{dist}_{(G', c')}(s, x)$.
     \item So every shortest edge sequence of $n$ edges from $s$ to $x$ consists of a shortest \gath sx and a few cycles of length $0$. The ``last'' cycle $K$ will be found in step 5. It holds that
@@ -1540,7 +1542,7 @@ A minimal $s$-$t$-cut is a $s$-$t$-cut with smallest possible capacity.
       \text{ where } u_f(e) \text{ is remaining capacity defined as }
   \] \[
       u_f(e) = \left\{\begin{array}{lc}
-        u_e - f_e & e \text{ is edge in direction forward} \\
+        u_e - f_e & e \text{ is edge in forwards direction} \\
         f_{\overleftarrow e} & e \text{ is edge in direction backward } (f_{\overleftarrow e} = f_e) \\
       \end{array}\right.
   \]
@@ -1852,7 +1854,7 @@ This algorithm distinguishes from F\&F only by the selection of the \gath st: In
 
       Add two artificial edges $(t, s)$ to $E_k$ ($G_k = (V, E_k)$) and retrieve $\bar G_k$. $\bar G_k$ is eulerian (in a directed sense), ie. $\degree^-_{\hat C_k}(v) = \degree^-_{\hat C_k}(v) \fall v$.
       $\Rightarrow \hat G_k$ can be decomposed into edge-disjoint cycles. Let $C_1(C_2)$ be the cycles that contain the artificial edges $1$ and $2$.
-      
+
       Let $P_1$ and $P_2$ be the edge-disjoint \gath sts in those cycles $C_1$ and $C_2$.
 
       $P_1$ and $P_2$ are in $\hat G_k$ and do not require any artificial edges.
@@ -2251,7 +2253,7 @@ Condition for $\psi(v) \leq \psi(w) + 1$ is only satisfied for edges in $G_f$.
 
 \begin{proof}
   \begin{itemize}
-    \item Active $v$ has edges to $w_1, w_2, \ldots, w_k$. 
+    \item Active $v$ has edges to $w_1, w_2, \ldots, w_k$.
       \[ \psi(v) < \psi(w_i) + 1 \qquad \Rightarrow \text{edge not permitted} \]
       Relabel:
       \[ \overline{\psi(v)} = \min_{i: w_i \in \delta^+(v)} \psi(w_i) + 1 = \psi(w_l) + 1 > \psi(v) \]
@@ -2331,7 +2333,7 @@ Condition for $\psi(v) \leq \psi(w) + 1$ is only satisfied for edges in $G_f$.
                             &             &               &       & \text{D is less} \\
         \end{array}
       \]
-    
+
     \item Saturating operation $\push(v, w)$:
       Transitions:
       \[
@@ -2368,7 +2370,7 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
 \begin{proof}
   Correctness is given in theorem~\ref{satz-4.10} and theorem~\ref{proposition-4.8}. What about the runtime?
 
-  We use a doubly-linked list $L_i$ where 
+  We use a doubly-linked list $L_i$ where
   \[
     L_i := \set{v \in V(G); v \text{ is active}; \psi(v) = i \quad 0 \leq i \leq 2n - 1}
   \]
@@ -2800,7 +2802,7 @@ Fibonacci heaps with key $-\alpha(v)$.
     \] \[
         = \min_{i=1,\ldots,n-1} \gamma_i \qquad \text{value of optimal cut}
     \]
-    
+
     Let $\lambda(G) = \gamma_k = \lambda_{Z_k, \gamma}^{k-1}$ ($z_k$ is a vertex connected by an edge with $y$ and this edge is part of the cut; $z_k$ is alone, but could be a multi-vertex).
 
     The optimal cut is determine by the subset of the vertex set, that can be contracted in $z_k$.
@@ -3135,7 +3137,7 @@ Let $f$ be a $b$-flow. $G_f$ is defined analogously like in the max-flow problem
       = \sum_{e \in \overleftrightarrow{E}(G)} c(e) \sum_{C \in \mathcal{C}, e \in E(C)} h(c)
   \] \[
       = \sum_{C \in \mathcal{C}} h(c) \sum_{l \in \overleftrightarrow{E}(G) \cap E(G)} c(e)
-      = \sum_{C \in \mathcal{C}} h(C) 
+      = \sum_{C \in \mathcal{C}} h(C)
   \] \[
     \Rightarrow \exists C \in \mathcal{C} \text{ with } c(C) < 0
   \]
@@ -5024,7 +5026,7 @@ Considerations:
     \begin{center}
       \includegraphics{img/lp.pdf}
       \caption{Linear programming problem}
-      \label{fig:matstr3}
+      \label{fig:linearprogram}
     \end{center}
   \end{figure}
   \[
@@ -5293,7 +5295,7 @@ Let $G$ be a bipartite graph and $A$ be a vertex incidence matrix of $G$.
 
 \[
   \max\set{
-    \sum_{e \in E(G)} x_e: 
+    \sum_{e \in E(G)} x_e:
     \sum_{e \in E(G)} a_{ve} x_e \leq 1,
     \underbrace{x_e \in \mathbb{Z}_+}_{x_e \in \set{0,1}}
     \underbrace{\fall e \in E(G)}_{\fall v \in V(G)}
@@ -5566,7 +5568,7 @@ $c$ as above.
       \]
       $\card{X} > \card{Y}$ and $\delta_X(s) \leq k_s \fall s \in S$
       \[
-        \xRightarrow{\text{to show}} 
+        \xRightarrow{\text{to show}}
           \exists e \in S \setminus Y
           e \notin \delta(s)
           \fall s \in S'
