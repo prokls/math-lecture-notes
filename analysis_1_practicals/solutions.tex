@@ -1640,7 +1640,165 @@ This is a hand-crafted value (meaning that we selected it intentionally and will
 
 Because $a_n < \varepsilon$ it holds that some constant exists for a sufficiently large $N$ such that $\card{a_n \cdot b_n}$ is always smaller than some constant $\varepsilon$.
 
+\section{Exercise 45}
+\begin{ex}
+  Let $a,b,c \in [0,\infty)$. Show that,
+  \[ \lim_{n\to\infty} \sqrt[n]{a^n + b^n + c^n} = \max\set{a,b,c} \]
+\end{ex}
 
+Without loss of generality, let $a = \max\set{a,b,c}$. Because $a,b,c$ is non-negative,
+\[ a^n \leq a^n + b^n + c^n \leq 3a^n \]
+\[ \sqrt[n]{a^n} \leq \sqrt[n]{a^n + b^n + c^n} \leq \sqrt[n]{3} \cdot \sqrt[n]{a^n} \]
+\[ \lim_{n\to\infty} \sqrt[n]{a^n} = a \]
+\[ \lim_{n\to\infty} \sqrt[n]{3} \cdot \sqrt[n]{a^n} = a \lim_{n\to\infty} \sqrt[n]{3} = a \cdot 1 \]
+
+Due to the squeeze theorem, it holds that $\lim_{n\to\infty} \sqrt[n]{a^n + b^n + c^n} = a = \max\set{a,b,c}$.
+
+\section{Exercise 46}
+\begin{ex}
+  Let $a_0 \in (0, 1)$ and a sequence $(a_n)_{n\in\mathbb N}$ is recursively defined with
+  \[ a_{n+1} = 1 - \sqrt{1 - a_n} \text{ for } n \geq 0 \]
+\end{ex}
+
+\begin{description}
+  \item[Induction base]
+    \[ a_1 = 1 - \sqrt{1 - a_0} \Rightarrow 0 < a_1 < 1 \qquad a_1 \in (0, 1) \]
+  \item[Induction step]
+    Let $a_n \in (0, 1)$.
+    \[ 0 < a_n < 1 \Rightarrow -1 < -a_n < 0 \Rightarrow 0 < \sqrt{1 - a} < 1 \]
+    \[ 0 < \underbrace{1 - \sqrt{1 - a_n}}_{a_{n+1}} < 1 \]
+    So $a_{n+1} < a_n$.
+    \[ 1 - \sqrt{1 - a_n} < a_n \Leftrightarrow (1 - a_n)^2 < 1 - a_n \]
+    \[ \Rightarrow 1 - a_n < \sqrt{1 - a_n} \]
+    \[ \Rightarrow x^2 < x \Leftrightarrow x \in (0, 1) \]
+
+    \[ a_{n+1} - 1 - \sqrt{1 - a_n} \]
+    \[ a = 1 - \sqrt{1 - a} \]
+
+    Therefore only $0$ or $1$ are possible limes for this sequence.
+    But monotonically decreasing implies that $0$ is the limes
+    (bounded below and monotonically decreasing sequences are convergent).
+\end{description}
+
+\section{Exercise 47}
+\begin{ex}
+  For a sequence $\left(a_n\right)_{n\in\mathbb N}$ in $\mathbb R$ we assign the sequence $\left(s_n\right)_{n\in\mathbb N}$, where
+  \[ s_n = \frac{1}{n+1} \sum_{k=0}^n a_k \text{ for } n \geq 0 \]
+  is the mean value of the first $n+1$ sequence numbers.
+  \begin{itemize}
+    \item Show that: If $\lim_{n\to\infty} a_n = a$ with $a \in \mathbb R$, then $\lim_{n\to\infty} s_n = a$.
+    \item Give an example for a divergent sequence $\left(a_n\right)_{n \in \mathbb N}$ for which the sequence of mean values converges anyways.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 47.a}
+%
+We show that $\exists a \in \mathbb R: \lim_{n\to\infty} a_n = \lim_{n\to\infty} s_n = a$.
+%
+\[
+  \lim_{n\to\infty} s_n
+  = \lim_{n\to\infty} \left(\frac{1}{n+1} \sum_{k=0}^n a_k\right)
+  = \lim_{n\to\infty} \left(\frac1{n+1} \sum_{k=0}^n \left(a_n - (a_n - a_k)\right)\right)
+\] \[
+  = \lim_{n\to\infty} \left(\frac{1}{n+1} \sum_{k=0}^n a_n\right)
+  - \lim_{n\to\infty} \left(\frac{1}{n+1} \sum_{k=0}^n (a_n - a_k)\right)
+\] \[
+  = \lim_{n\to\infty} \frac{1}{n+1} (n+1) a_n
+  - \lim_{n\to\infty} \sum_{k=0}^n \frac{a_n - a_k}{n+1}
+\] \[
+  \left[\forall \varepsilon > 0 \exists N: n \geq N: \abs{a_n - a} < \varepsilon\right]
+\] \[
+  = a - \lim_{n\to\infty} \underbrace{\sum_{k=0}^{N} \frac{a_n - a_k}{n+1}}_{(N + 1) \frac{C}{n+1}} + \sum_{N+1}^n \frac{a_n - a_k}{n+1}
+\] \[
+  \stackrel{?}{\leq} \underbrace{\lim_{n\to\infty} \frac{(N + 1) C}{n+1}}_{\to 0}
+  + \lim_{n\to\infty} \sum_{n=N+1}^n \frac{a_n - a_b}{n+1}
+\] \[
+  \left[\lim_{n\to\infty} \sum_{n=N+1}^n \frac{\varepsilon}{n+1} = \frac{n - N - 1}{n+1} \varepsilon \to 1\right]
+\] \[
+  = \lim_{n\to\infty} \frac{(N + 1) C}{n+1} +
+\]
+
+\subsection{Exercise 47.a, radical variant}
+\[
+  \sum_{n=N-1}^n a-\varepsilon \leq \dots \leq \frac{\sum_{k=0}^N a_k + \sum_{k=N+1}^n (a + \varepsilon)}{n+1}
+\]
+
+\subsection{Exercise 47.b}
+\[ (a_n)_{n \in \mathbb N} = (-1)^n \]
+\[ \Rightarrow \lim_{n\to\infty} S_n = \lim_{n\to\infty} \frac{\sum_{k=0}^n (-1)^n}{n+1} = 0 \]
+
+\section{Exercise 48}
+\begin{ex}
+  Let $M \subseteq \mathbb R$ be a bounded above set and $s \in \mathbb R$.
+  Prove that:
+  \[
+      s = \sup(M) \Leftrightarrow
+      \left\{\begin{array}{ll}
+        \forall x \in M: s \geq x & \text{and} \\
+        \exists (x_n)_{n \in \mathbb N}, x_n \in M: \lim_{n\to\infty} x_n = s &
+      \end{array}\right.
+  \]
+\end{ex}
+\[
+  \exists (x_n)_{n \in \mathbb N}, x_n \in M: \lim_{n\to\infty} x_n = s
+  \Leftrightarrow \varepsilon > 0 \exists N \in \mathbb N: \abs{x_n - s} < \varepsilon
+\]
+We prove the first direction $\Leftarrow$.
+
+Let $s$ be an upper bound of $M$.
+Let $(x_n)_{n \in \mathbb N}$ in $M$ with $\lim_{n\to\infty} x_n = s$.
+\[ \Rightarrow \forall t < s \exists N \in \mathbb N: n \geq N(s - x_n) \leq \abs{s-x_n} < \frac{\varepsilon}{2} \]
+\[ \Rightarrow t < x_n \]
+
+We prove the second direction $\Rightarrow$.
+
+Therefore
+\[ s - \frac1n \text{ is not an upper bound of } M \]
+\[ \Rightarrow \exists x_n \in M: s - \frac1n < x_n \]
+\[ \exists x_n \in M: s - \frac1n < x_n \]
+\[ s - \frac1n \leq x_n < s \]
+\[ s \leq x_n < s \Rightarrow (x_n)_{n\in\mathbb N} \to s \]
+
+
+\section{Exercise 49}
+\begin{ex}
+  Let $(a_n)_{n\in\mathbb N}$ be a convergent sequence of non-negative real numbers
+  with $\lim_{n\to\infty} a_n = a$ and $k \in \mathbb N_+$. Show that
+  \[ \lim_{n\to\infty} \sqrt[k]{a_n} = \sqrt[k]{a} \]
+  Hint: $a_n - a = \sqrt[k]{a_n^k} - \sqrt[k]{a^k} = (\sqrt[k]{a_n} - \sqrt[k]{a}) (\dots)$.
+\end{ex}
+
+\[ \lim_{n\to\infty} \sqrt[k]{a_n} = \sqrt[k]{a} \]
+
+\[
+    \lim_{n\to\infty} a_n = a \qquad \text{i.e.} \quad \forall \varepsilon \exists N \in \mathbb N:
+    \left(\sqrt[k]{a_n} - \sqrt[k]{a}\right) \left(\sum_{i=0}^{k-1} \sqrt[k]{a_n}^{k-1-j} \cdot \sqrt[k]{a}\right)
+\]
+
+\begin{description}
+  \item[Case 1: $a > 0$]
+    \[ \abs{a_n - a} < \frac{a}{2} \]
+    \[ \abs{a_n} > \frac{\abs{a}}{2} \]
+    $\Rightarrow$ the product is always positive:
+    \[ \underbrace{\left(\sqrt[k]{a_n} - \sqrt[k]{a}\right) \left(\sum_{i=0}^{k-1} \sqrt[k]{a_n}^{k-1-j} \cdot \sqrt[k]{a}\right)}_{b_n \geq b > 0} \]
+    Done.
+  \item[Case 2]
+    \[ \sqrt[k]{a_n} < \varepsilon \Leftrightarrow a_n < \varepsilon^k = \tilde\varepsilon \]
+    \[ \forall \tilde\varepsilon > 0 \exists N \in \mathbb N: n \geq N: \abs{a_n - 0} < \tilde\varepsilon \]
+    \[ \Rightarrow \sqrt[r]{a_n} \]
+\end{description}
+
+\subsection{Shorter valid solution}
+\[
+  b_n
+  = \frac{a_n - a}{\left(\sqrt[k]{a_n} - \sqrt[k]{a}\right) \left(\sum_{i=0}^{k-1} \sqrt[k]{a_n}^{k-1-j} \cdot \sqrt[k]{a}\right)}
+  = \sqrt[k]{a_n} - \sqrt[k]{a}
+\]
+\[
+  \sqrt[k]{a_n} - \sqrt[k]{a} = \frac{a_n - a}{b_n}
+\]
+We already know that
+\[ \lim_{n\to\infty} \frac{a_n - a}{b_n} = \frac{\lim_{n\to\infty} (a_n - a)}{\lim_{n\to\infty} b_n} = \frac0b = 0 \]
 
 \end{document}
 %%% Local Variables:
