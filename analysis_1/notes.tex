@@ -2598,7 +2598,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
   \[ \Rightarrow \lim_{n \to \infty} \overline{a_n} = \alpha - i \beta = \overline{a} \]
 \end{proof}
 
-\subsection{Other laws for complex sequences}
+\subsection{Further laws for complex sequences}
 
 \begin{theorem}
   Let $\seq{a_n}$ and $\seq{b_n}$ be convergent in $\mathbb R$ with limes $a$ (i.e. $b$)
@@ -2675,7 +2675,7 @@ Are there criteria such that if they have a specific structure, they are obivous
 \end{proof}
 
 \begin{ex}
-  Let $S \in \mathbb Q_+$. Then it holds that
+  Let $s \in \mathbb Q_+$. Then it holds that
   \[ \lim_{n \to \infty} \left(\sqrt[n]{n^s}\right) = 1 \]
   We apply the squeeze theorem:
   \[ n^2 \geq 1 \forall n \in \mathbb N \]
@@ -2721,6 +2721,7 @@ Are there criteria such that if they have a specific structure, they are obivous
 \end{rem}
 
 \begin{theorem}
+  \label{monotonic-in-R}
   Let $(a_n)_{n \in \mathbb N}$ be a bounded monotonic sequence.
   Then $\seq{a_n}$ has a limes $a$ with
   \begin{itemize}
@@ -2779,7 +2780,7 @@ Both are convergent.
         \frac{(\alpha_{n+1})^2}{(\alpha_n)^2} < 1
     \] \[
         \left(\frac{\alpha_{n+1}}{\alpha_n}\right)^2 = \left(
-            \frac{\frac{2 \cdot 4 \cdot 6 \cdot \ldots \cdot (2n+2)}{1 \cdot 3 \cdot 5 \cdot \ldots \cdot (2n-1) \cdot (n+1)}}%
+            \frac{\frac{2 \cdot 4 \cdot 6 \cdot \ldots \cdot (2n+2)}{1 \cdot 3 \cdot 5 \cdot \ldots \cdot (2n-1) \cdot (2n+1)}}%
             {\frac{2\cdot4\cdot \ldots \cdot 2n}{1 \cdot 3 \cdot 5 \cdot \ldots \cdot (2n+1)}}
             \cdot \frac{\frac{1}{\sqrt{n+1}}}{\frac{1}{\sqrt{n+1}}}
         \right)^2
@@ -3173,6 +3174,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   Therefore $\seq{a_n}$ is bounded.
 \end{proof}
 
+\subsection{Is $\mathbb C$, $\mathbb R$ and $\mathbb Q$ complete?}
+
 \index[English]{Completeness of $\mathbb C$}
 \index[German]{\foreignlanguage{ngerman}{Vollständigkeit von $\mathbb C$}}
 \begin{theorem}[Cauchy sequences and limes]
@@ -3204,6 +3207,209 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
 
   Actually nested intervals are equivalent to completeness.
 \end{proof}
+
+\meta{lecture}{3rd of December 2015}
+
+\begin{cor}
+  $\mathbb C$ is complete.
+\end{cor}
+\begin{proof}
+  Let $\seq{z_n}$ be a Cauchy sequence in $\mathbb C$.
+  \[ z_n = a_n + i b_n \]
+  Then $\seq{a_n}$ and $\seq{b_n}$ are Cauchy sequences in $\mathbb R$.
+
+  Show that this property: Let $\varepsilon > 0$. Because $\seq{z_n}$ is a Cauchy sequence,
+  it holds that
+  \[ \exists N \in \mathbb N: n,m \geq N \Rightarrow \abs{z_n - z_m} < \varepsilon \]
+  Because $\abs{a_n - a_m} \leq \abs{z_n - z_m}$ and $\abs{b_n - b_m} \leq \abs{z_n - z_m}$ hold,
+  it follows that for $n,m \geq N: \abs{a_n - a_m} < \varepsilon \land \abs{b_n - b_m} < \varepsilon$.
+  Therefore $\seq{a_n}$ and $\seq{b_n}$ are Cauchy sequences.
+
+  Because $\mathbb R$ is complete, it follows that $\exists a \in \mathbb R$ such that
+  \[ a = \lim_{n\to\infty} a_n \text{ and } \exists b \in \mathbb R \]
+  with $b = \lim_{n\to\infty} b_n$. Because $\lim_{n\to\infty} z_n = z = a + ib$,
+  \[ \Leftrightarrow a = \lim_{n\to\infty} a_n \land b = \lim_{n\to\infty} b_n \]
+\end{proof}
+
+\begin{ex}
+  We show a counterexample for the completeness of $\mathbb Q$.
+  So we have Cauchy sequences with limes, which lies outside $\mathbb Q$.
+
+  We define a recursion:
+  \[
+    a_n = \begin{cases}
+      2 & \text{if } n = 0 \\
+      \frac12 \left(a_n + \frac2{a_n}\right) & \text{if } n > 0
+    \end{cases}
+  \]
+  We observe, $\forall n \in \mathbb N: a_n > 0 \land a_n \in \mathbb Q$.
+
+  Proof by complete induction:
+  \begin{description}
+    \item[Induction base: $n = 0$]
+      \[ a_0 = 2 > 0 \land 2 \in \mathbb Q \quad \checkmark \]
+    \item[Induction step: $n \rightarrow n + 1$]
+      Let $a_n > 0$ and $a_n \in \mathbb Q$.
+      \[ a_{n+1} = \frac12 \left(\underbrace{a_n}_{>0} + \underbrace{\frac2{a_n}}_{>0}\right) > 0 \]
+      and $a_{n+1} \in \mathbb Q$.
+  \end{description}
+
+  We prove by induction: $\forall n \in \mathbb N: a_n^2 > 2$.
+  \begin{description}
+    \item[Induction base: $n = 0$]
+      \[ a_0 = 2 \qquad a_0^2 = 4 > 2 \quad \checkmark \]
+    \item[Induction step: $n \rightarrow n+1$]
+      It holds that $a_n^2 - 2 > 0$.
+      \[
+          a_{n+1}^2 - 2
+          = \frac14 \left(a_n^2 + 4 + \frac4{a_n^2}\right) - 2
+          = \frac{1}{4a_n^2} \left(a_n^4 + 4a_n^2 + 4 - 8a_n^2\right)
+      \] \[
+          = \frac{1}{4a_n^2} \left(a_n^4 - 4a_n^2 + 4\right)
+          = \frac{1}{4a_n^2} \underbrace{\left(a_n^2 - 2\right)^2}_{>0} > 0
+      \]
+  \end{description}
+
+  Furthermore it holds that $a_{n+1} < a_n$.
+  \[ 2a_{n+1} = a_n + \frac2{a_n} \Rightarrow 2 (a_{n+1} - a_n) = -a_n + \frac2{a_n} = \frac{\overbrace{2 - a_n^2}^{<0}}{a_n} < 0 \]
+  \[ \Rightarrow a_{n+1} - a_n < 0 \Rightarrow a_{n+1} < a_n \]
+
+  Therefore the sequence $\seq{a_n}$ is strictly monotonically decreasing and is bound by below.
+  Therefore some $a \in \mathbb R$ exists with $a = \lim_{n\to\infty} a_n$.
+
+  Monotonicity really depends on the completeness of $\mathbb R$.
+  We cannot argue equivalently to Theorem~\ref{monotonic-in-R} with the supremum.
+
+  For this example we know that $\seq{a_n}$ is convergent in $\mathbb R$.
+  $\seq{a_n}$ is Cauchy sequence in $\mathbb R$.
+  So $\seq{a_n}$ is Cauchy sequence in $\mathbb Q$.
+
+  For the limes $a$ it holds that,
+  \[ a = \lim_{n\to\infty} a_{n+1} = \lim_{n\to\infty} \frac12 \left(a_n + \frac{2}{a_n}\right) \]
+  \[ = \frac12 \lim_{n\to\infty} a_n + \frac12 \frac{2}{\lim_{n\to\infty} a_n} = \frac12 a + \frac1a \]
+
+  \[ a = \frac12 a + \frac1a \Rightarrow \frac12 a = \frac1a \]
+  \[ a^2 = 2 \Rightarrow a = +\sqrt{2} \not\in \mathbb Q \]
+
+  Therefore $\seq{a_n}$ is \emph{not} convergent in $\mathbb Q$.
+  We found a convergent Cauchy sequence whose limes is not in $\mathbb Q$ which
+  immediately means that $\mathbb Q$ is incomplete.
+\end{ex}
+
+\index[English]{Tending towards infinity}
+\index[German]{\foreignlanguage{ngerman}{Uneigentliche Grenzwerte}}
+\begin{defi}[Tending towards infinity]
+  Let $\seq{a_n}$ be a sequence of real numbers.
+  \begin{itemize}
+    \item
+      We state $\seq{a_n}$ \emph{tends to infinity} with limes $+\infty$:
+      \[ \lim_{n\to\infty} a_n = +\infty \]
+      \[ \text{if } \forall M > 0 \exists N \in \mathbb N: n \geq N \Rightarrow a_n > M \]
+    \item
+      We state $\seq{a_n}$ \emph{tends to negative infinity} with limes $-\infty$:
+      \[ \lim_{n\to\infty} a_n = -\infty \]
+      \[ \forall M > 0 \exists N \in \mathbb N: n \geq N \Rightarrow a_n < -M \]
+  \end{itemize}
+\end{defi}
+\begin{ex}
+  \[ a_n = \frac{n^2 + 2}{n+1} \]
+  has limes $+\infty$.
+  The proof is given in the practicals. We show that \dots
+  \[ \frac{n^2 + 2}{n + 1} > M \Leftrightarrow \dots \]
+\end{ex}
+
+\index[English]{Limes superior}
+\index[German]{\foreignlanguage{ngerman}{Limes superior}}
+\index[English]{Limes inferior}
+\index[German]{\foreignlanguage{ngerman}{Limes inferior}}
+\begin{defi}[Limes superior, Limes inferior]
+  Let $\seq{a_n}$ be a real sequence which is bounded above and
+  \[ H = \setdef{\xi \in \mathbb R}{\xi \text{ is limit point of } \seq{a_n}} \neq \emptyset \]
+
+  Then $H$ is also bounded by above and we call $S^* = \sup{H}$ a \emph{limes superior}
+  of the sequence $\seq{a_n}$. We denote:
+  \[ S^* = \limsup_{n\to\infty} a_n \]
+
+  Let $\seq{a_n}$ be a real sequence which is bounded below and
+  \[ H = \setdef{\xi \in \mathbb R}{\xi \text{ is limit point of } \seq{a_n}} \neq \emptyset \]
+
+  Then $H$ is also bounded by below and we call $S^* = \inf{H}$ a \emph{limes inferior}
+  of the sequence $\seq{a_n}$. We denote:
+  \[ S_* = \liminf_{n\to\infty} a_n \]
+\end{defi}
+
+\begin{theorem}
+  If $\seq{a_n}$ is bounded by above by $M$, $H \neq \emptyset$, then $M$ is also an upper bound of $H$.
+\end{theorem}
+\begin{proof}
+  Assume $\exists s \in H$ with $s > M$. Choose $\varepsilon = S - M > 0$.
+  Because $S$ is a limit point of $\seq{a_n}$ it holds that $(s - \varepsilon, s + \varepsilon)$
+  contains infinitely many sequence numbers. So for infinitely many indices $n$ it holds that,
+  \[ a_n > s - \varepsilon = s - (s - M) = M \]
+  This contradicts with $M$ being the upper bound of the sequence.
+\end{proof}
+
+\begin{lemma}
+  Let $\seq{a_n}$ be bounded by above. $a_2 \in \mathbb R$. Let $H \neq \emptyset$ be defined as above.
+  Then it holds that
+  \[ s^* = \limsup_{n\to\infty}(a_n) = \max H \]
+  ie. $S^*$ is a limit point itself of the sequence.
+\end{lemma}
+\begin{proof}
+  Show that $S^*$ itself is limit point of the sequence.
+  Let $\varepsilon > 0$: Choose $\xi \in H$ such that
+  \[ \xi > S^* - \frac\varepsilon2 \Rightarrow S^* - \xi = \abs{S^* - \xi} < \frac\varepsilon2 \]
+  Because $\xi$ is a limit point of the sequence, in $(\xi - \frac\varepsilon2, \xi + \frac\varepsilon2)$
+  there are infinitely many sequence numbers.
+
+  Let $x \in (\xi - \frac\varepsilon2, \xi + \frac\varepsilon2) \Leftrightarrow \abs{x - \xi} < \frac\varepsilon2$.
+  Then it holds that
+  \[
+      \abs{x - s^*}
+      = \abs{x - \xi + \xi - s^*}
+      \leq \underbrace{\abs{x - \xi}}_{< \frac\varepsilon2} + \underbrace{\abs{\xi - s^*}}_{= S^* - \xi < \frac\varepsilon2}
+  \] \[
+      \Rightarrow x \in (S^* - \varepsilon, S^* + \varepsilon)
+  \]
+  Followingly,
+  \[
+    \underbrace{\left(\xi - \frac\varepsilon2, \xi + \frac\varepsilon2\right)}%
+      _{\substack{\text{contains infinitely many} \\ \text{sequence numbers}}}
+    \subseteq \underbrace{\left(S^* - \varepsilon, S^* + \varepsilon\right)}%
+      _{\substack{\text{contains infinitely many} \\ \text{sequence numbers}}}.
+  \]
+\end{proof}
+
+\begin{rem}
+  The analogous statement holds for the limes inferior.
+  \[ S^* = \limsup_{n\to\infty} a_n \Leftrightarrow \]
+  \begin{enumerate}
+    \item $S^* \in H$, therefore $S^*$ is limit point of $\seq{a_n}$.
+    \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: a_n < S^* + \varepsilon$
+  \end{enumerate}
+\end{rem}
+
+\begin{proof}
+  Let $S^* = \limsup_{n\to\infty} a_n$.
+  \begin{enumerate}
+    \item The first property holds immediately.
+    \item
+      We use an indirect proof.
+      \[ \Rightarrow \exists \varepsilon > 0: \forall N \in \mathbb N: \exists n \geq N: a_n \geq S^* + \varepsilon \]
+      Therefore infinitely many sequence numbers $a_n$ exist with $a_n \geq S^* + \varepsilon$.
+      We sort the sequence numbers in a subsequence $\left(a_{n_k}\right)_{k \in \mathbb N}$.
+      It holds that
+      \[ S^* + \varepsilon \leq a_{n_k} \leq M \]
+      $\left(a_{n_k}\right)_{k \in \mathbb N}$ is bounded and has a limit point $S$
+      with $S^* + \varepsilon < S \Rightarrow S > S^*$.
+      $S$ is also a limit point of the original sequence $\seq{a_n}$ with $S > S^* = \max{H}$.
+      This is a contradiction.
+  \end{enumerate}
+\end{proof}
+
+
+\meta{lecture}{9th of December 2015}{Wolfgang Ring}
+%It remains to show that it follows that $\limsup_{n\to\infty} a_n
 
 
 \clearpage
