@@ -28,6 +28,7 @@
 \newcommand\set[1]{\left\{#1\right\}}
 \newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
 \newcommand\card[1]{\left|\,#1\,\right|}
+\newcommand\seq[1]{\left(#1\right)_{n\in\mathbb N}}
 \newcommand\yes{\checkmark}
 \newcommand\no{\ding{55}}
 
@@ -1799,6 +1800,54 @@ Therefore
 \]
 We already know that
 \[ \lim_{n\to\infty} \frac{a_n - a}{b_n} = \frac{\lim_{n\to\infty} (a_n - a)}{\lim_{n\to\infty} b_n} = \frac0b = 0 \]
+
+\section{Exercise 50}
+\begin{ex}
+  Let $\seq{x_n}$ be a sequence in $\mathbb C$ and $q \in [0, 1)$ such that for all $n \geq 1$,
+  \[ \abs{x_{n+1} - x_n} \leq q \cdot \abs{x_n - x_{n-1}}. \]
+  Prove that $\seq{x_n}$ is a Cauchy sequence. Does the implication still hold, if only
+  $\abs{x_{n+1} - x_n} < \abs{x_n - x_{n-1}}$?
+\end{ex}
+
+\section{Exercise 51}
+\begin{ex}
+  A sequence $\seq{a_n}$ in $\mathbb R$ is recursively defined by $a_0 = 0, a_1 = 1$ and
+  \[ a_n = \frac{a_{n-1} + a_{n-2}}{2} \quad\text{ for } n \geq 2 \]
+  Show (using the result from Exercise~50), that the sequence $\seq{a_n}$ converges.
+
+  \emph{Bonus:} Can you determine the limes of this sequence?
+\end{ex}
+
+\section{Exercise 52}
+\begin{ex}
+  Let $\seq{a_n}$ be a bounded above sequence in $\mathbb R$. Show that
+  a number $s \in \mathbb R$ is the limes superior of $\seq{a_n}$ if and only if
+  for every $\varepsilon > 0$ the following conditions hold:
+  \begin{enumerate}
+    \item the set $\setdef{n \in \mathbb N}{a_n > s - \varepsilon}$ is infinite.
+    \item the set $\setdef{n \in \mathbb N}{a_n > s + \varepsilon}$ is finite.
+  \end{enumerate}
+\end{ex}
+
+\section{Exercise 53}
+\begin{ex}
+  Determine the limes superior and limes inferior of the sequence $\seq{a_n}$
+  defined by
+  \[ a_n = \left(1 + (-1)^n\right) (-1)^{\frac{n (n-1)}{2}}. \]
+\end{ex}
+
+\section{Exercise 54}
+\begin{ex}
+  Let $a \in \mathbb R \setminus \mathbb C$ be an irrational number and set $\seq{p_n}$, $\seq{q_n}$ be sequences in $\mathbb Z$ or $\mathbb N_+$ such that it holds
+  \[ \lim_{n\to\infty} \frac{p_n}{q_n} = a. \]
+  Prove that $\lim_{n\to\infty} q_n = \infty$
+
+  \emph{Hint}: Prove by contradiction. Assume the sequence $\seq{q_n}$ does not converge to $\infty$.
+  Consider that there must exist a bounded subsequence and use the Bolzano-Weierstrass theorem.
+\end{ex}
+
+
+
 
 \end{document}
 %%% Local Variables:
