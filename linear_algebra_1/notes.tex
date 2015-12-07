@@ -37,7 +37,9 @@
 \newtheorem{rem}{Remark}
 \newtheorem{cor}{Corollary}
 
-\DeclareMathOperator\Hom{Hom}
+\DeclareMathOperator\Hom{Hom} % homomorphism
+\DeclareMathOperator\End{End} % endomorphism
+\DeclareMathOperator\Aut{Aut} % automorphism
 
 \DeclarePairedDelimiter\norm\lVert\rVert
 
@@ -4934,6 +4936,336 @@ What did we do in this section?
   \[ v \mapsto \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \]
   To be discussed in the practicals.
 \end{ex}
+
+\meta{lecture}{7th of December 2015}{Franz Lehner}
+
+Homomorphisms and vector spaces:
+\[ f(\lambda u + \mu v) = \lambda f(u) + \mu f(v) \]
+\[ f: V \rightarrow W \]
+
+\begin{ex}
+  \[ \text{id:} V \rightarrow V \]
+  \[ v \mapsto v \]
+
+  Let $V$ be a vector space.
+  Let $B = (v_1, \dots, v_n)$ be our basis.
+  \[ v = \lambda_1 v_1 + \dots + \lambda_n v_n \]
+  \[ \Phi_B: V \rightarrow K^n \]
+  \[ v \mapsto \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \]
+  In the practicals it is shown to be linear.
+\end{ex}
+
+\begin{rem}
+  Special case: Let $V = K^n$. Let $B = (e_1, \dots, e_n)$ be your basis.
+  \[ \Phi_i: \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \mapsto \lambda_i \]
+  \[ \Phi_i: (a + b) = \Phi_i \begin{pmatrix} a_1 + b_i \\ \vdots \\ a_n + b_n \end{pmatrix} = a_i + b_i = \Phi_i(a) + \Phi_i(b) \]
+\end{rem}
+
+\begin{rem}
+  Also:
+  \[ \Phi_i: V \rightarrow K \]
+  \[ v \mapsto \lambda_i \]
+\end{rem}
+
+\begin{ex}
+  \[ V = K^X = \set{f: X \rightarrow K} \]
+  \[ (f+g)(x) = f(x) + g(x) \]
+  \[ (\lambda \cdot f)(x) = \lambda \cdot f(x) \]
+  Pointwise operations.
+
+  Let $x \in X$.
+  \[ \Rightarrow \Phi_x: V \rightarrow K \]
+  \[ f \mapsto f(x) \]
+  \[ \Phi_x(\lambda f + \mu g) = (\lambda f + \mu g)(x) = \lambda f(x) + \mu g(x) = \lambda \Phi_x(f) + u \Phi_x(g) \]
+\end{ex}
+
+\begin{ex}
+  \[ \mathbb R[x] \rightarrow \mathbb R[x] \]
+  \[ x^n \mapsto n \cdot x^{n-1} \]
+  \[ \sum_{k=0}^n a_k x^k \mapsto \sum_{k=1}^n k \cdot a_k x^{k-1} \]
+  The derivation of $p(x) \rightarrow p'(x)$ is additive:
+  \[ (p + q)(x) = p'(x) + q'(x) \]
+  \[ (\lambda p)' (x) = \lambda \cdot p'(x) \]
+\end{ex}
+
+\begin{ex}
+  \[ \int_a^b: \mathbb R[x] \rightarrow \mathbb R \]
+  \[ p(x) \mapsto \int_a^b p(x) \,dx \text{ is linear.} \]
+\end{ex}
+
+\begin{ex}
+  \[ V = \mathbb R^2 \]
+  \[ T_{x_0}: x \mapsto x + x_0 \]
+  \[ x_0 = T_{x_0}(0) = T_{x_0}(0 + 0) = T_{x_0}(0) + T_{x_1}(0) = 2 x_0 \quad\lightning \]
+  Translation in $\mathbb R^2$ is non-linear.
+  It is only \emph{affine linear} (translation together with rotation).
+\end{ex}
+
+\begin{ex}
+  Rotation itself in $\mathbb R^2$ is linear.
+  \[ U_q: v = \text{rotated vector $q$ is linear} \]
+\end{ex}
+
+\begin{ex}
+  \[
+    A: \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} \mapsto \begin{pmatrix} 2x_1 \\ x_2 \end{pmatrix}
+    \text{ is linear}
+  \]
+  Dilation is linear.
+\end{ex}
+
+\begin{ex}
+  \[
+    A(\lambda x + y)
+    = \begin{pmatrix} 2 (\lambda x_1 + y_1) \\ \lambda x_2 + y_2 \end{pmatrix}
+    = \lambda \begin{pmatrix} 2 x_1 \\ x_1 \end{pmatrix} + \begin{pmatrix} 2 y_1 \\ y_2 \end{pmatrix}
+    = \lambda A(x) + A(y)
+    \text{ is linear}
+  \]
+\end{ex}
+
+\begin{ex}
+  \[ C = \setdef{(x_n)_{n\in\mathbb N}}{x_n \in \mathbb R, x_n \text{ is convergent}} \]
+  \[ \lim_{n\to\infty} (x_n + y_n) = \lim_{n\to\infty} x_n + \lim_{n\to\infty} y_n \]
+  \[ \lim_{n\to\infty} (\lambda x_n) = \lambda \cdot \lim_{n\to\infty} x_n \]
+  \[ \Rightarrow \text{ the mapping } \lim_{n\to\infty} c \rightarrow \mathbb R \]
+  \[ (x_n)_{n\in\mathbb N} \mapsto \lim_{n\to\infty} x_n\]
+  is linear.
+\end{ex}
+
+\begin{ex}
+  \[ V = l^1 = \setdef{(\lambda_m)}{\sum_{n=1}^\infty \abs{\lambda_n} < \infty} \]
+  \[ \sum_{n=1}^\infty \abs{x_n + y_n} \leq \sum_{n=1}^\infty \abs{x_n} + \sum_{n=1}^\infty \abs{y_n} < \infty \]
+  \[ \sum_{n=1}^\infty (x_n + y_n) = \sum_{n=1}^\infty x_n + \sum_{n=1}^\infty y_n \]
+  \[ \sum_{n=1}^\infty \lambda x_n - \lambda \cdot \sum_{n=1}^\infty x_n \]
+
+  \[ \Rightarrow \sum_{n=1}^\infty: l^1 \rightarrow \mathbb R \text{ is linear} \]
+  \[ (x_n)_{n\in\mathbb N} \mapsto \sum_{n=1}^\infty x_n \]
+\end{ex}
+
+\begin{ex}
+  \[ V = U \dot{+} W \text{ is the direct sum} \]
+  \[ \bigwedge_v \dot\bigvee_{u \in \mathbb U} \dot\bigvee_{w \in W} v = u + w \text{ is unambiguous} \]
+  \[ \pi_U: V \rightarrow U \quad\text{ \enquote{projections on U}} \]
+  \[ v \mapsto u \]
+  \[ \pi_W: V \rightarrow W \quad\text{ \enquote{projections on W}} \]
+  \[ v \mapsto w \]
+\end{ex}
+
+\begin{theorem}
+  Let $V$ and $W$ be vector spaces.
+  \[ f: V \rightarrow W \text{ is linear} \]
+  \begin{enumerate}
+    \item $f(0_v) = 0_w$
+    \item $\bigwedge_{v \in V} f(-v) = -f(v)$
+    \item It holds that,
+      \[
+        \bigwedge_{n} \bigwedge_{\lambda_1, \dots, \lambda_n \in K} \bigwedge_{v_1, \dots, v_k \in V}
+        f(\lambda_1 v_1 + \dots + \lambda_n v_n) = \lambda_1 f(v_1) + \lambda_2 f(v_2) + \dots + \lambda_n f(v_n)
+      \]
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  We prove the first statement:
+  \[ f(0_v) = f(0_v + 0_v) = f(0_v) + f(0_v) \]
+  \[ 0_w = f(0_v) \]
+
+  We prove the second statement.
+  \[ f(-v) = f((-1) \cdot v) = (-1) \cdot f(v) = -f(v) \]
+\end{proof}
+
+\index[English]{homomorphism}
+\index[German]{\foreignlanguage{ngerman}{Homorphismus}}
+\index[English]{epimorphism}
+\index[German]{\foreignlanguage{ngerman}{Epimorphismus}}
+\index[English]{isomorphism}
+\index[German]{\foreignlanguage{ngerman}{Isomorphismus}}
+\index[English]{endomorphism}
+\index[German]{\foreignlanguage{ngerman}{Endomorphismus}}
+\index[English]{automorphism}
+\index[German]{\foreignlanguage{ngerman}{Automorphismus}}
+\begin{defi}
+  Let $V$ and $W$ be vector spaces.
+  Let $f: V \rightarrow W$. Homomorphism is an
+  \begin{itemize}
+    \item \emph{epimorphism} if $f: V \rightarrow W$ and $f$ is surjective.
+    \item \emph{monomorphism} if $f: V \rightarrow W$ and $f$ is injective.
+    \item \emph{isomorphism} if $f: V \rightarrow W$ and $f$ is bijective.
+  \end{itemize}
+  Let $V = W$, then
+  \begin{itemize}
+    \item \emph{endomorphism} if $f: V \rightarrow V$.
+    \item \emph{automorphism} if $f: V \rightarrow V$.
+  \end{itemize}
+  We also denote
+  \[ \Hom(V, W) = \text{ homomorphism from $V$ to $W$} \]
+  \[ \End(V) = \Hom(V, V) \]
+  \[ \Aut(V) = \set{f: V \rightarrow V \text{ automorphism}} \]
+\end{defi}
+
+\index[English]{isomorphic}
+\index[German]{\foreignlanguage{ngerman}{isomorph}}
+\index[English]{embeddable}
+\index[German]{\foreignlanguage{ngerman}{einbettbar}}
+\begin{defi}
+  % TODO: \stackrel\sim{=} looks strange
+  $V$ and $W$ are \emph{isomorphic} $V \stackrel\sim{=} W$ if there exists isomorphism $f: V \rightarrow W$.
+
+  $V$ is called \emph{embeddable} in $W$ if there exists some monomorphism $f: V \rightarrow W$.
+  $f$ is called \emph{embedding}.
+\end{defi}
+
+\begin{theorem}
+  Let $U, V$ and $W$ be vector spaces over $K$.
+  \[ f: U \rightarrow V \qquad g: V \rightarrow W \text{ is linear} \]
+  \begin{enumerate}
+    \item $\Rightarrow g \circ f: U \rightarrow W$ is linear.
+    \item $\Rightarrow$ if $f: U \rightarrow V$ is isomorphism,
+      then also $f^{-1}: V \rightarrow U$ is linear.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  We prove the first statement.
+  \[ g \circ f (\lambda \cdot v + \mu w) \stackrel{!}{=} \lambda \cdot g \circ f(v) + \mu g \circ f(w) \]
+  \[ g \circ f (\lambda \cdot v + \mu w) = g(f(\lambda v + \mu w)) = g(\lambda f(v) + \mu f(w)) \]
+  \[ = \lambda \cdot g(f(v)) + \mu \cdot g(f(w)) = \lambda (g \circ f) (v) + \mu (g \circ f) (w) \]
+  We prove the second statement.
+  \[ f^{-1}(\lambda v + \mu w) = \underbrace{f^{-1}(\lambda f(f^{-1}(v))) + \mu \cdot f(f^{-1}(w))}_{f(\lambda \cdot f^{-1}(v) + \mu f^{-1}(w))} \]
+  \[ f^{-1}(f(\lambda \cdot f^{-1}(v) + \mu f^{-1}(w))) = \lambda f^{-1}(v) + \mu f^{-1}(w) \]
+\end{proof}
+
+\begin{theorem}
+  \label{satz-5-7}
+  $\Hom(V, W)$ with the operations $(f + g)(v) = f(v) + g(v)$
+  and $(\lambda f)(v) = \lambda \cdot f(v)$ is a vector space with 0-vector $0: V \rightarrow W$ and $v \mapsto 0$.
+\end{theorem}
+\begin{proof}
+  We need to prove that $\Hom(V, W)$ is a subspace of $W^V$.
+  Therefore $f, g \in \Hom(V, W)$ is therefore
+  \[ f + g \text{ and } \lambda \cdot f \]
+  Show that,
+  \[ (\lambda \cdot f + \mu \cdot g) (\alpha v + \beta w) \stackrel{!}{=} \lambda \cdot (\lambda f + \mu g) (v) + \beta (\lambda f + \mu g) (w) \]
+
+  \begin{align*}
+    (\lambda f + \mu g) (\alpha v + \beta w) &= \lambda f(\alpha v + \beta w) + \mu g(\alpha v + \beta w) \\
+    f, g \text{ are linear } &= \lambda (\alpha f(v) + \beta f(w)) + \mu (\alpha g(v) + \beta g(w)) \\
+      &= \alpha \left(\alpha f(v) + \mu g(v)\right) + \beta(\lambda f(w) + \mu g(w)) \\
+      &= \alpha (\lambda f + \mu g)(v) + \beta (\lambda f + \mu g)(w)
+  \end{align*}
+  $\Rightarrow (\Hom(V, W), +, \cdot)$ is a vector space over $K$.
+\end{proof}
+
+\begin{theorem}
+  \label{satz-5-8}
+  Let $V = W$, then $(\End(V), +, \circ)$ where $\circ$ denotes composition is a ring.
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item $(\End(V), +)$ is an abelian group $\checkmark$
+    \item $(\End(V), \circ)$ is a semi-group (sub-semigroup of $(V^V, \circ)$)
+    \item Distributive law is shown in the practicals.
+  \end{enumerate}
+\end{proof}
+
+\index[English]{algebra}
+\index[German]{\foreignlanguage{ngerman}{Algebra}}
+\begin{defi}
+  An \emph{algebra} over a field $K$ is a structure
+  \[ (A, +, \cdot, *) \]
+  \[ +: A \times A \rightarrow A \]
+  \[ \cdot: K \times A \rightarrow A \]
+  \[ *: A \times A \rightarrow A \]
+  such that $(A, +, \cdot)$ is a vector space and $(A, +, *)$ is a ring.
+
+  Associativity holds,
+  \[ \lambda (a * b) = (\lambda \cdot a) * b = a * (\lambda b) \]
+\end{defi}
+
+\begin{ex}
+  \[ A = \mathbb R[x] \]
+  \[ (p + q)(x) = p(x) + q(x) \]
+  \[ \lambda \cdot p(x) \]
+  \[ (p * q)(x) = p(x) \cdot q(x) \]
+  also satisfies associativity.
+\end{ex}
+
+\begin{theorem}
+  \label{satz-5-10}
+  $(\End(V), +, \cdot, \circ)$ is a non-commutative algebra.
+\end{theorem}
+\begin{proof}
+  It only remains to show associativity.
+  This is left for the practicals.
+\end{proof}
+
+\subsection{Linear mappings and subspaces}
+\begin{theorem}
+  \label{satz-5-11}
+  Let $V$ and $W$ be vector spaces over $K$.
+  \[ f: V \rightarrow W \text{ is linear} \]
+  \begin{enumerate}
+    \item if $V' \subseteq V$ is a subspace, then $f(V') \subseteq W$ is a subspace.
+    \item if $W' \subseteq W$ is a subspace, then $f^{-1}(W') \subseteq V$ is a subspace.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      Let $w_1, w_2 \in f(V)$ then also $\lambda_1 w_1 + \lambda_2 w_2 \in f(V')$.
+      Let $w_1, w_2 \in f(V')$.
+      \[
+        \Rightarrow \bigvee_{v_1 \in V'} \bigvee_{v_2 \in V'}
+        f(v_1) = w_1 \land f(v_2) = w_2
+      \]
+      \[ \lambda_1 w_1 + \lambda_2 w_2 = \lambda_1 f(v_1) + \lambda_2 f(v_2) \]
+      \[ f \text{ is linear} \Rightarrow f(\underbrace{\lambda_1 v_1 + \lambda_2 v_2}_{\in V'}) \in f(V') \]
+    \item Show that $v_1, v_2 \in f^{-1}(W')$ then also $\lambda_1 v_1 + \lambda_2 v_2 \in f^{-1}(W')$.
+      Show that if $f(v_1), f(v_2) \in W'$ then $f(\lambda_1 v_1 + \lambda_2 v_2) \in W'$.
+
+      \[
+        f(\lambda_1 v_2 + \lambda_2 v_2)
+        = \underbrace{\lambda_1 \underbrace{f(v_1)}_{\in W'} + \lambda_2 \underbrace{f(v_2)}_{\in W'}}_{\in W' \text{ because its a subspace}} \in W'
+      \]
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-5-12}
+  Let $V$ and $W$ be vector spaces over $K$.
+  \[ f: V \rightarrow W \text{ is linear} \]
+  \[ (v_i)_{i \in I} \subseteq V \]
+  \begin{enumerate}
+    \item $f(L((v_i)_{i\in I})) = L((f(v_i))_{i \in I})$
+      \[ M \subseteq V \]
+      \[ f(L(M)) = L(f(M)) \]
+    \item $\left(f(v_i)\right)_{i \in I} \text{ linear independent} \Rightarrow (v_i)_{i \in I}$ linear independent
+  \end{enumerate}
+  The inverse of the second statement does not hold (think about the zero-element).
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \[ w \in f(L((v_i)_{i \in I})) \Leftrightarrow \bigvee_{v \in L((v_i)_{i \in I})} w = f(v) \]
+      \[ \Leftrightarrow \bigvee_{m} \bigvee_{i, \dots, i_n} \bigvee_{\lambda_1, \dots, \lambda_n} w = f(\lambda_1 v_{i,1} + \dots + \lambda_n v_{i,n}) \]
+      \[ \Leftrightarrow \bigvee_{m} \bigvee_{i, \dots, i_n} \bigvee_{\lambda_1, \dots, \lambda_n} w = \lambda_1 f(v_{i,1}) + \dots + \lambda_n f(v_{i,n}) \]
+      \[ \Leftrightarrow w \in L((f(v_i))_{i \in I}) \]
+    \item
+      Let $\lambda_1 v_{i,1} + \dots + \lambda_n v_{i,n} = 0 \stackrel{!}{\Rightarrow} \text{ all } \lambda_i = 0$.
+      \[ f(\lambda_1, v_{i,1} + \dots + \lambda_n v_{i,n}) = 0_w \]
+      \[ f \text{ linear} \Rightarrow \lambda_1 f(v_{i,1}) + \dots + \lambda_n f(v_{i,n}) = 0 \]
+      \[ f(v_i) \text{ linear independent} \Rightarrow \text{ all } \lambda_i = 0 \]
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-5-13}
+  Let $V, W$ be vector spaces. Let $f: V \rightarrow W$ be linear.
+  \begin{enumerate}
+    \item $f$ is surjective and $L(M) = V$, then $L(f(M)) = W$.
+    \item $f$ is injective and $M \subseteq V$ is linear independent, then $f(M)$ is linear independent in $W$.
+    \item $f$ is bijective and $B$ is basis then $B$ is basis of $W$.
+  \end{enumerate}
+\end{theorem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
