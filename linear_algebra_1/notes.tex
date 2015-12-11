@@ -3768,7 +3768,7 @@ How can we construct/find bases?
         0 &= \sum_{i \neq k} \mu_i b_i + \mu_k v \\
           &= \sum_{i \neq k} \mu_i b_i + \mu_k \left(\sum_{i=1}^n \lambda_i \cdot b_i\right) \\
           &= \sum_{i \neq k} \mu_i b_i + \sum_{i \neq k} \mu_k \lambda_i b_i + \mu_k \lambda_k b_k \\
-          &= \sum_{j \neq k} (\mu_k + \mu_k \lambda_i) b_i + \mu_k \lambda_k b_k \\
+          &= \sum_{i \neq k} (\mu_i + \mu_k \lambda_i) b_i + \mu_k \lambda_k b_k \\
           &= \text{ is linear combination of B}
       \end{align*}
 
@@ -3776,7 +3776,7 @@ How can we construct/find bases?
       \[ \Rightarrow \mu_i + \mu_k \lambda_i = 0 \Rightarrow \mu_i = 0 \text{ for all } i \neq k \]
       \[ \Rightarrow \forall \mu_i = 0 \]
     \item $L(B') = V$.
-      It suffices t show that $b_k \in L(B')$.
+      It suffices to show that $b_k \in L(B')$.
 
       Then it holds that
       \[ L(B') = L(B' \cup \set{b_k}) \]

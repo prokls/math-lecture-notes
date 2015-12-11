@@ -2,18 +2,22 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{baskervald}
+\usepackage[lf]{Baskervaldx}
 \usepackage{csquotes}
 \usepackage{enumerate}
 \usepackage[T1]{fontenc}
 \usepackage[margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
+\usepackage[cal=boondoxo]{mathalfa}
 \usepackage{mathtools}
 \usepackage{mdframed}
+\usepackage[bigdelims,vvarbb]{newtxmath}
 \usepackage{pifont}
 \usepackage{stmaryrd}
 \usepackage{wasysym}
 \usepackage{xcolor}
+
+\renewcommand*\oldstylenums[1]{\textosf{#1}}
 
 \theoremstyle{definition}
 \newmdtheoremenv[%
@@ -1809,11 +1813,14 @@ We already know that
   $\abs{x_{n+1} - x_n} < \abs{x_n - x_{n-1}}$?
 \end{ex}
 
-\subsection{Special case: $q=0$ implies a Cauchy sequence}
-%
-If $q = 0$, then the sequence $\seq{x_n}$ is constant. A constant sequence is a cauchy sequence.
+This is actually the fixed point theorem by Banach. Contraction property.
 
-\subsection{Observation}
+\subsection{Special case: $\mathbf{q=0}$ implies a Cauchy sequence}
+%
+If $q = 0$, then the sequence $\seq{x_n}$ is constant.
+A constant sequence is always a cauchy sequence.
+
+\subsection{An observation}
 %
 Let $q \in [0, 1)$.
 \begin{align*}
@@ -1821,6 +1828,7 @@ Let $q \in [0, 1)$.
   \forall n \geq 1: q \abs{x_{n+1} - x_n} &\leq q^2 \abs{x_n - x_{n-1}} \\
   \Rightarrow \forall n \geq 1: \abs{x_{n+2} - x_{n+1}} &\leq q^2 \abs{x_n - x_{n-1}}
 \end{align*}
+We make a more general claim:
 
 \subsection{Complete induction over $\mathbf{k \in \mathbb N}$}
 %
@@ -1830,7 +1838,7 @@ Let $q \in [0, 1)$.
     \[ \abs{x_{n+1} - x_n} \leq q^1 \abs{x_n - x_{n-1}} \qquad \checkmark \]
   \item[Induction step: $k \rightarrow k + 1$]
     \begin{align*}
-      \abs{x_{n+k+2} - x_{n+k+1}} &\leq q^{k+2} \cdot \abs{x_n - x_{n+1}} \\
+      \abs{x_{n+k+2} - x_{n+k+1}} &\leq q^{k+2} \cdot \abs{x_n - x_{n-1}} \\
       \text{we know: } \abs{x_{n+k+2} - x_{n+k+1}} &\leq q \cdot \abs{x_{n+k+1} - x_{n+k}} \\
       q \abs{x_{n+k+1} - x_{n+k}} &\stackrel{!}{\leq} q^{k+2} \cdot \abs{x_n - x_{n-1}} \\
       \abs{x_{n+k+1} - x_{n+k}} &\leq q^{k+1} \cdot \abs{x_n - x_{n-1}} &\checkmark
@@ -1848,7 +1856,35 @@ Let's recognize that we can choose some $n,m \in \mathbb N$ without loss of gene
 Then it holds that,
 \[ \abs{x_n - x_{n-1}} \leq \varepsilon_0 \qquad \land \qquad \abs{x_m - x_{m-1}} \leq \varepsilon_0 \]
 
+Let $\varepsilon = \varepsilon_0 (n - m) + 1 = q^{k+1} \abs{x_1 - x_0}(n - m) + 1$.
+
+TODO: $\sum_{k=0}^{m-n-1} q^k = \frac{1 - q^{n-m}}{1 - q}$.
+$\varepsilon = \frac{1}{1 - q} \abs{x_{n+1} - x_n}$
+
+\subsection{Is $\varepsilon$ an appropriate constant?}
+%
+We need to show the Cauchy criterion:
 \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \land m \geq N: \abs{a_n - a_m} < \varepsilon \]
+
+\begin{align*}
+  \abs{a_n - a_m}
+    &= \abs{a_n - a_{n-1} + a_{n-1} - a_{n-2} + a_{n-2} - \dots + a_{m+1} - a_m} \\
+    &\leq \abs{a_n - a_{n-1}} + \abs{a_{n-1} - a_{n-2}} + \dots + \abs{a_{m+1} - a_m} & \text{[triangle inequality]} \\
+    &= \sum_{i=n}^{m+1} \abs{a_i - a_{i-1}} \\
+    &\leq \sum_{i=n}^{m+1} q^{k+1} \abs{x_1 - x_0} \\
+    &= (n - m) \cdot q^{k+1} \abs{x_1 - x_0} \\
+    &< (n - m) \cdot q^{k+1} \abs{x_1 - x_0} + 1 \\
+    &= \varepsilon
+\end{align*}
+
+\subsection{Does it also hold for $\abs{x_{n+1} - x_n} < \abs{x_n - x_{n-1}}$?}
+%
+The proof stays the same (so this statement is true as well).
+\begin{itemize}
+  \item Because $q$ cannot be $\geq 1$ in $q \in [0,1)$, $q$ cancels out with smaller-than.
+  \item $\varepsilon$ can be chosen differently (we can skip $+1$):
+    \[ \varepsilon = q^{k+1} \abs{x_1 - x_0}(n - m) \]
+\end{itemize}
 
 \section{Exercise 51}
 \begin{ex}
@@ -1858,6 +1894,33 @@ Then it holds that,
 
   \emph{Bonus:} Can you determine the limes of this sequence?
 \end{ex}
+
+\[ \left(a_n\right)_{n\in\mathbb N} = \left(0, 1, \frac12, \frac34, \frac58, \frac{11}{16}, \frac{21}{36}, \dots\right) \]
+
+We will also rephrase the equation:
+\[ a_n = \frac12 \left(a_{n-1} + a_{n-2}\right) \]
+\[ a_{n-1} = 2a_n - a_{n-2} \]
+
+We revise the previous theorem:
+
+\begin{mdframed}
+  Let $\seq{x_n}$ be a sequence in $\mathbb C$ and $q \in [0, 1)$ such that for all $n \geq 1$,
+  \[ \abs{x_{n+1} - x_n} \leq q \cdot \abs{x_n - x_{n-1}}. \]
+  Then $\seq{x_n}$ is a Cauchy sequence.
+\end{mdframed}
+\begin{align*}
+  \abs{a_{n+1} - a_n} &\leq q \abs{a_n - a_{n-1}} \\
+  \abs{\frac{a_n + a_{n-1}}{2} - \frac{a_{n-1} + a_{n-2}}{2}} &\leq q \abs{\frac{a_{n-1} + a_{n-2}}{2} - \frac{2a_{n-1}}{2}} \\
+  \frac12 \abs{a_n + a_{n-1} - a_{n-1} - a_{n-2}} &\leq \frac{q}2 \cdot \abs{a_{n-1} + a_{n-2} - 2a_{n-1}} \\
+  \abs{a_n - a_{n-2}} &\leq q \cdot \abs{a_{n-2} - a_{n-1}} \\
+  \intertext{We have observed previously that $a_{n-1} = 2a_n - a_{n-2}$}
+  \abs{a_n - a_{n-2}} &\leq q \cdot \abs{2a_{n-2} - 2a_n} \\
+  \abs{a_n - a_{n-2}} &\leq 2q \cdot \abs{a_{n-2} - a_n} \\
+  \abs{a_n - a_{n-2}} &\leq 2q \cdot \abs{(-1) (a_n - a_{n-2})} \\
+  \abs{a_n - a_{n-2}} &\leq 2q \cdot \abs{a_n - a_{n-2}} \\
+  1 &\leq 2q
+\end{align*}
+So this can be proven for any $q \geq \frac12$, so we choose $q = \frac12$.
 
 \section{Exercise 52}
 \begin{ex}
@@ -1870,12 +1933,124 @@ Then it holds that,
   \end{enumerate}
 \end{ex}
 
+We shortly point out that a limes superior must not necessarily exist,
+because bounded sequences in $\mathbb C$ have a limit point,
+but not sequences which are only bounded above.
+
+\subsection{Proof direction $\Leftarrow$}
+
+Given a limes superior $s$. So $\forall \varepsilon > 0: \abs{a_n - a} < \varepsilon$
+for infinitely many indices.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/ex52_epsilon.pdf}
+    \caption{Illustration of the $\varepsilon$ environment}
+  \end{center}
+\end{figure}
+%
+\begin{enumerate}
+  \item If $s$ is a limit point, it has infinitely many sequence numbers within its $\varepsilon$-environment.
+    \[
+      \forall \varepsilon > 0: \abs{a_n - s} < \varepsilon
+      \qquad\Rightarrow\qquad
+      \card{\setdef{n \in \mathbb N}{a_n > s - \varepsilon}} = \infty
+    \]
+  \item
+    So $s$ is the supremum of all limit points. Proof by contradiction:
+
+    Assume infinitely many elements are greater $s + \varepsilon$.
+    Consider the upper bound of $\seq{a_n}$ and $s+\varepsilon$ as lower bound.
+    This subsequence is bounded in $\mathbb C$ (actually $\mathbb R$).
+    Due to the Weierstrass-Bolzano theorem, a convergent subsequence must exist
+    which necessarily provides a limit point. This limit point must be $\geq s + \varepsilon$,
+    because of the lower bound. So we found another limit point which contradicts
+    with our assumption that $s$ is the supremum of all limit points.
+\end{enumerate}
+
+\subsection{Proof direction $\Rightarrow$}
+
+From the first property it holds that
+$\card{\setdef{n \in \mathbb N}{a_n > S - \varepsilon}} = \infty \Rightarrow s - a_n < \varepsilon$
+for infinitely many sequence numbers.
+
+From the second property it holds that
+$\card{\setdef{n \in \mathbb N}{a_n > s + \varepsilon}} < \infty \Rightarrow a_n > s + \varepsilon$.
+From that it follows that $s - a_n > \varepsilon \Rightarrow a_n - s < \varepsilon$.
+So $a_n - s > \varepsilon$ for infinitely many sequence numbers.
+So $a_n - s < \varepsilon$ for infinitely many sequence numbers.
+
+From that it follows that $\card{a_n - s} < \varepsilon$ holds for infinitely many.
+
 \section{Exercise 53}
 \begin{ex}
   Determine the limes superior and limes inferior of the sequence $\seq{a_n}$
   defined by
   \[ a_n = \left(1 + (-1)^n\right) (-1)^{\frac{n (n-1)}{2}}. \]
 \end{ex}
+
+\[ a_n = (1 + (-1)^n) (-1)^{n(n-1)/2} \]
+
+\subsection{Case 1: $n = 2k$ with $k \in \mathbb N$}
+%
+\begin{align*}
+  a_n &= \left(1 + (-1)^{2k}\right) (-1)^{2k (2k - 1) / 2} \\
+    &= \left(1 + \left((-1)^2\right)^k\right) (-1)^{k (2k - 1)} \\
+    &= 2 (-1)^{k (2k - 1)}
+\end{align*}
+
+\subsection{Case 1.a: $k = 2l$ with $l \in \mathbb N$}
+%
+\begin{align*}
+    &= 2 (-1)^{2l (4l - 1)} \\
+    &= 2 \left((-1)^2\right)^{l (4l - 1)} \\
+    &= 2
+\end{align*}
+
+\subsection{Case 1.b: $k = 2l + 1$ with $l \in \mathbb N$}
+%
+\begin{align*}
+    &= 2 (-1)^{(2l + 1)(4l + 1)} \\
+    &= 2 (-1)^{2l(4l + 1)} \cdot \left(-1\right)^{(4l + 1)} \\
+    &= 2 (-1)^{2l(4l + 1)} \cdot \left((-1)^4\right)^l \cdot (-1) \\
+    &= 2 \cdot 1 \cdot 1 \cdot (-1) \\
+    &= -2
+\end{align*}
+
+\subsection{Case 2: $n = 2k + 1$ with $k \in \mathbb N$}
+%
+\begin{align*}
+  a_n &= \left(1 + (-1)^{2k + 1}\right) (-1)^{(2k + 1)(2k)/2} \\
+      &= \left(1 + (-1)^{2k} \cdot (-1)\right)^{(2k+1) k} \\
+      &= \left(1 + 1\cdot(-1)\right)^{(2k + 1)k} \\
+      &= 0^{(2k+1) k} \\
+      &= 0
+\end{align*}
+
+\subsection{Putting it together}
+%
+We have isolated three subsequences. Every subsequence itself is a constant sequence.
+Every constant sequence has a limit point. So the set of limit points is given with:
+\[ L = \set{-2, 0, 2} \]
+\[
+  \begin{array}{rclcccccc}
+    \sup(L) & = & \max(L) & = & 2  & \Rightarrow & \limsup_{n\to\infty}(a_n) = 2 \\
+    \inf(L) & = & \min(L) & = & -2 & \Rightarrow & \liminf_{n\to\infty}(a_n) = -2
+  \end{array}
+\]
+
+\subsection{Limes}
+%
+\[
+  0 + \sum_{k=0}^n \frac{1}{2^{2k}} - \frac12 \sum_{k=0}^n \frac{1}{2^{2k}}
+  = \sum_{k=0}^n \left(\frac{1}{2^{2k}}\right) \left(1 - \frac12\right)
+\] \[
+  = \sum_{k=0}^n \left(\frac14\right)^k \left(\frac12\right) = \frac12 \frac{\left(\frac14\right)^{n+1}-1}{\frac14 - 1}
+\] \[
+  = \frac12 \frac1{\frac34} = \frac23
+\] \[
+  \lim_{n\to\infty} a_n = \frac23
+\]
 
 \section{Exercise 54}
 \begin{ex}

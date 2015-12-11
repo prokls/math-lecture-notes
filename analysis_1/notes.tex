@@ -12,6 +12,7 @@
 \usepackage{marvosym}
 \usepackage{mathtools}
 \usepackage{stmaryrd}
+\usepackage[normalem]{ulem}
 \usepackage{wasysym}
 
 \parskip5pt
@@ -3690,9 +3691,10 @@ TODO
 \end{defi}
 
 \fbox{\foreignlanguage{ngerman}{Gottfried Wilhelm Leibniz (1646--1716}}
-\index{Leibnitz convergence criterion}
-\index{\foreignlanguage{ngerman}{Leibnitz' Konvergenzkriterium}}
-\begin{theorem}[Leibnitz convergence criterion]
+\index{Leibniz convergence criterion}
+\index{\foreignlanguage{ngerman}{Leibniz' Konvergenzkriterium}}
+\index{\foreignlanguage{ngerman}{Konvergenzkriterium von Leibniz}}
+\begin{theorem}[Leibniz convergence criterion]
   Let $\seq{a_n}$ be a monotonic zero sequence with $a_n \geq a_{n+1} \geq 0
   \quad\forall n \in \mathbb N$.
   Then $\sum_{k=0}^\infty (-1)^k a_k$ is convergent.
@@ -3700,7 +3702,7 @@ TODO
 \begin{proof}
   \begin{align*}
     S_{2n-1} &= \sum_{k=0}^{2n-1} (-1)^{k} a_k \\
-    S_{2n} &= \sum_{k=0}^{2k-1} (-1)^{k} a_k + (-1)^{2n} a_{2n} \\
+    S_{2n} &= \sum_{k=0}^{2n-1} (-1)^{k} a_k + (-1)^{2n} a_{2n} \\
       &= S_{2n-1} + a_{2n} \\
     S_{2n+1} &= S_{2n-1} + \underbrace{a_{2n} - a_{2n-1}}_{\geq 0} \\
     S_{2n+2} &= \underbrace{S_{2n-1} + a_{2n}}_{S_{2n}} \underbrace{- a_{2n+1} + a_{2n+2}}_{= -(a_{2n+1} - a_{2n+2}) \geq 0}
@@ -3721,13 +3723,458 @@ TODO
     \end{description}
     So $\seq{S_{2n}}$ is monotonically decreasing and bounded by below (for example by $S_1$).
     Therefore $S_{2n} \rightarrow S^*$ for $n \rightarrow \infty$ ($S_{2n+1}$) is monotonically increasing
-    and bounded by above by $S_0$:
+    and bounded by above by $S_*$:
     \[ S_{2n+1} \rightarrow S_* \text{ for } n \to \infty \]
     It holds that $S_* \leq S^*$ because $S_{2n+1} \leq S_{2n}$.
+  \end{proof}
 
-    We show that $S^* = S_*$ and we prove that $\forall \varepsilon > 0: S^* - S_* < \varepsilon$.
+  \meta{lecture}{10th of December 2015}
+
+  Given $S_* \leq S^*$, we show that $S^* = S_*$ and we prove that $\forall \varepsilon > 0: S^* - S_* < \varepsilon$.
+
+  Let $\varepsilon > 0$ and choose $N$ sufficiently large, such that $a_{2N} < \varepsilon$.
+  \[ a_{2N} = S_{2N} - S_{2N-1} > S^* - S_* \]
+  \[ a_{2N} < \varepsilon \]
+  So $\forall \varepsilon > 0$, it holds that
+  \[ S^* - S_* = \card{S^* - S_*} < \varepsilon \]
+  \[ \Rightarrow S^* = S_* = S \]
+  So it holds that,
+  \[ \lim_{n\to\infty} S_n = S^* = S_* = S \]
+  and the series converges.
+\end{proof}
+
+\begin{ex}
+  \[ \sum_{k=0}^\infty (-1)^{k} \frac{1}{k} \text{ is convergent} \]
+\end{ex}
+
+\subsection{Series in $\mathbb C$ and absolute convergence}
+%
+\index{Cauchy convergence criterion}
+\index{\foreignlanguage{ngerman}{Cauchy' Konvergenzkriterium}}
+\index{\foreignlanguage{ngerman}{Konvergenzkriterium von Cauchy}}
+\begin{theorem}[Cauchy convergence criterion]
+  The complex series $\sum_{k=0}^{\infty} a_k$ is convergent if and only if
+  the partial sums $\seq{s_n}$ are a Cauchy sequence in $\mathbb C$.
+\end{theorem}
+\begin{rem}
+  Therefore
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: \forall n,m > N \]
+  \[ \Rightarrow \abs{S_n - S_m} < \varepsilon \]
+  Therefore without loss of generality, $n \geq m$.
+  \[ S_n - S_m = \sum_{k=0}^n a_k - \sum_{k=0}^m a_k = \sum_{k=m+1}^n a_k \]
+  Hence $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq m \geq N$.
+
+  \[ \abs{\sum_{k=m+1}^n a_k} < \varepsilon \]
+  Equivalently, with $m + 1 = n$ and $n - m = l$.
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n > N \text{ and } l \in \mathbb N \]
+  \[ \abs{\sum_{k=0}^l a_{n+k}} < \varepsilon \]
+\end{rem}
+\begin{proof}[Proof by $\seq{S_n}$ being convergent]
+  \[ \seq{S_n} \Leftrightarrow \text{ Cauchy sequence} \]
+
+  \begin{lemma}
+    Let $\sum_{k=0}^{\infty} a_n$ be convergent in $\mathbb C$. Then $\seq{a_n}$ is a zero sequence.
+  \end{lemma}
+  \begin{proof}
+    Follows directly from the Cauchy criterion for $l = 0$.
+    \[
+      \forall \varepsilon > 0 \exists N \in \mathbb N: n > N:
+      \underbrace{\abs{\sum_{n=0}^0 a_{n+k}}}_{\abs{a_n}} < \varepsilon
+      \quad \text{ hence } a_n \to 0
+    \]
   \end{proof}
 \end{proof}
+
+\index{Absolute convergence}
+\index{\foreignlanguage{ngerman}{Absolute Konvergenz}}
+\begin{defi}
+  The complex series $\sum_{k=0}^\infty a_k$ is called \emph{absolute convergent}
+  if the real series $\sum_{k=0}^\infty \abs{a_k}$ is convergent.
+\end{defi}
+\begin{ex}
+  \[ \sum_{k=0}^\infty (-1)^k \frac{1}{n^2} \qquad\text{ absolute convergent} \]
+  \[ \sum_{k=0}^\infty (-1)^k \frac{1}{n} \qquad\text{ \sout{absolute} convergent (Leibniz)} \]
+\end{ex}
+%
+\begin{lemma}
+  Let $\sum_{k=0}^\infty a_k$ be absolute convergent.
+  Then $\sum_{k=0}^\infty a_k$ is also convergent.
+\end{lemma}
+\begin{proof}
+  Let $\sum_{k=0}^\infty \abs{a_k}$ be convergent.
+  From the Cauchy criterion it follows that,
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq m \geq N: \]
+  \[
+    \abs{\sum_{k=m+1}^n \abs{a_k}}
+    = \sum_{k=m+1}^n \abs{a_k}
+    \geq \abs{\sum_{k=m+1}^n a_k}
+    < \varepsilon
+  \]
+  $\Rightarrow$ $\sum_{k=0}^\infty a_k$ is convergent according to Cauchy criterion.
+\end{proof}
+%
+\index{Direct comparison test}
+\index{\foreignlanguage{ngerman}{Majorantenkriterium}}
+\index{Majorant}
+\index{\foreignlanguage{ngerman}{Majoranten}}
+\index{Minorant}
+\index{\foreignlanguage{ngerman}{Minorante}}
+\begin{theorem}[Direct comparison test (dt. \foreignlanguage{ngerman}{Majorantenkriterium})]
+  \begin{enumerate}
+    \item
+      Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
+      Let $\sum_{k=0}^\infty b_k$ be absolute convergent and $\exists N \in \mathbb N: k \geq N
+      \Rightarrow \abs{a_k} \leq \abs{b_k}$.
+
+      Then $\sum_{k=0}^\infty a_k$ is absolute convergent.
+      $\sum_{k=0}^\infty b_k$ is called \emph{majorant} of $\sum_{k=0}^\infty a_k$.
+
+    \item
+      Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
+      Let $\sum_{k=0}^\infty a_k$ be divergent.
+      Assume $\exists N \in \mathbb N: k \geq N \Rightarrow \abs{a_k} \leq \abs{b_k}$.
+      Then also $\sum_{k=0}^\infty b_k$ is divergent.
+      $\sum_{k=0}^\infty a_k$ is \emph{minorant} of $\sum_{k=0}^\infty b_k$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      We need to show that $\sum_{n=0}^\infty \underbrace{\abs{a_k}}_{\geq 0}$ is convergent.
+      It suffices to show that
+      \[ \sum_{k=0}^n \abs{a_k} = \sigma_n \]
+      $\seq{\sigma_n}$ is bounded. Let $n \geq N$.
+      \begin{align*}
+        \sigma_n &= \sum_{n=0}^n \abs{a_k} \\
+          &= \abs{a_0} + \abs{a_1} + \dots + \abs{a_{N-1}} + \sum_{k=N}^n \abs{a_k} \\
+          &\leq \underbrace{\abs{a_0} + \dots + \abs{a_{N-1}} + \underbrace{\sum_{k=N}^\infty \abs{b_k}}_{s \geq 0}}_{M}
+      \end{align*}
+      Therefore $\seq{\sigma_n}$ is bounded and therefore $\sum_{n=0}^\infty a_n$ is absolute convergent.
+    \item
+      Let $\sum_{k=0}^\infty a_k$ be divergent. Then also $\sum_{k=0}^\infty \abs{a_k}$ is divergent.
+      Otherwise $\sum_{k=0}^\infty a_k$ is absolute convergent and therefore convergent.
+      \[ \Rightarrow \sigma_n = \sum_{k=0}^n \abs{a_k} \]
+      $\seq{\sigma_n}$ is unbounded. Because
+      \begin{align*}
+        \sum_{k=0}^n \abs{b_k}
+          &= \abs{b_0} + \dots + \abs{b_{N-1}} + \sum_{k=N}^n \abs{b_k} \\
+          &\geq \abs{b_0} + \dots + \abs{b_{N-1}} + \sum_{k=N}^N \abs{a_k} \\
+          &= \underbrace{\abs{b_0} + \dots + \abs{b_{N-1}} - \left(\abs{a_0} + \dots + \abs{N-1}\right) + \sum_{k=0}^n \abs{a_k}}_{z} \\
+          &= z + \sigma_n
+      \end{align*}
+      $z + \sigma_n$ is unbounded. Therefore $\sum_{k=0}^\infty \abs{b_k}$ is not convergent.
+      Therefore $\sum_{k=0}^\infty b_k$ is not absolute convergent.
+  \end{enumerate}
+\end{proof}
+%
+\index{Ratio test}
+\index{\foreignlanguage{ngerman}{Quotientenkriterium}}
+\begin{theorem}[Ratio test (dt. \foreignlanguage{ngerman}{Quotientenkriterium})]
+  \begin{enumerate}
+    \item
+      Let $\sum_{k=0}^\infty a_k$ be a complex series.
+      Assume $\exists q \in [0, 1)$ with $(0 \leq q < 1)$ and $N \in \mathbb N$ such that
+      \begin{itemize}
+        \item $\frac{\abs{a_{n+1}}}{\abs{a_n}} < q \quad \forall n \geq N$ with $\abs{a_n} \neq 0$, or
+        \item $\sqrt[n]{\abs{a_n}} < q \quad \forall n \geq N$
+      \end{itemize}
+      Then the series $\sum_{k=0}^\infty a_k$ is absolute convergent.
+      \begin{center}
+        \enquote{Ratio test}
+      \end{center}
+    \item
+      Assume there exists $q > 1$ and $N \in \mathbb N$ such that
+      \begin{itemize}
+        \item $\frac{\abs{a_{n+1}}}{\abs{a_n}} \geq q \quad \forall n \geq N$
+        \item $\sqrt[n]{\abs{a_n}} \geq q \quad \forall n \geq N$
+      \end{itemize}
+      Then $\sum_{k=0}^\infty a_k$ is divergent.
+      \begin{center}
+        \enquote{Square root test}
+      \end{center}
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  This follows from the direct comparison criterion. Compare with geometric series
+  $\sum_{k=0}^\infty q^k$.
+  \begin{enumerate}
+    \item
+      Assume the two statement of the ratio test holds. Therefore $\forall n \geq N$
+      it holds that $\sqrt[n]{\abs{a_n}} \leq q \Leftrightarrow \abs{a_n} \leq q^n$.
+      $\abs{a_n} \leq q^n$.
+      Due to the direct comparison test, $\sum_{k=0}^\infty q^k \checkmark$.
+
+      Assume the first statement of the ratio test does not hold.
+      \[ \frac{\abs{a_{n+1}}}{\abs{a_n}} \leq q (< 1) \]
+      Then it holds that $\forall k \in \mathbb N$:
+      \[ \abs{a_{k+N}} \leq \abs{a_N} \cdot q^k \]
+
+      Proof by induction over $k$:
+      \begin{description}
+        \item[$\mathbf{k=0}$] \[ \abs{a_N} \leq \abs{a_N} \cdot q^0 \qquad\checkmark \]
+        \item[$\mathbf{k\to k+1}$]
+          Assume $\abs{a_{N+k}} \leq \abs{a_N} \cdot q^k$.
+          Because
+          \[
+            \frac{\abs{a_{N+k+1}}}{\abs{a_{N+k}}} \leq q
+            \Rightarrow \abs{a_{N+K-1}} \leq q \abs{a_{N+k}}
+            \leq q \cdot \abs{a_N} \cdot q^k
+            = \abs{a_N} q^{k+1}
+            \qquad \checkmark
+          \]
+      \end{description}
+      We set
+      \[
+        b_K = \begin{cases}
+          0 & \text{ for } k = 0,1,2,\dots,N-1 \\
+          \abs{a_N} \cdot q^{K-n} & \text{ for } n \geq N
+        \end{cases}
+      \]
+      \[ \sum_{k=0}^\infty b_n = 0 + 0 + 0 + \dots + 0 + \abs{a_N} TODO \]
+      \[ = \abs{a_N} \sum_{j=0}^\infty q_j \text{ is absolute convergent} \]
+      $\sum_{k=0}^\infty b_k$ is an absolute convergent majorant.
+      for $\sum_{k=0}^\infty a_k \Rightarrow \sum_{k=0}^\infty a_k \text{ is convergent}$.
+    \item
+      Assume the second statement (square root test) holds.
+      TODO
+      Therefore $\seq{a_n}$ is not a zero sequence.
+      Therefore $\sum_{k=1}^\infty a_k$ is divergent.
+
+      Assume the first statement holds.
+      \[ \Rightarrow \abs{a_{N+k}} \geq \abs{a_N} \cdot q^k \]
+      Because $\abs{a_N} \cdot q^k$ is unbounded, $\abs{a_{N+k}}$ is unbounded.
+      $\left(a_k\right)_{k\in\mathbb N}$ are not zero sequences.
+  \end{enumerate}
+\end{proof}
+
+\begin{rem}
+  Assume $\frac{\abs{a_{n+1}}}{\abs{a_n}}$ is bounded and $q = \limsup_{n\to\infty}\left(\frac{\abs{a_{n+1}}}{a_n}\right) < 1$.
+  Let $2 \varepsilon = 1 - q > 0$.
+  \[ \Rightarrow \exists N \in \mathbb N: n \geq N: \frac{\abs{a_{n+1}}}{\abs{a_n}} < q + \varepsilon \]
+  \[ = q + \frac12 \left(1 - q\right) = \frac12 (1 + q) = 1 - \varepsilon < 1 \]
+  Due to the ratio test, the series $\sum_{k=0}^\infty a_k$ is absolute convergent.
+\end{rem}
+
+\begin{lemma}
+  Let $\sum_{k=0}^\infty a_k$ be a complex series with $a_k \neq 0 \forall k \in \mathbb N$.
+  Furthermore it holds that
+  \[ q = \limsup_{n\to\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} < 1 \]
+  Then $\sum_{k=0}^\infty a_k$ is absolute convergent.
+
+  \[ \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} = q \]
+\end{lemma}
+
+\meta{lecture}{11th of December 2015}
+
+\subsection{Revision}
+%
+So $\sum_{k=0}^\infty$ is absolute convergent if $\exists q \in [0,1) \exists N \in \mathbb N$.
+
+\begin{itemize}
+  \item $\frac{\abs{a_{n+1}}}{\abs{a_n}} \leq q \quad\forall n \geq N$
+  \item $\sqrt[n]{\abs{a_n}} \leq q \quad \forall n \geq N$
+\end{itemize}
+
+If $q > 1$ and either $\frac{\abs{a_{n+1}}}{\abs{a_n}} \geq q \quad \forall n \geq N$
+or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is convergent.
+
+\begin{cor}
+  Let $q = \limsup_{n\to\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} < 1$, then
+  $\sum_{k=0}^\infty a_k$ is absolute convergent.
+  Let $q = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} < 1$.
+  Then $\sum_{k=0}^\infty a_k$ is absolute convergent.
+
+  Let $q = \limsup{\sqrt[n]{\abs{a_n}}} > 1$. Then $\sum_{k=0}^\infty a_k$ is divergent.
+\end{cor}
+\begin{proof}
+  Let $q = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} < 1$.
+  \[ 2 \varepsilon = 1 - q > 0 \]
+  Then there exists some $N \in \mathbb N: n \geq N$
+  \[ \Rightarrow \sqrt[n]{\abs{a_n}} \leq q + \varepsilon = 1 - \varepsilon < 1 \]
+  Is absolute convergent according to the square root theorem.
+
+  We also need to show divergence: Let $q > 1$ be limit point of $\sqrt[n]{\abs{a_n}}$.
+  So there exists some subsequence $\left(\sqrt[n_k]{\abs{a_{n_k}}}\right)_{k \in \mathbb N}$
+  with $\lim_{n\to\infty} \sqrt[n_k]{\abs{a_{n_k}}} = q > 1 \Rightarrow \varepsilon = \frac12 \left(q - 1\right)
+  > 0$.
+  \[ \sqrt[n_k]{\abs{a_{n_k}}} > q - \varepsilon \qquad \forall k \geq K \]
+  \[ \Rightarrow \abs{a_{n_k}} > (q - \varepsilon)^{n_k} = (1 + \varepsilon)^{n_k} > 1 \]
+  \[ \Rightarrow \left(\abs{a_{n_k}}\right)_{k\in\mathbb N} \text{ is not a zero sequence} \]
+  \[ \Rightarrow \seq{\abs{a_n}} \text{ is also not a zero sequence} \]
+  \[ \Rightarrow \sum_{k=0}^\infty a_k \text{ is divergent} \]
+\end{proof}
+
+\begin{ex}[Binomial series]
+  Let $n \in \mathbb N$ and $k \in \set{0,1,2,\dots,n}$.
+  \[
+    {n \choose k}
+    = \frac{n!}{k! (n-k)!}
+    = \frac{1 \cdot 2 \cdot \ldots \cdot (n-k)(n-k+1) \cdot \dots \cdot n}{k! \cdot 1 \cdot 2 \cdot \ldots \cdot (n-k)}
+  \] \[
+    = \frac{n \cdot (n-1) \cdot \ldots \cdot (n-k+1)}{k!}
+  \]
+  Let $s \in \mathbb C$. We define the binomial coefficient ${s \choose k}
+  = \frac{s \cdot (s-1) \cdot (s-2) \cdot \ldots \cdot (s-k+1)}{k!}$.
+  Also let ${s \choose 0} = 1$ and ${s \choose 1} = s$.
+  Let $k > n$ and $n \in \mathbb N$, then
+  \[ {n \choose k} = \frac{n (n-1) \cdot \ldots \cdot \overbrace{(n-n)}^{0} \cdot \ldots \cdot (n-k+1)}{k!} = 0 \]
+\end{ex}
+
+\begin{ex}
+  We define the binomial series for $s,z \in \mathbb C$ with
+  \[ B_S(z) = \sum_{k=0}^\infty \underbrace{{s \choose k} z^k}_{\coloneqq a_k} \]
+  What about convergence? Well,
+  \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \frac{\abs{\frac{s \cdot (s-1) \cdot \ldots \cdot (s-(k+1)+1)}{(k+1)!} z^{k+1}}}{\abs{\frac{s(s-1)(s-2)\cdot \ldots\cdot (s-k+1)}{k!} z^k}} \]
+  \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \abs{\frac{(s-k) z}{k+1}} = \abs{\frac{\left(\overbrace{\frac{s}{k}}^{\to 0} - 1\right) \cdot z}{1 + \underbrace{\frac1k}_{\to0}}} \to \abs{z} \]
+
+  Therefore $B_S(z)$ is convergent for $\abs{z} < 1$ and divergent for $\abs{z} > 1$.
+  So geometrically, it is convergent within a circle of radius $1$ or $i$ (at center $(0,0)$) and divergent outside.
+
+  \[ B_S(z) = \sum_{k=0}^\infty {s \choose k} z^k \]
+  We know, for $s \in \mathbb N$:
+  \[ B_S(z) = \sum_{k=0}^\infty {n \choose k} z^k = \sum_{k=0}^n {n \choose k} z^k = (1 + z)^n \]
+  Remind that ${n \choose k} = 0$ for $k > n$.
+
+  Therefore
+  \[ (1 + z)^s \coloneqq \sum_{k=0}^\infty {s \choose k} z^k \]
+  This is the definition of a power function i.e.
+  \[ z = \xi - 1 \qquad 1 + z = \xi \]
+  \[ \xi^S = \sum_{k=0}^\infty {s \choose k} (\xi - 1)^k \]
+  is convergent for $\abs{\xi - 1} < 1$.
+
+  Geometrically, this is a circle of radius $1$ or $i$ (at center $(1,0)$).
+\end{ex}
+
+\section{Power series}
+\begin{defi}
+  A power series (in one variable) is an infinite series of the form
+  \[ f(x) = \sum_{n=0}^\infty a_n (x - c)^n \]
+  So we have one free variable. Coefficients of the series contains a variable.
+
+  \begin{itemize}
+    \item In $\sum_{k=1}^\infty \frac{1}{k^2}$ all summands are fixed.
+    \item However $\sum_{k=0}^\infty z^k = \frac{1}{1 - z}$ with $\abs{z} < 1$
+      is variable with the variable $z$.
+  \end{itemize}
+\end{defi}
+\begin{ex}
+  % TODO: verify
+  \[ f: B(0,1) \rightarrow \mathbb C \]
+  \[ B_S(z) = \sum_{k=0}^\infty {s \choose k} z^k \]
+
+  Mapping:
+  \[ B_S: B(0,1) \rightarrow \mathbb C \]
+  \[ \varepsilon(z) = \sum_{k=0}^\infty \frac{}{k!} \]
+  \[ \varepsilon: \mathbb C \rightarrow \mathbb C \]
+
+  Let $z \in \mathbb C$ arbitrary.
+  \[
+    \frac{\abs{a_{k+1}}}{\abs{a_k}}
+    = \frac{\abs{\frac{z^{k+1}}{(k+1)!}}}{\abs{\frac{z^k}{k!}}}
+    = \abs{\frac{z}{k+1}}
+    \to 0
+  \]
+  $\Rightarrow \varepsilon(z)$ is convergent for all $z \in \mathbb C$.
+  \[ \varepsilon: \mathbb C \to \mathbb C \]
+\end{ex}
+\begin{cor}
+  Using series sum we can define mappings (functions).
+\end{cor}
+\index{Power series with coefficient sequences}
+\index{\foreignlanguage{ngerman}{Potenzreihe mit Koeffizientenfolgen}}
+\begin{defi}
+  Let $\seq{a_n}$ be a complex sequence and let $z \in \mathbb C$.
+  Then $\sum_{k=0}^\infty a_k \cdot z^k$ is called \emph{power series with
+  coefficient sequence $\left(a_k\right)_{k \in \mathbb N}$}.
+
+  Its convergence property depends on $z$.
+  For $z = 0$ every power series is convergent.
+  \[ \sum_{k=0}^\infty a_k \cdot 0^k \]
+  Because we define $0^0 \coloneqq 1$ here, the constant series $a_0$ is given.
+\end{defi}
+
+\begin{lemma}
+  \label{series-absolute-conv}
+  Let $\sum_{k=0}^\infty a_k z^k$ is a power series in $\mathbb C$ and $z_0 \in \mathbb C \setminus \set{0}$
+  such that $\sum_{k=0}^\infty a_k z_0^k$ is convergent. Then the power series is
+  absolute convergent for all $z$ with $\abs{z} < \abs{z_0}$.
+
+  Geometrically, if the series is convergent at one point $z_0$ at the circle,
+  it is convergent in all points of the circle.
+\end{lemma}
+\begin{proof}
+  Direct comparison test: Because $\sum_{k=0}^\infty a_k z_0^k$ is convergent,
+  it holds that $\lim_{k\to\infty} a_k z_0^k = 0$.
+  Therefore $(a_k z_0^k)_{n\in\mathbb N}$ is also bounded and there exists some
+  $m \geq 0$ such that $\abs{a_k z_0^k} \leq m \quad \forall k \in \mathbb N$.
+
+  Let $\abs{z} < \abs{z_0}$. Then,
+  \[
+    \abs{a_k z^k}
+    = \abs{a_k \frac{z^k}{z_0^k} \cdot z_0^k}
+    = \abs{a_k z_0^k}
+    = \underbrace{\abs{a_k z_0^k}}_{\leq m} \underbrace{\abs{\frac{z}{z_0}}^k}_{\coloneqq q}
+    \leq m \cdot q^k
+  \]
+  with $0 \leq q < 1$. Therefore $\sum_{k=0}^\infty a_k z^k$ is convergent
+  because of the direct comparison test with $\sum_{k=0}^\infty m \cdot q^k = m \cdot \sum_{k=0}^\infty q^k$.
+\end{proof}
+\begin{defi}
+  Let $P(z) = \sum_{k=0}^\infty a_k z^k$ be a power series in $\mathbb C$. We define
+  \[ \rho(P) = \sup\set{r \geq 0, r \in \mathbb R: P(r) \text{ is convergent}} \]
+  $\rho(P)$ is called convergence radius of $P$. If $\set{r \geq 0: P(r) \text{ is convergent}}$
+  is unbounded, then we define $P(r) = \infty$.
+\end{defi}
+
+\begin{lemma}
+  Let $P(z) = \sum_{k=0}^\infty a_k z^k$ be a power series in $\mathbb C$ and
+  let $\rho(P)$ be its convergence radius of $P$. Then $P(z)$ is absolute convergent
+  for all $z \in \mathbb C$ with $\abs{z} < \rho(P)$.
+\end{lemma}
+\begin{proof}
+  For $\rho(P) = 0$, nothing has to be shown.
+
+  Let $\rho(P) > 0$ and $\abs{z} < \rho(P)$, then $\varepsilon \coloneqq \rho(P) - \abs{z}$.
+  Because $\rho(P) = \sup\set{r \geq 0: P(r) \text{ is convergent}}$, there exists some
+  $r \in \mathbb R$ such that $\rho(P) - \varepsilon < r \leq \rho(P)$ and $P(r)$ is convergent.
+  $\rho(P) - \varepsilon = \abs{z} < r$. So $P(z)$ is absolute convergent
+  according to Lemma~\ref{series-absolute-conv}.
+
+  Geometrically, $\rho(P)$ is a circle and its interior is convergent.
+  On the outside the power series is divergent. The convergence property
+  at the circle itself is unknown (not generally uniform).
+\end{proof}
+
+\begin{lemma}
+  Let $z \in \mathbb C$, $P$ is a power series and $\abs{z} > \rho(P)$.
+  Then $\sum_{k=0}^\infty a_k z^k$ is divergent for this point.
+\end{lemma}
+\begin{proof}
+  Proof by contradiction. Assume $P(z)$ is convergent and $\abs{z} > \rho(P)$.
+  Let $\varepsilon = 2(\abs{z} - \rho(P))$. Then $\rho(P) + \varepsilon < \abs{z}$
+  with $\rho(P) + \varepsilon > \rho(P)$. From the previous lemma it follows that
+  $P(\rho(P) + \varepsilon)$ is convergent. But this contradicts with $\rho(P)
+  = \sup\set{r \geq 0: P(r) \text{ is convergent}}$.
+\end{proof}
+\index{Convergence circle}
+\index{\foreignlanguage{ngerman}{Konvergenzkreis}}
+\begin{rem}
+  $B(0,\rho(P))$ is called \emph{convergence circle of $P$}.
+\end{rem}
+\begin{theorem}[Formulas to compute $\rho(P)$]
+  Let $P(z) = \sum_{k=0}^\infty a_k z^k$ be a power series.
+  Then it holds in every case that,
+  \begin{itemize}
+    \item $\rho(P) = \frac{1}{L}$ with $L = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}}$
+      (for $L = \infty$ if $\seq{\sqrt[n]{\abs{a_n}}}$ is unbounded and $\frac{1}{\infty} \coloneqq 0$)
+      (Cauchy \& Hadamard)
+    \item
+      If $q \coloneqq \lim_{n\to\infty} \abs{\frac{a_{n+1}}{a_n}}$ exists,
+      then the convergence circle of this power series is $\frac1q$:
+      \[ \rho(P) = \frac{1}{q} \]
+      with $\frac10 \coloneqq \infty$ and $\frac1{\infty} = 0$. 
+  \end{itemize}
+\end{theorem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
