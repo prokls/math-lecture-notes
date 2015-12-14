@@ -5267,6 +5267,255 @@ Homomorphisms and vector spaces:
   \end{enumerate}
 \end{theorem}
 
+\meta{lecture}{14th of December 2015}{Franz Lehner}
+
+\begin{proof}
+  \label{proof-5-13}
+  \begin{enumerate}
+    \item
+      If $f$ is surjective and $L(M) = V$, then $L(f(M)) = W$.
+      If $f$ is surjective, then the image of the generating system is also a generating system.
+      \[ L(f(M)) \stackrel{\text{Theorem~\ref{satz-5-12}}}{=} f(L(M)) = f(V) \stackrel{\text{surj.}}{=} W \]
+    \item
+      Let $f(v_i) \in f(M)$.
+      Let $\sum \lambda_i f(v_i) = 0$. Then $f(\sum \lambda_i v_i) = 0_W = f(0_V)$.
+      \[ f \text{ inj.} \Rightarrow \sum \lambda_i v_i = 0_v \]
+      \[ M \text{ is linear indep.} \Rightarrow \text{ all } \lambda_i = 0 \]
+    \item If $f$ is bijective and $B \subseteq V$ is basis, then $f(B)$ is basis.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-5-14}
+  Let $f: V \rightarrow W$ be linear.
+  \begin{itemize}
+    \item If $f$ is injective, then $\dim{V} \leq \dim{W}$.
+    \item If $f$ is surjective, then $\dim{V} \geq \dim{W}$.
+    \item If $f$ is bijective, then $\dim{V} = \dim{W}$.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Let $(b_I)_{i \in I}$ be a basis of $V$.
+  \begin{enumerate}
+    \item
+      If $\dim{W} = \infty$, we are done.
+      $\dim{W} < \infty$, then from Theorem~\ref{satz-5-13} it follows that,
+      $\left(f(b_i)\right)_{i \in I}$ is linear in W.
+      $\dim{W}$ is given by maximal size of a linear independent family in $W$.
+      \[ \Rightarrow \dim{W} \geq [I] = \dim{V} \]
+    \item
+      If $\dim{V} = \infty$, we are done.
+      If $\dim{V} < \infty \Rightarrow \card{I} < \infty$.
+      From Theorem~\ref{satz-5-13}~(1) it follows that
+      $\left(f(b_i)\right)_{i \in I}$ generates $W$.
+      $\dim{W}$ is given by maximal size of a linear independent family in $W$.
+      \[ \Rightarrow \dim{W} \leq \card{I} = \dim{V} \]
+    \item
+      Follows from the previous two items or directly from Theorem~\ref{satz-5-13}~(2).
+  \end{enumerate}
+\end{proof}
+%
+\index[English]{invariant}
+\index[German]{\foreignlanguage{ngerman}{Invariante}}
+\begin{cor}
+  If $V$ and $W$ are isomorphic (ie. if an isomorphism $f: V \rightarrow W$ exists),
+  then $\dim{V} = \dim{W}$. Therefore the dimension of a vector space is an invariant.
+
+  We show the inverse: If $\dim{V} = \dim{W}$, then isomorphism is given.
+\end{cor}
+%
+\begin{theorem}
+  \label{satz-5-15}
+  Abstract definition:
+  \enquote{In the category of vector spaces, all objects are free.}
+
+  Given two vector spaces $V$ and $W$. Let $(b_i)_{i \in I} \subseteq V$ be basis of $V$.
+  $(w_i)_{i \in I} \subseteq W$ is arbitrary.
+
+  Then there exists a distinct linear mapping $f: V \rightarrow W$, such that $f(b_i) = w_i$ for all $i$.
+\end{theorem}
+
+\begin{cor}
+  Two linear mappings $f,g: V \rightarrow W$ are equal (ie. $\bigwedge_{v \in V} f(v) = g(v)$).
+  \[ \Leftrightarrow f|_B = g|_B \text{ for a basis of } V \]
+\end{cor}
+\begin{proof}
+  A linear mapping with $f(b_i) = w_i$ and linear combination $v = \sum \lambda_i b_i$ must give
+  \[ f(v) = f\left(\sum \lambda_i b_i\right) = \sum \lambda_i f(b_i) = \sum \lambda_i w_i \]
+  We therefore define
+  \[ f(v) = \sum_{j=1}^n \lambda_j w_{ij} \]
+  If $v = \sum_{j=1}^n \lambda_j b_{ij}$ (decomposition in regards of basis).
+
+  This define a function $f: V \rightarrow W$. So for every decomposition in regards of the basis,
+  this decomposition is distinct. Therefore $f$ is well-defined.
+
+  We now need to show: $f$ is linear.
+  \[ v = \sum_{i=1}^n \alpha_j b_{ij} \qquad v = \sum_{j=1}^n \beta_j b_{ij} \]
+  Without loss of generality in both vectors we have the same basis vectors $b_{ij}$
+  (in other case we extend them using zero coefficients).
+
+  \begin{align*}
+    f(\lambda u + \mu v) &= f(\lambda \sum_{j=1}^n \alpha_j b_{ij} + \mu \sum_{j=1}^n \beta_j b_{ij}) \\
+      &= f(\sum_{j=1}^n \left(\lambda \alpha_j + \mu \beta_j\right) b_{ij}) \\
+      &= \sum_{j=1}^n \left(\lambda \alpha_j + \mu \beta_j\right) w_{ij} \\
+      &= \lambda \sum_{j=1}^n \alpha_j w_{ij} + \mu \sum_{j=1}^n \beta_j w_{ij} \\
+      &= \lambda f(u) + \mu f(v)
+  \end{align*}
+  Therefore it is linear. But is it distinct?
+
+  Let $g: V \rightarrow W$ be linear with $g(b_i) = w_i$ for all $i$.
+  We need to show that $g = f$. Therefore $g(v) = f(v)$ (for all $v \in V$).
+  Let $v \in V \Rightarrow v = \sum_{j=1}^n \lambda_j b_{ij}$ be a decomposition
+  in regards of the basis. Therefore $g(v) = g\left(\sum_{j=1}^n \lambda_j b_{ij}\right)
+  = \sum_{j=1}^n \lambda_j g(b_{ij}) = \sum_{j=1}^n \lambda_j w_{ij} = f(v)$.
+\end{proof}
+
+\begin{theorem}
+  \label{satz-5-16}
+  Let $V$ and $W$ be finite-dimensional vector spaces.
+  Then $V \stackrel\sim= W \Leftrightarrow \dim{V} = \dim{W}$.
+
+  \[ \left(\delta_{x}\right)_{x \in \mathbb R} \subseteq \mathbb R^{\mathbb R} \]
+  is linear independent, where
+  \[
+    \delta_x(t) = \begin{cases}
+      1 & \text{if } t = x \\
+      0 & \text{else}
+    \end{cases}
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[Proof $\Rightarrow$]
+      Let $f: V \rightarrow W$ be an isomorphism. Then from Theorem~\ref{satz-5-14}~(3)
+      it follows that $\dim{V} = \dim{W}$.
+    \item[Proof $\Leftarrow$]
+      Let $(v_1, \dots, v_n)$ be a basis of $V$ and $(w_1, \dots, w_n)$ be basis of $W$.
+      Let $f: V \rightarrow W$ be a linear mapping from Theorem~\ref{satz-5-15}
+      for which $f(v_i) = w_i$ for all $1 \leq i \leq n$.
+
+      We need to show that $f$ is bijective; injective and surjective.
+
+      Injectivity: Let $v,v' \in V$ with $f(v) = f(v')$. We need to show that $v = v'$.
+      \begin{align*}
+        0 = f(v) - f(v')
+          &= f\left(\sum_{i=1}^n \lambda_i v_i\right) - f\left(\sum_{i=1}^n \mu_i v_i\right) \\
+          &= \sum_{i=1}^n \lambda_i f(v_i) - \sum_{i=1}^n \mu_i f(v_i) \\
+          &= \sum_{i=1}^n \lambda_i w_i - \sum_{i=1}^n \mu_i w_i \\
+          &= \sum_{i=1}^n (\lambda_i - \mu_i) w_i = 0
+          &\Rightarrow \lambda_i - \mu_i = 0 \quad\forall i \\
+          &\Rightarrow \text{all } \lambda_i = \mu_i \Rightarrow v = v'
+      \end{align*}
+
+      Surjectivity: Let $w \in W$. We need to show that
+      \[ \bigvee_{v \in V} f(v) = w \]
+      $(w_1, \dots, w_i)$ generates $W$. Therefore,
+      \[ \bigvee_{\lambda_1, \dots, \lambda_n} w = \sum_{i=1}^n \lambda \cdot w_i \]
+      Then
+      \[ f(v) = w \text{ for } v = \sum_{i=1}^n \lambda_i v_i \in V \]
+      \[ f(\sum_{i=1}^n \lambda_i v_i) = \sum_{i=1}^n \lambda_i f(v_i) = \sum_{i=1}^n \lambda_i w_i = w \]
+      % TODO: verify
+  \end{description}
+
+  We have shown that if $f: b_i \rightarrow w_i$ is extended to a linear mapping $f: V \rightarrow W$,
+  then it holds that
+  \begin{enumerate}
+    \item if $(w_1, \dots, w_n)$ is linear independent, then $f$ is injective.
+    \item if $L(w_1, \dots, w_n) = W$, then $f$ is surjective.
+  \end{enumerate}
+\end{proof}
+
+\begin{cor}
+  \[ \dim{V} = n \Leftrightarrow V \stackrel\sim= K^n \]
+  Isomorphism: Let $(b_1, \dots, b_n)$ be a basis of $V$.
+  Then,
+  \[ f: V \rightarrow K^n \]
+  \[ b_i \mapsto e_i = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} \]
+  with the $1$ in the i-th row,
+  \[
+    f\left(\sum_{i=1}^n \lambda_i b_i\right)
+    = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}
+  \]
+  is an isomorphism.
+\end{cor}
+
+\begin{cor}
+  \[ \Hom(V, W) \supsetneq \set{0} \text{ if } V,W \neq \set{0} \]
+  $\Hom(V,W)$ is vector space (and ring, hence algebra).
+  \[ (\lambda f + \mu g)(v) = \lambda f(v) + \mu g(v) \]
+  It follows that $\dim{\Hom(V,W)} = \dim{V} \cdot \dim{W}$.
+\end{cor}
+\begin{theorem}
+  \label{satz-5-18}
+  \[ \dim{\Hom(V,W)} = \dim{V} \cdot \dim{W} \]
+\end{theorem}
+\begin{proof}
+  Every $f: V \rightarrow W$ is uniquely defined by the values of the basis of $V$.
+  Let $(v_1, \dots, v_m)$ be a basis of $V$. Let $(w_1, \dots, w_n)$ be a basis of $W$.
+
+  \textbf{Claim:} The mapping $f_{ij}: V \rightarrow W$ such that
+  \[
+    f_{ij}(v_k) = \begin{cases}
+      w_j & \text{if } k = i \\
+      0 & k \neq i
+    \end{cases}
+  \]
+  Is distinct according to Theorem~\ref{satz-5-15}.
+  This is a basis of $\Hom(V, W)$. So we need to shown linear independence and
+  that it is a generating system.
+
+  Let $B$ such that,
+  \[
+    B = \left(f_{ij}\right)_{\substack{1 \leq i \leq m \\ 1 \leq j \leq n}}
+    \subseteq \Hom(V, W)
+  \]
+  \begin{enumerate}
+    \item
+      \[ L(B) = \Hom(V, W) \]
+      Let $f \in \Hom(V, W)$ be searched $\lambda_{ij} \in K$
+      such that $f = \sum_{i=1}^n \sum_{j=1}^n \lambda_{ij} f_{j}$.
+      \[ \bigwedge_{h} \bigvee_{\lambda_1,\dots,\lambda_n \in K} f(v_k) = \sum_{i=1}^n \lambda_{\alpha_j} w_j \]
+      Decomposition of $f(v_k)$ in regards of the basis $(w_1, \dots, w_n)$.
+
+      \textbf{Claim:}
+      \[ f = \sum_{i=1}^n \sum_{j=1}^n \alpha_{ij} f_{ij} = g \]
+
+      To show that $f = g$ (hence $f(v) = g(v)$),
+      it suffices to show that $f(v_k) - g(v_k)$ for all $k$ (Theorem~\ref{satz-5-15}).
+
+      \begin{align*}
+        g(v_k) &= \left(\sum_{i=1}^n \sum_{j=1}^n \alpha_{ij} f_{ij}\right) (v_k) \\
+          &= \sum_{i=1}^n \sum_{j=1}^n \alpha_{ij} f_{ij}(v_k)
+      \end{align*}
+      \[
+        f_{ij}(v_k) = \begin{cases}
+          w_j & \text{if } i = k \\
+          0 & \text{if } i \neq k
+        \end{cases}
+      \]
+
+      $\Rightarrow = \sum_{j=1}^n \alpha_{k_j} w_j = f(v_k)$.
+      \[ \Rightarrow g|_{\set{v_1, \dots, v_m}} = f|_{\set{v_1, \dots, v_m}} \]
+      \[ \xRightarrow{\text{Theorem~\ref{satz-5-15}}} g = f \]
+
+      And finally we need to show linear independence.
+
+      Let $\lambda_{ij} \in K$ such that $\sum_{i=1}^n \sum_{j=1}^n \lambda_{ij} f_{ij} = 0$.
+      Therefore $\sum_{i=1}^n \sum_{j=1}^n \lambda_{ij} f_{ij}(v) = 0$ for all $v \in V$.
+      Show that for all $\lambda_{ij} = 0$.
+
+      \begin{align*}
+        0 &= \sum_{i=1}^n \sum_{j=1}^n \lambda_{ij} f_{ij}(v_k) \\
+          &= \sum_{j=1}^n \lambda_{kj} w_j = 0 \Rightarrow \bigwedge_j \in \set{1,\dots,n} \lambda_{kj} = 0
+      \end{align*}
+      where
+      \[ f_{ij}(v_k) = \begin{cases} w_{j} & i = k \\ 0 & i \neq k \end{cases} \]
+      so $(w_j)$ are linear independent and this holds for all $k$. So,
+      \[ \bigwedge_{k} \bigwedge_j \lambda_{kj} = 0 \]
+  \end{enumerate}
+\end{proof}
+
 \clearpage
 \begin{otherlanguage}{ngerman}
 \printindex[German]
