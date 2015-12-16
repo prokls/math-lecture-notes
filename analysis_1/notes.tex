@@ -3594,7 +3594,7 @@ The analogous result for the limes inferior also holds and is given in the pract
 \begin{theorem}
   Let $q \in \mathbb C$ with $q \neq 1$.
   Consider $\sum_{k=0}^\infty q^k$ hence $S_n = \sum_{k=0}^{n} q^n$.
-  The limes of this series is given with $\frac{1 - q^{n+1}}{1 - q}$ for $\abs{q} < 0$.
+  The limes of this series is given with $\frac{1 - q^{n+1}}{1 - q}$ for $\abs{q} < 1$.
 \end{theorem}
 \begin{proof}
   We find a simple equation for $S_n$:
@@ -4172,9 +4172,216 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
       If $q \coloneqq \lim_{n\to\infty} \abs{\frac{a_{n+1}}{a_n}}$ exists,
       then the convergence circle of this power series is $\frac1q$:
       \[ \rho(P) = \frac{1}{q} \]
-      with $\frac10 \coloneqq \infty$ and $\frac1{\infty} = 0$. 
+      with $\frac10 \coloneqq \infty$ and $\frac1{\infty} = 0$.
   \end{itemize}
 \end{theorem}
+
+\meta{lecture}{16th of December 2015}
+
+\subsection{Equations for $\rho(P)$}
+%
+\begin{theorem}
+  \[ P(z) = \sum_{k=0}^\infty a_k z^k \]
+  \[ L = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} \]
+  \[ \rho(P) = \frac{1}{L} \qquad \text{\enquote{Cauchy-Hadamond theorem}} \]
+
+  If $q = \lim_{n\to\infty} \abs{\frac{a_{n+1}}{a_n}}$ exists,
+  then it holds that $\rho(P) = \frac1q$ (Euler).
+
+  % TODO: image rho_P.svg
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      Let $z \neq 0$ and let $L^* = \limsup{\sqrt[k]{\abs{a_k z^k}}} = \limsup_{k\to\infty}{\abs{z}\sqrt{a_k}} = \abs{z} \cdot k$.
+      Due to the square root criterion it holds that:
+      \begin{itemize}
+        \item If $\abs{z} L < 1$, then $\sum_{k=0}^\infty a_k z^k$ is absolute convergent.
+        \item If $\abs{z} L > 1$, then $\sum_{k=0}^\infty a_k z^k$ is absolute divergent.
+      \end{itemize}
+
+      Therefore for $\abs{z} < \frac1{L}$, $P$ is convergent.
+      For $\abs{z} > \frac{1}{L}$, $P$ is divergent.
+
+      \[ \Rightarrow \rho(P) = \frac{1}{L} \]
+    \item Ratio test: Assume $q = \lim_{k\to\infty} \abs{\frac{a_{k+1}}{a_k}}$ exists.
+      The ratio test for $P(z) = \sum_{k=0}^\infty \sum_{k=0}^\infty a_k z^k$ gives us
+      \[
+        \lim_{k\to\infty} \abs{\frac{a_{k+1} \cdot z^{k+1}}{a_k \cdot z^k}}
+        = \abs{z} \lim_{k\to\infty} \abs{\frac{a_{k+1}}{a_k}}
+        = \abs{z} \cdot q
+      \]
+      Therefore $P$ is convergent, if $\abs{z} \cdot q < 1 \Leftrightarrow \abs{z} < \abs{z} < \frac1{q}$.
+      And $P$ is divergent, if $\abs{z} \cdot q > 1 \Leftrightarrow \abs{z} > \frac1{q}$.
+  \end{enumerate}
+\end{proof}
+
+\begin{rem}
+  What happens for $\abs{z} = \rho(P)$?
+  We need a different approach for convergence/divergence.
+  \begin{enumerate}
+    \item
+      \[ G(z) = \sum_{k=0}^\infty z^k \qquad L = \limsup_{k\to\infty} \sqrt[k]{\abs{1}} \]
+      \[ \rho(G) = 1 \]
+    \item
+      \[ H(z) = \sum_{k=1}^\infty \frac1k z^k \]
+      \[
+        q =
+        \lim_{k\to\infty} \abs{\frac{\frac1{k+1}}{\frac1k}}
+        = \lim_{k\to\infty} \abs{\frac{k}{k+1}}
+        = \lim_{k\to\infty} \abs{\frac{1}{1 + \underbrace{\frac1k}_{\to0}}}
+      \]
+    \item
+      \[ Q(z) = \sum_{k=1}^\infty \frac{z^k}{k^2} \]
+      \[ q = \lim_{n\to\infty} \left(\frac{\frac{1}{(k+1)^2}}{\frac1{k^2}}\right) = 1 \]
+      \[ \rho(Q) = 1 \]
+  \end{enumerate}
+
+  \begin{description}
+    \item[Case 1]
+      Let $z \in \mathbb C$ with $\abs{z} = 1$. Then $G(z)$ is not convergent
+      because $(z^k)_{k\in\mathbb Z}$ is not a zero sequence because $\abs{z^k} = \abs{z}^k = 1$.
+      So geometrically, the circle itself of the convergence circle is divergent.
+    \item[Case 2]
+      Consider $H(z) = \sum_{k=1}^\infty \frac{z^k}{k}$.
+      $H$ is divergent for $z = 1$.
+      For $z = -1$, $H(-1) = \sum_{k=1}^\infty \frac{(-1)^k}{k}$ is convergent according to the Leibniz criterion.
+    \item[Case 3]
+      For $Q(z) = \sum_{k=1}^\infty \frac{z^k}{k^2}$ and let $\abs{z} = 1$.
+      Then it holds that $\abs{\frac{z^k}{k^2}} \leq \frac{1}{k^2}$.
+      $\sum_{k=1}^\infty \frac{1}{k^2}$ is absolute convergent.
+      The direct comparison test tells us that $\sum_{k=1}^\infty \frac{z^k}{k^2}$ is absolute convergent.
+  \end{description}
+\end{rem}
+
+\section{Functions and their regularity properties}
+%
+\index{Real function}
+\index{\foreignlanguage{ngerman}{Komplexe Funktion}}
+\index{Complex function}
+\index{\foreignlanguage{ngerman}{Reele Funktion}}
+Recall: Let $D \subseteq \mathbb C$ (or $\subseteq \mathbb R$).
+A mapping $f: D \Rightarrow \mathbb C$ (or $f: D \rightarrow \mathbb R$)
+is a function. Depending on the domain, we call the function \emph{complex}
+or \emph{real}.
+
+\subsection{Fundamental topological terminology}
+%
+Recall: $B(z, r) = \set{\zeta \in \mathbb C: \abs{z - \zeta} < r}$.
+Geometrically this corresponds to an open circular disk with center $z$ and radius $r$.
+
+Analogously, $B(x, r) = \set{y \in \mathbb R: \abs{y - x} < r} = (x-r, x+r)$
+in $\mathbb R$.
+
+\index{Open set}
+\index{\foreignlanguage{ngerman}{Offene Menge}}
+\index{Closed set}
+\index{\foreignlanguage{ngerman}{Abgeschlossene Menge}}
+\begin{defi}
+  Let $U \subseteq \mathbb C$ ($U \subseteq \mathbb R$) and $z_0 \in U$.
+  Then $U$ is called surrounding of $z_0$ in $\mathbb C$,
+  if $\exists r > 0: B(z_0, r) \subseteq U$.
+  \begin{itemize}
+    \item
+      $O \subseteq \mathbb C$ if called \emph{open set} if $\forall z \in O$:
+      $O$ is surrounding of $z$.
+      \[ \Leftrightarrow \forall z \in O: \exists r = r(z): B(z, r) \subseteq O \]
+    \item
+      $A \subseteq \mathbb C$ is called \emph{closed set}, if $\mathbb C \setminus A$
+      is an open set.
+  \end{itemize}
+\end{defi}
+
+\begin{theorem}
+  \begin{enumerate}
+    \item
+      Let $I$ be a set and $\forall i \in I$ let $O_i$ be an open set in $\mathbb C$.
+      Then $\bigcup_{i \in I} O_i = \set{z \in \mathbb C: \exists i \in I: z \in O_i}$
+      is an open set.
+    \item
+      Let $O_1, O_2, \ldots, O_n$ be open sets.
+      Then $\bigcap_{k=1}^n O_k = O_1 \cap O_2 \cap \ldots \cap O_n$ is open.
+    \item
+      If $\emptyset$ is open, then $\mathbb C$ is open.
+    \item
+      $I$ is a set $\forall i \in I$. Let $A_i$ be closed.
+      Then $\bigcap_{i\in I} A_i$ is closed.
+    \item
+      Let $A_1, A_2, \dots, A_n$ be closed, then
+      $A_1 \cup A_2 \cup \dots \cup A_n = \bigcup_{k=1}^n A_k$ is closed.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      Let $z \in \bigcup_{i \in I} O_i$. Show that $\exists r > 0: B(z, r) \subseteq \bigcup_{i \in I} O_i$.
+
+      Let $z \in \bigcup_{i \in I} O_i$, therefore $\exists j \in I: z \in O_j$.
+      Because $O_i$ is open, $\exists r > 0: B(z, r) \subseteq O_j \subseteq \bigcup_{j \in I} O_j$.
+    \item
+      Let $O_1, \ldots, O_n$ and let $z \in O_k$.
+      Hence $\forall k \in \set{1, \dots, m}: z \in O_k$ with $O_k$ as open set.
+      $\exists r_k > 0: B(z, r_k) \subseteq O_k$.
+      Let $r = \min\set{r_1, r_2, \dots, r_n} > 0$.
+      Then it holds that $B(z, r) = \set{\zeta \in \mathbb C: \abs{\zeta - z} < r}
+      \subseteq \set{\zeta \in \mathbb C: \abs{\zeta - z} < r_k} = B(z, r_k) \subseteq O_k$ because $r \leq r_k$.
+
+      So $\forall k \in \set{1, \dots, n}: B(z, r) \subseteq O_k$. Otherwise $B(z, r) \subseteq \bigcap_{k=1}^n O_k \Rightarrow \bigcap_{k=1}^n O_k$ is open.
+    \item
+      Let $O = \emptyset$. Then it holds that $\forall z \in \emptyset: B(z, 1) \subseteq \emptyset$.
+      So $\emptyset$ is open.
+      For $O = \mathbb C$ it holds that $\forall z \in \mathbb C: B(z, 1) \subseteq \mathbb C$,
+      therefore $\mathbb C$ is open.
+    \item
+      Let $A_i$ be closed and $A = \bigcap_{i \in I} A_i$ and $O = \mathbb C \setminus A = \set{z \in \mathbb C: z \not\in \bigcap_{i \in I} A}$. $O = \mathbb C \setminus A = \set{z \in \mathbb C: z \not\in \bigcap_{i \in I} A_i}$.
+      $\set{z \in \mathbb C: \exists j \in I: z \not\in A_j} = \bigcap_{j \in I} \set{z \in \mathbb C: z \not\in A_j}
+      = \bigcup_{j \in I} \left(\mathbb C \setminus A_0\right) \to$ open.
+      So $\mathbb C \setminus A$ is open, therefore $A$ is closed.
+      \[ \mathbb C \setminus \bigcap_{j \in I} A_j = \bigcup_{j \in I} (\mathbb C \setminus A_j) \]
+      The last statement was proven by DeMorgan.
+    \item
+      Let $A = \bigcup_{k=1}^n A_k$.
+      \[ \mathbb C \setminus A = \mathbb C \setminus \bigcup_{k=1}^n A_k = \bigcap_{k=1}^n (\mathbb C \setminus A_n) \]
+      where $\mathbb C \setminus A_n$ is an open set.
+      So $A$ is closed.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  $A \subseteq \mathbb C$ is closed $\Leftrightarrow$ $\forall \seq{a_n}$ with $a_n \in A$ and $\seq{a_n}$
+  is convergent with limes $a \in \mathbb C$, then $a \in A$.
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[$\Rightarrow$]
+      Let $A$ be closed ($\mathbb C \setminus A$ is open) and $\seq{a_n}$ is a convergent sequence with $\lim_{n\to\infty} a_n = a$.
+      Show that $a \in A$.
+
+      Proove by contradiction: Assume $a \not\in A$, so $a \in \mathbb C \setminus A$.
+
+      Because $\mathbb C \setminus A$ is an open set, $\exists r > 0: B(a, r) \subseteq \mathbb C \setminus A$.
+      And $B(a, r) \cap A = \emptyset$ so it holds that $\forall n \in \mathbb N: a_n \not\in B(a, r)$ with $a_n \in A$.
+      So it holds that $\forall n \in \mathbb N: \abs{a_n - a} \geq r > 0$. This is contradiction to the assumption
+      that $a_n$ converges to $a$ for $n \to \infty$.
+    \item[$\Leftarrow$]
+      Assume the limes of every convergent sequence with sequence elements in $A$,
+      is again in $A$. We show that for $z \not\in A$ ($z \in \mathbb C \setminus A$)
+      there exists $\varepsilon > 0: B(z, \varepsilon) \cap A = \emptyset \Leftrightarrow B(z, \varepsilon) \subseteq \mathbb C \setminus A$.
+
+      We prove the existence of such an $\varepsilon$ by contradiction:
+      So we assume such a $\varepsilon$ does not exist:
+      \[ \forall \varepsilon > 0: B(z, \varepsilon) \cap A \neq \emptyset \]
+      Especially: $\varepsilon = \frac1{n}$ with $n \in \mathbb N_+$.
+
+      \[ B(z, \frac1n) \cap A \neq \emptyset \text{ therefore } \exists a_n \in A \cap B(z, \frac1n) \]
+      therefore $a_n \in A \land \abs{a_n - z} < \frac1n$.
+      So this constructed sequence $\seq{a_n}$ satisfies:
+      \[ a_n \in A: \abs{a_n - z} < \frac1n \Rightarrow \lim_{n\to\infty} a_n = z \]
+      By hypothesis, it holds that $z \in A$, but this is a contradiction to $z \in \mathbb C \setminus A$.
+      So it is shown that $\mathbb C \setminus A$ is an open set. So $A$ is closed.
+  \end{description}
+\end{proof}
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}

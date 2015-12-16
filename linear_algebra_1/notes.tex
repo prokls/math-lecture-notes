@@ -40,6 +40,8 @@
 \DeclareMathOperator\Hom{Hom} % homomorphism
 \DeclareMathOperator\End{End} % endomorphism
 \DeclareMathOperator\Aut{Aut} % automorphism
+\DeclareMathOperator\image{im} % image
+\DeclareMathOperator\kernel{ker} % kernel
 
 \DeclarePairedDelimiter\norm\lVert\rVert
 
@@ -4763,7 +4765,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
     \item
       The equivalence class of a vector $v \in V$ is
       \[ [v]_u = \setdef{w}{w -v \in U} = \setdef{v+u}{u \in U} = v + U \]
-      is called \emph{linear manifold}.
+      is called \emph{linear manifold} or \emph{affine space}.
 
       (Consider a vector $v$ and a line $U$. $v + U$ is the set of all lines parallel to $U$ and going through $v$.)
     \item
@@ -5515,6 +5517,381 @@ Homomorphisms and vector spaces:
       \[ \bigwedge_{k} \bigwedge_j \lambda_{kj} = 0 \]
   \end{enumerate}
 \end{proof}
+
+\meta{lecture}{15th of December 2015}{Franz Lehner}
+
+\subsection{Revision}
+
+A factor set satisfies:
+\[ V/U \quad U \subseteq V \text{ is a subspace} \]
+\[ = \setdef{v +  U}{v \in V} = \setdef{[v]}{v \in V} \]
+\[ v \sim_U v' \Leftrightarrow v - v' \in U \Leftrightarrow v \in V' + U \]
+\[ \dim(V/U) = \dim{U} = \dim{V} \]
+
+Constructing a basis for $V/U$:
+\[ u_1, \dots, u_m \text{ is basis of } U \rightarrow \text{ extend to basis of } V \]
+\[ u_1, \dots, u_m, w_1, \dots, w_{n-m} \text{ is basis of } V \]
+\[ w_1+U, \dots, w_{n-m}+U \text{ is basis of } V/U \]
+
+Images and preimages of subspaces are subspaces.
+
+\index[English]{Kernel of a linear mapping}
+\index[German]{\foreignlanguage{ngerman}{Kern einer linearen Abbildung}}
+\index[English]{Image of a linear mapping}
+\index[German]{\foreignlanguage{ngerman}{Bild einer linearen Abbildung}}
+\begin{defi}
+  Let $f: V \rightarrow W$ be linear.
+  The subspace
+  \[ \operatorname{ker}(f) \coloneqq f^{-1}(\set{0}) = \setdef{v}{f(v) = 0} \subseteq V \]
+  is called \emph{kernel} of the linear mapping $f$.
+  The \emph{image} of the linear mapping $f$ is defined as
+  \[ \operatorname{im}(f) = f(V) \]
+\end{defi}
+%
+\begin{ex}
+  \[ f: K^n \rightarrow K^n \]
+  Consider some fixed $m$.
+  \[
+    \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}
+    \mapsto
+    \begin{pmatrix} x_1 \\ \vdots \\ x_m \\ 0 \\ \vdots \\ 0 \end{pmatrix}
+  \]
+  \[
+    \operatorname{im}(f) = \setdef{\begin{pmatrix} x_1 \\ \vdots \\ x_m \\ \vdots \\ 0 \end{pmatrix}}{X \in K}
+    \stackrel\sim=
+    K^m
+  \] \[
+    \operatorname{ker}(f) = \setdef{\begin{pmatrix} 0 \\ \vdots \\ 0 \\ x_{n+1} \\ \vdots \\ x_n \end{pmatrix}}{x_i \in K}
+    \stackrel\sim= K^{n-m}
+  \]
+  In this example:
+  \[ \operatorname{ker}(f) \dot{+} \operatorname{im}(f) = K^n \]
+  \[ \dim{\operatorname{ker}(f)} + \dim{\operatorname{im}(f)} = \dim{V} \]
+\end{ex}
+
+\begin{theorem}
+  \label{satz-5-20}
+  Let $f: V \rightarrow W$ be linear.
+  \begin{itemize}
+    \item $f$ is surjective $\Leftrightarrow \image(f) = W$
+    \item $f$ is injective $\Leftrightarrow \kernel(f) = \set{0_V}$
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  \begin{itemize}
+    \item Follows immediately.
+    \item $\Rightarrow$: Let $v \in \kernel(f) \Rightarrow f(v) = 0_W = f(0_V)$
+      and $f$ is injective $\Rightarrow v = 0_v$.
+
+      $\Leftarrow$: Let $v,v' \in V$ with $f(v) = f(v')$.
+      \[ 0 = f(v) - f(v') = f(v - v') \]
+      \[ \Rightarrow v - v' \in \kernel(f) = \set{0} \]
+      \[ \Rightarrow v = v' \]
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}[homomorphism theorem] % Homomorphiesatz
+  \label{satz-5-21}
+  Let $g: V \rightarrow V/U$ be linear. $v \mapsto v + U$.
+  Then it holds that:
+  \[ \tilde{f}: V/\kernel{f} \rightarrow \image(f) \text{ is linear} \]
+  \[ v + \kernel(f) \mapsto f(v) \]
+  This gives an isomorphism.
+\end{theorem}
+\begin{proof}
+  We need to show,
+  \begin{enumerate}
+    \item Is it well-defined?
+    \item Is it linear?
+    \item Is it bijective?
+  \end{enumerate}
+
+  \begin{enumerate}
+    \item
+      So it must holds that $\tilde{f}(v + \kernel(f))$ does not depend on the selection of the representative.
+
+      So we need to show:
+      If $v \sim_{\kernel(f)} v'$ ($v - v' \in \kernel(f)$) then $f(v) - f(v')$.
+
+      \[ v - v' \in \kernel(f) \Rightarrow f(v - v') = 0 \]
+      \[ \Rightarrow f(v) - f(v') = 0 \]
+      \[ \Rightarrow f(v) = f(v') \]
+      Definition of $\tilde{f}(v + \kernel(f))$ is consistent.
+    \item
+      \begin{align*}
+        \bigwedge_{v,v' \in V} \bigwedge_{\lambda,\mu \in K} &
+        \tilde{f}(\lambda(v + \kernel(f))) + \mu(v' + \kernel(f)) \\
+        &= \tilde{f}((\lambda v + \mu v') + \kernel{f}) \\
+        &= f(\lambda v + \mu v') \\
+      \text{$f$ is linear} \Rightarrow
+        &= \lambda f(v) + \mu f(v') \\
+        &= \lambda \tilde{f}(v + \kernel(f)) + \mu \tilde{f}(v' + \kernel(f))
+      \end{align*}
+    \item
+      $\tilde{f}$ is surjective?
+      Let $w \in \image(f)$, choose $v \in V$ with $w = f(v) = \tilde{f}(v + \kernel(f))$.
+      Therefore $w \in \image(\tilde{f})$.
+
+      $\tilde{f}$ is injective?
+      We need to show that $\kernel(\tilde{f}) = \set{0 + \kernel(f)}$.
+
+      Let $\tilde{f}(v + \kernel(f)) = 0$.
+      So $v \in \kernel(f) \Rightarrow v + \kernel(f) = \kernel(f) = 0 + \kernel(f)$.
+  \end{enumerate}
+\end{proof}
+
+\begin{cor}
+  \label{Korrolar-5-22}
+  Let $f: V \rightarrow W$ be linear. So $\dim{V} < \infty$.
+  Then $\dim{\kernel(f)} + \dim{\image(f)} = \dim{V}$.
+\end{cor}
+\begin{proof}
+  \[ \dim(V/\kernel(f)) \stackrel{\text{Theorem~\ref{satz-4-24}}}{=} \dim{V} - \dim{\kernel(f)} \]
+  \[ \tilde{f}: V/\kernel(f) \rightarrow \image(f) \text{ is isomorphism} \]
+  \[ \Rightarrow \dim(V/\kernel(f)) = \dim(\image(f)) \]
+\end{proof}
+\begin{proof}[Alternative, more comprehensible proof]
+  \[ \kernel(f) \subseteq V \text{ is subspace} \]
+  From Theorem~\ref{satz-4-10} it follows that subspace $U \subseteq V$ exists
+  such that $\kernel(f) \dot{+} U = V$.
+  \[ \dim{U} = \dim{V} - \dim{\kernel(f)} \]
+  \textbf{Claim.} $f|_U: U \rightarrow \image(f)$ is bijective. \\
+  \textbf{Claim.} $f|_U$ is surjective.
+
+  Let $w \in \image(f)$
+  \[ \Rightarrow \bigvee_{v \in V} f(v) = w \]
+  \[ V = \kernel(f) \dot{+} U \Rightarrow \dot\bigvee_{u \in U} \dot\bigvee_{v_0 \in \kernel(f)} v = v_0 + u \]
+  \[ w = f(v) = f(v_0) + f(U) \Rightarrow w \in f(U) \]
+
+  $f_U$: is bijective. We need to show that $\kernel(f|_U) = \set{0}$.
+  \[ \kernel(f|_U) = \kernel(f) \cap U = \set{0} \]
+  Is $\set{0}$, because $V = \kernel(f) \dot{+} U$ is a direct sum.
+\end{proof}
+%
+\begin{rem}
+  Also the mapping
+  \[ U \to V/\kernel(f) \]
+  \[ u \mapsto u + \kernel(f) \]
+  is an isomorphism.
+
+  The proof will be provided in the practicals.
+\end{rem}
+
+\begin{theorem}
+  \label{satz-5-25}
+  \[ \dim{V} = \dim{W} < \infty \]
+  \[ f: V \rightarrow W \text{ is linear} \]
+  then it holds equivalently,
+  \begin{enumerate}
+    \item $f$ is a monomorphism
+    \item $f$ is epimorphism
+    \item $f$ is isomorphism
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item $\Leftrightarrow f$ is injective $\Leftrightarrow \kernel{f} = \set{0}$
+      \[ \Leftrightarrow \dim{\kernel(f)} = 0 \]
+      \[ \xLeftrightarrow{\text{Corollary~\ref{Korrolar-5-22}}} \dim{\image(f)} = \dim{V} = \dim{W} \]
+
+      \[ \image(f) \subseteq W \text{ subspace} \]
+      and $\dim{\inf(f)} = \dim{W}$.
+      \[ \Leftrightarrow \image(f) = W \]
+      \[ \Leftrightarrow f \text{ is surjective} \]
+
+      \[ \dim{V} = n \Leftrightarrow V \stackrel\sim{=} K^n \]
+      \[
+        \text{basis } f_{i,j}, v_k \rightarrow
+        \begin{cases}
+          w_j & \text{if } k = i \\
+          0 & \text{ else}
+        \end{cases}
+      \]
+      Every $f: V \rightarrow W$ has the structure
+      \[ f = \sum \alpha_{ij} f_{ij} \]
+  \end{enumerate}
+\end{proof}
+
+\section{Matrix computations}
+%
+We have already dealed with matrices when discussing linear mappings and linear equation systems.
+
+\index[English]{Matrix}
+\index[German]{\foreignlanguage{ngerman}{Matrix}}
+\index[English]{Quadratic matrix}
+\index[German]{\foreignlanguage{ngerman}{Quadratische Matrix}}
+\index[English]{Diagonal matrix}
+\index[German]{\foreignlanguage{ngerman}{Diagonalmatrix}}
+\index[English]{Main diagonal of a matrix}
+\index[German]{\foreignlanguage{ngerman}{Hauptdiagonale einer Matrix}}
+% TODO: further indices
+\begin{defi}
+  \label{definition-6-1}
+  An $m \times n$ matrix over $K$ is a number scheme:
+  \[
+    A = \begin{bmatrix}
+      a_{11} & a_{12} & \ldots & a_{1n} \\
+      a_{21} & a_{22} & \ldots & a_{2n} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      a_{m1} & a_{m2} & \ldots & a_{mn}
+    \end{bmatrix}
+  \]
+  with $m$ rows and $n$ columns.
+
+  $a_{ij}$ is the number of the $i$-th row and $j$-th column.
+  \[ M_{m,n}(K) = K^{m\times n} \]
+  is the set of all $m \times n$ matrices.
+  If $m=n$:
+  \[ M_n(K) = K^{n\times n} \]
+  is called a quadratic matrix.
+
+  $z_i = (a_{i1}, a_{i2}, \dots, a_{in})$ is the $i$-th row vector.
+  $s_j = \begin{pmatrix} a_{1j} \\ \vdots \\ a_{mj} \end{pmatrix}$ is the $j$-th column vector.
+
+  The sequence $a_{11}, a_{22}, \dots, a_{kk}$ with $k = \min{m,n}$ is called main diagonal of $A$.
+  If all entries are contained outside the main diagonal, $A$ is called \emph{diagonal matrix}.
+
+  \[
+    A = \operatorname{diag}(a_{11}, a_{22}, \dots, a_{kk})
+      = \begin{bmatrix}
+        a_{11} & 0 & \ldots & 0 \\
+        0 & a_{22} & \ldots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \ldots & a_{kk}
+      \end{bmatrix}
+  \]
+  $I_n = \operatorname{diag}(1, \dots, 1)$ is called \emph{unit matrix}.
+  \[ = [\delta_{ij}]_{i,j \in 1,\dots,n} \]
+  Kronecker-$\delta$:
+  \[
+    \delta_{i,j} = \begin{cases}
+      1 & \text{if } i = j \\
+      0 & \text{else}
+    \end{cases}
+  \]
+  If all entries outside the main diagonal are $0$, then $A$ is called a \emph{triangular matrix}.
+  If all entries below the main diagonal are $0$, then $A$ is called an \emph{lower triangular matrix}.
+  If all entries above the main diagonal are $0$, then $A$ is called an \emph{upper triangular matrix}.
+
+  \emph{Matrix units} are defined as
+  \[
+    (E^{(n)}_{kl})_{ij} = \delta_{ki} \cdot \delta_{ej}
+    = \begin{cases}
+      1 & \text{if } k = i \land l = j \\
+      0 & \text{else}
+    \end{cases}
+  \]
+  Examples:
+  \[
+    E_{11} = \begin{pmatrix}
+      1 & 0 & \ldots & 0 \\
+      0 & 0 & \ldots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \ldots & 0
+    \end{pmatrix}
+  \]
+  \[
+    E_{12} = \begin{pmatrix}
+      0 & 1 & \ldots & 0 \\
+      0 & 0 & \ldots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \ldots & 0
+    \end{pmatrix}
+  \]
+
+  The transposed matrix of $A \in K^{m\times n}$ is denoted
+  $A^t \in K^{n\times m}$ with entries:
+  \[ (A^t)_{ij} = a_{ji} \]
+  So we mirror along the main diagonal.
+  \[ (A^t)^t = A \]
+\end{defi}
+\begin{rem}
+  A column vector can be identified with a $1 \times n$ matrix.
+  A row vector can be identified with a $n \times 1$ matrix.
+\end{rem}
+
+\begin{theorem}
+  \label{satz-6-2}
+  $(K^{m\times n}, +, \cdot)$ with
+  \[
+    [a_{ij}]_{i=1,\dots,m; j=1,\dots,n} + [b_{ij}]_{i=1,\dots,m; j=1,\dots,n}
+    = [a_{ij} + b_{ij}]_{i=1,\dots,m; j=1,\dots,n}
+  \] \[
+    \lambda [a_{ij}]_{i=1,\dots,m; j=1,\dots,n}
+    = [\lambda a_{ij}]_{i=1,\dots,m; j=1,\dots,n}
+  \]
+  Is a vector space of dimension $m \cdot n$ with basis $(E_{ij})_{i=1,\dots,m;j=1,\dots,n}$.
+\end{theorem}
+%
+\begin{rem}
+  \label{bemerkung-6-3}
+  \[ K^{m\times n} \rightarrow K^{n\times m} \]
+  \[ A \mapsto A^t \]
+  is a vector space isomorphism.
+\end{rem}
+%
+\begin{defi}
+  Let $A = [a_{ij}]_{i=1,\dots,m;j=1,\dots,n} \in K^{m\times n}$.
+  \[ x = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} \in K^n \]
+  is a column vector. Then
+  \[
+    Ax = A \cdot x = \begin{pmatrix}
+      \sum_{j=1}^n a_{1j} x_j \\
+      \sum_{j=1}^n a_{2j} x_j \\
+      \vdots \\
+      \sum_{j=1}^n a_{mj} x_j
+    \end{pmatrix}
+    \in K^m
+  \]
+  This is called the product of the matrix $A$ with the vector $x$.
+
+  So instead of a linear equation system with all entries listed explicitly,
+  we will only write $Ax$ in this section.
+\end{defi}
+%
+\begin{ex}
+  \[
+    \begin{pmatrix}
+      1 & 2 & 3 \\
+      4 & 5 & 6
+    \end{pmatrix}
+    \begin{pmatrix}
+      1 \\ 2 \\ 3
+    \end{pmatrix}
+    = \begin{pmatrix}
+      1 \cdot 1 + 2 \cdot 2 + 3 \cdot 3 \\
+      4 \cdot 1 + 5 \cdot 2 + 6 \cdot 3
+    \end{pmatrix}
+    = \begin{pmatrix}
+      14 \\ 32
+    \end{pmatrix}
+  \]
+\end{ex}
+%
+\begin{rem}
+  \[ e_k = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} \]
+  \[ A \cdot e_{k} = s_k = \text{k-th column vector} \]
+\end{rem}
+%
+\begin{theorem}
+  \label{satz-6-5}
+  \begin{enumerate}
+    \item
+      Let $A \in K^{m\times n}$.
+      Then the mapping
+      \[ f_A: K^n \rightarrow K^m \]
+      \[ x \rightarrow Ax \]
+      is linear.
+    \item
+      For every $f \in \Hom(K^n, K^m)$ there exists a distinct matrix
+      $A \in K^{m\times n}$ such that $f = f_A$.
+
+      \fbox{Namely the $k$-th column of $A = f(e_k) = A \cdot e_k$}.
+    \item
+      \[ K^{m\times n} \rightarrow \Hom(K^n, K^m) \]
+      $A \mapsto f_A$ is an isomorphism.
+  \end{enumerate}
+\end{theorem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
