@@ -2062,6 +2062,161 @@ Every constant sequence has a limit point. So the set of limit points is given w
   Consider that there must exist a bounded subsequence and use the Bolzano-Weierstrass theorem.
 \end{ex}
 
+\section{Exercise 55}
+%
+\subsection{Exercise 55.a}
+\[ \sum_{n=0}^\infty \frac{n-5}{n^2 + 1} \]
+
+Let $n \geq 5$. Direct comparison test:
+\[ \frac{1}{2^n} \leq \abs{\frac{n-5}{n^2+1}} \]
+\[ n^2 + 1 \leq 8n^2 - 10n \]
+\[ 0 \leq n^2 - 10n - 1 \]
+\[ n \geq 5 \pm \sqrt{26} = 11 \]
+So $n \geq 11$ shows that it converges.
+
+Ratio test:
+\[ \lim_{n\to\infty} \abs{\frac{n-4}{(n+1)^2 + 1} \cdot \frac{n^2+1}{n+5}} \]
+\[ = \lim_{n\to\infty} \abs{\frac{(n-4)(n^2+1)}{((n+1)^2 + 1)(n+5)}} \]
+\[ = \lim_{n\to\infty} \abs{\frac{n^3 - 4n^2 + n - 4}{(n^2+2n+1)(n-5)}} \]
+\[ = \lim_{n\to\infty} \abs{\frac{\frac{n^3}{n^3} - \frac{4n^2}{n^2} + \frac{n^3}{n^3} - \frac{4}{n^3}}{\frac{n^3}{n^3} + \frac{2n^2}{n^3} - \frac{9n}{n^3} - \frac{5}{n^3}}} \]
+Shows convergence.
+
+But this solution is wrong.
+
+\subsubsection{Lathos' solution}
+\[ n \geq 10 \]
+\[ \frac{n-5}{n^2+1} \geq \frac{n-\frac{n}{2}}{n^2+n^2} = \frac12 \frac{1}{n+n} = \frac1{4n} \]
+\[
+  \sum_{n=1}^\infty \frac{1}{4n}
+  \xRightarrow{\text{direct comparison crit.}} \sum_{n=10}^\infty \frac{n-5}{n^2+1} \text{ div. }
+  \Rightarrow \sum_{n=0}^\infty \frac{n-5}{n^2+1} \text{ diverges}
+\]
+
+\subsection{Exercise 55.b}
+\[ \sum_{n=2}^\infty \frac{2n+1}{n(n-1)^2} \]
+
+Direct comparison test:
+\begin{align*}
+  \sum_{n=2}^\infty \frac{2n+1}{n(n-1)^2}
+  &\leq \sum_{n=2}^\infty \abs{\frac{4n}{n(\frac14 n)^2}} \cdot \sum_{n=2}^\infty \frac{4n}{n \frac1{16} n^2} \\
+  &= \sum_{n=2}^\infty \abs{\frac{4\cdot 16n}{n^3}} \\
+  &= 4 \cdot 16 \sum_{n=2}^\infty \abs{\frac{n}{n^3}} \leq 64 \cdot \sum_{n=2}^\infty \abs{\frac{4 \cdot 16b}{n^3}}
+\end{align*}
+And this converges absolutely.
+
+\subsection{Exercise 55.c}
+\[
+  \lim_{n\to\infty} \abs{\left(\frac45\right)^{n+1} (n+1)^5 \left(\frac45\right)^{-n} n^{-5}}
+\] \[
+  = \lim_{n\to\infty} \abs{\frac45 \left(\frac{n^5}{n^5} + 5 \frac{n^4}{n^5} + 10 \cdot \frac{n^3}{n^5} + 10 \frac{n^2}{n^5} + 5 \frac{n}{n^5} + \frac1{n^5}\right)}
+\] \[
+  = \abs{\frac45} < 1
+\]
+
+So $\sum_{n=5}^\infty \left(\frac45\right)^n n^5$ converges.
+
+\subsection{Exercise 55.d}
+We use the Leibniz criterion.
+
+We need to show that $\abs{a_{n+1}} < \abs{a_n}$.
+
+\[ \abs{\frac{(-1)^{n+1}}{\sqrt{n+1}}} < \abs{\frac{(-1)^n}{\sqrt{n}}} \]
+\[ \frac{1}{\sqrt{n+1}} < \frac{1}{\sqrt{n}} \]
+\[ \sqrt{n} < \sqrt{n+1} \]
+
+$n < n+1$ so it is monotonically increasing.
+
+Does it converge absolutely?
+\[
+  \sum_{n=1}^\infty \abs{\frac{(-1)^n}{\sqrt{n}}}
+  = \sum_{n=1}^\infty \frac{1}{\sqrt n}
+  \geq \sum_{n=1}^\infty \frac1n
+\]
+No, this does not converge. So it does not.
+
+\subsection{Exercise 55.e}
+TODO
+
+\section{Exercise 56}
+\[
+  \sum_{n=1}^\infty \frac{1}{n (n+1) (n+2)}
+  = \sum_{n=1}^\infty \left(\frac{A}{n} + \frac{B}{n+1} + \frac{C}{n+2}\right)
+\]
+
+\[ 1 = A (n+1) (n+2) + B (n+2) n + C (n+1) n \]
+\[ 1 = A n^2 + 3 An + 2A + Bn^2 + 2 Bn + Cn^2 + Cn \]
+
+For terms of degree 2 it holds that, $0 = A + B + C$.
+For terms of degree 1 it holds that, $0 = 3A + 2B + C$.
+For terms of degree 0 it holds that, $1 = 2A$.
+
+We solve this equation system and get $A = \frac12$, $B = -1$ and $C = \frac12$.
+
+\begin{align*}
+  \sum_{n=1}^\infty \left(\frac1{2n} - \frac{1}{n+1} + \frac1{2(n+2)}\right)
+    &= \frac12 \sum_{n=1}^\infty \left(\frac1n - \frac2{n+1} + \frac1{n+2}\right) \\
+    &= \lim_{N\to\infty} \frac12 \left(\left(\sum_{n=1}^N \frac1n - \frac1{n+1}\right) - \left(\sum_{n=1}^N \frac1{n+1} - \frac1{n+2}\right)\right) \\
+    &= \lim_{N\to\infty} \frac12 \left(\left(\sum_{n=1}^N \frac1n - \frac1{n+1}\right) - \left(\sum_{n=2}^{N+1} \frac1{n} - \frac1{n+1}\right)\right) \\
+    &= \lim_{N\to\infty} \frac12 \left(\left(\sum_{n=2}^N \frac1n - \frac1{n+1}\right) + \left(\frac11 - \frac12\right) - \left(\sum_{n=2}^{N} \frac1{n} - \frac1{n+1}\right) - \frac1{N+1} + \frac1{N+2}\right) \\
+    &= \lim_{N\to\infty} \frac12 \left(\left(\frac11 - \frac12\right) - \frac1{N+1} + \frac1{N+2}\right) \\
+    &= \lim_{N\to\infty} \frac12 \left(\frac12 - \frac1{N+1} + \frac1{N+2}\right) \\
+    &= \frac12 \cdot \frac12 = \frac14
+\end{align*}
+
+\section{Exercise 57}
+\section{Exercise 58}
+
+TODO: I think I only considered real numbers. Not complex numbers.
+
+Direct comparison test:
+The series $\sum_{n=0}^\infty \abs{\frac{a_n}{a_n + 1}}$ converges if
+\begin{enumerate}
+  \item $0 < \abs{\frac{a_n}{a_{n} + 1}} \leq \abs{a_n}$, and
+  \item $\sum_{n=0}^\infty \abs{a_n}$ converges absolutely.
+\end{enumerate}
+
+\begin{mdframed}
+  Firstly we cover a special case: Assume $\exists n \in \mathbb N$ such that $a_n = 0$.
+  Followingly this means there exists some $N$ such that all following $n$ are $0$.
+  \[ \exists N \in \mathbb N: \forall n \in \mathbb N: n \geq N: a_n = 0 \]
+  In this case the partial sum will not change at some sufficiently large $n$.
+  So $\sum_{n=0}^\infty \abs{\frac{a_n}{a_n + 1}}$ converges.
+
+  In the following we can assume $\forall n \in \mathbb N: a_n > 0$.
+\end{mdframed}
+
+\begin{enumerate}
+  \item We show that $0 < \abs{\frac{a_n}{a_n + 1}} \leq \abs{a_n}$.
+
+    Here $0 < \abs{\frac{a_n}{a_n + 1}}$ certainly holds because otherwise $a_n = 0$
+    for some $n$. This would be the special case we have already covered and
+    we don't need to look at any more.
+
+    We show $\abs{\frac{a_n}{a_n + 1}} \leq \abs{a_n}$.
+    \[ \frac{\abs{a_n}}{\abs{a_n + 1}} \leq \abs{a_n} \]
+    \[ \Rightarrow \abs{a_n} \leq \abs{a_n} \abs{a_n + 1} \]
+    \[ \Rightarrow 1 \leq \abs{a_n + 1} \]
+
+  \item This holds by precondition.
+\end{enumerate}
+
+\section{Exercise 59}
+
+%\begin{align*}
+%  \sum_{n=1}^\infty \frac{(-1)^n}{\sqrt{n}} \text{converges, but not absolutely.} \\
+%\[ \sum_{n=1}^\infty \frac1 \]
+%converges, but not absolutely.
+
+\section{Exercise 60}
+
+\subsection{Exercise 60.a}
+wlog $\abs{a_n} \leq \abs{b_n} \leq \abs{a_n \cdot b_n} \leq \abs{a_n^2}$.
+\[ \Rightarrow \abs{a_n^2} \leq \abs{a_n b_n} \leq \abs{b_n^2} \]
+\[ \Rightarrow \sum_{n=0}^\infty \abs{a_n b_n} \]
+is absolute convergent.
+
+\subsection{Exercise 60.b}
+\[ \sum_{n=0}^\infty a_n^2 + \sum_{n=0}^\infty (2 a_n b_n) + \sum_{n=0}^\infty b_n^2 \]
 
 
 

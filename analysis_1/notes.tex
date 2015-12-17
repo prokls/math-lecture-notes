@@ -3594,7 +3594,8 @@ The analogous result for the limes inferior also holds and is given in the pract
 \begin{theorem}
   Let $q \in \mathbb C$ with $q \neq 1$.
   Consider $\sum_{k=0}^\infty q^k$ hence $S_n = \sum_{k=0}^{n} q^n$.
-  The limes of this series is given with $\frac{1 - q^{n+1}}{1 - q}$ for $\abs{q} < 1$.
+  The limes of this series is given with $\frac{1 - q^{n+1}}{1 - q}$ for $\abs{q} < 0$.
+  % TODO: \abs{q} < 0    makes no sense, bc \abs{q} \geq 0 for all q?!
 \end{theorem}
 \begin{proof}
   We find a simple equation for $S_n$:
@@ -3602,7 +3603,7 @@ The analogous result for the limes inferior also holds and is given in the pract
   \[ (1 + q + q^2 + \dots + q^n) - q (1 + q + q^2 + \dots + q^n) \]
   \[ = (1 + q + q^2 + \dots + q^n) - (q + q^2 + \dots + q^n + q^{n+1}) \]
   \[ = (1 - q^{n+1}) \]
-  Therefore $(1 - q) \cdot S_n = 1 - q$. That is,
+  Therefore $(1 - q) \cdot S_n = 1 - q^{n+1}$. That is,
   \[ S_n = \frac{1 - q^{n+1}}{1 - q} \]
 
   If $\abs{q} < 1$ it holds that
@@ -3630,12 +3631,15 @@ The analogous result for the limes inferior also holds and is given in the pract
 \begin{proof}
   Consider
   \[ \sum_{k=1}^\infty \frac1n = 1 + \frac12 + \frac13 + \frac14 + \frac15 + \frac16 + \frac17 + \frac18 + \dots \]
-  \[ > \frac12 + \frac12 + \frac12 + \frac14 + \frac12 + \frac16 + \frac16 + \frac18 + \frac18 + \dots \]
+  \[ > \frac12 + \frac12 + \frac12 + \frac14 + \frac14 + \frac16 + \frac16 + \frac18 + \frac18 + \dots \]
   \[ = \frac12 + 2 \left(\frac12 + \frac14 + \frac16 + \frac18 + \frac1{10} + \dots\right) \]
   \[ = \frac12 + 2 \frac12 \left(1 + \frac12 + \frac13 + \frac14 + \frac15 + \dots\right) \]
   \[ = \frac12 + \left(1 + \frac12 + \frac13 + \frac14 + \frac15 + \dots\right) \]
   \[ = \frac12 + \sum_{k=1}^\infty \frac1n \]
-  This is a contradiction.
+  So we have,
+  \[ \sum_{k=1}^\infty \frac1n > \frac12 + \sum_{k=1}^\infty \frac1n \]
+  Let $\sum_{k=1}^\infty \frac1n = H$, then $H > \frac12 + H$ must hold for some real number.
+  This is impossible, so $H$ cannot exist. Hence $\sum_{k=1}^\infty \frac1n$ diverges.
 \end{proof}
 
 \meta{lecture}{9th of December 2015}{Wolfgang Ring}
@@ -3667,14 +3671,14 @@ TODO
     $\seq{S_{\alpha,n}}$ is unbounded and followingly $\sum_{k=0}^\infty \frac1{k^\alpha}$ is divergent.
 \end{description}
 
-\index{Rieman's zeta function}
+\index{Riemann's zeta function}
 \index{\foreignlanguage{ngerman}{Riemannsche Zeta-Funktion}}
 \begin{rem}
   $\alpha \in \mathbb Q_+$ can be replaced by $\alpha \in \mathbb R_+$.
   It is even possible to choose $\alpha \in \mathbb C$.
   Then we can define $\zeta: M \subseteq \mathbb C \rightarrow \mathbb C$
   with $\xi(z) = \sum_{k=1}^\infty \frac{1}{k^z}$.
-  This is Rieman's Zeta function.
+  This is Riemann's Zeta function.
 \end{rem}
 
 \index{Alternating sequence}
@@ -3690,6 +3694,7 @@ TODO
   is called \emph{alternating series}.
 \end{defi}
 
+\subsection{Leibniz convergence criterion}
 \fbox{\foreignlanguage{ngerman}{Gottfried Wilhelm Leibniz (1646--1716}}
 \index{Leibniz convergence criterion}
 \index{\foreignlanguage{ngerman}{Leibniz' Konvergenzkriterium}}
@@ -3813,6 +3818,7 @@ TODO
   $\Rightarrow$ $\sum_{k=0}^\infty a_k$ is convergent according to Cauchy criterion.
 \end{proof}
 %
+\subsection{Direct comparison test}
 \index{Direct comparison test}
 \index{\foreignlanguage{ngerman}{Majorantenkriterium}}
 \index{Majorant}
@@ -3867,6 +3873,7 @@ TODO
   \end{enumerate}
 \end{proof}
 %
+\subsection{Ratio test}
 \index{Ratio test}
 \index{\foreignlanguage{ngerman}{Quotientenkriterium}}
 \begin{theorem}[Ratio test (dt. \foreignlanguage{ngerman}{Quotientenkriterium})]
@@ -4382,6 +4389,203 @@ in $\mathbb R$.
   \end{description}
 \end{proof}
 
+\meta{lecture}{17th of December 2015}{Wolfgang Ring}
+
+% TODO: image topology.svg
+
+TODO
+
+\index{Contact point}
+\index{\foreignlanguage{ngerman}{Berührungspunkt}}
+\index{Limit point}
+\index{\foreignlanguage{ngerman}{Häufungspunkt}}
+% TODO: normalize:
+% Häufungswert - topic sequences
+% Häufungspunkt - topic topology
+\begin{defi}
+  Let $M \subseteq \mathbb C$ ($\mathbb R$).
+  A point $z \in \mathbb C$ ($\mathbb R$) is called \emph{contact point}
+  of a set $M$, if $\forall r > 0: B(z, r) \cap M \neq \emptyset$.
+  A point $z \in \mathbb C$ ($\mathbb R$) is called \emph{limit point}
+  of a set $M$ if $\forall r > 0$ it holds that $B(z, r)$ contains a point
+  $w \in M$ with $m \neq z$.
+
+  Every limit point is also contact point.
+\end{defi}
+
+% TODO: image illustration_of_a_limit_touching_point.svg
+% TODO: second image missing
+
+\begin{lemma}
+  \label{characterization-limit-contact-points}
+  Let $M \subseteq \mathbb C$ ($\mathbb R$). It holds that
+  \begin{enumerate}
+    \item $z \in \mathbb C$ is a contact point of $M$
+      if and only if $\exists (z_n)_{n \in \mathbb N}: z_n \in M$ and $\lim_{n\to\infty} z_n = z$.
+    \item $z \in \mathbb C$ is a limit point of $M$
+      if and only if $\exists (z_n)_{n \in \mathbb N}: z_n \in M$ with $z_n \neq z \forall n \in \mathbb N$
+      and $\lim_{n\to\infty} z_n = z$.
+  \end{enumerate}
+
+  % TODO: illustration image illustration_of_point.svg
+\end{lemma}
+\begin{proof}
+  \begin{enumerate}
+    \item Let $z$ be a contact point of $M$. Choose $r_n = \frac1n$, due to contact point property
+      there exists z $z_n \in M$ to $r_n$ with $z_n \in B(z, \frac1n)$ hence $\abs{z_n - z} < \frac1n$.
+      Then it holds $\lim_{n\to\infty} z_n = z$, then for $\varepsilon > 0$ arbitrary let $N$ be arbitrary large,
+      such that $\frac1N < \varepsilon$. Then it holds that for $n \geq N$:
+      \[ \abs{z_n - z} < \frac1n \leq \frac1N < \varepsilon \]
+    \item[$\Leftarrow$] Assume $\exists \seq{z_n}$ with limes $z$. $z_n \in M$.
+      Choose $r > 0$ arbitrary. Due to convergenze of $\seq{z_n}$ there exists some
+      $N \in \mathbb N: n \geq N$ such that $\abs{z_n - z} < r$.
+      \[ \Rightarrow z_n \in M \land z_n \in B(z, r) \Rightarrow z \text{ is contact point of $M$} \]
+      Also,
+      \[ \Rightarrow z_n (\neq z) \in M \land z_n \in B(z, r) \Rightarrow z \text{ is limit point of $M$} \]
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  $A \subseteq \mathbb C (\mathbb R, \mathbb R^n)$ is closed if and only if
+  for every contact point $z$ of $A$ it holds that $z \in A$.
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[Direction $\Rightarrow$]
+      Let $A$ be closed and $z$ is a contact point of $A$.
+      Due to Lemma~\ref{characterization-limit-contact-points} there exists $\seq{z_n}$
+      with $z_n \in A$ and $\lim_{n\to\infty} z_n = z$.
+      By the Lemma before the last, it holds that $z \in A$.
+    \item[Direction $\Leftarrow$]
+      Assume for all contact points $z$ of $A$ it holds that $z \in A$.
+      By the Lemma before the last: Let $\seq{z_n}$ be a convergent sequence with
+      $z_n \in A$ and $\lim_{n\to\infty} z_n = z$.
+
+      Show that $z \in A$.
+
+      This follows immediately because by the previous Lemma, it holds that
+      $z = \lim_{n\to\infty} z_n$ is a contact point TODO
+      and by assumption $z \in A$.
+  \end{description}
+\end{proof}
+\begin{rem}
+  In general it holds that $z \in M$, then $z$ is a contact point of $M$.
+  Because $\set{z} \subseteq B(z, r) \cap M$ with $B(z, r) \cap M \neq 0$.
+\end{rem}
+\index{Closed hull}
+\index{\foreignlanguage{ngerman}{Abgeschlossene Hülle}}
+\begin{defi}
+  Let $M \subseteq \mathbb C$ ($\mathbb R$).
+  We define $\overline{M} = \set{z \in \mathbb C: z \text{ is contact point of } M}$.
+  $\overline{M}$ is called \emph{closed hull}.
+  It holds that $M \subseteq \overline{M}$ and $M$ is closed
+  $\Leftrightarrow M = \overline{M}$.
+\end{defi}
+
+\index{Compactness}
+\index{\foreignlanguage{ngerman}{Kompaktheit}}
+\begin{defi}
+  A set $K \subseteq \mathbb C$ ($\mathbb R$, $\mathbb R^n$) is called \emph{compact},
+  if for each sequence $\seq{z_n}$ with $z_n \in K$,
+  a subsequence $\left(z_{n_l}\right)_{l \in \mathbb N}$
+  exists which is convergent and its limes is inside $K$.
+\end{defi}
+%
+\begin{rem}
+  There are equivalent definitions which do not use sequences (e.g. using open covers).
+\end{rem}
+%
+\begin{theorem}[Bolzano-Weierstrass theorem for sets]
+  $K \subseteq \mathbb C$ is compact if and only if $K$ is bounded and closed.
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[Direction $\Leftarrow$]
+      Let $K$ be bounded and closed and let $\seq{z_n}$ be a sequence of elements
+      in $K$. Then $\seq{z_n}$ is a bounded sequence. Due to the Bolzano-Weierstrass
+      Theorem for sequences, there exists some convergent subsequence
+      $\left(z_{n_l}\right)_{l \in \mathbb N}$ with $\lim_{l\to\infty} z_{n_l} = z$
+      where $z_{n_l} \in K$. Followingly $z$ is contact point in $K$.
+      Because $K$ is closed, it holds that $z \in K$.
+    \item[Direction $\Rightarrow$]
+      Let $K$ be compact. Assume $K$ is not bounded.
+      Therefore for $m = 1, 2, \dots, 5$, there exists $z_m \in K$ with $\abs{z_m} > m$.
+      TODO
+      $\left(z_n\right)_{m\in\mathbb N}$ is also unbounded and therefore not convergent.
+      This is a contradiction.
+
+      It remains to show that $K$ is bounded. Let $z \in \overline{K}$ ($z$ is a contact point of $K$).
+      There exists a sequence $\seq{z_n}$ with $z_n \in K$ and $z = \lim_{n\to\infty} z_n$.
+      Because $K$ is compact, there exists a subsequence $\left(z_{n_k}\right)_{l\in\mathbb N}$ of
+      $\seq{z_n}$ with $\lim_{l\to\infty} z_{n_l} = w$ and $w \in K$.
+      Because $\seq{z_n}$ is already convergent, every subsequence is convergent
+      with limes $z$.
+      It follows that $w \in K$ and $w = z$, so $z \in K$. So $K$ is bounded.
+  \end{description}
+\end{proof}
+
+\section{Continous functions}
+\index[English]{Continuous functions}
+\index[German]{\foreignlanguage{ngerman}{Stetigkeit}}
+\begin{defi}
+  Let $D \subseteq \mathbb C$ ($D \subseteq \mathbb R$) and $f: D \rightarrow \mathbb C$
+  be a function. We say \enquote{$f$ is continous} iff
+  \[
+    \forall \varepsilon > 0 \exists \delta > 0
+    \forall z \in D \text{ with } \abs{z - z_0} < \delta:
+    \abs{f(z) - f(z_0)} < \varepsilon
+  \]
+  Intuitively, the difference of function values are arbitrary close to each other
+  if the difference of the arguments is sufficiently small.
+\end{defi}
+
+% TODO: image continuity_illustrated.svg
+
+\begin{ex}
+  \begin{enumerate}
+    \item $D$ is \enquote{strange}.
+      % TODO: image strange_D.svg
+      Specifying the codomain and discussion of continuity in regards of this codomain is very important!
+    \item A non-continous function
+      % TODO: image non-continous_function.svg
+      $f$ has a non-continuity in $z_0$.
+      So $\varepsilon$ cannot be arbitrary small.
+    \item
+      $f: \mathbb C \rightarrow \mathbb C$. TODO
+      Let $z_0 \in \mathbb C$ arbitrary. Then $f$ is continuous in $z_0$.
+  \end{enumerate}
+\end{ex}
+%
+\begin{ex}
+  Let $\varepsilon > 0$ be arbitrary. Find $\delta > 0$ such that
+  \[ \abs{z - z_0} < \delta \Rightarrow \abs{f(z) - f(z_0)} = \abs{z^2 - z_0^2} < \varepsilon. \]
+  Define $\delta = \min\left(1, \frac{\varepsilon}{1 + 2\abs{z_0}}\right)$.
+  For $\abs{z - z_0} < \delta$ it holds that
+  \begin{align*}
+    \abs{f(z) - f(z_0)} = \abs{z^2 - z_0^2}
+    &= \abs{(z - z_0) (z + z_0)} \\
+    &= \abs{z - z_0} \cdot \abs{z + z_0} \\
+    &= |\, z \underbrace{- z_0 + z_0}_{=0} + z_0\,| \cdot \abs{z - z_0} \\
+    &\leq (\underbrace{\abs{z - z_0}}_{<1} + 2 \abs{z_0}) \underbrace{(z - z_0)}_{\varepsilon} \\
+    &= \left(1 + 2 \abs{z_0}\right) TODO
+  \end{align*}
+\end{ex}
+%
+\begin{ex}
+  Let $D = [0, \infty) \subseteq \mathbb R$.
+  Let $f(x) = \sqrt[k]{x}$ be continuous in every point $x_0 \in D$.
+
+  Let $\varepsilon > 0$ be given.
+  Claim: It holds that $\abs{\sqrt[k]{x} - \sqrt[k]{x_0}} \leq \sqrt[k]{\abs{x - x_0}}$.
+
+  Proof: Show that for $a,b \geq 0$, it holds that
+  $\sqrt[k]{a + b} \leq \sqrt[k]{a} + \sqrt[k]{b}$.
+
+  Assume $\sqrt[k]{a + b} > \sqrt[k]{a} + \sqrt[k]{b}$.
+  Taking the $k$-th power keeps monotonicity:
+  \[ (\sqrt[k]{a + b})^k = a + b > \left(\sqrt[k]{a} + \sqrt[k]{b})^k \]
+  \[ = a + \underbrace{\sum_{j=1}^{k-1} {k \choose j} a^{\frac{k-j}{k}} b^{\frac{j}{k}}}_{>0} + b \geq a + b \]
+\end{ex}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
