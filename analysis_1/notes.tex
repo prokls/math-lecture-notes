@@ -4529,7 +4529,7 @@ TODO
 \index[German]{\foreignlanguage{ngerman}{Stetigkeit}}
 \begin{defi}
   Let $D \subseteq \mathbb C$ ($D \subseteq \mathbb R$) and $f: D \rightarrow \mathbb C$
-  be a function. We say \enquote{$f$ is continous} iff
+  be a function. We say \enquote{$f$ is continous} (dt. \foreignlanguage{ngerman}{\enquote{stetig}}) iff
   \[
     \forall \varepsilon > 0 \exists \delta > 0
     \forall z \in D \text{ with } \abs{z - z_0} < \delta:
@@ -4540,6 +4540,7 @@ TODO
 \end{defi}
 
 % TODO: image continuity_illustrated.svg
+% caption: continuity is a local property
 
 \begin{ex}
   \begin{enumerate}
@@ -4548,6 +4549,7 @@ TODO
       Specifying the codomain and discussion of continuity in regards of this codomain is very important!
     \item A non-continous function
       % TODO: image non-continous_function.svg
+      % caption: a non-continuous function with a jump discontinuity
       $f$ has a non-continuity in $z_0$.
       So $\varepsilon$ cannot be arbitrary small.
     \item
@@ -4583,9 +4585,160 @@ TODO
 
   Assume $\sqrt[k]{a + b} > \sqrt[k]{a} + \sqrt[k]{b}$.
   Taking the $k$-th power keeps monotonicity:
-  \[ (\sqrt[k]{a + b})^k = a + b > \left(\sqrt[k]{a} + \sqrt[k]{b})^k \]
+  \[ (\sqrt[k]{a + b})^k = a + b > \left(\sqrt[k]{a} + \sqrt[k]{b}\right)^k \]
   \[ = a + \underbrace{\sum_{j=1}^{k-1} {k \choose j} a^{\frac{k-j}{k}} b^{\frac{j}{k}}}_{>0} + b \geq a + b \]
+
+  \meta{lecture}{18th of December 2015}{Wolfgang Ring}
+
+  We prove $\abs{\sqrt[k]{x} - \sqrt[k]{x_0}} \leq \sqrt[k]{\abs{x - x_0}}$
+  using $\sqrt[k]{a + b} \leq \sqrt[k]{a} + \sqrt[k]{b}$.
+
+  \[
+    \abs{x}
+    = \abs{\underbrace{x - x_0}_{a} + \underbrace{x_0}_{b}}
+    \leq \underbrace{\abs{x - x_0}}_{a} + \underbrace{\abs{x_0}}_{b}
+  \] \[
+    \sqrt[k]{\abs{x}}
+    \leq \sqrt[k]{\abs{x - x_0} + \abs{x_0}}
+    \leq \sqrt[k]{\abs{x - x_0}} + \sqrt[k]{\abs{x_0}}
+  \] \[
+    \sqrt[k]{\abs x} - \sqrt{\abs{x_0}} \leq \sqrt[k]{\abs{x - x_0}}
+  \]
+  Analogously:
+  \[ \abs{x_0} = \abs{x_0 - x + x} \leq \underbrace{\abs{x_0 - x}}_{a} + \underbrace{\abs{x}}_{b} \]
+  \[ \Rightarrow \sqrt[k]{\abs{x_0}} - \sqrt[k]{\abs x} \leq \sqrt[k]{\abs{x - x_0}} \]
+  \[ \abs{\underbrace{\sqrt[k]{\abs x}}_{f(x)} - \underbrace{\sqrt[k]{\abs{x_0}}}_{f(x_0)}} \leq \sqrt[k]{\abs{x - x_0}} \]
+  Let $\varepsilon > 0$ arbitrary. Let $\delta \coloneqq \varepsilon^k$.
+  For $\abs{x - x_0} < \delta = \varepsilon^k$ it holds that
+  \[ \abs{f(x) - f(x_0)} = \abs{\sqrt[k]{\abs x} - \sqrt[k]{\abs{x_0}}} \]
+  \[ \leq \sqrt[k]{\abs{x - x_0}} < \sqrt[k]{\delta} = \sqrt[k]{\varepsilon^k} = \varepsilon \quad\checkmark \]
 \end{ex}
+
+\begin{theorem}[Sequence criterion for continuity]
+  Let $f: D \subset \mathbb C \Rightarrow \mathbb C$ ($D \subseteq \mathbb R$).
+  Then it holds that $f$ is continuous in $z_0 \in D$ if and only if
+  for every convergent sequence $\seq{w_n}$ with $w_n \in D \forall n \in \mathbb N$
+  and $\lim_{n\to\infty} w_n = z_0$ it holds that $\seq{f(w_n)}$ is convergent
+  and $\lim_{n\to\infty} f(w_n) = f(z_0)$.
+
+  In a different way, this theorem states:
+  \[ w_n \to_{n\to\infty} z_0 \Rightarrow f(w_0) \to_{n\to\infty} f(z_0) \]
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[Direction $\Rightarrow$]
+      Let $f$ be continuous in $z_0$ and $\seq{w_n}$ with $w_n \in D$ with $\lim_{n\to\infty} w_n = z_0$.
+      Show that $f(w_n) \to_{n\to\infty} f(z_0)$.
+
+      Let $\varepsilon > 0$ arbitrary. Because $f$ is continuous, there exists some $\delta > 0$
+      such that $\abs{z - z_0} < \delta \Rightarrow \abs{f(z) - f(z_0)} < \varepsilon$ ($z \in D$).
+      So $\seq{w_n}$ converges to $z_0$.
+      So there exists $N \in \mathbb N: n \geq N \Rightarrow \abs{w_n - z_0} < \delta$.
+      For those indices it holds that: $\abs{f(w_n) - f(z_0)} < \varepsilon$.
+      Hence $\lim_{n\to\infty} f(w_n) = f(z_0)$.
+    \item[Direction $\Leftarrow$]
+      Proof by contradiction: For every sequence $\seq{w_n}$ with $w_n \in D$ and $w_n \to z_0$
+      it holds that: $f(w_n) \to f(z_0)$ for $n \to \infty$.
+      Assume $f$ is not continuous in $z_0$.
+
+      So $\exists \tilde{\varepsilon} > 0: \forall \delta > 0 \exists z_\delta \in D$ with
+      \[ \abs{z_\delta - z_0} < \delta \land \abs{f(z_\delta) - f(z_0)} \geq \varepsilon \]
+      We choose $\delta_n = \frac1n$ for $n = 1,2,3,\ldots$.
+      \[ w_n \coloneqq z_{\delta_n} \]
+      So it holds that
+      \[ \forall n \in \mathbb N: \abs{w_n - z_0} < \frac1n \land \abs{f(w_n) - f(z_0)} \geq \tilde\varepsilon \]
+      Hence $w_n \in D$ and $\lim_{n\to\infty} w_n = z_0$ and for $\varepsilon > 0$ we choose $N$
+      such that $\frac1N < \varepsilon$. Then it holds for $n \geq N$: $\frac1n < \frac1N < \varepsilon$
+      and therefore $\abs{w_n - z_0} < \frac1n < \varepsilon$, but $f(w_n)$ does not converge to $f(z_0)$,
+      because $\abs{f(w_n) - f(z_0)} \geq \tilde{\varepsilon} > 0$. This is a contradiction to our assumption.
+  \end{description}
+\end{proof}
+
+\begin{defi}
+  Let $f: D \rightarrow \mathbb C$ ($D \subseteq \mathbb C$ or $D \subseteq \mathbb R$).
+  We call $f$ \enquote{\emph{continuous on $D$}} if $f$ is continuous in every point $z \in D$.
+\end{defi}
+
+\subsection{Laws for continuous functions}
+%
+\begin{theorem}
+  Let $f: D \rightarrow \mathbb C$ and $g: D \rightarrow \mathbb C$ be functions
+  and $f$ and $g$ are continuous in $z_0 \in D$. Then it holds that
+  \begin{enumerate}
+    \item $(f + g): D \to \mathbb C$ and $(f + g)(z) = f(z) + g(z)$. \\
+      So the sum function $(f + g)$ is continuous in $z_0$.
+    \item $(f \cdot g): D \rightarrow \mathbb C$ and $(f \cdot g)(z) = f(z) \cdot g(z)$. \\
+      The product function is continuous in $z_0$.
+    \item Let $g(z) \neq 0 \forall z \in D$. Then $\left(\frac{f}{g}\right): D \rightarrow \mathbb C$
+      with $\left(\frac fg\right)(z) = \frac{f(z)}{g(z)}$. \\
+      The quotient function $\left(\frac fg\right)$ is continuous in $z_0$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  Let $\seq{w_n}$ be an arbitrary sequence with $w_n \in D$
+  and $\lim_{n\to\infty} w_n = z_0$. Due to the sequence criterion
+  it holds that $f(w_n) \to_{n\to\infty} f(z_0)$ and $g(w_n) \to_{n\to\infty} g(z_0)$.
+  The laws for convergent sequences state that,
+  \[ f(w_n) \cdot g(w_n) \to_{n\to\infty} f(z_0) \cdot g(z_0) \]
+  \[ f(w_n) + g(w_n) \to_{n\to\infty} f(z_0) + g(z_0) \]
+  \[ \frac{f(w_n)}{g(w_n)} \to_{n\to\infty} \frac{f(z_0)}{g(z_0)} \]
+  Hence $(f + g), (f \cdot g)$ and $\left(\frac fg\right)$ is continuous in $z_0$.
+\end{proof}
+
+\begin{cor}
+  \hfill{}
+  \begin{itemize}
+    \item $k: \mathbb C \to \mathbb C$, $k(z) = c \in \mathbb C$ is a constant function.
+      $k$ is continuous in $\mathbb C$.
+    \item The function $f(z) = z$ is continuous in $\mathbb C$, because we can choose $\delta = \varepsilon$.
+      \[ \abs{z - z_0} < \varepsilon \Rightarrow \abs{f(z) - f(z_0)} = \abs{z - z_0} < \varepsilon \]
+    \item The functions $p_n(z) = z^n$ for $n = 0,1,2,\ldots$ are continuous in $\mathbb C$ as products of continuous functions.
+    \item All polynomials $P(z) = \sum_{k=0}^n a_k z^k$ with $a_k \in \mathbb C$ are continuous in $\mathbb C$.
+    \item Let $D = B(0, \rho(P))$ with $\rho(P)$ is convergence radius of the power series
+      \[ P(z) = \sum_{k=0}^\infty a_k z^k \]
+      Then $P(z)$ is continuous in $B(0, \rho(P))$.
+    \item Let $P(z) = \sum_{k=0}^n a_k z^k$ and $Q(z) = \sum_{l=0}^m b_l z^l$ be polynomials.
+      And let $D = \set{z \in \mathbb C: Q(z) \neq 0}$. Then $\left(\frac PQ\right): D \to \mathbb C$
+      is continuous in $D$. \\
+      Therefore all rational functions are continuous in all points except for the roots of the denominator:
+      \[ \frac{a_0 + a_1 z + a_2 z^2 + \ldots + a_n z^n}{b_0 + b_1 z + b_2 z^2 + \ldots + b_m z^m} \]
+  \end{itemize}
+\end{cor}
+
+\begin{theorem}
+  Let $f: D \to U \subseteq \mathbb C$ and $g: U \to \mathbb C$ be two functions.
+  Let $f$ be continuous in $z_0 \in D$ and let $g$ be continuous in $y_0 = f(z_0) \in U$.
+  Then $g \circ f: D \to \mathbb C$ is continuous in $z_0$.
+\end{theorem}
+\begin{proof}
+  Due to the sequence criterion: Let $\seq{w_n}$ ($w_n \in D$) with $\lim_{n\to\infty} w_n = z_0$.
+  The sequence criterion for $f$ yields
+  \[ \lim_{n\to\infty} \underbrace{f(w_n)}_{\in U} = f(z_0) = y_0 \]
+  The sequence criterion for $g$ states that
+  \[ \lim_{n\to\infty} \underbrace{g(f(w_n))}_{g \circ f(w_n)} = g(y_0) = \underbrace{g(f(z_0))}_{g \circ f(z_0)} \]
+  So $g \circ f$ is continuous in $z_0$.
+\end{proof}
+
+We know $w_k(x) = \sqrt[k]{x}$ is continuous in $[0,\infty)$.
+\[ P_l(x) = x^l \text{ is continuous in } \mathbb C \]
+\[ \Rightarrow P_l \circ w_k \text{ is continuous in } [0,\infty) \]
+$p_0 \circ w_k (x) = p_l(\sqrt[k]{x}) = \left(\sqrt[k]{x}\right)^l = x^{\frac lk}$ is continuous.
+
+\begin{itemize}
+  \item $n(z) = \abs{z}$ is continuous in $\mathbb C$.
+
+    Let $\varepsilon > 0$ be arbitrary. It holds that
+    \[ \abs{n(z) - n(z_0)} = \abs{\abs{z} - \abs{z_0}} \leq \abs{z - z_0} \]
+    Choose $\delta = \varepsilon$. Then for $\abs{z - z_0} < \delta = \varepsilon$ it holds
+    that $\abs{n(z) - n(z_0)} < \varepsilon$.
+  \item $\Re: \mathbb C \to \mathbb C$ and $\Im: \mathbb C \to \mathbb C$ are continuous in $\mathbb C$.
+    Because $\abs{\Re(z) - \Re(z_0)} \leq \abs{z - z_0} \qquad \checkmark$.
+  \item
+    Let $f, g: D \to \mathbb R$. Then $\max(f, g): D \rightarrow \mathbb R$
+    ($\max(f, g))(z) = \max\set{f(z), g(z)}$ is continuous in $D$.
+    % TODO: image max_of_continuous_functions.svg
+    because $\max{f(z), g(z)} = \frac12 \left(\abs{f(z) - g(z)} + f(z) + f(z)\right)$.
+\end{itemize}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
