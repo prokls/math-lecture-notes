@@ -3167,16 +3167,20 @@ Therefore every linear combination is also in $U$.
 \end{proof}
 
 \begin{rem}
-  If $M \subseteq V$ is itself a subvector space
-  \[ \Rightarrow [M] = M \]
-  \begin{itemize}
-    \item ?? arbitrary ??
-    \item Regarding notation: ?? \TODO
-  \end{itemize}
-
-  Notation:
-  \[ \sum_{a \in M} \lambda_a \cdot a \]
-  \TODO
+  \begin{enumerate}
+    \item If $M \subseteq V$ is itself a subvector space
+      \[ \Rightarrow [M] = M \]
+    \item especially for arbitrary subsets $M \subseteq V$
+      \[ \left[[M]\right] = [M] \]
+    \item Regarding notation: The linear combination of $M \subseteq V$
+      is defined as,
+      \[ \lambda_1 v_1 + \lambda_2 v_2 + \ldots + \lambda_n v_n \]
+      where $n \in \mathbb N$ is finite. Equivalently (but shorter) we denote,
+      \[ \sum_{a \in M} \lambda_a \cdot a \]
+      If $\lambda_a = 0 \forall a \in M$, then the zero vector
+      (\emph{trivial} linear combination) is given, which is element of the linear hull
+      of any vector space.
+  \end{enumerate}
 \end{rem}
 
 \begin{ex}
@@ -3191,47 +3195,74 @@ Therefore every linear combination is also in $U$.
 \begin{ex}
   \[ V = (\mathbb Z_3)^3 \qquad K = \mathbb Z_3 \]
   \[ V = \setdef{\begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix}}{x \in \mathbb Z_3} \]
-  \[ \card{(Z\mathbb Z_3)^3} = 3^3 = 27 \]
+  \[ \card{(\mathbb Z_3)^3} = 3^3 = 27 \]
   \[ M = \set{\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}} \]
-  \[ L(M) = \setdef{\lambda_1 \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + \lambda_2 \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} + \lambda_2 \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}}{\lambda_1, \lambda_2, \lambda_3 \in \mathbb Z_3} \]
-  \[ = \setdef{\begin{pmatrix} \lambda1_ + \lambda_3 \\ \lambda_1 + \lambda_2 \\ \lambda_2 + \lambda_3 \end{pmatrix}}{\lambda_2 \in \mathbb Z^3} \]
+  \begin{align*}
+    L(M) &= \setdef{%
+      \lambda_1 \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+      + \lambda_2 \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}
+      + \lambda_3 \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}%
+    }{\lambda_1, \lambda_2, \lambda_3 \in \mathbb Z_3} \\
+    &= \setdef{%
+      \begin{pmatrix} \lambda_2 + \lambda_3 \\ \lambda_1 + \lambda_2 \\ \lambda_2 + \lambda_3 \end{pmatrix}
+    }{\lambda_2 \in \mathbb Z^3} \\
+  \intertext{Let $\mu_2 = \lambda_2 + \lambda_3$ and $\mu_1 = \lambda_1 + \lambda_2$.}
+    &= \setdef{\begin{pmatrix}\mu_2 \\ \mu_1 \\ \mu_2 \end{pmatrix}}{\mu_1, \mu_2 \in \mathbb Z_3} \\
+    &= L\left(\set{\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}}\right)
+  \end{align*}
+  We omitted vector $\begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$, because it is a linear combination of the others.
+  Therefore we omit it.
   \[
-      = \setdef{\begin{pmatrix}\mu_2 \\ \mu_1 \\ \mu_2 \end{pmatrix}}{\mu_1, \mu_2 \in \mathbb Z_3}
-      = L(\set{\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}})
-  \] \TODO \[
-      \Rightarrow \text{ vector } \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} \text{ is useless}
-  \]
-  \[
-      \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}
+      \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} =
       \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} +
       \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} \in
-      L(\set{\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}})
+      L\left(\set{\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}}\right)
   \]
 \end{ex}
 
 \begin{rem}
   \[ M \subseteq V \text{ subset} \]
   Let $a \in L(M)$ then $L(M) = L(M \cup \set{a})$.
-  Therefore linear hull does not increase.
+  The linear hull does not grow, if the vector space is extended by an element of the linear hull.
+  So we need to show:
+  \[ a \in L(M) \Rightarrow L(M) = L(M \cup \set{a}) \]
+  $L(M) \subseteq L(M \cup \set{a})$ holds trivially. \\
+  It remains to show that $L(M \cup \set{a}) \subseteq L(M)$.
 
-  \TODO
+% TODO: proof with Moritz
 
-  Let
-  \[ w \in L(M \cup \set{a}) \]
-  \[ \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_k} \bigvee_{\lambda_1, \ldots, \lambda_k} w = \lambda_1 w_1 + \lambda n w_n \]
-  \TODO
-
-  Case distinction:
-  \begin{description}
-    \item[Case 1] all $w \in M \Rightarrow  w \in L(M)$
-    \item[Case 2] one of the $w_i$ equals $a$.
-      Wlog. $w_1 = a$. Therefore $w_i \neq a$ for $i \neq 1$.
-      \[ w = \lambda_1 a + \lambda_2 w_2 + \ldots + \lambda_k w_k \]
-      \[
-        \underbrace{= \lambda_1(\mu_1 v_1 + \ldots + \mu_n v_n) + \lambda_2 w_2}_{\text{all } v_k, w_k \in M}
+  In general, a linear combination of $L(M \cup \set{a})$ is given by,
+  \[
+    \bigvee_{\lambda_i \in K} \bigvee_{\lambda_j \in M \cup \set{a}}
+    w = \lambda_1 w_1 + \ldots + \lambda_k w_k
+    \qquad i,j \in [1, k]
+  \]
+  Let $a \in L(M \cup \set{a})$. Then there exist $\mu_i \in K$ for $i \in [1, k]$ such that
+  \[ a = \mu_1 v_1 + \mu_2 v_2 + \ldots + \mu_k v_k \]
+  with $v_i \in M$. Specifically, because $w_j = a$ for some $j \in \mathbb N$,
+  there exists some $w = a$ with $\lambda_j = 1$ and $\lambda_i = 0 \quad\forall i \in \mathbb N \setminus \set{j}$.
+  %\[
+  %  \forall a \in L(M) \qquad
+  %  \Rightarrow \bigvee_{\mu_1, \ldots, \mu_k \in K} a = \mu_1 v_1 + \ldots + \mu_n v_n \qquad
+  %  v_i \in M
+  %\]
+  %Let
+  %\[ w \in L(M \cup \set{a}) \]
+  %\[
+  %  \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} \bigvee_{\lambda_1, \ldots, \lambda_k} w
+  %  = \lambda_1 w_1 + \lambda_2 w_2 + \ldots + \lambda_n w_k
+  %\]
+  %Case distinction:
+  %\begin{description}
+  %  \item[Case 1] All $w \in M \Rightarrow  w \in L(M)$
+  %  \item[Case 2] One of the $w_i$ equals $a$.
+      Without loss of generality, $w_1 = a$. %Therefore $w_i \neq a$ for $i \neq 1$.
+      \begin{align*}
+        w &= \lambda_1 a + \lambda_2 w_2 + \ldots + \lambda_k w_k \\
+          &= \underbrace{\lambda_1(\mu_1 v_1 + \ldots + \mu_n v_n) + \lambda_2 w_2}_{\text{all } v_k, w_k \in M}
         + \ldots + \lambda_k w_k \in L(M)
-      \]
-  \end{description}
+      \end{align*}
+  %\end{description}
   In other words, let $a \in M$, if $a \in L(M \setminus \set{a})$ then $L(M) = L(M \setminus \set{a})$.
 
   Question: Is there always a minimal generating system? Can we determine whether $M$ is minimal?
@@ -3260,9 +3291,8 @@ Therefore every linear combination is also in $U$.
 \end{ex}
 
 \begin{theorem}
-  For a family $(U_i)_{i \in I}$ mit an arbitrary index set $I$ is called linear independent
-  iff
-  \TODO
+  For a family $(U_i)_{i \in I}$ with an arbitrary index set $I$ is called linear independent
+  iff every finite subset is linear independent.
 \end{theorem}
 
 \begin{theorem}
@@ -3280,15 +3310,15 @@ Therefore every linear combination is also in $U$.
 \end{theorem}
 
 \begin{defi}
-  % TODO: verify
   $(v_i)_{i \in \emptyset}$ is defined to be linear independent.
 \end{defi}
 
 \begin{cor}
-  A one-tuple is linear dependent.
+  The one-tuple $(0)$ is linear dependent.
   \[ 1 \cdot 0 = 0 \]
+  with $1$ as an arbitrary scalar.
   An $n$-tuple $v$ is linear independent iff $v \neq 0$.
-  If $v \neq 0$ and $\lambda v =0$, then $\lambda = 0$ must hold.
+  If $v \neq 0$ and $\lambda v = 0$, then $\lambda = 0$ must hold.
 \end{cor}
 
 \begin{cor}
@@ -3324,8 +3354,8 @@ Therefore every linear combination is also in $U$.
 
 \begin{cor}
   \[ (v_1, \ldots, v_n) \text{ is linear independent} \]
-  \[ \bigvee_{\lambda_1, \ldots, \lambda_n \in K} \lambda_1 v_1 + \ldots + \lambda_n v_n = 0 \]
-  \[\Rightarrow \bigvee_{k \in \set{1, \ldots, n}} \bigvee_{\lambda_1, \ldots, \lambda_n} v_l = \lambda_1 v_1 + \ldots + \lambda_n v_n \]
+  \[ \Leftrightarrow \bigvee_{\lambda_1, \ldots, \lambda_n \in K} \lambda_1 v_1 + \ldots + \lambda_n v_n = 0 \]
+  \[ \Rightarrow \bigvee_{k \in \set{1, \ldots, n}} \bigvee_{\lambda_1, \ldots, \lambda_n} v_l = \lambda_1 v_1 + \ldots + \lambda_n v_n \]
 
   Therefore one vector exists which can be represented using the other vectors.
 \end{cor}
@@ -3338,7 +3368,7 @@ Therefore every linear combination is also in $U$.
 
 \begin{ex}
   \[ \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} \]
-  is linear independent. But
+  is linear dependent. But
   \[ \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} \]
   is linear independent.
 
@@ -3346,7 +3376,7 @@ Therefore every linear combination is also in $U$.
   \[ \Rightarrow \lambda_1 - \lambda_2 = 0 \]
 \end{ex}
 
-\begin{cor}
+\begin{defi}
   \[ V = K^n \]
   The unit vector is defined as
   \[ e_i = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} \]
@@ -3355,70 +3385,80 @@ Therefore every linear combination is also in $U$.
   $(e_1, \ldots, e_n)$ is linear independent.
   \[ \lambda_1 e_1 + \ldots + \lambda_n e_n = \begin{pmatrix} 0 \\ \vdots \\ 0 \end{pmatrix} \]
   then for all $\lambda_i = 0 $.
-\end{cor}
+\end{defi}
 
 \begin{theorem}
   Let $v_1, \ldots, v_n \in V$. Then it holds equivalently,
   \begin{enumerate}
     \item $(v_1, \ldots, v_n)$ is linear independent.
     \item
-        $\bigwedge_{v \in L(\set{v_1, \ldots, v_n})} \bigwedge_{\lambda_1, \ldots, \lambda_n \in K} v
+        $\bigwedge_{v \in L(\set{v_1, \ldots, v_n})} \dot\bigvee_{\lambda_1, \ldots, \lambda_n \in K} v
         = \lambda_1 v_1 + \ldots + \lambda_n v_n$
-    \item $\bigwedge_{k \in \set{1, \ldots, n}} v_k \not\in L(\set{v_1, v_{k-1}, v_{k+1}, \ldots, v_n})
+    \item $\bigwedge_{k \in \set{1, \ldots, n}} v_k \not\in L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n})
         = \set{v_1, \ldots, v_{\hat{k}}, \ldots, v_n}$
-    \item $\bigwedge_{k \in \set{1, \ldots, n}} L(\set{v_1, \ldots, v_{k-1} v_{l+1}, \ldots, v_n})
-        \not\in L(\set{v_1, v_2, \ldots, v_n})$
+    \item $\bigwedge_{k \in \set{1, \ldots, n}} L(\set{v_1, \ldots, v_{\hat k}, \ldots, v_n})
+        \neq L(\set{v_1, v_2, \ldots, v_n})$
   \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-  Circle conclusion:$ 1 \rightarrow 2 \rightarrow 3 \rightarrow 4 \rightarrow 1$.
+  Circle conclusion: $1 \rightarrow 2 \rightarrow 3 \rightarrow 4 \rightarrow 1$.
 
-  For every $v \in L(v_1, \ldots, v_n)$, $\bigwedge_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n$.
-  But is it unique? Assume $v = \mu_1 v_1 + \ldots + \mu_n v_n$.
-  Show that for all $\lambda_i = \mu$.
-  \[ \Rightarrow v - v = \lambda_1 v_1  + \ldots + \lambda_n v_n - (\lambda_1 v_1 + \ldots + \lambda_n v_n) \]
-  \[ 0 = (\lambda_1 - \mu_1) v_1 + (\lambda_2 - \mu_2) v_2 + \ldots + (\lambda_n - \mu_n) v_n \]
-  linear independence $\Rightarrow \mu_1 - \mu = 0  \qquad \lambda_n - \mu_n = 0$
-  Therefore for all, $\lambda_i = \mu_i$.
+  \begin{description}
+    \item[$1 \rightarrow 2$]
+      For every $v \in L(v_1, \ldots, v_n)$, $\bigwedge_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n$.
+      But is it unique? Assume $v = \mu_1 v_1 + \ldots + \mu_n v_n$.
+      Show that for all $\lambda_i = \mu$.
+      \[ \Rightarrow v - v = \lambda_1 v_1  + \ldots + \lambda_n v_n - (\lambda_1 v_1 + \ldots + \lambda_n v_n) \]
+      \[ 0 = (\lambda_1 - \mu_1) v_1 + (\lambda_2 - \mu_2) v_2 + \ldots + (\lambda_n - \mu_n) v_n \]
+      linear independence $\Rightarrow \mu_1 - \mu = 0  \qquad \lambda_n - \mu_n = 0$
+      Therefore for all, $\lambda_i = \mu_i$.
 
-  Assume \[ \bigvee_k U_k \in L(\set{v_1, \ldots, v_{\hat{k}}, \ldots, v_n}) \]
-  \[ \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} v_k = \lambda_1 v_1 + \ldots + \lambda_{n-1} N_{k-1} + 0 + \lambda_{k+1} v_{k+1} + \ldots + \lambda_n v_n \]
-  \[ \bigvee_{\lambda_1, \ldots, \lambda_n} v_k = 0 v_1 + \ldots + 0 v_{k-1} + 1 \cdot v_k + 0 v_{k+1} + 0 \cdot v_n \]
+    \item[$2 \rightarrow 3$]
+      Assume \[ \bigvee_k U_k \in L(\set{v_1, \ldots, v_{\hat{k}}, \ldots, v_n}) \]
+      \[ \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} v_k = \lambda_1 v_1 + \ldots + \lambda_{n-1} N_{k-1} + 0 + \lambda_{k+1} v_{k+1} + \ldots + \lambda_n v_n \]
+      \[ \bigvee_{\lambda_1, \ldots, \lambda_n} v_k = 0 v_1 + \ldots + 0 v_{k-1} + 1 \cdot v_k + 0 v_{k+1} + 0 \cdot v_n \]
 
-  So $v_k$ has two different representations, this is a contradiction.
+      So $v_k$ has two different representations, this is a contradiction.
 
+    \item[$3 \rightarrow 4$]
+      \TODO
+      Let $\lambda_1 v_1 + \ldots + \lambda_n v_n = 0$.
+      Show that all $\lambda_i = 0 $.
+      Assume $\bigwedge_{k} v_k = 0$.
+      \[ \Rightarrow \lambda \]
 
-  \TODO
+    \item[$4 \rightarrow 1$]
+      \TODO
+      \[ \Rightarrow v_k \in L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) \]
+      \[ \Rightarrow L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) = L(\set{v_1, \ldots, v_k, \ldots, v_n}) \]
 
-
-  Let $\lambda_1 v_1 + \ldots + \lambda_n v_n = 0$.
-  Show that all $\lambda_i = 0 $.
-  Assume $\bigwedge_{k} v_k = 0$.
-  \[ \Rightarrow \lambda \]
-  \TODO
-
-  \[ \Rightarrow v_k \in L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) \]
-  \[ \Rightarrow L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) = L(\set{v_1, \ldots, v_k, \ldots, v_n}) \]
-
-  This is a contradiction to (4).
+      This is a contradiction to (4).
+  \end{description}
 \end{proof}
 
 \meta{lecture}{17th of November 2015}{Franz Lehner}
 
 \[ \underbrace{[M]}_{\text{smallest subspace} \supseteq M} = \underbrace{L(M)}_{\text{set of all linear combinations}} \]
 
-Conditions (from yesterday):
-\begin{align*}
-  &\Leftrightarrow \bigwedge_{v \in L(\set{v_1, \ldots, v_n})} \dot\bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n \\
-  &\Leftrightarrow \bigwedge_k v_k \not\in L(\set{v_1, \ldots, \hat{v_{k}}, \ldots, v_n}) \\
-  &\Leftrightarrow \bigwedge_{v \in L(M)} \bigvee_{n \in \mathbb N} \dot\bigvee_{v_1, \ldots, v_n \in M} \bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n
-\end{align*}
-
 In general: $M \subseteq V$ is called linear independent, if every subfamily of $p_n$ different element is linear independent.
-
+\begin{align*}
+  &\Leftrightarrow
+     \bigwedge_{v \in L(\set{v_1, \ldots, v_n})}
+     \dot\bigvee_{\lambda_1, \ldots, \lambda_n} v
+     = \lambda_1 v_1 + \ldots + \lambda_n v_n \\
+  &\Leftrightarrow
+    \bigwedge_k v_k \not\in L(\set{v_1, \ldots, \hat{v_{k}}, \ldots, v_n}) \\
+  &\Leftrightarrow
+    \bigwedge_{v \in L(M)}
+    \bigvee_{n \in \mathbb N}
+    \dot{\bigvee}_{v_1, \ldots, v_n \in M}
+    \bigvee_{\lambda_1, \ldots, \lambda_n} v
+    = \lambda_1 v_1 + \ldots + \lambda_n v_n
+\end{align*}
+%
 \[ L(M) = V \]
-
+%
 \begin{defi}
   \begin{itemize}
     \item A family/set $S \subseteq V$ is called \emph{generating system} if $V = [S] = L(S)$.
@@ -3432,7 +3472,7 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
 \begin{rem}
   \begin{itemize}
     \item
-      $(b_i)_{i \in I}$ is a basis of $V$. If
+      $(b_i)_{i \in I}$ is a basis of $V$, if
       \begin{itemize}
         \item every element is a linear combination of a finite subfamily $b_{i_1}, \ldots, b_{i_n}$.
         \item every finite subfamily is linear independent.
@@ -3455,9 +3495,8 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
   \[
       \sum_{i=1}^n \lambda_i e_i
       = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}
-      = 0
   \]
-  \[ \Leftrightarrow \text{ all } \lambda_i = 0 \]
+  \[ = 0 \Leftrightarrow \text{ all } \lambda_i = 0 \]
   Every vector is reachable by a linear combination of $e_i$.
 \end{rem}
 
@@ -3549,12 +3588,12 @@ Does every vector space have a basis?
 \begin{rem}
   Whether every vector space has a basis depends on your faith in the Axiom of Choice (AC).
 
-  The axiom of choice states: Let $(S_i)_{i \in I}$ be a family of sets.
+  The axiom of choice states: Let $(S_i)_{i \in I}$ be a family of non-empty sets.
   Then some $(x_i)_{i \in I}$ exist such that $\bigwedge_{i \in I} x_i \in S_i$.
 
   Example 1:
   \[ (A)_{A \subseteq \mathbb N} \]
-  $(x_A){A \subseteq \mathbb N}$ such that $x_A = \min{A}$.
+  $(x_A)_{A \subseteq \mathbb N}$ such that $x_A = \min{A}$.
   A selection was made for every subset.
 
   Example 2:
@@ -3569,7 +3608,7 @@ Does every vector space have a basis?
 
   Consider a sphere in $\mathbb R^3$.
   Cut the sphere in 5 parts.
-  Then you can move the parts such that two identical copies of the original sphere is created.
+  Then you can move the parts such that two identical copies of the original sphere are created.
 
   The Hausdorff-Banach-Tarski paradox is equivalent to the axiom of choice.
 
@@ -3580,12 +3619,13 @@ Does every vector space have a basis?
 \index[English]{Zermelo-Fraenkel set theory (ZF)}
 \index[German]{Zermelo-Fraenkel Mengenlehre (ZF)}
 \begin{rem}
-  The axiom of choice is \TODO of the other axioms of Zermelo-Fraenkel set theory (ZF).
+  The axiom of choice is independent of the other axioms of Zermelo-Fraenkel set theory (ZF).
   If ZF is contradiction-free, so is ZF + AC.
 \end{rem}
 
 \begin{theorem}
   \label{thm:vector-space-statements}
+  % satz 3.23
   Let $V$ be a vector space over $K$
   \[ B = (b_i)_{i \in I} \subseteq V \]
   Then it holds equivalently, that
@@ -3593,8 +3633,9 @@ Does every vector space have a basis?
     \item $B$ is a basis.
     \item Every $v \in V$ can be represented uniquely as linear combination of $B$:
       \[
-          \bigwedge_{v \in V} \bigvee_{n} \dot\bigvee_{i_1, \ldots, i_n} \dot\bigvee_{\lambda_1, \ldots, \lambda_n} v
-          = \lambda_1 v_{i,1} + \ldots + \lambda_n b_{i,n}
+        \bigwedge_{v \in V} \bigvee_{n \in \mathbb N}
+        \dot\bigvee_{i_1, \ldots, i_n} \dot\bigvee_{\lambda_1, \ldots, \lambda_n} v
+        = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}
       \]
     \item $B$ is a maximal linear independent family.
     \item $B$ is a minimal generating system.
@@ -3705,20 +3746,20 @@ A basis is a linear independent generating system.
 
 $v=0$ has a unique representation as linear combination of the basis $B$.
 
-\begin{theorem}
-  \label{3-24}
-  Let $V$ be a vector space. Let $B$ be a basis $(b_i)_{i \in I} \subseteq V$.
-  Then the following statements are equivalent:
-  \begin{enumerate}
-    \item $B$ is a basis.
-    \item Every $v \in V$ has a unique representation as linear combination of $B$.
-    \item $B$ is a maximal linear independent family.
-    \item $B$ is a minimal generating system.
-  \end{enumerate}
-\end{theorem}
+%\begin{theorem}
+%  \label{3-24}
+%  Let $V$ be a vector space. Let $B$ be a basis $(b_i)_{i \in I} \subseteq V$.
+%  Then the following statements are equivalent:
+%  \begin{enumerate}
+%    \item $B$ is a basis.
+%    \item Every $v \in V$ has a unique representation as linear combination of $B$.
+%    \item $B$ is a maximal linear independent family.
+%    \item $B$ is a minimal generating system.
+%  \end{enumerate}
+%\end{theorem}
 
 \begin{proof}
-  We have already shown 1 to 3 to 4. We prove 4 to 1.
+  We have already shown 1 $\rightarrow$ 3 $\rightarrow$ 4. We prove 4 $\rightarrow$ 1.
 
   Let $B$ be a minimal generating system. Show that $B$ is linear independent.
   Proof by contradiction.
@@ -3747,10 +3788,10 @@ How can we construct/find bases?
 \begin{theorem}[Exchange lemma]
   \label{lemma-3-26}
   Let $B = (b_1, \ldots, b_n)$ be basis in vector space $V$.
-  Let $v \in V \setminus \set{0}$ with $v \neq 0$.
+  Let $v \in V \setminus \set{0}$.
   Let
   \[ v = \sum_{i=1}^n \lambda_i \cdot b_i \]
-  If $\lambda_k \neq 0$ then $B' = (b_1, \dots, b_{k-1}, v, b_{k+1}, \dots, b_n)$ is also a basis of $V$.
+  If some $\lambda_k \neq 0$ then $B' = (b_1, \dots, b_{k-1}, v, b_{k+1}, \dots, b_n)$ is also a basis of $V$.
 \end{theorem}
 
 \begin{proof}
@@ -3795,15 +3836,11 @@ How can we construct/find bases?
   \label{steinitz-lemma}
   Let $V$ be a vector space over a field $K$.
   Let $B = (b_1, \ldots, b_n)$ be a basis.
-  Let $(v_1, \dots, v_n) \subseteq V$ be linear independent.
+  Let $(v_1, \dots, v_r) \subseteq V$ be linear independent with $r \leq n$.
 
-  Then it holds that
-  \begin{itemize}
-    \item $r \leq n$
-    \item The following is a basis of $V$:
-      \[ \bigvee_{i_1, \dots, i_{n+1} \in \set{1, \dots, n}} (v_1, \dots, v_r, b_{i_1}, \dots, b_{i_{n-r}}) \]
-      Followingly $v_1, \dots, v_r$ can be exchanged as basis.
-  \end{itemize}
+  Then it holds that the following is a basis of $V$:
+  \[ \bigvee_{i_1, \dots, i_{n+1} \in \set{1, \dots, n}} (v_1, \dots, v_r, b_{i_1}, \dots, b_{i_{n-r}}) \]
+  Followingly $v_1, \dots, v_r$ can be exchanged as basis.
 \end{theorem}
 
 \begin{proof}
@@ -3813,23 +3850,23 @@ How can we construct/find bases?
       \begin{enumerate}
         \item
           Let $(v_1)$ be linear independent. Then $v_1 \neq 0$. Then $B \neq \emptyset$.
-          Then $n \geq 1 = r = 1 \quad \checkmark$.
-
+          Then $n \geq 1$ where $n$ is $\card{B}$.
+          Because $r = 1$, $n = 1$.
         \item
           Let $v_1 = \sum \lambda_i b_i \neq 0$.
           So there exists some $k$ with $\lambda_k \neq 0$.
-          From the exchange lemma it follows that $(v_1, b_1, \dots, b_{k-1}, b_{k+1}, \dots, b_n)$ is a basis.
+          From the exchange lemma~\ref{lemma-3-26} it follows
+          that $(v_1, b_1, \dots, b_{k-1}, b_{k+1}, \dots, b_n)$ is a basis.
+          $\quad \checkmark$
       \end{enumerate}
     \item[induction step $r \rightarrow r+1$] \hfill{} \\
       Let $v_{1}, \dots, v_{r+1}$ be linear independent.
       \[ \Rightarrow v_1, \ldots, v_r \text{ is also linear independent} \]
       \[ \text{induction hypothesis} \Rightarrow \bigvee_{j_1, \dots, j_{n-r}} (v_1 \ldots, v_r, b_{j_1}, \dots, b_{j_{n-r}}) \text{ is a basis} \]
       \begin{enumerate}
-        \item $r \leq n$
+        \item It holds that $r \leq n$.
 
-          We need to show that $r+1 \leq n$.
-
-          We already know $r \leq n$ and we need to exclude that $r = n$.
+          We need to show that $r+1 \leq n$, so we need to exclude that $r = n$.
           In that case $r + 1 \leq n$ holds (with $r < n)$.
 
           Assume
@@ -3841,18 +3878,26 @@ How can we construct/find bases?
           So $r < n \Rightarrow r+1 \leq n$.
 
         \item
-          We apply the exchange lemma to $v_{r+1}$ and the basis $(v_1, \dots, v_r, b_{i_1}, \dots, b_{i_{n - r}})$.
-          Let $V_{r+1} = \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^{n-r} \mu_j b_{i_j}$
-          so either $\lambda_i$ or some $\mu_j \neq 0$.
-
-          \textbf{Claim.} At least one $\mu_j \neq 0$. Otherwise $v_1, \dots, v_{r+1}$ is not linear independent
-          because otherwise $v_{r+1} = \sum_{i=1}^n \lambda_i v_i$ would be linear combination of other $v_i$s.
-
-          Let $\mu_k \neq 0$. Then we have a new basis $(v_1, \dots, v_{r+1}, b_{i_1}, \dots, b_{i_{k-1}}, b_{i_{k+1}}, \dots, b_{i_{n-r}})$. So we remove $b_{i_k}$.
+          By induction hypothesis $V$ has a basis $(w_1, \ldots, w_r, v_{i_1}, \ldots, v_{i_{n-r}})$.
+          The vector $w_{r+1}$ can be written as
+          \[ w_{r+1} = \sum_{i=1}^r \mu_i w_i + \sum_{j=1}^{n-r} \lambda_j v_{i_j}. \]
+          At least one $k$ satisfies $\lambda_k \neq 0$, otherwise $w_{r+1} \in \mathcal L(\set{w_1, \ldots, w_r})$
+          in contradiction to the linear independence of $(w_1, \ldots, w_{r+1})$.
+          With the exchange lemma~\ref{lemma-3-26} we can replace $v_{i_k}$ with $w_{r+1}$.
+          \[ (w_1, \ldots, w_{r+1}, v_{i_1}, \ldots, v_{i_{k-1}}, v_{i_{k+1}}, \ldots, v_{i_{n-r}}) \]
+          is therefore a basis.
+          %We apply the exchange lemma to $v_{r+1}$ and the basis $(v_1, \dots, v_r, b_{i_1}, \dots, b_{i_{n - r}})$.
+          %Let $v_{r+1} = \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^{n-r} \mu_j b_{i_j}$
+          %so either $\lambda_i$ or some $\mu_j \neq 0$.
+%
+          %\textbf{Claim.} At least one $\mu_j \neq 0$. Otherwise $v_1, \dots, v_{r+1}$ is not linear independent
+          %because otherwise $v_{r+1} = \sum_{i=1}^n \lambda_i v_i$ would be linear combination of other $v_i$s.
+%
+          %Let $\mu_k \neq 0$. Then we have a new basis $(v_1, \dots, v_{r+1}, b_{i_1}, \dots, b_{i_{k-1}}, b_{i_{k+1}}, %\dots, b_{i_{n-r}})$. So we remove $b_{i_k}$.
       \end{enumerate}
   \end{description}
 \end{proof}
-
+%
 \begin{theorem}
   Let $V$ be a vector space over $K$.
   \begin{itemize}
