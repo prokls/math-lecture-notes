@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{faktor}
 \usepackage{fancyhdr}
 \usepackage[margin=1in]{geometry}
 \usepackage[pdfborder={0 0 0}]{hyperref}
@@ -624,19 +625,19 @@ Examples:
   \item $[a] = \set{a, c}, [b] = \set{b}, [c] = \set{a, c}$
 \end{itemize}
 
-$X / \sim = \setdef{[x]}{x = X}$ is called \emph{factor set} or \emph{quotient set}.
+$\faktor{X}{\sim} = \setdef{[x]}{x = X}$ is called \emph{factor set} or \emph{quotient set}.
 
 Examples:
 \begin{itemize}
-  \item $X / \sim = \set{\set{\text{Graz}}, \set{\text{Linz}}, \set{\text{Wien}}, \dots}$
-  \item $X / \sim = \setdef{\set{x}}{x \in X}$
-  \item $\mathbb{Z} / \sim = \set{[0], [1], [2], \ldots, [n-1]}$
+  \item $\faktor{X}{\sim} = \set{\set{\text{Graz}}, \set{\text{Linz}}, \set{\text{Wien}}, \dots}$
+  \item $\faktor{X}{\sim} = \setdef{\set{x}}{x \in X}$
+  \item $\mathbb{Z}{\sim} = \set{[0], [1], [2], \ldots, [n-1]}$
      \[ n = 0 + 1 \cdot n \in [0] \]
      \[ 0 = n - 1 \cdot n \in [n] \]
 \end{itemize}
 
 A \emph{system of representatives} is a subset $S \subseteq X$ such that
-\[ \bigwedge_{[x] \in X / \sim} \dot\bigvee_{s \in S} s \in [x] \]
+\[ \bigwedge_{[x] \in \faktor{X}{\sim}} \dot\bigvee_{s \in S} s \in [x] \]
 
 Examples:
 \begin{itemize}
@@ -678,17 +679,17 @@ $Z$ is the set of subsets of $X$ such that
   \begin{itemize}
     \item
       Let $\sim$ be an equivalence relation operating on $X$,
-      then $X / \sim$ is a partition of $X$.
+      then $\faktor{X}{\sim}$ is a partition of $X$.
     \item
       Let $Z \subseteq \mathcal{P}(X)$ a partition of $X$.
       There is exactly one equivalence relation $\sim$ on $X$
-      such that $X / \sim = Z$.
+      such that $\faktor{X}{\sim} = Z$.
   \end{itemize}
 \end{theorem}
 
 \begin{proof}
   Let $\sim$ be an equivalence relation on $X$.
-  Then $X / \sim = \setdef{[x]}{x \in X} \subseteq \mathcal{P}(x)$
+  Then $\faktor{X}{\sim} = \setdef{[x]}{x \in X} \subseteq \mathcal{P}(x)$
 
   \begin{itemize}
     \item We need to show that $\bigcup_{x \in X} [x] = X$.
@@ -735,7 +736,7 @@ Examples:
 Let $\sim$ be an equivalence relation operating on set $X$.
 
 \begin{align*}
-  f_4: X &\rightarrow X/\sim \\
+  f_4: X &\rightarrow \faktor{X}{\sim} \\
        x &\mapsto [x] \\
   f_5: \mathbb{R} \times \mathbb{R} &\rightarrow \mathbb{R} \\
        (x,y) &\mapsto x+y
@@ -3220,53 +3221,41 @@ Therefore every linear combination is also in $U$.
   \]
 \end{ex}
 
-\begin{rem}
-  \[ M \subseteq V \text{ subset} \]
+\begin{theorem}
+  Let $M \subseteq V \text{ subset}$.
   Let $a \in L(M)$ then $L(M) = L(M \cup \set{a})$.
   The linear hull does not grow, if the vector space is extended by an element of the linear hull.
-  So we need to show:
+\end{theorem}
+\begin{proof}
+  We need to show:
   \[ a \in L(M) \Rightarrow L(M) = L(M \cup \set{a}) \]
-  $L(M) \subseteq L(M \cup \set{a})$ holds trivially. \\
-  It remains to show that $L(M \cup \set{a}) \subseteq L(M)$.
+  \begin{itemize}
+    \item $L(M) \subseteq L(M \cup \set{a})$ holds trivially.
+    \item
+      It remains to show that $L(M \cup \set{a}) \subseteq L(M)$.
 
-% TODO: proof with Moritz
-
-  In general, a linear combination of $L(M \cup \set{a})$ is given by,
-  \[
-    \bigvee_{\lambda_i \in K} \bigvee_{\lambda_j \in M \cup \set{a}}
-    w = \lambda_1 w_1 + \ldots + \lambda_k w_k
-    \qquad i,j \in [1, k]
-  \]
-  Let $a \in L(M \cup \set{a})$. Then there exist $\mu_i \in K$ for $i \in [1, k]$ such that
-  \[ a = \mu_1 v_1 + \mu_2 v_2 + \ldots + \mu_k v_k \]
-  with $v_i \in M$. Specifically, because $w_j = a$ for some $j \in \mathbb N$,
-  there exists some $w = a$ with $\lambda_j = 1$ and $\lambda_i = 0 \quad\forall i \in \mathbb N \setminus \set{j}$.
-  %\[
-  %  \forall a \in L(M) \qquad
-  %  \Rightarrow \bigvee_{\mu_1, \ldots, \mu_k \in K} a = \mu_1 v_1 + \ldots + \mu_n v_n \qquad
-  %  v_i \in M
-  %\]
-  %Let
-  %\[ w \in L(M \cup \set{a}) \]
-  %\[
-  %  \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} \bigvee_{\lambda_1, \ldots, \lambda_k} w
-  %  = \lambda_1 w_1 + \lambda_2 w_2 + \ldots + \lambda_n w_k
-  %\]
-  %Case distinction:
-  %\begin{description}
-  %  \item[Case 1] All $w \in M \Rightarrow  w \in L(M)$
-  %  \item[Case 2] One of the $w_i$ equals $a$.
-      Without loss of generality, $w_1 = a$. %Therefore $w_i \neq a$ for $i \neq 1$.
+      In general, a linear combination $w$ of $L(M \cup \set{a})$ is given by,
+      \[
+        \bigvee_{\lambda_i \in K} \bigvee_{w_i \in M \cup \set{a}}
+        w = \lambda_1 w_1 + \ldots + \lambda_k w_k
+        \quad\qquad i \in [1, k]
+      \]
+      For $a \in L(M)$ there exist $\mu_i \in K$ and $v_i \in M$ for $i \in [1, k]$ such that,
+      \[ a = \mu_1 v_1 + \mu_2 v_2 + \ldots + \mu_k v_k \]
+      In the linear combination of $w$, $a$ occurs as $w_i$ for some $i \in \mathbb N$.
+      Without loss of generality, $w_1 = a$.
       \begin{align*}
         w &= \lambda_1 a + \lambda_2 w_2 + \ldots + \lambda_k w_k \\
-          &= \underbrace{\lambda_1(\mu_1 v_1 + \ldots + \mu_n v_n) + \lambda_2 w_2}_{\text{all } v_k, w_k \in M}
-        + \ldots + \lambda_k w_k \in L(M)
+          &= \lambda_1(\underbrace{\mu_1 v_1 + \ldots + \mu_n v_n}_{\text{all } \mu_i, v_i \in M})
+          + \underbrace{\lambda_2 w_2 + \ldots + \lambda_k w_k}_{\text{all } \lambda_i, w_i \in M} \\
+          &= (\lambda_1 \mu_1) v_1 + \ldots + (\lambda_1 \mu_n) v_n
+          + \lambda_2 w_2 + \ldots + \lambda_k w_k \\
+          &\in L(M)
       \end{align*}
-  %\end{description}
-  In other words, let $a \in M$, if $a \in L(M \setminus \set{a})$ then $L(M) = L(M \setminus \set{a})$.
-
-  Question: Is there always a minimal generating system? Can we determine whether $M$ is minimal?
-\end{rem}
+    In other words, let $a \in M$, if $a \in L(M \setminus \set{a})$ then $L(M) = L(M \setminus \set{a})$.
+  \end{itemize}
+\end{proof}
+Question: Is there always a minimal generating system? Can we determine whether $M$ is minimal?
 
 \begin{defi}
   Let $(V, +)$ be a vector space over $K$.
@@ -4846,9 +4835,8 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 \index[German]{\foreignlanguage{ngerman}{Quotientenraum}}
 \begin{theorem}
   \label{satz-4-22}
-  The set of equivalence classes $V/U$:
-  % TODO: better typesetting for V/U
-  \[ V/U \coloneqq \left(V/\sim U, +, \cdot\right) \]
+  The set of equivalence classes $\faktor{V}{U}$:
+  \[ \faktor{V}{U} \coloneqq \left(\faktor{V}{\sim U}, +, \cdot\right) \]
   with the operations
   \[ [v]_U + [w]_U \coloneqq [v+w]_U \]
   \[ \left[\Rightarrow v+U + w+U = (v+w)+U\right] \]
@@ -4882,27 +4870,27 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
       = \setdef{\begin{pmatrix} v_1 + x \\ v_2 + y \\ v_3 \end{pmatrix}}{x,y \in \mathbb R}
       = \setdef{\begin{pmatrix} x' \\ y' \\ v_3 \end{pmatrix}}{x,y \in \mathbb R}
   \]
-  $V/U$ is the plane parallel to the x-y-plane.
+  $\faktor{V}{U}$ is the plane parallel to the x-y-plane.
   \[
     \left(\begin{pmatrix} 0 \\ 0 \\ z \end{pmatrix} + U\right)
     + \left(\begin{pmatrix} 0 \\ 0 \\ z \end{pmatrix} + U\right)
     = \left(\begin{pmatrix} 0 \\ 0 \\ z_1 + z_2 \end{pmatrix} + U\right)
   \]
-  \[ V/U \stackrel\sim{=} \mathbb R \]
+  \[ \faktor{V}{U} \stackrel\sim{=} \mathbb R \]
 \end{ex}
 
 \begin{theorem}
   \label{satz-4-24}
   Let $\dim(V) < \infty$.
   \[ U \subseteq V \text{ is a subspace} \]
-  Then $\dim(V/U) = \dim(V) - \dim(U)$.
+  Then $\dim(\faktor{V}{U}) = \dim(V) - \dim(U)$.
 \end{theorem}
 \begin{proof}
   Let $(u_1, \dots, u_r)$ be a basis of $U$.
   The basis extension theorem allows us to extend this set with
   $(w_1, \dots, w_n)$ such that $(u_1, \dots, u_r, w_1, \dots, w_n)$ is basis of $V$.
 
-  Claim: $\tilde{B} = (w_1 + U, w_2 + U, \dots, w_m + U)$ is basis of $V / U$.
+  Claim: $\tilde{B} = (w_1 + U, w_2 + U, \dots, w_m + U)$ is basis of $\faktor{V}{U}$.
 
   These are exactly the equivalence classes of elements with basis of $V$,
   which are not mapped to $0 + U$ ($[0]_U$).
@@ -4910,7 +4898,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   We need to prove that this is a basis:
   \begin{enumerate}
     \item Linear independence of $\tilde{B}$
-    \item $L(\tilde{B}) = V / U$
+    \item $L(\tilde{B}) = \faktor{V}{U}$
   \end{enumerate}
   So,
   \begin{enumerate}
@@ -4924,9 +4912,9 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
       \[ \Rightarrow \lambda_1 w_1 + \dots + \lambda_m w_m = 0 \]
       \[ \Rightarrow \lambda_i = 0 \text{ because } (w_1, \dots, w_m) \text{ is linear independent (part of a basis)} \]
     \item
-      $L(\tilde{B}) \subseteq V/U$ is obvious.
+      $L(\tilde{B}) \subseteq \faktor{V}{U}$ is obvious.
 
-      Let $v + U \in V/U$
+      Let $v + U \in \faktor{V}{U}$
       \[ \Rightarrow v = \sum_{i=1}^r \lambda_i u_i + \sum_{i=1}^m \lambda_{r+i} w_i \]
       Decomposition in regards of basis $B$ of $V$.
       \[ v + U  = \underbrace{\sum_{i=1}^r \lambda_i u_i}_{\in U} + \sum_{i=1}^m \lambda_{r+i} w_i + U \]
@@ -4943,7 +4931,7 @@ What did we do in this section?
   \item $U\dot{+}W$ (direct sums)
   \item $V\oplus W, V \times W$ (outer sums)
   \item $\prod_{i \in I} V_i, \oplus_{i \in I} V_i$
-  \item $V / U$
+  \item $\faktor{V}{U}$
 \end{itemize}
 
 \section{Linear mappings}
@@ -5568,15 +5556,15 @@ Homomorphisms and vector spaces:
 \subsection{Revision}
 
 A factor set satisfies:
-\[ V/U \quad U \subseteq V \text{ is a subspace} \]
+\[ \faktor{V}{U} \quad U \subseteq V \text{ is a subspace} \]
 \[ = \setdef{v +  U}{v \in V} = \setdef{[v]}{v \in V} \]
 \[ v \sim_U v' \Leftrightarrow v - v' \in U \Leftrightarrow v \in V' + U \]
-\[ \dim(V/U) = \dim{U} = \dim{V} \]
+\[ \dim(\faktor{V}{U}) = \dim{U} = \dim{V} \]
 
-Constructing a basis for $V/U$:
+Constructing a basis for $\faktor{V}{U}$:
 \[ u_1, \dots, u_m \text{ is basis of } U \rightarrow \text{ extend to basis of } V \]
 \[ u_1, \dots, u_m, w_1, \dots, w_{n-m} \text{ is basis of } V \]
-\[ w_1+U, \dots, w_{n-m}+U \text{ is basis of } V/U \]
+\[ w_1+U, \dots, w_{n-m}+U \text{ is basis of } \faktor{V}{U} \]
 
 Images and preimages of subspaces are subspaces.
 
@@ -5637,9 +5625,9 @@ Images and preimages of subspaces are subspaces.
 
 \begin{theorem}[homomorphism theorem] % Homomorphiesatz
   \label{satz-5-21}
-  Let $g: V \rightarrow V/U$ be linear. $v \mapsto v + U$.
+  Let $g: V \rightarrow \faktor{V}{U}$ be linear. $v \mapsto v + U$.
   Then it holds that:
-  \[ \tilde{f}: V/\kernel{f} \rightarrow \image(f) \text{ is linear} \]
+  \[ \tilde{f}: \faktor{V}{\kernel{f}} \rightarrow \image(f) \text{ is linear} \]
   \[ v + \kernel(f) \mapsto f(v) \]
   This gives an isomorphism.
 \end{theorem}
@@ -5691,9 +5679,9 @@ Images and preimages of subspaces are subspaces.
   Then $\dim{\kernel(f)} + \dim{\image(f)} = \dim{V}$.
 \end{cor}
 \begin{proof}
-  \[ \dim(V/\kernel(f)) \stackrel{\text{Theorem~\ref{satz-4-24}}}{=} \dim{V} - \dim{\kernel(f)} \]
-  \[ \tilde{f}: V/\kernel(f) \rightarrow \image(f) \text{ is isomorphism} \]
-  \[ \Rightarrow \dim(V/\kernel(f)) = \dim(\image(f)) \]
+  \[ \dim(\faktor{V}{\kernel(f)}) \stackrel{\text{Theorem~\ref{satz-4-24}}}{=} \dim{V} - \dim{\kernel(f)} \]
+  \[ \tilde{f}: \faktor{V}{\kernel(f)} \rightarrow \image(f) \text{ is isomorphism} \]
+  \[ \Rightarrow \dim(\faktor{V}{\kernel(f)}) = \dim(\image(f)) \]
 \end{proof}
 \begin{proof}[Alternative, more comprehensible proof]
   \[ \kernel(f) \subseteq V \text{ is subspace} \]
@@ -5715,7 +5703,7 @@ Images and preimages of subspaces are subspaces.
 %
 \begin{rem}
   Also the mapping
-  \[ U \to V/\kernel(f) \]
+  \[ U \to \faktor{V}{\kernel(f)} \]
   \[ u \mapsto u + \kernel(f) \]
   is an isomorphism.
 
