@@ -670,7 +670,7 @@ A recursive definition is given by
 
 \begin{proof}
   \begin{align*}
-      \binom{n-1}{k-1} + \binom{n+1}{k}
+      \binom{n-1}{k-1} + \binom{n-1}{k}
           &= \frac{(n-1)!}{(n-1)! (n-1 - (k-1))!} \\
           &= \frac{(n-1)!}{k! (n-1-k)!} \\
       &= \frac{(n-1)!}{(k-1)! (n-k)!} + \binom{(n-1)!}{k! (n-1-k)!} \\
@@ -686,8 +686,9 @@ A recursive definition is given by
     \includegraphics{img/pascals_triangle.pdf}
     \caption{
       Pascal's triangle describes binomial coefficients.
-      It's structure is given by adding up the two numbers above a number.
-      The margins are defined by $1$. For example $6$ is given by ${4 \choose 2}$.
+      For every element of the triangle it holds that,
+      it is adding up the two numbers above a number.
+      The margins are defined by $1$. For example $5$ is given by ${5 \choose 4}$.
     }
   \end{center}
 \end{figure}
@@ -802,7 +803,7 @@ Then the domain of $A \setminus B$ is \enquote{A without B}.
         \item[Induction step] $n \rightarrow n + 1$
           \[
             (a + b)^{n+1} = (a + b)^n \cdot (a + b)
-            = \left(\sum_{k=0}^n \binom nk a^n b^{n-k}\right) (a + b)
+            = \left(\sum_{k=0}^n \binom nk a^k b^{n-k}\right) (a + b)
           \] \[
             = \sum_{k=0}^n \binom nk a^{k+1} b^{n-k} + \sum_{k=0}^n \binom nk a^k b^{n-k+1}
           \] \[
@@ -926,7 +927,7 @@ $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
 
 \begin{cor}
   Extension:
-  \[ \mathbb{Z} = \set{0, 1, -1, 2, -2, 3, \ldots} = \mathbb{N}_+ \cup \set{0} \cup \set{-n: n \leq \mathbb N_0} \]
+  \[ \mathbb{Z} = \set{0, 1, -1, 2, -2, 3, \ldots} = \mathbb{N}_+ \cup \set{0} \cup \set{-n: n \in \mathbb N_0} \]
   We define $-0 \coloneqq 0$ and $\forall n \in \mathbb{N}_+$ let $n + (-n) \coloneqq 0$.
 
   Therefore for every $z \in \mathbb{Z}$ exists some $\tilde z$ such that $z + \tilde z = 0$.
@@ -1218,7 +1219,7 @@ Literature:
 \begin{theorem}
   \[ \abs{x} = 0 \Leftrightarrow x = 0 \]
   \[ \forall a \in K: \abs{a} = \abs{-a} \]
-  \[ \forall \varepsilon > 0: \abs{x - y} \leq \varepsilon \Rightarrow x = y \]
+  \[ \forall \varepsilon > 0: \abs{x - y} \leq \varepsilon \Leftrightarrow x = y \]
 \end{theorem}
 
 \begin{proof}
@@ -2212,12 +2213,12 @@ and no solution in $\mathbb R$ exists for the equation $x^2 = -1$.
 In $\mathbb C$ it holds that $\forall w \in \mathbb C \setminus \set{0}$.
 $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equation$ z^n = w$.
 
-\section{Sequences of real and complex numbers}
+\section{Sequences of real and complex elements}
 \index[English]{Sequences}
 \index[German]{\foreignlanguage{ngerman}{Folge}}
 \begin{defi}
   Let $a$ be a mapping $\mathbb N \rightarrow \mathbb R$ is called \emph{sequence} of real numbers.
-  \[ \forall n \in \mathbb N: a(b) \in \mathbb R \]
+  \[ \forall n \in \mathbb N: a(n) \in \mathbb R \]
   We denote $a_n \coloneqq a(n)$.
   Instead of $a: \mathbb N \rightarrow \mathbb C$ we write $(a_n)_{n \in \mathbb N} = (a_0, a_1, \ldots)$.
 
@@ -2271,7 +2272,7 @@ $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equ
     \item $(a_n)_{n \in \mathbb N}$ is called \emph{monotonically strictly increasing} if $\forall n \in \mathbb N: a_{n+1} > a_n$.
     \item $(a_n)_{n \in \mathbb N}$ is called \emph{monotonically strictly decreasing} if $\forall n \in \mathbb N: a_{n+1} > a_n$.
   \end{itemize}
-  In $\mathbb C$, elements are not ordered, hence no complex sequences can be given.
+  In $\mathbb C$, elements are not ordered, so we need to define an order explicitly.
   Let $(a_n)_{n \in \mathbb N}$ a complex sequence. We define:
   \begin{itemize}
     \item $(a_n)_{n \in \mathbb N}$ is called bounded if $(\abs{a_n})_{n \in \mathbb N}$ is a bounded real sequence.
@@ -2326,7 +2327,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \begin{rem}
   Consider $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \abs{a_n - a} < \varepsilon\right]$
   as a circle with radius $\varepsilon$. So if $n$ is sufficiently large,
-  all new sequence numbers are located inside the circle.
+  all new sequence elements are located inside the circle.
 \end{rem}
 
 \begin{lemma}
@@ -2350,7 +2351,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
   \begin{enumerate}
     \item
       Let $s = \frac pq \in \mathbb Q_+$ and $n \in \mathbb N_+$. Consider $\left(\frac 1{n^2}\right)_{n \in \mathbb N}$.
-      \[ n^s = n^{\frac pq} \coloneqq \sqrt[q]{n^q} \]
+      \[ n^s = n^{\frac pq} \coloneqq \sqrt[q]{n^p} \]
       It holds that
       \[ \lim_{n \to \infty} \frac{1}{n^s} = 0 \]
     \item Let $q \in \mathbb C, \abs{q} < 1$. Then it holds that
@@ -2597,7 +2598,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
   \[ \Rightarrow \lim_{n \to \infty} \overline{a_n} = \alpha - i \beta = \overline{a} \]
 \end{proof}
 
-\subsection{Further laws for complex sequences}
+\subsection{Further laws for sequences}
 %
 \begin{theorem}
   Let $\seq{a_n}$ and $\seq{b_n}$ be convergent in $\mathbb R$ with limes $a$ (i.e. $b$)
@@ -2639,7 +2640,8 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 
 \subsection{Convergence criteria}
 %
-Are there criteria such that if they have a specific structure, they are obivously convergent?
+Are there criteria such that if the sequences have a specific structure,
+they are obivously convergent?
 
 \index[German]{\foreignlanguage{ngerman}{Einschließungsregel}}
 \index[English]{Squeeze theorem}
@@ -2655,7 +2657,7 @@ Are there criteria such that if they have a specific structure, they are obivous
   Let $\varepsilon > 0$ be arbitrary.
   Consider $N$ such that,
   \begin{itemize}
-    \item $M \geq M$
+    \item $N \geq M$
     \item $n \geq N \Rightarrow \abs{A_n - A} < \varepsilon$
     \item $n \geq N \Rightarrow \abs{B_n - A} < \varepsilon$
   \end{itemize}
@@ -2812,9 +2814,9 @@ Both are convergent.
 \index[German]{\foreignlanguage{ngerman}{Häufungspunkt}}
 \begin{defi}
   Let $\seq{a_n}$ be a complex sequence.
-  The complex number $a$ is called \emph{limit point} (german \enquote{\foreignlanguage{ngerman}{Häufungspunkt}})
+  The complex value $a$ is called \emph{limit point} (german \enquote{\foreignlanguage{ngerman}{Häufungspunkt}})
   of $\seq{a}$ if $\forall \varepsilon > 0: \abs{a_n - a} < \varepsilon$ for infinitely many indices $n \in \mathbb N$.
-  Hence infinitely many numbers of the sequence lie within a circle with center $a$ and radius $\varepsilon$.
+  Hence infinitely many values of the sequence lie within a circle with center $a$ and radius $\varepsilon$.
 \end{defi}
 
 \begin{figure}[!t]
@@ -2869,7 +2871,7 @@ The lecture on 26th of November 2015 got cancelled.
 \end{defi}
 
 Let $a$ be a limit point of $\seq{a_n} \Leftrightarrow \forall \varepsilon > 0$.
-$B(a, \varepsilon)$ contains infinitely many sequence numbers.
+$B(a, \varepsilon)$ contains infinitely many sequence values.
 
 \begin{ex}
   \[ a_n = \frac12 \left[1 + (-1)^n \left(\frac{1-n}{n}\right)\right] \qquad n \geq 1 \]
@@ -2882,7 +2884,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   Estimated limit points: $a = 0, b = 1$.
 
   \begin{proof}
-    Let $\varepsilon > 0$ and $a = 0$. We consider sequence numbers with even index.
+    Let $\varepsilon > 0$ and $a = 0$. We consider sequence values with even index.
     So for indices it holds that $n = 2k$.
     \begin{align*}
       \abs{a_{2k} - 0}
@@ -2892,7 +2894,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
         &= \frac1{4k} < \varepsilon \text{ if } \underbrace{k > \frac{1}{4\varepsilon}}_{\substack{\text{infinitely many ks} \\ \text{satisfy the relation}}}
     \end{align*}
 
-    Let $\varepsilon > 0$ and $b = 1$. We consider sequence numbers of structure $n = 2k+1$.
+    Let $\varepsilon > 0$ and $b = 1$. We consider sequence values of structure $n = 2k+1$.
     \begin{align*}
       \abs{a_{2k+1} - 1}
         &= \abs{\frac12 \left[1 + \underbrace{(-1)^{2k+1}}_{=-1} \left[\frac{1 - (2k+1)}{2k+1}\right]\right] - 1} \\
@@ -2965,8 +2967,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   of $\seq{a_n}$ with limes $a$.
   Let $\varepsilon > 0$.
   \[ \exists N \in \mathbb N: k \geq N \Rightarrow \abs{a_{n_k} - a} < \varepsilon \]
-  Therefore $B(a, \varepsilon)$ has infinitely many sequence numbers of $\left(a_{n_k}\right)_{k\in\mathbb N}$
-  and therefore also infinitely many sequence numbers of $\seq{a_n}$.
+  Therefore $B(a, \varepsilon)$ has infinitely many sequence elements of $\left(a_{n_k}\right)_{k\in\mathbb N}$
+  and therefore also infinitely many sequence elements of $\seq{a_n}$.
 
   We prove direction $\Rightarrow$.
 
@@ -2975,7 +2977,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   We define $n_0 = 0$ and $a_{n_0} = a_0$.
   Assume $a_{n_0}, a_{n_1}, \dots, a_{n_{k-1}}$ are already defined.
 
-  Definition of $a_{n_k}$: In $B(a, \varepsilon_k)$ there are infinitely many sequence numbers of $\seq{a_n}$.
+  Definition of $a_{n_k}$: In $B(a, \varepsilon_k)$ there are infinitely many sequence elements of $\seq{a_n}$.
   We consider $n_k > n_{k-1}$ and $a_{n_k} \in B(a, \varepsilon_k)$.
 
   Then it holds that $\lim_{k\to\infty} a_{n_k} = a$.
@@ -2994,7 +2996,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
 \end{theorem}
 \begin{proof}
   Let $\seq{a_n}$ be a bounded sequence in $\mathbb R$, hence $\exists M > 0$
-  such that all sequence numbers $a_n$ in $I_0 = [-M, M]$ and let
+  such that all sequence elements $a_n$ in $I_0 = [-M, M]$ and let
   $F_0 = \setdef{n \in \mathbb N}{a_n \in I_0} = \mathbb N$ (index set). $F_0$ is infinite.
   We build nested intervals with the properties:
   \begin{itemize}
@@ -3011,13 +3013,13 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
       Let $J_n = [A_n, M_n]$ and $L_n = [M_n, B_n]$.
       It holds that $J_n \subseteq I_n \land L_n \subseteq I_n$
       and $\card{J_n} = \frac12 \abs{I_n} \land \abs{L_n} = \frac12 \abs{I_n}$.
-      Because there are infinitely many sequence numbers of $\seq{a_n}$ in $I_n$
+      Because there are infinitely many sequence elements of $\seq{a_n}$ in $I_n$
       and $I_n = J_n \cup L_n$, in at least one subinterval there have to be
-      infinitely many sequence numbers.
+      infinitely many sequence elements.
 
-      Therefore select $I_{n+1} = J_n$ if $J_n$ contains infinitely many sequence numbers
-      and consider $I_{n+1} = L_n$ if $J_n$ contains only finitely many sequence numbers.
-      Therefore $I_{n+1}$ contains infinitely many sequence numbers.
+      Therefore select $I_{n+1} = J_n$ if $J_n$ contains infinitely many sequence elements
+      and consider $I_{n+1} = L_n$ if $J_n$ contains only finitely many sequence elements.
+      Therefore $I_{n+1}$ contains infinitely many sequence elements.
       \[ F_{n+1} = \setdef{k \in \mathbb N}{a_k \in I_{n+1}} \]
       is infinite.
       So $(I_n)_{n \in \mathbb N}$ is a nested interval.
@@ -3029,8 +3031,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   $a$ is limit point of $\seq{a_n}$. Let $\varepsilon > 0$ be given and $n$ sufficiently large,
   such that $\abs{I_n} = B_n - A_n < \varepsilon$.
   Then it holds that for every $x \in I_n$ that $\abs{x - a} \leq B_n - A_n < \varepsilon$ (with $x \in I_n, a \in I_n$).
-  Because $I_n$ contains infinitely many sequence numbers of $\seq{a_n}$, it holds that
-  infinitely many sequence numbers $a_k$ satisfy the relation $\abs{a_n - a} < \varepsilon$.
+  Because $I_n$ contains infinitely many sequence elements of $\seq{a_n}$, it holds that
+  infinitely many sequence elements $a_k$ satisfy the relation $\abs{a_n - a} < \varepsilon$.
   Therefore $a$ is limit point of $\seq{a_n}$.
 \end{proof}
 
@@ -3188,7 +3190,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   \begin{enumerate}
     \item We choose $N \leq \mathbb N$ sufficiently large such that
       \[ n,m \geq N \Rightarrow \abs{a_n - a_m} < \frac\varepsilon2 \]
-    \item Because $B(a, \frac\varepsilon2)$ contains infinitely many sequence numbers ($a$ is limit point),
+    \item Because $B(a, \frac\varepsilon2)$ contains infinitely many sequence elements ($a$ is limit point),
       $K \geq N$ exists with $\abs{a - a_K} < \frac{\varepsilon}{2}$.
   \end{enumerate}
   Let $n \geq N$. Then
@@ -3342,39 +3344,39 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
 \begin{proof}
   Assume $\exists s \in H$ with $s > M$. Choose $\varepsilon = S - M > 0$.
   Because $S$ is a limit point of $\seq{a_n}$ it holds that $(s - \varepsilon, s + \varepsilon)$
-  contains infinitely many sequence numbers. So for infinitely many indices $n$ it holds that,
+  contains infinitely many sequence elements. So for infinitely many indices $n$ it holds that,
   \[ a_n > s - \varepsilon = s - (s - M) = M \]
   This contradicts with $M$ being the upper bound of the sequence.
 \end{proof}
 
 \begin{lemma}
-  Let $\seq{a_n}$ be bounded by above. $a_2 \in \mathbb R$. Let $H \neq \emptyset$ be defined as above.
+  Let $\seq{a_n}$ be bounded by above. $a_n \in \mathbb R$. Let $H \neq \emptyset$ be defined as above.
   Then it holds that
-  \[ s^* = \limsup_{n\to\infty}(a_n) = \max H \]
+  \[ S^* = \limsup_{n\to\infty}(a_n) = \max H \]
   ie. $S^*$ is a limit point itself of the sequence.
 \end{lemma}
 \begin{proof}
-  Show that $S^*$ itself is limit point of the sequence.
+  Show that $S^*$ itself is a limit point of the sequence.
   Let $\varepsilon > 0$: Choose $\xi \in H$ such that
   \[ \xi > S^* - \frac\varepsilon2 \Rightarrow S^* - \xi = \abs{S^* - \xi} < \frac\varepsilon2 \]
   Because $\xi$ is a limit point of the sequence, in $(\xi - \frac\varepsilon2, \xi + \frac\varepsilon2)$
-  there are infinitely many sequence numbers.
+  there are infinitely many sequence elements.
 
   Let $x \in (\xi - \frac\varepsilon2, \xi + \frac\varepsilon2) \Leftrightarrow \abs{x - \xi} < \frac\varepsilon2$.
   Then it holds that
   \[
-      \abs{x - s^*}
-      = \abs{x - \xi + \xi - s^*}
-      \leq \underbrace{\abs{x - \xi}}_{< \frac\varepsilon2} + \underbrace{\abs{\xi - s^*}}_{= S^* - \xi < \frac\varepsilon2}
+      \abs{x - S^*}
+      = \abs{x - \xi + \xi - S^*}
+      \leq \underbrace{\abs{x - \xi}}_{< \frac\varepsilon2} + \underbrace{\abs{\xi - S^*}}_{= S^* - \xi < \frac\varepsilon2}
   \] \[
       \Rightarrow x \in (S^* - \varepsilon, S^* + \varepsilon)
   \]
   Followingly,
   \[
     \underbrace{\left(\xi - \frac\varepsilon2, \xi + \frac\varepsilon2\right)}%
-      _{\substack{\text{contains infinitely many} \\ \text{sequence numbers}}}
+      _{\substack{\text{contains infinitely many} \\ \text{sequence elements}}}
     \subseteq \underbrace{\left(S^* - \varepsilon, S^* + \varepsilon\right)}%
-      _{\substack{\text{contains infinitely many} \\ \text{sequence numbers}}}.
+      _{\substack{\text{contains infinitely many} \\ \text{sequence elements}}}.
   \]
 \end{proof}
 
@@ -3394,8 +3396,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
     \item
       We use an indirect proof.
       \[ \Rightarrow \exists \varepsilon > 0: \forall N \in \mathbb N: \exists n \geq N: a_n \geq S^* + \varepsilon \]
-      Therefore infinitely many sequence numbers $a_n$ exist with $a_n \geq S^* + \varepsilon$.
-      We sort the sequence numbers in a subsequence $\left(a_{n_k}\right)_{k \in \mathbb N}$.
+      Therefore infinitely many sequence elements $a_n$ exist with $a_n \geq S^* + \varepsilon$.
+      We sort the sequence elements in a subsequence $\left(a_{n_k}\right)_{k \in \mathbb N}$.
       It holds that
       \[ S^* + \varepsilon \leq a_{n_k} \leq M \]
       $\left(a_{n_k}\right)_{k \in \mathbb N}$ is bounded and has a limit point $S$
@@ -3414,7 +3416,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
     \item $S^*$ is limit point of $\seq{a_n}$.
     \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: a_n < S^* + \varepsilon$
   \end{enumerate}
-  Therefore above $S^* + \varepsilon$ there are only finitely many sequence numbers.
+  Therefore above $S^* + \varepsilon$ there are only finitely many sequence elements.
 \end{theorem}
 \begin{proof}
   We prove the first direction $\Rightarrow$.
@@ -3425,19 +3427,19 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
 
   \begin{proof}[Proof by contradiction for the second property]
     \[ \exists \varepsilon > 0 \forall N \in \mathbb N: \exists n \geq N: a_n \geq S^* + \varepsilon \]
-    Then we build a subsequence $\left(a_{n_k}\right)_{k\in\mathbb N}$ from $\seq{a_n}$ with $a_{n_k} \geq s^* + \varepsilon$.
+    Then we build a subsequence $\left(a_{n_k}\right)_{k\in\mathbb N}$ from $\seq{a_n}$ with $a_{n_k} \geq S^* + \varepsilon$.
 
     The subsequence is built inductively:
     \begin{description}
       \item[$n = 0$]
-        then (because the second property holds negated) there exists $x_n \geq 0: a_{n_0} \geq s^* + \varepsilon$.
+        then (because the second property holds negated) there exists $x_n \geq 0: a_{n_0} \geq S^* + \varepsilon$.
       \item[$k \to k+1$]
         Let $a_{n_0}, a_{n_1}, \dots, a_{n_k}$ be found with $a_{n_l} \geq S^* + \varepsilon$ with $l = 0, \dots, n$
         and $n_l < n_{l+1}$. Let $N = n_k + 1$. Because the second property holds negated, $n_{k+1} \geq N > n_k$
         such that $a_{n_{k+1}} \geq S^* + \varepsilon$.
     \end{description}
 
-    The subsequence numbers have the properties:
+    The subsequence's elements have the properties:
     \begin{itemize}
       \item $a_{n_k} \geq S^* + \varepsilon \qquad \forall k \in \mathbb N$
       \item Because $\seq{a_n}$ is bounded above, also $\left(a_{n_k}\right)_{k\in\mathbb N}$ is bounded above
@@ -3460,8 +3462,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   \]
   Because the second property holds, there exists some $N \in \mathbb N$ such that
   $\forall n \geq N \Rightarrow a_n < S^* + \varepsilon$. Therefore only finitely many
-  sequence numbers are larger than $S^* + \varepsilon = S - \varepsilon$.
-  Therefore at most finitely many sequence numbers $(S - \varepsilon, S + \varepsilon)$.
+  sequence elements are larger than $S^* + \varepsilon = S - \varepsilon$.
+  Therefore at most finitely many sequence elements $(S - \varepsilon, S + \varepsilon)$.
   Followingly $S$ is not a limit point.
 \end{proof}
 
@@ -3498,7 +3500,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   \[ A_{k+1} \subseteq A_k \Rightarrow \sup{A_{k+1}} \leq \sup{A_{k}} \Rightarrow S_{k+1} \leq S_k \]
   $\left(S_k\right)_{k\in\mathbb N}$ is bounded below. Choose
   $\xi \in H$ and $\xi$ is limit point of $\seq{a_n}$.
-  Then $\xi - 1$ is a lower bound for $\left(S_k\right)_{k\in\mathbb N}$ because infinitely many sequence numbers
+  Then $\xi - 1$ is a lower bound for $\left(S_k\right)_{k\in\mathbb N}$ because infinitely many sequence elements
   are in $(\xi - 1, \xi + 1)$.
   Therefore,
   \[
@@ -3510,7 +3512,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
   We show the first property:
 
   $S^*$ is limit point of $\left(a_n\right)_{n\in\mathbb N}$.
-  Let $\varepsilon > 0$ be given. We need to show that infinitely many sequence numbers
+  Let $\varepsilon > 0$ be given. We need to show that infinitely many sequence elements
   are in $(S^* - \varepsilon, S^* + \varepsilon)$.
 
   Because $\lim_{k\to\infty} S_k = S^*$ there exists some
@@ -3548,7 +3550,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence numbers.
       Let $\varepsilon = \frac12(S - S^*) > 0$ such that $S^* + \varepsilon = S - \varepsilon$.
       Choose $k \in \mathbb N$ such that $S_k - S^* = \abs{S_k - S^*} < \varepsilon$.
       $\forall n \geq K$ it holds that $a_n \leq S_k < S^* + \varepsilon = S - \varepsilon$.
-      Therefore there are at most finitely many sequence numbers in $(S - \varepsilon, S + \varepsilon)$.
+      Therefore there are at most finitely many sequence elements in $(S - \varepsilon, S + \varepsilon)$.
       Therefore $S$ is not a limit point.
   \end{description}
 \end{proof}
@@ -3567,7 +3569,7 @@ The analogous result for the limes inferior also holds and is given in the pract
 \index[English]{Convergent series}
 \index[German]{\foreignlanguage{ngerman}{Konvergente Reihe}}
 \begin{defi}
-  Let $\seq{a_n}$ be a sequence of complex numbers. We define
+  Let $\seq{a_n}$ be a sequence of complex values. We define
   \begin{itemize}
     \item $S_0 = a_0$
     \item $S_1 = a_0 + a_1$
@@ -3575,7 +3577,7 @@ The analogous result for the limes inferior also holds and is given in the pract
     \item $\dots$
     \item $S_n = a_0 + a_1 + \dots + a_n = \sum_{k=0}^n a_k$
   \end{itemize}
-  We call $\seq{S_n}$ an \emph{infinite series} with $a_k$ sequence numbers.
+  We call $\seq{S_n}$ an \emph{infinite series} with $a_k$ sequence elements.
   We call $S_n$ the \emph{n-th partial sum} of the series.
   The series is called \emph{convergent} if $\seq{S_n}$ is a convergent series in $\mathbb C$.
   For a convergent series instead of
@@ -3638,7 +3640,7 @@ The analogous result for the limes inferior also holds and is given in the pract
   \[ = \frac12 + \sum_{k=1}^\infty \frac1n \]
   So we have,
   \[ \sum_{k=1}^\infty \frac1n > \frac12 + \sum_{k=1}^\infty \frac1n \]
-  Let $\sum_{k=1}^\infty \frac1n = H$, then $H > \frac12 + H$ must hold for some real number.
+  Let $\sum_{k=1}^\infty \frac1n = H$, then $H > \frac12 + H$ must hold for some real value.
   This is impossible, so $H$ cannot exist. Hence $\sum_{k=1}^\infty \frac1n$ diverges.
 \end{proof}
 
@@ -3695,12 +3697,12 @@ TODO
 \end{defi}
 
 \subsection{Leibniz convergence criterion}
-\fbox{\foreignlanguage{ngerman}{Gottfried Wilhelm Leibniz (1646--1716}}
+\fbox{\foreignlanguage{ngerman}{Gottfried Wilhelm Leibniz (1646--1716)}}
 \index{Leibniz convergence criterion}
 \index{\foreignlanguage{ngerman}{Leibniz' Konvergenzkriterium}}
 \index{\foreignlanguage{ngerman}{Konvergenzkriterium von Leibniz}}
 \begin{theorem}[Leibniz convergence criterion]
-  Let $\seq{a_n}$ be a monotonic zero sequence with $a_n \geq a_{n+1} \geq 0
+  Let $\seq{a_n}$ be a real, monotonically zero sequence with $a_n \geq a_{n+1} \geq 0
   \quad\forall n \in \mathbb N$.
   Then $\sum_{k=0}^\infty (-1)^k a_k$ is convergent.
 \end{theorem}
@@ -3733,7 +3735,7 @@ TODO
     It holds that $S_* \leq S^*$ because $S_{2n+1} \leq S_{2n}$.
   \end{proof}
 
-  \meta{lecture}{10th of December 2015}
+  \meta{lecture}{10th of December 2015}{Wolfgang Ring}
 
   Given $S_* \leq S^*$, we show that $S^* = S_*$ and we prove that $\forall \varepsilon > 0: S^* - S_* < \varepsilon$.
 
@@ -3759,7 +3761,7 @@ TODO
 \index{\foreignlanguage{ngerman}{Konvergenzkriterium von Cauchy}}
 \begin{theorem}[Cauchy convergence criterion]
   The complex series $\sum_{k=0}^{\infty} a_k$ is convergent if and only if
-  the partial sums $\seq{s_n}$ are a Cauchy sequence in $\mathbb C$.
+  the partial sums $\seq{s_n}$ are a Cauchy sequence in $\mathbb C$. % TODO: a_n or s_n?
 \end{theorem}
 \begin{rem}
   Therefore
@@ -3778,7 +3780,7 @@ TODO
   \[ \seq{S_n} \Leftrightarrow \text{ Cauchy sequence} \]
 
   \begin{lemma}
-    Let $\sum_{k=0}^{\infty} a_n$ be convergent in $\mathbb C$. Then $\seq{a_n}$ is a zero sequence.
+    If $\sum_{k=0}^{\infty} a_n$ is convergent in $\mathbb C$, then $\seq{a_n}$ is a zero sequence.
   \end{lemma}
   \begin{proof}
     Follows directly from the Cauchy criterion for $l = 0$.
@@ -3826,6 +3828,7 @@ TODO
 \index{Minorant}
 \index{\foreignlanguage{ngerman}{Minorante}}
 \begin{theorem}[Direct comparison test (dt. \foreignlanguage{ngerman}{Majorantenkriterium})]
+  \hfill{} \\
   \begin{enumerate}
     \item
       Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
@@ -3835,7 +3838,7 @@ TODO
       Then $\sum_{k=0}^\infty a_k$ is absolute convergent.
       $\sum_{k=0}^\infty b_k$ is called \emph{majorant} of $\sum_{k=0}^\infty a_k$.
 
-    \item
+    \item (dt. \foreignlanguage{ngerman}{Minorantenkriterium})
       Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
       Let $\sum_{k=0}^\infty a_k$ be divergent.
       Assume $\exists N \in \mathbb N: k \geq N \Rightarrow \abs{a_k} \leq \abs{b_k}$.
@@ -3963,15 +3966,15 @@ TODO
 \end{rem}
 
 \begin{lemma}
-  Let $\sum_{k=0}^\infty a_k$ be a complex series with $a_k \neq 0 \forall k \in \mathbb N$.
-  Furthermore it holds that
+  Let $\sum_{k=0}^\infty a_k$ be a complex series with $a_k \neq 0 \forall k \in \mathbb N$
+  and if it holds that
   \[ q = \limsup_{n\to\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} < 1 \]
   Then $\sum_{k=0}^\infty a_k$ is absolute convergent.
 
   \[ \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} = q \]
 \end{lemma}
 
-\meta{lecture}{11th of December 2015}
+\meta{lecture}{11th of December 2015}{Wolfgang Ring}
 
 \subsection{Revision}
 %
@@ -4031,6 +4034,7 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
   We define the binomial series for $s,z \in \mathbb C$ with
   \[ B_S(z) = \sum_{k=0}^\infty \underbrace{{s \choose k} z^k}_{\coloneqq a_k} \]
   What about convergence? Well,
+  % TODO: expression to high
   \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \frac{\abs{\frac{s \cdot (s-1) \cdot \ldots \cdot (s-(k+1)+1)}{(k+1)!} z^{k+1}}}{\abs{\frac{s(s-1)(s-2)\cdot \ldots\cdot (s-k+1)}{k!} z^k}} \]
   \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \abs{\frac{(s-k) z}{k+1}} = \abs{\frac{\left(\overbrace{\frac{s}{k}}^{\to 0} - 1\right) \cdot z}{1 + \underbrace{\frac1k}_{\to0}}} \to \abs{z} \]
 
@@ -4056,7 +4060,7 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
 \begin{defi}
   A power series (in one variable) is an infinite series of the form
   \[ f(x) = \sum_{n=0}^\infty a_n (x - c)^n \]
-  So we have one free variable. Coefficients of the series contains a variable.
+  So we have one free variable. Coefficients of the series contain a variable.
 
   \begin{itemize}
     \item In $\sum_{k=1}^\infty \frac{1}{k^2}$ all summands are fixed.
@@ -4071,7 +4075,7 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
 
   Mapping:
   \[ B_S: B(0,1) \rightarrow \mathbb C \]
-  \[ \varepsilon(z) = \sum_{k=0}^\infty \frac{}{k!} \]
+  \[ \varepsilon(z) = \sum_{k=0}^\infty \frac{}{k!} \] % TODO: incomplete
   \[ \varepsilon: \mathbb C \rightarrow \mathbb C \]
 
   Let $z \in \mathbb C$ arbitrary.
@@ -4177,20 +4181,20 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
       (Cauchy \& Hadamard)
     \item
       If $q \coloneqq \lim_{n\to\infty} \abs{\frac{a_{n+1}}{a_n}}$ exists,
-      then the convergence circle of this power series is $\frac1q$:
+      then the convergence disk of this power series is $\frac1q$:
       \[ \rho(P) = \frac{1}{q} \]
-      with $\frac10 \coloneqq \infty$ and $\frac1{\infty} = 0$.
+      with $\frac10 \coloneqq \infty$ and $\frac1{\infty} \coloneqq 0$.
   \end{itemize}
 \end{theorem}
 
-\meta{lecture}{16th of December 2015}
+\meta{lecture}{16th of December 2015}{Wolfgang Ring}
 
 \subsection{Equations for $\rho(P)$}
 %
 \begin{theorem}
   \[ P(z) = \sum_{k=0}^\infty a_k z^k \]
   \[ L = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} \]
-  \[ \rho(P) = \frac{1}{L} \qquad \text{\enquote{Cauchy-Hadamond theorem}} \]
+  \[ \rho(P) = \frac{1}{L} \qquad \text{\enquote{Cauchy-Hadamard theorem}} \]
 
   If $q = \lim_{n\to\infty} \abs{\frac{a_{n+1}}{a_n}}$ exists,
   then it holds that $\rho(P) = \frac1q$ (Euler).
