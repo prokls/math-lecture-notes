@@ -1,28 +1,52 @@
-\documentclass{article}
-%\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
-\usepackage[german,english]{babel}
+\documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
+
 \usepackage{algpseudocode}
 \usepackage{algorithm}
+\usepackage[ngerman,english]{babel}
 \usepackage{graphicx}
 \usepackage{caption}
-\usepackage{subcaption}
+\usepackage{csquotes}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{wasysym}
-\usepackage{framed}
-\usepackage{xcolor}
-\usepackage{makeidx}
+\usepackage{ebgaramond-maths}
 \usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{framed}
+\usepackage{makeidx}
+\usepackage{mathtools}
+\usepackage[cmintegrals,cmbraces]{newtxmath}
+\usepackage{subcaption}
+\usepackage{wasysym}
+\usepackage{xcolor}
 
 \usepackage{titlesec}
 \titleformat{\paragraph}{\normalfont\itshape}{}{}{}
 
+% pdf table of contents
+\hypersetup{
+  pdftitle={Combinatorial optimization 1},
+  pdfauthor={Lukas Prokop},
+  pdfsubject={Combinatorial optimization},
+  pdfkeywords={Graph theory, combinatorics, optimization, linear programming,
+               spanning trees, arborescence, shortest paths, cost flows,
+               max flow problems, matroids, matchings},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=1,
+  colorlinks=true,
+  pdfstartview=Fit,
+  pdfpagemode=UseOutlines,
+  pdfpagelayout=TwoPageRight
+}
+
+\theoremstyle{definition}
 \newtheorem{theorem}{Theorem}
-%\newtheorem{proof}{Proof}
-\newtheorem*{hypothesis}{Hypothesis}
-\newtheorem*{definition}{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
 
 \algnewcommand{\algorithmicgoto}{\textbf{go to}}%
 \algnewcommand{\Goto}[1]{\algorithmicgoto~\ref{#1}}%
@@ -57,10 +81,6 @@
 \newcommand{\exist}{\;\exists\,}
 \newcommand{\fall}{\;\forall\,}
 \newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
-\makeatletter
-\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
-\makeatother
-
 \newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
 \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2}
 
@@ -294,8 +314,10 @@ Logarithms are always considered with base $2$ here.
       \item is polynomial for every rational input
     \end{enumerate}
 
-  \item An algorithm $A$ which is polynomial, but not strongly polynomial, is called ``weakly polynomial''.
+  \index{weakly polynomial}
+  \item An algorithm $A$ which is polynomial, but not strongly polynomial, is called \emph{weakly polynomial}.
 
+  \index{polynomially computable function}
   \item Let $A$ be an algorithm which computes for every input $x \in X$ output $f(x) \in Y$. We state that $A$ computes the function $f: X \rightarrow Y$. Is a function computable by a polynomial algorithm, we call it a \emph{polynomial computable function}.
 \end{enumerate}
 
@@ -342,9 +364,9 @@ Two problems are called \emph{equivalent} if $P$ is reducible to $Q$ and $Q$ is 
 
 \subsubsection{Reduce MWF to MST}
 %
-MWF is reducible to MST. Let $(G, c)$ be an instance of MWF. Remove all $e \in E(G)$ with $c(e) < 0$. Let $c'(e) = -c(e)$ for all remaining edges of $E(G)$. Insert a minimal set of edges $F$ with arbitrary weights, such that the resulting graph is connected. Denote this graph with $G'$.
+MWF is reducible to MST. Let $(G, c)$ be an instance of MWF. Remove all $e \in E(G)$ with $c(e) < 0$. Let $c'(e) = -c(e)$ for all remaining edges of $E(G)$. Insert a minimum set of edges $F$ with arbitrary weights, such that the resulting graph is connected. Denote this graph with $G'$.
 
-The computationally most intense task is insertion of the minimal set of edges. Determination of connected components is possible in linear time (eg. with DFS).
+The computationally most intense task is insertion of the minimum set of edges. Determination of connected components is possible in linear time (eg. with DFS).
 
 Consider instance $(G', c')$ of the MST problem.  Let $T'$ be an optimal solution of MST with $(G', c')$.
 
@@ -377,8 +399,8 @@ Let $(G, i)$ be an instance of MST and $T$ be a spanning tree in $G$. In this ca
 \begin{itemize}
   \item $T$ is optimal
   \item $\fall e = \set{x, y} \in E(G) \setminus E(T)$: no edge of the \gath xy in $T$ has greater weight than $e$
-  \item $\fall e \in E(T)$: If $C$ is one of the connected components of $T \setminus \set{e}$, then $e$ is an edge from $\delta(V(c))$ with minimal weight.
-  \item $E(T) = \set{e_1, e_2, \ldots, e_{n-1}}$ can be ordered such that $\fall i \in \set{1, 2, \ldots, n-1}$ there is a set $X \subseteq V(G)$ such that $e_i \in \delta(X)$ with minimal weight ad $e_j \neq \delta(X) \fall j \in \set{1, 2, \ldots, i-1}$.
+  \item $\fall e \in E(T)$: If $C$ is one of the connected components of $T \setminus \set{e}$, then $e$ is an edge from $\delta(V(c))$ with minimum weight.
+  \item $E(T) = \set{e_1, e_2, \ldots, e_{n-1}}$ can be ordered such that $\fall i \in \set{1, 2, \ldots, n-1}$ there is a set $X \subseteq V(G)$ such that $e_i \in \delta(X)$ with minimum weight ad $e_j \neq \delta(X) \fall j \in \set{1, 2, \ldots, i-1}$.
 \end{itemize}
 \end{theorem}
 
@@ -427,7 +449,7 @@ Assumption $E(T) = \set{e_1, \ldots, e_{n-1}}$ is satisfied.
 Let $T^*$ be an optimal spanning tree such that $i(T^*) = \min\{h \in \set{1, 2, \ldots, n-1}: e_n \notin E(T^*)\}$ is maximum.
 
 We show $i = +\infty$ and hence $T^* \equiv T \Rightarrow T$ is optimal.
-Assumption $i < +\infty$. Then $X \subset V(G)$ with $e_i \in \delta(v)$ with minimal weight with $e_j \notin \delta(X) \fall j < i$.
+Assumption $i < +\infty$. Then $X \subset V(G)$ with $e_i \in \delta(v)$ with minimum weight with $e_j \notin \delta(X) \fall j < i$.
 \[
   \exists f \neq e_i \text{ with } f \in T^* \cap \delta(X)
 \] \[
@@ -448,7 +470,7 @@ $T^* - f + e_i$ is an optimal spanning tree and has $i(T^* - f + e_i) > i(T^*)$.
   \caption{Kruskal's algorithm}
   \label{kruskals-algo}
   \given{$G$ is a connected undirected graph, $c: E(G) \rightarrow \mathbb{R}$}
-  \find{minimal spanning tree}
+  \find{minimum spanning tree}
 \begin{algorithmic}[1]
   \State Sort edges $c(e_1) \leq c(e_2) \leq \ldots \leq c(e_m) \qquad (m = \card{E(G)})$
   \State Set $T := (V(G), \phi)$
@@ -464,7 +486,8 @@ $T^* - f + e_i$ is an optimal spanning tree and has $i(T^* - f + e_i) > i(T^*)$.
   Krukal's algorithm is correct.
 \end{theorem}
 
-From the previous theorem we can derive: $\fall e = \set{x, y} \notin E(T)$ we can say $c(f) \leq c(e) \fall f$ edges from the \gath xy in $T$.
+From the previous theorem we can derive: $\fall e = \set{x, y} \notin E(T)$
+we can say $c(f) \leq c(e) \fall f$ edges from the \gath xy in $T$.
 \[
     (x, y) = e \notin E(T) \Rightarrow e_i \text{ closes cycle with } E(T) \cap \set{e_1, \ldots, e_{i-1}}
 \] \[
@@ -474,16 +497,22 @@ From the previous theorem we can derive: $\fall e = \set{x, y} \notin E(T)$ we c
 \]
 
 \textbf{Trivial implementation.}
-  $\mathcal{O}(m\cdot n)$ because there are $m$ iterations and per iteration one check whether the current edge with the given $T$ ($\leq n$ edges) creates a cycle ($\mathcal{O}(n)$ with DFS).
+  $\mathcal{O}(m\cdot n)$ because there are $m$ iterations and
+  per iteration one check whether the current edge with the given $T$ ($\leq n$ edges)
+  creates a cycle ($\mathcal{O}(n)$ with DFS).
 
+\index{branching}
 \textbf{Definition.}
-  A digraph $G$ is called \emph{branching}, if it is cycle-free and every $v \in V(G): \operatorname{indegree}(v) \leq 1$.
+  A digraph $G$ is called \emph{branching}, if it is cycle-free and
+  every $v \in V(G): \operatorname{indegree}(v) \leq 1$.
 
 \textbf{Notation.}
   $\operatorname{indegree}(v) = \operatorname{deg}^-(v)$.
 
+\index{arborescence}
 \textbf{Definition.}
-  A connected branching is called \emph{arborescence}. The vertex $r$ with $\operatorname{deg}^-(r) = 0$ is called \emph{root}.
+  A connected branching is called \emph{arborescence}.
+  The vertex $r$ with $\operatorname{deg}^-(r) = 0$ is called \emph{root}.
   An arborescence is the directed-graph equivalent of a rooted tree.
 
 \textbf{Notation.}
@@ -587,7 +616,7 @@ In branching:
   \caption{Prim's algorithm}
   \label{prims-algo}
   \given{$G$ is a connected undirected graph, $c: E(G) \rightarrow \mathbb{R}$}
-  \find{minimal spanning tree}
+  \find{minimum spanning tree}
 \begin{algorithmic}[1]
   \State Set $T = (\set{v}, 0)$ for an arbitrary $v \in V(G)$
   \While{$V(T) \neq V(G)$}
@@ -611,8 +640,8 @@ The desired order (or cuts) will be created by the algorithm.
 \textbf{Time complexity.} The number of iterations is the number of edges in the tree which is $n-1$.
 We have to show that every iteration is completed in $\mathcal{O}(n)$ time.
 
-Maintain a list of candidate edges: $\fall w \notin V(T)$ is the candidate edge $K(w)$ the minimal edge between $w$ and $V(T)$.
-In the general case we add the minimal edge $K(w) \fall w \notin V(T)$ ($T = T + k(w)$).
+Maintain a list of candidate edges: $\fall w \notin V(T)$ is the candidate edge $K(w)$ the minimum edge between $w$ and $V(T)$.
+In the general case we add the minimum edge $K(w) \fall w \notin V(T)$ ($T = T + k(w)$).
 
 \textbf{Definition.}
   $\card{V(G) \setminus V(T)} = \mathcal{O}(n)$ can be computed in $\mathcal{O}(n)$ time.
@@ -687,7 +716,7 @@ Double-counting approach counting the number of labelled rooted trees (LRT). In 
 Partially the proof is given in the practicals.
 
 \begin{proof}
-We assume without loss of generality that $c(e) \geq 0 \fall e \in E(G)$ because negative edges cannot occur in a maximal branching.
+We assume without loss of generality that $c(e) \geq 0 \fall e \in E(G)$ because negative edges cannot occur in a maximum branching.
 \[
     \deg^-(v) \leq 1 \fall v \in V(G)
 \]
@@ -705,7 +734,7 @@ If $B_0$ is cycle-free: $B_0$ is branching with maximum weight. Otherwise cycles
 \textbf{Assumption.}
   Such an optimal branching $B$ does not exist.
 
-Let $B$ be a maximal branching in $G$ with maximum number of common edges with $B_0$. Let $C$ be a cycle in $B_0$ with $\card{E(C) \setminus E(B)} \geq 2$.
+Let $B$ be a maximum branching in $G$ with maximum number of common edges with $B_0$. Let $C$ be a cycle in $B_0$ with $\card{E(C) \setminus E(B)} \geq 2$.
 \[
   E(C) \setminus E(B) = \set{(a_1, b_1), (a_2, b_2), \ldots, (a_k, b_k)}
 \]
@@ -725,6 +754,7 @@ in order they appear inside the cycle.
 \end{figure}
 
 The existence of a red cycle in $B$ shows a contradiction.
+\end{proof}
 
 Consider a fixed $i \in \set{1, 2, \ldots, k}$.
 Let $B_i'$ be a subgraph of $G$ with $V(B_i') = V(G)$ and $E(B_i') = \set{(x, y) \in B: y \neq b_i} \cup \set{(a_i, b_i)}$. If so, then $c(B_i') \geq c(B)$ and thus $B_i'$ would be an optimal branch with one common edge $(a, b)$ more in $B_0$. This is a contradiction.
@@ -738,6 +768,7 @@ Let $e = (x, y)$ be the last edge of the \gath{b_i}{a_i} which is outside of the
 
 \subsection[Edmonds' branching algorithm]{Edmonds' branching algorithm (1967)}
 %
+% TODO: terrible to understand. refactor the algorithm
 \begin{algorithm}
   \caption{Edmonds' branching algorithm (book: page~153)}
   \label{edmonds-branching-algo}
@@ -789,10 +820,15 @@ Let $e = (x, y)$ be the last edge of the \gath{b_i}{a_i} which is outside of the
 \end{algorithmic}
 \end{algorithm}
 
-\end{proof}
+\index{contraction}
+A \emph{contraction} is the process to replace several vertices $C$ with a single
+new vertex $v'$. Handling edges must be defined explicitly, but in general it works
+something like $G' = (V, \set{(v, v') \,|\, (v, u) \in E \land u \in C}
+\cup \set{(v', v) \,|, (v, u) \in E \land v \in C})$.
 
 \begin{theorem}\label{satz-2.11}
-Edmonds' Branching Algorithm is correct and computes the branching in $\mathcal{O}(m\cdot n)$.
+  Edmonds' Branching Algorithm is correct and computes the branching of
+  maximum weight in $\mathcal{O}(m\cdot n)$.
 \end{theorem}
 
 \begin{proof}
@@ -847,7 +883,7 @@ If $c \in E(G) \rightarrow \mathbb{R}$
 
 \subsection{Single source shortest path problems (SSSP)}
 %
-\given{$G=(V,E)$ is a digraph, $c: E(G) \rightarrow \mathbb{R}, s \in V(G)$}
+\given{$G = (V, E)$ is a digraph, $c: E(G) \rightarrow \mathbb{R}, s \in V(G)$}
 \find{$\fall v \in V(G)$ find a shortest \gath st in $G$}
 
 Consider a digraph $G$ where $c(e) = -1 \fall e \in E(G)$ and $s,t \in V(G)$. The shortest path is to visit all edges infinitely. A \gath st has at maximum $n-2$ vertices
@@ -1228,11 +1264,11 @@ Remove the maximum (= inclusive maximal) closed walk from $P \cup Q$. This walk 
 \]
 \end{proof}
 
-\section{Cycles with minimal mean edge weight}
+\section{Cycles with minimum mean edge weight}
 %
 \dateref{21st of Oct 2014}
 %
-\subsection{Minimal mean-cycle problem (MMC)}
+\subsection{Minimum mean-cycle problem (MMC)}
 %
 \given{Digraph $G_i \in t(G) \rightarrow \mathbb{R}$.}
 \find{Cycle $k$ with mean edge weight minimizing}
@@ -1265,7 +1301,7 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
   \]
 
   If there is no sequence of edges of length $k$ from $s$ to $x$, then $F_K(x) = \infty$.
-  Set $\mu(G, c)$ be the minimal mean edge weight of a cycle in $(G, i)$ and $\mu(G, c) = \infty$ if $G$ is acyclic. Then it holds that
+  Set $\mu(G, c)$ be the minimum mean edge weight of a cycle in $(G, i)$ and $\mu(G, c) = \infty$ if $G$ is acyclic. Then it holds that
   \[
     \mu(G, c) = \min_{x \in V(G)} \max_{0 \leq k \leq n-1} \frac{F_n(x) - F_k(x)}{n-k}
   \]
@@ -1328,10 +1364,10 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
 \end{enumerate}
 \end{proof}
 
-\subsection{Algorithm for minimal mean cycle problem}
+\subsection{Algorithm for minimum mean cycle problem}
 %
 \begin{algorithm}
-  \caption{Minimal mean-cycle algorithm}
+  \caption{Minimum mean-cycle algorithm}
   \label{mmc-algo}
   \given{Digraph $G$, $c: E(G) \rightarrow \mathbb{R}$}
   \find{Cycle $K$ with $c(k) = \mu(G, c)$ or ``G is acyclic''}
@@ -1363,7 +1399,8 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
 
 
 \begin{theorem}\label{korollar-3.11}
-  The minimal mean cycle works correctly and can be implemented with a runtime of $\mathcal{O}(n \cdot\max\set{m,n})$.
+  The minimum mean cycle algorithm works correctly and
+  can be implemented with a runtime of $\mathcal{O}(n \cdot\max\set{m,n})$.
 \end{theorem}
 
 \begin{proof}
@@ -1485,7 +1522,7 @@ We are looking for a combinatorial solution.
   A \emph{$s$-$t$-cut in $G$} is an edge set $\delta^+(X)$ with $X \subsetneqq V(G), s \in X, t \notin X$. The set of all edges going from $X$ to $X^c$.
 
 The capacity of $\delta^+(x)$ is $u(\delta^+(x)) := \sum_{e \in \delta^+(x)} u_e$.
-A minimal $s$-$t$-cut is a $s$-$t$-cut with smallest possible capacity.
+A minimum $s$-$t$-cut is a $s$-$t$-cut with smallest possible capacity.
 
 \begin{theorem}
   \label{lemma-4.2}
@@ -1526,6 +1563,7 @@ A minimal $s$-$t$-cut is a $s$-$t$-cut with smallest possible capacity.
     \underbrace{\min{u(\delta^+(A))}}_{\text{A: $s$-$t$-cut}}
   \]
 
+\index{residual network}
 \textbf{Definition.} \emph{(dt. ``Inkrementnetzwerk'', residual network)}
   Assume a network $(G, u, s, t)$ and a \flow st $f$. Define the set of edges as a multiset:
   \[
@@ -1651,9 +1689,9 @@ Let $e_e \in \delta^-(s) \cap P = \operatorname{value}(f) + \delta > \operatorna
 
 \begin{theorem} \label{satz-4.4}
   (\emph{Max flow, min cut problem}, Ford \& Fulkerson, 1956)
-  Let $(G, u, s, t)$ be a network than there exists a maximal \flow st $f$
-  and a minimal cut ($s$-$t$-cut) $\delta^+(A)$ with $\operatorname{value}(f) = u(\delta^+(A))$.
-  Especially the value of a maximal flow and the capacity of a minimal $s$-$t$-cut is equal.
+  Let $(G, u, s, t)$ be a network than there exists a maximum \flow st $f$
+  and a minimum cut ($s$-$t$-cut) $\delta^+(A)$ with $\operatorname{value}(f) = u(\delta^+(A))$.
+  Especially the value of a maximum flow and the capacity of a minimum $s$-$t$-cut is equal.
 \end{theorem}
 
 \subsection{Algorithm by Ford \& Fulkerson}
@@ -2074,9 +2112,11 @@ Recall that
 %
 Algorithm by Goldberg \& Tarjan (1988).
 
+\index{preflow}
+\index{active vertex (Push-relabel algorithm)}
 \textbf{Definition.}
   Let $(G, u, s, t)$ be a network with source $s$ and sink $t$.
-  $f: E(G) \rightarrow \mathbb{R}_+$ is called \emph{pre-flow} if $f(e) \leq u(e) \fall e \in E(G)$
+  $f: E(G) \rightarrow \mathbb{R}_+$ is called \emph{preflow} if $f(e) \leq u(e) \fall e \in E(G)$
   and $\operatorname{ex}_f(v) \geq 0 \fall v \in V(G) \setminus \set{s}$.
   A vertex $v \in V(G) \setminus \set{s, t}$ is called \emph{active} if $\operatorname{ex}_f(v) > 0$.
 
@@ -2234,7 +2274,7 @@ Condition for $\psi(v) \leq \psi(w) + 1$ is only satisfied for edges in $G_f$.
 \end{proof}
 
 \begin{theorem}\label{satz-4.10}
-  When PR algorithm terminates, $f$ is a maximal \flow st.
+  When PR algorithm terminates, $f$ is a maximum \flow st.
 \end{theorem}
 
 \begin{proof}
@@ -2439,7 +2479,7 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
   Determine maximum flow $f$ from $s$ to $t$ and all reachable vertices $v$ from $s$ in $G_f$.
   Let $C$ be that vertex. From the maximum-flow min-cut theorem it follows that
   \[
-    \operatorname{value}(f) = u(\delta(L)) \quad\rightarrow\quad \delta(c) \text{ minimal $s$-$t$-cut}
+    \operatorname{value}(f) = u(\delta(L)) \quad\rightarrow\quad \delta(c) \text{ minimum $s$-$t$-cut}
   \]
   If you want to compute one minimum cut per pair $(s, t)$, solve ${1 \choose 2}$ max-flow problems
   and determine the corresponding cuts (as above)
@@ -2477,7 +2517,7 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
 \end{theorem}
 
 \begin{proof}
-  Let $\delta(C)$ be a minimal $i$-$k$-cut with $\lambda_{i,k} = u(\delta(C))$.
+  Let $\delta(C)$ be a minimum $i$-$k$-cut with $\lambda_{i,k} = u(\delta(C))$.
   If $j \in C$ then $\lambda_{j,k} \leq u(\delta(C)) = \lambda_{i,k}$.
   If $j \in V(G) \setminus C$ then $\lambda_{i,j} \leq u(\delta(C)) = \lambda_{i,k}$.
   So $\lambda_{i,k} \geq \lambda_{j,k}$ or $\lambda_{i,k} \geq \lambda_{i,j}$.
@@ -2526,9 +2566,9 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
 
 \subsection{Gomory-Hu algorithm}
 \textbf{Basic idea:}
-  Select vertex pair $s, t \in V(G)$ and determine minimal $s$-$t$-cut $\delta(A)$ where $B := V(G) \setminus A$. Contract $A$ (or $B$) to one vertex. Then select $s'$, $t' \in B$ (or $A$).
+  Select vertex pair $s, t \in V(G)$ and determine its minimum $s$-$t$-cut $\delta(A)$ where $B := V(G) \setminus A$. Contract $A$ (or $B$) to one vertex. Then select $s'$, $t' \in B$ (or $A$).
 
-  Build a minimal $s'$-$t'$-cut $\delta(A')$ in contracting graph $G'$ with $V(G') \setminus A'$. Observe that a minimal cut in the contracting graph corresponds to a minimal cut in the original graph. Repeat this step as long as not-separated vertices exist.
+  Build a minimum $s'$-$t'$-cut $\delta(A')$ in contracting graph $G'$ with $V(G') \setminus A'$. Observe that a minimum cut in the contracting graph corresponds to a minimum cut in the original graph. Repeat this step as long as not-separated vertices exist.
 
 \begin{figure}[ht]
  \begin{center}
@@ -2537,6 +2577,10 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
  \end{center}
 \end{figure}
 
+% TODO: verify
+% I think the following applies:
+%  w are the weights in the Gomory Hu tree
+%  u are the edge weights in the original graph
 \begin{algorithm}
   \caption{Gomory Hu algorithm}
   \label{gomory-hu-algo}
@@ -2545,33 +2589,38 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
 \begin{algorithmic}[1]
   \State $V(T) = \set{V(G)}$, $E(T) = \diameter$ (a vertex that corresponds to all vertices in $G$)
   \State Choose $X \in V(T)$ with $\card{X} \geq 2$. If $\nexists X$, then goto step 6.
-  \State Choose $s,t \in \mathcal{X}$ ($s \neq t$), $H$ as connected component $C$ of $T-X$ \\
+  \State Choose $s,t \in X$ ($s \neq t$), $H$ as connected component $C$ of $T-X$ \\
          Select $S_c := \bigcup_{Y \in V(C)} Y$. $(G', u')$ results from $(G, u)$ by contraction of $s_c$ to a single vertex $V_c$ for every connected component $C$ of $T-x$. So $V(G') = X \cup \set{V_c: c \text{ connected component of } T-X}$.
-  \State Determine minimal $s$-$t$-cut $\delta(A')$ in $(G', u')$. Let $B' = V(G') \setminus A'$.
-         Set \[
-          A = \bigcup_{V_c \in A' \setminus X} S_c \cup (A' \cap X)
-         \] and \[
-          B = \bigcup_{V_c \in B' \setminus X} S_c \cup (B' \cap X)
-         \]
-  \State Set $V(T) := (V(T) \setminus X) \cup (A \cap X) \cup (B \cap X)$.
-         For every edge $e = \set{X, Y} \in E(T)$ incident with $X$ do, \\
-           \hspace{20pt} if $V \subseteq A$, set $e' := \set{A \cap X, Y}$ \\
-           \hspace{20pt} else $e' := \set{B \cap X, Y}$. \\
-         Set $E(T) := (E(T) \setminus e) \cup \set{e'}$, $w(e') := w(e)$.
-         Set $E(T) := E(T) \cup \set{A \cap X, B \cap X}$, $w(\set{A \cap X, B \cap W}) = u'(\delta_G, (A'))$.
-         Goto step 2.
+  \State
+    Determine the minimum $s$-$t$-cut $\delta(A')$ in $(G', u')$. Let $B' = V(G') \setminus A'$.
+    Set
+    \begin{align*}
+      A &= \bigcup_{V_c \in A' \setminus X} S_c \cup (A' \cap X) \\
+      \intertext{and}
+      B &= \bigcup_{V_c \in B' \setminus X} S_c \cup (B' \cap X)
+    \end{align*}
+  \State
+    Set $V(T) := (V(T) \setminus X) \cup (A \cap X) \cup (B \cap X)$.
+  \State
+    For every edge $e = \set{X, Y} \in E(T)$ incident with $X$ do, \\
+    \hspace{20pt} if $V \subseteq A$, set $e' := \set{A \cap X, Y}$ \\
+    \hspace{20pt} else $e' := \set{B \cap X, Y}$. \\
+    \hspace{20pt} Set $E(T) := (E(T) \setminus e) \cup \set{e'}$, $w(e') := w(e)$. \\
+    \hspace{20pt} Set $E(T) := E(T) \cup \set{A \cap X, B \cap X}$ with \\
+    \hspace{40pt} $w(\set{A \cap X, B \cap W}) = u'(\delta_G, (A'))$. \\
+    \hspace{20pt} Goto step 2.
   \State Replace all $\set{X} \in V(T)$ by $X$ and all $\set{\set{X}, \set{Y}}$ by $\set{X, Y}$.
 \end{algorithmic}
 \end{algorithm}
 
 \begin{theorem}\label{lemma-4.16}
   Let $G$ be an undirected graph and $u: E(G) \rightarrow \mathbb{R}_+$.
-  Let $s, t \in V(G)$ and $\delta(A)$ a minimal $s$-$t$-cut in $(G', u')$.
+  Let $s, t \in V(G)$ and $\delta(A)$ be a minimum $s$-$t$-cut in $(G', u')$.
   $(G', u')$ results from $(G, u)$ by contraction of $A$ by a single vertex $K$.
   Let $s', t' \in V(G) \setminus A$. Then it holds that
   \[
     \forall \min{\text{s'-t'-cuts}}: \delta(K \cup \set{A}) \text{ is }
-      \delta(K \cup A) \text{ a minimal s'-t'-cut in } (G, u)
+      \delta(K \cup A) \text{ a minimum s'-t'-cut in } (G, u)
   \]
 \end{theorem}
 
@@ -2588,9 +2637,9 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
 So $K$ is the set of non-contracting vertices that are on the same halfplane like the $s'$-$t'$-cut like $A$.
 
 \begin{proof}
-  We show: there exists a minimal $s'$-$t'$-cut $\delta(A')$ in $(G, u')$ with $A \subseteq A'$.
-  Let $\delta(c)$ be a minimal $s'$-$t'$-cut in $(G, u)$. Without loss of generality let $s \in C$.
-  If $A \subseteq C$, we are done. Otherwise build a second minimal $s'$-$t'$-path in $G$, which contains $A$.
+  We show: there exists a minimum $s'$-$t'$-cut $\delta(A')$ in $(G, u')$ with $A \subseteq A'$.
+  Let $\delta(c)$ be a minimum $s'$-$t'$-cut in $(G, u)$. Without loss of generality let $s \in C$.
+  If $A \subseteq C$, we are done. Otherwise build a second minimum $s'$-$t'$-path in $G$, which contains $A$.
   It holds that
   \[
     u(\delta(A)) + u(\delta(c)) \geq u(\delta(A \cap C)) + u(\delta(A \cup C))
@@ -2601,7 +2650,7 @@ So $K$ is the set of non-contracting vertices that are on the same halfplane lik
   \] \[
     u(\delta(A \cap C) \leq u(\delta(c)) = \lambda_{s',t'} \Rightarrow u(\delta(A \cap C)) = \lambda_{s',t'}
   \] \[
-    A \cap C \text{ is minimal s'-t' cut with } A \cap C \subseteq A
+    A \cap C \text{ is minimum s'-t' cut with } A \cap C \subseteq A
   \]
 \end{proof}
 
@@ -2620,7 +2669,7 @@ So $K$ is the set of non-contracting vertices that are on the same halfplane lik
   After every iteration of step 4, the following conditions hold:
   \begin{itemize}
     \item $A \mathop{\dot{\cup}} B = V(G)$
-    \item $E(A, B)$ is a minimal $s$-$t$-cut in $(G, u)$
+    \item $E(A, B)$ is a minimum $s$-$t$-cut in $(G, u)$
   \end{itemize}
   \[
     A, B \subseteq V(G)  \qquad  E(A, B) := \set{e \in E(G): e = (x, y) \quad x \in A, y \in B}
@@ -2652,7 +2701,7 @@ So $K$ is the set of non-contracting vertices that are on the same halfplane lik
 
 \noproof{satz-4.19}
 
-\subsection{Minimal capacity of a cut in an undirected graph / MA-order}
+\subsection{Minimum capacity of a cut in an undirected graph / MA-order}
 
 \given{$G$ as undirected graph, $u: E(G) \rightarrow \mathbb{R}_+$}
 \find{
@@ -2773,7 +2822,9 @@ Fibonacci heaps with key $-\alpha(v)$.
 \end{proof}
 
 \begin{theorem}\label{satz-4.22}
-  A cut of minimal capacity in an undirected graph $G$ with $u: E(G) \rightarrow \mathbb{R}_+$ can be computed with $\mathcal{O}(nm + n^2 \log{m})$ runtime.
+  A cut of minimum capacity in an undirected graph $G$
+  with $u: E(G) \rightarrow \mathbb{R}_+$ can be computed
+  in $\mathcal{O}(nm + n^2 \log{m})$ runtime.
 \end{theorem}
 
 \begin{proof}
@@ -2781,7 +2832,7 @@ Fibonacci heaps with key $-\alpha(v)$.
   Several edges of capacity $u$ with same source and destination can be combined to a single edge.
   So we can can assume wlog no multi-edges.
 
-  Denote $\lambda_G$ as the minimal capacity of a cut in $G$. Let $G_0 := G$. Apply $n$ steps.
+  Denote $\lambda_G$ as the minimum capacity of a cut in $G$. Let $G_0 := G$. Apply $n$ steps.
   In the $i$-th step ($i = 1, 2, \ldots, n$) select vertex $x, y \in V(G_{i-1})$ with
   \[
     \lambda^{G_{i-1}}_{x,y} = \sum_{e \in \delta_{G_{i-1}}(x)} u(e)
@@ -2815,7 +2866,7 @@ Fibonacci heaps with key $-\alpha(v)$.
   \begin{figure}[ht]
     \begin{center}
       \includegraphics{img/min_capacity_cut.pdf}
-      \caption{Example for minimal-capacity cut}
+      \caption{Example for minimum capacity cut}
     \end{center}
   \end{figure}
 
@@ -2892,7 +2943,7 @@ A $v$ with $b(v) < 0$ is called ``demanding vertex''.
   u(v, t) = \max{\set{0, -b(v)}} \fall v \in V(G)
 \]
 
-A maximal \flow st $f$ in $G'$ has value $\sum_{v \in V(G)} b(v)$
+A maximum \flow st $f$ in $G'$ has value $\sum_{v \in V(G)} b(v)$
 iff a $b$-flow exists in $G$. If $b$-flow exists, then $f$ restricted by $E(G)$ by $b$-flow.
 
 \begin{figure}[ht]
@@ -2930,8 +2981,8 @@ Show that $f$ is a $b$-flow.
   = b(v) \Rightarrow f \text{ is $b$-flow}
 \]
 
-$\Leftarrow$ Let $f$ be a $b$f-low in $G$.
-Build $f': E(G') \rightarrow \mathbb{R}$ with
+$\Leftarrow$ Let $f$ be a $b$-flow in $G$.
+Construct $f': E(G') \rightarrow \mathbb{R}$ with
 \[
   f'(e) = \begin{cases}
     f(e)               & e \in z(G) \\
@@ -3115,7 +3166,7 @@ Let $f$ be a $b$-flow. $G_f$ is defined analogously like in the max-flow problem
 
   Direction of proof: $\Leftarrow$
 
-  Let $f$ be a cost-non-minimal $b$-flow. Show that there exists some $f$-augmented cycle $K$ in $G_f$ with $c(k) < 0$.
+  Let $f$ be a not-minimum cost $b$-flow. Show that there exists some $f$-augmented cycle $K$ in $G_f$ with $c(k) < 0$.
 
   Let $f'$ be a $b$-flow with $c(f') < c(f)$.
 
@@ -3240,7 +3291,7 @@ Let $f$ be a $b$-flow. $G_f$ is defined analogously like in the max-flow problem
 
 \subsubsection[Analysis of MMCC]{Analysis of MMCC (Min Mean Cycle Cancelling algorithm)}
 %
-Denote the minimal average weight of a cycle in $G_f$ with $\mu(f)$
+Denote the minimum average weight of a cycle in $G_f$ with $\mu(f)$
 \[
   \mu(f) := \min_{k \text{ is cycle in } G_f} \frac{\sum_{e \in E(K)} c_f(e)}{\card{E(K)}}
 \]
@@ -3249,7 +3300,7 @@ Denote the minimal average weight of a cycle in $G_f$ with $\mu(f)$
   Let $f_1, f_2, \ldots, f_K$ be a sequence of $b$-flows such that for all $i = 1, 2, \ldots, k-1$:
   $\mu(f_i) < 0$  and $f_{i+1}$ originates from $f_i$ by augmenting $f_i$ along cycle $K_i$ in $G_{f_i}$ ($f_{i+1} = f_i \oplus K_i$).
 
-  For now let $K_i$ be a cycle with minimal average weight in $G_f$. Then the following statements hold:
+  For now let $K_i$ be a cycle with minimum average weight in $G_f$. Then the following statements hold:
   \[ \mu(f_i) \leq \mu(f_{i+1}) \fall i \]
   \[ \mu(f_i) \leq \frac{n}{n-2} \mu(f_c) \fall i < l \]
   with property that $K_i \cup K_l$ contains at least one pair of edges of opposing direction.
@@ -3390,7 +3441,7 @@ Denote the minimal average weight of a cycle in $G_f$ with $\mu(f)$
     \Rightarrow \sum_{e \in E(K^*)} c(e) > -1
   \] \[
     \text{ and } c(e) \in \mathbb{Z} \fall e \in E(G)
-      \text{ where $K^*$ are cycles of minimal average weight}
+      \text{ where $K^*$ are cycles of minimum average weight}
   \] \[
     \Rightarrow \sum_{e \in E(K^*)} c(e) \geq 0
   \]
@@ -3444,7 +3495,7 @@ Denote the minimal average weight of a cycle in $G_f$ with $\mu(f)$
 \end{theorem}
 
 \begin{proof}
-  Assume $f'$ is not a cost-minimal $b'$-flow. So there exists a cycle $K$ with negative weights in $G_{f'}$.
+  Assume $f'$ is not a cost minimum $b'$-flow. So there exists a cycle $K$ with negative weights in $G_{f'}$.
   Consider $H_1 = \set{v(G), E(K) \cup E(P)}$. $H$ shall be derived from $H_1$ by removing any pairs of edges of opposing direction.
 
   \textbf{Observation.} $H$ is subgraph of $G_f$ because for $e \in E(K) \setminus E(G_f)$ it must hold that $\overleftarrow{e} \in E(G_f)$ and $(e, \overleftarrow{e})$ was already removed.
@@ -3486,7 +3537,7 @@ Denote the minimal average weight of a cycle in $G_f$ with $\mu(f)$
   \caption{Successively shortest path algorithm}
   \label{succ-shortest-path-algo}
   \given{$(G, u, b, c)$ network with $u: E(G) \rightarrow \mathbb{R}_+$ and $b: V(G) \rightarrow \mathbb{R}$ such that $\sum_{V(G)} b(v) = 0$. $c: E(G) \rightarrow \mathbb{R}$ is conservative}
-  \find{Cost-minimal $b$-flow $f$ or report ``there is no $b$-flow in $G$''}
+  \find{Cost minimum $b$-flow $f$ or report ``there is no $b$-flow in $G$''}
 \begin{algorithmic}[1]
   \State Let $f(e) = 0 \quad \fall e \in E(G) \quad b'(v) = b(v) \fall v \in V(G)$
   % step 2
@@ -3677,7 +3728,7 @@ The proof for Theorem~\ref{lemma-5.10} is given in the practicals.
       \State \Goto{cs-step-5}
     \EndIf
   \EndIf
-  \State Determine a \gath st $P$ in $G_f$ with minimal weight (in regards of $c_f$).
+  \State Determine a \gath st $P$ in $G_f$ with minimum weight (in regards of $c_f$).
   \State Let $b'(s) := b'(s) - \gamma$
   \State Let $b'(t) := b'(t) + \gamma$ (hence $\gamma$ flow units are going through $P$)
   \State $f := f \oplus P$
@@ -3935,192 +3986,285 @@ $\operatorname{value}(f) := \operatorname{ex}_f(t, T)$ is called value of flow a
 %
 \subsection{Definitions and optimality criterion}
 %
-\textbf{Definition.}
-  $G=(V,E)$ is undirected. $M \subseteq E$ is called \emph{matching} if $\fall e_1, e_2 \in M$ and $e_1 \cap e_2 = \diameter$. A $v$ is called ``matched by $M$'' if $\exists e \in M$ with $v \in e$. A matching $M$ is called \emph{perfect} if every vertex of $M$ is matched by $M$. A matching $M$ is called \emph{maximal} if for every matching $M'$, $\card{M'} \leq \card{M}$. The \emph{matching number of $G$} is defined as
-  \[ V(G) = \max\set{\card{M}: M \dots \text{matching}} \]
+\index{Matching}
+\index{Matched vertex}
+\index{Perfect matching}
+\index{Maximal matching}
+\index{Matching number}
+\index{Vertex}
+\index{Minimum vertex cover}
+\index{Vertex cover number}
+\begin{definition}
+  $G = (V, E)$ is undirected.
+  $M \subseteq E$ is called \emph{matching} if $\fall e_1, e_2 \in M: e_1 \cap e_2 = \emptyset$ (in words: no edges share a vertex).
+  A vertex $v$ is \emph{matched by $M$} if $\exists e \in M$ with $v \in e$.
+  A matching $M$ is called \emph{perfect} if every vertex of $M$ is matched by $M$.
+  A matching $M$ is called \emph{maximal} if for every matching $M'$, $\card{M'} \leq \card{M}$.
+  The \emph{matching number of $G$} is defined as
+  \[ \mathfrak V(G) \coloneqq \max\set{\card{M}: M \text{ is a matching}} \]
   A \emph{vertex cover} is a subset $C \subseteq V(G)$ such that $e \cap C \neq \diameter \fall e \in E(G)$.
-  A \emph{minimal vertex cover} is a vertex cover of minimal cardinality.
-
+  A \emph{minimum vertex cover} is a vertex cover of minimum cardinality.
   The \emph{vertex cover number of $G$} is defined as
-  \[ \mathcal{C}(G) = \min\set{\card{C}: C \text{ is vertex cover}} \]
-
-\textbf{Observation.}
+  \[ \mathfrak C(G) \coloneqq \min\set{\card{C}: C \text{ is vertex cover}} \]
+\end{definition}
+%
+\begin{observation}
   For a triangle (3 vertices, 3 edges):
-  \[ \mathcal{C}(K_3) = 2 \qquad V(K_3) = 1 \]
-  Let $M$ is a matching. Let $C$ is a vertex cover.
-
+  \[ \mathfrak C(K_3) = 2 \qquad \mathfrak V(K_3) = 1 \]
+\end{observation}
+\begin{theorem}
+  Let $M$ is a matching. Let $C$ is a vertex cover. It holds that,
   \[
-    V(G)
-      =
-        \max_{\text{$M$ matching}} \card{M} \leq \min_{\text{$C$ vertex cover}} \card{C}
-      =
-    \mathcal{C}(G)
+    \mathfrak V(G)
+      = \max_{\text{$M$ matching}} \card{M}
+      \leq \min_{\text{$C$ vertex cover}} \card{C}
+      = \mathfrak C(G)
   \] \[
-    \Rightarrow V(G) \leq \mathcal{C}(G)
+    \Rightarrow \mathfrak V(G) \leq \mathfrak C(G)
   \]
-  For bipartite graphs, equality holds (König, 1938).
+\end{theorem}
 
-\textbf{Definition.}
+\index{Alternating path (matchings)}
+\begin{definition}
   Let $G$ be an undirected graph and $M$ a matching. A path in $G$ is called $m$-alternating if its edges are alternatingly assigned to the matching and not assigned. Hence
   \[ P = (v_0, v_1, v_2, \ldots, v_k) \]
   \[
-    v_{i-1}, v_i \in M \rightarrow v_i, v_{i+1} \notin M \text{ and }
-    v_{i-1}, v_i \notin M \rightarrow v_i, v_{i+1} \in M
+    (v_{i-1}, v_i) \in M \Rightarrow v_i, v_{i+1} \notin M \qquad\text{ and }
+  \] \[
+    (v_{i-1}, v_i) \notin M \Rightarrow v_i, v_{i+1} \in M \quad
     \fall 1 \leq i \leq k
   \]
 
+  \index{Augmenting path (matchings)}
   If a $M$-alternating path starts and ends with a non-matched vertex, it is called $M$-augmenting.
+  An example is given in figure~\ref{img:maugmenting}.
+\end{definition}
+%
+\begin{figure}[p]
+  \begin{center}
+    \includegraphics{img/M-augmenting_path_example.pdf}
+    \caption{
+      $M$-augmentating path example.
+      Red edges define a matching, blue edges define an $m$-augmenting path from $3$ to $7$.
+      $P = (3, 4, 1, 5, 2, 6, 8, 7)$.
+    }
+    \label{img:maugmenting}
+  \end{center}
+  \begin{center}
+    \includegraphics{img/Mprime_example.pdf}
+    \caption{
+      $M'$ of the $M$-augmentating path example.
+      You can immediately recognize that it is indeed a matching
+      and $\card{M} = 3$ whereas $\card{M'} = 4$.
+    }
+    \label{img:mprime}
+  \end{center}
+  \begin{center}
+    \includegraphics{img/M-augmenting_path_and_maximal.pdf}
+    \caption{
+      An $M$-augmenting path (blue) and a maximal matching (red).
+      You can exchange $M \cap P$ with the edges of $M \triangle P$
+      and will end up with a maximal matching.
+    }
+    \label{img:augmenting-and-maximal}
+  \end{center}
+\end{figure}
+%
+\begin{observation}
+  Let $M' \coloneqq M \triangle P$ where $M$ is a matching and $P$ is an M-augmenting path:
+  \[ M' = (M \setminus P) \cup (P \setminus M) \]
+  \begin{itemize}
+    \item We show: $M'$ is a matching (compare with figure~\ref{img:mprime}).
+      Let $e_1, e_2 \in M'$
+      \begin{itemize}
+        \item $e_1, e_2 \in M \setminus P \Rightarrow e_1 \cap e_2 = \diameter$
+        \item $e_1, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \diameter$
+        \item $e_1 \in M \setminus P, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \diameter$
+      \end{itemize}
 
-\textbf{Example.}
-  \begin{figure}[ht]
-   \begin{center}
-    \includegraphics{img/M_augmenting_example.pdf}
-    \caption{$M$ augmentation example}
-   \end{center}
-  \end{figure}
+    \item We show: $\card{M \cap P} = \card{P \setminus M} - 1$.
 
-  \[ P = (3, 4, 1, 5, 2, 6, 8, 7) \]
-  Let $M' = M \triangle P$ where $M$ is a matching and $P$ is an M-augmenting path.
+      It holds that, $\card{M'} = \card{M} + 1$, because $P$ contains one matching edge
+      for one non-matching edge and one additional non-matching edge.
+      \begin{align*}
+               M' &= (M \setminus P) \cup (P \setminus M) \\
+      \intertext{It is trivial to see that $(M \setminus P)$ and $(P \setminus M)$ are disjoint. Hence,}
+        \card{M'} &= \card{M \setminus P} + \card{P \setminus M} \\
+      \intertext{For any two sets $M$ and $P$ it holds,}
+                M &= (M \cap P) \cup (M \setminus P) \\
+      \intertext{Also $M \cap P$ and $M \setminus P$ are disjoint. Hence,}
+         \card{M} &= \card{M \cap P} + \card{M \setminus P}
+      \end{align*}
+      Followingly,
+      \begin{align*}
+        \card{M} + 1 &= \card{M'} \\
+        \card{M \cap P} + \card{M \setminus P} + 1 &= \card{M \setminus P} + \card{P \setminus M} \\
+        \card{M \cap P} &= \card{P \setminus M} - 1
+      \end{align*}
+  \end{itemize}
 
-\begin{itemize}
-  \item We show: $M'$ is a matching.
-    \[ M' = (M \setminus P) \cup (P \setminus M) \]
-
-    Let $e_1, e_2 \in M'$
-    \begin{itemize}
-      \item $e_1, e_2 \in M \setminus P \Rightarrow e_1 \cap e_2 = \diameter$
-      \item $e_1, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \diameter$
-      \item $e_1 \in M \setminus P, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \diameter$
-    \end{itemize}
-
-  \item We show: $\card{M'} = \card{M} + 1$
-    \[ M' = (M \setminus P) \cap (P \setminus M) \]
-    \[ \card{M'} = \card{M \setminus P} + \card{P \setminus M} \]
-    \[ M = (M \cap P) \cap (M \setminus P) \]
-    \[ \card{M} = \card{M \cap P} \cap \card{M \setminus P} \]
-\end{itemize}
-
-We conclude:
-\[ \Rightarrow \underbrace{\card{M \cap P}}_{\text{red edges}} = \underbrace{\card{P \setminus M} - 1}_{\text{white edges}} \]
-
-$P$ is $M$-augmented.
+  We conclude:
+  \[
+    \Rightarrow
+    \underbrace{\card{M \cap P}}_{\text{red edges in figure~\ref{img:maugmenting}}} =
+    \underbrace{\card{P \setminus M}}_{\text{blue edges in figure~\ref{img:mprime}}} - 1
+  \]
+  We call $P$ \emph{$M$-augmenting}.
+\end{observation}
 
 \dateref{2nd of Dec 2014}
 
-\begin{theorem}\label{satz-6.1}
-  (Berge, 1957)
-  Let $M$ be a matching in $(G, E)$. $M$ is maximal if and only if there is no $M$-augmenting path in $G$.
+\begin{theorem}[Berge, 1957]
+  \label{satz-6.1}
+  Let $M$ be a matching in $G$. $M$ is maximal if and only if there is no $M$-augmenting path in $G$.
 \end{theorem}
 
 \begin{proof}
-  Direction ,,$\Rightarrow$'': There exists a $M$-augmenting path $\Rightarrow$ $M$ is not maximal (see previous section).
+  \begin{description}
+    \item[Direction of proof: $\Leftarrow$] \hfill{} \\
+      Proof by contradiction: Assume there exists a $M$-augmenting path. \\
+      Then $M$ is not maximal (see section about max-flows)%
+      \footnote{Informally put: make matched edges not matched, vice versa and you retrieve a larger matching.}.
 
-  Direction ,,$\Leftarrow$'': There does not exist a $M$-augmenting path $\Rightarrow$ $M$ is maximal.
+    \item[Direction of proof: $\Rightarrow$] \hfill{} \\
+      Proof by contradiction: Assume $M$ is not maximal and no $M$-augmenting path exists.
 
-  Assumption: $M$ is not maximal $\Rightarrow$ $\exists M'$ matching with $\card{M'} > \card{M}$.
-
-  Consider $M \triangle M'$ (=$M \setminus M' \cup M' \setminus M$).
-  \[ \deg_{M \triangle M}(\gamma) \leq 2 \fall v \in V(G) \]
-  \[ \Rightarrow (V(G), M \triangle M') \text{ can be decomposed in cycles and paths} \]
-  \[ \card{V_{\text{matched}}(M')} \geq \card{V_{\text{matched}}(M+2)} \]
-  \[ \Rightarrow \exists \text{ at least 2 vertices } v_1, v_2 \text{ which are matched in $M'$ but not in $M$ } \]
-  $v_1(V_2)$ is end point in one of the paths from the decomposition
-
-  \begin{figure}[ht]
-   \begin{center}
-    \includegraphics{img/satz_6_1.pdf}
-    \caption{Theorem~\ref{satz-6.1}}
-   \end{center}
-  \end{figure}
-
-  \begin{itemize}
-    \item $v_k$ is not matched by $M'$. Number of matched vertices by $M'$ in $P$ is the number of matched vertices in $P$ by $M$.
-    \item From the number of matched vertices it follows that a path exists. $v_k$ matched by $M'$ but not by $M$. $P$ is $M$-augmented $\Rightarrow$ $M \triangle P$ is a matching larger than $M$
-  \end{itemize}
-  This is a contradiction to our assumption.
+      \begin{enumerate}
+        \item Then there exists a matching $M'$ such that $\card{M'} > \card{M}$.
+        \item Consider $D = M \triangle M'$ (= $(M \setminus M') \cup (M' \setminus M)$).
+          It holds that,
+          \[ \deg_{D}(v) \leq 2  \quad \fall v \in V(G) \]
+          because if more than three edges touch vertex, then edges in $M$ and $M'$ cannot be alternating.
+        \item $D$ consists of the following components:
+          \begin{itemize}
+            \item Isolated vertices
+            \item Cycles with alternating edges
+            \item Paths with alternating edges with distinct end points
+          \end{itemize}
+          Cycles must have an even cardinality, because edges are alternating,
+          because otherwise two edges of $M$ or $M'$ are not disjoint.
+        \item $M'$ is larger than $M$ according to (1.), followingly one component
+          of $D$ has more edges from $M'$ than $M$\footnote{
+          The two vertices of the additional edge cannot occur in two different components,
+          because edges are not included if they occur neither in $M$ nor $M'$ or in both.
+          So if you start with a vertex matched only by $M'$ you get an alternating
+          sequence of edges until you end up with another vertex only matched by $M'$.}
+        \item This component cannot be an isolated vertex (no edges) or cycles
+          with alternating edges (contradiction to even cardinality). So it must be
+          a path. This path is alternating.
+      \end{enumerate}
+      This is a contradiction to our assumption, that no $M$-augmenting path exists.
+  \end{description}
 \end{proof}
 
 \textbf{Algorithmic idea.}
-  Start with arbitrary matching $M = M_0$ (eg. $M_0 = \diameter$).
-  While there exists an $M$-augmented path $P$, repeat
-  \[ M := M \triangle P \]
-  Output is our maximal $M$.
+  \begin{enumerate}
+    \itemsep0pt
+    \item Start with arbitrary matching $M = M_0$ (eg. $M_0 = \diameter$).
+    \item While there exists an $M$-augmented path $P$, repeat
+      \[ M := M \triangle P \]
+    \item $M$ is maximal. Return $M$.
+  \end{enumerate}
 
 \subsection{Matchings in bipartite graphs}
 %
-The $M \triangle P$ (Maximal matching problem) can be written as Max-Flow problem.
-Let $G = (A \dotcup B, E)$.
+\begin{theorem}
+  \label{thm:bipartite-mmp-to-mfp}
+  The $M \triangle P$ maximum matching problem (MMP) for bipartite graphs
+  is a special case of the max-flow problem (MFP).
+\end{theorem}
+\begin{proof}
+  Let $G = (A \dotcup B, E)$ be an undirected, bipartite graph.
+  Let $(G', u, s, t)$ be a network where $G'$ is a digraph.
+  \[ s, t \notin A \dotcup B \qquad s \neq t \]
+  \[ V(E') = A \dotcup B \dotcup \set{s, t} \]
+  \[ E(G') = \set{(s, a): a \in A} \cup \set{(b, t): b \in B} \dotcup \set{(a,b) \in E(G), a \in A, b \in B} \]
 
-\begin{figure}[ht]
- \begin{center}
-  \includegraphics{img/matching_bipartite.pdf}
-  \caption{Bipartite matching}
- \end{center}
-\end{figure}
+  \begin{figure}[ht]
+   \begin{center}
+    \includegraphics[width=\textwidth]{img/matching_bipartite.pdf}
+    \caption{
+      An example for a bipartite graph $G$ converted into a max-flow problem $(G', u, s, t)$.
+      It is very interesting to recognize that the selection of vertices for set $A$ or $B$
+      is irrelevant. So you can also make the flow go from right to left.
+    }
+    \label{img:bipartite-matching-to-network}
+   \end{center}
+  \end{figure}
 
-Let $(G', u, s, t)$ be a network where $G'$ is a digraph.
-\[ s, t \notin A \dotcup B \qquad s \neq t \]
-\[ V(E') = A \dotcup B \dotcup \set{s, t} \]
-\[ E(G') = \set{(s, a): a \in A} \cup \set{(b, t): b \in B} \dotcup \set{(a,b) \in E(G), a \in A, b \in B} \]
+  \begin{observation}
+    \begin{itemize}
+      \item Every matching $M$ in $G$ corresponds to a complete flow $F_M$ in $G'$.
+      \item Every flow $f$ in $(G', u, s, t)$ corresponds to one matching $M_f$ in $G$.
+    \end{itemize}
+  \end{observation}
 
-\textbf{Observation.}
-\begin{itemize}
-  \item Every matching $M$ in $G$ corresponds to a complete flow $F_M$ in $G'$.
-  \item Every flow $f$ in $(G', s, t, u)$ corresponds to one matching $M_f$ in $G$.
-\end{itemize}
+  How? We show those relations formally:
+  \begin{itemize}
+    \item Given a bipartite graph $G = (A \dot\cup B, E)$. Consider a flow $f_M$:
+      \[
+        f_M(e) = \begin{cases}
+          1 & e = (a, b) \in A \times B, e \in M \\
+          0 & e = (a, b) \in A \times B, e \notin M \\
+          1 & e = (s, a), a \in A, \text{matched} \\
+          0 & e = (s, a), a \in A, \text{unmatched} \\
+          1 & e = (b, t), b \in B, \text{matched} \\
+          0 & e = (b, t), b \in B, \text{unmatched} \\
+        \end{cases}
+      \] \[
+        \operatorname{value}(f_M) =
+          \sum_{a \in A} f(s, a)
+      \] \[
+          = \card{\set{a : a \in A, f(s, a) = 1}}
+          = \card{\set{a : a \in A, a \text{ is matched}}} = \card{M}
+      \]
+    \item Let $f$ be a \flow st in $(G', u, s, t)$ with integer values 0 and 1.
+      \[ \Rightarrow f(e) \in \set{0, 1} \fall e \in E(G') \]
 
-\begin{itemize}
-  \item
-    \[
-      f_M(e) = \begin{cases}
-        1 & e = (a, b) \in A \times B, e \in M \\
-        0 & e = (a, b) \in A \times B, e \notin M \\
-        1 & e = (s, a), a \in A, \text{matched} \\
-        0 & e = (s, a), a \in A, \text{unmatched} \\
-        1 & e = (b, t), b \in B, \text{matched} \\
-        0 & e = (b, t), b \in B, \text{unmatched} \\
-      \end{cases}
-    \]
+      Consider $M_f \coloneqq \set{e \in A \times B: f(e) = 1}$.
+      Claim: $M_f$ is matching.
 
-    \[
-      \operatorname{value}(f_M) =
-        \sum_{a \in A} f(s, a)
-    \] \[
-        = \card{\set{a : a \in A, f(s, a) = 1}}
-        = \card{\set{a : a \in A, \text{matched}}} = \card{M}
-    \]
-  \item Let $f$ be a \flow st in $(G', u, s, t)$ with integer values.
-    \[ \Rightarrow f(e) \in \set{0, 1} \fall e \in E(G') \]
+      Proof by contradiction: Consider $e_1 = (a, b_1) \in M$ and $e_2 = (a, b_2) \in M$.
+      In a matching no edges $e_1$ and $e_2$ exist which share a common vertex.
+      So, this statement must turn out to be wrong.
+      \begin{align*}
+          \Rightarrow \sum_{e \in \delta^-(a)} f(e) &= f(s, a) = 1 \\
+          \Rightarrow \sum_{e \in \delta^+(a)} f(e) &= f(e_1) + f(e_2) = 2
+      \end{align*}
+      This is a contradiction to the flow conservation condition. $f$ cannot be a flow,
+      but we assumed that. So actually, no two edges $e_1$ and $e_2$ exist which share
+      a common vertex.
 
-    Define $M_f = \set{e \in A \times B: f(e) = 1}$.
-    $M_f$ is matching, because $e_1 = (a, b_1) \in M$ and $e_2 = (a, b_2) \in M$
-    \[
-        \rightarrow \sum_{l \in \delta^-(a)} f(e)
-        = f(s, a)
-        < f(e_1) + f(e_2) = 2
-        \leq \sum_{e \in \delta^+(a)} f(e)
-    \]
-    This is a contradiction. $f$ is not a flow.
+      Analogously to the first observation, it holds that
+      \[ \operatorname{value}(f) = \card{M_f}. \]
+  \end{itemize}
 
-    Analogously as in the first bullet item: $\operatorname{value}(f) = \card{M_f}$.
-    MMP in bipartite graphs is solvable with $\mathcal{O}(mn)$ runtime, eg. with Ford-Fulkerson
-    in $n$ iterations (flow extension by $1$ unit per iteration) and $\mathcal{O}(m)$ runtime
-    for determination of $(s, t)$ path in $G_f$.
+  Given a bipartite graph $(A \dotcup B, E)$ and you want to determine a maximum matching.
+  Then create one supersource and one supersink. Connect the supersource with all
+  vertices of set $A$ and all vertices of set $B$ with the supersink. Every edge
+  between $A$ and $B$ becomes a directed one from $A$ to $B$. Assign $1$ as capacity
+  to all edges. The max-flow of this network $(G, u, s, t)$ yields a maximum matching.
+  Figure~\ref{img:bipartite-matching-to-network} illustrates this construction.
+\end{proof}
 
-    \[ v(G) \leq \zeta(G) \]
-\end{itemize}
-
-In bipartite graphs \emph{equivalence} holds (König, 1937).
+MMP in bipartite graphs is solvable with $\mathcal{O}(mn)$ runtime, eg. with Ford-Fulkerson
+in $n$ iterations (flow extension by $1$ unit per iteration) and $\mathcal{O}(m)$ runtime
+for determination of some \gath st in $G_f$.
+\[ \mathfrak V(G) \leq \mathfrak C(G) \]
+In bipartite graphs \emph{equivalence} holds (K\H{o}nig, 1937):
 
 \begin{theorem}\label{satz-6.2_}
-  Let $G = (v_1 \dotcup v_2, E)$ be a bipartite graph. Then it holds $v(G) = \zeta(G)$.
+  Let $G = (V_1 \dotcup V_2, E)$ be a bipartite graph.
+  Then it holds $\mathfrak V(G) = \mathfrak C(G)$.
 \end{theorem}
 
 \begin{proof}
-  $v(G) \subseteq \zeta(G)$ is trivial to show. Show that $\zeta(G) \geq v(G)$.
+  $\mathfrak V(G) \leq \mathfrak C(G)$ has been shown for general graphs.
+  Show that $\mathfrak C(G) \geq \mathfrak V(G)$.
 
-  Consider MMP as MFP (as in Observation). Let $f$ be a maximal \flow st of integer values.
-  Let $\delta(s)$ be the corresponding minimal cut.
+  Consider MMP as MFP (as in Figure~\ref{img:bipartite-matching-to-network}).
+  Let $f$ be a maximum \flow st of integer values.
+  Let $\delta(s)$ be the corresponding minimum cut.
   \[ u(\delta(s)) = \operatorname{value}(f) \]
   There does not exist $e \in (S \cap V_1) \times (S' \cap V_2)$.
 
@@ -4163,21 +4307,26 @@ In bipartite graphs \emph{equivalence} holds (König, 1937).
  \end{center}
 \end{figure}
 
-\begin{theorem}\label{satz-6.3}
-  (Hall's marriage condition.)
+\begin{theorem}[Hall's marriage condition]
+  \label{satz-6.3}
   Let $G$ be a bipartite graph $(A \dotcup B, E)$ then $G$ has a covering matching for $A$ if and only if $\card{\Gamma(X)} \geq \card{X} \fall X \subseteq A$ where $\Gamma(X) = \set{b \in B: \exists a \in X, (a, b) \in E(G)}$.
 \end{theorem}
 
-\begin{theorem}\label{heiratssatz}
-  (Marriage corollary.)
+\begin{theorem}[Marriage corollary]
+  \label{marriage-corollary}
   Let $G$ be a bipartite graph with $V(e) = A \dotcup B$ and $\card{A} = \card{B}$.
   $G$ has a perfect matching if and only if $\fall X \subseteq A$ with $\card{\Gamma(X)} \geq \card{X}$ holds.
 \end{theorem}
 
-\subsection[Theorem of Tutte]{Theorem of Tutte (in general graphs)}
+\subsection{Theorem of Tutte}
 %
-\[ X \subseteq V(G) \]
-$G \setminus X$ results from $G$ if $X$ and all incident edges with $X$ are removed.
+Consider \emph{general} graphs again.
+Let $X \subseteq V(G)$. We define\footnote{In words:
+$X$ and all incident edges with $X$ are removed from the graph $G$}:
+\[
+  G \setminus X \coloneqq
+  (V \setminus X, \set{(u, v) \in E \,\middle|\, u \not\in X \land v \not\in X}).
+\]
 
 \index{$q_G(X)$}
 Let $q_G(X)$ be the number of even (in terms of number of vertices) connected components in $G \setminus X$.
@@ -4195,13 +4344,13 @@ Then we can observe: $q_G(X) > \card{X} \Rightarrow \nexists$ perfect matching i
 \textbf{Definition.}
   \index{factor-critical graphs}
   \index{almost perfect matching}
-  A graph $G$ is called \emph{factor-critical}, if $G \setminus \set{v}$ (also denoted $G \setminus v$) contains a perfect matching $\fall v \in V(G)$.
+  A graph $G$ is called \emph{factor-critical}, if $G \setminus \set{v}$ (also denoted $G \setminus v$) has a perfect matching $\fall v \in V(G)$.
   A matching $M$ is called \emph{almost perfect} if $G$ has exactly one unmatched vertex.
 
 \begin{theorem}
   %\textbf{Proposition.}
-  Let $G$ be a graph, then
-  \[ q_G(X) - \card{X} \equiv \card{V(G)} \mod{2} \fall X \subseteq V(G) \]
+  Let $G = (V, E)$ be a graph, then
+  \[ q_G(X) - \card{X} \equiv \card{V} \mod{2} \fall X \subseteq V \]
 \end{theorem}
 
 \begin{proof}
@@ -4254,10 +4403,9 @@ Then we can observe: $q_G(X) > \card{X} \Rightarrow \nexists$ perfect matching i
 
 \dateref{9th of Dec 2014}
 
-\begin{theorem}
+\begin{theorem}[Theorem by Tutte]
   \index{Tutte theorem}
   \index{Theorem by Tutte}
-  (Theorem by Tutte.)
   Let $G$ be a graph with a perfect matching
   $\Leftrightarrow$ $q_G(x) \leq \card{X} \fall X \subseteq V(G)$ (tutte condition).
 
@@ -4281,9 +4429,9 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
 
   Let $G$ with $\card{V(G)} = n$ such that tutte condition is satisfied.
 
-  \textbf{Observation 1.} ($\card{V(G)}$ is even)
+  \begin{observation}[$\card{V(G)}$ is even]
     If $\card{V(G)}$ is odd:
-    Let $X = \diameter$ and $q_G(\diameter) = \text{number of connected, even components in } G$.
+    Let $X = \diameter$ and $q_G(\diameter) =$ number of connected, even components in $G$.
     \[
       \card{V(G)} = \sum_{i=1}^{q_G(\diameter)} \card{V(K_i)}
         + \sum_{i=q_G(\diameter)+1}^l \card{V(K_i)}
@@ -4294,8 +4442,10 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
       \Rightarrow q_G(\diameter) \geq 1 > 0 = \card{\diameter}
     \]
     The Tutte condition is not satisfied. Contradiction.
+  \end{observation}
 
-  \textbf{Observation 2.} Every $X = \set{v}$ with $v \in V(G)$ is barrier.
+  \begin{observation}
+    Every $X = \set{v}$ with $v \in V(G)$ is barrier.
     From the last proposition it follows
     \[ q_G(V) - \card{X} \equiv \card{V(G)} \mod{2} \fall X \subseteq V(G) \]
     Especially:
@@ -4307,10 +4457,11 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
       \end{array}\right\}
       \Rightarrow q_G(\set{v}) = 1 = \card{\set{v}} \Rightarrow \set{v} \text{ is barrier}
     \]
+  \end{observation}
 
   Let $X$ is a cardinality-maximal barrier; hence $q_G(x) = \card{X}$.
 
-  \textbf{Observation 3.}
+  \begin{observation}
     $G-X$ has no even connected component.
     Assume there exists an even connected component $K$. Let $v \in V(K)$. Consider $X \cup \set{v}$.
     \[
@@ -4325,12 +4476,13 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
     \[ q_G(\set{3}) = 1 \]
 
     \drawing{tutte_condition_observation_3.pdf}
+  \end{observation}
 
   \textbf{Definition.}
     \index{barrier}
     A set $X \subseteq V(G)$ which satisfies the tutte condition with $=$ is called \emph{barrier}.
 
-  \textbf{Observation 4.}
+  \begin{observation}
     Every even connected component of $G-X$ is factor-critical.
 
     Assume there exists a connected component $K$ of $G-X$, which is not factor-critical.
@@ -4349,6 +4501,7 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
 
     \drawing{tutte_condition_observation_4.pdf}
     End of proof for observation 4.
+  \end{observation}
 
 
     Let $G'$ be a bipartite graph with $v(G') = X \dotcup Z$ where
@@ -4566,7 +4719,7 @@ This algorithm by Edmonds determines a perfect (or cardinality-maximal) matching
 
 \dateref{8th of January 2015: Welcome to 2015!}
 
-\subsection{Using Edmonds Blossom Algorithm to determine a matching with maximal cardinality}
+\subsection{Using Edmonds Blossom Algorithm to determine a matching with maximum cardinality}
 
 \given{Unweighted instance $G = (V, E)$}
 \find{Matching $M^*$ in $G$ with $\card{M^*} = \max_{\text{M is matching in G}}{\card{M}}$}
@@ -4645,7 +4798,7 @@ holds for all matching $M$ and for all $X \subseteq V(G)$ because
 At least $q_G(X) - \card{X}$ stay unmatched.
 
 Hence matching satisfies $\deficiency(M) = q_G(X) - \card{X}$.
-Hence $M$ has minimal deficiency. Hence $M$ has maximal cardinality. So a solution to our given problem is given.
+Hence $M$ has minimum deficiency. Hence $M$ has maximum cardinality. So a solution to our given problem is given.
 
 \textbf{Remark.}
   Implicitly this is an algorithmical proof for Beige-Tutte.
@@ -4695,9 +4848,9 @@ Hence $M$ has minimal deficiency. Hence $M$ has maximal cardinality. So a soluti
 
   Let $(G, c)$ be an instance of MinWPMP. Construct $(G', c')$ instance of MaxWMP with $G' = G$ and $c'(e) = K - c(e)$ where $K = 1 + \sum_{e \in E(G)} \card{c(e)}$.
 
-  Let $M'$ be a matching with maximal weight in $(G', c')$.
+  Let $M'$ be a matching with maximum weight in $(G', c')$.
 
-  \textbf{Observation.} $M'$ is matching with maximal cardinality in $G'$.
+  \textbf{Observation.} $M'$ is matching with maximum cardinality in $G'$.
 
   So every $\card{M_1} > \card{M}$ and $c'(M_1) \leq c'(M')$.
   \[
@@ -5266,6 +5419,7 @@ matching number, vertex cover number, edge cover number, edge incidence number, 
     $\alpha(G) := \max\set{\card{S}: S \text{ is stable in } G}$
 \end{description}
 
+\index{independent set}
 \textbf{Definition.}
   \index{stable set}
   \index{independent set}
@@ -5363,20 +5517,22 @@ Every valid solution of $D_2$ ($\overline{D_2}$) corresponds to one stable set a
 \section{Matroids}
 %
 \index{matroid}
-A family of sets $(E, \mathcal{F})$ consists of a finite set $E$ and a family $\mathcal{F}$ of subsets of $E$.
-$(E, \mathcal{F})$ is called independence system (IDS, dt. UAS) if
+\index{ground set}
+\index{independence system}
+A family of sets $(E, \mathcal{F})$ consists of a finite \emph{ground set} $E$
+and a family $\mathcal{F}$ of subsets of $E$.
+$(E, \mathcal{F})$ is called \emph{independence system} (IDS, dt. UAS) if
 \begin{itemize}
-  \item[$M_1$] $\diameter \in \mathcal{F}$
-  \item[$M_2$] $Y \in \mathcal{F}, X \subseteq Y \Rightarrow X \in \mathcal{F}$
+  \item[$M_1$] $\emptyset \in \mathcal{F}$
+  \item[$M_2$] Let $Y \in \mathcal{F}$. Then it must hold that, $\forall X \subseteq Y: X \in \mathcal{F}$
 \end{itemize}
 
-The elements of $\mathcal{F}$ are called independent, $A \subseteq E$, $A \notin \mathcal{F}$ are called \emph{dependent}.
-
+The elements of $\mathcal{F}$ are called \emph{independent}.
+Let $A \subseteq E$. If $A \notin \mathcal{F}$, then $A$ is called \emph{dependent}.
 \index{matroid!bases}
 \index{matroid!cycles}
 Inclusion minimal dependent sets are called \emph{cycles}.
 Inclusion maximal dependent sets are called \emph{bases}.
-
 $\fall X \subseteq E$ we define a rank of $X$:
 \[ \rank(X) := \max\set{\card{Y}: Y \subseteq X, Y \in \mathcal{F}} \]
 $\Rightarrow$ only independent subsets of $X$.
@@ -5410,7 +5566,7 @@ The (polynomial) base-superset-oracle is used to solve the question ``For $F \su
 \subsection{Max-Weight Stable Set Problem}
 %
 \given{$G = (V, E)$ graph}
-\find{Determine a stable set $S \subseteq V(G)$ with maximal $\card{S}$}
+\find{Determine a stable set $S \subseteq V(G)$ with maximum $\card{S}$}
 
 This problem is NP-hard.
 
@@ -5419,7 +5575,7 @@ This problem is NP-hard.
 \subsection{Travelling Salesman Problem}
 %
 \given{$G = (V, E)$ graph, $c: E(G) \rightarrow \mathbb{R}_+$}
-\find{Hamiltonian cycle with minimal weight}
+\find{Hamiltonian cycle with minimum weight}
 
 \[ E = E(G)  \qquad  \mathcal{F} = \set{F \subseteq E(G): F \text{ is subset of hamiltonian cycle}} \]
 $c$ as above.
@@ -5452,7 +5608,7 @@ $c$ as above.
 
 \subsection{Minimum Spanning Tree Problem}
 \given{$G = (V, E)$ is valid graph $c: E(G) \rightarrow \mathbb{R}$, graph is connected}
-\find{Spanning tree $T$ with minimal weight}
+\find{Spanning tree $T$ with minimum weight}
 \textbf{Type.} Minimization problem. Polynomial time solvable.\par
 
 \[ E = E(G) \qquad \mathcal{F} := \set{F \subset E(G): F \text{ is forest}} \]
@@ -6012,7 +6168,7 @@ $O_1$ and $O_2$ are for general IDS in complexity independent of each other.
 
 \textbf{Remark.}
   If $(E, \mathcal{F})$ is a matroid, then $O_1$ (rank oracle) and $O_2$ (closure oracle) equivalent under each other.
-  \emph{But} don't have an equivalent base oracle (oracle for determination of an dependent TM with minimal cardinality)
+  \emph{But} don't have an equivalent base oracle (oracle for determination of an dependent TM with minimum cardinality)
 
 
 \begin{theorem}
@@ -6077,13 +6233,13 @@ Let $\overline{c}: E \rightarrow \mathbb{R}_+$ with
   \end{cases}
 \]
 
-BEST-IN-GREEDY: Sort $E = \set{e_1, \ldots, e_n}$ with $\overline{c}(e_1) \geq c(e_2) \geq \ldots \geq \overline{c}(e_n)$ where $B_1 = \set{e_1, \ldots, e_{\card{B_1}}}$. This returns $B_1$ (because $e_1, \ldots, e_{\card{B_1}}$ must be connected first and $B_1$ is base and therefore has maximal cardinality). Then $G(E, \mathcal{F}, \overline{c}) = \card{B_1} = \rho(F)$.
+BEST-IN-GREEDY: Sort $E = \set{e_1, \ldots, e_n}$ with $\overline{c}(e_1) \geq c(e_2) \geq \ldots \geq \overline{c}(e_n)$ where $B_1 = \set{e_1, \ldots, e_{\card{B_1}}}$. This returns $B_1$ (because $e_1, \ldots, e_{\card{B_1}}$ must be connected first and $B_1$ is base and therefore has maximum cardinality). Then $G(E, \mathcal{F}, \overline{c}) = \card{B_1} = \rho(F)$.
 
 \[ \operatorname{OPT}(E, \mathcal{F}, \overline{c}) = \card{B_2} = r(F) \]
-$r(F)$ is the cardinality of a maximal independent set. The weights are 1. $r(F)$ is optimal.
+$r(F)$ is the cardinality of a maximum independent set. The weights are 1. $r(F)$ is optimal.
 
 \[ q(E, \mathcal{F}) = \frac{\rho(F)}{r(F)} = \frac{G(E, \mathcal{F}, \overline{c})}{\operatorname{OPT}(E, \mathcal{F}, \overline{c})} \]
-$\Rightarrow$ minimal $q(E, \mathcal{F})$ is always achieved by at least one $c$.
+$\Rightarrow$ the smallest $q(E, \mathcal{F})$ is always achieved by at least one $c$.
 
 \begin{theorem}
   \label{satz-8.13}
@@ -6134,6 +6290,9 @@ $\Rightarrow$ minimal $q(E, \mathcal{F})$ is always achieved by at least one $c$
       \underbrace{\sum_{e \in A} x_e \leq n - 1}_{\text{independent of components of $M(G)$ are forests}} \fall A \subsetneqq E(G),
       \sum_{e \in A} x_e = n - 1, A = E(G)}
   \]
+
+% TODO: list of runtimes
+% TODO: list of algorithms
 
 \printindex
 
