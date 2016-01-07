@@ -3208,7 +3208,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   Actually nested intervals are equivalent to completeness.
 \end{proof}
 
-\meta{lecture}{3rd of December 2015}
+\meta{lecture}{3rd of December 2015}{Wolfgang Ring}
 
 \begin{cor}
   $\mathbb C$ is complete.
@@ -4743,6 +4743,267 @@ $p_0 \circ w_k (x) = p_l(\sqrt[k]{x}) = \left(\sqrt[k]{x}\right)^l = x^{\frac lk
     % TODO: image max_of_continuous_functions.svg
     because $\max{f(z), g(z)} = \frac12 \left(\abs{f(z) - g(z)} + f(z) + f(z)\right)$.
 \end{itemize}
+
+\meta{lecture}{7th of January 2016}{Wolfgang Ring}
+
+\subsection{Revision of the continuity definition}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200pt]{img/continuity_revised.pdf}
+    \caption{The notion of continuity}
+  \end{center}
+\end{figure}
+
+$f$ is continuous in $x_0$ if and only if
+\[
+  \forall \varepsilon > 0 \exists \delta > 0:
+  [x \in D \land \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon]
+\]
+
+Reminder:
+Let $z_0 \in U \subseteq \mathbb C$.
+$U$ is called environment of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subset U$.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200pt]{img/environment.pdf}
+    \caption{Environment with radius $r$}
+  \end{center}
+\end{figure}
+
+\begin{defi}
+  Let $D \subseteq \mathbb C$ and $z_0 \in U \subseteq D$.
+  We call $U$ \emph{environment} of $z_0$ \emph{in} $D$ if $\exists r > 0$
+  such that $B(z_0, r) \cap D \subseteq U$.
+\end{defi}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200pt]{img/environment_D_and_U.pdf}
+    \caption{Environment $U$}
+  \end{center}
+\end{figure}
+
+\begin{theorem}
+  Let $D \subseteq \mathbb C$ and $f: D \rightarrow \mathbb C$.
+  Let $z_0 \in D$. Then $f$ is continuous in $z_0$
+  if and only if for every environment $U$ of $y_0 = f(z_0)$
+  it holds that $V = f^{-1}(u)$ is an environment of $z_0 \in D$
+  (where $f^{-1}$ denotes the preimage).
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[$\Rightarrow$] \hfill{} \\
+      Let $f$ be continuous in $z_0$ and let $U$ be an environment
+      of $y_0 = f(z_0)$, hence $\exists \varepsilon > 0: B(y_0, \varepsilon)
+      \subseteq U$ with $y_0 = f(z_0)$. Because $f$ is continuous in $z_0$,
+      it holds that
+      \[
+        \exists \delta > 0:
+        \abs{z - z_0} < \delta \land z \in D \Rightarrow
+        \underbrace{\abs{f(z) - f(z_0)} < \varepsilon}_{f(z) \in \underbrace{B(f(z_0), \varepsilon)}_{B(y_0, \varepsilon \subseteq U)}}.
+      \]
+
+      This requires:
+      \[
+        \abs{z - z_0} < \delta \land z \in D \Leftrightarrow z \in B(z_0, \delta) \land z \in D
+      \]
+      \[ \Rightarrow z \in B(z_0, \delta) \cap D \]
+      Therefore we can redefine continuity as:
+      \[ z \in B(z_0, \delta) \cap D \Rightarrow f(z) \in B(y_0, \varepsilon) \]
+      So it holds that
+      \[ \forall z \in B(z_0, \delta) \cap D \Rightarrow z \in f^{-1}(B(y_0, \varepsilon)) \subseteq f^{-1}(U) \]
+      So it holds that $B(z_0, \delta) \cap D \subseteq f^{-1}(U)$.
+
+    \item[$\Leftarrow$] \hfill{} \\
+      Let the preimage of every environment in $y_0$ be an environment of $z_0$ in $D$.
+      Let $\varepsilon > 0$ arbitrary. Then it holds that $B(y_0, \varepsilon)$ is an environment of $y_0$.
+      By assumption it holds that $V = f^{-1}(B(y_0, \varepsilon))$ is an environment of $z_0$ in $D$,
+      hence
+      \[ \exists \delta > 0: B(z_0, \delta) \cap D \subseteq f^{-1}(B(y_0, \varepsilon)). \]
+      Therefore for $z \in B(z_0, \delta) \cap D$ it holds that $f(z) \in B(y_0, \varepsilon)$.
+
+      In other words:
+      \[ \abs{z - z_0} < \delta \land z \in D \Rightarrow |f(z) - \underbrace{f(z_0)}_{= y_0}| < \varepsilon \]
+      So $f$ is continuous in $z_0$.
+  \end{description}
+  This notion of continuity is the most general one accepted by the mathematical community.
+  It can be used in all topological spaces.
+\end{proof}
+
+\subsection{Variants of continuity}
+%
+\begin{defi}
+  Let $f: D \subseteq \mathbb C \rightarrow \mathbb C$ be a function $f$
+  called uniformly continuous in $D$ if
+  \[
+    \forall \varepsilon > 0 \exists \delta > 0:
+    \left[
+      \forall z_0, z_1 \in D \text{ with } \abs{z_1 - z_0} < \delta
+      \Rightarrow \abs{f(z_1) - f(z_0)} < \varepsilon
+    \right]
+  \]
+  Recognize that $\delta$ only depends on $\varepsilon$,
+  meaning that it can be arbitrarily shifted on the $x$-axis ($\delta = \delta(\varepsilon)$).
+
+  Reminder: $f$ is continuous in $D$
+  \[
+    \Leftrightarrow \forall z_0 \in D \forall \varepsilon > 0 \exists \delta > 0:
+    \left[
+      \forall z_1 \in D \land \abs{z_1 - z_0} < \delta
+      \Rightarrow \abs{f(z_1) - f(z_0)} < \varepsilon
+    \right]
+  \]
+  Recognize that $\delta$ depends on $z_0$ and $\varepsilon$
+  ($\delta = \delta(\varepsilon, z_0)$).
+  Therefore this second definition provides more freedom to parameter $\delta$.
+  So uniform continuity implies continuity in $D$.
+\end{defi}
+%
+\begin{ex}
+  Let $f: (0, 1]$ and $f(x) = \frac1x$.
+  $f$ is continuous in every point $x_0 \in (0, 1]$.
+  However, $f$ is not uniformly continuous.
+  \[
+    \forall \varepsilon > 0 \exists \delta > 0:
+    \left[
+      \forall x_0, x_1 \in D \text{ with } \abs{x_0 - x_1} < \delta
+      \Rightarrow \abs{\frac1{x_0} - \frac1{x_1}} < \varepsilon
+    \right]
+  \]
+  The negation is given with:
+  \[
+    \exists \varepsilon > 0 \forall \delta > 0:
+    \left[
+      \exists x_0, x_1 \in D \text{ with }
+      \abs{x_0 - x_1} < \delta \land \abs{\frac1{x_0} - \frac1{x_1}} \geq \varepsilon
+    \right]
+  \]
+  We look at $\varepsilon = 1$.
+  Let $\delta > 0$ arbitrary. We choose $x_0 = \frac1n$ and $x_1 = \frac1{n+1}$
+  for appropriate $n \in \mathbb N_+$. Then it holds that
+  \[
+    \abs{x_0 - x_1} = \abs{\frac1n - \frac1{n+1}} =
+    \frac{n + 1 - n}{n (n + 1)} = \frac1{n (n + 1)}
+    \underbrace{<}_{\text{for } n \in \mathbb N_+}
+    \frac1n
+    <
+    \delta
+  \]
+  if $n > \frac1\delta$
+  \[
+    \abs{\frac1{x_0} - \frac1{x_1}}
+    = \abs{\frac1{\frac1n} - \frac1{\frac1{n+1}}}
+    = \abs{n - (n + 1)}
+    = \abs{-1}
+    = 1
+  \]
+  Therefore $f(x) = \frac1x$ is not uniformly continuous in $(0, 1]$.
+
+  Remark: $f(x) = \frac1x$ is uniformly continuous in $D = [\frac1{100}, 1]$,
+  but not in $\mathbb R$.
+\end{ex}
+%
+\index[English]{Lipschitz continuity}
+\index[German]{\foreignlanguage{ngerman}{Lipschitz Stetigkeit}}
+\begin{defi}[Lipschitz continuity]
+  Another notion of continuity is given by \fbox{Rudolf Lipschitz (1832--1903)}.
+
+  $f: D \subset \mathbb C \rightarrow \mathbb C$ is called Lipschitz continuous
+  if $k \geq 0$ exists such that
+  \[
+    \forall z_1, z_2 \in D:
+    f(z_1) - f(z_2) \leq k \abs{z_1 - z_2}
+  \]
+  The value $k$ is called Lipschitz constant for $f$.
+\end{defi}
+%
+\index[English]{Hölder continuity}
+\index[German]{\foreignlanguage{ngerman}{Hölder Stetigkeit}}
+\begin{defi}[Hölder continuity]
+  Yet another notion of continuity is given by \fbox{Otto Hölder (1859--1937)}.
+
+  $f$ is called Hölder continuous with exponent $H \in (0, 1]$ if there exists
+  $k > 0$ such that
+  \[ \forall z_1, z_2 \in D: \abs{f(z_1) - f(z_2)} \leq k \abs{z_1 - z_2}^H \]
+\end{defi}
+%
+\begin{cor}
+  A hierarchy for those continuity notion is given:
+
+  Lipschitz continuous $\subseteq$ uniformly continuous $\subseteq$ continuous in $D$.
+\end{cor}
+%
+\begin{theorem}
+  Let $K \subseteq \mathbb C$ be compact. Let $f: K \rightarrow \mathbb C$ be continuous
+  in $K$. Then $f(K) = \set{y = f(z): z \in K} \subset \mathbb C$ is compact in $\mathbb C$.
+\end{theorem}
+\begin{proof}
+  Every sequence $(y_n)_{n \in \mathbb N}$,
+  with $y_n = f(z_n)$ and $z_n \in K$ where $y_n \in f(K)$,
+  has a convergent subsequence. The sequence of preimage values $(z_n)_{n \in \mathbb N}$
+  is a sequence in $K$ which, followingly, has a convergent subsequence.
+  Let $(z_{n_k})_{k \in \mathbb N}$
+  $\lim_{k \to \infty} z_{n_k} = z \in K$.
+  Because of the sequence criterion for continuity if holds that
+  \[ \lim_{k \to \infty} y_{n_k} = \lim_{k \to \infty} f(z_{n_k}) = f(z) \in f(k) \]
+  with $y = f(k)$.
+  So $(y_n)_{n \in \mathbb N}$ has a convergent subsequence with limes $y \in f(K)$.
+  Therefore $f(K)$ is compact.
+\end{proof}
+%
+\index[English]{global maximum}
+\index[German]{\foreignlanguage{ngerman}{Globales Maximum}}
+\begin{defi}
+  Let $f: D \rightarrow \mathbb R$ and $D \subseteq \mathbb C$. A point $z_{\text{max}} \in D$
+  is called global maximum of $f$ if $f(z_{\text{max}}) \geq f(z) \quad\forall z \in D$.
+\end{defi}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=200pt]{img/global_maximum.pdf}
+    \caption{Illustration of a global maximum}
+  \end{center}
+\end{figure}
+
+\begin{defi}
+  Let $f: K \rightarrow \mathbb R$ ($K \subseteq \mathbb C$) is continuous in $K$
+  and $K$ is compact in $\mathbb C$. Then $f$ has a global maximum and a global
+  minimum.
+\end{defi}
+
+\begin{rem}
+  For non-compact definition sets this statement is not generally true.
+  For example, $f(x) = \frac1x$ in $D = (0, 1)$ has neither a global maximum
+  nor a global minimum.
+\end{rem}
+\begin{proof}
+  \[ f(K) \subseteq \mathbb R \]
+  is compact (because of the previous theorem) and therefore bounded and
+  closed in $\mathbb R$ (by Theorem by Bolzano-Weierstrass).
+  Because $f(K)$ is bounded, $f(K)$ has a supremum $\zeta^*$ and an infimum $\zeta_*$
+  (supremum property). Supremum and infimum are contact points of $f(K)$.
+  Because $f(K)$ is closed it holds that
+  \[ \zeta^* \in f(K) \text{ and } \zeta_* \in f(K) \]
+  Therefore there exists $z_{\text{min}} \in K$ with $f(z_{\text{min}}) = \zeta_*$
+  and $z_{\text{max}} \in K$ with $f(z_{\text{max}}) = \zeta^*$.
+  Because $f(K)$ is closed, it holds that $\zeta^* \in f(K)$ and $\zeta_* \in f(K)$.
+  Therefore there exists $z_{\text{min}} \in K$ with $f(z_{\text{min}}) = \zeta_*$.
+  and $f(z_{\text{max}}) \in K$ with $f(z_{\text{max}}) \geq y$, therefore
+  $\forall z \in K: f(z_{\text{max}}) \geq f(z)$.
+
+  Therefore $z_{\text{max}}$ is a global maximum. The analogous statement holds
+  for $\zeta_*$ and a global minimum.
+\end{proof}
+
+\begin{theorem}[A very universal theorem about maxima]
+  A continuous function has a global maximum in a compact domain.
+\end{theorem}
+
+Using this method to show existence of a value is called
+\enquote{direct method of variation computations}.
 
 \clearpage
 \begin{otherlanguage}{ngerman}
