@@ -301,7 +301,7 @@ Logarithms are always considered with base $2$ here.
   \item Let $A$ be an algorithm which accepts inputs $x \in \mathcal{X}$. Let $f: \mathbb{N} \rightarrow \mathbb{R}_+$. If there is some constant $\alpha > 0$, such that $A \fall x \in X$ terminates the computation after at maximum $\alpha f(\operatorname{size}(x))$ elementary steps, we say ``$A$ has a \emph{time complexity} of $\mathcal{O}(f)$''.
 
   \index{polynomial runtime}
-  \item An algorithm $A$ with rational inputs has a \emph{polynomial} runtime (or ``is polynomial'') iff $\exists k \in \mathbb N_0$
+  \item An algorithm $A$ with rational inputs has a \emph{polynomial} runtime (or \enquote{is polynomial}) iff $\exists k \in \mathbb N_0$
     \begin{enumerate}
       \item $A$ has a time complexity of $\mathcal{O}(n^k)$
       \item all intermediate values of the computation can be stored with $\mathcal{O}(n^k)$ bits
@@ -310,7 +310,7 @@ Logarithms are always considered with base $2$ here.
   \index{strongly polynomial}
   \item An algorithm $A$ with arbitrary input is called \emph{strongly polynomial} if $\exists k \in \mathbb{N}_0$ such that $A$
     \begin{enumerate}
-      \item requires for every of $m$ numbers of the input a runtime of $\mathcal{O}(n^k)$
+      \item requires for every of $n$ numbers of the input a runtime of $\mathcal{O}(n^k)$
       \item is polynomial for every rational input
     \end{enumerate}
 
@@ -400,7 +400,7 @@ Let $(G, i)$ be an instance of MST and $T$ be a spanning tree in $G$. In this ca
   \item $T$ is optimal
   \item $\fall e = \set{x, y} \in E(G) \setminus E(T)$: no edge of the \gath xy in $T$ has greater weight than $e$
   \item $\fall e \in E(T)$: If $C$ is one of the connected components of $T \setminus \set{e}$, then $e$ is an edge from $\delta(V(c))$ with minimum weight.
-  \item $E(T) = \set{e_1, e_2, \ldots, e_{n-1}}$ can be ordered such that $\fall i \in \set{1, 2, \ldots, n-1}$ there is a set $X \subseteq V(G)$ such that $e_i \in \delta(X)$ with minimum weight ad $e_j \neq \delta(X) \fall j \in \set{1, 2, \ldots, i-1}$.
+  \item $E(T) = \set{e_1, e_2, \ldots, e_{n-1}}$ can be ordered such that $\fall i \in \set{1, 2, \ldots, n-1}$ there is a set $X \subseteq V(G)$ such that $e_i \in \delta(X)$ with minimum weight and $e_j \neq \delta(X) \fall j \in \set{1, 2, \ldots, i-1}$.
 \end{itemize}
 \end{theorem}
 
@@ -1174,7 +1174,7 @@ Because $e(s)$ was not changed, $\set{w, n, p(u), \ldots, p(\ldots p(u) \ldots)}
 \given{$G = (V, E)$ is a digraph. Weights $c: E(G) \rightarrow \mathbb{R}$ are conservative}
 \find{Find numbers $l_{s,t}$ and vertices $p_{s,t} \fall s, t \in V(G)$ such that $l_{s,t}$ is the length of a shortest \gath st in $G$ and $(p_{s,t}, t)$ is the last edge of the shortest path.}
 
-This is solvable with $n$ repetition of the Moore-Bellman-Ford algorithm for each vertex: $\mathcal{O}(n^2 \cdot m)$ runtime or find potential $\pi$ with Moore-Bellman-Ford algorithm
+This is solvable with $n$ repetitions of the Moore-Bellman-Ford algorithm for each vertex: $\mathcal{O}(n^2 \cdot m)$ runtime or find potential $\pi$ with Moore-Bellman-Ford algorithm
 \[
   \overline{c}(u,v) := c(u,v) + \pi(u) - \pi(v) \geq 0 \fall (u, v) \in E(G)
 \]
@@ -1287,8 +1287,8 @@ Strongly connected components can be computed in $\mathcal{O}(n + m)$ with any s
 
 Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
 
-\begin{theorem}\label{satz-3.10}
-  (Karp 1978.)
+\begin{theorem}[Karp 1978]
+  \label{satz-3.10}
   Let $G$ be a digraph with $c: E(G) \rightarrow \mathbb{R}$. Let $s \in V(G)$ such that $\fall v \in V(G) \setminus \set{s} \exists$ directed \gath sv in $G$.
   \[
     \fall x \in V(G) \fall K \in \mathbb{Z}_+:
@@ -1309,8 +1309,7 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
 
 \begin{proof}
 \begin{enumerate}
-  \item ~\\
-    If $G$ is acyclic, $\mu(G, c) = \infty$. \\
+  \item If $G$ is acyclic, $\mu(G, c) = \infty$. \\
     \begin{hypothesis}
       \[ \fall x \in V(G): \max_{0 \leq k \leq n-1} \frac{F_n(x) - F_k(v)}{n-k} = \infty \]
     \end{hypothesis}
@@ -1388,12 +1387,12 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
   \If{$F_n(x) := \infty \fall x \in V(G') \setminus \set{s}$}
     \State \Return{``G is acyclic''}
   \EndIf
-  \State Let $x \in V(G)$ with $\max_{0 \leq k \leq n-1} \frac{F_n(x) - F_k(x)}{n-k} = \mu$ is minimal
+  \State Let $\mu^* = \min_{x \in V} \max_{0 \leq k \leq n-1} \frac{F_n(x) - F_k(x)}{n-k}$ and $u$ its corresponding $x$.
   \State Let $K$ be a cycle which is contained in the sequence
     \[
-      x,\;p_n(x),\;p_{n-1}(x),\;p_{n-1}(p_n(x)),\;p_{n-2}(p_{n-1}(p_n(x))),\;\ldots
+      u,\;P_n(u),\;P_{n-1}(u),\;P_{n-1}(P_n(u)),\;P_{n-2}(P_{n-1}(P_n(u))),\;\ldots
     \]
-  \State \Return{$k$ and $\mu$}
+  \State \Return{$K$ and $\mu^*$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -1763,8 +1762,8 @@ Total runtime (for $u_e \in \mathbb{Z}_+ \fall e \in E(G):$
   pseudo-polynomial runtime
 \end{center}
 
-\begin{theorem}\label{satz-4.5}
-  \textbf{Flow decomposition theorem} (Galler 1956, Ford and Fulkerson 1962)
+\begin{theorem}[Flow decomposition theorem, Galler 1956, Ford and Fulkerson 1962]
+  \label{satz-4.5}
   Let $(G, u, s, t)$ be a network and $f$ be a \flow st. Then $\exists$ a family
   $\mathcal{P}$ of \gath sts and a family $\mathcal{C}$ of cycles in $G$ and the
   weights in $\mathcal{P} \cup \mathcal{C} \rightarrow \mathbb{R}_+$
@@ -2486,7 +2485,7 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
   \[
     {n \choose 2} \mathcal{O}(n^2 \sqrt{n})
   \]
-  $(n-1)$ flow computations actually suffice; see Gomor-Hu-Baum (1962).
+  $(n-1)$ flow computations actually suffice; see Gomor-Hu tree (1962).
 
 \textbf{For undirected graphs.}
   Let $G$ be an undirected graph and $u: E(G) \rightarrow \mathbb{R}_+ \fall s, t \in V(G)$.
@@ -5532,7 +5531,7 @@ Let $A \subseteq E$. If $A \notin \mathcal{F}$, then $A$ is called \emph{depende
 \index{matroid!bases}
 \index{matroid!cycles}
 Inclusion minimal dependent sets are called \emph{cycles}.
-Inclusion maximal dependent sets are called \emph{bases}.
+Inclusion maximal independent sets are called \emph{bases}.
 $\fall X \subseteq E$ we define a rank of $X$:
 \[ \rank(X) := \max\set{\card{Y}: Y \subseteq X, Y \in \mathcal{F}} \]
 $\Rightarrow$ only independent subsets of $X$.
@@ -5549,9 +5548,9 @@ $\fall X \subseteq E$ define a closure of $X$, $\sigma(X)$ with
 \subsection{Maximization problem for IDS}
 %
 \given{IDS ($E$, $\mathcal{F}$) and $c: E \rightarrow \mathbb{R}$}
-\find{Determine $F^* \in \mathcal{F}$ with $c(F^*) = \max_{F \in \mathcal{F}}(F)$}
+\find{Determine $F^* \in \mathcal{F}$ with $F^* = \argmax_{F \in \mathcal{F}}(c(F))$}
 
-$\mathcal{F}$ is specified by a (polynomial) IDS-oracle, which is an algorithm solving the question ``Is a given $F \subseteq E$ independent?''.
+$\mathcal{F}$ is specified by a (polynomial) IDS-oracle, which is an algorithm solving the question \enquote{Is a given $F \subseteq E$ independent?}.
 
 \subsection{Minimization problem for IDS}
 %
@@ -5638,14 +5637,14 @@ $c$ as above.
 \]
 $c$ as above.
 
-\textbf{Definition.}
-  A IDS is a matroid if
-  \[
-    \forall x, y \in \mathcal{F}: \card{X} > \card{Y}
-    \Rightarrow \exists x \in \mathcal{X} \setminus \mathcal{Y}
-      \text{ such that } Y \cup \set{x} \in \mathcal{F}
-  \]
-  as condition M3.
+\begin{definition}
+  An IDS is a matroid if
+  \begin{description}
+    \item[$M3$] $\forall X, Y \in \mathcal{F}: \card{X} > \card{Y}
+        \Rightarrow \exists x \in \mathcal{X} \setminus \mathcal{Y}
+          \text{ such that } Y \cup \set{x} \in \mathcal{F}$
+  \end{description}
+\end{definition}
 
 \begin{theorem}
   \label{proposition-8.1}
