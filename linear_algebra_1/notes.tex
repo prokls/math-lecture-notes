@@ -8,7 +8,7 @@
 \usepackage{faktor}
 \usepackage{fancyhdr}
 \usepackage[margin=1in]{geometry}
-\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage[pdfborder={0 0 0},colorlinks=true,citecolor=red]{hyperref}
 \usepackage{csquotes}
 \usepackage{imakeidx}
 \usepackage{mathtools}
@@ -5925,6 +5925,434 @@ We have already dealed with matrices when discussing linear mappings and linear 
       $A \mapsto f_A$ is an isomorphism.
   \end{enumerate}
 \end{theorem}
+
+\meta{lecture}{11th of Jan 2016}{Franz Lehner}
+
+\subsection{Revision}
+
+We look at homomorphisms between vector spaces:
+\[ f: V \rightarrow W \]
+\[ +/\cdot: \Hom(V, W) \]
+
+\[ f(v + w) = f(v) + f(w) \]
+\[ f(\lambda w) = \lambda \cdot f(w) \]
+
+Images and preimages of subspaces are subspaces. Especially,
+\[ \kernel{f} = f^{-1}(\set{0}) \]
+\[ \image{f} = f(V) \]
+\[ \dim{\kernel(f)} + \dim{\image(f)} = \dim{V} \]
+Every vector space has basis. Let $B \subseteq V$ be a basis
+\[
+  \bigwedge_{f: B \rightarrow W} \dot\bigvee_{\tilde f: V \rightarrow W}
+  \tilde{f} \text{ linear} \land \left.\tilde{f}\right|_{B} = f
+\]
+
+Followingly, if two mappings $f, g \in \Hom(V, W)$ are equivalent
+if and only if $f|_B = g|_B$.
+
+If $\dim{V} < \infty$, $V \stackrel{\sim}{-} W \Leftrightarrow \dim{V} = \dim{W}$.
+
+\subsection{Matrix}
+\[
+  A = \begin{bmatrix}
+    a_{1,1} & \ldots & a_{1,n} \\
+    \vdots & \ddots & \vdots \\
+    a_{m,1} & \ldots & a_{m,n}
+  \end{bmatrix}
+  \in K^{m\times n}
+\]
+
+\[ f_A: K^n \rightarrow K^m \]
+\[
+  f_A: x \mapsto A \cdot x = \begin{pmatrix}
+    \sum_{j=1}^n a_{1,j} x_j \\
+    \sum_{j=1}^n a_{2,j} x_j \\
+    \vdots \\
+    \sum_{j=1}^n a_{mj} x_j
+  \end{pmatrix}
+\]
+
+\begin{rem}
+  \label{bemerkung-6.6}
+  $A \cdot e_k = s_k(A)$\footnote{where $s_k$ refers to the $k$-th column?}
+\end{rem}
+\begin{theorem}
+  \begin{enumerate}
+    \item The mapping $f_A: K^n \rightarrow K^m$ is linear.
+    \item For every $f \in \Hom(K^n, K^m)$ there is one unique matrix $A \in K^{m \times n}$,
+      such that $f = f_A$. Therefore $f(x) = A \cdot x$ for all $x \in K^n$.
+    \item The mapping $K^{m\times n} \rightarrow \Hom(K^n, K^m)$ with $A \mapsto f_A$ is a homomorphism.
+  \end{enumerate}
+\end{theorem}
+
+\begin{rem}
+  So linear mappings and matrices are semantically equivalent.
+\end{rem}
+
+\begin{proof}
+  We prove the three theorems.
+  \begin{enumerate}
+    \item Basic calculations.
+    \item Because of Remark~\ref{bemerkung-6.6} it must have a matrix with a
+      column $s_k(A) = f(e_k)$, which satisfies $f = f_A$.
+      Therefore it holds that $f(e_k) = f_A(e_k)$ and followingly,
+      $f = f_A$ on the canonical basis from which $f = f_A$ on $K^n$ follows.
+
+      Basis of $\Hom(K^n, K^m)$?
+      $f_{ij}$ follows from Theorem~\ref{satz-5-18}:
+      \[ f_{ij}: K^n \rightarrow K^m \]
+      \[
+        e_k \mapsto \begin{cases}
+          e_j & k=i \\
+          0 & k \neq i
+        \end{cases}
+      \]
+      which is equivalent to
+      \[
+        s_k(H_{ij}) = \begin{cases}
+          e_j & \text{if } k = i \\
+          0 & \text{else}
+        \end{cases}
+      \]
+      \[
+        H_{ij} = j \begin{bmatrix}
+          \ddots & \ldots & \ddots \\
+          \vdots & 1 & \vdots \\
+          \ddots & \ldots & \ddots
+        \end{bmatrix} = E_{ji}
+      \]
+      Basis of $K^{n\times m}$.
+
+      We elaborate:
+      \[ (f_{ij})_{\substack{i \in \set{1, \ldots, n} \\ j \in \set{1, \ldots, m}}} \]
+      is basis of $(K^n, K^m)$.
+      \[ f_{ij} = f_{E_{ji}} \text{ where } E_{ji} = \text{ elementary matrix} \]
+      \[ f = \sum \alpha_{ij} f_{ij} \in \Hom(K^n, K^m) \]
+      \[ (E_{ji})_{\substack{i = 1,\ldots,n \\ j = 1,\ldots,m}} \text{ build basis in } K^{m \times n} \]
+      \[ \Rightarrow f = f_{\sum \alpha_{ij} E_{ji}} = f_A \]
+      \[ A = \sum \alpha_{ij} E_{ji} \]
+      The mapping
+      \[ K^{m\times n} \rightarrow \Hom(K^n, K^m) \]
+      \[ A \rightarrow f_A \]
+      is linear and build a basis $(E_{ij})$ maps to the basis $(f_{ij})$.
+      Therefore it holds that
+      \[ K^{m\times n} \stackrel{\sim}{-} \Hom(K^n, K^m) \]
+  \end{enumerate}
+\end{proof}
+
+\begin{ex}
+  \[ f = \text{id}: K^n \rightarrow K^n \]
+  \[
+    f(e_k) = e_k \rightarrow a = \begin{bmatrix}
+      1 & 0 & \ldots & 0 \\
+      0 & 1 & \ldots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \ldots & 1
+    \end{bmatrix}
+    = I_n
+  \] \[
+    f_{\lambda A + \mu B} = \lambda \cdot f_A + \mu \cdot f_B
+  \]
+
+  Composition:
+  \[ f_A \cdot f_B = f_C \]
+  \[ K^p \to K^m \to K^n \]
+\end{ex}
+%
+\index[English]{Matrix multiplication}
+\index[German]{\foreignlanguage{ngerman}{Matrixmultiplikation}}
+\begin{defi}
+  Let $A \in K^{n\times m}$ and $B \in K^{m\times p}$.
+  Then the matrix $C \coloneqq A \cdot B \in K^{n\times p}$ with $C_{ij} = \sum_{k=1}^m a_{ik} b_{kj}$ for $i \in \set{1, \ldots, n}, j \in \set{1, \ldots, p}$ is the \emph{product of $A$ and $B$}
+
+  \[
+    A \cdot x = \begin{pmatrix}
+      \sum_{k=1}^m a_{1k} \cdot x_k \\
+      \vdots \\
+      \sum_{k=1}^m a_{nk} \cdot x_k
+    \end{pmatrix}
+  \]
+  where $x \in K^m$. Therefore $s_j(C) = A \cdot s_j(B)$ is column of $C$;
+  $A$ times the $j$-th column of $B$.
+\end{defi}
+\begin{ex}
+  \[
+    \begin{pmatrix}
+      1 & 2 & 3 \\
+      4 & 5 & 6
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+      1 & 4 \\
+      2 & 5 \\
+      3 & 6
+    \end{pmatrix} =
+    \begin{pmatrix}
+      14 & 32 \\
+      32 & 77
+    \end{pmatrix}
+  \]
+  Use the schema,
+  \[
+    \begin{tabular}{ccc|cc}
+       & & & 1 & 4 \\
+       & & & 2 & 5 \\
+       & & & 3 & 6 \\
+      \hline
+       1 & 2 & 3 & 14 & 32 \\
+       4 & 5 & 6 & 32 & 77
+    \end{tabular}
+  \]
+\end{ex}
+\begin{rem}
+  $A \cdot B \neq B \cdot A$.
+  \[
+    A\cdot B = \begin{tabular}{cc|cc}
+       & & 0 & 0 \\
+       & & 1 & 0 \\
+      \hline
+       0 & 1 & 1 & 0 \\
+       0 & 0 & 0 & 0
+    \end{tabular}
+  \]
+  \[
+    B\cdot A = \begin{tabular}{cc|cc}
+       & & 0 & 1 \\
+       & & 0 & 0 \\
+      \hline
+       0 & 0 & 0 & 0 \\
+       1 & 0 & 0 & 1
+    \end{tabular}
+  \]
+\end{rem}
+\begin{ex}
+  \[
+    \begin{pmatrix}
+      \frac12 & \frac12 \\
+      \frac12 & \frac12
+    \end{pmatrix} \cdot
+    \begin{pmatrix}
+      \frac12 & \frac12 \\
+      \frac12 & \frac12
+    \end{pmatrix} =
+    \begin{pmatrix}
+      \frac12 & \frac12 \\
+      \frac12 & \frac12
+    \end{pmatrix}
+  \]
+  $A^2 = A$ shows an idempotent property (infinitely many solutions).
+\end{ex}
+
+\begin{theorem}
+  \label{satz-6.8}
+  \[ f_A \circ f_B = f_{A \cdot B} \]
+\end{theorem}
+\begin{proof}
+  It suffices to check the basis.
+  \[
+    f_A \cdot f_B(e_k) \overset{\text{Remark~\ref{bemerkung-6.6}}}{=}
+    = A \cdot f_B(e_k)
+  \] \[
+    = A \cdot s_k(B) \overset{\text{def. of } A \cdot B}{=} s_k(A \cdot B) = f_{A \cdot B}(e_k)
+  \]
+  Alternative, more educational, proof: direct
+\end{proof}
+\begin{cor}
+  The matrix product is associative:
+  \[ A \in K^{n\times m} \quad B \in K^{m\times p} \quad C \in K^{p\times q} \]
+  \[
+    \underbrace{\underbrace{(A \cdot B)}_{n\times p} \cdot C}_{n\times q}
+    = \underbrace{A \cdot \underbrace{(B \cdot C)}_{m\times q}}_{n\times q}
+  \]
+\end{cor}
+\begin{proof}
+  \begin{align*}
+      f_{A \cdot (B \cdot C)}
+        &= f_A \circ f_{B \cdot C} \\
+        &= f_A \circ (f_B \circ f_C) \\
+        &= (f_A \circ f_B) \circ f_C \\
+        &= f_{A \cdot C} \circ f_C \\
+        &= f_{(A\cdot B) \circ C}
+  \end{align*}
+\end{proof}
+\begin{theorem}
+  \label{satz-6.10}
+  \begin{enumerate}
+    \item \[ \bigwedge_{A \in K^{n\times m}} \bigwedge_{B,C \in K^{m\times p}} A(B + C) = A \cdot B + A \cdot C \]
+    \item \[ \bigwedge_{A,B \in K^{n\times m}} \bigwedge_{C \in K^{m\times p}} (A + B) \cdot C = A \cdot C + B \cdot C \]
+    \item \[ \bigwedge_{\lambda \in K} \bigwedge_{A \in K^{n\times m}} \bigwedge_{B \in K^{m\times p}} \lambda (A \cdot B) - (\lambda A)\cdot B B = A \cdot (\lambda B) \]
+    \item \[ \bigwedge_{A \in K^{n\times m}} \bigwedge_{B \in K^{m\times p}} (A \cdot B)^T = B^T \cdot A^T \]
+    \item \[ \bigwedge_{A \in K^{n\times m}} I_n \cdot A = A = A \cdot I_m \]
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item Immediate.
+    \item Immediate.
+    \item Immediate.
+    \item
+      \begin{align*}
+        \left((A \cdot B)^T\right)_{ij}
+          &= (A \cdot B)_{ji} \\
+          &= \sum_{k=1}^m a_{jk} b_{ki} \\
+          &= \sum_{k=1}^m b_{ki} a_{jk} \\
+          &= \sum_{k=1}^m (B^T)_{ik} (A^T)_{kj} \\
+          &= \left(B^T \cdot A^T\right)_{ij}
+      \end{align*}
+      \[ \Rightarrow \text{ for all } i,j: (A\cdot B)^T = B^T \cdot A^T \]
+  \end{enumerate}
+\end{proof}
+\begin{cor}
+  \label{korollar-6.11}
+  $(K^{n\times n}, +, \cdot_{\text{scalar product}}, \cdot_{\text{matrix product}})$
+  is a $K$-algebra\footnote{Scalar product is given with $K \times K^{n\times n} \to K^{n \times n}$}
+  isomorphic to $\End(K^n)$.
+\end{cor}
+\index[English]{Regular matrix}
+\index[German]{\foreignlanguage{ngerman}{Reguläre Matrix}}
+\index[English]{Singular matrix}
+\index[German]{\foreignlanguage{ngerman}{Singulär Matrix}}
+\begin{defi}
+  A matrix $A \in K^{n\times n}$ is called \emph{regular} if it is invertible
+  hence if
+  \[ \bigvee_{B\in K^{n\times n}} A \cdot B = B \cdot A = I \]
+  A matrix which is not regular, is called \emph{singular}.
+\end{defi}
+
+\begin{theorem}
+  \label{satz-6.13}
+  A matrix $A \in K^{n\times n}$ has at most one inverse.
+  If it exists, the inverse of $A$ is denoted $A^{-1}$.
+\end{theorem}
+\begin{proof}
+  Let $B$ and $B'$ be two inverse matrices.
+  \[ B = B \cdot I = B \cdot (A \cdot B') = (B \cdot A) \cdot B' = I \cdot B' = B' \]
+\end{proof}
+\begin{rem}
+  For finite-dimensional matrices it suffices to find either a left-inverse or a right-inverse matrix.
+  For infinite-dimensional matrices this does not work any more.
+\end{rem}
+
+\begin{theorem}
+  \label{theorem-6.14}
+  \begin{enumerate}
+    \item $I_n$ is regular. $I_n \cdot I_n = I_n$
+    \item $A, B \in K^{n\times n}$ is regular $\Rightarrow A \cdot B$ is regular.
+      \[ \left(A \cdot B\right)^{-1} = B^{-1} \cdot A^{-1} \]
+    \item $A \in K^{n\times n}$ is regular, then $A^{-1}$ is also regular.
+      \[ \left(A^{-1}\right)^{-1} = A \]
+    \item $A \in K^{n\times n}$ is regular, then $A^T$ is regular with
+      \[ \left(A^T\right)^{-1} = \left(A^{-1}\right)^T \]
+    \item $A$ is regular if and only if $f_A: K^n \to K^n$ is automorphism,
+      \[ \left(f_A\right)^{-1} = f_{A^{-1}} \]
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item[2.] \[
+        (A \cdot B) \cdot (B^{-1} \cdot A^{-1})
+        = A \cdot (B \cdot B^{-1}) \cdot A^{-1}
+        = A \cdot I \cdot A^{-1}
+        = A \cdot A^{-1}
+        = I
+      \]
+      Also it holds that
+      \[ (B^{-1} \cdot A^{-1}) \cdot (A \cdot B) = I \]
+    \item[3.] $A^{-1} \cdot A = I$. $A \cdot A^{-1} = I$.
+      $A^{-1}$ has $A$ as inverse.
+    \item[4.] $A^T \cdot (A^{-1})^T = \left(A^{-1} \cdot A\right)^T = I^T = I$
+    \item[5.] $f_A \circ f_{A^{-1}} = f_{A \cdot A^{-1}} = f_I = \text{id}$.
+      So $f_A \circ f_B = \text{id} \Leftrightarrow A \cdot B = I$
+  \end{enumerate}
+\end{proof}
+\index[English]{Permutation matrix}
+\index[German]{\foreignlanguage{ngerman}{Permutation matrix}}
+\begin{ex}
+  \begin{enumerate}
+    \item $(\lambda \cdot I)^{-1} = \frac1\lambda I$
+      \[ (\lambda \cdot A)^{-1} = \frac1\lambda \cdot A^{-1} \qquad (\lambda \neq 0) \]
+    \item
+      \[
+        \begin{bmatrix}
+          a_1 & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & a_n
+        \end{bmatrix} \cdot
+        \begin{bmatrix}
+          b_1 & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & b_n
+        \end{bmatrix}
+        \overset{?}{=}
+        \begin{bmatrix}
+          1 & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & 1
+        \end{bmatrix}
+      \] because \[
+        \begin{bmatrix}
+          a_1 b_1 & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & a_n b_n
+        \end{bmatrix} =
+        \begin{bmatrix}
+          b_1 & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & b_n
+        \end{bmatrix}
+        \begin{bmatrix}
+          a_1 & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & a_n
+        \end{bmatrix}
+      \]
+      If $
+      \begin{bmatrix}
+        a_1 & \ldots & 0 \\
+        \vdots & \ddots & \vdots \\
+        0 & \ldots & a_n
+      \end{bmatrix}
+      $ is regular $\Leftrightarrow$ all $a_i \neq 0$
+      \[
+        \begin{bmatrix}
+          a_1 & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & a_n
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          \frac1{a_1} & \ldots & 0 \\
+          \vdots & \ddots & \vdots \\
+          0 & \ldots & \frac1{a_n}
+        \end{bmatrix}
+      \]
+    \item Let $\sigma: \set{1, \ldots, n} \to \set{1, \ldots, n}$ be bijective
+      (hence it is a permutation).
+      \[ f: \underbrace{\set{e_1, \ldots, e_n}}_{\text{canonical basis}} \to \set{e_1, \ldots, e_n} \]
+      \[ f(e_i) = e_\sigma(i) \]
+      Let $\tilde f: K^n \to K^n$ be a linear extension. It is also bijective.
+      The corresponding matrix $P$ is regular.
+      \[ s_k(P) = f(e_k) = e_\sigma(k) \]
+      \[ \sigma = (1 2 3) \]
+      We use the cyclic notation here. So we map $1$ to $2$, $2$ to $3$ and $3$ to $1$.
+      \[
+        P_\sigma = \begin{pmatrix}
+          0 & 0 & 1 \\
+          1 & 0 & 0 \\
+          0 & 1 & 0
+        \end{pmatrix}
+      \]
+      $P_\sigma$ is the \emph{permutation matrix}. $P_\sigma$ is regular.
+      \[ \left(P_\sigma\right)^-1 = P_{\sigma^{-1}} \]
+  \end{enumerate}
+
+  % TODO: T_ij matrix missing
+  %\[
+  %  T_{(ij)} = \begin{pmatrix}
+  %    1 & 0 & \ldots &
+  %  \end{pmatrix}
+  %\]
+\end{ex}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
