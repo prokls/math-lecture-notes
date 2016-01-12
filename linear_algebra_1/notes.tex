@@ -43,6 +43,7 @@
 \DeclareMathOperator\Aut{Aut} % automorphism
 \DeclareMathOperator\image{im} % image
 \DeclareMathOperator\kernel{ker} % kernel
+\DeclareMathOperator\rank{rank} % rank of a matrix
 
 \DeclarePairedDelimiter\norm\lVert\rVert
 
@@ -6353,6 +6354,479 @@ If $\dim{V} < \infty$, $V \stackrel{\sim}{-} W \Leftrightarrow \dim{V} = \dim{W}
   %  \end{pmatrix}
   %\]
 \end{ex}
+
+\meta{lecture}{12th of January 2016}{Franz Lehner}
+
+\begin{ex}
+  \begin{enumerate}
+    \item[3.]
+      \[ K^{m\times n} \to \Hom(K^n, K^m) \]
+      \[ A \mapsto f_A \]
+      $f_A(x) = Ax$ is linear.
+      \begin{align*}
+        f_{\lambda A + \mu B}(x) &= (\lambda A + \mu B) \cdot x \\
+          &= \lambda A \cdot x + \mu B x \\
+          &= \lambda f_A(x) + \mu f_B(x)
+      \end{align*}
+      \[ \leadsto f_{\lambda A + \mu B} = \lambda f_A + \mu f_B \]
+      \[ f_{E_{ij}} = f_{ji} \]
+      $E_j$ is a basis of $K^{m\times n}$. Therefore homomorphism.
+      $f_{ij}$ is basis of $\Hom(K^n, K^m)$.
+    \item[4.] Rotation in $\mathbb R^2$.
+      \[
+        H_\alpha = \begin{pmatrix}
+          \cos{\alpha} & -\sin{\alpha} \\
+          \sin{\alpha} & \cos{\alpha}
+        \end{pmatrix}
+      \]
+      \[ H_\alpha H_\beta = H_{\alpha + \beta} \]
+      \[
+        \begin{pmatrix}
+          \cos{\alpha} & -\sin{\alpha} \\
+          \sin{\alpha} & \cos{\alpha}
+        \end{pmatrix} \cdot
+        \begin{pmatrix}
+          \cos{\beta} & -\sin{\beta} \\
+          \sin{\beta} & \cos{\beta}
+        \end{pmatrix}
+      \] \[
+        =
+        \begin{pmatrix}
+          \cos{\alpha} \cos{\beta} - \sin{\alpha} \sin{\beta} & -\cos{\alpha} \sin{\beta} - \sin{\alpha} \cos{\beta} \\
+          \sin{\alpha} \cos{\beta} + \cos{\alpha} \sin{\beta} & -\sin{\alpha} \sin{\beta} + \cos{\alpha} \cos{\beta}
+        \end{pmatrix}
+      \] \[
+        = \begin{pmatrix}
+          \cos(\alpha + \beta) & -\sin(\alpha + \beta) \\
+          \sin(\alpha + \beta) & \cos(\alpha + \beta)
+        \end{pmatrix}
+      \]
+  \end{enumerate}
+\end{ex}
+%
+\begin{cor}[was covered already yesterday]
+  If $A, B$ is regular, then $A \cdot B$ is regular. $I$ is regular.
+  If $A$ is regular, then $A^{-1}$ regular.
+\end{cor}
+%
+\index[English]{General linear group}
+\index[German]{\foreignlanguage{ngerman}{Allgemeine Linear Gruppe}}
+\begin{defi}
+  \label{def-6.16}
+  \[ \operatorname{GL}(n, K) = \setdef{A \in K^{n \times n}}{A \text{ regular}} \]
+  build a group in regards of matrix multiplication.
+  We will show later that this is a superset of $\operatorname{SL}(n, K)$.
+  GL stands for \emph{general linear group}.
+\end{defi}
+%
+\begin{rem}
+  $A$ is regular if and only if $f_A$ is automorphism in $K^n$.
+  So you could apply the basis exchange theorem.
+\end{rem}
+%
+\index[English]{Equivalent matrices}
+\index[German]{\foreignlanguage{ngerman}{Äquivalente Matrizen}}
+\index[English]{Similar matrices}
+\index[German]{\foreignlanguage{ngerman}{Ähnliche Matrizen}}
+\begin{defi}
+  \label{def-6.17}
+  \begin{enumerate}
+    \item Two matrices $A, B \in K^{m\times n}$ are called equivalent if
+      \[ \bigvee_{P \in \operatorname{GL}(m, K)} \bigvee_{Q \in \operatorname{GL}(n, K)} A = P \cdot B \cdot Q \]
+    \item Two matrices $A, B \in K^{n\times m}$ are called \emph{similar} if
+      \[ \bigvee_{P \in \operatorname{GL}(n, K)} A = P \cdot B \cdot P^{-1} \]
+  \end{enumerate}
+
+  In the following, we will show that
+  \begin{enumerate}
+    \item Equivalence is equivalence relation on $K^{m \times n}$
+    \item Similarity is equivalence relation on $K^{n \times n}$
+  \end{enumerate}
+\end{defi}
+%
+\index[English]{Row space}
+\index[German]{\foreignlanguage{ngerman}{Zeilenraum}}
+\index[English]{Row rank}
+\index[German]{\foreignlanguage{ngerman}{Zeilenrang}}
+\index[English]{Column space}
+\index[German]{\foreignlanguage{ngerman}{Spaltenraum}}
+\index[English]{Column rank}
+\index[German]{\foreignlanguage{ngerman}{Spaltenrang}}
+\begin{defi}
+  $A \in K^{m \times n}$.
+  \begin{enumerate}
+    \item The linear hull of row vectors
+      \[ L(z_1(A), \ldots, z_m(A)) \]
+      is called \emph{row space} of $A$.
+      Its dimension is called \emph{row rank} of $A$: $\operatorname{zrg}(A)$.
+    \item The linear hull of column vectors
+      \[ L(s_1(A), s_2(A), \ldots, s_n(A)) \]
+      is called \emph{column space} of $A$.
+      Its dimension is called \emph{column rank} of $A$: $\operatorname{srg}(A)$.
+  \end{enumerate}
+\end{defi}
+%
+% TODO: theorem 5.12 missing reference
+\begin{rem}
+  \begin{enumerate}
+    \item Because of Remark~\ref{bemerkung-6.6} and Theorem~5.12
+      the column vectors of $A$ build the image space of $f_A$.
+      Therefore,
+      \[ \operatorname{sig}(A) = \dim \image(f_A) \]
+    \item $\operatorname{zrg}(A) = \operatorname{srg}(A^T)$
+  \end{enumerate}
+\end{rem}
+%
+% TODO: bildraum == range in English according to Franz Lehner. I used image?
+\begin{theorem}
+  For all $A \in K^{m \times n}$, it holds that $\operatorname{zrg}(A) = \operatorname{srg}(A)$
+  and is called \emph{rank} of A:
+  \[ \operatorname{rk}(A) = \dim{\image(f_A)} \]
+  (in English $f_A$ is called \emph{range} of $f_A$)
+\end{theorem}
+\begin{proof}
+  It suffices to show that
+  \[ \operatorname{srg}(A) \leq \operatorname{zrg}(A) \]
+  \[ \dim{\operatorname{zrg}(A)} = \operatorname{srg}(A^T) \leq \operatorname{zrg}(A^T) = \operatorname{srg}(A) \]
+  Let $r = \operatorname{zrg}(A)$.
+  We need to find a generating system of column vectors with $\leq r$ elements.
+  From the basis selection theorem it follows that
+  $z_{i_1}(A) \ldots z_{i_r}(A)$ are basis of row space.
+  All other rows are linear combinations of these vectors:
+  \begin{align*}
+    \bigvee_{\substack{\beta_{ij} \in K \\ 1 \leq i \leq m \\ 1 \leq j \leq r}}
+      z_1 &= \beta_{i_1} z_{i_1} + \ldots + \beta_{i_r} z_{i_r} \\
+      z_2 &= \beta_{i_2} z_{i_2} + \ldots + \beta_{i_r} z_{i_r} \\
+          &= \vdots \\
+      z_m &= \beta_{i_m} z_{i_m} + \ldots + \beta_{i_r} z_{i_r}
+  \end{align*}
+
+  We denote coordinatewise $(z_i)_j = a_ij$.
+  % TODO: verify
+  \begin{align*}
+    a_{1j} = (z_1)_{j}
+      &= (\beta_{i_1} z_{i_1} + \ldots + \beta_{i_r} z_{i_r})_j \\
+      &= \beta_{i_1} a_{ij} + \ldots + \beta_{i_r} a_{ij} \\
+    a_{2j} &= \beta_{i_1} a_{2j} + \ldots + \beta_{i_r} a_{ij} \\
+  \end{align*}
+  \[ a_{mj} = \beta_{mi} a_{ij} + \beta_{m2} a_{2j} + \ldots + \beta_{mr} a_{ij} \]
+  j-th column:
+  \[
+    s_j(A)
+      = \begin{pmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{mj} \end{pmatrix}
+      = \begin{pmatrix} \beta_{1i} \\ \beta_{2i} \\ \vdots \\ a_{mi} \end{pmatrix}
+      a_{i_1,j} +
+      \begin{pmatrix} \beta_{12} \\ \beta_{22} \\ \vdots \\ a_{m2} \end{pmatrix}
+      a_{i_2,j} + \ldots +
+      \begin{pmatrix} \beta_{1r} \\ \beta_{2r} \\ \vdots \\ a_{mr} \end{pmatrix}
+      \cdot a_{i_r,j}
+  \] % TODO: verify
+  \[
+    \in L(
+      \begin{pmatrix} \beta_{m} \\ \vdots \\ \beta_{m,1} \end{pmatrix},
+      \begin{pmatrix} \beta_{12} \\ \vdots \\ \beta_{m,2} \end{pmatrix},
+      \ldots
+      \begin{pmatrix} \beta_{ir} \\ \vdots \\ \beta_{m,r} \end{pmatrix}
+    )
+  \]
+  All column vectors are contained $L(b_1, \ldots, b_r)$, where $b_1$ to $b_r$
+  are the vectors we wrote used for $s_j(A)$ above.
+  \[ \Rightarrow \text{column space} \subseteq L(b_1, \ldots, b_r) \]
+  \[ \Rightarrow \operatorname{srg}(A) = \dim{\text{column space}} \leq r = \operatorname{zrg}(A) \]
+  Our next goal is to determine its rank.
+
+  Approach: Gaussian elimination.
+
+  We recognize that
+  \[
+    \rank\left(
+    \begin{pmatrix}
+      1 &  & \\
+        & \ddots & \\
+        &  & 1
+    \end{pmatrix}\right)
+    = n \text{ where n denotes the number of column vectors}
+  \] \[
+    \rank\left(
+    \begin{pmatrix}
+      1 &        &   &   &        & \\
+        & \ddots &   &   &        & \\
+        &        & 1 &   &        & \\
+        &        &   & 0 &        & \\
+        &        &   &   & \ddots & \\
+        &        &   &   &        & 0
+    \end{pmatrix}\right)
+    = m \text{ where m denotes the number of non-zero column}
+  \]
+\end{proof}
+%
+\begin{defi}
+  \label{defi-6.22}
+  Elementary row (column) transformations are defined as
+  \begin{enumerate}
+    \item[1.] Addition of a row (column) to another row (column)
+    \item[2.] Multiplication of a row (column) with $\lambda \in K$, $\lambda \neq 0$
+  \end{enumerate}
+\end{defi}
+\begin{rem}
+  These operations are reversible\footnote{Multiplication with $-1$, etc.}.
+\end{rem}
+%
+\begin{theorem}
+  \label{satz-6.23}
+  With a sequence of these elementary row (column) transformations of type 1 and 2,
+  the following operations are possible:
+  \begin{enumerate}
+    \item[3.] Exchange of two rows (columns)
+    \item[4.] Addition of a row (column) $\lambda$ times another one
+  \end{enumerate}
+\end{theorem}
+
+\begin{align*}
+  (4.):
+    [S_i, S_j] &\underset{2}{\rightarrow} [\lambda s_i, s_j] \\
+      &\underset{1}{\rightarrow} [\lambda s_i, s_j + \lambda s_i] \\
+      &\underset{2}{\rightarrow} [s_i, s_j + \lambda s_i]
+\end{align*}
+\begin{align*}
+  (3.): [s_i, s_j] &\underset{1}{\rightarrow} [s_i, s_i + s_j] \\
+    &\underset{2}{\rightarrow} [-s_i, s_i + s_j] \\
+    &\underset{2}{\rightarrow} [s_j, s_i + s_j] \\
+    &\underset{2}{\rightarrow} [-s_j, s_i + s_j] \\
+    &\underset{2}{\rightarrow} [-s_j, s_i] \\
+    &\underset{2}{\rightarrow} [s_j, s_i]
+\end{align*}
+%
+\begin{theorem}
+  \label{satz-6.24}
+  Every matrix $A \in K^{m\times n}$ can be written as sequence of elementary
+  row and column transformations with structure
+  \[
+    I_{m \times n}^{(r)} =
+    \begin{bmatrix}
+      1 & \ldots & \ldots & 0 \\
+      \ldots & \ddots & \ldots & 0 \\
+      \ldots & \ldots & 1 & 0 \\
+      0 & \ldots & \ldots & 0
+    \end{bmatrix}
+  \]
+  where $r$ denotes the number of non-zero columns.
+\end{theorem}
+%
+\begin{ex}
+  \label{bsp-6.25}
+  \[
+    \begin{bmatrix}
+      0 & 1 & 1 \\
+      1 & 3 & 1 \\
+      1 & 1 & 1
+    \end{bmatrix}
+    \overset{3}{\leadsto}
+    \begin{bmatrix}
+      1 & 3 & 1 \\
+      0 & 1 & 1 \\
+      1 & 1 & 1
+    \end{bmatrix}
+    \overset{4}{\leadsto}
+    \begin{bmatrix}
+      1 & 3 & 1 \\
+      0 & 1 & 1 \\
+      0 & -2 & 0
+    \end{bmatrix}
+  \] \[
+    \overset{4}{\leadsto}
+    \begin{bmatrix}
+      1 & 0 & -2 \\
+      0 & 1 & 1 \\
+      0 & 0 & 2
+    \end{bmatrix}
+    \overset{4}{\leadsto}
+    \begin{bmatrix}
+      1 & 0 & 0 \\
+      0 & 1 & 0 \\
+      0 & 0 & 2
+    \end{bmatrix}
+    \overset{2}{\leadsto}
+    \begin{bmatrix}
+      1 & 0 & 0 \\
+      0 & 1 & 0 \\
+      0 & 0 & 1
+    \end{bmatrix}
+  \]
+\end{ex}
+\begin{proof}
+  \begin{enumerate}
+    \item $A = 0$, nothing to do
+    \item At least one $a_{ij} \eq 0$ exists, then apply a recursive algorithm:
+      \begin{enumerate}
+        \item exchange first with $i$-th row and first with $j$-th column.
+        \item multiply first row with $\frac1{a_{ij}}$.
+          \[
+            \begin{bmatrix}
+              1 & a'_{12} & a'_{13} & \ldots & a'_{1n} \\
+              a'_{21} & \ldots & \ldots & \ldots & \ldots \\
+              \vdots & \vdots & \vdots & \ddots & \vdots \\
+              a'_{m1} & \ldots & \ldots & \ldots & 1
+            \end{bmatrix}
+          \]
+        \item
+          Subtract $a_{1j}$ times the first column from $j$-th column for all $j \geq 2$.
+        \item
+          Subtract for all $2 \leq i \leq m$, $a_{i1}$ times the first row from the $i$-th row.
+          \[
+            \begin{bmatrix}
+              1 & 0 & \ldots & 0 \\
+              0 & b_{22} & \ldots & b_{2n} \\
+              \vdots & \vdots & \ddots & \vdots \\
+              0 & b_{m,2} & \ldots & \ldots & b_{mn}
+            \end{bmatrix}
+          \]
+        \item Repeat steps with row $(1, 0, \ldots, 0)$ and column $\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}$ excluded until no one is left.
+      \end{enumerate}
+  \end{enumerate}
+\end{proof}
+%
+\begin{rem}
+  Applying only row transformations, we can achieve an upper triangular matrix.
+  Applying only column transformations, we can achieve a lower triangular matrix
+\end{rem}
+
+\begin{theorem}
+  \label{satz-6.27}
+  Let $A \in K^{m\times n}$. The following matrices are invertible and implement
+  row and column transformations.
+  \[ T \cdot A \]
+  \begin{enumerate}
+    \item $T = I + E_{ij}$
+      \[
+        \begin{pmatrix}
+          1 & 1 \\
+          0 & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+          z_1 \\
+          z_2
+        \end{pmatrix}
+        = \begin{pmatrix}
+          z_1 + z_2 \\
+          z_2
+        \end{pmatrix}
+      \]
+      Addition of $j$-th row to $i$-th row.
+    \item $I + E_{ii} \cdot (\lambda - 1)$
+      \[
+        \begin{pmatrix}
+          1 &        &         &        & \\
+            & \ddots &         &        & \\
+            &        & \lambda &        & \\
+            &        &         & \ddots & \\
+            &        &         &        & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+          z_1 \\
+          \vdots \\
+          v_m
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+          z_1 \\
+          \vdots \\
+          \lambda z_i \\
+          \vdots \\
+          z_m
+        \end{pmatrix}
+      \]
+      Multiplies the $i$-th row with $\lambda$
+    \item $T_{(i,j)}$ = permutation matrix which exchanges $i$ and $j$.
+
+      Exchanges $i$-th and $j$-th row.
+    \item $T = I + \lambda \cdot E_{ij}$
+
+      \[
+        \begin{pmatrix}
+          1 & \lambda \\
+          0 & 1
+        \end{pmatrix} \cdot
+        \begin{pmatrix}
+          z_1 \\
+          z_2
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+          z_1 + \lambda \cdot z_2 \\
+          z_2
+        \end{pmatrix}
+      \]
+      Add the $\lambda$ times $j$-th row to the $i$-th row.
+  \end{enumerate}
+  %
+  \[ A \cdot T \]
+  \begin{enumerate}
+    \item $(I + E_{ij})^{-1} = I - E_{ij}$
+      \[
+        \begin{pmatrix}
+          s_1 & s_2
+        \end{pmatrix}
+        \begin{pmatrix}
+          1 & 1 \\
+          0 & 1
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+          s_1 & s_1 + s_2
+        \end{pmatrix}
+      \]
+      Add the $i$-th column to the $j$-th column.
+    \item $(I + E_{ii}(\lambda - i)) = I + \left(\frac{1}{\lambda} - 1\right) E_{ii}$
+
+      Multiplies the i-th column with $\lambda$.
+    \item $T_{(i,j)}^{-1} = T_{(i,j)}$
+
+      Exchange the $i$-th and $j$-th column.
+    \item $(I + \lambda E_{ij})^{-1} = I - \lambda E_{ij}$
+
+      Adds the $\lambda$ times $j$-th column to the $j$-th column.
+      \begin{align*}
+        (I + \lambda E_{ij}) (I - \lambda E_{ij})
+          &= I - \lambda E_{ij} + \lambda E_{ij} \\
+          &= I
+      \end{align*}
+      \[
+        E_{ij} \cdot E_{kl} = \begin{cases}
+          0 & j \neq k \\
+          E_{i,l} & j = k
+        \end{cases}
+      \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{cor}
+  Every matrix $A \in K^{m\times n}$ is equivalent to the matrix of the structure
+  $I_{m \times n}^{(r)}$.
+\end{cor}
+\begin{proof}
+  Apply the corresponding row and column transformations.
+  Every row (column) transformation corresponds to multiplication with an invertible matrix $L_i$ ($R_j$) from left (right).
+
+  \[ L_k \ldots L_2 L_1 A R_1 R_2 \ldots R_l = I_{m\times n}^{(r)} \]
+  \[ \rightarrow R = L_k \ldots L_2 L_1 \text{ is invertible} \]
+  \[ \rightarrow Q = R_1 R_2 \ldots R_l \text{ is invertible} \]
+  \[ \Rightarrow P \cdot A \cdot Q = I_{m\times n}^{(r)} \text{ are equivalent} \]
+\end{proof}
+
+\begin{theorem}
+  Let $A \in K^{n \times m}, B \in K^{m\times p}$. Then
+  \[ \rank(A \cdot B) \leq \min(\rank(A), \rank(B)) \]
+
+  $A$ is invertible.
+  \[ \rank(A \cdot B) \leq \rank(B) \]
+  \[ B = A^{-1} \cdot A \cdot B \]
+  \[ \Rightarrow \rank(B) \leq \rank(A \cdot B) \]
+
+  Or more to the point: Column and row transformations do not change the rank.
+\end{theorem}
+
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}
