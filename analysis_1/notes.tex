@@ -5005,6 +5005,123 @@ $U$ is called environment of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subse
 Using this method to show existence of a value is called
 \enquote{direct method of variation computations}.
 
+\meta{lecture}{8th of January 2016}{Wolfgang Ring}
+
+TODO This lecture is missing
+
+\meta{lecture}{13th of January 2016}{Wolfgang Ring}
+
+TODO: radius.pdf \\
+TODO: another image missing
+
+\[ y = kx + d \]
+\[ d = k \cdot(x_0) - k \cdot x_0 \]
+
+TODO: missing a few lines
+
+\index[English]{Landau symbols}
+\index[German]{\foreignlanguage{ngerman}{Landau Symbole}}
+\begin{defi}[Landau's symbols]
+  Let $g: D \to \mathbb C$, $D \subseteq \mathbb C$.
+  Let $z_0$ be a limit point of $g$ and assume $g$ has a limit point $0$ for $z \to z_0$.
+  Therefore,
+  \[ \forall \varepsilon > 0 \exists \delta > 0: \forall z \in D \land \abs{z - z_0} < \delta \]
+  where $z \neq z_0$.
+  \[ \Rightarrow \abs{g(z) - 0} < \varepsilon \]
+  We say that $y$ is \emph{of order $\mathcal{O}(n)$} in point $z_0$,
+  if $k \geq 0$ and some $r > 0$ such that
+  \[ \abs{g(z)} \leq K \abs{z - z_n}^n \quad\forall z \in D \text{ with } \abs{z - z_0} < r \land z \neq z_0 \]
+  We denote it with $g(z) = \mathcal O(\abs{z - z_0}^n)$.
+
+  We say that $g$ is of order $o(n)$ if $r > 0$ and some function $k: (0, r) \to \mathbb R^+$
+  with $\lim_{x\to 0} k(x) = 0$ exists, such that
+  \[
+    \abs{g(z)} \leq k(\abs{z - z_0}) \cdot \abs{z - z_0}^n
+    \forall z \in D \text{ with } \abs{z - z_0} < r \land z \neq z_0
+  \]
+  We denote,
+  \[ g(z) = o(\abs{z - z_0}^n) \]
+\end{defi}
+\begin{cor}
+  It holds that,
+  $g: \mathcal O(\abs{z - z_0}^n) \Leftrightarrow \exists r > 0$ such that
+  \[ \frac{\abs{g(z)}}{\abs{z - z_0}^n} \]
+  is bounded in $B(z_0, z) \setminus \set{z_0}$ and $g = o(\abs{z - z_0}^n)$,
+  if $\exists r > 0$ such that $\frac{\abs{g(z)}}{\abs{z - z_0}^n}$ in point
+  $z_0$ has limit point $0$.
+\end{cor}
+\index[English]{Slope}
+\index[German]{\foreignlanguage{ngerman}{Steigung}}
+\begin{cor}
+  For determination of the slope $k$ for the best-achievable linear-affine approximation
+  of $f$ it must hold that
+  \[ f(x) - (f(x_0) - k (x - x_0)) = o(\abs{x - x_0}) \]
+\end{cor}
+\index[English]{Derivative of a function $f$}
+\index[German]{\foreignlanguage{ngerman}{Ableitung einer Funktion $f$}}
+\index[English]{differentiable}
+\index[German]{\foreignlanguage{ngerman}{Ableitbarkeit}}
+\begin{defi}
+  Let $f: (a, b) \to \mathbb R$ and $x_0 \in (a, b)$. We claim that $f$ in $x_0$
+  is \emph{differentiable}, if the limit point of the function $\frac{f(x) - f(x_0)}{x - x_0}$
+  exists. The corresponding limit point $k = \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0}$
+  is called \emph{derivative of $f$ in $x_0$}.
+
+  We can compute $k$ using $k = f'(x_0)$.
+
+  Alternatively: $f$ is differentiable in $x_0$ if $x \in \mathbb R$ exists,
+  such that
+  $r: (a, b) \setminus \set{0} \to \mathbb R$
+  with
+  $r(x)  = f(x) - f(x_0) - k(x - x_0)$
+  is of order $o(1)$ in $x_0$.
+  \[ f(x) - f(x_0) - k(x - x_0) = \mathcal O(\abs{x - x_0}) \]
+
+  The second definition is more general and can also be applied for functions
+  $f: \mathcal O \subseteq \mathbb R^n \to \mathbb R^n$.
+\end{defi}
+%
+\begin{cor}
+  Let $f: (a, b) \to \mathbb R$ be differentiable in $x_0 \in (a, b)$. Then
+  the function
+  \[
+    \varphi(x) = \begin{cases}
+      \frac{f(x) - f(x_0)}{x - x_0} & \text{if } x \in (a, b) \setminus \set{x_0} \\
+      f'(x_0) & \text{if } x = x_0
+    \end{cases}
+  \]
+  $\varphi: (a,b) \to \mathbb R$ and $\varphi$ is continuous in $x_0$.
+
+  Show that $\lim_{x\to x_0} \varphi(x) = \varphi(x_0)$.
+
+  \[ f(x) = f(x_0) + \varphi(x)(x - x_0) \]
+  because $\varphi(x) = \frac{f(x) - f(x_0)}{x - x_0}$ for $x \neq x_0$.
+  $f(x)$ is constant, $\varphi(x)$ is continuous in $x_0$ and $(x - x_0)$ is continuous in $(a, b)$.
+  For $x = x_0$, $f(x) = f(x_0) + \varphi(x)(x - x_0)$ holds as well.
+
+  Therefore all expressions of $f(x_0) + \varphi(x)(x - x_0)$ are continuous in $x_0$,
+  followingly $f$ is continuous in $x_0$.
+\end{cor}
+\index[English]{tangent}
+\index[German]{\foreignlanguage{ngerman}{Tangente}}
+\begin{lemma}
+  Let $f: (a, b) \to \mathbb R$ be differentiable in $x_0 \in (a, b)$.
+  \[ k = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} \]
+  is slope of affine function, which approximates $f$ in $x_0$.
+
+  Plot of this function:
+  \[ y(x) = f'(x_0) (x - x_0) - f(x_0) \]
+  is called \emph{tangent} of $f$ in $x_0$.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{tangent.pdf}
+      \caption{Tangent of $f$ in $x_0$}
+    \end{center}
+  \end{figure}
+\end{lemma}
+
+
 \clearpage
 \begin{otherlanguage}{ngerman}
 \printindex[German]
