@@ -2272,6 +2272,157 @@ is absolute convergent.
   is continuous in $z_0$.
 \end{ex}
 
+\section{Exercise 66}
+\begin{ex}
+  Determine all $a \in \mathbb R$ such that the function is continuous in $\mathbb R$:
+  \[ g: \mathbb R \to \mathbb R \]
+  \[
+    g(x) = \begin{cases}
+      x^3 + 2ax^2 + a^2 & \text{if } x \leq 1 \\
+      ax^2 + \frac{4a^2}{1 + x^2} & \text{if } x > 1
+    \end{cases}
+  \]
+\end{ex}
+
+Let $f(x) = x^3 + 2ax^2 + a^2$ and $h(x) = ax^2 + \frac{4a^2}{1 + x^2}$.
+
+\begin{enumerate}
+  \item $f$ is a polynomial. A polynomial is continuous.
+  \item $g$ is not a polynomial. But $(ax^2) (1 + x^2) + (4a^2)$ is a polynomial.
+    And $\frac{1}{1 + x^2}$ is continuous in $\mathbb R$.
+  \item If the limes of $f$ and $g$ yields the same value at point $x_0$, then the function is continuous at this $x_0$.
+    \begin{align*}
+      \lim_{x \nearrow 1} ax^2 + \frac{4a^2}{1 + x^2}
+        &= a + \frac{4a^2}{2} \\
+        &= a + 2a^2 - a
+    \end{align*}
+    We use:
+    \[ \lim_{n\to\infty} (a_n + b_n) = \lim_{n\to\infty} a_n + \lim_{n\to\infty} b_n \]
+    This holds only if $\lim_{n\to\infty} a_n$ and $\lim_{n\to\infty} b_n$ exist.
+    Furthermore:
+    \[ \lim_{x \searrow 1} ax^2 = a \cdot \lim_{x \searrow 1} x^2 \]
+\end{enumerate}
+
+$g$ is continuous in
+\[ a = \frac{1 \pm \sqrt{5}}{2} \]
+
+Fundamental theorem supporting this solution:
+$f$ is continuous in $x_0$ if and only if $\lim_{x \nearrow x_0} f(k) = \lim_{x \searrow x_0} f(x)$.
+
+Alternative approach: Consider $g(x) - d(x)$ where
+where
+\[
+  d(x) = \begin{cases}
+    x^3 + 2ax^2 + a^2 - (1 + a)^2 & \text{if } x \leq 1 \\
+    ax^2 + \frac{4a^2}{1 + x^2} - a(1 + 2a) & \text{if } x > 1
+  \end{cases}.
+\]
+Then
+\[
+  d_{x \leq 1}(x)
+    = (x^3 - 1) + 2a (x^2 - 1) = (x - 1)[x^2 + x + 1 + 2a(x + 1)]
+\]
+Consider the sequence $d_{x \leq 1} \forall x_n \to 1$. Then
+\[ d_{x \leq 1} \to 0 (3 + 4a). \]
+
+Also
+\[
+  d_{x > 1}(x)
+    = ax^2 + \frac{4a^2}{1 + x^2} - a - 2a^2
+    = (x - 1)(\text{some bounded value})
+\]
+
+\section{Exercise 67}
+\begin{ex}
+  Let $f,g: D \to \mathbb R$ with $D \subseteq \mathbb R$. The functions
+  $\abs{f}: D \to \mathbb R$ and $\max\set{f,g}: D \to \mathbb R$ is defined
+  by
+  \[
+    \forall x \in D: \abs{f}(x) = \abs{f(x)}
+    \qquad \max\set{f, g}(x) = \max\set{f(x), g(x)}
+  \]
+\end{ex}
+
+\subsection{Exercise 67.a: $\abs{f}$ is continuous, then $f$ is continuous}
+%
+Counterexample:
+\[
+  \abs{f} = \begin{cases}
+    \abs{-1} & \text{if } x \leq 0 \\
+    \abs{1} & \text{if } x > 0
+  \end{cases}
+  \Rightarrow \abs{f}(x) = 1
+\]
+Is continuous. But
+\[
+  f(x) = \begin{cases}
+    -1 & \text{if } x \leq 0 \\
+    1 & \text{if } x > 0
+  \end{cases}
+\]
+is not.
+
+\subsection{Exercise 67.b: $f$ and $g$ are continuous, then $\max\set{f, g}$ is continuous}
+%
+We use this definition of $\max\set{f, g}$.
+\[
+  \max_{f,g}(x) =
+    \frac{f(x) + g(x)}{2} + \frac{\abs{f(x) - g(x)}}{2}
+\]
+We know that the addition of two continuous functions is continuous.
+Also the multiplication of a continuous function with a scalar is continuous.
+It is easy to see that also the absolute value of the difference of two continuous
+functions is continuous.
+
+So all involved functions are continuous and therefore $\max_{f,g}$ is also continuous.
+
+\subsection{Exercise 67.c: $fg$ is continuous, then $f$ and $g$ are continuous}
+%
+Counterexample:
+\[
+  f(x) = \begin{cases}
+    1 & \text{if } x = 1 \\
+    0 & \text{otherwise}
+  \end{cases}
+  \qquad
+  g(x) = 0
+\]
+
+$fg(x)$ is continuous, but not $f(x)$.
+
+\section{Exercise 68}
+\begin{ex}
+  Show that the function $h$ is continuous, but not uniformly continuous.
+  \[ h: \mathbb R \to \mathbb R \qquad x \mapsto x^2 \]
+\end{ex}
+
+$f: D \subseteq \mathbb C \to \mathbb C$ is uniformly continuous iff
+\[
+  \forall \varepsilon > 0 \exists \delta > 0:
+  \forall z_0, z_1 \in D \text{ with } \abs{z_1 - z_0} < \delta
+  \Rightarrow \abs{f(z_1) - f(z_0)} < \varepsilon
+\]
+$f: D \subseteq \mathbb C \to \mathbb C$ is continuous iff
+\[
+  \forall \varepsilon > 0 \exists \delta > 0: \forall x \in D
+  \land \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon
+\]
+
+It is not uniformly continuous because \dots \\
+Choose $\varepsilon = 1$ and $\delta$ arbitrary.
+Consider $x_0 = \sqrt{n}$ and $x = \sqrt{n + 1}$.
+%
+\[
+  \abs{x_0 - x} = \abs{\sqrt{n} - \sqrt{n + 1}}
+    = -\sqrt{n} + \sqrt{n + 1} \cdot \frac{\sqrt{n} + \sqrt{n+1}}{\sqrt{n} + \sqrt{n+1}}
+    = \frac{n - n + 1}{\sqrt{n} + \sqrt{n + 1}}
+    \overset{!}{<} \delta
+\]
+
+This holds with $n > \left(\frac12 \delta\right)^2$.
+
+$x^2$ is a polynomial and polynomials are continuous.
+
 \end{document}
 %%% Local Variables:
 %%% mode: latex
