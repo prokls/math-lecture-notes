@@ -5121,13 +5121,254 @@ Using this method to show existence of a value is called
 \enquote{direct method of variation computations}.
 
 \meta{lecture}{8th of January 2016}{Wolfgang Ring}
+%
+Continuity and compactness implies existence of a maximum and minimum.
 
-TODO This lecture is missing
+\enquote{Direct method of calculus of variations} (dt. \foreignlanguage{ngerman}{\enquote{direkte Methode der Variationsrechnung}}).
+
+\begin{theorem}[Intermediate value theorem for continuous functions]
+  Let $f: [a, b] \to \mathbb R$ be continuous with $a \leq b$. Let
+  \begin{align*}
+    m^* &= \max\set{f(x): x \in [a, b]} \\
+    m_* &= \min\set{f(x): x \in [a, b]}
+  \end{align*}
+  $m^*$ and $m_*$ exist because $[a, b]$ is compact (bounded and closed).
+
+  Let $m_* \leq \eta \leq m^*$.
+
+  Then there exists $\xi \in [a, b]$ with $f(\xi) = \eta$.
+  The function $f$ takes any value for some $x$ in $m_*$ and $m^*$.
+  Compare with Figure~\ref{img:zeta-in-ab}.
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/zeta_in_ab_interval.pdf}
+      \caption{$\zeta$ in $[a, b]$}
+      \label{img:zeta-in-ab}
+    \end{center}
+  \end{figure}
+\end{theorem}
+\begin{proof}
+  Let $a_0 \in [a, b]$ such that $f(a_0) = m_*$ and $b_0 \in [a, b]$ such that $f(b_0) = m^*$.
+  Without loss of generality: $a_0 = b_0$.
+  If $a_0 > b_0$ it holds that $\max\set{f(x): x \in [a,b]} = f(b_0) = f(a_0) = \min\set{f(x): x \in [a, b]}$.
+  If $\max = \min$, then $f$ is constant, hence $f(x) = m_* = m^* \quad\forall x \in [a, b]$.
+  \[ m_* = \eta \leq m^* \Rightarrow \eta = m_* = m^* \land f(x) = \eta \quad\forall x \in [a,b] \]
+  Consider $a_0 \leq b_0$. We know, $f(a_0) = m_* \leq \eta \leq m^* = f(b_0)$.
+  We use nested intervals:
+
+  Assume $I_n = [a_n, b_n]$ for $n \in \mathbb N$ was already found with the property $f(a_n) \leq \eta \leq f(b_n)$.
+  Let $m_n = \frac12 (a_n + b_n)$ be the midpoint of $I_n$.
+  \begin{description}
+    \item[Case $f(m_n) \geq \eta$]
+      If $f(m_n) \geq \eta$ we set $b_{n+1} > m_n \land a_{n+1} > a_n$ (compare Figure~\ref{img:am_bm})
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics{img/am_bm.pdf}
+          \caption{Interval $I_{n+1}$}
+        \end{center}
+      \end{figure}
+      and it holds that $f(a_{n+1}) = f(a_n) \leq \eta$ and $f(b_{n+1}) = f(m_n) \geq \eta$.
+      Furthermore $\abs{I_{n+1}} = \frac12 \abs{I_n}$.
+    \item[Case $f(m_n) < \eta$]
+      Let $a_{n+1} = m_n$ and $b_{n + 1} = b_n$.
+      \[ I_{n+1} = [a_{n+1}, b_{n+1}] \]
+      \[ f(a_{n+1}) = f(m_n) < \eta \]
+      \[ f(b_{n+1}) = f(b_n) \geq \eta \]
+      \[ \abs{I_{n+1}} = \frac12 \abs{I_n} \]
+  \end{description}
+  Nested interval $\seq{I_n}$ has the property:
+  \[ I_{n+1} \leq I_n \qquad \abs{I_n} = \left(\frac12\right)^n \cdot \abs{I_0} = \left(\frac12\right)^n \cdot (b_0 - a_0) \]
+  and $f(a_n) \leq \eta \leq f(b_n)$. $\seq{I_n}$ is are nested intervals.
+  Let $\xi \in \bigcap_{n\in\mathbb N} I_n$ and it holds that $\abs{\xi - a_n} \leq \abs{b_n - a_n} = \underbrace{\left(\frac12\right)^n \cdot (b_0 - a_0)}_{\to 0 \text{ for } n \to \infty}$.
+  Therefore $\lim_{n\to\infty} a_n = \xi$ and
+  \[
+    \abs{b_n - \xi} \leq \abs{b_n - a_n}
+    = \underbrace{\left(\frac12\right)^n (b_0 - a_0)}_{\to 0 \text{ for } n \to \infty}.
+  \]
+  So $\lim_{n\to\infty} b_n = \xi$.
+
+  Because $f$ is continuous on $[a, b]$, it holds that
+  \[ \eta \leq f(b_n) \quad\forall n \in \mathbb N \Rightarrow \eta \leq \lim_{n\to\infty} f(b_n) \]
+  \[ \text{continuity } \Rightarrow \lim_{n\to\infty} f(b_n) = f(\xi) \]
+  So,
+  \[ \eta \leq \lim_{n\to\infty} f(b_n) = f(\xi) = \lim_{n\to\infty} f(a_n) \leq \eta. \]
+  Therefore $\eta = f(\xi)$.
+\end{proof}
+\index[English]{Bisection method}
+\index[German]{Bisektionsverfahren}
+\begin{rem}
+  From this we can derive continuity for a numerical algorithm for solving $f(x) = \eta$.
+  It's called \emph{bisection method}.
+\end{rem}
+\begin{rem}
+  Often the intermediate value theorem is defined as:
+
+  Let $\eta$ be between $f(a)$ and $f(b)$. Then there exists $\xi \in [a, b]$
+  such that $f(\xi) > \eta$. Obviously because $m_* \leq f(a)$ and $f(b) \leq m^*$.
+\end{rem}
+\begin{defi}[Limes of a function]
+  Let $D \subseteq \mathbb C$ and $f: D \to \mathbb C$. Let $z$ be a limit point of $D$.
+  We say, that $f$ in $z$ has the limes $w$ if the function
+  \[
+    \hat{f}: D \cup \set{z} \to \mathbb C
+  \] \[
+    \hat{f}(\xi) = \begin{cases}
+      f(\xi) & \text{if } \xi \neq z \\
+      w & \text{if } \xi = z
+    \end{cases}
+  \]
+  is continuous. We denote $\lim_{\xi \to z} f(\xi)$.
+\end{defi}
+\begin{ex}
+  See Figures~\ref{img:cont-ex1}, \ref{img:cont-ex2} and \ref{img:cont-ex3}.
+  \begin{figure}[p]
+    \begin{center}
+      \includegraphics{img/continuity_example_1.pdf}
+      \caption{Example 1 with $D = [a, b] \setminus \set{z}$ and $w = \lim_{\xi \to z} f(\xi)$}
+      \label{img:cont-ex1}
+    \end{center}
+    \begin{center}
+      \includegraphics{img/continuity_example_2.pdf}
+      \caption{
+        Example 2 which defines function new in point $z$ with $D = [a,b]$ and $\lim_{\xi \to z} f(\xi)$.
+        $f$ is not continuous in $z$, but $\hat{f}$ is continuous in $z$.
+      }
+      \label{img:cont-ex2}
+    \end{center}
+  \end{figure}
+  \begin{figure}[p]
+    \begin{center}
+      \includegraphics{img/continuity_example_3.pdf}
+      \caption{
+        Example 3 with $D = [a, b] \setminus \set{z}$.
+        $f$ does not have a limes in $z$. Due to the jumping point, it is not a continuous function.
+        Therefore we cannot find $\varepsilon$.
+        We say $\hat{f}$ is a continuous continuation of $f$ in point $z$.
+      }
+      \label{img:cont-ex3}
+    \end{center}
+  \end{figure}
+\end{ex}
+\begin{lemma}
+  Let $f: D \to \mathbb C$ given and $z$ is a limit point of $D \subseteq \mathbb C$.
+  Then $f$ has a limes $w \in \mathbb C$ if and only if one of the equivalent conditions hold.
+  \begin{itemize}
+    \item
+      $\forall \varepsilon > 0 \exists \delta > 0 \forall \xi \in D:
+      \abs{z - \xi} < \delta
+      \Rightarrow |\underbrace{f(\xi)}_{\hat{f}(\xi)} - \underbrace{w}_{\hat{f}(z)}| < \varepsilon$
+      \begin{center}
+        \enquote{Continuity of $\hat{f}$}
+      \end{center}
+    \item
+      $\forall \seq{\xi}$ with $\xi_n \in D \setminus \set{z}$ and $\lim_{n\to\infty} \xi_n = z$ holds.
+      \[ \lim_{n\to\infty} f(\xi_n) = w \]
+      \begin{center}
+        \enquote{Sequence criterion for $\hat{f}$}
+      \end{center}
+  \end{itemize}
+\end{lemma}
+\begin{ex}
+  $f: \mathbb C \setminus \set{1} \to \mathbb C$ with
+  \[ f(z) = \frac{z^2 - 1}{z - 1} \]
+  For $z \neq 1$ it holds that:
+  \[ f(z) = \frac{(z - 1)(z + 1)}{(z - 1)} = (z + 1) \]
+  Let
+  \[
+    \hat{f}(z) = \begin{cases}
+      f(z) & \text{if } z \neq 1 \\
+      2 & \text{if } z = 1
+    \end{cases}
+  \]
+  $\hat{f}(z) = z + 1$ in $\mathbb C$ is continuous.
+  $f$ has limes $w = 2$ in point $z > 1$.
+\end{ex}
+\begin{ex}
+  Let $s \in \mathbb Q \setminus \set{0}$ and $D = (-1, \infty) \setminus \set{0}$
+  \[ f(x) = \frac{(1 + x)^s - 1}{x} \]
+  It holds that $\lim_{x \to 0} f(x) = s$.
+  \begin{proof}[for $\abs{x} < 1$]
+    \[ (1 + x)^s = \sum_{k = 0}^\infty \binom sk x^k \Rightarrow \frac{(1 + x)^s - 1}{x} \]
+    \[
+      \Rightarrow \frac{(1 + x)^s - 1}{x}
+      = \frac{\sum_{k=1}^\infty \binom sk x^k}{x}
+      = \sum_{k=1}^\infty \binom sk \cdot x^{k-1}
+    \] \[
+      \lim_{x \to 0} \underbrace{\left(
+        \sum_{k=1}^\infty \binom sk x^{k-1}
+      \right)}_{f(x)}
+      = \sum_{k=1}^\infty \binom sk 0^{k-1}
+      = \binom s1 = s
+    \]
+    We need the following theorem: A power series is in its convergence
+    radius a continuous function.
+  \end{proof}
+\end{ex}
+
+\section{Differential calculus}
+%
+Let $f: (a, b) \to \mathbb R$ be given. with $a < b$.
+
+Idea: We want $f$ close to point $x_0 \in (a, b)$
+be approximated by a linear-affine function $a(x) = k(x - x_0) + d$.
+%
+\[ a(x) = k (x - x_0) + d = kx + \underbrace{(-kx_0 + d)}_{\tilde d} = kx + \tilde d \]
+$\tilde a(x) = kx$ is linear. Linear and constant functions are linear affine.
+$a$ should (at least) cross point $x_0$, ie. $f(x_0)$. Compare with Figure~\ref{img:differential}.
+
+\begin{figure}[!t]
+  \begin{center}
+    \includegraphics{img/differential.pdf}
+    \caption{Differential $f$ in $x_0$}
+    \label{img:differential}
+  \end{center}
+\end{figure}
+
+\[ \Rightarrow a(x_0) = k (\underbrace{x_0 - x_0}_{0}) + a \overset!= f(x_0) \Rightarrow d = f(x_0) \]
+\[ \Rightarrow a(x) = k (x - x_0) + f(x_0) \]
+
+How should we select $k$ such that the approximation of $f$ is best possible by selection of $a$.
+We consider the deviation.
+
+\[ f(x) = f(x) - a(x) \]
+
+$r(x)$ should be as small as possible in $x_0$.
+Therefore $\lim_{x \to x_0} r(x) = 0$.
+
+\[ \lim_{x \to x_0} r(x) = \lim_{x \to x_0} [f(x) - f(x_0) - k \cdot (x - x_0)] = 0 \quad\forall k \]
+
+We need: $r(x)$ should converge to $0$ very quickly for $x \to x_0$.
+
+Idea: Require that $\lim_{x \to x_0} \frac{r(x)}{x - x_0} = 0$.
+$\frac1{x - x_0}$ is unbounded close to $x_0$. $\lim_{x \to x_0} \frac{r(x)}{x - x_0} = 0$ means
+$\lim_{x \to x_0} \abs{\frac{r(x)}{x - x_0} - 0} = 0$
+
+\[
+  \Rightarrow \lim_{x \to x_0}
+  \abs{\frac{f(x) - f(x_0) - k \cdot (x - x_0)}{x - x_0}}
+  = \lim_{x \to x_0} \abs{\frac{f(x) - f(x_0)}{x - x_0} - k}
+\]
+Hence,
+\[
+  \Rightarrow k = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+\]
+with
+\[ \lim_{x \to x_0} \frac{r(x)}{x - x_0} = 0, \]
+$k$ is uniquely identified with
+\[ \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} \]
 
 \meta{lecture}{13th of January 2016}{Wolfgang Ring}
 
-TODO: radius.pdf \\
-TODO: another image missing
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/radius.pdf}
+    \caption{Derivative}
+    \label{img:deriv-radius}
+  \end{center}
+\end{figure}
+
+TODO: another figure missing
 
 \[ y = kx + d \]
 \[ d = k \cdot(x_0) - k \cdot x_0 \]
@@ -5386,6 +5627,7 @@ Therefore $p_n$ is differentiable in $x_0$ and $p_n'(x_0) = n x_0^{n-1}$.
   $f$ is called \emph{continuously} differentiable if $f'$ is a continuous function
   on $(a, b)$.
 \end{defi}
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}
