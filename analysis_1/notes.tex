@@ -18,6 +18,8 @@
 \parskip5pt
 \parindent0pt
 
+\theoremstyle{definition}
+
 \newtheorem{theorem}{Theorem}
 \newtheorem{defi}{Definition}
 \newtheorem{rem}{Remark}
@@ -1258,6 +1260,118 @@ Literature:
       \[ \abs{a} = \abs{a - b + b} \leq \abs{a - b} + \abs{b} \Rightarrow \abs{a} - \abs{b} \leq \abs{a - b} \]
   \end{description}
 \end{proof}
+
+\subsection{Irrational numbers approximated by rational numbers}
+%
+Additional remark from 14th of January 2016.
+
+$Q$ is dense in $\mathbb R$.
+
+\begin{theorem}
+  For all $x \in \mathbb R$ and for every $\varepsilon > 0$ there exists $q \in Q$
+  with $\abs{x - q} < \varepsilon$.
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/dense_q.pdf}
+      \caption{$k$ and an $\varepsilon$ environment}
+    \end{center}
+  \end{figure}
+\end{theorem}
+\begin{lemma}
+  Let $A \subseteq \mathbb N$ and $A \neq \emptyset$.
+  Then a minimum of $A$ exists.
+\end{lemma}
+\begin{proof}
+  Proof by complete induction.
+
+  We show: Let $A \subseteq \mathbb N$ such that no minimum exists.
+  Then it holds that $A = \emptyset$.
+
+  Let $C = \setdef{k \in \mathbb N}{\forall n \in A: k < n}$.
+  $C$ is the set of all lower bounds of $A$ with operator $<$.
+  We show: $0 \in C$ and $\forall k \in C \Rightarrow k + 1 \in C$.
+
+  \begin{description}
+    \item[Induction base]
+      Assume $0 \not\in C$, hence for $k = 0$ it holds that
+      \[ \exists n \in A \subset \mathbb N: n \leq 0 \]
+      $\Rightarrow n \geq 0$ anyways and hence $n = 0$ and $0 \in A$.
+      $\Rightarrow 0 = \min{A}$ and $A$ has a minimum.
+
+      This is a contradiction. So $0 \not \in C$ does not hold.
+      So $0 \in C$.
+    \item[Induction step]
+      Let $k \in C$, hence $\forall n \in A: k < n$.
+      \[ \Rightarrow \forall n \in A: k + 1 \leq n \]
+      Even $<$ holds. Assume $\exists n \in A: k + 1 = n$ and
+      $\forall n' \in A: k + 1 \leq n'$.
+      \[ \Rightarrow k + 1 \in A \land k + 1 \text{ is lower bound of } A \]
+      Therefore $k + 1 = \min{A}$.
+
+      This is a contradiction to the assumption that $\min{A}$ does not exist.
+      Therefore $\forall n \in A: k + 1 < n \Rightarrow k + 1 \in C$.
+
+      Due to the workings of induction: $\forall k \in \mathbb N: k \in C$
+      equivalently means $C = \mathbb N$.
+
+      Therefore $A = \emptyset$ holds.
+      Assume $m \in A$, so it holds that $m \not\in C$, because $\neg (m < m)$.
+  \end{description}
+\end{proof}
+
+\begin{proof}
+  Case distinction:
+  \begin{description}
+    \item[$x > 0$]
+      Let $\varepsilon > 0$ be arbitrary.
+      Choose $n \in \mathbb N_+$ such that $\frac1n < \varepsilon$
+      and define $A = \setdef{k \in \mathbb N}{k > n \cdot x}$.
+
+      We know that $A \neq \emptyset$ (Archimedian axiom).
+      Let $M = \min{A}$, then it holds that $m > n \cdot x$ and $m - 1 \leq n \cdot x$.
+      Therefore $x < \frac mn$ and $x \geq \frac{m-1}{n}$.
+      Therefore it holds that
+      \[
+        \abs{x - \frac mn} = \frac mn - x \leq \frac mn - \frac{m-1}{n}
+        = \frac{m - m + 1}{n} = \frac 1n < \varepsilon
+      \]
+      and $\frac mn = q \in \mathbb Q$.
+    \item[$x < 0$]
+      Therefore $-x > 0$ and $\exists q \in \mathbb Q$:
+      \[ \abs{q - (-x)} < \varepsilon \]
+      \[ \abs{x + q} = \abs{x - \underbrace{(-q)}_{\in \mathbb Q}} \]
+    \item[$x = 0$]
+      Let $q = 0 \in \mathbb Q$.
+  \end{description}
+\end{proof}
+\index[English]{dense in $\mathbb R$}
+\index[German]{Dicht in $\mathbb R$}
+\begin{cor}
+  $\forall x \in \mathbb R$ and $\forall \varepsilon > 0$ it holds that
+  \[
+    \mathbb Q \cap B(x, \varepsilon)
+    = \mathbb Q \cap (x - \varepsilon, x + \varepsilon)
+    \neq \emptyset
+  \]
+  Therefore $x$ is a contact point of $\mathbb Q$.
+
+  \textbf{Remark.}
+  It even holds that $x$ is limit point of $\mathbb Q$.
+  \[
+    \overline{\mathbb Q}
+      = \setdef{x \in \mathbb R}{x \text{ is contact point of } \mathbb Q}
+      = \mathbb R
+  \]
+  We say $\mathbb Q$ is \emph{dense} (or: lies in) in $\mathbb R$.
+
+  Alternative characterization of contact points:
+  \[
+    \forall x \in \mathbb R \exists (q_n)_{n \in \mathbb N}
+    \text{ with } q_n \in \mathbb Q
+    \text{ with } \lim_{n \to \infty} q_n = x
+  \]
+\end{cor}
 
 \subsection{Intervals}
 \meta{lecture}{5th of November 2015}{Wolfgang Ring}
@@ -5115,12 +5229,162 @@ TODO: missing a few lines
 
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{tangent.pdf}
+      \includegraphics{img/tangent.pdf}
       \caption{Tangent of $f$ in $x_0$}
     \end{center}
   \end{figure}
 \end{lemma}
 
+\meta{lecture}{14th of Jan 2016}{Wolfgang Ring}
+%
+\begin{theorem}[Convergence, limes and differentiable functions]
+  Let $f: (a, b) \to \mathbb R$ be differentiable in $x_0 \in (a, b)$.
+  Therefore the equivalent defining properties hold.
+  \begin{enumerate}
+    \item $\forall \varepsilon > 0 \exists \delta > 0 \forall x \in (a, b)$
+      with $\abs{x - x_0} < \delta$ and $x \neq x_0$ it holds that
+      $\abs{\frac{f(x) - f(x_0)}{x - x_0} - f'(x_0)} < \varepsilon$.
+      This constitutes a definition of the limes.
+    \item For all $\seq{\xi_n}$ with $\xi_n \in (a, b)$ and $\xi_n \neq x_0$
+      and $\lim_{n\to\infty} \xi_n = x_0$, it holds that
+      \[
+        \left(\frac{f(\xi_n) - f(x_0)}{\xi_n - x_0}\right)_{n\in\mathbb N}
+        \text{ is convergent towards } f'(x_0)
+      \]
+      This is the sequence criterion for the limes.
+    \item For all $\varepsilon > 0$, there exists some $\delta > 0$ such
+      that $\forall x \in (a, b)$ with $\abs{x - x_0} < \delta$ it holds that
+      \[ \abs{f(x) - f(x_0) - f'(x_0)(x - x_0)} \leq \varepsilon \abs{x - x_0} \]
+      holds also for $x = x_0$.
+  \end{enumerate}
+  The (3) implies the (1): Assume (3) holds and
+  choose $\delta$ such that $\forall \abs{x - x_0} < \delta$ it holds that
+  \[
+    \abs{f(x) - f(x_0) - f'(x_0)(x - x_0)}
+    \leq \frac\varepsilon2 \abs{x - x_0}
+    \underbrace{<}_{\text{for } x \neq x_0} \varepsilon \abs{x - x_0}
+    \underbrace{\Rightarrow}_{\text{divide by $x - x_0$}} \text{(1)}
+  \]
+\end{theorem}
+
+\subsection{Derivation of common functions}
+%
+Let $p_n: \mathbb R \to \mathbb R$, $p_n(x) = x^n$. Let $x_0 \in \mathbb R$ and $x \neq x_0$ and $n \in \mathbb N$.
+Then it holds that
+\begin{align*}
+  \frac{p_n(x) - p_n(x_0)}{x - x_0}
+    &= \frac{x^n - x_0^n}{x - x_0} \\
+    &= \frac{(x - x_0) \cdot \sum_{k=0}^{n - 1} x^k x_0^{n-1-k}}{x - x_0} \\
+    &= \sum_{k=0}^{n-1} x^k x_0^{n-1-k} \\
+    &\to_{x \to x_0} \sum_{k=0}^{n-1} x_0^k x_0^{n-1-k} \\
+    &= \sum_{k=0}^{n-1} x_0^{n-1} \\
+    &= n x_0^{n-1}
+\end{align*}
+Therefore $p_n$ is differentiable in $x_0$ and $p_n'(x_0) = n x_0^{n-1}$.
+\[ (x^n)' = nx^{n-1} \qquad \forall n \in \mathbb N \]
+
+\index[English]{Exponential function}
+\index[German]{\foreignlanguage{ngerman}{Exponentialfunktion}}
+\begin{enumerate}
+  \item Let $f(x) = a^x$ with $a > 0$. This function is called
+    \emph{exponential function} with basis $a$. It holds that:
+    \begin{align*}
+      \frac{a^x - a^{x_0}}{x - x_0}
+        &= \frac{a^{x_0} \cdot a^{x - x_0} - a^{x_0}}{x - x_0} \\
+        &= a^{x_0} \cdot \frac{a^{x - x_0} - 1}{x - x_0} \\
+        &\to_{x \to x_0} a^{x_0} \cdot \lim_{x \to x_0} \frac{a^{x - x_0} - 1}{x - x_0} \\
+        \abs{
+          \begin{array}{c}
+            x - x_0 = h \\
+            x \to x_0 \Leftrightarrow h \to 0
+          \end{array}
+        } = a^{x_0} \lim_{h \to 0} \underbrace{\frac{a^h - 1}{h}}_{= c \in \mathbb R}
+    \end{align*}
+    Therefore $\abs{a^x}' = c \cdot a^k$ with $c = \lim_{h\to 0}$.
+    TODO content missing
+
+    In the special case that this constant $h$ is the Eulerian number $e$, it holds that:
+    \[ (e^x)' = e^x \]
+  \item $\log: (0, \infty) \to \mathbb R$ with $e^{\log{x}} = x \;\forall x > 0$
+    or equivalently $\log(e^y) = y \;\forall y \in \mathbb R$.
+    \[
+      \frac{\log{x} - \log{x_0}}{x - x_0}
+      = \frac{\log\frac x{x_0}}{x - x_0}
+      = \frac1{x_0} \frac{\log{\frac{x}{x_0}}}{\frac x{x_0} - 1}
+      \to \frac1{x_0} \cdot \underbrace{\lim_{h\to1} \frac{\log{h}}{h - 1}}_{= 1} = \frac1{x_0}
+    \]
+    Therefore $(\log{x})' = \frac1x$ for $x > 0$.
+\end{enumerate}
+
+\subsection{Derivation laws}
+\index[English]{Product law for derivatives}
+\index[German]{\foreignlanguage{ngerman}{Produktregel for Ableitungen}}
+\begin{theorem}
+  Let $f, g: (a, b) \to \mathbb R$.
+  Let $x_0 \in (a, b)$ and let $f, g$ be differentiable in $x_0$.
+  Then it holds that
+  \begin{itemize}
+    \item $f + g: (a, b) \to \mathbb R$ is differentiable in $x_0$
+      and the derivative is given by $(f + g)'(x_0) = f'(x_0) + g'(x_0)$.
+    \item Let $\lambda \in \mathbb R$. Then it holds that
+      $\lambda \cdot f: (a, b) \to \mathbb R$ is differentiable in $x_0$
+      and it holds that $(\lambda f)'(x_0) = \lambda \cdot (f'(x_0))$.
+    \item Let $f \cdot g: (a, b) \to \mathbb R$ be differentiable and
+      it holds that
+      \[ (f \cdot g)'(x_0) = f'(x_0) \cdot g(x_0) + g'(x_0) \cdot f(x_0) \]
+      This is the so-called \emph{product law for derivatives}.
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  \begin{itemize}
+    \item Addition holds: \[
+        f'(x_0) + g'(x_0)
+          = \lim_{x \to x_0} x - x_0 + \lim_{x \to x_0} \frac{g(x) - g(x_0)}{x - x_0}
+          = \lim_{x \to x_0} \frac{f(x) - f(x_0) + g(x) - g(x_0)}{x - x_0}
+      \] \[
+          = \lim_{x \to x_0} \frac{(f(x) + g(x)) - (f(x_0) + g(x_0))}{x - x_0}
+          = (f + g)'(x_0)
+      \]
+    \item Multiplication with a scalar holds:
+      \[
+        \lambda f'(x_0)
+        = \lambda \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+        = \lim_{x \to x_0} \frac{\lambda f(x) - \lambda f(x_0)}{x - x_0}
+        = (\lambda f)'(x_0)
+      \]
+    \item The product law holds:
+      \[
+        f'(x_0) g(x_0) + f(x_0) g'(x_0)
+      \] \[
+        = g(x_0) \cdot \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+        + \underbrace{f(x_0)}_{= \lim_{x\to x_0} f(x)} \cdot \lim_{x \to x_0} \frac{g(x) - g(x_0)}{x - x_0}
+      \]
+      because $f$ is differentiable and therefore continuous in $x_0$.
+      \[
+        = \lim_{x \to x_0} \frac{g(x_0) f(x) - g(x_0) f(x_0)}{x - x_0}
+        + \lim_{x \to x_0} \frac{f(x) \cdot g(x) - f(x) \cdot g(x_0)}{x - x_0}
+      \] \[
+        = \lim_{x \to x_0} \frac{g(x_0) f(x) - g(x_0) f(x_0) + g(x) f(x) - g(x_0) f(x)}{x - x_0}
+      \] \[
+        = \lim_{x \to x_0} \frac{f(x) \cdot g(x) - f(x_0) g(x_0)}{x - x_0}
+        = (f \cdot g)'(x_0)
+      \]
+  \end{itemize}
+\end{proof}
+%
+\index[English]{differentiable on}
+\index[German]{\foreignlanguage{ngerman}{Differenzierbar auf}}
+\index[English]{derivative function}
+\index[German]{\foreignlanguage{ngerman}{Ableitungsfunktion}}
+\begin{defi}
+  Let $f: (a, b) \to \mathbb R$ be given. Assume $f$ is differentiable
+  in \emph{every} point $x_0 \in (a, b)$, then we call $f$ is \emph{differentiable}
+  \emph{on interval} $(a, b)$. The mapping $f': (a, b) \to \mathbb R$
+  which assigns $x \in (a, b)$ its $f'(x)$, is called \emph{derivative function}.
+
+  $f$ is called \emph{continuously} differentiable if $f'$ is a continuous function
+  on $(a, b)$.
+\end{defi}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
