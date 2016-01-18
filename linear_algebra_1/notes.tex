@@ -6657,7 +6657,8 @@ If $\dim{V} < \infty$, $V \stackrel{\sim}{-} W \Leftrightarrow \dim{V} = \dim{W}
 \begin{proof}
   \begin{enumerate}
     \item $A = 0$, nothing to do
-    \item At least one $a_{ij} \eq 0$ exists, then apply a recursive algorithm:
+    % TODO: verify: \neq
+    \item At least one $a_{ij} \neq 0$ exists, then apply a recursive algorithm:
       \begin{enumerate}
         \item exchange first with $i$-th row and first with $j$-th column.
         \item multiply first row with $\frac1{a_{ij}}$.
@@ -6826,7 +6827,399 @@ If $\dim{V} < \infty$, $V \stackrel{\sim}{-} W \Leftrightarrow \dim{V} = \dim{W}
   Or more to the point: Column and row transformations do not change the rank.
 \end{theorem}
 
+\meta{lecture}{18th of January 2016}{Franz Lehner}
 
+$\operatorname{sig}(A) = \operatorname{zrg}(A) = \operatorname{rk}(A)$
+is the dimension of the column (row) space.
+
+Elementary row and column operations (multiplication with regular matrix from left or (right)):
+\begin{itemize}
+  \item exchange
+  \item addition of a multiple
+  \item permutation matrix
+\end{itemize}
+
+Permutation matrix:
+\[
+  I + \lambda E_{ij} =
+  \begin{bmatrix}
+    1 & \ldots & \ldots & \\
+      & \ddots & \ddots & \\
+    \lambda & \ddots & \ddots & \\
+      & \ddots & \ddots & \\
+      & \ddots & \ddots & 1 \\
+  \end{bmatrix}
+\]
+\begin{itemize}
+  \item Add the $i$-th row to the $j$-th row
+  \item Add the $j$-th column to the $i$-row
+\end{itemize}
+
+\[
+  A \leadsto I_{mn}^* =
+  \begin{matrix}
+    1 &        &   & 0 \\
+      & \ddots &   & 0 \\
+      &        & 1 & 0 \\
+    \underbrace{0}_r & 0      & 0 & 0
+  \end{matrix}
+\]
+with $\operatorname{rk}(A) = r$.
+
+\begin{theorem}
+  \[ A \in K^{n\times m}, B \in K^{m \times p} \to A \cdot B \in K^{n\times p} \]
+  \[ \operatorname{rank}(A \cdot B) \leq \min(\operatorname{rank}(A), \operatorname{rank}(B)) \]
+\end{theorem}
+\begin{proof}
+  \[ \operatorname{im}(AB) \subseteq \operatorname{im}(A) \]
+  \[ (f(g(X))) \subseteq f(Y) \]
+  \[ K^P \to K^m \to K^n \]
+  \[ \Rightarrow \dim{\image(AB)} \leq \dim{\image(A)} \]
+  \[ \Rightarrow \operatorname{rk}(AB) \leq \operatorname{rk}(A) \]
+  \[ \operatorname{rk}(A\cdot B) = \operatorname{rk}\left((A\cdot B)^T\right) = \operatorname{rk}(B^T \cdot A^T) \leq \operatorname{rk}(B^T) = \operatorname{rk}(B) \]
+\end{proof}
+
+\begin{theorem}
+  \label{satz-6.30}
+  Equivalent matrices have the same rank.
+  If $B = P A Q$ with $B \in K^{m\times n}$ and $A = K^{n\times m}$,
+  then $\operatorname{rk}(A) = \operatorname{rk}(B)$.
+  \[ P \in \operatorname{GL}(m, K) \qquad Q \in \operatorname{GL}(n, K) \]
+\end{theorem}
+\begin{proof}
+  Let $A' = P \cdot A \Rightarrow \operatorname{rk}(A') \leq \operatorname{rk}(A)$. \\
+  $P$ invertible $\Rightarrow A = P^{-1} \cdot A^{-1} \Rightarrow \operatorname{rk}(A) \leq \operatorname{rk}(A')$.
+
+  So $\operatorname{rk}(A) = \operatorname{A'}$.
+
+  \[ A' = A' \cdot Q \Rightarrow \operatorname{rk}(A') = \operatorname{rk}(A) \]
+\end{proof}
+
+\begin{cor}
+  \label{korollar-6.31}
+  Elementary row and column operations do not change the rank of the matrix.
+\end{cor}
+\begin{rem}
+  \label{bemerkung-3.32}
+  Especially at the end of operations from Theorem~\ref{satz-6.24},
+  always the same number of ones is left (i.e. $r = \operatorname{rank}(A)$);
+  Independent of the order of the steps.
+\end{rem}
+\begin{cor}
+  \label{korollar-6.33}
+  Two matrices $A,, B \in K^{m\times n}$ are equivalent iff $\operatorname{rk}(A) = \operatorname{rk}(B)$.
+
+  (There are $mm(m,n) + 1$ equivalence classes)
+\end{cor}
+
+\begin{proof}
+  Consider Theorem~\ref{satz-6.30}.
+  \[ \operatorname{rk}(A) = a \leq \operatorname{rk}(B) \]
+  \[ \Rightarrow \bigvee_{P,Q \text{ invertible}} P \cdot A \cdot Q = I_{m,n}^{(r)} \Rightarrow A \sim I_{m,n}^{(r)} \sim B \]
+  \[ \bigvee_{P', Q' \text{ invertible}} P' \cdot B \cdot Q' = I_{m,n}^{(r)} \]
+
+  \[ A \in K^{m\times n} \Rightarrow \operatorname{rk}(A) \in \set{0, \ldots, \min(m,n)} \]
+\end{proof}
+
+\begin{theorem}
+  \label{satz-6.34}
+  $A \in K^{m\times n}$ is regular if and only if $\operatorname{rk}(A) = n$.
+\end{theorem}
+\begin{proof}
+  \[ \operatorname{rk}(A) = \operatorname{rk}(A^{-1} \cdot A) \]
+  \[ \left[ A \sim A^{-1} \cdot A = I_n \right] \]
+  \[ \left[ P \cdot A \cdot I \right] \]
+  \[ = \operatorname{rk}(I_n) = n \]
+
+  \[
+    \operatorname{rk}(A) = n = \operatorname{rk}(I_n)
+    \xRightarrow{\text{Corollary~\ref{korollar-6.33}}}
+    A \sim I_n \Rightarrow
+    \bigvee_{P,Q \in \operatorname{GL}(n,K)} A
+    = P \cdot I_n \cdot Q
+    = P \cdot Q \in \operatorname{GL}(n, K)
+  \]
+  \[ \Rightarrow A \text{ is regular} \]
+
+  Regular $A$ is equivalent to $I_n$ by row operations from left and column operations from right.
+\end{proof}
+%
+\begin{cor}
+  \label{korollar-6.35}
+  Every regular matrix can be written as product of elementary transformation matrices.
+  \[ L_i \cdot \ldots \cdot L_1 \cdot A \cdot R_1 \cdot \ldots \cdot R_l = I_n \]
+  \[ A = L_1^{-1} \cdot L_{2}^{-1} \cdot \ldots \cdot L_r^{-1} \cdot I_n \cdot R_l^{-1} \ldots R_{1}^{-1} \]
+\end{cor}
+%
+\begin{cor}
+  \label{korollar-6.36}
+  Every regular matrix can be transformed into the unit matrix (only!) by elementary row operation.
+\end{cor}
+\begin{proof}
+  The matrices $L$ and $R$ have the same structure,
+  particularly permutation matrices $I + \lambda E_{ij}$.
+
+  \[ A = L_1^{-1} \cdot L_2^{-1} \ldots L_n^{-1} \cdot R_l^{-1} \ldots R_1^{-1} \cdot I_n \]
+  \[ L_k \ldots L_2 L_1 A = R_l^{-1} \ldots R_1^{-1} \cdot I_n \]
+  \[ R_1 \cdot R_2 \cdot \underbrace{R_l L_n L_{n-1} \ldots L_2 L_1}_{\text{only row operations}} \cdot A = I_n \]
+  \[ \text{ and } A^{-1} = R_1 R_2 \ldots R_l L_k \ldots L_1 \]
+
+  Algorithm:
+  \begin{tabular}{r|l}
+      $A$ & $I_n$ \\
+      $L_1 \cdot A$ & $L_1$ \\
+      $L_2 \cdot L_1 \cdot A$ & $L_2 L_1$ \\
+      $\vdots$ & $\vdots$ \\
+      $R_1 \ldots L_1 A = I_n$ & $A^{-1}$
+  \end{tabular}
+\end{proof}
+\begin{ex}
+  \label{beispiel-6.37}
+  We are only allowed to use row operations!
+  \begin{center}
+    \begin{tabular}{ccc|ccc}
+      0 & -1 & 1 & 1 &   & \\
+      2 &  0 & 1 &   & 1 & \\
+      3 &  1 & 1 &   &   & 1 \\
+    \hline
+      2 &  0 & 1 &  0 & 1 & 0 \\
+      0 & -1 & 1 &  1 & 0 & 0 \\
+      3 &  1 & 1 &  0 & 0 & 1 \\
+    \hline
+      1 &  0 & $\frac12$ & 0 & $\frac12$ & 0 \\
+      0 & -1 & 1 & 1 & 0 & 0 \\
+      3 & 1 & 1 & 0 & 0 & 1 \\
+    \hline
+      1 & 0 & $\frac12$ & 0 & $\frac12$ & 0 \\
+      0 & -1 & 1 & 1 & 0 & 0 \\
+      0 & 1 & $\frac12$ & 0 & $-\frac32$ & 1
+    \end{tabular}
+  \end{center}
+  % TODO: verify
+  The operations we applied are given with $L_1$, $L_2 = L_1$, $L_3 = L_2 \cdot L_1$.
+
+  \[
+    L_2 = \begin{matrix}
+      \frac12 &   & \\
+              & 1 & \\
+              &   & 1
+    \end{matrix}
+    \qquad
+    L_3 = \begin{matrix}
+      1  &   & \\
+         & 1 & \\
+      -3 &   & 1
+    \end{matrix}
+    \qquad
+    L_1 = \begin{matrix}
+      1 &    & \\
+        & -1 & \\
+        &    & 1
+    \end{matrix}
+  \]
+  \[ A \cdot A^{-1} = I \]
+
+  We continue:
+  \begin{tabular}{ccc|ccc}
+      1 & 0 & $\frac12$ & 0 & $\frac12$ & 0 \\
+      0 & 1 & -1 & -1 & 0 & 0 \\
+      0 & 1 & $-\frac12$ & 0 & $-\frac32$ & 1 \\
+    \hline
+      1 & 0 & $\frac12$ & 0 & $\frac12$ & 0 \\
+      0 & 1 & -1 & -1 & 0 & 0 \\
+      0 & 0 & $\frac12$ & 1 & $-\frac32$ & 1 \\
+      1 & 0 & $\frac12$ & 0 & $\frac12$ & 0 \\
+      0 & 1 & -1 & -1 & 0 & 0 \\
+      0 & 0 & 1 & 2 & -3 & 2
+  \end{tabular}
+  \[
+    L_5 = \begin{bmatrix}
+      1 &    & \\
+        &  1 &  \\
+        & -1 & 1
+    \end{bmatrix}
+  \]
+
+  Hence the inverse matrix is given with
+  \[
+    \begin{pmatrix}
+      -1 & 2 & -1 \\
+       1 & -3 & 2 \\
+       2 & -3 & 2
+    \end{pmatrix}
+    = A^{-1}
+  \]
+\end{ex}
+
+\begin{theorem}
+  \label{lemma-6.38}
+  Let $A \in K^{n\times m}$ and $B \in K^{m\times p}$ ($\det(AB) \leq \det(A)$).
+  Then it holds that
+  \begin{itemize}
+    \item $\image(AB) \leq \image(A)$
+      \[ L(s_1(AB), \ldots, S_p(AB)) \subseteq L(s_1(A), \ldots, s_m(A)) \]
+      If $B$ is regular, then it holds that $(AB) = \image(A)$.
+    \item Analogous for rows:
+      \[ \text{rows of } (AB) \subseteq \text{rows of } (B) \]
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  % TODO: verify
+  \[ \image(f_A \cdot f_B) \subseteq \image(f_A) \]
+  All columns of $A\cdot B$ are in column space of $A$.
+  \[ s_j(A \cdot B)_i = (A\cdot B)_{ij} = \sum_{k=1}^m a_{ik} b_{kj} \]
+  \[ \Rightarrow s_j(AB) = \sum_{k=1}^m s_k(A) b_{kj} \in L(s_1(A), \ldots, s_m(A)) \]
+  If $B$ is regular:
+  \[ \image(A) = \image(A \cdot B \cdot B^{-1}) \subseteq \image(A \cdot B) \]
+  \[ \image(A' \cdot B') \subseteq \image(A') \]
+\end{proof}
+\begin{cor}
+  \label{korollar-6.35}
+  Elementary column transformations do not change the column space.
+  Elementary row transformations do not change the row space.
+\end{cor}
+
+\begin{theorem}[Method for determiner of a basis of a column space of a matrix]
+  Use column transformations to achieve a lower triangular matrix.
+  This lower triangular matrix is also the basis of the column space of the original matrix
+  (because the matrix does not semantically change after column transformations).
+\end{theorem}
+\begin{ex}
+  \label{beispiel-6.41}
+  Determine the basis of
+  \[
+    L\left(\set{
+      \begin{pmatrix} 1 \\ 1 \\ 1 \\ 0 \end{pmatrix},
+      \begin{pmatrix} 0 \\ 0 \\ 1 \\ -2 \end{pmatrix},
+      \begin{pmatrix} 1 \\ 2 \\ 0 \\ 0 \end{pmatrix},
+      \begin{pmatrix} 0 \\ -1 \\ 1 \\ 0 \end{pmatrix},
+      \begin{pmatrix} 2 \\ 1 \\ 2 \\ 2 \end{pmatrix}
+    }\right)
+  \]
+
+  We compute,
+  \[
+    \image\left(
+      \begin{pmatrix}
+        1 & 0 & 1 & 0 & 2 \\
+        1 & 0 & 2 & -1 & 1 \\
+        1 & 1 & 0 & 1 & 2 \\
+        0 & -2 & 0 & 0 & 2
+      \end{pmatrix}
+    \right) = \image\left(
+      \begin{pmatrix}
+        1 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 1 & -1 & -1 \\
+        1 & 1 & -1 & 1 & 0 \\
+        0 & -2 & 0 & 0 & 2 \\
+      \end{pmatrix}
+    \right)
+  \] \[
+    = \image\left(
+      \begin{pmatrix}
+        1 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 0 & -1 & -1 \\
+        1 & 1 & 1 & 1 & 0 \\
+        0 & 0 & -2 & 0 & 2 \\
+      \end{pmatrix}
+    \right) = \image\left(
+      \begin{pmatrix}
+        1 & 0 & 0 & 0 & 0 \\
+        1 & 1 & 0 & 0 & 0 \\
+        1 & -1 & 1 & 0 & -1 \\
+        0 & 0 & -2 & 0 & 2 \\
+      \end{pmatrix}
+    \right)
+  \] \[
+    = \image\left(
+      \begin{pmatrix}
+        1 & 0 & 0 & 0 & 0 \\
+        1 & 1 & 0 & 0 & 0 \\
+        1 & -1 & 1 & 0 & 0 \\
+        0 & 0 & -2 & 0 & 0 \\
+      \end{pmatrix}
+    \right)
+  \]
+  The lower left triangular matrix of the most-right matrix
+  is the basis of $U$.
+
+  With
+  \[
+    R_1 = \begin{pmatrix}
+       1 & 0 & 0 & 0 & 0 \\
+       0 & 1 & 0 & 0 & 0 \\
+      -1 & 0 & 1 & 0 & 0 \\
+       0 & 0 & 0 & 1 & 0 \\
+      -2 & 0 & 0 & 0 & 1
+    \end{pmatrix}
+  \]
+\end{ex}
+
+Applying only row transformations is the same as applying as only column transformations to the transposed matrix.
+
+\index[English]{Homogeneous linear equation system}
+\index[German]{\foreignlanguage{ngerman}{Homogenes lineares Gleichungssystem}}
+\index[English]{Inhomogeneous linear equation system}
+\index[German]{\foreignlanguage{ngerman}{Inhomogenes lineares Gleichungssystem}}
+\begin{theorem}[Linear equation systems]
+  \[ Ax = b \qquad A \in K^{m\times n}, b \in K^m \]
+  If $b=0$, then the system is called \emph{homogeneous}. Otherwise \emph{inhomogeneous}.
+\end{theorem}
+\begin{rem}
+  If $A$ is invertible, then $x = A^{-1} b$ is the distinct solution
+  \begin{itemize}
+    \item holds for every $b$
+    \item the solution is distinct.
+  \end{itemize}
+\end{rem}
+\begin{theorem}
+  \label{satz-6.43}
+  \[ A \in K^{m\times n}, b \in K^m \]
+  Then it holds equivalently,
+  \begin{itemize}
+    \item $Ax = b$ is solvable.
+    \item $b \in \image{f_A}$
+    \item $\operatorname{rk}(A) = \operatorname{A | b}$
+      where $A | b$ is the extended matrix
+      \[
+        \begin{pmatrix}
+          a_{11} & \ldots & a_{1n} & b_1 \\
+          \vdots & \ddots & \vdots & \vdots \\
+          a_{m1} & \ldots & a_{mn} & b_m
+        \end{pmatrix}
+      \]
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item Then $Ax = b$ is solvable.
+      \begin{align*}
+        \Leftrightarrow & \bigvee_{x \in K^n} Ax = b \\
+        \Leftrightarrow & \bigvee_{x \in K^n} f_A(x) = b \\
+        \Leftrightarrow & b \in f_A(K^n) = \image{f_A} & \text{(2.)}\\
+        \Leftrightarrow & b \in L(s_1(A), \ldots, s_n(A)) \\
+        \Leftrightarrow & L(s_1(A), \ldots, s_n(A), b) = L(s_1(A), \ldots, s_n(A)) \\
+        \Leftrightarrow & \dim{L(s_1(A), \ldots, s_n(A), b)} = \dim{L(s_1(A), \ldots, s_n(A))} \\
+        \Leftrightarrow & \operatorname{rk}(A|b) = \operatorname{rk}(A)
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-6.44}
+  \begin{itemize}
+    \item Let $A \in K^{m\times n}$. \\
+      The solution set of the homogeneous equation system
+      \[ Ax = 0 \]
+      is a subspace with $\dim(L) = n - \operatorname{rk}(A)$.
+    \item For every subspace $U \subseteq K^n$ with $\dim{U} = r$
+      and for all $m \geq n - r$ t holds that a matrix $A \in K^{m \times n}$
+      exists such that $U = \setdef{x}{Ax = 0}$ ($A$ is not distinct).
+    \item $L = \setdef{x}{Ax = b}$ is linear manifold.
+      \[ L = x_0 + \setdef{x}{Ax = 0} \]
+      where $x_0$ is a solution in $Ax = b$.
+  \end{itemize}
+\end{theorem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

@@ -5582,6 +5582,7 @@ Therefore $p_n$ is differentiable in $x_0$ and $p_n'(x_0) = n x_0^{n-1}$.
     \item Addition holds: \[
         f'(x_0) + g'(x_0)
           = \lim_{x \to x_0} x - x_0 + \lim_{x \to x_0} \frac{g(x) - g(x_0)}{x - x_0}
+      \] \[
           = \lim_{x \to x_0} \frac{f(x) - f(x_0) + g(x) - g(x_0)}{x - x_0}
       \] \[
           = \lim_{x \to x_0} \frac{(f(x) + g(x)) - (f(x_0) + g(x_0))}{x - x_0}
@@ -5627,6 +5628,247 @@ Therefore $p_n$ is differentiable in $x_0$ and $p_n'(x_0) = n x_0^{n-1}$.
   $f$ is called \emph{continuously} differentiable if $f'$ is a continuous function
   on $(a, b)$.
 \end{defi}
+
+\meta{lecture}{15th of Jan 2015}{Wolfgang Ring}
+%
+Exam date: 4th February 2016 14:00.
+
+% TODO: figure tangent_through_two_lines.pdf
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/slopes.pdf}
+    \caption{Slopes and tangents of two functions}
+    \label{img:slopes-and-tangents}
+  \end{center}
+\end{figure}
+
+\index[English]{Right-sided derivative}
+\index[German]{\foreignlanguage{ngerman}{Rechtsseitige Ableitung}}
+\index[English]{Left-sided derivative}
+\index[German]{\foreignlanguage{ngerman}{Linksseitige Ableitung}}
+\begin{rem}
+  Let $D \subseteq \mathbb R$ and let $x_0 \in D$ be limit point of $D$.
+  Then the function
+  \[ \varphi(x) = \frac{f(x) - f(x_0)}{x - x_0} \text{ in } D \setminus \set{x_0} \]
+  can be investigated and the question of existence of a limes of $\varphi$ (theoretically) answered.
+
+  Therefore the function $f: [a, b] \to \mathbb R$ can be discussed in term of convergence
+  and $f'(a)$ and $f'(b)$ can  be defined (under the assumption that the limes exists)
+  \[ k = \lim_{x \to a} \frac{f(x) - f(a)}{x - a} \Leftrightarrow \forall \seq{\xi}, \min{\xi_n} \geq a, \lim_{n\to\infty} \xi_n = a \]
+  \[ \Rightarrow \lim_{n\to\infty} \frac{f(\xi_n) - f(a)}{\xi_n - a} = k \]
+
+  The derivative in $a$ is \emph{right-sided}.
+  The derivative in $b$ is \emph{left-sided}.
+\end{rem}
+\begin{rem}
+  Functions that are not differentiable:
+  \begin{itemize}
+    \item $f(x) = x$ is not differentiable in $x = 0$.
+      \begin{proof}
+        Let $\varepsilon_1 = \frac1n$.
+        \[
+          \lim_{n\to\infty} \frac{f(\xi_n) - f(0)}{\xi_n - 0}
+          = \lim_{n\to\infty} \frac{\abs{\frac 1n} - \abs{0}}{\frac1n - 0} = 1
+          \overset{n\to\infty}{\to} 1
+        \]
+        \begin{center}
+          \enquote{right-sided limes}
+        \end{center}
+        Let $\eta_n = -\frac1n$.
+        \[
+          \lim_{n\to\infty} \frac{f(\eta_n) - f(0)}{\eta_n - 0}
+          = \frac{\abs{-\frac1n} - 0}{-\frac1n - 0}
+          = \frac{\frac1n}{-\frac1n}
+          = -1
+          \overset{n\to\infty} -1
+        \]
+        \begin{center}
+          \enquote{left-sided limes}
+        \end{center}
+        Therefore limes of $f(\xi_n)$ and $f(\eta_n)$ are different even though
+        both sequences $\seq{\xi_n}$ and $\seq{\eta_n}$ have the same limes.
+        Therefore it is not differentiable in $x = 0$.
+      \end{proof}
+    \item Consider $g: [a, b] \to \mathbb R$ with $g(x) = \sqrt{x}$.
+      Claim: $g$ is not differentiable in $x = 0$.
+      \begin{proof}
+        Let $\seq{\xi}$ and $\xi_n = \frac1n \Rightarrow \lim_{n\to\infty} \xi_n = 0$.
+        \[
+          \frac{g(\xi_n) - g(0)}{\xi_n - 0}
+          = \frac{\sqrt{\frac1n} - \sqrt{0}}{\frac1n - 0}
+          = \frac{\frac{1}{\sqrt{n}}}{\frac1n}
+          = \frac{n}{\sqrt{n}}
+          = \sqrt{n}
+        \]
+        $\seq{\sqrt{n}}$ is unbounded, therefore not convergent.
+      \end{proof}
+  \end{itemize}
+\end{rem}
+
+\subsection{Computing with the limes of functions}
+
+We actually used that already (for example, when proving the product law for derivatives).
+
+\begin{theorem}
+  Let $f, g: D \to \mathbb C$ with $d \subseteq \mathbb C$.
+  Let $z_0 \in \mathbb C$ be limit point of $D$ and $f$ has limes $a \in \mathbb C$ in $z_0$
+  and $g$ has limes $b$ in $z_0$.
+  Then
+  \begin{itemize}
+    \item $(f + g)$ has limes $a + b$ in $z_0$.
+    \item $(f \cdot g)$ has limes $a \cdot b$ in $z_0$
+    \item If $g(z) \neq 0 \quad\forall z \in D$ and $b \neq 0$,
+      then $\frac{f}{g}$ has the limes $\frac ab$ in $z_0$.
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  Sequence criterion and laws for convergent sequences.
+  Let $\seq{\xi}$ and $\xi_n \in D$ and $\lim_{n\to\infty} \xi_n = z_0$.
+  Because $f$ has limes $a$ and $g$ has limes $b$, it holds that
+  \[ \lim_{n\to\infty} f(\xi_n) = a \land \lim_{n\to\infty} g(\xi_n) = b \]
+  Due to the laws for convergent sequences:
+  \[ \underbrace{\lim_{n\to\infty} f(\xi_n) + \lim_{n\to\infty} g(\xi_n)}_{a + b} \]
+  \[
+    = \lim_{n\to\infty} \left(f(\xi_n) + g(\xi_n)\right)
+    = \lim_{n\to\infty} (f + g)(\xi_n)
+  \]
+  Therefore $\lim_{\xi \to z_0} (f + g)(\xi) = a + b$.
+
+  The proofs work analogously for $\cdot$ and $/$.
+\end{proof}
+
+\subsection{Other equivalent definitions of differential calculus}
+%
+\begin{theorem}
+  \[ f: [a,b] \to \mathbb R \text{ or } f: (a, b) \to \mathbb R \]
+  In general, let $I$ be an interval, $f: I \to \mathbb R$
+  and $x_0 \in I$. Then $f$ is differentiable in $x_0$ if and only if
+  there exists $\varphi: I \to \mathbb R$ such that $\varphi$ is continuous in $x_0$
+  and $f(x) = f(x_0) + \varphi(x)(x - x_0)$.
+
+  If $\varphi$ exists with such properties, $f'(x_0)$ = $\varphi(x_0)$.
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[$\Leftarrow$]
+      Let $x \neq x_0$, $x \in I$ and it holds that $f(x) = f(x_0) + \varphi(x)(x - x_0)$, then
+      \[ \varphi(x) = \frac{f(x) - f(x_0)}{x - x_0} \]
+      because $\varphi$ is continuous, there exists some limes
+      \[ \lim_{x \to x_0} \varphi(x) = \varphi(x_0) \]
+      Hence $f$ is differentiable and $f'(x_0)$.
+    \item[$\Rightarrow$]
+      Let $f$ be differentiable. Then we define
+      \[
+        \varphi(x) = \begin{cases}
+          \frac{f(x) - f(x_0)}{x - x_0} & \text{if } x \neq x_0 \\
+          f'(x_0) & \text{if } x = x_0
+        \end{cases}
+      \]
+      then $\varphi$ is continuous in $x_0$ and
+      \[ f(x) = f(x_0) + \varphi(x)(x - x_0) \text{ for } x \neq x_0 \]
+      \[ f(x_0) = f(x_0) + \varphi(x_0)\underbrace{(x_0 - x_0)}_{0} \text{ for } x = x_0 \]
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  Let $J, I$ be intervals.
+  \[ f: I \to J \]
+  \[ g: J \to \mathbb R \]
+  $f$ is differentiable in $x_0 \in I$ and let $g$ be differentiable in $y_0 = f(x_0)$.
+  Then $g \circ f: I \to \mathbb R$ is differentiable in $x_0$ and it holds that
+  \[ (g \circ f)'(x_0) = g'(y_0) \cdot f'(x_0) = g'(f(x_0)) \cdot f'(x_0) \]
+\end{theorem}
+\begin{proof}
+  $f$ is differentiable implies $\exists \varphi: I \to \mathbb R$ is continuous
+  in $x_0$ with $f(x) = f(x_0) + \varphi(x)(x - x_0)$.
+
+  $g$ is differentiable implies $\exists \psi: J \to \mathbb R$ with $g(y) = g(y_0) + \psi(y)(y - y_0)$
+  is continuous.
+
+  Let $y \in f(I)$, hence $y = f(x)$ and $y_0 = f(x_0)$.
+  It follows (due to the previous theorems) that
+  \[ g(f(x)) = g(f(x_0)) + \psi(f(x))\underbrace{\left(f(x) - f(x_0)\right)}_{\varphi(x)(x - x_0)} \]
+  \[ = g(f(x_0)) + \psi(f(x)) \varphi(x) (x - x_0) \]
+  \[ g \circ f(x) = g \circ f(x_0) + (\psi \cdot f)(x) \cdot \varphi (x) \cdot (x - x_0) \]
+  \[ \vartheta(x) = \psi \circ f(x) \cdot \varphi(x) \]
+  with $\vartheta: I \to \mathbb R$ and $f$ is continuous in $x_0$, because
+  it is differentiable, $\psi$ is continuous in $y_0 = f(x_0)$ and $\varphi$ is continuous in $x_0$.
+  Therefore $\vartheta$ is continuous in $x_0$ and
+  $g \circ f(x) = g \circ f(x_0) + \vartheta (v) (x - x_0)$.
+  Therefore $g \circ f$ is differentiable in $x_0$
+  and
+  \[
+    (g \circ f)'(x_0)
+    = \vartheta(x_0)
+    = \underbrace{\psi(f(x_0))}_{g'(f(x_0))} \cdot \underbrace{\varphi(x_0)}_{f'(x_0)}.
+  \]
+\end{proof}
+%
+\begin{ex}
+  \[ f: \mathbb R \to \mathbb R^+, f(x) = x^2 \]
+  \[ g: \mathbb R \to \mathbb R, g(x) = e^x \]
+  \[ g \circ f: \mathbb R \to \mathbb R \]
+  \[ g \circ f(x) = e^{f(x)} = e^{x^2} \]
+  \[ (g \circ f)'(x_0) = g'(f(x_0)) \cdot f'(x_0) \]
+  \[ g'(y) = e^y, g'(f(x_0)) = e^{f(x_0)} = e^{x_0^2} \]
+  \[ f'(x_0) = 2x_0 \]
+  \[
+    (e^{x^2})' = \underbrace{e^{x^2}}_{\text{outer derivative}} \cdot
+    \underbrace{2x}_{\text{inner derivative}}
+  \]
+
+  \[ f \circ g: \mathbb R \to \mathbb R \]
+  \[ (f \circ g)(x) = (e^x)^2 \]
+  \[ (f \circ g)'(x) = \underbrace{f'(g(x))}_{2(y(x)) = 2e^x} \circ \underbrace{g'(x)}_{=e^x} \]
+  \[ \Rightarrow 2 \cdot e^x \cdot e^x = 2e^{2x} \]
+\end{ex}
+
+\begin{ex}
+  We decompose this function $h$.
+  \[ h(x) = \cos(\sqrt{x^2 + 1}) \]
+  \[ h(x) = g \circ f(x) \]
+  So we either get
+  \[ g(y) = \cos(\sqrt{y}) \]
+  \[ f(x) = x^2 + 1 \]
+  or
+  \[ g(y) = \cos(y) \]
+  \[ f(x) = \sqrt{x^2 + 1} \]
+  Both are correct. Not the second decomposition is way more useful.
+\end{ex}
+
+\begin{theorem}
+  Consider $r: \mathbb R \setminus \set{0} \to \mathbb R$
+  and $r(x) = \frac1x$. Then it holds that $r$ is differentiable
+  for all $x_0 \neq 0$ and $r'(x_0) = -\frac1{x_0^2}$.
+\end{theorem}
+\begin{proof}
+  \[ \lim_{x \to x_0} \frac{\frac1x - \frac1{x_0}}{x - x_0} = \lim_{x \to x_0} \frac{\frac{x_0 - x}{x - x_0}}{x - x_0} \]
+  \[ = -\lim_{x \to x_0} \frac1{x - x_0} \]
+  \[ = \frac1{x_0^2} \]
+\end{proof}
+
+\begin{theorem}
+  Let $g: I \to \mathbb R$ with $g(x) \neq 0 \quad\forall x \in I$ where $I$ is an interval.
+  Let $g$ be differentiable in $x_0 \in I$. Then $\frac1{g}: I \to \mathbb R$ is differentiable in $x_0$
+  and it holds that $\left(\frac1{g}\right)'(x_0) = -\frac{g'(x_0)}{(g(x_0))^2}$.
+
+  Furthermore let $f: I \to \mathbb R$ differentiable in $x_0$. Then the quotient
+  $\left(\frac{f}{g}\right)$ is differentiable in $x_0$ and it holds that
+  \[
+    \left(\frac{f}{g}\right)'(x_0) = \frac{f'(x_0) g(x_0) - g'(x_0) f(x_0)}{(g(x_0))^2}
+  \]
+  \begin{center}
+    \enquote{Quotient law}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  To be done rigurously next Wednesday.
+
+  Idea: $\frac1{g} = r \circ g$ and quotient law
+  \[ \frac fg = f \cdot \frac1g \]
+\end{proof}
+
 
 
 \clearpage
