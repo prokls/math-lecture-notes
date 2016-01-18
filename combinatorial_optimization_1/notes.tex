@@ -1837,7 +1837,7 @@ Total runtime (for $u_e \in \mathbb{Z}_+ \fall e \in E(G):$
 \subsection[Edmonds and Karp algorithm]{Edmonds and Karp algorithm (E\&K)}
 \label{ch-4.3}
 %
-This algorithm distinguishes from F\&F only by the selection of the \gath st: In every iteration $i$ a shortest \gath st $P_2$ in $G_{f_i}$ is selected (shortest in terms of number of edges).
+This algorithm distinguishes from F\&F only by the selection of the \gath st: In every iteration $i$ a shortest \gath st $P_i$ in $G_{f_i}$ is selected (shortest in terms of number of edges).
 
 \begin{algorithm}
   \caption{Edmonds and Karp algorithm}
@@ -2905,7 +2905,8 @@ Fibonacci heaps with key $-\alpha(v)$.
 
 \section{Flows with minimum costs}
 %
-\textbf{Definition.}
+\index{b-flow}
+\begin{definition}[$b$-flow, offering / demanding vertex]
   Let $G$ be a digraph.
   \[ u: E(G) \rightarrow \mathbb{R}_+ \qquad c: E(G) \rightarrow \mathbb{R} \]
   Let $b: V(G) \rightarrow \mathbb{R}$ with $\sum_{v \in V(G)} b(v) = 0$.
@@ -2919,8 +2920,10 @@ Fibonacci heaps with key $-\alpha(v)$.
   \]
   hold.
 
-A $v$ with $b(v) > 0$ is called ``offering vertex''.
-A $v$ with $b(v) < 0$ is called ``demanding vertex''.
+  A $v$ with $b(v) > 0$ is called \enquote{offering vertex}.
+  A $v$ with $b(v) < 0$ is called \enquote{demanding vertex}.
+\end{definition}
+
 
 \subsection{Minimum cost flow problem (MCFP/MKFP)}
 %
@@ -3045,7 +3048,7 @@ Let $f$ be a $b$-flow. $G_f$ is defined analogously like in the max-flow problem
 \]
 
 \textbf{Definition.}
-  Let $G$ be a diagraph with capacity $u: E(G) \rightarrow \mathbb{R}_+$ and let $f$ be a $b$-flow in $G$.
+  Let $G$ be a digraph with capacity $u: E(G) \rightarrow \mathbb{R}_+$ and let $f$ be a $b$-flow in $G$.
   A \emph{$f$-augmenting cycle} is a cycle in $G_f$.
 
 \begin{theorem}\label{proposition-5.1}
