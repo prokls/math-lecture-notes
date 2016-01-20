@@ -857,7 +857,7 @@ is called composition of $f$ and $g$.
 Let $f: X\rightarrow Y$, $g: Y\rightarrow Z$ and $h: Z \rightarrow U$ be functions.
 \[ X \xrightarrow{f} Y \xrightarrow{g} Z \xrightarrow{h} U \]
 Then
-\[ h\circ(g\circ f) \stackrel{?}{=} (h\circ g)\circ f \]
+\[ h\circ(g\circ f) \overset{?}{=} (h\circ g)\circ f \]
 \end{theorem}
 
 \begin{proof}
@@ -5733,7 +5733,7 @@ Images and preimages of subspaces are subspaces.
       \[ \Leftrightarrow \image(f) = W \]
       \[ \Leftrightarrow f \text{ is surjective} \]
 
-      \[ \dim{V} = n \Leftrightarrow V \stackrel\sim{=} K^n \]
+      \[ \dim{V} = n \Leftrightarrow V \cong K^n \]
       \[
         \text{basis } f_{i,j}, v_k \rightarrow
         \begin{cases}
@@ -5951,7 +5951,7 @@ Every vector space has basis. Let $B \subseteq V$ be a basis
 Followingly, if two mappings $f, g \in \Hom(V, W)$ are equivalent
 if and only if $f|_B = g|_B$.
 
-If $\dim{V} < \infty$, $V \stackrel{\sim}{-} W \Leftrightarrow \dim{V} = \dim{W}$.
+If $\dim{V} < \infty$, $V \simeq W \Leftrightarrow \dim{V} = \dim{W}$.
 
 \subsection{Matrix}
 \[
@@ -6037,7 +6037,7 @@ If $\dim{V} < \infty$, $V \stackrel{\sim}{-} W \Leftrightarrow \dim{V} = \dim{W}
       \[ A \rightarrow f_A \]
       is linear and build a basis $(E_{ij})$ maps to the basis $(f_{ij})$.
       Therefore it holds that
-      \[ K^{m\times n} \stackrel{\sim}{-} \Hom(K^n, K^m) \]
+      \[ K^{m\times n} \simeq \Hom(K^n, K^m) \]
   \end{enumerate}
 \end{proof}
 
@@ -7145,7 +7145,7 @@ with $\operatorname{rk}(A) = r$.
 
   With
   \[
-    R_1 = \begin{pmatrix}
+    R_1^T = \begin{pmatrix}
        1 & 0 & 0 & 0 & 0 \\
        0 & 1 & 0 & 0 & 0 \\
       -1 & 0 & 1 & 0 & 0 \\
@@ -7194,13 +7194,13 @@ Applying only row transformations is the same as applying as only column transfo
   \begin{enumerate}
     \item Then $Ax = b$ is solvable.
       \begin{align*}
-        \Leftrightarrow & \bigvee_{x \in K^n} Ax = b \\
-        \Leftrightarrow & \bigvee_{x \in K^n} f_A(x) = b \\
-        \Leftrightarrow & b \in f_A(K^n) = \image{f_A} & \text{(2.)}\\
-        \Leftrightarrow & b \in L(s_1(A), \ldots, s_n(A)) \\
-        \Leftrightarrow & L(s_1(A), \ldots, s_n(A), b) = L(s_1(A), \ldots, s_n(A)) \\
-        \Leftrightarrow & \dim{L(s_1(A), \ldots, s_n(A), b)} = \dim{L(s_1(A), \ldots, s_n(A))} \\
-        \Leftrightarrow & \operatorname{rk}(A|b) = \operatorname{rk}(A)
+        \Leftrightarrow & \hspace{10pt} \bigvee_{x \in K^n} Ax = b \\
+        \Leftrightarrow & \hspace{10pt} \bigvee_{x \in K^n} f_A(x) = b \\
+        \Leftrightarrow & \hspace{10pt} b \in f_A(K^n) = \image{f_A} & \text{(2.)}\\
+        \Leftrightarrow & \hspace{10pt} b \in L(s_1(A), \ldots, s_n(A)) \\
+        \Leftrightarrow & \hspace{10pt} L(s_1(A), \ldots, s_n(A), b) = L(s_1(A), \ldots, s_n(A)) \\
+        \Leftrightarrow & \hspace{10pt} \dim{L(s_1(A), \ldots, s_n(A), b)} = \dim{L(s_1(A), \ldots, s_n(A))} \\
+        \Leftrightarrow & \hspace{10pt} \operatorname{rk}(A|b) = \operatorname{rk}(A)
       \end{align*}
   \end{enumerate}
 \end{proof}
@@ -7220,6 +7220,470 @@ Applying only row transformations is the same as applying as only column transfo
       where $x_0$ is a solution in $Ax = b$.
   \end{itemize}
 \end{theorem}
+
+\meta{lecture}{19th of January 2015}{Franz Lehner}
+
+\subsection{Summary for row and column transformations}
+\begin{itemize}
+  \item Represents multiplication from left or right:
+    \[ A \mapsto P A Q \]
+  \item Determine the rank
+  \item Determine base of column or row space
+  \item Determine inverse matrix
+  \item Solution of $Ax = b$
+\end{itemize}
+
+$A = P B P^{-1}$ is a much more difficult problem involving eigenvalues and determinants.
+
+Yesterday, we saw:
+\[
+  Ax = b \text{ solvable }
+  \Leftrightarrow b \in f_A
+  \Leftrightarrow \operatorname{rk}(A | b) = \operatorname{rk}(A)
+\]
+
+\begin{theorem}
+  \label{satz-6.44}
+  \begin{enumerate}
+    \item $A \in K^{m\times n}$,
+      \[ L = \setdef{x}{Ax = 0} \]
+      ($m$ equations and $n$ unknown variables)
+
+      L is supspace with
+      \[ \dim{L} = n - \operatorname{rk}(A) \]
+      \enquote{Number of free parameters}
+    \item
+      For every subspace $U \subseteq K^n$ with $\dim{U} = r$
+      and for all $m,n$ with $m \geq n - r$ there exists some
+      matrix $A \in K^{m \times n}$ (multiple solutions possible)
+      such that $U = \kernel{f_A} = \setdef{x}{Ax = 0}$.
+    \item Let $A \in K^{m\times n}, b \in K^m$.
+      Let $x_0 \in K^n$ be a solution such that $Ax_0 = b$
+      \[ \Rightarrow L = \setdef{x}{Ax = b} = x_0 + \kernel{A} \]
+      $\Rightarrow$ linear manifold.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem~\ref{satz-6.44}]
+  \begin{enumerate}
+    \item
+      $\kernel{A}$ is subspace. Because of Corollary~\ref{Korrolar-5-22}, it holds that
+      \[ \dim{\kernel{f_A}} + \dim{\image{f_A}} = \dim{K^n} \]
+      \[ \Leftrightarrow \dim{L} + \operatorname{rk}(A) = n \]
+    \item
+      Given $U \subseteq K^n$.
+      Let $u_1, \ldots, u_r$ be basis of $U$.
+      Extend basis to basis of $K^n$: $u_1, \ldots, u_r, \ldots, r_n$.
+      (Theorem~\ref{satz-5-15} tells us that every $f: B \to W$ on basis
+      has distinct extension to linear mapping $f: V \to W$).
+
+      \[ f: K^n \to K^m \]
+      \[ f(u_i) = 0 \qquad 1 \leq i \leq r \]
+      \[ f(u_{r + j}) = v_j \qquad 1 \leq j \leq n - r \]
+      where $v_1, \ldots, v_{n-r} \in K^n$ is linear independent.
+      \[ \Rightarrow U \subseteq \kernel{f} \]
+      and $U = \kernel{f}$ because $v_1, \ldots, v_{n-r}$ is linear independent.
+      Choose $A \in K^{m\times n}$ such that $f = f_A$
+      \[ \Rightarrow U = \setdef{x}{Ax = 0} \]
+    \item Let $Ax_0 = b$.
+      Let $x \in K^n$, then it holds that
+      \[
+        Ax = b \Leftrightarrow Ax = Ax_0 \Leftrightarrow A \cdot (x - x_0) = 0
+        \Leftrightarrow x - x_0 \in \kernel{A}
+        \Leftrightarrow x \in x_0 + \kernel{A}
+      \]
+  \end{enumerate}
+\end{proof}
+
+\subsection{Remarks on Gauss-Jordan elimination}
+\begin{theorem}[Remarks on Gauss-Jordan elimination]
+  \label{satz-6.45}
+  \begin{enumerate}
+    \item Elementary row transformations correspond to multiplication from left with invertible matrices, namely
+      \begin{itemize}
+        \item Row exchange $T_{j,i}$
+        \item Addition of vectors row to other rows
+          \[
+            \begin{bmatrix}
+              1 & \ldots & \lambda_2 \\
+                & \ddots & \\
+                &        & \lambda_1
+            \end{bmatrix}
+          \]
+        \item $L$ is regular and in $K^{m\times n}$.
+          \[ Ax = b \Leftrightarrow LAx = Lb \]
+          $\rightarrow$ Elementary row transformations do not change the solution set.
+        \item Row transformations
+          \[ (A \cdot Q) \cdot y = b \Leftrightarrow A \cdot (Q \cdot y) = b \Leftrightarrow y = Q^{-1} x \]
+      \end{itemize}
+      If you want to solve $Ax = b$ for $b_i$ with $i = 1, \ldots, k$.
+      \[ AX = B \]
+      For example, $B = I$.
+      \[
+        X =
+        \begin{pmatrix}
+          x_1 & \ldots & x_k \\
+          \vdots &  & \vdots
+        \end{pmatrix}
+      \] \[
+        B =
+        \begin{pmatrix}
+          b_1 & \ldots & b_k \\
+          \vdots &  & \vdots
+        \end{pmatrix}
+      \]
+      \[ AX = I \Rightarrow X = A^{-1} \cdot I = A^{-1} \]
+      $\rightarrow$ also $k$-th column of $A^{-1}$ meaning the solution stays the same: $Ax = e_k$.
+      \[ Ax = b \qquad Ay \Leftrightarrow A(\lambda x + y) = \lambda b + \mu c \]
+      $A^{-1}$ is a linear mapping.
+
+      What do you get in the general case? ($m \neq n$ if we transform $(A | I_m)$)
+  \end{enumerate}
+\end{theorem}
+
+\index[English]{LU decomposition}
+\index[German]{\foreignlanguage{ngerman}{LR-Zerlegung}}
+\begin{theorem}[LU-decomposition]
+  \label{satz-6.46}
+  Let $A \in K^{m\times n}$.
+  Then it holds that:
+  \begin{itemize}
+    \item $P \in K^{m\times m}$ is permutation matrix
+    \item $L \in K^{m\times m}$ is regular lower-left triangular matrix
+    \item $R \in K^{m\times n}$ is upper-right triangular matrix
+  \end{itemize}
+  such that
+  \[ P \cdot A = L \cdot R \]
+\end{theorem}
+\begin{ex}[Application of LU decomposition]
+  \[ A = P^{-1} L R \]
+  \begin{align*}
+    Ax = b &\Leftrightarrow PAx = Pb \\
+      &\Leftrightarrow LRx = Pb \\
+      &\Leftrightarrow \begin{cases}
+          c \coloneqq Ly = Pb \\
+          y \coloneqq Rx
+        \end{cases}
+  \end{align*}
+  \[ y_1 = \frac1{l_{1,1}} c_1 \]
+  \[ y_2 = \frac1{l_{2,2}} (c_2 - l_{2,1} y_1) \]
+  \[ \ldots \]
+
+  $y$ is the vector which remains after application of row transformations.
+
+  \[ Ax = b \qquad L^{-1} A x = L^{-1} b \qquad Rx = y \]
+  This is recursively solvable from the bottom to the top.
+  In the upper-right triangular matrix $R$, the value closest to the bottom
+  needs to be zero.
+\end{ex}
+
+\begin{theorem}
+  \label{lemma-6.47}
+  \begin{itemize}
+    \item Let $L_1, L_2 \in K^{m\times m}$ be a lower triangular matrix
+      \[ \Rightarrow L_1 \cdot L_2 \text{ is lower triangular matrix} \]
+      \[ \Rightarrow \text{ lower triangular matrices build a subalgebra of } K^{m\times m} \]
+    \item If $L$ is a triangular matrix, then $L^{-1}$ is triangular matrix.
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  \begin{itemize}
+    \item Left for the reader.
+    \item Left for the reader. Look how the matrix looks like after inverting it.
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-6.48}
+  The set
+  \[
+    F_k = \set{\begin{pmatrix}
+      1 & 0 & 0 & \ldots & 0 \\
+      0 & 1 & 0 & \ldots & 0 \\
+      \ldots & \ldots & 1 & 0 & 0 \\
+      \ldots & \ldots & \lambda_{k+1} & 1 & 0 \\
+      \vdots & \vdots & \vdots & \vdots & \vdots \\
+      \ldots & \ldots & \lambda_{m} & 0 & 1 \\
+    \end{pmatrix}}
+  \]
+  builds a group in regards of multiplication (\enquote{Frobenis matrices}).
+\end{theorem}
+\begin{proof}
+  \[
+    \underbrace{
+    \begin{bmatrix}
+      1 & 0 & 0 & 0 & \ldots & 0 \\
+      0 & 1 & 0 & 0 & \ldots & 0 \\
+      \ldots & \ldots & \ldots & \lambda_{k+1} & 1 & 0 \\
+      \ldots & \ldots & \ldots & \lambda_{n} & 0 & 1
+    \end{bmatrix}
+    }_{\text{$k$-th column}}
+    \cdot
+    \begin{bmatrix}
+      1 & 0 & 0 & 0 & \ldots & 0 \\
+      0 & 1 & 0 & 0 & \ldots & 0 \\
+      \ldots & \ldots & \ldots & \mu_{k+1} & 1 & 0 \\
+      \ldots & \ldots & \ldots & \mu_{n} & 0 & 1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      1 & 0 & 0 & 0 & \ldots & 0 \\
+      0 & 1 & 0 & 0 & \ldots & 0 \\
+      \ldots & \ldots & \ldots & \lambda_{k+1} \mu_{k+1} & 1 & 0 \\
+      \ldots & \ldots & \ldots & \mu_{n} \mu_{m} & 0 & 1
+    \end{bmatrix}
+  \]
+\end{proof}
+\begin{proof}[Alternative proof]
+  \[ F_k = \setdef{I + \sum_{i=k+1}^n \lambda_{k+i} E_{i,k}}{\lambda_j \in K} \]
+  \[ \left(I + \sum_{i=k+1}^n \lambda_i E_k\right) \cdot \left(I + \sum_{j=k+1}^{n} \mu_j E_{jk}\right) \]
+  \[
+    = I + \sum_{j=k+1}^{n} \mu_j I \cdot E_{j,k} + \sum_{i=k+1}^n \lambda E_k \cdot I
+    \cdot \left(\sum_{i=k+1}^{n} \lambda_i E_{i,k}\right) \cdot
+    \left(\sum_{j=k+1}^{n} \mu_j E_{jk}\right)
+  \] \[
+    = I + \sum_{i=k+1}^n \left(\lambda_i + \mu_i\right) E_{i,k} + \sum_{i=k+1}^n \sum_{i=k+1}^n \lambda_i \mu_j \underbrace{E_{i,k} \cdot E_{j,k}}_{=0 \text{ because } j > k}
+  \]
+  \[
+    \Rightarrow
+    \begin{pmatrix}
+      1 & 0 & \ldots & 0 & \ldots & 0 & 0 \\
+      0 & 1 & \ldots & 0 & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & 1 & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & \lambda_{k+1} & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & \vdots & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & \vdots & \ldots & 1 & 0 \\
+      \ldots & \ldots & \ddots & \lambda_n & \ldots & 0 & 1
+    \end{pmatrix}^{-1}
+    =
+    \begin{pmatrix}
+      1 & 0 & \ldots & 0 & \ldots & 0 & 0 \\
+      0 & 1 & \ldots & 0 & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & 1 & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & -\lambda_{k+1} & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & \vdots & \ldots & 0 & 0 \\
+      \ldots & \ldots & \ddots & \vdots & \ldots & 1 & 0 \\
+      \ldots & \ldots & \ddots & -\lambda_n & \ldots & 0 & 1
+    \end{pmatrix}
+  \]
+\end{proof}
+
+\begin{ex}[Example for LU decomposition]
+  \begin{itemize}
+    \item
+      \[
+        \underbrace{
+        \begin{tabular}{ccc|ccc}
+          1 & 1 & 1 & 1 &   & \\
+          2 & 3 & 5 &   & 1 & \\
+          4 & 6 & 8 &   &   & 1 \\
+        \hline
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & 1 & 3 & -2 & 1 & 0 \\
+          0 & 2 & 4 & -4 & 0 & 1
+        \end{tabular}
+        }_{\text{gives } L_1 \cdot A \text{ on the left and } L_1 \text{ on the right}}
+      \] \[
+        \underbrace{
+        \begin{tabular}{ccc|ccc}
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & 1 & 3 & -2 & 1 & 0 \\
+          0 & 0 & -2 & 0 & -2 & 1
+        \end{tabular}
+        }_{\text{gives } R \text{ on the left and } L_2 \cdot L_1 \text{ on the right}}
+      \]
+      \[ L_2 \cdot L_1 \cdot A = R \]
+      \[
+        A = L_1^{-1} \cdot L_2^{-1} \cdot R
+        = \underbrace{\begin{bmatrix}
+          1 & 0 & 0 \\
+          2 & 1 & 0 \\
+          4 & 2 & 1
+        \end{bmatrix} \cdot
+        \begin{bmatrix}
+          1 & 1 & 1 \\
+          0 & 1 & 3 \\
+          0 & 0 & -2
+        \end{bmatrix}}_{\text{LU decomposition of $A$}}
+      \]
+      \[
+        L_1^{-1} = \begin{bmatrix}
+          1 &   &   \\
+          2 & 1 &   \\
+          4 &   & 1
+        \end{bmatrix}
+        \qquad
+        L_2^{-1} = \begin{bmatrix}
+          1 &   & \\
+            & 1 & \\
+            & 2 & 1
+        \end{bmatrix}
+      \]
+    \item
+      \[
+        \underbrace{\begin{tabular}{ccc|ccc}
+          1 & 1 & 1 & 1 &   & \\
+          2 & 2 & 5 &   & 1 & \\
+          4 & 6 & 8 &   &   & 1 \\
+        \hline
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & 0 & 3 & -2 & 1 & 0 \\
+          0 & 2 & 4 & -4 & 0 & 1 \\
+        \hline
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & 2 & 4 & -4 & 0 & 1 \\
+          0 & 0 & 3 & -2 & 1 & 0
+        \end{tabular}}_{\text{gives } R \text{ on the left}}
+      \]
+      This is not a triangular matrix!
+      \[
+        L_1 = \begin{bmatrix}
+           1 &   & \\
+          -2 & 1 &  \\
+          -4 &   & 1
+        \end{bmatrix}
+        \qquad
+        P_2 = \begin{bmatrix}
+          1 & 0 & 0 \\
+          0 & 0 & 1 \\
+          0 & 1 & 0
+        \end{bmatrix}
+      \] \[
+        P_2 L_1^{-1} P_2^{-1}
+      \] \[
+        P_2 L_1 A = R
+      \] \[
+        \Rightarrow A = L_1^{-1} P_2^{-1} R
+      \] \[
+        = P_2^{-1} P_2 \cdot L_1^{-1} P_2^{-1} \cdot R
+      \]
+      \[
+        L_1^{-1} = \begin{bmatrix}
+          1 &   & \\
+          2 & 1 & \\
+          4 &   & 1
+        \end{bmatrix}
+      \] \[
+        P_2 L_1^{-1} P_2^{-1} = \begin{bmatrix}
+          1 &   & \\
+          4 & 1 & \\
+          2 &   & 1
+        \end{bmatrix}
+      \] \[
+        P_2 \cdot A = \underbrace{P_2 \cdot L_1^{-1} \cdot P_2^{-1}}_{(L_1')^{-1}} \cdot R
+          = \begin{bmatrix}
+            1 &   & \\
+            4 & 1 & \\
+            2 & 0 & 1
+          \end{bmatrix} \cdot \begin{bmatrix}
+            1 & 1 & 1 \\
+              & 2 & 4 \\
+              &   & 3
+          \end{bmatrix}
+      \]
+    \item
+      \[
+        \begin{array}{ccc|ccc}
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          2 & 2+\varepsilon & 5 & 0 & 1 & 0 \\
+          4 & 6 & 8 & 0 & 0 & 1 \\
+        \hline
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & \varepsilon & 3 & -2 & 1 & 0 \\
+          0 & 2 & 4 & -4 & 0 & 1 \\
+        \hline
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & \varepsilon & 3 & -2 & 1 & 0 \\
+          0 & 0 & 4-\frac6{\varepsilon} & -4+\frac4{\varepsilon} & -\frac2\varepsilon & 1
+        \end{array}
+      \] \[
+        L_1 = \begin{bmatrix}
+           1 &   & \\
+          -2 & 1 & \\
+          -1 &   & 1
+        \end{bmatrix}
+        \qquad
+        L_2 = \begin{bmatrix}
+          1 &   & \\
+            & 1 & \\
+            & -\frac2\varepsilon & 1
+        \end{bmatrix}
+      \] \[
+        A = L_1^{-1} \cdot L_2^{-1} \cdot R
+      \] \[
+        L_1^{-1} = \begin{bmatrix}
+          1 &   & \\
+          2 & 1 & \\
+          4 &   & 1
+        \end{bmatrix} \qquad
+        L_2^{-1} = \begin{bmatrix}
+          1 &   & \\
+            & 1 & \\
+            & \frac2\varepsilon & 1
+        \end{bmatrix}
+      \] \[
+        A = \begin{bmatrix}
+          1 &   & \\
+          2 & 1 & \\
+          4 & \frac2{\varepsilon} & 1
+        \end{bmatrix} \cdot \begin{bmatrix}
+          1 & 1 & 1 \\
+          0 & \varepsilon & 3 \\
+          0 & 0 & 4-\frac63
+        \end{bmatrix}
+      \]
+      Better row exchange:
+      \[
+        \begin{array}{ccc|ccc}
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & 2 & 4 & -4 & 0 & 1 \\
+          0 & \varepsilon & 3 & -2 & 1 & 0 \\
+        \hline
+          1 & 1 & 1 & 1 & 0 & 0 \\
+          0 & 2 & 4 & -4 & 0 & 1 \\
+          0 & 0 & 3-2\varepsilon & -2-2\varepsilon & 1 & -\frac\varepsilon2
+        \end{array}
+      \] \[
+        P_2 = \begin{bmatrix}
+         1 &   & \\
+           & 0 & 1 \\
+           & 1 & 0
+        \end{bmatrix}
+        \qquad
+        L_2 = \begin{bmatrix}
+          1 &   &  \\
+            & 1 &  \\
+            & -\frac\varepsilon2 & 1
+        \end{bmatrix}
+      \] \[
+        L_2 P_2 L_1 A = R
+      \] \[
+        \Rightarrow A = L_1^{-1} P_2^{-1} L_2^{-1} R
+      \] \[
+        = P_2^{-1} \cdot P_2 \cdot L_1^{-1} \cdot P_2^{-1} \cdot L_2^{-1} \cdot R
+      \] \[
+        P_2 \cdot A = P_2 L_1^{-1} P_2^{-1} \cdot L_2^{-1} \cdot R
+      \] \[
+        \begin{bmatrix}
+          1 &   & \\
+          4 & 1 & \\
+          2 & \frac\varepsilon2 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+          1 & 1 & 1 \\
+          0 & 2 & 4 \\
+          0 & 0 & 3-2\varepsilon
+        \end{bmatrix}
+      \]
+      The error does not increase!
+  \end{itemize}
+\end{ex}
+\begin{rem}
+  In numerics the rank is pointless, because a small error makes zero non-zero.
+  This can change the rank of the matrix.
+\end{rem}
+\begin{rem}
+  To achieve a small error, always select a greatest possible pivot element!
+\end{rem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
