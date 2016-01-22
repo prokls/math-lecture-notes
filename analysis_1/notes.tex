@@ -5869,6 +5869,624 @@ We actually used that already (for example, when proving the product law for der
   \[ \frac fg = f \cdot \frac1g \]
 \end{proof}
 
+\meta{lecture}{20th of January 2016}{Wolfgang Ring}
+
+\begin{proof}
+  \[ \frac1g = r \circ g \qquad r(y) = \frac1y \]
+  Chain rule: $x_n \in I$ and $g$ differentiable in $x_0$,
+  $y_0 = g(x_0) \neq 0$ and $r(y) = \frac1y$ in $y_0$.
+  Therefore $g\circ y$ is in $x_0$ and
+  \[
+    (r \circ g)' x_0 = r'(g(x_0)) \cdot g'(x_0)
+    = -\frac1{{g(x_0)}^2} \cdot r'(x_0)
+  \]
+
+  \[ \frac fg = f \cdot 1g \]
+  Product law:
+  \[
+    \left(\frac fg\right)'(x_0) = f'(x_0) \cdot \frac1{g(x_0)} +
+    f(x_0) \cdot \left(-\frac{g'(x_0)}{(g(x_0))^2}\right)
+    = \frac{f'(x_0) g(x_0) - f(x_0) g'(x_0)}{(g(x_0))^2}
+  \]
+\end{proof}
+\begin{rem}
+  What is differential calculus good for?
+
+  Geometrical investigation of functions.
+\end{rem}
+
+\index[English]{Local maximum}
+\index[German]{\foreignlanguage{ngerman}{Lokales Maximum}}
+\index[English]{Local minimum}
+\index[German]{\foreignlanguage{ngerman}{Lokales Minimum}}
+\begin{defi}
+  Let $f: I \to \mathbb R$ be a function. $I$ is an interval.
+  We call $x_0 \in I$ a \emph{local maximum} of $f$, if $\varepsilon > 0$
+  exists such that
+  \[ [x \in I \land \abs{x - x_0} < \varepsilon] \Rightarrow f(x) \leq f(x_0) \]
+  We call $x_0 \in I$ a \emph{local minimum} of $f$, if $\varepsilon > 0$
+  exists such that
+  \[ [x \in I \land \abs{x - x_0} < \varepsilon] \Rightarrow f(x) \geq f(x_0) \]
+\end{defi}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/local_minimum.pdf}
+    \caption{Local minimum $w$}
+    \label{img:local-minimum}
+  \end{center}
+\end{figure}
+
+% TODO: 2 images missing (involving epsilon)
+
+\index[English]{Necessary optimality criterion for minima/maxima}
+\index[German]{\foreignlanguage{ngerman}{Notwendige Optimalitätsbedingung für Minima/Maxima}}
+\begin{theorem}[Necessary optimality criterion]
+  Let $f: I \to \mathbb R$ be differentiable and $I$ is an interval.
+  Let $x_0 \in I$ be a local maximum of $f$.
+  Then there exists $\varepsilon > 0$ such that for all $x \in I$
+  with $\abs{x - x_0} < \varepsilon$ the following relation holds:
+  \[ f'(x_0) (x - x_0) \leq 0. \]
+\end{theorem}
+\begin{rem}
+  This is a more general statement than $f'(x_0) = 0$.
+\end{rem}
+\begin{proof}
+  Let $x_0$ be a local maximum. Assume
+  \[
+    \forall \varepsilon > 0 \exists x_\varepsilon:
+    \abs{x_\varepsilon - x_0} < \varepsilon
+    \land f'(x_0) (x_\varepsilon - x_0) > 0
+  \]
+  Especially: $\varepsilon = \frac1n$, $x_\varepsilon = x_n$.
+  Therefore it holds that $\lim_{n\to\infty} x_n = x_0$
+  and $f'(x_0)(x_n - x_0) > 0$. Followingly both factors must
+  be non-zero, hence $f'(x_0) \neq 0$.
+\end{proof}
+\begin{theorem}[Differentiability of $f$ in $x_0$]
+  \[
+    f(x_0) = f(x_0) - f'(x_0) (x_n - x_0)
+    + \underbrace{r(x_0) (x_n - x_0)}_{\mathcal O(\abs{x_n - x_0})}
+  \] \[
+    \lim_{x\to x_0} r(x) = 0
+  \]
+  Let $n$ sufficiently large such that
+  \[ \abs{f(x_n)} \leq \frac12 \underbrace{\abs{f'(x_0)}}_{>0} \quad \forall n \geq N \]
+  Then it holds that
+  \[ f(x_n) - f(x_0) = \overbrace{f'(x_0)(x_n - x_0)}^{>0} + r(x_n) (x_n - x_0) \]
+  \[ = \abs{f'(x_0) (x_n - x_0)} + r(x_n) (x_n - x_0) \]
+  \[ \geq \abs{f'(x_0)}\abs{x_n - x_0} - \abs{r(x_0)} \abs{x_n - x_0} \]
+  \[ = (\Big|f'(x_0) - \underbrace{\abs{r(x_n)}}_{\leq \frac12 \abs{f'(x_0)}}\Big|) \cdot \abs{x_n - x_0} \geq \frac12 \]
+  \[ = \frac12 \underbrace{f'(x_0) (x_n - x_0)}_{>0} > 0 \]
+  and therefore $f(x_n) > f(x_0) \quad\forall n \geq N$.
+  This is a contradiction to the assumption that $x_0$ is a local maximum.
+\end{theorem}
+\begin{rem}
+  $x_0$ is a local minimum. Therefore
+  \[ f'(x_0) (x - x_0) \geq 0 \quad \forall \abs{x - x_0} < \varepsilon \text{ where } x \in I \]
+\end{rem}
+%
+\begin{cor}
+  Let $I$ be an interval and $x_0$ an inner point of $I$
+  (therefore $\exists \varepsilon > 0: (x_0 - \varepsilon, x_0 + \varepsilon) < I$).
+  Assume $f: I \to \mathbb R$ has a local maximum (or minimum) in $x_0$
+  and let $f$ be differentiable. Then it holds that
+  \[ f'(x_0) = 0 \]
+\end{cor}
+%
+\begin{proof}
+  Let $\varepsilon > 0$ such that $(x_0 - \varepsilon, x_0 + \varepsilon) \in I$
+  and let $x = x_0 + \frac\varepsilon{2} \in I$.
+
+  The optimality criterion is given with:
+  \[ f'(x_0) \cdot (x - x_0) = f'(x_0) \left(x_0 + \frac\varepsilon{2} - x_0\right) = \frac\varepsilon2 f'(x_0) \leq 0 \]
+  \[ w = x_0 - \frac\varepsilon2 \in I \]
+  Necessary optimality criterion:
+  \[
+    f'(x_0)(w - x_0) = f'(x_0)\left(x_0 - \frac\varepsilon2 - x_0\right)
+    = -\frac{\varepsilon}{2} f'(x_0) \leq 0
+  \] \[
+    f'(x_0) \leq 0 \text{ and } f'(x_0) \geq 0 \Rightarrow f'(x_0) = 0
+  \]
+\end{proof}
+
+\meta{lecture}{21st of January 2016}{Wolfgang Ring}
+
+\begin{theorem}[Consideration of optimal points at the borders of $I$]
+  % TODO: verify
+  Let $I = [a, b]$ and $x_0 = a$ is a local maximum. Then the necessary
+  optimality criterion (NOC) yields:
+  \[ \text{NOC:} \qquad f'(a) (x - a) \leq a \qquad x \in [a,b] \]
+  and $x$ is sufficiently close to $a$. Choose $\varepsilon$ small enough
+  such that for $x = a + \varepsilon$ (necessary optimality criterion)
+  \[ \Rightarrow f'(a) (a' - \varepsilon - a') = \varepsilon f'(a) \leq 0 \]
+  \[ \Rightarrow f'(a) \geq 0 \]
+
+  Analogously: \\
+  $x_0 = a$ is a local minimum. So $f'(a) \geq 0$. \\
+  $x_0 = b$ is a local maximum. So $f'(b) \leq 0$.
+\end{theorem}
+
+\fbox{Michel Rolle (1652--1719)}
+
+\begin{theorem}[Rolle's theorem]
+  Let $I = [a,b]$ and $f: I \to \mathbb R$ is differentiable in $I$. Furthermore
+  it holds that $f(a) = f(b)$. Then there exists some $\xi \in [a,b]$ with
+  $f'(\xi) = 0$.
+  % TODO: add Sogan constraint
+\end{theorem}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/rolles_theorem.pdf}
+    \caption{
+      Rolle's theorem says that one $x$ with $f'(x) = 0$ must exist
+      between two points $x_1$ and $x_2$ with $f(x_1) = f(x_2)$ and $x_1 \neq x_2$
+    }
+  \end{center}
+\end{figure}
+
+\begin{proof}
+  \begin{description}
+    \item[Case 1: $f$ constant]
+      Therefore $f(x) = f(a) = ? \forall x \in [a,b]$
+      \[ \Rightarrow f'(x) = 0 \forall x \in [a,b] \]
+    \item[Case 2: $f$ is non-constant]
+      Therefore $\exists x \in (a, b)$ with $f(x) \neq f(a)$.
+      Without loss of generality: $f(x) > f(a) = f(b)$.
+      $[a,b]$ is a compact interval. $f$ is continuous in $[a,b]$
+      (because it's differentiable). The theorem about the
+      existence of a global maximum tells us:
+      \[ \exists \xi \in [a,b]: f(\xi) \geq f(z) \quad\forall z \in [a,b] \]
+      \[ f(\xi) \geq f(x) > f(a) = f(b) \]
+      \[ \Rightarrow \xi \neq a \land \xi \neq b \]
+      So $\xi$ is an inner point of $[a,b]$, hence $\xi \in (a,b)$.
+
+      Analogously the same holds for a minimum:
+      Without loss of generality: $f(x) < f(a) = f(b)$.
+      And the same proof works for a global minimum.
+  \end{description}
+\end{proof}
+%
+\begin{theorem}[Intermediate value theorem (IVT)]
+  Let $I = [a,b]$ be a compact interval with $a<b$ and let $f: I \to \mathbb R$
+  be differentiable in $[a,b]$. Then there exists some $\xi \in [a,b]$ such that
+  \[ \frac{f(b) - f(a)}{b - a} = f'(\xi). \]
+  % TODO: verify
+  (Sogan, $\xi \in [a,b]$)
+
+  Equivalently,
+  \begin{align*}
+    f(b) &= f(a) + f'(\xi)(b - a) \\
+    f(a) &= f(b) + f'(\xi)(a - b)
+  \end{align*}
+\end{theorem}
+%
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/intermediate_value_theorem.pdf}
+    \caption{The Intermediate Value Theorem (IVT) claims that some tangent exists which is parallel to the line connecting $f(a)$ and $f(b)$}
+  \end{center}
+\end{figure}
+%
+\begin{proof}
+  Let $g(x) = f(x) - s(x)$.
+  \[ = f(x) - \underbrace{\left[f(a) + \frac{f(b) - f(a)}{b - a} (x - a)\right]}_{\text{linear, hence differentiable}} \]
+  \[ \Rightarrow g(a) = f(a) - [f(a) - 0] = 0 \]
+  \[ g(b) = f(b) - \left[f(a) + \frac{f(b) - f(a)}{b - a} (b - a)\right] = 0 \]
+  By the Rolle's Theorem it follows that
+  \[ \exists \xi \in [a,b] \text{ with } g'(\xi) = 0 \]
+  \[ g'(x) = f'(x) - \frac{f(b) - f(a)}{b - a} \]
+  \[ g'(\xi) = 0 \Rightarrow f'(\xi) = \frac{f(b) - f(a)}{b - a} \]
+\end{proof}
+%
+\index[English]{Monotonicity (functions)}
+\index[German]{\foreignlanguage{ngerman}{Monotonie (Funktionen)}}
+\begin{defi}[Monotonicity for functions]
+  Let $I$ be an interval, $f: I \to \mathbb R$. Then $f$ is called \emph{monotonically increasing} in $I$ if
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) \leq f(x_2) \]
+  $f$ is called \emph{monotonically decreasing} in $I$ if
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) \geq f(x_2) \]
+  $f$ is called \emph{strictly monotonically increasing} in $I$
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) < f(x_2) \]
+  $f$ is called \emph{strictly monotonically decreasing} in $I$
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) > f(x_2) \]
+\end{defi}
+%
+\begin{theorem}
+  Let $f: I \to \mathbb R$ be differentiable in $I$ where $I$ is some interval.
+  Then
+  \begin{itemize}
+    \item $f$ is monotonically increasing in $I$ $\Leftrightarrow f'(x) \geq 0 \quad \forall x \in I$
+    \item $f$ is monotonically decreasing in $I$ $\Leftrightarrow f'(x) \leq 0 \quad \forall x \in I$
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  We only show the proof for monotonically increasing functions.
+  It follows analogously for monotonically decreasing functions.
+
+  \begin{description}
+    \item[$\Rightarrow$]
+      Let $f$ be monotonically increasing and $x_0 \in I$. Let $(w_n)_{n\in\mathbb N}$
+      and $w_n \in I$ with $\lim_{n\to\infty} w_n = x_0$, $w_1 \neq x_0 \quad \forall n \in \mathbb N$.
+      Then it holds that
+      \[ f'(x_0) = \lim_{n\to\infty} \underbrace{\frac{f(w_n) - f(x_0)}{x_n - x_0}}_{S_n} \]
+      \begin{itemize}
+        \item If $w_n > x_0$, then $f(w_n) \geq f(x_0)$ due to monotonicty.
+          \[ \Rightarrow S_n \neq 0 \]
+        \item If $w_n < x_0$ (hence $w_n - x_0 < 0$), then $f(w_n) \leq f(x_0)$ hence $f(w_n) - f(x_0) \leq 0$,
+          due to monotonicity.
+          \[ \Rightarrow S_n \geq 0 \]
+          \[ \Rightarrow f'(x_0) = \lim_{n\to\infty} S_n \geq 0 \]
+      \end{itemize}
+    \item[$\Leftarrow$]
+      Let $f'(x) \geq 0 \forall x \in I$. Show that $f$ is monotonically increasing.
+
+      Proof by contradiction: Assume the opposite. $f$ is not monotonically increasing,
+      so there exist $x_1, x_2 \in I$ with $x_1 \leq x_2$ and $f(x_1) > f(x_2)$.
+      $f$ is differentiable in $[x_1, x_2] \subseteq I$. The Intermediate Value Theorem
+      tells us that $\exists \xi \in (x_1, x_2)$ with
+      \[ f'(\xi) = \frac{\overbrace{f(x_2) - f(x_1)}^{<0}}{\underbrace{x_2 - x_1}_{>0}} \]
+      \[ \Rightarrow f'(\xi) < 0 \]
+      This contradicts with our assumption that $f'(x) \geq 0 \forall x \in I$.
+  \end{description}
+\end{proof}
+%
+\begin{lemma}
+  Let $f: I \to \mathbb R$ where $I$ is an interval.
+  Let $f$ be differentiable in $I$. Assume
+  \[ f'(x) > 0 \qquad \forall x \in I \]
+  Then it follows that $f$ is strictly monotonically increasing.
+
+  Assume
+  \[ f'(x) > 0 \qquad \forall x \in I \]
+  Then it follows that $f$ is strictly monotonically decreasing.
+
+  \textbf{Attention!} This is a necessary, but not sufficient condition!
+  $f(x) = x^3$ is strictly monotonically increasing in $\mathbb R$, but
+  $f'(x) = 3x^2$ and therefore $f'(0) = 0$.
+\end{lemma}
+\begin{proof}
+  See the previous proof, part $\Leftarrow$, and use $f(x_1) \geq f(x_2)$
+  and $f'(\xi) \leq 0$ in contradiction to $f'(x) > 0 \quad \forall x \in I$.
+\end{proof}
+%
+\begin{theorem}[Generalization of the IVT]
+  Let $f, g: [a,b] \to \mathbb R$ be differentiable in $[a,b]$ and $g'(x) \neq 0$
+  for all $x \in [a,b]$. Then it holds that
+  \[ g(a) \neq g(b) \]
+  and there exists $\xi \in (a,b)$ with
+  \[ \frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)} \]
+  (If $g(x) = x$, the IVT is given as special case)
+\end{theorem}
+%
+\begin{proof}
+  \[ F(x) = f(x) - \frac{f(b) - f(a)}{g(b) - g(a)} (g(x) - g(a)) \]
+  % TODO: WHAT???
+  It holds that $g(a) \neq g(b)$, because $g(a) = g(b)$.
+  Rolle's Theorem implies that $g'(\xi) = 0$ for some $\xi \in (a,b)$.
+  This is a contradiction to our assumption.
+
+  $F$ is well-defined and differentiable in $[a,b]$.
+  \[ F(a) = f(a) - 0 \]
+  \begin{align*}
+    F(b) &= f(b) - \frac{f(b) - f(a)}{g(b) - g(a)} (g(b) - g(a)) \\
+         &= f(b) - f(b) + f(a) \\
+         &= f(a)
+  \end{align*}
+  By Rolle's Theorem it follows that
+  \[ \exists \xi \not\in (a, b) \text{ with } F'(\xi) = 0 \]
+  \[ F'(x) = f'(x) - \frac{f(b) - f(a)}{g(b) - g(a)} \cdot g'(x) \]
+  \[ F'(\xi) = 0 \Rightarrow \frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)} \]
+\end{proof}
+%
+\index[English]{L'Hôpital's rule}
+\index[German]{\foreignlanguage{ngerman}{Regel von L'Hôpital}}
+\fbox{Guillaume Francois Antoine Marquis de l'Hôpital (1661--1704)}
+\begin{ex}[Application of this generalization]
+  Assume $f,g$ are differentiable in $I$. Let $x_0 \in I$ with $f(x_0) = g(x_0)$.
+  Therefore $\lim_{x\to x_0} f(x) = \lim_{x\to x_0} g(x) = y_0$.
+
+  If $\lim_{x\to x_0} \frac{f(x) - f(x_0)}{g(x) - g(x_0)}$ exists, then
+  \[ \lim_{x\to x_0} \frac{f(x) - f(x_0)}{g(x) - g(x_0)} = \lim_{\xi \to x_0} \frac{f'(\xi)}{g'(\xi)} \]
+  \begin{center}
+    \enquote{L'Hôpital's rule}
+  \end{center}
+\end{ex}
+\begin{proof}
+  Assuming the generalization of the IVT, we have:
+  \[ \exists \xi \in [x, x_0] \text{ wlog. } x < x_0: \frac{f(x) - f(x_0)}{g(x) - g(x_0)} = \frac{f'(\xi)}{g'(\xi)} \]
+  and for $\abs{x - x_0} < \varepsilon$ it holds that
+  \[ \abs{\xi - x_0} < \varepsilon \]
+  \[ \Rightarrow x \to x_0 \Rightarrow \xi \to x_0 \]
+\end{proof}
+\begin{ex}
+  \[ \lim_{x\to 0} \frac{e^x - 1}{x} = \lim_{\xi \to 0} \frac{e^\xi}{1} = 1 \]
+  This holds only if the limit actually exists.
+\end{ex}
+\begin{cor}
+  Corollaries following this monotonicity criterion:
+  \begin{itemize}
+    \item Let $f: I \to \mathbb R$ differentiable in $I$ and let $x_0 \in I$ be a local maximum.
+      Then there exists $\varepsilon > 0$ such that for all $x \in I$ with $x \in
+      (x_0 - \varepsilon, x_0]$ it holds that
+      \[ f(x) \leq f(x_0) \land \forall w \in I \text{ with } w \in [x_0, x_0 + \varepsilon): f(w) \leq f(x_0) \]
+    \item Assume $f$ is monotonically increasing in $(x_0 - \varepsilon, x_0]$ and $f$ is monotonically decreasing
+      in $[x_0, x_0 + \varepsilon)$
+      \[ \Rightarrow \exists x, \tilde{x} \in (x_0 - \varepsilon, x_0]: f(x) \leq f(\tilde{x}) \land \forall w, \tilde{w} \in [x_0, x + \varepsilon) \]
+      with $\tilde{w} \leq w$ it holds that $f(\tilde{w}) \geq f(w)$.
+      Especially for $\tilde{x} = x_0$ and $\tilde{w} = x_0$ it holds that
+      \[ f(x) \leq f(x_0) \land f(x_0) \geq f(w) \]
+      Condition for local maximum: Therefore if $\varepsilon > 0$ exists,
+      such that $f$ in $I \cap (x_0 - \varepsilon, x_0]$ monotonically increasing
+      and $f$ in $I \cap [x_0, x + \varepsilon)$ is monotonically decreasing,
+      then $f$ has a local maximum in $x_0$.
+
+      This is a sufficient condition for a maximum. So if this condition holds,
+      a maximum is given.
+  \end{itemize}
+\end{cor}
+
+\meta{lecture}{22nd of Jan 2015}
+
+\begin{theorem}
+  Let $(w_n)_{n \in \mathbb N}$ with $w_n \in I$ such that $\lim_{n\to\infty} w_n = x_0$
+  and
+  \[
+    \xi_n \in \begin{cases}
+      [w_n, x_0] & \text{if } w_n < x_0 \\
+      [x_0, w_n] & \text{if } x_0 < w_n
+    \end{cases}
+  \]
+  with \[ \frac{f(w_n) - f(x_0)}{g(w_n) - g(x_0)} = \frac{f'(\xi_n)}{g'(\xi_n)} \]
+  Because $\abs{\xi_n - x_0} < \underbrace{\abs{w_n - x_0}}_{\to 0}$ it holds that
+  \[ \lim_{n\to\infty} \xi_n = x_0. \]
+  If $\lim_{n\to\infty} \frac{f'(\xi_n)}{g'(\xi_n)} = d$.
+  \[ \Rightarrow \lim_{n\to\infty} \frac{f(w_n) - f(x_0)}{g(w_n) - g(x_0)} = d \]
+\end{theorem}
+
+\subsection{Sufficient optimality criteria}
+%
+\begin{theorem}
+  \label{thm:suff-opt-crit}
+  Let $f: I \to \mathbb R$, $x_0 \in I$. If $\varepsilon > 0$ exists, such that
+  $f$ is monotonically increasing in $(x_0 - \varepsilon, x_0] \cap I$ and
+  $f$ is monotonically decreasing in $[x_0, x_0 + \varepsilon) \cap I$,
+  then $f$ has a local maximum in $f$.
+\end{theorem}
+\begin{rem}
+  Informal: Increasing to the right, decreasing to the left? So it must be
+  a local maximum.
+\end{rem}
+\begin{rem}
+  This is a sufficient, but not necessary condition.
+  Compare with Figure~\ref{counterexample}.
+\end{rem}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/counterexample_maximum.pdf}
+    \caption{This is not a local maximum, but Theorem~\ref{thm:suff-opt-crit} holds}
+    \label{counterexample}
+  \end{center}
+\end{figure}
+
+\begin{rem}
+  TODO: content missing \\
+  that $f'(x) \geq 0$ and $\forall x \in [x_0, x_0 + \varepsilon)$ hold,
+  that $f'(x) \leq 0$, then $f$ is monotonically increasing to the left of $x_0$
+  and monotonically decreasing to the right, hence $x_0$ is a local maximum.
+
+  Hence, the point when $f'$ changes its sign, a maximum (or minimum) is given.
+
+  All statements hold analogously for the minimum (negate the operators).
+\end{rem}
+
+\subsection{Behavior of curvatures in functions}
+%
+\begin{rem}
+  Assume the line on the graph defines our road.
+  Do we need to drive to the left or right in a curvature?
+\end{rem}
+%
+\index[English]{Concave function}
+\index[German]{\foreignlanguage{ngerman}{Konkave Funktion}}
+\index[English]{Convex function}
+\index[German]{\foreignlanguage{ngerman}{Konvexe Funktion}}
+\index[English]{Strictly concave function}
+\index[German]{\foreignlanguage{ngerman}{Streng konkave Funktion}}
+\index[English]{Strictly convex function}
+\index[German]{\foreignlanguage{ngerman}{Streng konvexe Funktion}}
+\begin{defi}
+  Let $I$ be an interval $f: I \to \mathbb R$. Then $f$ is called \emph{convex}
+  in $I$ if $\forall a,b \in I$ with $a < b$ and for all $\lambda \in [0,1]$
+  it holds that
+  \[ f((1 - \lambda) \cdot a + \lambda \cdot b) \leq (1 - \lambda) f(a) + \lambda f(b) \]
+  $f$ is called \emph{concave} if the following holds:
+  \[ f((1 - \lambda) \cdot a + \lambda \cdot b) \geq (1 - \lambda) f(a) + \lambda f(b) \]
+  $f$ is called \emph{strictly convex} if the following holds:
+  \[ f((1 - \lambda) \cdot a + \lambda \cdot b) < (1 - \lambda) f(a) + \lambda f(b) \]
+  $f$ is called \emph{strictly concave} if the following holds:
+  \[ f((1 - \lambda) \cdot a + \lambda \cdot b) > (1 - \lambda) f(a) + \lambda f(b) \]
+\end{defi}
+%
+\index[English]{Convex combination}
+\index[German]{\foreignlanguage{ngerman}{Konvexkombination}}
+\begin{rem}
+  Let $\lambda \in [0,1]$.
+
+  \[ (1 - \lambda) \cdot a + \lambda \cdot b \leq (1 - \lambda) \cdot b + \lambda \cdot b = b \]
+  \[ (1 - \lambda) \cdot a + \lambda \cdot a = a \]
+  $(1 - \lambda) \cdot a + \lambda \cdot b$ defines an arbitrary point in $[a,b]$.
+  It's called \emph{convex combination} of $a$ and $b$.
+\end{rem}
+%
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/convex_combination.pdf}
+    \caption{Convex combination}
+    \label{img:convex-combination}
+  \end{center}
+\end{figure}
+%
+\begin{rem}
+  In case of convexness, the function graph lies underneath the function.
+  Compare with Figure~\ref{img:convex-combination}.
+\end{rem}
+%
+\begin{theorem}
+  Let $f: I \to \mathbb R$ be differentiable and $I$ an interval.
+  Then it holds that $f$ is convex in $I$
+  \[ \Leftrightarrow f': I \to \mathbb R \]
+  is monotonically increasing. Analogously for concave and monotonically decreasing.
+\end{theorem}
+%
+\begin{proof}
+  \begin{description}
+    \item[$\Leftarrow$]
+      Let $f': I \to \mathbb R$ be monotonically increasing. Let $a,b \in I$,
+      $a < b$ and let $\lambda \in (0, 1]$.
+
+      Let $\lambda = 0$. Then it holds that
+      \[ f((1 - 0) \cdot a + 0 \cdot b) = f(a) \leq (1 - 0) \cdot f(a) + 0 \cdot f(b) \]
+      Hence convexity condition is satisfied. Analogously it holds for $\lambda = 1$.
+      \[ f((1 - 1) \cdot a + 1 \cdot b) = f(b) = (1 - 1) \cdot f(a) + 1 \cdot f(b) \]
+
+      Let $\lambda \in (0,1)$
+      \[
+        (1 - \lambda) f(a) + \lambda f(b) - \underbrace{1}_{((1 - \lambda) + \lambda)}
+        \cdot f((1 - \lambda) \cdot a + \lambda \cdot b)
+      \] \[
+        = (1 - \lambda) f(a) - (1 - \lambda) f((1 - \lambda) a + \lambda b)
+        + \lambda f(b) - \lambda f((1 - \lambda) \cdot a + \lambda b)
+      \] \[
+        = (1 - \lambda) \left(f(a) - f\left((1 - \lambda) a + \lambda b\right)\right)
+        + \lambda \left[f(b) - f((1 - \lambda) a + \lambda b)\right]
+      \]
+      If $x_\lambda = (1 - \lambda) \cdot a + \lambda b$:
+      \[
+        = \lambda [f(b) - f(x_\lambda)] - (1 - \lambda) [f(x_\lambda) - f(a)]
+      \] \[
+        \exists \xi_2 \in (x_\lambda, b) \text{ such that }
+        f(b) - f(x_\lambda) = f'(\xi_2) (b - x_\lambda)
+      \]
+
+      $\exists \xi_2 \in (x_\lambda, b)$ such that (Intermediate Value Theorem)
+      \[ f(b) - f(x_\lambda) = f'(\xi_2) (b - x_\lambda) \]
+
+      TODO: content missing
+      \[
+        \exists \xi_1 \in (a, x_\lambda) \text{ such that }
+        f(x_\lambda) - f(a) = f'(\xi_\lambda) (x_\lambda - a)
+        TODO
+        f'(\xi_1) \lambda (b - a)
+      \]
+
+      \[ \lambda (1 - \lambda) (b - a) \cdot f'(\xi_2) - (1 - \lambda) \cdot \lambda (b - a) f'(\xi_1) \]
+      \[ = \underbrace{\lambda (1 - \lambda) (b - a)}_{>0} \underbrace{\left[f'(\xi_2) - f'(\xi_1)\right]}_{\geq 0} \]
+      because $f'$ is monotonically increasing and
+      $\xi_1 < x_\lambda < \xi_2$ holds.
+
+      Therefore it holds that $(1 - \lambda) f(a) + \lambda f(b) \geq f(x_\lambda)$
+    \item[$\Rightarrow$]
+      Let $f$ be convex and differentiable in $I$. Let $x_1 < x_2$ with $x_1, x_2 \in I$.
+      Show that
+      \[ f'(x_1) \leq f'(x_2) \]
+      Choose $n \in \mathbb N$, $n \geq 2$. Let $w_n = x_n + \frac1n (x_2 - x_1)$ and
+      $z_n = x_2 - \frac 1n (x_2 - x_1)$.
+      \[ \lim_{n\to\infty} w_n = x_1 \text{ and } \lim_{n\to\infty} z_n = x_2 \]
+      We consider
+      \[ \frac{f(x_2) - f(z_n)}{x_2 - z_n} - \frac{f(w_n) - f(x_1)}{w_n - x_1} \]
+      \[
+        = n \cdot \frac{1}{x_2 - x_1} \left( f(x_2) - \underbrace{f(z_n)}_{\leq (1 - \mu) f(x_1) + \mu f(x_2)} \right)
+        - n \cdot \frac{1}{x_2 - x_1} \left( \underbrace{f(w_n)}_{\leq (1 - \lambda) f(x_1) + \lambda f(x_2)} - f(x_1) \right)
+      \] \[
+        z_n = x_2 - \frac 1n (x_2 - x_1) = \frac 1n x_1 + (1 - \frac1n) x_2
+      \] \[
+        w_n = x_1 + \frac 1n (x_2 - x_1) = \left(1 - \frac1n\right) x_1 + \frac 1n x_2
+      \] \[
+        = (1 - \lambda) x_1 + \lambda x_2 \text{ with } \lambda = Todo
+      \] \[
+        z_n = \left(1 - (1 - \frac1n)\right) x_1 + \left(1 - \frac1n\right) x_2
+      \] \[
+        = (1 - \mu) x_1 + \mu x_2 \text{ with } \mu = (1 - \frac 1n)
+      \]
+      Convexity: From
+      \[
+        = n \cdot \frac{1}{x_2 - x_1} \left( f(x_2) - \underbrace{f(z_n)}_{\leq (1 - \mu) f(x_1) + \mu f(x_2)} \right)
+        - n \cdot \frac{1}{x_2 - x_1} \left( \underbrace{f(w_n)}_{\leq (1 - \lambda) f(x_1) + \lambda f(x_2)} - f(x_1) \right)
+      \]
+      It follows that
+      \[
+        \geq n \cdot \frac{1}{x_2 - x_1} \cdot \left[ f(x_2) - \left((1 - \mu) \cdot f(x_1) + \mu f(x_2)\right)\right]
+        - n \frac{1}{x_2 - x_1} \left[(1 - \lambda) f(x_1) + \lambda f(x_2) - f(x_1)\right]
+      \] \[
+        = \frac{n}{x_2 - x_1} \left[(1 - \mu) (f(x_2) - f(x_n))\right]
+        - \frac{n}{x_2 - x_1} \left[\lambda (f(x_2) - f(x_1))\right]
+      \] \[
+        \left[ \lambda = \frac1n \qquad \mu = 1 - \frac1n \right]
+      \] \[
+        = \frac{n}{x_2 - x_1} \frac1n \left(f(x_2) - f(x_1)\right)
+        - \frac{n}{x_2 - x_1} \frac1n (f(x_2) - f(x_1)) = 0
+      \]
+      So
+      \[ \underbrace{\frac{f(x_2) - f(z_n)}{x_2 - z_n}}_{f'(x_2)} \geq \underbrace{\frac{f(w_1) - f(x_1)}{w_n - x_1}}_{f'(x_1)}. \]
+      for $n \to \infty$. So $f'(x_2) \geq f'(x_0)$.
+  \end{description}
+\end{proof}
+%
+\index[English]{Inflection point}
+\index[German]{\foreignlanguage{ngerman}{Wendepunkt}}
+\begin{defi}
+  Let $f: I \to \mathbb R$ and $x_0 \in I$. Assume $x_0$ is an inner point of $I$
+  and $\exists \varepsilon > 0$ such that $(x_0 - \varepsilon, x_0 + \varepsilon) \subseteq I$
+  and $f$ in $(x_0 - \varepsilon, x_0]$ is convex and $f$ in $[x_0, x_0 + \varepsilon)$ is concave,
+  then $x_0$ is called \emph{inflection point}.
+
+  If $f$ is concave in $(x_0 - \varepsilon, x_0]$ and convex in $[x_0, x_0 + \varepsilon)$,
+  then $x_0$ is also an inflection point.
+\end{defi}
+%
+\index[English]{Second derivative}
+\index[German]{\foreignlanguage{ngerman}{Zweite Ableitung}}
+\index[English]{Higher derivatives}
+\index[English]{Derivatives of higher orders}
+\index[German]{\foreignlanguage{ngerman}{Höhere Ableitungen}}
+\begin{defi}[Higher derivatives]
+  Assume $f: I \to \mathbb R$ is differentiable in $I$ and the derivative
+  $f': I \to \mathbb R$ in a point $x_0 \in I$ itself is differentiable.
+  Then $f''(x_0) = (f')'(x_0)$ is called \emph{second derivative} of $f$ in $x_0$.
+
+  Analogously for higher derivatives:
+  Let the derivative function of order $n$ ($n \in \mathbb N$) be already defined
+  and let itself be differentiable in $x_0$, then
+  \[ f^{n-1}: I \to \mathbb R \]
+  is called derivative function of $(n-1)$-th order where
+  \[ f^{(0)} = f, f^{(1)} = f' \]
+  Then we let
+  \[ f^{(n)}(x_0) = \left(f^{n-1}\right)(x_0) \]
+\end{defi}
+%
+\begin{rem}
+  We can use the second derivative to check the monotonicity of the first derivative.
+  \[ f^{(2)}: I \to \mathbb R, \quad f^{(2)}(x) \geq 0 \quad \forall x \in I \]
+  \[ \Rightarrow f^{(1)} = f' \text{ is monotonical in $I$} \]
+  \[ \Rightarrow f \text{ is convex in $I$} \]
+\end{rem}
+\begin{rem}
+  Let $f$ be convex in $I$ and differentiable in $x_0$. Then it holds with
+  $t: I \to \mathbb R$ and $t(f) = f(x_0) + f'(x_0) (x - x_0)$,
+  which is the tangent of $f$ in $x_0$, that
+  \[ \forall x \in I: t(x) \leq f(x) \]
+\end{rem}
+%
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/tangent_convex.pdf}
+    \caption{Tangent in $x_0$}
+    \label{img:tangent-convex}
+  \end{center}
+\end{figure}
 
 
 \clearpage

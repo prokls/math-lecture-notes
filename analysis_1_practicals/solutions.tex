@@ -2423,6 +2423,125 @@ This holds with $n > \left(\frac12 \delta\right)^2$.
 
 $x^2$ is a polynomial and polynomials are continuous.
 
+\section{Exercise 72}
+%
+\begin{ex}
+  Show that the equation $x^7 + x = 1$ has exactly one real solution.
+\end{ex}
+%
+\[ x^7 + x = 1 \]
+\[ f(x) = x^7 + x - 1 \]
+%
+Choose
+\begin{itemize}
+  \item $x_1 = 0$: $f(x_1) = f(0) = -1 < 0$
+  \item $x_2 = 1$: $f(x_2) = 1 > 0$
+\end{itemize}
+
+Because $f$ is continuous, the intermediate value theorem applies. So,
+\[ \exists x_0 \in [0,1]: f(x_0) = 0 \Rightarrow \exists \text{ solution} \]
+
+Assume, there exists some $x_0, \tilde{x}_0$ with $x_0 \neq \tilde{x}_0$.
+Then it holds that
+\[ f(x_0) = 0 = f(\tilde{x}_0) \Rightarrow \exists \xi \in (x_0, \tilde{x}_0): f'(\xi) = 0 \]
+but
+\[ f'(x) = \underbrace{7\underbrace{x^6}_{>0} + 1}_{\geq 1} \geq 1 \]
+This contradicts with our assumption that a solution to $f'(\xi) = 0$ exists (Rolle's Theorem).
+
+\section{Exercise 73}
+%
+\begin{ex}
+  $f: [a,b] \to \mathbb R$ is a continuous function and let $x_1, \ldots, x_n \in [a,b]$.
+  Show that:
+  \[ \exists y \in [a,b]: f(y) = \frac1n \sum_{i=1}^n f(x_i) \]
+\end{ex}
+%
+We look at the minimum and maximum:
+\[ \min_{x \in [a,b]} f(x) \leq f(x) \leq \max_{x \in [a,b]} f(x) \]
+\[
+  n \cdot \min_{x \in [a,b]} f(x) \leq \sum_{i=1}^n f(x_i) \leq n \cdot \max_{x \in [a,b]} f(x)
+\] \[
+  \min_{x \in [a,b]} f(x) \leq \frac1n \sum_{i=1}^n f(x_i) \leq \max_{x \in [a,b]} f(x)
+\]
+
+by the Intermediate Value Theorem it holds that
+\[ \exists y \in [a,b]: f(y) = \frac1n \sum_{i=1}^n f(x_i) \]
+
+\section{Exercise 74}
+\begin{ex}
+  $f: \mathbb Q \to \mathbb Q$ is defined as $f(x) = x^2 - 2$. Show that $f$ is continuous and furthermore
+  that $f(0) = -1 < 2 = f(2)$ but $f(x) \neq 0$ for all $x \in [0,2] \cap \mathbb Q$.
+  (This means that the Intermediate Value Theorem does not hold for continuous $f: \mathbb Q \to \mathbb Q$)
+
+  You can use $\sqrt{2} \not\in \mathbb Q$ without proof.
+\end{ex}
+
+\subsection{$f$ is continuous}
+\[ \forall \varepsilon > 0 \exists \delta > 0 \forall x \in \mathbb Q: \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon \]
+Let $\varepsilon > 0$. Choose $\delta \coloneqq \min\set{1, \frac{\varepsilon}{1 + 2x_0}}$.
+
+Consider
+\begin{align*}
+  \abs{f(x) - f(x_0)}
+    &= \abs{x^2 - 2 - x_0^2 + 2} \\
+    &= \abs{(x - x_0)} \abs{(x + x_0)} \\
+    &< \delta \abs{x - x_0 + 2x_0} \\
+    &\leq \delta \left(\abs{x - x_0} + \abs{2x_0}\right) \\
+    &\leq \delta(\delta + 2x_0) \\
+    &\leq \delta(1 + 2x_0) \\
+    &\leq \frac{\varepsilon}{1 + 2x_0} \cdot (1 + 2x_0) \\
+    &= \varepsilon
+\end{align*}
+
+\subsection{Find $f(x) = 0 = x^2 - 2$}
+%
+\[ x^2 = 2 \]
+\[ x = \pm \sqrt{2} \not\in \mathbb Q \]
+
+\[ \Rightarrow f(x) \neq 0 \quad \forall x \in \mathbb Q \]
+Hence, the intermediate value theorem only holds for compact fields.
+
+\subsection{Using the sequence theorem}
+%
+Actually, you can also apply the sequence theorem to show this exercise.
+
+\[ \left(\lim_{x_n \to x \in \mathbb Q} x_n\right)^2 - 2 = x^2 - 2 = f(x) \]
+
+\section{Exercise 75}
+\begin{ex}
+  Determine, if possible, the following limits (for $z \in \mathbb C, x \in \mathbb R$):
+\end{ex}
+
+\subsection{Exercise 75.a: $\lim_{z\to1} \frac{z^m - 1}{z^n - 1}$ with $m,n \in \mathbb N_+$}
+%
+\[
+  \frac{z^m - 1}{z^n - 1} = \frac{(z - 1)(z^{m-1} + \ldots + 1)}{(z - 1)(z^{n-1} + \ldots + 1)}
+    = \frac{\sum_{k=0}^{m-1} z^k}{\sum_{l=0}^{n-1} z^l}
+\] \[
+  \lim_{z\to 1} \frac{\sum_{k=0}^{m-1} z^k}{\sum_{l=0}^{n-1} z^l}
+    = \frac{\lim_{z\to1} \sum_{k=0}^{m-1} z^k}{\lim_{z\to1} \sum_{l=0}^{n-1} z^l}
+\] \[
+  = \frac{\sum_{k=0}^{m-1} \lim_{z\to1} z^k}{\sum_{l=0}^{n-1} \lim_{z\to1} z^l}
+  = \frac{1 + (m - 1) \cdot 1}{1 + (n - 1) \cdot 1} = \frac mn
+\]
+
+\subsection{Exercise 75.b: $\lim_{x\to\infty} \sqrt{x - \sqrt{x}} - \sqrt{x}$}
+%
+\[
+  \sqrt{x - \sqrt{x}} - \sqrt{x}
+    = \frac{\left(\sqrt{x - \sqrt{x}} - \sqrt{x}\right) \cdot \left(\sqrt{x - \sqrt{x}} + \sqrt{x}\right)}{\sqrt{x - \sqrt{x}} + \sqrt{x}}
+    = \frac{\left(\sqrt{x - \sqrt{x}}\right)^2 - \sqrt{x}^2}{\sqrt{x - \sqrt{x}} + \sqrt{x}}
+\] \[
+  = \frac{x - \sqrt{x} - x}{\sqrt{x - \sqrt{x}} + \sqrt{x}}
+    = \frac{-1}{\sqrt{1 - \frac{\sqrt{x}}{x}} + 1}
+    = \frac{-1}{\sqrt{1 - \frac{1}{\sqrt{x}}} + 1}
+\]
+This is a composition of continuous functions.
+\[
+  \lim_{x\to\infty} \sqrt{x - \sqrt{x}} - \sqrt{x}
+    = \frac{-1}{\sqrt{1 - \lim_{x\to\infty} \frac{1}{\sqrt{x}}} + 1} = \frac{-1}{2}
+\]
+
 \end{document}
 %%% Local Variables:
 %%% mode: latex
