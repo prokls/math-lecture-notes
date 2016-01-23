@@ -4340,7 +4340,7 @@ $X$ and all incident edges with $X$ are removed from the graph $G$}:
 \]
 
 \index{$q_G(X)$}
-Let $q_G(X)$ be the number of even (in terms of number of vertices) connected components in $G \setminus X$.
+Let $q_G(X)$ be the number of odd (in terms of number of vertices) connected components in $G \setminus X$.
 Then we can observe: $q_G(X) > \card{X} \Rightarrow \nexists$ perfect matching in $G$.
 \[
   \Rightarrow
@@ -4369,7 +4369,7 @@ Then we can observe: $q_G(X) > \card{X} \Rightarrow \nexists$ perfect matching i
 
   \begin{itemize}
     \item
-      Let $X_i$ for $1\leq i\leq k$ be the connected components of $G\setminus X$. Without loss of generality the even connected components are the $q_G(X)$ first ones.
+      Let $X_i$ for $1\leq i\leq k$ be the connected components of $G\setminus X$. Without loss of generality the odd connected components are the $q_G(X)$ first ones.
       \[ \card{V(G)} \equiv \card{X} + \sum_{i=1}^{d_G(X)} \card{X_i} \mod{2} \]
     \item
       Because
@@ -4442,7 +4442,7 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
 
   \begin{observation}[$\card{V(G)}$ is even]
     If $\card{V(G)}$ is odd:
-    Let $X = \emptyset$ and $q_G(\emptyset) =$ number of connected, even components in $G$.
+    Let $X = \emptyset$ and $q_G(\emptyset) =$ number of connected, odd components in $G$.
     \[
       \card{V(G)} = \sum_{i=1}^{q_G(\emptyset)} \card{V(K_i)}
         + \sum_{i=q_G(\emptyset)+1}^l \card{V(K_i)}
@@ -4494,7 +4494,7 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
     A set $X \subseteq V(G)$ which satisfies the tutte condition with $=$ is called \emph{barrier}.
 
   \begin{observation}
-    Every even connected component of $G-X$ is factor-critical.
+    Every odd connected component of $G-X$ is factor-critical.
 
     Assume there exists a connected component $K$ of $G-X$, which is not factor-critical.
     $\Rightarrow \exists v \in V(K)$ such that $K-\set{v}$ does not have a perfect matching.
