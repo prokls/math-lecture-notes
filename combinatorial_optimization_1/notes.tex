@@ -201,7 +201,7 @@ Where $w$ is called weight. Two common cost functions:
     c(F) := \max_{e \in F} w(e)  \qquad \text{(bottleneck problem)}
 \end{align}
 
-\section{Problem 1: Drill machine problem}
+\subsection{Problem 1: Drill machine problem}
 %
 A drill machine must drill holes onto a board. Drill heads move vertically. Boards move horizontally. Movements happen with constant speed. Movements can happen simultaneous. Drilling is not considered as movement. With these assumptions the time necessary to drill all holes is direct proportional to the path taken by the drill head and board.
 
@@ -238,7 +238,7 @@ The drill machine problem as generic problem (sum problem):
     E = \{l_\infty(P_i, P_j): 1 \leq i, j \leq n, i \neq j\}
 \]
 
-\section{Problem 2: Scheduling problem}
+\subsection{Problem 2: Scheduling problem}
 %
 \given{We have $m$ workers and $n$ tasks. We assume that every task must be completed by some worker. Not necessarily every task can by done by every worker. Let $S_i \subseteq \set{1, 2, \ldots, m}$ be the set of workers, that can complete job $i$; with $1 \leq i \leq n$. All workers of $S_i$ complete task $i$ with the same speed. Let $t_i$ be the required time to complete job $i$. Every task can be completed by several workers. Every worker can work on several tasks, but \emph{not} simultaneously.}
 \find{Define a work schedule to minimize the total time to complete all tasks (bottleneck problem).}
@@ -247,8 +247,8 @@ We define $t_{ij}$ as the length of time interval in which worker $j$ completes 
 
 \section{Partial enumeration}
 %
-\given{$n \in \mathcal{N}, n \geq 3, \set{p_1, p_2, \ldots, p_n}\ \text{ are points on a plane}$}
-\find{a permutation $\pi^* \in S_n$ with $c(\pi^*) = \sum_{i=1}^{n-1} d_\infty(P(\pi^*(i)), P_{\pi^*}(i+1))$ minimized}
+\given{$n \in \mathcal{N}$, $n \geq 3$, $\set{p_1, p_2, \ldots, p_n}$ are points on a plane, $d$ is the distance function}
+\find{a permutation $\pi^* \in S_n$ with $c(\pi^*) = \sum_{i=1}^{n-1} d_\infty(p_{\pi^*}(i), p_{\pi^*}(i+1))$ minimized}
 
 \begin{enumerate}
   \item Let $\pi(i) = i, \pi^*(i) = i, \fall 1 \leq i \leq n, i = n - 1$
@@ -267,9 +267,9 @@ We define $t_{ij}$ as the length of time interval in which worker $j$ completes 
 %
 In every step the algorithm finds the (lexicograpical) next possible value for $\pi(i)$ without duplicates of $\pi(1), \pi(2), \ldots, \pi(i-1)$. If this is impossible, then reduce $i$ by 1 (backtracking approach). Otherwise we set $\pi(i)$ to our new value $k$. If $i = n$ then a new permutation is given and costs are evaluated and compared, otherwise the algorithm tries all possible values $\pi(i+1)\ldots \pi(n)$ and starts with $\pi(i+1) = 0$ with $i$ being incremented successively.
 
-Hence the algorithm generates all permutation in lexicographical order.
+Hence the algorithm generates all permutations in lexicographical order.
 
-\subsection{Algorithm efficieny}
+\subsection{Algorithm efficiency}
 %
 The actual costs can only be computed relative to $n$. We define costs in terms of steps. One step is defined as one arithmetic operation, assignment, comparison, logical statements, goto jump or value lookup (``elementary step'', ES). We look at the algorithm in terms of costs:
 
@@ -389,8 +389,14 @@ Let $(G, i)$ be an instance of the MST problem. Let
 
 Consider $(G, c')$ as instance of MWF (linear runtime). Let $F$ be a maximum weight spanning forest in $(G', c')$. Case distinction:
 \begin{description}
-  \item[F is not a tree] G is not connected
-  \item[F is a spanning tree] F is the optimal solution of MST because $c'(F) = \sum_{e \in E(F)} (\mathcal{K} - c(e)) = (\card{V(G)} - 1) \mathcal{K} - \sum_{e + E(F)} c(e) = (\card{V(G)} - 1) \mathcal{K} - c(F)$
+  \item[F is not a tree:] G is not connected
+  \item[F is a spanning tree:] F is the optimal solution of MST because
+    \[
+      c'(F)
+      = \sum_{e \in E(F)} (\mathcal{K} - c(e))
+      = (\card{V(G)} - 1) \mathcal{K} - \sum_{e + E(F)} c(e)
+      = (\card{V(G)} - 1) \mathcal{K} - c(F)
+    \]
 \end{description}
 
 \begin{theorem}\label{satz-2.2}
@@ -420,7 +426,7 @@ Let $(G, i)$ be an instance of MST and $T$ be a spanning tree in $G$. In this ca
 \begin{figure}[t]
   \begin{center}
     \includegraphics[width=140pt]{img/ab.pdf}
-    \caption{Sketch for $a \Rightarrow b$}
+    \caption{Sketch for proof construction $a \Rightarrow b$}
   \end{center}
 \end{figure}
 
@@ -790,18 +796,18 @@ Let $e = (x, y)$ be the last edge of the \gath{b_i}{a_i} which is outside of the
     \State $e' = (v', w') \in E(G_{i+1})$
     \State $\Phi_{i+1}(e') := e$ where
     \Statex
-      $v' = C$ if $v \in V(C)$ for $C \in \mathcal{C}$ and
-      $v' = v$ if $v \notin \bigcup_{C \in \mathcal{C}} V(C)$ and
+      \hskip\algorithmicindent $v' = C$ if $v \in V(C)$ for $C \in \mathcal{C}$ and
+      $\qquad v' = v$ if $v \notin \bigcup_{C \in \mathcal{C}} V(C)$ and
     \Statex
-      $w' = C$ if $w \in V(C)$ for $C \in \mathcal{C}$ and
-      $w' = w$ if $w \notin \bigcup_{C \in \mathcal{C}} V(C)$.
+      \hskip\algorithmicindent $w' = C$ if $w \in V(C)$ for $C \in \mathcal{C}$ and
+      $\qquad w' = w$ if $w \notin \bigcup_{C \in \mathcal{C}} V(C)$.
   \EndFor
   \State Let $E(G_{i+1}) := \set{e' = (v', w'): e \in E(G_i), v' \neq w'}$ \Comment{(parallel edges might occur)}
   \For{$e = (v, w) \in E(G_i)$ with $e' = (v', w') \in E(G_{i+1})$} % TODO: verify correctness
     \State $c_{i+1}(e') := c_i(e) \text{ if } w' \notin \mathcal{C}$
     \State $c_{i+1}(e') := c_i(e) - c_i(\alpha(e, C)) + c_i(e_C)$
     \Statex
-      if $w' \in C \in \mathcal{C}$ where $\alpha(e, C) \in \delta^-_C(w)$ and $e_C$ is the cheapest edge of $C$.
+      \hskip\algorithmicindent if $w' \in C \in \mathcal{C}$ where $\alpha(e, C) \in \delta^-_C(w)$ and $e_C$ is the cheapest edge of $C$.
   \EndFor
   \State Set $i := i + 1$
   \Goto{eba-step-2}
@@ -823,8 +829,9 @@ Let $e = (x, y)$ be the last edge of the \gath{b_i}{a_i} which is outside of the
 \index{contraction}
 A \emph{contraction} is the process to replace several vertices $C$ with a single
 new vertex $v'$. Handling edges must be defined explicitly, but in general it works
-something like $G' = (V, \set{(v, v') \,|\, (v, u) \in E \land u \in C}
-\cup \set{(v', v) \,|, (v, u) \in E \land v \in C})$.
+something like
+\[ G' = (V, \set{(v, v') \,|\, (v, u) \in E \land u \in C}
+   \cup \set{(v', v) \,|, (v, u) \in E \land v \in C}). \]
 
 \begin{theorem}\label{satz-2.11}
   Edmonds' Branching Algorithm is correct and computes the branching of
@@ -1387,7 +1394,7 @@ Let $s$ be a vertex in $G$ such that $\exists$ \gath sv $\fall v \in V(G)$.
   \If{$F_n(x) := \infty \fall x \in V(G') \setminus \set{s}$}
     \State \Return{``G is acyclic''}
   \EndIf
-  \State Let $\mu^* = \min_{x \in V} \max_{0 \leq k \leq n-1} \frac{F_n(x) - F_k(x)}{n-k}$ and $u$ its corresponding $x$.
+  \State Let $\mu^* = \min_{x \in V} \max_{0 \leq k \leq n-1} \frac{F_n(x) - F_k(x)}{n-k}$ and $u$ its corresponding $x$
   \State Let $K$ be a cycle which is contained in the sequence
     \[
       u,\;P_n(u),\;P_{n-1}(u),\;P_{n-1}(P_n(u)),\;P_{n-2}(P_{n-1}(P_n(u))),\;\ldots
@@ -1686,8 +1693,8 @@ Let $e_e \in \delta^-(s) \cap P = \operatorname{value}(f) + \delta > \operatorna
   So $f$ is optimal (assumption that cut $\geq$ flow, hence equality, won't get better)
 \end{proof}
 
-\begin{theorem} \label{satz-4.4}
-  (\emph{Max flow, min cut problem}, Ford \& Fulkerson, 1956)
+\begin{theorem}[Max flow, min cut theorem, Ford \& Fulkerson, 1956]
+  \label{satz-4.4}
   Let $(G, u, s, t)$ be a network than there exists a maximum \flow st $f$
   and a minimum cut ($s$-$t$-cut) $\delta^+(A)$ with $\operatorname{value}(f) = u(\delta^+(A))$.
   Especially the value of a maximum flow and the capacity of a minimum $s$-$t$-cut is equal.
@@ -1830,7 +1837,7 @@ Total runtime (for $u_e \in \mathbb{Z}_+ \fall e \in E(G):$
           = \sum_{P \in \mathcal{P}} w(P)
       \]
     \item
-      $\card{\mathcal{P} \cup \mathcal{C}} \leq \card{E(G)}$ because the induction step will be executed at most $\card{E(G)}$ times. In every step a new non-flow-carrying edge is created and in every step $i$ $(\mathcal{P}_i \cup \mathcal{C}_i)$ is incremented by one and we can start with $\mathcal{P} \cup \mathcal{C} = \diameter$ for flow $f \equiv 0$.
+      $\card{\mathcal{P} \cup \mathcal{C}} \leq \card{E(G)}$ because the induction step will be executed at most $\card{E(G)}$ times. In every step a new non-flow-carrying edge is created and in every step $i$ $(\mathcal{P}_i \cup \mathcal{C}_i)$ is incremented by one and we can start with $\mathcal{P} \cup \mathcal{C} = \emptyset$ for flow $f \equiv 0$.
   \end{enumerate}
 \end{proof}
 
@@ -2140,7 +2147,7 @@ An edge $e = (v, w) \in E \cup \overleftarrow{W}$ is called \emph{permitted edge
 
 Algorithm applies push or relabel operations. Starts with preflow which saturates all edges $(s, v)$ ($f(s,v) = u(s,v)$) $\Rightarrow$ in $G_f$ there is no outgoing edge from $s$ $\Rightarrow \nexists$ \gath st
 \[
-  f(e) = 0 \text{ if } e \cap \set{s} = \diameter
+  f(e) = 0 \text{ if } e \cap \set{s} = \emptyset
 \] \[
   f(v,s) = 0
 \]
@@ -2280,8 +2287,8 @@ Condition for $\psi(v) \leq \psi(w) + 1$ is only satisfied for edges in $G_f$.
   No active vertices at termination $\Rightarrow$ preflow is flow and from Theorem~\ref{lemma-4.9}~(c) ``t is not reachable from s in $G_f$'' is an invariant of the algorithm. Hence at termination the optimality criterion is satisfied.
 \end{proof}
 
-\begin{theorem}\label{lemma-4.11}
-  (number of relabel operations)
+\begin{theorem}[number of relabel operations]
+  \label{lemma-4.11}
   \begin{itemize}
     \item $\fall v \in V(G): \psi(v)$ is increased in every relabel operation by at least one (strong monotonicity, no decrement)
     \item $\psi(v) \leq 2n - 1$ is an invariant $\forall v \in V(G)$
@@ -2357,7 +2364,7 @@ Condition for $\psi(v) \leq \psi(w) + 1$ is only satisfied for edges in $G_f$.
   \[
     D := \sum_{v \in A} \psi(v) \qquad \text{potential function}
   \]
-  Start with $D = 0$. At termination $A = \diameter, D = 0$.
+  Start with $D = 0$. At termination $A = \emptyset, D = 0$.
   How does $D$ change with execution of various operations?
 
   \begin{itemize}
@@ -2439,7 +2446,7 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
       \end{itemize}
     \item $w$ = active, switch to
       \begin{itemize}
-        \item active: $i = \psi(v) \land L_{\psi(v)} = \diameter, i \leftarrow i', i' \text{ next } L_{i'} \neq \diameter$
+        \item active: $i = \psi(v) \land L_{\psi(v)} = \emptyset, i \leftarrow i', i' \text{ next } L_{i'} \neq \emptyset$
       \end{itemize}
     \item $w$: inactive, switch to
       \begin{itemize}
@@ -2480,7 +2487,7 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
   \[
     \operatorname{value}(f) = u(\delta(L)) \quad\rightarrow\quad \delta(c) \text{ minimum $s$-$t$-cut}
   \]
-  If you want to compute one minimum cut per pair $(s, t)$, solve ${1 \choose 2}$ max-flow problems
+  If you want to compute one minimum cut per pair $(s, t)$, solve ${n \choose 2}$ max-flow problems
   and determine the corresponding cuts (as above)
   \[
     {n \choose 2} \mathcal{O}(n^2 \sqrt{n})
@@ -2586,7 +2593,7 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
   \given{undirected graph $G$, $u: E(G) \rightarrow \mathbb{R}_+$}
   \find{A Gomory-Hu tree $T$ for $(G, u)$}
 \begin{algorithmic}[1]
-  \State $V(T) = \set{V(G)}$, $E(T) = \diameter$ (a vertex that corresponds to all vertices in $G$)
+  \State $V(T) = \set{V(G)}$, $E(T) = \emptyset$ (a vertex that corresponds to all vertices in $G$)
   \State Choose $X \in V(T)$ with $\card{X} \geq 2$. If $\nexists X$, then goto step 6.
   \State Choose $s,t \in X$ ($s \neq t$), $H$ as connected component $C$ of $T-X$ \\
          Select $S_c := \bigcup_{Y \in V(C)} Y$. $(G', u')$ results from $(G, u)$ by contraction of $s_c$ to a single vertex $V_c$ for every connected component $C$ of $T-x$. So $V(G') = X \cup \set{V_c: c \text{ connected component of } T-X}$.
@@ -2704,9 +2711,9 @@ So $K$ is the set of non-contracting vertices that are on the same halfplane lik
 
 \given{$G$ as undirected graph, $u: E(G) \rightarrow \mathbb{R}_+$}
 \find{
-  Determine a $A^* \subsetneqq V(G), A^* \neq \diameter$ such that
+  Determine a $A^* \subsetneqq V(G), A^* \neq \emptyset$ such that
   \[
-    u(\delta(A^*)) = \min_{A \subsetneqq V(G), A \neq \diameter} u(\delta(A))
+    u(\delta(A^*)) = \min_{A \subsetneqq V(G), A \neq \emptyset} u(\delta(A))
   \]
 }
 
@@ -2836,7 +2843,7 @@ Fibonacci heaps with key $-\alpha(v)$.
   \[
     \lambda^{G_{i-1}}_{x,y} = \sum_{e \in \delta_{G_{i-1}}(x)} u(e)
   \]
-  It's existence is given by theorem~\ref{lemma-4.21} and $x$ last vertex and $y$ pre-last vertex in concern of a MA-order in $G_{i-1}$.
+  It's existence is given by theorem~\ref{lemma-4.21} and $x$ last vertex and $y$ pre-last vertex in regards of a MA-order in $G_{i-1}$.
 
   Let $y_i = \lambda^{G_{i-1}}_{x,y}$ and $z_i = x \fall i = 1, 2, \ldots, n$.
   Build $G_i$ from $G_{i-1}$ by contraction of edge $(x, y)$.
@@ -2906,6 +2913,8 @@ Fibonacci heaps with key $-\alpha(v)$.
 \section{Flows with minimum costs}
 %
 \index{b-flow}
+\index{offering vertex}
+\index{demanding vertex}
 \begin{definition}[$b$-flow, offering / demanding vertex]
   Let $G$ be a digraph.
   \[ u: E(G) \rightarrow \mathbb{R}_+ \qquad c: E(G) \rightarrow \mathbb{R} \]
@@ -3376,8 +3385,7 @@ Denote the minimum average weight of a cycle in $G_f$ with $\mu(f)$
   \[ \mu(f_i) \card{E(K_i)} + \mu(f_i) \frac{n-2}{n} \card{E(K_2)} \]
   \[ \Rightarrow \mu(f_i) \leq \frac{n}{n-2} \mu(f_e) \]
 
-  \begin{theorem}
-    \textbf{(Corollary)}
+  \begin{theorem}[Corollary]
     During the MMCC algorithm $\card{\mu(f)}$ is decremented all $m\cdot n$ iterations by at least factor $\frac12$.
   \end{theorem}
   \begin{proof}
@@ -3455,8 +3463,8 @@ Denote the minimum average weight of a cycle in $G_f$ with $\mu(f)$
     \[ \Rightarrow \mathcal{O}(m^2 n^2 \log{n \card{c_{\text{min}}}}) \text{ runtime} \]
 \end{proof}
 
-\begin{theorem}\label{satz-5.7}
-  (Tarjan, Goldberg, 1989)
+\begin{theorem}[Tarjan, Goldberg, 1989]
+  \label{satz-5.7}
   The MMCC algorithm can be implemented with $\mathcal{O}(m^3 n^2 \log{n})$ runtime.
 \end{theorem}
 
@@ -3465,6 +3473,7 @@ Denote the minimum average weight of a cycle in $G_f$ with $\mu(f)$
 \dateref{24th of Nov 2014}
 
 \section{Successive shortest path algorithm}
+Also \enquote{Shortest Augmenting Path algorithm}
 
 \begin{theorem}\label{satz-5.8}
   Let $(G, u, b, c)$ an instance of MKFP and $f$ be a $b$-flow with minimum costs.
@@ -3546,7 +3555,7 @@ Denote the minimum average weight of a cycle in $G_f$ with $\mu(f)$
     \If{$b'(v) = 0 \fall v \in V(G)$}\label{ssp-algo-step-2}
       \State stop and return $f$
     \Else
-      \State chose $s \in V(G)$ with $b'(s) > 0$ and $t$ with $b'(t) < 0$, which is reachable from $s$ in $G_f$.
+      \State choose $s \in V(G)$ with $b'(s) > 0$ and $t$ with $b'(t) < 0$, which is reachable from $s$ in $G_f$.
       \If{there does not exist $s, t$}
         \State stop and report there does not exist a $b$-flow in $G$.
       \EndIf
@@ -3698,7 +3707,7 @@ The proof for Theorem~\ref{lemma-5.10} is given in the practicals.
   \]
 
   $\mathcal{O}(mn)$ in first iteration (first potential function).
-  for other $\mathcal{O}(B)$ iterations, we use Dijkstra's algorithm to compute the shortest paths in $\mathcal{O}(m + n \log{n})$ per iteration and we compute the new potential function (as given in the induction step) in $\mathcal{O}(n)$
+  For other $\mathcal{O}(B)$ iterations, we use Dijkstra's algorithm to compute the shortest paths in $\mathcal{O}(m + n \log{n})$ per iteration and we compute the new potential function (as given in the induction step) in $\mathcal{O}(n)$
   \[ \Rightarrow{O}(mn + B(m + n \log{n})) \]
 \end{proof}
 
@@ -3744,8 +3753,8 @@ The proof for Theorem~\ref{lemma-5.10} is given in the practicals.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{theorem}\label{satz-5.11}
-  (Edmonds and Karp, 1972)
+\begin{theorem}[Edmonds and Karp, 1972]
+  \label{satz-5.11}
   The capacity scaling algorithm solves the MKFP with integers $b$, infinite capacities and conservative weights correctly. The algorithm can be implemented in $\mathcal{O}(n (m + n \log{n}) \log{b_{\text{max}}})$ runtime where $b_{\text{max}} := \max\set{b(v): v \in V(G)}$.
 \end{theorem}
 
@@ -4004,7 +4013,7 @@ $\operatorname{value}(f) := \operatorname{ex}_f(t, T)$ is called value of flow a
   A matching $M$ is called \emph{maximal} if for every matching $M'$, $\card{M'} \leq \card{M}$.
   The \emph{matching number of $G$} is defined as
   \[ \mathfrak V(G) \coloneqq \max\set{\card{M}: M \text{ is a matching}} \]
-  A \emph{vertex cover} is a subset $C \subseteq V(G)$ such that $e \cap C \neq \diameter \fall e \in E(G)$.
+  A \emph{vertex cover} is a subset $C \subseteq V(G)$ such that $e \cap C \neq \emptyset \fall e \in E(G)$.
   A \emph{minimum vertex cover} is a vertex cover of minimum cardinality.
   The \emph{vertex cover number of $G$} is defined as
   \[ \mathfrak C(G) \coloneqq \min\set{\card{C}: C \text{ is vertex cover}} \]
@@ -4079,9 +4088,9 @@ $\operatorname{value}(f) := \operatorname{ex}_f(t, T)$ is called value of flow a
     \item We show: $M'$ is a matching (compare with figure~\ref{img:mprime}).
       Let $e_1, e_2 \in M'$
       \begin{itemize}
-        \item $e_1, e_2 \in M \setminus P \Rightarrow e_1 \cap e_2 = \diameter$
-        \item $e_1, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \diameter$
-        \item $e_1 \in M \setminus P, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \diameter$
+        \item $e_1, e_2 \in M \setminus P \Rightarrow e_1 \cap e_2 = \emptyset$
+        \item $e_1, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \emptyset$
+        \item $e_1 \in M \setminus P, e_2 \in P \setminus M \Rightarrow e_1 \cap e_2 = \emptyset$
       \end{itemize}
 
     \item We show: $\card{M \cap P} = \card{P \setminus M} - 1$.
@@ -4162,7 +4171,7 @@ $\operatorname{value}(f) := \operatorname{ex}_f(t, T)$ is called value of flow a
 \textbf{Algorithmic idea.}
   \begin{enumerate}
     \itemsep0pt
-    \item Start with arbitrary matching $M = M_0$ (eg. $M_0 = \diameter$).
+    \item Start with arbitrary matching $M = M_0$ (eg. $M_0 = \emptyset$).
     \item While there exists an $M$-augmented path $P$, repeat
       \[ M := M \triangle P \]
     \item $M$ is maximal. Return $M$.
@@ -4390,14 +4399,14 @@ Then we can observe: $q_G(X) > \card{X} \Rightarrow \nexists$ perfect matching i
   \[ \card{V(G)} \leq 2 \text{ statement holds} \]
 
   For $V(G) = 1$:
-  \[  \card{X} = 0 \qquad \card{X} = 1 \qquad q_G(\diameter) = 1 \stackrel{!}{<} 0 \]
+  \[  \card{X} = 0 \qquad \card{X} = 1 \qquad q_G(\emptyset) = 1 \stackrel{!}{<} 0 \]
 
   For $V(G) = 2$:
   \begin{itemize}
     \item No edge between two vertices.
-      \[ X = \diameter \qquad q_G(X) = 2 > 0 \quad \text{(no perfect matching)} \]
+      \[ X = \emptyset \qquad q_G(X) = 2 > 0 \quad \text{(no perfect matching)} \]
     \item Edge between both vertices.
-      \[ X = \diameter \qquad q_G(X) = 0 \leq 0 \qquad \checkmark \]
+      \[ X = \emptyset \qquad q_G(X) = 0 \leq 0 \qquad \checkmark \]
       \[ \card{X} = 1 \qquad q_G(X) = 1 \leq 1 \qquad \checkmark \]
       \[ \card{X} = 2 \qquad q_G(X) = 0 \leq 2 \qquad \checkmark \]
   \end{itemize}
@@ -4433,15 +4442,15 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
 
   \begin{observation}[$\card{V(G)}$ is even]
     If $\card{V(G)}$ is odd:
-    Let $X = \diameter$ and $q_G(\diameter) =$ number of connected, even components in $G$.
+    Let $X = \emptyset$ and $q_G(\emptyset) =$ number of connected, even components in $G$.
     \[
-      \card{V(G)} = \sum_{i=1}^{q_G(\diameter)} \card{V(K_i)}
-        + \sum_{i=q_G(\diameter)+1}^l \card{V(K_i)}
-        \Rightarrow \card{V(G)} \equiv q_G(\diameter) \mod{2}
+      \card{V(G)} = \sum_{i=1}^{q_G(\emptyset)} \card{V(K_i)}
+        + \sum_{i=q_G(\emptyset)+1}^l \card{V(K_i)}
+        \Rightarrow \card{V(G)} \equiv q_G(\emptyset) \mod{2}
     \] \[
       \card{V(K_i)} \equiv 1 \mod{2}
     \] \[
-      \Rightarrow q_G(\diameter) \geq 1 > 0 = \card{\diameter}
+      \Rightarrow q_G(\emptyset) \geq 1 > 0 = \card{\emptyset}
     \]
     The Tutte condition is not satisfied. Contradiction.
   \end{observation}
@@ -4601,7 +4610,7 @@ This algorithm by Edmonds determines a perfect (or cardinality-maximal) matching
     \State \Return{perfect matching M}
   \Else
     \State $r$ is unmatched
-    \State $T := (\set{r}, \diameter)$, $B(T) := \set{r}$, $A(T) := \diameter$
+    \State $T := (\set{r}, \emptyset)$, $B(T) := \set{r}$, $A(T) := \emptyset$
   \EndIf
   \While{$\exists (v, w) \in E(G')$ with $v \in B(T), w \notin A(T)$}
     \If{$w \notin V(T)$ and $w$ is unmatched}
@@ -4609,7 +4618,7 @@ This algorithm by Edmonds determines a perfect (or cardinality-maximal) matching
       \If{$\exists$ no odd vertex in $G'$}
         \State \Return{perfect matching $M'$}
       \Else
-        \State replace $T$ by $(\set{r}, \diameter)$ where $r$ is a (new) unmatched vertex in $G'$
+        \State replace $T$ by $(\set{r}, \emptyset)$ where $r$ is a (new) unmatched vertex in $G'$
       \EndIf
     \ElsIf{$w \notin V(T)$ and $w$ is matched in regards of $M'$}
       \State use $(v, w)$ and the matching-edge incident with $w$ to extend $T$.
@@ -4736,7 +4745,7 @@ Let $T_1$ be an degenerated tree, which results in output of the second kind.
 Remove $T_1(E(T_1))$ from $G$ (hence the edges of $T_1$), let resulting graph be $G_1$.
 Let $M_1$ be the matching evaluated by Edmonds Blossom Algorithm.
 Let $M_2 := M_1 \setminus E(T_1)$.
-Apply Edmonds Blossom Algorithm in $G_1$ with initial matching $M_2$ (probably $M_2 = \diameter$).
+Apply Edmonds Blossom Algorithm in $G_1$ with initial matching $M_2$ (probably $M_2 = \emptyset$).
 At termination either
 \begin{itemize}
   \item $M_2$ (transformed) is perfect matching in $G_1$
@@ -5249,12 +5258,12 @@ Considerations:
     Let $G$ be digraph $(a_{ve}): A \in \set{0, \pm 1}^{\card{V(G)} \times \card{E(G)}}$.
     \[
       a_{ve} = \begin{cases}
-        0   & v \cap e = \diameter \\
+        0   & v \cap e = \emptyset \\
         1   & e = (v, ?) \\
         -1  & e = (?, v)
       \end{cases}
     \]
-    Partition is $R = V(G)$ and $T = \diameter$.
+    Partition is $R = V(G)$ and $T = \emptyset$.
 
   \item
     Vertex-edge incidence matrices of complete bipartite graphs:
@@ -5416,7 +5425,7 @@ matching number, vertex cover number, edge cover number, edge incidence number, 
     $\gamma(G) := \min\set{\card{Y}: Y \subseteq E(G), Y \text{ is vertex cover in } G}$
   \item[edge cover number]\index{edge cover number}\hfill{} \\
     $\zeta(G) := \min\{\card{Y}: Y \subseteq V(G), Y \text{ is vertex cover in } G, $ \\
-    $\fall e \in E(G) \,\exists v \in Y: e \cap V \neq \diameter\}$
+    $\fall e \in E(G) \,\exists v \in Y: e \cap V \neq \emptyset\}$
   \item[stability number]\index{stability number}\hfill{} \\
     $\alpha(G) := \max\set{\card{S}: S \text{ is stable in } G}$
 \end{description}
@@ -5885,7 +5894,7 @@ $c$ as above.
   (bases)
   Let $E$ be a finite set and $\mathcal{B} \subseteq 2^E$. Family $\mathcal{B}$ is the set of bases of a matroid if and only if the following base axioms are satisfied
   \begin{itemize}
-    \item[(B1)] $B \neq \diameter$
+    \item[(B1)] $B \neq \emptyset$
     \item[(B2)] $\fall B_1, B_2 \in \mathcal{B}$ and $x \in B_1 \setminus B_2: \exists y \in B_2 \setminus B_1$ with $(B_1 \setminus \set{x}) \cup \set{y} \in \mathcal{B}$.
   \end{itemize}
   If $(B_1)$ satisfies $(B_2)$, then $(E, \mathcal{F})$ is the matroid with base set $\mathcal{B}$ where
@@ -5919,7 +5928,7 @@ $c$ as above.
       \end{itemize}
     \item $\fall X \subseteq E$ and $x, y \in E$ it holds that
       \begin{itemize}
-        \item[(R1')] $r(\diameter) = 0$
+        \item[(R1')] $r(\emptyset) = 0$
         \item[(R2')] $r(X) \leq r(X \cup \set{y}) \leq r(X) + 1$
         \item[(R3')] $r(X \cup \set{x}) = r(X \cup \set{y}) = r(X) \Rightarrow r(X \cup \set{x, y}) = r(X)$
       \end{itemize}
@@ -5983,14 +5992,14 @@ $c$ as above.
   Let $E$ be a finite set and $\mathcal{C} \subseteq 2^E$. $\mathcal{C}$ is the set of cycles of an IDS ($E, \mathcal{F}$) with $\mathcal{F} := \set{F \subseteq E: \nexists C \in \mathcal{C} \text{ with } C \subseteq F}$ if and only if the following conditions are satisfied:
 
   \begin{itemize}
-    \item[(C1)] $\diameter \notin \mathcal{C}$
+    \item[(C1)] $\emptyset \notin \mathcal{C}$
     \item[(C2)] $\fall C_1, C_2 \in \mathcal{C}: C_1 \subseteq C_2 \Rightarrow C_1 = C_2$
   \end{itemize}
 
   Furthermore for the set $\mathcal{C}$ of cycles of an IDS it holds that:
   \begin{itemize}
     \item[a)] $(E, \mathcal{F})$ is a matroid
-    \item[b)] $\fall X \in \mathcal{F} \fall e \in E: X \cup \set{e}$ contains at most one cycle. Denote this number of cycles as $C(X, e)$. If no cycle exists, let $C(X, e) = \diameter$.
+    \item[b)] $\fall X \in \mathcal{F} \fall e \in E: X \cup \set{e}$ contains at most one cycle. Denote this number of cycles as $C(X, e)$. If no cycle exists, let $C(X, e) = \emptyset$.
   \end{itemize}
   where $a \Leftrightarrow b$.
 
@@ -6028,16 +6037,16 @@ $c$ as above.
 %
 Let $(E, \mathcal{F})$ be an IDS. The dual of $(E, \mathcal{F})$ is the family of sets $(E, \mathcal{F}^*)$ with
 \[
-  \mathcal{F}^* := \set{F \subseteq E: \exists \text{ base of } (E, \mathcal{F}) \text{ such that } F \cap B = \diameter}
+  \mathcal{F}^* := \set{F \subseteq E: \exists \text{ base of } (E, \mathcal{F}) \text{ such that } F \cap B = \emptyset}
 \]
 
 \textbf{Question.}
   Is $(E, \mathcal{F}^*)$ an IDS? Yes.
 
   \begin{itemize}
-    \item[(M1)] $\diameter \in \mathcal{F}^* \fall$ base $\mathcal{B}$ of $(E, \mathcal{F})$ it holds that $\diameter \cap B = \diameter$
+    \item[(M1)] $\emptyset \in \mathcal{F}^* \fall$ base $\mathcal{B}$ of $(E, \mathcal{F})$ it holds that $\emptyset \cap B = \emptyset$
     \item[(M2)] $Y \in \mathcal{F}^*: X \subseteq Y \stackrel{!}{\Rightarrow} X \subseteq \mathcal{F}^*$ \\
-      From $Y$ it follows that $\exists$ a base $B$ of $(E, \mathcal{F}): Y \cap B = \diameter \Rightarrow X \cap B = \diameter \Rightarrow X \in \mathcal{F}^*$
+      From $Y$ it follows that $\exists$ a base $B$ of $(E, \mathcal{F}): Y \cap B = \emptyset \Rightarrow X \cap B = \emptyset \Rightarrow X \in \mathcal{F}^*$
   \end{itemize}
 
   Hence a dual of an IDS is an IDS.
@@ -6048,8 +6057,8 @@ Let $(E, \mathcal{F})$ be an IDS. The dual of $(E, \mathcal{F})$ is the family o
 \end{theorem}
 
 \begin{proof}
-  $F \in \mathcal{F}^{**} \stackrel{\text{def}}{\Leftrightarrow} \exists$ base $B^*$ in $(E, \mathcal{F}^*)$ with $F \cap B^* = \diameter$.
-  $\Leftrightarrow \exists$ base $B$ in $(E, \mathcal{F})$ with $B^* = B^C$ and $F \cap B^C = \diameter$ hence $F \subseteq B$
+  $F \in \mathcal{F}^{**} \stackrel{\text{def}}{\Leftrightarrow} \exists$ base $B^*$ in $(E, \mathcal{F}^*)$ with $F \cap B^* = \emptyset$.
+  $\Leftrightarrow \exists$ base $B$ in $(E, \mathcal{F})$ with $B^* = B^C$ and $F \cap B^C = \emptyset$ hence $F \subseteq B$
   $\Leftrightarrow F \in \mathcal{F}$
 
   \textbf{Claim.} $B^*$ base of $(E, \mathcal{F}^*$) $\Leftrightarrow$ $\exists$ base $B$ of $(E, \mathcal{F}): B^* = B^C$
@@ -6058,7 +6067,7 @@ Let $(E, \mathcal{F})$ be an IDS. The dual of $(E, \mathcal{F})$ is the family o
     $B^*$ base of $(E, \mathcal{F}^*) \Rightarrow B^* \in \mathcal{F}^* \stackrel{\text{def}}{\Rightarrow} \exists$ base $B$ of $(E, \mathcal{F})$
     \begin{itemize}
       \item[$\Rightarrow$] $B^* \subseteq B^C$. Assume that $\exists x \in B^C \setminus B^*$. Then $B^* \cup \set{x} \subseteq B^C$
-      \item[$\Rightarrow$] $(B^* \cup \set{x}) \cap B = \diameter \stackrel{\text{def}}{\Rightarrow} B^* \cap \set{x} \in \mathcal{F}^*$. This contradicts with $B^*$ is a base of $(E, \mathcal{F}^*)$.
+      \item[$\Rightarrow$] $(B^* \cup \set{x}) \cap B = \emptyset \stackrel{\text{def}}{\Rightarrow} B^* \cap \set{x} \in \mathcal{F}^*$. This contradicts with $B^*$ is a base of $(E, \mathcal{F}^*)$.
     \end{itemize}
 
   Hence $B^* = B^C$.
@@ -6112,7 +6121,7 @@ A maximization problem is given by $\max\set{c(F) := \sum_{c \in F} c(e): F \in 
   \find{An independent set $F \in \mathcal{F}$}
 \begin{algorithmic}[1]
   \State Sort edges $E = \set{e_1, e_2, \ldots, e_n}$ such that $c(e_1) \geq c(e_2) \geq \ldots \geq c(e_n)$
-  \State $F := \diameter$
+  \State $F := \emptyset$
   \For{$i$ from $1$ to $n$}
     \If{$F \cup \set{e_i} \in \mathcal{F}$}
       \State $F := F \cup \set{e_i}$
