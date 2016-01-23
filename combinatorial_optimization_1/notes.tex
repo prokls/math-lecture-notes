@@ -1,8 +1,6 @@
 \documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 %\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
-
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \usepackage[ngerman,english]{babel}
@@ -115,8 +113,8 @@
 \title{
   Combinatorial Optimization 1 \\
   \large{Lecture notes, University of Technology Graz} \\
-  \small{Lecture held by Prof. Eranda Dragoti-Çela} \\
-  \small{With additional notes by the lecture by Prof. Bettina Klinz}
+  \small{Based on a lecture by Prof. Eranda Dragoti-Çela} \\
+  \small{Extended during a lecture by Prof. Bettina Klinz}
 }
 \date{\today}
 \author{Lukas Prokop}
@@ -508,18 +506,20 @@ we can say $c(f) \leq c(e) \fall f$ edges from the \gath xy in $T$.
   creates a cycle ($\mathcal{O}(n)$ with DFS).
 
 \index{branching}
-\textbf{Definition.}
+\begin{definition}
   A digraph $G$ is called \emph{branching}, if it is cycle-free and
   every $v \in V(G): \operatorname{indegree}(v) \leq 1$.
+\end{definition}
 
 \textbf{Notation.}
   $\operatorname{indegree}(v) = \operatorname{deg}^-(v)$.
 
 \index{arborescence}
-\textbf{Definition.}
+\begin{definition}
   A connected branching is called \emph{arborescence}.
   The vertex $r$ with $\operatorname{deg}^-(r) = 0$ is called \emph{root}.
   An arborescence is the directed-graph equivalent of a rooted tree.
+\end{definition}
 
 \textbf{Notation.}
   \[
@@ -649,8 +649,9 @@ We have to show that every iteration is completed in $\mathcal{O}(n)$ time.
 Maintain a list of candidate edges: $\fall w \notin V(T)$ is the candidate edge $K(w)$ the minimum edge between $w$ and $V(T)$.
 In the general case we add the minimum edge $K(w) \fall w \notin V(T)$ ($T = T + k(w)$).
 
-\textbf{Definition.}
+\begin{definition}
   $\card{V(G) \setminus V(T)} = \mathcal{O}(n)$ can be computed in $\mathcal{O}(n)$ time.
+\end{definition}
 
 Update of candidate edges: If $v_k$ was added to $T$ in the last iteration then compare $c(v_k, w), c(k(w))$ and if $c(v_k, w) < c(k(w))$ then $k(w) = (v_k, w)$. This requires $\mathcal{O}(n)$ time.
 
@@ -902,13 +903,14 @@ Consider a digraph $G$ where $c(e) = -1 \fall e \in E(G)$ and $s,t \in V(G)$. Th
 
 Detection of Hamiltonian paths is a NP-complete problem.
 
-\textbf{Definition.}
+\begin{definition}
   A weighting $w$ in a graph $D$ is called \emph{conservative}, if the sum of weights in every cycle of $D$ is non-negative. In other words:
   \begin{itemize}
     \item $\nexists$ negative cycles in $G$.
     \item Let $K$ be the set of cycles in a graph $G$. For every cycle $C \in K$, $w(C) \geq 0$ holds with $w(C) := \sum_{e \in E(C)} c(e)$.
     \item In case of digraphs, directed cycles have to be considered.
   \end{itemize}
+\end{definition}
 
 \textbf{Remark.}
   Analogous problem in undirected graphs are in general more difficult that in digraphs.
@@ -1116,7 +1118,9 @@ We have $\mathcal{O}(n)$ iterations and need $\mathcal{O}(m)$ time per iteration
 
 \section{Potential}
 
-\textbf{Definition.} Let $G = (V, W)$ be a digraph with $c: E \rightarrow \mathbb{R}$
+\begin{definition}
+  Let $G = (V, W)$ be a digraph with $c: E \rightarrow \mathbb{R}$.
+\end{definition}
 
 A mapping $\pi: V(G) \rightarrow \mathbb{R}$ with $c(u, v) + \pi(u) - \pi(v) \geq 0 \fall (u, v) \in E(G)$ is called ``potential''.
 
@@ -1524,8 +1528,9 @@ We are looking for a combinatorial solution.
   MFP always has an optimal solution. Linear programming always provides an optimal solution and is limited by $\sum_{e \in E(G)} u_e$.
 \end{theorem}
 
-\textbf{Definition.}
+\begin{definition}
   A \emph{$s$-$t$-cut in $G$} is an edge set $\delta^+(X)$ with $X \subsetneqq V(G), s \in X, t \notin X$. The set of all edges going from $X$ to $X^c$.
+\end{definition}
 
 The capacity of $\delta^+(x)$ is $u(\delta^+(x)) := \sum_{e \in \delta^+(x)} u_e$.
 A minimum $s$-$t$-cut is a $s$-$t$-cut with smallest possible capacity.
@@ -1570,7 +1575,7 @@ A minimum $s$-$t$-cut is a $s$-$t$-cut with smallest possible capacity.
   \]
 
 \index{residual network}
-\textbf{Definition.} \emph{(dt. ``Inkrementnetzwerk'', residual network)}
+\begin{definition} \emph{(dt. ``Inkrementnetzwerk'', residual network)}
   Assume a network $(G, u, s, t)$ and a \flow st $f$. Define the set of edges as a multiset:
   \[
     \overleftrightarrow E = \set{e: e \in E(G)} \cup \set{\overleftarrow e := (j, i): (i, j) \in E(G)}
@@ -1589,7 +1594,8 @@ A minimum $s$-$t$-cut is a $s$-$t$-cut with smallest possible capacity.
         f_{\overleftarrow e} & e \text{ is edge in direction backward } (f_{\overleftarrow e} = f_e) \\
       \end{array}\right.
   \]
-  $(G_f, u_f, s, t)$ is then called ``residual network''.
+  $(G_f, u_f, s, t)$ is then called \enquote{residual network}.
+\end{definition}
 
 \begin{figure}[ht]
  \begin{center}
@@ -2021,7 +2027,9 @@ This bound is the best we can achieve. In some cases this bound is reached.
 
 Constructable with $\mathcal{O}(m)$ runtime (eg. BFS).
 
-\textbf{Definition.} $s$-$t$-flow $f$ is called \emph{blocking}, if graph $(V(G), \set{e \in E(G_F^L): f(e) < u(e)})$ does not contain a \gath st.
+\begin{definition}
+  $s$-$t$-flow $f$ is called \emph{blocking}, if graph $(V(G), \set{e \in E(G_F^L): f(e) < u(e)})$ does not contain a \gath st.
+\end{definition}
 
 \clearpage
 Not every blocking flow is optimal.
@@ -2120,17 +2128,19 @@ Algorithm by Goldberg \& Tarjan (1988).
 
 \index{preflow}
 \index{active vertex (Push-relabel algorithm)}
-\textbf{Definition.}
+\begin{definition}
   Let $(G, u, s, t)$ be a network with source $s$ and sink $t$.
   $f: E(G) \rightarrow \mathbb{R}_+$ is called \emph{preflow} if $f(e) \leq u(e) \fall e \in E(G)$
   and $\operatorname{ex}_f(v) \geq 0 \fall v \in V(G) \setminus \set{s}$.
   A vertex $v \in V(G) \setminus \set{s, t}$ is called \emph{active} if $\operatorname{ex}_f(v) > 0$.
+\end{definition}
 
 \textbf{Idea.}
   Work with preflow $f$ satisfying $\exists$ \gath st in $G_f$ and try iteratively to reduce the excess for active vertices until no more active vertices exist.
 
-\textbf{Definition.}
+\begin{definition}
   Let $(G, u, s, t)$ be a network. A mapping $\psi: V(G) \rightarrow \mathbb{Z}_+$ is called \emph{distance marker} if $\psi(t) = 0$ and $\psi(s) = n$ and $\psi(v) \leq \psi(w) + 1 \fall (v, w) \in G_f$.
+\end{definition}
 
 An edge $e = (v, w) \in E \cup \overleftarrow{W}$ is called \emph{permitted edge} if $\psi(v) = \psi(w) + 1$.
 
@@ -2318,10 +2328,11 @@ Condition for $\psi(v) \leq \psi(w) + 1$ is only satisfied for edges in $G_f$.
   \end{itemize}
 \end{proof}
 
-\textbf{Definition.}
+\begin{definition}
   Let $e = (x, y)$. $\push(e)$ is called \emph{saturating} push operation if
   \[ y = \min\set{\operatorname{ex}_f(x), u_f(e)} = \underbrace{u_f(e)}_{\neq \operatorname{ex}_f(x)} \]
   otherwise $\push(e)$ is a non-saturating operation.
+\end{definition}
 
 \begin{theorem}\label{lemma-4.12}
   The number of saturating push operations is $2nm$.
@@ -2536,11 +2547,12 @@ It increases with $\mathcal{O}((nm + n^2) \cdot n) = \mathcal{O}(n^2m)$.
 
   If $\lambda_{i,j} = \lambda_{j,i} \forall i,j \in \set{1, 2, \ldots, n}$ and the conditions of theorem~\ref{lemma-4.5} hold, then it holds that a graph $G$ with $V(G) = \set{1, 2, \ldots, n}$ and $\exists u: E(G) \rightarrow \mathbb{R}_+$, such that $\lambda_{i,j}$ for $i,j \in \set{1, 2, \ldots, n}$ that are local node connectivity numbers of $(G, u)$.
 
-\textbf{Definition.}
+\begin{definition}
   Let $G$ be an undirected graph and $u: E(G) \rightarrow \mathbb{R}_+$, $E$ in tree $T$ is called Gomory-Hu-tree of $(G, u)$ iff
   \[
     V(T) = V(G) \land \lambda_{s,t} = \min_{e \in E(P_{s,t})} u(\lambda_G (c_e)) \fall s,t \in V(G), s \neq t
   \]
+\end{definition}
 
 \begin{figure}[ht]
  \begin{center}
@@ -2667,9 +2679,10 @@ So $K$ is the set of non-contracting vertices that are on the same halfplane lik
  \end{center}
 \end{figure}
 
-\textbf{Definition.}
+\begin{definition}
   $f: 2^M \rightarrow \mathbb{R}$ where $M$ is the set and $2^M$ is the power set of $M$.
   $f$ is called submodular if $f(A \cap B) + f(A \cup B) \leq f(A) + f(B) \fall A, B \in 2^M$.
+\end{definition}
 
 \begin{theorem}\label{lemma-4.17}
   After every iteration of step 4, the following conditions hold:
@@ -3056,9 +3069,10 @@ Let $f$ be a $b$-flow. $G_f$ is defined analogously like in the max-flow problem
   \end{cases}
 \]
 
-\textbf{Definition.}
+\begin{definition}
   Let $G$ be a digraph with capacity $u: E(G) \rightarrow \mathbb{R}_+$ and let $f$ be a $b$-flow in $G$.
   A \emph{$f$-augmenting cycle} is a cycle in $G_f$.
+\end{definition}
 
 \begin{theorem}\label{proposition-5.1}
   Let $G$ be a digraph with capacity $u: E(G) \rightarrow \mathbb{R}_+$. Let $f$ and $f'$ be $b$-flows in $G$. Then $g: \overleftrightarrow{E}(G) \rightarrow \mathbb{R}$ with $g(e) = \max\set{0,f'(e) - f(e)}$ and $g(\overleftarrow{e}) = \max\set{0, f(e) - f'(e)} \fall e \in E(G)$ is a \emph{circulation} in $\overleftrightarrow{G} := (V(G), \overleftrightarrow{E}(G))$. Furthermore it holds that $g(e) = 0 \fall e \in \overleftrightarrow E(G) \setminus E(G_f)$ and $c(g) = c(f') - c(f)$.
@@ -3530,7 +3544,7 @@ Also \enquote{Shortest Augmenting Path algorithm}
   This is contradictory to the selection of $P$.
 \end{proof}
 
-\subsubsection{Initial flow for successively shortest path algorithm}
+\subsection{Initial flow for successively shortest path algorithm}
 \begin{itemize}
   \item If $c$ is conservative, start with $0$-flow as optimal $b$-flow with $b=0$.
   \item If $c$ is not conservative, start with \[
@@ -3885,7 +3899,7 @@ The proof for Theorem~\ref{lemma-5.10} is given in the practicals.
     \[ f_e(t) \qquad \text{flow values at timestamp $t$ at edge $e$} \]
 \end{itemize}
 
-\textbf{Definition.}
+\begin{definition}
   Let $(G, u, s, t)$ be a network with capacities $u: E(G) \rightarrow \mathbb{R}_+$, source $s$, sink $t$ and transit times $l: E(G) \rightarrow \mathbb{R}_+$ ($e \mapsto l(e)$) and a time horizon $[0, T]$ with $T \in \mathbb{R}_+$. Then a timedependent \flow st $s$ is a Lebesgue-measurable function $f_e: [0, T] \rightarrow \mathbb{R}_+ \fall e \in E(G)$ with all properties:
   \begin{itemize}
     \item $f_e(\zeta) \leq u(e) \fall e \in E(G) \fall \zeta \in [0, T]$
@@ -3894,6 +3908,7 @@ The proof for Theorem~\ref{lemma-5.10} is given in the practicals.
       - \sum_{e \in \delta^+(v)} \int_0^a f_e(\zeta) \, d\zeta \geq 0
       \fall v \in V(G) \setminus \set{s} \fall a \in [0, T]$
   \end{itemize}
+\end{definition}
 
 $\operatorname{value}(f) := \operatorname{ex}_f(t, T)$ is called value of flow at timestamp $T$.
 
@@ -4352,11 +4367,12 @@ Then we can observe: $q_G(X) > \card{X} \Rightarrow \nexists$ perfect matching i
   \dots{} is necessary and sufficient for existence of a perfect matching in $G$
 \end{center}
 
-\textbf{Definition.}
+\begin{definition}
   \index{factor-critical graphs}
   \index{almost perfect matching}
   A graph $G$ is called \emph{factor-critical}, if $G \setminus \set{v}$ (also denoted $G \setminus v$) has a perfect matching $\fall v \in V(G)$.
   A matching $M$ is called \emph{almost perfect} if $G$ has exactly one unmatched vertex.
+\end{definition}
 
 \begin{theorem}
   %\textbf{Proposition.}
@@ -4489,9 +4505,10 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
     \drawing{tutte_condition_observation_3.pdf}
   \end{observation}
 
-  \textbf{Definition.}
+  \begin{definition}
     \index{barrier}
     A set $X \subseteq V(G)$ which satisfies the tutte condition with $=$ is called \emph{barrier}.
+  \end{definition}
 
   \begin{observation}
     Every odd connected component of $G-X$ is factor-critical.
@@ -4541,7 +4558,7 @@ The Theorem by Tutte is a generalization of Theorem~\ref{satz-6.3} (Hall's marri
 %
 This algorithm by Edmonds determines a perfect (or cardinality-maximal) matching in any arbitrary graph.
 
-\textbf{Definition.}
+\begin{definition}
   \index{alternating tree}
   \index{odd vertices}
   \index{even vertices}
@@ -4564,6 +4581,7 @@ This algorithm by Edmonds determines a perfect (or cardinality-maximal) matching
     \item Every connected component is an alternating tree
     \item Every exposed vertex is a root of one alternating tree
   \end{itemize}
+\end{definition}
 
 \textbf{Observation 1.}
   Let $A(T)$ be the set of odd vertices.
@@ -4580,9 +4598,10 @@ This algorithm by Edmonds determines a perfect (or cardinality-maximal) matching
       $P = (r, \ldots, u_1, v_1)$ is an augmenting path. Hence $M \oplus P$ is a larger match than $M$.
   \end{itemize}
 
-\textbf{Definition.}
+\begin{definition}
   Let $G$ be a graph and $M$ be a matching of $G$ and $T$ be an alternating tree in terms of $M$ in $G$.
   $T$ is called \emph{degenerated} (dt. verkümmert) if $\fall u \in B(T)$, $(u, v) \in E(G) \Rightarrow v \in A(T)$ is implied.
+\end{definition}
 
 \begin{theorem}\label{proposition-6.7}
   Let $M$ be a matching in $M$ in $G$ and $T$ be an alternating degenerated tree.
@@ -4770,7 +4789,7 @@ Removal from degenerated tree isolates all vertices in tree because if not all i
 
 \index{deficiency}
 \begin{definition}
-$\deficiency(M) := \card{V(G)} - 2\card{M} = \card{\text{unmatched vertices}}$ (called \emph{deficiency}).
+  $\deficiency(M) := \card{V(G)} - 2\card{M} = \card{\text{unmatched vertices}}$ (called \emph{deficiency}).
 \end{definition}
 Let $B(T_i), A(T_i)$ be the set of even and odd vertices in ${T_i}$ with $1 \leq i \leq k$ respectively.
 \[
@@ -4999,10 +5018,11 @@ Sufficient $A$ total unimodular $\Rightarrow$ LP-relaxation ``equivalent'' MILP.
 
 \dateref{13th of January 2014}
 
-\textbf{Definition.}
+\begin{definition}
   \index{Polyeder}
   \index{integral polyeder}
   A \emph{polyeder} $P(B) = \set{x \in \mathbb{R}^n: Ax \leq b, x \geq 0}$ with $A \in \mathbb{R}^{m\times n}, b \in \mathbb{R}^m$ is called \emph{integral} (dt. ,,ganzahlig''), if all its corners are integral.
+\end{definition}
 
 \textbf{Remark.}
   You can optimize linearly over integral polyeders in polynomial time (``Interior point method'').
@@ -5010,9 +5030,10 @@ Sufficient $A$ total unimodular $\Rightarrow$ LP-relaxation ``equivalent'' MILP.
 \textbf{Question.}
   Which sufficient conditions are provided by integral polyeders?
 
-\textbf{Definition.}
+\begin{definition}
   \index{unimodular matrix}
   $A \in \mathbb{R}^{n\times n}$ is called \emph{unimodular} if $\det(A) \in \set{\pm 1}$.
+\end{definition}
 
 \textbf{Observation.}
   \[
@@ -5334,7 +5355,7 @@ Considerations:
   \]
 \end{proof}
 
-\textbf{Definition.}
+\begin{definition}
   \index{double-stochastic matrix}
   A matrix $X = (x_{ij}) \in \mathbb{R}^{n \times n}$ is called \emph{double-stochastic} if
   \begin{itemize}
@@ -5342,9 +5363,10 @@ Considerations:
     \item $\sum_{i=1}^k x_{ij} = 1 \fall j \in \set{1, \ldots, n}$
     \item $x_{ij} \geq 1 \fall i,j \in \set{1, \ldots, n} \times \set{1, \ldots, n}$
   \end{itemize}
+\end{definition}
 
 \index{alignment polyeder}
-\textbf{Definition.}
+\begin{definition}
   The polyeder (polytop)
   \[ P_A := \set{(x_{ij}) \in \mathbb{R}^{n\times n}: \sum_i x_{ij} = 1, \sum_j x_{ij} = 1, x_{ij} \geq 0} \]
   is called \emph{alignment polyeder} (dt. ,,Zuordnungspolyeder'', set of all double-stochastic matrices).
@@ -5355,6 +5377,7 @@ Considerations:
   \[ \fall x \in P_A: \exists \text{ vector } (\alpha_e)_{e \in \operatorname{corner}(P_A)} \text{ such that } x = \sum_{e \in \operatorname{corner}(P_A)} \alpha_e \underbrace{Y_e}_{\operatorname{corner}} \]
   \dots which is the convex comination of the corners.
   \[ \sum_{e\in\operatorname{corner}(P_A)} \alpha_e = 1 \qquad \alpha_e \geq 0 \fall e \in \operatorname{corner}(P_A) \]
+\end{definition}
 
 \begin{proof}
   We now what to prove $\text{corners of } P_A \Leftrightarrow P_A \text{ are permutation matrices}$.
@@ -5431,10 +5454,11 @@ matching number, vertex cover number, edge cover number, edge incidence number, 
 \end{description}
 
 \index{independent set}
-\textbf{Definition.}
+\begin{definition}
   \index{stable set}
   \index{independent set}
   $S \subseteq V(G)$ is called a \emph{stable set} or \emph{independent set} if $\fall u,v \in S: (u,v) \neq E(G)$.
+\end{definition}
 
 Let $A$ be total unimodular with $A \in \mathbb{R}^{m \times n}$.
 Consider \begin{align*}
@@ -5829,8 +5853,10 @@ $c$ as above.
   \end{itemize}
 \end{proof}
 
-\textbf{Definition.}
+\begin{definition}
+  \index{matroid!rank}
   \index{matroid!lower rank}
+  \index{matroid!rank quotient}
   Let $(E, \mathcal{F})$ be a IDS. $\fall X \subseteq E$ the \emph{lower rank} is defined as $\rho(X)$ where
   \begin{align*}
       \rho(X)
@@ -5847,6 +5873,7 @@ $c$ as above.
   The lower rank function $f: 2^E \rightarrow \mathbb{Z}_+$ with $f: x \mapsto \rho(x)$.
 
   The rank quotient of $(E, \mathcal{F})$ is defined as $q(E, \mathcal{F}) = \min_{X \subseteq E} \frac{\rho(x)}{r(x)}$.
+\end{definition}
 
 \textbf{Example.}
   \[ G = (V, E), E = E(G), \mathcal{F} = \set{M \subseteq E: M \text{ matching}} \]
@@ -6146,11 +6173,12 @@ A maximization problem is given by $\max\set{c(F) := \sum_{c \in F} c(e): F \in 
 \end{algorithmic}
 \end{algorithm}
 
-\textbf{Definition.}
+\begin{definition}
   2 oracles $O_1$ and $O_2$ are called equivalent if $O_1(O_2)$ can be simulated by a polynomial algorithm using an Oracel $O_2(O_1)$ (in both directions!).
 
   Let $O_1$ be an independent oracle. Let $O_2$ be a base superset oracle.
   For general IDS $O_1$ and $O_2$ are not equivalent.
+\end{definition}
 
 \subsection[IDS for TSP]{IDS for TSP on $K_n$ (complete graph)}
 %
