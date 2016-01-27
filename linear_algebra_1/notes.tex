@@ -5951,7 +5951,7 @@ Every vector space has basis. Let $B \subseteq V$ be a basis
 Followingly, if two mappings $f, g \in \Hom(V, W)$ are equivalent
 if and only if $f|_B = g|_B$.
 
-If $\dim{V} < \infty$, $V \simeq W \Leftrightarrow \dim{V} = \dim{W}$.
+If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
 
 \subsection{Matrix}
 \[
@@ -6037,7 +6037,7 @@ If $\dim{V} < \infty$, $V \simeq W \Leftrightarrow \dim{V} = \dim{W}$.
       \[ A \rightarrow f_A \]
       is linear and build a basis $(E_{ij})$ maps to the basis $(f_{ij})$.
       Therefore it holds that
-      \[ K^{m\times n} \simeq \Hom(K^n, K^m) \]
+      \[ K^{m\times n} \cong \Hom(K^n, K^m) \]
   \end{enumerate}
 \end{proof}
 
@@ -7684,6 +7684,511 @@ Yesterday, we saw:
 \begin{rem}
   To achieve a small error, always select a greatest possible pivot element!
 \end{rem}
+
+\meta{lecture}{25th of January 2016}{Franz Lehner}
+%
+Let $P \cdot A = L \cdot R$.
+\[ Ax = b \Rightarrow x = R^{-1} L^{-1} b \]
+
+\begin{ex}
+  \label{ex-6.49}
+  \[ P \cdot A \overset{!}{=} L \cdot R \]
+  \[ A^{(0)} = A \]
+  Search for column $\neq 0 \rightarrow$ column number $j$.
+
+  Heuristic: Choose the greatest value $a_{i,j} \neq 0$ as pivot element.
+  \begin{enumerate}
+    \item exchange such that $a_{i,j}$ is in the first row.
+      \[
+        T_{(1,i_1)} \cdot A = \begin{matrix}
+          0 & 0 & a_{i,j_1} & 0 & \ldots \\
+          \vdots & \vdots & \ddots & \vdots & \ldots \\
+          0 & 0 & 0 & 0 & \ldots \\
+        \end{matrix}
+      \]
+    \item Produce $0$ underneath $a_{i,j_1}$.
+      \[ A^{(i)} = F_1 \cdot T_{(1,j_1)} \cdot A^{(0)} \]
+      \[
+        F_1 = \begin{matrix}
+          1 & \ddots &   &   \\
+          \lambda_2^{(1)} & \ddots & & \\
+          \vdots & \vdots & \ddots & \\
+          \lambda_m^{(i)} & \ldots & \ldots & 1
+        \end{matrix}
+      \]
+      \[ \lambda_2^{(i)} = -\frac{a_{2,j}}{a_{i,j_1}} \]
+      \[
+        \lambda_i^{(i)} = \begin{cases}
+          -\frac{a_{i,j_1}}{a_{i,j_1}} & i \neq i_1 \\
+          -\frac{a_{1,j_1}}{a_{i,j_1}} & i = i_1
+        \end{cases}
+      \]
+    \item Repeat procedure for matrix $B$
+      \begin{enumerate}
+        \item Search column $j_2 \neq 0$
+        \item Exchange largest element $a_{i_2, j_2}$ to second element of $A$.
+          \[
+            T_{(2 j_2)} A^{(i)} =
+            \begin{matrix}
+              0 & a_{i,j} & \ldots & \ldots & \ldots & \ldots \\
+              0 & 0 & a'_{i_2,j_2} & \ldots & \ldots & \ldots \\
+              \vdots &  & & & & & \vdots
+            \end{matrix}
+          \] \[
+            \text{with } a'_{i_2,j_2} = a_{i_2 j_2} - \lambda_{i_2}^{(i)} \cdot a_{i,j_2}
+          \] \[
+            F_2 = \begin{matrix}
+              1 & 0 & & \\
+              \lambda_j^{(2)} & 1 & & \\
+              \vdots & & \ddots & \vdots \\
+              \lambda_m^{(2)} & \ldots & \ldots & \ldots
+            \end{matrix}
+          \] \[
+            \lambda_i^{(2)} = \begin{pmatrix}
+              -\frac{a_{i,j_2}}{a'_{i_2,j_2}} & \\
+              &
+            \end{pmatrix}
+          \]
+          The first column is kepts unmodified $\rightarrow$ Frobenius matrix.
+          \[
+            F_2 \cdot T_{(2,i_2)} \cdot F_1 \cdot T_{(1,i_1)} \cdot A =
+            \begin{pmatrix}
+              \infty & a_{i,j_1} & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+              \vdots & 0 & 0 & 0 & a_{i_2,j_2} & \ldots & \ldots & \ldots \\
+              \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+              0 & 0 & 0 & 0 & \ldots & \ldots & \ldots & \ldots
+            \end{pmatrix}
+          \]
+          where at the bottom-right a $m-2\times n-j_2$ submatrix is given.
+        \item Multiplication with $T_{ij}$ and $F_j$ does not change the rank of the matrix.
+          Therefore if $r = \operatorname{rk}(A)$, then the zero matrix remains after $r$ steps.
+          \[ A^{(r)} = F_r T_{(r,i_r)} \ldots F_1 T_{(1,i_1)} A = R \]
+          \[ A = \underbrace{T_{(1,i)} F_1^1 \ldots T_{(1,i_r)}}_{\text{not a triangular matrix!}} F_r^{-1} \cdot R \]
+          \[
+            \begin{pmatrix}
+              1 &  & & \\
+                & \ddots & & \\
+                &  & -\lambda_{n,i_n} & \\
+                &  & \vdots & \\
+                &  & -\lambda_m & 1
+            \end{pmatrix}
+          \]
+          \[ T_{(i,j)} \cdot F_1^{-1} \cdot T_{2,i_2} = T_{(1,i_1)} \cdot T_{(2,i_2)} \cdot \underbrace{T_{(2,i_2)}^{-1} \cdot F_1^{-1} T_{(2,i_2)}}_{F_1'} \]
+      \end{enumerate}
+  \end{enumerate}
+\end{ex}
+
+\begin{theorem}
+  \label{lemma-6.50}
+  \[
+    F = \begin{pmatrix}
+      1 &   & & & \\
+        & 1 & & & \\
+        & \lambda_{n+1} & & & \\
+        & \vdots & & & \\
+        & \lambda_{m} & \ldots & & 1
+    \end{pmatrix}
+    \in {\mathcal F}_k^{m\times m}
+  \]
+  $\pi \in \sigma_m$ permutation with $\sigma(i) = i \forall i \leq k$.
+  $T_\pi$ is the permutation matrix such that $T_\pi \cdot e_i = e_{\pi(i)}$
+  \[
+    \Rightarrow T_\pi^{-1} F T_\pi = \begin{pmatrix}
+      1 & & & & \\
+        & \ddots &  & & \\
+        & & \lambda_{\pi(n+1)} & & \\
+        & & \vdots & & \\
+        & & \lambda_{\pi(m)} & \ldots & 1
+    \end{pmatrix}
+    \in {\mathcal F}_k
+  \]
+\end{theorem}
+\begin{proof}
+  \[
+    F = \begin{bmatrix}
+      I_k &|  \\
+    \hline
+      0 &| I_{m-k}
+    \end{bmatrix}
+    \qquad
+    T_\pi = \begin{bmatrix}
+      I_k &| 0 \\
+    \hline
+      0 &| P
+    \end{bmatrix}
+  \] \[
+    T_{\pi}^{-1} = \begin{bmatrix}
+      T_k &| 0 \\
+    \hline
+      0 &| P^{-\pi}
+    \end{bmatrix}
+  \] \[
+    T_{\pi}' F T_{\pi} = \begin{bmatrix}
+      I_k &| 0 \\
+      0 &| P^{-1}
+    \end{bmatrix} \cdot \begin{bmatrix}
+      I_k &| 0 \\
+      0 &| I_{n-k}
+    \end{bmatrix} \cdot \begin{bmatrix}
+      I_k &| 0 \\
+      0 &| P
+    \end{bmatrix}
+  \] \[
+    = \begin{bmatrix}
+      I_k &| 0 \\
+      0 &| P^{-1}
+    \end{bmatrix} \begin{bmatrix}
+      I_k &| 0 \\
+      0 &| P
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      I_k &| 0 \\
+      0 &| I_{m-k}
+    \end{bmatrix}
+  \] \[
+    A = T_{(i,i_1)} F_1^1 \ldots T_{(i,i_r)} F_r^{-1} R
+  \] \[
+    = \ldots T_{(r-1, i_{r-1})} \cdot T_{r-1}^{-1} \cdot T_{(r,i_r)} F_r^{-1} \cdot R
+  \] \[
+    = \ldots T_{(r-1, i_{r-1})} T_{r,i_r} \underbrace{T_{(r,i_r)}^{-1} F_{r-1}^{-1} T_{r,i_r}}_{\text{lemma } F_{r-1}' \in \mathcal F_r} F_r^{-1} \cdot R
+  \] \[
+    = T_{(1,i_1)} F_1^1 \ldots T_{(r-2,i_{r-2})} F_{r-2}^{-1} \cdot T_{(r-1, i_{r-1})} T_{(r,i_r)} F'_{r-1} F_r^{-1} \cdot R
+  \] \[
+    = \ldots T_{(r-2,i_{r-2})} T_\pi \cdot F_{r-2}' \cdot F_{r-1}' \cdot F_r^{-1} \cdot R
+  \] \[
+    = P \cdot F_1' F_2' \cdot \ldots \cdot F_{r-2}' F_{r-1}' F_r^{-1} \cdot R
+  \] \[
+    \Rightarrow P^{-1} \cdot A = L \cdot R
+  \]
+\end{proof}
+
+\begin{theorem}[Matrix representation of linear maps]
+  \[ f: K^n \to K^m \leftrightarrow \text{matrix } A \in K^{m\times n} \text{ such that } \underbrace{f = f_A}_{f(x) = A \cdot x} \]
+  \[ \Hom(K^n,K^m) \overset{\sim}{=} K^{m\times n} \]
+  Let $V,W$ with $\dim{V} = n$, $\dim{W} = m$.
+  \[
+    V \overset{\sim}{=} K^n, \qquad
+    W \overset{\sim}{=} K^m \qquad
+    \Rightarrow \Hom(V, W) \overset{\sim}{=} \Hom(K^n,K^m) \overset{\sim}{=} K^{m\times n}
+  \]
+  How does this isomorphism look like?
+
+  Choose basis $B \subseteq V$, $B = (b_1, \ldots, b_n)$ and $C \subseteq W$.
+  Isomorphism:
+  \[
+    \Phi_B: V \to K^n
+  \] \[
+    v \mapsto (v)_B = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}
+  \] \[
+    \Phi_C: W \to K^m
+  \] \[
+    w \mapsto (w)_C = \begin{pmatrix} \mu_1 \\ \vdots \\ \mu_m \end{pmatrix}
+  \] \[
+    \Phi_B^{-1} = K^n \to V
+  \] \[
+    \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}
+      \mapsto
+      \sum_{i=1}^n \lambda_i b_i
+  \]
+
+  Let $f$ be a linear map from $V$ to $W$ ($f \in \Hom(V, W)$).
+  There exists a distinct linear mapping $\tilde{f} \in \Hom(K^n,K^m)$
+  such that $\Phi_C \circ f = \tilde{f} \circ \Phi_B$, specifically
+  $\Phi_C \circ f \circ \Phi_B^{-1}$ the corresponding matrix (Theorem~\ref{satz-6-5})
+  in $K^{m\times n}$.
+  $b_i$ is computed in matrix representation in $f$ in regards of $B$ and $C$.
+  Notation: $\Phi_C^B(f) \in K^{m\times n}$.
+  Compare with Figure~\ref{img:lm}.
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/linear_mapping.pdf}
+      \caption{Linear mapping in terms of $f$}
+      \label{img:lm}
+    \end{center}
+  \end{figure}
+\end{theorem}
+
+\begin{theorem}
+  \label{satz-6.52}
+  $\Phi_C^B(f)$ is the matrix for which it holds that
+  \[ \Phi_C(f(v)) = \Phi_C^B(f) \cdot \Phi_B(v) \]
+  \[ f(v)_C = A \cdot (v)_B \]
+  \[ S_i(\Phi_C^B(f)) = \Phi_C(f(b_i)) \]
+\end{theorem}
+
+\begin{cor}
+  \label{corollary-6.53}
+  \[
+    \Phi_C^B(f) =
+    \begin{bmatrix}
+      \Phi_C(f(b_1)) & \Phi_C(f(b_2)) & \ldots \\
+      \vdots & \vdots & \vdots
+    \end{bmatrix}
+  \]
+  Columns of $\Phi_C^B(f)$ are the coordinate vectors of the images of the base vectors in regards of basis $C$.
+\end{cor}
+\begin{proof}
+  \[
+    S_i(\Phi_C^B(f))
+    = \Phi_C^B(f) \cdot e_i
+    = \Phi_C^B(f) \Phi_B(b_i)
+    \overset{\text{Theorem~\ref{satz-6.52} for } v = b_i}{=} \Phi_C(f(b_i))
+  \] \[
+    e_i = \Phi_B(b_i)
+  \]
+\end{proof}
+
+\begin{ex}
+  \label{ex-6.55}
+  \[
+    V = \mathbb R^3 \text{ with basis } \left(
+      \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix},
+      \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix},
+      \begin{pmatrix} -1 \\ 1 \\ 1 \end{pmatrix}
+    \right) = B
+  \] \[
+    W = \mathbb R^2 \text{ with basis } \left(
+      \begin{pmatrix} 1 \\ 1 \end{pmatrix},
+      \begin{pmatrix} 2 \\ 0 \end{pmatrix}
+    \right) = C
+  \] \[
+    f: V \to W
+  \] \[
+    \begin{pmatrix} x \\ y \\ z \end{pmatrix}
+    \mapsto
+    \begin{pmatrix}
+      x + 3y - z \\
+      2y + 3z
+    \end{pmatrix}
+  \] \[
+    \Phi_C^B(f) = \text{?}
+  \]
+  $i$-th column is image of $b_i$ in basis $C$.
+
+  \begin{align*}
+    f(b_1) &= f\begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 3 \\ 5 \end{pmatrix} \\
+    f(b_2) &= f\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 3 \end{pmatrix} \\
+    f(b_3) &= f\begin{pmatrix} -1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 5 \end{pmatrix}
+  \end{align*}
+  \[
+    \begin{pmatrix}
+      3 & 0 & 1 \\
+      5 & 3 & 5
+    \end{pmatrix}
+    = \Phi_{\text{std basis}}^B(f)
+  \]
+
+  $\Phi_C(f(b_i)):$ solve $\lambda_1 c_1 + \lambda_2 c_2 = f(b_i)$
+  \[
+    \begin{pmatrix} C_1 & C_2 \\ \vdots & \vdots \end{pmatrix}
+    \cdot
+    \begin{pmatrix} \lambda_1 \\ \lambda_2 \end{pmatrix} = f(b_i)
+  \]
+
+  \[
+    \begin{array}{cc|ccc}
+        & 2 & 3 & 0 & 1 \\
+      1 & 0 & 5 & 3 & 5 \\
+    \hline
+      0 & 2 & -2 & -3 & -4 \\
+        & 1 & -1 & -\frac32 & -2
+    \end{array}
+  \] \[
+    \leadsto
+    \Phi_C^B(f) = \begin{pmatrix}
+      5 & 3 & 5 \\
+      -1 & -\frac32 & -2
+    \end{pmatrix}
+  \]
+
+
+  Test:
+  \[ \Phi_C^B(t) \cdot \Phi_B(b_i) = \begin{pmatrix} 5 \\ -1 \end{pmatrix} \]
+  \[
+    5 \cdot c_1 - c_2 = 5 \cdot \begin{pmatrix} 1 \\ 1 \end{pmatrix} - \begin{pmatrix} 2 \\ 0 \end{pmatrix}
+    = \begin{pmatrix} 3 \\ 5 \end{pmatrix} = t \cdot (b_1)
+  \]
+\end{ex}
+
+\begin{theorem}
+  \label{satz-6.54}
+  $\Phi_C^B: \Hom(V,W) \to K^{m\times n}$ is linear where $B,C$ are bases of $V, W$.
+  Hence,
+  \[ \Phi_C^B(\lambda \cdot f + \mu \cdot g) = \lambda \cdot \Phi_C^B(f) + \mu \Phi_C^B(g) \]
+\end{theorem}
+\begin{proof}
+  Will be provided in the practicals for basis elements.
+\end{proof}
+
+\begin{theorem}
+  \label{satz-6.56}
+  Let $B = (b_1, \ldots, b_n)$ be basis of $V$.
+  Let $C = (c_1, \ldots, c_m)$ be basis of $W$.
+  Let $D = (d_1, \ldots, d_p)$ be basis of $Z$.
+  \[ f: V \to W \qquad g: W \to Z \quad \text{ linear} \]
+  \[ \Rightarrow \Phi_D^B (g \circ f) = \Phi_D^C(g) \cdot \Phi_C^B(f) \]
+\end{theorem}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/two_linear_mappings.pdf}
+    \caption{Mapping $f$ and $g$}
+    \label{img:two-linear-mappings}
+  \end{center}
+\end{figure}
+
+\begin{proof}
+  \[ ((g \circ f) (v))_D \overset!= \Phi_D^C(g) \cdot  \Phi_C^B(f) \circ (v)_B \]
+  \begin{align*}
+    \Phi_D((g \circ f)(v)) &= \Phi_D(g(f(v))) \\
+      &= \Phi_D^C(g) \cdot \Phi_C(f(v)) \\
+      &= \Phi_D^C(g) \cdot \Phi_C^B(f) \cdot \Phi_B(v)
+  \end{align*}
+\end{proof}
+
+\meta{lecture}{26th of January 2016}{Wolfgang Wöss}
+
+\[ V \cong K^m \qquad W \cong K^m \]
+\[ B = (b_1, \ldots, b_n)  \qquad  C = (c_1, \ldots, c_n)  \]
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/linear_mapping.pdf}
+    \caption{Linear mapping in terms of $f$}
+    \label{img:lm}
+  \end{center}
+\end{figure}
+
+\[ \Phi_B:  V \to K^n \]
+\[ v \mapsto \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \]
+
+\[ \Phi_C: W \to K^m \]
+\[ w \mapsto \begin{pmatrix} \mu_1 \\ \vdots \\ \mu_m \end{pmatrix} \]
+
+\[ v = \sum_{j=1}^n \lambda_j b_j \]
+\[ w = \sum_{i=0}^m \mu_i c_i \]
+\[ \tilde{f} = \Phi_B \circ f \circ \Phi_B^{-1} = f_A \]
+
+$m\times n$ matrix:
+\[ A = \Phi_C^B(f) \]
+\[
+  \Phi_C^B(f) = \left(
+    \underbrace{\Phi_C(f(b_1))}_{\text{1st column}},
+    \Phi_C(f(b_2)),
+    \ldots,
+    \underbrace{\Phi_C(f(b_n))}_{\text{$n$-th column}}
+  \right)
+\]
+\[ f \mapsto \Phi_C^3(f) \]
+\[ \Hom(V, W) \to K^{m\times n} \]
+is the vector space of $m\times n$ matrices over $K$.
+
+\begin{theorem}
+  \label{satz-6.57}
+  \begin{enumerate}
+    \item
+      Given
+      \[ V \cong K^m \qquad W \cong K^m \]
+      \[ B = (b_1, \ldots, b_n)  \qquad  C = (c_1, \ldots, c_n)  \]
+      \[ \Phi_B:  V \to K^n \qquad \Phi_C: W \to K^m \]
+      Then
+      \[ \rank{\Phi_C^B(f)} = \dim{\underbrace{\image(f)}_{f(r) \subset W}} \]
+    \item
+      $f$ is an isomorphism if and only if $m = n$ and $\Phi_C^B(f)$ is regular.
+      So $\Phi_B^C(f^{-1}) = \Phi_C^B(f)^{-1}$ holds.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \[ V = L(b_1, \ldots, b_n) \]
+      \[ \image{V} = L(f(b_1), \ldots, f(b_n)) \]
+      \[ \cong \Phi_C(f(b_1), \ldots, f(b_n)) \]
+      \[ = L(\underbrace{\Phi_C(f(b_1)), \ldots, \Phi_C(f(b_n)}_{\text{columns of } \Phi_C^B}) \]
+      So,
+      \[ \dim{\image{V}} = \dim{L(\Phi_C(f(b_1)), \ldots, \Phi_C(f(b_n)))} = \rank(\Phi_C^B) \]
+      Why is $\Phi_C$ an isomorphism? $\Phi_C: W \to K^m$ (bijective and linear).
+      \[ U = L(f(b_1), \ldots, f(b_n)) \]
+      \[ \left.\Phi_C\right|_U: U \to \Phi_C(U) \subset K^m \]
+    \item
+      $m = n$ is trivial.
+
+      \[ f \text{ is an isomorphism } \Leftrightarrow \image{f} = W \]
+      \[ \Leftrightarrow \dim{\image{f}} = n \]
+      \[
+        \Leftrightarrow
+        \rank\left(\underbrace{\Phi_C^B(f)}_{n\times n \text{ matrix}}\right)
+        = n \Leftrightarrow \underbrace{\Phi_C^B(f)}_{\text{regular}}
+      \] \[
+        \Phi_C^B(f) \cdot \Phi_B^C(f^{-1})
+          \overset{\text{Theorem~\ref{satz-6.56}}}{=} \Phi_C^C(f \cdot f^{-1})
+          = \Phi_C^C(\text{id}_W)
+          = I_n
+      \]
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Basis transformation matrix}
+\index[German]{\foreignlanguage{ngerman}{Basistransformationsmatrix}}
+\begin{defi}
+  \label{satz-6.58}
+  \[ V \cong K^n \]
+  Bases $B = (b_1, \ldots, b_n)$ and $B' = (b'_1, \ldots, b'_n)$.
+  \begin{enumerate}
+    \item
+      \[ \Phi_{B'}^B(\text{id}_V) \leftrightarrow \Phi_{B'} \circ \Phi_B^{-1} \]
+      \[ \Phi_{B'}^B(\text{id}_V) = T_{B'}^B \]
+      \begin{center}
+        \enquote{basis transformation matrix}
+      \end{center}
+      So,
+      \[ T_{B'}^B = (\underbrace{\Phi_B(b_1)}_{\text{column $1$}}, \ldots, \underbrace{\Phi_B(b_n)}_{\text{column $n$}}) \]
+    \item $T_{B'}^B$ is invertible and (follows from Theorem~\ref{satz-6.57})
+      \[ \left(T_{B'}^B\right)^{-1} = T_B^{B'} \]
+    \item
+      Given
+      \[ V \cong K^m \qquad W \cong K^m \]
+      \[ B = (b_1, \ldots, b_n)  \qquad  C = (c_1, \ldots, c_n)  \]
+      \[ \Phi_B:  V \to K^n \qquad \Phi_C: W \to K^m \]
+      Then we have new bases
+      \[ B' = (b_1', \ldots, b_n') \text{ of } V \]
+      \[ C' = (c_1', \ldots, c_n') \text{ of } W \]
+      \begin{align*}
+        \Phi_{C'}^B(f) &=
+          \underbrace{T_{C'}^C}_{m \times m} \cdot
+          \underbrace{\Phi_C^B(f)}_{m\times n} \cdot
+          \underbrace{T_B^{B'}}_{n\times n} \\
+        &= \left(T_C^{C'}\right)^{-1} \cdot \Phi_C^B(f) \cdot T_B^{B'}
+      \end{align*}
+      Figure~\ref{img:other-2-lin-maps} follows from Theorem~\ref{satz-6.56}.
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics[width=0.4\textwidth]{img/other_two_linear_mappings.pdf}
+          \caption{This structure follows from Theorem~\ref{satz-6.56}}
+          \label{img:other-2-lin-maps}
+        \end{center}
+      \end{figure}
+  \end{enumerate}
+\end{defi}
+
+\begin{cor}
+  \begin{enumerate}
+    \item
+      Matrix representations $\Phi_C^B(f)$ and $\Phi_{C'}^{B'}(f)$ of a linear mapping
+      $f: V \to W$ are pairwise equivalent.
+    \item
+      Two matrix representations $\Phi_B^B(f)$ and $\Phi_{B'}^{B'}(f)$ of $f \in \End(V)$
+      are pairwise similar
+      \[ \Phi_B^B(f) = \left(T_B^B\right)^{-1} \Phi_B^{B}(f) T_B^{B'} \]
+    \item
+      $f$ as previously. $K \cong V \to W \cong K^n$. $B = (b_1, \ldots, b_n)$ and $C = (c_1, \ldots, c_n)$.
+
+      Then bases $B$ of $V$ and $C$ of $W$ exist such that
+      \[ \Phi_C^B(f) = I_{m \times n}^{(r)} \]
+      Hence we have $r$ diagonal ones.
+  \end{enumerate}
+\end{cor}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

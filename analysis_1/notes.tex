@@ -36,6 +36,7 @@
 \newcommand\card[1]{\left|\,#1\,\right|}
 \newcommand\meta[3]{\hrule{} This #1 took place on #2 with lecturer #3.\par}
 \newcommand\done{\hspace{10pt}\checkmark}
+\newcommand\norm[1]{\left\|#1\right\|}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -6488,6 +6489,138 @@ We actually used that already (for example, when proving the product law for der
   \end{center}
 \end{figure}
 
+\meta{lecture}{27th of January 2016}{Wolfgang Ring}
+
+TODO: something missing here?
+
+\[ P(z) = \sum_{x=0}^\infty a_n z^n \]
+\[ L = \limsup_{k\to\infty} \sqrt[n]{\abs{a_n}} \]
+\[ \delta = \frac1L \quad \text{ P(z) is convergent } \]
+
+\subsection{Function sequences and uniform convergence}
+\index[English]{Function sequences}
+\index[German]{\foreignlanguage{ngerman}{Funktionsfolgen}}
+\index[English]{Uniform convergence}
+\index[German]{\foreignlanguage{ngerman}{Gleichmäßige Konvergenz}}
+
+\textbf{Sequences, we know:}
+\[ \seq{z_n} \qquad z_n \in \mathbb C \qquad \text{sequence of complex numbers} \]
+\[ \seq{I_n} \qquad I_{n+1} \in I_n \qquad \text{sequence of intervals} \]
+
+\textbf{Function sequences:}
+Consider $\seq{f_n}$ with $f: D \to \mathbb C$ with $D \subseteq \mathbb C$.
+Then $\seq{f_n}$ is called \emph{function sequence}. It is important to recognize
+that all functions have the same co-domain.
+
+\begin{defi}
+  Let $D \subseteq \mathbb C$ and $f_n: D \to \mathbb C$ for $n \in \mathbb N$ and
+  $f: D \to \mathbb C$. We say die function sequence $\seq{f_n}$ is
+  \emph{uniformly convergent} with $f$ if
+  \[
+    \forall \varepsilon > 0 \exists N_\varepsilon \in \mathbb N:
+    \left[n \geq N_\varepsilon \Rightarrow \abs{f_n(z) - f(z)} < \varepsilon \forall z \in D\right]
+  \]
+\end{defi}
+
+\begin{lemma}
+  Let $\seq{f}$ be a function sequence in $D \subseteq \mathbb C$ and $f: D \to \mathbb C$.
+  Then it holds $\seq{f_n}$ is uniformly convergent in $D$ towards limes $f$ if and only if
+  \[ \lim_{n\to\infty} \sup\set{\abs{f_n(z) - f(z)}: z \in D} = 0 \]
+\end{lemma}
+\begin{proof}
+  \begin{description}
+    \item[$\Rightarrow$]
+      Let $f$ be a uniform limes of $\seq{f_n}$. Then $\forall \varepsilon > 0
+      \exists N_\varepsilon: [n \geq N_\varepsilon \Rightarrow \abs{f_n(z) - f(z)} < \varepsilon
+      \forall z \in D]$
+      \[
+        \text{ for } n \geq N_\varepsilon \text{ it holds that }
+        \sup\set{\abs{f_n(z) - f(z)}: z \in D}
+      \]
+      So it holds that
+      \[ \sup\set{\abs{f_n(z) - f(z)}: z \in D} \to_{n\to\infty} 0 \]
+    \item[$\Leftarrow$]
+      Let $\varepsilon > 0$. Convergence of supremum sequence implies that
+      \[
+        \exists N_\varepsilon \in \mathbb N:
+        [n \geq N_\varepsilon \Rightarrow \sup{\abs{f_n(z) - f(z)}: z \in D} < \varepsilon]
+      \]
+      for those $n$ and for every $z \in D$ it holds that
+      \[ \abs{f_n(z) - f(z)} < \varepsilon \]
+  \end{description}
+\end{proof}
+\begin{rem}
+  Let $B(D) = \set{f: D \to \mathbb C \text{ with } f \text{ is bound to } D}$ and
+  \[ \| f \|_\infty = \sup\set{\abs{f(z)}: z \in D} \]
+  Then it holds that $\seq{f_n}$ converges uniformly towards $f$
+  (with $f_n \in B(D)$ and $f \in B(D))$
+  \[ \Leftrightarrow \| f_n - f \|_\infty \to 0 \text{ for } n \to \infty \]
+\end{rem}
+\index[English]{Norm}  % TODO: verify translation
+\index[German]{\foreignlanguage{ngerman}{Norm}}
+\begin{rem}
+  It can be shown that $B(D)$ is a vector space and $\|\cdot \|_\infty$ is a \emph{norm}
+  in $B(D)$, hence
+  \[ \norm{f}_\infty =  \]
+  TODO
+
+  \[ \norm{f+g}_\infty \leq \norm{f}_\infty - \norm{g} = \forall f,g \in B(D), \alpha \in \mathbb C \]
+  $\norm{\cdot}_\infty$ is called \emph{supremum norm} in $D$.
+\end{rem}
+
+\[ C_b(D) \coloneqq \set{f: D \to \mathbb C, f \in B(D) \text{ and } f \text{ is continuous in } D} \subseteq B(D) \]
+The supremum norm can also be defined on $C_b(D)$.
+
+If $D = K \subseteq \mathbb C$ is compact in $\mathbb C$,
+it follows immediately that every continuous function is bounded.
+
+Show that $\set{\abs{f(z): z \in K}}$ is a bounded set in $\mathbb R$.
+\[ \abs{f}: D \to \mathbb R \]
+$\abs{f}$ is the composition of two functions, namely $f$ and the absolute value
+function. Both are continuous. $\abs{f}$ has a maximum, hence $\exists z_0 \in K:
+\abs{f(z)} \leq \abs{f(z_0)} \forall z \in K$. So $\abs{f(z_0)}$ is upper bound of
+$\set{\abs{f(z)}: z \in K}$.
+\[ C(K) = \set{f: K \to \mathbb C: f \text{ is continuous}} \subseteq B(K) \]
+and for $f \in C(K)$ it holds that
+\[ \norm{f}_\infty = \sup\set{\abs{f(z)}: z \in K} = \max\set{\abs{f(z)}: z \in K} \]
+
+\begin{theorem}
+  Let $(f_n)_{n\in\mathbb N}$ be a sequence of functions in $D$.
+  TODO
+  Assume $f$ TODO
+  $\seq{f_n}$ is uniformly convergent towards $f$ in $D$. Then $f$ is continuous in $D$.
+\end{theorem}
+\begin{proof}
+  Let $\varepsilon > 0$ be given and $z_0 \in D$.
+  Show that $\exists \delta > 0$ such that for all $z \in D$ with
+  \[ \abs{z - z_0} < \delta \Rightarrow \abs{f(z) - f(z_0)} < \varepsilon \]
+  \begin{enumerate}
+    \item Because $\seq{f_n}$ converges uniformly towards $f$, there exists some
+      \[ N \in \mathbb N: \abs{f_N(w) - f(w)} < \frac\varepsilon3 \forall w \in D \]
+    \item If $f_N$ is continuous on its own, then
+      \[
+        \exists \delta > 0 \text{ such that } z \in D \text{ and } \abs{z - z_0} < \delta \Rightarrow
+        \abs{f_N(z) - f_N(z_0)} < \frac\varepsilon3
+      \]
+      Let $z \in D$ and $\abs{z - z_n} < \delta$ (with $\delta$ properties as above).
+      Then it holds that
+      \[
+        \abs{f(z) - f(z_0)}
+          = \abs{f(z) - \underbrace{f_N(z) + f_N(z)}_{=0}
+          - \underbrace{f_N(z_0) + f_N(z_0)}_{=0} - f(z_0)}
+      \]
+      \[
+        \underbrace{\leq}_{\text{triangle inequality}} \underbrace{\abs{f(z) - f_N(z)}}_{< \frac\varepsilon3}
+        + \underbrace{\abs{f_N(z) - f_N(z_0)}}_{<\frac\varepsilon3}
+        + \underbrace{\abs{f_N(z_0) - f(z_0)}}_{< \frac\varepsilon3}
+      \]
+      The middle term is $< \frac\varepsilon3$ because $f$ is continuous.
+      The other terms are $< \frac\varepsilon3$ because of convergence and selection of $N$.
+
+      So overall $< \varepsilon$. So $f$ is continuous in $z_0$.
+      Because $z_0 \in D$ is arbitrary, it holds for all $z_0$. So $f$ is continuous in $D$.
+  \end{enumerate}
+\end{proof}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
