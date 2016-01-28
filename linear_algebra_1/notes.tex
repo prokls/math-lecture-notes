@@ -707,7 +707,7 @@ $Z$ is the set of subsets of $X$ such that
           \text{definition of equivalence class} & \implies x \sim z \land y \sim z \\
           \text{symmetrical} & \implies \bigvee_z x \sim z \land z \sim y \\
           & \xrightarrow{transitive} x \sim y \\
-          & \xrightarrow{theorem~\ref{satz-1.2.9}} [x] = [y]
+          & \xrightarrow{Theorem~\ref{satz-1.2.9}} [x] = [y]
       \end{align*}
   \end{itemize}
 \end{proof}
@@ -1184,7 +1184,7 @@ $y$ can be chosen arbitrarily. $y = t$ once $y$ has been defined.
 The solution set is given as:
 \[ \setdef{(-4t, t, 1 + 3t)}{t \in \mathbb{R}} \]
 
-This is a line in $\mathbb{R}^3$.
+This represents a line in $\mathbb{R}^3$.
 
 \paragraph{Example without solution}
 \begin{align*}
@@ -1304,20 +1304,20 @@ Solution set: $\setdef{(-3 + 2t, 4 - 3t, 0, t)}{t \in \mathbb{R}}$
 \section{Vector spaces}
 
 A vector is an element of $\mathbb{R}^n$ ($\mathbb{R}^n = \mathbb{R} \times \mathbb{R} \times \ldots \times \mathbb{R}$):
-\[ \setdef{\vec{a_1 \\ a_2 \\ vdots \\ a_n}}{a_i \in \mathbb{R}} \]
+\[ \setdef{\begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_n\end{pmatrix}}{a_i \in \mathbb{R}} \]
 Column vectors or n-tuples in $\mathbb{R}^n$.
 
 We define addition:
 \[
-  \vec{a_1 \\ a_2 \\ \vdots \\ a_n} +
-  \vec{b_1 \\ b_2 \\ \vdots \\ b_n} \coloneq
-  \vec{a_1 + b_1 \\ a_2 + b_2 \\ \vdots \\ a_n + b_n}
+  \begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{pmatrix} +
+  \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{pmatrix} \coloneqq
+  \begin{pmatrix} a_1 + b_1 \\ a_2 + b_2 \\ \vdots \\ a_n + b_n \end{pmatrix}
 \]
 
 Multiplication for $\lambda \in \mathbb{R}$:
 \[
-    \lambda \cdot \vec{a_1 \\ a_2 \\ \vdots \\ a_n} \coloneq
-    \vec{\lambda a_1 \\ \lambda a_2 \\ \vdots \lambda a_n}
+    \lambda \cdot \begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{pmatrix} \coloneqq
+    \begin{pmatrix} \lambda a_1 \\ \lambda a_2 \\ \vdots \\ \lambda a_n \end{pmatrix}
 \]
 
 Geometric interpretation for $n=1,2,3,\ldots$:
@@ -1345,7 +1345,7 @@ A vector is therefore an equivalence class of directed paths.
 
 \[ \overrightarrow{PQ} = [(P, Q)] \]
 
-The set of vectors is in bijection with the set pof points.
+The set of vectors is in bijection with the set of points.
 In every equivalence class there is one representative of structure $(0, A)$.
 $\overrightarrow{0A}$ is called position vector (dt. Ortsvektor) to $A$.
 
@@ -1655,7 +1655,7 @@ Examples:
 \end{proof}
 
 \begin{itemize}
-  \item The unique inverse element of theorem~\ref{satz-2-10} (2) of $x$ is denoted with $x^{-1}$.
+  \item The unique inverse element of Theorem~\ref{satz-2-10} (2) of $x$ is denoted with $x^{-1}$.
   \item
     Abelian groups are typically written additive.
     In $(G, +)$ the inverse element is denoted $-x$.
@@ -2344,7 +2344,7 @@ Does the definition not depend on the definition of the system of representative
   So $S_n \leq S_{n+1}$ cannot hold, right? $S_n$ cannot be a subgroup.
 
   Wrong, we interpreted it wrongfully:
-  There is a subset $H \subseteq S_{n+1}$ which is a subgroup as by theorem~\ref{satz-2-22}
+  There is a subset $H \subseteq S_{n+1}$ which is a subgroup as by Theorem~\ref{satz-2-22}
   such that $S_n \tilde{=} H$.
   \[ H = \setdef{f: \set{1, \dots, n+1} \rightarrow \set{1, \dots, n+1}}{f \text{ is bijective}} \]
   \[ \Rightarrow H \tilde{=} S_n \]
@@ -2579,8 +2579,7 @@ Does the definition not depend on the definition of the system of representative
   is a field extension for $\mathbb Q$.
 \end{defi}
 
-\begin{defi}
-  \emph{(complex numbers).}
+\begin{defi}[complex numbers]
   The equation $x^2 + 1 = 0$ has no solution in $\mathbb R$ because $x^2 > 0$
   $\forall x \in \mathbb R$. Assume some $i$ exists with $i^2 = -1$
   (therefore $i = \sqrt{-1}$) with
@@ -2637,16 +2636,14 @@ Does the definition not depend on the definition of the system of representative
   Off topic: Peano curve.
 \end{cor}
 
-\begin{defi}
-  \emph{(Fundamental theorem of algebra.)}
+\begin{defi}[Fundamental Theorem of algebra]
   In $\mathbb C$ every polynomial $x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 = 0$
   has $n$ solutions.
 
   Therefore $\mathbb C$ is algebraically closed (but there exist transcendal extensions).
 \end{defi}
 
-\begin{defi}
-  \emph{(quaternions.)}
+\begin{defi}[Quaternions]
   $\mathbb R^4$ has a ring structure such that every element is invertible,
   but it is not commutative (division ring with elements called \emph{quaternions}).
 \end{defi}
@@ -2683,7 +2680,7 @@ Does the definition not depend on the definition of the system of representative
   \[ e^{i \varphi} = \cos{\varphi} + i \sin\varphi \]
 \end{defi}
 
-\section{Vector spaces}
+\section{Reasoning about vector spaces and bases}
 
 \begin{defi}
   Let $(K, +, \cdot)$ be a field.
@@ -2873,7 +2870,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
 
 \begin{proof}
   \[ \bigwedge_{u \in U} -u \in U \]
-  Choose $\lambda = -1$ in subspace and multiply as in theorem 4.  % TODO: reference
+  Choose $\lambda = -1$ in subspace and multiply as in Theorem~4.  % TODO: reference
 \end{proof}
 
 \begin{cor}
@@ -3008,7 +3005,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   \[ M \subseteq V \]
   The linear hull of $M$ is the smallest subspace of $V$, which contains $M$:
   \[ [M] \coloneqq \bigcap\setdef{U \subseteq V}{U \cup R \text{ such that } M \subseteq U} \]
-  This is a subspace by theorem~\ref{satz-3-6}.
+  This is a subspace by Theorem~\ref{satz-3-6}.
   For $M = 0$,
   \[ [\emptyset] = \set{0} \]
   We also say $[M]$ is the \emph{subspace generated by $M$}.
@@ -3057,7 +3054,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
       Distributivity: $(\lambda \cdot \alpha + \mu \cdot \beta) \cdot a \in K \cdot a$
 
       Using these laws the subfield is actually a plane.
-      So we look at the more general case in the next theorem.
+      So we look at the more general case in the next Theorem.
   \end{description}
 \end{ex}
 
@@ -3256,6 +3253,7 @@ Therefore every linear combination is also in $U$.
     In other words, let $a \in M$, if $a \in L(M \setminus \set{a})$ then $L(M) = L(M \setminus \set{a})$.
   \end{itemize}
 \end{proof}
+% TODO: "spanning set" in favor of "generating system"?
 Question: Is there always a minimal generating system? Can we determine whether $M$ is minimal?
 
 \begin{defi}
@@ -3491,7 +3489,7 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
 \end{rem}
 
 \begin{ex}
-  \[ K[X] \coloneqq V = K^{\mathbb N_0} = \setdef{(a_n)_{n \geq 0}}{a_n \in K} \]
+  \[ K[x] \coloneqq V = K^{\mathbb N_0} = \setdef{(a_n)_{n \geq 0}}{a_n \in K} \]
   Is the vector space of all sequences.
   \[ e_i = (0, \ldots, 1, 0, \ldots) \qquad i \in \mathbb N_0 \]
   where $1$ is given on the i-th position.
@@ -3506,11 +3504,11 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
   is a subspace: $(a_1, \ldots, a_n, 0, \ldots, 0) + (b_1, \ldots, b_n, 0, \ldots, 0)$.
   Without loss of generality: $m \leq n$.
   \[ = (a_1 + b_1, \ldots, a_m + b_m, b_{m+1}, \ldots, b_n, 0, \ldots, 0) \]
-  $(e_i)_{i \in \mathbb Z_0}$ is a basis of $K[X]$; the vector space of polynomials and vector space of finite sequences.
+  $(e_i)_{i \in \mathbb Z_0}$ is a basis of $K[x]$; the vector space of polynomials and vector space of finite sequences.
 \end{ex}
 
 We identify the vector space of finite sequences with the vector space of formal polynomials:
-\[ K[X] = \setdef{a_0 + a_1 x + \ldots + a_n x^n}{n \in \mathbb N_0, a_i \in K} \]
+\[ K[x] = \setdef{a_0 + a_1 x + \ldots + a_n x^n}{n \in \mathbb N_0, a_i \in K} \]
 \begin{align*}
     &= (a_0 + a_1 x + \ldots + a_n x^n) + (b_0 + b_1 x + \ldots + b_n x^n) \\
     &= (a_0 + b_0) + (a_1 + b_1)x + \ldots + (a_m + b_m)x^m + b_{m+1} x^{m+1} + b_n x^n
@@ -3518,7 +3516,7 @@ We identify the vector space of finite sequences with the vector space of formal
 Without loss of generality
 
 Instead of a unit vector $e_i$ the formal polynomial $x^i$ occurs.
-\[ \Rightarrow (x^n)_{n \geq 0} \text{ is a basis of } K[X] \]
+\[ \Rightarrow (x^n)_{n \geq 0} \text{ is a basis of } K[x] \]
 \[ \deg{p(x)} = \max\setdef{i}{a_i \neq 0} = n \]
 is the \emph{degree of the polynomial}.
 \[ p(x) = a_0 + q_1 x + q_x x^2 + \ldots a_n x^n \]
@@ -3553,7 +3551,7 @@ Does every vector space have a basis?
       $V$ is generated finitely.
 
       Let $(v_1, \ldots, v_n)$ be a finite generating system. If $(v_1, \ldots, v_n)$ is linear independent, we are done.
-      Otherwise we already know that (by a previous theorem)
+      Otherwise we already know that (by a previous Theorem)
       \[ \bigvee_{k \in \set{1, \ldots, n}} v_k \in L(v_1, \ldots, \hat{v_k},  v_n) \]
       \[ \Rightarrow L(v_1, \ldots, v_n) = L(v_1, \ldots, \hat{v_k}, \ldots, v_n) = V \]
       \begin{itemize}
@@ -4163,10 +4161,10 @@ How do we find a basis?
   Then $[U \cup W]$ is the \emph{sum of subspaces $U$ and $W$}
   \[
       =: U+W
-      = \bigcap \setdef{z}{z \subseteq V, U \subseteq Z, W \subseteq Z}
+      = \bigcap \setdef{Z}{Z \subseteq V, U \subseteq Z, W \subseteq Z}
   \] \[
       = L(U \cup W)
-      = \setdef{\sum \lambda_i u_i + \lambda \mu_i w_j}{u_i \in U, w_j \in W}
+      = \setdef{\sum \lambda_i u_i + \mu_i w_j}{u_i \in U, w_j \in W}
   \]
 \end{defi}
 
@@ -4938,7 +4936,7 @@ What did we do in this section?
 \section{Linear mappings}
 \begin{defi}
   Let $V, W$ be vector spaces over $K$.
-  A mapping $f: V \rightarrow W$ is called \emph{vector raum homomorphism}
+  A mapping $f: V \rightarrow W$ is called \emph{vector space homomorphism}
   or \emph{linear} if
   \[ \bigwedge_{v,w\in V} f(v+w) = f(v) + f(w) \qquad \text{\enquote{additivity}} \]
   \[ \bigwedge_{\lambda \in K} \bigwedge_{v} f(\lambda v) = \lambda f(v)  \qquad \text{\enquote{multiplicity}} \]
@@ -6472,7 +6470,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
     \item Because of Remark~\ref{bemerkung-6.6} and Theorem~5.12
       the column vectors of $A$ build the image space of $f_A$.
       Therefore,
-      \[ \operatorname{sig}(A) = \dim \image(f_A) \]
+      \[ \operatorname{srg}(A) = \dim \image(f_A) \]
     \item $\operatorname{zrg}(A) = \operatorname{srg}(A^T)$
   \end{enumerate}
 \end{rem}
@@ -6829,7 +6827,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
 
 \meta{lecture}{18th of January 2016}{Franz Lehner}
 
-$\operatorname{sig}(A) = \operatorname{zrg}(A) = \operatorname{rk}(A)$
+$\operatorname{srg}(A) = \operatorname{zrg}(A) = \operatorname{rk}(A)$
 is the dimension of the column (row) space.
 
 Elementary row and column operations (multiplication with regular matrix from left or (right)):

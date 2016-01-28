@@ -12,6 +12,7 @@
 \usepackage[makeindex]{imakeidx}
 \usepackage{marvosym}
 \usepackage{mathtools}
+\usepackage{mdframed}
 \usepackage{stmaryrd}
 \usepackage[normalem]{ulem}
 \usepackage{wasysym}
@@ -6621,6 +6622,237 @@ and for $f \in C(K)$ it holds that
       Because $z_0 \in D$ is arbitrary, it holds for all $z_0$. So $f$ is continuous in $D$.
   \end{enumerate}
 \end{proof}
+
+\meta{lecture}{28th of January 2016}{Wolfgang Ring}
+
+\begin{center}
+  \enquote{The continuous limit of a sequence of continuous functions is continuous}
+\end{center}
+
+\section{Power series}
+
+\[ \sum_{n=0}^\infty a_n z^n \qquad \text{absolute convergent } \forall z \in B(0,\rho) \]
+where $\rho$ is the convergence radius. $\rho = \frac1L$ with
+\[ L = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} \]
+
+\begin{lemma}[Remaining term estimation] % TODO: translate Restgliedabschätzung
+  Let $P(z) = \sum_{n=0}^\infty a_n z^n$ be a power series with convergence radius
+  $\rho > 0$ and let
+  \[ R_n(z) = \sum_{k=n}^\infty a_k z^k \qquad (k \in \mathbb N) \]
+  Assume $0 \leq \abs{z} \leq r < \rho$. Then there exists a constant $c = c(r)$
+  such that
+  \[ \abs{R_n(z)} \leq c \left(\frac{\abs{z}}{r}\right)^n \]
+\end{lemma}
+\begin{proof}
+  \[
+    \abs{R_n(z)}
+    = \abs{\sum_{k=n}^\infty a_k z^k} \leq \sum_{k=n}^\infty \abs{a_k} \abs{z}^k
+    = \sum_{k=n}^\infty \abs{a_k} \cdot r^k \cdot \underbrace{\frac{\abs{z}^k}{r^k}}_{\leq \frac{\abs{z}^n}{r^n}}
+  \] \[
+    \leq \frac{\abs{z}^n}{r^n} \sum_{k=n}^\infty \abs{a_k} r^k
+    \leq \frac{\abs{z}^n}{r^n} \frac{\abs{z}^n}{r^n} \underbrace{\sum_{k=0}^\infty \abs{a_k} r^k}_{= c(r)}
+  \]
+  Is $c(r)$, because the series is absolute convergent and so the series hat some value
+  we call $c$. $r \in B(0, \rho)$.
+\end{proof}
+
+\begin{theorem}
+  Let $P(z) = \sum_{k=0}^\infty a_n z^k$ be a power series with convergence radius
+  $\rho > 0$ and let $0 \leq r < \rho$. We define
+  \[ P_n(z) = \sum_{k=0}^n a_n z^k \]
+  ($n$-th partial sum of the series)
+
+  Then $(P_n)_{n\in\mathbb N}$ converges uniformly towards $P$ in $B(0,r)$.
+\end{theorem}
+\begin{proof}
+  Let $\hat{r} = \frac12 (r + \rho)$, hence $r < \hat{r} < \rho$.
+  Then it holds that $P(\hat{r})$ is convergent (because $\hat{r} \in B(0,\rho)$)
+
+  So $\forall z \in B(0, r)$, the remaining term estimation theorem holds.
+
+  \[
+    \exists c(\hat{r}):
+    \abs{\sum_{k=n+1}^\infty a_k z^k} \leq \frac{\abs{z}^{n+1}}{\hat{r}^{n+1}} \cdot c(\hat{r})
+  \] \[
+    \leq c(\hat{r}) \cdot \frac{r^{n+1}}{\hat{r}^{n+1}} = c(\hat{r}) \left(\frac{r}{\hat{r}}\right)^{n+1}
+  \]
+  Let $\varepsilon > 0$ be arbitrary and $N$ sufficiently large such that
+  \[ \left(\underbrace{\frac{r}{\hat r}}_{<1}\right)^{N+1} < \frac{\varepsilon}{c(\hat r)} \]
+  Then for all $n \geq N$ and for all $z \in B(0, r)$ it holds that
+  \[ \abs{P(z) - P_n(z)} = \abs{\sum_{k=0}^\infty a_k z^k - \sum_{k=n}^\infty a_n z^k} \]
+  \[ \abs{\sum_{k=n+1}^\infty a_k z^k} \leq \left(\frac{r}{\hat r}\right)^{n+1} \cdot c(\hat r) \]
+  \[ \leq \left(\frac r{\hat{r}}\right)^{N+1} \cdot c(\hat r) < \frac{\varepsilon}{c(\hat r)} \cdot c(\hat r) = \varepsilon \]
+
+  So it holds that $P_n \to P$ is uniform on $B(0, r)$.
+\end{proof}
+
+\begin{cor}
+  $P_n(z)$ is continuous in $\overline{B(0, r)}$
+  \[ \Rightarrow P: \overline{B(0, r)} \rightarrow \mathbb C \text{ is continuous }  \]
+  Let $z \in B(0, \rho)$, hence $\abs{z} < \rho$. Let $r = \frac12 (\abs{z} + \rho)$.
+
+  $P$ is continuous in $\overline{B(0,r)}$ and $z \in B(0,r)$. Hence it holds that
+  $P$ is continuous in $z$. So it holds that $P$ is continuous in $B(0, \rho)$.
+  Compare with Figure~\ref{img:conv-radius}.
+\end{cor}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/convergence_radius_power_series.pdf}
+    \caption{Convergence radius of power series}
+    \label{img:conv-radius}
+  \end{center}
+\end{figure}
+
+\subsection{The exponential function and its relatives}
+
+We want to define the function $f_{\text{ex}}: \mathbb C \to \mathbb C$,
+which behaves like $z \mapsto b^z$.
+We want to achieve the power laws in $f_{\text{ex}}$ as well. We require:
+\[
+  (F) \quad f_{\text{ex}}(z_1) \cdot f_{\text{ex}}(z_2) = f_{\text{ex}}(z_1 + z_2)
+  \qquad \forall z_1, z_2 \in \mathbb C
+\]
+\begin{center}
+  \enquote{Functional equation of the exponential function}
+\end{center}
+
+\begin{cor}
+  \[ f_{\text{ex}}(z) = f_{\text{ex}}(z + 0) = f_{\text{ex}}(z) \cdot f(0) \]
+  Let $z \in \mathbb C$ such that $f_{\text{ex}}(z) \neq 0$. We divide, followingly,
+  \[ f_{\text{ex}}(0) = 1 \]
+\end{cor}
+
+\begin{cor}
+  Let $z \in \mathbb C$ be arbitrary and $k \in \mathbb N_+$. Then
+  \[ z = \underbrace{\frac zk + \frac zk + \ldots + \frac zk}_{k \text{ times}} \]
+  \[
+    f_{\text{ex}}(z)
+      = f_{\text{ex}}\left(\frac zk + \ldots + \frac zk\right)
+      = \left(f_{\text{ex}}\left(\frac zk\right)\right)^k
+  \]
+\end{cor}
+
+\begin{cor}
+  Assume: $f_{\text{ex}}$ is continuous in $0$.
+  Let $z \in \mathbb C$ fixed, $k \in \mathbb N$, then it holds that
+  \[ \frac zk \to_{k\to\infty} 0 \]
+  So it holds that
+  \[ f_{\text{ex}}\left(\frac zk\right) \to f_{\text{ex}}(0) = 1 \]
+\end{cor}
+
+\begin{rem}
+  Approach: Consider $f_{\text{ex}}(\frac zk) = 1 + \frac{w_k}k$
+  where $w_k$ as enumerator is undefined, small and not really important.
+\end{rem}
+
+\begin{cor}
+  \[ w_k = K \cdot \left(f_{\text{ex}}\left(\frac zk\right) - 1\right) \]
+  \[ f_{\text{ex}}(z) = \left(1 + \frac{w_k}{k}\right)^k \]
+
+  Desired:
+  \[ w = \lim_{k\to\infty} w_k \]
+  \[
+    f_{\text{ex}}(z)
+    = \lim_{k\to\infty} \left(1 + \frac{w_k}{k}\right)^k
+    = \lim_{k\to\infty} \left(1 + \frac wk\right)^k
+  \]
+  If the limit of $w_k$ actually exists, then $w_k$ depends on $z$
+  \[
+    \lim_{k\to\infty} w_k
+    = \lim_{k\to\infty} \frac{f_{\text{ex}}\left(\frac zk\right) - 1}{\frac1k}
+    = \lim_{k\to\infty} z \cdot \frac{f_{\text{ex}}\left(\frac zk\right) - 1}{\frac zk}
+    = z \cdot \underbrace{\lim_{w\to 0} \frac{f(w) - 1}{w}}_{= c \in \mathbb C}
+  \]
+  With the assumption that this limes actually exists.
+  Then it follows that,
+  \[ w = \lim_{k\to\infty} w_k = c \cdot z \]
+  \begin{mdframed}
+  \[ f_{\text{ex}}(z) = \lim_{k\to\infty} \left(1 + \frac{c \cdot z}{k}\right)^k \]
+  \end{mdframed}
+  As a general toolbox to define exponential functions.
+\end{cor}
+\begin{cor}
+  For $c = 1$ we get the definition of $e^z$.
+\end{cor}
+
+\subsection{Fundamental lemma of exponential function}
+%
+For every convergent complex sequence $(w_k)_{k\in\mathbb N}$
+with $\lim_{k\to\infty} w_k = w$ it holds that
+\[
+  \lim_{k\to\infty} \left(1 + \frac{w_k}{k}\right)^k
+  = \sum_{n=0}^\infty \frac1{n!} w^n
+\]
+\begin{rem}
+  The constant sequence $z_n = w \quad\forall k \in \mathbb N$ has
+  limes $w$ and therefore it holds that
+  \[
+    \lim_{k\to\infty} \left(1 + \frac{z_k}{k}\right)^k
+    = \underbrace{\lim_{k\to\infty} \left(1 + \frac wk\right)^k}_{\text{ with } w}
+    = \sum_{n=0}^\infty \frac1{n!} w^n
+    = \underbrace{\lim_{k\to\infty} \left(1 + \frac{w_k}{k}\right)^k}_{\text{ with } w_k}
+  \]
+\end{rem}
+\begin{proof}[Proof of the fundamental lemma]
+  Let $\varepsilon > 0$ arbitrary. We choose $K \in \mathbb N$, such that
+  $n \geq K \Rightarrow \abs{w_k} \leq \abs{w} + 1$
+  (this theorem holds because $\abs{w_k} \to_{k\to\infty} \abs{w}$).
+  At the same time let $K$ be sufficiently large such that
+  \[ \sum_{k=K}^\infty \frac{\left(\abs{w} + 1\right)^k}{k!} < \frac{\varepsilon}{3} \]
+  This is possible, because the series $\sum_{n=0}^\infty \frac{z^n}{n!}$ converges in $\mathbb C$.
+
+  Let $n \geq K$. Then
+  \[
+    \abs{\left(1 + \frac{w_n}{n}\right)^{n} - \sum_{k=0}^\infty \frac{w^k}{k!}}
+    \overset{\text{triangle inequality}}{\leq}
+    \abs{
+      \underbrace{\left(1 + \frac{w_n}{n}\right)^n}_{\text{apply binomial theorem}}
+      - \sum_{k=0}^{K-1} \frac{w^k}{k!}
+    } + \abs{\sum_{k=K}^{\infty} \frac{w^k}{k!}}
+  \] \[
+    \abs{\sum_{k=0}^n \binom nk \frac{w_n^k}{n^k} - \sum_{n=0}^{k-1} \frac{w^k}{k!}}
+    + \abs{\sum_{k=K}^\infty \frac{w^k}{k!}}
+  \] \[
+    \leq \abs{\sum_{k=0}^{k-1} \left(\binom nk \frac{w_n^k}{n^k} - \frac{w^k}{k!}\right)}
+    + \abs{\sum_{k=K}^n \binom nk \frac{w_n^k}{n^k}}
+    + \underbrace{\sum_{n=K}^\infty \frac{(\abs{w} + 1)^k}{k!}}_{< \frac\varepsilon3}
+  \]
+  Second expression:
+  \[
+    \binom nk \cdot \frac{1}{n^k}
+    = \frac1{k!} \underbrace{\frac nn \frac{n-1}{n} \frac{n-2}{n} \ldots \frac{n-k+1}{n}}_{k \text{ times}} < \frac1{k!}
+  \] \[
+    = \abs{\sum_{k=K}^n \binom nk \frac{w_n^k}{k!}}
+    \leq \sum_{k=K}^n \binom nk \frac{\abs{w_n}^k}{n^k}
+    < \sum_{k=K}^\infty \frac1{k!}(\abs{w} + 1)^k < \frac\varepsilon3
+  \]
+  First expression:
+  \[
+    \lim_{n\to\infty} \binom nk \frac1{n^k}
+      = \lim_{n\to\infty} \frac1{k!} \cdot \frac nn \frac{n-1}{n} \cdot \ldots \cdot \frac{n-k+1}{n}
+  \] \[
+    = \frac1{k!} \lim_{n\to\infty} \underbrace{\frac{n-1}{n}}_{=1} \cdot \underbrace{\lim_{n\to\infty}}_{=1}
+    \underbrace{\frac{n-2}{n}}_{=1} \cdot \ldots \cdot \underbrace{\lim_{n\to\infty} \frac{n-k+1}{n}}_{=1}
+    = \frac1{k!}
+  \]
+  Therefore it holds that,
+  \[ \lim_{n\to\infty} \sum_{k=0}^{K-1} \underbrace{\binom nk \frac{1}{n^k}}_{\to \frac1{k!}} \underbrace{w_n^k}_{\to w} = \sum_{k=0}^K \frac{1}{k!} w^k \]
+  Therefore some $N \in \mathbb N$ exists such that for $n \geq N$ it holds that,
+  \[ \abs{\sum_{k=0}^{K-1} \binom nk \frac{1}{n^k} w_n^k - \sum_{k=0}^{K-1} \frac1{k!} w^k} < \frac{\varepsilon}{3} \]
+  So it holds for $n \geq N$:
+  \[ \abs{\left(1 + \frac{w_n}{n}\right)^n - \sum_{k=0}^n \frac{w^k}{k!}} < \varepsilon \]
+  \[ \Rightarrow \lim_{n\to\infty} \left(1 + \frac{w_n}{n}\right)^n = \sum_{k=0}^\infty \frac{w^k}{k!} \]
+\end{proof}
+
+\begin{defi}[Exponential function]
+  We define for some $z \in \mathbb C$
+  \[ \operatorname{exp}(z) = \sum_{k=0}^\infty \frac{z^k}{k!} \]
+  For every sequence $z_n \in \mathbb C$ with $\lim_{n\to\infty} z_n = z$ it holds that
+  \[ \operatorname{exp}(z) = \lim_{n\to\infty} \left(1 + \frac{z_n}{n}\right)^n \]
+  Especially for $z_n = z$ it holds that
+  \[ \operatorname{exp}(z) = \lim_{n\to\infty} \left(1 + \frac{z}{n}\right)^n \]
+\end{defi}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
