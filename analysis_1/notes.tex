@@ -8,8 +8,8 @@
 \usepackage{csquotes}
 \usepackage{fancyhdr}
 \usepackage[margin=1in]{geometry}
+\usepackage[makeindex]{imakeidx}  % before hyperref
 \usepackage[pdfborder={0 0 0}]{hyperref}
-\usepackage[makeindex]{imakeidx}
 \usepackage{marvosym}
 \usepackage{mathtools}
 \usepackage{mdframed}
@@ -522,11 +522,13 @@ Set operations:
 \index[German]{\foreignlanguage{ngerman}{Bijektive Funktion}}
 \index[English]{Composition of functions}
 \index[German]{\foreignlanguage{ngerman}{Verknüpfung von Funktionen}}
+\index[German]{\foreignlanguage{ngerman}{Hintereinander-Ausführung von Funktionen}}
+\index[English]{Mapping}
+\index[German]{\foreignlanguage{ngerman}{Abbildung}}
 \index[English]{Identity function}
 \index[German]{\foreignlanguage{ngerman}{Identitätsfunktion}}
 \index[English]{Inverse function}
 \index[German]{\foreignlanguage{ngerman}{Inverse Funktion}}
-% TODO: extend
 Back to sets and functions (notes missing):
 \begin{itemize}
   \item injective, surjective, bijective function
@@ -2068,7 +2070,8 @@ Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
 \meta{lecture}{13th of November 2015}{Wolfgang Ring}
 
 \begin{defi}
-  We consider an \enquote{arithmetic element} $i$ extending $\mathbb R$ (\enquote{adjungiert}). % TODO: translate to english
+  We consider an \enquote{arithmetic element} $i$ extending $\mathbb R$
+  (\enquote{conjugate}, dt. \enquote{\foreignlanguage{ngerman}{adjungiert}}).
   Arithmetic operations are well-defined for $i$. Associativity and commutativity holds.
   It holds that
   \begin{itemize}
@@ -3763,21 +3766,69 @@ The analogous result for the limes inferior also holds and is given in the pract
 
 \meta{lecture}{9th of December 2015}{Wolfgang Ring}
 
-TODO
+\subsection{Remark about notation of convergence}
 
+Let $\seq{a_n}$ with $a_n \in \mathbb C$ be convergent with limes $a$.
+
+Notation: $a_n = \lim_{n\to\infty} a$ \\
+or even shorter: $a_n \to a$ for $n \to \infty$
+
+\[ a_n \to_{n\to\infty} a \]
+
+We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\to\infty} a_n = 0$.
+
+\subsection{Convergence tests}
+%
+\begin{theorem}
+  Let $\left(a_k\right)_{k\in\mathbb N}$ with $a_k \in \mathbb R$ and $a_k > 0$
+  be a \emph{real} sequence. Then $\sum_{k=0}^\infty a_k$ is convergent if and only if
+  $s_n = \sum_{k=0}^n a_n$ is a \emph{bounded} sequence in $\mathbb R$.
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[$\Rightarrow$]
+      Let $\seq{s_n}$ be convergent in $\mathbb R$, then it holds that
+      $\seq{s_n}$ is also bounded.
+    \item[$\Leftarrow$]
+      $\seq{s_n}$ is bounded.
+      \begin{align*}
+        s_n - s_{n-1} &= (a_0 + \ldots + a_{n-1} + a_n) - \\
+                      &\hspace{15pt} (a_0 + \ldots + a_{n-1}) \\
+                      &= a_n \geq 0
+      \end{align*}
+      Hence, $s_n \geq s_{n-1}$ so $\seq{s_n}$ is monotonically increasing and therefore also convergent.
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  Let $\alpha \in \mathbb Q_+$. Then it holds that: The series $\sum_{k=1}^\infty \frac{1}{k^\alpha}$ is
+  \begin{description}
+    \item[convergent] if $\alpha > 1$
+    \item[divergent] if $\alpha \leq 1$
+  \end{description}
+\end{theorem}
 \begin{description}
-  \item[Case 1]
-    \[ n = 2^k - 1 \]
-    \[ S_{\alpha,2^1-1} = \underbrace{1}_{<\frac{1}{2^\alpha}} + \underbrace{\frac1{2^\alpha} + \frac{1}{3^\alpha}}_{2^1 \text{ terms}} + \underbrace{\frac{1}{4^\alpha} + \frac{1}{5^\alpha} + \frac{1}{6^\alpha} + \frac{1}{7^\alpha}}_{2^2 \text{ terms}} \]
-    \[ + \underbrace{\frac1{8^\alpha} + \dots}_{2^3 \text{ terms}} TODO \]
-
-    \[ < 1 + 2 \frac{1}{2^\alpha} + 4 \frac{1}{4^\alpha} + 8 \frac{1}{8^\alpha} + \dots + 2^{k-1} \frac{1}{\left(2^{k-1}\right)^\alpha} \]
-    \[ = 1 + \frac{1}{2^{\alpha-1}} + \frac{1}{4^{\alpha-1}} + \frac{1}{8^{\alpha-1}} + \dots + \frac{1}{\left(2^{n-1}\right)^{\alpha-1}} \]
-    \[ = 1 + \frac{1}{2^{\alpha-1}} + \left(\frac{1}{2^{\alpha-1}}\right)^2 + \left(\frac{1}{3^{\alpha-1}}\right)^3 + \dots \]
-    \[
-      = \underbrace{\sum_{j=0}^{k-1} \left(\frac{1}{2^{\alpha-1}}\right)^2}_{\substack{\text{geometric} \\ \text{series}}}
-      = \frac{1 - \left(\frac{1}{2^{\alpha-1}}\right)^2}{1 - \frac1{2^{\alpha-1}}}
-    \]
+  \item[Case 1: $\mathbf{\alpha > 1}$]
+    We know: Map $f(x) = x^\alpha$ is montonically increasing.
+    \[ x < y \Rightarrow x^\alpha < y^\alpha \]
+    Let $S_{\alpha,n} = \sum_{k=1}^n \frac{1}{k^\alpha}$ be the $n$-th partial sum.
+    $n = 2^k - 1$.
+    \begin{align*}
+      S_{\alpha,2^\alpha-1} &=
+        \underbrace{1}_{2^0 \text{ terms}} +
+        \underbrace{\underbrace{\frac1{2^\alpha}}_{= \frac1{2^\alpha}} + \underbrace{\frac{1}{3^\alpha}}_{< \frac1{2^\alpha}}}_{2^1 \text{ terms}} +
+        \underbrace{\frac{1}{4^\alpha} + \underbrace{\frac{1}{5^\alpha}}_{< \frac1{4^\alpha}} + \underbrace{\frac{1}{6^\alpha}}_{< \frac1{4^\alpha}} + \underbrace{\frac{1}{7^\alpha}}_{< \frac1{4^\alpha}}}_{2^2 \text{ terms}} \\
+      &+
+        \underbrace{\frac1{8^\alpha} + \ldots + \underbrace{\frac{1}{15^\alpha}}_{< \frac1{8^\alpha}}}_{2^3 \text{ terms}}
+        + \ldots +
+        \underbrace{\frac{1}{\left(2^{k-1}\right)^\alpha} + \ldots + \underbrace{\frac{1}{\left(2^k - 1\right)^\alpha}}_{< \frac1{\left(2^{k-1}\right)^\alpha}}}_{2^{k-1} \text{ terms}} \\
+      &< 1 + 2 \frac{1}{2^\alpha} + 4 \frac{1}{4^\alpha} + 8 \frac{1}{8^\alpha} + \dots + 2^{k-1} \frac{1}{\left(2^{k-1}\right)^\alpha} \\
+      &= 1 + \frac{1}{2^{\alpha-1}} + \frac{1}{4^{\alpha-1}} + \frac{1}{8^{\alpha-1}} + \dots + \frac{1}{\left(2^{n-1}\right)^{\alpha-1}} \\
+      &= 1 + \frac{1}{2^{\alpha-1}} + \left(\frac{1}{2^{\alpha-1}}\right)^2 + \left(\frac{1}{3^{\alpha-1}}\right)^3 + \dots \\
+      &= \underbrace{\sum_{j=0}^{k-1} \left(\frac{1}{2^{\alpha-1}}\right)^2}_{\substack{\text{geometric} \\ \text{series}}} \\
+      &= \frac{1 - \left(\frac{1}{2^{\alpha-1}}\right)^2}{1 - \frac1{2^{\alpha-1}}} \\
+      &< \frac{1}{1 - \frac{1}{2^{\alpha - 1}}} = \frac{2^{\alpha - 1}}{2^{\alpha - 1} - 1}
+    \end{align*}
 
     Therefore $(S_{\alpha,2^k-1})$ is bounded.
     Let $n \in \mathbb N$ be arbitrary and choose a sufficiently large $K$ such that $2^k > n+1$. Therefore $2^k-1 > n$.
@@ -3878,7 +3929,7 @@ TODO
 \index{\foreignlanguage{ngerman}{Konvergenzkriterium von Cauchy}}
 \begin{theorem}[Cauchy convergence criterion]
   The complex series $\sum_{k=0}^{\infty} a_k$ is convergent if and only if
-  the partial sums $\seq{s_n}$ are a Cauchy sequence in $\mathbb C$. % TODO: a_n or s_n?
+  the partial sums $\seq{s_n}$ are a Cauchy sequence in $\mathbb C$.
 \end{theorem}
 \begin{rem}
   Therefore
@@ -3944,8 +3995,7 @@ TODO
 \index{\foreignlanguage{ngerman}{Majoranten}}
 \index{Minorant}
 \index{\foreignlanguage{ngerman}{Minorante}}
-\begin{theorem}[Direct comparison test (dt. \foreignlanguage{ngerman}{Majorantenkriterium})]
-  \hfill{} \\
+\begin{theorem}[Direct comparison test (dt. \foreignlanguage{ngerman}{Majorantenkriterium})] \hfill{}
   \begin{enumerate}
     \item
       Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
@@ -4026,7 +4076,7 @@ TODO
   $\sum_{k=0}^\infty q^k$.
   \begin{enumerate}
     \item
-      Assume the two statement of the ratio test holds. Therefore $\forall n \geq N$
+      Assume the second statement of the ratio test holds. Therefore $\forall n \geq N$
       it holds that $\sqrt[n]{\abs{a_n}} \leq q \Leftrightarrow \abs{a_n} \leq q^n$.
       $\abs{a_n} \leq q^n$.
       Due to the direct comparison test, $\sum_{k=0}^\infty q^k \checkmark$.
@@ -4057,14 +4107,14 @@ TODO
           \abs{a_N} \cdot q^{K-n} & \text{ for } n \geq N
         \end{cases}
       \]
-      \[ \sum_{k=0}^\infty b_n = 0 + 0 + 0 + \dots + 0 + \abs{a_N} TODO \]
+      \[ \sum_{k=0}^\infty b_k = 0 + 0 + 0 + \dots + 0 + \abs{a_N} \cdot q^0 + \abs{a_N} \cdot q^1 + \abs{a_N} q^2 + \ldots \]
       \[ = \abs{a_N} \sum_{j=0}^\infty q_j \text{ is absolute convergent} \]
-      $\sum_{k=0}^\infty b_k$ is an absolute convergent majorant.
-      for $\sum_{k=0}^\infty a_k \Rightarrow \sum_{k=0}^\infty a_k \text{ is convergent}$.
+      $\sum_{k=0}^\infty b_k$ is an absolute convergent majorant for $\sum_{k=0}^\infty a_k$.
+      \[ \Rightarrow \sum_{k=0}^\infty a_k \text{ is convergent} \]
     \item
-      Assume the second statement (square root test) holds.
-      TODO
-      Therefore $\seq{a_n}$ is not a zero sequence.
+      Assume the second statement (square root test) holds: $\sqrt[n]{\abs{a_n}} \geq q$
+      or equivalently $\underbrace{\abs{a_n}}_{\text{unbounded}} \geq \underbrace{q^n}_{\text{unbounded}}$.
+      Therefore $\seq{a_n}$ is no zero sequence.
       Therefore $\sum_{k=1}^\infty a_k$ is divergent.
 
       Assume the first statement holds.
