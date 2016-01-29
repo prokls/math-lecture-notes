@@ -6854,6 +6854,241 @@ with $\lim_{k\to\infty} w_k = w$ it holds that
   \[ \operatorname{exp}(z) = \lim_{n\to\infty} \left(1 + \frac{z}{n}\right)^n \]
 \end{defi}
 
+\meta{lecture}{29th of Jan 2016}{Ring Wolfgang}
+
+\[ w_n \to w \in \mathbb C \]
+
+\[
+  \Rightarrow \lim_{n\to\infty} \left(1 + \frac{w_n}{n}\right)^n
+  = \sum_{k=0}^\infty \frac{w^k}{k!}
+  \quad \text{Fundamental lemma}
+\] \[
+  \exp(z)
+  = \lim_{n\to\infty} \left(1 + \frac zn\right)^n
+  = \sum_{k=0}^\infty \frac{z^k}{k!}
+\]
+
+We desire an exponential function satisfying:
+\[ f_{\text{ex}}(z) \cdot f_{\text{ex}}(w) = f_{\text{ex}}(z + w) \]
+
+\begin{theorem}
+  The exponential function $\operatorname{exp}: \mathbb C \to \mathbb C$
+  is defined on entire $\mathbb C$ and it holds that
+  \begin{description}
+    \item[(F)] $\forall z, w \in \mathbb C: \operatorname{exp}(z) \cdot \operatorname{exp}(w) = \operatorname{exp}(z + w)$
+    \item[(A)] $\lim_{\zeta\to0} \frac{\operatorname{exp}(\zeta) - 1}{\zeta} = 1$
+  \end{description}
+  Furthermore the exponential function is the \emph{only} function satisfiying
+  properties (A) and (F).
+\end{theorem}
+\begin{proof}
+  The power series $\sum_{k=0}^\infty \frac{z^k}{k!}$ has convergence radius $\rho = \infty$,
+  hence the exponential function is defined on entire $\mathbb C$.
+
+  What about property (F)?
+  \[
+    \operatorname{exp}(z) \operatorname{exp}(x)
+    = \lim_{n\to\infty} \left(1 + \frac zn\right)^n \cdot \lim_{n\to\infty} \left(1 + \frac wn\right)^n
+  \] \[
+    = \lim_{n\to\infty} \left[\left(1 + \frac zn\right) \left(1 + \frac wn\right)\right]^n
+    = \lim_{n\to\infty} \left(1 + \frac{z + w + \frac {zw}{n}}{n}\right)^n
+  \]
+  It holds that $\zeta_n = z + w + \frac{zw}{n} \to 0$, hence $\lim_{n\to\infty} \zeta_n = z + w$.
+  So,
+  \[
+    = \lim_{n\to\infty} \left(1 + \frac{\zeta_n}{n}\right)
+    \underset{\substack{\text{fundamental} \\ \text{theorem}}}{=} = \sum_{k=0}^\infty
+    \frac{(z + w)^k}{k!} = \exp(z + w)
+  \]
+
+  What about property (A)?
+  \[
+    \exp(\zeta) - 1
+    = \sum_{k=0}^\infty \frac{\zeta^k}{k!} - 1
+    = \sum_{k=1}^\infty \frac{\zeta^k}{k!}
+    = \zeta \sum_{k=1}^\infty \frac{\zeta^{k-1}}{k!}
+  \]
+  for $\zeta \neq 0$ it is,
+  \[
+    \frac{\exp(\zeta) - 1}{\zeta}
+    = \sum_{k=1}^\infty \frac{\zeta^{k-1}}{k!}
+    = \underbrace{\sum_{l=0}^\infty \frac{\zeta^l}{(l+1)!}}_{Q(\zeta)}
+    \qquad \text{power series converging in $\mathbb C$}
+  \]
+  So $\rho = \infty$. Theorem about continuity of power series:
+  \[ \lim_{\zeta \to 0} Q(\zeta) = Q(0) = \frac1{1!} = 1 \]
+  So it holds that
+  \[ \lim_{\zeta \to 0} \frac{\exp(\zeta) - 1}{\zeta} = 1 \]
+
+  Proof for uniqueness:
+  Let $f_{\text{ex}}$ be a function which satisfies (A) and (F).
+  Let $z \in \mathbb C$ arbitrary.
+
+  Approach:
+  \[ f_{\text{ex}}\left(\frac zn\right) = 1 + \frac{w_n}{n} \]
+  Then it holds that
+  \[ \lim_{n\to\infty} f_{\text{ex}}\left(\frac zn\right) = f_{\text{ex}}(0) = 1 \]
+  \[ f_w = \frac{f_{\text{ex}}\left(\frac zn - 1\right)}{\frac 1n} \]
+  Because of (F) it holds that
+  \[ f(z) = \left(f\left(\frac zn\right)\right)^n = \left(1 + \frac{w_n}{n}\right)^n \]
+  \[ w_n = z \cdot \frac{f_{\text{ex}}\left(\frac zn\right) - 1}{\frac zn} \]
+  and
+  \[ \lim_{n\to\infty} w_n = z \underbrace{\lim_{n\to\infty} \frac{f_{\text{ex}}\left(\frac zn\right) - 1}{\frac zn}}_{=1} = z \]
+  \[
+    f_{\text{ex}}(z)
+    = \left(1 + \frac{w_n}{n}\right)^n
+    = \lim_{n\to\infty} \left(1 + \frac{w_n}{n}\right)^n
+    \underset{\substack{\text{fundamental} \\ \text{theorem}}}{=}
+    \sum_{n=0}^\infty \frac{z^k}{k!} = \exp(z)
+  \]
+\end{proof}
+
+Let $n \in \mathbb N$.
+\[ \operatorname{exp}(n) = \exp(\underbrace{1 + 1 + \ldots + 1}_{n \text{ times}})
+  = \exp(1)
+\]
+We let
+\[
+  \exp(1)
+  = e
+  = \sum_{n=0}^\infty \frac1{k!}
+  = \lim_{n\to\infty} \left(1 + \frac1n\right)^n \in \mathbb R
+\]
+
+$e$ is the Eulerian number (irrational, $\approx 2.718281828459045$).
+
+\fbox{Leonard Euler (1707--1783)}
+
+Let $m \in \mathbb N^+$, then it holds that
+\[ \underbrace{\frac1m + \frac1m + \ldots + \frac1m}_{m \text{ times}} = 1 \]
+Therefore
+\[
+  \exp\left(\frac1m + \frac1m + \ldots + \frac1m\right)
+  = \exp\left(\frac1m\right)^m = \underbrace{e}_{\exp(1)}
+\]
+\[
+  \exp\left(\frac1m\right)
+  = \sqrt{m}{e} = e^{\frac1m}
+\] \[
+  \exp\left(\frac nm\right)
+  = \exp\left(\underbrace{\frac1m + \frac1m + \ldots + \frac1m}_{n \text{times}}\right)
+  = \exp(\frac1m)^n
+  = \left(e^{\frac1m}\right)^n
+  = e^{\frac nm}
+\]
+Let $z \in \mathbb C$, then it holds that $z - z = 0$.
+\[ 1 = \exp(0) = \exp(z + (-z)) = \exp(z) \cdot \exp(-z) \]
+\[ \Rightarrow \forall z \in \mathbb C: \exp(z) \neq 0 \]
+and
+\[ \exp(-z) = \frac1{\exp(z)} = \exp(z)^{-1} \]
+
+The exponential function does not have roots (i.e. $x$ such that $f(x) = 0$).
+
+
+So for $\frac nm \in \mathbb Q_-$, $n < 0$, $m > 0$ it holds that
+\[ \exp(\frac nm) = \frac{1}{\underbrace{\exp(-\frac nm)}_{\in \mathbb Q_+}} = \frac{1}{e^{-\frac nm}}
+= e^{\frac nm}
+\]
+So it holds that
+\[ \forall q \in \mathbb Q: \exp(q) = e^q \]
+
+We denote for $z \in \mathbb C$:
+\[ \exp(z) = e^z \]
+
+\subsection{The exponential function for real arguments}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/exponential_function.pdf}
+    \caption{Plot of the general exponential function $e^x$}
+    \label{img:exp}
+  \end{center}
+\end{figure}
+
+\begin{theorem}
+  $\exp: \mathbb R \to \mathbb R$ is differentiable in $\mathbb R$ and it holds that
+  $\exp' = \exp$.
+\end{theorem}
+\begin{proof}
+  Let $x_0 \in \mathbb R$ and consider
+  \[
+    \lim_{x \to x_0} \frac{\exp(x) - \exp(x_0)}{x - x_0}
+    = \lim_{x \to x_0} \frac{\exp(x - x_0 + x_0) - \exp(x_0)}{x - x_0}
+  \] \[
+    = \lim_{x \to x_0} \frac{\exp(x - x_0) \cdot \exp(x_0) - \exp(x_0)}{x - x_0}
+  \] \[
+    = \exp(x_0) \cdot \lim_{x \to x_0} \frac{\exp(x - x_0) - 1}{x - x_0}
+  \] \[
+    = \exp(x_0) \cdot \underbrace{\lim_{x \to x_0 \to 0} \frac{\exp(x - x_0) - 1}{x - x_0}}_{= 1 \text{ because of (A)}}
+    = \exp(x_0)
+  \]
+  So it has been proved that
+  \[ \exp'(x_0) = \exp(x_0) \]
+\end{proof}
+%
+\begin{cor}
+  \begin{itemize}
+    \item $e^x > 0 \quad \forall x \in \mathbb R$
+    \item exp is strictly monotonically increasing in $\mathbb R$
+    \item exp is strictly convex in $\mathbb R$
+  \end{itemize}
+\end{cor}
+\begin{proof}
+  \begin{itemize}
+    \item
+      We already know that $e^x \neq 0 \quad \forall x \in \mathbb R$.
+      \[ e^x = e^{\frac x2 + \frac x2} = \underbrace{\left(e^{\frac x2}\right)^2}_{\geq 0 \text{ as square}} \]
+      \[ e^x \neq 0 \Rightarrow e^x > 0 \]
+    \item
+      So it holds that $\forall x \in \mathbb R: \exp'(x) > 0$
+      \[
+        \underbrace{\Rightarrow}_{\substack{\text{monotonic} \\ \text{property}}}
+        \exp \text{ is strictly monotonically increasing}
+      \]
+    \item
+      The derivative $\exp'$ of $\exp$ is strictly monotonically increasing.
+      Hence $\exp$ is strictly convex (Convexity criterion)
+  \end{itemize}
+\end{proof}
+\index[English]{Tends towards infinity}
+\index[German]{\foreignlanguage{ngerman}{Uneigentlicher Grenzwert}}
+\begin{defi}[Reminder of tendency towards infinity for functions]
+  Let $f: \mathbb R \to \mathbb R$. We say $f$ tends to infinity $a \in \mathbb R$
+  for $x$ to infinity if
+  \[ \forall \varepsilon > 0 \exists M \in \mathbb R: x > M \Rightarrow \abs{f(x) - a} < \varepsilon \]
+  \[ \lim_{x \to \infty} f(x) = a \]
+  We say $f$ for $x$ to $\infty$ tends to infinity if
+  TODO
+\end{defi}
+
+\begin{theorem}[exponential growth]
+  Let $n \in \mathbb N$. Then it holds that
+  \begin{itemize}
+    \item $\lim_{n\to\infty} \frac{e^x}{x^n} = +\infty$ \\
+      exp with $x \to \infty$ grows stronger than any $x^n$
+    \item $\lim_{x\to-\infty} e^x \cdot x^n = 0$ \\
+      exp with $x \to -\infty$ drops stronger towards zero than any $x^n$ grows
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  \begin{itemize}
+    \item
+      Let $L > 0$ arbitrary, $n \in \mathbb N$ is fixed.
+      For $x > 0$ it holds that
+      \[ e^x = \sum_{k=0}^\infty \underbrace{\frac{x^k}{k!}}_{>0} > \frac{x^{n+1}}{(n+1)!} \]
+      Hence
+      \[ \frac{e^x}{x^n} > \frac{\frac{x^{n+1}}{(n+1)!}}{x^n} = \frac{x}{(n+1)!} > L \text{ if } x > \underbrace{L \cdot (n+1)!}_{=M} \]
+    \item
+      Let $\xi = -x$.
+      \[
+        \lim_{x \to -\infty} e^x \cdot x^n
+        = \lim_{\xi \to +\infty} e^{-\xi} \cdot (-\xi)^n
+        = - \lim_{\xi \to +\infty} \frac{\xi^n}{e^\xi}
+        = 0
+      \]
+  \end{itemize}
+\end{proof}
+
 \clearpage
 \begin{otherlanguage}{ngerman}
 \printindex[German]
