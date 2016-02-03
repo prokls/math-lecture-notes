@@ -1,16 +1,17 @@
 \documentclass[a4paper,landscape,twocolumn]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
 \usepackage[ngerman,english]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{csquotes}
 \usepackage{faktor}
 \usepackage{fancyhdr}
 \usepackage[margin=1in]{geometry}
+\usepackage{imakeidx} % before hyperref
 \usepackage[pdfborder={0 0 0},colorlinks=true,citecolor=red]{hyperref}
-\usepackage{csquotes}
-\usepackage{imakeidx}
 \usepackage{mathtools}
 \usepackage{stmaryrd}
 \usepackage{rotating}
@@ -30,7 +31,7 @@
 \newcommand\Q{\mathbb{Q}}
 \newcommand\nope{\lightning}
 \newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
-\newcommand\TODO{\fbox{\textsc{ToDo} content incomplete/incorrect}{ }}
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{defi}{Definition}
@@ -46,6 +47,8 @@
 \DeclareMathOperator\rank{rank} % rank of a matrix
 
 \DeclarePairedDelimiter\norm\lVert\rVert
+
+\setcounter{MaxMatrixCols}{20}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -90,10 +93,9 @@ Exams:
 
 \textbf{What is linear algebra?}
 \begin{itemize}
-  % TODO: notation in greek letters
-  \item Arithmetics
-  \item Geometry
-  \item Analysis / infinitesimal computation
+  \item Arithmetics (greek: \textgreek{ἀριθμός})
+  \item Geometry (greek: \textgreek{γεωμετρία})
+  \item Analysis / infinitesimal computation (greek: \textgreek{ἀνάλυσις})
 \end{itemize}
 
 100 years ago, the following branch of mathematics was introduced:
@@ -192,8 +194,7 @@ So it's contained? Paradoxon.
 
 \subsection{Basics of logic}
 
-Aristoteles and Organon % TODO: greek notation
-
+Aristoteles (\textgreek{Ἀριστοτέλης}) and Organon (\textgreek{Ὄργανον}).
 Organon called the system \enquote{analytics}.
 
 \begin{quote}
@@ -1034,10 +1035,31 @@ Case distinction:
 
 What if there are 2 unknown variables, but more equations?
 
-% TODO: drawings
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{img/linear_equation_visualization.pdf}
+    \caption{
+      Depiction of solutions of a linear equation system
+      (with $m=2$ and $n=2$ in the upper row and $m>2$ and $n=2$ in the lower row)
+    }
+    \label{img:lineqsys-solutions}
+  \end{center}
+\end{figure}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{img/linear_equation_visualization2.pdf}
+    \caption{
+      Depiction of solutions of a linear equation system
+      (with $m=2$ and $n=3$ in the upper row and $m=3$ and $n=3$ in the lower row)
+    }
+    \label{img:lineqsys-solutions2}
+  \end{center}
+\end{figure}
+
 \begin{description}
   \item[Case 4]
-    a solution, where only two lines intersect. But not all three at one time.
+    A solution, where only two lines intersect. But not all three at one time.
   \item[Case 5]
     Two equations are equivalent, but other equations are parallel or intersecting.
 \end{description}
@@ -1349,12 +1371,16 @@ The set of vectors is in bijection with the set of points.
 In every equivalence class there is one representative of structure $(0, A)$.
 $\overrightarrow{0A}$ is called position vector (dt. Ortsvektor) to $A$.
 
-\paragraph{Addition of vectors} (diagonal of a parallelogram)
-  % TODO: drawing: Vector a, vector b, vector a+b
-  % TODO: drawing: Vector a, vector b, vector a-b with b in reversed direction
+\paragraph{Vector operations}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{img/vector_operations.pdf}
+    \caption{Vector operations}
+    \label{img:vector-operations}
+  \end{center}
+\end{figure}
 
-\paragraph{Multiplication of vectors} (stretching)
-  % TODO: drawing: vector a, lambda times a
+Compare with Figure~\ref{img:vector-operations}.
 
 \subsection{Properties}
 
@@ -1380,15 +1406,19 @@ Distributivity law:
 
 \subsection{Applications}
 \subsubsection{Diagonals of a parallelogram}
+%
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{img/parallelogram.pdf}
+    \caption{Parallelogram and intersection $S$ of diagonals}
+    \label{img:parallelogram}
+  \end{center}
+\end{figure}
 
-% TODO: drawing: parallelogram with C, B, A, D (clockwise). S is the intersection of the diagonals
-
-The diagonals of a parallelogram intersect exactly on the halfway of the whole diagonal.
+The diagonals of a parallelogram intersect exactly on the halfway of the whole diagonal (compare with Figure~\ref{img:parallelogram}).
 Hence we claim $\card{AS} = \card{SC}$ and $\card{BS} = \card{SD}$.
 Let $M$ be the midpoint of $\overline{AC}$ and $N$ be the midpoint of $\overline{BD}$.
 Then $M = N$ must hold.
-
-% TODO: drawing: parallelogram with C, B, A, D (clockwise). S is the intersection of the diagonals. Point 0 is outside and has two arcs pointing to A and B.
 
 Let's assume the opposite ($M \neq N$).
 \[ \overrightarrow{CM} = \overrightarrow{OA} + \frac12 \overrightarrow{AC} \]
@@ -1404,10 +1434,16 @@ Let's assume the opposite ($M \neq N$).
 \end{align*}
 
 \subsubsection{Line crossing two points}
-
-% TODO: drawing: P_1 and P_2 are crossed by a line
-
-The line crossing two points $P_1$ and $P_2$ is defined as
+%
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{img/line_with_P1_and_P2.pdf}
+    \caption{Lines with $P_1$ and $P_2$}
+    \label{img:line}
+  \end{center}
+\end{figure}
+%
+The line crossing two points $P_1$ and $P_2$ (see Figure~\ref{img:line}) is defined as
 \[ \setdef{\overrightarrow{0P_1} + t \cdot \overrightarrow{P_1 P_2}}{t \in \mathbb{R}} \]
 \[ = \setdef{\overrightarrow{0P_1} + t \cdot \left(\overrightarrow{0P_2} - \overrightarrow{0P_1}\right)}{t \in \mathbb{R}} \]
 
@@ -2417,7 +2453,7 @@ Does the definition not depend on the definition of the system of representative
 
   \[ \operatorname{kernel}(h) = \setdef{x \in G_1}{h(x) = e_2} \]
 
-  $h(G_1) \leq G_2$ is a subgroup and is called \emph{image of $h$},
+  $h(G_1) \leq G_2$ is a subgroup and is called \emph{image of $h$} (or \emph{range of $h$}),
   denoted $\operatorname{im}(h) = h(G_1)$.
 \end{defi}
 
@@ -2812,6 +2848,7 @@ You should infer from context which one is meant.
 At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
 
 \begin{theorem}
+  \label{thm:axiom-cor}
   This is a direct result following from the axioms.
   Let $(V, +, \cdot)$ be a vector space over $K$.
   \begin{enumerate}
@@ -2870,7 +2907,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
 
 \begin{proof}
   \[ \bigwedge_{u \in U} -u \in U \]
-  Choose $\lambda = -1$ in subspace and multiply as in Theorem~4.  % TODO: reference
+  Choose $\lambda = -1$ in subspace and multiply as in Theorem~\ref{thm:axiom-cor}~(4).
 \end{proof}
 
 \begin{cor}
@@ -3145,24 +3182,46 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
 
 Therefore every linear combination is also in $U$.
 
-\[ M \subseteq V \text{ subset} \]
-\[ [M] = \text{ smallest vector space which contains } V \coloneqq \bigcap_{U \subseteq V} U \supseteq \set{0} \]
-
-\[ L(M) = \setdef{\lambda v_1 + \ldots + \lambda_n v_n}{n \in \mathbb N, \lambda \in K, v_n \in M} \]
+\begin{align*}
+    M &\subseteq V \text{ subset} \\
+  [M] &= \text{ smallest vector space which contains } V \\
+      &\coloneqq \bigcap_{\substack{U \subseteq V \\ \text{ such that } M \subseteq U} } U \supseteq \set{0} \\
+ L(M) &= \setdef{\lambda v_1 + \ldots + \lambda_n v_n}{n \in \mathbb N, \lambda \in K, v_n \in M}
+\end{align*}
 
 \begin{theorem}
   \[ [M] = L(M) \]
-  \[ [M] \subseteq L(M) \]
-  \[ L(M) \subseteq [M] \]
 \end{theorem}
 
-\TODO
-
 \begin{proof}
-  It suffices to show, that every subspace $U$, which contains $M$, contains also $L(M)$.
-  Every $U$ in intersection $\bigcap_{\substack{U \\ M \subseteq U}} U$ contains also $L(M)$.
-  \[ \lambda_1, \ldots, \lambda_n \in K \Rightarrow L(M) \subseteq \bigcap_{U} U \]
-  Let $v_1,$
+  \[ \text{To show: } [M] \subseteq L(M) \]
+  We have already shown that $L(M)$ is a subspace. $M \subseteq L(M)$.
+  Therefore $L(M)$ is one of the $U$ in $\bigcap{\substack{U \subseteq V \\ M \subseteq U}} U$.
+  So $[M] \subseteq L(M)$.
+
+  \[ \text{To show: } L(M) \subseteq [M] \]
+  Hence every subspace $U$, which contains $M$, contains also $L(M)$.
+
+  So every $U$ in $\bigcap{\substack{U \subseteq V \\ M \subseteq U}} U$ also contains $L(M)$.
+  So $L(M) \subseteq \bigcap{\substack{U \subseteq V \\ M \subseteq U}} U$.
+
+  We conclude: Let $v_1, \ldots, v_n \in M$ and $\lambda_1, \ldots, \lambda_n \in K$.
+  Let $U \subseteq V$ be a subspace containing $M \subseteq U$.
+
+  \begin{itemize}
+    \item[$\Rightarrow$]
+      all $v_i \in U$
+    \item[$\Rightarrow$]
+      $\lambda_1 v_1 + \lambda_2 v_2 \in U$
+    \item[$\Rightarrow$]
+      $(\lambda_1 v_1 + \lambda_2 v_2) + \lambda_3 v_3 \in U$
+    \item[$\Rightarrow$]
+      By induction: $\lambda_1 v_1 + \ldots + \lambda_n v_n \in U$
+    \item[$\Rightarrow$]
+      Every linear combination of $M$ is in $U$
+    \item[$\Rightarrow$]
+      $L(M) \subseteq U \Rightarrow L(M) \subseteq [M]$
+  \end{itemize}
 \end{proof}
 
 \begin{rem}
@@ -3220,6 +3279,7 @@ Therefore every linear combination is also in $U$.
 \end{ex}
 
 \begin{theorem}
+  \label{satz-3.15}
   Let $M \subseteq V \text{ subset}$.
   Let $a \in L(M)$ then $L(M) = L(M \cup \set{a})$.
   The linear hull does not grow, if the vector space is extended by an element of the linear hull.
@@ -3253,8 +3313,12 @@ Therefore every linear combination is also in $U$.
     In other words, let $a \in M$, if $a \in L(M \setminus \set{a})$ then $L(M) = L(M \setminus \set{a})$.
   \end{itemize}
 \end{proof}
-% TODO: "spanning set" in favor of "generating system"?
-Question: Is there always a minimal generating system? Can we determine whether $M$ is minimal?
+
+\begin{center}
+  Question:
+  Is there always a minimal generating system (also called \enquote{spanning set})?
+  Can we determine whether $M$ is minimal?
+\end{center}
 
 \begin{defi}
   Let $(V, +)$ be a vector space over $K$.
@@ -3410,16 +3474,36 @@ Question: Is there always a minimal generating system? Can we determine whether 
       So $v_k$ has two different representations, this is a contradiction.
 
     \item[$3 \rightarrow 4$]
-      \TODO
-      Let $\lambda_1 v_1 + \ldots + \lambda_n v_n = 0$.
-      Show that all $\lambda_i = 0 $.
-      Assume $\bigwedge_{k} v_k = 0$.
-      \[ \Rightarrow \lambda \]
+      Immediate:
+      \[ v_k \not\in L(\set{v_1, \ldots, \hat{v_k}, \ldots, v_n}) \]
+      \[ v_k \in L({\set{v_1, \ldots, v_k, \ldots, v_n}}) \]
+      \[ \Rightarrow v_k \in L(\set{v_1, \ldots, v_n}) \setminus L(\set{v_1, \ldots, \hat{v_k}, \ldots, v_n}) \]
+      \[ \Rightarrow L(\set{v_1, \ldots, v_n}) \neq L(\set{v_1, \ldots, \hat{v_k}, \ldots, v_n}) \]
 
     \item[$4 \rightarrow 1$]
-      \TODO
+      Let $\lambda_1 v_1 + \ldots + \lambda_n v_n = 0$.
+      Show that all $\lambda_i = 0$.
+      Assume $\bigwedge_{k} \lambda_k = 0$.
+      \[
+        \Rightarrow \lambda_k v_k =
+          -\lambda_1 \cdot v_1
+          \ldots
+          -\lambda_{k-1} \cdot v_{k-1}
+          -\lambda_{k+1} \cdot v_{k+1}
+          \ldots
+          -\lambda_{n} \cdot k_v
+      \]
+      \[
+        \Rightarrow v_k =
+          \frac{-\lambda_1 \cdot v_1}{\lambda_k}
+          \ldots
+          \frac{-\lambda_{k-1} \cdot v_{k-1}}{\lambda_k}
+          \frac{-\lambda_{k+1} \cdot v_{k+1}}{\lambda_k}
+          \ldots
+          \frac{-\lambda_{n} \cdot k_v}{\lambda_k}
+      \]
       \[ \Rightarrow v_k \in L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) \]
-      \[ \Rightarrow L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) = L(\set{v_1, \ldots, v_k, \ldots, v_n}) \]
+      \[ \xRightarrow{\text{Theorem~\ref{satz-3.15}}} L(\set{v_1, \ldots, v_{k-1}, v_{k+1}, \ldots, v_n}) = L(\set{v_1, \ldots, v_k, \ldots, v_n}) \]
 
       This is a contradiction to (4).
   \end{description}
@@ -3954,7 +4038,7 @@ How can we construct/find bases?
   \[ \Rightarrow (x^n)_{n \in \mathbb N} \text{ is basis } \Rightarrow \dim{K[x]} = \infty \]
 \end{ex}
 
-\begin{theorem}[Basis extension theorem] % TODO translate Basisergänzungssatz
+\begin{theorem}[Basis extension theorem (dt. \foreignlanguage{ngerman}{Basisergänzungssatz})]
   \label{basis-extension}
   (Steinitz' exchange lemma for finite vector spaces)
 
@@ -4803,10 +4887,12 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
       (Consider a vector $v$ and a line $U$. $v + U$ is the set of all lines parallel to $U$ and going through $v$.)
     \item
       \[ \bigwedge_{v,v',w,w' \in V} v \sim_U v' \land w \sim_U w' \Rightarrow v+w \sim_U v' + w' \]
+    \item
       \[ \bigwedge_{\lambda \in K} \bigwedge_{v,v' \in V} v \sim_U v' \Rightarrow \lambda v \sim_U \lambda v' \]
       We therefore define
-
-      \TODO
+      \[ [v]_U + [w]_U \coloneqq [v + w]_U \]
+      \[ \lambda \cdot [v]_U \coloneqq [\lambda \cdot v]_U \]
+      \dots is well-defined.
   \end{enumerate}
 \end{theorem}
 \begin{proof}
@@ -5142,11 +5228,12 @@ Homomorphisms and vector spaces:
 \index[English]{embeddable}
 \index[German]{\foreignlanguage{ngerman}{einbettbar}}
 \begin{defi}
-  % TODO: \stackrel\sim{=} looks strange
-  $V$ and $W$ are \emph{isomorphic} $V \stackrel\sim{=} W$ if there exists isomorphism $f: V \rightarrow W$.
-
-  $V$ is called \emph{embeddable} in $W$ if there exists some monomorphism $f: V \rightarrow W$.
-  $f$ is called \emph{embedding}.
+  \begin{itemize}
+    \item $V$ and $W$ are \emph{isomorphic} $V \cong W$ if there exists an isomorphism $f: V \rightarrow W$.
+    \item
+      $V$ is called \emph{embeddable} in $W$ ($V \hookrightarrow W$) if there exists at least one monomorphism $f: V \rightarrow W$.
+      $f$ is called \emph{embedding}.
+  \end{itemize}
 \end{defi}
 
 \begin{theorem}
@@ -5264,7 +5351,7 @@ Homomorphisms and vector spaces:
 \end{proof}
 
 \begin{theorem}
-  \label{satz-5-12}
+  \label{satz-5.12}
   Let $V$ and $W$ be vector spaces over $K$.
   \[ f: V \rightarrow W \text{ is linear} \]
   \[ (v_i)_{i \in I} \subseteq V \]
@@ -5309,7 +5396,7 @@ Homomorphisms and vector spaces:
     \item
       If $f$ is surjective and $L(M) = V$, then $L(f(M)) = W$.
       If $f$ is surjective, then the image of the generating system is also a generating system.
-      \[ L(f(M)) \stackrel{\text{Theorem~\ref{satz-5-12}}}{=} f(L(M)) = f(V) \stackrel{\text{surj.}}{=} W \]
+      \[ L(f(M)) \stackrel{\text{Theorem~\ref{satz-5.12}}}{=} f(L(M)) = f(V) \stackrel{\text{surj.}}{=} W \]
     \item
       Let $f(v_i) \in f(M)$.
       Let $\sum \lambda_i f(v_i) = 0$. Then $f(\sum \lambda_i v_i) = 0_W = f(0_V)$.
@@ -5431,7 +5518,7 @@ Homomorphisms and vector spaces:
 
       We need to show that $f$ is bijective; injective and surjective.
 
-      Injectivity: Let $v,v' \in V$ with $f(v) = f(v')$. We need to show that $v = v'$.
+      \textbf{Injectivity:} Let $v,v' \in V$ with $f(v) = f(v')$. We need to show that $v = v'$.
       \begin{align*}
         0 = f(v) - f(v')
           &= f\left(\sum_{i=1}^n \lambda_i v_i\right) - f\left(\sum_{i=1}^n \mu_i v_i\right) \\
@@ -5442,14 +5529,13 @@ Homomorphisms and vector spaces:
           &\Rightarrow \text{all } \lambda_i = \mu_i \Rightarrow v = v'
       \end{align*}
 
-      Surjectivity: Let $w \in W$. We need to show that
+      \textbf{Surjectivity:} Let $w \in W$. We need to show that
       \[ \bigvee_{v \in V} f(v) = w \]
-      $(w_1, \dots, w_i)$ generates $W$. Therefore,
+      $(w_1, \dots, w_n)$ generates $W$. Therefore,
       \[ \bigvee_{\lambda_1, \dots, \lambda_n} w = \sum_{i=1}^n \lambda \cdot w_i \]
       Then
       \[ f(v) = w \text{ for } v = \sum_{i=1}^n \lambda_i v_i \in V \]
-      \[ f(\sum_{i=1}^n \lambda_i v_i) = \sum_{i=1}^n \lambda_i f(v_i) = \sum_{i=1}^n \lambda_i w_i = w \]
-      % TODO: verify
+      \[ f\left(\sum_{i=1}^n \lambda_i v_i\right) = \sum_{i=1}^n \lambda_i f(v_i) = \sum_{i=1}^n \lambda_i w_i = w \]
   \end{description}
 
   We have shown that if $f: b_i \rightarrow w_i$ is extended to a linear mapping $f: V \rightarrow W$,
@@ -5756,7 +5842,22 @@ We have already dealed with matrices when discussing linear mappings and linear 
 \index[German]{\foreignlanguage{ngerman}{Diagonalmatrix}}
 \index[English]{Main diagonal of a matrix}
 \index[German]{\foreignlanguage{ngerman}{Hauptdiagonale einer Matrix}}
-% TODO: further indices
+\index[English]{Diagonal matrix}
+\index[German]{\foreignlanguage{ngerman}{Diagonalmatrix}}
+\index[English]{Unit matrix}
+\index[German]{\foreignlanguage{ngerman}{Einheitsmatrix}}
+\index[English]{Triangular matrix}
+\index[German]{\foreignlanguage{ngerman}{Dreiecksmatrix}}
+\index[English]{Upper triangular matrix}
+\index[German]{\foreignlanguage{ngerman}{Obere Dreiecksmatrix}}
+\index[English]{Lower triangular matrix}
+\index[German]{\foreignlanguage{ngerman}{Untere Dreiecksmatrix}}
+\index[English]{Matrix units}
+\index[German]{\foreignlanguage{ngerman}{Matrixeinheiten}}
+\index[English]{Elementary matrices}
+\index[German]{\foreignlanguage{ngerman}{Elementarmatrizen}}
+\index[English]{Transposed matrix}
+\index[German]{\foreignlanguage{ngerman}{Transponierte Matrix}}
 \begin{defi}
   \label{definition-6-1}
   An $m \times n$ matrix over $K$ is a number scheme:
@@ -5775,7 +5876,7 @@ We have already dealed with matrices when discussing linear mappings and linear 
   is the set of all $m \times n$ matrices.
   If $m=n$:
   \[ M_n(K) = K^{n\times n} \]
-  is called a quadratic matrix.
+  is called a \emph{quadratic matrix}.
 
   $z_i = (a_{i1}, a_{i2}, \dots, a_{in})$ is the $i$-th row vector.
   $s_j = \begin{pmatrix} a_{1j} \\ \vdots \\ a_{mj} \end{pmatrix}$ is the $j$-th column vector.
@@ -5805,7 +5906,7 @@ We have already dealed with matrices when discussing linear mappings and linear 
   If all entries below the main diagonal are $0$, then $A$ is called an \emph{lower triangular matrix}.
   If all entries above the main diagonal are $0$, then $A$ is called an \emph{upper triangular matrix}.
 
-  \emph{Matrix units} are defined as
+  \emph{Matrix units} (or \emph{elementary matrix}) are defined as
   \[
     (E^{(n)}_{kl})_{ij} = \delta_{ki} \cdot \delta_{ej}
     = \begin{cases}
@@ -5834,7 +5935,7 @@ We have already dealed with matrices when discussing linear mappings and linear 
   The transposed matrix of $A \in K^{m\times n}$ is denoted
   $A^t \in K^{n\times m}$ with entries:
   \[ (A^t)_{ij} = a_{ji} \]
-  So we mirror along the main diagonal.
+  So we reflect along the main diagonal.
   \[ (A^t)^t = A \]
 \end{defi}
 \begin{rem}
@@ -6342,15 +6443,30 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
         \end{pmatrix}
       \]
       $P_\sigma$ is the \emph{permutation matrix}. $P_\sigma$ is regular.
-      \[ \left(P_\sigma\right)^-1 = P_{\sigma^{-1}} \]
+      \[ \left(P_\sigma\right)^{-1} = P_{\sigma^{-1}} \]
   \end{enumerate}
 
-  % TODO: T_ij matrix missing
-  %\[
-  %  T_{(ij)} = \begin{pmatrix}
-  %    1 & 0 & \ldots &
-  %  \end{pmatrix}
-  %\]
+  $T_{ij}$ is a matrix similar to a unit matrix, but in the diagonal it holds
+  that $T_{ii} = T_{jj} = 0$ unlike all other diagonal values which are $1$.
+  Furthermore $T_{ij} = 1$ and $T_{ji} = 1$ unlike all other non-diagonal values
+  which are $0$.
+  \[
+    T_{ij} =
+    \begin{pmatrix}
+      1 &        &   &   &   &   &   &   &   &   &   & \\
+        & \ddots &   &   &   &   &   &   &   &   &   & \\
+        &        & 1 &   &   &   &   &   &   &   &   & \\
+        &        &   & 1 &   &   &   &   &   &   &   & \\
+        &        &   &   & 0 &   &   &   & 1 &   &   & \\
+        &        &   &   &   & 1 &   &   &   &   &   & \\
+        &        &   &   &   &   & 1 &   &   &   &   & \\
+        &        &   &   &   &   &   & 1 &   &   &   & \\
+        &        &   &   & 1 &   &   &   & 0 &   &   & \\
+        &        &   &   &   &   &   &   &   & 1 &   & \\
+        &        &   &   &   &   &   &   &   &   & \ddots & \\
+        &        &   &   &   &   &   &   &   &   &   & 1 \\
+    \end{pmatrix}
+  \]
 \end{ex}
 
 \meta{lecture}{12th of January 2016}{Franz Lehner}
@@ -6464,10 +6580,9 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   \end{enumerate}
 \end{defi}
 %
-% TODO: theorem 5.12 missing reference
 \begin{rem}
   \begin{enumerate}
-    \item Because of Remark~\ref{bemerkung-6.6} and Theorem~5.12
+    \item Because of Remark~\ref{bemerkung-6.6} and Theorem~\ref{satz-5-12}
       the column vectors of $A$ build the image space of $f_A$.
       Therefore,
       \[ \operatorname{srg}(A) = \dim \image(f_A) \]
@@ -6475,7 +6590,6 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   \end{enumerate}
 \end{rem}
 %
-% TODO: bildraum == range in English according to Franz Lehner. I used image?
 \begin{theorem}
   For all $A \in K^{m \times n}$, it holds that $\operatorname{zrg}(A) = \operatorname{srg}(A)$
   and is called \emph{rank} of A:
@@ -6500,37 +6614,36 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   \end{align*}
 
   We denote coordinatewise $(z_i)_j = a_ij$.
-  % TODO: verify
   \begin{align*}
-    a_{1j} = (z_1)_{j}
-      &= (\beta_{i_1} z_{i_1} + \ldots + \beta_{i_r} z_{i_r})_j \\
-      &= \beta_{i_1} a_{ij} + \ldots + \beta_{i_r} a_{ij} \\
+    a_{1j} = (z_i)_{j}
+      &= (\beta_{11} z_{i 1} + \ldots + \beta_{1r} z_{i r})_j \\
+      &= \beta_{11} a_{i_{1j}} + \ldots + \beta_{1r} a_{i_{rj}} \\
     a_{2j} &= \beta_{i_1} a_{2j} + \ldots + \beta_{i_r} a_{ij} \\
+    a_{mj} &= \beta_{m1} a_{1j} + \beta_{m2} a_{2j} + \ldots + \beta_{mr} a_{i_{rj}}
   \end{align*}
-  \[ a_{mj} = \beta_{mi} a_{ij} + \beta_{m2} a_{2j} + \ldots + \beta_{mr} a_{ij} \]
   j-th column:
   \[
     s_j(A)
       = \begin{pmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{mj} \end{pmatrix}
-      = \begin{pmatrix} \beta_{1i} \\ \beta_{2i} \\ \vdots \\ a_{mi} \end{pmatrix}
+      = \begin{pmatrix} \beta_{11} \\ \beta_{21} \\ \vdots \\ \beta_{m1} \end{pmatrix}
       a_{i_1,j} +
-      \begin{pmatrix} \beta_{12} \\ \beta_{22} \\ \vdots \\ a_{m2} \end{pmatrix}
+      \begin{pmatrix} \beta_{12} \\ \beta_{22} \\ \vdots \\ \beta_{m2} \end{pmatrix}
       a_{i_2,j} + \ldots +
-      \begin{pmatrix} \beta_{1r} \\ \beta_{2r} \\ \vdots \\ a_{mr} \end{pmatrix}
+      \begin{pmatrix} \beta_{1r} \\ \beta_{2r} \\ \vdots \\ \beta_{mr} \end{pmatrix}
       \cdot a_{i_r,j}
-  \] % TODO: verify
+  \]
   \[
-    \in L(
-      \begin{pmatrix} \beta_{m} \\ \vdots \\ \beta_{m,1} \end{pmatrix},
-      \begin{pmatrix} \beta_{12} \\ \vdots \\ \beta_{m,2} \end{pmatrix},
-      \ldots
-      \begin{pmatrix} \beta_{ir} \\ \vdots \\ \beta_{m,r} \end{pmatrix}
-    )
+    \in L\left(
+      \begin{pmatrix} \beta_{11} \\ \vdots \\ \beta_{m1} \end{pmatrix},
+      \begin{pmatrix} \beta_{12} \\ \vdots \\ \beta_{m2} \end{pmatrix},
+      \ldots,
+      \begin{pmatrix} \beta_{1r} \\ \vdots \\ \beta_{mr} \end{pmatrix}
+    \right)
   \]
   All column vectors are contained $L(b_1, \ldots, b_r)$, where $b_1$ to $b_r$
   are the vectors we wrote used for $s_j(A)$ above.
   \[ \Rightarrow \text{column space} \subseteq L(b_1, \ldots, b_r) \]
-  \[ \Rightarrow \operatorname{srg}(A) = \dim{\text{column space}} \leq r = \operatorname{zrg}(A) \]
+  \[ \Rightarrow \operatorname{srg}(A) = \dim{(\text{column space})} \leq r = \operatorname{zrg}(A) \]
   Our next goal is to determine its rank.
 
   Approach: Gaussian elimination.
@@ -6655,7 +6768,6 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
 \begin{proof}
   \begin{enumerate}
     \item $A = 0$, nothing to do
-    % TODO: verify: \neq
     \item At least one $a_{ij} \neq 0$ exists, then apply a recursive algorithm:
       \begin{enumerate}
         \item exchange first with $i$-th row and first with $j$-th column.
@@ -6976,9 +7088,9 @@ with $\operatorname{rk}(A) = r$.
   We are only allowed to use row operations!
   \begin{center}
     \begin{tabular}{ccc|ccc}
-      0 & -1 & 1 & 1 &   & \\
-      2 &  0 & 1 &   & 1 & \\
-      3 &  1 & 1 &   &   & 1 \\
+      0 & -1 & 1 & 1 & 0 & 0 \\
+      2 &  0 & 1 & 0 & 1 & 0 \\
+      3 &  1 & 1 & 0 & 0 & 1 \\
     \hline
       2 &  0 & 1 &  0 & 1 & 0 \\
       0 & -1 & 1 &  1 & 0 & 0 \\
@@ -6993,27 +7105,25 @@ with $\operatorname{rk}(A) = r$.
       0 & 1 & $\frac12$ & 0 & $-\frac32$ & 1
     \end{tabular}
   \end{center}
-  % TODO: verify
-  The operations we applied are given with $L_1$, $L_2 = L_1$, $L_3 = L_2 \cdot L_1$.
-
+  The operations we applied are given with:
   \[
-    L_2 = \begin{matrix}
-      \frac12 &   & \\
-              & 1 & \\
-              &   & 1
-    \end{matrix}
+    L_1 = \begin{pmatrix}
+      0 & 1 & 0 \\
+      1 & 0 & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}
     \qquad
-    L_3 = \begin{matrix}
-      1  &   & \\
-         & 1 & \\
-      -3 &   & 1
-    \end{matrix}
+    L_2 = \begin{pmatrix}
+      \frac12 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 1
+    \end{pmatrix}
     \qquad
-    L_1 = \begin{matrix}
-      1 &    & \\
-        & -1 & \\
-        &    & 1
-    \end{matrix}
+    L_3 = \begin{pmatrix}
+       1 & 0 & 0 \\
+       0 & 1 & 0 \\
+      -3 & 0 & 1
+    \end{pmatrix}
   \]
   \[ A \cdot A^{-1} = I \]
 
@@ -7026,16 +7136,33 @@ with $\operatorname{rk}(A) = r$.
       1 & 0 & $\frac12$ & 0 & $\frac12$ & 0 \\
       0 & 1 & -1 & -1 & 0 & 0 \\
       0 & 0 & $\frac12$ & 1 & $-\frac32$ & 1 \\
+    \hline
       1 & 0 & $\frac12$ & 0 & $\frac12$ & 0 \\
       0 & 1 & -1 & -1 & 0 & 0 \\
+      0 & 0 & 1 & 2 & -3 & 2 \\
+    \hline
+      1 & 0 & 0 & -1 & 2 & -1 \\
+      0 & 1 & 0 & 1 & -3 & 2 \\
       0 & 0 & 1 & 2 & -3 & 2
   \end{tabular}
   \[
-    L_5 = \begin{bmatrix}
-      1 &    & \\
-        &  1 &  \\
-        & -1 & 1
-    \end{bmatrix}
+    L_4 = \begin{pmatrix}
+      1 &  0 & 0 \\
+      0 & -1 & 0 \\
+      0 &  0 & 1
+    \end{pmatrix}
+    \qquad
+    L_5 = \begin{pmatrix}
+      1 &  0 & 0 \\
+      0 &  1 & 0 \\
+      0 & -1 & 1
+    \end{pmatrix}
+    \qquad
+    L_6 = \begin{pmatrix}
+      1 & 0 & 0 \\
+      0 & 1 & 0 \\
+      0 & 0 & 2
+    \end{pmatrix}
   \]
 
   Hence the inverse matrix is given with
@@ -7062,11 +7189,11 @@ with $\operatorname{rk}(A) = r$.
   \end{itemize}
 \end{theorem}
 \begin{proof}
-  % TODO: verify
+  Short proof:
   \[ \image(f_A \cdot f_B) \subseteq \image(f_A) \]
-  All columns of $A\cdot B$ are in column space of $A$.
+  Long proof: We show, all columns of $A\cdot B$ are in column space of $A$.
   \[ s_j(A \cdot B)_i = (A\cdot B)_{ij} = \sum_{k=1}^m a_{ik} b_{kj} \]
-  \[ \Rightarrow s_j(AB) = \sum_{k=1}^m s_k(A) b_{kj} \in L(s_1(A), \ldots, s_m(A)) \]
+  \[ \Rightarrow s_j(AB) = \sum_{k=1}^m s_k(A) \cdot b_{kj} \in L(s_1(A), \ldots, s_m(A)) \]
   If $B$ is regular:
   \[ \image(A) = \image(A \cdot B \cdot B^{-1}) \subseteq \image(A \cdot B) \]
   \[ \image(A' \cdot B') \subseteq \image(A') \]
