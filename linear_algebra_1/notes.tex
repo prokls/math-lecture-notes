@@ -158,7 +158,7 @@ Approaches for notations:
     \end{itemize}
 \end{itemize}
 
-\subsection{Examples for custom sets}
+\subsubsection{Examples for custom sets}
 
 \begin{description}
   \item[\enquote{The set of all competent politicians}]
@@ -167,19 +167,22 @@ Approaches for notations:
     Depends on definition of visibility, are tools allowed?, opinion-based
 \end{description}
 
-\subsection{Russell's paradoxon}
+\subsection{Russell's paradox}
 
-Russell 1901, Zeromelo 1902
+\fbox{Bertrand Arthur William Russell, 1872--1970}
+\fbox{Ernst Friedrich Ferdinand Zermelo, 1871--1953}
+
+Russell 1901, Zermelo 1902
 
 $M$ = \enquote{the set of all sets} = \enquote{the set of all sets that does not contain itself}
 
-\subsection{Berrys paradoxon}
+\subsection{Berry's paradox}
 
-$M_{12}$ = set of all integers describable with at most 11 words \\
-$n$ is the smallest number not describable with at most 11 words
+$M_{12}$ = set of all integers not definable with fewer than 12 words \\
+$n$ is \enquote{the smallest positive integer not definable in fewer than twelve words}
 
-So $n$ is not contained in $M_{12}$. But $n$ itself is now described with 11 words.
-So it's contained? Paradoxon.
+So $n$ is not contained in $M_{12}$. But $n$ itself is now defined with 11 words.
+So it's contained? Paradox.
 
 \subsection{Axiomatic system of Zermelo-Frauenkel}
 
@@ -239,7 +242,7 @@ Kurt Gödel (1930)
 
 Example: \enquote{This statement is not provable.}
 
-\subsection{A correction}
+\subsection{A clarification}
 
 Due to these contradictions:
 \begin{quote}
@@ -3655,7 +3658,7 @@ Does every vector space have a basis?
 
 \index[English]{Axiom of choice}
 \index[German]{\foreignlanguage{ngerman}{Auswahlaxiom (axiom of choice)}}
-\index[English]{Hausdorff-Banach-Tarski paradoxon}
+\index[English]{Hausdorff-Banach-Tarski paradox}
 \index[German]{\foreignlanguage{ngerman}{Hausdorff-Banach-Tarski Paradoxon}}
 \begin{rem}
   Whether every vector space has a basis depends on your faith in the Axiom of Choice (AC).
@@ -7989,6 +7992,7 @@ Let $P \cdot A = L \cdot R$.
 \end{proof}
 
 \begin{theorem}[Matrix representation of linear maps]
+  \label{satz-6.51}
   \[ f: K^n \to K^m \leftrightarrow \text{matrix } A \in K^{m\times n} \text{ such that } \underbrace{f = f_A}_{f(x) = A \cdot x} \]
   \[ \Hom(K^n,K^m) \overset{\sim}{=} K^{m\times n} \]
   Let $V,W$ with $\dim{V} = n$, $\dim{W} = m$.
@@ -8027,7 +8031,7 @@ Let $P \cdot A = L \cdot R$.
   Compare with Figure~\ref{img:lm}.
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/linear_mapping.pdf}
+      \includegraphics[width=0.3\textwidth]{img/linear_mapping.pdf}
       \caption{Linear mapping in terms of $f$}
       \label{img:lm}
     \end{center}
@@ -8157,7 +8161,7 @@ Let $P \cdot A = L \cdot R$.
 
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics{img/two_linear_mappings.pdf}
+    \includegraphics[width=0.3\textwidth]{img/two_linear_mappings.pdf}
     \caption{Mapping $f$ and $g$}
     \label{img:two-linear-mappings}
   \end{center}
@@ -8179,7 +8183,7 @@ Let $P \cdot A = L \cdot R$.
 
 \begin{figure}[t]
   \begin{center}
-    \includegraphics{img/linear_mapping.pdf}
+    \includegraphics[width=0.3\textwidth]{img/linear_mapping.pdf}
     \caption{Linear mapping in terms of $f$}
     \label{img:lm}
   \end{center}
