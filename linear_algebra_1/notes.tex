@@ -167,16 +167,17 @@ Approaches for notations:
     Depends on definition of visibility, are tools allowed?, opinion-based
 \end{description}
 
-\subsection{Russell's paradox}
+\subsection{Contradictions and axiomization of set theory}
+\subsubsection{Russell's paradox}
 
-\fbox{Bertrand Arthur William Russell, 1872--1970}
+\fbox{Bertrand Arthur William Russell, 1872--1970} \\
 \fbox{Ernst Friedrich Ferdinand Zermelo, 1871--1953}
 
 Russell 1901, Zermelo 1902
 
 $M$ = \enquote{the set of all sets} = \enquote{the set of all sets that does not contain itself}
 
-\subsection{Berry's paradox}
+\subsubsection{Berry's paradox}
 
 $M_{12}$ = set of all integers not definable with fewer than 12 words \\
 $n$ is \enquote{the smallest positive integer not definable in fewer than twelve words}
@@ -184,7 +185,7 @@ $n$ is \enquote{the smallest positive integer not definable in fewer than twelve
 So $n$ is not contained in $M_{12}$. But $n$ itself is now defined with 11 words.
 So it's contained? Paradox.
 
-\subsection{Axiomatic system of Zermelo-Frauenkel}
+\subsubsection{Axiomatic system of Zermelo-Frauenkel}
 
 \begin{enumerate}
   \item For all sets $A, B$ it holds that $A = B$ iff $x \in A$ then also $x \in B$.
@@ -195,7 +196,7 @@ So it's contained? Paradox.
   \item If $A$ is a set, then also the power set $\mathcal{P}(A) = \set{B | B \subseteq A}$
 \end{enumerate}
 
-\subsection{Basics of logic}
+\subsubsection{Basics of logic}
 
 Aristoteles (\textgreek{Ἀριστοτέλης}) and Organon (\textgreek{Ὄργανον}).
 Organon called the system \enquote{analytics}.
@@ -232,7 +233,7 @@ Russell:
   This statement is wrong.
 \end{quote}
 
-\subsection{Gödel's incompleteness theorem}
+\subsubsection{Gödel's incompleteness theorem}
 
 Kurt Gödel (1930)
 \begin{quote}
@@ -242,15 +243,16 @@ Kurt Gödel (1930)
 
 Example: \enquote{This statement is not provable.}
 
-\subsection{A clarification}
+\subsubsection{A clarification}
 
 Due to these contradictions:
 \begin{quote}
-  A \emph{statement} is a linguistic unit for which it makes sense to ask:
+  A \emph{statement} is a linguistic unit for which it makes sense to ask: \\
   is it \emph{true} or \emph{false}?
 \end{quote}
 
-\subsection{Formal logic}
+\subsection{Modern logic}
+\subsubsection{Formal definitions}
 
 \begin{description}
   \item[Negation]
@@ -277,12 +279,12 @@ Attention!
     $A$ implies $B$. Deutsch: \enquote{A ist hinreichend für B. B ist notwendig für A.}
 \end{description}
 
-\subsection{Definition}
+\subsubsection{Definition of equivalence}
 
 Two logical statements are equivalent if for every variable assignment,
 the same truth value is evaluated ($P(A_1, \ldots, A_n) \leftrightarrow Q(A_1, \ldots, A_n)$).
 
-\subsection{Logical laws by DeMorgan}
+\subsubsection{DeMorgan's law of logic}
 
 \begin{align*}
   \neg(A \land B) &\Leftrightarrow \neg A \lor \neg B \\
@@ -292,7 +294,7 @@ the same truth value is evaluated ($P(A_1, \ldots, A_n) \leftrightarrow Q(A_1, \
 
 \[ \card{\mathbb{N}} = \aleph_0 \]
 
-\subsection{Proofs}
+\subsubsection{Proofs}
 
 A sentence is a statement of kind:
 \[ A \implies B \]
@@ -300,8 +302,9 @@ A sentence is a statement of kind:
 $A$ is our requirement. $B$ is our conclusion.
 A proof is showing that $B$ holds under assumption of $A$.
 
-\subsection{Statement}
-
+\subsection[Example proof: $n^2$ is odd if $n$ is odd]{Example proof: $n^2$ is odd if $n$ is odd}
+\subsubsection{Direct proof of a statement}
+%
 \begin{quote}
   Let $n \in \mathbb{N}$ be odd, than $n^2$ is odd.
 \end{quote}
@@ -314,21 +317,18 @@ Proof:
            $n^2 = 2l + 1$
 \end{itemize}
 
-We know, $n = 2k + 1$
-
+We know, $n = 2k + 1$, so
 \[ \Rightarrow n^2 = (2k + 1)^2 = 4k^2 + 4k + 1 = 2\cdot(2k^2 + 2k) + 1 \]
 with $l = 2k^2 + 2k$, statement $B$ holds. Direct proof.
 
-\subsubsection{Contraposition law}
-
+\subsubsection{\enquote{Contraposition law} or \enquote{Indirect proof}}
+%
 \[ A \implies B \Leftrightarrow \neg B \implies \neg A \]
-
-A so-called \enquote{indirect proof}.
-
+%
 \begin{quote}
   If $n^2$ is even, than $n$ is even.
 \end{quote}
-
+%
 \begin{itemize}
   \item[$A$.] $n^2$ is even
   \item[$B$.] $n$ is even
@@ -342,19 +342,19 @@ We already have shown,
 
 hence also $A \implies B$ is true.
 
-\subsection{Proof by contradiction}
+\subsubsection{Proof by contradiction}
 
 \[ A \lor \neg A \]
 
 Tertium nondatur \\
 hence if $\neg A$ is false, then $A$ is true.
 
-\subsubsection{$\sqrt{2}$ is irrational}
-
+\subsection{Example proof: $\sqrt{2}$ is irrational}
+%
 \[ \sqrt{2} \not\in \mathbb{Q} \]
-
+%
 Proof:
-
+%
 \begin{itemize}
   \item[$A$.] Let $x \in \mathbb{R}$ such that $x^2 = 2$ and $x > 0$ and let $\sqrt{2}$ be that number
   \item[$B$.] $\sqrt{2} \not\in \mathbb{Q}$
@@ -403,9 +403,9 @@ A few mathematicians deny \enquote{tertium non datur}.
 For those $A \lor \neg A$ means that there is no proof for either statement.
 
 \subsubsection{$a^b$ is irrational with $a, b \in \mathbb{R}$}
-
+%
 Proof: We know that $\sqrt{2} \not\in \mathbb{Q}$.
-
+%
 \[
     \left(\sqrt{2}^{\sqrt{2}}\right)^{\sqrt{2}}
     = \sqrt{2}^{\sqrt{2}\cdot\sqrt{2}}
@@ -413,21 +413,22 @@ Proof: We know that $\sqrt{2} \not\in \mathbb{Q}$.
     = 2^{\in \mathbb{Q}}
 \]
 
-\begin{enumerate}
-  \item[case 1:]
+\begin{description}
+  \item[Case 1]
     $\sqrt{2}^{\sqrt{2}}$ is irrational
     $\Rightarrow$ choose $a = \sqrt{2}^{\sqrt{2}} \not\in \mathbb{Q},
     b = \sqrt{2} \not\in \mathbb{Q}, a^b \in \mathbb{Q}$
-  \item[case 2:]
+  \item[Case 2]
     $\sqrt{2}^{\sqrt{2}} \in \mathbb{Q}$
-    choose $a = \sqrt{2} \not\in \mathbb{Q}$ and $b = \sqrt{2} \not\in \mathbb{Q}$
+    $\Rightarrow$ choose $a = \sqrt{2} \not\in \mathbb{Q}$ and $b = \sqrt{2} \not\in \mathbb{Q}$
     and $a^b \in \mathbb{Q}$.
-\end{enumerate}
+\end{description}
 
 With other means means that $\sqrt{2}^{\sqrt{2}} \not\in \mathbb{Q}$.
 
-\subsection{Agreement}
-
+\subsection{First-order logic}
+\subsubsection{\enquote{Agreement} or \enquote{contract}}
+%
 A \emph{predicate} is an expression which depends on variable and
 by insertion of values, a statement is created.
 
@@ -438,7 +439,7 @@ is not a statement unless we define $n$.
 \[ P(2) \Leftrightarrow \text{2 is even} \]
 \[ P(3) \Leftrightarrow \text{3 is even} \]
 
-\subsection{Quantifiers}
+\subsubsection{Quantifiers}
 
 \[ Q(n) \Leftrightarrow \left(P(n = 2k + 1) \implies P(n^2 = 2l + 1)\right) \]
 
@@ -465,7 +466,7 @@ there exists \emph{exactly one} $x$ such that $P(x)$ holds.
 
 \[ \exists! x \in X: P(x) \]
 
-\subsection{Proof using quantifiers}
+\subsubsection{Proof using quantifiers}
 
 There exists some prime number:
 
@@ -482,7 +483,7 @@ There exists some prime number:
         \]
 \end{itemize}
 
-\subsection{Negation with quantifiers}
+\subsubsection{Negation with quantifiers}
 
 \[ \neg(A \land B) \Leftrightarrow \neg A \lor \neg B \]
 \[ \neg \bigwedge_{x \in X} P(x) \Leftrightarrow \bigvee_{x \in X} \neg P(x) \]
@@ -523,7 +524,7 @@ $I = \mathbb{R}$, for every $x \in \mathbb{R}$ a set $A_x$ is given
 \[ \bigcap_{x \in \mathbb{R}} A_x = \setdef{y}{\bigwedge_{x \in \mathbb{R}} y \in A_x} \]
 \[ \bigvee_{x \in \emptyset} Q(x) \mathspace\text{is always false} \]
 
-\section{Power sets}
+\subsubsection{Power sets}
 
 Let $A$ be a set.
 \[ P(A) = 2^A = \setdef{B}{B \subseteq A} \]
@@ -548,7 +549,7 @@ Followingly,
 3ary tuples are called \enquote{triples}.
 $(a_i)_{i \in I}$ is called family of elements (where $I$ is an index set).
 
-\section{Relations of sets}
+\subsubsection{Relations of sets}
 
 A \emph{relation} on a set is a subset
 \[ R \subseteq X \times X \]
@@ -604,7 +605,7 @@ A \emph{relation} $R$ operating on a set $X$ is called
     if $\bigwedge_{x \in X} \bigwedge_{y \in X} (xRy \land yRx \implies x=y)$
   \item[transitive] \hfill{} \\
     if $\bigwedge_{x \in X} \bigwedge_{y \in X} \bigwedge_{z \in X} (xRy \land yRz) \implies xRz$
-  \item[konnvex] \hfill{} \\
+  \item[total (dt. konnex)] \hfill{} \\
     if $\bigwedge_{x \in X} \bigwedge_{y \in X} (xRy \lor yRx)$
 \end{description}
 
@@ -907,7 +908,7 @@ Remarks:
     Is $g\circ f$ bijective? Is $g$ or $f$ bijective?
 \end{enumerate}
 
-\section{Solutions to linear equation systems}
+\subsection{Solutions to linear equation systems}
 
 A linear equation system is an equation system of structure:
 
@@ -987,7 +988,7 @@ Case distinction:
     one line (infinite solution)
 \end{description}
 
-\subsection{Substitution}
+\subsubsection{Substitution}
 
 \begin{ex}
   Example for case 1.
@@ -1037,7 +1038,7 @@ Case distinction:
 \meta{lecture}{19th of Oct 2015}{Prof. Franz Lehner}
 
 What if there are 2 unknown variables, but more equations?
-
+%
 \begin{figure}[t]
   \begin{center}
     \includegraphics[width=0.5\textwidth]{img/linear_equation_visualization.pdf}
@@ -1233,7 +1234,7 @@ This represents a line in $\mathbb{R}^3$.
 
 There is no solution to $0 = 12$. Therefore no solution is possible for the equation system.
 
-\subsection{Gauss-Jordan elimination algorithm}
+\subsubsection{Gauss-Jordan elimination algorithm}
 
 \begin{enumerate}
   \item Write matrix
@@ -1865,28 +1866,28 @@ $S_3$ is non-commutative!
   \begin{itemize}
     \item \emph{not} translation
     \item rotation
-    \item mirroring
+    \item reflection
   \end{itemize}
 
-  Horizontal mirroring:
+  Horizontal reflection:
   \[
-    h \stackrel{\sim}{=}
+    h \cong
     \begin{pmatrix}
       A & B & C & D \\
       D & C & B & A
     \end{pmatrix}
   \]
 
-  Vertical mirroring:
+  Vertical reflection:
   \[
-    V \stackrel\sim=
+    V \cong
     \begin{pmatrix}
       A & B & C & D \\
       B & A & D & C
     \end{pmatrix}
   \]
   \[
-    d_\pi \stackrel\sim=
+    d_\pi \cong
     \begin{pmatrix}
       A & B & C & D \\
       C & D & A & B
@@ -2580,7 +2581,7 @@ Does the definition not depend on the definition of the system of representative
 
   \begin{enumerate}
     \item[3.]
-      Select $a \not R \setminus \set{0}$. Then
+      Select $a \in R \setminus \set{0}$. Then
       \[ 1 \cdot a = a \]
       \[ 0 \cdot a = 0 \]
       \[ \Rightarrow 1 \neq 0 \]
@@ -4683,7 +4684,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   \end{enumerate}
 \end{theorem}
 \begin{proof}
-  \begin{enumerate}
+  \begin{description}
     \item[2 to 3] follows immediately.
     \item[1 to 2]
       Let $W = U_1 \dot{+} \dots \dot{+} U_m$.
@@ -4734,7 +4735,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
       \end{align*}
       Let $(u_{ij})$ be basis of $W$. Therefore all $\lambda_{ij} = \mu_{ij}$.
       Therefore $w_i = w_i'$ for all $i$. So the decomposition is unique.
-  \end{enumerate}
+  \end{description}
 \end{proof}
 
 \begin{rem}[Special case]
@@ -5498,7 +5499,7 @@ Homomorphisms and vector spaces:
 \begin{theorem}
   \label{satz-5-16}
   Let $V$ and $W$ be finite-dimensional vector spaces.
-  Then $V \stackrel\sim= W \Leftrightarrow \dim{V} = \dim{W}$.
+  Then $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
 
   \[ \left(\delta_{x}\right)_{x \in \mathbb R} \subseteq \mathbb R^{\mathbb R} \]
   is linear independent, where
@@ -5550,7 +5551,7 @@ Homomorphisms and vector spaces:
 \end{proof}
 
 \begin{cor}
-  \[ \dim{V} = n \Leftrightarrow V \stackrel\sim= K^n \]
+  \[ \dim{V} = n \Leftrightarrow V \cong K^n \]
   Isomorphism: Let $(b_1, \dots, b_n)$ be a basis of $V$.
   Then,
   \[ f: V \rightarrow K^n \]
@@ -5679,11 +5680,11 @@ Images and preimages of subspaces are subspaces.
   \]
   \[
     \operatorname{im}(f) = \setdef{\begin{pmatrix} x_1 \\ \vdots \\ x_m \\ \vdots \\ 0 \end{pmatrix}}{X \in K}
-    \stackrel\sim=
+    \cong
     K^m
   \] \[
     \operatorname{ker}(f) = \setdef{\begin{pmatrix} 0 \\ \vdots \\ 0 \\ x_{n+1} \\ \vdots \\ x_n \end{pmatrix}}{x_i \in K}
-    \stackrel\sim= K^{n-m}
+    \cong K^{n-m}
   \]
   In this example:
   \[ \operatorname{ker}(f) \dot{+} \operatorname{im}(f) = K^n \]
