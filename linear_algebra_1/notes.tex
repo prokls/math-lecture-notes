@@ -528,11 +528,11 @@ $I = \mathbb{R}$, for every $x \in \mathbb{R}$ a set $A_x$ is given
 \subsubsection{Power sets}
 
 Let $A$ be a set.
-\[ P(A) = 2^A = \setdef{B}{B \subseteq A} \]
+\[ \mathcal P(A) = 2^A = \setdef{B}{B \subseteq A} \]
 is called a \enquote{power set} of $A$.
 
-\[ P(\emptyset) = \set{\emptyset} \]
-\[ P(P(\emptyset)) = \set{\emptyset, \set{\emptyset}} \]
+\[ \mathcal P(\emptyset) = \set{\emptyset} \]
+\[ \mathcal P(\mathcal P(\emptyset)) = \set{\emptyset, \set{\emptyset}} \]
 
 Let $A, B$ be sets.
 The following set is called \enquote{cartesian product} (lat. renatus cartesius) (by René Descartes, 17th century)
@@ -581,7 +581,7 @@ A relation of a set $X$ is a subset $R \subseteq X \times X$. We denote $x R y$ 
     \end{tabular} \\[5pt]
     \begin{tabular}{crlccccc}
      \hline \hline
-        i & reflexive & symmetrical & anti-sym. & transitive & konnex \\
+        i & reflexive & symmetrical & anti-sym. & transitive & connex \\
      \hline
         0 & false & true & false & false & false \\
         1 & true & true & false & true & false \\
@@ -606,7 +606,7 @@ A \emph{relation} $R$ operating on a set $X$ is called
     if $\bigwedge_{x \in X} \bigwedge_{y \in X} (xRy \land yRx \implies x=y)$
   \item[transitive] \hfill{} \\
     if $\bigwedge_{x \in X} \bigwedge_{y \in X} \bigwedge_{z \in X} (xRy \land yRz) \implies xRz$
-  \item[total (dt. konnex)] \hfill{} \\
+  \item[connex] \hfill{} \\
     if $\bigwedge_{x \in X} \bigwedge_{y \in X} (xRy \lor yRx)$
 \end{description}
 
@@ -616,7 +616,7 @@ Examples 2, 4, 6 and 7 are equivalence relations.
 A relation satisfying reflexivity, anti-symmetry and transitivity is called \emph{order relation}.
 Examples 3, 4 and 5 are order relations.
 
-A relation satisfying reflexivity, anti-symmetry, transitivity and konnvexivity is called \emph{total order}.
+A relation satisfying reflexivity, anti-symmetry, transitivity and connexivity is called \emph{total order}.
 Example 2 is a total order.
 
 Let $\sim$ be an equivalence relation operating on set $X$.
@@ -638,7 +638,7 @@ Examples:
 \begin{itemize}
   \item $\faktor{X}{\sim} = \set{\set{\text{Graz}}, \set{\text{Linz}}, \set{\text{Wien}}, \dots}$
   \item $\faktor{X}{\sim} = \setdef{\set{x}}{x \in X}$
-  \item $\mathbb{Z}{\sim} = \set{[0], [1], [2], \ldots, [n-1]}$
+  \item $\faktor{\mathbb{Z}}{\sim} = \set{[0], [1], [2], \ldots, [n-1]}$
      \[ n = 0 + 1 \cdot n \in [0] \]
      \[ 0 = n - 1 \cdot n \in [n] \]
 \end{itemize}
@@ -659,22 +659,24 @@ Examples:
   Then it holds that
   \[ \bigwedge_{x,y \in X} \left(x \sim y \iff [x] = [y]\right) \]
 \end{theorem}
+\begin{proof}
+  Let $x,y \in X$ be arbitrary elements such that $x \sim y$.
+  Show that $[x] \subseteq [y] \land [y] \subseteq [x]$.
+  It suffices to show that $[x] \subseteq [y]$ because $x,y$ can be arbitrary.
 
-Proof:
-Let $x,y \in X$ be arbitrary elements such that $x \sim y$.
-Show that $[x] \subseteq [y] \land [y] \subseteq [x]$.
-It suffices to show that $[x] \subseteq [y]$ because $x,y$ can be arbitrary.
+  Show $\bigwedge_{z \in [x]} z \in [y]$.
+  Let $z \in [x] \implies x \sim z$. Furthermore $x \sim y \xrightarrow{symmetrical} y \sim x$.
+  Hence $y \sim x \land x \sim z \xrightarrow{transitive} y \sim z \implies z \in [y]$.
+  Hence $[x] \subseteq [y]$. Hence $[x] = [y]$.
 
-Show $\bigwedge_{z \in [x]} z \in [y]$.
-Let $z \in [x] \implies x \sim z$. Furthermore $x \sim y \xrightarrow{symmetrical} y \sim x$.
-Hence $y \sim x \land x \sim z \xrightarrow{transitive} y \sim z \implies z \in [y]$.
-Hence $[x] \subseteq [y]$. Hence $[x] = [y]$.
+  If $[x] = [y]$, then $y \in [y]$ (because its reflexive) hence $y \in [x] \implies x \sim y$.
+\end{proof}
 
-If $[x] = [y]$, then $y \in [y]$ (because its reflexive) hence $y \in [x] \implies x \sim y$.
-
+\index[English]{partition}
+\index[German]{\foreignlanguage{ngerman}{Partition}}
 Let $X$ be a set. A \emph{partition} of $X$ is a subset $Z \subseteq \mathcal{P}(X)$.
 $Z$ is the set of subsets of $X$ such that
-
+%
 \begin{itemize}
   \item $\bigcup_{A = Z} A = X$
   \item $\bigwedge_{A,B \in Z} \left(A \neq B \implies A \cap B = \emptyset\right)$
@@ -701,19 +703,21 @@ $Z$ is the set of subsets of $X$ such that
   \begin{itemize}
     \item We need to show that $\bigcup_{x \in X} [x] = X$.
       \begin{align*}
-        \bigwedge_{x \in X} x \sim y &\implies \bigwedge_{x \in X} x \in [x] \\
-                                   &\implies \bigwedge_{x \in X} x \in \bigcup_{y \in X} [y] \\
-                                   &\implies X \subseteq \bigcup_{y \in X} [y]
+        \bigwedge_{x \in X} x \sim y
+          &\implies \bigwedge_{x \in X} x \in [x] \\
+          &\implies \bigwedge_{x \in X} x \in \bigcup_{y \in X} [y] \\
+          &\implies X \subseteq \bigcup_{y \in X} [y]
       \end{align*}
     \item Furthermore we need to show that
-          $\bigwedge_{x,y \in X} [x] \cap [y] \neq \emptyset \implies [x] = [y] \iff x \sim y$.
+          \[ \bigwedge_{x,y \in X} [x] \cap [y] \neq \emptyset \implies [x] = [y] \iff x \sim y. \]
+          Let $[x] \cap [y] \neq \emptyset$.
       \begin{align*}
-          \text{Let } [x] \cap [y] \neg \emptyset & \bigvee_z z \in [x] \cap [y] \\
+              & \bigvee_z z \in [x] \cap [y] \\
               & \bigvee_z z \in [x] \land z \in [y] \\
           \text{definition of equivalence class} & \implies x \sim z \land y \sim z \\
           \text{symmetrical} & \implies \bigvee_z x \sim z \land z \sim y \\
-          & \xrightarrow{transitive} x \sim y \\
-          & \xrightarrow{Theorem~\ref{satz-1.2.9}} [x] = [y]
+          \text{transitivity} & \implies x \sim y \\
+          \text{Theorem~\ref{satz-1.2.9}} & \implies [x] = [y]
       \end{align*}
   \end{itemize}
 \end{proof}
@@ -732,10 +736,10 @@ We can find a symbolic expression for a function or explicitly enumerate all map
 Examples:
 \begin{align*}
   f_1: \mathbb{R} &\rightarrow \mathbb{R} \\
-                x &\rightarrow x^2 \\
+                x &\mapsto x^2 \\
   f_2: \set{0,1}  &\rightarrow \mathbb{R} \\
-                0 &\rightarrow 1
-                1 &\rightarrow \pi \\
+                0 &\mapsto 1 \\
+                1 &\mapsto \pi \\
   f_3: \mathcal{P}(x) &\rightarrow \mathcal{P}(x) \\
                 A &\mapsto X \setminus A
 \end{align*}
@@ -753,34 +757,41 @@ Remarks:
 \begin{enumerate}
   \item
     Domain and codomain are part of the definition of a function.
-    A function is unambiguously defined by some graph:
+    A function is unambiguously defined by some graph.
 
   \item
+    The graph $G_f$ is a relation between $X$ and $Y$ such
+    that every $x \in X$ occurs exactly once:
     \[ G_f = \setdef{(x, f(x))}{x \in X} \subseteq X \times Y \]
-    therefore a relation between $X$ and $Y$ such that every $x \in X$
-    occurs exactly once.
     \[ \bigwedge_{x\in X} \dot\bigvee_{y\in Y} (x,y) \in G_f \]
 
   \item
     Two functions $f: X \rightarrow Y$, $f: U \rightarrow V$ are
-    equivalent iff $X = U$, $Y = V$ and $\bigwedge_{x \in X} f(x) = g(x)$.
-
-    Hence the domain and codomain must be equivalent.
+    equivalent iff $X = U$, $Y = V$ and $\bigwedge_{x \in X} f(x) = g(x)$. Hence
+    \begin{itemize}
+      \item domain
+      \item codomain
+      \item and assigned values must be equivalent.
+    \end{itemize}
 
   \item
     The function $\text{id}_X: X \rightarrow X$ is called \enquote{identity}.
 
   \item
-    Let $A \subseteq X$ be a subset.
-    \[ \mathbb{1}_A = \chi_A: X \rightarrow \set{0,1} \]
+    \index[English]{Indicator function}
+    \index[German]{\foreignlanguage{ngerman}{Indikatorfunktion}}
+    \index[English]{Characteristic function}
+    \index[German]{\foreignlanguage{ngerman}{Charakteristische Funktion}}
+    Let $A \subseteq X$ be a subset. Let $\mathbb{1}_A$ (or $\chi_A$)
+    be called \emph{indicator function of $A$} or
+    \emph{characteristic function of $A$}:
+    \[ \mathbb{1}_A: X \rightarrow \set{0,1} \]
     \[
        x \rightarrow \begin{cases}
          1 & \text{if } x \in A \\
          0 & \text{if } x \notin A
        \end{cases}
     \]
-    This function is called \emph{indicator function of $A$}
-    or \emph{characteristic function of $A$}.
 
   \item
     Every function $f: X \rightarrow \set{0,1}$ is the indicator
@@ -788,11 +799,12 @@ Remarks:
     where $A = \setdef{x \in X}{f(x) = 1}$.
 \end{enumerate}
 
+\index[English]{Restriction of a function}
+\index[German]{\foreignlanguage{ngerman}{Einschränkung einer Funktion}}
 Let $A \subseteq X$ be a subset of $f: X \rightarrow Y$.
-Then $f\mid_A: A \rightarrow Y$ with $a \mapsto f(a)$ is
+Then $f|_A: A \rightarrow Y$ with $a \mapsto f(a)$ is
 called \emph{restriction} of $f$ to $A$.
-
-$f\mid_A$ is not defined outside $A$.
+$f|_A$ is not defined outside $A$.
 
 Let $f: X \rightarrow Y$ be a function defined for $B \subseteq Y$.
 \[ f^{-1}(B) = \setdef{x \in X}{f(x) \in B} \subseteq X \]
@@ -814,13 +826,19 @@ Analogously $f$ indicates a function
 Remark:
 \[ f^{-1}(B) = \bigcup_{b \in B} f^{-1}(b) \]
 
+\index[English]{Injective function}
+\index[German]{\foreignlanguage{ngerman}{Injektive Funktion}}
 A function $f: X \rightarrow Y$ is called \emph{injective} iff
 \[ \bigwedge_{x_1,x_2 \in X} (x_1 \neq x_2 \implies f(x) \neq f(x_2)) \]
 \[ \iff \bigwedge_{x_1,x_2 \in X} (f(x_1) = f(x_2) \implies x_1 = x_2) \]
 
+\index[English]{Surjective function}
+\index[German]{\foreignlanguage{ngerman}{Surjektive Funktion}}
 A function is called \emph{surjective} iff
 \[ \bigwedge_{y \in Y} \bigvee_{x \in X} f(x) = y \]
 
+\index[English]{Bijective function}
+\index[German]{\foreignlanguage{ngerman}{Bijektive Funktion}}
 A function is called \emph{bijective} iff a function is injective and surjective.
 \[ \bigwedge_{y \in Y} \dot\bigvee_{x \in X} f(x) = y \]
 
@@ -852,29 +870,33 @@ Examples:
     The inverse function is the function itself.
 \end{itemize}
 
+\index[English]{Involution}
+\index[German]{\foreignlanguage{ngerman}{Involution}}
 A function is called \emph{involution} if its inverse function is the function itself.
 
+\index[English]{Composition of functions}
+\index[German]{\foreignlanguage{ngerman}{Hintereinanderausführung von Funktionen}}
 Let $f: X \rightarrow Y$ and $g: Y \rightarrow Z$ be functions, the function
 \[ g \circ f: X \rightarrow Z\]
 \[ x \mapsto g(f(x)) \]
-is called composition of $f$ and $g$.
+is called \emph{composition of $f$ and $g$}.
 
 \begin{theorem}
-Let $f: X\rightarrow Y$, $g: Y\rightarrow Z$ and $h: Z \rightarrow U$ be functions.
-\[ X \xrightarrow{f} Y \xrightarrow{g} Z \xrightarrow{h} U \]
-Then
-\[ h\circ(g\circ f) \overset{?}{=} (h\circ g)\circ f \]
+  Let $f: X\rightarrow Y$, $g: Y\rightarrow Z$ and $h: Z \rightarrow U$ be functions.
+  \[ X \xrightarrow{f} Y \xrightarrow{g} Z \xrightarrow{h} U \]
+  Then
+  \[ h\circ(g\circ f) \overset{?}{=} (h\circ g)\circ f \]
 \end{theorem}
 
 \begin{proof}
-$h\circ (g\circ f)$ and $(h\circ g) \circ f$ bounded from $X$ to $U$.
-\[
+  $h\circ (g\circ f)$ and $(h\circ g) \circ f$ bounded from $X$ to $U$.
+  \[
     (h\circ (g\circ f))(x) =
     h(g\circ f(x)) =
     h(g(f(x))) =
     h\circ g(f(x)) =
     (h\circ g)\circ f(x)
-\]
+  \]
 \end{proof}
 
 \begin{theorem}
@@ -907,12 +929,21 @@ Remarks:
     Let $f,g$ be bijective, then $(g\circ f)^{-1} = f^{-1} \circ g^{-1}$.
     \[ X \xrightarrow{f} Y \xrightarrow{g} Z \]
     Is $g\circ f$ bijective? Is $g$ or $f$ bijective?
+
+  \item
+    Let $f: X \to Y$ and $g: Y \to Z$ be functions.
+    Then it holds that
+    \begin{itemize}
+      \item $g \circ f$ surjective $\Rightarrow$ $g$ is surjective
+      \item $g \circ f$ injective $\Rightarrow$ $f$ is injective
+    \end{itemize}
 \end{enumerate}
 
 \subsection{Solutions to linear equation systems}
-
+%
+\index[English]{Linear equation system}
+\index[German]{\foreignlanguage{ngerman}{Lineares Gleichungssystem}}
 A linear equation system is an equation system of structure:
-
 \begin{align*}
   a_{1,1} x_1 + a_{1,2} x_2 + \ldots + a_{1,n} x_n &= b_1 \\
   a_{2,1} x_1 + a_{2,2} x_2 + \ldots + a_{2,n} x_n &= b_2 \\
@@ -924,7 +955,7 @@ $x_1,x_2,\ldots,x_n$ are the unknown variables.
 
 $ax+b$ is linear whereas $ax^2 + bx + c$ is non-linear.
 
-A particular solution of the equation system is an n-tuple $(x_1, \ldots, x_n)$,
+A particular solution of the equation system is an $n$-tuple $(x_1, \ldots, x_n)$,
 which satisfies the equation.
 
 The scheme
@@ -938,17 +969,19 @@ The scheme
 \end{displaymath}
 is called matrix of the equation system.
 
-The equation system is called homogeneous if all $b_i = 0$.
+\index[English]{Homogeneous solution}
+\index[German]{\foreignlanguage{ngerman}{Homogene Lösung}}
+The equation system is called \emph{homogeneous} if all $b_i = 0$.
 A homogeneous system always has at least one solution; $(0, 0, \ldots, 0)$.
 
 \[ ax = b \implies x = \frac ba \]
 Case distinction:
 \begin{description}
-  \item[Case 1 with $a \neq 0$]
+  \item[Case 1 with $a \neq 0$:]
     $x = \frac ba$ has a distinct solution
-  \item[Case 2 with $a = 0, b \neq 0$]
+  \item[Case 2 with $a = 0, b \neq 0$:]
     has no solution
-  \item[Case 3 with $a = 0, b = 0$]
+  \item[Case 3 with $a = 0, b = 0$:]
     every $x$ is a solution
 \end{description}
 
@@ -959,16 +992,16 @@ No distinct solution.
 
 Case distinction:
 \begin{description}
-  \item[$a_2 \neq 0$]
+  \item[Case $a_2 \neq 0$:]
     \[ y = \frac{-a_1 x + b}{a_2} \]
     $x$ is arbitrary.
-  \item[$a_2 = 0$]
+  \item[Case $a_2 = 0$:]
     \[ a_1 x = b \]
     $y$ is arbitrary. Case distinction:
     \begin{description}
-      \item[$a_1 \neq 0$] $x = \frac{b}{a_1}$
-      \item[$a_1 = 0, b = 0$] $0 = 0 \implies \mathbb{R}$ as solution
-      \item[$a_1 = 0, b \neq 0$] no solution
+      \item[Case $a_1 \neq 0$:] $x = \frac{b}{a_1}$
+      \item[Case $a_1 = 0, b = 0$:] $0 = 0 \implies \mathbb{R}$ as solution
+      \item[Case $a_1 = 0, b \neq 0$:] no solution
     \end{description}
 \end{description}
 \end{ex}
@@ -1343,12 +1376,12 @@ We define addition:
 
 Multiplication for $\lambda \in \mathbb{R}$:
 \[
-    \lambda \cdot \begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{pmatrix} \coloneqq
-    \begin{pmatrix} \lambda a_1 \\ \lambda a_2 \\ \vdots \\ \lambda a_n \end{pmatrix}
+  \lambda \cdot \begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{pmatrix} \coloneqq
+  \begin{pmatrix} \lambda a_1 \\ \lambda a_2 \\ \vdots \\ \lambda a_n \end{pmatrix}
 \]
 
 Geometric interpretation for $n=1,2,3,\ldots$:
-  For $n \leq 3$ we can think of $n$-tuples as points on lines, layers or within the room.
+  For $n \leq 3$ we can think of $n$-tuples as points on lines, layers or points within the room.
 
 Let $S$ be the set of all pairs of points ($A, B$). Consider it as directed path from $A$ to $B$.
 Equivalence relation on $S$:
@@ -1460,7 +1493,7 @@ A layer can be defined by three points $P_1$, $P_2$ and $P_3$.
 
 \subsection{Algebraic structures}
 
-A set $M$ with a mapping $\circ: M \times M \rightarrow M$ ($(x, y) \mapsto x \circ y$)
+A set $M$ with a mapping $\circ: M \times M \rightarrow M$ with $(x, y) \mapsto x \circ y$
 is called \emph{Magma} or \emph{algebraic structure}.
 
 \subsubsection{Examples}
