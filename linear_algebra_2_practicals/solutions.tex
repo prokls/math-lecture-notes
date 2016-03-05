@@ -1,0 +1,254 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{baskervald}
+\usepackage{bbold}
+\usepackage{csquotes}
+\usepackage{enumerate}
+\usepackage{faktor}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage[pdfborder={0 0 0},colorlinks=true,citecolor=red]{hyperref}
+\usepackage{imakeidx} % before hyperref
+\usepackage{mathalfa}
+\usepackage{mathtools}
+\usepackage{mdframed}
+\usepackage[bigdelims,vvarbb]{newtxmath}
+\usepackage{rotating}
+\usepackage{stmaryrd}
+\usepackage{pifont}
+\usepackage{wasysym}
+\usepackage{xcolor}
+
+\renewcommand*\oldstylenums[1]{\textosf{#1}}
+
+\theoremstyle{definition}
+\newmdtheoremenv[%
+  backgroundcolor=white,
+  linecolor=white!60!black,
+  linewidth=3pt]{ex}{Exercise}
+
+\DeclareMathOperator\kernel{kernel}
+
+\title{Linear Algebra 2 -- Practicals}
+\author{Lukas Prokop}
+\date{summer term 2016}
+
+\newcommand\meta[3]{This #1 took place on #2 (#3).\par}
+\newcommand\abs[1]{|\,#1\,|}
+\newcommand\set[1]{\left\{#1\right\}}
+\newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand\card[1]{\left|\,#1\,\right|}
+\newcommand\divides[2]{#1\,\mid\,#2}
+\newcommand\mathspace{\hspace{20pt}}
+\newcommand\functional[1]{\left\langle{#1}\right\rangle}
+\newcommand\Q{\mathbb{Q}}
+\newcommand\nope{\lightning}
+\newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+
+\parindent0pt
+\parskip7pt
+\setcounter{tocdepth}{1}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\clearpage
+\section{Exercise 1}
+\begin{ex}
+  Determine the matrix representation of the linear map
+  \[ f: \mathbb R_1[x] \to \mathbb R_2[x] \]
+  \[ p(x) \mapsto (x-1) \cdot p(x) \]
+  in regards of bases $B = \set{1-x, 1+x} \subseteq \mathbb R_1[x]$ and $C = \set{1, 1 + x, 1 + x + x^2} \subseteq \mathbb R^2[x]$.
+\end{ex}
+
+\[
+  f: \mathbb R_1[x] \to \mathbb R_2[x]
+\] \[
+  f: p(x) \mapsto (x-1) p(x)
+\] \[
+  B = \set{1-x, 1+x} \eqqcolon \set{b_1, b_2}
+\] \[
+  C = \set{1, 1+x, 1+x+x^2} \eqqcolon \set{c_1, c_2, c_3}
+\]
+
+Find $A \in \mathbb K^{3\times 2} \eqqcolon M_C^B(f)$.
+
+\[ \forall v \in \mathbb R_1: f(v) = w : \Phi_C(w) = A \Phi_B(v) \]
+
+\[ f(b_1) = (1-x)(x-1) = -x^2 + 2x - 1 \]
+\[ f(b_2) = (x-1)(x+1) = x^2 - 1 \]
+
+\[ \Phi_C(f(b_1)) \]
+
+Coefficient comparison:
+\begin{align*}
+  -x^2 + 2x - 1 &= \lambda_1 \cdot 1 + \lambda_2 (1 + x) + \lambda_3 (1 + x + x^2) \\
+  x^2: & \lambda_3 = -1 \\
+  x^1: & 2 = \lambda_2 + \lambda_3 \Rightarrow \lambda_2 = 3 \\
+  x^0: & -1 = \lambda_1 + \lambda_2 + \lambda_3 \Rightarrow \lambda_1 = -3
+\end{align*}
+
+\[ \Phi_C(f(b_1)) = \begin{pmatrix} 3 \\ 3 \\ 1 \end{pmatrix} \]
+\[ \Phi_C(f(b_2)): x^2 = 1 = \lambda_1 \cdot 1 + \lambda_2 (1 + x) + \lambda_3 (1 + x + x^2) \]
+\begin{align*}
+  x^2: & \lambda_3 = 1 \\
+  x^1: & \lambda_2 + \lambda_3 = 0 \Rightarrow \lambda_2 = -1 \\
+  x^0: & -1 = \lambda_1 + \lambda_2 + \lambda_3 \\
+       & -1 = \lambda_1 - 1 + 1 \\
+       & -1 = \lambda_1
+\end{align*}
+
+\[ \Phi_C(f(b_2)) = \begin{pmatrix} -1 \\ -1 \\ 1 \end{pmatrix} \]
+\[ A = \begin{pmatrix} -3 & -1 \\ 3 & -1 \\ 1 & 1 \end{pmatrix} \]
+
+
+\section{Exercise 3}
+\begin{ex}
+  Let $A_1, A_2, \ldots, A_k$ be quadratic $n\times n$ matrices over the field $\mathbb K$.
+  Show that the product $A_1 A_2 \ldots A_k$ is invertible if and only if all $A_i$ are invertible.
+\end{ex}
+
+All $A_i$ are invertible, then $\prod A_i$ is invertible.
+
+$A, B$ invertible, then $AB$ is invertible and $(AB)^{-1} = B^{-1} A^{-1}$.
+Generalize by induction.
+
+If $\prod A_i$ is invertible, then all $A_i$ are invertible.
+
+Sidenote: We know that $\operatorname{rank}(A) = n - \dim{\kernel(A)}$.
+
+\begin{description}
+  \item[$k=1$] trivial
+  \item[$k=2$] $A_1 A_2$ is invertible. Let $C = (A_1 A_2)^{-1}$. Then $C A_1 A_2 = I_n$.
+    Let $x \in \kernel(A_2) \Rightarrow A_2 x = 0 \Rightarrow \underbrace{C A_1}_{I_n} A_2 x = C A_1 0 = 0$.
+    \[ \kernel(A_2) = 0 \Rightarrow \operatorname{rank}(A_2) = n - 0: n \Rightarrow A_2 \text{ invertible} \]
+    \[ A_1 = \underbrace{A_1 A_2}_{\text{invertible}} \cdot \underbrace{A_2^{-1}}_{\text{invertible}} \]
+  \item[$k \to k+1$]
+    Let $A_1 \ldots A_{k+1}$ is invertible $\Rightarrow (A_1, \ldots, A_k) A_{k+1}$ is invertible $\xRightarrow{k=2} A_1, \ldots, A_k$ is invertible, $A_{k+1}$ invertible $\xRightarrow{\text{induction base}}$ $A_1, \ldots, A_k, A_{k+1}$ is invertible.
+\end{description}
+
+Remark:
+$A,B \in \mathbb K^{n\times n}$. $B$ is inverse of $A$
+\[ \Leftrightarrow AB = I = BA \Leftrightarrow AB = I \Leftrightarrow BA = I \]
+
+\section{Exercise 2}
+%
+\begin{ex}
+  Let $V$ be a vector space and $f: V \to \mathbb V$ is a nilpotent linear map,
+  hence there exists some $k \in \mathbb N$ such that $f^k = 0$.
+\end{ex}
+
+\subsection{Part a}
+\begin{ex}
+  Show that $\text{id}_V - f$ is invertible with $(\text{id}_V - f)^{-1} = \text{id}_V + f + f^2 + \ldots + f^{k-1}$.
+\end{ex}
+
+Show that: $(\text{id}_v - f)^{-1} = \sum_{i=0}^{k-1} f^i$.
+\[ (\text{id}_V - f) \circ \left(\sum_{i=0}^{k-1} f^{i}\right) = \text{id}_V \circ \sum_{i=0}^{k-1} f^i - f \circ \sum_{i=0}^{k-1} f^i - \sum_{i=0}^{k-1} f^{i+1} = f^0 + \sum_{i=1}^{k-1} f^i - \sum_{i=1}^{k-1} f^i - f^k = \text{id}_V - 0 = \text{id}_V \]
+and $\left(\sum_{i=0}^{k-1} f^i\right) \circ \left(\text{id}_V - f\right)$ analogously.
+
+\subsection{Part b}
+\begin{ex}
+  Use part a) to determine the inverse of the matrix
+  \[
+    \begin{pmatrix}
+      1 & 2 & 3 & 4 \\
+      0 & 1 & 2 & 3 \\
+      0 & 0 & 1 & 2 \\
+      0 & 0 & 0 & 1
+    \end{pmatrix}
+  \]
+\end{ex}
+\[
+  \begin{pmatrix}
+    1 & 2 & 3 & 4 \\
+    0 & 1 & 2 & 3 \\
+    0 & 0 & 1 & 2 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  \eqqcolon A
+  = \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  - f_A
+\] \[
+  f_A = I_n - A =
+  \begin{pmatrix}
+    0 & -2 & -3 & -4 \\
+    0 & 0 & -2 & -3 \\
+    0 & 0 & 0 & -2 \\
+    0 & 0 & 0 & 0
+  \end{pmatrix}
+\] \[
+  f^2_A = f \cdot f = \begin{pmatrix} 0 & 0 & 4 & 12 \\ 0 & 0 & 0 & 4 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
+\] \[
+  f^3 = f^2 \cdot f = \begin{pmatrix} 0 & 0 & 0 & -8 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
+\]
+$\Rightarrow$ f nilpotent.
+
+\section{Exercise 4}
+\subsection{Part a}
+\begin{ex}
+  Let $A$ be an invertible $n\times n$ matrix over a field $\mathbb K$ and $u,v$ are
+  column vectors (hence $n\times 1$ matrices), such that $\sigma  1 + v^t A^{-1} u \neq 0$.
+  Show that $(A + uv^t)$ is invertible and that
+  \[ (A + uv^t)^{-1} = A^{-1} - \frac1{\sigma} A^{-1} uv^t A^{-1} \]
+\end{ex}
+
+\subsection{Part b}
+\begin{ex}
+  Apply this formula to determine the inverse of the matrix
+  \[
+    A = \begin{pmatrix}
+      5 & 3 & 0 & 1 \\
+      3 & 2 & 0 & 0 \\
+      0 & 0 & 2 & 3 \\
+      0 & 0 & 3 & 5
+    \end{pmatrix}
+  \]
+\end{ex}
+
+\[
+  B = A + S
+\] \[
+  B = \begin{pmatrix} 5 & 3 & 0 & 0 \\ 3 & 2 & 0 & 0 \\ 0 & 0 & 2 & 3 \\ 0 & 0 & 3 & 5 \end{pmatrix}
+  + \begin{pmatrix} 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
+\] \[
+  \begin{pmatrix} 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
+    = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \cdot \begin{pmatrix} 0 & 0 & 0 & 1 \end{pmatrix}
+\]
+
+$A$ is invertible, because it is a block matrix\footnote{That's why chose $A$ and $S$ that way}.
+
+\[
+  A^{-1} = \begin{pmatrix}
+    2 & -3 & 0 & 0 \\
+    -3 & 5 & 0 & 0 \\
+    0 & 0 & 5 & -3 \\
+    0 & 0 & -3 & 2
+  \end{pmatrix}
+\] \[
+  \sigma = 1 + \begin{pmatrix} 0 & 0 & 0 & 1 \end{pmatrix} A^{-1} \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} = 1 + 0 \neq 0
+\]
+
+\[ \Rightarrow B^{-1} = A^{-1} - A^{-1} \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \cdot \begin{pmatrix} 0 & 0 & 0 & 1 \end{pmatrix} A^{-1}
+  = \begin{pmatrix}
+    2 & -3 & 6 & -4  \\
+    -3 & 5 & -9 & 6 \\
+    0 & 0 & 5 & -3 \\
+    0 & 0 & -3 & 2
+  \end{pmatrix}
+\]
+
+
+\end{document}
