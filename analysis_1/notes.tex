@@ -2477,7 +2477,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
     \item Let $q \in \mathbb C, \abs{q} < 1$. Then it holds that
       \[ \lim_{n \to \infty} q^n = 0 \]
     \item Let $a \in \mathbb R, a > 0, n \in \mathbb N_+$. Then it holds that
-      \[ \lim_{n \to \infty} \sqrt[n]{a} = 0 \]
+      \[ \lim_{n \to \infty} \sqrt[n]{a} = 1 \]
     \item It holds that $(n \in \mathbb N_+)$
       \[ \lim_{n \to \infty} \sqrt[n]{n} = 1 \]
     \item Let $z \in \mathbb C: \abs{z} > 1$. Let $k \in \mathbb N$.
@@ -4053,12 +4053,11 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
       Assume $\exists q \in [0, 1)$ with $(0 \leq q < 1)$ and $N \in \mathbb N$ such that
       \begin{itemize}
         \item $\frac{\abs{a_{n+1}}}{\abs{a_n}} < q \quad \forall n \geq N$ with $\abs{a_n} \neq 0$, or
+          \hfill{} \enquote{Ratio test}
         \item $\sqrt[n]{\abs{a_n}} < q \quad \forall n \geq N$
+          \hfill{}  \enquote{Root test}
       \end{itemize}
       Then the series $\sum_{k=0}^\infty a_k$ is absolute convergent.
-      \begin{center}
-        \enquote{Ratio test}
-      \end{center}
     \item
       Assume there exists $q > 1$ and $N \in \mathbb N$ such that
       \begin{itemize}
@@ -4066,9 +4065,6 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
         \item $\sqrt[n]{\abs{a_n}} \geq q \quad \forall n \geq N$
       \end{itemize}
       Then $\sum_{k=0}^\infty a_k$ is divergent.
-      \begin{center}
-        \enquote{Square root test}
-      \end{center}
   \end{enumerate}
 \end{theorem}
 \begin{proof}
