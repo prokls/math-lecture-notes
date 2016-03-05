@@ -1,0 +1,268 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{baskervald}
+\usepackage{bbold}
+\usepackage{csquotes}
+\usepackage{enumerate}
+\usepackage{faktor}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage[pdfborder={0 0 0},colorlinks=true,citecolor=red]{hyperref}
+\usepackage{imakeidx} % before hyperref
+\usepackage{mathalfa}
+\usepackage{mathtools}
+\usepackage{mdframed}
+\usepackage[bigdelims,vvarbb]{newtxmath}
+\usepackage{rotating}
+\usepackage{stmaryrd}
+\usepackage{pifont}
+\usepackage{wasysym}
+\usepackage{xcolor}
+
+\renewcommand*\oldstylenums[1]{\textosf{#1}}
+
+\theoremstyle{definition}
+\newmdtheoremenv[%
+  backgroundcolor=white,
+  linecolor=white!60!black,
+  linewidth=3pt]{ex}{Exercise}
+
+\DeclareMathOperator\kernel{kernel}
+
+\title{Linear Algebra 2 -- Practicals}
+\author{Lukas Prokop}
+\date{summer term 2016}
+
+\newcommand\meta[3]{This #1 took place on #2 (#3).\par}
+\newcommand\abs[1]{|\,#1\,|}
+\newcommand\set[1]{\left\{#1\right\}}
+\newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand\card[1]{\left|\,#1\,\right|}
+\newcommand\divides[2]{#1\,\mid\,#2}
+\newcommand\mathspace{\hspace{20pt}}
+\newcommand\functional[1]{\left\langle{#1}\right\rangle}
+\newcommand\Q{\mathbb{Q}}
+\newcommand\nope{\lightning}
+\newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+
+\parindent0pt
+\parskip7pt
+\setcounter{tocdepth}{1}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Solution of the last lecture exam of Analysis~1}
+\subsection{Exam: Exercise 1}
+\begin{ex}
+  Determine the limes of
+  \[ \sum_{n=2}^\infty \frac{1}{n^2 - 1} \]
+\end{ex}
+
+\[ \frac{1}{3} + \frac{1}{8} + \frac{1}{15} + \frac{1}{24} + \ldots \]
+does not help us. What about this representation?
+\[ \frac{1}{n^2-1} = \frac{1}{(n+1)(n-1)} = \frac{a}{n+1} + \frac{b}{n-1} = \frac{a(n-1) + b(n+1)}{(n+1)(n-1)} \]
+\[ a(n-1) + b(n+1) = 1 \]
+\[ (a + b)n + (b-a) = 1 \]
+\[ \Rightarrow a + b = 0 \land b - a = 1 \]
+\[ \Rightarrow a = -\frac12 \quad b = \frac12 \]
+
+Followingly,
+\[ \sum_{n=2}^\infty \frac{1}{n^2 - 1} = \sum_{n=2}^\infty \frac{1}{(n+1)(n-1)} = \sum_{n=2}^\infty \left(\frac{\frac12}{n-1} - \frac{\frac12}{n+1}\right) \]
+
+Okay, how to proceed? Let's build a pre-factor:
+\[ \frac12 \sum_{n=2}^\infty \left(\frac{1}{n-1} - \frac{1}{n+1}\right) \]
+\[ = \left(\frac11 - \frac13\right) + \left(\frac12 - \frac14\right) + \left(\frac13 - \frac15\right) + \left(\frac14 - \frac16\right) + \ldots \]
+\[ = \frac11 + \frac12 = \frac32 \]
+
+Let's describe this process of cancelling out formally as telescoping sum:
+\[
+  S_m \coloneqq \frac12 \sum_{n=2}^m \left(\frac1{n-1} - \frac1{n+1}\right)
+  = \frac12 \sum_{n=2}^m \frac{1}{n-1} - \frac12 \sum_{n=2}^m \frac{1}{n+1}
+\]
+
+Please be aware that we explicitly define $S_m$ because we want to work with finite sums.
+Only in finite sums, we are always allowed to split up sums.
+
+\[ = \frac12 \sum_{n=2}^m \frac{1}{n-1} - \frac12 \sum_{n=4}^{m+2} \frac{1}{n-1} \]
+\[ = \frac12 \left(\frac11 + \frac12\right) - \frac12 \left(\frac1m + \frac1{m+1}\right) \]
+
+We already know $\frac1m \xrightarrow{m\to\infty} 0$. Also $\frac1{m+1} \xrightarrow{m\to\infty} 0$.
+Followingly also $\frac12 \left(\frac1m + \frac1{m+1}\right) \xrightarrow{m\to\infty} 0$.
+
+
+
+\subsection{Exam: Exercise 2}
+\begin{ex}
+  A recursive definition of a sequence is given:
+  \[ a_0 \in \mathbb R, a_0 > 1, (a_n)_{n\in\mathbb N} \]
+  \[ a_{n+1} = \frac12 \left(a_n +  1\right) \]
+\end{ex}
+
+As an example, we look at the sequence with $a_0 = 2$:
+\[ a_0 = 2 \qquad a_1 = \frac32 \qquad a_2 = \frac54 \qquad a_3 \frac98 \]
+Another example is $a_0 = 7$:
+\[ a_0 = 7 \qquad a_1 = 4 \qquad a_2 = \frac52 \qquad a_3 \frac74 \]
+
+\begin{ex}
+  a) Show that $1 \stackrel!< a_n \stackrel!{\leq} a_0 \quad \forall n \in \mathbb N$
+\end{ex}
+
+Our examples suggest that this claim might hold.
+
+We use induction over $n$ to prove this statement:
+\begin{description}
+  \item[induction base] $1 < a_0 \leq a_0$ holds trivially.
+  \item[induction step]
+    We are given $1 < a_n \leq a_0$ by the induction hypothesis.
+
+    \begin{align*}
+      a_{n+1} &= \frac12 (a_n + 1) \\
+              &\leq \frac12 (a_0 + a_0) &[\text{induction hypothesis and } 1 < a_0]
+    \end{align*}
+
+    \begin{align*}
+      a_{n+1} &= \frac12 (a_n + 1) \\
+              &> \frac12 (1 + 1) & [\text{induction hypothesis}] \\
+              &= 1
+    \end{align*}
+\end{description}
+
+\begin{ex}
+  b) Prove that $a_{n+1} \stackrel{!}{<} a_n \quad \forall n \in \mathbb N$
+\end{ex}
+
+\begin{align*}
+  a_{n+1} &= \frac12 (a_n + 1) \\
+          &< \frac12 (a_n + a_n)   &[\text{we have proven: } a_n > 1]
+\end{align*}
+
+\begin{ex}
+  c) Does this series converge? If so, give its limit.
+\end{ex}
+
+Yes, because it is monotonically decreasing (according to exercise b)
+and bounded below (according to exercise a).
+
+\[ b_n \coloneqq a_n - 1 \qquad \forall n \in \mathbb N \]
+\[ b_0 \coloneqq a_0 - 1 \]
+\[ b_{n+1} = a_{n+1} - 1 = \frac12 (a_n + 1) - 1 = \frac12 (b_n + 1 + 1) - 1 = \frac12 b_n \]
+
+\[ b_n = \frac1{2^n} b_0 \to 0 \cdot b_0 = 0 \]
+\[ \Rightarrow b_n \to 0 \]
+\[ \Rightarrow a_n = b_n + 1 \to 1 \]
+
+
+Does it work to just show: $1 = \frac12 (1 + 1)$?
+Nope, because in points of continuity this might be true even though $1$ is not its limes.
+
+Let $a_n \to a$ and $a_{n+1} = \frac12 (a_n + 1)$.
+\[ a_{n+1} \to a \qquad \frac12 (a_n + 1) \to \frac12 (a + 1) \qquad a = \frac12 (a + 1) \]
+
+\subsection{Exam: Exercise 3}
+\begin{ex}
+  $f: \mathbb R \to \mathbb R$ with $x \mapsto 2x^2 + 5x- 3$.
+  Show continuity with an $\varepsilon$-$\delta$-proof.
+\end{ex}
+
+If we don't need an $\varepsilon$-$\delta$-proof, we would argue with the Algebraic Continuity Theorem:
+The function $f$ is a composition of continuous functions, hence a continuous function itself.
+
+$\varepsilon$-$\delta$-definition:
+\[
+  \forall x_0 \in \mathbb R \forall \varepsilon > 0 \exists \delta > 0:
+  \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon
+\]
+
+If $\abs{x - x_0} < \delta$,
+\begin{align*}
+  \abs{f(x) - f(x_0)} &= \abs{2x^2 + 5x - 3 - (2x_0^2 + 5x_0 - 3)} \\
+    &= \abs{2x^2 + 5x - 2x_0^2 - 5x_0} \\
+    &\leq 2 \abs{x^2 - x_0^2} + 5 \abs{x - x_0} \\
+    &= 2 \abs{(x + x_0) (x - x_0)} + 5 \abs{x - x_0} \\
+    &= 2 \abs{x + x_0} \abs{x - x_0} + 5 \abs{x - x_0} \\
+    &\leq 2 (\abs{x} + \abs{x_0}) \abs{x - x_0} + 5 \abs{x - x_0} \\
+    &\leq 2 \left(\abs{x_0} + \delta + \abs{x_0}\right) + 5 \delta \\
+  \intertext{Our goal: we are able to claim $\stackrel!{<} \varepsilon$}
+    &= 4 \abs{x_0} \delta + 2 \delta^2 + 5 \delta \\
+    &= 2\delta^2 + (4 \abs{x_0} + 5) \delta
+\end{align*}
+
+In general (here it does not apply), that $x_0$ might be zero. So division is not allowed and requires case distinctions (cumbersome!).
+
+The following steps work only because we know $\varepsilon > 0$ and $\delta > 0$:
+\[ 2 \delta^2 < \frac{\varepsilon}{2} \]
+\[ \delta < \frac{\sqrt{\varepsilon}}{2} \]
+\[ (4 \abs{x_0} + 5) \delta < \varepsilon \]
+\[ \delta < \frac{\varepsilon}{4 \abs{x_0} + 5} \]
+
+Then we can submit those results as solution:
+
+Let $\varepsilon > 0$ and $\delta \coloneqq \min\left(\frac{\sqrt{\varepsilon}}{5}, \frac{\varepsilon}{4 \abs{x_0} + 6}\right)$.
+Then the $\varepsilon$-$\delta$ definition shows that $f$ is continuous.
+
+\section{Exam: Exercise 4}
+%
+\begin{ex}
+  Let $f: [0,1] \to \mathbb R$ be continuous and $f(0) = f(1)$.
+  Show that $\exists \xi \in [0,\frac12]$ with $f(\xi) = f(\xi + \frac12)$.
+
+  Hint: Consider $h: [0, \frac12] \to \mathbb R$ with $h(x) = f(x) - f(x + \frac12)$.
+\end{ex}
+
+Intuition:
+Let $\xi = 0$ with $f(\xi) = 0$ and $\xi = \frac12$ with $f(\xi) = \frac1{16}$.
+Then the difference $f(0) - f(\frac12)$ is negative. At the same time $f(\frac12) - f(1)$ is positive.
+So at some point between $x=0$ and $x=1$ the difference must be zero.
+
+\[ \exists \xi \in [0,\frac12]: h(\xi) = 0 \]
+\begin{align*}
+  h(0) &= f(0) - f\left(\frac12\right) \\
+  h(1) &= f\left(\frac12\right) - f(1) = f\left(\frac12\right) - f(0) = -h(0)
+\end{align*}
+
+$f(x)$ is continuous in $[0,\frac12]$. $f(x + \frac12)$ is continuous in $[0,\frac12]$.
+Therefore $h$ is continuous, because it is a composition of continuous functions.
+
+\begin{description}
+  \item[Case 1: $h(0) < 0$]
+    Then $h(\frac12) > 0$ and $h(0) < 0 < h(\frac12)$.
+    Due to Intermediate Value Theorem it holds that
+    \[ \exists \xi \in [0, \frac12]: h(\xi) = 0 \]
+    \[ \Rightarrow f(\xi) = f(\xi + \frac12) \]
+  \item[Case 2: $h(0) > 0$]
+    Then $h(\frac12) < 0$. Remaining part analogous.
+  \item[Case 3: $h(0) = 0$]
+    Then by definition $f(0) = f(\frac12)$, so choose $\xi = 0$.
+\end{description}
+
+\clearpage
+\section{Exercise 1}
+\begin{ex}
+  Investigate the function $f: \mathbb R \to \mathbb R, x \mapsto \frac12 (x \abs{x} + x^2)$
+  in terms of multiple differentiability in all points $x_0 \in \mathbb R$.
+\end{ex}
+
+
+
+\section{Exercise 2}
+\begin{ex}
+  Determine, possibly using l'H\^{o}pital's rule, the following limits:
+  \begin{enumerate}
+    \item $\lim_{x\to1} \frac{\ln{x}}{x - 1}$
+    \item $\lim_{x\to0^+} \frac{1}{x} - \frac{1}{\sin{x}}$
+    \item $\lim_{x\to\frac\pi2^-} \frac{\ln(\cos{x})}{\ln(1 - \sin{x})}$
+    \item $\lim_{x\to1^-} x^\frac{1}{1-x}$
+    \item $\lim_{\substack{n\to\infty \\ n \in \mathbb N}} n^{\frac{1}{\sqrt{n}}}$
+    \item $\lim_{x\to\infty} \frac{e^x - e^{-x}}{e^x + e^{-x}}$
+  \end{enumerate}
+\end{ex}
+
+\end{document}
