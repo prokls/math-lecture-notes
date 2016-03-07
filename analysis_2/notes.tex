@@ -208,6 +208,13 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
 \begin{theorem}
   The logarithm function is differentiable in $(0,\infty)$ and it holds that $(\ln(x))' = \frac1x \quad \forall x > 0$.
 \end{theorem}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/geometric-exp-proof.pdf}
+    \caption{A geometric proof of differentiability}
+    \label{img:geo-diff}
+  \end{center}
+\end{figure}
 \begin{proof}
   \begin{description}
     \item[First approach]
@@ -222,30 +229,30 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
         = \frac1{e^\xi} = \frac1x
       \]
     \item[Second approach using chain rule]
-      \begin{figure}[!h]
-        \begin{center}
-          \includegraphics{img/geometric-exp-proof.pdf}
-          \caption{A geometric proof of differentiability}
-        \end{center}
-      \end{figure}
+      Compare with Figure~\ref{img:geo-diff}.
+      \[ (f^{-1})'(y_0) = \frac{1}{f'(f^{-1}(y_0))} \]
+      \[ f(f^{-1}(y)) = y \Rightarrow f(f^{-1}) f(f^{-1}(y)) = y = f'(f^{-1}(y)) \cdot (f^{-1})'(y) = 1 \]
+      \[ \Rightarrow (f^{-1})'(y) = \frac{1}{f'(f^{-1}(y))} \text{ for } f(x) = \exp(x) \]
+      \[ \Rightarrow (\ln)'(y) = \frac{1}{\exp(\ln(y))} = \frac{1}{y} \]
 
       \[ f(f^{-1}(y)) = y \]
       \[ f'(f^{-1}(y)) \cdot (f^{-1}) \]
       \[ = (f^{-1})'(y) = \frac{1}{f'(f^{-1}(y))} \]
       again for $f(x) = \exp(x)$.
-      \[ \Rightarrow (\ln)'(y) = \frac{1}{\exp(\ln(y))} = \frac{1}{y} \]
+    \item[Third approach]
+      Let $x > 0$.
+      \[ 0 = \ln(1) = \ln\left(x \cdot \frac1x\right) = \ln(x) + \ln\left(\frac1x\right) \]
+      \[ \Rightarrow \ln\left(\frac1x\right) = -\ln(x) \]
+
+      Let $x,y > 0$. Then it holds that
+      \[ \ln{\frac{x}{y}} = \ln(x) - \ln(y) \]
+      because $\ln\frac{x}{y} = \ln(x \cdot \frac1y) = \ln(x) - \ln(y)$.
   \end{description}
 \end{proof}
 
 \subsection{Extension of the functional equation of logarithm}
 %
-Let $x > 0$.
-\[ 0 = \ln(1) = \ln\left(x \cdot \frac1x\right) = \ln(x) + \ln\left(\frac1x\right) \]
-\[ \Rightarrow \ln\left(\frac1x\right) = -\ln(x) \]
 
-Let $x,y > 0$. Then it holds that
-\[ \ln{\frac{x}{y}} = \ln(x) - \ln(y) \]
-because $\ln\frac{x}{y} = \ln(x \cdot \frac1y) = \ln(x) - \ln(y)$.
 
 \subsection{A different proof for the derivative of logarithm}
 %
@@ -467,15 +474,13 @@ Conclusion:
       Consider the third condition of Theorem~\ref{thm:diff-conv}. Let $u,v \in I$
       \[ \abs{(f - f_n)(u) - (f - f_n)(v)} = \lim_{m\to\infty} \abs{(f_m - f_n)(u) - (f_m - f_n)(v)} \]
       where $(f_m - f_n)$ and $(f_m - f_n)$ is differentiable. Then according to the
-      Mittelwertsatz der Differentialrechnung % TODO: translate
+      mean value theorem of differential calculus (dt. Mittelwertsatz der Differentialrechnung)
       \begin{align*}
         &= \lim_{m\to\infty} \abs{(f_m - f_n)'(\xi_{m,n}) \cdot (u - v)} \\
         &= \lim_{m\to\infty} \abs{f'_m(\xi_{m,n}) - f'_n(\xi_{m,n})} \cdot \abs{u - v}
       \end{align*}
       For $m \geq N$:
-      \[
-        \leq \varepsilon \cdot \abs{u - v}
-      \]
+      \[ \leq \varepsilon \cdot \abs{u - v} \]
       So the third condition of Theorem~\ref{thm:diff-conv} is satisfied.
   \end{itemize}
 \end{proof}
