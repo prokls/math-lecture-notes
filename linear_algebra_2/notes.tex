@@ -47,6 +47,7 @@
 \DeclareMathOperator\image{im} % image
 \DeclareMathOperator\kernel{ker} % kernel
 \DeclareMathOperator\rank{rank} % rank of a matrix
+\DeclareMathOperator\sign{sign}
 
 \DeclarePairedDelimiter\norm\lVert\rVert
 
@@ -561,6 +562,7 @@ $h$ is the length of the projection of $w$ to $v^\bot$.
 \end{defi}
 
 \begin{theorem}
+  \label{thm-7.7}
   \[ \dim{V} = n \]
   \[ \triangle: V^n \to \mathbb K \text{ is determinant form} \]
   Then,
@@ -761,6 +763,278 @@ In the previous course (Theorem~1.40) we hvae proven: Compositions of bijective 
   \]
   \[ f_\pi = 7 \qquad \operatorname{sign}(\pi) = -1 \]
 \end{ex}
+
+\meta{lecture}{7th of March 2016}{Franz Lehner}
+
+\[
+  \begin{vmatrix}
+    a & b \\
+    c & d
+  \end{vmatrix}
+  = ad - bc
+\]
+
+Recall: Determinant form:
+\begin{enumerate}
+  \item $\triangle(a_1, \ldots, \lambda a_k, \ldots, a_n) = \lambda \triangle (a_1, \ldots, a_n)$
+  \item $\triangle(a_1, \ldots, a'_k + a''_k, \ldots, a_n) = \triangle(a, \ldots, a'_k, \ldots, a_n) + \triangle(a_1, \ldots, a''_k, \ldots, a_n)$
+  \item $\triangle(a_1, \ldots, a_k, \ldots, a_l, \ldots, a_n) = 0$ if $a_k = a_l$
+\end{enumerate}
+Conclusions:
+\begin{enumerate}
+  \item[4.] $\triangle (a_1, \ldots, a_k + \lambda a_l, \ldots, a_n) = \triangle (a_1, \ldots, a_n)$ if $k \neq l$
+  \item[5.] $\triangle (a_1, \ldots, a_k, \ldots, a_l, \ldots a_n) = -\triangle (a_1, \ldots, a_l, \ldots, a_k, \ldots a_n)$
+\end{enumerate}
+
+\[ \triangle (a_{\pi(1)}, \ldots, a_{\pi(n)}) = (-1)^k \triangle (a_1, \ldots, a_n) \]
+
+Decompose $\pi = \tau_1 \circ \ldots \circ \tau_k \circ \tau_{12} \circ \tau_{12}$.
+This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
+
+\[ \pi \in \sigma_n \qquad \text{permutation} \]
+\[ F_\pi = \setdef{(i,j)}{i < j, \pi(i) > \pi(j), \text{ malpositions }} \]
+\[ f_\pi = \card{F_\pi} \]
+\[ \sign(\pi) \coloneqq (-1)^{f_\pi} \eqqcolon (-1)^\pi \]
+
+\begin{theorem}
+  \label{satz-7.16}
+  \begin{itemize}
+    \item $\bigwedge_{\pi \in \sigma_n} \sign(\pi) = \prod_{1 \leq i < j \leq n} \frac{\pi(j) - \pi(i)}{j - i}$
+    \item For transposition $\tau$ it holds that $\sign(\tau) = -1$
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  \begin{itemize}
+    \item
+      Every pair $\set{i,j}$ occurs in the enumerator exactly once.
+      \[ \frac{\prod_{i<j} \pi(j) - \pi(i)}{\prod_{i<j} (j - i)} \]
+      Denominator: $j > i$, positive.
+      Enumerator: positive if $\pi(j) > \pi(i)$, negative if $\pi(i) > \pi(j)$.
+    \item
+      \[
+        \tau =
+        \begin{pmatrix}
+          1 & \ldots & k & \ldots & l & \ldots & n \\
+          1 & \ldots & l & \ldots & k & \ldots & n
+        \end{pmatrix}
+      \] \[
+        F_\tau(\underbrace{(k, k + 1), (k, k + 2), \ldots, (k, l-1)}_{\text{malpositions with $k$, $l-k$ times}},
+        (k,l), \underbrace{(k+1, l), \ldots, (l - 1, l)}_{l-k-1 \text{ times}})
+      \]
+      Example:
+      \[
+        \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+          1 & 2 & 3 & 8 & 5 & 6 & 7 & 4 & 9 & 10
+        \end{pmatrix}
+      \]
+      Yields $7$ malpositions ($8$ needs to be repositioned with 3 transpositions, $4$ needs to be repositions with 4 transpositions).
+  \end{itemize}
+\end{proof}
+
+\[ \sign(\pi) = \prod_{i < j} \frac{\pi(j) - \pi(i)}{j - i} \qquad {n \choose 2} \text{ factors} \]
+\[ \sign(\tau) = -1 \]
+
+\index[English]{Character}
+\index[German]{\foreignlanguage{ngerman}{Charakter}}
+\begin{theorem}
+  \begin{enumerate}
+    \item $\sign(\text{id}) = 1$
+    \item $\sign(\pi \circ \sigma) = \sign(\pi) \cdot \sign(\sigma)$, hence
+      \[ \sign{\sigma_n} \to (\set{+1, -1}, \cdot) \]
+      is a group homomorphism.
+      (In general: A group homomorphism $h: G \to (\mathcal T, \cdot)$ is called \emph{character})
+    \item $\sign(\pi^{-1}) = \sign(\pi)$
+  \end{enumerate}
+\end{theorem}
+\begin{rem}
+  \[ \mathcal T = \setdef{z \in \mathbb C}{\abs{z} = 1} \]
+  Torus with multiplication is a group.
+  \[ \abs{z_1 \cdot z_2} = \abs{z_1} \cdot \abs{z_2} = 1 \]
+\end{rem}
+\begin{proof}
+  \begin{enumerate}
+    \item trivial
+    \item
+      \begin{align*}
+        \sign(\pi \cdot \sigma) &= \prod_{i<j} \frac{\pi \circ \sigma(j) - \pi \circ \sigma(i)}{j - i} \\
+          &= \underbrace{\prod_{i<j} \frac{\pi(\sigma(j)) - \pi(\sigma(i))}{\sigma(j) - \sigma(i)}}_{=\sign(\pi)}
+             \cdot \underbrace{\prod_{i < j} \frac{\sigma(j) - \sigma(i)}{j - i}}_{\sign(\sigma)}
+      \end{align*}
+    \item Group homomorphism!
+  \end{enumerate}
+\end{proof}
+
+\begin{cor}
+  \label{cor-7.18}
+  \begin{itemize}
+    \item If $\pi = \tau_1 \circ \tau_2 \circ \ldots \circ \tau_k$, product of transpositions
+      \[ \Rightarrow \sign(\pi) = (-1)^k \]
+    \item $\mathfrak a_n \coloneqq \ker(\sign) = \setdef{\pi \in \sigma_n}{\sign(\pi) = 1}$
+      \begin{center} \enquote{even permutations}, \enquote{alternating group} \end{center}
+      \[ \card{\mathfrak a_n} = \frac{n!}{2} \]
+  \end{itemize}
+\end{cor}
+\begin{cor}
+  \label{cor-7.19}
+  \[ \triangle: V^k \to \mathbb K \text{ determinant form} \]
+  then it holds that
+  \[
+    \bigwedge_{\pi \in \sigma_n} \bigwedge_{a_1, \ldots, a_n \in V}
+    \triangle(a_{\pi(1)}, \ldots, a_{\pi(n)}) = \sign(\pi) \cdot \triangle(a_1, \ldots, a_n)
+  \]
+\end{cor}
+\begin{proof}
+  \begin{itemize}
+    \item If $\pi = \tau_{kl}$ transposition $\xrightarrow{\text{Theorem~}\ref{thm-7.7}} \triangle(a_{\tau(1)}, \ldots, a_{\pi(n)})
+      = -\triangle(a_1, \ldots, a_n) = \sign(\tau_{kl}) \cdot \triangle(a_1, \ldots, a_n)$
+    \item If $\pi = \tau_1 \circ \ldots \circ \tau_k = \tau_1 \circ \tilde{\pi}, \tilde{\pi} = \tau_2 \circ \ldots \circ \tau_k$
+      \[
+        \triangle(a_{\tau_1 \circ \tilde{\pi}(1)}, \ldots, a_{\tau_1 \circ \tilde{\pi}(n)})
+        = -\triangle(a_{\tilde\pi(1)}, \ldots, a_{\tilde\pi(n)})
+        = (-1)^2 \cdot \triangle(a_{\tilde\pi(1)}, a_{\tilde\pi(n)})
+        \to (-1)^k \cdot \triangle(a_1, \ldots, a_n)
+      \]
+  \end{itemize}
+\end{proof}
+\begin{theorem}[Leibnitz' definition of $\det(A)$]
+  \label{satz-7.20}
+  Let $B = (b_1, \ldots, b_n)$ be the basis of $V$. $a_1, \ldots, a_n \in V$ with coordinates
+  \[ \Phi_B(a_j) = \begin{bmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{nj} \end{bmatrix} \]
+  \[ A \coloneqq [a_{ij}]_{i,j=1,\ldots,n} = \left[\Phi_B(a_1), \Phi_B(a_2), \ldots, \Phi_B(a_n)\right] \]
+  Then it holds that for every determinant form $\triangle: V^k \to \mathbb K$:
+  \[ \triangle(a_1, \ldots, a_n) = \det(A) \cdot \triangle(b_1, \ldots, b_n) \]
+  where
+  \[ \det(A) \coloneqq \sum_{\pi \in \sigma_n} \sign_{\mathbb K} \pi a_{\pi(1),1} a_{\pi(2),2} \ldots a_{\pi(n),n} \]
+  is the determinant of $A$
+\end{theorem}
+%
+\begin{ex}
+  Example ($n=2$):
+  \[
+    \begin{vmatrix}
+      a_{11} & a_{12} \\
+      a_{21} & a_{22}
+    \end{vmatrix}
+    = a_{11} \cdot a_{22} - a_{12} \cdot a_{21}
+  \]
+
+  \[ \sign\begin{pmatrix} 1 & 2 \\ 1 & 2 \end{pmatrix} = 1 \]
+  \[ \sign\begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix} = -1 \]
+\end{ex}
+%
+\begin{proof}
+  \[ a_j = \sum_{j=1}^n a_{ij} b_i \]
+  \begin{align*}
+    \triangle(a_1, \ldots, a_n) &= \triangle\left(\sum_{i_=1}^n a_{i,1} b_i, \sum_{i_2=1}^n a_{i_2,2} b_i, \ldots, \sum_{i_n=1}^n a_{i_n,n} b_i\right) \\
+      &= \sum_{i_1=1}^n a_{i,1} \sum_{i_2=1}^n a_{i_2,2} \ldots \sum_{i_n=1}^n a_{i_n,n} \underbrace{\triangle (b_i, b_{i_2}, \ldots, b_{i_n})}_{= 0 \text{ if some } i_k = i_l}
+  \end{align*}
+  So summands with equal indices disappear. It holds that
+  $\sum_{i_1, \ldots, i_n}$ such that $i_1, \ldots, i_n$ are different.
+  Hence every value from $\set{1, \ldots, n}$ occurs exactly once.
+  This is the set of all permutations $\pi$ ($i_j = \pi(j)$)
+  \[ = \sum_{\pi \in \sigma_n} a_{\pi(1) 1} a_{\pi(2) 2} \ldots a_{\pi(n) n} \underbrace{\triangle(b_{\pi(1)}, \ldots, b_{\pi(n)})}_{\sign(\pi) \cdot \triangle(b_1,\ldots,b_n)} \]
+\end{proof}
+\begin{cor}
+  \label{cor-7.21}
+  A determinant form is \emph{uniquely} defined on a basis ($b_1, \ldots, b_n$) by the value $\triangle(b_1, \ldots, b_n)$.
+  Especially $\triangle$ is nontrivial,
+  \begin{itemize}
+    \item[$\Leftrightarrow$] $\triangle (b_1, \ldots, b_n) \neq 0$ on some basis.
+    \item[$\Leftrightarrow$] $\triangle (b_1, \ldots, b_n) \neq 0$ in every basis $b_1, \ldots, b_n$.
+  \end{itemize}
+
+  Let $\triangle(b'_1, \ldots, b'_n) = 0$ for some other basis, represent $b_1, \ldots, b_n$ in basis $b'_1, \ldots, b'_n$
+  \[ b_j = \sum a_{ij} b'_i \Rightarrow \triangle(b_1, \ldots, b_n) = \det(A) \cdot \triangle(b'_1, \ldots, b'_n) = 0 \]
+  \[ \triangle(a_1, \ldots, a_n) = \det(A) \cdot \triangle(b_1, \ldots, b_n) \]
+\end{cor}
+
+\begin{theorem}
+  \label{satz-7.22}
+  Let $B = (b_1, \ldots, b_n)$ be a basis of $V$ over $\mathbb K$. $c \in \mathbb K$.
+  For $a_1, \ldots, a_n \in V$, let $A = \left[\Phi_B(a_1), \ldots, \Phi_B(a_n)\right]$.
+  Then
+  \[ \triangle(a_1, \ldots, a_n) = c \cdot \det(A) \]
+  defines a determinant form, specifically the unique determinant form with value
+  \[ \triangle(b_1, \ldots, b_n) = c \]
+\end{theorem}
+\begin{proof}
+  The 3 properties of a determinant form:
+  \begin{enumerate}
+    \item
+      \begin{align*}
+        \triangle(a_1, \ldots, \lambda a_k, \ldots, a_n)
+        &= c \cdot \det\left[\Phi_B(a_1), \ldots, \lambda \cdot \Phi_B(a_k), \ldots, \Phi_B(a_n)\right] \\
+        &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} a_{\pi(2),2} \ldots - \lambda a_{\pi(k),k} \ldots a_{\pi(n),n} \\
+        &= \lambda \cdot c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} a_{\pi(2),2} \ldots a_{\pi(n),n} \\
+        &= \lambda \cdot \triangle(a_1, \ldots, a_n)
+      \end{align*}
+    \item
+      \begin{align*}
+        &= \triangle(a_1, \ldots, a'_k + a''_k, \ldots, a_n) \\
+          &= c \cdot \det\left[\Phi_B(a_1), \ldots, \Phi_B(a'_k) + \Phi_B(a''_k), \ldots, \Phi_B(a_n)\right] \\
+          &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} \cdot a_{\pi(2),2} \cdot \ldots
+             \left(a'_{\pi(k),k} + a''_{\pi(k),k}\right), \ldots, a_{\pi(n),n} \\
+          &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} \cdot a'_{\pi(k),k} \ldots a_{\pi(n),n}
+            + c \cdot \sum_{\pi \in \sigma_n} \sign(\pi) a_{\pi(1),1} \ldots a''_{\pi(k),k} \ldots a_{\pi(n),n} \\
+          &= \triangle(a_1, \ldots, a'_k, \ldots, a_n) + \triangle(a_1, \ldots, a''_k, \ldots, a_n)
+      \end{align*}
+    \item
+      Let $a_k = a_l$ for $k < $. Show that $\triangle(a_1, \ldots, a_n) = 0$
+      \[ \tau_{kl} = \text{ transposition exchanging $k$ and $l$} \]
+      \[ \sigma_n = \mathfrak a_n \dot\cup\, (\mathfrak a_n \cdot \tau_{kl}) \]
+      Claim: $\setdef{\pi}{\sign{\pi} = -1} = \setdef{\pi \circ \tau_{kl}}{\sign{\pi} = +1}$
+      \begin{description}
+        \item[$\supseteq$] If $\sign{\pi} = +1 \Rightarrow \sign(\pi \circ \tau_{kl}) = \underbrace{\sign{\pi}}_{+1} \cdot \underbrace{\sign{\tau_{kl}}}_{-1} = -1$
+        \item[$\subseteq$] If $\sign{\pi} = -1 \Rightarrow \sign(\pi \circ \tau_{kl}) = +1 \Rightarrow \pi = \underbrace{(\pi \circ \tau_{kl})}_{\in \mathfrak a_n} \circ \tau_{kl} \in \mathfrak a_n \cdot \tau_{kl}$
+      \end{description}
+      \begin{align*}
+        \triangle(a_1, \ldots, a_n)
+          &= c \cdot \sum_{\pi \in \sigma_n = \mathfrak a_n \cup \mathfrak a_n \cdot \tau_{kl}}
+            \sign(\pi) a_{\pi(1),1} \ldots a_{\pi(n),n} \\
+          &= c \cdot \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots a_{\pi(n),n} \\
+          &- \sum_{\pi \in \mathfrak a_n} a_{\pi \circ \tau_{kl}(1),1} \ldots a_{\pi \circ \tau_{kl}(k),k} \ldots a_{\pi \circ \tau_{ul}(l),l} \ldots a_{\pi \circ \tau_{kl}(n),n} \\
+          &= c \cdot \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots, a_{\pi(n),n}
+          &- \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots a_{\pi(l),k} \ldots a_{\pi(k)l} \ldots a_{\pi(n),n}
+      \end{align*}
+
+      What we did:
+      \begin{enumerate}
+        \item $a_{\pi(l),k} = a_{\pi(l),l}$ and $a_{\pi(k),l} = a_{\pi(k),k}$ because $a_k = a_l$
+        \item exchange factors
+      \end{enumerate}
+
+      \begin{align*}
+        &= c \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots a_{\pi(k),k} \ldots a_{\pi(l),l} \ldots a_{\pi(n),n} \\
+        &- c \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots a_{\pi(k),k} \ldots a_{\pi(l),l} \ldots a_{\pi(n),n} \\
+        &= 0
+      \end{align*}
+
+      Value for $(b_1, \ldots, b_n)$
+      \[ a_{ij} = \delta_{ij} \Rightarrow A = I \]
+      \[ \det(I) = \sum_{\pi \in \sigma_n} \sign{\pi} \cdot \delta_{\pi(1),1} \ldots \delta_{\pi(n),n} = +1 \]
+      for all $\pi(j)=j$ otherwise $0$.
+      \[ \Rightarrow \pi = \text{id} \text{ is the only summand} \]
+      \[ \triangle(b_1, \ldots, b_n) = \det(I) \cdot c = c \]
+  \end{enumerate}
+\end{proof}
+\begin{rem}
+  \enquote{$\mathfrak a_n$ is the subgroup of index 2}
+  $[\sigma_n: \mathfrak a_n] = 2$
+
+  You might be familiar with:
+  \[ \mathbb Z_n = \faktor{\mathbb Z}{n \mathbb Z} \]
+  \[ [\mathbb Z : n \mathbb Z] = n \]
+\end{rem}
+
+\begin{theorem}[Summary]
+  \label{summary-7.24}
+  \begin{itemize}
+    \item The set of determinant forms $\triangle: V^n \to \mathbb K$
+      constructs a one-dimensional vector space, $\Lambda^n V$
+    \item There exists a non-trivial determinant form with $\triangle(b_1,\ldots,b_n) = 1$
+  \end{itemize}
+\end{theorem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
