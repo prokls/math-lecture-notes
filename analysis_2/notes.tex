@@ -646,6 +646,209 @@ We use property 3 to extend the domain of sine and cosine:
   \[ \sin(z) = \frac1{2i} \left[e^{iz} - e^{-iz}\right] \]
 \end{defi}
 
+\meta{lecture}{8th of March 2016}{Wolfgang Ring}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics{img/complex_unit.pdf}
+    \caption{The trigonometric values $\sin{t}$ and $\cos{t}$ in the unit circle}
+    \label{img:cossin}
+  \end{center}
+\end{figure}
+%
+Compare with Figure~\ref{img:cossin}.
+
+\begin{align*}
+  t \in \mathbb R:
+    \cos{t} = \Re(e^{it}) = \frac12 (e^{it} + e^{it}) \\
+    \sin{t} = \Im(e^{it}) = \frac{1}{2i} (e^{it} - e^{-it})
+\end{align*}
+
+\begin{align*}
+  z \in \mathbb C:
+    \cos{z} &= \frac12 (e^{iz} + e^{-iz}) \\
+    \sin{z} &= \frac{1}{2i} (e^{iz} - e^{-iz})
+\end{align*}
+
+Properties:
+\begin{align*}
+  \cos{-z} &= \frac12 (e^{i(-z)} + e^{-i}(-z)) = \cos{z} \\
+  \intertext{$\cos{z}$ is even}
+  \sin{-z} &= \frac1{2i} (e^{-iz} - e^{iz}) = -\sin{z}
+  \intertext{$\sin{z}$ is odd}
+\end{align*}
+
+The cosine function in the complex space is even.
+
+\subsection{Series representation of trigonometric functions}
+
+\begin{lemma}[Addition of series of absolute convergence]
+  Let $(a_n)_{n\in\mathbb N}$, $(b_n)_{n\in\mathbb N}$ be complex sequences
+  and the series $\sum_{n=0}^\infty a_n$ and $\sum_{n=0}^\infty b_n$ are absolute
+  convergent with series value $\sum_{n=0}^\infty a_n = a$ and $\sum_{n=0}^\infty b_n = s'$.
+
+  Then $\sum_{n=0}^\infty (a_n + b_n)$ is absolute convergent with sum $s + s'$.
+\end{lemma}
+\begin{proof}[series sum]
+  Absolute convergence.
+  Show that $\sum_{k=0}^n = \abs{a_k + b_k} = t_n$ and $(t_n)_{n\in\mathbb N}$ is bounded.
+
+  Follows immediately, because
+  \[ \sum_{k=0}^n \abs{a_kk + b_k} \leq \underbrace{\sum_{k=0}^n \abs{a_k}}_{\text{bounded}} + \underbrace{\sum_{k=0}^n \abs{b_k}}_{\text{bounded}} \]
+\end{proof}
+
+\begin{ex}[Application]
+  Let $P(z) \coloneqq \sum_{k=0}^\infty a_k z^k$ and $Q(z) \coloneqq \sum_{k=0}^\infty b_k z^k$ be power series.
+  Both are convergent in $B(0, \delta)$. Then also $\sum_{k=0}^\infty (a_k + b_k) z^k$ is convergent in $B(0,\delta)$
+  and it holds that $\sum_{k=0}^\infty (a_k + b_k) z^k = P(z) + Q(z)$.
+\end{ex}
+
+\subsection{Application to trigonometric functions}
+%
+\[ e^{iz} = \sum_{k=0}^\infty \frac{(iz)^k}{k!} = \sum_{k=0}^\infty i^k \cdot \frac{z^k}{k!} \]
+\[ i^0 = 1 \qquad i^1 = i \qquad i^2 = -1 \qquad i^3 = -i \qquad i^4 = 1 = i^0 \qquad i^5 = i \qquad \ldots \]
+\[ \Rightarrow = 1 + i \frac{z}{1!} - \frac{z^2}{2!} - i \frac{z^3}{3!} + \frac{z^4}{4!} + i \frac{z^5}{5!} - \frac{z^6}{6!} \]
+
+\[ e^{-iz} = \sum_{k=0}^\infty \frac{(-iz)^k}{k!} = \sum_{k=0}^\infty (-i)^k \frac{z^k}{k!} \]
+\[ (-i)^0 = 1 \qquad (-i)^1 = -i \qquad (-i)^2 = -1 \qquad (-i)^3 = i \qquad (-i^4) = 1 \qquad \ldots \]
+\[ \Rightarrow = 1 - i \frac{z}{1!} - 1\frac{z^2}{2!} + i \frac{z^3}{3!} + \frac{z^4}{4!} - i \frac{z^5}{5!} - \frac{z^6}{6!} + \ldots \]
+
+\[ \frac12 (e^{iz} + e^{-iz}) = 1 - \frac{z^2}{2!} + \frac{z^4}{4!} - \frac{z^6}{6!} + \frac{z^8}{8!} - \frac{z^{10}}{10!} + \ldots \]
+
+Followingly,
+\begin{align*}
+  \cos{z} &= 1 - \frac{z^2}{2!} + \frac{z^4}{4!} - \frac{z^6}{6!} + \frac{z^8}{8!} - \ldots \\
+          &= \sum_{l=0}^\infty (-1)^l \frac{z^{2l}}{(2l)!} \text{ convergent in } \mathbb C \\
+  \sin{z} &= \frac1{2i}(e^{iz} - e^{-iz}) = z - \frac{z^3}{3!} + \frac{z^5}{5!} - \frac{z^7}{7!} + \frac{z^9}{9!} + \ldots \\
+          &= \sum_{l=0}^\infty (-1)^l \frac{z^{2l + 1}}{(2l+1)!}
+\end{align*}
+
+\subsection{Functional equations of trigonometric functions}
+%
+\begin{theorem}[Addition and substraction theorems]
+  We derive them directly:
+
+  Let $z,w \in \mathbb C$.
+  \begin{align*}
+    e^{z+w} &= e^z \cdot e^w = (\cos{z} + i \cdot \sin{z}) (\cos{w} + i \cdot \sin{w}) \\
+    \intertext{but also}
+            &= (\cos(z + w) + i \sin(z + w)) \\
+            &\Rightarrow = (\cos{z} \cdot \cos{w} - \sin{z} \cdot \sin{w}) + i (\cos{z} \cdot \sin{w} + \sin{z} c\dot \cos{w})
+  \end{align*}
+
+  Analogously,
+  \begin{align*}
+    e^{-(z+w)} &= e^{-z} \cdot e^{-w} = (\cos(-z) + i \cdot \sin(-z)) (\cos(-w) + i \cdot \sin(-w)) \\
+               &= \cos{z} \cdot \cos{w} - \sin{z} \sin{w} + i \left(-\cos{z} \sin{w} - \cos{w} \sin{z}\right) \\
+    \intertext{but also}
+            &= (-\cos(z + w) + i \sin(-(z + w))) \\
+            &\Rightarrow = \cos{(z + w)} - i \sin(z + w)
+  \end{align*}
+
+  \begin{align*}
+    \intertext{Addition:} \\
+    2 \cos(z+w) &= 2 (\cos{z} \cdot \cos{w} - \sin{z} \sin{w}) \\
+    \Rightarrow \cos(z + w) &= \cos{z} \cos{w} - \sin{z} \sin{w}
+    \intertext{Subtraction:}
+    \Rightarrow \sin(z + w) &= \cos{z} \sin{w} + \sin{z} \cos{w} \forall z,w \in \mathbb C
+  \end{align*}
+
+  Variations: $w \leftrightarrow -w$
+  \begin{align*}
+    \cos(z - w) &= \cos{z} \cdot \underbrace{\cos{w}}_{=\cos(-w)} + \sin{z} \underbrace{\sin{w}}_{=-\sin(-w)} \\
+    \sin(z - w) &= -\cos{z} \cdot \sin(w) + \sin(z) \cos(w)
+  \end{align*}
+\end{theorem}
+
+\begin{cor}
+  \[ z = \frac12 (z + w) + \frac12 (z - w) \]
+  \[ \Rightarrow \cos{z} = \cos{\frac{z + w}{2}} \cos{\frac{z - w}{2}} - \sin{\frac{z + w}{2}} \sin{\frac{z - w}{2}} \]
+  \[ w = \frac12 (w + z) + \frac12 (w - z) = \frac12 (z + w) - \frac12 (z - w) \]
+  \[ \cos{w} = \cos{\frac{z + w}{2}} \cdot \cos{\frac{z - w}{2}} + \sin{\frac{z + w}{2}} \cdot \sin{\frac{z - w}{2}} \]
+  \[ \cos{z} - \cos{w} = -2 \sin{\frac{z + w}{2}} \sin{\frac{z - w}{2}} \]
+  Analogously,
+  \[ \sin{z} - \sin{w} = 2 \cos{\frac{z + w}{2}} \cdot \cos{\frac{z - w}{2}} \]
+\end{cor}
+
+We consider
+\begin{align*}
+  \lim_{\substack{z \to 0 \\ z \neq 0}} \frac{\sin{z}}{z}
+    &= \lim_{z \to 0} \frac{1}{2i} \left(\frac{e^{iz} - e^{-iz}}{z}\right) \\
+    &= \lim_{z \to 0} e^{-iz} \left(\frac{e^{2iz} - 1}{2iz}\right) \\
+    &= \underbrace{\lim_{z \to 0} e^{-iz}}_{=e^0 = 1} \cdot \underbrace{\lim_{z \to 0} \frac{e^{2iz} - 1}{2iz}}_{\substack{e = 2iz; z \to 0 \Leftrightarrow w = 0 \\ \lim_{w \to 0} \frac{e^w - 1}{w} = 1}}
+\end{align*}
+
+So it holds that
+\[ \lim_{z\to0} \frac{\sin{z}}{z} = 1 \]
+
+\subsection{Trigonometric functions for real arguments}
+%
+Subtitled \enquote{definition of $\pi$} and \enquote{periodicity}.
+
+Let $x \in \mathbb R$.
+\[ \cos{x} = \overbrace{1}^{=c_0} - \overbrace{\frac{x^2}{2}}^{=c_1} + \overbrace{\frac{x^4}{24}}^{=c_2} - \overbrace{\frac{x^6}{720}}^{=c_3} + \overbrace{\frac{x^8}{40320}}^{=c_4} - \ldots \]
+\[ \sin{x} = \underbrace{x}_{=s_0} - \underbrace{\frac{x^3}{6}}_{=s_1} + \underbrace{\frac{x^5}{120}}_{=s_2} - \underbrace{\frac{x^7}{5040}}_{=s_3} + \ldots \]
+
+\[ c_n = \frac{x^{2k}}{(2k)!} \qquad s_k = \frac{x^{2k+1}}{(2k+1)!} \]
+
+For $x \in [0,2]$ and $k \geq 1$ it holds that
+\[ \abs{\frac{c_{k+1}}{c_k}} = \abs{\frac{x^2}{(2k + 2)(2k + 1)}} \leq \frac{4}{3 \cdot 4} = \frac13 \]
+so $(c_k)_{k\geq1}$ is strictly monotonically decreasing.
+
+Leibniz criterion:
+\[ 1 - \frac{x^2}{2} < \cos{x} < 1 - \frac{x^2}{2} + \frac{x^4}{24} \]
+for $x \in (0,2]$.
+
+Similarly for $x \in (0,2]$:
+\[ \abs{\frac{s_{k+1}}{s_k}} = \abs{\frac{x^2}{(2k + 2)(2k + 3)}} \leq \frac{4}{4 \cdot 5} = \frac15 < 1 \]
+So the Leibniz criterion tells us that
+\[ x - \frac{x^3}{6} < \sin{x} < x \quad \text{ in } [0, 2] \]
+So it holds that
+\[ \cos(0) = 1 \]
+\[ \cos(2) < 1 - 2 + \frac{16}{24} = -1 + \frac23 = -\frac13 \]
+Intermediate value theorem (power series is continuous):
+\[ \exists \xi \in (0,2) \text{ with } \cos(\xi) = 0 \]
+Let $0 \leq w < z \leq 2$,
+\[ 0 < \frac{z-w}{2} \leq \frac{z+w}{2} < \frac{z + z}{2} \leq 2 \]
+
+Let $x \in (0,2]$, then it holds that
+\[ \sin(x) > x - \frac{x^3}{6} = \underbrace{x}_{>0} \underbrace{\left(1 - \frac{x^2}{6}\right)}_{>1 - \frac46 = \frac13 > 0} > 0 \]
+So it holds that $\sin(x) > 0$ in $(0,2]$.
+
+Functional equation for $\cos{z} - \cos{w}$.
+\[ \cos{z} - \cos{w} = \underbrace{-2  \cdot \underbrace{\sin{\underbrace{\frac{z+w}{2}}_{\in (0,2]}} \cdot \sin{\underbrace{\frac{z-w}{2}}_{\in (0,2]}}}_{>0}}_{<0} \]
+$\cos{z} < \cos{w}$ for $0 \leq w < z \leq 2$.
+
+So it holds that $\cos$ is a strictly monotonically decreasing functionin $[0,2)$. Hence $\cos$ has only one root because it is continuous in $(0,2]$.
+
+\begin{defi}
+  The number $\pi \in \mathbb R$ is defined as $\pi = 2\xi$, where $\xi$ is the uniquely defined root of the cosine in $(0,2]$.
+\end{defi}
+
+Some further important function values:
+\[ 0 < \frac{\pi}{2} < 2 \text{ and } \cos{\frac\pi2} = 0 \]
+because $\cos^2\left(\frac\pi2\right) + \sin^2\left(\frac\pi2\right) = 1$.
+\[ \Rightarrow \abs{\sin\frac\pi2} = 1 \]
+We know that $\sin{x} > 0$ for $x \in (0,2]$.
+\[ \Rightarrow \sin\frac\pi2 = 1 \]
+
+\[ e^{i \frac\pi2} = \cos\frac\pi2 + i \sin\frac\pi2 = i \]
+\[ e^{i\pi} = e^{i\frac\pi2 + i\frac\pi2} = \left(e^{i\frac\pi2}\right)^2 = i^2 = -1 \]
+\[ e^{i \frac32\pi} = e^{i\pi + \frac{i}2 \pi} = e^{i\pi} \cdot e^{i \frac\pi2} = -1 \cdot i = -i \]
+
+Furthermore,
+\[ e^{z + i\pi} = e^z \cdot \underbrace{e^{i\pi}}_{=-1} = -e^z \]
+\[ e^{z + 2i\pi} = e^z \cdot \left(e^{i\pi}\right)^2 = e^z \]
+So the exponential function is periodic in $\mathbb C$ with period $2i\pi$.
+
+\begin{align*}
+  \cos(z + 2\pi) &= \frac12 \left(e^{iz + 2\pi i} + e^{-iz - 2\pi i}\right) \\
+    &= \frac12 \left(e^{iz} + e^{-iz} \cdot \underbrace{\frac1{e^{2\pi i}}}_{=1}\right) = \cos{z}
+\end{align*}
+
+Therefore the cosine is periodic in $\mathbb C$ with period $2\pi$.
+Analogously, sine is periodic in $\mathbb C$ with period $2\pi$.
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}

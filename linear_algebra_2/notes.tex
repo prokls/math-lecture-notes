@@ -120,7 +120,7 @@ In this semester, we will discuss:
 $\Hom(V,W)$ in special case $W = \mathbb K$. We define,
 \[ V^* \coloneqq \Hom(V,\mathbb K) \]
 also denoted $V'$ is called \emph{dual space} of vector space $V$.
-The elements $v* \in V*$ is called \emph{linear forms} or \emph{linear functionals}.
+The elements $v* \in V*$ are called \emph{linear forms} or \emph{linear functionals}.
 
 We denote,
 \[ v^*(v) \eqqcolon \functional{v*,v} \]
@@ -1035,6 +1035,333 @@ This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
     \item There exists a non-trivial determinant form with $\triangle(b_1,\ldots,b_n) = 1$
   \end{itemize}
 \end{theorem}
+
+\meta{lecture}{9th of March 2016}{Franz Lehner}
+
+Revision:
+
+\[ \triangle: V^n \to \mathbb K \]
+\[ \triangle(a_1, \ldots, a_n) = \det{A} \cdot \triangle(b_1, \ldots, b_n) \]
+
+\[ \phi_B(a_j) = \begin{pmatrix} a_{1j} \\ \vdots \\ a_{nj} \end{pmatrix} \]
+
+\[ \det{A} = \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} \ldots a_{\pi(n),n} \]
+
+\[ \triangle(v_1, \ldots, v_n) \neq 0 \Leftrightarrow v_1, \ldots, v_n \text{ linear independent ($\Leftrightarrow$ basis)} \]
+
+\begin{theorem}
+  \[ \det(A \cdot B) = \det(A) \cdot \det(B) \]
+\end{theorem}
+\begin{lemma}
+  \label{lemma-7.25}
+  Let $V, W$ be vector spaces over $\mathbb K$ with $\dim{V} = \dim{W} = n$.
+  \[ \triangle: W^n \to \mathbb K \]
+  \[ f: V \to W \]
+
+  \[ \Rightarrow f^n: V^n \to W^n \overset{\triangle}\to \mathbb K \]
+  \[ (v_1, \ldots, v_n) \mapsto (f(v_1), \ldots, f(v_n)) \]
+
+  Then $\triangle^f: V^n \to \mathbb K$
+  \[ \triangle^f(v_1, \ldots, v_n) = \triangle(f(v_1), \ldots, f(v_n)) \]
+  is a determinant form in $V$.
+\end{lemma}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \begin{align*}
+        \triangle f(v_1, \ldots, \lambda v_k, \ldots, v_n)
+          &= \triangle(f(v_1), \ldots, f(\lambda v_k), \ldots, f(v_n)) \\
+          &= \lambda \triangle(f(v_1), \ldots, f(v_n)) \\
+          &= \lambda \cdot \triangle^f (v_1, \ldots, v_n)
+      \end{align*}
+    \item
+      \begin{align*}
+          &= \triangle^f (v_1, \ldots, v'_k, + v''_k, \ldots, v_n) \\
+          &= \triangle(f(v_1), \ldots, f(v'_k + v''_k), \ldots, f(v_n)) \\
+          &= \triangle(f(v_1), \ldots, f(v'_k) + f(v''_k), \ldots, f(v_n)) \\
+          &= \triangle(f(v_1), \ldots, f(v'_k), \ldots, f(v_n)) + \triangle(f(v_1), \ldots, f(v''_k), \ldots, f(v_n)) \\
+          &= \triangle^f(v_1, \ldots, v'_k, \ldots, v_n) + \triangle^f(v_1, \ldots, v_k'', \ldots, v_n)
+      \end{align*}
+    \item
+      \begin{align*}
+        \triangle^f (v_1, \ldots, v_k, \ldots, v_l, \ldots, v_n) &\qquad v_k = v_l \Rightarrow f(v_k) = f(v_l) \\
+          &= \triangle(f(v_1), \ldots, f(v_k), \ldots, f(v_l), \ldots, f(v_n)) \\
+          &= 0
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{cor}[Conclusions for $V = W$]
+  \label{cor-7.26}
+  \[ \triangle: V^n \to \mathbb K \]
+  non-trivial determinant form
+  \[ f: V \to V \]
+  \[ \Rightarrow \triangle^f \text{ is a determinant form} \]
+
+  \[ \dim{\bigwedge^n \bigvee} = 1 \Rightarrow \bigvee_{c_f \in \mathbb K} \triangle^k = c_f \cdot \triangle \]
+  \[ c_f \eqqcolon \det{f} \text{ is called determinant of $f$} \]
+\end{cor}
+
+\begin{cor}
+  \label{cor-7.27}
+  Let $V$, $\triangle$ and $f$ be like above.
+  \begin{enumerate}
+    \item
+      For every basis $B = (b_1, \ldots, b_n)$
+      it holds that
+      \[ \triangle^f(b_1, \ldots b_n) = \triangle(f(b_1), \ldots, f(b_n)) = \det(f) \cdot \triangle(b_1, \ldots, b_n) \]
+      \[ \det(f) = \frac{\triangle(f(b_1), \ldots, f(b_n))}{\triangle(b_1, \ldots, b_n)} \]
+    \item
+      with $a_j = f(b_j)$ it holds that
+      \[ \det{\Phi_B^B(f)} = \det(f) \]
+      \[ A = \Phi_B^B(f) \]
+      $a_{ij} = $ i-th coordinate of $f(b_j)$ and $s_j(A) = \Phi_B(f(b_j))$.
+  \end{enumerate}
+\end{cor}
+
+\begin{theorem}
+  \label{theorem-7.28}
+  Let $f: V \to V$ be an isomorphism $\Leftrightarrow \det(f) \neq 0$.
+\end{theorem}
+\begin{proof}
+  Let $f$ be an isomorphism.
+  \begin{align*}
+    &\Leftrightarrow (f(b_1), \ldots, f(b_n)) \text{ is basis} \\
+    &\Leftrightarrow \triangle (f(b_1), \ldots, f(b_n)) \neq 0 \\
+    &\Leftrightarrow \det(f) \cdot \triangle(b_1, \ldots, b_n) \\
+    &\Leftrightarrow \det(f) \neq 0
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  \label{theorem-7.29}
+  Let $f,g: V \to V$ be linear.
+  \[ \Rightarrow \det(f \circ g) = \det(f) \cdot \det(g) \]
+\end{theorem}
+\begin{rem}
+  We show: $f \circ g$ is isomorphism $\Leftrightarrow$ f and g are isomorphisms.
+
+  If $f,g$ are invertible, then $f \circ g$ are invertible.
+  \begin{enumerate}
+    \item
+      \[ (f \circ g)^{-1} = g^{-1} \circ f^{-1} \]
+    \item
+      Attention! This is wrong, if $\dim = \infty$!
+      For example: $\delta: (x_1, x_2, \ldots) \mapsto (0, x_1, x_2, \ldots)$ over $\mathbb K^\infty$
+      is injective, but not surjective!
+
+      \[ S_L: (x_1, x_2, \ldots) = (x_2, x_3, \ldots) \]
+      is not injective, but surjective.
+
+      \[ S_L \circ S_R = I \]
+      \[ S_R \circ S_L - I - P_1 \]
+
+      If $f \circ g$ is bijective, then $g$ is injective and $f$ surjective.
+      \[ \xRightarrow{\dim < \infty} g \text{ bijective}, f \text{ bijective} \]
+  \end{enumerate}
+\end{rem}
+\begin{proof}
+  Case distinction:
+  \begin{description}
+    \item[$\det(f \circ g) = 0$]
+      \begin{align*}
+        &\xLeftrightarrow{\text{Theorem}~\ref{theorem-7.28}} f \circ g \text{ is not bijective} \\
+        &\Leftrightarrow f \text{ is not bijective or g not bijective}  \\
+        &\Leftrightarrow \det(f) = 0 \lor \det(g) = 0 \\
+        &\Leftrightarrow \det(f) \cdot \det(g) = 0
+      \end{align*}
+    \item[$\det(f \circ g) \neq 0$]
+      \begin{align*}
+        &\Leftrightarrow f \circ g \text{ is bijective} \\
+        &\Rightarrow g \text{ bijective} \\
+        &\Rightarrow \triangle^g \text{ non-trivial}
+      \end{align*}
+      Let $(b_1, \ldots, b_n)$ be a basis of $V$, then $\triangle$ is non-trivial determinant.
+      \begin{align*}
+        \det(f \circ g)
+          &= \frac{\triangle(f\circ g(b_1) \ldots, f \circ g(b_n))}{\triangle (b_1, \ldots, b_n)} \\
+          &= \frac{\triangle(f(g(b_1)), \ldots, f(g(b_n)))}{\triangle (g(b_1), \ldots, g(b_n))} \cdot \frac{\triangle (g(b_1), \ldots, g(b_n))}{\triangle(b_1, \ldots, b_n)} \\
+          &= \frac{\triangle((b'_1), \ldots, f(b'_n))}{\triangle (b'_1, \ldots, b'_n)} \cdot \frac{\triangle (g(b_1), \ldots, g(b_n))}{\triangle(b_1, \ldots, b_n)} \\
+          &= \det(f) \cdot \det(g)
+      \end{align*}
+      $b'_i = g(b_i)$ are also a basis, because $g$ is bijective.
+  \end{description}
+\end{proof}
+
+\begin{cor}
+  \label{cor-7.30}
+  Let $A,B \in \mathbb K^{n\times n}$.
+  \begin{enumerate}
+    \item $\det(A \cdot B) = \det(A) \cdot \det(B)$
+    \item $A$ is regular $\Rightarrow$ $\det(A^{-1}) = \frac{1}{\det(A)}$
+    \item $\det(A) = 0 \Leftrightarrow \rank(A) < n$
+    \item $\det(A^t) = \det(A)$
+  \end{enumerate}
+\end{cor}
+\begin{proof}
+  \begin{enumerate}
+    \item A first proof follows from Theorem~\ref{theorem-7.29}. \\
+      A second proof approach is:
+      \[ A = [s_1, \ldots, s_n] \qquad \text{ column vectors} \]
+      \[ A \cdot B = \left[\sum_{i_1=1}^n s_{i_1} \cdot b_{i_1,1}, \sum_{i_2=1}^n s_{i_2} b_{i_2,2}, \ldots, \sum_{i_n=1}^n s_{i_n} b_{i_n,n}\right] \]
+      Select determinent form such that $\triangle(e_1, \ldots, e_n) = 1$.
+      \[ \det(A \cdot B) = \triangle\left(\sum_{i_1=1}^n s_{i_1} b_{i}, \ldots, \sum_{i_n=1}^n s_{i_n} b_{i_n,n}\right) \]
+      From multilinearity it follows that
+      \[ \sum_{i_1=1}^n \sum_{i_2=1}^n \cdots \sum_{i_n=1}^n b_{i_1,1} b_{i_2,2} \cdots b_{i_n,n} \triangle (s_{i_1}, \ldots, s_{i_n}) \]
+      If two indices satisfy $i_k = i_l \Rightarrow \triangle = 0$.
+      \[ \Rightarrow \sum_{\text{different indices}} = \sum_{\text{permutations}} \]
+      \[ = \underbrace{\sum_{\pi \in \sigma_n} b_{\pi(1),1} b_{\pi(2),2} \cdots b_{\pi(n),n}}_{\det(B)} \underbrace{\triangle(s_{\pi(1)}, \ldots, s_{\pi(n)})}_{\sign(\pi) \underbrace{\triangle(s_1, \ldots, s_n)}_{\det(A)}} \]
+      \[ = \det{A} \cdot \det{B} \]
+      Be aware that $\det(B)$ also includes $\sign(\pi)$ from the right-hand side.
+    \item
+      \[ A \cdot A^{-1} = I \Leftrightarrow \det(A \cdot A^{-1}) = \det{I} = 1 \]
+      \[ \det(A \cdot A^{-1}) \overset{\text{1.}}= \det(A) \cdot \det(A^{-1}) \]
+    \item
+      $\det(A) = 0$ and $\det(A) = \det(f_A)$.
+      \[ \Leftrightarrow f_A \text{ is not bijective } \Leftrightarrow \rank(A) < n \]
+    \item
+      \begin{align*}
+        \det(A^T)
+          &= \sum_{\pi \in \sigma_n} \sign(\pi) a^T_{\pi(1),1} \ldots a^T_{\pi(n),n} \\
+          &= \sum_{\pi \in \sigma_n} \sign(\pi) a_{1,\pi(1)} \ldots a_{n,\pi(n)} \\
+          &= \sum_{\pi \in \sigma_n} \sign{\pi} a_{\pi^{-1}(1),1} \ldots a_{\pi^{-1}(n),1} \\
+          &= \sum_{\rho} \sign{\rho^{-1}} a
+          & & \rho = \pi^{1}
+      \end{align*}
+      For fixed $\pi$:
+      \[ \prod_{j=1}^n a_{j,\pi(j)} = \prod_{k=1}^n a_{\pi^{-1}(k),k} \]
+      \[ \pi(j) = 1 \Leftrightarrow j = \pi'(1) \]
+      \[ \pi(j) = k \Leftrightarrow j = \pi'(k) \]
+
+      \[ \sum_{\pi} \sign{\pi} a_{\pi^{-1}(1),1} \ldots a_{\pi^{-1}(n),n} \]
+      \[
+        = \sum \sign(\rho^{-1}) a_{\rho(1),1} \ldots a_{\rho(n),n}
+        = \sum_{\rho} \sign(\rho) a_{\rho(1),1} \ldots a_{\rho(n),n}
+        = \det{A}
+      \]
+
+      Remark:
+      \[ \sigma_n \to \sigma_n \text{ is bijective} \]
+      \[ \pi \mapsto \pi^{-1} \]
+
+      \[ \sign(\rho) = (-1)^k \text{ where } \rho = \tau_1, \ldots, \tau_k \]
+      \[ \Rightarrow \rho^{-1} = \tau_k \circ \ldots \circ \tau_n \]
+      \[ \sign{\rho^{-1}} = (-1)^k \]
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Coxeter group}
+\index[German]{\foreignlanguage{ngerman}{Coxetergruppe}}
+\begin{rem}[Determination of determinants]
+  \label{rem-7.31}
+  $\dim \leq 3$
+
+  For $n=2$:
+  \[ \begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix} = a_{11} a_{22} - a_{12} a_{21} \]
+  For $n = 3$:
+  \[
+    \begin{vmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{vmatrix}
+    = \sum_{\pi \in \sigma_3} \sign(\pi) a_{\pi(1),1} a_{\pi(2),2} a_{\pi(3),3}
+  \]
+
+  General linear group:
+  \begin{align*}
+    \operatorname{GL}(n,\mathbb K)
+      &= \text{ group of invertible matrices} \\
+      &= \setdef{A \in \mathbb K^{n \times n}}{\det(A) \neq 0} \\
+    \operatorname{SL}(n, \mathbb K)
+      &= \text{ special linear group} \\
+      &= \setdef{A \in \mathbb K^{n \times n}}{\det(A) = 1}
+  \end{align*}
+
+  $\sigma_3$ is a coxeter group.
+  \[ \sigma_3 = \functional{\tau_{12}, \tau_{23}} \]
+  Is created by two transpositions.
+
+  % TODO: visualize better
+  \[
+    \begin{vmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{vmatrix}
+    = \begin{vmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{vmatrix}
+    \to \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
+    = \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
+  \]
+  \[
+    \begin{vmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{vmatrix}
+    \to \begin{vmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{vmatrix}
+    = \begin{vmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{vmatrix}
+    = \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
+  \]
+
+  \[ = a_{11} a_{22} a_{33} + a_{21} a_{32} a_{13} + a_{31} a_{12} a_{23} - a_{21} a_{12} a_{33} - a_{11} a_{32} a_{23} - a_{31} a_{22} a_{13} \]
+\end{rem}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/rule_of_sarrus.pdf}
+    \caption{Rule of Sarrus visualized}
+    \label{img:sarrus}
+  \end{center}
+\end{figure}
+
+\begin{rem}[Rule of Sarrus]
+  Compare with Figure~\ref{img:sarrus}.
+
+  You write the first two columns next to right side of the matrix.
+  You add up all 3 diagonals (the product of their values) from top left diagonally to the right bottom
+  and subtract all 3 diagonals from left bottom to the top right.
+
+  The rule of Sarrus does not hold for $n=4$!
+\end{rem}
+
+\begin{ex}
+  \[
+    \det\begin{vmatrix} 1 & 2 & 5 \\ 2 & 5 & 14 \\ 5 & 14 & 42 \end{vmatrix}
+      = 1 \cdot 5 \cdot 42 + 2 \cdot 14 \cdot 5 + 5 \cdot 2 \cdot 14
+      - 5 \cdot 5 \cdot 5 - 14 \cdot 14 \cdot 1 - 2 \cdot 2 \cdot 42
+  \] \[
+    = 14 (1 \cdot 5 \cdot 3 + 2 \cdot 5 + 5 \cdot 2 - 14 - 2 \cdot 2 \cdot 3) - 125
+    %= 14 (15 + 10 + 10 - 14 - 12) - 125
+    = 14 \cdot 9 - 125 = 1
+  \]
+
+  It turns out, if we use Catalan numbers, we always end up with determinant $1$.
+\end{ex}
+
+\begin{lemma}
+  Let A be an upper triangular matrix, hence $a_{ij} = 0 \forall i > j$.
+  Then it holds that $\det{A} = a_{11} a_{22} \ldots a_{nn}$.
+\end{lemma}
+\begin{proof}
+  \[ \det{A} = \sum_{\pi \in \sigma_n} \sign{\pi} a_{\pi(1),1} \ldots a_{\pi(n),n} \]
+  it must hold that
+  \[ \pi(j) \leq j \qquad \forall j \]
+  \[ \Rightarrow \pi(1) = 1, \pi(2) = 2, \ldots, \pi(n) = n \]
+  The only permutation which contributes something is the identity.
+  And $\sign{\text{id}} = 1$, hence
+  \[ = 1 \cdot a_{11} a_{22} \ldots a_{nn} \]
+\end{proof}
+
+\begin{lemma}[Elementary row and column transformations]
+  \label{lemma-7.33}
+  \[ A = [a_{ij}] \in \mathbb K^{n \times n} \]
+  \begin{enumerate}
+    \item
+      \[ s_i = \begin{bmatrix} a_{1i} \\ \vdots \\ a_{ni }\end{bmatrix} \text{ column vectors} \]
+      \[ \Rightarrow \det[as_1, \ldots, s_i + \lambda s_j, \ldots, s_n] = \det(A) \qquad i \neq j \]
+    \item
+      Let $z_i = [a_{i_1}, \ldots, a_{i_n}] \qquad \text{ rows of $A$}$.
+      \[ \det\begin{bmatrix} z_1 \\ \vdots \\ z_i + \lambda z_j \\ \vdots \\ z_n = \end{bmatrix} = \det{A} \qquad \text{ for } i \neq j \]
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  \begin{enumerate}
+    \item compare with determinant form
+    \item $\det{A} = \det{A^T}$
+  \end{enumerate}
+\end{proof}
+
+% TODO
+Example missing.
 
 \clearpage
 \begin{otherlanguage}{ngerman}
