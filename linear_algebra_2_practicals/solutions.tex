@@ -33,6 +33,7 @@
   linewidth=3pt]{ex}{Exercise}
 
 \DeclareMathOperator\kernel{kernel}
+\DeclareMathOperator\Hom{Hom}
 
 \title{Linear Algebra 2 -- Practicals}
 \author{Lukas Prokop}
@@ -45,7 +46,7 @@
 \newcommand\card[1]{\left|\,#1\,\right|}
 \newcommand\divides[2]{#1\,\mid\,#2}
 \newcommand\mathspace{\hspace{20pt}}
-\newcommand\functional[1]{\left\langle{#1}\right\rangle}
+\newcommand\fun[1]{\left\langle{#1}\right\rangle}
 \newcommand\Q{\mathbb{Q}}
 \newcommand\nope{\lightning}
 \newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
@@ -60,6 +61,8 @@
 \tableofcontents
 
 \clearpage
+Exercise I did on the board: 3, 7.
+
 \section{Exercise 1}
 \begin{ex}
   Determine the matrix representation of the linear map
@@ -280,5 +283,180 @@ $A$ is invertible, because it is a block matrix\footnote{That's why chose $A$ an
   \end{pmatrix}
 \]
 
+\section{Exercise 5}
+\begin{ex}
+  Show that the linear maps $f,g,h: \mathbb R^2 \to \mathbb R^2$ defined as
+  \[
+    f: (x_1, x_2) \mapsto (x_1 + x_2, x_1 - x_2) \quad
+    g: (x_1, x_2) \mapsto (x_1 + x_2, x_1 + x_2) \quad
+    h: (x_1, x_2) \mapsto (x_2, x_1)
+  \]
+  are linear independent, if they are considered as elements of the vector space
+  $\Hom(\mathbb R^2, \mathbb R^2)$ of all maps from $\mathbb R^2$ to $\mathbb R^2$.
+\end{ex}
+
+Let $\lambda_1, \lambda_2, \lambda_3 \in \mathbb R$.
+Show that
+\[ \lambda_1 f + \lambda_2 g + \lambda_3 h = 0 \stackrel!{=} \lambda_1 = \lambda_2 = \lambda_3 = 0 \]
+
+\[ f: x \mapsto Ax \qquad A_f = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \qquad A_g = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} \qquad A_n = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \]
+
+Is an isomorphism, $\Hom(\mathbb R^2, \mathbb R^2) \to \mathbb R^{2 \times 2}$ with $f \mapsto A_f$.
+
+\[ \lambda_1 \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} + \lambda_2 \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} + \lambda_3 \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix} \]
+
+\[
+  \begin{pmatrix}
+    1 & 1 & 0 \\
+    1 & 1 & 1 \\
+    -1 & 1 & 0
+  \end{pmatrix}
+  \leadsto
+  \begin{pmatrix}
+    1 & 1 & 0 \\
+    0 & 0 & 1 \\
+    0 & 2 & 0
+  \end{pmatrix}
+  \leadsto
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+  \end{pmatrix}
+\]
+\[ \Rightarrow \lambda_i = 0 \forall i \in \set{1,2,3} \]
+
+\section{Exercise 6}
+\begin{ex}
+  Let $V$ be a vector space with $\dim{V} = n < \infty$ and $U \subseteq V$ is a
+  subspace with $\dim{U} = m$.
+  \begin{enumerate}
+    \item Show that
+      \[ U^\bot = \setdef{v^* \in V^*}{U \subseteq \kernel(v^*)} \]
+      is a subspace of $V^*$.
+    \item Determine $\dim{U^\bot}$.
+    \item Is $\setdef{v^* \in V^*}{U = \kernel{v^*}}$ also a subspace?
+  \end{enumerate}
+\end{ex}
+
+$U^\bot$ is called orthogonal space or annihilation of $U$.
+
+\begin{enumerate}
+  \item
+    \[ U^\bot = \setdef{v^* \in V^*}{U \subseteq \kernel(v^*)} \]
+    $v^* \in \Hom(V,\mathbb K)$.
+    \[ \kernel(v^*) = \setdef{x \in V}{v^*(x) = 0} \supseteq U \Leftrightarrow \forall x \in U: v^*(x) = 0 \]
+
+    \begin{description}
+      \item[$\mathbf{U^\bot}$ is nonempty] \hfill{} \\
+        The constant zero-function $u: V \to \mathbb K$ with $x \mapsto 0 \in U^\bot$ exists.
+        Hence $U^\bot \neq \emptyset$.
+      \item[Additivity: $\mathbf{\bigwedge_{u_1,u_2 \in U^\bot} u_1 + u_2 \in U^\bot}$] \hfill{} \\
+        Let $u_1,u_2 \in U^\bot$ be linear. Let $x \in U$.
+        \[ (u_1 + u_2)(x) = \underbrace{u_1(x)}_{\in U^\bot} + \underbrace{u_2(x)}_{\in U^\bot} = 0 + 0 = 0 \]
+      \item[Multiplication: $\mathbf{\bigwedge_{\lambda \in \mathbb K} \bigwedge_{u \in U^\bot} \lambda \cdot u \in U^\bot}$] \hfill{} \\
+        Let $\lambda \in \mathbb K$, $u \in U^\bot$ and $x \in U$.
+        \[ (\lambda \cdot u)(x) = \lambda \cdot \underbrace{u(x)}_{\in U^\bot} \Rightarrow \lambda \cdot 0 = 0 \]
+    \end{description}
+
+  \item
+    \[ \dim{V} = n \qquad \dim{V^*} = n \qquad \dim{U} = m \]
+    $U$ is subspace of $V$, so $m \leq n$.
+    \[ k \coloneqq \dim{U^\bot} \leq n = \dim{V^*} \]
+    Let $(u_1, \ldots, u_m)$ be basis of $U$.
+
+    We apply the \emph{basis extension theorem}:
+    Let $(u_1, \ldots, u_m, u_{m+1}, \ldots, u_n)$ be a basis of $V$.
+
+    Let $(v_1^*, \ldots, v_n^*)$ the dual basis to $(v_1, \ldots, v_n)$ to $V^*$.
+    Hence
+    \[ v_1^*(v_j) = \delta_{ij} = \begin{cases} 1 & i=j \\ 0 & i \neq j \end{cases} \]
+
+    Claim: $U^\bot = L(\set{v^*_{m+1}, \ldots, v_n^*}) \Rightarrow (v^*_{m+1}, \ldots, v^*_n)$
+    is basis of $U^\bot \Rightarrow \dim{U^\bot} = n - m$.
+
+    Let $v \in V^*$ be arbitrary, $v = \lambda_1 v_1^* + \ldots + \lambda_n v_n^*$.
+
+    \[ v \in U^\bot \Leftrightarrow \forall x \in U: v(x) = 0 \Leftrightarrow v|_{U} = 0 \xLeftrightarrow{(u_1,\ldots, u_m) \text{ is basis of } U} v(u_i) = 0 \quad i = 1, \ldots, m \]
+    \begin{align*}
+        &\Leftrightarrow \forall i \in \set{1, \ldots, m} (\lambda_1 v^*_1 + \ldots + \lambda_n v^*_n)(v_i) = 0 \\
+        &\Leftrightarrow \forall i \in \set{1, \ldots, m} v_1 v^*_1(v_i) + \ldots + \lambda_n v_n^*(v_i) = 0 \\
+        &\Leftrightarrow v^k \in L(v^*_{m+1}, \ldots, v^*_n) \\
+        &\Leftrightarrow \forall i \in \set{1, \ldots, m} \lambda_i = 0
+    \end{align*}
+
+    \[ \pi: V \to \faktor{V}{U} \]
+    \[ x \mapsto v + U \]
+    \[ \pi^t: (\faktor{V}{U})^* \to V^* \]
+    \[ w \to w \circ \pi \]
+
+    $\pi$ surjective, then $\pi^t$ is injective and
+    \[ \operatorname{image}(\pi^t) = U^t \Rightarrow \faktor{V}{U}^k \to U^\bot \]
+
+  \item
+    Is $\setdef{v^* \in V^*}{U = \kernel{v^*}}$ also a subspace?
+
+    Counterexample:
+    Let $u = \set{0}$ and $V \neq \set{0}$.
+    \[ \kernel(v^*) = \setdef{x \in V}{x^*(x) = 0} = \set{0} = U \]
+
+    If it is a subspace, then the constant null function (which is the zero element of this set) must be contained.
+    This is a contradiction to \enquote{only $x=0$ maps to $0$}.
+\end{enumerate}
+
+\section{Exercise 8}
+\begin{ex}
+  Let $\mathbb R[x]$ be the vector space of real polynomials.
+  Show that the dimension of the dual space $\mathbb R[x]^*$ is overcountable.
+
+  \emph{Hint:} Show that linear functionals $(\delta_t)_{t \in \mathbb R}$ defined
+  as $\fun{\delta_t, p(x)} = p(t)$ (function application) is linear independent.
+\end{ex}
+
+\begin{quote}
+  \enquote{In welchem Vektorraum leben wir?} (Florian Kainrath)
+\end{quote}
+
+$\delta_t$ are linear maps.
+
+\begin{align*}
+  \forall p \in \mathbb R[x]: \sum_{i=1}^n \lambda_t \delta_{t_i}(p(x))
+    &= 0 \Rightarrow \lambda_i = 0 \forall i \in \set{1, \ldots, n} \\
+  \forall p \in \mathbb R[x]: \sum_{i=1}^n \lambda_t p(t_i) = 0
+    &\Rightarrow \lambda_i = 0
+\end{align*}
+
+Consider the polynomial $(x - t_1)(x - t_2) \ldots (x - \hat{t}_j)(x - t_{j+1}) \ldots (x - t_n) = p(x)$.
+\[ \Rightarrow \sum_{i=1}^n \lambda_i p_j(t_i) = 0 \Leftrightarrow \lambda_j p_j(t_j) = 0 = \lambda_j = 0 \]
+
+\section{Exercise 9}
+\begin{ex}
+  Let $f \in \Hom(V, W)$ be a linear map between two finite-fimensional vector spaces
+  with bases $B \subseteq V$ and $C \subseteq W$. Show that the matrix representation
+  of the transposed map
+  \[ f^t: W^* \to V^* \]
+  \[ w^* \mapsto w^* \circ f \]
+  in regards of the dual basis $C^*$ and $B^*$ has the matrix representation
+  \[ \Phi_{B^*}^{C^*}(f^t) = \Phi_C^B(f)^t \]
+\end{ex}
+
+Show that $f \in \Hom(V, W)$ and $B = (b_1, \ldots, b_m)$ is basis of $V$ with dual basis $B^* = (b_1^*, \ldots, b_m^*)$.
+$C = (c_1, \ldots, c_n)$ is basis of $W$ with dual basis $C^* = (c_1^*, \ldots, c_n^*)$.
+\[ \Phi_{B^*}^{C^*}(f^t) = \Phi_C^B(f)^t \]
+\[ A \coloneqq \Phi_C^B(f) \]
+
+$\Phi_{B^*}^{C^*}(f^t) = P = A^t \forall i \in \set{1, \ldots, n} j \in \set{1, \ldots, m}$ and $a_{ij} = p_{ji}$.
+$A \in \mathbb K^{n \times m}$ and $P \in \mathbb K^{m\times n}$.
+
+\[ (a_{ij}) = A = \Phi_C^B(f) \Leftrightarrow  \forall j \in \set{1, \ldots, m} \]
+\[ \Phi_C(f(b_j)) = A \Phi_B(b_j) = \begin{pmatrix} a_{1j} \\ \vdots \\ a_{nj} \end{pmatrix} \Leftrightarrow A = \begin{pmatrix} a_{1j} \\ \vdots \\ a_{nj} \end{pmatrix}  \Phi_C^{-1} \]
+\[ f(b_j) = \sum_{i=1}^n a_{ij} c_i \qquad \forall j \in \set{1, \ldots, m} \]
+\[ (p_{ij}) = p = \Phi_{B^*}^{C^*}(f^t) \Leftrightarrow f^t(c_j^*) = \sum_{i=1}^m p_{ij} b_i^* \forall j \in \set{1,\ldots,n} \]
+\[ \Leftrightarrow f^t(c_j^*) \text{ with }j \in \set{1,\ldots, n} = \sum_{i=1}^m p_{ij} b^*_i \xLeftrightarrow{w} c_i \circ f = \sum_{i=1}^m p_{ij} b_i^* \forall j \in \set{1,\ldots,n} \]
+
+Show that $a_{kj} = p_{ik}$ with $k \in \set{1, \ldots, n}$, $j \in \set{1, \ldots, m}$.
+
+\[ a_{kj} = C_k^*\left(\sum_{i=1}^n a_{ij} c_i\right) = c_k^*\left(f(b_j)\right) = \left(f^t(c_k^*)(b_j)\right)
+  = \left(\sum_{i=1}^m p_{ik} b_i^*\right)(b_i) = p_{jk} \]
 
 \end{document}
