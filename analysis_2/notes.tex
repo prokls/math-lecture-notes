@@ -849,6 +849,187 @@ So the exponential function is periodic in $\mathbb C$ with period $2i\pi$.
 Therefore the cosine is periodic in $\mathbb C$ with period $2\pi$.
 Analogously, sine is periodic in $\mathbb C$ with period $2\pi$.
 
+\meta{lecture}{10th of March 2016}{Wolfgang Ring}
+
+\subsection{Periodicity and roots of trigonometric functions}
+
+TODO: equations missing
+
+\[ \cos(z + 2\pi) = \cos(z) \]
+\[ \sin(z + 2\pi) = \sin(z) \]
+
+TODO: table missing
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{img/trigonometric-periodicity.pdf}
+  \end{center}
+\end{figure}
+
+\begin{rem}
+  We will show: $\forall c \in (0, 2\pi)$, $\cos$ and $\sin$ are non-periodic with period $c$,
+  hence $\exists x \in \mathbb R$ such that $\cos(x) \neq \cos(x + c)$.
+\end{rem}
+
+\index[English]{Periodic function}
+\index[German]{\foreignlanguage{ngerman}{Periodische Funktion}}
+\index[English]{Period}
+\index[German]{\foreignlanguage{ngerman}{Periode}}
+\begin{defi}
+  \[ f: \mathbb C \to \mathbb C \qquad (f: \mathbb R \to \mathbb R) \]
+  is called \emph{periodic} with period $c \in \mathbb C$ ($c \in \mathbb R$)
+  if $\forall z \in \mathbb C$ it holds that
+  \[ f(z + c) = f(z) \]
+  \[ (\forall x \in \mathbb R: f(x + c) = f(x)) \]
+  $c$ is called \emph{period of $f$}.
+\end{defi}
+
+\begin{rem}
+  If $f$ is periodic with period $c \in \mathbb C$,
+  then $f$ is also periodic with period $k \cdot c$ for every $k \in \mathbb Z \setminus \set{0}$.
+\end{rem}
+
+\begin{rem}
+  \[ z = u + iv \]
+  \[ \Re(i \cdot z) = \Re(i u - v) = -v = - \Im(z) \]
+  \[ \Im(i \cdot z) = \Im(iu - v) = u = \Re(z) \]
+\end{rem}
+
+\begin{rem}
+  Let $x \in \mathbb R$.
+  \begin{align*}
+    \cos\left(x + \frac\pi2\right)
+      &= \Re(e^{i(x + \frac\pi2)}) \\
+      &= \Re(e^{ix} \cdot e^{i\frac\pi2}) \\
+      &= \Re(i e^{ix}) \\
+      &= -\Im(e^{ix}) \\
+      &= -\sin(x)
+  \end{align*}
+
+  \begin{align*}
+    \sin\left(x + \frac\pi2\right)
+      &= \Im\left(e^{i(x + \frac\pi2)}\right) \\
+      &= \Im(ie^{ix}) \\
+      &= \Re(e^{ix}) \\
+      &= \cos(x)
+  \end{align*}
+
+  \begin{align*}
+    \cos\left(x - \frac\pi2\right)
+      &= \sin\left(x - \frac\pi2 + \frac\pi2\right) \\
+      &= \sin(x)
+  \end{align*}
+
+  \begin{align*}
+    \sin\left(x - \frac\pi2\right)
+      &= -\cos\left(x - \frac\pi2 + \frac\pi2\right) \\
+      &= -\cos(x)
+  \end{align*}
+
+  Summary:
+  \begin{align*}
+    \cos\left(x + \frac\pi2\right) &= -\sin(x) \\
+    \sin\left(x + \frac\pi2\right) &= \cos(x) \\
+    \cos\left(x - \frac\pi2\right) &= \sin(x) \\
+    \sin\left(x - \frac\pi2\right) &= -\cos(x)
+  \end{align*}
+\end{rem}
+
+\begin{rem}[A remark on the name \enquote{cosine}]
+  \[ \sin\left(\frac\pi2 - x\right) = -\sin\left(x - \frac\pi2\right) = \cos(x) \]
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{img/complementary-angle.pdf}
+      \caption{Complementary angle: co-sinus}
+      \label{img:cosine}
+    \end{center}
+  \end{figure}
+
+  The sine of the complementary angle is the co-sine of $x$ (Compare with Figure~\ref{img:cosine}).
+\end{rem}
+
+\begin{rem}
+  \begin{align*}
+    \cos(x + \pi) &= \Re(e^{i(x + \pi)}) \\
+      &= \Re(-e^{ix}) \\
+      &= -\cos(x) \\
+    \sin(x + \pi) &= - \sin(x)
+  \end{align*}
+\end{rem}
+
+\begin{rem}
+  Let $0 < c < 2\pi$. Assume $\cos$ is periodic with period $c$.
+  We know that $\cos$ has exactly one root in $[0,2]$,
+  \[ \cos(x) = \cos(-x) \]
+  $\cos$ has exactly two roots in $[-2,2]$, namely $\frac\pi2$ and $-\frac\pi2$.
+
+  \begin{enumerate}
+    \item Consider $c \in (0,\pi)$. Then $\cos\left(-\frac\pi2 + c\right) = \cos\left(-\frac\pi2\right) = 0$.
+      \[ -\frac\pi2 + c < -\frac\pi2 + \pi = \frac\pi2 < 2 \]
+      \[ -\frac\pi2 + c \geq -\frac\pi2 > -2 \]
+      Therefore $\cos$ would have another root in $[-2,2]$, namely $-\frac\pi2 + c$.
+      This is a contradiction.
+    \item
+      Consider $c \in [\pi,2\pi)$.
+      $c = \pi$ is not a period because $\cos(0) = 1$ and $\cos(0 + \pi) = -1$.
+      Let $\pi < c < 2\pi$.
+      Then $\frac32 \pi - c < \frac32 \pi - \pi = \frac\pi2$ and $\frac32 \pi - c > \frac32 \pi - 2\pi = -\frac\pi2$.
+      Hence,
+      \[ \frac32 \pi - c \in \left(-\frac\pi2, \frac\pi2\right) \]
+      \[ \cos\left(\frac32 \pi - c\right) = \cos\left(\frac32 \pi - c + c\right) = \cos\left(\frac32 \pi\right) = 0 \]
+      $c$ would be the period.
+      \[ \Rightarrow \frac32 \pi - c \text{ is a root of $\cos$ in } (-\frac\pi2, \frac\pi2) \]
+      This is a contradiction.
+  \end{enumerate}
+
+  Therefore it holds that
+  \[ \forall c \in (0,2\pi): \exists x \in \mathbb R: \cos(x + c) \neq \cos(x) \]
+  Therefore $\cos$ is not periodic with period $c$.
+  Hence $2\pi$ is indeed the smallest period of $\cos$.
+
+  Analogously it holds for $\sin$.
+\end{rem}
+
+\begin{rem}[Roots of $\cos$]
+  \[ \cos\left(\frac\pi2 + 2k\pi\right) = \cos\left(\frac\pi2\right) = 0 \qquad \forall k \in \mathbb Z \]
+  \[ \cos\left(\frac32 \pi + 2k \pi\right) = \cos\left(\frac32 \pi\right) = 0 \qquad \forall k \in \mathbb Z \]
+  \[ x_k = \frac\pi2 + 2k \pi = \frac{\pi}{2} \left(1 + 4k\right) \]
+  \[ y_k = \frac32 \pi + 2k \pi = \frac\pi2 \left(3 + 4k\right) \]
+  Hence for $z_l = \frac\pi2 \left(2l + 1\right)$ with $l \in \mathbb Z$ it holds that $\cos(z_l) = 0$.
+  These are the odd multiples of $\frac\pi2$.
+
+  \begin{align*}
+    \sin(0 + 2k\pi) &= \sin(0) = 0 \\
+    \sin(\pi + 2k\pi) &= \sin((2k + 1)\pi) = \sin(\pi) = 0
+  \end{align*}
+  \[ \Rightarrow (l\pi) = 0 \qquad \forall l \in \mathbb Z \]
+\end{rem}
+
+\subsection{Derivatives of trigonometric functions}
+%
+It holds that
+\begin{mdframed}
+  \[ \lim_{z \to 0} \frac{\sin{z}}{z} = 1 \]
+\end{mdframed}
+Furthermore it holds that
+\begin{mdframed}
+  \[ \lim_{z \to 0} \frac{1 - \cos{z}}{z} = 0 \]
+\end{mdframed}
+
+\begin{proof}
+  \begin{align*}
+    \frac{1 - \cos{z}}{z}
+      &= \frac1z \left(1 - 1 + \frac{z^2}{2} - \frac{z^4}{4!} + \frac{z^6}{6!} - \frac{z^8}{8!} + \ldots\right) \\
+      &= \frac{z}{2!} - \frac{z^3}{4!} + \frac{z^5}{6!} - \frac{z^7}{8!} + \ldots
+  \end{align*}
+  is convergent in $\mathbb C$ and (especially) continuous in $0$
+  \[ \lim_{z \to 0} \left(\frac{z}{2!} - \frac{z^3}{4!} + \frac{z^5}{6!} - \ldots\right) = 0 \]
+\end{proof}
+
+\[
+  \lim_{h\to0} \frac{\cos(x + h) - \cos(x)}{h}
+\]
 
 \clearpage
 \begin{otherlanguage}{ngerman}
