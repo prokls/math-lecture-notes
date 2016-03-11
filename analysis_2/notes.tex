@@ -858,7 +858,11 @@ TODO: equations missing
 \[ \cos(z + 2\pi) = \cos(z) \]
 \[ \sin(z + 2\pi) = \sin(z) \]
 
-TODO: table missing
+\begin{table}
+  \begin{tabular}{cccccc}
+TODO: table missing &&&&&
+  \end{tabular}
+\end{table}
 
 \begin{figure}[!h]
   \begin{center}
@@ -1030,6 +1034,191 @@ Furthermore it holds that
 \[
   \lim_{h\to0} \frac{\cos(x + h) - \cos(x)}{h}
 \]
+
+\meta{lecture}{11th of March 2016}{Wolfgang Ring}
+
+Recall:
+\[ \lim_{z\to0} \frac{\sin{z}}{z} = 1 \]
+\[ \lim_{z\to0} \frac{1-\cos{z}}{z} = 0 \]
+
+\begin{lemma}
+  The trigonometric functions $\sin$ and $\cos$ are differentiable in $\mathbb R$
+  (because they can be expressed as power series with infinite convergence radius)
+  and it holds that
+  \[ \cos'(x) = -\sin(x)  \qquad  \sin'(x) = \cos(x) \]
+\end{lemma}
+\begin{proof}
+  \begin{align*}
+    \lim_{h\to0} \frac{\cos(x + h) - \cos(h)}{h}
+      &= \lim_{h\to0} \frac{\cos{x} \cdot \cos{h} - \sin{x} \cdot \sin{h} - \cos{x}}{h} \\
+      &= \lim_{h\to0} \cos{x} \cdot \frac{\cos(h) - 1}{h} - \lim_{h\to0} \frac{\sin{x} \cdot \sin{h}}{h} \\
+      &= \cos{x} \cdot \underbrace{\lim_{h\to0} \frac{\cos(h) - 1}{h}}_{=0} - \sin{x} \cdot \underbrace{\lim_{h\to0} \frac{\sin(h)}{h}}_{=1} \\
+      &= -\sin(x)
+  \end{align*}
+
+  Analogously:
+  \begin{align*}
+    \lim_{h\to0} \frac{\sin(x + h) - \sin(h)}{h}
+      &= \lim_{h\to0} \frac{\sin{x} \cdot \cos{h} + \sin{h} \cdot \cos{x} - \sin{x}}{h} \\
+      &= \sin(x) \cdot \underbrace{\lim_{h\to0} \frac{\cos(h) - 1}{h}}_{=0} + \cos(x) \cdot \underbrace{\lim_{h\to0} \frac{\sin{h}}{n}}_{=1} \\
+      &= \cos(x)
+  \end{align*}
+\end{proof}
+
+TODO: incomplete graphics, verify text
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/arc-length-sincos.pdf}
+    \caption{The arc length is related to $\sin$ and $\cos$}
+    \label{img:arc-length}
+  \end{center}
+\end{figure}
+
+Figure~\ref{img:arc-length}. We now use tools of integral calculus:
+
+Let $I = [a,b]$ and $\gamma: I \to \mathbb R$ ($\mathbb R^2$).
+\[ \gamma(t) = \begin{bmatrix} \gamma_1(t) \\ \vdots \\ \gamma_n(t) \end{bmatrix} \]
+Assumption: $\gamma_1: [a,b] \to \mathbb R^n$.
+
+\[ \gamma'(t) = \begin{bmatrix} \gamma'_1(t) \\ \vdots \\ \gamma'_n(t) \end{bmatrix} \]
+
+TODO: graphics missing
+
+Let $t \in [a,b]$. Then the arc length of $\gamma$ between $a$ and $t$
+is given by
+\[ S(t) = \int_a^t \abs{\gamma'(\tau)} \, d\tau \]
+
+We identify $\mathbb C$ with $\mathbb R^2$:
+\[ x + iy \leftrightarrow \begin{bmatrix} x \\ y \end{bmatrix} \]
+
+\[ \gamma: t \mapsto e^{it} = \cos{t} + i \cdot \sin{t} \]
+is a curve in $\mathbb C \cong \mathbb R^2$.
+\[ \gamma: [0,2\pi] \to \mathbb C \]
+
+\[ \gamma(t) = \begin{bmatrix} \cos{t} \\ \sin{t} \end{bmatrix} \]
+\[ \gamma'(t) = \begin{bmatrix} -\sin{t} \\ \cos{t} \end{bmatrix} \]
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/derivative-in-r2.pdf}
+    \caption{Derivative in $\mathbb R^2$}
+    % TODO: incomplete
+    \label{img:deriv-r2}
+  \end{center}
+\end{figure}
+
+Compare with Figure~\ref{img:deriv-r2}.
+\[ \abs{\gamma'(t)} = \sqrt{(-\sin(t))^2 + (\cos(t))^2} = 1 \]
+\[ \int_0^t \abs{\gamma'(\tau)} \, d\tau = \int_0^t 1 \, d\tau = t \]
+
+\section{Integration calculus}
+%
+Integration calculus was developed to determine areas of curves regions.
+It was developed by Leibniz, Cauchy, Riemann and Lebeque. There are different
+notions of integrations and it will discussed in further details in the courses
+\enquote{Functional analysis} and \enquote{Measure and integration theory}.
+For now, we look at the basis (as discussed by \foreignlanguage{ngerman}{Königsberger}).
+
+\index[English]{Step function}
+\index[German]{\foreignlanguage{ngerman}{Treppenfunktion}}
+Let $[a,b]$ be an interval, $a,b \in \mathbb R$ with $a<b$ and $\phi: [a,b] \to \mathbb R$.
+We call $\varphi$ a \emph{step function}, if $n \in \mathbb N$ and $x_0, \ldots, x_n$
+exist such that
+\[ x_0 = a < x_1 < x_2 < \ldots < x_n = b \]
+and $\varphi|_{(x_{j-1}, x_j)} = c_j$ is constant.
+The points $x_j$ define a partition of the interval $[a,b]$.
+
+The function values defining the partitions do not have any constraints and
+are therefore irrelevant for further considerations (compare with Figure~\ref{img:partition-int}).
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/partition-of-integral.pdf}
+    \caption{Partition of an area into rectangles}
+    \label{img:partition-int}
+  \end{center}
+\end{figure}
+
+\index[English]{Integral}
+\index[German]{\foreignlanguage{ngerman}{Integral}}
+\begin{defi}
+  Let $\varphi:[a,b] \to \mathbb R$ a step function and
+  $x_0 = a < x_1 < \ldots < x_n = b$ as partition of
+  $[a,b]$ and let $\varphi|_{(x_{j-1}, x_j)} = c_j$
+  for $j = 1,\ldots,n$.
+  Then we define
+  \[ \int_a^b \varphi \,dx = \sum_{j=1}^n c_j \triangle x_j \]
+  where
+  $\triangle x_j = x_j - x_{j-1}$ (for $j=1,\ldots,n$).
+  \[ \int_a^b \varphi \, dx \text{ is called \emph{integral} of $\varphi$ over $[a,b]$} \]
+\end{defi}
+
+$\varphi$ is the step function in terms of the partition $\set{x_0,x_1,\ldots, x_5}$.
+
+It remains to show that if $\varphi$ satisfies the definition of a step function in terms of
+partition $\set{x_0,\ldots,x_n}$ and $\varphi|_{(x_{j-1}, x_j)} = c_j$
+(TODO: text missing: \enquote{but \ldots})
+and $\varphi$ is a step function in terms of $\set{w_0,w_1,\ldots,w_m}$
+and $\varphi|_{(w_{l-1},w_l)} = c'_l$, then it holds that
+\[ \sum_{j=1}^n c_j \triangle x_j = \sum_{l=1}^m c'_l \triangle w_l \]
+Compare with Figure~\ref{img:step-function}.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/step-function.pdf}
+    \caption{Step function $\varphi$}
+    \label{img:step-function}
+  \end{center}
+\end{figure}
+
+% TODO: verify
+\begin{proof}
+  Let $Z = \set{x_0, \ldots, x_n}$ and $Z' = \set{w_0,\ldots,w_m}$.
+  We define $Z'' = Z \cup Z'$ and $Z'' = \set{\alpha_0, \alpha_1, \ldots, \alpha_L}$.
+  Duplicates get lost in the set.
+  \[ \alpha_0 = a < \alpha_1 < \ldots < \alpha_L = b \]
+  Because $Z \subseteq Z''$,
+  \[ \forall x_j \exists k_j: x_j = \alpha_{k_j} \]
+  Because $x_{j-1} < x_j$, it holds that $\alpha_{k_{j-1}} < \alpha_{k_j}$.
+  Followingly,
+  \[ k_{j-1} < k_j \]
+  Let $k_{j-1} < l \leq k_j$.
+  It holds that $(\alpha_{l-1}, \alpha_l) \subseteq (x_{j-1}, x_j)$,
+  because $l > k_{j-1} = l-1 \geq k_{j-1} \Rightarrow \alpha_{l-1} \geq \alpha_{k_{j-1}} = x_{j-1}$
+  and $l \leq k_j$.
+  \[ \Rightarrow \alpha_l \leq \alpha_{k_j} = x_j \]
+  So for $x \in (\alpha_{l-1}, \alpha_l) \subseteq (x_{j-1}, x_j)$ it holds that
+  $\varphi(x) = c_j$.
+
+  $k_0 = 0$ because $x_0 = \alpha_0 = a$ and $k_n = L$ because $x_n = \alpha_L = b$.
+  $\forall l \in \set{0,\ldots,L}$ there exists $j \in \set{1,\ldots,n}$ such that
+  $k_{j-1} \leq l \leq k_j$.
+
+  \[ \Rightarrow \varphi|_{(\alpha_{l-1},\alpha_l)} \text{ is constant} \]
+
+  Hence $\varphi$ is a step function in terms of the partition $\set{\alpha_0, \ldots, \alpha_L}$.
+
+  Let $l \in \set{0,1,\ldots,L}$ and $j$ such that
+  \[ k_{j-1} < l \leq k_j \Rightarrow (\alpha_{l-1},\alpha_l) \subset (x_{j-1},x_j) \]
+  and $c''_l = \varphi(x)$ for $x \in (\alpha_{l-1},\alpha_l)$, then $c''_l = c_j$.
+
+  \[ \sum_{l=1}^L c''_l \cdot \triangle \alpha_l = \sum_{j=1}^n \sum_{l=k_{j-1}+1}^{k_j} c''_l \triangle \alpha_l \]
+  \[ = \sum_{j=1}^n c_j \sum_{l=k_{j-1}}^{k_j} \triangle \alpha_l \]
+  \[ \sum_{l=k_{j-1} + 1}^{k_j} \triangle \alpha_l = (\alpha_{k_{j-1}+1} - \alpha_{k_{j-1}})
+    + (\alpha_{k_{j-1}+2} - \alpha_{k_{j-1}+1}) + (\alpha_{k_{j-1}+3} - \alpha_{k_{j-1}+2})
+  \] \[
+    + \ldots + (\alpha_{k_j-1} - \alpha_{k_j-2}) + (\alpha_{k_j} - \alpha_{k_j-1})
+  \]
+  This is a telescoping sum. What remains is:
+  \[ = \alpha_{k_j} - \alpha_{k_{j-1}} \]
+
+  \[ x_j - x_{j-1} = \triangle x_j \]
+  Analogously,
+  \[ \sum_{l=1}^L c''_l \cdot \triangle \alpha_l = \sum_{k=1}^m c'_k \triangle w_k \]
+  So it holds that
+  \[ \sum_{j=1}^n c_j \triangle x_j = \sum_{k=1}^m c'_k \triangle w_k \]
+\end{proof}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

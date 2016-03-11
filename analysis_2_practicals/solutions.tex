@@ -250,7 +250,41 @@ Therefore $h$ is continuous, because it is a composition of continuous functions
   in terms of multiple differentiability in all points $x_0 \in \mathbb R$.
 \end{ex}
 
+\[ f'(x) = \begin{cases} 0 & x \leq 0 \\ 2x & x > 0 \end{cases} \]
 
+So this is differentiable, but in case of $x=0$, it remains questionable.
+
+We look at the definition of differentiability:
+\[
+  \lim_{x \to 0} \frac{f(x) - f(0)}{x}
+  = \lim_{x\to 0} \frac{f(x)}{x}
+\] \[
+  f'(x) = \begin{cases}
+    \lim_{x\to 0} \frac{0}{x} = 0 \\
+    \lim_{x\to 0^+} \frac{x^2}{x} = \lim_{x\to 0^+} x = 0
+  \end{cases}
+\]
+
+It follows that $f$ is differentiable one time.
+
+\[
+  f''(x) = \begin{cases}
+    0 & x < 0 \\
+    2x & x > 0
+  \end{cases}
+\]
+
+What about $x=0$?
+
+\[
+  \lim_{x\to 0} \frac{f'(x) - f'(0)}{x - 0}
+  \begin{cases}
+    \lim_{x\to 0} \frac0x = 0 \\
+    \lim_{x\to 0^+} \frac{2x}{x} = \lim_{x\to0^+} 2 = 2
+  \end{cases}
+\]
+
+Left and right limes differ. So it is not differentiable.
 
 \section{Exercise 2}
 \begin{ex}
@@ -264,5 +298,236 @@ Therefore $h$ is continuous, because it is a composition of continuous functions
     \item $\lim_{x\to\infty} \frac{e^x - e^{-x}}{e^x + e^{-x}}$
   \end{enumerate}
 \end{ex}
+
+\subsection{Exercise 2.a}
+%
+\[ \lim_{x\to1} \frac{\ln{x}}{x - 1} \]
+The conditions to apply L'H\^opital's rule are satisfied.
+
+\[ \Rightarrow \lim_{x\to1} \frac{\frac{1}{x}}{1} = 1 \]
+
+\subsection{Exercise 2.b}
+%
+\[ \lim_{x\to0^+} \frac{1}{x} - \frac{1}{\sin{x}} = \lim_{x\to0^+} \frac{\sin{x} - x}{x \sin{x}} \]
+The conditions to apply L'H\^opital's rule are satisfied.
+
+\[ \Rightarrow \lim_{x\to0^+} \frac{\cos{x} - 1}{\sin{x} + x \cos{x}} \]
+The conditions to apply L'H\^opital's rule are satisfied.
+
+\[ \Rightarrow \lim_{x\to0^+} \frac{-\sin{x}}{\cos{x} + \cos{x} - x \sin{x}} = \lim_{x\to0^+} \frac{-\sin{x}}{2 \cos{x} - x \sin{x}} = \frac02 = 0 \]
+
+A nice hint to find out whether this function is differentiable:
+\[ \sin{x} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots \]
+\[ \cos{x} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \ldots \]
+
+\[ \frac{\sin{x} - x}{x \sin{x}} = \frac{-\frac{x^3}{3!} + \frac{x^5}{5!} - \ldots}{x^2 - \frac{x^4}{3!} + \frac{x^6}{5!}} \approx x \to 0 \]
+
+This exploits, that it will take one run of L'H\^opital's rule (because each expression has at least degree $2$) and its limes will be 0 (because of $x$).
+
+\subsection{Exercise 2.c}
+%
+\[ \lim_{x\to\frac\pi2^-} \frac{\ln(\cos(x))}{\ln(1 - \sin(x))} \]
+The conditions to apply L'H\^opital's rule are partially satisfied.
+We claim that $\lim_{x\to0^+} f(x) = \lim_{x\to0^+} g(x) = \infty$ is fine.
+
+\[
+  \Rightarrow \lim_{x\to\frac\pi2^-} \frac{\frac{-\sin(x)}{\cos(x)}}{\frac{-\cos(x)}{1 - \sin(x)}}
+  = \lim_{x\to\frac\pi2^-} \frac{-\sin(x) \cdot \left(1 - \sin(x)\right)}{\cos(x)(-\cos(x))}
+\]
+The conditions to apply L'H\^opital's rule are partially satisfied.
+\[
+  \lim_{x\to\frac\pi2^-} \frac{-\cos(x)(1 - \sin(x)) - \sin(x) \cdot (-\cos(x))}{-\sin(x) (-\cos(x)) + \cos(x) \cdot \sin(x)} = \frac12
+\]
+
+If we want to apply the previous estimate here, we should consider
+\[ \sin(x) = \cos\left(\frac\pi2 - x\right) = \cos(y) \qquad y = \frac\pi2 - x \]
+\[ \cos(x) = \sin\left(\frac\pi2 - x\right) = \sin(y) \]
+
+This gives us a different estimate of the result:
+\[
+  \lim_{y\to0^+} \frac{\ln(\sin(y))}{\ln(1 - \cos(y))}
+  \approx \lim_{y\to0^+} \frac{\ln(y)}{\ln\left(\frac{y^2}{2}\right)}
+  = \lim_{y\to0^+} \frac{\ln(y)}{2\ln(y) - \ln(2)}
+  \approx \lim_{y\to0^+} \frac{\ln(y)}{2\ln(y)}
+  = \frac12
+\]
+
+
+We define neighborhoods:
+\[ N_\delta(x_0) = \set{x: \abs{x - x_0} < \delta} \]
+\[ N_R(\infty) = \set{x: x > R} \]
+
+\subsection{Exercise 2.d}
+%
+\[
+  \lim_{x\to1^-} x^{\frac{1}{1 - x}} = \lim_{x\to1^-} e^{\ln(x) \frac{1}{1 - x}}
+  = \exp\left(\lim_{x\to1^-} \underbrace{\frac{\ln(x)}{1 - x}}_{(-1) \cdot \text{Exercise a}}\right)
+  = \frac1e
+\]
+
+\subsection{Exercise 2.e}
+%
+\[
+  \lim_{n\to\infty} n^{\frac1{\sqrt{n}}} = \lim_{n\to\infty} \left(\exp\left(\frac{\ln{n}}{\sqrt{n}}\right)\right)
+    = \exp\left(\lim_{n\to\infty} \frac{\ln(n)}{\sqrt{n}}\right)
+\]
+The conditions to apply L'H\^opital's rule are satisfied (,,$\frac{\infty}{\infty}$'')
+
+\[
+  \exp\left(\lim_{n\to\infty} \frac{\frac{1}{n}}{\frac{1}{2\sqrt{n}}}\right)
+    = \exp\left(\lim_{n\to\infty} \frac{2\sqrt{n}}{n}\right)
+    = \exp(0) = 1
+\]
+
+\subsection{Exercise 2.f}
+%
+\[
+  \lim_{x\to\infty} \frac{e^x - e^{-x}}{e^x + e^{-x}}
+    = \lim_{n\to\infty} \frac{e^x \left(1 - e^{-2x}\right)}{e^x \left(1 + e^{-2x}\right)}
+    = \frac{\lim_{x\to\infty} 1 - \lim_{x\to\infty} \frac{1}{e^{2x}}}{\lim_{x\to\infty} 1 + \lim_{x\to\infty} \frac{1}{e^{2x}}}
+\]
+
+Remark:
+\[
+  \lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)}
+    \overset{\text{L'H\^opital}}= \lim_{x\to\infty} \frac{\cosh(x)}{\sinh(x)}
+    \overset{\text{L'H\^opital}}= \lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)}
+\] \[
+  y = \lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)} = \frac{1}{\lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)}}
+    = \frac1y
+\]
+
+\section{Exercise 3}
+%
+\begin{ex}
+  Show that the function $f: \mathbb R \to \mathbb R$ with $x \mapsto x + e^x$
+  is bijective. Furthermore determine $(f^{-1})'(1)$ and $\lim_{y\to\infty}(f^{-1})'(y)$.
+\end{ex}
+
+If the function is strictly monotonically increasing,
+it is injective.
+
+\[ f'(x) = 1 + e^x > 0 \qquad \forall x \in \mathbb R \]
+
+We show that it is strictly monotonically increasing:
+
+Let $x_1, x_2 \in \mathbb R$ with $x_1 < x_2$.
+\[ \frac{f(x_2) - f(x_1)}{x_2 - x_1} = f'(\alpha) \qquad \text{with } \alpha \in (x_1, x_2) \]
+\[ f(x_2) - f(x_1) = f'(\alpha)(x_2 - x_1) > 0  \]
+
+Is $f$ surjective?
+
+For an arbitrary $y_0 \in \mathbb R$ it holds that $\exists x_0 \in \mathbb R: f(x_0) = y_0$:
+\[ \exists f(a), f(b) \in \mathbb R: f(a) \leq y_0 < f(b) \]
+
+It holds that
+\[ \lim_{x\to-\infty} x + \underbrace{e^x}_{\to 0} = -\infty \]
+\[ \lim_{x\to+\infty} x + e^x = \infty \]
+
+Formally:
+\[ \forall y_0 \exists x_0: \forall x < x_0: f(x) < y_0 \]
+
+From the Intermediate Value Theorem it follows that
+\[ \Rightarrow \exists c \in [a,b): f(c) = y_0 \qquad c \eqqcolon x_0 \]
+So it is surjective.
+
+From injectivity and surjectivity it follows that it is bijective.
+
+\subsection{Determine $(f^{-1})'(1)$}
+%
+\[ f(x) = x + e^x \]
+\[ f'(x) = 1 + e^x \]
+
+We apply the inverse function theorem:
+\[ \left(f^{-1}\right)'(y) = \frac{1}{f'(f^{-1}(y))} \]
+
+\[ y = 1 = f(x) \]
+\[ x = f^{-1}(1) \]
+
+An educated guess gives us that $x = 0$. In general determining $x$ is more difficult.
+
+\[ \left(f^{-1}\right)'(1) = \frac{1}{f'(0)} = \frac{1}{1 + e^0} = \frac12 \]
+
+\subsection{Determine $\lim_{y\to\infty} \left(f^{-1}\right)'(y)$}
+%
+\[
+  \lim_{y\to\infty} \left(f^{-1}\right)'(y)
+  = \lim_{y\to\infty} \frac{1}{1 + e^x}
+\]
+
+As $x$ grows to infinity, also $y$ grows to infinity.
+From bijectivity it follows that any value can be reached with $x$ as well as $f(x)$.
+
+\[ \underbrace{f'(\underbrace{f^{-1}(\underbrace{y}_{\to\infty})}_{\to\infty})}_{\to\infty} \]
+
+\section{Exercise 4}
+\begin{ex}
+  Let $D \subseteq \mathbb R$ be an open interval and $f: D \to \mathbb R$ be differentiable
+  in $x_0 \in D$.
+  Show
+  \[ \lim_{h\to0} \frac{f(x_0 + h) - f(x_0 - h)}{2} = f'(x_0) \]
+\end{ex}
+
+\[ = \lim_{h\to0} \frac{f(x_0 + h) - f(x_0) + f(x_0) - f(x_0 - h)}{2h} \]
+\[ = \lim_{h'\to 0} \frac12 \cdot \left(f'(x_0) + \frac{f(x_0) - f(x_0 + h')}{-h'}\right) \]
+\[ = \lim_{h'\to 0} \frac12 \cdot \left(f'(x_0) + \frac{f(x_0 + h') - f(x_0)}{h'}\right) \]
+\[ = \frac12 (f'(x_0) + f'(x_0)) \]
+\[ = f'(x_0) \]
+
+\subsection{Exercise 4.b}
+\[
+  \lim_{h\to0} \frac{f(x_0 + rh) - f(x_0 + sh)}{h}
+    = \lim_{h\to0} \frac{f(x_0 + rh) - f(x_0)}{h}
+    + \lim_{h\to0} \frac{f(x_0) - f(x_0 + sh)}{h}
+\]
+\[ h_1 = rh \qquad h_2 = sh \]
+\[ = \lim_{h_1\to0} \frac{f(x_0 + h_1) - f(x_0)}{\frac1r \cdot h_1} + \lim_{h_2\to0} \frac{f(x_0) - f(x_0 + h_2)}{\frac1s \cdot h_2} \]
+\[ = r \cdot f'(x_0) - s \cdot f'(x_0) \]
+\[ = (r-s) \cdot f'(x_0) \]
+
+\section{Exercise 5}
+\begin{ex}
+  Let $D \subseteq \mathbb R$ be an open interval. $f: D \to \mathbb R$ is differentiable
+  and $f$ is twice differentiable in $x_0 \in D$.
+\end{ex}
+
+\subsection{Exercise 5.a}
+\begin{ex}
+  Show that
+  \[ \lim_{h\to0} \frac{f(x_0 + h) - 2f(x_0) + f(x_0 - h)}{h^2} = f''(x_0) \]
+\end{ex}
+
+$f$ is differentiable, therefore continuous, and $h$ goes to $0$. So we have ,,$\frac00$''.
+All conditions to apply L'H\^opital's rule are satisfied.
+
+\[ \lim_{h\to0} \frac{f'(x_0 + h) - f'(x_0 - h)}{2h} \approx \frac00 \]
+
+We can apply L'H\^opital's Rule again or just use the result of exercise~4a.
+\[ \xRightarrow{4a} f''(x_0) \]
+
+\subsection{Exercise 5.b}
+%
+\begin{ex}
+  Show that the limes from exercise 5.a can also exist, even if $f''(x_0)$ does not exist.
+  Use the result from Exercise~1.
+\end{ex}
+\[ f(x) = \begin{cases} x^2 & x > 0 \\ 0 & x = 0 \\ -x^2 & x < 0 \end{cases} \]
+
+%For $x > 0$:
+%\[
+%  \lim_{h\to0} \frac{(x + h)^2 - 2x^2 + (x - h)^2}{h^2}
+%    = \frac{x^2 + 2xh + h^2 - 2x^2 + x^2 - 2xh + h^2}{h^2}
+%    = \lim_{n\to0} \frac{2h^2}{h^2} = \lim_{h\to0}
+%\]
+
+We know that it is not twice differentiable. But we want to show that the limes exists.
+
+We are only concerned with $x=0$.
+\[ \lim_{h\to0} f(x_0) = 0 \]
+\[
+  \lim_{h\to0} \frac{h^2 - h^2}{h^2} = \frac{0}{h^2} = 0
+\]
+
+So if we traverse the graph from both sides at the same time $\frac{f(x_0 + h) - f(x_0 - h)}{h}$.
 
 \end{document}
