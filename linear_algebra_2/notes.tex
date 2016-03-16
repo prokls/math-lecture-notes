@@ -129,7 +129,7 @@ We denote,
 \[ V = \mathbb K^n \]
 $v^*: V \to \mathbb K$ is uniquely defined with values $v^*(e_i) \eqqcolon a_i$.
 \[ \functional{v^*,v} = \functional{v^*, \sum_{i=1}^n v_i e_i} = \sum_{i=1}^n v_i \functional{v^*,e_i} \]
-\[ \left(v^*\left(\sum_{i=1}^n v_i e_i\right) = \sum_{i=1}^n v_i v^*(e_i) = \sum_{i=1}^n a_i v_i\right) \]
+\[ v^*\left(\sum_{i=1}^n v_i e_i\right) = \sum_{i=1}^n v_i v^*(e_i) = \sum_{i=1}^n a_i v_i \]
 
 \subsection{More general}
 %
@@ -148,8 +148,8 @@ We know, $\dim{\Hom(V,W)} = \dim{V} \cdot \dim{W}$.
       \]
       is a basis of $V^*$ and is called \emph{dual basis}.
     \item For $v^* \in V^*$ it holds that $v^* = \sum_{k=1}^n \functional{v^*, b_k} \cdot b_k^*$.
-    \item If $\dim{V} = \infty, (b_i)_{i \in I}$ bass, then it holds that
-      \[ (b^*_k)_{k \in I}, \functional{b_k^*, b_i} = \delta_{ik} \]
+    \item If $\dim{V} = \infty, (b_i)_{i \in I}$ is a basis, then it holds that $(b^*_k)_{k \in I}$ with
+      \[ \functional{b_k^*, b_i} = \delta_{ik} \]
       is \emph{not} a basis of $V^*$.
   \end{itemize}
 \end{theorem}
@@ -374,7 +374,7 @@ Cayley~1845 (on matrices)
     \[ A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} = (v,w) \]
     where $v$ and $w$ are column vectors of $A$.
     \[ \det(\lambda v_1 + \mu v_2, w) = \lambda \det(v_1, w) + \mu \det(v_2, w) \]
-    \[ \det(v, \lambda w + \mu w_2) = \lambda \det(v, w_1) + \mu \det(v, w_2) \]
+    \[ \det(v, \lambda w_1 + \mu w_2) = \lambda \det(v, w_1) + \mu \det(v, w_2) \]
 
     \[
       \det(\lambda v_1 + \mu v_2, w) =
@@ -558,7 +558,7 @@ $h$ is the length of the projection of $w$ to $v^\bot$.
   \end{enumerate}
   Multilinearity is defined by the first two properties.
   Multilinearity means linearity in $a_k$ if $a_1, \ldots, a_{k-1}, a_{k+1}, \ldots, a_n$
-  get fixed.
+  gets fixed.
 \end{defi}
 
 \begin{theorem}
@@ -625,7 +625,7 @@ $h$ is the length of the projection of $w$ to $v^\bot$.
   the so-called symmetric group.
 \end{defi}
 
-In the previous course (Theorem~1.40) we hvae proven: Compositions of bijective functions are bijective.
+In the previous course (Theorem~1.40) we have proven: Compositions of bijective functions are bijective.
 \begin{rem}
   For $n \geq 3$, $\sigma_n$ is non-commutative
 \end{rem}
@@ -740,13 +740,13 @@ In the previous course (Theorem~1.40) we hvae proven: Compositions of bijective 
   \end{enumerate}
 \end{proof}
 
-\index[English]{Malposition}
+\index[English]{Inversion}
 \index[German]{\foreignlanguage{ngerman}{Fehlstand (Permutation)}}
 \begin{defi}
   \label{def-7.14}
-  A \emph{malposition} of $\pi$ is a pair $(i,j)$ such that
+  An \emph{inversion} of $\pi$ is a pair $(i,j)$ such that
   $i < j$ with $\pi(i) > \pi(j)$.
-  Let $F_\pi$ be the set of malpositions of $\pi$.
+  Let $F_\pi$ be the set of inversions of $\pi$.
   \[ f_{\pi} \coloneqq \card{F_\pi} \]
   \[ \operatorname{sign}(\pi) \coloneqq (-1)^{f_\pi} \eqqcolon (-1)^\pi \]
 \end{defi}
@@ -792,7 +792,7 @@ Decompose $\pi = \tau_1 \circ \ldots \circ \tau_k \circ \tau_{12} \circ \tau_{12
 This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
 
 \[ \pi \in \sigma_n \qquad \text{permutation} \]
-\[ F_\pi = \setdef{(i,j)}{i < j, \pi(i) > \pi(j), \text{ malpositions }} \]
+\[ F_\pi = \setdef{(i,j)}{i < j, \pi(i) > \pi(j), \text{ inversions }} \]
 \[ f_\pi = \card{F_\pi} \]
 \[ \sign(\pi) \coloneqq (-1)^{f_\pi} \eqqcolon (-1)^\pi \]
 
@@ -818,7 +818,7 @@ This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
           1 & \ldots & l & \ldots & k & \ldots & n
         \end{pmatrix}
       \] \[
-        F_\tau(\underbrace{(k, k + 1), (k, k + 2), \ldots, (k, l-1)}_{\text{malpositions with $k$, $l-k$ times}},
+        F_\tau(\underbrace{(k, k + 1), (k, k + 2), \ldots, (k, l-1)}_{\text{inversions with $k$, $l-k$ times}},
         (k,l), \underbrace{(k+1, l), \ldots, (l - 1, l)}_{l-k-1 \text{ times}})
       \]
       Example:
@@ -828,7 +828,7 @@ This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
           1 & 2 & 3 & 8 & 5 & 6 & 7 & 4 & 9 & 10
         \end{pmatrix}
       \]
-      Yields $7$ malpositions ($8$ needs to be repositioned with 3 transpositions, $4$ needs to be repositions with 4 transpositions).
+      Yields $7$ inversions ($8$ needs to be repositioned with 3 transpositions, $4$ needs to be repositions with 4 transpositions).
   \end{itemize}
 \end{proof}
 
@@ -889,12 +889,12 @@ This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
     \item If $\pi = \tau_{kl}$ transposition $\xrightarrow{\text{Theorem~}\ref{thm-7.7}} \triangle(a_{\tau(1)}, \ldots, a_{\pi(n)})
       = -\triangle(a_1, \ldots, a_n) = \sign(\tau_{kl}) \cdot \triangle(a_1, \ldots, a_n)$
     \item If $\pi = \tau_1 \circ \ldots \circ \tau_k = \tau_1 \circ \tilde{\pi}, \tilde{\pi} = \tau_2 \circ \ldots \circ \tau_k$
-      \[
-        \triangle(a_{\tau_1 \circ \tilde{\pi}(1)}, \ldots, a_{\tau_1 \circ \tilde{\pi}(n)})
-        = -\triangle(a_{\tilde\pi(1)}, \ldots, a_{\tilde\pi(n)})
-        = (-1)^2 \cdot \triangle(a_{\tilde\pi(1)}, a_{\tilde\pi(n)})
-        \to (-1)^k \cdot \triangle(a_1, \ldots, a_n)
-      \]
+      \begin{align*}
+        &\triangle(a_{\tau_1 \circ \tilde{\pi}(1)}, \ldots, a_{\tau_1 \circ \tilde{\pi}(n)}) \\
+        &= -\triangle(a_{\tilde\pi(1)}, \ldots, a_{\tilde\pi(n)}) \\
+        &= (-1)^2 \cdot \triangle(a_{\tilde\pi(1)}, a_{\tilde\pi(n)}) \\
+        &\to (-1)^k \cdot \triangle(a_1, \ldots, a_n)
+      \end{align*}
   \end{itemize}
 \end{proof}
 \begin{theorem}[Leibnitz' definition of $\det(A)$]
@@ -965,22 +965,22 @@ This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
       \begin{align*}
         \triangle(a_1, \ldots, \lambda a_k, \ldots, a_n)
         &= c \cdot \det\left[\Phi_B(a_1), \ldots, \lambda \cdot \Phi_B(a_k), \ldots, \Phi_B(a_n)\right] \\
-        &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} a_{\pi(2),2} \ldots - \lambda a_{\pi(k),k} \ldots a_{\pi(n),n} \\
+        &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} a_{\pi(2),2} \ldots \lambda a_{\pi(k),k} \ldots a_{\pi(n),n} \\
         &= \lambda \cdot c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} a_{\pi(2),2} \ldots a_{\pi(n),n} \\
         &= \lambda \cdot \triangle(a_1, \ldots, a_n)
       \end{align*}
     \item
       \begin{align*}
-        &= \triangle(a_1, \ldots, a'_k + a''_k, \ldots, a_n) \\
+        & \triangle(a_1, \ldots, a'_k + a''_k, \ldots, a_n) \\
           &= c \cdot \det\left[\Phi_B(a_1), \ldots, \Phi_B(a'_k) + \Phi_B(a''_k), \ldots, \Phi_B(a_n)\right] \\
           &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} \cdot a_{\pi(2),2} \cdot \ldots
-             \left(a'_{\pi(k),k} + a''_{\pi(k),k}\right), \ldots, a_{\pi(n),n} \\
-          &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} \cdot a'_{\pi(k),k} \ldots a_{\pi(n),n}
-            + c \cdot \sum_{\pi \in \sigma_n} \sign(\pi) a_{\pi(1),1} \ldots a''_{\pi(k),k} \ldots a_{\pi(n),n} \\
+             \left(a'_{\pi(k),k} + a''_{\pi(k),k}\right) \cdot \ldots \cdot a_{\pi(n),n} \\
+          &= c \cdot \sum_{\pi \in \sigma_n} \sign{\pi} \cdot a_{\pi(1),1} \cdot \ldots \cdot a'_{\pi(k),k} \ldots a_{\pi(n),n} \\
+          &+ c \cdot \sum_{\pi \in \sigma_n} \sign(\pi) a_{\pi(1),1} \ldots a''_{\pi(k),k} \ldots a_{\pi(n),n} \\
           &= \triangle(a_1, \ldots, a'_k, \ldots, a_n) + \triangle(a_1, \ldots, a''_k, \ldots, a_n)
       \end{align*}
     \item
-      Let $a_k = a_l$ for $k < $. Show that $\triangle(a_1, \ldots, a_n) = 0$
+      Let $a_k = a_l$ for $k < l$. Show that $\triangle(a_1, \ldots, a_n) = 0$
       \[ \tau_{kl} = \text{ transposition exchanging $k$ and $l$} \]
       \[ \sigma_n = \mathfrak a_n \dot\cup\, (\mathfrak a_n \cdot \tau_{kl}) \]
       Claim: $\setdef{\pi}{\sign{\pi} = -1} = \setdef{\pi \circ \tau_{kl}}{\sign{\pi} = +1}$
@@ -992,10 +992,10 @@ This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
         \triangle(a_1, \ldots, a_n)
           &= c \cdot \sum_{\pi \in \sigma_n = \mathfrak a_n \cup \mathfrak a_n \cdot \tau_{kl}}
             \sign(\pi) a_{\pi(1),1} \ldots a_{\pi(n),n} \\
-          &= c \cdot \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots a_{\pi(n),n} \\
-          &- \sum_{\pi \in \mathfrak a_n} a_{\pi \circ \tau_{kl}(1),1} \ldots a_{\pi \circ \tau_{kl}(k),k} \ldots a_{\pi \circ \tau_{ul}(l),l} \ldots a_{\pi \circ \tau_{kl}(n),n} \\
-          &= c \cdot \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots, a_{\pi(n),n}
-          &- \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots a_{\pi(l),k} \ldots a_{\pi(k)l} \ldots a_{\pi(n),n}
+          &= \underbrace{c \cdot \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots a_{\pi(n),n}}_{\text{even}} \\
+          &- \underbrace{\sum_{\pi \in \mathfrak a_n} a_{\pi \circ \tau_{kl}(1),1} \ldots a_{\pi \circ \tau_{kl}(k),k} \ldots a_{\pi \circ \tau_{ul}(l),l} \ldots a_{\pi \circ \tau_{kl}(n),n}}_{\text{odd}} \\
+          &= c \cdot \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots, a_{\pi(n),n} \\
+          &- \sum_{\pi \in \mathfrak a_n} a_{\pi(1),1} \ldots \underbrace{a_{\pi(l),k}}_{a_{\pi(l),l}} \ldots \underbrace{a_{\pi(k)l}}_{a_{\pi(k),k} \text{ because } a_k=a_l} \ldots a_{\pi(n),n}
       \end{align*}
 
       What we did:
@@ -1020,7 +1020,7 @@ This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
 \end{proof}
 \begin{rem}
   \enquote{$\mathfrak a_n$ is the subgroup of index 2}
-  $[\sigma_n: \mathfrak a_n] = 2$
+  denoted $[\sigma_n: \mathfrak a_n] = 2$
 
   You might be familiar with:
   \[ \mathbb Z_n = \faktor{\mathbb Z}{n \mathbb Z} \]
@@ -1278,21 +1278,29 @@ Revision:
   \[ \sigma_3 = \functional{\tau_{12}, \tau_{23}} \]
   Is created by two transpositions.
 
-  % TODO: visualize better
-  \[
-    \begin{vmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{vmatrix}
-    = \begin{vmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{vmatrix}
-    \to \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
-    = \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
-  \]
-  \[
-    \begin{vmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{vmatrix}
-    \to \begin{vmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{vmatrix}
-    = \begin{vmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{vmatrix}
-    = \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
-  \]
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.45\textwidth]{img/sign-of-permutation.pdf}
+      \caption{Sign of a permutation}
+      \label{img:perm-sign}
+    \end{center}
+  \end{figure}
+  %Compare with Figure~\ref{img:perm-sign}.
+  %\[
+  %  \begin{vmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{vmatrix}
+  %  = \begin{vmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{vmatrix}
+  %  \to \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
+  %  = \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
+  %\]
+  %\[
+  %  \begin{vmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{vmatrix}
+  %  \to \begin{vmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{vmatrix}
+  %  = \begin{vmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{vmatrix}
+  %  = \begin{vmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{vmatrix}
+  %\]
 
   \[ = a_{11} a_{22} a_{33} + a_{21} a_{32} a_{13} + a_{31} a_{12} a_{23} - a_{21} a_{12} a_{33} - a_{11} a_{32} a_{23} - a_{31} a_{22} a_{13} \]
+  corresponding to (1) + (2) + (3) + (4) + (5) + (6) in Figure~\ref{img:perm-sign}.
 \end{rem}
 
 \begin{figure}[!h]
@@ -1360,8 +1368,925 @@ Revision:
   \end{enumerate}
 \end{proof}
 
-% TODO
-Example missing.
+\begin{ex}
+  \label{example-7.34}
+  \[
+    \begin{vmatrix}
+      1 & 2 & 5 \\
+      2 & 5 & 14 \\
+      5 & 14 & 42
+    \end{vmatrix}
+    =
+    \begin{vmatrix}
+      1 & 2 & 5 \\
+      0 & 1 & 4 \\
+      0 & 4 & 17
+    \end{vmatrix}
+    =
+    \begin{vmatrix}
+      1 & 2 & 5 \\
+      0 & 1 & 4 \\
+      0 & 0 & 1
+    \end{vmatrix}
+    = 1 \cdot 1 \cdot 1
+    = 1
+  \]
+\end{ex}
+
+
+\meta{lecture}{14th of March 2016}{Franz Lehner}
+
+\begin{lemma}
+  Recall: The following operations do not change the determinant:
+  \begin{itemize}
+    \item $\triangle(s_1, \ldots, s_i + \lambda s_j, \ldots, s_n) = \triangle(s_1, \ldots, s_n)$ \\
+      Addition of a multiple of a column (or row) to another
+    \item Gauss-Jordan operations (elementary row/column transformations)
+  \end{itemize}
+\end{lemma}
+
+\begin{ex}
+  \[
+    \begin{vmatrix}
+      1 & 0 & 3 & -2 \\
+      2 & 6 & 4 & 1 \\
+      3 & 3 & -1 & -1 \\
+      -1 & 2 & 4 & 1
+    \end{vmatrix}
+    \leadsto
+    \begin{vmatrix}
+      1 & 0 & 3 & -2 \\
+      0 & 6 & -2 & 5 \\
+      0 & 3 & -10 & 5 \\
+      0 & 2 & 7 & -1
+    \end{vmatrix}
+    \leadsto
+    \frac13
+    \frac12
+    \begin{vmatrix}
+      1 & 0 & 3 & -2 \\
+      0 & 6 & -2 & 5 \\
+      0 & 6 & -20 & 10 \\
+      0 & 6 & 21 & -3
+    \end{vmatrix}
+  \]
+  We multiplied the third row times $2$ and the fourth row times $3$.
+  Be aware that this way we avoided fractions in the matrix.
+
+  \[
+    \leadsto
+    \frac16
+    \begin{vmatrix}
+      1 & 0 & 3 & -2 \\
+      0 & 6 & -2 & 5 \\
+      0 & 0 & -18 & 5 \\
+      0 & 0 & 23 & -8
+    \end{vmatrix}
+    \cdot \frac{23}{18}
+    = \frac16
+    \begin{vmatrix}
+      1 & 0 & 3 & -2 \\
+      0 & 6 & -2 & 5 \\
+      0 & 0 & -8 & 5 \\
+      0 & 0 & 0 & -8+5\frac{23}{18}
+    \end{vmatrix}
+  \]
+  Even though we have a fraction $\frac16$ at the front, our result will
+  remain to be integral (i.e. without decimal points).
+
+  Triangular matrix:
+  \[ \frac16 \cdot 1 \cdot 6 \cdot (-18) \cdot \left(-8 + \frac{5 \cdot 23}{18}\right) \]
+  \[ = -(-18\cdot 8 + 5\cdot 23) = -(-144 + 115) = 29 \]
+\end{ex}
+
+\begin{lemma}
+  \label{lemma-7.35}
+  \begin{enumerate}
+    \item
+      \[
+        \begin{array}{|c|ccc|}
+          \hline
+            a_{11} & * & \ldots & * \\
+          \hline
+            0      &   &        &  \\
+            \vdots &   &  B     &  \\
+            0      &   &        &
+        \end{array}
+        = a_{11} \cdot \det{B}
+      \]
+    \item
+      \[
+        \begin{array}{|ccc|c|}
+          \hline
+                &        &   & 0 \\
+                & B      &   & 0  \\
+                &        &   & \vdots \\
+          \hline
+            *   & \ldots & * & a_{nn}
+        \end{array}
+        = \det{B} \cdot a_{nn}
+      \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \[ \det{A} = \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1),1} \ldots a_{\pi(2),2} \]
+
+  \begin{enumerate}
+    \item[2.]
+      \begin{align*}
+        a_{\pi(n),n} &= 0 \text{ except when } \pi(n) = n \\
+          &= \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1),1} \ldots a_{\pi(n),n} \\
+          &= \sum_{\rho \in \sigma_{n-1}} (-1)^\rho a_{\rho(1),1} \ldots a_{\rho(n-1),n-1} a_{\rho(n),n}
+          &= \det{B} \cdot a_{nn}
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{defi}
+  \label{definition-7.36}
+  Let $A \in \mathbb K^{n\times n}$.
+  \[ 1 \leq k, l \leq n \]
+  $A_{k,l}$ (dimension $(n-1) \times (n-1)$) which is generated by $A$ if you cancel out row $k$ and column $l$.
+
+  \[
+    \begin{vmatrix}
+      a_{1,1} & \ldots & a_{1,l-1} & a_{1,l+1} & \ldots & a_{1,n} \\
+      a_{2,1} & \ldots & a_{2,l-1} & a_{2,l+1} & \ldots & a_{2,n} \\
+      \vdots & \vdots & \vdots    & \vdots    & \ddots & \vdots \\
+      a_{k-1,1} & \ldots & a_{k-1,l-1} & a_{k-1,l+1} & \ldots & a_{k-1,n} \\
+      a_{k+1,1} & \ldots & a_{k+1,l-1} & a_{k+1,l+1} & \ldots & a_{k+1,n} \\
+      \vdots & \vdots & \vdots    & \vdots    & \ddots & \vdots \\
+      a_{n,1} & \ldots & a_{n,l-1} & a_{n,l+1} & \ldots & a_{n,n}
+    \end{vmatrix}
+  \]
+\end{defi}
+
+\index[English]{Generative theorem of Laplace} % TODO: translate
+\index[German]{\foreignlanguage{ngerman}{Entwicklungssatz von Laplace}}
+\begin{theorem}[Generative theorem of Laplace (dt. Entwicklungssatz von Laplace)]
+  \label{thm:laplace-entwicklung}
+  Let $A \in K^{n\times n}$, then it holds that
+  \[ \det(A) = \sum_{k=1}^n a_{k,l} \cdot (-1)^{k+l} \cdot \det{A_{k,l}} \]
+  Generation to $l$-th column.
+  \[ \det{A} = \sum_{l=1}^n a_{k,l} \cdot (-1)^{k+l} \cdot \det{A_{k,l}} \]
+  Generation to $k$-th row.
+\end{theorem}
+
+\begin{proof}
+  $l$-th column is
+  \[ a_l = \sum_{k=1}^n a_{kl} e_{k} \]
+
+  \begin{align*}
+    \det(A) &= \triangle(a_1, \ldots, a_n) \\
+      &= \triangle (a_1, \ldots, a_{l-1}, \sum_{k=1}^n a_{kl} e_k, \ldots, a_n) \\
+      &= \sum_{k=1}^n a_{kl} \triangle (a_1, \ldots, a_{l-1}, e_k, \ldots a_n) \\
+      &= \sum_{k=1}^n a_{kl}
+        \begin{vmatrix}
+          a_{11} & \ldots & a_{1,l-1} & 0 & a_{1,l+1} & \ldots & a_{1,n} \\
+                 &        &           & \vdots &      &        & \\
+                 &        &           & 0      &      &        & \\
+          \vdots &        &           & 1      &      &        & \vdots \\
+                 &        &           & 0      &      &        & \\
+                 &        &           & \vdots &      &        & \\
+          a_{n1} & \ldots & a_{n,l-1} & 0 & a_{n,l+1} & \ldots & a_{n,n} \\
+        \end{vmatrix}
+  \end{align*}
+  where $1$ is given on the $k$-th row and the $l$-th column which is $e_k$.
+
+  We exchange the $l$-th column with the $(l-1)$-th, then $(l-2)$-th and so on and so forth \dots
+  This requires $(l-1)$ transpositions.
+
+  \[
+    \sum_{k=1}^n a_{kl} (-1)^{l-1}
+    \begin{vmatrix}
+      0 & a_{11} & \ldots & a_{1,l-1} & a_{1,l-1} & \ldots & a_{1,n} \\
+      \vdots & a_{21} & \ldots & \ldots & \ldots & \ldots & \ldots \\
+      0 & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+      1 & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+      0 & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+      \vdots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+      0 & a_{n1} & \ldots & a_{n,l-1} & a_{n,l-1} & \ldots & a_{n,n}
+    \end{vmatrix}
+  \]
+  where $1$ is given on the $k$-th row.
+
+  Exchange $k$-th and $(k-1)$-th row, then $(k-2)$-th and so on and so forth \dots
+  This requires $k-1$ transpositions.
+
+  \[
+    = \sum_{k=1}^n a_{kl} (-1)^{k-1+l-1}
+    \begin{array}{|c|c|}
+    \hline
+      1 & \\
+    \hline
+      0 & \\
+      \vdots & \\
+      \ldots & A_{k,l} \\
+      \vdots & \\
+      0 & \\
+    \hline
+    \end{array}
+    = \sum_{l=1}^n a_{k,l} (-1)^{k+l} \det{A_{k,l}}
+  \]
+\end{proof}
+
+\begin{ex}
+  \[
+    \begin{vmatrix}
+      1 & 2 & 5 \\
+      2 & 5 & 14 \\
+      5 & 14 & 42
+    \end{vmatrix}
+    =
+    1 \cdot \begin{vmatrix}
+      5 & 14 \\
+      14 & 42
+    \end{vmatrix} - 2 \cdot \begin{vmatrix}
+      2 & 14 \\
+      5 & 42
+    \end{vmatrix} + 5 \cdot \begin{vmatrix}
+      2 & 5 \\
+      5 & 4
+    \end{vmatrix}
+  \] \[
+    \begin{array}{|c|c|c|}
+      + & - & + \\
+    \hline
+      - & + & - \\
+    \hline
+      + & - & +
+    \end{array}
+  \]
+  where the top right $+$ refers to the third summand (submatrix)
+  and the top middle $-$ refers to the second summand (submatrix).
+  \[
+    = (5 \cdot 42 - 14\cdot 14) - 2 \cdot (2 \cdot 42 - 5 \cdot 14) + 5 \cdot (2 \cdot 14 - 5 \cdot 5)
+    = 14 - 2 \cdot 14 + 5 \cdot 3 = 1
+  \]
+\end{ex}
+
+\index[English]{Complementary matrix}
+\index[German]{\foreignlanguage{ngerman}{Komplementärmatrix}}
+\index[English]{Adjoint matrix}
+\index[German]{\foreignlanguage{ngerman}{Adjunkte Matrix}}
+\begin{theorem}
+  \label{satz-7.39}
+  $A$ is invertible iff $\det{A} \neq 0$.
+
+  Let $A \in K^{n \times n}$, $\hat{A} \coloneqq [\hat{a}_{kl}]_{k,l=1,\ldots,n}$
+  is the \emph{complementary matrix} or \emph{adjoint matrix}.
+
+  \[ \hat{a}_{kl} = (-1)^{k+l} \det{A_{lk}} \]
+  Then
+  \[ A^{-1} = \frac{1}{\det{A}} \cdot \hat{A} \]
+\end{theorem}
+\begin{proof}
+  Show that $B \coloneqq \hat{A} \cdot A = \det{A} \cdot I$.
+  \[ b_{k,l} = \sum_{j=1}^n \hat{a}_{kj} a_{jl} = \sum_{j=1}^n (-1)^{k+j} \det{A}_{jk} a_{jl} \]
+  \begin{description}
+    \item[Case $k=l$]
+      \[ b_{kk} = \sum_{j=1}^n (-1)^{k+j} a_{jk} \det{A}_{jk} = \det{A} \left(\text{Laplace generation to $k$-th column}\right) \]
+    \item[Case $k\neq l$]
+      Without loss of generality $k < l$.
+      \[
+        0 = \det\begin{bmatrix}
+          a_{11} & \ldots & a_{1l} & \ldots & a_{1l} & \ldots & a_{1n} \\
+          \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+          a_{n1} & \ldots & a_{nl} & \ldots & a_{nl} & \ldots & a_{nn} \\
+        \end{bmatrix}
+      \]
+      We replace the $k$-th column (left column with $a_{1l}$ in the middle)
+      by the $l$-th column (right column with $a_{1l}$ in the middle).
+
+      Laplace generation by $k$-th column:
+      \[
+        = \sum_{j=1}^n a_{jl} \det\begin{bmatrix}
+          a_{11} & \ldots & 0 & \ldots & a_{1l} & \ldots & a_{1n} \\
+          \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+          \vdots & \vdots & 1 & \vdots & \vdots & \vdots & \vdots \\
+          \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+          a_{n1} & \ldots & 0 & \ldots & a_{nl} & \ldots & a_{nn} \\
+        \end{bmatrix}
+      \]
+      Similar to Laplace:
+      \[ = \sum_{j=1}^n a_{jl} (-1)^{j+l} \det{A_{jk}} = \sum_{j=1}^n a_{jl} \hat{a}_{kj} = b_{kl} \]
+  \end{description}
+\end{proof}
+
+\begin{ex}[Cayley 1855]
+  Cayley considered it as partial derivations:
+  \[
+    \frac{1}{\triangledown}
+    \begin{vmatrix}
+      \partial_a \triangledown & \partial_c \triangledown \\
+      \partial_b \triangledown & \partial_d \triangledown \\
+    \end{vmatrix}
+  \]
+
+  Consider $n=2$:
+  \[
+    \begin{bmatrix}
+      a & b \\
+      c & d
+    \end{bmatrix}^{-1}
+    = \frac{1}{ad - bc}
+    \begin{bmatrix}
+      d & -b \\
+      -c & a
+    \end{bmatrix}
+  \]
+
+  Consider $n=3$:
+  \[
+    \begin{bmatrix}
+      a_{11} & a_{12} & a_{13} \\
+      a_{21} & a_{22} & a_{23} \\
+      a_{31} & a_{32} & a_{33}
+    \end{bmatrix}^{-1}
+    = \frac{1}{\det{A}}
+    \begin{bmatrix}
+      \begin{vmatrix}
+        a_{22} & a_{13} \\
+        a_{32} & a_{33}
+      \end{vmatrix} &
+      - \begin{vmatrix}
+        a_{12} & a_{13} \\
+        a_{32} & a_{33}
+      \end{vmatrix} &
+      \begin{vmatrix}
+        a_{12} & a_{13} \\
+        a_{22} & a_{23}
+      \end{vmatrix} \\
+      - \begin{vmatrix}
+        a_{21} & a_{23} \\
+        a_{31} & a_{33}
+      \end{vmatrix} &
+      \begin{vmatrix}
+        a_{11} & a_{13} \\
+        a_{31} & a_{33}
+      \end{vmatrix} &
+      -\begin{vmatrix}
+        a_{11} & a_{13} \\
+        a_{21} & a_{23}
+      \end{vmatrix} \\
+      \begin{vmatrix}
+        a_{21} & a_{22} \\
+        a_{31} & a_{32}
+      \end{vmatrix} &
+      - \begin{vmatrix}
+        a_{11} & a_{12} \\
+        a_{31} & a_{32}
+      \end{vmatrix} &
+      \begin{vmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{vmatrix}
+    \end{bmatrix}
+  \]
+\end{ex}
+
+\begin{ex}
+  \[
+    \begin{bmatrix}
+      1 & 2 & 5 \\
+      2 & 5 & 14 \\
+      5 & 14 & 42
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      \begin{vmatrix}
+        5 & 14 \\
+        14 & 42
+      \end{vmatrix} &
+      - \begin{vmatrix}
+        2 & 5 \\
+        14 & 42 \\
+      \end{vmatrix} &
+      \begin{vmatrix}
+        2 & 5 \\
+        5 & 14
+      \end{vmatrix} \\
+      -\begin{vmatrix}
+        2 & 14 \\
+        5 & 42
+      \end{vmatrix} &
+      \begin{vmatrix}
+        1 & 5 \\
+        5 & 42
+      \end{vmatrix} &
+      -\begin{vmatrix}
+        1 & 5 \\
+        2 & 14
+      \end{vmatrix} \\
+      \begin{vmatrix}
+        2 & 5 \\
+        5 & 14
+      \end{vmatrix} &
+      -\begin{vmatrix}
+        1 & 2 \\
+        5 & 14
+      \end{vmatrix} &
+      \begin{vmatrix}
+        1 & 2 \\
+        2 & 5
+      \end{vmatrix}
+    \end{bmatrix}
+    = \begin{bmatrix}
+      14 & -14 & 3 \\
+      -14 & 17 & -4 \\
+      3 & -4 & 1
+    \end{bmatrix}
+  \] \[
+    \begin{vmatrix}
+      5 & 14 \\
+      14 & 42
+    \end{vmatrix}
+    = 5 \cdot 3 \cdot 14
+    - 14 \cdot 14 = 14
+  \] \[
+    \begin{vmatrix}
+      2 & 5 \\
+      14 & 42
+    \end{vmatrix}
+    = 2 \cdot 3 \cdot 14
+    - 5 \cdot 14 = 14
+  \]
+\end{ex}
+
+\begin{theorem}[Arnold's hypothesis]
+  \enquote{No theorem in mathematics is named after it's original author}
+\end{theorem}
+\begin{proof}
+  No proof provided here.
+\end{proof}
+
+\begin{theorem}[Cramer's rule]
+  Originally by McLansin (1748) based on work by Leibniz (1678) and reformulated by G. Cramer (1750).
+
+  A regular $n\times n$ matrix with column vectors $a_1, \ldots, a_n \in \mathbb K^n$.
+
+  Then the unique solution to the equation system $Ax = b$ is given by
+  \[
+    x_i \coloneqq
+    \frac{\triangle(a_1, \ldots, a_{i-1}, b, a_{i+1}, \ldots, a_n)}{\triangle(a_1, \ldots, a_n)}
+    = \frac{\det(a_1,\ldots,b,\ldots,a_n)}{\det{A}}
+  \]
+
+  Its complexity is given by $n+1$ determinants!
+\end{theorem}
+\begin{proof}
+  \[ b = \sum_{j=1}^{n} b_j e_j \]
+  \[ x = A^{-1} b - \frac{1}{\det{A}} \hat{A} \cdot b \]
+  \[ x_i = \frac{1}{\det{A}} \sum_{j=1}^{n} \hat{a}_{ij} b_j = \frac{1}{\det{A}} \sum_{j=1}^{n} (-1)^{i+j} \det{(A_j)} b_j \]
+  \[ = \frac{1}{\det{A}} \sum_{j=1}^n \triangle (a_1, \ldots, a_{i-1}, \ldots, a_{j-1}, e_j, a_{j+1}, \ldots, a_n) \cdot b_j \]
+  \[ = \frac{1}{\det{A}} \triangle (a_1, \ldots, a_{i-1}, \underbrace{\sum_{j=1}^n b_j e_j}_{=b}, \ldots, a_n) \]
+\end{proof}
+
+% TODO: in the following indices are missing
+
+\begin{ex}
+  \label{exercise-7.42}
+  \[ 2x_1 + 2x_2 = 7 \]
+  \[ x_1 - 3x_2 = 0 \]
+  \[ A = \begin{bmatrix} 2 & 2 \\ 1 & -3 \end{bmatrix} \qquad b = \begin{bmatrix} 7 \\ 0 \end{bmatrix} \]
+  \[
+    \det{A} = -8 \qquad
+    x_1 = \frac{\begin{vmatrix} 7 & 2 \\ 0 & -3 \end{vmatrix}}{-8} = \frac{21}{8} \qquad
+    x_2 = \frac{\begin{vmatrix} 2 & 7 \\ 1 & 0 \end{vmatrix}}{-8} = \frac78
+  \]
+\end{ex}
+\begin{rem}
+  \label{bem-7.43}
+  \begin{itemize}
+    \item in higher dimensions ($n \geq 4$)
+      Cramer's rule is disallowed.
+      \begin{enumerate}
+        \item too computationally intense
+        \item numerically unstable (small errors have large effects)
+      \end{enumerate}
+    \item Anyways, still useful for theoretical considerations
+      \begin{enumerate}
+        \item the map $A \mapsto \det{A}$ is $C^\infty$ (polynomial!) (this denotes infinite differentiability)
+        \item The set of invertible matrices in $\mathbb R^{n\times n}$ is open,
+          because if $\det{A} \neq 0$, then also $\det{\tilde{A}} \neq 0$ as long as $\abs{a_{ij} - \tilde{a}_{ij}} < \delta$.
+        \item The solution of the equation system $Ax = b$, for invertible $A$, depends continuously and differentiable
+          on $A$ and $b$:
+          \[
+            x_i
+            = \underbrace{\frac{1}{\det{A}}}_{\text{continuous as long as } \det{A} \neq 0} \underbrace{\hat{A} b}_{\text{polynomial}}
+          \]
+        \item The map $\operatorname{GL}(n,\mathbb R) \to \operatorname{GL}(n,\mathbb R)$
+          \[ A \mapsto A^{-1} \]
+          is continuous.
+          \[ A^{-1} = \frac{1}{\det{A}} \cdot \hat{A} \]
+          So $\operatorname{GL}(n,\mathbb R)$ is a Lie group.
+      \end{enumerate}
+  \end{itemize}
+\end{rem}
+
+\meta{lecture}{16th of March 2016}{Franz Lehner}
+
+\section{Inner products}
+%
+Descartes introduced \enquote{La G\'eometrie} (1637).
+
+\begin{defi}
+  The length of a vector in $\mathbb R^2/\mathbb R^3$ is:
+  \[ \left\| \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} \right\| = \sqrt{x_1^2 + x_2^2 + x_3^2} \]
+\end{defi}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/pythagorian-proof.pdf}
+    \caption{Pythagorian proof of $c^2 = a^2 + b^2$}
+    \label{img:pyth}
+    % TODO
+  \end{center}
+\end{figure}
+
+\begin{defi}[Scalar product]
+  \[ \cos{\theta} = \cos(2\pi - \theta) \]
+  The scalar product is defined as
+  \[ \functional{a,b} = \norm{a} \cdot \norm{b} \cdot \cos{\theta} \]
+\end{defi}
+
+\begin{theorem}
+  \label{prop-8.2}
+  The following properties hold:
+  \begin{itemize}
+    \item $\norm{\lambda \cdot a} = \abs{\lambda} \cdot \norm a$
+    \item $\norm{a + b} \leq \norm{a} + \norm{b}$ (triangle inequality)
+    \item $\functional{a,a} = \norm{a}^2 \geq 0$
+    \item $\functional{a,a} = 0 \Leftrightarrow a = 0$
+    \item $\functional{a,b} = 0 \Leftrightarrow a = 0 \lor b = 0$
+      \[ \functional{a,b} > 0 \Leftrightarrow \text{ acute angle } \]
+      \[ \functional{a,b} < 0 \Leftrightarrow \text{ obtuse angle } \]
+  \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+  \label{satz-8.3}
+  \begin{align}
+    \functional{a,b} &= \functional{b,a} \\
+    \functional{\lambda a,b} &= \lambda \functional{a,b} \\
+    \functional{a+b,c} &= \functional{a,c} + \functional{b,c}
+  \end{align}
+  So it actually describes a bilinear map.
+\end{theorem}
+
+\begin{proof}
+  \begin{itemize}
+    \item immediate
+    \item
+      \begin{description}
+        \item[$\lambda > 0$]
+          immediate
+        \item[$\lambda < 0$]
+          Angle $\theta$ becomes $\pi - \theta$.
+          \[ \cos(\pi - \theta) = -\cos{\theta} \]
+          \[ \functional{\lambda a,b} = \abs{\lambda} \cdot \norm{a} \cdot \norm{b} \cos(\pi - \theta) = -\abs{\lambda} \cdot \norm{a} \cdot \norm{b} \cdot \cos{\theta} = \lambda \functional{a,b} \]
+      \end{description}
+    \item
+      Let $b = e, \norm{e} = 1$.
+      \[ \functional{a,e} = \norm{a} \cdot \cos{\theta} \]
+      \[ \functional{a+b,c} = \norm{c} \functional{a+b,\frac{c}{\norm{c}}} - \norm{c} \left(\functional{a,\frac{c}{\norm{c}}} + \functional{b,\frac{c}{\norm{c}}}\right) = \functional{a,c} + \functional{b,c} \]
+      Compare with Figure~\ref{img:383}.
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics{img/8_3_3.pdf}
+          \caption{$\functional{a+b,c} = \functional{a,c} + \functional{b,c}$}
+          \label{img:383}
+        \end{center}
+      \end{figure}
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-8.4}
+  \[ \functional{\begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}, \begin{pmatrix} b_1 \\ b_2 \\ b_3 \end{pmatrix}} = a_1 b_1 + a_2 b_2 + a_3 b_3 \]
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    \functional{a,b} &= \functional{a_1 e_1 + a_2 e_2 + a_3 e_3, b} \\
+      &= a_1 \functional{e_1, b} + a_2 \functional{e_2, b} + a_3 \functional{e_3, b} \\
+      &= a_1 b_1 + a_2 b_2 + a_3 b_3 \\
+    \functional{e_i,b}
+      &= \functional{e_i, b_1 e_1 + b_2 e_2 + b_3 e_3} \\
+      &= b_1 \functional{e_i, e_1} + b_2 \functional{e_i, e_2} + b_3 \functional{e_i, e_3} \\
+      &= b_1 \delta_{i1} + b_2 \delta_{i2} + b_3 \delta_{i3} \\
+      &= b_i
+  \end{align*}
+  with $\dim\functional{e_i,e_j} = \delta_{ij}$.
+\end{proof}
+
+\begin{ex}[Law of cosines]
+  \label{ex-8.5}
+  \[ a^2 + b^2 = c^2 + 2ab \cos{\gamma} \]
+  Compare with Figure~\ref{img:law-of-cosines}.
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/law-of-cosines.pdf}
+      \caption{Law of cosines}
+      \label{img:law-of-cosines}
+    \end{center}
+  \end{figure}
+
+  \begin{align*}
+    \norm{c}^2 &= \functional{a-b, a-b} \\
+      &= \functional{a,a} - \functional{a,b} - \functional{b,a} + \functional{b,b} \\
+      &= \norm{a}^2 - 2 \cdot \norm{a} \norm{b} \cos{\gamma} + \norm{b}^2
+  \end{align*}
+\end{ex}
+
+\begin{theorem}{Theorem by Thales}
+  TODO: image
+  \begin{align*}
+    \functional{a-b, -a-b} &= \norm{a-b} \norm{a+b} \cos\theta \\
+    \functional{a-b, -a-b} &= -\functional{a-b, a+b} \\
+      &= -\left(\functional{a,a} - \functional{b,a} + \functional{a,b} - \functional{b,b}\right) \\
+      &= -\left(\norm{a}^2 - \norm{b}^2\right) \\
+      &= 0 \\
+      &\Rightarrow \theta = \frac\pi2
+  \end{align*}
+\end{theorem}
+
+\begin{rem}
+  How do we find the normal vector?
+  \[ \vec{n} = \begin{pmatrix} a_2 \\ -a_1 \end{pmatrix} \]
+  \[ \functional{\begin{pmatrix} a_1 \\ a_2 \end{pmatrix}, \begin{pmatrix} a_2 & -a_1 \end{pmatrix}} = a_1 a_2 - a_2 a_1 = 0 \]
+\end{rem}
+
+\begin{defi}[Outer product]
+  \enquote{Outer product}, \enquote{cross product} or \enquote{vector product}
+
+  TODO: image missing
+
+  This is only available in $\mathbb R^3$.
+
+  Let $a,b \in \mathbb R^3$, then $a \times b$ is the vector with properties:
+  \begin{itemize}
+    \item $\norm{a \times b} = \norm{a} \cdot \norm{b} \cdot \sin\theta$ \\
+      This corresponds to the are of a parallelogram.
+      \[ \norm{b} \cdot \sin\theta = \text{ heigh of a parallelogram} \]
+    \item $a \times b \bot a,b$
+      \begin{align*}
+        \functional{a \times b, a} &= 0 \\
+        \functional{a \times b, b} &= 0
+      \end{align*}
+    \item $(a,b,a\times b)$ are clockwise (consider a screw coming out of Figure)
+      \[ a \times b = 0 \Leftrightarrow a = 0 \lor b = 0 \lor a,b \text{ are linear dependent} \]
+  \end{itemize}
+\end{defi}
+
+\begin{theorem}
+  \label{satz-8.8}
+  \begin{enumerate}
+    \item $b \times a = - a \times b$ (counter-clockwise)
+    \item $(\lambda a) \times b = \lambda \cdot a \times b = a \times (\lambda b)$
+    \item $(a + b) \times c = a \times c + b \times c$
+  \end{enumerate}
+  So it is bilinear in $\mathbb R^3 \times \mathbb R^3 \to \mathbb R^3$
+\end{theorem}
+
+\begin{proof}
+  \[ a \times c, b \times c, (a + b) \times c \in E \]
+  Let $a',b',(a+b)'$ be the projection of $a, b$ and $a+b$ in the plane.
+  \begin{figure}
+    \begin{center}
+      \includegraphics{img/8_3_3.pdf} % TODO
+      \caption{Theorem~\ref{satz-8.8}, third statement}
+    \end{center}
+  \end{figure}
+
+  TODO: image missing
+  \begin{enumerate}
+    \item
+      \[ (a + b)' = a' + b' \]
+      Projection of the sum = sum of projections.
+    \item
+      \[ a \times c = a' \times c \]
+      \[ \norm{a' \times c} = \norm{a'} \cdot \norm{c} \]
+      \begin{align*}
+          \norm{a \times c} &= \norm{a} \cdot \norm{c} \cdot \sin{\theta} \\
+            &= \norm{a'} \cdot \norm{c}
+      \end{align*}
+      \[ \norm{a'} = \norm{c} \cdot \sin\theta \]
+      and they have the same direction.
+
+      TODO: image missing
+    \item
+      \[ (a' + b') \times c = c' \times c + b' \times c \]
+      From above:
+
+      TODO: image missing
+
+      \[ \norm{a' \times c} = \norm{c} \cdot \norm{a'} \]
+  \end{enumerate}
+  So this operation is linear.
+
+  \begin{align*}
+    (a + b) \times c
+      &\stackrel{2}{=} (a + b)' \times c \\
+      &\stackrel{1}{=} (a' + b') \times c \\
+      &\stackrel{3}{=} (a' \times c + b' \times c) \\
+      &\stackrel{2}{=} a \times c + b \times c
+  \end{align*}
+\end{proof}
+
+\begin{cor}
+  \label{cor-8.9}
+  The cross product is a map $x: \mathbb R^3 \to \mathbb R^3 \to \mathbb R^3$
+  with properties:
+  \begin{itemize}
+    \item bilinear
+    \item anti-symmetric
+    \item \enquote{chiral}, namely
+      \[ e_1 \times e_2 = e_3 \]
+      \[ e_2 \times e_3 = e_1 \]
+      \[ e_3 \times e_1 = e_2 \]
+  \end{itemize}
+\end{cor}
+
+\begin{cor}
+  \label{cor-8.10}
+  \[
+    \begin{pmatrix}
+      a_1 \\ a_2 \\ a_3
+    \end{pmatrix} \times
+    \begin{pmatrix}
+      b_1 \\ b_2 \\ b_3
+    \end{pmatrix}
+    = \begin{bmatrix}
+      a_2 b_3 - a_3 b_2 \\
+      a_3 b_1 - a_1 b_3 \\
+      a_1 b_2 - a_2 b_1
+    \end{bmatrix}
+    = \begin{bmatrix}
+      \begin{vmatrix}
+        a_2 & b_2 \\
+        a_3 & b_3
+      \end{vmatrix} \\
+      -
+      \begin{vmatrix}
+        a_1 & b_1 \\
+        a_3 & b_3
+      \end{vmatrix} \\
+      \begin{vmatrix}
+        a_2 & b_2 \\
+        a_2 & b_2
+      \end{vmatrix}
+    \end{bmatrix}
+  \] \[
+    \overset{\text{Laplace}}{=}
+    \begin{vmatrix}
+      a_1 & b_1 & e_1 \\
+      a_2 & b_2 & e_2 \\
+      a_3 & b_3 & e_3
+    \end{vmatrix}
+  \]
+  Formally, matrices in a vector of values are disallowed,
+  but as far as it boils down to addition, this is fine.
+\end{cor}
+
+\begin{proof}
+  \begin{align*}
+    & (a_1 e_1 + a_2 e_2 + a_3 e_3) \times (b_1 e_1 + b_2 e_2 + b_3 e_3) \\
+    &= a_1 b_1 e_1 \times e_1 + a_1 b_2 e_1 \times e_2 + a_1 b_3 e_1 \times e_3 \\
+    &+ a_2 b_1 e_2 \times e_1 + a_2 b_2 e_2 \times e_2 + a_2 b_3 e_3 \times e_3 \\
+    &+ a_3 b_1 e_3 \times e_1 + a_3 b_2 e_3 \times e_2 + a_3 b_3 e_3 \times e_3 \\
+    &= a_1 b_2 e_3 + a_1 b_3 (-e_2)
+    + a_2 b_1 (-e_3) + a_2 b_3 e_1 +
+    a_3 b_1 e_2 + a_3 b_2 (-e_1) \\
+    &= (a_2 b_3 - a_3 b_2) e_1 + (a_3 b_1 - a_1 b_3) e_2 + (a_1 b_2 - a_2 b_1) e_3
+  \end{align*}
+\end{proof}
+
+\begin{theorem}[Scalar triple product]
+  \label{satz-8.11}
+  The three-dimensional parallelogram is called \enquote{Spat} in German (compare with Figure~\ref{img:3dp}).
+  \[
+    \functional{a\times b, c}
+    = \begin{vmatrix}
+      a_1 & b_1 & c_1 \\
+      a_2 & b_2 & c_2 \\
+      a_3 & b_3 & c_3
+    \end{vmatrix}
+    = \text{ volume of spanned 3-dimensional parallelogram}
+  \]
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/scalar-triple-product.pdf}
+      \caption{Three-dimensional parallelogram}
+      \label{img:3dp}
+    \end{center}
+  \end{figure}
+  $\norm{a \times b}$ is the area of the parallelogram.
+  $\functional{a \times b, c} = \norm{a \times b} \cdot \norm{c} \cdot \cos\theta$
+  where $\norm{c} \cdot \cos\theta$ is the height of the $3$-dimensional parallelogram.
+
+  \[
+    \functional{a \times b, c} = \functional{
+      \begin{pmatrix}
+        \begin{vmatrix}
+          a_1 & b_2 \\
+          a_3 & b_3
+        \end{vmatrix} \\
+        - \begin{vmatrix}
+          a_1 & b_1 \\
+          a_3 & b_3
+        \end{vmatrix} \\
+        \begin{vmatrix}
+          a_1 & b_1 \\
+          a_2 & b_2
+        \end{vmatrix}
+      \end{pmatrix},
+      \begin{pmatrix} c_1 \\ c_2 \\ c_3 \end{pmatrix}
+    }
+  \] \[
+    \begin{vmatrix} a_2 & b_2 \\ a_3 & b_3 \end{vmatrix} \cdot c_1
+    - \begin{vmatrix} a_1 & b_1 \\ a_3 & b_3 \end{vmatrix} \cdot c_2
+    + \begin{vmatrix} a_1 & b_1 \\ a_2 & b_2 \end{vmatrix} \cdot c_3
+    = \text{Laplace generated by third column}
+  \]
+\end{theorem}
+\begin{ex}
+  \label{application-8.12}
+  Given a plane in parameter representation:
+  \[ E = \setdef{v_0 + \lambda a + \mu b}{\lambda, \mu \in \mathbb R} \]
+  Find $\alpha_1, \alpha_2, \alpha_3$ and $\beta$ with (\enquote{implicit representation})
+  \[ E = \setdef{x}{\alpha_1 x_1 + \alpha_2 x_2 + \alpha_3 x_3 = \beta}\]
+  \[
+    \begin{pmatrix} \alpha_1 \\ \alpha_2 \\ \alpha_3 \end{pmatrix}
+    = a \times b
+  \]
+  TODO: image missing
+  \[ \beta = \functional{v_0, a \times b} \]
+\end{ex}
+
+In the following chapters we always consider $\mathbb K = \mathbb R$ or $\mathbb K = \mathbb C$.
+
+\index[English]{Inner product}
+\index[German]{\foreignlanguage{ngerman}{Inneres Produkt}}
+\index[English]{Semi-definite inner product}
+\index[German]{\foreignlanguage{ngerman}{Semi-definites inneres Produkt}}
+\index[English]{Definite inner product}
+\index[German]{\foreignlanguage{ngerman}{Definites inneres Produkt}}
+\index[English]{Positive Semi-definite inner product}
+\index[German]{\foreignlanguage{ngerman}{Positives semi-definites inneres Produkt}}
+\index[English]{Positive definite inner product}
+\index[German]{\foreignlanguage{ngerman}{Positives definites inneres Produkt}}
+\index[English]{Negative Semi-definite inner product}
+\index[German]{\foreignlanguage{ngerman}{Negatives semi-definites inneres Produkt}}
+\index[English]{Negative definite inner product}
+\index[German]{\foreignlanguage{ngerman}{Negatives definites inneres Produkt}}
+\index[English]{Indefinite inner product}
+\index[German]{\foreignlanguage{ngerman}{Indefinites inneres Produkt}}
+\begin{defi}
+  \label{defi-8.13}
+  An inner product over a vector space in $\mathbb R$ or $\mathbb C$
+  is a map $\functional{\cdot, \cdot}: V \times V \to \mathbb K$
+  with properties:
+  \begin{itemize}
+    \item $\functional{x+y, z} = \functional{x,z} + \functional{y,z} \quad \forall x,y,z \in V$
+    \item $\functional{\lambda x, y} = \lambda \functional{x,y} \quad \forall x,y \in V \forall \lambda \in \mathbb K$
+    \item $\functional{y,x} = \overline{\functional{x,y}} \quad \forall x,y \in V$
+  \end{itemize}
+  where $\overline{\functional{x,y}}$ denotes the complex conjugate.
+  Especially $\functional{x,x} \in \mathbb R \forall x \in V$.
+
+  An inner product is called
+  \begin{description}
+    \item[positive semidefinite] if $\functional{x,x} \geq 0 \quad \forall x$
+    \item[positive definite] if $\functional{x,x} > 0 \quad \forall x \neq 0$
+    \item[negative semidefinite] if $\functional{x,x} \leq 0 \quad \forall x$
+    \item[negative definite] if $\functional{x,x} < 0 \quad \forall x \neq 0$
+    \item[indefinite] if $\exists x: \functional{x,x} > 0 \land \exists y: \functional{y,y} < 0$
+  \end{description}
+\end{defi}
+
+% TODO: check translations
+\begin{defi}
+  Scalar product if $\mathbb K = \mathbb R$ \\
+  Hermitian product (or unitary product) if $\mathbb K = \mathbb C$ \\
+
+  Quadratic form if $\mathbb K = \mathbb R$ \\
+  Hermitian form if $\mathbb K = \mathbb C$
+\end{defi}
+
+\begin{lemma}
+  \begin{itemize}
+    \item $\functional{x,y+z} = \functional{x,y} + \functional{x,z}$
+    \item $\functional{x,\lambda y} = \overline{\lambda} \functional{x,y}$
+    \item $\functional{x,0} = 0$
+  \end{itemize}
+  Linear in $x$ and anti-linear in $y$!
+
+  Swsquilinear
+\end{lemma}
+
+
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}

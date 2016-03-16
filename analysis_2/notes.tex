@@ -1129,6 +1129,7 @@ exist such that
 and $\varphi|_{(x_{j-1}, x_j)} = c_j$ is constant.
 The points $x_j$ define a partition of the interval $[a,b]$.
 
+$\tau[a,b]$ defines the set of step functions of interval $[a,b]$.
 The function values defining the partitions do not have any constraints and
 are therefore irrelevant for further considerations (compare with Figure~\ref{img:partition-int}).
 
@@ -1143,7 +1144,7 @@ are therefore irrelevant for further considerations (compare with Figure~\ref{im
 \index[English]{Integral}
 \index[German]{\foreignlanguage{ngerman}{Integral}}
 \begin{defi}
-  Let $\varphi:[a,b] \to \mathbb R$ a step function and
+  Let $\varphi:[a,b] \to \mathbb R$ be a step function and
   $x_0 = a < x_1 < \ldots < x_n = b$ as partition of
   $[a,b]$ and let $\varphi|_{(x_{j-1}, x_j)} = c_j$
   for $j = 1,\ldots,n$.
@@ -1218,6 +1219,264 @@ Compare with Figure~\ref{img:step-function}.
   \[ \sum_{l=1}^L c''_l \cdot \triangle \alpha_l = \sum_{k=1}^m c'_k \triangle w_k \]
   So it holds that
   \[ \sum_{j=1}^n c_j \triangle x_j = \sum_{k=1}^m c'_k \triangle w_k \]
+\end{proof}
+
+\meta{lecture}{15th of March 2016}{Wolfgang Ring}
+
+\begin{lemma}
+  Let $\varphi \in \tau[a,b]$ be a step function in terms of partition
+  $a = x_0 < x_1 < \ldots < x_n = b$.
+  Let $a = \alpha_0 < \alpha_1 < \ldots < \alpha_L = b$ with
+  $Z = \set{x_0, \ldots, x_n} \subseteq \set{\alpha_0, \alpha_1, \ldots, \alpha_L} = z'$
+  ($z'$ has more intervals than $Z'$).
+
+  Then also $\varphi$ is step function in terms of partition $z'$.
+\end{lemma}
+
+\begin{proof}
+  see above
+\end{proof}
+
+\index[English]{Linearity of integration}
+\index[German]{\foreignlanguage{ngerman}{Linearität des Integral}}
+\begin{lemma}
+  Let $\varphi_1, \varphi_2 \in \tau[a,b]$ and $\alpha, \beta \in \mathbb C$.
+
+  Then it holds that
+  \begin{itemize}
+    \item $\alpha \varphi + \beta \psi \in \tau[a,b]$ and
+      \[ \int_a^b (\alpha \varphi + \beta \psi) \, dx = \alpha \int_a^b \varphi \, dx + \beta \int_a^b \psi \, dx \]
+      Hence (\enquote{linearity}),
+      \[ \int_a^b: \tau[a,b] \to \mathbb R \text{ is linear} \]
+    \item $\abs{\varphi} \in \tau[a,b]$ and it holds that
+      \[ \abs{\int_a^b \varphi \, dx} \leq \int_a^b \abs{\varphi} \, dx \leq \norm{\varphi}_\infty (b-a) \]
+      Reminder: $\norm{\varphi}_\infty = \max\set{\abs{\varphi(x)}: x \in [a,b]}$ \\
+      This gives \enquote{boundedness}.
+    \item Let $\varphi$ and $\psi$ be real values and it holds that
+      \[ \forall x \in [a,b]: \varphi(x) \leq \psi(x) \]
+      Then
+      TODO
+      Monotonicity
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  \begin{itemize}
+    \item Let $\varphi|_{(x_{k-1},x_k)} = c_k$ $\psi|_{(w_{j-1},w_j)} = d_k$
+      \[ z'' = \set{\alpha_0, \alpha_1, \ldots, \alpha_L} = \set{x_0, \ldots, x_n} \cup \set{w_0, \ldots, w_m} \]
+      where $\alpha_i$ is sorted ascendingly.
+      $\varphi$ and $\psi$ are step functions in terms of $z''$, hence
+      \[ \varphi|_{(\alpha_{i-1},\alpha_i)} = c_i' \text{ and } \psi|_{(\alpha_{i-1},\alpha_i)} = d'_i \]
+      \[ \Rightarrow (\alpha \varphi + \beta \psi) |_{(\alpha_{i-1},\alpha_i)} = \alpha c_i' + \beta d_i' \text{ constant} \]
+      \[ \Rightarrow \alpha \varphi + \beta \psi \in \tau[a,b] \text{ and } \int_a^b (\alpha \varphi + \beta \psi) \, dx = \sum_{i=1}^L (\alpha c'_i + \beta d'_i) \cdot \triangle \alpha_i \]
+      \[ = \alpha \sum_{i=1}^L c'_i \triangle \alpha_i + \beta \sum_{i=1}^L d_i' \triangle \alpha_i \]
+      \[ = \alpha \int_a^b \varphi \, dx + \beta \int_a^b \psi \, dx \]
+    \item
+      Let $\varphi|_{(x_{i-1},x_i)} = c_i$ ($i = 1, \ldots, n$). Then,
+      \[ \abs{\varphi} |_{(x_{i-1},x_i)} = \abs{c_i} \]
+      \[
+        \abs{\sum_{i=1}^n c_i \triangle x_i}
+        \leq \sum_{i=1}^n \abs{c_i} \cdot \underbrace{\abs{\triangle x_i}}_{x_i - x_{i-1} > 0}
+        = \sum_{i=1}^n \abs{c_i} \cdot \triangle x_i = \int_a^b \abs{\varphi} \, dx
+      \]
+      \[
+        \leq \sum_{i=1}^n \norm{\varphi}_\infty \triangle x_i
+        = \norm{\varphi}_\infty \sum_{i=1}^n \triangle x_i
+      \] \[
+        = \norm{\varphi}_\infty \left((x_1 - x_0) + (x_2 - x_1) + \ldots + (x_{n-1} - x_{n-2}) + (x_n - x_{n-1})\right)
+      \] \[
+        = \norm{\varphi}_\infty (x_n - x_0) = \norm{\varphi}_\infty (b-a)
+      \]
+    \item
+      Let $\varphi$, $\psi$ and $z''$ as in the linearity statement.
+      \[
+        \left.\begin{array}{rl}
+          \varphi|_{(\alpha_{i-1},\alpha_i)} &= c'_i \in \mathbb R \\
+          \psi|_{(\alpha_{i-1}, \alpha_i)} &= d'_i \in \mathbb R
+        \end{array}\right\}
+      \] \[
+        \int_a^b \varphi \, dx = \sum_{i=1}^L c'_i \underbrace{\triangle \alpha_i}_{>0} \leq \sum_{i=1}^L d'_i \, dx
+      \] \[
+        \int_a^b \varphi \, dx
+      \]
+  \end{itemize}
+\end{proof}
+\index[English]{Characteristic function}
+\index[German]{\foreignlanguage{ngerman}{Charakteristische Funktion}}
+\begin{defi}
+  Let $A \subseteq \mathbb R$. Then we call $\chi_A = (\mathcal 1_A): \mathbb R \to \mathbb R$ as
+  \[ \chi_A(x) = \begin{cases} 1 & x \in A \\ 0 & x \not\in A \end{cases} \]
+  the characteristic function of $A$. Hence $\chi_A(x)$ is $1$ if and only if $x$ is inside interval $A$.
+\end{defi}
+\begin{rem}
+  Let $a \leq a' < b' \leq b$. Then
+  \[ \chi_{(a',b')} \in \tau[a,b] \qquad \int_a^b \chi_{(a',b')} \, dx = 1 \cdot (b' - a') \]
+  Every linear combination of characteristic functions is also in $\tau[a,b]$.
+
+  On the opposite side, let $\varphi \in \tau[a,b]$ with $\varphi|_{(x_{i-1},x_i)} = c_i$
+  and $\varphi(x_i) \eqqcolon r_j$ with $1 \leq i \leq n$ and $0 \leq j \leq n$.
+  \[
+    \Rightarrow \varphi = \sum_{i=1}^n c_i \chi_{(x_{i-1},x_i)}
+    + \sum_{j=0}^n r_j \chi_{\set{x_j}}
+  \]
+  The step function is a linear combination of characteristic functions
+  of open intervals and of characteristic functions of one-point sets.
+  \[
+    \int_a^b \varphi \, dx
+    = \sum_{i=1}^n c_i \cdot (x_i - x_{i-1})
+    = \sum_{i=1}^n c_j \int_a^b \chi_{(x_{i-1},x_i)} \, dx
+  \]
+\end{rem}
+
+% TODO
+\section{Regulated functions}
+
+\index[English]{Left-sided limit}
+\index[German]{\foreignlanguage{ngerman}{Linksseitiger Grenzwert}}
+\index[English]{Right-sided limit}
+\index[German]{\foreignlanguage{ngerman}{Rechtsseitiger Grenzwert}}
+\index[English]{One-sided limit}
+\index[German]{\foreignlanguage{ngerman}{Einseitiger Grenzwert}}
+\begin{defi}
+  Let $D \subseteq \mathbb R$. Let $x_0$ be a limit point of $D \cap (-\infty, x_0)$
+  hence $\exists (z_n)_{n \in \mathbb N}$ with $z_n \in D \cap (-\infty, x_0)$,
+  hence $z_n < x_0$, and $\lim_{n\to\infty} z_n = x_0$.
+  Let $f: D \to \mathbb C$ be given.
+
+  We state that $f$ has left-sided limit $y_0$ in $x_0$ if
+  \[ \forall \varepsilon > 0 \exists \delta > 0: \left[x \in D \cap (-\infty, x_0) \land \abs{x - x_0} < \delta \right] \]
+  \[ \Rightarrow \abs{f(x) - y_0} < \varepsilon \]
+
+  Equivalently $\forall (z_n)_{n\in\mathbb N}$ with $z_n \in D$
+  and $z_n < x_0$ and $\lim_{n\to\infty} z_n = x_0$ $\forall n \in \mathbb N$
+  \[ \lim_{n\to\infty} f(x_n) = y_0 \]
+
+  Analogously for the right-sided limes, we replace $(-\infty, x_0)$ by $(x_0, \infty)$.
+
+  We denote: $y_0$ is left-sided limit of $f$ in $x_0$:
+  \[ y_0 = \lim_{x\to x_0^-} f(x) \]
+  and right-sided limit of $f$ in $x_0$:
+  \[ y_0 = \lim_{x\to x_0^+} f(x) \]
+\end{defi}
+
+\index[English]{Regulated function}
+\index[German]{\foreignlanguage{ngerman}{Regelfunktion}}
+\begin{defi}
+  Let $a,b \in \mathbb R$ and $a < b$. A function $f: [a,b] \to \mathbb C$ is called
+  \emph{regulated functions} if
+  \begin{itemize}
+    \item $\forall x \in (a,b)$ $f$ has a left-sided and a right-sided limes in $x$
+    \item $f$ has a right-sided limes in $a$
+    \item $f$ has a left-sided limes in $b$
+  \end{itemize}
+\end{defi}
+
+Examples for regulated functions:
+\begin{itemize}
+  \item Every continuous function in $[a,b]$ is a regulated function.
+  \item Every step function is a regulated function. \\
+    Why? Consider $x \in (x_{i-1},x_i)$. Then
+    \[ \lim_{\xi\to x^+} \varphi(\xi) = c_i = \lim_{\xi \to x^-} \varphi(\xi) \]
+    Let $x = x_i$ be a partitioning point.
+    \[ \lim TODO \text{ and } \lim TODO \]
+    So $\tau[a,b] \subseteq R[a,b]$. Compare with Figure~\ref{img:step-regulated}.
+  \item
+    Let $f: [a,b] \to \mathbb R$ be monotonically.
+    Then it holds that
+    \[ f \in R[a,b] \]
+\end{itemize}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/step-functions-are-regulated-functions.pdf}
+    \caption{Step functions are also regulated functions}
+    \label{img:step-regulated}
+  \end{center}
+\end{figure}
+
+\subsection{Approximation theorem for regulated functions}
+
+Let $f: [a,b] \in \mathbb C$. Then it holds that $f \in R[a,b] \Leftrightarrow \forall \varepsilon > 0 \exists \varphi \in \tau[a,b]$ such that $\norm{f - \varphi}_{\infty} < \varepsilon$. Hence $\forall x \in [a,b]: \abs{f(x)}$ TODO
+
+\[ \Leftrightarrow \underbrace{\sup\set{\abs{f(x) - \varphi(x)}: x \in [a,b]}}_{\norm{f - \varphi}_{\infty}} < \varepsilon \]
+
+$S$ $\varepsilon_n = \frac1n \Rightarrow \exists \varphi_n \in \tau[a,b]$ such that
+\[ \abs{\varphi_n(x) - f(x)} < \varepsilon \forall x \in [a,b] \]
+hence $f$ is a continuous limit point of a sequence of step functions.
+Hence the function sequence $(\varphi_n)_{n\in\mathbb N}$ converges continuously towards $f$.
+
+\begin{proof}
+  \begin{description}
+    \item[$\Rightarrow$]
+      Let $f \in R[a,b]$.
+      Assume $\exists \varepsilon > 0$ fixed such that $\forall \varphi \in \tau[a,b]$
+      \[ \exists x \in [a,b]: \abs{\varphi(x) - f(x)} \geq \varepsilon \]
+      We build nested intervals such that the desired property $\abs{\varphi(x) - f(x)} \geq \varepsilon$
+      holds on every subinterval $[a_n, b_n]$.
+
+      Induction:
+      \begin{description}
+        \item[$n=0$] Let $a_0 = a$ and $b_0 = b$, hence the property holds in $[a_0, b_0]$.
+        \item[$n\mapsto n+1$]
+        Let $m = \frac12 (a_n + b_n)$. In $[a_n,b_n]$ the property holds.
+
+        Then the property either holds in $[a_n,m]$ or $[m,b_n]$.
+        If the property does not hold in $[a_n,m]$:
+        \[ \exists \varphi_1 \in \tau[a_n,m] \text{ with } \abs{\varphi_1(\xi) - f(\xi)} < \varepsilon \qquad \forall \xi \in [a_n,m] \]
+        If the property does not hold in $[m,b_n]$:
+        \[ \exists \varphi_2 \in \tau[m,b_n] \text{ with } \abs{\varphi_2(\xi) - f(\xi)} < \varepsilon \qquad \forall \xi \in [m,b_n] \]
+        Let
+        \[
+          \varphi(x) = \begin{cases}
+            \varphi_1(x) & \text{ for } x \in [a_n,m] \\
+            \varphi_2(x) & \text{ for } x \in [m,b_n]
+          \end{cases}
+        \]
+        \[ \Rightarrow \varphi \in \tau[a,b] \text{ and } \abs{\varphi(\xi) - f(\xi)} < \varepsilon \qquad \forall \xi \in [a_n,b_n] \]
+        So in at least one of the intervals the property holds.
+        Let this interval be $[a_{n+1},b_{n+1}]$.
+
+        $([a_n,b_n])_{n\in \mathbb N}$ are nested intervals.
+        Let $\varphi \in \bigcap_{n \in \mathbb N} [a_n, b_n]$.
+
+        \begin{description}
+          \item[Case $\mathbf{\xi \in (a,b)}$]
+            Let $\varepsilon$ satisfy the desired property.
+            $f \in R[a,b]$, hence $f$ has left-sided limit $c_-$ in $\xi$
+            and right-sided limit $c_+$. Hence $\exists \delta > 0$ such that
+            \begin{itemize}
+              \item $\abs{x - \xi} < \delta \land a \leq x < \xi
+              \Rightarrow \abs{f(x) - c_-} < \varepsilon$
+              \item $\abs{x - \xi} < \delta \land \delta < x \leq b
+              \Rightarrow \abs{f(x) - c_+} < \varepsilon$
+            \end{itemize}
+            Choose $\delta$ sufficiently small such that
+            \[ a < \xi - \delta < \xi + \delta < b \]
+            Let
+            \[
+              \varphi(x) = \begin{cases}
+                c_- & \text{ for } x \in (\xi - \delta, \xi) \\
+                f(\xi) & \text{ for } x = \xi \\
+                c_+ & \text{ for } x \in (\xi, \xi + \delta)
+              \end{cases}
+            \]
+            $\varphi$ is necessarily a step function in $(\xi - \delta, \xi + \delta)$
+            and it holds that $\forall x \in (\xi - \delta, \xi + \delta):
+            \abs{\varphi(x) - f(x)} < \varepsilon$.
+
+            Let $n$ be sufficiently large such that
+            \[ [a_n,b_n] \subseteq (\xi - \delta, \xi + \delta) \]
+            then
+            \[
+              \varphi|_{[a_n,b_n]} \in \tau[a_n,b_n]
+              \text{ and }
+              \abs{\varphi(x) - f(x)} < \varepsilon \quad \forall x \in [a_n,b_n]
+            \]
+            This is a contradiction to our desired property.
+        \end{description}
+
+        For $\xi = a$ or $\xi = b$ only with one-sided limit.
+      \end{description}
+  \end{description}
 \end{proof}
 
 \clearpage
