@@ -34,10 +34,12 @@
 \newcommand\setdef[2]{\left\{#1\,|\,#2\right\}}
 \newcommand\abs[1]{\left|#1\right|}
 \newcommand\seq[1]{{\left(#1\right)}_{n \in \mathbb N}}
+\newcommand\reg{\mathcal B}
 \newcommand\card[1]{\left|\,#1\,\right|}
 \newcommand\meta[3]{\hrule{} This #1 took place on #2 with lecturer #3.\par}
 \newcommand\done{\hspace{10pt}\checkmark}
 \newcommand\norm[1]{\left\|#1\right\|}
+\newcommand\inorm[1]{\left\|#1\right\|_\infty}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -1478,6 +1480,604 @@ Hence the function sequence $(\varphi_n)_{n\in\mathbb N}$ converges continuously
       \end{description}
   \end{description}
 \end{proof}
+
+\meta{lecture}{17th of March 2016}{Wolfgang Ring}
+
+We learned: All regulated functions can be approximated with step functions.
+
+$f \in R[a,b]$ in the proof $\Leftrightarrow$ $f$ is uniform limit of step functions.
+We have prove direction $\Rightarrow$.
+
+\begin{lemma}[Cauchy criterion for limits of functions]
+  Let $f: D \subseteq \mathbb C \to \mathbb C$ and $z_0$ is a limit point
+  of $D$. Then $f$ has a limit in $z_0$ if and only if $\forall \varepsilon > 0
+  \exists \delta > 0: v,w \in D\setminus\set{z_0} \land \abs{v - z_0} < \delta \land
+  \abs{w - z_0} < \delta \Rightarrow \abs{f(v) - f(w)} < \varepsilon$.
+
+  If $D \subseteq \mathbb R$ and $x_0$ is limit point of $D \cap (x_0, \infty)$,
+  then $f$ has a \emph{right-sided limit} in $x_0$ if and only if
+  $\forall \varepsilon > 0 \exists \delta > 0: [v,w \in D \cap (x_0, \infty)
+  \land \abs{v - x_0} < \delta \land \abs{w-x_0} < \delta \Rightarrow
+  \abs{f(v) - f(w)} < \varepsilon]$.
+
+  Analogously for left-sided limit.
+\end{lemma}
+\begin{proof}
+  This proof is done only for the first point.
+
+  \begin{description}
+    \item[$\Rightarrow$] \hfill{} \\
+      Assume $f$ has a limit $\eta$ in $z_0$. Choose $\delta$ such that $v,w \in D$
+      with $\abs{v - z_0} < \delta$ and $\abs{w - z_0} < \delta$ implies
+      that $\abs{f(v) - \eta} < \frac\varepsilon2$ and $\abs{f(w) - \eta} < \frac\varepsilon2$.
+      Then $\abs{f(v) - f(w)} \leq \abs{f(v) - \eta} + \abs{\eta - f(w)}
+      \leq \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon$.
+    \item[$\Leftarrow$] \hfill{} \\
+      Assume the Cauchy criterion holds. Show: There exists $\eta \in \mathbb C$
+      such that for every sequence $(w_n)_{n \in \mathbb N}$
+      with $w_n \in D \setminus \set{z_0}$ with $\lim_{n\to\infty} w_n = z_0$
+      it holds that $\lim_{n\to\infty} f(w_n) = \eta$.
+
+      Let $(w_n)_{n\in\mathbb N}$ be as above. Show: $(f(w_n))_{n\in\mathbb N}$
+      is a Cauchy sequence. Let $\varepsilon > 0$ be given and $\delta$ as above.
+      Choose $N \in \mathbb N$ such that $n,m \geq N$
+      \[ \Rightarrow \abs{w_n - z_0} < \delta \land \abs{w_m - z_0} < \delta \]
+      The Cauchy criterion holds for $n,m \geq N$:
+      \[ \abs{f(w_n) - f(w_m)} < \varepsilon \]
+      So $(f(w_n))_{n \in \mathbb N}$ is a Cauchy sequence and (because $\mathbb C$ is complete)
+      is also convergent.
+      So $\exists \eta' \in \mathbb C: \lim_{n\to\infty} f(w_n) = \eta'$.
+
+      It remains to show: $\eta'$ is unique.
+
+      Let $(v_n)_{n\in\mathbb N}$ be another sequence with $\lim_{n\to\infty} v_n = z_0$
+      and $v_n \in D \setminus \set{z_0}$. As above: $\exists \eta'' \in \mathbb C$ such that
+      $\lim_{n\to\infty} f(v_n) = \eta''$.
+
+      We construct:
+      \[ (\xi_n)_{n\in\mathbb N} = (w_0, v_0, w_1, v_1, w_2, v_2, \ldots) \]
+      Then it holds that $\lim_{n\to\infty} \xi_n = z_0$.
+
+      We use the argument from above: $(f(\xi_n))_{n\in\mathbb N}$ is convergent,
+      hence $\lim_{n\to\infty} f(\xi_n) = \eta$.
+      Both subsequences $(f(w_n))_{n\in\mathbb N}$ and $(f(v_n))_{n\in\mathbb N}$
+      must have the same limit, hence $\eta' = \eta = \eta''$.
+  \end{description}
+\end{proof}
+
+\begin{proof}[Proof of approximation theorem]
+  \begin{description}
+    \item[$\Leftarrow$] \hfill{} \\
+      Let $f = \lim_{n\to\infty} \varphi_n$ be uniform on $[a,b]$.
+      Let $\varphi_n \in \tau[a,b]$ and let $x_0 \in [a,b)$.
+      Show: $f$ has a right-sided limit in $x_0$.
+      Let $\varepsilon > 0$ arbitrary. Choose $N \in \mathbb N$ sufficiently
+      large such that
+      \[
+        \abs{f(x) - \varphi_N(x)} < \frac\varepsilon2
+        \forall x \in [a,b]
+      \]
+      $\varphi_N$ is a step function (hence interval-wise constant).
+      Choose $\delta > 0$ such that $\varphi_N|_{(x_0,x_0 + \delta)} = c$
+      constant. Let $v,w \in (x_0, x_0 + \delta)$. Then it holds that
+      \[ \abs{f(v) - f(w)} \leq \abs{f(v) - c} + \abs{c - f(w)} \]
+      \[
+        = \abs{f(v) - \varphi_N(v)} + \abs{f(w) - \varphi_N(w)}
+        < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon
+      \]
+      The Cauchy criterion implies that $f$ has a right-sided limit in $x_0$.
+  \end{description}
+\end{proof}
+
+\begin{cor}
+  $f \in R[a,b]$ if and only if $f(x) = \sum_{j=0}^\infty \psi_j(x)$ with
+  $\psi_j \in \tau[a,b]$ and the series converges uniformly in $[a,b]$.
+\end{cor}
+\begin{proof}
+  \begin{description}
+    \item[$\Leftarrow$] \hfill{} \\
+      Let $\varphi_n = \sum_{j=0}^n \psi_j \in \tau[a,b]$ and $\varphi_n \to f$
+      continuously in $[a,b]$. From the approximation theorem it follows that
+      $f \in R[a,b]$.
+    \item[$\Rightarrow$] \hfill{} \\
+      Let $f \in R[a,b]$. Let $(\varphi_n)_{n \in \mathbb N}$ be a sequence of step
+      functions with $\varphi_n \to f$ uniform in $[a,b]$. Let $\psi_0 = \varphi_0$.
+      \[ \psi_j \coloneqq \varphi_j - \varphi_{j-1} \text{ for } j \geq 1 \]
+      Then it holds that
+      \[
+        \sum_{j=0}^n \psi_j = \varphi_0 + (\varphi_1 - \varphi_0) +
+          (\varphi_2 - \varphi_1) + \ldots + (\varphi_{n-1} - \varphi_{n-2}) +
+          (\varphi_n - \varphi_{n-1})
+        = \varphi_n
+      \]
+      and $(\varphi_n)_{n\in\mathbb N}$ converges uniform if and only if
+      the series is uniformly convergent.
+  \end{description}
+\end{proof}
+
+\begin{lemma}[Sidenote]
+  \label{lemma-cont-func-seq}
+  Let $(f_n)_{n\in\mathbb N}$ with $f_n: D \to \mathbb C$ a sequence of functions
+  in $D$, let $z_0 \in D$ and $\forall n \in \mathbb N$ $f_n$ is continuous in $z_0$.
+  Furthermore let $f: D \to \mathbb C$ and $f_n \to f$ is uniform in $D$.
+  Then $f$ is continuous in $z_0$.
+\end{lemma}
+\begin{proof}
+  Let $\varepsilon > 0$ arbitrary. Choose $N$ sufficiently large such that
+  $\abs{f(z) - f_w(z)} < \frac\varepsilon3 \quad \forall z \in D$ (uniform convergence).
+  Because $f_N$ is continuous in $z_0$, $\exists \delta > 0$ such that
+  $z \in D$ and $\abs{z - z_0} < \delta$ then $\abs{f_N(z) - f_N(z_0)} < \frac\varepsilon3$.
+
+  Then for $\abs{z - z_0} < \delta$ (with $z \in D$)
+  \[
+    \underbrace{\abs{f(z) - f(z_0)}}_{< \frac\varepsilon3} \leq
+    \underbrace{\abs{f(z) - f_N(z)} + \abs{f_N(z) - f_N(z_0)}}_{< \frac\varepsilon3} +
+    \underbrace{\abs{f_N(z_0) - f(z_0)}}_{< \frac\varepsilon3}
+  \]
+\end{proof}
+
+\meta{lecture}{18th of March 2016}{Wolfgang Ring}
+
+\begin{theorem}
+  Let $f$ be a regulated function in $[a,b]$.
+  Then $f$ is in at most countable infinite points of $[a,b]$ non-continuous.
+\end{theorem}
+\begin{proof}
+  \[ f = \sum_{k=0}^\infty \psi_k \]
+  where $\psi_k$ is a sequence of step functions and
+  and the series is uniformly convergent.
+  $\psi_k \in \tau[a,b]$.
+
+  Let $\{x_0^k, \ldots, x_{n(k)}^k\}$ be the partition points of $\psi_k$.
+  Then $\psi_k$ is continuous in $[a,b] \setminus Z_k$.
+  Let $Z = \bigcup_{k=0}^\infty Z_k$ be countable.
+  Let $x \in [a,b] \setminus Z$ and $\varphi_n = \sum_{k=0}^n \psi_k$.
+  Then it holds that $\varphi_n \to f$ is uniform in $[a,b]$ and $\varphi_n$
+  is continuous in $x$, because $x \not\in Z$.
+
+  From Lemma~\ref{lemma-cont-func-seq} it follows that
+  $f$ is continuous in $x$.
+\end{proof}
+
+\subsection{Norms and vector spaces}
+%
+\index[English]{Norm}
+\index[German]{\foreignlanguage{ngerman}{Norm}}
+\index[English]{Normed vector space}
+\index[German]{\foreignlanguage{ngerman}{Normierter Vektorraum}}
+\index[English]{Definity}
+\index[German]{\foreignlanguage{ngerman}{Definitheit}}
+\index[English]{Positive homogeneity}
+\index[German]{\foreignlanguage{ngerman}{Positive Homogenität}}
+\index[English]{Triangle inequality}
+\index[German]{\foreignlanguage{ngerman}{Dreiecksungleichung}}
+%
+\begin{defi}[Normed vector spaces]
+  Let $V$ be a vector space over $\mathbb C$ (or $\mathbb R$).
+  A map $n: V \mapsto [0,\infty)$ is called \emph{norm} in $V$, if
+  \begin{enumerate}
+    \item $n(V) = 0 \Leftrightarrow V = 0$ ($V$ is null vector) \\
+      \enquote{definity}
+    \item $\forall \lambda \in \mathbb C$ ($\mathbb R$) $\forall v \in V: n(\lambda v) = \abs{\lambda} \cdot n(v)$
+      \enquote{positive homogeneity}
+    \item $\forall v,w \in V: n(v + w) \leq n(v) + n(w)$ \\
+      \enquote{triangle inequality}
+  \end{enumerate}
+  Common notation: $\norm{v}$ for $n(v)$ (\enquote{norm of $v$}) \\
+  A vector space satisfying the norm properties is called \emph{Normed vector space}
+\end{defi}
+
+\begin{ex}
+  \begin{itemize}
+    \item $\abs{x}$ is a norm in $\mathbb R$.
+    \item $\abs{z}$ is a norm in $\mathbb C$.
+  \end{itemize}
+  $\norm{\vec{x}}$ is norm in $\mathbb R^n$.
+
+  Let $D \subseteq \mathbb C$.
+  \[ B(D) = \set{f: D \to \mathbb C: f \text{ limited to } D} \]
+  $B(D)$ is a vector space. For $f \in B(D)$ we define:
+  \[ \norm{f}_{\infty} = \sup\set{\abs{f(z)}: z \in D} \]
+  \enquote{supremum norm} of $\infty$-norm of $f$ in $D$.
+
+  It holds that $\norm{\cdot}_{\infty}$ is a norm in $B(D)$.
+  \[ \norm{f}_\infty = 0 \Leftrightarrow \sup\set{\underbrace{\abs{f(z)}}_{\geq 0}: z \in D} = 0 \]
+  \[ \Leftrightarrow \abs{f(z)} = 0 \quad \forall z \in D \]
+  \[ \Rightarrow f = 0 \text{ in } B(D) \]
+  Homogeneity:
+  \begin{align*}
+    \abs{\lambda \cdot f}_\infty
+      &= \sup\set{\abs{\lambda f(z)}: z \in D} \\
+      &= \sup\set{\abs{\lambda} \abs{f(z)}: z \in D} \\
+      &= \sup\set{\abs{f(z)}: z \in D} \cdot \abs{\lambda} \\
+      &= \abs{\lambda} \cdot \norm{f}_\infty
+  \end{align*}
+  % TODO: verify
+
+  Triangle inequality:
+  Let $f,g \in B(D)$.
+  \begin{align*}
+    \norm{f+g}_\infty
+      &= \sup\set{\abs{f(z) + g(z)}: z \in D} \\
+      &= \sup\set{\underbrace{\abs{f(z)}}_{\leq \norm{f}_\infty} + \underbrace{\abs{g(z)}}_{\leq \norm{g}_\infty}:} \\
+      &\leq TODO
+      &= \norm{f}_\infty + \norm{g}_\infty \\
+  \end{align*}
+\end{ex}
+
+\begin{rem}
+  Let $V \subseteq B(D)$ be an arbitrary subvectorspace of $B(D)$.
+  So $\norm{\cdot}_\infty$ is also a norm in $V$.
+
+  Important example:
+  \[ V = \mathcal C_b(D) = \set{f: D \to \mathbb C: f \text{ is continuous and bounded in } D} \]
+
+  Special case: $D = K$ compact in $\mathbb C$.
+  Then every continuous function is also bounded.
+  \begin{align*}
+    \mathcal C(K) &= \set{f: K \to \mathbb C: f \text{ is continuous}} \\
+      &\subseteq B(K) \qquad \text{(sub vector space)}
+  \end{align*}
+
+  Another special case: $D = [a,b] \subseteq \mathbb C$
+  \[ \tau[a,b] \subseteq B([a,b]) \text{ and } \]
+  \[ R[a,b] \subseteq B([a,b]) \]
+\end{rem}
+
+\begin{rem}[Further properties of the norm]
+  The inverse triangle inequality holds:
+  \[ \forall v,w \in V: \abs{\norm{v} - \norm{w}} \leq \norm{v - w} \]
+\end{rem}
+\begin{proof}
+  \[ v = (v - w) + w \]
+  From triangle inequality it follows that
+  \[ \norm{v} \leq \norm{v - w} + \norm{w} \]
+  \[ w = (w - v) + w \]
+  \[ \norm{w} \leq \norm{w - v} + \norm{w} \]
+  \begin{align*}
+    &= \norm{(-1) \cdot (v - w)} + \norm{v} \\
+    &= \abs{(-1)} \cdot \norm{v - w} + \norm{v} \\
+    &= \norm{v - w} + \norm{v}
+  \end{align*}
+  \begin{align*}
+    \text{requirement 1} &\Rightarrow \norm{v} - \norm{w} \leq \norm{v - w} \\
+    \text{requirement 2} &\Rightarrow \norm{w} - \norm{v} \leq \norm{v - w} \\
+    \text{requirements} &\Rightarrow  TODO
+  \end{align*}
+\end{proof}
+
+\begin{defi}
+  Let $V$ be a normed vector space, $(v_n)_{n\in\mathbb N}$ be a sequence of
+  elements in $V$ and $v \in V$. We define $(v_n)_{n\in\mathbb N}$ is convergent
+  with limit $V$ if
+  \[
+    \forall \varepsilon > 0 \exists N \in \mathbb N:
+    \left[n \geq \mathbb N \Rightarrow \norm{V_n - V} \leq \varepsilon\right]
+  \]
+\end{defi}
+\begin{rem}[Metric on $V$]
+  \[ d(v, w) = \norm{v - w} \]
+  defines a metric on $V$.
+  Properties of a metric:
+  \begin{enumerate}
+    \item $d(v,w) \geq 0$
+    \item $d(v,w) = 0 \Leftrightarrow v = w$
+    \item $\norm{v - w} = 0 \Leftrightarrow v - w = 0 \Leftrightarrow v = w$
+  \end{enumerate}
+  Triangle inequality of metrics:
+  Let $v,w,u \in V$.
+  \[ d(v,u) = \norm{v - u} = \norm{v - w + w - u} \]
+  \[ \leq \norm{v - w} + \norm{w - u} = d(v,w) + d(w,u) \]
+  Works only if $d(v,w) = d(w,v)$ and can be simply proven:
+  \[ d(v,w) = \norm{v-w} = \norm{w - v} = d(w,v) \]
+\end{rem}
+
+\index[English]{Cauchy sequence in normed vector spaces}
+\index[German]{\foreignlanguage{ngerman}{Cauchyfolge in normierten Vektorräumen}}
+\index[English]{Complete normed vector space}
+\index[German]{\foreignlanguage{ngerman}{Vollständig normierter Vektorraum}}
+\index[English]{Banach space}
+\index[German]{\foreignlanguage{ngerman}{Banachraum}}
+\begin{rem}
+  $(V_n)_{n\in\mathbb N}$ is called \emph{Cauchy sequence in $V$} if
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: [n,m \geq N \Rightarrow \norm{v_n - v_m} < \varepsilon] \]
+  $V$ is called \emph{complete normed vector space} if every Cauchy sequence in $V$
+  is also a convergent sequence in $V$.
+
+  A complete normed vector space is called \emph{Banach space}.
+\end{rem}
+
+\subsection{Integration of regulated functions}
+%
+\begin{theorem}
+  Let $f \in \reg[a,b]$ and $\seq{\varphi_n}$ with $\varphi_n \in \tau[a,b]$ and $\varphi_n \to_{n\to\infty} f$
+  uniform in $[a,b]$ ($\Leftrightarrow \norm{\varphi_n - f} \to 0$ for $n \to \infty$).
+
+  Then we define
+  \[ \int_a^b f\, dx = \lim_{n\to\infty} \int_a^b \varphi_n \, dx \]
+  for the integral of $f$ in $[a,b]$.
+  The right-sided limit exists for every sequence $\seq{\varphi}$ with the property above
+  and is independent of the choice of the sequence $\seq{\varphi_n}$.
+\end{theorem}
+\begin{proof}
+  Let $\seq{\varphi_n}$ such that
+  \[
+    \forall \varepsilon > 0 \exists N \in \mathbb N:
+    [\underbrace{n \geq N \Rightarrow \abs{\varphi(x) - f(x)} < \varepsilon \forall x \in [a,b]}_{\sup\set{\abs{\varphi_n(x) - f(x)}: x \in [a,b] \leq \varepsilon}}]
+  \] \[
+    \Rightarrow \norm{\varphi_n - f}_\infty \leq \varepsilon
+  \]
+  So $\varphi_n$ converges towards $f$ in terms of $\norm{\cdot}_\infty$ in $\reg[a,b]$.
+
+  Let $N$ be sufficiently large such that
+  \[ \forall n \geq N: \norm{\varphi_n - f}_\infty < \frac\varepsilon{2(b-a)} \]
+  Then it holds for $i_n = \inf_a^b \varphi_n \, dx$ and $n,m \geq N$,
+  \begin{align*}
+    \abs{i_n - i_m}
+      &= \abs{\int_a^b \varphi_n\,dx - \int_a^b \varphi_m\,dx} \\
+      &= \abs{\int_a^b (\varphi_n - \varphi_m) \, dx} \\
+      &\leq \norm{\varphi_n - \varphi_m}_\infty (b-a) \\
+      &= \norm{\varphi_n - f + f - \varphi_m}_\infty (b-a) \\
+      &\leq (\norm{\varphi_n - f}_\infty + \norm{f - \varphi_m}_\infty) (b - a) \\
+      &< \left(\frac{\varepsilon}{2(b-a)} + \frac{\varepsilon}{2(b - a)}\right)(b - a) \\
+      &= \varepsilon
+  \end{align*}
+  So $\seq{i_n}$ is a Cauchy sequence in $\mathbb C$ and therefore convergent.
+  So there exists
+  \[ \lim_{n\to\infty} \int_a^b \varphi_n \, dx \]
+
+  Let $i = \lim_{n\to\infty} \int_a^b \varphi_n \, dx$.
+  Let $\seq{\psi_n}$ be another sequence of step functions with
+  $\psi_n \to_{n\to\infty} f$ is uniform in $[a,b]$.
+  Analogously as above:
+  \[ j_n = \int_a^b \psi_n \, dx \]
+  $\seq{j_n}$ is convergent and has limes $j$.
+
+  Show that $i = j$. We again use a zip-like construction:
+
+  \[ F = (\varphi_0, \psi_0, \varphi_1, \psi_1, \varphi_2, \ldots) \]
+  $F$ is a sequence of step functions, which converge towards $f$ uniformly.
+  Let $l$ be the limit of integrals of this sequence of step functions.
+  Then it holds that TODO (subsequences have the same limit)
+  \[ i = l = j \]
+\end{proof}
+
+\begin{theorem}[Elementary properties of the integral]
+  Let $f,g \in \reg[a,b]$ and $\alpha,\beta \in \mathbb C$.
+  Then it holds that
+  \begin{description}
+    \item[linearity]
+      \[ \int_a^b (\alpha f + \beta g) \, dx = \alpha \int_a^b f \, dx + \beta \int_a^b g\, dx \]
+    \item[boundedness]
+      \[ \abs{\int_a^b f \, dx} \leq \int_a^b \abs{f} \, dx \leq \norm{f}_\infty (b - a) \]
+    \item[monotonicity]
+      Let $f,g \in \reg[a,b]$ with values in $\mathbb R$ and it holds that
+      \[ f(x) \leq g(x) \qquad \forall x \in [a,b] \]
+      Then it holds that
+      \[ \int_a^b f\, dx \leq \int_a^b g \, dx \]
+  \end{description}
+\end{theorem}
+\begin{proof}
+  \begin{itemize}
+    \item Let $\seq{\varphi_n}$ and $\seq{\psi_n}$ be sequences of step functions
+      with $\varphi_n \to f$ and $\psi_n \to g$ uniform in $[a,b]$.
+      Then it holds that
+      \[ \alpha \varphi_n + \beta \psi_n \to_{n\to\infty} \alpha f + \beta g \]
+      (proof left as exercise to the reader) \\
+      uniform in $[a,b]$. So it holds that
+      \begin{align*}
+        \int_a^b (\alpha f + \beta g) \, dx
+          &= \lim_{n\to\infty} \int_a^b (\alpha \varphi_n + \beta \psi_n) \, dx \\
+          &= \alpha \lim_{n\to\infty} \int_a^b \varphi_n \, dx + \beta \lim_{n\to\infty} \int_a^b \varphi_n \, dx \\
+          &= \alpha \int_a^b f \, dx + \beta \int_a^b g \, dx
+      \end{align*}
+    \item
+      Let $\seq{\varphi_n}$ be a sequence of step functions with $\varphi_n \to_{n\to\infty} f$ continuous
+      in $[a,b]$. Then also $\seq{\abs{\varphi_n}}$ is a sequence of step functions and it holds that
+      \[ \abs{\varphi_n} \to_{n\to\infty} \abs{f} \text{ uniform in } [a,b] \]
+      \begin{proof}
+        Let $N$ be sufficiently large such that $\forall n \geq N \forall x \in [a,b]:$
+        \[
+          \abs{\varphi_n(x) - f(x)} < \varepsilon
+          \Rightarrow \abs{\abs{\varphi_n(x)} - \abs{f(x)}} \leq \abs{\varphi_n(x) - f(x)} < \varepsilon
+        \] \[
+          \abs{\varphi_n} \to_{n\to\infty} \abs{f} \text{ uniform in } [a,b]
+        \]
+        So it holds that
+        \[
+          \abs{\int_a^b f \, dx}
+          = \abs{\lim_{n\to\infty} \int_a^b \varphi_n \, dx}
+          = \lim_{n\to\infty} \abs{\int_a^b \varphi_n \, dx}
+          \leq \lim_{n\to\infty} \int_a^b \abs{\varphi_n} \, dx
+          = \int_a^b \abs{f} \, dx
+        \]
+        Because $\abs{f - \varphi_n}_\infty \to_{n\to\infty} 0$ it follows that
+        \[ \abs{\inorm{f} - \inorm{\varphi_n}} \leq \inorm{f - \varphi_n} \to 0 \]
+        hence $\inorm{f} = \lim_{n\to\infty} \inorm{\varphi_n}$.
+      \end{proof}
+      Hence,
+      \begin{align*}
+        \int_a^b \abs{f} \, dx
+          &= \lim_{n \to \infty} \int_a^b \abs{\varphi_n} \, dx \\
+          &\leq \lim_{n\to\infty} \inorm{\varphi_n} (b - a) \\
+          &= \inorm{f} (b - a)
+      \end{align*}
+      \begin{rem}
+        We have proven that $\norm{\cdot}: V \to [0,\infty)$ is a continuous
+        map, hence $v_n \to v \Rightarrow \norm{v_n} \to \norm{v}$.
+      \end{rem}
+  \end{itemize}
+\end{proof}
+
+\meta{lecture}{12th of April 2016}{Wolfgang Ring}
+
+\begin{defi}
+  Let $f: [a,b] \to \mathbb R$ be given.
+  Let $x_0 \in [a,b)$. We claim that $f$ has a right-sided derivative $f'_+(x_0)$ in $x_0$
+  if the function
+  \[
+    \varphi(x) = \begin{cases}
+      \frac{f(x) - f(x_0)}{x - x_0} & \text{ for } x \neq x_0 \\
+      0                             & \text{ for } x = x_0
+    \end{cases}
+  \]
+  has a right-sided limit in $x_0$.
+  Then $f$ is denoted with $f'_+(x_0)$.
+
+  \[ f'_+(x_0) = \lim_{x\to x_0^+} \frac{f(x) - f(x_0)}{x - x_0} \]
+
+  Analogously for the left-sided derivative:
+  Let $x_0 \in (a,b]$. $f'_-(x_0) = \lim_{x \to x_0^-} \frac{f(x) - f(x_0)}{x - x_0}$
+  if the limit exists.
+\end{defi}
+
+\begin{theorem}[Mean value theorem of calculus]
+  Let $f: [a,b] \to \mathbb R$ be continuous in $[a,b]$ and $p: [a,b] \to \mathbb R$
+  is a regulated function with $p(x) \geq 0 \quad \forall x \in [a,b]$.
+
+  Then there exists $\xi \in [a,b]$ such that
+  \[ \int_a^b f(x) \cdot p(x) \, dx = f(\xi) \cdot \int_a^b p(x) \, dx \]
+\end{theorem}
+
+\begin{proof}
+  Let $M = \max\set{f(x): x \in [a,b]}$ and $m = \min\set{f(x): x \in [a,b]}$
+  \[ m p(x) \leq f(x) \underbrace{p(x)}_{\geq 0} \leq M p(x) \qquad \forall x \in [a,b] \]
+  Due to monotonicity of the integral it holds that
+  \[ m \int_a^b p(x) \, dx \leq \int_a^b f(x) p(x) \, dx \leq M \int_a^b p(x) \, dx \]
+  hence $\exists \eta \in [m,M]$ such that $\eta \cdot \int_a^b p(x) \, dx = \int_a^b f(x) p(x) \, dx$.
+  From the Intermediate Value Theorem it follows that $\exists \xi \in [a,b]: \eta = f(\xi)$.
+  \[ \Rightarrow f(\xi): \int_a^b p(x) \, dx = \int_a^b f(x) p(x) \, dx \]
+\end{proof}
+
+\begin{rem}
+  Consider $p \equiv 1$.
+  \[ \exists \xi \in [a,b]: \int_a^b f(x) \cdot 1 \, dx = f(\xi) \cdot \int_a^b 1 \, dx = f(\xi) \cdot (b-a) \]
+  % TODO: missing
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/mean_value_theorem.pdf}
+      \caption{Mean value Theorem}
+    \end{center}
+  \end{figure}
+\end{rem}
+
+\begin{lemma}
+  Let $I = [a,b]$ and $f \in R[a,b]$ and $a \leq \alpha < \beta < \gamma \leq b$ (compare with Figure~\ref{img:nl}).
+  Then $f |_{[\alpha,\gamma]} \in R[\alpha,\gamma]$.
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/number_line.pdf}
+      \caption{Relation of $a \leq \alpha < \beta < \gamma \leq b$}
+      \label{img:nl}
+    \end{center}
+  \end{figure}
+
+  Furthermore it holds that
+  \[ \int_{\alpha}^\beta f(x) \, dx = \int_\alpha^\beta f(x) \, dx + \int_\beta^\gamma f(x) \, dx \]
+\end{lemma}
+
+\begin{proof}
+  Let $\varphi$ be a step function in $[\alpha, \gamma]$. Then $\varphi |_{[\alpha, \beta]} \in \tau[\alpha,\beta]$
+  and $\varphi |_{[\beta,\gamma]} \in \tau[\beta,\gamma]$.
+  Furthermore it holds (proof not given here)
+  \[ \int_\alpha^\gamma \varphi \, dx = \int_\alpha^\beta \varphi \, dx = \int_\beta^\gamma \varphi \, dx \]
+  For $(\varphi_n)_{n \in \mathbb N}$ a sequence of subsequences with $\varphi_n \to f$ continuous in $[\alpha,\gamma]$.
+  \[ \Rightarrow \varphi_n |_{[\alpha,\beta]} \to f|_{[\alpha,\beta]} \text{ uniform in } [\alpha,\beta] \]
+  analogously for $[\beta,\gamma]$.
+  \[
+    \int_{\alpha}^\gamma f dx
+    = \lim_{n\to\infty} \int_\alpha^\gamma \varphi_n \, dx
+    = \lim_{n\to\infty} \left[\int_\alpha^\beta \varphi_n \, dx + \int_\beta^\gamma \varphi_n \, dx\right]
+  \] \[
+    = \underbrace{\lim_{n\to\infty} \int_\alpha^\beta \varphi_n \, dx}_{=\int_\alpha^\beta f \, dx}
+    + \underbrace{\lim_{n\to\infty} \int_\beta^\gamma \varphi_n \, dx}_{=\int_\beta^\gamma f \, dx}
+  \]
+\end{proof}
+
+\begin{rem}
+  Notation ($\alpha,\beta \in [a,b]$):
+  \[ \int_\beta^\alpha f(x) \, dx = - \int_\alpha^\beta f(x) \, dx \]
+  So it follows that
+  \[ \int_\alpha^\alpha f(x) \, dx = - \int_\alpha^\alpha f(x) \, dx = 0 \]
+  With this notation it holds that $\forall \alpha,\beta,\gamma \in I$:
+  \[ \int_\alpha^\gamma f \, dx = \int_\alpha^\beta f \, dx + \int_\beta^\gamma f(x) \, dx \]
+  independent of the relation of $\alpha, \beta, \gamma$ towards each other.
+  For $\alpha < \beta < \gamma$ everything is fine.
+
+  Let's also look at $\beta < \gamma < \alpha$ as an exercise.
+
+  Then it holds that
+  \[ \int_\beta^\alpha f \, dx = \int_\beta^\gamma f \, dx + \int_\gamma^\alpha f \, dx \]
+  \[ - \int_\alpha^\beta f \, dx = \int_\beta^\gamma f \, dx - \int_\alpha^\gamma f \, dx \]
+  \[ \Rightarrow \int_\alpha^\gamma f \, dx = \int_\alpha^\beta f \, dx + \int_\beta^\gamma f \, dx \]
+
+  Case $\alpha = \beta$ or $\beta = \gamma$ is trivial.
+\end{rem}
+
+\index[English]{Primitive function}
+\index[German]{\foreignlanguage{ngerman}{Stammfunktion}}
+\begin{theorem}[Fundamental theorem of Calculus]
+  Originally formulated by Isaac Barrow (1630--1677).
+  Followingly popularized by Newton (1642--1727) and Leibniz (1646--1716).
+
+  Let $f: I \to \mathbb R$ be a regulated function. $I$ is an interval and $a \in I$ is fixed.
+  For $x \in I$ we define
+  \[ F(x) = \int_a^x f(\xi) \, d\xi \]
+  Then it holds that (two variants/characterizations)
+  \begin{enumerate}
+    \item $F$ is right-sided derivable and also left-sided derivable for every $x_0 \in I$
+      and it holds that
+      \[ F'_+(x) = f_+(x_0) = \lim_{x\to x^+_0} f(x) \qquad \text{ and } \]
+      \[ F'_-(x) = f_-(x_0) = \lim_{x\to x^-_0} f(x) \]
+      Especially if $f$ is continuous in $x_0$, then $F$ is differentiable in $x_0$ with
+      derivative $F'(x_0) = f(x_0)$.
+
+      We call a function with the properties of $F$ above a \emph{primitive function} of the regulated function $f$.
+    \item
+      Let $\Phi: I \to \mathbb R$ be an arbitrary primitive function of $f$ and
+      let $a,b \in I$. Then it holds that
+      \[ \int_a^b f(\xi) \, d\xi = \Phi(b) - \Phi(a) \]
+  \end{enumerate}
+
+  The first characterization claims informally that
+  the derivative for the upper limit of the integral of $f$ gives $f$.
+
+  Let $f = \Phi'$ ($\Phi$ is our primitive function of $f$).
+  The second characterization claims that the integral of a derivative of $\Phi$ gives $\Phi$.
+  \[ \int_a^b \Phi' \, dx = \Phi(b) - \Phi(a) \]
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Let $x_1, x_2 \in I$ and wlog $x_1 \leq x_2$.
+      \[ \abs{F(x_1) - F(x_2)} = \abs{\int_a^{x_1} f(\xi) \, d\xi - \int_a^{x_2} f(\xi) \, d\xi} \]
+      \[ = \abs{\int_a^{x_1} f(\xi) \, d\xi + \int_{x_2}^a f(\xi) \, d\xi} \]
+      \[ = \abs{\int_{x_2}^{x_1} f(\xi) \, d\xi} = \abs{\int_{x_1}^{x_2} f(\xi) \, d\xi} \]
+      \[ \leq \int_{x_1}^{x_2} \abs{f(\xi)} \, d\xi \leq \abs{x_2 - x_1} \cdot \norm{f}_\infty \]
+      hence $F$ is Lipschitz continuous in $I$.
+      So $F$ is continuous in $I$.
+
+      One-sided limits:
+
+      Let $\varepsilon > 0$ arbitrary and $x_0 \in I$ and $\delta$ such that $\forall x \in (x_0, x_0 + \delta)$ it holds that:
+      \[ \abs{f(x) - f_+(x_0)} < \varepsilon \]
+      \begin{align*}
+        &\abs{\frac{F(x) - F(x_0)}{x - x_0} - f_+(x_0)} \\
+        &= \frac{1}{\abs{x - x_0}} \abs{\int_a^x f(\xi) \, d\xi - \int_a^{x_0} f(\xi) \, d\xi - f_+(x_0) \cdot (x - x_0)} \\
+        &= \frac{1}{\abs{x - x_0}} \abs{\int_{x_0}^x f(\xi) \, d\xi - f_+(x_0) \int_{x_0}^x 1 d\xi} \\
+        &= \frac{1}{\abs{x - x_0}} \abs{\int_{x_0}^x f(\xi) \, d\xi - \int_{x_0}^x f_+(x_0) \, d\xi} \\
+        &= \frac{1}{\abs{x - x_0}} \abs{\int_{x_0}^x f(\xi) - f_+(x_0) \, d\xi} \\
+        &\leq \frac{1}{\abs{x - x_0}} \int_{x_0}^x \abs{f(\xi) - f_+(x_0)} \, d\xi \\
+      \intertext{$\xi \in (x_0, x) \subseteq (x_0, x_0 + \delta)$}
+        &< \frac{1}{\abs{x - x_0}} \cdot \varepsilon \underbrace{\int_{x_0}^x 1 \, d\xi}_{\abs{x - x_0}} \\
+        &= \varepsilon \\
+        &\Rightarrow F_+'(x_0) = f_+(x_0)
+      \end{align*}
+      Analogously $F_-'(x_0) = f_-(x_0)$.
+  \end{enumerate}
+\end{proof}
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}

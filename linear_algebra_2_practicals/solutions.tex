@@ -33,6 +33,8 @@
   linewidth=3pt]{ex}{Exercise}
 
 \DeclareMathOperator\kernel{kernel}
+\DeclareMathOperator\image{image}
+\DeclareMathOperator\sign{sign}
 \DeclareMathOperator\Hom{Hom}
 
 \title{Linear Algebra 2 -- Practicals}
@@ -458,5 +460,282 @@ Show that $a_{kj} = p_{ik}$ with $k \in \set{1, \ldots, n}$, $j \in \set{1, \ldo
 
 \[ a_{kj} = C_k^*\left(\sum_{i=1}^n a_{ij} c_i\right) = c_k^*\left(f(b_j)\right) = \left(f^t(c_k^*)(b_j)\right)
   = \left(\sum_{i=1}^m p_{ik} b_i^*\right)(b_i) = p_{jk} \]
+
+\section{Exercise 10}
+\begin{ex}
+  \begin{itemize}
+    \item Determine the dual basis of $(\mathbb R^4)^*$ to the basis.
+      \[
+        B = \left\{
+          \begin{bmatrix} 1 \\ 2 \\ 1 \\ 0 \end{bmatrix},
+          \begin{bmatrix} 1 \\ 0 \\ -1 \\ 1 \end{bmatrix},
+          \begin{bmatrix} -1 \\ -2 \\ 2 \\ -1 \end{bmatrix}
+          \begin{bmatrix} 2 \\ -1 \\ 1 \\ 1 \end{bmatrix}
+        \right\}
+      \]
+    \item
+      Determine the matrix of the unique (why?) projection map
+      $\varphi: \mathbb R^4 \to \mathbb R^4$ with $\image(\varphi) = \mathcal L\set{(1,2,1,0)^t, (1,0,-1,1)^t}$
+      and $\kernel(\varphi) = \mathcal L\set{(-1, -2, 2, -1)^t, (2, -1, 1, 1)^t}$.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 10.a}
+
+\[
+  \begin{pmatrix}
+    1 & 1 & -1 & 2  & 1 & 0 & 0 & 0 \\
+    2 & 0 & -2 & -1 & 0 & 1 & 0 & 0 \\
+    1 & -1 & 2 & 1  & 0 & 0 & 1 & 0 \\
+    0 & 1 & -1 & 1  & 0 & 0 & 0 & 1
+  \end{pmatrix}
+  \leadsto
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 & -3 & 1 & 2 & 5 \\
+    0 & 1 & 0 & 0 & -9 & 2 & 5 & 15 \\
+    0 & 0 & 1 & 0 & -5 & 1 & 3 & 8 \\
+    0 & 0 & 0 & 1 & 4 & -1 & -2 & -6
+  \end{pmatrix}
+\]
+
+So
+\[
+  b_1^* = \begin{pmatrix} -3 \\ 1 \\ 2 \\ 5 \end{pmatrix} \quad
+  b_2^* = \begin{pmatrix} -9 \\ 2 \\ 5 \\ 15 \end{pmatrix} \quad
+  b_3^* = \begin{pmatrix} -5 \\ 1 \\ 3 \\ 8 \end{pmatrix} \quad
+  b_4^* = \begin{pmatrix} 4 \\ -1 \\ -2 \\ -6 \end{pmatrix}
+\]
+
+\[
+  B^* = \begin{pmatrix}
+    -3 & 1 & 2 & 5 \\
+    -9 & 2 & 5 & 15 \\
+    -5 & 1 & 3 & 8 \\
+    4 & -1 & -2 & -6
+  \end{pmatrix}
+\]
+
+\[ (\mathbb R^n)^* \cong \mathbb R^{1 \times 4} \]
+\[ b_i^*(b_j) = \delta_{ij} \]
+
+\subsection{Exercise 10.b}
+
+Find a projective map $\varphi: \mathbb R^4 \to \mathbb R^4$ such that $U_1 = \varphi(\mathbb R^4)$.
+So $\image(\varphi) = \mathcal L(U_1)$ and $\kernel(\varphi) = U_2$.
+
+\[ U_1 = \mathcal L\set{(1, 2, 1, 0)^t, (1, 0, -1, 1)^t} \]
+\[ U_2 = \mathcal L\set{(-1, -2, 2, -1)^t, (2, -1, 1, 1)^t} \]
+
+Why do we get a unique map?
+
+$\varphi$ is a projection map iff $\varphi$ is linear and $\varphi \circ \varphi = \varphi$.
+Consider $b_1 \in U_1 = \varphi(\mathbb R^4)$ and $b_1 = \varphi(x) \quad x \in \mathbb R^4$.
+$\varphi(b_1) = \varphi(\varphi(x)) = \varphi(x) = b_1$. This isomorphism ensures that
+the solution is unique.
+
+Because $\varphi: \mathbb R^4 \to \mathbb R^4$, the linear map will be represented by a $4 \times 4$ matrix.
+
+\[
+  \begin{pmatrix}
+    1 & 2 & 1 & 0 & 1 & 2 & 1 & 0 \\
+    1 & 0 & -1 & 1 & 1 & 0 & -1 & 1 \\
+    -1 & -2 & 2 & -1 & 0 & 0 & 0 & 0 \\
+    2 & -1 & 1 & 1 & 0 & 0 & 0 & 0
+  \end{pmatrix}
+  \leadsto
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 & -12 & -6 & 6 & -9 \\
+    0 & 1 & 0 & 0 & 3 & 2 & -1 & 2 \\
+    0 & 0 & 1 & 0 & 7 & 4 & -3 & 5 \\
+    0 & 0 & 0 & 1 & 20 & 10 & -10 & 15
+  \end{pmatrix}
+\] \[
+  \begin{pmatrix}
+    -12 & 3 & 7 & 20 \\
+    -6 & 2 & 4 & 10 \\
+    6 & -1 & -3 & -10 \\
+    9 & 2 & 5 & 15
+  \end{pmatrix}
+\]
+
+\section{Exercise 11}
+\begin{ex}
+  Given the permutation
+  \[ \pi = \left(\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 2 & 5 & 1 & 6 & 3 & 7 & 4 \end{pmatrix}\right) \]
+  \begin{itemize}
+    \item Determine $\pi^{-1}$ and $\pi^k$ for some $k \in \mathbb N$.
+    \item Determine all inversions of $\pi$ and determine $\sign(\pi)$.
+    \item Decompose $\pi$ in a product of transpositions.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 11.a}
+
+\[ \pi = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 2 & 5 & 1 & 6 & 3 & 7 & 4 \end{pmatrix} \]
+\[ \pi^{-1} = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 3 & 1 & 5 & 7 & 2 & 4 & 6 \end{pmatrix} \]
+
+We give a recursive definition:
+\[
+  \pi_{(i)}^k = \begin{cases}
+    \pi_{(i)}^{k \bmod{4}} & i \in \set{1,2,3,5} \\
+    \pi_{(i)}^{k \bmod{3}} & i \in \set{4, 6, 7}
+  \end{cases}
+\]
+
+\subsection{Exercise 11.b}
+%
+Inversions are:
+\[ f_\pi = \setdef{(i,j)}{i < j \land \pi(i) > \pi(j)} \]
+\[ F_\pi = \set{(1,3), (2,3), (2,5), (2,7), (4,5), (4,7), (6,7)} \]
+
+\[ \sign(\pi) = (-1)^f_\pi = -1 \]
+
+\subsection{Exercise 11.c}
+%
+\[ \pi \circ \tau_{1,3} = (1\ 5\ 2\ 6\ 3\ 7\ 4) \]
+\[ \pi \circ \tau_{1,3} \circ \tau_{2,3} \circ \tau_{3,5} \circ \tau_{4,7} \circ \tau_{6,7} = \text{ id} \]
+\[ \pi = \tau_{6,7} \circ \tau_{4,7} \circ \tau_{3,5} \circ \tau_{2,3} \circ \tau_{1,3} \]
+
+In terms of notation, remember:
+\[
+  \begin{pmatrix}
+    1 & 2 & \ldots & n \\
+    \pi(1) & \pi(2) & \ldots & \pi(n)
+  \end{pmatrix}
+  \circ
+  \tau_{i,j}
+  = \begin{pmatrix}
+    1 & i & j & n \\
+      & \pi(j) & \pi(i) &
+  \end{pmatrix}
+\]
+
+\section{Exercise 12}
+\begin{ex}
+  A permutation $\pi \in \mathfrak S_n$ is called cyclic, if there exists
+  some $k \geq 1$ and a sequence $i_1, i_2, \ldots, i_k$ such that
+  $\pi(i_j) = i_{j+1}$ for $1 \leq j \leq k-1$, $\pi(i_k) = i_1$
+  and $\pi(i) = i$ for $i \not\in \set{i_1, i_2, \ldots, i_k}$, hence
+  \[ i_1 \to i_2 \to \ldots \to i_k \to i_1 \]
+  and all other $i$ are fixed. Common notation: $\pi = (i_1, i_2, \ldots, i_k)$.
+  \begin{itemize}
+    \item Show that two cyclic permutations $\pi = (i_1, i_2, \ldots, i_k)$
+      and $\rho = (j_1, j_2, \ldots, j_l)$ commute ($\pi \circ \rho = \rho \circ \pi$)
+      if $\set{i_1, \ldots, i_k} \cap \set{j_1, \ldots, j_l} = \emptyset$.
+    \item
+      Decompose the cycle into a product of transpositions and show that
+      for a cyclic permutation it holds that $\sign(\pi) = (-1)^{k-1}$.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 12.a}
+
+\begin{description}
+  \item[Case 1: $m \in \set{i_1, i_2, \ldots, i_k}$]
+    \[ \pi \circ \rho(m) = \pi(\rho(m)) = \pi(m) \]
+    \[ \rho \circ \pi(m) = \rho(\pi(m)) = \pi(m) \]
+  \item[Case 2: $m \in \set{j_1, j_2, \ldots, j_l}$]
+    \[ \pi \circ \rho(m) = \pi(\rho(m)) = \rho(m) \]
+    \[ \rho \circ \pi(m) = \rho(\pi(m)) = \rho(m) \]
+  \item[Case 3: $m \not\in \set{i_1, \ldots, i_k} \cup \set{j_1, \ldots, j_l}$]
+    \[ \pi \circ \rho(m) = \pi(\rho(m)) = m \]
+    \[ \rho \circ \pi(m) = \rho(\pi(m)) = m \]
+\end{description}
+
+\subsection{Exercise 12.b}
+%
+\[
+  \pi = \begin{pmatrix}
+    1 & 2 & \ldots & i_1 & i_2 \ldots & i_k & \ldots & n \\
+    1 & 2 & \ldots & i_2 & i_3 \ldots & i_1 & \ldots & n
+  \end{pmatrix}
+\] \[
+  \pi \circ \tau_{i_{1},i_k} = \begin{pmatrix}
+    1 & 2 & \ldots & i_1 & i_2 \ldots & i_k & \ldots & n \\
+    1 & 2 & \ldots & i_1 & i_3 \ldots & i_2 & \ldots & n
+  \end{pmatrix}
+\] \[
+  \pi \circ \tau_{i_{1},i_k} \circ \tau_{i_2,i_k} = \begin{pmatrix}
+    1 & 2 & \ldots & i_1 & i_2 & i_3 & \ldots & i_k & \ldots & n \\
+    1 & 2 & \ldots & i_1 & i_2 & i_4 & \ldots & i_3 & \ldots & n
+  \end{pmatrix}
+\] \[
+  \tau \circ \tau_{i_1,i_k} \circ \tau_{i_2,i_k} \circ \ldots \circ \tau_{i_{k-1},i_k} = \text{id}
+\] \[
+  \pi = \tau_{i_{k-1},i_k} \circ \ldots \circ \tau_{i_l,i_{l+1}} \circ \ldots \circ \tau_{i_1,i_k}
+\]
+
+\subsection{Exercise 13}
+\begin{ex}
+  Let $\pi \in \mathfrak S_n$ be a permutation and $i \in \set{1,2,\ldots,n}$.
+  \begin{itemize}
+    \item Show that the sequence $i$, $\pi(i)$, $\pi^2(i)$, \ldots is periodic and the first number
+      which occurs twice is $i$.
+    \item The sequence $(i, \pi(i), \pi^2(i), \ldots, \pi^{k-1}(i))$ where $k$ is the smallest exponent
+      such that $\pi^k(i) = i$, is called cycle of $i$. Show that the relation,
+      $i \sim j: \Leftrightarrow j$ is in cycle of $i$, is a equivalence relation in $\set{1,2,\ldots,n}$.
+    \item Show that every permutation can be represented as product of commutative cycles.
+    \item Apply this decomposition for the permutation $\pi$ from exercise~11.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 13.a}
+
+\begin{itemize}
+  \item $i$, $\pi(i)$, \ldots, $\pi^k(i)$ is periodic.
+  \item the first element which occurs twice is $i$
+  \item
+    \[ \setdef{\pi^k(i)}{k \in \set{1, \ldots, n+1}} \]
+    at least one elemtn must have occured twice.
+  \item
+    \[ \pi^k(i) = \pi^l(i) \]
+    wlog. $k > l$
+    \[ \pi^{k-l}(i) = i \qquad k-l < k \]
+\end{itemize}
+
+\[ \pi^{k-l}(i) = (\pi^l)^{-1} \left(\pi^k (\tau)\right) = \left(\pi^e\right)^{-1} \left(\pi^e(i)\right) \]
+
+\subsection{Exercise 13.b}
+
+\begin{description}
+  \item[reflexive]
+    \[ i \sim i \quad\Leftrightarrow\quad \exists k: \pi^k(i) = i \]
+  \item[symmetrical]
+    \[
+      i \sim j \Rightarrow j \sim i
+      \qquad
+      \exists l: \pi^l(i) = j \quad
+      \pi^k(i) = i \quad
+      \pi^{k-l}(i) = i
+    \]
+  \item[transitive]
+    \[
+      i \sim j \land j \sim m \Rightarrow i \sim m
+      \qquad
+      (\exists l_1: \pi^{l_1}(i) = j) \land (\exists l_2: \pi^{l_2}(j) = m)
+    \]
+    \[ \Rightarrow \exists l_3 = l_1 + l_2: \pi^{l_3}(i) = m \]
+\end{description}
+
+\subsection{Exercise 13.c}
+
+Lengthy and therefore skipped.
+
+\subsection{Exercise 13.d}
+%
+\[
+  \pi = \begin{pmatrix}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+    2 & 5 & 1 & 6 & 3 & 7 & 4
+  \end{pmatrix}
+\] \[
+  \pi = (1\ 2\ 5\ 3) (4\ 6\ 7)
+\]
+
+\section{Exercise 14}
+\section{Exercise 15}
+\section{Exercise 16}
+\section{Exercise 17}
+\section{Exercise 18}
 
 \end{document}

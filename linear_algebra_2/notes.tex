@@ -789,7 +789,7 @@ Conclusions:
 \[ \triangle (a_{\pi(1)}, \ldots, a_{\pi(n)}) = (-1)^k \triangle (a_1, \ldots, a_n) \]
 
 Decompose $\pi = \tau_1 \circ \ldots \circ \tau_k \circ \tau_{12} \circ \tau_{12}$.
-This decomposition is not distinct ($k$ is distinct $\bmod{2}$)
+This decomposition is not distinct ($k$ is distinct $\mod 2$)
 
 \[ \pi \in \sigma_n \qquad \text{permutation} \]
 \[ F_\pi = \setdef{(i,j)}{i < j, \pi(i) > \pi(j), \text{ inversions }} \]
@@ -2286,7 +2286,321 @@ In the following chapters we always consider $\mathbb K = \mathbb R$ or $\mathbb
 \end{lemma}
 
 
+\meta{lecture}{11th of April 2016}{Franz Lehner}
 
+% (a)
+Scalar product.
+\begin{enumerate}
+  \item Not bilinear, but sequilinear
+    \begin{itemize}
+      \item $\functional{x+y, z} = \functional{x,z} + \functional{y,z}$
+      \item $\functional{\lambda x, y} = \lambda \functional{x,y}$
+      \item $\functional{x,y} = \overline{\functional{y,x}}$ (hermetian)
+    \end{itemize}
+  \item $\functional{,}$ is called positive definite, if $\functional{x,x} > 0 \forall x \neq 0$
+    \begin{tabular}{cl}
+      $\geq 0$ & positive semidefinite \\
+      $<0$ & negative definite \\
+      $\leq$ & negative semidefinite \\
+      $\neq$ & indefinite
+    \end{tabular}
+\end{enumerate}
+
+\subsection{Examples}
+\label{ex-8.15}
+
+\begin{itemize}
+  \item $\mathbb R^n$:
+    \[
+      \left\langle\begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}\right\rangle,
+       \left\langle\begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix}\right\rangle
+       = \sum_{x=1}^n x_i y_i = x^t y
+    \]
+  \item $\mathbb C^n$
+    \[ \functional{x,y} = \sum_{i=1}^n x_i \overline{y_i} = x^t \overline{y} \]
+  \item
+    $A = [a_j]_{j=1,\ldots,n}$ because $\functional{x,y}_A = x^t A y$ is complex.
+\end{itemize}
+
+Exercise: is symmetrical if and only if $A = A^t$, hence $a_{ij} = a_{ji}$. \\
+Exercise: is hermetian if and only if $a_{ij} = \overline{a_{ji}}$ ($A$ is hermitian)
+
+
+$\dim = \infty$.
+\[ \mathbb R^\infty: \functional{x,y} = \sum_{i=1}^\infty x_n y_n \]
+% TODO: "... der Reihe konvergent"
+Development on $l^2 = \setdef{(x_i)}{\sum_{\abs{x_i}^2} < \infty}$
+where $l$ stands for Lebeque.
+
+$\Rightarrow$ Hilbert space.
+
+% (e)
+\[ V = C([a,b], \mathbb C) \]
+\[ \functional{f,g} = \int_a^b f(x) \overline{g(x)} \, dx \]
+
+\subsection{Norm}
+%
+\index[English]{Norm}
+\index[German]{\foreignlanguage{ngerman}{Norm}}
+\begin{defi}
+  \label{def-8.16}
+  A \emph{norm} on a vector space $V$ over $\mathbb R$ or $\mathbb C$ is a mapping
+  $\| \, \| \to [0,\infty[$ with properties
+  \begin{itemize}
+    \item[N1.] $\norm{X} \geq 0 \, \forall X$, $\norm{X} = 0 \Leftrightarrow X = 0$
+    \item[N2.] $\norm{\lambda X} = \norm{\lambda} \cdot \norm{X}$ (homogeneous)
+    \item[N3.] $\norm{X + Y} \leq \norm{X} + \norm{Y}$ (triangle inequality)
+  \end{itemize}
+\end{defi}
+
+\begin{rem}
+  \label{rem-8.17}
+  A norm induces a metric.
+  \[ d(x,y) = \norm{x - y} \]
+  The induced metric satisfies
+  \[ d(x+z, y+z) = d(x,y) \]
+\end{rem}
+
+\index[English]{Euclidean norm}
+\index[German]{\foreignlanguage{ngerman}{Euklidische Norm}}
+\begin{ex}
+  \label{example-8.18}
+  \begin{itemize}
+    \item
+      In $\mathbb R^n/\mathbb C^n$
+      \[ \norm{X}_{\infty} = \max(\norm{X_1}, \ldots, \norm{X_n}) \]
+      The \emph{euclidean norm} is given by:
+      \[ \norm{X}_2 = \left(\sum \norm{X}^2\right)^{\frac 12} \]
+      The $L^1$-norm is given by (compare it with possible paths in a grid)
+      \[ \norm{X}_1 = \sum_{i=1}^n \norm{X_i} \]
+    \item
+      Analogously for $V = C[a,b]$
+        \[ \norm{f}_{\infty} = \sup_{x \in [a,b]} \norm{f(x)} \]
+        \[ \norm{f}_2 = \left(\int_a^b \norm{f(x)}^2 \, dx\right)^{\frac 12} \]
+        \[ \norm{f}_1 = \int_a^b \norm{f(x)} \, dx \]
+  \end{itemize}
+\end{ex}
+
+\begin{theorem}
+  \label{satz-8.19}
+  Let $\functional{,}$ be a positive definite scalar product in $V$.
+  Then $\norm{X} = \sqrt{\functional{x,x}}$ defines a norm in $V$.
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item[N1.]
+      \[ \functional{x,x} \geq 0 \Rightarrow \sqrt{\,} \text{ is  well-defined in } \mathbb R^+ \]
+      \[ \norm{X} = 0 \Leftrightarrow \functional{x,x} = 0 \xRightarrow{\text{positive definite}} X = 0  \]
+    \item[N2.]
+      \[
+        \norm{\lambda \cdot X} = \sqrt{\functional{\lambda X, \lambda X}}
+        = \sqrt{\lambda \overline{\lambda} \functional{X,X}}
+        = \norm{\lambda} \sqrt{\functional{X,X}}
+        = \norm{\lambda} \cdot \norm{X}
+      \]
+      because $\functional{x,y} = \overline{\functional{\lambda y, x}} = \overline{\lambda \functional{y,x}} = \overline{\lambda} \cdot \overline{\functional{y,x}} = \overline{\lambda} \cdot \functional{x,y}$.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}[Cauchy-Bunjakovsky-Schwarz Inequality]
+  \label{lemma-8.20}
+  Cauchy (1789--1857), Bunjakovsky (1804--1880), Schwarz (1843--1921)
+
+  For a positive definite scalar product, the following inequality holds:
+  \[ \norm{\functional{x,y}} \leq \norm{x} \cdot \norm{y} \]
+  Equality holds if and only if $x,y$ are linear independent.
+\end{lemma}
+
+\begin{lemma}
+  Cauchy (in \enquote{Cours d'Analyse}, 1815)
+  \[ \abs{\sum_{i=1}^n x_i \overline{y}_i} \leq \left(\sum \norm{x_i}^2\right)^{\frac 12} \left(\sum \norm{y}^2\right)^{\frac 12} \]
+  Bunjakovsky (1859)
+  \[
+    \abs{\int_a^b f(x) \overline{g(x)} \, dx}
+    \leq \left(\int_a^b \norm{f(x)}^2 \, dx\right)^{\frac 12} \cdot \left(\int_a^b \norm{g(x)}^2 \, dx\right)^{\frac 12}
+  \]
+  Schwarz (1882), abstract
+\end{lemma}
+
+\begin{proof}[Lagrange (17??)]
+  \begin{align*}
+    \sum_{i=1}^n \sum_{j=1}^m (x_i y_i - x_j y_i)^2
+      &= \sum_{x_i^2 y_j^2} - 2 \sum_{i,j} x_i y_j x_j y_i + \sum_{i,j} x_j^2 y_i^2 \\
+      &= 2 \left(\sum x_i^2\right) \left(\sum x_i^2\right) \left(\sum_j y_j^2\right) - 2 \left(\sum_{i=1}^n x_i \cdot y_i\right)^2
+  \end{align*}
+  \[ \Rightarrow \left(\sum_{i=1}^n x_i^2\right) \left(\sum_{j=1}^m y_j^2\right) = \left(\sum_{i=1}^n x_i \cdot y_i\right)^2 + \frac12
+    \sum_{i,j} \left(x_i y_j - x_j y_i\right)^2 \geq \left(\sum_{i=1}^n x_i y_i\right)^2
+  \]
+
+  $h=3$
+  \[ \norm{X}^2 \norm{y}^2 = \norm{\functional{x,y}}^2 + \norm{x \cdot y}^2 \]
+  A geometrical proof is left as an exercise to th reader.
+\end{proof}
+
+\begin{proof}[General proof]
+  \begin{description}
+    \item[Case 1: $y = 0$] trivial, $\functional{x,y} = 0$
+    \item[Case 2: $y \neq 0$]
+      \begin{align*}
+        0 \leq \functional{x - \lambda y, x - \lambda y}
+          &= \functional{x,x} - \functional{x,\lambda y} - \functional{\lambda y, x} + \functional{\lambda y, \lambda y} \\
+          &= \functional{x,x} - \overline{\lambda} \functional{x,y} - \lambda \underbrace{\functional{y,x}}_{= \lambda \overline{\functional{x,y}}} - \norm{\lambda}^2 \functional{y,y}
+      \end{align*}
+      holds for all $\lambda$. Especially:
+      \[ \lambda = \frac{\functional{x,y}}{\functional{y,y}} \]
+      \[ 0 \leq \functional{x,x} - \frac{\overline{\functional{x,y}}}{y,x} \cdot \functional{x,y} - \frac{\functional{x,y}}{\functional{y,x}} \overline{\functional{y,x}} + \frac{\abs{\functional{x,y}}^2}{\functional{x,y}^2} \functional{y,y} \]
+      \[ = \functional{x,x} - \frac{\abs{\functional{x,y}}^2}{\functional{y,y}} \]
+      \[ \functional{x,x} \cdot \functional{y,y} \geq \abs{\functional{x,y}}^2 \]
+      Equality $\Rightarrow$ $\norm{x - \lambda y}^2 = 0 \Rightarrow x = \lambda y \Rightarrow$ linear independent.
+      Inequality if $x = \lambda y$, $|\functional{x,y}| = |\functional{\lambda y,y}| = |\lambda| \norm{y}^2 = \norm{x} \cdot \norm{y} = \norm{\lambda y} \cdot \norm{y}$.
+  \end{description}
+
+  The triangle inequality can be proven this way:
+  \begin{align*}
+    \norm{x + y}^2 &= \functional{x + y, x + y} \\
+      &= \functional{x, x} + \functional{x, y} + \functional{y, x} + \functional{y, y} \\
+      &= \norm{x}^2 + 2 \Re{\functional{x,y}} + \norm{y}^2 \\
+      &\leq \norm{x}^2 + 2 |\functional{x,y}| + \norm{y}^2 \\
+      &\leq \norm{x}^2 + 2 \norm{x} \norm{y} + \norm{y}^2 \\
+      &= \left(\norm{x} - \norm{y}\right)^2
+  \end{align*}
+\end{proof}
+
+\index[English]{$L^p$ norm}
+\index[German]{\foreignlanguage{ngerman}{$L^p$ Norm}}
+\begin{rem}
+  \[ \norm{X}_p = \left(\sum_{i=1}^n \norm{x_i}^2\right)^{\frac1p} \]
+  with $1 \leq p < \infty$ is the $L^p$-norm
+
+  $\Rightarrow$ Höldische Ungleichung
+  \[
+    |\sum x_i y_i|
+      \leq \left(\sum \abs{x_i}^p\right)^{\frac 1p} \cdot \left(\sum \abs{y_i}^2\right)^{\frac 1q}
+  \]
+  where $q$ such that $\frac 1p + \frac 1q = 1$.
+\end{rem}
+
+\begin{theorem}
+  \label{theorem-8.21}
+  Let $V$ be a vector space over $\mathbb R$ or $\mathbb C$ with an inner product $\functional{,}$.
+  Let $B = \set{b_1, \ldots, b_n}$ be the basis of $V$.
+
+  Then there exists exactly one hermetian matrix $A \in \mathbb K^{n\times m}$
+  such that
+  \[ \functional{x,y} = \Phi_B (x)^t A \overline{\Phi_B (y)} \]
+  then $\functional{,}$ is positive definite, $A$ is regular.
+\end{theorem}
+
+\begin{proof}
+  Let $x = \sum_{i=1}^n \xi_i b_i$ and $y = \sum_{i=1}^n \eta_i b_i$.
+  \[ \Phi_B(x) = \begin{pmatrix} \xi_1 \\ \vdots \\ \xi_n \end{pmatrix} \]
+  \[ \Phi_B(y) = \begin{pmatrix} \eta_1 \\ \vdots \\ \eta_n \end{pmatrix} \]
+  \begin{align*}
+    \functional{x,y}
+      &= \functional{\sum_{i=1}^n \xi_i b_i, \sum_{j=1}^n \eta_j b_j} \\
+      &= \sum_{i=1}^n \sum_{i=1}^n \xi_i \overline{\eta_j} \underbrace{\functional{b_i, b_j}}_{\eqqcolon a_{ij}} \\
+      &= \sum_{i,j} \xi_i a_{ij} \overline{\eta_j} = \xi^t A \overline{\eta} \\
+    a_{ji} &= \functional{b_j,b_i} = \overline{b_i,b_j} = \overline{a_{ij}}
+  \end{align*}
+
+
+   %TODO: missing
+   $\Rightarrow$ $A$ is regular.
+
+   It suffices to show that $\kernel{A} = \set{0}$.
+   Let $A \xi = 0 \Rightarrow \xi^t A \xi = 0 \Rightarrow \sum \xi a_i = 0$.
+   And also $\xi^t A \xi = \functional{\sum \xi b_i, \sum \xi b_i}$ for all $\xi_i = 0$.
+\end{proof}
+
+\index[English]{Conjugate matrix}
+\index[German]{\foreignlanguage{ngerman}{Adjungierte Matrix}}
+\begin{defi}
+  \label{def-8.22}
+  Let $A \in \mathbb C^{n\times n}$.
+  Then the matrix
+  \[ A^* \coloneqq \overline{A^t} \]
+  \[ \left(A^*\right)_{ij} = \overline{a_{ji}} \]
+  is the conjugate matrix to $A$ (german: adjungiert).
+
+  $A$ is called self-conjugate if $A = A^*$, symmetrical if $K = \mathbb R$ and hermitian if $K = \mathbb C$.
+
+  $A$ is called positive/negative semidefinite/definite or indefinite if the inner product
+  \[ \functional{\xi, \eta}_A \coloneqq \xi^t A \overline{\eta} \]
+  has the corresponding property, hence $A$ is positive positive definite if $\xi^t A \overline{\xi} > 0 \quad \forall \xi \neq 0$.
+  \[ \functional{x,x} > 0 \quad x \]
+\end{defi}
+
+We want to determine how \enquote{positive} a given matrix is
+
+Analogously to the rank, we consider:
+Every rank is equivalent to some matrix of the form
+\[
+  \begin{bmatrix}
+    1 &        &   &   &        &  \\
+      & \ddots &   &   &        &  \\
+      &        & 1 &   &        &  \\
+      &        &   & 0 &        &  \\
+      &        &   &   & \ddots &  \\
+      &        &   &   &        & 0 \\
+  \end{bmatrix}
+\]
+% TODO
+\[
+  \exists P,Q \in \operatorname{GL}(n,\mathbb K): PAQ =
+  \begin{bmatrix}
+    1 &        &   &   &        &  \\
+      & \ddots &   &   &        &  \\
+      &        & 1 &   &        &  \\
+      &        &   & 0 &        &  \\
+      &        &   &   & \ddots &  \\
+      &        &   &   &        & 0 \\
+  \end{bmatrix}
+\]
+
+\begin{defi}
+  \label{def-8.23}
+  Two matrices $A,B \in \mathbb C^{m\times n}$ is called congruent if
+  \[ \exists C \in \operatorname{GL}(n, \mathbb C): C^* AC = B \]
+  (strong condition for equivalence)
+\end{defi}
+\begin{theorem}
+  \label{satz-8.24}
+  Every hermetian matrix is congruent to the diagonal matrix
+  \[ D = \operatorname{diag}(+1, \ldots, +1, -1, \ldots, -1, 0, \ldots 0) \]
+\end{theorem}
+
+\begin{rem}
+  \label{ue-8.26}
+  \begin{enumerate}
+    \item If $A \geq 0$ and $C$ is arbitrary. Then $C^* A C \geq 0$. ($A$ is positive semidefinite)
+    \item
+      If $A > 0$ and $C \in \operatorname{GL}(n,\mathbb K) \Rightarrow C^* A C > 0$
+      ($A$ is positive definite)
+  \end{enumerate}
+\end{rem}
+
+\begin{theorem}[Sylvester's law of inertia]
+  Let $A \in \mathbb C^{n\times n}$ be a hermitian matrix and $C \in \operatorname{GL}(n, \mathbb C)$.
+
+  Let $C^* AC = \operatorname{diag}(+1, \ldots, +1, -1, \ldots, -1, 0, \ldots, 0)$.
+  Then the number of $+1, -1$ and $0$ is defined distinctly.
+\end{theorem}
+
+\index[English]{Index of a matrix}
+\index[German]{\foreignlanguage{ngerman}{Index einer Matrix}}
+\index[English]{Signature of a matrix}
+\index[German]{\foreignlanguage{ngerman}{Signatur einer Matrix}}
+\begin{defi}
+  \label{defi-8.28}
+  Let $A \in \mathbb C^{n \times n}$ be hermitian
+  congruent to $\operatorname{diag}(\underbrace{+1, \ldots, +1}_{r}, \underbrace{-1, \ldots, -1}_{s}, 0, \ldots, 0)$.
+
+  That means $\operatorname{ind}(A) \coloneqq r$ is called \emph{index of A}
+  and $\operatorname{sign}(A) \coloneqq r - s$ is called \emph{signature of A}.
+
+  \[ r + s = \operatorname{rank}(A) \]
+  $A$ is positive definite if and only if $r = n$.
+\end{defi}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

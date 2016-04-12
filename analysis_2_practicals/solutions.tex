@@ -39,7 +39,7 @@
 \date{summer term 2016}
 
 \newcommand\meta[3]{This #1 took place on #2 (#3).\par}
-\newcommand\abs[1]{|\,#1\,|}
+\newcommand\abs[1]{\left|\,#1\,\right|}
 \newcommand\set[1]{\left\{#1\right\}}
 \newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
 \newcommand\card[1]{\left|\,#1\,\right|}
@@ -529,5 +529,208 @@ We are only concerned with $x=0$.
 \]
 
 So if we traverse the graph from both sides at the same time $\frac{f(x_0 + h) - f(x_0 - h)}{h}$.
+
+\section{Exercise 6}
+\begin{ex}
+  Determine the following limit for arbitrary $c \in \mathbb R$:
+  \[ \lim_{n\to\infty} \frac{n}{\ln{n}} \left(\sqrt[n]{n^c} - 1\right). \]
+\end{ex}
+
+\[ \lim_{n\to\infty} \frac{n}{\ln{n}} \left(\sqrt[n]{n^c} - 1\right) \]
+\[
+  \lim_{n\to\infty} \frac{n}{\ln{n}} \left(\sqrt[n]{n^c} - 1\right)
+    = \lim_{n\to\infty} \frac{e^{\frac cn \cdot \ln{n}} - 1}{\frac{\ln{n}}{n}}
+\]
+and
+\[
+  \left(e^{\frac cn \cdot \ln{n}}\right)'
+    = e^{\frac cn \cdot \ln{n}} \cdot \left(-\frac c{n^2} \cdot \ln{n} + \frac cn \cdot \frac1n\right)
+    = \frac c{n^2} e^{\frac cn \cdot \ln{n}} \cdot (1 - \ln(n))
+\]
+
+All conditions are satisfied to apply L'H\^opital's rule (\enquote{$\frac00$}):
+
+\[
+  \lim_{n\to\infty} \frac{\frac c{n^2} e^{\frac cn \cdot \ln{n}} \cdot (1 - \ln{n})}{\frac{\frac{1}{n} \cdot n - \ln{n}}{n^2}}
+\] \[
+  = \lim_{n\to\infty} \frac{c \cdot e^{\frac cn \cdot \ln{n}} (1 - \ln(n))}{1 - \ln{n}}
+  = \lim_{n\to\infty} c \cdot e^{\frac cn \cdot \ln{n}}
+  = c \cdot 1
+\]
+
+\section{Exercise 7}
+\begin{ex}
+  \begin{itemize}
+    \item Show that $e^x \geq 1 + x$ holds for all $x \in \mathbb R$. \\
+      \emph{Hint:} On demand, use the Mean Value Theorem.
+    \item Prove that for all $x > 0$, the following estimates hold:
+      \[ \ln{x} \leq x - 1 \]
+      and for all $k \in \mathbb N_+$ it holds that
+      \[ k\left(1 - \frac{1}{\sqrt[k]{x}}\right) \leq \ln{x} \leq k \left(\sqrt[k]{x} - 1\right) \]
+  \end{itemize}
+\end{ex}
+
+\begin{description}
+  \item[$x \geq 0$]
+    Choose $f(x) = e^x$ in $[0,x)$. Mean value theorem:
+    \[ \exists x_0: f'(x_0) = \frac{f(b) - f(a)}{b - a} \quad \text{ for } a < x_0 < b \]
+    \[ f'(x_0) = e^{x_0}   \qquad   e^{x_0} \geq 1   \qquad   x_0 \geq 0 \]
+    \[ e^{x_0} = \frac{f'(x) - f(0)}{x - 0} = \frac{e^x - e^0}{x} = \frac{e^x - 1}{x} \Rightarrow \frac{e^x - 1}{x} \geq 1 \]
+
+    Or alternatively: $f$ is convex and therefoer $f''(x) > 0$.
+\end{description}
+
+Consider $f(x) = x - 1 - \ln{x}$
+\[ f'(x) = 1 - \frac1x \qquad f''(x) = \frac1{x^2} \]
+\[ f'(x) \stackrel!= 0 \]
+\[ 1 - \frac1x = 0 \Leftrightarrow x = -1 \]
+\[ f''(1) = 1 > 0 \Rightarrow \text{ minimum and because } f(1) = 0 \Rightarrow \forall x: x - 1 - \ln{x} \geq 0 \]
+
+Or alternatively:
+\[ y \coloneqq x - 1 \]
+\[ x = y + 1 \]
+Show that $\ln(y + 1) \leq y \Leftrightarrow y + 1 \leq e^y$.
+
+$e^x$ is monotonically increasing $\Rightarrow x \leq y \Leftrightarrow e^x \leq e^y$.
+
+And this has been proven previously.
+
+\subsection{Exercise 7.b}
+\[ \ln(x) \leq k \left(\frac[k]{x} - 1\right) \]
+\[ \ln(\sqrt[k]{x}) \leq \sqrt[k]{x} - 1 \Leftrightarrow \ln(y) \leq y - 1 \]
+And this has been proven in Exercise~a.
+
+The second part following analogously.
+
+\section{Exercise 8}
+\begin{ex}
+  Let $f: D \to \mathbb R$ with $D \subseteq \mathbb R$. Show: If $f$ is continuous in an environment
+  $U$ of $a \in D$, differentiable in $U \setminus \set{a}$ and there exists $\lim_{x\to a} f'(x)$,
+  such that $f$ in $a$ differentiable and
+  \[ f'(a) = \lim_{x\to a} f'(x). \]
+  \emph{Hint:} On demand, use the Mean Value Theorem.
+\end{ex}
+
+Let $h_n$ be an arbitrary zero-sequence (with $h_n(x) > 0 \quad \forall x \in D$) and due to Mean Value Theorem $\exists \xi_n \in D$ with $f'(\xi_n) = \frac{f(a + hn) - f(a)}{h_n}$.
+\[ \lim_{n\to\infty} f'(\xi_n) = \lim_{x\to a} f'(x) = \lim_{n\to\infty} \frac{f(a + h_n) - f(a)}{h_n} = f'(a) \]
+\[ \lim_{n\to\infty} \frac{f(a + h_n) - f(a)}{h_n} = \lim_{n\to\infty} f'(\xi_n) = \lim_{x\to a} f'(x) = z \]
+
+For the arbitrary zero-sequence, we really need to consider it arbitrary (otherwise we just show it for the one sequence). Consider this counterexample:
+\[
+  f(x) = \begin{cases}
+    0 & x = \frac1n \text{ for } n \in \mathbb N \\
+    1 & \text{else}
+  \end{cases}
+\]
+
+\subsection{Alternative approach}
+Application of \enquote{Schrankensatz}.
+
+\[ \exists \lim{f'(x)} = \alpha \]
+Hence for arbitrary $\varepsilon > 0: \exists \delta > 0 \forall x \in (a - \delta, a + \delta) \setminus \set{a}: \abs{f'(x) - \alpha} < \varepsilon$.
+Hence $\alpha - \varepsilon < f'(x) < \alpha + \varepsilon$.
+
+\begin{itemize}
+  \item
+    \[
+      \forall x \in (a, a + \delta):
+      \alpha - \varepsilon \leq \frac{f(x) - f(a)}{x - a} \leq \alpha + \varepsilon
+    \]
+  \item
+    \[
+      \forall x \in (a - \delta, a):
+      \alpha - \varepsilon \leq \frac{f(x) - f(a)}{x - a} \leq \alpha + \varepsilon
+    \]
+\end{itemize}
+
+\[ \Rightarrow \forall x \in (a - \delta, a + \delta) \setminus \set{a}: \abs{\frac{f(x) - f(a)}{x - a} - \alpha} \leq \varepsilon \]
+\[ \Rightarrow \lim_{x\to a} \frac{f(x) - f(a)}{x - a} = \alpha \]
+
+\subsection{Second alternative approach}
+%
+\[
+  \lim_{f(a + h) - f(a)}{h}
+\]
+If I know $f$ is continuous, then $f(a + h) \to f(a)$. So,
+\[ \enquote{\frac 00} \]
+\[ \lim_{h\to 0} \frac{f'(a + h) - 0}{1} = \lim_{h\to0} f'(a + h) = \lim_{x\to a} f'(x) \]
+
+\section{Exercise 9}
+\begin{ex}
+  Let $f: [a,b] \to \mathbb R$, $a < b$, differentiable with $f(a) > 0$, $f'(a) > 0$ and $f(b) = 0$.
+  Prove that there exists $\xi \in (a,b): f'(\xi) = 0$.
+\end{ex}
+
+First, we want to show that $f'(a) > 0 \Rightarrow \exists \delta > 0 \forall x \in (a, a + \delta): f(x) > f(a)$.
+
+\[ \exists \delta > 0 \forall x \in (a, a + \delta): \frac{f(x) - f(a)}{x - a} > \frac{f'(a)}{2} > 0 \]
+\[ \Rightarrow f(x) - f(a) > \frac{f'(a)}{2} (x - a) > 0 \]
+
+Indeed, $f(x)$ satisfies this property.
+
+Secondly, we want to show that,
+\[ \exists \eta \in (a + \delta, b): f(a) = f(\eta) \]
+\[ \exists \xi \in [a,\eta] \forall x_1 \in [a,\eta]: f(\xi) \geq f(x_1) \]
+\[ \exists \xi \in (a, \eta): \frac{f(\eta) - f(a)}{\eta - a} = f'(\eta) = 0 \]
+
+There might be more than this one $\xi$, so the $\xi$ between the second and third line might be different.
+Anyways, we found a $\xi$ with the desired property.
+
+\section{Exercise 10}
+\begin{ex}
+  Determine the pointwise limit of the following function sequences $f_n: [0,\infty) \to \mathbb R$
+  and determine its uniform convergence:
+  \begin{itemize}
+    \item $f_n(x) = \sqrt[n]{x}$
+    \item $f_n(x) = \frac{1}{1 + nx}$
+    \item $f_n(x) = \frac{x}{1 + nx}$
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 10.a}
+%
+If $x \neq 0$, $\lim_{n\to\infty} \sqrt[n]{x} = 1$. \\
+If $x = 0$, $\lim_{n\to\infty} \sqrt[n]{x} = \lim_{n\to\infty} 0^{\frac 1n} = 0$.
+
+In terms of uniform convergence:
+\[ \abs{\sqrt[n]{x} - 1} < \varepsilon \]
+\[ \lim_{x\to\infty} \sqrt[n]{x} = \infty \]
+
+Example:
+\begin{align*}
+  \abs{\sqrt[n]{x} - 1} &< \varepsilon \\
+  \sqrt[n]{x} - 1 &< \varepsilon \\
+  \sqrt[n]{x} &< \varepsilon + 1 \\
+  \sqrt[n]{100} &< \varepsilon + 1
+\end{align*}
+
+\subsection{Exercise 10.b}
+%
+\[ f_n(x) = \frac{1}{1 + nx} \]
+If $x \neq 0$,
+\[ \lim_{n\to\infty} \frac{1}{1 + nx} = 0 \]
+If $x = 0$,
+\[ \lim_{n\to\infty} \frac{1}{1 + n\cdot 0} = 1 \]
+
+Assume it it continuously convergent. Show that:
+\[ \exists \varepsilon > 0 \forall N \in \mathbb N \exists x \in [0,\infty): n \geq N \land \abs{f_n(x) - f(x)} \geq \varepsilon \]
+Does not hold for $\frac 9n \geq x$.
+
+\subsection{Exercise 10.c}
+%
+\[ f_n(x) = \frac{x}{1 + nx} \]
+If $x \neq 0$,
+\[ \lim_{n\to\infty} \frac{x}{1 + nx} = \lim_{n\to\infty} \frac{1}{\frac1x + n} = 0 \]
+If $x = 0$,
+\[ \lim_{n\to\infty} \frac{0}{1 + n \cdot 0} = 0 \]
+
+\[ \abs{\frac{x}{1 + nx} - 0} < \varepsilon \]
+\[ \abs{\frac{x}{1 + nx}} < \abs{\frac{x}{nx}} = \abs{\frac{1}{n}} \]
+
+Convergence is given. Uniform convergence is not given.
+
+\emph{Advice:} The simplest approach to show convergence is to show:
+\[ \abs{f_n(x) - f(x)} \leq a_n \to 0 \]
+where $a_n$ is independent from $x$.
 
 \end{document}
