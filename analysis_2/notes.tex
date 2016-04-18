@@ -735,7 +735,7 @@ Followingly,
     e^{z+w} &= e^z \cdot e^w = (\cos{z} + i \cdot \sin{z}) (\cos{w} + i \cdot \sin{w}) \\
     \intertext{but also}
             &= (\cos(z + w) + i \sin(z + w)) \\
-            &\Rightarrow = (\cos{z} \cdot \cos{w} - \sin{z} \cdot \sin{w}) + i (\cos{z} \cdot \sin{w} + \sin{z} c\dot \cos{w})
+            &\Rightarrow = (\cos{z} \cdot \cos{w} - \sin{z} \cdot \sin{w}) + i (\cos{z} \cdot \sin{w} + \sin{z} \cdot \cos{w})
   \end{align*}
 
   Analogously,
@@ -2017,6 +2017,8 @@ We have prove direction $\Rightarrow$.
 
 \index[English]{Primitive function}
 \index[German]{\foreignlanguage{ngerman}{Stammfunktion}}
+\index[English]{Fundamental theorem of Calculus}
+\index[German]{\foreignlanguage{ngerman}{Hauptsatz der Integralrechnung}}
 \begin{theorem}[Fundamental theorem of Calculus]
   Originally formulated by Isaac Barrow (1630--1677).
   Followingly popularized by Newton (1642--1727) and Leibniz (1646--1716).
@@ -2040,7 +2042,7 @@ We have prove direction $\Rightarrow$.
       \[ \int_a^b f(\xi) \, d\xi = \Phi(b) - \Phi(a) \]
   \end{enumerate}
 
-  The first characterization claims informally that
+  The first characterization claims that (informally speaking)
   the derivative for the upper limit of the integral of $f$ gives $f$.
 
   Let $f = \Phi'$ ($\Phi$ is our primitive function of $f$).
@@ -2078,6 +2080,346 @@ We have prove direction $\Rightarrow$.
   \end{enumerate}
 \end{proof}
 
+\meta{lecture}{14th of April 2016}{Wolfgang Ring}
+
+\begin{theorem}[Addition: Lipschitz continuity of differentiable functions]
+  Let $I = [a,b]$, $f: I \to \mathbb R$ and $f$ is continuous in $I$.
+  Let $A \subseteq I$. Let $A$ be countable and $f$ is differentiable in $I \setminus A$
+  and $\exists L > 0: \abs{f'(x)} \leq L \quad\forall x \in I \setminus A$.
+
+  Then it holds that $\forall x_1, x_2 \in I$:
+  \[ \abs{f(x_1) - f(x_2)} \leq L\abs{x_1 - x_2} \]
+\end{theorem}
+\begin{proof}
+  Without loss of generality, $x_1 < x_2$. Let $\varepsilon > 0$, define
+  $F_\varepsilon: I \to \mathbb R$
+  \[ F_{\varepsilon}(x) = \abs{f(x) - f(x_1)} - (L + \varepsilon) (x - x_1) \]
+  Show $F_\varepsilon(x_2) \leq 0$.
+
+  Assume there is some $\varepsilon' > 0$ with $F_{\varepsilon'}(x_2) > 0$.
+  It holds that
+  \begin{itemize}
+    \item $F_{\varepsilon'}(A) \subseteq \mathbb R$ is countable
+    \item $0 = F_{\varepsilon'}(x_1) < F_{\varepsilon'}(x_2)$.
+      Because $F_{\varepsilon'}$ is continuous (by Intermediate Value Theorem,
+      $[0,F_{\varepsilon'}(x_2)] \subseteq F_{\varepsilon'}([x_1, x_2])$)
+      and $[0, F_{\varepsilon'}(x_2)]$ contains overcountably many points,
+      $F_{\varepsilon'}(A)$ is countable.
+      \[ \Rightarrow \exists \gamma: 0 < \gamma < F_{\varepsilon'}(x_2) \]
+      and
+      \[ \gamma \in F_{\varepsilon'}([x_1, x_2] \setminus A) \]
+      Let $\underbrace{F_{\varepsilon'}^{-1}(\set{y})}_{B} \cap [x_1, x_2]
+      = \setdef{x \in [x_1, x_2]}{F_{\varepsilon'}(x) = y}$.
+
+      $B$ is bounded.
+      Let $c = \sup{B}$. Let $(\xi_n)_{n \in \mathbb N}$, $\xi_n \in B$ with
+      $\lim_{n\to\infty} \xi_n = c$. Then it holds that $c \in [x_1, x_2]$
+      and $F_{\varepsilon'}(\xi_n) = y \xRightarrow{\text{continuity of } F_{\varepsilon'}}
+      \underbrace{\lim_{n\to\infty} F_{\varepsilon'}(\xi_n)}_{y} = F_{\varepsilon'}(c)$.
+
+      Therefore $c = \max{B} = \max\set{x \in [x_1, x_2]: F_{\varepsilon'}(x) = y}$.
+      Because $F_{\varepsilon'}(x_2) > y$ and $F_{\varepsilon'}(x_1) = 0 < \gamma$,
+      it holds that $x_1 < c < x_2$.
+
+      Consider $x \in (c, x_2]$ and let $\varphi(x) \coloneqq
+      \frac{F_{\varepsilon'}(x) - F_{\varepsilon'}(c)}{x - c}$.
+      Furthermore $F_{\varepsilon'}(x) > \gamma = F_{\varepsilon'}(c)$ for $x \in (c,x_2]$.
+      Because if we define $F_{\varepsilon'}(x) < \gamma$, then (due to Intermediate Value Theorem)
+      $\exists \xi \in (x, x_2)$ with $F_{\varepsilon'}(\xi) = \gamma$, so $\exists \xi \in B$
+      which would be a contradiction to $c = \max{B}$.
+
+      \begin{align*}
+        \varphi(x) &= \frac{\abs{f(x) - f(x_1)} - \abs{f(c) - f(x_1)} - (L + \varepsilon')(x - x_1 - c + x_1)}{x - c} \\
+          &= \frac{\abs{f(x) - f(x_1)} - \abs{f(c) - f(x_1)} - (L + \varepsilon')(x - c)}{x - c} \\
+          &\overset{\text{inv. triangle ineq.}}{\leq} \frac{\abs{f(x) - f(c)}}{x - c} - (L + \varepsilon')
+      \end{align*}
+      Now as far as $c \not\in A$ holds, $f$ is differentiable in $c$ and it holds that $\abs{f'(c)} \leq L$,
+      hence there exists an interval $(c, d)$, $d < x_2$ and $d > c$, such that
+      \[ \frac{\abs{f(x) - f(c)}}{x - c} < L + \varepsilon' \]
+
+      Because $F_{\varepsilon'}(x) > \gamma$,
+      \[ \Rightarrow \varphi(x) > 0 \qquad \forall x \in (c, x_2] \]
+      \[ \Rightarrow 0 < \varphi(x) \leq \abs{f(x) - f(c)}{x - c} - (L + \varepsilon') \]
+      \[ \Rightarrow \abs{\frac{f(x) - f(c)}{x - c}} > L + \varepsilon' \]
+
+      This is a contradiction to the assumption that $F_{\varepsilon'}(x_2) > 0$.
+      So $F_{\varepsilon}(x_2) \leq 0 \quad \forall \varepsilon > 0$
+      \[ \Rightarrow F_0(x_2) \leq 0 \Rightarrow \abs{f(x_2) - f(x_1)} \leq L - \abs{x_2 - x_1} \]
+  \end{itemize}
+\end{proof}
+
+\begin{rem}
+  Let $f$ be differentiable in $[a,b]$ and $\abs{f'(x)} < L \quad \forall x \in [a,b]$.
+  Let $x_1, x_2 \in [a,b]$
+  \[ \abs{f(x_L) - f(x_1)} = \abs{f'(\xi) \cdot (x_2 - x_1)} \leq L \abs{x_2 - x_1} \]
+  by Mean Value Theorem of differential calculus.
+\end{rem}
+
+\begin{cor}
+  Let $f,g: I \to \mathbb R$. $I$ as above and $f,g$ are differentiable in $I \setminus A$,
+  $A$ countable and it holds that $f'(x) = g'(x) \quad \forall x \in I \setminus A$.
+  There exists a constant $k$ such that
+  \[ f(x) = g(x) + k \qquad \forall x \in I \]
+\end{cor}
+\begin{proof}
+  We use the previous Theorem for
+  \[ h(x) = f(x) - g(x) \]
+  Then it holds that $\abs{h'(x)} = 0 = L \quad \forall x \in I \setminus A$.
+  \[ \Rightarrow \abs{h(x_1) - h(x_2)} \leq 0 \cdot \abs{x_1 - x_2} \quad \forall x_1, x_2 \in I \]
+  \[ \Rightarrow h(x_1) = h(x_2) \quad \forall x_1, x_2 \in I \]
+  \begin{align*}
+    f(x_1) - g(x_1)
+      &= f(x_2) - g(x_2) \quad \forall x_1, x_2 \in I \\
+      &= k \ldots \text{ constant}
+  \end{align*}
+  $\forall x_1 \in I$ it holds that $f(x_1) = g(x_1) + k$.
+\end{proof}
+
+\meta{lecture}{15th of April 2016}{Wolfgang Ring}
+
+\begin{proof}[cont, 2nd part]
+  We need to show: Let $f$ be a regulated function and $\Phi$ is a
+  primitive function of $f$ with the following properties
+  \[ \Phi'(x) = f(x) \quad \forall x \in I \text{ where f is continuous} \]
+  \[ \Phi_+'(x) = \lim_{\xi\to x_+} f(x) \]
+  \[ \Phi_-'(x) = \lim_{\xi\to x_-} f(x) \quad \forall x \in I \]
+  Then it holds that
+  \[ \int_\alpha^\beta f(x) \, dx = \Phi(\beta) - \Phi(\alpha) \]
+
+  \begin{proof}
+    For $\Phi(x) = \int_\alpha^x f(\xi) \, d\xi = F(x)$ (where $F$ is also a primitive function)
+    it holds that
+    \[ \int_\alpha^\beta f(\xi) \, d\xi = F(\beta) - \underbrace{F(\alpha)}_{=0} \]
+    Because $\Phi$ and $F$ are both primitive functions of $f$,
+    $\Phi'$ and $F'$ correspond in all continuous points,
+    hence everywhere, but one countable set.
+
+    By the uniqueness theorem, it holds that
+    \[ \Phi(x) = F(x) + c \]
+    \[ F(x) = \Phi(x) - c \]
+    \[ \int_a^b f(\xi)\, d\xi = F(b) - F(a) = \Phi(b) - c - \Phi(a) + c = \Phi(b) - \Phi(a) \]
+  \end{proof}
+\end{proof}
+
+\index[English]{Indefinite integral}
+\index[German]{\foreignlanguage{ngerman}{Unbestimmtes Integral}}
+\begin{rem}[Notational remark]
+  Let $f$ be a regulated function. Then we denote
+  \[
+    \int f(x) \, dx =
+    \begin{cases}
+      \text{the set of all primitive function of } f & \\
+      \text{an arbitrary primitive function of } f
+    \end{cases}
+  \]
+  $\int f(x) \, dx$ is called \emph{indefinite integral}.
+\end{rem}
+
+\begin{rem}
+  \[
+    \int x^n \, dx = \frac{1}{n+1} x^{n+1}
+    \qquad \forall n \in \mathbb R \setminus \set{-1} \forall x > 0
+  \]
+  If you consider all primitive functions of the indefinite integral,
+  you consider a constant $c \in \mathbb R$.
+  \[
+    \int x^n \, dx = \frac{1}{n+1} x^{n+1} + c
+    \qquad \forall n \in \mathbb R \setminus \set{-1} \forall x > 0
+  \]
+
+  Let $x > 0$: $(\ln{x})' = \frac1x$. \\
+  Let $x < 0$: $(\ln{-x})' = \frac1{-x} \cdot (-1) = \frac1x$
+  \[
+    \int \frac 1x \, dx = \begin{cases}
+      \ln(x)  & \text{ for } x > 0 \\
+      \ln(-x) & \text{ for } x < 0 \\
+    \end{cases}
+    = \ln{\abs{x}} \qquad \text{ for } x \neq 0
+  \]
+
+  \[ \int \cos{x} \, dx = \sin{x} \]
+  \[ \int \sin{x} \, dx = -\cos{x} \]
+  \[ \int e^{cx} \, dx = \frac1c \cdot e^{cx} \quad (c \neq 0) \]
+\end{rem}
+
+\begin{lemma}
+  Let $f_1$ and $f_2$ be regulated functions in $I = [a,b]$ and
+  there exists some countable set $A$ such that
+  \[ f_1(x) = f_2(x) \qquad \forall x \in I \setminus A \]
+  Then it holds that
+  \[
+    \int f_1(x) \, dx = \int f_2(x) \, dx \text{ and } \int_a^b f_1(x) \, dx = \int_a^b f_2(x) \, dx
+    \qquad \forall a,b \in I
+  \]
+\end{lemma}
+\begin{proof}
+  Let $F_1$ be a primitive function on $f_1$, $F_2$ be a primitive function of $f_2$.
+  Then it holds that $F_1' = F_2'$ in $I \setminus A$.
+  Due to identity theorem:
+  \[ \Rightarrow F_1 = F_2 + c \Rightarrow \int f_1 \, dx = \int f_2 \, dx \]
+\end{proof}
+
+\begin{rem}
+  Example of a function, which is differentiable everywhere.
+  Its derivative is not a regulated function.
+
+  Let $I = [-1,1]$ and
+  \[
+    f(x) = \begin{cases}
+      x^2 \cdot \sin{\frac1x} & x \neq 0 \\
+      0                       & x = 0
+    \end{cases}
+  \]
+  For $x \neq 0$ it holds that
+  \[ f'(x) = 2x \cos \sin{\frac1x} - \frac{x^2}{x^2} \cdot \cos{\frac1x} \]
+  \[ f'(x) = 2x \sin{\frac1x} - \cos{\frac1x} \]
+
+  \[
+    f'(0)
+      = \lim_{h\to0} \frac1h \left[h^2 \cdot \sin{\frac1h} - 0\right]
+      = \lim_{h\to0} \underbrace{h}_{\to0} \cdot \underbrace{\sin{\frac1h}}_{\in [-1,1]}
+      = 0
+  \] \[
+    f'(x) = \begin{cases}
+      0 & \text{ for } x = 0 \\
+      \underbrace{2x \sin{\frac1x} - \cos{\frac1x}}_{\text{has no one-sided limit in } x = 0} & \text{ for } x \neq 0
+    \end{cases}
+  \] \[
+    f'_+(0) \neq \lim_{x\to 0^+} f'(x)
+  \]
+\end{rem}
+
+\subsection{Integration techniques}
+%
+\begin{theorem}[Integration by parts (dt. \enquote{\foreignlanguage{ngerman}{partielle Integration}})]
+  Let $u,v: I \to \mathbb R$ be both primitive functions of regulated functions.
+  Then also $u \cdot v$ is a primitive function of a regulated function and it holds that
+  \[ \int u' v \, dx = u \cdot v - \int u \cdot v' \, dx \]
+  and
+  \[ \int_a^b u' v \, dx = \underbrace{u(b) \cdot v(b) - u(a) \cdot v(a)}_{\eqqcolon u \cdot v |_a^b} - \int_a^b u \cdot v' \, dx \]
+\end{theorem}
+\begin{proof}
+  $u$ is continuous and therefore a regulated function. \\
+  $v$ is continuous and therefore a regulated function.
+
+  $u'$ and $v'$ are regulated function by assumption.
+  \[ \Rightarrow (u' \cdot v + u \cdot v') \in \mathcal R(I) \]
+  $u \cdot v$ is differentiable in every point in which $u$ and $v$ is differentiable.
+  Let $u$ be differentiable in $I \setminus A$, $v$ is differentiable in $I \setminus B$.
+  \[ \Rightarrow u \cdot v \text{ is differentiable in } I \setminus \underbrace{(A \cup B)}_{\text{countable}} \]
+  In $I \setminus (A \cup B)$ it holds that
+  \[ (u \cdot v)'(x) = u'(x) \cdot v(x) + u(x) v'(x) \]
+  Hence the function $u \cdot v$ is primitive function of the regulated function $(u' v + u v')$.
+  \[ \Rightarrow \int (u' v + uv') \, dx = u \cdot v \]
+  \[ \Rightarrow \int_a^b (u' v + uv') \, dx = u(b) v(b) - u(a) v(a) \]
+\end{proof}
+
+\begin{ex}
+  Let $a \neq -1$ and $x > 0$.
+  \[
+    \int x^a \ln{x} \, dx = \begin{vmatrix}
+      u' = x^a     & u = \frac1{1+a} \cdot x^{a+1} \\
+      v = \ln{x}   & v' = \frac{1}{x}
+    \end{vmatrix}
+  \] \[
+    \overset{\text{int. by parts}}{=} \frac{1}{1+a} x^{1+a} \cdot \ln{x} - \frac{1}{1+a} \int x^a \, dx
+  \] \[
+    = \frac{1}{1+a} x^{1+a} \ln{x} - \frac{1}{(1 + a)^2} x^{1+a}
+    = \frac{1}{1+a} x^{1+a} \left[\ln{x} - \frac{1}{1 + a}\right]
+  \]
+\end{ex}
+
+\begin{ex}
+  \[ \int \cos^k(x) \, dx \text{ for } k = 2,3,4,\ldots \]
+  \[
+    \begin{vmatrix}
+      u' = \cos{x} & \Rightarrow u = \sin{x} \\
+      v = \cos^{k-1}(x) & v' = - (k-1) \cdot \cos^{k-2}(x) \cdot \sin(x)
+    \end{vmatrix}
+  \] \begin{align*}
+    \int \cos^k(x) \, dx
+      &= \cos^{k-1}(x) \cdot \sin(x) + \int (k-1) \cdot \cos^{k-2}(x) \cdot \underbrace{\sin^2(x)}_{1 - \cos^2(x)} \, dx \\
+      &= \cos^{k-1}(x) \cdot \sin(x) + (k-1) \cdot \int \cos^{k-2}(x) \, dx - (k-1) \cdot \int \cos^k(x) \, dx
+  \end{align*}
+  Recognize that we have $\int \cos^k(x) \, dx$ twice in the equation (LHS and RHS, RHS with a sign).
+  \[
+    k \cdot \int \cos^k(x) \, dx
+      = \cos^{k-1}(x) \cdot \sin(x) + (k-1) \int \cos^{k-2}(x) \, dx
+  \] \[
+    \int \cos^k(x) \, dx = \frac1k \cos^{k-1}(x) \sin(x) + \frac{k-1}{k} \int \cos^{k-2}(x) \, dx
+  \]
+  Recursion formula.
+
+  Analogously,
+  \[ \int \sin^k(x) \, dx = -\frac1k \sin^{k-1}(x) \cos(x) + \frac{k-1}{k} \int \sin^{k-2}(x) \, dx \]
+  Let $c_m = \int_0^{\frac\pi2} \cos^m(x) \, dx$. Then it holds that
+  \[
+    c_{2n} = \frac{(2n - 1)}{2n} \cdot \frac{(2(n-1) - 1)}{2(n-1)} \cdots \frac34 \cdot \frac12 \cdot \frac\pi2
+      = \left(\prod_{k=1}^n \frac{2k - 1}{2k}\right) \cdot \frac\pi2
+  \] \[
+    c_{2n + 1} = \left(
+      \prod_{k=1}^n \frac{2k}{2k+1}
+    \right)
+  \]
+  Proof by complete induction:
+  \begin{description}
+    \item[Case $n=0$]
+      \[ \int_0^{\frac\pi2} \cos^{2\cdot 0} x \, dx = \int_0^{\frac\pi2} 1 \, dx = \frac\pi2 \]
+      \[ \int_0^{\frac\pi2} \cos^{2\cdot 0 + 1} x \, dx = \int_0^{\frac\pi2} \cos{x} \, dx = \sin(x)|_0^{\frac\pi2} = 1 \]
+      \[
+        \int_0^{\frac\pi2} \cos^{2(n+1)} \, dx
+          = \frac{1}{2(n+1)} \cdot \cos^{2(n+1)-1}(x) \cdot \sin(x) |_0^{\frac\pi2}
+          + \frac{2(n+1) - 1}{2(n+1)} \cdot \int_0^{\frac\pi2} \cos^{2n}(x) \, dx
+      \] \[
+        = \frac{2n+1}{2n+2} \cdot \left(\underbrace{\prod_{k=1}^n \frac{2k-1}{2k}}_{\text{induction hypothesis}}\right) \cdot \frac\pi2
+        = \left(\prod_{k=1}^{n+1} \frac{2k-1}{2k}\right) \cdot \frac\pi2
+      \]
+  \end{description}
+\end{ex}
+
+\begin{theorem}[Wallis product]
+  (John Wallis, 1616--1703)
+  \[
+    \frac\pi2 = \lim_{n\to\infty} w_n
+    \quad \text{with} \quad
+    w_n = \prod_{k=1}^n \frac{(2k)^2}{(2k-1)(2k+1)}
+    = \frac{2 \cdot 2}{1 \cdot 3} \cdot \frac{4 \cdot 4}{3 \cdot 5} \cdot \frac{6 \cdot 6}{5 \cdot 7} \ldots
+  \]
+\end{theorem}
+\begin{proof}
+  \[
+    \frac\pi2 \cdot \frac{c_{2n+1}}{c_{2n}}
+      = \frac\pi2 \cdot \frac{\prod_{k=1}^n \frac{2k}{2k+1}}{\prod_{k=1}^n \frac{2k-1}{2k} \cdot \frac\pi2}
+      = \prod_{k=1}^n \frac{(2k)^2}{(2k + 1)(2k - 1)} = w_n
+  \]
+  It remains to show: $\lim_{n\to\infty} \frac{c_{2n+1}}{c_{2n}} = 1$.
+
+  In $\left[0, \frac\pi2\right]$ it holds that $0 \leq \cos{x} \leq 1$.
+  \[
+    \Rightarrow \int_0^{\frac\pi2} \cos^{2n}(x) \, dx
+    \geq \int_0^{\frac\pi2} \cos^{2n+1}(x) \, dx
+    \geq \int_0^{\frac\pi2} \cos^{2n+2}(x) \, dx
+  \] \[
+    c_{2n} \geq c_{2n+1} \geq c_{2n+2}
+  \] \[
+    1 \geq \frac{c_{2n+1}}{c_{2n}} \geq \frac{c_{2n+2}}{c_{2n}}
+    = \frac{\prod_{k=1}^{n+1} \frac{2k - 1}{2k}}{\prod_{k=1}^n \frac{2k - 1}{2k}}
+    = \underbrace{\frac{2n+1}{2n+2}}_{\to 1 \text{ for } n \to \infty}
+  \]
+  $\Rightarrow \frac{c_{2n+1}}{c_{2n}}$ converges and limit is $1$.
+  \[ \lim_{n\to\infty} \frac{\pi}2 \cdot \frac{c_{2n+1}}{c_{2n}} = \frac\pi2 = \lim_{n\to\infty} w_n \]
+\end{proof}
+
+\begin{theorem}[Substitution law]
+  Let $f: I \to \mathbb R$ be a regulated function with primitive function
+  $F$. Furthermore $t: [\alpha, \beta] \to I$ is continuously differentiable.
+  Then $F \circ t$ is a primitive function for function $(f \circ t) \cdot t'$
+  and it holds that
+  \[
+    \int_{\alpha}^\beta f(t(x)) \cdot t'(x) \, dx
+      = \int_{t(\alpha)}^{t(\beta)} f(t) \, dt
+  \]
+\end{theorem}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

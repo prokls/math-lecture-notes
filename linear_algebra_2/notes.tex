@@ -16,6 +16,8 @@
 \usepackage{stmaryrd}
 \usepackage{rotating}
 \usepackage{bbold}
+\usepackage{scalerel}
+\usepackage{stackengine}
 
 \title{Linear Algebra 2 -- Lecture Notes}
 \author{Lukas Prokop}
@@ -33,6 +35,8 @@
 \newcommand\nope{\lightning}
 \newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
 \newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+\newcommand\equalhat{\mathrel{\stackon[1.5pt]{=}{\stretchto{%
+    \scalerel*[\widthof{=}]{\wedge}{\rule{1ex}{3ex}}}{0.5ex}}}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{defi}{Definition}
@@ -48,6 +52,7 @@
 \DeclareMathOperator\kernel{ker} % kernel
 \DeclareMathOperator\rank{rank} % rank of a matrix
 \DeclareMathOperator\sign{sign}
+\DeclareMathOperator\ind{index}
 
 \DeclarePairedDelimiter\norm\lVert\rVert
 
@@ -2601,6 +2606,583 @@ Every rank is equivalent to some matrix of the form
   \[ r + s = \operatorname{rank}(A) \]
   $A$ is positive definite if and only if $r = n$.
 \end{defi}
+
+\meta{lecture}{13th of April 2016}{Franz Lehner}
+
+\begin{theorem}
+  \label{theorem-8.24}
+  Every Hermitian matrix ($A = A^*$) is congruent to $D = (+1, \ldots, +1,-1, \ldots, -1)$.
+\end{theorem}
+\begin{proof}[Constructive proof by induction]
+  \begin{description}
+    \item[$n=1$]
+      Let $A = [a_{11}]$.
+
+      Find: $c_{11}$ such that $\overline{c_{11}} a_{11} c_{11} = +1,-1,-0$
+      \[ \abs{c_{11}}^2 a_{11} = \pm 1, 0 \]
+      \[
+        c_{11} = \begin{cases}
+          \frac1{\sqrt{\abs{a_n}}} & \text{if } a_{11} \neq 0 \\
+          1 & \text{if } a_{11} = 0
+        \end{cases}
+      \]
+    \item[$n-1 \to n$]
+      Basic idea:
+      \[
+        \begin{bmatrix}
+          1 & \to 0 & \ldots & 0 \\
+          \downarrow & \ddots &  & \vdots \\
+          \vdots &  &  & \vdots \\
+          0 & \ldots & \ldots & \ddots
+        \end{bmatrix}
+      \]
+      Create $0$ in first column and row.
+
+      \begin{description}
+        \item[Case 1]
+          $A = 0 \Rightarrow C = I$
+        \item[Case 2]
+          $a_n = 0$
+        \item[Case 2a]
+          \[
+            \exists j: a_{jj} \neq 0, \qquad C = T_{(1j)} = C^*
+            \Rightarrow (C^* A C)_{11}
+            = a_{jj} \neq 0
+            \Rightarrow \text{ case 3}
+          \]
+        \item[Case 2b]
+          All $a_{jj} = 0$, $\exists i,j: a_{ij} \neq 0$
+          \[ C = I + E_{ij} \cdot e^{i\theta} \text{ such that } e^{-i\theta} a_{ij} = \abs{a_{ij}} \]
+          \[ i \to \begin{bmatrix} 0 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 1 & 0 \end{bmatrix} \]
+
+          \begin{ex}
+            \label{example-8.25}
+            \[
+              A = \begin{bmatrix}
+                0 & 1 & i \\
+                1 & 0 & 1 \\
+                -i & 1 & 0
+              \end{bmatrix}
+            \]
+          \end{ex}
+        \item[Case 2b (cont.)]
+          \[ a_{12} \neq 0 \qquad C_1 = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} \]
+          \[
+            A' = C_1^* A C_1 =
+            \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+            = \begin{bmatrix} 0 & 1 & i \\ 1 & 0 & 1 \\ i & 1 & 0 \end{bmatrix}
+            = \begin{bmatrix} 0 & 1 & i \\ 1 & 2 & 1+i \\ -i & 1-i & 0 \end{bmatrix}
+          \]
+          $\Rightarrow$ Case 2a, $a_{22} \neq 0$
+          \[ C_2 = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix} \]
+          \[ C_2^* A' C_2 = \begin{bmatrix} 2 & 1 & 1+i \\ 1 & 0 & i \\ 1-i & -i & 0 \end{bmatrix} \]
+          $\Rightarrow$ Case 3
+          \begin{align*}
+            C^* A C
+              &= \left[\left(I + E_{ji} e^{-i\theta}\right) A \left(I + E_{ij} e^{i\theta}\right)\right]_{ij} \\
+              &= \left[A + E_{ji} e^{-\theta} A + A E_{ij} e^{i\theta} + E_{ji} A E_{ij}\right]_{ij} \\
+              &= \underbrace{a_{ji}}_{=0} + e^{i\theta} a_{ij} + \underbrace{a_{ji} e^{i\theta}}_{= \overline{a_{ij} e^{-i\theta}}} + \underbrace{a_{ii}}_{=0} \\
+              &\overset{\text{by selection of } \theta}{=} \abs{a_{ij}} \cdot 2
+          \end{align*}
+
+          $\Rightarrow A'_{ji} \neq 0 \Rightarrow$ Case 2a
+
+          $\Rightarrow$ Case 3: $a_{11} \neq 0$
+
+          We generate zeroes.
+
+          % TODO: image
+        \item[Case 3: $a_{11} \neq 0$]
+          \[
+            C = \begin{bmatrix}
+              1 - \frac{a_{12}}{a_{11}} & -\frac{a_{13}}{a_{k}} & \ldots & \ldots & -\frac{a_{1n}}{a_{k}} \\
+              \vdots & \ddots &   &        & \vdots \\
+              \vdots &        & 1 &        & \vdots \\
+              \vdots &        &   & \ddots & \vdots \\
+              \vdots & \ldots &   & \ldots & 1
+            \end{bmatrix}
+          \] \[
+            A'' = C_2^* A C_2 = \begin{bmatrix}
+              2 & 1 & 1+i \\
+              1 & 0 & i \\
+              1-i & -i & 0
+            \end{bmatrix}
+            \Rightarrow \text{ case 3}
+          \] \[
+            C_3^* A'' C_3 =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              -\frac12 & 1 & 0 \\
+              -\frac{1-i}{2} & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              2 & 1 & 1+i \\
+              1 & 0 & i \\
+              1-i & -i & 0
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & -\frac12 & -\frac{1+i}{2} \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          \] \[
+            = \begin{bmatrix}
+              2 & 1 & 1+i \\
+              0 & -\frac12 & \frac{-1+i}{2} \\
+              0 & \frac{-1-i}{2} & -1
+            \end{bmatrix} \begin{bmatrix}
+              2 & 0 & 0 \\
+              0 & -\frac12 & \frac{-i+2}{2} \\
+              0 & \frac{-1-i}{2} & -1
+            \end{bmatrix}
+          \]
+      \end{description}
+  \end{description}
+\end{proof}
+
+TODO
+
+\meta{lecture}{18th of April 2016}{Franz Lehner}
+
+Revision:
+$A$ is positive definite. $A = A^*$.
+\[ \bigwedge_{x \neq 0} x^t A x > 0 \Leftrightarrow \ind{A} = n \]
+
+\[
+  A \equalhat D =
+  \begin{bmatrix}
+    +1 &    &    &    &   &   &  \\
+       & +1 &    &    &   &   &  \\
+       &    & -1 &    &   &   &  \\
+       &    &    & -1 &   &   &  \\
+       &    &    &    & 0 &   &  \\
+       &    &    &    &   & 0 &  \\
+  \end{bmatrix}
+\]
+where $r$ is the number of $+1$ and $s$ is the number of $-1$.
+
+Hence
+\[ \bigvee_{C \in \operatorname{GL}(n,\mathbb C)} \]
+
+$\ind{A} = r$ and $\sign{A} = r - s$.
+
+\index[English]{Non-negative matrix}
+\index[German]{\foreignlanguage{ngerman}{Nichtnegative Matrix}}
+\begin{rem}
+  A matrix is called \emph{non-negative}
+  if all $a_{ij} \geq 0$.
+
+  We denote $A \geq 0$.
+
+  $A < 0$.
+
+  $A \prec 0$ if $\sign{A} = -n$.
+
+  Indefinite:
+  \[
+    \begin{cases}
+      r > 0   & \ind{A} \neq 0 \\
+      s > 0   & \ind{A} - \sign{A} \neq 0
+    \end{cases}
+    \ind{A} \cdot (\ind{A} - \sign{A}) \neq 0
+  \]
+\end{rem}
+
+\index[English]{Minors of a matrix}
+\index[German]{\foreignlanguage{ngerman}{Minoren einer Matrix}}
+\begin{rem}
+  The \emph{minors of a matrix} are defined as
+  \[
+    [A]_{I,J} = \begin{vmatrix}
+      a_{i_1,j_1} & a_{i_1,j_2} & \ldots & a_{i_1,j_r} \\
+      \vdots      & \ddots      & \ddots & \vdots \\
+      a_{i_r,j_1} & a_{i_r,j_2} & \ldots & a_{i_r,j_r}
+    \end{vmatrix}
+  \]
+  \[ I = \set{i_1 < i_2 < \ldots < i_r} \]
+  \[ J = \set{j_1 < j_2 < \ldots < j_r} \]
+\end{rem}
+
+\begin{theorem}[Fundamental minor criterion]
+  \[
+    A > 0
+    \Leftrightarrow
+    \begin{vmatrix}
+      a_{11} & \ldots & a_{ir} \\
+      \vdots &        & \vdots \\
+      a_{r1} & \ldots & a_{rr}
+    \end{vmatrix}
+    > 0
+    \quad \text{ for } r = 1,2,\ldots,n
+  \]
+
+  \[
+    \Rightarrow
+    A_r =
+    \begin{bmatrix}
+      a_{11} & \ldots & a_{ir} \\
+      \vdots &        & \vdots \\
+      a_{r1} & \ldots & a_{rr}
+    \end{bmatrix}
+  \]
+  are all defined positively.
+
+  \[
+    \set{\xi^t A_t} = \begin{bmatrix}
+      \xi \\ \overline{0}_{n-r}
+    \end{bmatrix} A \begin{bmatrix}
+      \xi \\ \overline{0_{n-r}}
+    \end{bmatrix}
+    > 0
+    \qquad \text{ if } \xi \neq 0
+  \]
+\end{theorem}
+
+\begin{lemma}
+  \label{lemma-8.30}
+  \begin{enumerate}
+    \item[4.]
+      $A > 0 \Rightarrow \det{A} > 0$
+      hence
+      \[ C^* A C = I \]
+      where $C$ is invertible.
+      \[ \Rightarrow \abs{\det(C)}^2 \cdot \det{A} = 1 \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Induction: all submatrices $A_r$ are positive definite.
+  \begin{description}
+    \item[IB $r=1$:]
+      $A_1 = [a_{11}]$ is positive definite, because $a_{11} = \det[a_n] > 0$
+    \item[IS $r\to r+1$:]
+      Assume $A_{r-1} > 0$ and $\det{A_r} > 0$, then $A_{r-1} \equalhat I_{r-1}$
+      \[ \Rightarrow \bigvee_{C_{r-1} \in \operatorname{GL}(r-1,\mathbb C)} C^*_{r-1} A_{r-1} C_{r-1} = I_{r-1} \]
+      \[
+        A'_r = \begin{bmatrix}
+          C^*_{r-1} & \\
+                    & 1
+        \end{bmatrix}
+        \cdot
+        A_r
+        \cdot
+        \begin{bmatrix}
+          C_{r-1} & \\
+                  & 1
+        \end{bmatrix}
+        = \begin{bmatrix}
+          I_{r-1}           &        &                   & a_{1r} \\
+                            &        &                   & a_{2r} \\
+                            &        &                   & \vdots \\
+          \overline{a_{1r}} & \ldots & \overline{a_{2r}} & a_{rr}
+        \end{bmatrix}
+      \] \[
+        C = \begin{bmatrix}
+          1 &   &    &    & -a_{ir} \\
+            & 1 &    &    & \vdots \\
+            &   & \ddots & & \vdots \\
+            &   &        & & -a_{r-1,r} \\
+            &   &        & & 1
+        \end{bmatrix}
+      \] \[
+        C^* A'_r C = \begin{bmatrix}
+          1 &   &        &      &      \\
+            & 1 &        &      &      \\
+            &   & \ddots &      &      \\
+            &   &        & \ddots &      \\
+          -\overline{a_{i,r}} & -\overline{a_{2,r}} & \ldots & -\overline{a_{r-1,r}} & 1
+        \end{bmatrix}
+        \cdot
+      \] \[
+        \begin{bmatrix}
+          1 &   &        &   & a_{1,r} \\
+            & 1 &        &   & a_{2,r} \\
+            &   & \ddots &   & \vdots \\
+            &   &        & 1 & a_{r-1,r} \\
+          \overline{a_{1,r}} & \overline{a_{2,r}} & \ldots & \overline{a_{r-1,r}} & a_{r,r}
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+          1 &   &        & -a_{1,r} \\
+            & 1 &        & \vdots \\
+            &   & \ddots & -a_{r-1,r} \\
+            &   &        & 1
+        \end{bmatrix}
+      \] \[
+        =
+        \begin{bmatrix}
+          1 &        &   & a_{1,r} \\
+            & \ddots &   & \vdots \\
+            &        & 1 & a_{r-1,r} \\
+          0 & \ldots & 0 & \underbrace{a_{r,r} - \sum_{j=1}^{r-1} \abs{a_{1,r}}^2}_{= \tilde{a}}
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+          1 &   &        & -a_{1,r} \\
+            & 1 &        & \vdots \\
+            &   & \ddots & -a_{r-1,r} \\
+            &   &        & 1
+        \end{bmatrix}
+        = \begin{bmatrix}
+          1 &        &   &           \\
+            & \ddots &   &           \\
+            &        & 1 &           \\
+            &        &   & \tilde{a}
+        \end{bmatrix}
+      \] \[
+        \det{A'_r} = \abs{\det{C_{r-1}}}^2 \cdot \det{A_r} > 0
+      \] \[
+        \det{C^* A'_r C} = \abs{\det{C}}^2 \cdot \det{A'_r} > 0
+      \] \[
+        \begin{bmatrix}
+          1 &        & \\
+            & \ddots & \\
+            &        & \frac{1}{\sqrt{\tilde{a}}}
+        \end{bmatrix}
+        C^* A'_r C
+        \begin{bmatrix}
+          1 &        & \\
+            & \ddots & \\
+            &        & \frac{1}{\sqrt{\tilde{a}}}
+        \end{bmatrix}
+        = I_r
+        \Rightarrow A_r \equalhat I_r \Rightarrow A_r > 0
+      \]
+  \end{description}
+\end{proof}
+
+In the following, we will only consider positive definite inner products.
+Consider $(V, \langle, \rangle)$ and choose a basis $(b_1, \ldots, b_n)$.
+\[ A = [\functional{b_i, b_j}] \]
+\[ \Rightarrow A > 0 \text{ ? } \]
+
+We have already shown: Cauchy-Bunjakowsky-Schwarz:
+\[ \abs{\functional{x,y}} \leq \norm{X} \cdot \norm{Y} \]
+where
+\[ \norm{X} = \sqrt{\functional{X,X}} \]
+$\Rightarrow$ is a norm.
+
+\index[English]{Euclidean space}
+\index[German]{\foreignlanguage{ngerman}{Euklidischer Raum}}
+\index[English]{Unitary space}
+\index[German]{\foreignlanguage{ngerman}{Unitärer Raum}}
+\index[English]{Hilbert space}
+\index[German]{\foreignlanguage{ngerman}{Hilbertraum}}
+\index[English]{Normed Element}
+\index[German]{\foreignlanguage{ngerman}{Normiertes Element}}
+\begin{defi}
+  \label{defi-8.33}
+  David Hilbert (1862--1943) $\rightarrow$ Hilbert's 23 problems (1900)
+
+  \begin{enumerate}
+    \item
+      A vector space $V$ with positive definite scalar product is called
+      \begin{itemize}
+        \item Euclidean space ($K = \mathbb R$)
+        \item unitary space ($K = \mathbb C$)
+        \item (pre-)Hilbert space ($\dim = \infty$)
+      \end{itemize}
+
+    \item
+      An element $v \in V$ is called \emph{normed} if $\norm{v} = 1$.
+      \[ v \neq 0 \Rightarrow \frac{v}{\norm{v}} \text{ is normed} \]
+
+    \item
+      Let $v, w \neq 0$, then the angle $\angle(v, w)$ is exactly
+      $\arccos{\frac{\Re(\functional{v,w})}{\norm{v} \cdot \norm{w}}}$.
+
+      \[ \arccos: [-1,1] \to [0,\pi] \]
+
+    \item
+      Two vectors $v,w$ are called \emph{orthogonal} ($v \perp w$) if
+      \[ \functional{v,w} = 0 \]
+      hence, $v = 0 \lor w = 0 \lor \varphi = \frac{\pi}{2}$.
+  \end{enumerate}
+\end{defi}
+
+\begin{theorem}
+  \label{satz-8.34}
+  In $(V, \langle, \rangle)$ is holds that
+  \begin{enumerate}
+    \item $\norm{v + w}^2 = \norm{v}^2 + \norm{w}^2 + 2 \norm{v} \norm{w} \cos{\varphi}$ (Cosine theorem)
+    \item If $v \perp w$, then $\norm{v + w}^2 = \norm{v}^2 + \norm{w}^2$ (Pythagorean theorem)
+    \item $\norm{v + w}^2 + \norm{v - w}^2 = 2 (\norm{v}^2 + \norm{w}^2)$ (parallelogram equation)
+
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics{img/parallelogram_norms.pdf}
+          \caption{Norm addition illustrated in a parallelogram}
+          \label{img:norm-parallelogram}
+        \end{center}
+      \end{figure}
+
+      Compare with Figure~\ref{img:norm-parallelogram}.
+      \[ \xi^2 + \eta^2 = b^2 \]
+      \[ (a + \xi)^2 + \eta^2 = e^2 \]
+      \[ (a - \xi)^2 + \eta^2 = f^2 \]
+      \[ \underbrace{(a + \xi)^2 + (a - \xi)^2}_{2(a^2 + \xi^2 + \eta^2) = 2 (a^2 + b^2)} + 2\eta^2 = e^2 + f^2 \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{ex}[Counterexample]
+  $\norm{x}_1 = \abs{x_1} + \ldots + \abs{x_n}$ does not satisfy the third property.
+\end{ex}
+
+\begin{rem}
+  It is possible to show (von Neumann):
+  If a norm satisfies the parallelogram equation,
+  it originates from a scalar product.
+\end{rem}
+
+\index[English]{Orthogonal family}
+\index[German]{\foreignlanguage{ngerman}{Orthogonale Familie}}
+\index[English]{Orthonormal family}
+\index[German]{\foreignlanguage{ngerman}{Orthonormale Familie}}
+\index[English]{Orthonormal basis}
+\index[German]{\foreignlanguage{ngerman}{Orthonormale Basis}}
+\begin{defi}
+  Let $(V, \langle, \rangle)$ be a vector space with scalar product.
+  A family $(v_i)_{i \in I} \subseteq V$ is called
+  \begin{description}
+    \item[orthogonal] if $\bigwedge_{i\neq j} \functional{v_i, v_j} = 0$
+    \item[orthonormal] if $\bigwedge_{i,j} \functional{v_i, v_j} = \delta_{ij} = \begin{cases} 0 & i \neq j \\ 1 & i = j \end{cases}$
+    \item[orthonormal basis] if it is a basis and orthonormal
+  \end{description}
+\end{defi}
+
+\index[English]{Trigonometric polynomials}
+\index[German]{\foreignlanguage{ngerman}{Trigonometrische Polynome}}
+\begin{ex}
+  $(e_1, \ldots, e_n)$ in $\mathbb K^n$ is orthonormal basis in regards of the standard scalar product.
+  \begin{enumerate}
+    \item $\functional{e_i, e_j} = \delta_{ij}$
+    \item
+      \[ \int_0^1 \sin(2\pi mx) \sin(2\pi nx) \, dx = \delta_{mn} \cdot 2 \]
+      \[ \int_0^1 \sin(2\pi nx) \cos(2\pi nx) \, dx = 0\]
+      \[ \int_0^1 \cos(2\pi mx) \cos(2\pi nx) \, dx = \delta_{mn} \cdot 2 \]
+      \[ \set{1} \cup \setdef{\frac{\sin(2\pi nx)}{\sqrt2}}{n \in \mathbb N} \cup \setdef{\frac{\cos(2\pi nx)}{\sqrt{2}}}{n \in \mathbb N} \]
+      where
+      \[ \functional{f,g} = \int_0^1 f(x) g(x) \, dx \]
+      is orthonormal in $C[0,1]$.
+
+      This is the spanned linear subspace.
+
+      The result are the so-called trigonometric polynomials.
+      \[ f(x) = \sum_{n=0}^\infty a_n \cos(2\pi nx) + \sum_{n=1}^\infty b_n \sin(2\pi nx) \]
+  \end{enumerate}
+\end{ex}
+
+\begin{theorem}
+  \label{satz-8.38}
+  Let $(v_i)_{i \in I} \subseteq V$, $v_i \neq 0$.
+  \begin{enumerate}
+    \item $(v_i)_{i \in I}$ is orthogonal $\Leftrightarrow \left(\frac{v_i}{\norm{v_i}}\right)_{i \in I}$ is orthonormal.
+    \item If $(v_i)_{i \in I}$ is orthogonal, then $(v_i)_{i \in I}$ is linear independent.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item trivial
+    \item Let $\lambda_1, \ldots, \lambda_n \in \mathbb K$ and $\lambda_1 v_{i_1} + \ldots + \lambda_k v_{i_k} = 0$,
+      then all $\lambda_j = 0$.
+      \begin{align*}
+        0
+        &= \functional{0, v_{ij}} \\
+        &= \functional{\lambda_1 v_{i_1} + \ldots + \lambda_k v_{i_k}, v_{ij}} \\
+        &= \lambda_1 \functional{v_{i_1}, v_{ij}} + \lambda_2 \functional{v_{i_2}, v_{ij}} + \ldots + \lambda_k \functional{v_{i_k}, v_{i_j}}
+        &= \lambda_j \norm{v_{ij}}^2 \\
+        &\Rightarrow \lambda_j = 0 \qquad \text{ for } j = 1, \ldots, k
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  \label{satz-8.39}
+  Let $B = (b_1, \ldots, b_n)$ be a orthonormal basis (ONB)
+  of a finite-dimensional vector space $V$ over $\mathbb K$.
+  Let $v,w \in V$ with
+  \[
+    \Phi_B(v) = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}
+    \qquad
+    \Phi_B(w) = \begin{pmatrix} \mu_1 \\ \vdots \\ \mu_n \end{pmatrix}
+  \]
+  Then it holds that
+  \begin{enumerate}
+    \item $\bigwedge_{i \in \set{1,\ldots,n}} \lambda_i = \functional{v,b_i}$
+    \item $\functional{v,w} = \sum_{i=1}^n \lambda_i \overline{\mu_i}$
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item $\functional{v,b_i} = \functional{\sum_{j=1}^n \lambda_j b_j, b_i} = \sum_{j=1}^n \lambda_j \functional{\underbrace{b_j, b_i}_{\delta_{ji}}} = \lambda_i$
+    \item
+      \[
+        \functional{v,w} = \Phi_B(v)^t A \overline{\Phi_B(w)} = \Phi_B(v)^t \overline{\Phi_B(w)} = \sum_{i=1}^n \lambda_i \overline{\mu_i}
+      \] \[
+        a_{ij} = \functional{b_i, b_j} = \delta_{ij}
+      \]
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Orthogonal complement}
+\index[German]{\foreignlanguage{ngerman}{Orthogonales Komplement}}
+\begin{defi}
+  \label{defi-8.40}
+  $(V, \langle, \rangle)$. $M \subseteq V$ be a subset.
+  Then
+  \[ M^\bot \coloneqq \setdef{v \in V}{\bigwedge_{u \in M} \functional{v,u} = 0} \]
+  is called \emph{orthogonal complement} of $M$. For $v \in V$, let $v^\bot \coloneqq \set{v}^\bot$.
+\end{defi}
+
+\begin{theorem}
+  \label{satz-8.41}
+  Let $(V, \langle, \rangle)$ and $M,N \subseteq V$.
+  \begin{enumerate}
+    \item $M^\bot$ is a subspace.
+    \item $M \subseteq N \Rightarrow N^\bot \subseteq M^\bot$.
+      \[ (M_1 \cup M_2)^\bot = M_1^\bot \cap M_2^\bot \]
+    \item $\set{0}^\bot = V$
+    \item $V^\bot = \set{0}$
+    \item $M \cap M^\bot \subseteq \set{0}$
+    \item $M^\bot = \mathcal L(M)^\bot$
+    \item $M \subseteq (M^\bot)^\bot$
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \[ u^\bot = \setdef{v}{\functional{v,u} = 0} \]
+      \[ T_u: \substack{V \to \mathbb K \\ v \mapsto \functional{v,u}} \text{ is linear} \]
+      \[ \setdef{v}{\functional{v,u} = 0} = \setdef{v}{T_u(v) = 0} = \kernel{T_u} \text{ is subspace} \]
+      \[ M^\bot = \bigcap_{u \in M} u^\bot \text{ is intersection of subspaces} \]
+    \item
+      \[ N^\bot = \bigcap_{u \in N} u^\bot \subseteq \bigcap_{u \in M} u^\bot = M^\bot \]
+      \[
+        (M_1 \cup M_2)^\bot
+        = \bigcap_{u \in M_1 \cup M_2} u^\bot - \bigcap_{u \in M_1} u^\bot \cap \bigcap_{u \in M_2} u^\bot
+        = M_1^\bot \cap M_2^\bot
+      \]
+    \item trivial
+    \item
+      \[ V^\bot = V \cap V^\bot = \set{0} \]
+    \item $v \in M \cap M^\bot \Rightarrow \functional{v,v} = 0 \Rightarrow v = 0$
+    \item
+      \[ \mathcal L(M)^\bot \subseteq M^\bot \qquad \text{ (because of 2.)} \]
+      Show that: $M^\bot \subseteq \mathcal L(M)^\bot$: Let $v \in M^\bot$, $u \in \mathcal L(M)$
+      Then
+      \[ \exists u_1, \ldots, u_n \in M \exists \lambda_1, \ldots, \lambda_n \in \mathbb K:
+        u = \lambda_1 u_1 + \ldots + \lambda_n u_n \]
+      \[
+        \Rightarrow \functional{v,u} = \functional{v,\sum_{i=1}^n \lambda_i u_i}
+        = \sum_{i=1}^n \overline{\lambda_i} \functional{v, u_i} = 0
+      \]
+    \item
+      Show: Let $v \in M$, then $\bigwedge_{u \in M^\bot} \functional{v,u} = 0$
+
+      \[ \bigwedge_{u \in M^\bot} \functional{v,u} = \bigwedge_{u \in M^\bot} \functional{u,v} = 0 \]
+  \end{enumerate}
+\end{proof}
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}

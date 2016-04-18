@@ -733,4 +733,187 @@ Convergence is given. Uniform convergence is not given.
 \[ \abs{f_n(x) - f(x)} \leq a_n \to 0 \]
 where $a_n$ is independent from $x$.
 
+\section{Exercise 11}
+\begin{ex}
+  Determine $\cos{\alpha}$, $\sin{\alpha}$ and $\tan{\alpha}$ for $\alpha \in \set{\frac{\pi}{5}, \frac{2\pi}{5}}$.
+
+  Hint: Show that $u \coloneqq \cos{\frac{2\pi}{5}}$ and $v \coloneqq \cos{\frac{\pi}{5}}$ satisfy
+  the equations $u = 2v^2 - 1$ and $-2u^2 + 1 = v$.
+  Determine $u,v$ this way.
+\end{ex}
+
+\begin{align*}
+  u &= \cos\left(\frac{2\pi}{5}\right) = \cos\left(\frac\pi5 + \frac\pi5\right) \\
+    &= \cos^2\left(\frac\pi5\right) - \sin^2\left(\frac\pi5\right) \\
+    &= 2 \cos^2\left(\frac\pi5\right) - 1 \\
+    &= 2v^2 - 1
+\end{align*}
+
+To show: $v + 2u^2 - 1 = 0$, $\cos\left(\frac\pi5\right) + 2\cos^2\left(\frac\pi5\right) - 1 = 0$.
+
+\begin{align*}
+  \cos\left(\frac\pi5\right) + 2\cos\frac{2\pi}{5} - 1
+    &= \cos{\frac\pi5} + \cos{\frac{4\pi}{5}} \\
+    &= \cos{\frac\pi5} + \cos\left(\pi - \frac15 \pi\right) \\
+    &= \cos{\frac\pi5} + \cos\pi \cdot \cos\left(\frac{\pi}{5}\right) + \sin\pi \cdot \sin{\frac\pi{5}} - \cos\frac\pi5 \cdot \cos\frac\pi5 \\
+    &= 0
+\end{align*}
+
+For $u + v > 0$:
+\[ 2v^2 - 1 =u \]
+\[ -2u^2 + 1 = v \]
+\[ 2v^2 - 2u^2 = u + v \]
+\[ 2(v + u)(v - u) = u + v \]
+\[ 2(v - u) = 1 \Leftrightarrow v - u = \frac12 \]
+
+\[ v - 2v^2 + \frac12 = 0 \]
+\[ v^2 - \frac12 v - \frac14 = 0 \]
+\[ v_{1,2} = \frac14 \pm \sqrt{\frac{1}{16} + \frac{4}{16}} = \frac{1 \pm \sqrt{5}}{4} \]
+
+\[ 0 < \cos(\frac\pi5) = \frac{1 + \sqrt{5}}{4} \]
+\[ u = \cos\frac{2\pi}{5} = v - \frac12 = \frac{-1 + \sqrt{5}}{4} \]
+
+\[ \cos\left(\frac{2\pi}{5}\right) = \cos^2{\frac{\pi}{5}} - \sin^2{\frac{\pi}{5}} \]
+\[ \Leftrightarrow \frac{-1 + \sqrt{5}}{4} = \left(\frac{\sqrt{5} + 1}{4}\right)^2 - \sin^2\left(\frac{\pi}{5}\right) \]
+\[ \Leftrightarrow \sin^2\left(\frac{\pi}{5}\right) = \frac{5 + 2 \sqrt{5} + 1}{16} - \frac{-4 + 4\sqrt{5}}{16} \]
+\[ = \frac{5 + 2\sqrt{5} + 1 + 4 - 4\sqrt{5}}{16} = \frac{10 - 2\sqrt{5}}{16} = \frac{5 - \sqrt{5}}{8} \]
+\[ \sin\left(\frac{\pi}{5}\right) = \sqrt{\frac{5 - \sqrt{5}}{8}} \approx 0.59 \]
+
+\[
+  \sin\frac{2\pi}{5} = \sin\left(\frac{\pi}{5} + \frac{\pi}{5}\right) = \sin{\frac\pi5} \cdot \cos{\frac\pi5}
+    + \cos{\frac\pi5} \cdot \sin{\frac\pi5} = 2 \sin{\frac\pi5} \cdot \cos{\frac\pi5}
+\] \[
+  = 2 \frac{1 + \sqrt{5}}{4} \sqrt{\frac{5 - \sqrt{5}}{8}} = \frac{1 + \sqrt{5}}{2} \cdot \frac{5 - \sqrt{5}}{8}
+  = \sqrt{\frac{5 + \sqrt{5}}{8}} \approx 0.95
+\]
+
+\[
+  \tan{\frac\pi5} = \frac{\sin{\frac\pi5}}{\cos{\frac\pi5}}
+     = \frac{\sqrt{\frac{5 - \sqrt{5}}{8}}}{\frac{\sqrt{5} + 1}{4}} = \frac{\sqrt{2 (5 - \sqrt{5})}}{1 + \sqrt{5}}
+     = \sqrt{5 - 2\sqrt{5}} \approx 0.73
+\] \[
+  \tan\left(\frac{2\pi}{5}\right) = \frac{\sin{\frac{2\pi}{5}}}{\cos{\frac{2\pi}{5}}}
+     = \frac{4}{-1 + \sqrt{5}} \cdot \frac{1 + \sqrt{5}}{2} \cdot \sqrt{\frac{5 - \sqrt{5}}{8}}
+     = \sqrt{5 + 2\sqrt{5}} \approx 3.05
+\]
+
+\section{Exercise 12}
+\begin{ex}
+  To which order do you have to consider values in the series expansion of cosine,
+  to approximate $\cos{1}$ with an error smaller $10^{-7}$?
+  Furthermore show that $\cos{1}$ is irrational.
+
+  \textbf{Hint:} To show irrationality of $\cos{1}$, assume, $p,q \in \mathbb N_+$ with
+  $\cos{1} = \frac pq$. Replace that in the estimated error of
+  \[ \cos{1} - \sum_{k=0}^q \frac{(-1)^k}{(2k)!}, \]
+  multiply with $(2q)!$ and derive a contradiction.
+\end{ex}
+
+\subsection{Exercise 12.a}
+%
+\[ \cos{x} = \sum_{k=0}^\infty \frac{x^{2k}}{(2k)!} \cdot (-1)^k \]
+
+Consider,
+\[ S_{2m} = \sum_{k=0}^{2m} \frac{1}{(2k)!} (-1)^k \]
+\[ S_{2k+1} = \sum_{k=0}^{2k+1} \frac{1}{(2k)!} \cdot (-1)^k \]
+
+So $S_{2k+1}$ has a negative, last expression. $S_{2m}$ has a positive last expression.
+
+\[ S_{2k+1} < \cos{1} < S_{2m} \]
+
+\[ S_{2m} - S_{2m+1} = \sum_{k=0}^{2m} \frac{1}{(2k)!} (-1)^k - \sum_{k=0}^{2m+1} \frac{1}{(2k)!} (-1)^k \]
+
+\[ \triangle \cos(1) = -\frac{1}{(2(2m+1))!} \cdot (-1)^{2m+1} = \frac{1}{(2 \cdot (2m + 1))!} \stackrel{!}{<} 10^{-7} \]
+
+\[ N! > 10^7 \Rightarrow N > 11 \]
+\[ 2 \cdot (2m + 1) > 11 \]
+\[ 2m + 1 > \frac{11}{2} = 5.5 \]
+
+$\Rightarrow$ 10-th order because every odd expression is cancelled out.
+
+Consider paper: ``The irrationality of $e$ and Others''.
+
+\subsection{Exercise 12.b}
+\[
+  \cos(1) \not\in \mathbb Q
+\]
+
+Assume $\exists p \in \mathbb Z$, $q \in \mathbb N$:
+\[ \cos(1) = \frac{p}{q} \]
+
+\[ \abs{\cos(1) - \sum_{k=0}^n \frac{(-1)^k}{(2k)!}} \]
+\[ = \abs{\frac pq - \sum_{k=0}^{q-1} \frac{(-1)^k}{(2k)!}} < \frac{1}{(2q)!} \]
+\[ = \abs{\frac{p (2q)!}{q} - \sum_{k=0}^{q-1} \frac{(-1)^k \cdot (2q)!}{(2k)!}} < 1 \]
+\[ \abs{x - y} < 1 \Rightarrow 0 \qquad \text{ because } x \in \mathbb Z, y \in \mathbb Z \]
+
+Leibniz criterion requires that the limes is not achieved in the sequence,
+because the functions need to be strictly monotonical.
+
+\section{Exercise 13}
+\begin{ex}
+  Let $f: [\frac\pi2, \frac{3\pi}2] \to [-1,1]$, $x \mapsto \sin{x}$.
+  Show that $f$ is bijective and compute (using the formula for the derivative
+  of the inverse function $(f^{-1})'(y)$ at all possible points $y \in [-1,1]$).
+  Also give an explicit representation for $f^{-1}$
+\end{ex}
+
+\[ \ldots = - \frac{1}{\sqrt{1 - y^2}} \]
+
+It is important to recognize the negative sign.
+
+\section{Exercise 14}
+\begin{ex}
+  Let $w,z \in \mathbb R$ with $w, z, w + z \not\in \setdef{\frac\pi2 + k\pi}{k \in \mathbb Z}$.
+  Prove the addition theorem of the tangens function:
+  \[ \tan(w + z) = \frac{\tan(w) + \tan(z)}{1 - \tan(w) \tan(z)}. \]
+  Let $x,y \in \mathbb R$ with $xy < 1$. Show that $\arctan(x) + \arctan(y) \in (-\frac{\pi}{2}, \frac{\pi}{2})$
+  and use it to prove the addition theorem for the arcustangens function:
+  \[ \arctan(x) + \arctan(y) = \arctan\frac{x + y}{1 - xy}. \]
+\end{ex}
+
+\begin{enumerate}
+  \item Show that $\tan(w + z) = \frac{\tan(w) + \tan(z)}{1 - \tan(w) \tan(z)}$.
+
+    \[ \tan(w + z) = \frac{\sin(w + z)}{\cos(w + z)} = \frac{\cos(w) \cdot \sin(z) + \sin(w) \cos(z)}{\cos(w) \cos(z) - \sin(w) \sin(z)} \]
+    \[ \frac{\frac{\cos(w) \sin(w)}{\cos(w) \cos(z)} + \frac{\sin(w) \cdot \cos(z)}{\cos(w) \cdot \cos(z)}}{1 - \frac{\sin(w) \sin(z)}{\cos(w) \cos(z)}} \]
+    \[ = \frac{\tan(z) + \tan(w)}{1 - \tan(w) \tan(z)} \]
+  \item
+    \[ \arctan(x) + \arctan(y) \in (-\frac\pi2, \frac\pi2) \]
+    $x,y \in \mathbb R, xy < 1$.
+
+    Let $x = \tan(z)$ and $y = \tan(w)$.
+    \[ xy = \tan(z) \cdot \tan(w) = \frac{\sin(z) \cdot \sin(w)}{\cos(z) \cdot(w)} < 1 \]
+    \[ \sin(z) \cdot \sin(w) < \cos(z) \cos(w) \]
+    \[ \Leftrightarrow 0 < \cos(z) \cdot \cos(w) - \sin(z) \cdot \sin(w) \]
+    \[ \Leftrightarrow 0 \stackrel!< \cos(z + w) \Leftarrow z \in \left(-\frac\pi2, \frac\pi2\right) \lor w \in \left(-\frac\pi2, \frac\pi2\right) \]
+    This proof is insufficient! A case distinction for $\cos(z) \cos(w) > 0$ is required.
+  \item
+    Show that $\arctan(x) + \arctan(y) = \arctan\frac{x + y}{1 - xy}$.
+    Let $x = \tan(z)$ and $y = \tan(w)$.
+    \[
+      \arctan\left(\frac{x + y}{1 - xy}\right) = \arctan\left(\frac{\tan(z) + \tan(w)}{1 - \tan(z) \tan(w)}\right)
+      = \arctan(\tan(z + w)) = z + w = \arctan(x) + \arctan(y)
+    \]
+\end{enumerate}
+
+\section{Exercise 15}
+\begin{ex}
+  Compute the following integrals by approximating the integrands using a sequence
+  of step functions with the given points. Let $a,b \in \mathbb R$ with $a < b$.
+  \begin{enumerate}
+    \item $\int_a^b e^x \, dx$ with points $x_k \coloneqq a + k(b - a)/n$.
+    \item $\int_a^b x^p \, dx$ with points $x_k \coloneqq a q^k$, $q \coloneqq \sqrt[n]{b/a}$ and $p \in \mathbb R \setminus \set{-1}$.
+  \end{enumerate}
+\end{ex}
+
+\[ = \lim_{n \to \infty} \frac{b-a}{n} \sum_{k=0}^{n-1} e^{a + \frac{k(b-a)}{n}} \]
+\[ = \lim_{n \to \infty} \frac{b-a}{n} e^a \sum_{k=0}^{n-1} \left(e^{\frac{b - a}{n}}\right)^k \]
+\[ = \lim_{n \to \infty} e^a \cdot \frac{b - a}{n} \frac{e^{\frac{b - a}{n}} - 1}{e^{\frac{b - a}{n} - 1}} \]
+\[ = \lim_{n \to \infty} e^a \left(e^{b - a} - 1\right) \cdot \underbrace{\frac{\frac{b - a}{n}}{e^{\frac{b - a}{n}} - 1}}_{\to 1} \]
+\[ = e^a \cdot \frac{e^b}{e^a} - e^a = e^b - e^a \]
+
+\[ (\forall \varepsilon > 0) (\exists N \in \mathbb N) (\forall x \in [a,b]): \abs{\varphi_n(x)  - e^x} < \varepsilon \]
+\[ e^{a + (b-a)\frac{n-1}{n}} - e^b = e^{a + (b-a)(1 - \frac1n)} - e^b = e^{a + b - \frac{b}{n} - a + \frac{a}{n}} - e^b \]
+\[ = e^{b - \frac{b}{n} + \frac{a}{n} - e^b} \]
+
 \end{document}
