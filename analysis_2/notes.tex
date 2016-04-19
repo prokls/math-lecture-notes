@@ -2421,6 +2421,184 @@ We have prove direction $\Rightarrow$.
   \]
 \end{theorem}
 
+\begin{proof}
+  The right-side integral is given (according to the Fundamental Theorem) by
+  \[ F(t(\beta)) - F(t(\alpha)) \]
+  The left-side integral, because of
+  \[ F(t(x))' = F'(t(x)) \cdot t(x) \]
+  Hence $F = t$ is primitive function of the left-side integral.
+  So it holds that
+  \[
+    \int_a^b f(t(x)) \cdot t'(x) \, dx
+    = F \circ t(b) - F \circ t(a)
+    = F(t(b)) - F(t(a))
+  \]
+\end{proof}
+
+\begin{ex}
+  \[ \int_0^1 x \sqrt{1 + x^2} \, dx = \frac12 \int_0^1 2x \sqrt{1 + x^2} \, dx \]
+  \[
+    \begin{vmatrix}
+      t(x) = 1 + x^2    & t'(x) = 2x \\
+      f(y) = \sqrt{y}   &
+    \end{vmatrix}
+  \] \[
+    = \frac12 \int_1^2 \sqrt{x} \, dx
+    = \left.\frac12 \frac{x^{\frac32}}{\frac32} \right|_1^2
+    = \frac23^{\frac32} - \frac13^{\frac32}
+    = \frac13 (\sqrt{8} - 1)
+  \] \[
+    \int_0^1 x \cdot \sqrt{1 + x^2} \, dx =
+    \begin{vmatrix}
+      \overbrace{y = x^2 + 1}^{\text{transform variables}}        &   \\
+      \frac{dy}{dx} = 2x & \underbrace{dy = 2x \, dx}_{\text{transformation of differences}} \\
+                         & x\,dx = \frac12 \, dy
+    \end{vmatrix}
+  \]
+  Transformation of limits:
+  \[ x = 0 \Leftrightarrow y = 1 \qquad x = 1 \Leftrightarrow y = 2 \]
+  \[
+    = \frac12 \int_1^2 \sqrt{y} \, dy
+    = \left.\frac12 \frac{y^{\frac32}}{\frac32}\right|_1^2
+    = \left.\frac{(x^2 + 1)^{\frac32}}{3}\right|_0^1
+  \]
+
+  Hence it is also necessary to transform the limits.
+\end{ex}
+
+\begin{ex}[Integration by parts]
+  \[
+    \int \ln{x} \, dx
+    = \begin{vmatrix}
+      v' = 1 & v = x \\
+      u = \ln{x} & u' = \frac1x
+    \end{vmatrix}
+    = x \ln{x} - \int x \frac{1}{x} \, dx = x \ln{x} - x
+  \]
+\end{ex}
+
+\index[English]{$\pi$ is irrational}
+\index[German]{\foreignlanguage{ngerman}{$\pi$ is irrational}}
+\begin{theorem}
+  Ivan M. Niven (published in 1947, 1915--1999)
+
+  It holds: $\pi^2$ is an irrational number. So $\pi$ is irrational.
+\end{theorem}
+\begin{proof}[Proof by contradiction]
+  Let $\pi^2 = \frac ab \in \mathbb Q$.
+
+  Because $\lim_{n\to\infty} \frac{a^n}{n!} = 0$ (practicals!)
+  there exists $n \in \mathbb N$ such that $\pi \frac{a^n}{n!} < 1$.
+
+  \begin{align*}
+    f(x) &= \frac1{n!} x^n (1 - x)^n \\
+    \intertext{is symmetrical along axis $x = \frac12$} \\
+         &= \frac1{n!} \sum_{k=n}^{2n} c_k x^k \qquad \text{ with } c_k = (-1)^{k-n} \binom{n}{k-n} = \pm \binom{n}{k-n} \in \mathbb Z \\
+    f^{(\mu)}(0) &= 0 \text{ for } \mu = 0,1,\ldots,n-1 \in \mathbb Z \qquad\qquad \text{ and also:} \\
+    f^{(\mu)}(1) &\in \mathbb Z \text{ for } \mu = n, n+1, \ldots, 2n \\
+    f^{(\mu)}(x) &= \frac1{n!} \sum_{k=0}^{2n} \underbrace{k (k-1) \ldots (k-\mu+1)}_{= \mu!} \cdot c_k \cdot x^{k-\mu} \\
+    f^{(\mu)}(0) &= \frac1{n!} \mu! \left(\pm \binom{n}{\mu-n}\right) \cdot 1 \\
+                 &= \frac1{n!} \mu! \frac{n!}{(\mu - n)! (n - \mu + n)!} \\
+                 &= \frac{\mu!}{(\mu - n)! (2n - \mu)!} \\
+                 &= \frac{(\mu-n+1) (\mu - n + 2) \ldots \mu}{1 \cdot 2 \cdot 3 \ldots (2n - \mu)} \\
+                 &\text{ to be discussed} \\
+                 &\in \mathbb Z
+  \end{align*}
+
+  \[ n \leq \mu \leq 2n \]
+  $f^{(\mu)}(0) \in \mathbb Z$ for $\mu \in \set{n, n+1, \ldots, 2n}$, analogously
+  $f^{(\mu)}(1) \in \mathbb Z$ for $\mu \in \set{n, n+1, \ldots, 2n}$.
+
+  \[
+    F(x) = b^n \left(\pi^{2n} f(x) - \pi^{2n-2} f''(x) + \pi^{2n-4} f^{(4)} (x) + (-1)^n f^{2n}(x) \pi^0\right)
+  \] \[
+    F(0) \in \mathbb Z \text{ because } f^{(\mu)}(0) \in \mathbb Z \text{ for } \mu = 0,2,4,6,\ldots,2n
+  \] \[
+    \pi^2 = \frac ab \qquad \pi^{2n - 2l} = \frac{a^{k-l}}{b^{n-l}}
+  \] \[
+    b^n \cdot \pi^{2n-2l} = a^{n-l} \cdot b^l \in \mathbb Z
+  \]
+  Analogously for $F(1) \in \mathbb Z$.
+
+  \[ (F'(x) \cdot \sin(\pi x) - \pi F(x) \cdot \cos(\pi x))' \]
+  \[ = F''(x) \cdot \sin(\pi x) + \pi^2 \cdot F(x) \cdot \sin{\pi x} + F'(x) (\cos(\pi x) - \pi \cos{\pi x}) \]
+  \[ = (F''(x) + \pi^2 F(x)) \cdot \sin(\pi x) \]
+  \[ F''(x) = b^n \cdot \left(\pi^{2n} \cdot f''(x) + \pi^{2n-2} f^{(4)}(x) + \pi^{2n - 4} f^{(6)}(x) - \ldots + (-1)^n f^{(2n+2)}(x)\right) \]
+  \[
+    \Rightarrow F''(x) + \pi^2 \cdot F(x)
+  \] \[
+    = b^n \left(
+      \pi^{2n} f''(x) - \pi^{2n - 2} f^{(4)}(x) + \pi^{2n - 4} f^{(6)}(x)
+      + \ldots + (-1)^n f^{(2n + 2)}(x)
+    \right)
+  \] \[
+    + b^n \left( \pi^{2n + 2} f(x) - \pi^{2n} f''(x) + \pi^{2n - 2} f^{(4)}(x)
+    - \pi^{2n-4} f^{(6)}(x) + \ldots + (-1)^n \pi^2 \cdot f^{(2n)}(x) \right)
+  \]
+  Almost all expressions cancel each other out.
+  So it holds that
+  \begin{align*}
+    &\left(F'(x) \cdot \sin(\pi x) - \pi F(x) \cos(\pi x)\right)' \\
+    &= \pi^{2n + 2} \cdot b^n \cdot f(x) \cdot \sin(\pi x) \\
+    &= \frac{a^{n+1}}{b^{n+1}} \cdot b^n \cdot f(x) \cdot \sin(\pi x) \\
+    &= \frac{a^{n+1}}{b} \cdot f(x) \cdot \sin(\pi x) \\
+    &= \pi^2 \cdot a^n f(x) \cdot \sin(\pi x) \\
+    &= \pi \left(\pi a^n f(x) \sin(\pi x)\right) \\
+    I &= \pi \int_0^1 a^n f(x) \cdot \sin(\pi x) \, dx \\
+    &= \left.\frac1{\pi} \cdot \left[F'(x) \cdot \sin(\pi x) - \pi \cdot F(x) \cos(\pi x)\right]\right|_0^1 \\
+    &= F(1) + F(0) \in \mathbb Z
+  \end{align*}
+  On the other hand it holds that
+  \[ f(x) = \frac{1}{n!} \underbrace{x^{n}}_{\leq 1} (\underbrace{1 - x}_{\leq 1})^n \]
+  So $0 \leq f(x) \leq \frac1{n!}$. Hence,
+  \[ 0 \leq a^n f(x) \cdot \sin(\pi x) \leq \frac{a^n}{n!} < \frac{1}{\pi} \]
+  So $0 < I < 1 \Rightarrow I \in \mathbb Z$. This is a contradiction to our assumption that
+  $I \in \mathbb Z$.
+\end{proof}
+
+\begin{rem}
+  Hence $\pi$ is not rational. So there exists no linear affine function $g(x) = ax + b$
+  with $a,b \in \mathbb Z$ such that $\pi$ is root of $g$.
+\end{rem}
+
+\index[English]{Algebraic numbers}
+\index[German]{\foreignlanguage{ngerman}{Algebraische numbers}}
+\index[English]{Transzedente Zahlen}
+\index[German]{\foreignlanguage{ngerman}{Transcedental numbers}}
+\begin{rem}
+  We state, $\xi \in \mathbb R$ is an \emph{algebraic} number if polynomial
+  \[ P(x) = a_n x^n + a_{n-1} x^{n-1} + \ldots + a_n \]
+  exists with $a_i \in \mathbb Z$ for $i = 0, \ldots, n$ and $P(\xi) = 0$.
+
+  Algebraic numbers are a generalization of rational numbers.
+
+  $\eta \in \mathbb R$ is called \emph{transcendental}, if $\eta$ is not algebraic.
+\end{rem}
+
+\begin{rem}
+  $\pi$ is transcendental.
+\end{rem}
+
+\begin{theorem}[Integration of non-compact intervals]
+  \[ \int_0^\infty e^{-x} \, dx = \lim_{c\to\infty} \int_0^c e^{-x} \, dx \]
+\end{theorem}
+\begin{defi}[Definition of indefinite integrals]
+  Let $I$ be an interval with boundary values $a$ and $b$ with
+  $- \infty \leq a < b \leq \infty$.
+
+  Let $f$ be a regulated function in $I$. Then we define
+  \begin{enumerate}
+    \item if $I = [a,b)$, $\int_a^b f(x) \, dx = \lim_{\beta \to b_-} \int_a^\beta f(x) \, dx$
+    \item if $I = (a,b]$, $\int_a^b f(x) \, dx = \lim_{\alpha \to a_+} \int_\alpha^a f(x) \, dx$
+    \item if $I = (a,b)$, we choose $c \in I$ and $\int_a^b f(x) \, dx = \lim_{\alpha\to a_+} \int_\alpha^c f(x) \, dx + \lim_{\beta \to b_-} \int_{c}^\beta f(x) \, dx$.
+  \end{enumerate}
+\end{defi}
+
+
+\index[English]{}
+\index[German]{\foreignlanguage{ngerman}{}}
+
+
 \clearpage
 \begin{otherlanguage}{ngerman}
 \printindex[German]
