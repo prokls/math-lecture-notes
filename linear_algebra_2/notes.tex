@@ -3183,6 +3183,322 @@ $\Rightarrow$ is a norm.
   \end{enumerate}
 \end{proof}
 
+\meta{lecture}{20th of April 2016}{Franz Lehner}
+
+\begin{theorem}
+  Let $M^\bot = \setdef{v}{\bigwedge_{u \in M} u \bot v}$ is subspace.
+
+  \begin{itemize}
+    \item[6.] $M^\bot = L(M)^\bot$
+    \item[2.] $M \subseteq N \Rightarrow N^\bot \subseteq M^\bot$
+    \item[3.] $0^\bot = V$
+    \item[4.] $V^\bot = \set{0}$
+    \item[5.] $M \cap M^\bot \subseteq \set{0}$
+  \end{itemize}
+  \[ M \subseteq (M^\bot)^\bot \]
+\end{theorem}
+
+\begin{cor}
+  \label{folderung-8.42}
+  If $U \subseteq V$ is a subspace of $V$, then the sum $U + U^\bot$ is direct.
+  \[ (U + U^\bot)^\bot \overset{\text{6.}}{=} (U \cup U^\bot)^\bot = U^\bot \cap (U^\bot)^\bot \overset{5.}{=} \set{0} \]
+\end{cor}
+
+From $(U + U^\bot)^\bot = \set{0}$, $U + U^\bot = V$ follows only in finite dimensions.
+
+\begin{ex}
+  \[ V = e^2 = \setdef{(\xi_n)_n}{\sum_{n=1}^\infty \abs{\xi_n}^2 < \infty} \]
+  \[ U = \mathcal L((e_i)_{i \in \mathbb N}) \neq V = \setdef{(\xi_n)_n}{\xi_n = 0 \text{ for almost all } n} \]
+  \[ U^\bot = \setdef{x = (\xi_n)_{n \in \mathbb N}}{\underbrace{\functional{x, e_i}}_{=\xi_i} = 0 \forall i} = \set{0} \]
+  \[ V = (U^\bot)^\bot \neq U \qquad U = U + U^\bot \neq V, U^\bot = \set{0} \]
+\end{ex}
+
+Practicals:
+\[ U + U^\bot = V \Leftrightarrow U = (U^\bot)^\bot \]
+
+In the following we always assume: $V = U \dot{+} U^\bot$.
+
+$\rightarrow$ projection: every vector has a unique decomposition.
+\[ x = u + v \]
+\[ u \in U \qquad v \in U^\bot \text{ such that } u \bot v \]
+
+\index[English]{Convex set}
+\index[German]{\foreignlanguage{ngerman}{Konvexe Menge}}
+\begin{defi}
+  \label{defi-8.44}
+  Let $V$ be a vector space.
+  A subset $K \subseteq V$ is called convex if
+  \[ \bigwedge_{x,y \in \mathbb K} \bigwedge_{\lambda \in [0,1]} x + \lambda (y - x) \in \mathbb K \]
+  $(1 - \lambda) x + \lambda y$ is called \emph{convex combination}.
+
+  Informally: A set is convex if all elements of the path between two points of the set
+  are inside the set.
+\end{defi}
+
+\begin{ex}
+  \label{bsp-8.45}
+  \begin{enumerate}
+    \item Let $(V, \norm{ })$ be a normed space. Then
+      \[ B(0,1) - \setdef{x}{\norm{x} < 1} \text{ is convex} \]
+      \[ x,y \in B(0,1), \lambda \in [0,1]: \norm{(1 - \lambda) x + \lambda y} \leq (1 - \lambda) \norm{x} + \lambda \norm{y} < (1 - \lambda) + \lambda > 1 \]
+    \item Subspaces are convex.
+    \item Translations and scalar multiples of convex sets are convex
+      \begin{itemize}
+        \item Linear manifolds
+        \item $B(\times, r)$ is convex.
+      \end{itemize}
+    \item $K \subseteq V$ is convex, $f: V \to W$ is linear $\Rightarrow f(\mathbb K)$ is convex (the proof is left as an exercise  ).
+  \end{enumerate}
+\end{ex}
+
+\begin{rem}
+  What does optimization mean?
+
+  Given an audio file with data. We want to approximate these data, but the maximum size of the data is defined.
+  So we optimize the data such that the file size is decreased.
+
+  Formally: Find $x \in K$ with $\norm{X} = \min$.
+\end{rem}
+
+\begin{rem}
+  Consider $l^1: \norm{x} = \abs{x_1} \abs{x_2}$.
+  The unit circle is a square rotated by $45^\circ$.
+
+  If we expand this unit circle to our desired $K$ (a straight line like $f(x) = -x$),
+  the intersection of $K$ and this expanded unit circle yields infinitely many points.
+\end{rem}
+
+\begin{theorem}
+  \label{satz-8.46}
+  Let $(V, \langle, \rangle)$ be a vector space with scalar product.
+  $K \subseteq V$ is convex, $x \in V$, $y_0 \in K$.
+
+  DFASÄ:
+  \begin{enumerate}
+    \item $\bigwedge_{y \in K} \norm{x - y_0} \leq \norm{x - y}$
+    \item $\bigwedge_{y \in K} \Re\functional{x - y_0, y - y_0} \leq 0$
+    \item $\bigwedge_{y \in K \setminus \set{y_0}} \norm{x - y_0} < \norm{x - y}$
+  \end{enumerate}
+\end{theorem}
+
+\begin{rem}
+  If $K$ is a linear manifold, then (2.) is equivalent to:
+  \begin{enumerate}
+    \item[2'.] $\bigwedge_{y \in K} \functional{x - y_0, y - y_0} = 0$
+  \end{enumerate}
+\end{rem}
+
+\begin{proof}
+  \begin{description}
+    \item[1. $\rightarrow$ 2.]
+      Let $y \in K$. $0 < \varepsilon < 1$.
+      % TODO: image norm.pdf
+      \[ \Rightarrow y_\varepsilon = (1 - \varepsilon) y_0 + \varepsilon y_1 \in K \]
+      \[ \Rightarrow \norm{x - y_0} \leq \norm{x - y_\varepsilon} \]
+      \[ y_\varepsilon = y_0 + \varepsilon (y - y_0) \]
+      \begin{align*}
+        0 &\leq \norm{x - y_\varepsilon}^2 - \norm{x - y_0}^2 \\
+          &= \norm{x - y_0 - \varepsilon (y - y_0)}^2 - \norm{x - y_0}^2 \\
+          &= \norm{x - y_0}^2 + \varepsilon^2 \norm{y - y_0}^2 - 2 \Re{\functional{x - y_0, y - y_0}} \varepsilon - \norm{x - y_0}^2 \\
+          &= \varepsilon(\varepsilon \norm{y - y_0}^2 - 2 \Re{\functional{x - y_0, y - y_0}}) \\
+        \varepsilon \to 0 & \Rightarrow -2 \Re{\functional{x - y_0, y - y_0}} \geq 0
+      \end{align*}
+      If $\Re{x - y_0, y - y_0} > 0$, then $y \neq y_0$. Choose
+      \[ \varepsilon < \frac{2\Re{\functional{x - y_0, y - y_0}}}{\norm{y - y_0}} \]
+      This leads to a contradiction.
+    \item[2. $\rightarrow$ 3.]
+      Let $y \in K \setminus \set{y_0}$.
+      \begin{align*}
+        \norm{x - y}^2 &= \norm{x - y_0 - (y - y_0)}^2 \\
+          &= \norm{x - y_0}^2 + \norm{y_0 - y}^2 - 2 \Re{\functional{x - y_0, y - y_0}} \\
+          &\geq \norm{x - y_0^2} + \norm{y_0 - y}^2 \\
+          &> \norm{x - y_0}^2
+      \end{align*}
+    \item[3. $\rightarrow$ 1.]
+      trivial
+  \end{description}
+
+  If $K = U$ is a subspace.
+  \begin{enumerate}
+    \item[2.]
+    \[ y - y_0 \in U \Leftrightarrow y \in U \]
+      \begin{align*}
+        \bigwedge_{y \in U} \Re{\functional{x - y_0, \underbrace{y - y_0}_{\eqqcolon z \in U}}} &\leq 0 \\
+        \Leftrightarrow \bigwedge_{z \in U} \Re{\functional{x - y_0, z}} &\leq 0 \\
+        \Rightarrow \bigwedge_{z \in U} \Re{\functional{x - y_0, -z}} &\leq 0 \\
+        \Leftrightarrow \bigwedge_{z \in U} \Re{\functional{x - y_0, z}} &\geq 0 \\
+        \Rightarrow \bigwedge_{z \in U} \Re{\functional{x - y_0, z}} &= 0 \\
+        \Rightarrow \bigwedge_{z \in U} \Re{\functional{x - y_0, iz}} &= 0 \\
+        \Rightarrow \bigwedge_{z \in U} \Re{(-i \functional{x - y_0, z})} &= 0
+      \end{align*}
+      \[ \Re(-i (a + ib)) = b \]
+      \[ \Rightarrow \bigwedge_{z \in U} \Im\functional{x - y_0, z} = 0 \]
+      \[ \Rightarrow \bigwedge_{z \in U} \functional{x - y_0, z} = 0 \Rightarrow x - y_0 \in U^\bot \]
+  \end{enumerate}
+\end{proof}
+
+\begin{cor}
+  Let $(V, \langle, \rangle)$ be a vector space with a scalar product.
+  \begin{enumerate}
+    \item If $K \subseteq V$ is convex, then the optimization problem
+      \[
+        \left\{
+          \begin{array}{c}
+            \norm{x - y} = \text{min!} \\
+            y \in K
+          \end{array}
+        \right.
+      \]
+      has at most one solution.
+    \item If $U \subseteq V$ is a subspace, $x \in V$, then there exists at most
+      one point $y_0 \in U$ such that $x - y_0 \in U^\bot$.
+
+      $\Rightarrow$ the sum $U + U^\bot$ is direct.
+  \end{enumerate}
+\end{cor}
+
+\index[English]{Orthogonal projections}
+\index[German]{\foreignlanguage{ngerman}{Orthogonalprojektionen}}
+\begin{defi}
+  Let $(V, \langle, \rangle)$ is a vector space with scalar product.
+  Let $U \subseteq V$ a subspace with $V = U \dot{+} U^\bot$.
+
+  Let's recognize that
+  \[ V = U \dot{+} W \]
+  \[ \bigwedge_{x} \bigvee_{\substack{u \in U \\ w \in W}} = u + w \]
+
+  Then $\pi_U: V \to V$ and $\pi_{U^\bot}: V \to V$ such that
+  \[ \bigwedge_{x \in V} \pi_U(x) \in U \land \pi_{U^\bot}(x) \in U^\bot \]
+  are called \emph{orthogonal projections} to $U$ and $U^\bot$.
+
+  % TODO: image orthogonal_projections.pdf
+\end{defi}
+
+\begin{theorem}[Revision of direct sums of vector spaces]
+  \label{wh-8.49}
+  \begin{enumerate}
+    \item $x \in U \Leftrightarrow \pi_U(x) = x \Leftrightarrow \pi_{U^{\bot}}(x) = 0$
+    \item $x \in U^{\bot} \Leftrightarrow \pi_U(x) = 0 \Leftrightarrow \pi_{U^{\bot}}(x) = x$
+    \item $\pi_{U^{\bot}} = \text{id} - \pi_U$
+    \item $\pi_U \circ \pi_U = \pi_U$
+    \item $\pi_U$ is linear
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+  \label{satz-8.50}
+  Let $V = U \dot{+} U^{\bot}$.
+  \begin{enumerate}
+    \item $\bigwedge_{x,y \in V} \functional{x, \pi_U(y)} = \functional{\pi_U(x), y} = \functional{\pi_U(x), \pi_U(y)}$
+    \item $\bigwedge_{x \in V} \norm{\pi_U(x)} \leq \norm{x}$
+      and $\norm{\pi_U(x)} = \norm{X} \Leftrightarrow x \in U$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \begin{align*}
+        x &= \pi_U(x) + \pi^{U^\bot}(x) \\
+        y &= \pi_U(y) + \pi_{U^\bot}(y) \\
+        \functional{x, \pi_U(y)} &= \functional{\pi_U(x) + \pi_{U^{\bot}}(x), \pi_U(y)} \\
+          &= \functional{\pi_U(x), \pi_U(y)} + \functional{\underbrace{\pi_{U^\bot}(x)}_{\in U^\bot}, \underbrace{\pi_U(y)}_{\in U}} \\
+        \functional{\pi_U(x), y} &= \functional{\pi_U(x), \pi_U(y)}
+      \end{align*}
+    \item
+      \begin{align*}
+        \norm{x}^2 &= \norm{\pi_U(x) + \pi_{U^\bot}(x)}^2 \\
+        \text{Pythagorean theorem} &= \norm{\pi_U(x)}^2 + \norm{\pi_{U^\bot}(x)}^2 \\
+          &\geq \norm{\pi_U(x)}^2 \\
+        \text{equality} &\Leftrightarrow \pi_{U^\bot}(x) = 0 \Leftrightarrow x \in U
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{defi}
+  \label{defi-8.51}
+  J\o rgen Pedersen Gram (1850--1916)
+
+  Let $(V, \langle, \rangle)$ is a vector space with scalar product.
+  Let $v_1, \ldots, v_m \in V$.
+
+  Then the matrix is called
+  \[
+    \operatorname{Gram}(v_1, \ldots, v_m)
+    \coloneqq \begin{bmatrix}
+      \functional{v_1, v_1} & \functional{v_1, v_2} & \ldots & \functional{v_1, v_m} \\
+      \functional{v_2, v_1} & \functional{v_2, v_2} & \ldots & \functional{v_2, v_m} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      \functional{v_m, v_1} & \functional{v_m, v_2} & \ldots & \functional{v_m, v_m} \\
+    \end{bmatrix}
+    \in \mathbb K^{m \times m}
+  \]
+  \emph{Gram's matrix of tuple} $(v_1, \ldots, v_m)$
+\end{defi}
+
+\begin{rem}
+  \[ V = \mathbb R^n \qquad (\mathbb C^n) \]
+  \[ \functional{v_i, v_j} = v_i^t v_j \]
+  \[ \leadsto G = V^t \overline{V} \]
+  \[
+    V = \begin{pmatrix}
+      V_1 & V_2 & \ldots & V_m \\
+      \vdots & \vdots &  & \vdots
+    \end{pmatrix}
+  \]
+\end{rem}
+
+\begin{theorem}
+  \label{satz-8.53}
+  Let $(V, \langle, \rangle)$ be a vector space with a scalar product.
+  $v_1, \ldots, v_m \in V$.
+  \begin{enumerate}
+    \item
+      $G = \operatorname{Gram}(v_1, \ldots, v_m)$ is hermitian and positive semidefinite.
+      Furthermore it holds that
+      \[ \xi^t \cdot G \cdot \overline{\xi} = \norm{\sum_{i=1}^m \xi_i v_i}^2 \]
+    \item
+      \[ \xi \in \kernel(G) \Leftrightarrow \sum_{i=1}^m \overline{\xi_i} v_i = 0 \]
+    \item
+      $G$ is positive definite iff $G$ is regular iff $v_1, \ldots, v_m$ are linear independent.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \[ g_{ij} = \functional{v_i, v_j} = \overline{\functional{v_j, v_i}} = \overline{g_{ji}} \]
+      $\Rightarrow$ G is Hermitian.
+
+      \begin{align*}
+        \xi^t G \overline{\xi} &= \sum_{i,j=1}^m \xi_i \functional{v_i, v_j} \overline{\xi_j} \\
+          &= \functional{\sum_{i=1}^m \xi_i v_i, \sum_{j=1}^m \xi_j v_j} \\
+          &= \norm{\sum_{i=1}^m \xi_i v_i}^2
+      \end{align*}
+    \item $\Rightarrow$
+      Let $\xi \in \kernel{G}$.
+      \[ G \cdot \xi = 0 \Rightarrow \underbrace{\overline{\xi}^t G \xi}_{= \norm{\sum \overline{\xi_i v_i}}^2} = 0 \]
+      \[ \Rightarrow \sum_{i=1}^m \overline{\xi_i} v_i = 0 \]
+
+      $\Leftarrow$
+      Let $\sum_{i=1}^m \xi_i v_i = 0$.
+      \[
+        (G \cdot \xi)_i = \sum_{j=1}^m \functional{v_i, v_j} \xi_j
+        = \functional{v_i, \underbrace{\sum_{j=1}^m \overline{\xi_j}}_{=0} v_j} = 0
+      \]
+      holds for all $i = 1,\ldots,m$.
+      \[ \Rightarrow G \cdot \xi = 0 \Rightarrow \xi \in \kernel{G} \]
+    \item
+      \begin{align*}
+        G > 0 &\Leftrightarrow \xi^t G \overline{\xi} > 0 \quad \forall \xi \neq 0 \\
+          &\Leftrightarrow \norm{\sum \xi_i v_i}^2 > 0 \quad \forall \xi \neq 0 \\
+          &\Leftrightarrow \sum \xi_i v_i \neq 0 \quad \forall \xi \neq 0 \\
+          &\Leftrightarrow v_1,\ldots,v_m \text{ is linear independent} \\
+          &\Leftrightarrow \kernel{G} = \set{0} \\
+          &\Leftrightarrow G \text{ regular}
+      \end{align*}
+  \end{enumerate}
+\end{proof}
 
 \clearpage
 \begin{otherlanguage}{ngerman}
