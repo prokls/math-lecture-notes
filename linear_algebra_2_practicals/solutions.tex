@@ -49,6 +49,7 @@
 \newcommand\divides[2]{#1\,\mid\,#2}
 \newcommand\mathspace{\hspace{20pt}}
 \newcommand\fun[1]{\left\langle{#1}\right\rangle}
+\newcommand\norm[1]{\left\|{#1}\right\|}
 \newcommand\Q{\mathbb{Q}}
 \newcommand\nope{\lightning}
 \newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
@@ -991,7 +992,333 @@ So
 \[ A_{e_4} = -e_3 \]
 So $-1$.
 
+\section{Exercise 19}
+\begin{ex}
+  Let $\mathbb K$ be a field and $a_1, a_2, \ldots, a_n \in \mathbb K$. Show that
+  \[
+    \begin{vmatrix}
+      1 & a_1 & a_1^2 & \ldots & a_1^{n-1} \\
+      1 & a_2 & a_2^2 & \ldots & a_2^{n-1} \\
+      \ldots & \ldots & \ldots & \ldots & \ldots \\
+      1 & a_n & a_n^2 & \ldots & a_n^{n-1}
+    \end{vmatrix}
+    = \prod_{i < j}
+    (a_j - a_i)
+  \]
+\end{ex}
 
+Proof by complete induction over $n$.
 
+\begin{description}
+  \item[Induction base: $n = 0$]
+    Empty product.
+    \[ \begin{vmatrix} 1 \end{vmatrix} = 1 \]
+    Is true.
+  \item[Induction step: $n \to n+1$]
+    We start from the last column and add it to the second from last row.
+    This goes on for all columns.
+    \[
+      \begin{vmatrix}
+        1 & a_1 & a_1^2 & \ldots & a_1^n \\
+        \vdots & & & \ddots & \vdots \\
+        1 & a_{n+1} & \ldots & \ldots & a_{n+1}^n
+      \end{vmatrix}
+      \stackrel{!}{=}
+      \prod_{\substack{i,j = 1 \\ j > i}} (a_j - a_i)
+      \leadsto
+      \begin{vmatrix}
+        1 & (a_1 - a_{n+1}) & \ldots & a_1^{n-1}(a_1 - a_{n+1}) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & (a_n - a_{n+1}) & \ldots & a_n^{n-1} (a_n - a_{n+1}) \\
+        1 & (a_{n+1} - a_{n+1}) & \ldots & a_n^{n-1} (a_{n+1} - a_{n+1}) \\
+      \end{vmatrix}
+    \] \[
+      = (-1)^{n+1+1} (a_1 - a_{n+1}) \cdot (a_2 - a_{n+1}) \ldots (a_n - a_{n+1}) \cdot
+      \begin{vmatrix}
+        1 & a_1 & \ldots & a_1^{n-1} \\
+        \vdots &  & \ddots & \vdots \\
+        1 & a_n & \ldots & a_n^{n-1}
+      \end{vmatrix}
+    \] \[
+      \overset{\text{induction hypothesis}}{=} (a_{n+1} - a_1) \ldots (a_{n+1} - a_n) \cdot \prod_{\substack{i,j = 1 \\ j > i}} (a_j - a_i) = \prod_{j,i=1}^{n+1} (a_j - a_i)
+    \]
+\end{description}
+
+\section{Exercise 20}
+\begin{ex}
+  Let $A,B \in \mathbb K^{n \times n}$. Show that, using elementary row and column transformations,
+  the following identity holds for block matrices.
+  \[
+    \begin{vmatrix}
+      I & B \\
+      -A & 0
+    \end{vmatrix}
+    =
+    \begin{vmatrix}
+      I & B \\
+      0 & AB
+    \end{vmatrix}
+  \]
+  Use this to derive an alternative proof for the multiplicity of the determinant.
+  \[ \det(AB) = \det(A) \cdot \det(B) \]
+\end{ex}
+
+\subsection{Exercise 20.a}
+
+\[
+  \begin{vmatrix}
+    1 & 0 & \ldots & 0 & b_{11} & b_{12} & \ldots & b_{1n} \\
+    0 & 1 & \ldots & 0 & b_{21} & b_{22} & \ldots & b_{2n} \\
+    \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ldots & \vdots \\
+    0 & 0 & \ldots & 1 & b_{n,1} & b_{n,2} & \ldots & b_{n,n} \\
+    -a_{11} & -a_{12} & \ldots & -a_{1n} & 0 & 0 & \ldots & 0 \\
+    -a_{21} & -a_{22} & \ldots & -a_{2n} & 0 & 0 & \ldots & 0 \\
+    \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+    -a_{n,1} & -a_{n,2} & \ldots & -a_{n,n} & 0 & 0 & \ldots & 0
+  \end{vmatrix}
+\]
+
+Add the $a_{11}$-multiple of the first row to the $n+1$-th row.
+Add the $a_{21}$-multiple of the first row to the $n+1$-th row.
+Add the $a_{n1}$-multiple of the first row to the $2n$-th row.
+
+\[
+  \begin{vmatrix}
+    1 & 0 & \ldots & 0 &      \\
+    0 & 1 & \ldots & 0 &    B \\
+    \vdots & \vdots & \ddots & \vdots & \\
+    0 & 0 & \ldots & 1 & \\
+      &   &        &   & \\
+      & 0 &        &   & A \cdot B
+  \end{vmatrix}
+\]
+
+\subsection{Exercise 20.b}
+
+\[
+  \begin{vmatrix}
+    I & B \\
+    -A & 0
+  \end{vmatrix}
+  = (-1)^n \begin{vmatrix} B & I \\ 0 & -A \end{vmatrix}
+  = (-1)^n \cdot \det{B} \cdot \det{-A}
+\]
+We multiply $n$ rows by $-1$,
+\[
+  = (-1)^n \cdot (-1)^n \cdot \det{B} \cdot \det{A}
+  = \det{A} \cdot \det{B}
+\]
+
+\section{Exercise 21}
+\begin{ex}
+  Let $A, B, C, D \in \mathbb K_{n\times n}$ be matrices where $D$ is invertible.
+  Let $M$ be a $2n \times 2n$ block matrix.
+  \[
+    M = \begin{bmatrix}
+      A & B \\
+      C & D
+    \end{bmatrix}
+  \]
+  \begin{enumerate}
+    \item Show: $M$ is invertible iff $A - BD^{-1}C) \det{D}$.
+    \item Show: $\det{M} = \det(A - BD^{-1} C) \cdot \det{D}$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 21.b}
+
+\[
+  \det{M} = \det(A - B D^{-1} C) \cdot \det(D)
+\] \[
+  \begin{pmatrix}
+    A & B \\
+    C & D
+  \end{pmatrix} = \begin{pmatrix}
+    1 & B \\
+    0 & D
+  \end{pmatrix} \cdot \begin{pmatrix}
+    A - BD^{-1} C & 0 \\
+    D^{-1} C & 1
+  \end{pmatrix}
+\] \[
+  \begin{vmatrix}
+    A & B \\
+    C & D
+  \end{vmatrix}
+  = \operatorname{det}\left[
+    \begin{pmatrix}
+      1 & B \\
+      0 & D
+    \end{pmatrix} \cdot \begin{pmatrix}
+      A - BD^{-1} & 0 \\
+      D^{-1} C & 1
+    \end{pmatrix}
+  \right]
+  = \begin{vmatrix}
+  1 & B \\
+  0 & D
+  \end{vmatrix} \cdot \begin{vmatrix}
+  A - B D^{-1} C & 0 \\
+  D^{-1} C & 1
+  \end{vmatrix}
+\] \[
+  = \det(1) \cdot \det(D) \cdot \det(A - BD^{-1} C)
+\] \[
+  = \det(D) \cdot \det(A - BD^{-1} C)
+\]
+
+\subsection{Exercise 21.b}
+$M$ is invertible, so $A - BD^{-1} C$ is invertible.
+$\det(D) \neq 0$.
+
+\[ \det{M} \neq 0 \Leftrightarrow \det(A - BD^{1} C) \cdot \det(D) \neq 0 \]
+\[ \Leftrightarrow \det(A - BD^{-1} C) \neq 0 \]
+
+Corollary of this exercise:
+\[ \det(AD - BC) = \begin{vmatrix} A & B \\ C & D \end{vmatrix} \]
+
+\section{Exercise 22}
+\begin{ex}
+  Let $V$ be an $n$-dimensional vector space over a field $\mathbb K$
+  and $\triangle: V^n \to \mathbb K$ is a non-trivial determinant form.
+  Furthermore let $a_1, a_2, \ldots, a_{n-1} \in V$ vectors.
+  Show that
+  \begin{itemize}
+    \item
+      the following element is a linear functional
+      with $\mathcal L(a_1, a_2, \ldots, a_{n-1}) \subseteq \kernel{v^*}$
+      \begin{align*}
+        v^*: V &\to \mathbb K \\
+             x &\mapsto \triangle(a_1, a_2, \ldots, a_{n-1}, x)
+      \end{align*}
+    \item
+      $\mathcal L(a_1, a_2, \ldots, a_{n-1}) = \kernel{v^*}$ iff $a_1, a_2, \ldots, a_{n-1}$
+      is linear independent.
+    \item
+      Determine the equation (hence, a linear functional $v^*$ such that $\kernel{v^*} = U$)
+      \[
+        U = \mathcal L\left(
+          \begin{bmatrix} 1 \\ 2 \\ 3 \\ 1 \end{bmatrix},
+          \begin{bmatrix} -1 \\ 2 \\ 0 \\ 0 \end{bmatrix},
+          \begin{bmatrix} 3 \\ -1 \\ 2 \\ 1 \end{bmatrix},
+        \right)
+      \]
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 22.a}
+\begin{enumerate}
+  \item
+    Firstly,
+    \begin{align*}
+      v^*(x_1 + x_2) = v^*(x_1) + v^*(x_2): v^*(x+1 + x_2)
+      &= \triangle(a_1, a_2, \ldots, a_{n-1}, x_1 + x_2) \\
+      &= \triangle(a_1, \ldots, a_{n-1}, x_1) + \triangle(a_1, \ldots, a_{n-1}, x_2) \\
+      &= v^*(x_1) + v^*(x_2)
+    \end{align*}
+    Secondly,
+    \begin{align*}
+      v^*(\lambda x_1) = \lambda v^*(x_1): v^*(\lambda x_1)
+      &= \triangle(a_1, a_2, \ldots, a_{n-1}, \lambda x_1) \\
+      &= \lambda \triangle(a_1, \ldots, a_{n-1}, x_1)
+    \end{align*}
+\end{enumerate}
+
+$\mathcal{L}(a_1, \ldots, a_{n-1}) \subseteq \kernel(v^*)$ is by definition $\triangle(a_1, \ldots, a_n) = 0$
+if $i,j \in \set{1,\ldots,n}$ and $i \neq j$ and $a_1$ and $a_j$ are linear independent.
+\[ \forall i \in \set{1, \ldots, n-1}: \triangle(a_1, \ldots, a_{n-1}, a_i) = 0 \]
+
+\subsection{Exercise 22.b}
+First we show $\Leftarrow$.
+
+Let $a_1, \ldots, a_{n-1}$ be linear independent.
+\[ \mathcal L(a_1, \ldots, a_{n-1}) \subseteq \kernel(v^*) \]
+Assume $\kernel(v^*) \supsetneqq \mathcal L(a_1, \ldots, a_{n-1})$.
+So there exists $x \in \kernel(v^*)$ with $x \not\in \mathcal L(a_1, \ldots, a_{n-1})$.
+So $(a_1, \ldots, a_{n-1}, x)$ are linear independent.
+This forms a basis of $V$.
+\[ \triangle(a_1, \ldots, a_{n-1}, x) \neq 0 \Rightarrow v^*(x) \neq 0 \]
+This is a contradiction to our assumption that $x \in \kernel(v^*)$.
+
+Second we show $\Rightarrow$.
+
+Proof by contradiction. Assume $\mathcal L(a_1, a_2, \ldots, a_{n-1}) = \kernel{v^*}$
+and $a_1, a_2, \ldots, a_{n-1}$ linear independent.
+\[
+  \triangle (a_1, \ldots, a_{n-1}, x) = 0
+  \qquad \forall x \in V
+\]
+$\Rightarrow V - \mathcal L(a_1, \ldots, a_{n-1})$ is a contradiction to $\dim(K) = n$.
+
+\subsection{Exercise 22.c}
+Use the linear functional from exercise (a).
+\begin{align*}
+  v^* &: \mathbb K^4 \to \mathbb K \\
+    x &\mapsto \det(a_1, a_2, a_3, x)
+\end{align*}
+
+\[
+  v^* =
+  \begin{vmatrix}
+    1 & -1 & 3 & x_1 \\
+    2 & 2 & -1 & x_2 \\
+    3 & 0 & 2 & x_3 \\
+    1 & 0 & 1 & x_4
+  \end{vmatrix}
+  = 2x_1 + x_2 + x_3 - 7x_4
+\]
+
+\section{Exercise 23}
+\begin{ex}
+  Let $x,y,u,v \in \mathbb R^3$.
+  \begin{enumerate}
+    \item Show that the identity $\fun{x \times y, u \times v} = \fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u}$
+    \item Conclude that
+      \[ \norm{u}^2 \norm{v}^2 = \norm{u \times v}^2 + \fun{u,v}^2 \]
+      for arbitrary vectors $u,v \in \mathbb R^3$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 23.a}
+\begin{description}
+  \item[Case 1: $u \times v = 0$]
+    So $u$ and $v$ are linear dependent, so $\exists a \in \mathbb R: u = av$ or $v = au$.
+    Without loss of generality: $u = av$ ($v = au$ analogously).
+
+    \[ \fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u} \]
+    \[ = \fun{x,u} \fun{y,av} - \fun{x,au} \fun{y,v} = a \fun{x,u} \fun{y,u} - a \fun{x,u} \fun{y,u} \]
+    \[ = 0 = \fun{x\times y, 0} = \fun{x \times y, u \times u} \]
+  \item[Case 2: $u \times v \neq 0$]
+    \[
+      \fun{x \times y, u \times v} \fun{u \times v, u \times v}
+      = \det(x \abs{y} uxv) \cdot \det(u \abs{v} u \times v)
+      = \det(x \abs{y} u \times v)^t \cdot \det(u \abs{v} u \times v)
+    \] \[
+      = \det\begin{pmatrix} x^t \\ y^t \\ (u \times v)^t \end{pmatrix}
+      \cdot \det(u \abs{v} u \times v)
+      = \det\begin{pmatrix} x^t \\ y^t \\ (u \times v)^t \end{pmatrix} (u \abs{v} u \times v)
+    \] \[
+      = \det\begin{pmatrix}
+        xv & x^t v & x^t (u \times v) \\
+        y v^t & y^t v & y&t (u \times v) \\
+        (u \times v)^t \cdot v & (u \times v)^t \cdot v & (u \times v)^t (u \times v)
+      \end{pmatrix}
+      = \det\begin{pmatrix}
+        \fun{x,u} & \fun{x,v} & \fun{x,u\times v} \\
+        \fun{y,u} & \fun{y,v} & \fun{y,u\times v} \\
+        \fun{u\times v, v} & \fun{u\times v, v} & \fun{u\times v, u \times v}
+      \end{pmatrix}
+    \]
+    \[ \fun{u\times v, u\times v} \cdot (\fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u}) \]
+    \[ \Rightarrow \fun{x \times y, u\times v} = \fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u} \]
+\end{description}
+
+\subsection{Exercise 23.b}
+\begin{align*}
+  \norm{u \times v}^2
+    &= \fun{u \times v, u \times v} = \fun{u,u} \fun{v,v} - \fun{u,v} \fun{v,u} \\
+    &= \norm{u}^2 \norm{v}^2 - \fun{u,v}^2
+\end{align*}
+\[ \Rightarrow \norm{u \times v}^2 + \fun{u,v}^2 = \norm{u}^2 \cdot \norm{v}^2 \]
 
 \end{document}

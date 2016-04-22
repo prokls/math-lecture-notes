@@ -906,6 +906,8 @@ It is important to recognize the negative sign.
   \end{enumerate}
 \end{ex}
 
+\subsection{Exercise 15.a}
+%
 \[ = \lim_{n \to \infty} \frac{b-a}{n} \sum_{k=0}^{n-1} e^{a + \frac{k(b-a)}{n}} \]
 \[ = \lim_{n \to \infty} \frac{b-a}{n} e^a \sum_{k=0}^{n-1} \left(e^{\frac{b - a}{n}}\right)^k \]
 \[ = \lim_{n \to \infty} e^a \cdot \frac{b - a}{n} \frac{e^{\frac{b - a}{n}} - 1}{e^{\frac{b - a}{n} - 1}} \]
@@ -915,5 +917,272 @@ It is important to recognize the negative sign.
 \[ (\forall \varepsilon > 0) (\exists N \in \mathbb N) (\forall x \in [a,b]): \abs{\varphi_n(x)  - e^x} < \varepsilon \]
 \[ e^{a + (b-a)\frac{n-1}{n}} - e^b = e^{a + (b-a)(1 - \frac1n)} - e^b = e^{a + b - \frac{b}{n} - a + \frac{a}{n}} - e^b \]
 \[ = e^{b - \frac{b}{n} + \frac{a}{n} - e^b} \]
+
+\subsection{Exercise 15.b}
+%
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/15b.pdf}
+    \caption{Illustration of 15b}
+  \end{center}
+\end{figure}
+
+\[ x_k \coloneqq aq^k \qquad q \coloneqq \left(\frac{b}{a}\right)^{\frac1n} \]
+\[ p \neq -1 \]
+\begin{align*}
+  y_k &\coloneqq x_{k+1} - x_k \\
+    &= aq^{k+1} - aq^{k} \\
+    &= aq^k (q - 1)
+\end{align*}
+
+\[ \sum_{k=0}^{n-1} y_k x_k^p = \sum_{k=0}^{n-1} aq^k (q - 1) (aq^k)^p = a^{p+1} (q - 1) \sum_{k=0}^{n-1} (q^{p+1})^k \]
+Is a geometric series:
+\[ = a^{p+1} (q - 1) \frac{1 - (q^{p+1})^{n-1}}{1 - q^{p+1}} \]
+
+\[
+  \lim_{n\to\infty} \sum_{k=0}^{n-1} y_k x_k^p
+    = a^{p+1} \lim_{n\to\infty} \left(\left(\frac ba\right)^{\frac1n} - 1\right)
+    \frac{1 - (\frac ba)^{\frac{n-1}{n} (p+1)}}{1 - \left(\frac ba\right)^{\frac{p+1}{n}}}
+    = a^{p+1} \left(1 - \left(\frac ba\right)^{p+1}\right) \underbrace{\lim_{n\to\infty} \frac{\left(\frac ba\right)^{\frac 1n} - 1}{1 - \left(\frac ba\right)^{\frac{p+1}{n}}}}_{\enquote{0/0}}
+\] \[
+  \lim_{n\to\infty} \frac{\left(\frac ba\right)^{\frac1n} - 1}{1 - \left(\frac ba\right)^{\frac{p+1}{n}}} = \enquote{0/0}
+\]
+L'H\'opital's Rule:
+\[
+  = \lim_{n\to\infty} \frac{\exp\left(\frac1n \log\left(\frac ba\right)\right) - 1}{1 - \exp\left(\frac{p+1}{n} \log\left(\frac ba\right)\right)}
+  = \lim_{n\to\infty} \frac{\log\left(\frac ba\right) \cdot \frac{-1}{n^2} \exp\left(\frac1n \log\frac{b}{a}\right)}{-(p+1) \log\frac{b}{a} \cdot \frac{-1}{n^2} \exp\left(\frac{p+1}{n} \log\frac ba\right)}
+\] \[
+  = \lim_{n\to\infty} \frac{-1}{p+1} \frac{\left(\frac ba\right)^\frac 1n}{\left(\frac ba\right)^{\frac{p+1}{n}}}
+  = \frac{-1}{p+1}
+\]
+
+\[ \Rightarrow = (a^{p+1} - b^{p+1}) \cdot \frac{-1}{p+1} = \frac{b^{p+1} - a^{p+1}}{p+1} \]
+
+The assignment explicitly asks for a step function. This approach only verifies that
+\[ \int_a^b x^p \, dx \]
+\[ \left.\frac{x^{p+1}}{p+1}\right|_{x=a}^{x=b} = \frac{b^{p+1}}{p+1} - \frac{a^{p+1}}{p+1} \]
+
+We only did the approximation from one side (also upper bound is needed which works analogously):
+
+\[ \sum_{k=0}^{n-1} y_k x_{k+1}^p = \ldots \]
+
+\section{Exercise 16}
+\begin{ex}
+  For an interval $I \subseteq \mathbb R$ let $f_n: I \to \mathbb R$ be a sequence of functions
+  which are uniformly continuous converging towards $f: I \to \mathbb R$. Show that the following
+  statements hold or provide a counterexample:
+  \begin{itemize}
+    \item If all $f_n$ are uniformly continuous, then $f$ is uniformly continuous.
+    \item If all $f_n$ are Lipschitz continuous, then $f$ is Lipschitz continuous.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 16.a}
+%
+It holds. So a proof is given in the following.
+
+We want to show:
+\[
+  \forall \varepsilon \exists \delta:
+  \abs{x - x_0} < \delta \Rightarrow
+  \abs{f(x) - f(x_0)} < \varepsilon
+\]
+
+\[ \abs{f(x) - f(x_0)} = \abs{f(x) - f_n(x) + f_n(x) - f(x_0) + f_n(x_0) - f(x_0)} \]
+\[
+  \leq
+    \underbrace{\abs{f(x) - f_n(x)}}_{<\frac\varepsilon3} +
+    \underbrace{\abs{f_n(x) - f_n(x_0)}}_{< \frac\varepsilon3} +
+    \underbrace{\abs{f_n(x_0) - f(x_0)}}_{< \frac\varepsilon3}
+\]
+
+We need to elaborate: For which $n$ does $\frac\varepsilon3$ hold?
+
+\[
+  \forall \varepsilon > 0 \exists \overset{\text{depends on $\varepsilon$}}{n_0}:
+  \forall n \geq n_0 \forall x \in I:
+  \abs{f(x) - f_n(x)} < \frac\varepsilon3
+\] \[
+  \forall \varepsilon > 0 \forall n \exists \delta = \delta(n, \varepsilon):
+  \forall x, x_0: \abs{x - x_0} < \delta \Rightarrow \abs{f_n(x) - f_n(x_0)} < \frac\varepsilon3
+\]
+
+\subsection{Exercise 16.b}
+%
+This does not hold. So we provide a counterexample.
+
+Consider $f(x) = \sqrt{x}$. It is not differentiable at $x=0$, but $f(0) = 0$ is defined.
+The function cannot be Lipschitz-continuous, because the Lipschitz constant grows as we tend towards $0$.
+We need functions $f_n$.
+
+Consider $f(x) = \sqrt{x + \frac1n}$. The function $f_n$ looks like $f$, but is shifted slightly to the left.
+As $n$ tends towards infinity, $f_n$ becomes $f$ and we get the problem at $x=0$.
+
+You can also consider:
+\[
+  f(x) = \begin{cases}
+    \sqrt{x} & \text{ for } x \geq \frac1n \\
+    \sqrt{\frac1n} & \text{ for } x < \frac1n
+  \end{cases}
+\]
+
+\section{Exercise 17}
+%
+\begin{ex}
+  Let $f: [0,1] \to \mathbb R$ be a regulated function continuous in $0$.
+  Show the following relation:
+  \[
+    \lim_{n\to\infty}
+    n \int_0^{\frac1n} f(s) \, ds = f(0).
+  \]
+\end{ex}
+\[
+  \lim_{n\to\infty}
+  n \int_0^{\frac1n} f(s) \, ds = f(0)
+  = \lim_{n\to\infty} n \cdot \left(F\left(\frac1n\right) - F(0)\right)
+  = \lim_{n\to\infty} \frac{F\left(\frac1n\right) - F(0)}{\frac1n}
+  = \lim_{h\to0} \frac{F(h) - F(0)}{h}
+  = f(0)
+\]
+
+\subsection{Other approach}
+Continuity at $x=0$:
+\[
+  \forall \varepsilon > 0 \exists \delta > 0 \forall \abs{x} < \delta:
+  \abs{f(x) - f(0)} < \varepsilon
+\] \[
+  \lim_{n\to\infty} n \int_0^{\frac1n} f(x) \, dx
+  \leq \lim_{n\to\infty} n \int_0^{\frac1n} (f(0) + \varepsilon) \, dx
+\]
+For $\frac1n < \delta$ it holds that $f(x) < f(0) + \varepsilon$ for $x \in [0,\frac1n]$.
+\[
+  = \lim_{n\to\infty} n (f(0) + \varepsilon) \frac1n
+  = f(0) + \varepsilon
+\]
+holds for all $\varepsilon > 0$.
+\[
+  \Rightarrow
+  \lim_{n\to\infty} n \int_0^{\frac1n} f(x) \, dx \leq f(0)
+\]
+
+\section{Exercise 18}
+\begin{ex}
+  Prove the Riemann-Lebesgue Lemma:
+  For every regulated function $f: [a,b] \to \mathbb R, a < b$ it holds that
+  \[ \lim_{\lambda\to\infty} \int_a^b f(x) \sin(\lambda x) \, dx = 0. \]
+  \emph{Hint:} Show the following partial results:
+  \begin{itemize}
+    \item For all intervals $[\alpha, \beta] \subseteq [a,b]$ it holds that
+      \[ \lim_{\lambda\to\infty} \int_\alpha^\beta \sin(\lambda x)\, dx = 0. \]
+    \item For all step functions $g \in \tau[a,b]$ it holds that
+      \[ \lim_{\lambda\to\infty} \int_a^b g(x) \sin(\lambda x) \, dx = 0. \]
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 18.a}
+\[
+  \left.-\frac1\lambda \cos(\lambda x)\right|_\alpha^\beta
+  = \underbrace{\frac1{\lambda}}_{\to 0} \underbrace{\left(-\cos(\beta \lambda) + \cos(\alpha\lambda)\right)}_{\text{bounded}}
+\]
+
+% The image 18.pdf illustrates the behavior of sin(\lambda x)
+
+\subsection{Exercise 18.b}
+Because $g$ is a step function of $[a,b]$, there exists a decomposition
+\[ a = x_0 < x_1 < \ldots < x_n = b \]
+such that $g(x)$ has a constant value $c_i$ in every subinterval $[x_{i-1}, x_i)$.
+\[
+  \lim_{\lambda\to\infty} \int_a^b f(x) \sin(\lambda x) \, dx
+  = \lim_{\lambda\to\infty} \sum_{i=1}^n c_i \int_{x_{i-1}}^{x_i} \sin(\lambda x) \, dx
+\]
+This can be done, because we consider a finite sum.
+\[
+  \sum_{i=1}^n c_i \underbrace{\int_{x_{i-1}}^{x_i} \sin(\lambda x) \, dx}_{\to 0 \forall \text{ subintervals } H(i)}
+\] \[
+  = \sum_{i=1}^n c_i \cdot \underbrace{\lim \int_{x_{i-1}}^{x_i} \sin(\lambda x) \, dx = 0}_{\to 0}
+\]
+
+\subsection{Conclusion}
+Because $f(x)$ is a regulated function $\forall \varepsilon > 0$, there exists a step function
+$g_\varepsilon(x)$ with $\abs{f(x) - g_{\varepsilon}(x)} < \varepsilon \quad \forall x \in [a,b]$.
+
+\[
+  \abs{\int_a^b f(x) \cdot \sin(\lambda x) \, dx}
+  \leq \underbrace{\int_a^b \abs{\underbrace{f(x) - g_\varepsilon(x)}_{< \varepsilon}}}_{< \varepsilon (b - a)} \cdot \abs{\underbrace{\sin(\lambda x)}_{\leq 1}} \, dx
+  + \underbrace{\abs{\int_a^b g_\varepsilon(x) \sin(\lambda x) \, dx}}_{\to 0 \text{ for } \lambda \to \infty}
+\] \[
+  \lim_{\lambda\to\infty} \abs{\int_a^b f(x) \sin(\lambda x) \, dx} \leq \varepsilon (b - a)
+\]
+We can choose $\varepsilon$ arbitrary, so it must tend towards $0$.
+
+\section{Exercise 19}
+\begin{ex}
+  Let $I, J \subseteq \mathbb R$ be intervals, $f: I \to \mathbb R$ continuous and $g,h: J \to I$ differentiable.
+  Furthermore it holds that $g \leq h$ in $J$. Prove that
+  \[ A: J \to \mathbb R, \quad x \mapsto \int_{g(x)}^{h(x)} f(\xi) \, d\xi \]
+  is differentiable and determine its derivative.
+\end{ex}
+
+\subsection{Exercise 19.a}
+Show differentiability.
+
+So
+\[ \lim_{x\to x_0} \frac{A(x) - A(x_0)}{x - x_0} \]
+exists.
+\[
+  \lim_{x\to x_0} \frac{A(x) - A(x_0)}{x - x_0}
+  = \lim_{x\to x_0} \frac{\int_{g(x)}^{h(x)} f(\xi) \, d\xi - \int_{g(x_0)}^{h(x_0)} f(\xi) \, d\xi}{x - x_0}
+  = \lim_{x\to x_0} \frac{F(h(x)) - F(g(x)) - F(h(x_0)) + F(g(x_0))}{x - x_0}
+\]
+$F(h(x))$ and $F(g(x))$ exists, because $h(x)$ is continuous, so a regulated function and regulated functions always have a primitive function.
+\[
+  \lim_{x\to x_0} \frac{F(h(x)) - F(h(x_0))}{x - x_0} -
+  \lim_{x\to x_0} \frac{F(g(x)) - F(g(x_0))}{x - x_0}
+\]
+If $h(x)$ is continuous, then $F(h(x))$ is differentiable (analogously for $g(x)$).
+And the composition is also differentiable.
+
+\subsection{Exercise 19.b}
+Determine its derivative.
+
+\[
+  (F \circ h)' (x) - (F \circ g)'(x_0)
+  = f(h(x_0)) \cdot h'(x_0) - f(g(x_0)) \cdot g'(x_0)
+\]
+
+\section{Exercise 20}
+\begin{ex}
+  Determine the following integrals for arbitrary $a,b \in \mathbb R, a < b$:
+  \begin{itemize}
+    \item $\int_a^b \frac{d}{dx} \left(x^5 \cdot e^x\right) \, dx$
+    \item $\int_a^b x^4 e^{x^5} \, dx$
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 20.a}
+\[
+  \int_a^b \frac{d}{dx} \left(x^5 e^{x}\right) \, dx
+  = \int_a^b 5x^4 e^x - x^5 e^x \, dx
+  = \int_a^b \underbrace{e^x}_{g'(x)} \underbrace{(5 x^4 - x^5)}_{= f(x)} \, dx
+\] \[
+  = \left.e^x (5x^4 - x^5) \right|_a^b - \int_a^b e^x (20 x^3 + 5x^4)
+  = e^b b^5 - e^a a^5
+\]
+
+\subsection{Exercise 20.b}
+\[
+  \int_a^b x^4 e^{x^5} \, dx
+\] \[
+  u \coloneqq x^5 \Rightarrow \frac{du}{dx} = 5x^4 \qquad dx = \frac{du}{5x^4}
+\] \[
+  = \int_{a^5}^{b^5} x^4 e^u \, \frac{du}{5x^4}
+  = \int_{a^5}^{b^5} e^u \, \frac{du}{5}
+  = \frac15 \int_{a^5}^{b^5} e^u \, du
+  = \frac15 \left(e^{b^5} - e^{a^5}\right)
+\]
+
+Other approach for 20.b:
+\[ F = \frac15 e^{x^5} \]
+\[ F' = x^4 e^{x^5} = f \]
 
 \end{document}

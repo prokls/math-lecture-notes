@@ -3291,8 +3291,14 @@ $\rightarrow$ projection: every vector has a unique decomposition.
 \begin{proof}
   \begin{description}
     \item[1. $\rightarrow$ 2.]
-      Let $y \in K$. $0 < \varepsilon < 1$.
-      % TODO: image norm.pdf
+      Let $y \in K$. $0 < \varepsilon < 1$. Compare with Figure~\ref{img:norm}.
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics{img/norm.pdf}
+          \caption{Norm}
+          \label{img:norm}
+        \end{center}
+      \end{figure}
       \[ \Rightarrow y_\varepsilon = (1 - \varepsilon) y_0 + \varepsilon y_1 \in K \]
       \[ \Rightarrow \norm{x - y_0} \leq \norm{x - y_\varepsilon} \]
       \[ y_\varepsilon = y_0 + \varepsilon (y - y_0) \]
@@ -3371,8 +3377,16 @@ $\rightarrow$ projection: every vector has a unique decomposition.
   \[ \bigwedge_{x \in V} \pi_U(x) \in U \land \pi_{U^\bot}(x) \in U^\bot \]
   are called \emph{orthogonal projections} to $U$ and $U^\bot$.
 
-  % TODO: image orthogonal_projections.pdf
+  Compare with Figure~\ref{img:orth-proj}.
 \end{defi}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/orthogonal_projections.pdf}
+    \caption{Orthogonal projections}
+    \label{img:orth-proj}
+  \end{center}
+\end{figure}
 
 \begin{theorem}[Revision of direct sums of vector spaces]
   \label{wh-8.49}

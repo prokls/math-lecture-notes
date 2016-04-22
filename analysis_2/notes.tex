@@ -2501,9 +2501,11 @@ We have prove direction $\Rightarrow$.
                  &= \frac1{n!} \mu! \frac{n!}{(\mu - n)! (n - \mu + n)!} \\
                  &= \frac{\mu!}{(\mu - n)! (2n - \mu)!} \\
                  &= \frac{(\mu-n+1) (\mu - n + 2) \ldots \mu}{1 \cdot 2 \cdot 3 \ldots (2n - \mu)} \\
-                 &\text{ to be discussed} \\
                  &\in \mathbb Z
   \end{align*}
+  Why does $\in \mathbb Z$ hold?
+  \[ \frac{\mu!}{n!} \underbrace{\binom{n}{\mu - n}}_{\in \mathbb Z} \in \mathbb Z \qquad n \leq \mu \leq 2n \]
+  \[ (n + 1) (n + 2) \ldots \nu \in \mathbb Z \]
 
   \[ n \leq \mu \leq 2n \]
   $f^{(\mu)}(0) \in \mathbb Z$ for $\mu \in \set{n, n+1, \ldots, 2n}$, analogously
@@ -2593,6 +2595,375 @@ We have prove direction $\Rightarrow$.
     \item if $I = (a,b)$, we choose $c \in I$ and $\int_a^b f(x) \, dx = \lim_{\alpha\to a_+} \int_\alpha^c f(x) \, dx + \lim_{\beta \to b_-} \int_{c}^\beta f(x) \, dx$.
   \end{enumerate}
 \end{defi}
+
+\meta{lecture}{21st of April 2016}{Wolfgang Ring}
+
+\[ f: [a,b) \to \mathbb R \qquad b \in (-\infty, \infty] \]
+\[ \int_a^b f(x) \, dx = \lim_{\beta \to b_-} \int_a^b f(x) \, dx \]
+
+\begin{ex}[Classic examples]
+  \begin{enumerate}
+    \item Let $s > 1$.
+      \begin{align*}
+        \int_1^\infty \frac{1}{x^s} \, dx
+          &= \lim \int_1^\beta x^{-s} \, dx \\
+          &= \left.\frac{1}{-s+1} \cdot x^{-s+1} \right|_1^\beta \\
+          &= \lim_{\beta\to\infty} \frac{1}{1 - s} \cdot \frac{1}{\beta^{s-1}} - \frac{1}{1 - s}
+        \intertext{$s - 1 > 0$ and $\frac{1}{1 - s} \to 1$}
+          &= \frac{1}{s - 1} \qquad \text{ so indefinite integral exists}
+      \end{align*}
+    \item Let $s < 1$.
+      \begin{align*}
+        \int_0^1 x^{-s} \, dx
+          &= \lim_{\alpha\to 0_+} \int_\alpha^1 x^{-s} \, dx \\
+          &= \left.\lim_{\alpha\to 0_+} \frac{1}{-s+1} x^{-s+1}\right|_{\alpha}^1 \\
+          &= \frac{1}{1 - s} - \underbrace{\lim_{\alpha\to 0_+} \frac{1}{1 - s} \alpha^{1 - s}}_{= 0} \\
+          &= \frac{1}{1 - s}
+      \end{align*}
+      Compare with Figure~\ref{img:1divs}.
+    \item
+      \begin{align*}
+        \int_0^\infty e^{-cx} \, dx
+          &= \lim_{\beta\to\infty} \int_0^\beta e^{-cx} \, dx \\
+          &= \left.\lim_{\beta\to\infty} \frac{1}{-c} \cdot e^{-cx} \right|_0^\beta \\
+          &= \lim_{\beta\to\infty} \left(-\frac{1}{c} \cdot e^{-c\beta}\right) + \frac1{c} \\
+          &= \frac{1}{c}
+      \end{align*}
+    \item
+      \begin{align*}
+        \int_{-\infty}^{\infty} \frac{1}{1 + x^2} \, dx
+          &= \lim_{\alpha\to-\infty} \int_{\alpha}^0 \frac{1}{1 + x^2} \, dx + \lim_{\beta\to0} \int_0^\beta \frac{1}{1 + x^2} \, dx \\
+          &= \arctan(0) - \underbrace{\lim_{\alpha\to-\infty} \arctan(\alpha)}_{-\frac\pi2} + \underbrace{\lim_{\beta\to\infty} \arctan(\beta)}_{\frac\pi2} - \arctan(0) \\
+          &= - \left(-\frac\pi2\right) + \frac\pi2 \\
+          &= \pi
+      \end{align*}
+      % TODO: image missing (with -\frac\pi2 and shit)
+  \end{enumerate}
+\end{ex}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/1divsmin1.pdf}
+    \caption{$\frac{1}{1 - s}$}
+    \label{img:1divs}
+  \end{center}
+\end{figure}
+
+\begin{rem}
+  \enquote{Integral converges} means \enquote{an (indefinite) integral exists}
+\end{rem}
+
+\begin{rem}
+  \[ \arctan'(x) = \frac{1}{1 + x^2} \]
+  \[ \tan'(x) = \frac{\cos{x} \cdot \cos{x} - (\sin{x}) (-\sin{x})}{\cos^2{x}} = \frac{1}{\cos^2(x)} \]
+  \[ \tan(x) = \frac{\sin{x}}{\cos{x}} \]
+  \begin{align*}
+    \arctan'(x)
+      &= \frac{1}{\tan'(\arctan(x))} \\
+      &= \begin{vmatrix} \arctan{x} = s \end{vmatrix} \\
+      &= \left(\frac{1}{\cos^2(s)}\right)^{-1} \\
+      &= \left(\frac{\cos^2(s) + \sin^2(s)}{\cos^2(s)}\right)^{-1} \\
+      &= \left(1 + \left(\frac{\sin{s}}{\cos{s}}\right)^2\right)^{-1} \\
+      &= \left(1 + \left[\tan(\arctan{x})\right]^2\right)^{-1} \\
+      &= (1 + x^2)^{-1} \\
+      &= \frac{1}{1 + x^2}
+  \end{align*}
+\end{rem}
+
+\index[English]{Direct comparison test for indefinite integrals}
+\index[German]{\foreignlanguage{ngerman}{Majorantenkriterium für unbestimmte Integrale}}
+\begin{theorem}[Direct comparison test for indefinite integrals]
+  (dt. \enquote{\foreignlanguage{ngerman}{Majorantenkriterium für uneigentliche Integrals}})
+  Let $f,g$ be regulated functions in $[a,b]$ and $\abs{f(x)} \leq g(x) \quad \forall x \in [a,b)$.
+  Assume $\int_a^b g(x) \, dx$ exists. Then also $\int_a^b \abs{f(x)} \, dx$ exists
+  and also $\int_a^b f(x) \, dx$.
+\end{theorem}
+
+\begin{proof}
+  \[ G(\beta) = \int_a^\beta g(x) \, dx \]
+  We know that $\lim_{\beta\to b_-} G(\beta)$ exists.
+
+  Cauchy criterion:
+  $\forall \varepsilon > 0$ there exists a left-sided environment of $b$ such that
+  for all $u,v$ in this environment it holds that
+  \[ \underbrace{\abs{G(u) - G(v)}}_{\int_u^v g(x) \, dx} < \varepsilon \]
+  Because $\abs{f} \leq g$ it holds that
+  \[ F(\beta) = \int_a^\beta \abs{f(x)} \, dx \]
+  and also that
+  \[ \abs{\int_u^v \abs{f(x)} \, dx} = \abs{F(v) - F(u)} \overset{\text{monotonicity}}{\leq} \abs{\int_u^v g(x) \, dx} < \varepsilon\]
+  Hence $\lim_{\beta\to b} F(\beta)$ exists because of the Cauchy criterion.
+  So $\int_a^b \abs{f(x)} \, dx$ exists. Analogously for $f$ instead of $\abs{f}$.
+\end{proof}
+
+\begin{ex}
+  \[ \int_0^\infty \frac{\sin{x}}{x} \, dx \text{ exists} \]
+  \[
+    f(x) = \begin{cases}
+      \frac{\sin{x}}{x} & \text{ for } x \neq 0 \\
+      1 & \text{ for } x = 0
+    \end{cases}
+    \text{ continuous in } 0
+  \]
+  \[ \int_0^1 \frac{\sin{x}}{x} \, dx = \int_0^1 f(x) \, dx \text{ exists because $f$ is continuous} \]
+  \begin{align*}
+    \lim_{\beta\to\infty} \int_1^\beta \frac{\sin{x}}{x} \, dx
+    &= \begin{vmatrix}
+      u = \frac1x & u' = -\frac1{x^2} \\
+      v' = \sin{x} & v = -\cos{x}
+    \end{vmatrix} \\
+    &= \lim_{\beta\to\infty} \left.\frac1x \cdot (-\cos{x}) \right|_1^\beta - \int_1^\beta \frac{\cos{x}}{x^2} \, dx \\
+    &= \lim_{\beta\to\infty} \left[ \underbrace{-\frac{1}{\beta} \cdot \cos{\beta}}_{\to 0} + \cos{1} - \int_1^\beta \frac{\cos{x}}{x^2} \, dx \right] \\
+    &= \lim_{\beta\to\infty} \int_1^\beta \frac{\cos{x}}{x^2} \, dx
+  \end{align*}
+  The last expression exists, because $\frac1{x^2}$ is a majorant for $\frac{\cos(x)}{x^2}$ and $\int_1^\infty \frac{1}{x^2} \, dx$ exists.
+\end{ex}
+
+\meta{lecture}{22nd of April 2016}{Wolfgang Ring}
+
+\[ \int_0^\infty \abs{\frac{\sin{x}}{x}} \, dx \text{ does not exist } \]
+\[
+  \int_{k\pi}^{(k+1)\pi} \abs{\frac{\sin{x}}{x}} \, dx
+  \geq \frac{1}{(k+1) \pi} \int_{k\pi}^{(k+1)\pi} \abs{\sin{x}} \, dx
+\] \[
+  = \left.\frac{1}{(k+1) \pi} (\pm 1) \cdot \left(-\cos{x}\right) \right|_{k\pi}^{(k+1) \pi}
+  = \frac{1}{(k+1) \pi} (\pm 1) (\pm 2)
+\] \[
+  = \frac{2}{(k+1)\pi}
+\] \[
+  \underbrace{\int_0^{(n+1)\pi} \abs{\frac{\sin{x}}{x}} \, dx}_{\text{unbounded} \Leftarrow}
+    \geq \frac{2}{\pi} \cdot \underbrace{\sum_{k=0}^n \frac{1}{k+1}}_{\substack{\text{harmonic series,} \\ \text{divergent}}}
+\]
+In terms of the Lebesgue integral, $\int_0^\infty \frac{\sin{x}}{x} \, dx$ does not exist.
+
+We can define new types of integration which yield new types of function which are not representable with techniques discussed so far.
+
+\index[English]{Eulerian $\Gamma$-function}
+\index[German]{\foreignlanguage{ngerman}{Eulerian $\Gamma$-function}}
+\begin{ex}[The Eulerian $\Gamma$-function]
+  \[ \Gamma(x) = \int_0^\infty t^{x-1} e^{-t} \, dt \text{ for } x > 0 \]
+  The function variable of the $\Gamma$-function is a parameter of the integrand.
+\end{ex}
+
+The indefinite integral from above exists,
+\[ \lim_{\alpha\to 0_+} \int_\alpha^1 \underbrace{t^{x-1} e^{-t}}_{>0} \, dt \text{ exists} \]
+of $\int_\alpha^1 t^{x-1} e^{-t} \, dt$ is bounded in terms of $\alpha$.
+
+\[ \int_\alpha^1 t^{x-1} \underbrace{e^{-t}}_{<1} \, dt < \underbrace{\int_\alpha^1 t^{x-1} \, dt}_{\text{converges for } x - 1 > -1} \]
+hence for $x > 0$.
+
+Right-side integral boundary:
+\[ \int_1^\infty t^{x-1} e^{-t} \, dt \text{ converges?} \]
+
+\begin{ex}[Claim]
+  There exists $c > 0$ such that
+  \[ t^{x-1} e^{-t} < c \cdot e^{-\frac t2} \quad \forall t \geq 1 \]
+
+  \[ t^{x-1} \cdot e^{-\frac t2} < c \cdot e^{-\frac t2} \quad \forall t \geq 1 \]
+
+  \begin{align*}
+    \lim_{t\to\infty} \left(t^{x-1} \cdot e^{-\frac t2}\right)
+    &= \begin{vmatrix} \frac t2 = s \\ t = 2s \end{vmatrix} \\
+    &= \lim_{s\to\infty} (2s)^x-1 e^{-s} \\
+    &\leq \lim_{s\to\infty} (2s)^{\lfloor x\rfloor + 1 - 1} \cdot e^{-s} \\
+  \intertext{with $\lfloor x\rfloor \leq x < \lfloor x\rfloor + 1$}
+    &= \lim_{s\to\infty} (2s)^{\lfloor x\rfloor} \cdot e^{-s} \\
+    &\leq  \lim_{s\to\infty} s^{\lfloor x\rfloor + 1} \cdot e^{-s}
+  \end{align*}
+  because $s^{n+1} > (2s)^n$ for $s > 2^n$.
+
+  Hence for $\varepsilon > 0$, $\exists t$ such that
+  \[ \abs{t^{x-1} e^{-\frac t2}} < \varepsilon \text{ if } t > L \]
+  and
+  \[ \abs{t^{x-1} e^{-\frac t2}} \leq M \text{ for } t \in \underbrace{[1,L]}_{\text{compact}} \]
+  $\Rightarrow$ for $t \in [1,\infty)$ it holds that
+  \[
+    \abs{t^{x-1} e^{-\frac t2}} \leq \max\left\{M, \varepsilon\right\} \eqqcolon c
+  \]
+
+  \[ t^{x-1} e^{-\frac t2} \leq c \]
+  \[
+    \int_0^\infty t^{x-1} e^{-t} \, dt
+      \leq \int_0^\infty c \cdot e^{-\frac t2} \, dt
+      = \left.c \cdot \left(-2 \cdot e^{-\frac t2}\right) \right|_0^\infty
+      = 2c
+  \]
+  hence $\int_0^\infty t^{x-1} e^{-t} \, dt$ exists.
+
+  It holds that $\Gamma(1) = 1$ because,
+  \[ \int_0^\infty e^{-t} \, dt = 1 \]
+
+  Furthermore it holds that for all $x > 0$,
+  \[ \Gamma(x+1) = x \cdot \Gamma(x) \]
+  \[
+    \Gamma(x+1) = \int_0^\infty t^{x+1-1} e^{-t} \, dt
+    = \lim_{\substack{\varepsilon \to 0 \\ R \to \infty}} \int_\varepsilon^R t^x e^{-t} \, dt
+  \] \[
+    = \begin{vmatrix}
+      u = t^x & u' = x \cdot t^{x-1} \\
+      v' = e^{-t} & v = -e^{-t}
+    \end{vmatrix}
+  \] \[
+    = \lim_{\substack{\varepsilon \to 0 \\ R \to \infty}}\left[
+      \left. -t^x e^{-t} \right|_{t=\varepsilon}^R
+      + \int_\varepsilon^R x \cdot t^{x-1} \cdot e^{-t} \, dt
+    \right]
+  \] \[
+    = \lim_{\substack{\varepsilon \to 0 \\ R \to \infty}} \left(
+      \underbrace{-R^x \cdot e^{-R}}_{\to 0 \text{ for } R \to \infty} +
+      \underbrace{\varepsilon^x \cdot e^{-\varepsilon}}_{\to 0 \text{ for } \varepsilon \to 0}
+    \right) + x \cdot \int_0^\infty t^{x-1} e^{-t} \, dt
+    = x \cdot \Gamma(x)
+  \]
+
+  So it holds that
+  \begin{align*}
+    T(2) &= 1 \cdot T(1) = 1 \\
+    T(3) &= 2 \cdot T(2) = 2 \cdot 1 \\
+    T(4) &= 4 \cdot T(3) = 3 \cdot 2 \cdot 1 \\
+    T(5) &= 4 \cdot T(4) = 4 \cdot 3 \cdot 2 \cdot 1
+  \end{align*}
+  By complete induction we can show that
+  \[ \Gamma(n+1) = n! \qquad \forall n \in \mathbb N \]
+\end{ex}
+
+\subsection{Some important inequalities}
+%
+\index[English]{Young's inequality}
+\index[German]{\foreignlanguage{ngerman}{Young's Ungleichung}}
+\begin{theorem}[Young's inequality]
+  Let $f: [0, \infty) \to [0,\infty)$ be continously differentiable,
+  $f(0) = 0$; $f$ is strictly monotonically increasing and unbounded
+  (hence $f$ is injective because of strong monotonicity
+  and surjective because of unboundedness).
+
+  So there exists $f^{-1}: [0,\infty) \to [0,\infty)$.
+
+  Let $a,b \geq 0$. Then it holds that
+  \[
+    a \cdot b \leq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy
+  \]
+  Equality holds if and only if,
+  \[
+    b = f(a) \text{ i.e. } a = f^{-1}(b)
+  \]
+
+  Compare with Figure~\ref{img:youngs-ineq}
+\end{theorem}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/youngs_inequality.pdf}
+    \caption{Young's inequality: the blue and red areas are larger than the green area}
+    \label{img:youngs-ineq}
+  \end{center}
+\end{figure}
+\begin{proof}
+  \[ \int_0^b f^{-1}(y) \, dy \overset{\text{substitution}}{=}
+    \begin{vmatrix}
+      y = f(x) \\
+      dy = f'(x) \, dx \\
+      y = 0 \Leftrightarrow x = f^{-1}(0) = 0 \\
+      y = b \Leftrightarrow x = f^{-1}(b)
+    \end{vmatrix}
+  \]
+  \begin{align*}
+    &= TODO
+    &= \left. f(x) x \right|_0^{f^{-1}(b)} - \int_0^{f^{-1}(b)} 1 \cdot f(x) \, dx \\
+    &= f(f^{-1}(b)) \cdot f^{-1}(b) - \int_0^{f^{-1}(b)} f(x) \, dx \\
+    &= b \cdot f^{-1}(b) - \int_0^{f^{-1}(b)} f(x) \, dx
+  \end{align*}
+  Therefore,
+  \[
+    \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy
+    = \int_0^a f(x) \, dx + \int_{f^{-1}(b)}^0 f(x) \, dx + b \cdot f^{-1}(b)
+  \]
+
+  \begin{description}
+    \item[Case 1: $f^{-1}(b) = a$] ($f(a) = b$)
+      \[
+        \Rightarrow I = \underbrace{\int_a^b f(x) \, dx}_{=0} + b \cdot a = ab
+      \]
+      Proven.
+    \item[Case 2: $b < f(a) \Leftrightarrow f^{-1}(b) < a$]
+      $f$ is strictly monotonically increasing, hence $f(x) > f(f^{-1}(b)) = b$
+      for all $x \in (f^{-1}(b), a]$.
+      \[ \int_{f^{-1}(b)}^a f(x) \, dx > b \cdot \int_{f^{-1}(b)}^a 1 \, dx \]
+      \[ = b \cdot \left(a - f^{-1}(b)\right) \]
+      \[ I > b \left(a - f^{-1}(b)\right) + b \cdot f^{-1}(b) = a \cdot b \]
+      Proven.
+    \item[Case 3: $b > f(a)$]
+      \[ I = \underbrace{- \int_a^{f^{-1}(b)} f(x) \, dx}_{\text{strictly mon. decreasing}} + b f^{-1}(b) \]
+      For $(-f(x))$ it holds that:
+      \[ > (-f(f^{-1}(b)) = -b) \]
+      \[ > (-b) \left(f^{-1}(b) - a\right) + b \cdot f^{-1}(b) = a \cdot b \]
+      Proven.
+  \end{description}
+\end{proof}
+\begin{rem}
+  Young's inequality also holds if $f$ has all the properties above
+  but is not necessarily differentiable.
+\end{rem}
+\begin{theorem}[Young's inequality, special case]
+  Let $A, B \geq 0$. $p,q > 1$ such that $\frac1p + \frac1q = 1$ (hence $p$ and $q$ are \enquote{conjugate exponents}).
+  Then it holds that
+  \[ A \cdot B \leq \frac{A^p}{p} + \frac{B^q}{q} \]
+\end{theorem}
+\begin{proof}
+  Let $f(x) = x^{p-1}$ satisfy the requirements for Young's inequality.
+  \[ f^{-1}(y) = y^{\frac{1}{p-1}} \]
+  \[ \left( \frac1q = 1 - \frac1q \qquad q = \left(1 - \frac1q\right)^{-1}\right) \]
+  \[ q - 1 = \left(1 - \frac1p\right)^{-1} - 1 = \left(\frac{p-1}{p}\right)^{-1} - 1 \]
+  \[ = \frac{p}{p-1} - 1 = \frac{p - p + 1}{p - 1} = \frac{1}{p-1} \]
+  \[ f^{-1}(y) = y^{q-1} \]
+  Therefore
+  \[
+    A \cdot B \leq \int_0^A x^{p-1} \, dx + \int_0^B y^{q-1} \, dy
+    = \left.\frac{x^p}{p}\right|_0^A + \left.\frac{y^q}{q}\right|_0^B
+    = \frac{A^p}{p} + \frac{B^q}{q}
+  \]
+\end{proof}
+\begin{rem}
+  Equality holds if $A^p = B^q$. The proof is left as an exercise to the reader.
+\end{rem}
+
+\index[English]{Hölder's inequality}
+\index[German]{\foreignlanguage{ngerman}{Hölder's Ungleichung}}
+\begin{theorem}[Hölder's inequality]
+  Let $I$ be an interval, $a, b$ are boundary values of $I$ ($a,b \in [-\infty, \infty]$).
+  Let $p,q$ be conjugate exponents, hence $p,q > 1$ and $\frac1p + \frac1q = 1$.
+
+  Let $f_1$ and $f_2$ be regulated functions in $I$ and
+  \[ \int_a^b \abs{f_1(x)}^p \, dx \text{ exists and } \int_a^b \abs{f_2(x)}^q \, dx \text{ exists} \]
+
+  Let
+  \[ \norm{f_1}_p = \left(\int_a^b \abs{f_1(x)}^p \, dx\right)^{\frac1p} \]
+  and
+  \[ \norm{f_2}_q = \left(\int_a^b \abs{f_2(x)}^q \, dx\right)^{\frac1q} \]
+  Then it holds that
+  \[
+    \int_a^b \abs{f_1(x) \cdot f_2(x)} \, dx \text{ exists and }
+    \int_a^b \abs{f_1(x) f_2(x)} \, dx
+    \leq \norm{f_1}_p \cdot \norm{f_2}_q
+  \]
+\end{theorem}
+\begin{proof}
+  Let $A = \frac{\abs{f_1(x)}}{\norm{f_1}_p}$ and $B = \frac{\abs{f_2(x)}}{\norm{f_2}_q}$.
+  \[
+    A \cdot b \leq \frac{A^p}{p} + \frac{B^q}{q} \overset{\text{integration}}{\Rightarrow}
+    \int_a^b \frac{\abs{f_1(x)}}{\norm{f_1}_p} \cdot \frac{\abs{f_2(x)}}{\norm{f_2}_q} \, dx
+    \leq \frac1p \int_a^b \frac{\abs{f_1(x)}^p}{\norm{f_1}_p^p} \, dx
+    + \frac1q \int_a^b \frac{\abs{f_2(x)}^q}{\norm{f_2}_q^q} \, dx
+  \] \[
+    \Rightarrow \frac{1}{\norm{f_1}_p \norm{f_2}_q} \cdot
+    \int_a^b \abs{f_1(x) \cdot f_2(x)} \, dx
+    \leq \frac{1}{p} \frac{1}{\norm{f_1}_p^p} \underbrace{\int_a^b \abs{f_1(x)}^p}_{\norm{f_1}_p^q} \, dx
+    + \frac1q \frac1{\norm{f_2}_q^q} \underbrace{\int_a^b \abs{f_2(x)}^q}_{\norm{f_2}_q^q} \, dx
+  \] \[
+    = \frac1p + \frac1q = 1
+  \] \[
+    = \underbrace{\int_a^b \abs{f_1(x) \cdot f_2(x)} \, dx}_{\text{exists}}
+    \leq \norm{f_1}_p \cdot \norm{f_2}_q
+  \]
+\end{proof}
 
 
 \index[English]{}
