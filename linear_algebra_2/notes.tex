@@ -38,6 +38,7 @@
 \newcommand\equalhat{\mathrel{\stackon[1.5pt]{=}{\stretchto{%
     \scalerel*[\widthof{=}]{\wedge}{\rule{1ex}{3ex}}}{0.5ex}}}}
 
+\theoremstyle{definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{defi}{Definition}
 \newtheorem{ex}{Example}
@@ -2287,7 +2288,7 @@ In the following chapters we always consider $\mathbb K = \mathbb R$ or $\mathbb
   \end{itemize}
   Linear in $x$ and anti-linear in $y$!
 
-  Swsquilinear
+  Sesquilinear.
 \end{lemma}
 
 
@@ -2302,7 +2303,8 @@ Scalar product.
       \item $\functional{\lambda x, y} = \lambda \functional{x,y}$
       \item $\functional{x,y} = \overline{\functional{y,x}}$ (hermetian)
     \end{itemize}
-  \item $\functional{,}$ is called positive definite, if $\functional{x,x} > 0 \forall x \neq 0$
+  \item $\functional{,}$ is called positive definite, if
+    \[ \functional{x,x} > 0 \qquad \forall x \neq 0 \]
     \begin{tabular}{cl}
       $\geq 0$ & positive semidefinite \\
       $<0$ & negative definite \\
@@ -3513,6 +3515,623 @@ $\rightarrow$ projection: every vector has a unique decomposition.
       \end{align*}
   \end{enumerate}
 \end{proof}
+
+\meta{lecture}{25th of April 2016}{Franz Lehner}
+
+Revision:
+\begin{itemize}
+  \item Approximation of a $x$ (outside) in a convex set by computing the orthogonal line from $x$ to the border of the convex set intersecting the set at $y_0$ ($\norm{x - y_0}$ min, $y_0 \in K$)
+  \[ \bigwedge_{y \in K} \Re{\functional{x - y_0, y - y_0}} \leq 0 \]
+  \item $u = \pi_u(x)$ is the unique element $u \in U$ such that $x-u \in U^\bot$. $U$ is defined such that $U \dot{+} U^\bot = V \Leftrightarrow U = (U^\bot)^\bot$. $\pi_U$ is linear.
+\end{itemize}
+
+\begin{theorem}
+  \label{satz-8.53}
+  Consider $v_1, \ldots, v_m \in V$.
+  \[ \operatorname{Gram}(v_1, \ldots, v_m) = \left[\functional{v_2, v_1}\right]^m_{i,j=1} \]
+  \[ \xi^t G \xi = \norm{\sum \xi_i v_i}^2 \]
+  $G$ is positive definite iff $v_1, \ldots, v_m$ are linear independent.
+\end{theorem}
+
+\begin{theorem}
+  \label{satz-8.54}
+  Let ($V, \langle, \rangle$) be a vector space with scalar product.
+  $U \subseteq V$ is subspace with $\dim{U} < \infty$.
+  $(u_1, \ldots, u_n)$ is basis of $U$.
+  $G = \operatorname{Gram}(u_1, \ldots, u_m)$ is positive definite and regular.
+  Then the orthogonal projection to $U$ for $x \in V$ is given by
+  \[ \pi_U(x) = \sum_{j=1}^m \eta_j u_j \]
+  where $\overline{\eta} = G^{-1} \xi$.
+  \[ \xi = \begin{pmatrix} \functional{x,u_1} \\ \vdots \\ \functional{x,u_m} \end{pmatrix} \]
+  (wrt. claiming $u_1, \ldots, u_m$ is orthogonal normal basis and Gram matrix provides correction to achieve that)
+\end{theorem}
+\begin{proof}
+  Let $u = \sum_{j=1}^m \eta_j u_j$. Because
+  \[ \bigwedge_{y \in U} \functional{x - y_0, y - y_0} = 0 \]
+  holds, it holds that $x - u \in U^\bot = \underbrace{\set{u_1, \ldots, u_m}}_{\text{basis of } U'}^\bot$.
+
+  Hence we need to show:
+  \[ \functional{u_i, u} = \functional{u_i, x} \qquad \text{ for } i = 1, \ldots, m \]
+  \[ \functional{u_i, u} = \functional{u_i, \sum_{j=1}^m \eta_j u_j} = \sum_{j=1}^m \underbrace{\functional{u_i, u_j}}_{= G_{ij}} \overline{\eta}_j \]
+  \[ = (G \overline{\eta})_i = \overline{\xi}_i = \overline{\functional{x_i, u_i}} = \functional{u_i, x} \]
+  \[ \Rightarrow \functional{x - u, u_i} = 0 \quad \forall i \]
+  \[ \Rightarrow x-u \in U^\bot \]
+\end{proof}
+
+\index[English]{Hilbert matrix}
+\index[German]{\foreignlanguage{ngerman}{Hilbert Matrix}}
+\index[English]{Hankel matrix}
+\index[German]{\foreignlanguage{ngerman}{Hankel matrix}}
+\begin{ex}
+  \label{bsp-8.55}
+  Determine the polynomial $p(x)$ of degree $\leq 2$ such that
+  \[ \int_0^1 \abs{t^3 - p(t)}^2 \, dt = \text{ min!} \]
+  where $V = \mathbb R[x]$ and $K = U = \mathbb R_2[x] = \mathcal{L}(1, x, x^2)$.
+  \[ \functional{f,g} = \int_0^1 f(t) g(t) \, dt \]
+
+  Find: Orthogonal projection of $x^3$ to $\mathcal L(1, x, x^2)$
+
+  \begin{description}
+    \item[Step 1: Gram matrix $G$]
+      \[
+        G_{ij}
+        = \int_0^1 t^{i-1} t^{j-1} \, dt
+        = \int_0^1 t^{i+j-2} \, dt
+        = \frac{1}{i + j - 1}
+      \] \[
+        G = \begin{bmatrix}
+          1 & \frac12 & \frac13 \\
+          \frac12 & \frac13 & \frac14 \\
+          \frac13 & \frac14 & \frac15
+        \end{bmatrix}
+        \qquad \text{\enquote{Hilbert matrix}}
+      \]
+      Hankel matrix:
+        $a_{ij}  a_{i'j'}$ if $i + j = i' + j'$
+      \[
+        \begin{pmatrix}
+          h_1 & h_2 & h_3 & \ldots \\
+          h_2 & h_3 & h_4 & \ldots \\
+          h_3 & h_4 & h_5 & \ldots
+          \vdots & & &
+        \end{pmatrix}
+      \]
+      \enquote{momentum problem}  % dt. Momentenproblem
+
+      Our solution:
+      \[ p(t) = \sum_{i=1}^3 \eta_i t^{i-1} \]
+      \[ \eta = G^{-1} \xi \qquad \xi_i = \functional{x^3, u_i} = \int_0^1 t^3 t^{i-1} \, dt = \frac{1}{3+i} \]
+      \[
+        \eta = \begin{bmatrix}
+          1 & \frac12 & \frac13 \\
+          \frac12 & \frac13 & \frac14 \\
+          \frac13 & \frac14 & \frac15
+        \end{bmatrix}^{-1}
+        \begin{bmatrix} \frac14 \\ \frac15 \\ \frac16 \end{bmatrix}
+        = \begin{bmatrix}
+          9 & -36 & 30 \\
+          -36 & 192 & -180 \\
+          30 & -180 & 180
+        \end{bmatrix}
+        \begin{bmatrix} \frac14 \\ \frac15 \\ \frac16 \end{bmatrix}
+        = \begin{bmatrix} -\frac1{20} \\ -\frac35 \\ \frac32 \end{bmatrix}
+      \]
+      Solution:
+      \[ p(x) = \frac1{20} - \frac35 x + \frac32 x^2 \]
+
+      $n\times n$ Hilbert matrix:
+      \[ \det{H_n} = \frac{c_n^4}{c_{2n}} \sim \frac{(2\pi)^{\overbrace{l_n}^{\text{Stirling}}}}{4^{n^2} \sqrt[4]{n}} \]
+      \[ c_n = \prod_{i=1}^{n-1} i! \]
+
+      \enquote{Almost} not invertible.
+      So this matrix is actually a good test matrix for numerical algorithms.
+  \end{description}
+\end{ex}
+
+\index[English]{Bessel's inequality}
+\index[German]{\foreignlanguage{ngerman}{Besselsche Ungleichung}}
+\begin{cor}
+  \label{korollar-8.56}
+  Let $U \subseteq V$ be a subspace and $(u_1, \ldots, u_m)$ be an orthonormal basis.
+  Then it holds that
+  \begin{itemize}
+    \item $\bigwedge_{v \in V} \pi_u(v) = \sum_{i=1}^m \functional{v, u_i} u_i$
+    \item
+      $\bigwedge_{v \in V} \sum_{i=1}^m \abs{\functional{v, u_i}}^2 \leq \norm{v}^2$,
+      \quad \enquote{Bessel's inequality} \\
+      $\bigwedge_{v \in V} \sum_{i=1}^m \abs{\functional{v, u_i}}^2 = \norm{v}^2 \Leftrightarrow v \in U$,
+      \quad \enquote{Parseval's identity}
+  \end{itemize}
+\end{cor}
+\begin{proof}
+  Immediate.
+  $G = I$, hence $\eta_i = \xi_i$.
+\end{proof}
+
+\begin{rem}
+  So if $u_1, \ldots, u_m$ is an orthonormal basis of $U$,
+  then we can immediately determine $\pi_U(v)$.
+  Can we fine an orthonormal basis?
+\end{rem}
+
+\index[English]{Gram-Schmidt process}
+\index[German]{\foreignlanguage{ngerman}{Gram-Schmidt Orthogonalisierungsverfahren}}
+\begin{theorem}[Gram–Schmidt process]
+  \label{satz-8.57}
+  Given $v_1, \ldots, v_m$ is linear independent.
+  Determine orthonormal system $u_1, \ldots, u_m$
+  such that $\mathcal L(u_1, \ldots, u_m) = \mathcal L(v_1, \ldots, v_m)$.
+
+  Let ($V, \langle, \rangle$) be vector space with scalar product.
+  Let $(v_1, \ldots, v_n)$ be linear independent.
+
+  Then there exists a orthonormal system $(u_1, \ldots, u_m) \subseteq V$
+  such that $\mathcal L(u_1, \ldots, u_m) = \mathcal L(v_1, \ldots, v_m)$.
+  Find $u \in U_k$ such that $v_{k+1} - u \in U_k^\bot$.
+
+  Inductively,
+  \[ u_1 = \frac{v_1}{\norm{v_1}} \qquad U_k = \mathcal L(v_1, \ldots, v_k) = \mathcal L(u_1, \ldots, u_k) \]
+  and for $k=2, \ldots, m$:
+  Let
+  \[ \tilde{u_k} = v_k - \underbrace{\sum_{j=1}^{k-1} \functional{v_k, u_j} u_j}_{\pi_{U_{k-1}}(v_k)} \]
+  \[ U_k = \frac{\tilde{U_k}}{\norm{\tilde{U_k}}} \]
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[Case $k=1$]
+      $v_1 \neq 0$ because they are linear independent.
+      \[ \rightarrow u_1 = \frac{v_1}{\norm{v_1}} \]
+    \item[Case $k-1\to k$]
+      $u_1,\ldots,u_{k-1}$ is orthonormal sysm with $\mathcal L(u_1, \ldots, u_{k-1}) = \mathcal L(v_1, \ldots, v_{k-1})$.
+      $v_k \not\in \mathcal L(u_1, \ldots, u_{k-1}) \eqqcolon U_{k-1}$.
+
+      \begin{align*}
+        \tilde{u_k} &= v_k - \sum_{j=1}^{k-1} \functional{v_k, u_j} u_j \\
+          &\overset{\text{Theorem~\ref{satz-8.56}}}{=} v_k - \pi_{U_{k-1}}(v_k) \in U_{k-1}^\bot \\
+          &\Rightarrow \tilde{u_k} \bot u_1, \ldots, u_{k-1}, \tilde{u_k} \neq 0 \text{ because } v_k \text{ is linear independent of } u_1, \ldots, u_{k-1} \\
+        u_k &= \frac{\tilde{u_k}}{\norm{\tilde{u_k}}} \to (u_1, \ldots, u_k) \text{ is an orthonormal system}
+      \end{align*}
+
+      Immediate:
+      \[ \tilde{u_k} \in \mathcal L(u_1, \ldots, u_{k-1}, u_k) = \mathcal L(v_1, \ldots, v_k) \]
+      \[ v_k = \tilde{u_k} + \sum \lambda_j u_j \in \mathcal L(u_1, \ldots, u_{k-1}, \tilde{u_k}) = \mathcal L(u_1, \ldots, u_k) \]
+  \end{description}
+\end{proof}
+
+\begin{ex}
+  Let $V = \mathbb R^3$ with an inner product.
+  \[ \functional{x,y} = x^t A y \text{ with } A = \begin{pmatrix} 1 & -1 & 1 \\ -1 & 3 & -1 \\ 1 & -1 & 2 \end{pmatrix} \]
+  Find an orthonormal basis.
+
+  \begin{enumerate}
+    \item We orthogonalize the canonical basis $e_1, e_2$ and $e_3$.
+    \[
+      v_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+      \qquad \norm{v_1} = v_1^t A v_1 = 1
+    \] \[
+      u_1 = \begin{pmatrix} 1 & 0 & 0 \end{pmatrix}
+    \]
+    \[
+      v_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+      \qquad
+      \tilde{u_2} = v_2 - \overbrace{\functional{v_2, u_1}}^{=a_{21}} u_1
+      = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} - (-1) \cdot
+      \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}
+    \] \[
+      \functional{u_1, \tilde{u_2}} = 0
+    \] \[
+      \norm{\tilde{u}_2}^2 = \begin{pmatrix} 1 & 1 & 0 \end{pmatrix} A \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} = 1 - 1 - 1 + 3 = 2
+    \] \[
+      u_2 = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}
+    \] \[
+      v_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+    \] \[
+      \tilde{u}_3 = v_3 - \functional{v_3, u_1} u_1 - \frac{\functional{v_3, \tilde{u}_2} \tilde{u}_2}{\norm{\tilde{u}_2}^2}
+    \] \[
+      = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} - 1 \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} - 0 \cdot \tilde{u}_2 = \begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix}
+    \]
+    Solution:
+    \[
+      \left(
+        \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix},
+        \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix},
+        TODO
+      \right)
+    \]
+  \end{enumerate}
+\end{ex}
+
+\begin{theorem}[Alternative approach to build an orthogonal projection (in $\mathcal C^n$)]
+  \label{satz-8.59}
+  Determine orthonormal basis ($u_1, \ldots, u_m$) of subspace $U \subseteq \mathcal C^n$, then
+  \[ P = \sum_{i=1}^m u_i u_i^* = \sum_{i=1}^m u_i \overline{u_i^t} \]
+
+  Hence given $v \in \mathbb C^n$,
+  \[ P \cdot v = \sum_{i=1}^m u_i \underbrace{u_i^* v}_{= \functional{v, u_i}} \]
+\end{theorem}
+
+\begin{ex}
+  Considering Exercise~\ref{bsp-8.55} again.
+  \[ V = \mathbb R[x] \qquad U = \mathcal L(1, x, x^2) \]
+  Orthonormal basis:
+  \[ \norm{v_1}^2 = \int_0^1 1^2 \, dt = 1 \]
+  \[ u_1 = 1 \]
+
+  \begin{align*}
+    \tilde{u}_2 &= v_2 - \functional{v_2, u_1} u_1 \\
+      &= \left(\functional{x,1} = \int_0^1 t \cdot 1 \, dt = \frac12 \right) \\
+      &= x - \functional{x, 1} \cdot 1 \\
+      &= x - \frac12
+  \end{align*}
+  \[ \norm{\tilde{u}_2}^2 = \int_0^1 (t - \frac12)^2 \, dt = \left. \frac{(t - \frac12)^3}{3}\right|_0^1 = \frac1{12} \]
+  \[ u_2 = \sqrt{12} \cdot \left(x - \frac12\right) \]
+
+  \[ \tilde{u}_3 = x^2 - \functional{x^2,1} \cdot 1 - \functional{x^2, x - \frac12} \left(x - \frac12\right) \cdot 12 = x^2 - x + \frac16 \]
+  \[ \norm{\tilde{u}_3}^2 = \int_0^1 \left(t^2 - t + \frac16\right)^2 \, dt = \frac{1}{180} \]
+  \[
+    \pi_U(x^3)
+      = \functional{x^3, 1} \cdot 1
+      + \functional{x^3, x-\frac12} \left(x - \frac12\right) \cdot 12
+      + \functional{x^3, x^2 - x + \frac16} \left(x^2 - x + \frac16\right) \cdot 180
+  \]
+\end{ex}
+
+\begin{rem}
+  Let $V$ be a vector space with a scalar product. $\dim{V} < \infty$.
+  \begin{itemize}
+    \item Every subspace $U$ has a unique orthogonal complement $U^\bot$ such that $V = U \oplus U^\bot$.
+    \item $\pi_U: V \to U$ is an orthogonal projection with the property:
+      \[ \norm{\pi_U(v)} \leq \norm{v} \]
+    \item We can determine an orthonormal basis of $U$, then
+      \[ \pi_U(v) = \sum_{i=1}^n \functional{v, u_i} u_i \]
+      $\Rightarrow$ Bessel's inequality
+  \end{itemize}
+\end{rem}
+
+\begin{rem}[Revision]
+  $\operatorname{Hom}(V, \mathbb K) = V^*$ dual space.
+  The map
+  \[ V \times V^* \to \mathbb K \]
+  \[ (x, f) \mapsto \functional{f, x} = f(x) \]
+  is bilinear.
+
+  Consider scalar product:
+  \[ V \times V \to \mathbb K \]
+  \[ (x, y) \mapsto \functional{x, y} \]
+  is sesquilinear.
+
+  Every $y \in V$ induces $f_y \in V^*$, $f_y(x) = \functional{x, y}$.
+
+  Consider:
+  \[ V \to V^* \]
+  \[ y \mapsto f_y \]
+  is an anti-linear embedding.
+
+  Why? Injectivity:
+  $f_y = 0 \Rightarrow f_y(x) = 0 \quad \forall x$.
+  Especially, $f_y(y) = \functional{y,y} = \norm{y}^2 = 0 \Rightarrow y = 0$.
+\end{rem}
+
+\begin{theorem}[Riesz representation theorem]
+  Frigyes Riesz (1880--1956)
+  Let ($V, \langle, \rangle$) is vector space with scalar product.
+  $\dim{V} < \infty$.
+
+  Then the map
+  \[ V \to V^* \]
+  \[ y \mapsto f_y: V \to \mathbb K \text{ with } x \mapsto \functional{x,y} \]
+  is an antilinear isomorphism.
+\end{theorem}
+\begin{proof}
+  Injectivity has already been shown.
+\end{proof}
+
+\meta{lecture}{27th of April 2016}{Franz Lehner}
+
+\begin{rem}[Revision]
+  \[ U \subseteq V \]
+
+  How to determine $\pi_U: V \to U$? Gram-Schmidt process or construct orthonormal basis
+  $(u_1, u_2, \ldots, u_n)$ with $\pi_u(v) = \sum_{i=1}^m \functional{v_i u_i} u_i$
+  \[ \norm{\pi_u(v)} \leq \norm{v} \]
+  \[ \sum_{i=1}^{w} \abs{\functional{v_i, u_i}}^2 \leq \norm{v}^2 \]
+  Bessel or equivalently $v \in U$ Parseval (*1755)
+\end{rem}
+
+\begin{theorem}
+  \[ V^* = \Hom(V, \mathbb K) \overset{\sim}{-} V \]
+  The map $V \to V^*$ with $y \mapsto f_y: V \to \mathbb K$ with $x \mapsto \functional{x,y}$
+  is anti-linear\footnote{In $\mathbb R$ linear, in $\mathbb C$ it does make a difference} and bijective.
+
+  \[ f_{\lambda y + \mu z} = \overline{\lambda} f_y + \overline{\mu} f_z \]
+\end{theorem}
+
+\begin{rem}
+  We have already shown that $y \mapsto f_y$ is injective.
+\end{rem}
+\begin{rem}[Surjectivity]
+  Given $f \in V^*$. Find $y \in V$ such that $f = f_y$.
+\end{rem}
+
+\begin{theorem}
+  Let $(u_1, \ldots, u_n)$ be an orthonormal basis of $V$.
+  Let $y = \sum_{i=1}^n \overline{f(u_i)} u_i$.
+  \begin{align*}
+    f_y(x) &= \functional{x,y} = \functional{x, \sum_{i=1}^n \overline{f(u_i)} u_i} \\
+      &= \sum_{i=1}^n f(u_i) \functional{x,u_i} \\
+      &= f\left(\sum_{i=1}^n \functional{x,u_i} u_i\right) \\
+      &= f(x) \\
+    \Rightarrow f_y &= f
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}[Second Riesz representation theorem]
+  \[ C[0,1]^* = \text{ space of measures in } [0,1] \]
+\end{theorem}
+\begin{proof}
+  The proof would take about 4 months of lectures.
+\end{proof}
+
+\begin{ex}
+  \label{ex-8.62}
+  \begin{itemize}
+    \item
+      \begin{align*}
+        v = 0 &\Leftrightarrow \bigwedge_{w \in V} \functional{v,w} = 0 \\
+              &\Leftrightarrow \bigwedge_{f \in V^*} f(v) = 0
+      \end{align*}
+      or
+      \[ v_1 = v_2 \Leftrightarrow \bigwedge_{w \in V} \functional{v_1, w} = \functional{v_2, w} \]
+    \item
+      \begin{align*}
+        \norm{v} = \sqrt{\functional{v,v}}
+          &= \sup\setdef{\abs{\functional{v,w}}}{\norm{w} \leq 1} \\
+          &= \sup\setdef{\abs{f(v)}}{f \in V^*, \norm{f} \leq 1}
+      \end{align*}
+  \end{itemize}
+\end{ex}
+
+\begin{rem}[Reminder]
+  \[ f \in \Hom(V,W) \qquad f: V \overset{f}{\to} W \overset{w^*}{\to} \mathbb K \]
+  \[ f^T: W^* \to V^* \]
+  \[ f^T(w^*) = w^* \circ f \quad \in V^* \]
+  \[ \substack{w^* \\ \downarrow \\ \mathbb K} \to v^* \]
+  \[ V^* \cong V \]
+\end{rem}
+
+\index[English]{Conjugate map}
+\index[German]{\foreignlanguage{ngerman}{Adjungierte Abbildung}}
+\begin{theorem}[Theorem with a definition]
+  Let ($V, \functional{\cdot,\cdot}_V$) and ($W, \functional{\cdot,\cdot}_W$) with vector spaces with scalar product.
+  Let $\dim{V} < \infty$ and $\dim{W} < \infty$.
+
+  Let $g \in \Hom(V, W)$.
+  \begin{enumerate}
+    \item For every $w \in W$ the map
+      \[ v \mapsto \underbrace{\functional{g(v), w}}_{\text{linear}} = f_W \circ g(v) \]
+    \item We get a unique $u \in V$,
+      \[ \bigwedge_{w \in W} {\dot\bigvee}_{u \in V} \bigwedge_{v \in V} \functional{g(v), w} = \functional{v,u} \]
+      We denote $g^*(w) \coloneqq u$.
+    \item The map $g^*: W \to V$ is linear and is called \emph{conjugate map}.
+    \item The map $\Hom(V,W) \to \Hom(W, V)$ is an antilinear involution,
+      hence $g^{**} = g$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item $\functional{g(v), w} = f_w \circ g(v)$ is linear $\Rightarrow f_w \circ g \in V^*$.
+    \item From Riesz' representation theorem it follows that
+      \[ \dot\bigvee_{u \in V} f_w \circ g = f_u \]
+      \[ \bigwedge_{v \in V} \functional{g(v), w} = \functional{v,u} \eqqcolon \functional{v, g^*(w)} \]
+      if $\bigwedge_{v \in V} \functional{v, u_1} = \functional{v, u_2}$ and by Exercise~\ref{ex-8.62} $u_1 = u_2$.
+    \item
+      $g^*$ is linear.
+      \[ \bigwedge_{v \in V} \functional{v, g^*(\lambda w_1 + \mu w_2)} \stackrel{!}{=} \functional{v, \lambda g^*(w_1) + \mu g^*(w_2)} \]
+      \begin{align*}
+        \functional{v, g^*(\lambda w_1 + \mu w_2)}
+          &= \functional{g(v), \lambda w_1 + \mu w_2} \\
+          &= \overline{\lambda} \functional{g(v), w_1} + \overline{\mu} \functional{g(v), w_2} \\
+          &= \overline{\lambda} \functional{v, g^*(w_1)} + \overline{\mu} \functional{v, g^*(w_2)} \\
+          &= \functional{v, \lambda g^*(w_1)} + \functional{v, \mu g^*(w_2)} \\
+          &= \functional{v, \lambda g^*(w_1) + \mu g^*(w_2)}
+      \end{align*}
+    \item Consider $\Hom(V,W) \to \Hom(W, V)$ and $g \mapsto g^*$ is antilinear.
+      We need to show: $(\lambda g + \mu h)^* = \overline\lambda g^* + \overline\mu h^*$. \\
+      We need to show:
+      \[
+        \bigwedge_{v \in V} \bigwedge_{w \in W} \functional{v, (\lambda g + \mu h)^*(w)} = \functional{v_1(\overline\lambda g^* + \overline{mu} g^*) (w)}
+      \] \begin{align*}
+        \functional{v, (\lambda g + \mu h)^*(w)}
+          &= \functional{(\lambda g + \mu h)(v), w} \\
+          &= \lambda \functional{g(v), w} + \mu \functional{h(v), w} \\
+          &= \lambda \functional{v, g^*(w)} + \mu \functional{v, h^*(w)} \\
+          &= \functional{v, \overline\lambda g^*(w) + \overline\mu h^*(w)} \\
+          &= \functional{v, (\overline\lambda g^* + \overline\mu h^*)(w)}
+      \end{align*}
+      Remember, $g^*: W \to V$ and $g^{**}: V \to W$.
+      \begin{align*}
+        \functional{g^{**}(v), w}
+          &= \overline{\functional{w, g^{**}(v)}} \\
+          &= \overline{\functional{g^*(w), v}} \\
+          &= \functional{v, g^*(w)} \\
+          &= \functional{g(v), w}
+      \end{align*}
+      \[ \overset{\text{Exercise~\ref{ex-8.62}}}{\Rightarrow} \bigwedge_{v \in V} g^{**}(v) = g(v) \]
+      \[ \Rightarrow g^** = g \]
+  \end{enumerate}
+\end{proof}
+
+\begin{rem}
+  \label{bem-8.64}
+  If $\dim{V} = \infty$, then the conjugate map must not exist!
+  Consider this example:
+
+  \[ V = \mathbb R[x] \]
+  \[ \functional{f,g} = \int_0^1 f(t) g(t) \, dt \]
+  Polynomials are differentiable.
+  \[ D: V \to V \]
+  \[ p(x) \mapsto p'(x) \]
+
+  $D^*(x)$ does not exist!
+
+  \[ \functional{x^n, \underbrace{D^*(x^1)}_{\eqqcolon q(x)}} = \functional{Dx^n, x} = \int_0^1 n t^{n-1} t \, dt = \frac{n}{n+1} \]
+  \[ \sup_{t \in [0,1]} \abs{q(t)} \leq M \]
+  \[ = \int_0^1 t^n q(t) \, dt \Rightarrow \abs{\functional{x^n, D^*x}} \leq \int_0^1 t^n \abs{q(t)} \,dt \leq \frac{M}{n+1} \]
+  This is a contradiction.
+
+  How do we fix this? We use the wrong space. $\mathbb R[x]$ is replaced with $\mathcal L^2$, which is not differentiable. This is the major topic for Numerics / Computational Mathematics and discussed further here.
+\end{rem}
+
+\begin{theorem}
+  Let $B \subseteq V$ and $C \subseteq W$ be orthonormal bases.
+  $B = (b_1, \ldots, b_m)$ and $C = (c_1, \ldots, c_n)$.
+  \[ f \in \Hom(V, W) \qquad \rightarrow f^* \in \Hom(W, V) \]
+  \[ \Phi_B^C(f^*) = \Phi_C^B(f)^* = \overline{\Phi_C^B(f)^t} \]
+  The most difficult part about this theorem is understanding it.
+  Proving is trivial.
+\end{theorem}
+\begin{proof}
+  \[
+    A = \Phi_C^B(f) \qquad (a)_{ij} = \Phi_C(f(b_j))_i
+    \overset{\text{orthonormal}}{=} \functional{f(b_j), c_i}
+  \] \[
+    \tilde{A} = \Phi_B^C(f^*)
+  \] \[
+    \tilde{a}_{ij} = \Phi_B(f^*(c_j))_i = \functional{f^*(c_j), b_i} = \overline{\functional{b_i}, f^*(c_j)}
+  \] \[
+    = \overline{\functional{f(b_i), c_j}} = \overline{a_{ji}} \Rightarrow \tilde{A} = \overline{A^t}
+  \]
+\end{proof}
+
+\begin{theorem}
+  \label{satz-8.66}
+  Properties of the conjugate:
+  \[ U \overset{f}{\to} V \overset{g}{\to} W \qquad \text{ and } \qquad W \overset{g^*}{\to} V \overset{f^*}{\to} U \]
+  Consider $\dim{U} < \infty$, $\dim{V} < \infty$ and $\dim{W} < \infty$ (otherwise kernelspace not necessarily closed).
+  \begin{itemize}
+    \item $(g \circ f)^* = f^* \circ g^*$
+    \item $f^{**} = f$
+    \item $\kernel{f} = \image(f^*)^\bot$
+    \item $\image(f) = \kernel(f^*)^\bot$
+    \item $f$ is injective $\Leftrightarrow f^*$ is surjective
+    \item $f$ is surjective $\Leftrightarrow f^*$ is injective
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \begin{align*}
+        \bigwedge_{u \in U} \bigwedge_{w \in W} \functional{u, (g \circ g)^*(w)}_U
+          &= \functional{g(f(u)), w}_W \\
+          &= \functional{f(u), g^*(w)}_V \\
+          &= \functional{u, f^*(g^*(w))}_U
+      \end{align*}
+      From Example~\ref{ex-8.62} it follows that $(g \circ f)^* = f^* \circ g^*$.
+    \item We have already shown that.
+    \item Let $u \in \kernel(f)$.
+      We need to show that:
+      \[ \bigwedge_{v \in V} u + f^*(v) \]
+      \[ \functional{u, f^*(v)} = \functional{\underbrace{f(u)}_{=0}, v} = 0 \]
+
+      First we show \enquote{$\supseteq$}:
+      Let $u \in \image(f^*)^\bot$. Show that $f(u) = 0$.
+      From Example~\ref{ex-8.62} it follows that it suffices to show $\functional{f(u),v} = 0 \quad \forall v \in V$.
+      \[ \functional{f(u), v} - \functional{u, f^*(v)} = 0 \]
+      because $u \bot \image(f^*)$.
+    \item Apply the third property to $f^*$.
+      \[ \kernel(f^*) = \image(f^{**})^\bot = \image(f)^\bot \]
+      \[ \Rightarrow \kernel(f^*)^\bot = \image(f)^{\bot \bot} = \image(f) \]
+    \item
+      $f$ is injective
+      \[
+        \Leftrightarrow \kernel(f) = \set{0}
+        \overset{\text{3rd property}}{\Leftrightarrow} \image(f^*) = U
+        \Leftrightarrow f^* \text{ surjective}
+      \]
+    \item Like the proof for the fifth property, but applied to $f^*$
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Self-adjoint maps}
+\index[German]{\foreignlanguage{ngerman}{Selbstadjungierte Abbildung}}
+\index[English]{Unitary map}
+\index[German]{\foreignlanguage{ngerman}{Unitäre Abbildung}}
+\index[English]{Linear isometry}
+\index[German]{\foreignlanguage{ngerman}{Lineare Isometrie}}
+\begin{defi}
+  \label{defi-8.67}
+  \begin{enumerate}
+    \item
+      A linear map $f: V \to V$ is called \emph{self-adjoint}, if
+      \[ f^* = f \]
+      for matrices $A = A^*$, $\mathbb K = \mathbb R$ and $A = A^t$ symbolically.
+    \item
+      $f \in \Hom(V,W)$ is called \emph{unitary} (linear isometry), if
+      \[ \bigwedge_{x,y \in V} \functional{f(x), f(y)}_W = \functional{x, y}_V \]
+  \end{enumerate}
+\end{defi}
+
+\begin{rem}
+  \begin{itemize}
+    \item Unitary maps are isometric and therefore injective
+      \[
+        f(x) = 0 \Rightarrow \norm{f(x)}^2 = 0
+        = \functional{f(x), f(x)} = \functional{x,x} = \norm{x}^2
+      \]
+    \item $\dim{V} < \infty$.
+      \[ f: V \to V \text{ unitary } \Rightarrow f \text{ invertible} \]
+      \[ \varphi^{-1} = \varphi^* \]
+      Mostly unitary operators are defined by this relation $\varphi^{01} = \varphi^*$.
+    \item If $\dim{V} = \infty$ is defined, then linear isometries are not necessarily invertible.
+  \end{itemize}
+\end{rem}
+\begin{proof}
+  \begin{itemize}
+    \item Immediate.
+    \item $f$ is injective, so bijective.
+      \[ \bigwedge_{x,y \in V} \functional{x,y} = \functional{f(x), f(y)} = \functional{f^*(f(x)),y} \]
+      From Exercise~\ref{ex-8.62} it follows that
+      \[ \bigwedge_{x} x = f^*(f(x)) \]
+      \[ \Rightarrow f^* \circ f = \operatorname{id} \Rightarrow f^* = f^{-1} \]
+    \item
+      Example: Consider $V = l^2 = c_{00}$ (space of finite sequences) $= \setdef{(\xi_1, \xi_2, \ldots, \xi_n, 0, 0, \ldots)}{n \in \mathbb N, \xi_i \in \mathbb K}$.
+      \[ S: V \to V \]
+      \[ (\xi_1, \xi_2, \ldots) \mapsto (0, \xi_1, \xi_2, \ldots) \text{ is linear isometry} \]
+      \[ \functional{Sx, y} = \functional{(0, \xi_1, \xi_2, \ldots), (\eta_1, \eta_2, \ldots)} \]
+      \[
+        = \sum_{i=2}^\infty \xi_{i-1} \overline{\eta_i}
+        = \sum_{i=1}^\infty \xi_i \cdot \overline{\eta_{i+1}}
+        = \functional{(\xi_1, \xi_2, \ldots), (\eta_2, \eta_3, \ldots)}
+        = \functional{x, S^*(y)}
+      \] \[
+        \to S^*: V \to V
+      \] \[
+        (\eta_1, \eta_2, \ldots) \mapsto (\eta_2, \eta_3, \ldots)
+      \] \[
+        S^* \circ S = \operatorname{id}
+      \] \[
+        S \circ S^* = \operatorname{id} - P_1 \neq \operatorname{id}
+      \] \[
+        P1: V \to V
+      \] \[
+        (\xi_1, \xi_2, \ldots) \mapsto (\xi_1, 0, 0, \ldots)
+      \]
+      So $S$ is isometry, but not invertible (only works in infinity).
+  \end{itemize}
+\end{proof}
+
+\index[English]{Unitary matrix}
+\index[German]{\foreignlanguage{ngerman}{Unitäre Matrix}}
+\index[English]{Orthogonal matrix}
+\index[German]{\foreignlanguage{ngerman}{Orthogonale Matrix}}
+\begin{defi}
+  \label{defi-8.69}
+  A matrix $U \in \mathbb C^{n\times n}$ is called \emph{unitary},
+  if \[ U^* U = I \]
+  A matrix $U \in \mathbb R^{n\times n}$ is called \emph{orthogonal} if
+  \[ U^T U = I \]
+\end{defi}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

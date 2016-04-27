@@ -55,6 +55,8 @@
 \newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
 \newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
 
+\DeclareMathOperator\rank{rank}
+
 \parindent0pt
 \parskip7pt
 \setcounter{tocdepth}{1}
@@ -1320,5 +1322,360 @@ Use the linear functional from exercise (a).
     &= \norm{u}^2 \norm{v}^2 - \fun{u,v}^2
 \end{align*}
 \[ \Rightarrow \norm{u \times v}^2 + \fun{u,v}^2 = \norm{u}^2 \cdot \norm{v}^2 \]
+
+
+\section{Exercise 24}
+\begin{ex}
+  \begin{itemize}
+    \item
+      Show: A (Hermitian) matrix $A$ is positive semi-definite if and only if
+      there exists some matrix $B$ such that $A = B^* B$. Which property
+      must $B$ have such that $A$ is positive definite?
+    \item
+      Let $A$ be positive definite. Show that $A^{-1}$ is also positive definite.
+    \item
+      Let $A$ be positive semi-definite. Show that $a_{ii} \geq 0$ for all $i$
+      and if for some $i$ with diagonal value $a_{ii} = 0$ holds, then $a_{ji} = 0$
+      for all $j$.
+    \item
+      Does the following variation of the generalized Sylvester's criterion hold? \\
+      \enquote{An $n \times n$ matrix $A$ is positive semidefinite iff $\det{A_r} \geq 0$
+      for all $r = 1,2,\ldots,n$}
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 24.a}
+%
+Prerequisite: $(C^*)^{-1} = (C^{-1})^*$.
+
+First direction: $\Rightarrow$. \\
+Let $A$ be Hermitian, show that $A \geq 0 \Leftrightarrow \exists B: A = B^* B$.
+So $A \geq 0$.
+\[
+  \exists C \in \operatorname{GL}(\mathbb K): C^* A C = D
+  \Leftrightarrow
+  A = (C^*)^{-1} DC^{-1}
+  \Leftrightarrow
+  A = (C^{-1})^* D^2 C^{-1}
+\]
+holds because $D = D^2$.
+\[ \Leftrightarrow A = ((C^{-1})^* D) (D C^{-1}) = \tilde{C}^* \tilde{C} \]
+
+Second direction: $\Leftarrow$. \\
+$A = B^* B$. Let $x \in \mathbb K^n$:
+\[ x^t A \overline{x} = x^t B^* B \overline{x} = (\overline{B}x)^t B \overline{x} = (\overline{B} x)^t \overline{(\overline{B} x)} \]
+\[ = \langle\overline{B}x, \overline{B}x\rangle_2 \geq 0 \]
+
+If $\rank(B) = n$, then $A = B^* I B \Leftrightarrow A \cong I$.
+If $A > 0 \Rightarrow B \in \operatorname{GL}_n(\mathbb K)$.
+\[
+  \Leftarrow x \in \mathbb K^k \setminus \set{0}
+  \Rightarrow \overline{\beta} x \neq 0
+  \Rightarrow \langle \overline{B}x, \overline{B}x\rangle_2
+  \Rightarrow x^t A \overline{x} > 0
+  \Rightarrow A > 0
+\]
+
+\subsection{Exercise 24.b}
+%
+Let $A > 0$. Then $\exists C \in \operatorname{GL}_n(\mathbb K)$:
+\[ A = C^* C \Leftrightarrow A^{-1} = C^{-1} (C^*)^{-1} = C^{-1} (C^{-1})^* \]
+Let $B = (C^{-1})^* \Rightarrow A^{-1} = B^* B \Rightarrow A^{-1} > 0$ (because $\rank(B) = \max$)
+
+\subsection{Exercise 24.c}
+%
+Let $A \geq 0$. Show $a_{ii} \geq 0 \quad \forall i = 1, \ldots, n$.
+Assume $\exists a_{ii} < 0$,
+\[ \forall \xi \in \mathbb C^{n} \setminus \set{0}: \xi^T A \xi \geq 0\]
+Let $\xi = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$.
+\[
+  \Rightarrow
+  \xi^T A \xi = \begin{pmatrix} a_{i1} \\ \vdots \\ a_{ii} \\ \vdots \\ a_{in} \end{pmatrix}^T
+  \begin{pmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{pmatrix} = a_{ii} < 0
+\]
+
+Second part: $A$ must be Hermitian.
+
+Let $a_{ii} = 0$ and assume $a_{ij} \neq 0$.
+\[ \xi^T A \overline{\xi} \geq 0 \forall \xi \in \mathbb C^n \]
+Consider
+\[ \xi = \begin{pmatrix} 0 \\ \vdots \\ c \\ \vdots \\ 1 \end{pmatrix} = c e_i + e_j \]
+where $c$ is in the $i$-th row and $1$ is in the $j$-th row.
+
+%\[
+%  \Rightarrow \xi^T A \overline\xi
+%  = (ca_{i1} + a_{j1}, ca_{i2} + a_{j2}, \ldots, ca_{ii} + a_{ji}, \ldots, ca_{in} + a_{jn})
+%    \cdot \begin{pmatrix} 0 \\ \vdots \\ \overline{c} \\ \vdots \\ 1 \end{pmatrix}
+%\] \[
+%  = \overline{c} c a_{ii} + \overline{c} a_{ji} + c a_{ji} + a_{jj}
+%  = c a_{ij} + \overline{c} \overline{a}_{ij}
+%\]
+
+\[
+  \delta^T A\overline{\delta} = \fun{c e_i + e_j, c e_{i} + e_j}_A
+    = \fun{c e_i, ce_i} + \fun{ce_i, e_j} + \fun{e_j, ce_i} + \fun{e_j, e_j}
+    = c \overline{c} a_{ii} + ca_{ij} + \overline{c} a_{ji} + a_{jj}
+\]
+
+\[ 2 \Re(ca_{ij}) xa_{jj} \geq 0 \]
+\[ c = -\overline{a}_{ij} \]
+\[ 2\Re(-\abs{a_{ij}}^2) + a_{jj} \]
+
+As it turns out this approach should be started differently.
+We therefore exchange $i$ and $j$.
+\[ = c \overline{c} a_{ii} + ca_{ij} + \overline{c} a_{ji} \]
+\[ = c \overline{c} a_{ii} + c \overline{a_{ji}} + \overline{c} a_{ji} \]
+\[ = c \overline{c} a_{ii} + 2 \Re(\overline{c} a_{ji}) \geq 0 \]
+
+Goal: $c$ cancels itself out.
+
+Does not work out. According to Mr. Kainrath we need to choose:
+\[ c \in \mathbb C \]
+\[ d \in \mathbb R \setminus \set{0} \]
+\[ \xi = ce_i + de_j \]
+
+\subsection{Exercise 24.c: fixed proof}
+%
+Assume $a_{ii} = 0$. By $A = B^* B$ with $B \in \mathbb K^{n\times n}$.
+
+\[
+  0 = a_{ii} = e_i^t A e_i = e_i^t B^t B e_i = (\overline{B} e_i)^T \overline{(\overline{B} e_i)}
+\] \[
+  = \langle \overline{B} e_i, \overline{B} e_i\rangle_2 = \norm{\overline{B} e_i}_2^2
+  \Rightarrow \overline{B} e_i = 0
+\] \[
+  a_{ij} = e_i A e)j^T = e_i B^t B e^t_j = (\overline{B} e_i)^t B e_j^t = 0 \cdot B e_j^t = 0
+\]
+
+\subsection{Exercise 24.d}
+%
+Wrong.
+
+Assume $\det(Ar) \geq 0 \quad \forall r = 1, \ldots, n \Rightarrow A \geq 0$.
+\[
+  A = \begin{pmatrix} 1 & 0 \\ -1 & 0 \end{pmatrix}
+  \qquad
+  x = \begin{pmatrix} 1 \\ 2 \end{pmatrix} \Rightarrow x^T Ax = \begin{pmatrix} -1 & 0 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \end{pmatrix} = -1 < 0
+\]
+This is a contradiction.
+
+However, direction $\Rightarrow$ holds.
+
+\subsection{Exercise 25}
+\begin{ex}
+  Show that the relation $A \leq B \Leftrightarrow B - A \geq 0$ (hence $B - A$
+  is positive semidefinite) defines an order relation on the set of self-adjoint matrices.
+\end{ex}
+
+\subsection{Reflexivity}
+Show: $A \leq A$.
+
+\[ A - A \stackrel{?}{\geq} 0 \]
+\[ 0 \geq 0 \]
+The bilinear form by the zero-matrix maps every value to $0$.
+So this holds.
+
+\subsection{Anti-symmetry}
+Show: $A \leq B \land B \leq A \Rightarrow A = B$.
+
+\[ B - A \geq 0 \land A - B \geq 0 \]
+From $A - B \geq 0$ it follows that $B - A \leq 0$. From that $B - A = 0$ follows.
+
+In more detail:
+I know $\forall x \in \mathbb K^n: x^t C \overline{x} \geq 0$ and $x^t C \overline{x} \leq 0$.
+Then $\forall x \in \mathbb K^n: x^t C \overline{x} = 0$. From exercise~24 it follows that
+$C = 0$.
+
+\subsection{Transitivity}
+Show: $A \leq B \land B \leq C \Rightarrow A \leq C$.
+
+\begin{align*}
+  A \leq B &\Leftrightarrow B - A \geq 0 \\
+  B \leq C &\Leftrightarrow C - B \geq 0
+\end{align*}
+
+\[ \forall x \in \mathbb K^n: x^t (C - A) \overline{x} \geq 0 \]
+Let $x \in \mathbb K^n$:
+\[ x^t (C - A) \overline{x} = x^t (C - B + B - A) \overline{x} = \underbrace{x^t (C - B) \overline{x}}_{\geq 0, \in \mathbb R} + \underbrace{x^t (B - A) \overline{x}}_{\geq 0} \geq 0 \]
+
+\section{Exercise 26}
+\begin{ex}
+  Determine index and signature of the matrix $A$ such that $C^* A C = D$:
+  \[
+    A = \begin{bmatrix}
+      0 & 1 & -1 & 0 \\
+      1 & 0 & 1 & 1 \\
+      -1 & 1 & 0 & -1 \\
+      0 & 1 & -1 & 0
+    \end{bmatrix}
+  \]
+  $D$ is a diagonal matrix with entries in $\set{+1,-1,0}$ and a basis $B$ of $\mathbb R^4$
+  such that $x^t A y = \Phi_B(x)^t$
+\end{ex}
+
+Is certainly not positive semidefinite. Compare with Exercise 26 (c).
+So at least one $-1$ must occur in our result.
+
+\[
+  \begin{pmatrix}
+    0 & 1 & 1 & 0 \\
+    1 & 0 & 1 & 1 \\
+    -1 & 1 & 0 & -1 \\
+    0 & 1 & -1 & 0
+  \end{pmatrix}
+\] \[
+  C_1 = \begin{pmatrix}
+    1 & 1 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+\] \[
+  \begin{pmatrix}
+    1 & 1 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  \cdot
+  \begin{pmatrix}
+    0 & 1 & 1 & 0 \\
+    1 & 0 & 1 & 1 \\
+    -1 & 1 & 0 & -1 \\
+    0 & 1 & -1 & 0
+  \end{pmatrix}
+  \cdot
+  \begin{pmatrix}
+    1 & 1 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    0 & 1 & -1 & 0 \\
+    1 & 2 & 0 & 1 \\
+    -1 & 0 & 0 & -1 \\
+    0 & 1 & -1 & 0
+  \end{pmatrix}
+  = A_1
+\] \[
+  C_2 = \begin{pmatrix}
+    0 & 1 & 0 & 0 \\
+    1 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+\] \[
+  \begin{pmatrix}
+    0 & 1 & 0 & 0 \\
+    1 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  \cdot
+  \begin{pmatrix}
+    0 & 1 & -1 & 0 \\
+    1 & 2 & 0 & 1 \\
+    -1 & 0 & 0 & -1 \\
+    0 & 1 & -1 & 0
+  \end{pmatrix}
+  \cdot
+  \begin{pmatrix}
+    0 & 1 & 0 & 0 \\
+    1 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  = \begin{pmatrix}
+    2 & 1 & 0 & 1 \\
+    1 & 0 & -1 & 0 \\
+    0 & -1 & 0 & -1 \\
+    1 & 0 & -1 & 0
+  \end{pmatrix}
+  = A_2
+\]
+
+Don't forget to also apply the column transformations as well.
+This algorithm is based on quadratic extension.
+The number of iteration depends on the transformation you choose.
+
+\[ C = C_1 \cdot C_2 \cdot \ldots \cdot C_8 \]
+\[
+  C = \begin{pmatrix}
+    \frac1{\sqrt{2}} & -\frac1{\sqrt{2}} & \frac1{\sqrt{2}} & -1 \\
+    \frac1{\sqrt{2}} & \frac1{\sqrt{2}} & -\frac1{\sqrt{2}} & 0 \\
+    0 & \frac1{\sqrt{2}} & 0 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+\] \[
+  D = \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & -1 & 0 \\
+    0 & 0 & 0 & 0
+  \end{pmatrix}
+\]
+\[ \operatorname{sig} = 1 \]
+
+Determine basis of $\mathbb R^4$: $x^t A y = \Phi_B(x) \cdot D \cdot \Phi_B(y)$.
+\[ C^t A C = D \Leftrightarrow A = (C^{-1})^t D C^{-1} \]
+\[ x^t A y = x^t (C^{-1})^t DC^{-1} y = (C^{-1}x)^t D C^{-1} y \underbrace{=}_{\Phi_B(x) = B^{-1}x} \Phi_C(x)^t \cdot D \cdot \Phi_C(y) \]
+
+We will also consider other methods in advanced courses,
+but keep in mind those methods require the roots of polynomials, which are not always possible to determine.
+
+\section{Exercise 27}
+\begin{ex}
+  Show: The block matrix $A$ is positive definite iff $I - B^* B$ is positive definite.
+  \[ A = \begin{pmatrix} I & B \\ B^* & I \end{pmatrix} \]
+\end{ex}
+
+\[ I, B, B^* \in \mathbb K^{n\times n} \qquad \Rightarrow A \in \mathbb K^{2n \times 2n} \]
+
+Consider
+\[
+  C = \begin{pmatrix}
+    I & 0 \\
+    -B^* & I
+  \end{pmatrix}
+  \qquad
+  \text{and}
+  \qquad
+  C^* = \begin{pmatrix}
+    I & -B \\
+    0 & I
+  \end{pmatrix}
+\] \[
+  \Rightarrow C^* A C = \begin{pmatrix}
+    I - B B^* & 0 \\
+    0 & I
+  \end{pmatrix}
+  \eqqcolon M
+\]
+Hence $A$ is congruent to $M$ (according to lecture, reference 8.23) with $A \hat{=} M$.
+
+Then it holds that (lecture, reference 8.29)
+\[ A > 0 \overset{(ii)}{\Leftrightarrow} \operatorname{index}(A) = 2n \overset{(ii)}{\Leftrightarrow} \operatorname{index}(M) = 2n \operatorname{(iii)}{\Leftrightarrow} M > 0 \]
+
+Hence, it suffices to show: $M > 0 \Leftrightarrow I - BB^* > 0$.
+
+Direction $\Rightarrow$.
+Let $M > 0$. Then the leading minor theorem yields (lecture reference 8.32)
+\[ M > 0 \Leftrightarrow \det{M_r} > 0 \qquad \forall r = \set{1,\ldots,2n} \]
+Especially it holds that
+\[ \det(M_r) = \det((I - BB^*)_2) \qquad r = 1, \ldots, n \]
+\[ \overset{8.32}{\Leftrightarrow} I - BB^* > 0 \]
+
+Direction $\Leftarrow$.
+Let $I - BB^* > 0$. Then by 8.29~(iii) it holds that
+\[ \operatorname{ind}(I - BB^*) = n \]
+\[ \operatorname{ind}(I) = n \]
+\[ \Rightarrow \operatorname{ind}(M) = 2n \]
+because the index corresponds to the number of ones minus the number of $-1$.
+Here no $-1$ are possible, because we consider a positive definite matrix.
+Hence
+\[ \overset{(iii)}{\Leftrightarrow} M > 0\]
+Hence positive definite.
 
 \end{document}
