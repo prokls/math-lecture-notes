@@ -40,6 +40,7 @@
 \newcommand\done{\hspace{10pt}\checkmark}
 \newcommand\norm[1]{\left\|#1\right\|}
 \newcommand\inorm[1]{\left\|#1\right\|_\infty}
+\newcommand\fun[1]{\left\langle{#1}\right\rangle}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -2948,13 +2949,16 @@ Right-side integral boundary:
 \begin{proof}
   Let $A = \frac{\abs{f_1(x)}}{\norm{f_1}_p}$ and $B = \frac{\abs{f_2(x)}}{\norm{f_2}_q}$.
   \[
-    A \cdot b \leq \frac{A^p}{p} + \frac{B^q}{q} \overset{\text{integration}}{\Rightarrow}
+    A \cdot b \leq \frac{A^p}{p} + \frac{B^q}{q}
+  \] \[
+    \overset{\text{integration}}{\Rightarrow}
     \int_a^b \frac{\abs{f_1(x)}}{\norm{f_1}_p} \cdot \frac{\abs{f_2(x)}}{\norm{f_2}_q} \, dx
     \leq \frac1p \int_a^b \frac{\abs{f_1(x)}^p}{\norm{f_1}_p^p} \, dx
     + \frac1q \int_a^b \frac{\abs{f_2(x)}^q}{\norm{f_2}_q^q} \, dx
   \] \[
     \Rightarrow \frac{1}{\norm{f_1}_p \norm{f_2}_q} \cdot
     \int_a^b \abs{f_1(x) \cdot f_2(x)} \, dx
+  \] \[
     \leq \frac{1}{p} \frac{1}{\norm{f_1}_p^p} \underbrace{\int_a^b \abs{f_1(x)}^p}_{\norm{f_1}_p^q} \, dx
     + \frac1q \frac1{\norm{f_2}_q^q} \underbrace{\int_a^b \abs{f_2(x)}^q}_{\norm{f_2}_q^q} \, dx
   \] \[
@@ -2964,6 +2968,129 @@ Right-side integral boundary:
     \leq \norm{f_1}_p \cdot \norm{f_2}_q
   \]
 \end{proof}
+
+\meta{lecture}{28th of April 2016}{Wolfgang Ring}
+
+\begin{ex}[Special case $p = q = 2$]
+  Let $p = q = 2$. $\frac12 + \frac12 = 1$ holds.
+  \[
+    \int_a^b \abs{f_1(x) \cdot f_2(x)} \, dx
+    \leq \left(\int_a^b \abs{f_1(x)}^2 \, dx\right)^{\frac12}
+    \cdot \left(\int_a^b \abs{f_2(x)}^2 \, dx\right)^{\frac12}
+  \] \[
+    \int_a^b \abs{f_1(x) \cdot f_2(x)} \, dx \geq \abs{\int_a^b f_1(x) \cdot f_2(x) \, dx}
+  \]
+  $f_1$ and $f_2$ such that $\norm{f_i}_2 < \infty$ for $i = 1,2$,
+  then
+  \[ \fun{f_1, f_2} = \int_a^b f_1(x) \cdot f_2(x) \, dx \]
+  is a scalar (= inner) product in the vector space of functions
+  with norm:
+  \[
+    \norm{f} = (\fun{f, f})^{\frac12} = \norm{f}_2
+  \]
+\end{ex}
+
+\index[English]{Cauchy-Schwarz inequality}
+\index[German]{\foreignlanguage{ngerman}{Cauchy-Schwarz Ungleichung}}
+The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
+\[
+  \abs{\fun{f_1, f_2}} \leq \norm{f_1}_2 \cdot \norm{f_2}_2
+\]
+
+\subsection{Elementwise integration of series}
+%
+\begin{lemma}
+  Let $f_n \in R(I)$ with $I$ as interval, $f_n$ converges uniformly to $f$ in $I$.
+  Then also $f$ is a regulated function and
+  \[ \int_a^b f(x) \, dx = \lim_{n\to\infty} \int_a^b f_n(x) \, dx \]
+\end{lemma}
+\begin{proof}
+  We know $f$ is a regulated function if and only if $f$ can be uniformly
+  approximated using a step function.
+
+  Let $\varepsilon > 0$ be arbitrary.
+  Because $f$ is the uniform limit of $f_n$, there exists $n \in \mathbb N$
+  such that $\inorm{f - f_N} < \frac\varepsilon2$. Because $f_N$ is a regulated
+  function, there exists $\varphi \in \tau(I)$ with
+  \[
+    \inorm{f_N - \varphi} < \frac\varepsilon2 \Rightarrow
+    \inorm{f - \varphi} \leq \inorm{f - f_N} + \inorm{f_N - \varphi}
+    < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon
+  \]
+  Hence $f$ is a regulated function.
+  Choose $N$ such that $\forall n \geq N$:
+  \[ \inorm{f - f_n} < \frac\varepsilon{b - a} \]
+  Then it holds that
+  \begin{align*}
+    \abs{\int_a^b f_n(x) \, dx - \int_a^b f(x) \, dx}
+      &\leq \int_a^b \abs{f_n(x) - f(x)} \, dx \\
+      &\leq \int_a^b \underbrace{\inorm{f_n - f}}_{< \frac\varepsilon{b - a}} \, dx \\
+      &< \frac\varepsilon{b - a} \cdot (b - a) \\
+      &= \varepsilon
+  \end{align*}
+\end{proof}
+
+\begin{ex}[Application]
+  Let $f(x) = \sum_{n=0}^\infty a_k x^k$ is a power series.
+  Let $\rho_f$ be a convergence radius of $f$ and $0 < r < \rho_f$.
+  Then it holds that
+  \[ f_n(x) = \sum_{k=0}^n a_k x^k \text{ converges uniformly to $f$ in $[-r,r]$} \]
+  \[ f_n \in R([-r,r]) \]
+  \[
+    \Rightarrow
+    \int_{-r}^r f(x) \, dx
+    = \lim_{n\to\infty} \int_{-r}^r f_n(x) \, dx
+  \]
+  The integral is determined by elementwise integration
+  \[ \int_{-r}^r a_k x^k \, dx = \left. a_k \frac{x^{k+1}}{k+1} \right|_{-r}^r \]
+  Analogously for integration over any compact interval $[a,b] \subset (-\rho_f, \rho_f)$
+  i.e. for the indefinite integration. Hence,
+  \[ \sum_{k=0}^\infty a_k \frac{x^{k+1}}{n+1} + c \]
+  is primitive function of $f$ uniformly convergent on every interval
+  $[-r,r] \subseteq (-\rho_f, \rho_f)$.
+\end{ex}
+
+\begin{ex}
+  \[ F: \mathbb R \to \left(-\frac\pi2, \frac\pi2\right) \qquad F(x) = \arctan(x) \]
+  \[
+    F'(x) = f(x) = \frac{1}{1 + x^2}
+    = \sum_{k=0}^\infty \left(-(x^2)\right)^k = \sum_{k=0}^\infty (-1)^k x^{2k}
+    \qquad \forall x \in (-1, 1)
+  \]
+
+  Elementwise integration:
+  \[ F(x) = \arctan(x) = \sum_{k=0}^\infty (-1)^k \frac{x^{2k+1}}{2k + 1} + c \]
+  \[ \arctan(0) = 0 = c \]
+  Hence,
+  \[ \arctan(x) = \sum_{k=0}^\infty (-1)^k \frac{x^{2k+1}}{2k + 1} \quad \text{ in } (-1, 1) \]
+  Compare with Figure~\ref{img:arctan-approx}
+\end{ex}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/approximation_of_arctan.pdf}
+    \caption{Approximation of $\arctan(x)$}
+    \label{img:arctan-approx}
+  \end{center}
+\end{figure}
+
+\section{Taylor polynomials and Taylor series}
+%
+\begin{theorem}
+  Approximation of a function with polynomials or representation
+  of a function using a power series.
+  \[
+    \mathcal C^n((a,b))
+    = \setdef{f: (a,b) \to \mathbb R}{f \text{ differentiable $n$ times in } (a,b)}
+  \]
+  Hence $f^{(k)}: (a,b) \to \mathbb R$ is continuous for $k = 0, 1, \ldots, n$.
+  Choose $x_0 \in (a,b)$.
+  Find a polynomial $T_f^a(x)$ of degree $n$ such that
+  \[ \left(T_f^a\right)^{(k)}(x_0) = f^{(k)}(x_0) \]
+  It holds that $T_f^a$ can be determined uniquely as
+  \[ T_f^a(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \]
+  Taylor polynomial of $n$-th order of $f$ in point $x_0$.
+\end{theorem}
 
 
 \index[English]{}
