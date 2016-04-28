@@ -1185,4 +1185,313 @@ Other approach for 20.b:
 \[ F = \frac15 e^{x^5} \]
 \[ F' = x^4 e^{x^5} = f \]
 
+\section{Exercise 21}
+\begin{ex}
+  Consider function $f$.
+  \[
+    f: [-1, 1] \to \mathbb R,
+    \quad
+    x \mapsto \begin{cases}
+      0,              & x = 0, \\
+      \frac{1}{n+2},  & x \in \left[-\frac1n, -\frac1{n+1}\right) \cup \left(\frac1{n+1}, \frac1n\right], n \in \mathbb N_+.
+    \end{cases}
+  \]
+  Is $f$ a step function? Is $f$ a regulated function? Furthermore determine
+  \[ \int_{-1}^1 f(x) \, dx. \]
+\end{ex}
+
+Is not a step function, because the number of intervals is not finite.
+
+Is it a regulated function? We can approximate $f$ using the following construction:
+\[
+  \varphi_k(x) = \begin{cases}
+    0 & x = 0 \\
+    \frac{1}{n+2}  & x \in \left[-\frac1n, -\frac1{n+1}\right) \cup \left(\frac1{n+1}, \frac1n\right], n \in \mathbb N, n \leq k \\
+    0 & \text{else}
+  \end{cases}
+\]
+We choose a $k$ such that all elements smaller $k$ are nonzero.
+This approximates our function $f$.
+
+Consider
+\[
+  \int_{-1}^1 f(x) \, dx \overset{\varphi_n \to f \text{ uniformly}}{=}
+  \lim_{h\to\infty} \int_{-1}^1 \varphi_n(x) \, dx
+\]
+\[
+  \int_{-1}^1 \varphi_n(x) \, dx
+  = \sum_{j=1}^N c_j \triangle x_j
+  = \sum_{n=1}^k \frac{1}{n+2} \cdot \abs{\frac1n - \frac1{n+1}} \cdot 2
+  = 2 \cdot \sum_{n=1}^k \left(\frac{1}{n (n + 2)} - \frac{1}{(n + 2) (n + 1)}\right)
+\] \[
+  = 2 \cdot \sum_{n=1}^k \left(\frac12 \left(\frac1n - \frac1{n+2}\right) - \left(\frac1{n + 1} - \frac1{n+2}\right)\right)
+\]
+Alternatively we can also split it up, because we estimate that a series with $\frac1{n^2}$ converges.
+\[
+  = 2 \sum_{n=1}^k \frac12 \left(\frac1n - \frac1{n+2}\right)
+  - 2 \sum_{n=1}^k \left(\frac{1}{n+1} - \frac{1}{n+2}\right)
+  = 1 + \frac12 - 2 \cdot \frac12 = \frac12
+\]
+This expression is easier to evaluate as telescoping sum.
+
+If we take the first approach, we need to apply partial fraction decomposition.
+\[
+  \frac12 \int_k = \frac12 \int_{-1}^1 \varphi_k(x) \, dx
+  = \frac34 - \frac12 + \frac12 \left(\underbrace{\frac1{k+1}}_{\to 0} + \underbrace{\frac1{k+2}}_{\to 0}\right) - \frac{1}{k+1} \overset{h\to\infty}{\longrightarrow} \frac34 - \frac12 = \frac14
+\]
+
+\section{Exercise 22}
+\begin{ex}
+  Let $I \subseteq \mathbb R$ be an interval. Determine with the idea from below
+  a primitive function of
+  \[ f: I \to \mathbb R, \qquad x \mapsto x^2 \sin{x^3} \cos{x^3}. \]
+  \begin{itemize}
+    \item For all $x \in \mathbb R$ it holds that
+      \[ \sin{x} \cos{x} = \frac12 \sin(2x). \]
+    \item For all $x \in \mathbb R$ it holds that
+      \[ \sin{x} \cos{x} = \frac12 \frac{d}{dx} \sin^2(x). \]
+  \end{itemize}
+  Explain possible differences between the results.
+\end{ex}
+
+\subsection{Exercise 22.a}
+%
+\[
+  \int x^2 \sin(x^3) \cos(x^3) \, dx
+  = \int x^2 \frac12 \sin(2x^3) \, dx
+\]
+Substitute with $u = 2x^3$ and $dx = \frac{du}{6x^2}$.
+\[
+  = \int x^2 \frac12 \sin(u) \frac{du}{6x^2}
+  = - \frac1{12} \cos(u) + c
+  = - \frac1{12} \cos(2x^3) + c
+\]
+
+\subsection{Exercise 22.b}
+%
+\[ \forall x \in \mathbb R: \sin(x) \cos(x) = \frac12 \frac{d}{dx} \sin^2(x) \]
+\[
+  \forall x \in \mathbb R:
+    \sin(x^3) \cos(x^3)
+      = \frac{1}{6x^2} \frac{d}{dx} \sin^2(x^3)
+      = \frac1{6x^2} 2 \sin(x^3) \cos(x^3) 3x^2
+      = \sin(x^3) \cos(x^3)
+\]
+
+\[
+  \int x^2 \sin(x^3) \cos(x^3) \, dx =
+  \int x^2 \frac{1}{6x^2} \frac{d}{dx} \sin^2(x^3) \, dx
+  = \frac16 \sin^2(x^3) + c
+\]
+
+\subsection{Exercise 22.c}
+
+\[
+  \cos(2x^3) = \cos^2(x^3) - \sin^2(x^3)
+    = 1 - \sin^2(x^3) - \sin^2(x^3)
+    = 1 - 2 \sin^2(x^3)
+\] \[
+  \Rightarrow \frac16 \sin^2(x^3) + \tilde c
+\]
+with $\tilde c \approx \frac1{12} + c$.
+
+\section{Exercise 23}
+\begin{ex}
+  Determine the following integrals using integration by parts.
+  \begin{enumerate}
+    \item $\int e^x \sin{x} \, dx$
+    \item $\int \arcsin{x} \, dx$
+    \item $\int_0^1 x^2 \ln^3(x) \, dx$
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 23.a}
+\[ \int \underset{u}{e^x} \underset{v'}{\sin(x)} \, dx \]
+with $v = -\cos{x}$ and $u' = e^x$.
+\[ = e^x (-\cos{x}) - \int \underset{u}{e^x} \cdot \underset{v'}{(-\cos{x})} \, dx \]
+with $u' = e^x$ and $v = -\sin{x}$.
+\[ = e^x (-\cos{x}) - \left(e^x \cdot (-\sin{x})\right) + \int e^x (-\sin{x}) \, dx \]
+\[ = e^x \left(-\cos{x} + \sin{x}\right) - \int e^x \sin{x} \, dx \]
+
+\[ \Rightarrow 2 \int e^x \sin(x) \, dx = e^x \left(-\cos(x) + \sin(x)\right) + c \]
+
+\subsection{Exercise 23.b}
+\[
+  \int \arcsin(x) \, dx = \int \underset{v}{\arcsin(x)} \cdot \frac{v'}{1} \, dx
+\]
+with $v = x$ and $u' = \frac{1}{\sqrt{1 - x^2}}$.
+\[ = \arcsin(x) \cdot x - \int x \frac{1}{\sqrt{1 - x^2}} \, dx \]
+Let $t = 1 - x^2$. Hence $\frac{dt}{dx} = -2x$.
+\[ = \arcsin(x) \cdot x - \int \frac{x}{\sqrt{t}} \cdot \frac{1}{-2x} \, dt \]
+\[ = \arcsin(x) \cdot x + \frac12 \int \frac{1}{\sqrt{t}} \, dt \]
+\[ = \arcsin(x) \cdot x + \frac12 \cdot 2 \sqrt{t} + c \]
+Backsubstitution:
+\[ = \arcsin(x) \cdot x + \sqrt{1 - x^2} + c \]
+
+\subsection{Exercise 23.c}
+\[
+  \int_0^1 \underbrace{x^2}_{f'} \underbrace{\left(\ln{x}\right)^3}_{g} \, dx
+  = \left.\frac13 x^3 \left(\ln{x}\right)^3 \right|_0^1 - \int_0^1 \frac13 x^3 \left(\ln{x}\right)^2 \cdot 3 \frac1x \, dx
+\] \[
+  = \frac13 \cdot 0 - \frac13 \cdot \left(
+    \lim_{x\to 0} (x^3 \ln^3{x})
+    - \int_0^1 \underbrace{x^2}_{f'} \underbrace{\ln^2(x)}_{g} \, dx
+  \right)
+\]
+In the end, we can apply L'H\^opital's Rule once we have expressions like $-\frac13 \varphi^3 \frac{\ln^3{\varphi}}{\ln^3{\varphi}}$.
+\[
+  = \frac23 \left(- \int_0^1 \frac13 x^2 \, dx\right)
+  = \left. -\frac29 \cdot \frac13 x^3 \right|_0^1 = -\frac{2}{27}
+\]
+
+\section{Exercise 24}
+\begin{ex}
+  Determine the following integrals using appropriate substitions:
+  \begin{enumerate}
+    \item $\int \frac{\cos^3(x)}{1 - \sin(x)} \, dx$.
+    \item $\int \frac{dx}{\sin^2(x) \cos^4(x)} \, dx$ using $t \coloneqq \tan{x}$.
+    \item $\int_0^{\frac12} \frac{x^2}{\sqrt{1 - x^2}} \, dx$ using $t \coloneqq \arcsin(x)$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 24.a}
+\[
+  \frac{\cos^3(x)}{1 - \sin(x)} \, dx
+  = \int \frac{\cos(x)\left(1 - \sin^2(x)\right)}{1 - \sin(x)} \, dx
+  = \int \cos'(x) \left(1 = \sin{x}\right) \, dx
+\]
+with $u = 1 + \sin{x}$ and $\frac{du}{dx} = \cos{x}$ we get
+\[
+   = \int \cos{x} \cdot u \cdot \frac{du}{\cos{x}}
+   = \frac12 u^2 + c = \frac12 \left(1 + \sin{x}\right)^2 + c
+\]
+
+Do not forget $c$ for indefinite integrals!
+
+\subsection{Exercise 24.b}
+\[
+  \int \frac{1}{\sin^2(x) \cdot \cos^4(x)} \, dx
+\] \[
+  = \int \frac{\sin^4(x) + 2 \sin^2(x) \cos^2(x) + \cos^4(x)}{\sin^2(x) \cos^4(x)} \, dx
+\] \[
+  = \int \frac{\sin^2(x)}{\cos^4(x)} + \frac{2}{\cos^2(x)} + \frac{1}{\sin^2(x)} \, dx
+\] \[
+  = \int \frac{\tan^2(x) + 2}{\cos^2(x)} \, dx + \int \frac{1}{\sin^2(x)} \, dx
+\]
+
+Consider the left-handed expression.
+Consider $t = \tan(x)$ and $\frac{dt}{dx} = \frac{1}{\cos^2(x)}$.
+\[
+  \int \frac{t^2 + 2}{\cos^2(x)} \cdot \cos^2(x) \, dt
+    = \int t^2  + 2 \, dt = \frac13 t^3 + 2t + c
+    = \frac13 \tan^3(x) + 2 \tan(x) + c_1
+\]
+
+Consider the right-handed expression.
+\[
+  \int \frac{1}{\sin^2(x)} \, dx
+    = \int \frac{\sin^2(x) + \cos^2(x)}{\sin^2(x)} \, dx
+    = \int -\frac{(\cos{x})' \sin{x} - \cos{x} \cdot (\sin(x))'}{\sin^2(x)} \, dx
+\] \[
+  = -\int \left(\frac{\cos{x}}{\sin{x}}\right)' \, dx = -\frac{\cos{x}}{\sin{x}}  + c_2
+\]
+
+So for the overall expression it holds that
+\[
+  \int \frac{\tan^2(x) + 2}{\cos^2(x)} \, dx + \int \frac{1}{\sin^2(x)} \, dx
+  = \frac13 \tan^3(x) + 2\tan(x) - \frac{1}{\tan(x)} + c_3
+\]
+
+\subsection{Exercise 24.b: Alternative approach}
+\[ \int \frac{1}{s^2 c^4} \, dx \]
+with $s = \sin(x)$, $c = \cos(x)$, $t = \tan(x)$ and $\frac{dt}{dx} = \frac{1}{c^2}$.
+It holds that
+\[
+  t^2 = \frac{s^2}{c^2} = \frac{1 - c^2}{c^2} = \frac{1}{c^2} - 1
+\] \[
+  c^2 = \frac{1}{1 + t^2}
+\] \[
+  t^2 = \frac{s^2}{c^2} = \frac{s^2}{1 - s^2} = -1 + \frac{1}{1 - s^2}
+\] \[
+  1 - s^2 = \frac{1}{1 + t^2}
+\] \[
+  s^2 = 1 - \frac{1}{1 + t^2} = \frac{t^2}{1 + t^2}
+\]
+
+\[
+  \int \frac{1}{s^2 c^4} \, dx
+     = \int \frac{1}{s^2 c^2} \, dt
+     = \int \frac{1 + t^2}{t^2}(1 + t^2) \, dt
+\]
+
+\subsection{Exercise 24.c}
+\[
+  \int_0^{\frac12} \frac{x^2}{\sqrt{1 - x^2}^3} \, dx
+  = \int_0^{\frac12} \frac{x^2 + 1 - 1}{\sqrt{1 - x^2}^3} \, dx
+  = - \int_0^{\frac12} \frac{1}{\sqrt{1 - x^2}} \, dx
+  + \int_0^{\frac12} \frac{1}{\sqrt{1 - x^2}^3} \, dx
+\]
+\[
+  = \left. -\arcsin(x) \right|_0^{\frac12}
+  + \int_0^{\frac12} \frac{1}{\sqrt{1 - x^2}^3} \, dx
+\]
+with $t = \arcsin(x)$ and $\frac{dx}{dt} = \cos(t)$ with $x = \sin(t)$.
+Also $\sqrt{1 - x^2}^3 = \sqrt{\cos^2(t)}^3 = \cos(t)^3$.
+
+Recognize that $x$ must be positive for this to hold. As it turns out,
+this is fine within the interval $(0, \frac12)$.
+
+\[
+  = \left. -\arcsin(x) \right|_0^{\frac12}
+  + \int_{x=0}^{x = \frac12} \frac{1}{\cos^3(t)} \cdot \cos(t) \, dt
+\] \[
+  = \left. -\arcsin(x) \right|_0^{\frac12}
+  + \int_{x=0}^{x = \frac12} \frac{1}{\cos^2(t)} \, dt
+\] \[
+  = \left. -\arcsin(x) \right|_0^{\frac12}
+  + \left. \tan(t) \right|_{x=0}^{x=\frac12}
+\] \[
+  = \left. -\arcsin(x) \right|_0^{\frac12}
+  + \left. \tan(\arcsin(x))  \right|_0^{\frac12}
+\] \[
+  = -\arcsin\left(\frac12\right) + \arcsin(0) + \tan\left(\frac\pi6\right) - \tan(0)
+\] \[
+  = -\frac\pi6 + 0 + \frac{\frac12}{\sqrt{\frac34}} - 0
+\] \[
+  = -\frac\pi6 + 0 + \frac1{\sqrt{3}} - 0
+\]
+
+\section{Exercise 25}
+\begin{ex}
+  Determine
+  \begin{itemize}
+    \item $\int \frac{\sin{x}}{\sin{x} + \cos{x}} \, dx$.
+    \item $\int_{\frac\pi4}^{\frac\pi3} \frac{\sqrt{\tan{x}}}{\cos^2(x)} \, dx$.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 25.a}
+\[
+  \int \frac{\sin{x}}{\sin{x} + \cos{x}}
+    = \frac{\frac12 \left(\sin{x} + \cos{x}\right) - \frac12 \left(-\sin{x} + \cos{x}\right)}{\sin{x} + \cos{x}} \, dx
+\] \[
+  = \int \left(\frac12 + \frac{\sin{x} - \cos{x}}{2 (\sin{x} + \cos{x})}\right) \, dx
+\]
+With $u = \sin{x} + \cos{x}$ and $dx = \frac{du}{\cos(x) - \sin{x}}$, we get
+\[ = \frac12 x + \frac12 \cdot \int -\frac{1}{u} \, du \]
+\[ = \frac x2 - \frac12 \cdot \ln(\sin{x} + \cos{x}) + c \]
+
+\section{Exercise 25.b}
+\[
+  \int_{\frac\pi4}^{\frac\pi3} \frac{\sqrt{\tan{x}}}{\cos^2(x)} \, dx
+\]
+Consider $u = \tan{x}$ and $dx = du \, \cos^2{x}$.
+\[
+  = \int_{x=\frac{\pi}{4}}^{x = \frac\pi3} \sqrt{u} \, du
+  = \left. \frac23 (\tan(x))^{\frac32} \right|_{\frac\pi4}^{\frac\pi3}
+\] \[
+  = \frac23 \left(3^{\frac34} - 1\right)
+\]
+
+
 \end{document}
