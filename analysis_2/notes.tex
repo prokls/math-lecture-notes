@@ -3092,6 +3092,261 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   Taylor polynomial of $n$-th order of $f$ in point $x_0$.
 \end{theorem}
 
+\meta{lecture}{29th of April 2016}{Kniely Michael}
+
+\begin{defi}[Additional remark to Taylor polynomials]
+  Let $P(x) \coloneqq \sum_{k=0}^n a_k x^k$, $a_n \neq 0$. Let $k \in \set{1, \ldots, n}$.
+  \begin{enumerate}
+    \item $x_0$ is called $k$-th root of $P$ iff $P(x) = (x - x_0)^k Q(x)$ with $Q(x_0) \neq 0$.
+    \item It holds that $x_0$ is a $k$-th  root of $P$ iff
+      \[ \forall j \in \set{0,\ldots,k-1}: P^{(j)}(x_0) = 0 \land P^{(k)}(x_0) \neq 0 \]
+  \end{enumerate}
+\end{defi}
+\begin{proof}[Complete induction over $k$]
+  \begin{description}
+    \item[$\mathbf{k=1}$] \hfill{} \\
+      $\Rightarrow$: Let $x_0$ be 1st root of $P$.
+        \[ P(x) = (x - x_0) Q(x) \Rightarrow P^{(0)}(x_0) = 0 \land P^{(1)}(x_0) = Q(x_0) \neq 0. \]
+      $\Leftarrow$: Let $P^{(0)}(x_0) = 0$.
+        \[ P^{(1)}(y_0) \neq 0 \]
+        Division with remainder $\Rightarrow$
+        \[ P(x) = (x - x_0) Q(x) + R(x) \text{ with } \deg(R) < \deg(x - x_0) = 1 \]
+        with $R$ constant.
+        \[ 0 = P(y_0) = R \Rightarrow P(x) = (x - x_0) Q(x) \]
+        \[
+          x \neq x_0 \Rightarrow Q(x) = \frac{P(x)}{x - x_0}
+          = \frac{P(x) - P(x_0)}{x - x_0}
+          \Rightarrow Q(x_0)
+        \] \[
+          \overset{\text{Q continuous}}{=}
+          \lim_{x\to x_0} Q(x) = \lim_{x \to x_0} \frac{P(x) - P(x_0)}{x - x_0}
+          = P^{(1)}(x_0) \neq 0
+        \]
+    \item[$\mathbf{k\geq 2, k-1 \to k}$]
+      $\Rightarrow$. Let $x_0$ be the k-th root of $P$.
+      Hence $P(x) = (x - x_0)^k Q(x)$ with $Q(x_0) \neq 0$.
+      Let $\tilde{P}(x) \coloneqq (x - x_0)^{k-1} Q(x)$.
+      $x_0$ is $(k-1)$-th root of $\tilde{P}$.
+      \[
+        \xRightarrow{\text{ind. hypo.}}
+        \tilde{P}^{(j)}(x_0) = 0
+        \land \tilde{P}^{(k-1)}(x_0) \neq 0
+        \quad \forall j \in \set{0,\ldots,k-2}
+      \] \[
+        P(x) = (x - x_0) \tilde{P}(x) \Rightarrow
+        P^{(j)}(x) = (x - x_0) \tilde{P}^{(j)}(x) + j \tilde{P}^{(j-1)}(x)
+      \]
+      We prove the last statement using complete induction:
+      \begin{proof}
+        \begin{description}
+          \item[$j=0$]
+            Follows immediately.
+          \item[$j \geq 0, j \to j+1$]
+            \[ P^{(j+1)}(x) = \left(P^{(j)}\right)'(x) \]
+            \[
+              = \tilde{P}^{(j)}(x) + \tilde{P}^{(j+1)}(x) (x - x_0)
+            \] \[
+              + j \tilde{P}^{(j)}(x)
+              = (x - x_0) \tilde{P}^{(j+1)}(x) + (j+1)P^{j}(x).
+            \] \[
+              P^{(j)}(x_0) = j \tilde{P}^{(j-1)}(x_0)
+            \] \[
+              \begin{cases}
+                = 0 & j = 0,\ldots,k-1 \\
+                \neq 0 & j = k
+              \end{cases}
+            \]
+        \end{description}
+      \end{proof}
+
+      We then prove the second part: $\Leftarrow$.
+
+      Let $P^{(j)}(x_0) = 0$ for $j \in \set{0,\ldots,k-1}$, $P^{(k)}(x_0) \neq 0$.
+      It holds that $P(y_0) = 0$ because of $P^{(0)}(x_0) = 0$.
+      Like above: $P(x) = (x - x_0) \tilde{P}(x)$ and
+      \[ P^{(j)}(x) = (x - x_0) \tilde{P}^{(j)}(x) + j \tilde{P}^{(j-1)}(x). \]
+      \[ j \in \set{1,\ldots,k-1} \Rightarrow 0 = P^{(j)}(x_0) = TODO \]
+      \[ \Rightarrow \forall l \in \set{0,\ldots,k-2}: \tilde{P}^{(l)}(x_0) = 0 \]
+      TODO
+
+      \[ 0 \neq P^{(k)}(x_0) = k \tilde{P}^{(k-1)}(x_0) \Rightarrow \tilde{P}^{)k-1}(x_0) \neq 0 \]
+
+      induction hypothesis $\Rightarrow$
+      \[ \tilde{P}(x) = (x - x_0)^{k-1} Q(x) \text{ with } Q(x_0) \neq 0 \]
+      \[ \Rightarrow P(x) = (x - x_0) \tilde{P}(x) = (x - x_0)^k Q(x). \]
+  \end{description}
+\end{proof}
+
+\index[English]{Taylor polynomial}
+\index[German]{\foreignlanguage{ngerman}{Taylorpolynom}}
+\begin{theorem}
+  Let $f$ in $\mathbb C^n((a,b))$ with $n \in \mathbb N$.
+  Let $a,b \in [-\infty, \infty]$, $x_0 \in (a,b)$.
+  Find a polynomial $T$ of degree $n$ such property
+  \begin{align}
+    \forall k \in \set{0,\ldots,n}: T^{(k)}(x_0) = f^{(k)}(x_0).
+    \label{taypoly}
+  \end{align}
+  Claim:
+  \[ T_f^n(x) \equiv T_f^n(x; x_0) \coloneqq \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \]
+  where $x_0$ is the base point, is the only polynmial of degree $n$, which satisfies
+  property~\ref{taypoly}.
+
+  $T_f^n$ is called \emph{Taylor polynomial} of $n$-th degree of $f$ in $x_0$.
+\end{theorem}
+\begin{proof}
+  Let $k \in \set{0,\ldots,n}$.
+  \[ (T_g^n)^{(k)}(x) = \sum_{j=k}^n \frac{f^{(j)}(x_0)}{j!} j (j-1) \cdot \ldots \cdot (j - (k-1))(x - x_0)^{j-k} \]
+  \[
+    \left(T_f^n\right)^{(k)} (x_0)
+    = \frac{f^{(k)}(x_0)}{k!} \underbrace{\left(k \cdot \ldots \cdot (k - (k-1))\right)}_{= k!}
+    = f^{(k)}(x_0).
+  \]
+  Let $T(x) = \sum_{j=0}^n a_j x^j$ be a polynomial, which satisfies \ref{taypoly}.
+  For $P \coloneqq T_g^n - T$ it holds that $P^{(k)}(x_0) = 0$ for all $k \in \set{0,\ldots,n}$.
+  And $P$ is a polynomial of degree at most $n$.
+  $x_0$ is at least an $(n+1)$-th root of $P \Rightarrow P \equiv 0$.
+\end{proof}
+
+\index[English]{Taylor series error}
+\index[German]{\foreignlanguage{ngerman}{Taylorreihen-Fehler}}
+\index[English]{Error of Taylor series}
+\index[German]{\foreignlanguage{ngerman}{Fehler von Taylorreihen}}
+\begin{defi}[Deviation, error, remainder]
+  \[ R_g^{n+1}(x; x_0) \equiv R_g^{n+1}(x) \coloneqq f(x) - T_g^n(x; x_0) \]
+\end{defi}
+\begin{theorem}[Integration form of the remainder]
+  Let $f \in C^{n+1}((a,b), \mathbb C)$, $n \in \mathbb N$,
+  $a,b \in [-\infty, \infty], x_0, x \in (a,b)$. Then it holds that
+  \[
+    R_g^{n+1}(x) = \frac{1}{n!} \int_{x_0}^x (x - t)^n f^{(n+1)}(t) \, dt
+  \]
+\end{theorem}
+\begin{proof}[Complete induction over $n$]
+  Let $n = 0$.
+  \[ R_g^1(x) = f(x) - T_g^0(x) = f(x) - f(x_0) \]
+  \[
+    \frac1{n!} \int_{x_0}^{x} (x - t)^n f^{(n+1)} (t) \, dt
+    = \int_{x_0}^x f'(t) \, dt = f(x) - f(x_0).
+  \]
+
+  Consider $n\geq 1, n-1 \to n$.
+  From induction hypothesis we consider
+  \begin{align*}
+    \Rightarrow f(x) - T_g^{n-1}(x) = R_g^n(x)
+    &= \frac{1}{(n-1)!} \int_{x_0}^x (x - 1)^{n-1} f^{(n)}(t) \, dt \\
+    &= - \left.\frac{(x - t)^n}{n (n-1)!} f^{(n)}(t)\right|_{x_0}^x + \int_{x_0}^x \frac{(x - t)^n}{n (n-1)!} f^{(n+1)}(t) \, dt \\
+    &= \frac{(x - x_0)^n}{n!} f^{(n)}(x_0) + \frac{1}{n!} \int_{x_0}^x (x - t)^n f^{(n+1)}(t) \, dt
+  \end{align*}
+  \[ \Rightarrow R_f^{n+1}(x) = f(x) - T_g^n(x) = f(x) - T_g^{n-1}(x) - \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n \]
+  \[ = \frac{1}{n!} \int_{x_0}^x (x - t)^n f^{n+1}(t) \, dt \]
+
+  Recognize that we consider $f$ over $\mathbb C$. In the next theorem we will only
+  consider it in $\mathbb R$.
+\end{proof}
+
+\index[English]{Lagrange representation of remainder}
+\index[German]{\foreignlanguage{ngerman}{Lagrange-Form des Restglieds}}
+\begin{theorem}[Lagrange representation of remainder]
+  Let $f \in C^{n+1}((a,b), \mathbb R), n \in \mathbb N$,
+  $a,b \in [-\infty, \infty]$, $x_0,x \in (a,b)$. Then there exists some $\xi$
+  between $x_0$ and $x$ such that
+  \[ R_g^{n+1}(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} \]
+\end{theorem}
+\begin{proof}
+  \[ R_f^{n+1}(x) = \frac{1}{n!} \int_{x_0}^x (x - t)^n f^{(n+1)}(t) \, dt \]
+  \begin{description}
+    \item[Case 1: $x \geq x_0$:] \hfill{} \\
+      \[ \forall t \in [x_0, x]: (x - t)^n \geq 0 \]
+      $f \mapsto (x - 1)^n$ regulated function.
+      $t \mapsto f^{(n+1)}(t)$ continuous. Hence,
+      \[
+        \exists \xi \in [x_0, x]:
+        \int_{x_0}^x (x - 1)^n f^{n+1} (t) \, dt
+        = f^{n+1}(\xi) \int_{x_0}^x (x - t)^n \, dt
+      \] \[
+        = f^{(n+1)}(\xi) \frac{(x - x_0)^{n+1}}{n + 1}
+      \] \[
+        \Rightarrow R_f^{n+1}(x) = \frac{f^{n+1}}{(n+1)!} (x - x_0)^{n+1}.
+      \]
+    \item[Case 2: $x < x_0$:]
+      \[
+        \forall t \in [x, x_0]: (t - x)^n \geq 0 \qquad \text{ analogously }
+      \] \[
+        \exists \xi \in [x, x_0]: \int_{x}^{x_0} (t - x)^n f^{(n+1)} (t) \, dt
+      \]
+      \begin{align*}
+        &= f^{(n+1)}(\xi) \int_x^{x_0} (1 - x)^n \, dt \\
+        &= \frac{f^{(n+1)}(\xi)}{n+1} (x_0 - x)^{n+1} \\
+        &\Rightarrow R_g^{n+1}(x) = \frac{(-1)^{n+1}}{n!} \int_{x}^{x_0} (t - x)^n f^{(n+1)}(t) \, dt \\
+        &= (-1)^{n+1} \frac{f^{(n+1)}(\xi)}{(n+1)!} (x_0 - x)^{n+1} \\
+        &= \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1}
+      \end{align*}
+  \end{description}
+\end{proof}
+
+\begin{cor}[Sufficient criterion for local extremes]
+  Let $f \in C^{n+1}((a,b), \mathbb R), x_0 \in (a,b)$ with
+  $f^{(n)}(x_0) = \ldots = f^{(n)}(x_0) = 0, f^{(n+1)}(x_0) \neq 0$.
+  Then $f$ has the following in $x_0$:
+  \begin{itemize}
+    \item a strict local minimum, if $n$ is odd and $f^{(n+1)}(x_0) > 0$.
+    \item a strict local maximum, if $n$ is odd and $f^{(n+1)}(x_0) < 0$.
+    \item no extreme, if $n$ is even.
+  \end{itemize}
+\end{cor}
+\begin{proof}
+  \begin{description}
+    \item[Case 1: $f^{(n+1)}(x_0) > 0$:] \hfill{} \\
+      $f^{(n+1)}$ is continuous $\Rightarrow$
+      \[ \exists \varepsilon > 0: f^{(n+1)} > 0 \text{ in } (x_0 - \varepsilon, x_0 + \varepsilon) \eqqcolon I \]
+      by Induction hypothesis it holds that
+      \[ \forall x \in (a,b): f(x) = T_g^n(x) + R_g^{n+1}(x) = f(x_0) + R_f^{n+1}(x). \]
+
+      If $n$ is even, then $n+1$ is odd, then
+      \[ \forall x \in I \setminus \set{x_0}: \exists \xi \in I: R_f^{n+1}(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} > 0. \]
+      So,
+      \[ \forall x \in I \setminus \set{x_0}: f(x) > f(x_0) \]
+
+      If $n$ is odd, $n+1$ is even, then
+      \[ \forall x \in I \setminus \set{x_0}: \exists \xi \in I: R_f^{n+1}(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} \]
+      \[
+        \begin{cases}
+          >0 & x > x_0 \\
+          <0 & x < x_0
+        \end{cases}
+      \]
+      $\Rightarrow$ $f$ has no extremum in $x_0$.
+    \item[Case 2: $f^{(n+1)}(x_0) < 0$] follows analogously like Case~1.
+  \end{description}
+\end{proof}
+\begin{theorem}[Qualitative Taylor formula]
+  Let $f \in C^n((a,b), \mathbb C), x, x_0 \in (a,b)$.
+  There exists some $r \in C((a,b), \mathbb C)$ with $r(x_0) = 0$ and
+  \begin{align} f(x) = T_f^n(x) + (x - x_0)^n r(x) \label{qtf} \end{align}
+\end{theorem}
+\begin{proof}
+  Equation~\ref{qtf} only has to be shown for $f: (a,b) \to \mathbb R$,
+  because for $f: (a,b) \to \mathbb C$, $f = f_R + i f_I$ with $f_R, f_I: (a,b) \to \mathbb R$.
+  Representations for $f_R$ and $f_I$ provide corresponding representations for $f$.
+  Hence let $f: (a,b) \to \mathbb R$. Let $r: (a,b) \to \mathbb R$.
+  \[ x \mapsto \frac{f(x) - T_f^n(x)}{(x - x_0)^n}, x \neq x_0 \text{ and } r(x_0) \coloneqq 0 \]
+  We only need to show: \\
+  $r$ is continuous in $x_0$, hence $\lim_{x\to x_0} r(x) = r(x_0) = 0$.
+  \[
+    x \in (a,b) \setminus \set{x_0} \Rightarrow
+    r(x) = \frac{1}{(x - x_0)^n} \left(f(x) - T_f^{n-1}(x) - \frac{f^{(n)}}{n!} (x - x_0)^n\right)
+  \] \[
+    = \frac{1}{(x - x_0)^n} \left(R_g^n(x) - \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n\right)
+  \] \[
+    = \frac{1}{(x - x_0)^n} \left(\frac{f^{(n)}(\xi)}{n!} (x - x_0)^n - \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n\right)
+  \] \[
+    = \frac{1}{n!} \left(f^{(n)}(\xi) - f^{(n)}(x_0)\right)
+  \]
+  $\xi$ is between $x_0$ and $x$.
+  $f^{(n)}$ is continuous and $\xi \to x_0$ for $x \to x_0$
+  \[ \Rightarrow r(x) = \frac{1}{n!}(f^{(n)}(\xi) - f^{(n)}(x_0)) \overset{x \to x_0}{\to} 0 \]
+\end{proof}
 
 \index[English]{}
 \index[German]{\foreignlanguage{ngerman}{}}

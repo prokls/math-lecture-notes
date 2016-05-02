@@ -4133,6 +4133,352 @@ Revision:
   \[ U^T U = I \]
 \end{defi}
 
+% orthogonalitaet, inneres produkt
+% Gram-Schmidt
+
+\meta{lecture}{2nd of May 2016}{Franz Lehner}
+
+\[ f: V \to W \text{ is unitary (= linear isometry)} \]
+\[ \functional{f(x), f(y)}_W = \functional{x,y}_V \]
+
+\begin{defi}
+  A matrix $U \in \mathbb C^{n\times n}$ is called \emph{unitary}
+  if $U^* U = I$ (i.e. $U^* = U^{-1}$).
+  A matrix $R \in \mathbb C^{n\times n}$ is called \emph{orthogonal}
+  if $U^+ U = I$ (i.e. $U^+ = U^{-1}$).
+\end{defi}
+\begin{defi}
+  Let $T \in \mathbb C^{n\times n}$.
+  DFAS\"A:
+  \begin{enumerate}
+    \item $T$ is unitary.
+    \item $\bigwedge_{x \in \mathbb C^n} \norm{T_x} = \norm{x}$
+    \item $\bigwedge_{x,y \in \mathbb C^n} \Re{\functional{Tx, Ty}} = \Re{\functional{x,y}}$
+    \item $\bigwedge_{x,y \in \mathbb C^n} \functional{Tx, Ty} = \functional{x,y}$
+    \item The columns of $T$ are orthogonal to each other. They satisfy the properties of a orthogonal normal basis.
+  \end{enumerate}
+\end{defi}
+\begin{proof}
+  \begin{description}
+    \item[1. $\to$ 2.]
+      Let $T^* = T^{-1}$.
+      \[ \Rightarrow \norm{Tx}^2 = \functional{Tx, Tx} = \functional{x, T^* Tx} = \functional{x, x} = \norm{x}^2 \]
+    \item[2. $\to$ 3.]
+      Polarization:
+      \[
+        \norm{x + y}^2 - \norm{x - y}^2 = \norm{x}^2 + \norm{y}^2 + 2\Re{\functional{x,y}} - (\norm{x}^2 + \norm{y}^2 - 2\Re{\functional{x,y}}) = 4\Re\functional{x,y}
+      \] \[
+        \norm{T(x + y)}^2 - \norm{T(x-y)}^2 = \norm{Tx + Ty}^2 - \norm{Tx - Ty}^2 = \ldots = 4\Re{\functional{Tx, Ty}}
+      \]
+      Because $\norm{x + y}^2 - \norm{x - y}^2 = \norm{T(x + y)}^2 - \norm{T(x-y)}^2$,
+      the cosine between $Tx$ and $Tx$ is the same like between $x$ and $y$.
+    \item[3. $\to$ 4.]
+      \[ \Re{Tx, Ty} = \Re{x,y} \qquad \forall x,y \]
+      \[ \Rightarrow \forall x, iy \]
+      \[ \Re{\functional{Tx, T(iy)}} = \Re{(-i\functional{Tx,Ty})} = \Im(\functional{Tx, Ty}) \]
+      \[ \Re{\functional{Tx, T(iy)}} = \Re{\functional{x, iy}} = \Im(\functional{x, y}) \]
+    \item[4. $\to$ 5.]
+      The columns of $T$ are
+      \[ u_i = T \cdot e_i \qquad (n \text{ times}) \]
+      Hence it suffices to show that $u_i$ are an orthonormal system.
+      \[ \functional{u_i, u_j} = \functional{T e_i, T e_j} = \functional{e_i, e_j} = \delta_{ij} \]
+    \item[5. $\to$ 1.]
+      \[ (T^* T)_{ij} = u_i^* u_j = \functional{u_j, u_i} = \delta_{ij} \]
+      \[ \Rightarrow T^* T = I \]
+  \end{description}
+\end{proof}
+
+\index[English]{Isometry}
+\index[German]{\foreignlanguage{ngerman}{Isometries}}
+\begin{defi}
+  \label{defi-8.71}
+  Let $(X, d)$ be a metric space.
+  Consider $(X', d')$.
+  $f: X \to X'$ is called \emph{isometry} if $d'(f(x), f(y)) = d(x, y)$.
+  Normed spaces are metric spaces.
+  \[ d(x,y) = \norm{x - y} \]
+  Isometry between metric spaces:
+  \[ \bigwedge_{x,y \in V} \norm{f(x) - f(y)} = \norm{x - y} \]
+\end{defi}
+
+\begin{ex}
+  \label{bsp-8.72}
+  Translation is non-linear.
+  Rotation around $x$ is linear iff $x = 0$.
+  Reflection along some axis $g$ is linear iff $0 \in g$.
+  Compare with Figure~\ref{img:rot-r2}.
+
+  \[ U = \begin{bmatrix} \cos{\varphi} & -\sin{\varphi} \\ \sin{\varphi} & \cos{\varphi} \end{bmatrix} \]
+\end{ex}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/rotation_in_R2.pdf}
+    \caption{Rotation in $\mathbb R^2$}
+  \end{center}
+\end{figure}
+
+\begin{rem}
+  Newton considered motion (compare with Figure~\ref{img:motion}). We derive componentwise.
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/motion.pdf}
+      \caption{Motion}
+      \label{img:motion}
+    \end{center}
+  \end{figure}
+  \[ \hat{x}(t) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot x(t) \]
+  \[ \hat{x} = \alpha x \]
+  \[ \frac{dx}{dt} = \alpha x \]
+  \[ \frac{dx}{x} = \alpha dt \]
+  \[ \int \frac{dx}{x} \int \alpha \, dt \]
+  \[ \log(x) = \alpha t \Rightarrow x = e^{\alpha t} \cdot e^c + c \]
+  \[ x(0) = e^c \]
+
+  \[ \Rightarrow x(t) = e^{\begin{bmatrix} 0 & -1 \\ 1 & 1 \end{bmatrix} t} \cdot x(0) \]
+  \[
+    e^x = \sum_{n=0}^\infty \frac{x^n}{n!}
+        = \sum_{n=0}^\infty \frac{\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^n}{n!} t^n
+  \]
+
+  \[ \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^2 = \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} \]
+  \[ \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^3 = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} \]
+  \[ \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^4 = I \]
+  This holds for any $M^{4i}, M^{4i+1}, M^{4i+2}$ and $M^{4i+3}$ respectively.
+
+  \[ e^{i\varphi} = \sum_{n=0}^\infty \frac{(i\varphi)^n}{n!} = \sum_{n=0}^\infty \frac{(-1)^n \varphi^{2n}}{2n!} + \sum_{n=0}^{\infty} (-1)^n i \frac{\varphi^{2n+1}}{2(n+1)!} = \cos{\varphi} + i \sin{\varphi} \]
+  \[ e^{\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \varphi} = I \cos{\varphi} + \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \sin{\varphi} = \begin{bmatrix} \cos{\varphi} & -\sin{\varphi} \\ \sin{\varphi} & \cos{\varphi} \end{bmatrix} \]
+\end{rem}
+\begin{rem}
+  \fbox{Sophus Lie}
+
+  Unitary matrices build a group. This defines the field of Lie groups.
+\end{rem}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/reflection_in_r2.pdf}
+    \caption{Reflection in R2}
+    \label{img:refl-r2}
+  \end{center}
+\end{figure}
+
+\begin{rem}[Reflection]
+  \[
+    U = \begin{bmatrix}
+      \cos{2\varphi} & \cos(2\varphi - \frac\pi2) \\
+      \sin{2\varphi} & \sin(2\varphi - \frac\pi2)
+    \end{bmatrix} = \begin{bmatrix}
+      \cos{2\varphi} & \sin{2\varphi} \\
+      \sin{2\varphi} & -\cos{2\varphi}
+    \end{bmatrix}
+  \]
+\end{rem}
+
+\begin{theorem}
+  \label{satz-8.73}
+  The following sets are groups:
+  \[ \mathcal O(n) = \setdef{U \in \mathbb R^{n \times n}}{U^t U = I} \qquad \text{ orthogonal group} \]
+  \[ \mathcal U(n) = \setdef{U \in \mathbb U^{n \times n}}{U^t U = I} \qquad \text{ unitary group} \]
+  \[ S\mathcal O(n) = \setdef{U \in \mathcal O(n)}{\det{U} = 1} \qquad \text{ special orthogonal group} \]
+  \[ S\mathcal U(n) = \setdef{U \in \mathcal U(n)}{\det{U} = 1} \qquad \text{ special unitary group} \]
+  \enquote{Classical} Lie groups.
+\end{theorem}
+
+\begin{theorem}
+  For $U \in \mathcal U(n)$ it holds that $\abs{\det{U}} = 1$.
+  \[ U^* = U^{-1} \]
+
+  \begin{align*}
+    \det{U^*} & =\det{\overline{U^t}} \\
+      &= \overline{\det{U^t}} \\
+      &= \overline{\det{U}} \\
+      &= \det{U^{-1}} \\
+      &= \frac{1}{\det{U}} \\
+      &\Rightarrow \overline{\det{U}} \cdot \det{U} = 1
+  \end{align*}
+\end{theorem}
+
+\begin{rem}
+  \[ \mathcal O(n) = \set{\det(U) = 1} \cup \set{\det(U) = -1} \]
+\end{rem}
+
+\begin{ex}[$\mathcal O(2)$]
+  Rotation:
+  \[ \begin{bmatrix} \cos(\varphi) & -\sin(\varphi) \\ \sin{\varphi} & \cos{\varphi} \end{bmatrix} \qquad \det = 1 \]
+  Reflection:
+  \[ \begin{bmatrix} \cos(2\varphi) & \sin(2\varphi) \\ \sin{2\varphi} & -\cos{2\varphi} \end{bmatrix} \qquad \det = -1 \]
+  Orthogonal:
+  \[ U = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \]
+  \[
+    \begin{cases}
+      a^2 + c^2 &= 1 \\
+      b^2 + d^2 &= 1 \\
+      ab + cd   &= 0
+    \end{cases}
+  \]
+  \[ U = \begin{bmatrix} a & b \\ c & d \end{bmatrix} = \begin{bmatrix} \cos{\varphi} & \cos{\varphi} \\ \sin{\varphi} & \sin{\varphi} \end{bmatrix} \]
+  \[ \cos(\varphi - \psi) = \cos{\varphi} \cos{\psi} + \sin{\varphi} \sin{\psi} = 0 \]
+  \[ \psi = \varphi + (k + \frac12) \pi \]
+
+  This sum equation can be derived from Euler:
+  \[ e^{i (\alpha + i \beta)} = e^{i\alpha} e^{i\beta} \]
+  \[ \cos(\alpha + \beta) + i \sin(\alpha + \beta) = (\cos{\alpha} + i \sin{\alpha})(\cos{\beta} + i \sin{\beta}) \]
+  \[ = \cos{\alpha} \cos{\beta} - \sin{\alpha} \sin{\beta} + i (\sin{\alpha} \cos{\beta} + \cos{\alpha} \sin{\beta}) \]
+
+  \begin{align*}
+    \cos{\psi} &= \cos(\varphi + (k + \frac12) \pi) \\
+      &= \cos{\varphi} \underbrace{\cos(k + \frac12)}_{=0} \pi - \sin{\varphi} \underbrace{\sin(k + \frac12)}_{\varepsilon \coloneqq \pm 1} \pi \\
+      &= -\varepsilon \sin{\varphi} \\
+    \sin{\psi} &= \sin(\varphi + (k + \frac12) \pi) \\
+      &= \sin{\varphi} \underbrace{\cos(k + \frac12)}_{=0} \pi + \cos\varphi \sin(k + \frac12) \pi = \varepsilon \cos{\varphi}
+  \end{align*}
+\end{ex}
+
+\begin{rem}
+  \[
+    U = \begin{bmatrix}
+      \cos\varphi & -\sin\varphi \cdot \varepsilon \\
+      \sin\varphi & \cos\varphi \cdot \varepsilon
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      \cos{\varphi} & -\sin{\varphi} \\
+      \sin{\varphi} & \cos{\varphi}
+    \end{bmatrix} \cdot \begin{bmatrix}
+      1 & 0 \\
+      0 & \varepsilon
+    \end{bmatrix}
+  \]
+  \[ \det{U} = \varepsilon \]
+
+  $U$ is either a rotation (if $\det{U} = 1$) or rotation with reflection (if $\det{U} = -1$).
+\end{rem}
+
+\begin{rem}
+  \[ S\mathcal O(2) = \text{ rotations } \cong \mathcal T = \setdef{e^{i\varphi}}{\varphi \in [0,2\pi[} \]
+  \[ e^{i\varphi} e^{i\psi} = e^{i(\varphi + \psi)} \]
+\end{rem}
+
+\begin{rem}
+  \fbox{William R. Hamilton (1805--1865)}
+  \[ S\mathcal U(2) = \setdef{q \in H}{\norm{q} = 1} \]
+  Defined the Hamilton operator. Extension to $\mathbb R$ (\enquote{quaternions}):
+  \[ H = \setdef{a_0 + a_1 i + a_2 j + a_3 k}{a_0, a_1, a_2, a_3 \in \mathbb R} \]
+  \[ i^2 = j^2 = k^2 = -1 \]
+  \[ ij = k \qquad jk = i \qquad ki = j \]
+  \[ ji = -1 \qquad kj = -i \qquad ik = -j \]
+  Almost a field (inverse elements, but not commutative). A skew field.
+
+  Octonionen (inverse elements, but not associative).
+\end{rem}
+
+\section{Polynomials and Algebras}
+\index[English]{$\mathbb K$-Algebra}
+\index[German]{\foreignlanguage{ngerman}{$\mathbb K$-Algebra}}
+\begin{defi}
+  $\mathbb K$ is a field.
+  A $\mathbb K$-Algebra is a vector space $\mathcal A$ over $\mathbb K$
+  with multiplication: $*: \mathcal A \times \mathcal A \to \mathcal A$
+  such that
+  \begin{enumerate}
+    \item $u * (b + c) = u * b + u * c$
+    \item $(a + b) * c = a * c + b * c$
+    \item $\lambda \cdot (a * b) = (\lambda \cdot a) * b = a * (\lambda \cdot b)$
+  \end{enumerate}
+  where $\lambda$ is an algebra.
+\end{defi}
+
+\index[English]{Associative algebra}
+\index[German]{\foreignlanguage{ngerman}{Assoziative Algebra}}
+\index[English]{Commutative Algebra}
+\index[German]{\foreignlanguage{ngerman}{Kommutative Algebra}}
+\begin{rem}
+  \label{bem-8.2}
+  If it furthermore holds that
+  \[ a * (b * c) = (a * b) * c \]
+  then $\mathcal A$ is associative.
+
+  If it furthermore holds that
+  \[ a * b = b * a \]
+  then $\mathcal A$ is called commutative.
+\end{rem}
+
+\index[English]{Convolution}
+\index[German]{\foreignlanguage{ngerman}{Faltung}}
+\index[German]{\foreignlanguage{ngerman}{Konvolution}}
+\index[English]{Schur product}
+\index[German]{\foreignlanguage{ngerman}{Schur Produkt}}
+\index[English]{Hadamond product}
+\index[German]{\foreignlanguage{ngerman}{Hadamond Produkt}}
+\index[English]{Jacobi identity}
+\index[German]{\foreignlanguage{ngerman}{Jakobi Identität}}
+\index[English]{Commutator product}
+\index[German]{\foreignlanguage{ngerman}{Kommutator Produkt}}
+\begin{ex}
+  \label{bsp-9.3}
+  \begin{itemize}
+    \item $(\mathbb K, +, * = \cdot)$ associative, commutative
+    \item $\Hom(V, V) = \End(V)$
+      \[ f * g \coloneqq f \circ g \]
+      non-commutative, associative algebra.
+
+      This is isomorphic to $(\mathbb K^{n\times n}, +, \cdot)$
+      where $\cdot$ is matrix multiplication.
+
+      \emph{Hadamond}- or \emph{Schur product}:
+      \[ [a_{ij}] [b_{ij}] = [a_{ij}, b_{ij}] \]
+    \item
+      \[ \mathcal C[0,1] \]
+      \[ (f * g)(t) = f(t) \cdot g(t) \]
+      \emph{Convolution}:
+      \[ (f * g)(t) = \int_0^1 f(t - s) g(s) \, ds \]
+    \item
+      Consider $(\mathbb R^3, +, \times)$ with cross product. $a\times b = -b \times a$.
+      \[ (a \times b) \times c \neq a \times (b \times c) \]
+      Non-associative, non-commutative.
+    \item
+      Consider $(\mathbb K^{n\times n}, +, [])$.
+      \[ [A, B] = A \cdot B - B \cdot A \]
+      Lie product or commutator product.
+      Non-commutative, non-associative.
+      From this, the \emph{Jacobi identity} follows.
+    \item
+      \[ = A = \mathbb K_{\text{symm}}^{n\times n} = \setdef{A}{A = A^t} \]
+      \[ A * B = \frac{AB + BA}{2} \]
+      Jordan product, associative, commutative.
+  \end{itemize}
+\end{ex}
+
+\begin{defi}
+  \label{defi-9.4}
+  \[ \mathbb K^\infty = \setdef{(a_0, a_1, a_2, \ldots)}{a_i \in \mathbb K} \]
+  Vector of all sequences.
+  \[ P_{\mathbb K} = \setdef{(a_0, a_1, \ldots, a_n, 0, 0, \ldots)}{a_i \in \mathbb K, n \in \mathbb N} \]
+  Subspace of finite sequences. Basis of $P_{\mathbb K}: (e_i)_{i \geq 0}$.
+
+  \[ (a_n) * (b_n) = (c_n) \]
+  \[ (c_n) = \sum_{k=0}^n a_k b_{n-k} \qquad \text{(Cauchy product)} \]
+\end{defi}
+
+\begin{theorem}
+  \label{satz-9.5}
+  \begin{enumerate}
+    \item
+      $(P_{\mathbb K}, *)$ is an associative, commutative $\mathbb K$-Algebra with one element
+      $(1, 0, 0, \ldots) = e_0$. $P_{\mathbb K} = \mathbb K[x]$.
+
+      \[ x^k \coloneqq e_k \]
+      \[ e_i * e_j = e_{i+j} \]
+      \[ x^0 = 1 \qquad \text{the one element} \]
+    \item
+      \[ \underbrace{\mathbb K[[x]]}_{\mathbb K(x)} = \setdef{\sum_{k=0}^\infty a_k x^k}{a_k \in \mathbb K} \]
+      is a formal power series. Defines a commutative, associative algebra.
+  \end{enumerate}
+\end{theorem}
+
+\meta{lecture}{4th of May 2016}{Franz Lehner}
+
 \clearpage
 \begin{otherlanguage}{ngerman}
 \printindex[German]
