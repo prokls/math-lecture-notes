@@ -1678,4 +1678,325 @@ Hence
 \[ \overset{(iii)}{\Leftrightarrow} M > 0\]
 Hence positive definite.
 
+\section{Exercise 29}
+\begin{ex}
+  For which values of $a$ and $b$ is the $M$ positive definite?
+  \[
+    M = \begin{bmatrix}
+      2 & -b + a & b + a & 0 \\
+      -b + a & 2 & 0 & b + a \\
+      b + a & 0 & 2 & -b + a \\
+      0 & b + a & -b + a & 2
+    \end{bmatrix}
+  \]
+\end{ex}
+
+We use the following theorem: $C^* A C = B$.
+\[ A > 0 \overset{3.}{\Leftrightarrow} \operatorname{ind}(A) = n \overset{2.}{\Leftrightarrow} \operatorname{ind}(B) = n \Leftrightarrow B > 0 \]
+\[ C \in \textrm{GL}(n, \mathbb C) \]
+
+$a, b$ must be in $\mathbb R$. If $a,b \in \mathbb C$, $M$ is not Hermitian.
+
+\[
+  M =
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    \frac{b-a}{2} & 1 & 0 & 0 \\
+    \frac{-b-a}{2} & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  \cdot A \cdot
+  \begin{pmatrix}
+    1 & \frac{b-a}{2} & \frac{-b-a}{2} & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+\] \[
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & \frac{-b-a}{2} \\
+    0 & 0 & 1 & \frac{b+a}{2} \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  \cdot M \cdot
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & \frac{-b-a}{2} & \frac{b-a}{2} & 1
+  \end{pmatrix}
+\] \[
+  = \begin{pmatrix}
+    2 & 0 & 0 & 0 \\
+    0 & -b^2 - a^2 + 2 & b^2 - a^2 & 0 \\
+    0 & b^2-a^2 & -b^2 - a^2 + 2 & 0 \\
+    0 & 0 & 0 & 2
+  \end{pmatrix}
+\] \[
+  \leadsto
+  \begin{pmatrix}
+    2 & 0 & 0 & 0 \\
+    0 & 2 & 0 & 0 \\
+    0 & 0 & -b^2 - a^2 + 2 & b^2 - a^2 \\
+    0 & 0 & b^2-a^2 & -b^2 - a^2 + 2
+  \end{pmatrix}
+\]
+This can only be positive definite if the first leading minor is greater $0$.
+So $2 - a^2 + b^2 > 0$ must hold.
+
+Furthermore,
+\[ \underbrace{(2 - a^2 - b^2)^2}_{>0} - \underbrace{(b^2 - a^2)^2}_{> 0} > 0 \]
+\[ \Leftrightarrow (\underbrace{(2 - a^2 - b^2) - (b^2 - a^2)}_{(2 - 2b^2)})(\underbrace{(2 - a^2 - b^2) + (b^2 - a^2)}_{(2 - 2a^2)}) > 0 \]
+\[ \Leftrightarrow (1 - b^2)(1 - a^2) > 0 \]
+\[ ((1 - b^2) > 0 \land (1 - a^2) > 0) \lor ((1 - b^2) < 0 \land (1 - a^2) < 0) \]
+The second case cannot occur, because the criterion due to the first leading minor must hold.
+
+In conclusion,
+$A$ is positive definite iff $a^2 < 1$ and $b^2 < 1$.
+
+\section{Exercise 30}
+\begin{ex}
+  Let $(V, \langle ., .\rangle)$ be a vector space with scalar product and
+  $U \subseteq V$ be a subspace. Show:
+  \begin{itemize}
+    \item $U^\bot = U^{\bot \bot \bot}$;
+    \item $V = U \dot{+} U^{\bot} \Rightarrow U = U^{\bot\bot}$.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 30.a}
+We know that $U \subset U^{\bot\bot}$ and $N \subseteq M \Rightarrow M^\bot \subseteq N^\bot$.
+It immediately following that $U^{\bot\bot\bot} \subseteq U^{\bot}$ with $N = U$ and $M = U^{\bot\bot}$.
+
+\begin{align*}
+  U^\bot &\subseteq U^{\bot\bot\bot} \\
+  U^\bot &= \setdef{v \in V}{\forall u \in U: \fun{v,u} = 0} \\
+  U^{\bot\bot} &= \setdef{v \in V}{\forall u^\bot \in U^\bot: \fun{v,u^\bot} = 0} \\
+    &\Rightarrow \forall u^\bot \in U^\bot: \forall u^{\bot\bot} \in U^{\bot\bot}: \fun{u^\bot, u^{\bot\bot}} = 0 \\
+    &U^{\bot\bot\bot} = \setdef{v \in V}{\forall u^{\bot\bot} \in U^{\bot\bot}: \fun{\underbrace{v}_{\in U^\bot}, u^{\bot\bot}} = 0} \\
+    &\Rightarrow U^\bot \subseteq U^{\bot\bot\bot}
+\end{align*}
+\[ \Rightarrow U^{\bot} \subseteq (U^\bot)^{\bot\bot} \]
+
+\subsection{Exercise 30.b}
+Show that $V = U \dot{+} U^{\bot} \Rightarrow U = U^{\bot\bot}$.
+
+Direction $\subseteq$:
+Let $u \in U^{\bot\bot}$ by assumption:
+\[ \exists! v \in U \exists ! w \in U^{\bot}: u = v + w \]
+\[ \forall u \in U^{\bot\bot} \forall w \in U^{\bot}: \fun{u,w} = 0 \]
+\[ \fun{v+w, w} = \underbrace{\fun{v,w}}_{=0} + \fun{w,w} = 0 \]
+\[ \fun{w,w} = 0 \Leftrightarrow w = 0 \]
+\[ u = v \]
+\[ \Rightarrow u \in U \]
+
+\section{Exercise 31}
+\begin{ex}
+  Let $U$ be a subspace of $\mathbb R^4$ and $v = (1, -1, 1, -1)^t$.
+  \[ U = \setdef{x \in \mathbb R^4}{\substack{x_1 - x_2 + x_3 - x_4 = 0 \\ x_1 + x_3 + x_4 = 0}} \]
+  \begin{itemize}
+    \item Determine the orthogonal projection $\pi_U(v)$ using the Gramian matrix.
+    \item Determine $\pi_U(v)$ using the orthonormal basis of $U$.
+    \item Determine the matrix representation of $\pi_U$ in regards of the canonical basis.
+  \end{itemize}
+\end{ex}
+
+You first need to recognize that $v$ exactly represents the upper equation.
+$v$ is in the orthogonal complement. This immediately solves exercises a and b.
+
+\subsection{Exercise 31.a}
+Equation system:
+\[
+  \begin{pmatrix}
+    1 & -1 & 1 & -1 & 0 \\
+    1 & 0 & 1 & 1 & 0
+  \end{pmatrix}
+\] \[
+  \begin{pmatrix}
+    1 & -1 & 1 & -1 & 0 \\
+    0 & 1 & 0 & 2 & 0
+  \end{pmatrix}
+\]
+\[ x_3 = s, x_4 = t \Rightarrow x_1 = -s-t, x_2 = -2t \]
+
+\[ U = \mathcal L\left(\begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} -1 \\ 0 \\ 0 \\ 1 \end{pmatrix}\right) = (b_1, b_2) \]
+
+\[ \pi_U(v) = \sum_{i=1}^n \eta_i \cdot b_i \]
+\[ \rightarrow \begin{pmatrix} \eta_1 \\ \eta_2 \end{pmatrix} = G^{-1} \begin{pmatrix} \fun{v, b_1} \\ \fun{v, b_2} \end{pmatrix} \]
+\[
+  G = \operatorname{Gram}(b_1, b_2) = \begin{pmatrix}
+    \fun{b_1, b_1} & \fun{b_1, b_2} \\
+    \fun{b_2, b_1} & \fun{b_2, b_2}
+  \end{pmatrix}
+\] \[
+  \fun{b_1, b_1} = 2 \qquad \fun{b_1, b_2} = 1
+\] \[
+  \fun{b_2, b_1} = 1 \qquad \fun{b_2, b_2} = 6
+\]
+
+\[ \Rightarrow G = \begin{pmatrix} 2 & 1 \\ 1 & 6 \end{pmatrix} \]
+\[ \Rightarrow G^{-1} = \begin{pmatrix} \frac6{11} & -\frac{1}{11} \\ -\frac{1}{11} & \frac{2}{11} \end{pmatrix} \]
+
+Furthermore it holds that
+\[
+  \begin{pmatrix}
+    \fun{v, b_1} \\
+    \fun{v, b_2}
+  \end{pmatrix}
+  = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
+\]
+\[ \Rightarrow \begin{pmatrix} \eta_1 \\ \eta_2 \end{pmatrix} = G^{-1} \cdot \begin{pmatrix} 0 \\ 2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \]
+\[ \Rightarrow \pi_U(v) = \sum_{i=1}^2 \eta_i \cdot b_i = 0 \]
+
+\subsection{Exercise 31.b}
+We orthogonalize using Gram-Schmid process.
+\[ a_1 = \frac{b_1}{\norm{b_1}} \text{ with } \norm{b_1}^2 = \fun{b_1, b_1} = 2 \Rightarrow \norm{b_1} \cdot \sqrt{2} \Rightarrow a_1 = \frac{1}{\sqrt 2} \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \]
+\[ \tilde{a_2} = b_2 - \fun{b_2, a_1} \cdot a_1 = \begin{pmatrix} -1 \\ 2 \\ 0 \\ 1 \end{pmatrix} - \fun{\begin{pmatrix} -1 \\ -2 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix}} \cdot \frac{1}{\sqrt 2} \cdot \frac{1}{\sqrt 2} \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} -\frac12 \\ -2 \\ -\frac12 \\ 1 \end{pmatrix} \]
+\[ \Rightarrow a_2 - \frac{\tilde{a_2}}{\norm{a_2}} = \sqrt{\frac2{11}} \cdot \begin{pmatrix} -1\frac12 \\ -2 \\ -\frac12 \\ 1 \end{pmatrix} \]
+
+\[ \pi_U(v) = \sum_{i=1}^n \fun{v, a_i} \cdot a_i = 0 \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \cdot \frac1{\sqrt{2}} + 0 \sqrt{\frac{2}{11}} \cdot \begin{pmatrix} -\frac12 \\ -2 \\ -\frac14 \\ 1 \end{pmatrix} = 0 \]
+\[ \Rightarrow \pi_U(v) = 0 \Rightarrow v \in U^{\bot} \]
+
+\subsection{Exercise 31.c}
+\[ p = \sum_{i=1}^n a_i a_i^* \qquad \text{ with } a_i \text{ is ONB of } U \forall i = 1, \ldots n \]
+Images of $P \cdot u = \sum_{i=1}^n \fun{u_i, v} \cdot u_i \quad \forall i = 1,\ldots,n$ with $u_i$ as ONB.
+
+\[ P = B \cdot (B^T B)^{-1} \cdot B^T \]
+\[
+  B = \begin{pmatrix} -1 & -1 \\ 0 & -2 \\ 1 & 0 \\ 0 & 1 \end{pmatrix}
+  \Rightarrow B^T = \begin{pmatrix} -1 & 0 & 1 & 0 \\ 1 & -2 & 0 & 1 \end{pmatrix}
+\]
+
+\[
+  P = \begin{pmatrix}
+    \frac6{11} & \frac2{11} & -\frac5{11} & -\frac1{11} \\
+    \frac2{11} & \frac8{11} & \frac2{11} & -\frac4{11} \\
+    -\frac5{11} & \frac2{11} & \frac6{11} & -\frac{1}{11} \\
+    -\frac1{11} & -\frac4{11} & -\frac1{11} & -\frac2{11}
+  \end{pmatrix}
+\]
+
+\section{Exercise 32}
+\begin{ex}
+  \begin{itemize}
+    \item Show that $\fun{f,g}$ defines a postiive definite scalar in $\mathbb R[x]$.
+      \[ \fun{f,g} = \int_{-1}^1 (1 - t^2) f(t) g(t) \, dt \]
+    \item Orthogonalize the canonical basis $(1, x, x^2)$ of the subspace $\mathbb R_2[x]$ in regards of the scalar product.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 32.a}
+Show that
+\[ \fun{\lambda f, g} = \lambda \fun{f,g} \qquad \forall f,g \in \mathbb R[x] \]
+\begin{align*}
+  &= \int_{-1}^1 (1 - t^2) (\lambda f)(t) g(t) \, dt \\
+  &= \int_{-1}^1 (1 - t^2) \lambda f(t) g(t) \, dt \\
+  &= \lambda \int_{-1}^1 (1 - t^2) f(t) g(t) \, dt \\
+  &= \lambda \fun{f, g}
+\end{align*}
+
+Show that
+\[ \fun{x+y, z} = \fun{x,z} + \fun{y,z} \qquad \forall x,y,z \in \mathbb R[x] \]
+\begin{align*}
+  \int_{-1}^1 (1 - t^2) (x + y)(t) z(t) \, dt
+    &= \int_{-1}^1 (1 - t^2) x(t) z(t) + (1 - t^2) y(t) z(t) \, dt \\
+    &= \int_{-1}^1 (1 - t^2) x(t) z(t) \, dt + \int_{-1}^1 (1 - t^2) y(t) z(t) \, dt \\
+    &= \fun{x,z} + \fun{y,z}
+\end{align*}
+
+Show that
+\[ \fun{y,x} = \fun{x,y} \qquad \forall x,y \in \mathbb R[x] \]
+\[ \int_{-1}^1 (1 - t^2) y(t) x(t) \, dt = \int_{-1}^1 (1 - t^2) x(t) y(t) \, dt = \fun{x,y} \]
+
+Show that
+\[ \fun{f,f} \geq 0 \qquad \forall f \in \mathbb R[x] \land \fun{f,f} = 0 \to f = 0 \]
+\begin{align*}
+  \int_{-1}^1 (1 - t^2) f(t) f(t) \, dt
+    &= \int_{-1}^1 \underbrace{(1 - t^2) f^2(t)}_{\geq 0} \, dt \geq 0
+\end{align*}
+Given a positive function, its integral is positive in at most one root.
+Polynomial functions are continuous. This is why it works.
+
+\subsection{Exercise 32.b}
+\[ \fun{f,g} = \int_{-1}^1 (1 - t^2) f(t) g(t) \, dt \]
+\[ \norm{v_1}^2 = \int_{-1}^1 (1 - t^2) \cdot 1 \cdot 1 \, dt = \frac43 \]
+
+\[ u_1 = \frac{v_1}{\norm{v_1}} = \frac{\sqrt{3}}{2} \]
+\[ \tilde{u}_2 = v_2 - \fun{v_2, u_1} u_1 - t - \fun{t,\frac{\sqrt{3}}{2}} \frac{\sqrt{3}}{2} = t \]
+\[ \norm{\tilde{u}_2}^2 = \int_{-1}^1 (1 - t^2) t^2 \, dt = \ldots \frac{4}{15} \]
+
+\[ u_2 = \frac{\sqrt{15}}{2} t \]
+\[ \norm{\tilde{u}_3} = v_3 - \fun{v_3, u_1} u_1 - \fun{v_3, u_2} u_2 = t^2 - \frac1{5} \]
+\[ \norm{u_3}^2 = \int_{-1}^1 (1 - t^2) (t^2 - \frac15)^2 \, dt = \frac{32}{525} \]
+\[ u_3 = (t^2 - \frac15) \sqrt{\frac{525}{32}} = (t^2 - \frac15) \frac{5 \sqrt{21}}{4 \sqrt{2}} \]
+
+Further remark:
+
+If you look at Gramian's matrix, we get:
+\[
+  \begin{pmatrix}
+      \frac43 & 0 & \frac4{15} \\
+      0 & \frac{4}{15} & 0 \\
+      \frac4{15} & 0 & \frac{4}{35}
+  \end{pmatrix}
+\]
+
+How can I compute $\norm{U_3}^2$ without integration?
+We get
+\[ \fun{u_3, u_3} = \begin{pmatrix} -\frac15 & 0 & 1 \end{pmatrix} G \begin{pmatrix} -\frac15 \\ 0 \\ 1 \end{pmatrix} \]
+
+\section{Exercise 33}
+\begin{ex}
+  Let ($V, \langle ., .\rangle$) a vector space with scalar product and $V = U \dot{+} W$ be a decomposition as direct sum and $\pi: V \to U$ be the projection in the first component.
+  Show that $W = U^\bot$ holds iff $\forall v \in V: \norm{\pi(v)} \leq \norm{v}$. \\
+  \emph{Hint:} One direction was shown in the lecture. The other can be proven easily using an indirect proof.
+\end{ex}
+
+We only look at $\mathbb R$.
+
+Show that
+\[ \forall v \in V: \norm{\pi(v)} \leq \norm{v} \Rightarrow w = U^\bot \]
+
+Indirect proof:
+\[ U^\bot \neq W \Rightarrow \exists x: \norm{x} < \norm{\pi_U(x)} \]
+Let $U^\bot \subsetneq W: \exists \tilde{w} \in W: \tilde{w} \notin U^\bot$.
+For $c \in \mathbb R$ and $u \in U$: $x = u + c \cdot \tilde{w}$.
+
+\[ \norm{x}^2 = \norm{u + c \tilde{w}}^2 = \fun{u + c\tilde{w}, u + c \tilde{w}} = \fun{u,u} + \fun{u,c\tilde{w}} + \fun{c\tilde{w}, u} + \fun{c\tilde{w},c\tilde{w}} \]
+\[ = \norm{\pi_U(x)}^2 + 2 \Re{\fun{u, c\tilde{w}}} + c\cdot\norm{\tilde{w}}^2 \]
+
+Choose $c > -\frac{2\Re{\fun{u,\tilde{w}}}}{\norm{\tilde{w}}^2}$.
+Then it holds that:
+\[ \norm{\pi_U(x)}^2 = \norm{x}^2 - 2 \cdot c \cdot \Re{\fun{u,\tilde{w}}} - c^2 \norm{\tilde{w}}^2 \]
+\[ = \norm{x}^2 - c (2 \Re{\fun{v,\tilde{w}}} + c \norm{\tilde{w}}^2) \]
+
+This does not work out:
+\[ c(2 \Re{\fun{v, \tilde{w}}} + c \norm{\tilde{w}}) \leq 0 \]
+\[ c < -\frac{2\Re{\fun{u, \tilde{w}}}}{\norm{w^2}^2} \]
+Those equations must be satisfied, but contradict.
+
+\subsection{Correction of Exercise 33}
+
+Let $u \in U$. $u$ shall satisfy $\Re\fun{u,\tilde{w}} < 0$.
+
+Let $u \in U$ with $\fun{u,\tilde{w}} \neq 0$.
+\[ \Re\fun{v, \tilde{w}} \neq 0 \]
+\[ \Rightarrow \Im\fun{v,\tilde{w}} \neq 0 \]
+\[ \Rightarrow \Re{\fun{v, i\tilde{w}}} \neq 0 \]
+
+\[ \Rightarrow \Re{\fun{u, i\tilde{w}}} \neq 0 \]
+\[ \frac{2\Re\fun{u,\tilde{w}}}{\norm{\tilde{w}}^2} \]
+\[ 0 < c < -\frac{2\Re{\fun{u,\tilde{w}}}}{\norm{w^2}^2} \]
+
+
+\section{Exercise 34}
+\begin{ex}
+  Let ($V, \fun{.,.}$) be an $n$-dimensional vector space with scalar product over $\mathbb R$ and
+  $U, W \subseteq V$ are two $m$-dimensional subspaces. Show:
+  If $u \in U \setminus \set{0}$ exists with $u \bot W$, then there exists some $w \in W \setminus \set{0}$
+  with $w \bot U$.
+\end{ex}
+
+
 \end{document}
