@@ -2521,6 +2521,12 @@ $\Rightarrow$ Hilbert space.
 
 \index[English]{Conjugate matrix}
 \index[German]{\foreignlanguage{ngerman}{Adjungierte Matrix}}
+\index[English]{Self-conjugate matrix}
+\index[German]{\foreignlanguage{ngerman}{Selbst-adjungierte Matrix}}
+\index[English]{Symmetric matrix}
+\index[German]{\foreignlanguage{ngerman}{Symmetrische Matrix}}
+\index[English]{Hermitian matrix}
+\index[German]{\foreignlanguage{ngerman}{Hermitische Matrix}}
 \begin{defi}
   \label{def-8.22}
   Let $A \in \mathbb C^{n\times n}$.
@@ -2529,7 +2535,7 @@ $\Rightarrow$ Hilbert space.
   \[ \left(A^*\right)_{ij} = \overline{a_{ji}} \]
   is the conjugate matrix to $A$ (german: adjungiert).
 
-  $A$ is called self-conjugate if $A = A^*$, symmetrical if $K = \mathbb R$ and hermitian if $K = \mathbb C$.
+  $A$ is called \emph{self-conjugate} if $A = A^*$, \emph{symmetrical} if $K = \mathbb R$ and \emph{hermitian} if $K = \mathbb C$.
 
   $A$ is called positive/negative semidefinite/definite or indefinite if the inner product
   \[ \functional{\xi, \eta}_A \coloneqq \xi^t A \overline{\eta} \]
@@ -2537,7 +2543,7 @@ $\Rightarrow$ Hilbert space.
   \[ \functional{x,x} > 0 \quad x \]
 \end{defi}
 
-We want to determine how \enquote{positive} a given matrix is
+We want to determine how \enquote{positive} a given matrix is.
 
 Analogously to the rank, we consider:
 Every rank is equivalent to some matrix of the form
@@ -2566,7 +2572,7 @@ Every rank is equivalent to some matrix of the form
 
 \begin{defi}
   \label{def-8.23}
-  Two matrices $A,B \in \mathbb C^{m\times n}$ is called congruent if
+  Two matrices $A,B \in \mathbb C^{m\times n}$ are called congruent if
   \[ \exists C \in \operatorname{GL}(n, \mathbb C): C^* AC = B \]
   (strong condition for equivalence)
 \end{defi}
@@ -4478,6 +4484,317 @@ Revision:
 \end{theorem}
 
 \meta{lecture}{4th of May 2016}{Franz Lehner}
+
+\begin{rem}
+  What is $\log(-1)$?
+  \[ e^{i\varphi}= \cos{\varphi} + i \cdot \sin{\varphi} \]
+  \[ e^{\log{-1}} = -1 \]
+  \[ \Rightarrow e^{i\pi} = -1 \]
+  \[ \Rightarrow \log(-1) = i\pi \]
+  This is ambiguous.
+  \[ \sqrt{-1} = \pm i \]
+  \[ \sqrt[3]{i} = 1, e^{2\frac\pi i}{3}, e^{-2\frac{\pi i}{3}} \]
+  \[ \sqrt{e^{ix}} = e^{\frac{ix}{2}} \]
+
+  Riemann replaced the complex plane with a plane which consists of two planes.
+  If you follow the unit circle one rotation, you end up at the other plane.
+\end{rem}
+
+\begin{rem}
+  Consider $(P_{\mathbb K}, *)$.
+  \[ P_{\mathbb K} = \setdef{(a_0, a_1, \ldots, a_n, 0, \ldots)}{a_k \in \mathbb K, n \in \mathbb N_0} \]
+  with $(a_i) * (b_j) = (c_k)$ is an associative and commutative $\mathbb K$-algebra.
+  \[ c_k = \sum_{j=i}^k a_j b_{k-j} = \sum_{j=0}^k a_{k-j} b_j \]
+  \[ e_i * e_j = e_{i+j} \]
+  \[ x^i \coloneqq e_i \]
+
+  Let $a_i = 0$ for $i > m$, $b_j = 0$ for $j > n$.
+  Compare with Figure~\ref{img:inf-abi}.
+  \[ c_k = \sum_{i=0}^k a_i b_{k-i} = \sum_{i=0}^m a_i \underbrace{b_{k-i}}_{=0} = 0 \]
+  \[ k > m + n  \qquad i < m \]
+  \[ k - i > m + n - i \]
+  \[ k - i > n \]
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/polynomial_k-algebra.pdf}
+      \caption{relation of $a_i$ and $b_i$}
+      \label{img:inf-abi}
+    \end{center}
+  \end{figure}
+
+  \[ \deg(p(x) \cdot q(x)) \leq \deg(p(x)) + \deg(q(x)) \]
+  \[ p(x) = a_0 + a_1 x + \ldots + a_m x^m \]
+  \[ \deg(p(x)) = \max\setdef{i}{a_i \neq 0} \]
+  Distributive law:
+  \[ (a * (b + c))_k = \sum_{i=0}^k a_i (b_{k-i} + c_{k-i}) = \sum_{i=0}^k a_i b_{k-i} + \sum_{i=0}^k a_i c_{k-i} = (a * b)_k + (a * c)_k \]
+
+  This also works for $(a_0, a_1, \ldots)$ arbitrary sequences.
+  $(a * b)_k = \sum_{i=0}^k a_i b_{k-i}$ is finite for all $k$.
+  Polynomials (= finite sequences) form a subalgebra.
+\end{rem}
+
+\begin{defi}
+  \label{defi-9.6}
+  \[ X^0 = (1, 0, \ldots, 0) = 1 \]
+  \[ X^k = (0, \ldots, 0, 1, 0, \ldots) \]
+  \[ X^k \cdot X^l = X^{k+l} \]
+  We write $\mathbb K[x]$ instead of $P_{\mathbb K}$.
+  \[ p(x) = \sum_{i=0}^m a_i x^i \]
+  \[ \partial p(x) = \deg(p(x)) = \max\setdef{i}{a_i \neq 0} \]
+  We need to define $\deg(0) = -\infty$.
+\end{defi}
+
+\begin{lemma}
+  \begin{enumerate}
+    \item $\deg(p(x) \cdot q(x)) = \deg(p(x)) + \deg(q(x))$
+    \item $\mathbb K[x]$ is zero divisor free.
+      \[ p(x) q(x) = 0 \Rightarrow p(x) = 0 \lor q(x) = 0 \]
+      Counterexamples for zero divisor freedom:
+      \[ \mathbb Z_n, n \not\in \mathbb P: n = pq \Rightarrow p \neq 0 \mod{n} \land q \neq 0 \mod{n} \]
+      \[ \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix} \cdot \begin{bmatrix} 0 & 0 \\ 0 & 1 \end{bmatrix} = 0 \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{defi}
+  \label{defi-9.8}
+  Every polynomial $p(x) \in \mathbb K[x]$ induces a function.
+  \[ p: \mathbb K \to \mathbb K \]
+  \[ \alpha \mapsto p(\alpha) = \sum_{k=0}^m a_k \alpha^k \]
+
+  \[ (\lambda p + \mu q)(\alpha) = \lambda p(\alpha) + \mu q(\alpha) \]
+  \[ (p \cdot q)(\alpha) = p(\alpha) \cdot q(\alpha) \]
+
+  \[ \mathbb K[x] \to \mathbb K^{\mathbb K} \]
+  is an algebra homomorphism.
+\end{defi}
+\begin{rem}
+  Is it injective?
+  If $\abs{\mathbb K} < \infty$, it is not injective.
+  \[ \dim{\mathbb K[x]} = \infty \qquad \dim{{\mathbb K}^{\mathbb K}} = \abs{\mathbb K} \]
+  \[ p(x) = (x - \xi_1)(x - \xi_2) \ldots (x - \xi_n) \]
+  has degree $n$.
+
+  From this we can see the difference between a polynomial and a polynomial function.
+\end{rem}
+
+\begin{ex}
+  Every function $f: \mathbb K \to \mathbb K$ is a polynomial function,
+  hence there exists some polynomial $p(x) \in \mathbb K[x]$ such that $p(\xi) = f(\xi)$ for all $\xi \in \mathbb K$.
+\end{ex}
+
+\index[English]{Algebra homomorphism}
+\index[German]{\foreignlanguage{ngerman}{Algebra Homomorphismus}}
+\begin{defi}
+  \label{defi-9.10}
+  A map $\psi: \mathcal A \to \mathcal B$ between two $\mathbb K$-algebras $\mathcal A$ and $\mathcal B$
+  is called \emph{algebra homomorphism} if $\Psi$ is linear and multiplicative.
+  \[ \bigwedge_{a,b \in \mathcal A} \psi(a *_{\mathcal A} b) = \psi(a) *_{\mathcal B} \psi(b) \]
+\end{defi}
+
+\begin{ex}
+  \label{ex-9.11}
+  \begin{itemize}
+    \item $\mathbb K[x] \to {\mathbb K}^{\mathbb K}$ with $p(x) \mapsto$ polynomial function
+    \item For all $\alpha \in \mathbb K$,
+      \[ \psi_\alpha: \mathbb K[x] \to \mathbb K \]
+      \[ p(x) \mapsto p(\alpha) \]
+      is algebra homomorphism.
+    \item $\mathbb K \to \mathbb K[x]$ with $\alpha \to \alpha \cdot \mathbb 1$.
+      Embedding is algebra homomorphism.
+  \end{itemize}
+\end{ex}
+
+\begin{theorem}[Insertion theorem] % TODO: dt. Einsetzungssatz - correct translation?
+  \label{theorem-9.12}
+  Let $\mathcal A$ be an associative algebra over $\mathbb K$ with one-element
+  $1_{\mathcal A}$.
+  \begin{itemize}
+    \item
+      \[ \Rightarrow: L: \mathbb K \to \mathcal A \]
+      \[ \alpha \mapsto \alpha \cdot {\mathbb A_{\mathcal A}} \]
+      is an algebra homomorphism.
+    \item For every $a \in \mathcal A$ is a map
+      \[ \psi_a: \mathbb K[x] \to \mathcal A \]
+      \[ \sum_{k=0}^n c_k x^k \mapsto \sum_{k=0}^n c_k a^k \]
+      where $a^0 \coloneqq 1_{\mathcal A}$ and $a^{k+1} = a * a^k$,
+      the \emph{unique} algebra homomorphism $\psi: \mathbb K[x] \to \mathcal A$
+      with the property $\psi(x) = a$.
+
+    \item
+      Every algebra homomorphism $\psi: \mathbb K[x] \to \mathcal A$ has this structure.
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  If $a = \psi(x)$, then $a^k = \psi(x)^k = \psi(x^k)$.
+  If $\psi(x)$ is known, then $\psi(x^k)$ is defined for all $k$.
+  So $\psi(p(x))$ is defined for all $p(x) \in \mathbb K[x]$.
+  This follows because they represent a basis and by the Fortsetzungssatz. % TODO: translation
+\end{proof}
+
+\begin{rem}
+  Linearity of $\psi_{a}$ will be shown in the practicals.
+  Multiplicativity:
+  \[ \psi_a(p(x) \cdot q(x)) \stackrel!= \psi_a(p(x)) * \psi_a(q(x)) \]
+  Let $p(x) = \sum_{i=0}^m \alpha_i \cdot x^i$ and $q(x) = \sum_{j=0}^n \beta_j x^j$.
+  \[ p(x) \cdot q(x) = \sum_{k=0}^{m+n} \gamma_k x^k \qquad \gamma_k = \sum_{i=0}^k \alpha_i \beta_{k-i} \]
+  \[ \psi_a(p(x) \cdot q(x)) = \sum_{k=0}^{m+n} \gamma_k a^k \]
+  \begin{align*}
+    \psi_a(p(x)) * \psi_a(q(x)) &= \left(\sum_{i=0}^m \alpha_i a^i\right) \cdot \left(\sum_{j=0}^n \beta_j a^j\right) \\
+        &= \sum_{i=0}^m \sum_{j=0}^n \alpha_i \beta_j a^{i+j} \\
+        &= \sum_{k=0}^{m+n} \underbrace{\sum_{i,j \geq 0} \alpha_i \beta_j}_{\sum_{i=0}^k \alpha_i \beta_{k-i} = \gamma_k} a^k \\
+  \end{align*}
+\end{rem}
+
+\begin{rem}[Notation]
+  \[ \psi_a(p(x)) \eqqcolon p(a) \]
+\end{rem}
+
+\begin{ex}
+  \label{ex-9.13}
+  \begin{itemize}
+    \item $\mathcal A = \mathbb K$
+      \[ \psi_{\alpha}(p(x)) = p(\alpha) \]
+    \item $\mathcal A = \Hom(V,V)$
+      \[ L: \mathbb K \to \Hom(V,V) \]
+      \[ \lambda \mapsto \lambda \cdot \operatorname{id} \]
+
+      \[ f^0 = \operatorname{id} \]
+      \[ f^k = \underbrace{f \circ f \circ \ldots \circ f}_{kx} \Rightarrow \psi_f\left(\sum_{k=0}^n \alpha_k x^k\right) = \sum_{k=0}^n \alpha_k f^k \]
+    \item $\mathcal A = \mathbb K^{n\times n}$
+      \[ \psi_A(p(x)) = p(A) = \sum_{k=0}^n \alpha_k A^k \]
+  \end{itemize}
+\end{ex}
+
+\begin{rem}
+  $\mathbb K[x]$ is a free associative algebra with a generator over $\mathcal A$.
+  Every map $f: \set{X} \to \mathcal A$ has a unique continuous to an algebra homomorphism.
+  \[ \psi: \mathbb K[x] \to \mathcal A \]
+  $\mathbb K[x]$ is the smallest algebra over $\mathbb K$ which contains $x$.
+
+  For two generators?
+  \[
+    \begin{array}{ccc}
+      f: \set{x,y}                    & \to & \mathcal A \\
+      \downarrow                      &       & \\
+      \psi: \mathbb K\functional{x,y} & \to & \mathcal A
+    \end{array}
+  \]
+  is a non-commutative polynomial in $x,y$.
+
+  Analogously: free group, free monoid and every vector space is free over its basis.
+\end{rem}
+
+\index[English]{Roots of functions}
+\index[German]{\foreignlanguage{ngerman}{Nullstellen von Funktionen}}
+\begin{defi}
+  \label{defi-9.15}
+  Let $p(x) \in \mathbb K[x]$.
+  A root of $p(x)$ is some $\xi \in \mathbb K$ such that $p(\xi) = 0$.
+  \[ \Leftrightarrow p(x) \in \kernel(\psi_\xi) \]
+\end{defi}
+
+\begin{ex}
+  \[ p(x) = a_0 \]
+  No non-trivial roots.
+  \[ p(x) = a_0 + a_1 x + a_2 x^2 \]
+  The solution equation was found 2000~BC.
+  \[ p(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 \]
+  Equation of Cardano.
+
+  \fbox{Gerdama Cardano (1501--1576)} \\
+  \enquote{Ars Magna} (1545)
+
+  \fbox{Niccolo Tartaglia (1499-1557)}
+
+  Niccolo Tartaglia found the solution to Cardano's equation.
+  But actually \fbox{Siphione del Forzzo (1465--1526)} found the equation first
+  and forwarded it to his student Antonio Fiore.
+  This was also the first time someone reasoned about complex numbers.
+  They did not get explicitly defined.
+
+  $\deg(p(x)) = 4$ (L. Ferrari)
+
+  $\deg(p(x)) \geq 5$ (1826, Abel)
+\end{ex}
+
+\begin{rem}[Cadano and Tartaglia formula]
+  \label{bem-9.16}
+  Originally: cub pi6 reb e$\overline{\textrm{q}}$lis 20
+  \[ x^3 + 6x = 20 \]
+
+  Approach: $x = u + v$.
+
+  \[ (u + v)^3 + 6 (u + v) = 20 \]
+  \[ u^3 + 3u^2 v + 3uv^2 + v^3 + 6 (u + v) = 20 \]
+  \[ = u^3 + v^3 + (3uv + 6) (u + v) = 20 \]
+
+  We choose $v$ such that $3uv + 6 = 0$.
+  \[ \Rightarrow uv = -2 \]
+  \[ \Rightarrow u^3 v^3 = -18 \]
+  \[ u^3 + v^3 = 20 \]
+
+  Let $a = u^3$ and $b = v^3$.
+  \[ a \cdot b = -8 \land a + b = 20 \Rightarrow a(20 - a) = -8 \]
+  \[ a^2 - 20a - 8 = 0 \]
+  \[ a = \frac{20 \pm \sqrt{400 + 32}}{2} = 10 \pm \sqrt{108} \]
+  \[ \Rightarrow u^3 = 10 + \sqrt{108} \]
+  \[ v^3 = 10 - \sqrt{108} \]
+  \[ x = u + v = \sqrt[3]{10 + \sqrt{108}} + \sqrt[3]{10 - \sqrt{108}} \]
+\end{rem}
+
+\begin{theorem}[Division with remainder]
+  \label{satz-9.17}
+  Let $p(x), q(x) \in \mathbb K[x]$ and $q(x) \neq 0$.
+  Then there exists exactly one $s(x), r(x) \in \mathbb K[x]$ such that $\deg(r(x)) < \deg(q(x))$
+  and $p(x) = s(x) \cdot q(x) + r(x)$.
+
+  Compare this with natural numbers and the extended euclidean algorithm.
+  \[ m \in \mathbb Z, n \in \mathbb N \Rightarrow \exists! a,b: m = a\cdot n + b \text{ with } 0 \leq b < n \]
+\end{theorem}
+
+\begin{proof}
+  Complete induction over $\deg(p(x))$.
+  \begin{description}
+    \item[Case 1: $\deg(p(x)) < \deg(q(x))$]
+      \[ \Rightarrow p(x) = 0 \cdot q(x) + p(x) \]
+      is unique.
+    \item[Case 2: $\deg(p(x)) \geq \deg(q(x))$]
+      \[ p(x) = \sum_{k=0}^m a_k x^k \qquad q(x) = \sum_{l=0}^n b_l x^l \]
+      $m \geq n$.
+      Let $p_1(x) = p(x) - \frac{a_m}{b_n} x^{m-n} \cdot q(x)$.
+      \begin{align*}
+        &= \sum_{k=0}^m a_k x^k - \sum_{l=0}^n \frac{a_m}{b_n} b_l x^{m-n+l} \\
+        &= \sum_{k=0}^{m-1} a_k x^k - \sum_{l=0}^{n-1} \frac{a_m}{b_n} b_l x^{m-n+l}
+      \end{align*}
+      $\deg(p_1(x)) < \deg(p_2(x))$.
+
+      Induction hypothesis $\Rightarrow p_1(x) = s_1(x) \cdot q(x) + r_1(x)$
+      \[ \Rightarrow p(x) = \left(\frac{a_m}{b_n} x^{m-n} + s_1(x)\right) q(x) + r_1(x) \]
+      \[ = p_1(x) + \frac{a_m}{b_n} x^{m-n} \cdot q(x) \]
+  \end{description}
+\end{proof}
+
+\begin{ex}
+  \label{bsp-9.18}
+  \[
+    \begin{array}{rl}
+      3x^5 - x^4 + 2x^3 + x^2 + 1 &: x^2 - 3x + 1 = 3x^3 + 8x^2 + 23x + 62 \\
+      -(3x^5 - 9x^4 + 3x^3)       &\\
+    \hline
+      0 + 8x^4 - x^3 + x^2 + 1 \\
+      0 - (8x^4 - 24x^3 + 8x^2) \\
+    \hline
+      0 + 0 + 23x^3 - 7x^2 + 1 \\
+      0 + 0 - 23x^3 - 69x^2 + 23x \\
+    \hline
+      0 + 0 + 62x^2 - 23x + 1 \\
+      0 + 0 + 62x^2 - 186x + 62 \\
+    \hline
+      0 + 0 + 0 + 163x - 61 = r(x)
+    \end{array}
+  \]
+\end{ex}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

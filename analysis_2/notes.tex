@@ -31,7 +31,7 @@
 
 \newcommand\okay{\qquad\checkmark}
 \newcommand\set[1]{\left\{#1\right\}}
-\newcommand\setdef[2]{\left\{#1\,|\,#2\right\}}
+\newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
 \newcommand\abs[1]{\left|#1\right|}
 \newcommand\seq[1]{{\left(#1\right)}_{n \in \mathbb N}}
 \newcommand\reg{\mathcal B}
@@ -3348,8 +3348,242 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   \[ \Rightarrow r(x) = \frac{1}{n!}(f^{(n)}(\xi) - f^{(n)}(x_0)) \overset{x \to x_0}{\to} 0 \]
 \end{proof}
 
-\index[English]{}
-\index[German]{\foreignlanguage{ngerman}{}}
+\meta{lecture}{3rd of May 2016}{Wolfgang Ring}
+
+\begin{theorem}
+  Assumption:
+  Let $f: I \to \mathbb R$ be arbitrarily often continuously derivable.
+  Hence,
+  \[ T_f^n(x; x_0) \text{ exists for } \forall n \in \mathbb N \]
+  Therefore we can consider a power series
+  \[ T_f(x; x_0) = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \]
+  $T_f(x; x_0)$ is called Taylor series of $f$ in $x_0$.
+  Is a power sereis in $\xi = (x - x_0)$.
+  Converges for $\abs{\xi} = \abs{x - x_0} < \rho(T_f)$.
+
+  If $\rho(T_f) > 0$, it holds that $T_f(x;x_0) = f(x)$?
+  \[ \lim_{n\to\infty} T_f^n(x; x_0) = T_f(x; x_0) = f(x) \text{ for } \abs{x - x_0} < \rho(T_f) \]
+  is \emph{not} always satisfied.
+\end{theorem}
+
+\begin{ex}
+  \[
+    f(x) = \begin{cases}
+      e^{-\frac1x} & \text{ for } x > 0 \\
+      0 & \text{ for } x < 0
+    \end{cases}
+  \]
+  Compare with Figure~\ref{img:e1x}.
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=150px]{img/e1x.pdf}
+      \caption{Plot of $f$}
+      \label{img:e1x}
+    \end{center}
+  \end{figure}
+  \[ f_-^{(n)}(0) = 0 \]
+  \[ f_+^{(n)}(0) = \lim_{x\to0^+} f^{(n)}(x) \]
+
+  \[ f^{(n)}(x) = R(x) \cdot e^{-\frac1x} \]
+  with $R(x) = \frac{P(x)}{Q(x)}$ with $P$ and $Q$ as polynomials.
+  $R$ is a rational function (i.e. division of two polynomials).
+
+  \[ \lim_{x\to0_+} R(x) \cdot e^{-\frac1x} = 0 \]
+  Hence $f^{(n)}(0) = 0$ and therefore Taylor series
+  $T_f(x; 0) = \sum_{k=0}^\infty \frac{0}{k!} x^k = 0$.
+\end{ex}
+
+\begin{rem}
+  Taylor:
+  \[ R_f(x) = T_f(x; 0) - f(x) \]
+  It holds that
+  \[ \abs{R_f(x)} \leq c_n \cdot \abs{x}^n \qquad \forall n \in \mathbb N \]
+\end{rem}
+
+\begin{theorem}
+  Let $f(x) = \sum_{k=0}^\infty a_k (x - x_0)^k$ be a power series in $\xi = x - x_0$.
+  Let $\rho(f) > 0$. We already know that $f$ is differentiable for all $\abs{\xi} = \abs{x - x_0} < \rho(f)$ (differentiable by $x$) and $f'$ is a power series with convergence radius $\rho(f') = \rho(f)$.
+  \[ f'(x) = \sum_{k=1}^\infty a_k \cdot k x^{k-1} \]
+  By complete induction it follows that:
+  \begin{itemize}
+    \item For all $n \in \mathbb N$ there exists $f^{(n)}(x)$ as power series of form
+      \[
+        f^{(n)}(x)
+        = \sum_{k=n}^\infty a_k \cdot k \cdot (k-1) \cdot (k-2)
+          \cdot \ldots (k-n+1) \cdot x^{k-n}
+      \]
+    \item
+      $f^{(n)}$ as convergent power series is a continuous function. Hence,
+      \[ f^{(n)}(x_0) = a_n \cdot n \cdot (n-1) \cdot (n-2) \ldots (n-n+1) = a_n \cdot n! \]
+      \[ a_n = \frac{f^{(n)}(x_0)}{n!} \]
+      Backsubstitution in the power series yields
+      \[
+        f(x) = \sum_{k=0}^\infty a_k (x - x_0)^k
+          = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k
+          = T_f(x; x_0)
+      \]
+      Hence $f$ has a power series representation, then the power series is the Taylor series in $f$.
+  \end{itemize}
+\end{theorem}
+
+\index[English]{Analytical function}
+\index[German]{\foreignlanguage{ngerman}{Analytische Funktion}}
+\begin{rem}
+  A function representable with a power series is called \emph{analytical}.
+  In the complex space, once differentiable means arbitrary often differentiable.
+\end{rem}
+
+\section{Curves in $\mathbb R^n$}
+%
+\index[English]{Parametric curve}
+\index[German]{\foreignlanguage{ngerman}{Parametrische Kurve}}
+\begin{defi}
+  A parametric curve is a map $\gamma: I \to \mathbb R^n$ where $I$ is an interval.
+  \[
+    \gamma(t) = \begin{bmatrix}
+      \gamma_1(t) \\
+      \gamma_2(t) \\
+      \vdots \\
+      \gamma_n(t)
+    \end{bmatrix}
+  \]
+  where every function $\gamma_i: I \to \mathbb R$ ($i = 1, \ldots, n$) is continuous.
+  Often we write $\gamma_i(t) = x_i(t)$.
+  If every $\gamma_i$ is differentiable in $I$, a differentiable, parameterized curve
+  is given. $t$ is the curve parameter.
+
+  We call $\Gamma = \setdef{\gamma(t)}{t \in I} = \gamma(I) \subseteq \mathbb R$
+  the trace of the curve $\gamma$.
+\end{defi}
+
+\begin{ex}
+  \[ \gamma: [0, 4\pi] \to \mathbb R^2 \]
+  \[ \gamma(t) = \begin{bmatrix} \cos(t) \\ \sin(t) \end{bmatrix} \]
+  In this example, every point on the curve is hit twice by the function.
+
+  \[ \Gamma = \setdef{\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \in \mathbb R}{x_1^2 + x_2^2 - 1 =0 } \]
+  $F(x_1, x_2) = x_1^2 + x_2^2 - 1 = 0$ is called trace equation of the curve
+  \[ \tilde{\gamma}(t) = \begin{bmatrix} \cos{t} \\ -\sin{t} \end{bmatrix} \text{ in } I = [0, 4\pi] \]
+
+  If $\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} \cos{t} \\ \sin{t} \end{bmatrix}$, then
+  \[ x_2^1 + x_2^2 - 1 = \cos^2(t) + \sin^2(t) - 1 = 1 - 1 = 0 \]
+  On the inverse, let $\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \in \mathbb R^2$ with $x_1^2 + x_2^2 = 1$. Then there exists $t \in [0,2\pi)$ such that $x_1 = \cos{t}$ and $x_2 = \sin{t}$.
+
+  In this example it holds that $\tilde{\gamma} \neq \gamma$, but $T = \tilde{T}$.
+\end{ex}
+
+\begin{ex}
+  Let $\tilde{\gamma}(t) = \begin{bmatrix} \cos{t} \\ \sin{t} \end{bmatrix}$.
+
+  \[ \forall \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \in \tilde{T}: T(x_1, x_2) = x_1^2 + x_2^2 - 1 = 0 \]
+  but
+  \[ \tilde{T} \neq \setdef{\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}}{F(x_1, x_2) = 0} \]
+\end{ex}
+
+\begin{defi}
+  Let $\gamma: I \to \mathbb R^n$ be a differentiable, parameterized curve.
+  We define
+  \[
+    \dot{\gamma}(t) =
+    \begin{bmatrix} \gamma'_1(t) \\ \gamma'_2(t) \\ \vdots \\ \gamma'_n(t) \end{bmatrix}
+    = \begin{bmatrix} x'_1(t) \\ x'_2(t) \\ \vdots \\ x'_n(t) \end{bmatrix}
+  \]
+  and we call $\dot\gamma(t)$ the derivation vector of $\gamma$ in $t$.
+  If $\gamma$ is considered as motion curve, then $\dot\gamma(t)$ is considered as
+  speed vector of $\gamma$ in $t$.
+
+  Consider
+  \[ \dot{\gamma}(t) = \lim_{h\to 0} \frac{1}{R} \left[\gamma(t + h) - \gamma(t)\right] \]
+  as illustrated in Figure~\ref{img:curve_example}.
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/curve_example.pdf}
+      \caption{Curve example}
+      \label{img:curve_example}
+    \end{center}
+  \end{figure}
+
+  If $\dot{\gamma}(t) \neq 0$, then $\dot{\gamma}$ is tangential into $\Gamma$
+  and we denote $\dot\gamma(t)$ as tangential vector of $\gamma$ in $t$.
+
+  If $\dot\gamma(t) \neq 0$, we set
+  \[ T_\gamma(t) = \frac{\dot\gamma(t)}{\norm{\dot\gamma(t)}_2} \]
+  and we call $T_\gamma(t)$ the tangential unit vector of $\gamma$ in $t$.
+\end{defi}
+
+\begin{ex}
+  \[ \gamma: \mathbb R \to \mathbb R^2 \]
+  \[ \gamma(t) = \begin{bmatrix} t^2 - 1 \\ t^3 - 1 \end{bmatrix} \text{ differentiable} \]
+
+  \[ \gamma(1) = \begin{bmatrix} 1-1 \\ 1-1 \end{bmatrix} = \vec0 \]
+  \[ \gamma(-1) = \begin{bmatrix} 1-1 \\ -1+1 \end{bmatrix} = \vec0 \]
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/double_point.pdf}
+      \caption{A double pointed curve}
+      \label{img:dbl-point}
+    \end{center}
+  \end{figure}
+
+  This curve has a double point, meaning that one point is crossed two times (compare with Figure~\ref{img:dbl-point}).
+  \[ \dot\gamma(t) = \begin{bmatrix} 2t \\ 3t^2 - 1 \end{bmatrix} \]
+  \[ \dot\gamma(-1) = \begin{bmatrix} -2 \\ 2 \end{bmatrix} \]
+  \[ \dot\gamma(1) = \begin{bmatrix} 2 \\ 2 \end{bmatrix} \]
+\end{ex}
+
+\index[English]{Regular curve}
+\index[German]{\foreignlanguage{ngerman}{Reguläre Kurve}}
+\begin{defi}
+  % TODO: verify the following notes
+  Let $\gamma: I \to \mathbb R^n$ be a differentiable, parameterized curve.
+  $\gamma$ is called \emph{regular} curve, if $\dot\gamma(t) \neq \vec0 \forall t \in I$.
+\end{defi}
+
+\index[English]{Neil's parabola}
+\index[German]{\foreignlanguage{ngerman}{Neilsche Parabel}}
+\begin{ex}
+  \[ \gamma(t) = \begin{bmatrix} t^2 \\ t^3 \end{bmatrix} \]
+  is called \emph{Neil's parabola} and non-regular.
+  \[ \dot\gamma(t) = \begin{bmatrix} 2t \\ 3t^3 \end{bmatrix} \]
+  \[ \dot\gamma(0) = \vec0 \]
+  Has no tangent in the root.
+\end{ex}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/neils_parabola.pdf}
+    \caption{Neil's parabola}
+  \end{center}
+\end{figure}
+
+\begin{ex}
+  \[
+    \gamma(t)
+    = \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix}
+    = \begin{bmatrix} a\cos(t) \\ b\sin(t) \end{bmatrix}
+  \]
+  $a, b > 0$ and $t \in [0,2\pi]$.
+  We search for a trace equation of $\gamma$:
+  \[
+    \frac{x_1(t)}{a} = \cos(t)
+    \qquad
+    \frac{x_2(t)}{b} = \sin(t)
+  \]
+
+  We use the trace equation of the unit circle:
+  \[ \left(\frac{x_1}{a}\right)^2 + \left(\frac{x_2}{b}\right)^2 - 1 = 0 \]
+  \[ \frac{x_1^2}{a^2} + \frac{x_2^2}{b^2} = 1 \]
+
+  $\gamma$ has an ellipsis as trace with major axes.
+
+  % TODO:
+  % TODO: ellipsis.svg
+\end{ex}
+
+%\index[English]{}
+%\index[German]{\foreignlanguage{ngerman}{}}
 
 
 \clearpage
