@@ -3582,6 +3582,311 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   % TODO: ellipsis.svg
 \end{ex}
 
+\meta{lecture}{6th of May 2016}{Wolfgang Ring}
+
+\section{Hyperbolic functions}
+
+\index[English]{Cosine hyperbolic function}
+\index[German]{\foreignlanguage{ngerman}{Cosinus Hyperbolicus Funktion}}
+\index[English]{Hyperbolic cosine function}
+\index[English]{Sine hyperbolic function}
+\index[German]{\foreignlanguage{ngerman}{Sine Hyperbolicus Funktion}}
+\index[English]{Hyperbolic sine function}
+\begin{defi}
+  We define the \emph{cosine and sinus hyperbolic functions} as follows:
+  \[ \cosh: \mathbb C \to \mathbb C; \cosh(z) = \frac12 \left(e^z + e^{-z}\right) \]
+  \[ \sinh: \mathbb C \to \mathbb C; \sinh(z) = \frac12 \left(e^z - e^{-z}\right) \]
+
+  For real values we get Figure~\ref{img:coshsinh}.
+
+  Properties:
+  \begin{align*}
+    TODO & \\
+    \cosh^2(x) - \sinh^2(x) &= \frac14 \left(e^{2x} + 2 e^x + TODO \right) \\
+      &= \frac14 \cdot 4 \cdot 1 = 1 \\
+    \cosh^2(x) - \sinh(x) &= 1
+  \end{align*}
+\end{defi}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/sinhcosh.pdf}
+    \caption{Plot of hyperbolic cosine and sine}
+    \label{img:coshsinh}
+  \end{center}
+\end{figure}
+
+\begin{ex}
+  Let $y: \mathbb R \to \mathbb R^2$.
+  \[
+    \gamma(t)
+      = \begin{bmatrix} \underbrace{a \cosh(t)}_{>0} \\ b \sinh(t) \end{bmatrix}
+      = \begin{bmatrix} x(t) \\ y(t) \end{bmatrix}
+  \] \[
+    \frac{(x(t))^2}{a^2} - \frac{(y(t))^2}{b^2} = \cosh^2(t) - \sinh^2(t) = 1
+  \]
+  hence the trace $T$ of $\gamma$ is inside the hyperbola
+  \[ H = \setdef{\begin{bmatrix} x \\ y \end{bmatrix} \in \mathbb R^2}{\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1} \]
+  \begin{figure}[h!]
+    \begin{center}
+      \includegraphics{img/hyperbolic_hyperbola.pdf}
+      \caption{Hyperbola $H$}
+    \end{center}
+  \end{figure}
+\end{ex}
+
+\begin{theorem}
+  Let $I \subseteq \mathbb R$ be an interval and $f: I \to \mathbb R$
+  continuously differentiable. Then
+  \[
+    \left.\begin{array}{c}
+      t \mapsto \begin{bmatrix} t \\ f(t) \end{bmatrix} \\
+      I \to \mathbb R^2
+    \end{array}\right\}
+  \]
+  a parametric, differentiable curve.
+  The function graph is equivalent to the trace of the curve.
+\end{theorem}
+
+\begin{theorem}[Representation as function graph]
+  Let $\gamma: I \to \mathbb R^2$ a continuously differentiable curve,
+  $I$ is an interval and
+  \[
+    \gamma(t) = \begin{bmatrix} \gamma_1(t) \\ \gamma_2(t) \end{bmatrix}
+    = \begin{bmatrix} x(t) \\ y(t) \end{bmatrix}
+  \]
+  it holds that
+  \[ \dot{\gamma}_1(t) \neq 0 \quad \forall t \in I \]
+  Then there exists a continuously differentiable function
+  $f: J = \gamma_1(I) \to \mathbb R$ such that the graph of $f$
+  matches the trace of $\gamma$.
+
+  Let $x_0 = \gamma_1(t_0)$. Then it holds that
+  \[ f'(x_0) = \frac{\dot{y}(t_0)}{\dot{x}(t_0)}. \]
+  If $\gamma$ is differentiable twice in $t_0$,
+  then $f$ is differentiable twice in $x_0$.
+  \[ f''(x_0) = \frac{\dot{x}(t_0) \ddot{y}(t_0) - \ddot{x}(t_0) \dot{y}(t_0)}{[\dot{x}(t_0)]^3} \]
+\end{theorem}
+\begin{proof}
+  $\dot{y}_1$ has no root, is continuous,
+  this means $\dot{\gamma}_1$ has a uniform sign in $I$.
+  Hence $\gamma_1$ is strictly monotonical in $I$.
+  So $\gamma_1: I \to J = \gamma_1(I)$ is bijective.
+
+  Let $\gamma_1^{-1}: J \to I$ be the inverse function.
+  Because $\dot{\gamma}_1 \neq 0$ in $I$ is $\gamma_1^{-1}$ is differentiable
+  with
+  \[ \left(\gamma_1^{-1}\right)'(s) = \frac{1}{\dot{\gamma}_1(\gamma_1^{-1}(s))} \]
+  We define \[ f(x) = \gamma_2(\gamma_1^{-1}(x)) \]
+  \[ I \to \mathbb R \]
+
+  Let $T_f = \setdef{(x, f(x))}{x \in I}$ be the graph of $f$ and $(x, f(x)) \in T_f$;
+  $(x, f(x)) = (x, \gamma_2(\gamma_1^{-1}(x)))$.
+  Let $\gamma_1^{-1}(x) = t \in I$ and therefore $x = \gamma_1(t)$. So it holds that
+  \[ (x, f(x)) = (\gamma_1(t), \gamma_2(t)) \in T \qquad \text{\dots{} trace of } \gamma \]
+
+  On the opposite, we have $(\gamma_1(t), \gamma_2(t)) \in T$.
+  Let $x = \gamma_1(t) \in J$ and $t = \gamma_1^{-1}(x)$ and $(\gamma_1(t), \gamma_2(t)) = (x, \gamma_2(\gamma_1^{-1}(x))) = (x, f(x)) \in T_f$.
+
+  \[ \left.f'(x)\right|_{x = x_0} = \dot{\gamma}_2(\gamma_1^{-1}(x_0)) \cdot \frac{1}{\dot{\gamma}_1^{-1}(x_0)} = \frac{\dot{y}(t_0)}{\dot{x}(t_0)} \]
+  Let $\gamma_1^{-1}(x_0) = t_0$.
+
+  \[
+    f''(x_0) = \frac{\ddot{\gamma_2}(t_0) \cdot \frac{1}{\dot{\gamma}_1(t_0)} \cdot \dot{\gamma}_1(t_0) - \dot{\gamma}_2(t_0) \cdot \ddot{\gamma}_1(t_0) \cdot \frac{1}{\dot{\gamma}_1(t_0)}}{(\dot{\gamma}_1(t_0))^2}
+  \] \[
+    = \frac{\ddot{\gamma}_2(t_0) \cdot \dot{\gamma}_1(t_0) - \ddot{\gamma}_1(t_0) \cdot \dot{\gamma}_2(t_0)}{(\dot{x}(t_0))^3}
+  \]
+  \[ = \frac{\ddot{\gamma}(t_0) \cdot \dot{x}(t_0) - \dot{y}(t_0) \ddot{x}(t_0)}{(\dot{x}(t_0))^3} \]
+\end{proof}
+
+TODO
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics{img/parametric_curve_hyperbola.pdf}
+    \caption{Parametric curve}
+  \end{center}
+\end{figure}
+
+\section{Arc length of a parametric curve}
+%
+\begin{theorem}
+  Let $\gamma: I = [a,b] \to \mathbb R^n$ be a parametric curve.
+  Let $z = \set{t_0 = a, t_1, t_2, \ldots, t_N = b}$ with $t_{i-1} < t_i$
+  for $i = 1, \ldots, N$ be a partition of the interval $I$.
+  We denote the length of the polygonal line through the partition points
+  $\gamma(t_0)$, $\gamma(t_1)$, \ldots, $\gamma(t_N)$ with
+  \[ s(z) = s_{\gamma}(z) = \sum_{i=1}^{N} \norm{\gamma(t_1) - \gamma(t_{i-1})} \]
+
+  Let $z^*$ be more detailed than $z$. Then it holds that
+  \[ s(z^*) \geq s(z) \]
+\end{theorem}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/arc.pdf}
+    \caption{Approximation of the arc length}
+  \end{center}
+\end{figure}
+\begin{proof}[Insertion of partition points]
+  Let $z = \set{t_0 < t_1 < \ldots < t_N}$ and $z^* = \set{t_0 < \ldots < t_{k-1} < t' < t_k < \ldots < t_N}$.
+  \begin{align*}
+    s(z)   &= \sum_{i=1}^N \norm{\gamma(t_i) - \gamma(t_{i-1})} \\
+    s(z^*) &= \sum_{i=1}^{k-1} \norm{\gamma(t_i) - \gamma(t_{i-1})} \\
+           & + \underbrace{\norm{\gamma(t') - \gamma(t_{k-1})} + \norm{\gamma(t_k) - \gamma(t')}}_{\geq \norm{\gamma(t_K) - \gamma(t') + \gamma(t') - \gamma(t_{K-1})}} \\
+           &+ \sum_{i=K+1}^N \norm{\gamma(t_i) - \gamma(t_{i-1})} \\
+           &\geq \sum_{i=1}^N \norm{\gamma(t_1) - \gamma(t_{i-1})} = s(z)
+  \end{align*}
+  For insertion of multiple points use induction.
+\end{proof}
+
+\index[English]{Rectifiable curve}
+\index[German]{\foreignlanguage{ngerman}{Rektifizierbare Kurve}}
+\index[English]{Length of a curve}
+\index[German]{\foreignlanguage{ngerman}{Länge einer Kurve}}
+\index[English]{Curve length}
+\index[German]{\foreignlanguage{ngerman}{Kurvenlänge}}
+\begin{defi}
+  Let $\gamma: I = [a,b] \to \mathbb R^n$ be a continuous curve.
+  $\gamma$ is call \emph{rectifiable} if
+  \[ s(\gamma) = \sup{s(z)} < \infty \]
+  where $z$ is a partition of $I$.
+  In this case $s(\gamma)$ is called length of curve $\gamma$.
+\end{defi}
+\begin{ex}
+  Let $\gamma: I \to \mathbb R^n$ be Lipschitz continuous.
+  Hence
+  \[ \exists L \geq 0: \norm{\gamma(s) - \gamma(t)} \leq L(s - 1)  \]
+  for all $s,t \in I$. Then $\gamma$ is rectifiable and $s(\gamma) \leq L \cdot (b-a)$.
+\end{ex}
+\begin{proof}
+  Let $z$ be a partition of $I$.
+  \[ z = \set{t_0 < t_1 < t_2 < \ldots < z_N} \]
+  Then it holds that
+  \begin{align*}
+    s(z) &= \sum_{i=1}^N \norm{\gamma(t_i) - \gamma(t_{i-1})} \\
+         &\leq \sum_{i=1}^N L \abs{t_i - t_{i-1}} \\
+         &= L \sum_{i=1}^N (t_i - t_{i-1}) \\
+         &= L (t_N - t_0) = L(b - a)
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  Let $\gamma: I \to \mathbb R^n$ be a continuous curve.
+  \[
+    \gamma(t) = \begin{bmatrix}
+      \gamma_1(t) \\
+      \vdots \\
+      \gamma_n(t)
+    \end{bmatrix}
+  \]
+  Let every $\gamma_i: I \to \mathbb R$ be a primitive function of a regulated function
+  (hence $\dot{\gamma}_i$ exists for all $t$ except for finitely many points,
+  furthermore $\dot{\gamma}_i$ has left-sided and right-sided limits everywhere).
+  \[ I = [a,b] \]
+  Then $\gamma$ is rectifiable and it holds that
+  \[ s(\gamma) = \int_a^b \norm{\dot{\gamma}(t)} \, dt \]
+\end{theorem}
+
+\begin{rem}[Some necessary preparations]
+  \[
+    \int_a^b \gamma(t) \, dt \coloneqq
+    \begin{bmatrix}
+      \int_a^b \gamma_1(t) \, dt \\
+      \int_a^b \gamma_2(t) \, dt \\
+      \vdots \\
+      \int_a^b \gamma_n(t) \, dt
+    \end{bmatrix}
+  \]
+\end{rem}
+
+\begin{lemma}
+  Let $\gamma: [a,b] \to \mathbb R^n$ be a continuous curve.
+  Then it holds that
+  \[ \norm{\int_a^b \gamma(t) \, dt} \leq \int_a^b \norm{\gamma(t)} \, dt \]
+\end{lemma}
+\begin{proof}
+  Let $\varphi_i$ be a step function which approximates $\gamma_i$ uniformly.
+  Hence, we assume that $\inorm{\varphi_i - \gamma_i} < \varepsilon$.
+  $z_i$ is a partition such that $\varphi_i$ is constant at every interval.
+
+  Define $z = \bigcup_{i=1}^n z_i$ ascendingly ordered.
+  Then every $\varphi_i$ is also a step function in terms of $z$.
+  \[ z = \set{t_0 < t_1 < \ldots < t_N} \]
+  \[ \varphi_i(t) = c^i_k \quad \text{ for } t \in (t_{k-1}, t_k) \]
+  \[ \int_a^b \varphi_i(t) \, dt = \sum_{k=1}^n c_k^i (t_k - t_{k-1}) \]
+  Build
+  \[
+    \varphi(t) = \begin{bmatrix}
+      \varphi_1(t) \\
+      \vdots \\
+      \varphi_N(t)
+    \end{bmatrix}
+  \]
+  Then it holds that
+  \[
+    \norm{\int_a^b \varphi(t) \, dt} = \norm{
+      \begin{bmatrix}
+        \sum_{k=1}^N c_k^1 (t_k - t_{k-1}) \\
+        \sum_{k=1}^N c_k^2 (t_k - t_{k-1}) \\
+        \vdots \\
+        \sum_{k=1}^N c_k^n (t_k - t_{k-1})
+      \end{bmatrix}
+    } = \norm{\sum_{k=1}^N (t_k - t_{k-1}) \cdot \begin{bmatrix} c_k^1 \\ \vdots \\ c_k^n \end{bmatrix}}
+  \] \[
+    \underbrace{\leq}_{\text{triangle ineq. in } \mathbb R^n} \sum_{k=1}^N (t_k - t_{k-1})
+    \norm{\begin{bmatrix} c_k^1 \\ \vdots \\ c_k^n \end{bmatrix}}
+    = \int_a^b \underbrace{\norm{\varphi(t)}}_{\text{step function in } \mathbb R} \, dt
+  \] \[
+    \norm{\gamma(t) - \varphi(t)} = \left(\sum_{i=1}^n \abs{\gamma_i(t) - \varphi_i(t)}^2\right)^{\frac12}
+  \] \[
+    \leq \left(\sum_{i=1}^n \varepsilon^2\right)^{\frac12} = \sqrt{n} \cdot \varepsilon
+  \] \[
+    \Rightarrow \int_a^b \norm{\gamma(t) - \varphi(t)} \, dt < \varepsilon \sqrt{n} (b - a)
+   \] \[
+    \norm{\int_a^b (\gamma(t) - \varphi(t)) \, dt} = \norm{
+      \begin{bmatrix}
+        \int_a^b \gamma_1(t) - \varphi_1(t) \, dt \\
+        \int_a^b \gamma_2(t) - \varphi_2(t) \, dt \\
+        \vdots \\
+        \int_a^b (\gamma_n(t) - \varphi_n(t)) \, dt
+      \end{bmatrix}
+    }
+  \] \[
+    = \norm{\begin{bmatrix}
+      \abs{\int_a^b (\gamma_1(t) - \varphi_1(t)) \, dt} \\
+      \abs{\int_a^b (\gamma_2(t) - \varphi_2(t)) \, dt} \\
+      \vdots \\
+      \abs{\int_a^b (\gamma_n(t) - \varphi_n(t)) \, dt}
+    \end{bmatrix}}
+    \leq
+    \norm{\begin{bmatrix}
+      \varepsilon (b - a) \\
+      \varepsilon (b - a) \\
+      \vdots \\
+      \varepsilon (b - a) \\
+    \end{bmatrix}}
+    = \varepsilon (b - a) \sqrt{n}
+  \]
+  Hence it holds that
+  \[
+    \norm{\int_a^b \gamma(t) \, dt}
+    = \norm{\int_a^b \varphi(t) \, dt - \int_a^b (\varphi(t) - \gamma(t)) \, dt}
+  \] \[
+    \leq \norm{\int_a^b \varphi(t) \, dt} + \norm{\int_a^b (\varphi(t) - \gamma(t)) \, dt}
+  \] \[
+    \leq \int_a^b \norm{\varphi(t)} \, dt + \varepsilon (b - a) \sqrt{n}
+  \] \[
+    \leq \int_a^b \left(\norm{\varphi(t) - \gamma(t)} + \norm{\gamma(t)}\right) \, dt
+    + \varepsilon (b - a) \sqrt{n}
+  \] \[
+    \leq \varepsilon (b - a) \sqrt{n} + \int_a^b \norm{\gamma(t)} \, dt + \varepsilon (b - a) \sqrt{n}
+  \]
+  Hence
+  \[ \norm{\int_a^b \gamma(t) \, dt} \leq \int_a^b \norm{\gamma(t)} \, dt + 2 \varepsilon (b - a) \sqrt{n} \qquad \forall \varepsilon > 0 \]
+  Hence
+  \[ \norm{\int_a^b \gamma(t) \, dt} \leq \int_a^b \norm{\gamma(t)} \, dt \]
+\end{proof}
+
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
 

@@ -54,6 +54,7 @@
 \DeclareMathOperator\rank{rank} % rank of a matrix
 \DeclareMathOperator\sign{sign}
 \DeclareMathOperator\ind{index}
+\DeclareMathOperator\spec{spectrum}
 
 \DeclarePairedDelimiter\norm\lVert\rVert
 
@@ -4775,6 +4776,7 @@ Revision:
   \end{description}
 \end{proof}
 
+% TODO: reformat
 \begin{ex}
   \label{bsp-9.18}
   \[
@@ -4795,6 +4797,353 @@ Revision:
     \end{array}
   \]
 \end{ex}
+
+\meta{lecture}{9th of May 2016}{Franz Lehner}
+\begin{rem}
+  An Euclidean ring is a ring in which the extended Euclidean algorithm works.
+\end{rem}
+\begin{theorem}
+  Let $p(x), q(x) \in \mathbb K[x]$ and $q(x) \neq 0$.
+  Then there exists exactly one $s(x)$ and $r(x)$ such that $\deg{r(x)} < \deg{q(x)}$.
+  \[ p(x) = r(x) \cdot q(x) + r(x) \]
+\end{theorem}
+
+\index[English]{Division of a polynomial by a polynomial}
+\index[German]{Division eines Polynoms durch einen Polynom}
+\begin{defi}
+  \label{defi-9.19}
+  $q(x)$ divides $p(x)$ if $\exists s(x): p(x) = s(x) \cdot q(x)$
+  (i.e. division happens without remainder).
+\end{defi}
+
+\begin{theorem}
+  \label{defi-9.20}
+  Consider $q(x) = x - \xi$.
+  \[ \Rightarrow p(x) = s(x) \cdot (x - \xi) + r \]
+  \[ \Rightarrow p(\xi) = r \]
+\end{theorem}
+
+\begin{cor}
+  $\xi$ is a root of $p(x)$ $\Leftrightarrow x - \xi$ is divisor of $p(x)$.
+\end{cor}
+
+\begin{theorem}[Horner schema]
+  Let $p(x) \in \mathbb K[x]$ and $\lambda \in \mathbb K$.
+  Determine $p(\lambda)$.
+
+  \[ p(x) = a_n x^n + a_{n-1} x^{n-1} + \ldots + a_{1} x + a_0 \]
+  \[ p(\lambda) = a_n \lambda^n + a_{n-1} \lambda^{n-1} + \ldots + a_{1} \lambda + a_0 \]
+\end{theorem}
+
+\begin{rem}
+  Naively it requires a quadratic number of evaluations (for $\lambda$, per $\lambda-1$, per \dots = $\frac{n(n+1)}{2} \approx n^2$).
+  Using binary composition it takes a logarithmic times linear number of evaluations (for $\lambda$, for $\lambda-1$, \dots).
+  However, it also works with $n$ multiplications.
+  \[ p(x) = (a_n \lambda^{n-1} + a_{n-1} \lambda^{n-2} + \ldots + a_1) \lambda + a_0 \]
+  \[ = ((a_n \lambda^{n-2} + a_{n-1} \lambda^{n-3} + \ldots + a_2)\lambda + a_1) \lambda + a_0 \]
+\end{rem}
+
+\begin{ex}
+  \begin{align*}
+    p(x) &= a_3 \lambda^3 + a_2 \lambda^2 + a_1 \lambda + a_0  & a_3 \\
+         & (a_3 \lambda^2 + a_2 \lambda + a_1) \lambda + a_0   & a_3 \lambda + a_2 \\
+         & ((a_3 \lambda + a_2) \lambda + a_1) \lambda + a_0   & ((a_3 \lambda + a_2) \lambda + a_1) \lambda + a_0
+  \end{align*}
+
+  Algorithm:
+  \[ \xi_n = a_n \text{ for } k = n-1, \ldots, 0 \]
+  \[ \xi_k = \lambda \xi_{k+1} + a_k \]
+  \[ \Rightarrow p(\lambda) = \xi_0 \]
+
+  We evaluate:
+  \[ p(x) = 3x^5 - x^4 + 2x^3 + x^2 + 1 \]
+  Let $\lambda = 5$.
+  \begin{align*}
+    \xi_5 &= 3 \\
+    \xi_4 &= 5 \cdot 3 -1 = 14 \\
+    \xi_3 &= 5 \cdot 14 + 2 = 72 \\
+    \xi_2 &= 5 \cdot 72 + 1 = 361 \\
+    \xi_1 &= 5 \cdot 36 + 0 = 1805 \\
+    \xi_0 &= 5 \cdot 1805 + 1 = 9026 \\
+  \end{align*}
+  Compare with division:
+  % TODO: reformat
+  \[
+    \begin{array}{rl}
+      3x^5 - x^4 + 2x^3 + x^2 + 1 &: x - 5 = 3x^4 + 14x^3 + 72x^2 + 361x + 1805 \\
+      3x^5 - 15x^4 \\
+    \hline
+      0 + 14x^4 + 2x^3 + x^2 + 1 \\
+      0 + 14x^4 - 70x^3 \\
+    \hline
+      0 + 0     + 72x^3 + x^2 + 1 \\
+      0 + 0     + 72x^3 - 360x^2 \\
+    \hline
+      0 + 0     + 0     + 361x^2 + 1 \\
+      0 + 0     + 0     + 361x^2 - 1805x \\
+    \hline
+      0 + 0     + 0     + 0      + 1805x + 1 \\
+      0 + 0     + 0     + 0      + 1805x - 5 \cdot 1805 \\
+    \hline
+      0 + 0     + 0     + 0      + 0     + 9026
+    \end{array}
+  \]
+
+  The Horner scheme is equivalent to division, but written down more efficiently.
+\end{ex}
+
+\index[English]{Irreducible polynomial}
+\index[German]{\foreignlanguage{ngerman}{Irreduzibler Polynom}}
+\begin{defi}
+  \label{defi-9.23}
+  A polynomial $p(x) \in \mathbb K[x]$ is called \emph{reducible}
+  if $\exists p_1(x) \exists p_2(x) \in \mathbb K[x]: \deg{p_1(x)}, \deg{p_2(x)} < \deg{p(x)}$
+  and $p(x) = p_1(x) \cdot p_2(x)$ (hence there exists a non-trivial divisor). % TODO: echter Teiler == non-trivial divisor?!
+  Otherwise $p(x)$ is called irreducible.
+\end{defi}
+
+\begin{rem}
+  \label{bem-9.24}
+  \begin{itemize}
+    \item Constant and linear polynomials are irreducible.
+    \item Irreducible polynomials of degree $\geq 2$ have no roots
+      (otherwise $x - \xi$ is divisor!)
+  \end{itemize}
+\end{rem}
+
+\begin{ex} \hfill{}
+  \begin{itemize}
+    \item $x^2-2$ is irreducible in $\mathbb K = \mathbb Q$.
+      Is reducible in $\mathbb K = \mathbb R$ with $(x - \sqrt{2})(x + \sqrt{2})$.
+    \item $x^2 + 1$ is irreducible in $\mathbb K = \mathbb Q$ and $\mathbb K = \mathbb R$
+      and reducible in $\mathbb K = \mathbb C$ with $(x - i)(x + i)$.
+    \item $x^2 + x + 1 \in \mathbb Z_2[x] \Rightarrow$ irreducible.
+      \[ x^3 + x + 1 \text{ is irreducible} \]
+      \[ x^5 + x + 1 = (x^2 + x + 1)(x^3 + x^2 + 1) \text{ is reducible} \]
+  \end{itemize}
+\end{ex}
+
+\begin{rem}
+  How about explicitly defining fields such that $x^2 + x + 1$ is reducible?
+
+  Consider $(\sqrt{-1})^2 + 1 = 0$.
+  In which field does $x^2 + x + 1 \in \mathbb Z_2[x]$ have a root?
+
+  Let $\alpha$ be a \enquote{number} such that $\alpha^2 + \alpha + 1 = 0$.
+  \[ \Rightarrow \alpha^2 = \alpha + 1 \]
+  \[ \alpha^3 = \alpha (\alpha + 1) = \alpha^2 + \alpha = \alpha + 1 + \alpha = 1 \]
+  \begin{align*}
+    (a \cdot \alpha + b) (c \cdot \alpha + d)
+      &= ac \cdot \underbrace{\alpha^2}_{=\alpha + 1} (b \cdot c + a \cdot d) \cdot \alpha + bd \\
+      &= (ac + bc + ad) \alpha + (ac + bd)
+  \end{align*}
+  \[ \Rightarrow \setdef{a \cdot \alpha + b}{a,b \in \mathbb Z_2} \eqqcolon \operatorname{GF}(2^2) = \operatorname{GF}(4) \]
+  is a ring and even a field\footnote{GF stands for Galois field}.
+  For the practicals you need to determine the inverse $\alpha^{-1} = \alpha^2$.
+
+  For all $p \in \mathbb P$ (and $k \in \mathbb N$) you need to consider a different Galois field $\operatorname{GF}(p^k)$ (is a field of order $p^k$).
+\end{rem}
+
+\begin{theorem}{Fundamental theorem of algebra}
+  $\mathbb C$ is algebraically closed,
+  hence every polynomial $p(x) \in \mathbb C[x]$ has a root $\xi \in \mathbb C$.
+  Corollaries:
+  \begin{enumerate}
+    \item $p(x) \in \mathbb C[x]$ is irreducible $\Leftrightarrow \deg{p(x)} \leq 1$
+    \item Every $p(x) \in \mathbb C[x]$ has a factor ring
+      \[ p(x) = (x - \xi_1) (x - \xi_2) \ldots (x - \xi_n) \]
+      where $\xi_i \in \mathbb C$ and $n = \deg{p(x)}$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  No proof given.
+
+  This theorem cannot be proven with means of algebra.
+  You need to study theory of complex functions.
+
+  \[ f'(z_0) = \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} \]
+
+  Theorem of Lionville: Every complex differentiable function is unbounded.
+\end{proof}
+
+\begin{theorem}
+  \label{satz-9.27}
+  In arbitrary fields it holds that:
+  every polynomial has (except for the order) a unique factorization
+  $p(x) = p_n(x) \ldots p_k(x)$ to irreducible factors.
+\end{theorem}
+
+\index[English]{Greatest common polynomial divisor}
+\index[German]{\foreignlanguage{ngerman}{Größter gemeinsamer Polynomteiler}}
+\begin{theorem}
+  Let $p(x)$ and $q(x) \in \mathbb K[x] \setminus \set{0}$.
+  Then there exists a unique monic polynomial (ie. leading coefficient $1$)
+  of maximum degree denoted $\operatorname{gcd}(p(x), q(x))$
+  such that
+  \[ \divides{\operatorname{gcd}(p,q)}{p(x)} \land \divides{\operatorname{gcd}(p,q)}{q(x)} \]
+  Then it holds that \emph{all} common divisors of $p(x)$ and $q(x)$
+  divide $\operatorname{gcd}(p(x), q(x))$.
+\end{theorem}
+
+\begin{proof}
+  Let $g(x)$ be a polynomial of maximum degree, which divides $p(x)$ and $q(x)$.
+  \[ \Rightarrow p(x) = f(x) \cdot g(x) \qquad q(x) = h(x) \cdot g(x) \]
+  Let $d(x)$ be a common divisor, then $\deg{d(x)} \leq \deg{g(x)}$.
+  We apply division to retrieve $g(x) = s(x) \cdot d(x) + r(x)$
+  and $\deg{r(x)} < \deg{d(x)}$.
+  \[ p(x) = \tilde{f}(x) \cdot d(x), \qquad q(x) = \tilde{h}(x) \cdot d(x) \]
+
+  It holds that
+  \[ f(x) \cdot g(x) = \tilde{f}(x) \cdot d(x) \]
+  \[ f(x) \cdot g(x) = f(x) \left(s(x) d(x) + r(x)\right) \]
+  \[ \left(\tilde{f}(x) - f(x) \cdot s(x)\right) \cdot d(x) = r(x) \]
+  \[ \deg{(\text{LHS})} > \deg{(\text{RHS})} \]
+  \[
+    \Rightarrow \tilde{f}(x) = f(x) \cdot s(x) = 0
+    \Rightarrow r(x)= 0 \Rightarrow \divides{d(x)}{g(x)}
+  \]
+\end{proof}
+
+\begin{rem}
+  Only one unique greatest common divisor can exist.
+  Proof is given in the practicals.
+
+  If $p(x) = s(x) \cdot q(x) + r(x)$
+  \[ \Rightarrow \operatorname{gcd}(p(x), q(x)) = \operatorname{gcd}(q(x), r(x)) \]
+  just like for integers.
+\end{rem}
+
+\index[English]{Multiplicity}
+\index[German]{\foreignlanguage{ngerman}{Vielfachheit}}
+\begin{defi}
+  A root $\xi$ of a polynomial $p(x)$ has multiplicity $m$
+  if $\divides{(x - \xi)^{m}}{p(x)}$ but $(x - \xi)^{m+1} \,\not\mid\, p(x)$.
+\end{defi}
+
+\begin{rem}
+  In the practicals we will see that the roots with multiplicity $\geq 2$
+  are the roots of the greatest common divisor $p(x)$ and $q(x)$.
+  \[ (x^n)' = nx^{n-1} \]
+\end{rem}
+
+\section{Eigenvalues and Eigenvectors}
+%
+\index[English]{Eigenvalues}
+\index[German]{\foreignlanguage{ngerman}{Eigenwerte}}
+\index[English]{Eigenvectors}
+\index[German]{\foreignlanguage{ngerman}{Eigenvektoren}}
+\index[English]{Equivalence transformation}
+\index[German]{\foreignlanguage{ngerman}{Äquivalenztransformation}}
+Our goal is to find $f \in \End(V) = \Hom(V, V)$ of a basis $B$ such that
+$\Phi_B^B(f)$ has the simplest possible structure or find (for a given matrix $A$)
+a matrix $T$ such that
+\[ T A T^{-1} \]
+has the simplest possible structure (\enquote{equivalence transformation}).
+
+Compare it with
+\[
+  \Phi_C^B(f) =
+    \begin{bmatrix}
+      1 &        &   &   \\
+        & \ddots &   &   \\
+        &        & 1 &   \\
+        &        &   & 0
+    \end{bmatrix}
+\] \[
+  UAV = \begin{bmatrix}
+    1 &        &   &   \\
+      & \ddots &   &   \\
+      &        & 1 &   \\
+      &        &   & 0
+  \end{bmatrix}
+\]
+
+\index[English]{Spectrum}
+\index[German]{\foreignlanguage{ngerman}{Spektrum}}
+\begin{defi}
+  \label{defi-10.1}
+  Let $V$ be a vector space over $\mathbb K$. Let $f \in \End{V}$.
+  $\lambda \in \mathbb K$ is called eigen value of $f$
+  if there exists $v \in V \setminus \set{0}: f(v) = \lambda \cdot v$.
+  $v$ is called eigen vector of a vector value $\lambda$.
+
+  \[ \spec(f) \coloneqq \setdef{\lambda}{\lambda \text{ is eigenvalue of } f} \]
+  is called \emph{spectrum} of $f$.
+\end{defi}
+
+\index[English]{Eigenspace}
+\index[German]{\foreignlanguage{ngerman}{Eigenraum}}
+\begin{lemma}
+  \label{lemma-10.2}
+  \[ \eta_\lambda = \setdef{v \in V}{f(v) = \lambda v} = \kernel(\lambda \cdot \text{id} - f) \]
+  is a subspace and is called Eigenspace of $f$ for eigenvalue $\lambda$.
+
+  \[ v \in \eta_{\lambda} \Leftrightarrow f(v) = \lambda \cdot v \]
+  \[ \Leftrightarrow \lambda \cdot v - f(v) = 0 \]
+  \[ \Leftrightarrow (\lambda \cdot \text{id} - f)(v) = 0 \]
+  \[ \Leftrightarrow v \in \kernel(\lambda \cdot \text{id} - f) \]
+\end{lemma}
+
+\begin{ex}
+  \label{bsp-10.3}
+  \begin{itemize}
+    \item Let $f = c \cdot \text{id}$
+      \[ \Rightarrow f(v) = c \cdot v \qquad \text{ for all } v \in V \]
+      \[ \Rightarrow \spec(f) = \set{c} \]
+      \[ \lambda = c \qquad \eta_\lambda = V \]
+    \item
+      Let $B$ be a basis of $V$
+      \[ f: V \to V \]
+      \[ b_i \mapsto \lambda_i \cdot b_i \]
+      and continuation theorem: $f(\sum \alpha_i b_i) = \sum \alpha_i \lambda_i b_i$.
+      \[
+        \Leftrightarrow \Phi_B^B(f) = \begin{bmatrix}
+          \lambda_1 &        & \\
+                    & \ddots & \\
+                    &        & \lambda_n
+        \end{bmatrix}
+      \]
+
+      \[ \Rightarrow \spec(f) = \set{\lambda_1, \ldots, \lambda_n} \]
+      \[ \eta_\lambda = \mathcal L\left(b_i \left| \lambda_i = \lambda\right)\right. \]
+      Let $\lambda$ be an Eigenvalue.
+
+      \[
+        \Rightarrow \exists v = \sum \alpha_i b_i:
+        f\left(\sum \alpha_i b_i\right) = \lambda \cdot \sum_{i=1}^n \alpha_i b_i
+      \] \[
+        \sum \alpha_i b_i = \sum_{i=1}^n \alpha_i \lambda_i b_i
+      \] \[
+        \sum (\lambda - \lambda_i) \alpha_i b_i = 0
+      \] \[
+        (b_i) \text{ is linear independent} \Rightarrow (\lambda - \lambda_i) \alpha_i = 0 \forall i
+      \] \[
+        \lambda = \lambda_i \lor \alpha_i = 0
+      \]
+    \item
+      \[ V = C^{\infty}(\mathbb R) \]
+      \[ \frac{d}{dx}: C^{\infty} \to C^{\infty} \]
+      \[ f \mapsto f' = \frac{df}{dx} \]
+      Eigenvectors?
+      \[ y' = \lambda y \]
+      \[ \frac{dy}{dx} = \lambda y \Rightarrow \frac{dy}{y} = \lambda dx \]
+      \[ \int \frac{dy}{y} = \lambda \int dx \]
+      \[ \log{y} = \lambda x + C \]
+      \[ \Rightarrow y = c_1 \cdot e^{\lambda x} \]
+      \[ V = C^{\infty}(\mathbb R, \mathbb C) \]
+      \[ \Rightarrow \spec\left(\frac{d}{dx}\right) = \mathbb R \]
+      \[ \eta_\lambda = \mathcal L(e^{\lambda x}) \]
+      From $e^{iwx}$ follows Fourier transformation.
+    \item
+      $C^\infty [0, L]$
+      \[ \frac{d^2}{dx^2}: C^\infty [0,L] \]
+      \[ \frac{d^2}{dx^2} e^{\lambda x} = \lambda^2 e^{\lambda x} \]
+      \[ \frac{d^2}{dx^2} e^{i\omega x} = -w^2 e^{i\omega x} \]
+      \[ \rightarrow \frac{d^2}{dx^2} \cos{\omega x} = -\omega^2 \cos{\omega x} \]
+      \[ \frac{d^2}{dx^2} \sin(\omega x) = -\omega^2 \sin(\omega x) \]
+  \end{itemize}
+\end{ex}
+
 
 \clearpage
 \begin{otherlanguage}{ngerman}
