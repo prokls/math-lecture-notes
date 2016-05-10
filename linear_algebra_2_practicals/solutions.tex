@@ -1999,4 +1999,29 @@ Let $u \in U$ with $\fun{u,\tilde{w}} \neq 0$.
 \end{ex}
 
 
+\section{Some exercise??}
+% Kovnersatorium
+\[ u_i^*: V \to \mathbb C \]
+\[ x \mapsto \fun{x, u_i} \]
+\[ u_i \cdot u_i^*: V \to V \]
+\[ x \mapsto u_i \fun{x, u_i} \]
+
+\[ \tilde{u}_1 = v_1 = t^0  \qquad v_2 = t^2 \qquad v_3 = t^3 \]
+\[ \int_{-1}^1 t^k \, dt = \frac{1 + (-1)^{k+1}}{k+1} \]
+\[ \int_{-1}^1 (1 - t^t) t^k \, dt = \frac{1 + (-i)^k}{k+1} + \frac{1 + (-1)^k}{k+3} \]
+\[ \fun{t^i, t^j} = \frac{1 + (-1)^{i+j}}{i + j + 1} + \frac{1 + (-1)^{i+j}}{i + j + 3} \]
+\[ \norm{t^0}^2 = 2 - \frac23 = \frac43 \]
+
+
+\[ u_1 = \frac{\sqrt{3}}{2\sqrt{2}} 1 \]
+\[ \tilde{u}_2 = v_2 - \fun{v_2, u_1} u_1 = v_2 - \frac{\fun{v_2, \tilde{u}_1} \tilde{u}_1}{\norm{\tilde{u}_1}^2} = v_2 \]
+\[ \fun{v_2, \tilde{u}_1} = \fun{t, 1} = 0 \]
+\[ \norm{v_2}^2 = \fun{t, t} = \frac23 - \frac25 = 2 \cdot \frac{8}{15} = \frac{4}{15} \]
+
+\[ u_2 = \frac{\sqrt{15}}{2} x \]
+\[ \tilde{u}_3 = v_3 - \underbrace{\fun{v_3, u_2} u_1}_{= \frac{\fun{v_3, \tilde{u}_2} \tilde{u}_1}{\norm{\tilde{u}_1}^2}} - \underbrace{\fun{v_3, u_2}}_{=0} u_2 \]
+\[ = x^2 - \frac4{15} \cdot \frac{\mathbb 1^{\tilde{u}_1}}{\frac43} = x^2 - \frac15 \]
+\[ \fun{u_3, \tilde{u}_1} = \fun{x^2, x^0} = \frac23 - \frac25 = \frac4{15} \]
+\[ \norm{\tilde{u}_3}^2 = \int_{-1}^1 \left(1 - t^2\right) \left(t^2 - \frac15\right)^2 \, dt = \frac{32}{525} \]
+
 \end{document}

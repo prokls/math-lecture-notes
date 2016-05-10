@@ -3887,6 +3887,237 @@ TODO
   \[ \norm{\int_a^b \gamma(t) \, dt} \leq \int_a^b \norm{\gamma(t)} \, dt \]
 \end{proof}
 
+\meta{lecture}{10th of May 2016}{Wolfgang Ring}
+
+\begin{proof}[Proof of the formula for the arc length]
+  Its definition depends on the parameterization.
+  \[ s(\gamma) = \sup_z{s(z)} \]
+  \[ s(z) = \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})} \]
+
+  We show:
+  \begin{enumerate}
+    \item
+      For all decompositions of $z$, it holds that
+      \[ s(z) \leq \int_a^b \norm{\dot\gamma(t)} \, dt \]
+      \[ \Rightarrow s(\gamma) \leq \int_a^b \norm{\dot\gamma(t)} \, dt \]
+    \item
+      \[ \forall \varepsilon > 0 \exists \text{ decomposition } z: s(\gamma) \geq s(z) \geq \int_a^b \norm{\dot\gamma(t)} \, dt - \varepsilon \]
+  \end{enumerate}
+
+  \begin{enumerate}
+    \item Let $z = \set{t_0 < t_1 < \ldots < t_N}$.
+      \begin{align*}
+        s(z) &= \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}  \\
+          &\overset{\substack{\text{fundamental} \\ \text{theorem}}}{=}
+            \sum_{k=1}^N \norm{\int_{t_{k-1}}^{t_k} \dot\gamma(t) \, dt} \\
+          &\overset{\text{Lemma}}{=}
+            \sum_{n=1}^n \int_{t_{k-1}}^{t_k} \norm{\dot\gamma(t)} \, dt \\
+          &\sum_{n=1}^N TODO
+      \end{align*}
+    \item Let $\varepsilon > 0$ be arbitrary.
+      Find decomposition $z$ such that $s(\gamma) \geq s(z) \geq \int_a^b \norm{\dot\gamma(t)} \, dt - \varepsilon$.
+      Let
+      \[ \varphi(t) = \begin{bmatrix} \varphi_1(t) \\ \vdots \\ \varphi_n(t) \end{bmatrix} \]
+      and $\varphi_t$ is a step function in $[a,b]$.
+
+      Every $\varphi_i$ is constant in ($t_{k-1}, t_k$) for $k=1,\ldots,N$.
+      and we let $z = \set{t_0, t_1, \ldots, t_N}$.
+      Let $\varphi_i$ such that $\inorm{\dot\gamma_i - \varphi_i} \leq \frac{\varepsilon}{2(b - a) \sqrt{N}}$.
+
+      Then it holds that $\forall t \in [a,b]$:
+      \[ \norm{\dot\gamma(t) - \gamma(t)} = \left(\sum_{i=1}^n \abs{\dot\gamma_i(t) - \varphi_i(t)}\right)^{\frac12} \]
+      \[
+        \leq \left(\sum_{i=1}^n \inorm{\dot\gamma_i - \varphi_i}^2\right)^{\frac12}
+        \leq \left(\sum_{i=1}^n \left(\frac{\varepsilon}{2(b - a)}^2 \cdot \frac1n\right)\right)^[\frac12]
+        = \frac{\varepsilon}{2 (b - a)}
+      \]
+      We let
+      \begin{align*}
+        \inorm{\dot\gamma - \varphi}
+          &= \sup\set{\norm{\dot\gamma(t) - \varphi(t)}_2: t \in [a,b]} \\
+          &= \max\set{\norm{\dot\gamma(t) - \varphi(t)}_2: t \in [a,b]}
+      \end{align*}
+      It holds that
+      \[ \inorm{\dot\gamma - \varphi} < \frac{\varepsilon}{2 (b - a)} \]
+      \[ z = \set{t_0, t_1, \ldots, t_N} \]
+      \[
+        \norm{\int_{t_{k-1}}^{t_k} \dot\gamma(t) \, dt}
+        = \norm{\int_{t_{k-1}}^{t_k} (\dot\gamma(t) - \varphi(t)) \, dt + \int_{t_{k-1}}^{t_k} \varphi(t) \, dt}
+      \] \[
+        \geq \norm{\int_{t_{k-1}}^{t_k} \varphi(t) \, dt} - \norm{\int_{t_{k-1}}^{t_k} (\dot\gamma(t) - \varphi(t)) \, dt}
+      \]
+      $\varphi$ is constant and the right summand is $\leq \int_{t_{k-1}}^{t_k} \norm{\dot\gamma(t) - \varphi(t)} \, dt$.
+      \[
+        \geq \int_{t_{k-1}}^{t_k} \norm{\varphi(t)} \, dt - \int_{t_{k-1}}^{t_k} \underbrace{\norm{\dot\gamma(t) - \varphi(t)}}_{< \frac{\varepsilon}{2(b-1)}} \, dt
+      \] \[
+        > \int_{t_{k-1}}^{t_k} \norm{\varphi(t)} \, dt - \frac{\varepsilon}{2(b - a)} (t_k - t_{k-1})
+      \] \[
+        s(z) = \sum_{k=1}^N \norm{\int_{t_{k-1}}^{t_k} \dot\gamma(t) \, dt}
+          > \sum_{k=1}^N \int_{t_{k-1}}^{t_k} \norm{\varphi(t)} - \frac{\varepsilon}{2(b - a)} (t_{k} - t_{k-1})
+      \] \[
+        = \int_a^b \norm{\varphi(t)} \, dt - \frac{\varepsilon}{2(b - a)} \underbrace{(t_N - t_0)}_{= b - a}
+      \] \[
+        = \int_a^b \norm{\varphi(t)} \, dt - \frac{\varepsilon}{2}
+      \]
+
+      \[
+        \int_a^b \norm{\varphi(t)} \, dt = \int_a^b \norm{\varphi(t) - \dot\gamma(t) + \dot\gamma(t)} \, dt
+      \] \[
+        \geq \int_a^b \left(\norm{\dot\gamma(t)} - \underbrace{\norm{\varphi(t) - \dot\gamma(t)}}_{< \frac{\varepsilon}{2(b - a)}}\right) \, dt
+      \] \[
+        = \int_a^b \norm{\dot\gamma(t)} \, dt - \frac{\varepsilon}{2}
+      \] \[
+        \Rightarrow s(z) > \int_a^b \norm{\dot\gamma(t)} \, dt - \frac\varepsilon2 - \frac\varepsilon2
+      \] \[
+        \Rightarrow s(\gamma) \geq s(z) > \int_a^b \norm{\dot\gamma(t)} \, dt - \varepsilon
+        \qquad \forall \varepsilon > 0
+      \] \[
+        \Rightarrow s(\gamma) \geq \int_a^b \norm{\dot\gamma(t)} \, dt
+      \]
+  \end{enumerate}
+\end{proof}
+
+\begin{ex}[Circumference of a circle with radius $r$]
+  \[
+    \gamma_r(t) = r \begin{bmatrix}
+      \cos(t) \\
+      \sin(t)
+    \end{bmatrix}
+    \qquad t \in [0, 2\pi];
+    \dot\gamma_t(t) = r \begin{bmatrix}
+      -\sin(t) \\
+      \cos(t)
+    \end{bmatrix}
+  \] \[
+    s(\gamma_r) = \int_0^{2\pi} \norm{r \begin{bmatrix} - \sin(t) \\ \cos(t) \end{bmatrix}} \, dt
+    = \int_0^{2\pi} r \, dt = 2\pi r
+  \]
+\end{ex}
+
+\index[English]{Elliptic integral}
+\index[German]{\foreignlanguage{ngerman}{Elliptisches Integral}}
+\begin{ex}[Ellipsis]
+  \[
+    \gamma(t) = \begin{bmatrix}
+      a \cos(t) \\
+      b \sin(t)
+    \end{bmatrix} \qquad a,b > 0
+  \] \[
+    \dot\gamma(t) = \begin{bmatrix}
+      -a \sin(t) \\
+      b \cos(t)
+    \end{bmatrix}
+  \] \[
+    \norm{\dot\gamma(t)} = (a^2 \underbrace{\sin^2(t)}_{1 - \cos^2(t)} + b^2 \cos^2 (t))^{\frac12}
+  \]
+  Let $a \geq b$, $\varepsilon^2 = 1 - \frac{b^2}{a^2}$.
+  \begin{align*}
+    \norm{\dot\gamma(t)} &= (a^2 - (a^2 - b^2) \cos^2(t))^{\frac12} \\
+      &= a \left(1 - \left(1 - \frac{b^2}{a^2}\right) \cos^2(t)\right)^2 \\
+      &= a \left(1 - \varepsilon^2 \cos^2(t)\right)^{\frac12}
+  \end{align*}
+  \[ s(\gamma) = a \int_0^{2\pi} \sqrt{1 - \varepsilon^2 \cos^2(t)} \, dt \]
+  This defines a new set of functions which cannot be solved with means we discussed so far.
+  They are called \emph{elliptic integral}.
+\end{ex}
+
+\subsection{Change of parameters, reparameterization}
+\index[English]{Reparameterization}
+\index[German]{\foreignlanguage{ngerman}{Reparametrisierung}}
+%
+Let $\sigma: I \to J$ as smooth (ie. differentiable) as required.
+$\sigma$ is bijective and $\sigma^{-1}: J \to I$ is be part
+of the same differentiation class like $\sigma$.
+Let $\gamma: I \to \mathbb R^n$ be a curve. We call
+$\beta = \gamma \circ \sigma^{-1}: I \to \mathbb R^n$ a reparameterization
+of $\gamma$ using $\sigma$. Compare with Figure~\ref{img:reparam}.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/reparameterization.pdf}
+    \caption{Reparameterization: $\beta$ and $\gamma$ have the same trace}
+    \label{img:reparam}
+  \end{center}
+\end{figure}
+
+\index[English]{Orientation preserving reparameterization}
+\index[German]{\foreignlanguage{ngerman}{Orientierungserhaltende Reparameterisierung}}
+$\sigma$ is called parameter transformation.
+$\gamma$ is called orientation preserving, if $\sigma$ is strictly monotonically
+decreasing.
+
+\index[English]{Geometric curve measures}
+\index[German]{\foreignlanguage{ngerman}{Geometrisches Maß}}
+A measure, defined by the curve (arc length, tangential vector, curvature, \dots)
+is called \emph{geometric}, if reparameterization can be applied without modifications.
+
+$s(\gamma)$ is obviously a geometric measure, because
+\begin{enumerate}
+  \item By definition of polygonal lines
+  \item Let $\beta(\tau) = \gamma \circ \sigma^{-1}(\tau)$.
+    \[ \dot{\beta}(\tau) = \dot{\gamma}(\sigma^{-1}(\tau)) \circ (\sigma^{-1})'(\tau) \]
+    \[ \norm{\dot\beta(\tau)} = \norm{\dot\gamma(\sigma^{-1})(\tau)} \cdot \abs{(\sigma^{-1})'(\tau)} \]
+    \begin{description}
+      \item[Case $\sigma$ is orientation preserving]
+        If and only if $\sigma' > 0 \Leftrightarrow (\sigma^{-1})' > 0$
+
+        Let $I = [a,b]; J = [c,d]; c = \sigma(a); d = \sigma(b)$.
+        \[ s(\beta) = \int_c^d \norm{\dot\gamma(\underbrace{\sigma^{-1}(\tau)}_{= t})} \cdot \underbrace{(\sigma^{-1})' (\tau) \, d\tau}_{dt} \]
+        \[ = \int_a^b \norm{\dot\gamma(t)} \, dt = s(\gamma) \qquad \text{ (by substitution)} \]
+      \item[Case $\sigma$ is orientation inversing]
+        \[ \gamma' < 0 \qquad (\gamma^{-1})' < 0 \]
+        \[ \abs{(\sigma^{-1})'(\tau)} = -(\sigma^{-1})'(\tau) \qquad \sigma(a) = d, \sigma(b) = c \]
+        \[
+          \int_c^d \norm{\dot\beta(\tau)} \, d\tau
+          = \int_c^d \norm{\dot\gamma(\underbrace{\sigma^{-1}(\tau)}_{t})} \cdot \underbrace{\left(- (\sigma^{-1})'(\tau)\right)\, d\tau}_{dt}
+        \] \[
+          \begin{vmatrix}
+            \tau = c \Leftrightarrow t = b \\
+            \tau = a \Leftrightarrow t=  a
+          \end{vmatrix}
+        \] \[
+          = -\int_b^a \norm{\dot\gamma(t)} \, dt
+        \] \[
+          = \int_a^b \norm{\dot\gamma(t)} \, dt = s(\gamma)
+        \]
+    \end{description}
+\end{enumerate}
+
+\subsection{Reparameterization by arc length}
+%
+We consider a regular curve $\gamma$, hence $\norm{\dot\gamma(t)} > 0 \quad \forall t \in I$
+and let $s: I \to J = S(I)$ by
+\[ s(t) = \int_a^t \norm{\dot\gamma(\tau)} \, d\tau \]
+
+$s(t)$ is the length of the curve $\gamma$ between $a$ and $t$. Let $s(a) = 0$.
+It holds that $\dot{s}(t) = \norm{\dot\gamma(t)} > 0$ (by the Fundamental Theorem of Differential and Integration Theory), hence $s$ is strictily monotonically increasing.
+We use $s$ for reparameterization.
+\[ \beta(\xi) = \gamma \circ s^{-1}(\xi) \]
+is a reparameterization of $\gamma$ by the arc length.
+
+\begin{align*}
+  \norm{\dot\beta(\xi)}
+    &= \norm{\dot\gamma(s^{-1}(\xi)) \circ (s^{-1})'(\xi)} \\
+    &= \norm{\dot\gamma(s^{-1}(\xi)) \frac{1}{\dot{s}(s^{-1}(\xi))}} \\
+    &= \norm{\dot\gamma(s^{-1})(\xi)} \cdot \abs{\frac{1}{\dot{s} (s^{-1}(\xi))}} \\
+    &= \frac{\norm{\dot{\gamma}(s^{-1}(\xi))}}{\norm{\dot\gamma(s^{-1}(\xi))}} = 1
+\end{align*}
+Hence the tangential vector is the unit vector (in every point)
+\[ s_{\beta}(\xi) = \int_0^{\xi} \underbrace{\norm{\dot\beta(\eta)}}_{=1} \, d\eta = \xi \]
+So the curve parameter corresponds to the arc length.
+On the opposite: Let $\gamma: I \to \mathbb R^n$ with property $\norm{\dot\gamma(t)} = 1 \quad\forall t \in I = [0,b]$.
+Then it holds that
+\[ s(t) = \int_0^t \underbrace{\norm{\dot\gamma(\tau)}}_{=1} \, d\tau = t \]
+So it holds that $s = s^{-1} = \operatorname{id}_{[0,b]}$.
+So $\gamma$ is parameterized by the arc length.
+
+\begin{rem}[Notation]
+  We don't write $\xi = s(t)$, but $s = s(t)$.
+\end{rem}
+
+Reparameterization by the arc length:
+\[ \beta(s) = \gamma(s^{-1}(s)) = \gamma(t) \]
+
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
 
