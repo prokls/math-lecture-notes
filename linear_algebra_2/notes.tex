@@ -37,6 +37,7 @@
 \newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
 \newcommand\equalhat{\mathrel{\stackon[1.5pt]{=}{\stretchto{%
     \scalerel*[\widthof{=}]{\wedge}{\rule{1ex}{3ex}}}{0.5ex}}}}
+\newcommand\pivot[1]{\overbrace{\underbrace{#1}_{}}^{}}
 
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}
@@ -5144,6 +5145,494 @@ Compare it with
   \end{itemize}
 \end{ex}
 
+\meta{lecture}{11th of May 2016}{Franz Lehner}
+
+\begin{align*}
+  \frac{d}{dx} e^{\lambda x} &= \lambda e^{\lambda x} \\
+  \frac{d^2}{dx^2} e^{\lambda x} &= \lambda^2 e^{\lambda x} \qquad \forall \lambda \in \mathbb R \\
+  \frac{d^2}{dx^2} \sin(\omega x) &= -\omega^2 \sin(\omega x) \qquad \forall w \in \mathbb R \\
+  \frac{d^2}{dx^2} \cos(\omega x) &= -\omega^2 \cos(\omega x)
+\end{align*}
+
+A lot of applications for eigenvalues can be found. Physics, for example:
+\[ C_0^{\infty} [0, L] = \setdef{f \in C^\infty [0, L]}{f(0) = f(L) = 0} \]
+\[ \frac{d^2}{dx^2} C_0^\infty [0, L] \]
+\[ \sin(\omega x) \qquad \omega L = \pi \cdot k \qquad \Rightarrow \omega = \frac{\pi}{L} k \]
+\[ \rightarrow \sin\left(\frac\pi{L} kx\right) \]
+
+\index[English]{Right-sided eigenvalue}
+\index[German]{\foreignlanguage{ngerman}{Rechtseigenwert}}
+\begin{defi}
+  Let $A \in \mathbb K^{n\times n}$. $\lambda \in \mathbb K$ is called \emph{rightsided eigenvalue} if
+  \[ \exists v \in \mathbb K^n \setminus \set{0}: A \cdot v = \lambda \cdot v \]
+  A \emph{leftsided eigenvalue} is given if
+  \[ \exists v \in \mathbb K^n \setminus \set{0}: v^* \cdot A = \lambda \cdot v^t \]
+  \[ \Leftrightarrow A^t \cdot v = \lambda \cdot v \]
+  \[ \Leftrightarrow \text{ is right-sided eigenvalue of } A^t \]
+\end{defi}
+
+\begin{lemma}[Leftsided eigenvalue equals rightsided eigenvalue]
+  \label{lemma-10.5}
+  Let $\lambda$ be a rightsided eigenvalue.
+  \[ Av - \lambda v = 0 \]
+  \[ \kernel(\lambda \cdot I - A) \neq \set{0} \]
+  \[ \Leftrightarrow \rank(\lambda I - A) < n \]
+  \[ \Leftrightarrow \rank(\lambda I - A^t) < n \]
+  \[ \Leftrightarrow \lambda \text{ is leftsided eigenvalue of } A \]
+\end{lemma}
+\begin{rem}
+  \label{bem-10.6}
+  \begin{enumerate}
+    \item Eigenvectors must not be equal.
+    \item This does not hold if $\dim = \infty$.
+      \[ \delta: (\xi, \xi_2, \ldots) \mapsto (0, \xi, \xi_2, \ldots) \]
+      From injectivity follows that $0$ is not a rightsided eigenvector.
+      \[ \delta^t: (\xi, \xi_2, \ldots) \mapsto (\xi_2, \xi_3, \ldots) \]
+      has eigenvalue $0$: $\delta^t(1, 0, 0, \ldots) = (0, 0, \ldots)$
+      Hence,
+      \[ \spec(\delta) = \setdef{\lambda}{\lambda I - S \text{ is not invertible}} \]
+      just depends on the definition of the spectrum.
+  \end{enumerate}
+\end{rem}
+
+\begin{defi}
+  \label{defi-10.7}
+  Let $A \in \mathbb K^{n\times n}$.
+  \begin{align*}
+    \spec_{\mathbb K}(A) &= \setdef{\lambda \in \mathbb K}{\lambda \text{ is rightsided eigenvalue of } A} \\
+      &= \setdef{\lambda \in \mathbb K}{\lambda \text{ is leftsided eigenvalue of } A}
+  \end{align*}
+\end{defi}
+
+\begin{lemma}
+  \label{lemma-10.8}
+  Let $\dim{V} = n$, $f \in \End(V)$ and $B$ is basis of $V$. Then,
+  \[ \spec(f) = \spec(\Phi_B^B(f)) \]
+  \[ f(v) = \lambda v \Leftrightarrow \Phi_B^B(f) \cdot \Phi_B(v) = \lambda \cdot \Phi_B(v) \]
+\end{lemma}
+
+\begin{cor}
+  \label{cor-10.9}
+  \begin{enumerate}
+    \item The spectrum does not depend on the selection of the basis.
+    \item If $T$ is regular, then $\spec(T^{-1} AT) = \spec(A)$.
+  \end{enumerate}
+\end{cor}
+
+\begin{rem}
+  Eigenvectors of $T^{-1} AT$?
+  \begin{align*}
+    Ax = \lambda x &\Leftrightarrow AT T^{-1} x = \lambda x \\
+                   &\Leftrightarrow T^{-1} AT T^{-1} x = \lambda \cdot T^{-1} x
+  \end{align*}
+  $X$ is eigenvector of $A$
+  \[ \Leftrightarrow T^{-1} x \text{ is eigenvector of } T^{-1} A T \]
+  \[ \lambda I - A \text{ is not injective} \]
+\end{rem}
+
+\index[English]{Characteristical polynomial}
+\index[German]{\foreignlanguage{ngerman}{Charakteristisches Polynom}}
+\begin{theorem}
+  \label{lemma-10.10}
+  Let $A \in \mathbb K^{n \times n}$.
+  \begin{enumerate}
+    \item $\chi_A(\lambda) = \det(\lambda \cdot I - A)$ is a polynomial of degree $n$. \\
+      $\chi_A(x)$ is called \emph{characteristical polynomial} of $A$.
+    \item $\lambda$ is eigenvalue of $A$ iff $\lambda$ is a root of $\chi_A(x)$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \[
+        \det(\lambda I - A) = \begin{vmatrix}
+          \lambda - a_{11} & -a_{12} & \ldots & -a{1n} \\
+          -a_{21} & \lambda - a_{22} &        & \vdots \\
+          \vdots  &        &         & \ddots & \\
+          -a_{n1} & \ldots &         &        & \lambda - a_{nn}
+        \end{vmatrix}
+      \] \[
+        = \sum_{\pi \in \sigma_n} \dots = (\lambda - a_{11})(\lambda - a_{22}) \ldots (\lambda - a_{nn})
+      \]
+      plus polynomial of degree $\leq n-2$.
+      Polynomial in $\lambda$
+      \[ = \lambda^n + \text{(polynomial of degree $\leq n-1$)} \]
+    \item
+      $\lambda I - A$ is not injective iff $\det(\lambda I - A) = 0$.
+  \end{enumerate}
+\end{proof}
+\begin{ex}
+  \[
+    A = \begin{bmatrix}
+      -1 & 1 & 2 \\
+      -1 & -5 & 2 \\
+      2 & -2 & -4
+    \end{bmatrix}
+    \qquad
+    \spec(A) = ?
+  \] \[
+    \det(\lambda I - A) = \begin{vmatrix}
+      \lambda + 1 & -1 & -2 \\
+      1 & \lambda + 5 & -s \\
+      -2 & 2 & \lambda + 4
+    \end{vmatrix}
+    \overset{\substack{\text{Laplace over} \\ \text{1st column}}}{=}
+    \begin{vmatrix}
+      \lambda & -1 & -2 \\
+      \lambda + 6 & \lambda + 5 & -2 \\
+      0 & 2 & \lambda + 4
+    \end{vmatrix}
+  \] \[
+    \lambda \begin{vmatrix} \lambda + 5 & -2 \\ 2 \lambda + 4 \end{vmatrix}
+    - (\lambda + 6) \begin{vmatrix} -1 & -2 \\ 2 & \lambda + 4 \end{vmatrix}
+    = \lambda (\lambda^2 + 10 \lambda + 30)
+  \] \[
+    \spec_{\mathbb R}(A) = \set{0} \qquad \spec_{\mathbb C}(A) = \set{0, -5 \pm i \sqrt{5}}
+  \] \[
+    \lambda_1 = 0
+  \] \[
+    \lambda_{2,3} = \frac{-10 \pm \sqrt{100 - 120}}{2} = -5 \pm i \sqrt{5}
+  \]
+\end{ex}
+
+\begin{theorem}
+  \label{satz-10.12}
+  Let $A \in \mathbb K^{n\times n}$. We denote $[n] \coloneqq \set{1, \ldots, n}$.
+  \[ \chi_A(x) = \sum_{k=0}^n (-1)^{n-k} c_k(A) x^k \]
+  \[ c_k(A) = \sum_{\substack{J \subseteq [n] \\ |J| = n-k}} \underbrace{\left[A\right]_{J,J}}_{\text{minors}} \]
+  with $J = \set{j_1 < \ldots < j_{n-k}}$.
+  \[
+    \begin{vmatrix}
+      a_{j_1 j_1} & a_{j_1 j_2} & \ldots & a_{j_1 j_{n-k}} \\
+      \vdots      & \ddots      &        & \vdots \\
+      a_{j_{n-k} j_1} & a_{j_{n-k} j_2} & \ldots & a_{j_{n-k} j_{n-k}}
+    \end{vmatrix}
+  \]
+  Sum of all symmetrical minors.
+\end{theorem}
+%
+\begin{rem}
+  Especially:
+  \begin{align*}
+    C_0 &= \det{A} \\
+    C_{n-1} &= \sum_{i=1}^n a_{ii} = \operatorname{Tr}(A) \\
+    C_n(A) &= 1
+  \end{align*}
+\end{rem}
+%
+\begin{proof}
+  \[ \det(\lambda I - A) = \sum_{\pi \in \sigma_n} (-1)^\pi \prod_{i=1}^n (x I - A)_{\pi(i),i} \]
+  Remark: Determinants are not only for fields, but arbitrary commutative rings defined (\enquote{non-conjugate determinant}).
+  \[ = \sum_{\pi \in \sigma_n} (-1)^\pi \prod_{i=1}^n (x \cdot \delta_{\pi(i),i} - a_{\pi(i),i}) \]
+  \[
+    \deg{\prod_{i=1}^n \left(x \delta_{\pi(i),i} - a_{\pi(i),i}\right)}
+    = \#\setdef{i}{\pi(i) = i} = \#\operatorname{Fix}(\pi)
+    = \begin{cases}
+      n & \pi = (1) \\
+      \leq n-2 & \pi \neq (1)
+    \end{cases}
+  \]
+  $\Rightarrow \det{\chi_A(x)} = n$ and $c_n(A) = 1$ (leading coefficient is one).
+
+  \[
+    A = \begin{bmatrix}
+      a_1 & \ldots & a_n \\
+      \vdots &     & \vdots
+    \end{bmatrix}
+  \]
+  $a_j$ is the $i$-th column of $A$.
+  $I = (e_1, e_2, \ldots, e_n)$.
+  \[ \chi_A(x) = \triangle(x e_1 - a_1, x e_2 - a_2, \ldots, x e_n - a_n) \]
+  \[ = \sum_{I \subseteq [n]} \triangle(y_1, \ldots, y_n) \]
+  \[
+    y_i = \begin{cases}
+      x \cdot e_i & i \in I \\
+      -a_i & i \not\in I
+    \end{cases}
+  \] \[
+    (a + b)^n = \sum_{I \subseteq [n]} a^{|I|} b^{|I^c|}
+  \]
+
+
+  \[
+    \triangle(y_1 \ldots y_{k-1}, xe_k, y_{k+1} \ldots y_n)
+  \] \[
+    = k \begin{vmatrix}
+      y_1 & y_2 & \ldots & y_{k-1} & 0 & y_{n+1} & \ldots & y_n \\
+      \vdots & \vdots &  & \vdots  & \vdots & \vdots &    & \vdots \\
+      \vdots & \vdots &  & \vdots  & 0      & \vdots &    & \vdots \\
+      \vdots & \vdots &  & \vdots  & x      & \vdots &    & \vdots \\
+      \vdots & \vdots &  & \vdots  & 0      & \vdots &    & \vdots \\
+      \vdots & \vdots &  & \vdots  & \vdots & \vdots &    & \vdots \\
+      \vdots & \vdots &  & \vdots  & 0      & \vdots &    & \vdots
+    \end{vmatrix}
+    = (-1)^{k-1} (-1)^{k-1}
+  \] \[
+    \leadsto
+    = \begin{vmatrix}
+      x      & \ldots      & \ldots          & \ldots          & \ldots \\
+      0      & \tilde{y_1} & \tilde{y}_{k-1} & \tilde{y}_{k+1} & \tilde{y}_n
+      \vdots & \vdots      & \vdots          & \vdots          & \vdots \\
+      0      & \vdots      & \vdots          & \vdots          & \vdots \\
+    \end{vmatrix}
+    = (-1)^{k-1} (-1)^{k-1}
+  \] \[
+    = x \begin{vmatrix}
+      \tilde{b}_1 & \ldots & \tilde{y}_{k-1} & \tilde{y}_{k+1} & \ldots & \tilde{y}_n \\
+      \vdots &             & \vdots          & \vdots          &        & \vdots
+    \end{vmatrix}
+  \]
+  $\tilde{y}_i = y_i$ with crossed-out row $k$.
+  $(n - \abs{I}) \times (n - \abs{I})$ determinant.
+  \[ = x^{|I|} \underbrace{\triangle(-\tilde{a}_{j_1}, \ldots, -\tilde{a}_{j_{1 - |I|}})}_{(-1)^{|I^C|}} \]
+  \[ [A]_{I^C}, I^C \]
+  $J = I^C$ is not crossed-out rows and columns.
+  So the idea was: If there is some $x$, we can extract it using Laplace.
+\end{proof}
+
+\begin{lemma}
+  \label{lemma-10.13}
+  \[ \chi_{T^{-1} AT}(x) = \chi_A(x) \]
+  similar matrices have the same characteristic polynomial.
+\end{lemma}
+\begin{proof}
+  \begin{align*}
+    \det(\lambda I - T^{-1} A T)
+      &= \det(\lambda \cdot T^{-1} \cdot T - T^{-1} AT) \\
+      &= \det(T^{-1} (\lambda I - A) T) \\
+      &= \det(T^{-1}) \cdot \det(\lambda I - A) \cdot \det(T) \\
+      &= \det(\lambda I - A)
+  \end{align*}
+\end{proof}
+
+\index[English]{Diagonalizable matrix}
+\index[German]{\foreignlanguage{ngerman}{Diagonalisierbare Matrix}}
+\begin{defi}
+  Let $A \in \mathbb K^{n\times n}$.
+  $A$ is called \emph{diagonizable} if
+  \[
+    \exists T \in \operatorname{GL}(n, \mathbb K):
+    T^{-1} AT = \begin{bmatrix}
+      \lambda_1 &        & \\
+                & \ddots &
+                &        & \lambda_n
+    \end{bmatrix}
+  \]
+  From Lemma~\ref{lemma-10.13} it follows that
+  \[
+    \chi_A(x) = \begin{vmatrix}
+      x - \lambda_1 &        & \\
+                    & \ddots & \\
+                    &        & x - \lambda_n
+    \end{vmatrix}
+    = \prod_{j=1}^n (x - \lambda_i)
+  \]
+\end{defi}
+\begin{lemma}
+  \label{lemma-10.15}
+  $A$ is diagonizable iff there exists a basis of eigenvectors.
+\end{lemma}
+\begin{proof}
+  \[
+    B^{-1} AB
+    = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \lambda_n \end{bmatrix}
+    \Leftrightarrow AB = B \begin{bmatrix} -\lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix}
+  \]
+  Let $B = \begin{bmatrix} b_1 & \ldots & b_n \\ \vdots &  & \vdots \end{bmatrix}$.
+  \[
+    A \begin{bmatrix}
+      -b_1 & b_2 & \ldots & b_n \\
+      \vdots & \vdots &   & \vdots
+    \end{bmatrix}
+    = \begin{bmatrix}
+      b_1 & b_2 & \ldots & b_n \\
+      \vdots & \vdots &   & \vdots
+    \end{bmatrix}
+    \begin{bmatrix}
+      \lambda_1 &        & \\
+                & \ddots & \\
+                &        & \lambda_n
+    \end{bmatrix}
+  \] \[
+    \begin{bmatrix}
+      Ab_1 & Ab_2 & \ldots & Ab_n \\
+      \vdots & \vdots &    & \vdots
+    \end{bmatrix}
+    = \begin{bmatrix}
+      \lambda_1 b_1 & \lambda_2 b_2 & \ldots & \lambda_n b_n \\
+      \vdots & \vdots &  & \vdots
+    \end{bmatrix}
+    \Leftrightarrow Ab_i = \lambda_i b_i \quad \forall i
+  \]
+\end{proof}
+\begin{ex}
+  \label{bsp-10.16}
+  \[
+    A = \begin{bmatrix}
+      -1 & 2 & 4 \\
+      4 & -3 & -8 \\
+      -2 & 2 & 5
+    \end{bmatrix}
+  \]
+  Task: Diagonalize!
+
+  Step 1: Eigenvalues.
+  \[
+    \chi_A(\lambda) =
+    \begin{vmatrix}
+      \lambda + 1 & -2 & -4 \\
+      -4 & \lambda + 3 & 8 \\
+      2 & -2 & \lambda - 5
+    \end{vmatrix}
+    = \begin{vmatrix}
+      \lambda - 1 & -2 & -4 \\
+      \lambda - 1 & \lambda + 3 & 8 \\
+      0 & -2 & \lambda-5
+    \end{vmatrix}
+  \] \[
+    = (\lambda - 1) \begin{vmatrix}
+      1 & -2 & -4 \\
+      1 & \lambda + 3 & 8 \\
+      0 & -2 & \lambda - 5
+    \end{vmatrix}
+  \] \[
+    = (\lambda - 1) \begin{vmatrix}
+      1 & -2 & -4 \\
+      0 & \lambda+5 & 12 \\
+      0 & -2 & \lambda-5
+    \end{vmatrix}
+    = (\lambda - 1) \left[
+      (\lambda + 5)(\lambda - 5) + 24
+    \right]
+    = (\lambda - 1)(\lambda^2 - 1)
+    = (\lambda - 1)^2 (\lambda + 1)
+  \] \[
+    \spec(A) = \set{\pm1}
+  \]
+
+  Step 2: Eigenvectors = $\kernel(\lambda I - A)$.
+  For $\lambda = +1$ we have,
+  \[
+    \begin{array}{ccc}
+      \pivot{2} & -2 & -4 \\
+      -4 & 4 & 8 \\
+      2 & -2 & -4 \\
+    \hline
+      0 & 0 & 0 \\
+      0 & 0 & 0
+    \end{array}
+  \] \[
+    x_1 = x_2 + 2x_3
+  \] \[
+    \eta_{+1} = \underbrace{\mathcal L\set{
+      \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix},
+      \begin{bmatrix} 2 \\ 0 \\ 1 \end{bmatrix}
+    }}_{\text{basis of } \kernel(I - A) = \eta_{+1}}
+  \]
+  For $\lambda = -1$: $\kernel(-I - A)$.
+  \[
+    \begin{array}{ccc}
+      0 & -2 & -4 \\
+      -4 & 2 & 8 \\
+      \pivot{2} & -2 & -6 \\
+    \hline
+      0 & \pivot{-2} & -4 \\
+      0 & -2 & -4 \\
+    \hline
+      0 & 0 & 0
+    \end{array}
+  \]
+  \[ x_1 = x_2 + 3x_3 = x_3 \]
+  \[ x_2 = -2x_3 \]
+  \[ \eta_{-1} = \mathcal L\begin{pmatrix} 1 \\ -2 \\ 1 \end{pmatrix} \]
+  \[
+    B = \begin{bmatrix}
+      1 & 2 & 1 \\
+      1 & 0 & -2 \\
+      0 & 1 & 1
+    \end{bmatrix}
+    \qquad \Rightarrow
+    B^{-1} A B = \begin{bmatrix}
+      1 &   & \\
+        & 1 & \\
+        &   & -1
+    \end{bmatrix}
+  \]
+\end{ex}
+
+\begin{ex}
+  \label{anwendung-10.17}
+  \[ A = B^{-1} \begin{bmatrix} \lambda_1 &  & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \]
+  \[
+    A^2
+      = B^{-1} \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix}
+      B B^{-1} \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} B
+  \] \[
+    = B^{-1} \begin{bmatrix} \lambda_1^2 & & \\ & \dots & \\ & & \lambda_n^2 \end{bmatrix} B
+  \] \[
+    A^k = B^{-1} \begin{bmatrix} \lambda_1^k & & \\ & \dots & \\ & & \lambda_n^k \end{bmatrix} B
+  \]
+
+  \[
+    e^A
+      = \sum_{k=0}^\infty \frac{A^k}{k!}
+      = \sum_{k=0}^\infty \frac{1}{k!} B^{-1} \begin{bmatrix} \lambda_1^k & & \\ & \ddots & \\ & & \lambda_n^k \end{bmatrix} \cdot B
+      = B^{-1} \begin{bmatrix} e^{\lambda_1} & & \\ & \ddots & \\ & & e^{\lambda_n} \end{bmatrix} B
+  \] \[
+    \rightarrow
+    \frac{dx}{dt} = A \cdot x \Rightarrow x = e^{A t} \cdot x_0
+  \]
+\end{ex}
+
+\begin{ex}
+  \fbox{Leonardo of Pisa (1170--1250)} \\
+  \enquote{Libera Abaci} (1202)
+
+  The Arabic approach to a recursive formula $F_n = F_{n-1} + F_{n-2}$ was too theoretical to him.
+  He described it using reproductive bunnies.
+
+  What is an explicit formula for $F_n$?
+  \[ F_{n+1} = F_{n} F_{n-1} \]
+  \[ F_{n} = F_{n} \]
+
+  We represent it as matrix:
+  \[
+    \begin{pmatrix} F_{n+1} \\ F_n \end{pmatrix}
+      = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} F_n \\ F_{n-1} \end{bmatrix}
+      = A^n \begin{bmatrix} F_1 \\ F_0 \end{bmatrix} = A^n \begin{bmatrix} 1 \\ 1 \end{bmatrix}
+  \] \[
+    A = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}
+  \]
+
+  \[
+    \chi_A(x) = \begin{vmatrix}
+      x-1 & -1 \\
+      -1 & x
+    \end{vmatrix} = x (x - 1) - 1 = x^2 - x - 1
+  \] \[
+    \lambda_{1,2} = \frac{1 \pm \sqrt{5}}{2}
+  \]
+  Remark: $\frac{1 + \sqrt{5}}{2}$ is the golden ratio.
+  \[
+    \ldots
+    B = \begin{bmatrix}
+      \frac{1 + \sqrt{5}}{2} & \frac{1 - \sqrt{5}}{2} \\
+      1 & 1
+    \end{bmatrix}
+  \] \[
+    B^{-1} = \frac{1}{\sqrt{5}}
+    \begin{bmatrix}
+      1 & \frac{-1 + \sqrt{5}}{2} \\
+      -1 & \frac{1 + \sqrt{5}}{2}
+    \end{bmatrix}
+  \] \[
+    F_n = \frac{1}{\sqrt{5}} \left[
+      \left(\frac{1 + \sqrt{5}}{2}\right)^{n+1} - \left(\frac{1 - \sqrt{5}}{2}\right)^{n+1}
+    \right]
+  \]
+  Hence,
+  \[ \frac{F_{n+1}}{F_n} \underset{n\to\infty}{\longrightarrow} \frac{1 + \sqrt{5}}{2} \]
+\end{ex}
 
 \clearpage
 \begin{otherlanguage}{ngerman}

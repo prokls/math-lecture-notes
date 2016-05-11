@@ -73,7 +73,7 @@ Exercise I did on the board: 3, 7.
   Determine the matrix representation of the linear map
   \[ f: \mathbb R_1[x] \to \mathbb R_2[x] \]
   \[ p(x) \mapsto (x-1) \cdot p(x) \]
-  in regards of bases $B = \set{1-x, 1+x} \subseteq \mathbb R_1[x]$ and $C = \set{1, 1 + x, 1 + x + x^2} \subseteq \mathbb R^2[x]$.
+  in regards of bases $B = \set{1-x, 1+x} \subseteq \mathbb R_1[x]$ and $C = \set{1, 1 + x, 1 + x + x^2} \subseteq \mathbb R_2[x]$.
 \end{ex}
 
 \[
@@ -104,7 +104,7 @@ Coefficient comparison:
 \end{align*}
 
 \[ \Phi_C(f(b_1)) = \begin{pmatrix} 3 \\ 3 \\ 1 \end{pmatrix} \]
-\[ \Phi_C(f(b_2)): x^2 = 1 = \lambda_1 \cdot 1 + \lambda_2 (1 + x) + \lambda_3 (1 + x + x^2) \]
+\[ \Phi_C(f(b_2)): x^2 - 1 = \lambda_1 \cdot 1 + \lambda_2 (1 + x) + \lambda_3 (1 + x + x^2) \]
 \begin{align*}
   x^2: & \lambda_3 = 1 \\
   x^1: & \lambda_2 + \lambda_3 = 0 \Rightarrow \lambda_2 = -1 \\
@@ -1122,7 +1122,7 @@ We multiply $n$ rows by $-1$,
     \end{bmatrix}
   \]
   \begin{enumerate}
-    \item Show: $M$ is invertible iff $A - BD^{-1}C) \det{D}$.
+    \item Show: $M$ is invertible iff $A - BD^{-1}C$ is invertible.
     \item Show: $\det{M} = \det(A - BD^{-1} C) \cdot \det{D}$.
   \end{enumerate}
 \end{ex}
@@ -1518,7 +1518,7 @@ So at least one $-1$ must occur in our result.
 
 \[
   \begin{pmatrix}
-    0 & 1 & 1 & 0 \\
+    0 & 1 & -1 & 0 \\
     1 & 0 & 1 & 1 \\
     -1 & 1 & 0 & -1 \\
     0 & 1 & -1 & 0
