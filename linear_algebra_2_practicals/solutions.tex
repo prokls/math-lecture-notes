@@ -62,6 +62,21 @@
 \setcounter{tocdepth}{1}
 
 \begin{document}
+~
+
+\vspace{200pt}
+{\Huge
+  As of 11th of May 2016,
+  I am not attending LinAlg2
+  anymore due to difficulties
+  with my upcoming student exchange year
+  and work on my master thesis.
+
+  I therefore suppose this document will not be updated any more.
+}
+\newpage
+
+
 \maketitle
 \tableofcontents
 
@@ -1853,7 +1868,7 @@ Furthermore it holds that
 We orthogonalize using Gram-Schmid process.
 \[ a_1 = \frac{b_1}{\norm{b_1}} \text{ with } \norm{b_1}^2 = \fun{b_1, b_1} = 2 \Rightarrow \norm{b_1} \cdot \sqrt{2} \Rightarrow a_1 = \frac{1}{\sqrt 2} \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \]
 \[ \tilde{a_2} = b_2 - \fun{b_2, a_1} \cdot a_1 = \begin{pmatrix} -1 \\ 2 \\ 0 \\ 1 \end{pmatrix} - \fun{\begin{pmatrix} -1 \\ -2 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix}} \cdot \frac{1}{\sqrt 2} \cdot \frac{1}{\sqrt 2} \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} -\frac12 \\ -2 \\ -\frac12 \\ 1 \end{pmatrix} \]
-\[ \Rightarrow a_2 - \frac{\tilde{a_2}}{\norm{a_2}} = \sqrt{\frac2{11}} \cdot \begin{pmatrix} -1\frac12 \\ -2 \\ -\frac12 \\ 1 \end{pmatrix} \]
+\[ \Rightarrow a_2 - \frac{\tilde{a_2}}{\norm{a_2}} = \sqrt{\frac2{11}} \cdot \begin{pmatrix} -\frac12 \\ -2 \\ -\frac12 \\ 1 \end{pmatrix} \]
 
 \[ \pi_U(v) = \sum_{i=1}^n \fun{v, a_i} \cdot a_i = 0 \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \cdot \frac1{\sqrt{2}} + 0 \sqrt{\frac{2}{11}} \cdot \begin{pmatrix} -\frac12 \\ -2 \\ -\frac14 \\ 1 \end{pmatrix} = 0 \]
 \[ \Rightarrow \pi_U(v) = 0 \Rightarrow v \in U^{\bot} \]
@@ -1865,7 +1880,7 @@ Images of $P \cdot u = \sum_{i=1}^n \fun{u_i, v} \cdot u_i \quad \forall i = 1,\
 \[ P = B \cdot (B^T B)^{-1} \cdot B^T \]
 \[
   B = \begin{pmatrix} -1 & -1 \\ 0 & -2 \\ 1 & 0 \\ 0 & 1 \end{pmatrix}
-  \Rightarrow B^T = \begin{pmatrix} -1 & 0 & 1 & 0 \\ 1 & -2 & 0 & 1 \end{pmatrix}
+  \Rightarrow B^T = \begin{pmatrix} -1 & 0 & 1 & 0 \\ -1 & -2 & 0 & 1 \end{pmatrix}
 \]
 
 \[
