@@ -4118,6 +4118,91 @@ So $\gamma$ is parameterized by the arc length.
 Reparameterization by the arc length:
 \[ \beta(s) = \gamma(s^{-1}(s)) = \gamma(t) \]
 
+\meta{lecture}{12th of May 2016}{Wolfgang Ring}
+
+\subsection{Invariance of arc length}
+%
+Let $\gamma: I \to \mathbb R$ be a parameterized curve.
+\[ \sigma: I \to J \text{ orientation-preserving parameter transformation} \]
+\[ S_\gamma(t) = \int_a^t \norm{\dot\gamma(\xi)} \, d\xi \]
+\[ I = [a,b] \qquad J = [c,d] \]
+
+\[ \tilde{\gamma} = \gamma \circ \sigma^{-1}: J \to \mathbb R^n \quad \text{ reparameterization} \]
+\[ S_{\tilde{\gamma}}(\tau) = \int_C^\tau \abs{\dot{\tilde{\gamma}}(\eta)} \, d\eta \]
+We know that $S_{\tilde{\gamma}}(\tau) = S_{\tilde{\gamma}}(\sigma(t)) = S_{\gamma}(t)$.
+\[ S_{\tilde{\gamma}} \circ \sigma = S_{\gamma} \]
+Let $S = S_{\gamma}(t)$ and $\beta$ is a reparameterization of $\gamma$ by its arc length.
+Hence $\beta(s) = \gamma(s^{-1}_\gamma(s))$ and $\beta = \gamma \circ S_{\gamma}^{-1}$.
+
+\[ \tilde{\beta}(s) = \tilde{\gamma} \circ S_{\tilde{\gamma}}^{-1} = \gamma \circ \sigma^{-1} \circ \sigma \circ S_{\gamma}^{-1} = \gamma \circ S_{\gamma}^{-1} = \beta(s) \]
+
+Hence, reparameterized curves $\gamma$ and $\tilde{\gamma}$ have the same reparameterization by its arc length $\beta$.
+
+We require orientation preservation (compare with Figure~\ref{img:arclength}).
+%
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/arc_length_invariance.pdf}
+    \caption{Invariance of arc length}
+    \label{img:arclength}
+  \end{center}
+\end{figure}
+
+Then it holds that
+\[ \tilde{\beta}(s) = \beta(s(\gamma) - s) \]
+
+Consider special case $\gamma: I \to \mathbb R^2$.
+
+\[
+  \gamma(t) = \begin{bmatrix} x(t) \\ y(t) \end{bmatrix};
+  \qquad
+  S_\gamma(t) = \int_a^t \sqrt{\dot{x}(\xi)^2 + \dot{y}(\xi)^2} \, d\xi
+\]
+or even more special:
+\[ \gamma(t) = \begin{bmatrix} t \\ f(t) \end{bmatrix} \qquad \text{ \dots function graph} \]
+\[ S_\gamma(t) = S_f(t) = \int_a^t \sqrt{1 + (f'(\xi))^2} \, d\xi \]
+
+
+\subsection{Curvature}
+%
+Curvature corresponds to the rate of change of the direction of motion.
+This corresponds to the rate of change of
+\[ T(t) = \frac{\dot{\gamma}(t)}{\abs{\gamma(t)}} \]
+in regards of the arc length.
+
+\begin{enumerate}
+  \item Let $\gamma: I \to \mathbb R^2$ be a parameterized regular curve.
+    $\beta(s)$ is the reparameterization of $\gamma$ by its arc length.
+    $\beta: [0, s(\gamma)] \to \mathbb R^2$.
+    \[ \dot\beta(s) = T(s) \quad \text{ is a unit vector} \]
+    It holds that $\langle \dot\beta(s), \dot\beta(s)\rangle = 1$,
+    hence $\dot\beta_1^2(s) + \dot\beta_2^2(s) = 1$.
+    $\beta$ can be differentiated twice.
+
+    So we derive $\dot\beta_1^2(s) + \dot\beta_2^2(s)$:
+    \[ 2\dot\beta_1(s) \cdot \ddot{\beta_1}(s) + 2 \dot\beta_2(s) \cdot \ddot{\beta}_2(s) = 0 \]
+    So it holds with
+    \[
+      \ddot{\beta}(s) = \begin{bmatrix} \ddot{\beta}_1(s) \\ \ddot{\beta}_2(s) \end{bmatrix}
+      \qquad
+      \langle \dot{\beta}(s), \ddot{\beta}(s) \rangle = 0
+    \]
+    $\ddot{\beta}$ is orthogonal to $\dot{\beta} = T$.
+    We define $N = \begin{bmatrix} -\dot{\beta}_2 \\ \dot{\beta}_1 \end{bmatrix} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot T$.
+\end{enumerate}
+
+\begin{defi}
+  We define a \emph{signed} curvature $\kappa$ in $\gamma$ in point $\gamma(t) = \beta(s)$
+  by its relation
+  \[ \frac{d^2 \beta}{ds^2} = \ddot{\beta}(s) = \kappa(S) \cdot N(S) \]
+  $\kappa$ (with this property) actually exists, because $\ddot{\beta}$ is orthogonal to $T$
+  and therefore a multiple of $N$.
+
+  In case of reparameterization $\gamma(t) = \tilde{\gamma}(\tau)$, the arc length stays
+  the same. Therefore the curvature in $\gamma(t)$ and $\dot{\gamma}(\tau)$ is also the same.
+  Hence the curvature is invariant in terms of orientation-preserving reparameterization.
+\end{defi}
+
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
 
