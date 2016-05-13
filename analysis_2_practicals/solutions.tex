@@ -1493,5 +1493,239 @@ Consider $u = \tan{x}$ and $dx = du \, \cos^2{x}$.
   = \frac23 \left(3^{\frac34} - 1\right)
 \]
 
+\section{Exercise 27}
+\begin{ex}
+  Investigate the following impropert integrals for convergence.
+  \begin{enumerate}
+    \item $\int_1^\infty \frac{x^2}{2x^4 - x + 1} \, dx$.
+    \item $\int_0^\infty x^\alpha e^{-x} \, dx$, $\alpha \in \mathbb R$.
+    \item $\int_0^\infty \frac{\sqrt{x}}{(1 + x)^2} \, dx$.
+    \item $\int_0^\infty \left(\frac{\pi}{2} - \arctan(x)\right) \, dx$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 27.a}
+\[ \int_1^\infty \frac{x^2}{2x^4 - x + 1} \, dx \]
+\[ \frac{x^2}{2x^4 - x + 1} = \frac{x^2}{x (2x^3 - 1) + 1} < \frac{x}{2x^3 - 1} \leq \frac{x}{x^3} = \frac{1}{x^2} \]
+\[ \int_1^b \frac{x^2}{2x^4 - x + 1} \, dx < \int_1^b \frac1{x^2} \, dx = \left[-\frac1x\right]_1^b = -\frac1b + 1 < 1 \]
+
+In general: Approximately $\int_1^\infty \frac{x^2}{2x^4 - x + 1}$ converges becomes it looks close to $\int_1^\infty \frac{x^2}{2x^4} \, dx$.
+
+\subsection{Exercise 27.b}
+\[ \int_1^\infty \frac{x^\alpha}{e^x} \, dx \qquad \alpha \in \mathbb R \]
+\[ \frac{x^\alpha}{e^x} = \frac{e^{\alpha \cdot \ln{x}}}{e^x} = e^{\alpha \ln(x) - x} \]
+\[ e^x = \sum_{k=0}^\infty \frac{x^k}{k!} > \sum_{k=l}^\infty \frac{x^k}{k!} \quad l \geq \alpha \]
+\[ x \geq 1: \frac{x^\alpha}{e^x} \leq \frac{x^l}{e^x} = \frac{x^l}{\sum_{k=0} \frac{x^k}{k!}} < \frac{x^l}{\frac{x^{l+2}}{(l+2)!}} = \frac{(l+2)!}{x^2} \]
+\[ \int_1^b \frac{x^\alpha}{e^x} \, dx < \int_1^b \frac{(l+2)!}{x^2} \, dx < (l + 2)! \]
+
+\subsection{Exercise 27.c}
+\[ \int_0^\infty \frac{\sqrt{x}}{(1 + x)^2} \, dx = \int_0^1 \frac{\sqrt{x}}{(1 + x)^2} \, dx + \int_1^\infty \frac{\sqrt{x}}{(1 + x)^2} \, dx \]
+\[ x \geq 1: \frac{\sqrt{x}}{(1 + x)^2} < \frac{\sqrt{x}}{x^2} = x^{-\frac32} \]
+\[ \int_1^b \frac{\sqrt{x}}{(1 + x)^2} \, dx < \int_1^b x^{-\frac32} \, dx = 2 - \frac{2}{\sqrt{b}} < 2 \]
+\[ 0 \leq x \leq 1: \frac{\sqrt{x}}{(1 + x)^2} < \frac{\sqrt{x}}{1} = \sqrt{x} < 1 \]
+
+\subsection{Exercise 27.d}
+\[ \int_0^\infty \left(\frac\pi2 - \arctan(x)\right) \, dx \]
+\[ \int \arctan(x) \cdot 1 \, dx = x \cdot \arctan(x) - \int \frac{x}{1 + x^2} \, dx \]
+Integration by substitution:
+\[ t = 1 + x^2 \qquad \frac{dt}{dx} = 2x \Rightarrow dx = \frac{dt}{2x} \]
+\[ = x \cdot \arctan(x) - \int \frac{* \, dx}{t \cdot 2*} = x \cdot \arctan(x) - \frac{1}{2} \ln(1 + x^2) + c \]
+\[ \Rightarrow \int_0^b (x - \arctan(x)) \, dx = \left.\frac\pi2 - x \cdot \arctan(x) + \frac12 \ln(1 + x^2) \right|_0^b \]
+\[
+  = \underbrace{b}_{>0} \underbrace{\left(\frac\pi2 - \arctan(b)\right)}_{>0} + \frac12 \ln(1 + b^2)
+  > \frac12 \ln(1 + b^2) > M
+\]
+
+\subsection{Remark by the tutor}
+\[ \int_1^\infty \frac{1}{x^c} \, dx \text{ converges} \iff c > 1 \]
+\[
+  \lim_{x\to\infty} \frac{\frac\pi2 - \arctan(x)}{\frac1x}
+  \overset{\text{L'H\^opital}}{=}
+  \lim_{x\to\infty} \frac{-\frac{1}{1 + x^2}}{-\frac{1}{x^2}} = -1
+\] \[
+  \exists x_0: \frac{\pi}{2} - \arctan(x) > \frac12 \cdot \frac1x
+  \quad \forall x \geq x_0
+\] \[
+  \int_0^\infty \frac{\pi}{2} - \arctan(x) \, dx \geq \int_{x_0}^\infty \frac12 \frac1x \, dx
+\]
+
+\section{Exercise 28}
+\begin{ex}
+  Find all primitive functions of $f: (-1, 1) \to \mathbb R$ with $x \mapsto \frac{1}{1 - x^4}$ using partial fraction decomposition.
+
+  Hint: To derive the partial fraction decomposition use
+  \[ \frac{1}{(1 - x)(1 + x)(1 + x^2)} = \frac{a}{1 - x} + \frac{b}{1 + x} + \frac{cx + d}{1 + x^2} \]
+  with constants $a,b,c,d \in \mathbb R$. Determine the values for $a,b,c,d$.
+\end{ex}
+
+\[ \int \frac{1}{1 - x^4} \, dx = \int \frac{1}{4(1 - x)} \, dx + \int \frac{1}{4(1 + x)} \, dx + \int \frac{1}{2(1 + x^2)} \, dx \]
+
+The first resulting integrals are:
+\[ \frac14 \int \frac{1}{1 - x} \, dx = -\frac14 \ln{1 - x} + c \]
+\[ \frac14 \int \frac{1}{1 + x} \, dx = \frac14 \ln(1 + x) + c \]
+\[ \frac12 \int \frac{1}{1 + x^2} \, dx = \frac12 \arctan(x) + c \]
+
+\[ \int \frac{1}{1 - x^4} \, dx = -\frac14 \ln(1 - x) + \frac14 \ln(1 + x) + \frac{1}{2} \arctan(x) + c \]
+\[ \frac14 \ln\left(\frac{1 + x}{1 - x}\right) + \frac12 \arctan(x) + c \]
+
+\section{Exercise 29}
+\begin{ex}
+  Given a function $f: (0, \infty) \to \mathbb R$ with $x \mapsto \frac{1}{x + \sqrt{x}}$.
+  \begin{itemize}
+    \item Determine the Taylor polynomial of second degree $T_f^2(x;1)$ of function $f$ in point $x_0 = 1$.
+    \item Determine an upper bound for the error $\abs{f(x) - T_f^2(x;1)}$ in interval $[1;2]$.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 29.a}
+\[ f'(x) = -\frac{1 + 2\sqrt{x}}{2 \cdot x^{\frac32} (1 + \sqrt{x})^2} \]
+\[ f''(x) = \frac{3 + 9\sqrt{x} + 8x}{4 \cdot x^{\frac52} \cdot (1 + \sqrt{x})^3} \]
+
+\[ T_f^2(x;1) = f(1) + \frac{f'(1)}{1!} (x - 1)^1 + \frac{f^{(2)}(1)}{2!} \cdot (x - 1)^2 \]
+\[ T_f^2(x;1) = \frac12 + \frac38 (x - 1) + \frac{20}{64} (x - 1)^2 \]
+
+\subsection{Exercise 29.b}
+\[ R_f^n(x;a) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \cdot (x - x_0)^{n+1} \qquad \xi \in [x_0, x] \]
+\[ f'''(x) = - \frac{3 \cdot (16 x^{\frac32} + 29x + 20\sqrt{x} + 5}{8 \cdot (\sqrt{x} + 1)^4 \cdot x^{\frac52}} \]
+\[ \abs{R_f^n(x;1)} = \frac{(x - 1)^3}{(3)!} \]
+
+Upper bound (not the best, but works):
+\[ \frac{3 \cdot 65 x^{\frac32} + 15}{8 \cdot 16 \cdot x^{\frac52}} \leq \frac{3 \cdot 65}{8 \cdot 16x} + \frac{15}{8 \cdot 16x^{\frac52}} \]
+
+$f'''(x)$ is monotonically increasing and we look at the interval $[1,2]$.
+So we are closest to $0$, if $x=1$.
+
+\section{Exercise 30}
+\begin{ex}
+  Let $g: \mathbb R \to \mathbb R$, $x \mapsto \sin(2x)$.
+  \begin{enumerate}
+    \item For arbitrary $n \in \mathbb N$, determine the Taylor polynomial of $n$-th degree
+      $T_g^n(x;0)$ of $g$ in $x_0 = 0$.
+    \item Give a Taylor polynomial $T_g^n(x; 0)$ such that $\abs{g(x) - T_g^n(x; 0)} < 10^{-6}$
+      holds for $[-\pi,\pi]$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 30.a}
+
+\begin{align*}
+  g(x) &= \sin(2x) \\
+  g^{(1)}(x) &= \cos(2x) \cdot 2 \\
+  g^{(2)}(x) &= -\sin(2x) \cdot 2^2 \\
+  g^{(3)}(x) &= -\cos(2x) \cdot 2^3 \\
+  \ldots & \ldots
+\end{align*}
+
+\begin{align*}
+  T_g^n(x;0) &= g(0) + \frac{g^{(1)}(0) (x - 0)}{1!} + \ldots \\
+    &= \underbrace{\sin(0)}_{=0} + \underbrace{\cos(0) \cdot 2x}_{=2x} + \frac{-\sin(0) \cdot 2^2 x^2}{2} + \frac{-\cos(0) \cdot 2^3 x^3}{3!} = -\frac{2^3 x^3}{3!} + \ldots \\
+  T_g^n(x;0) &= \sum_{k=0}^m (-1)^k \cdot \left(\frac{(2x)^{2k+1}}{(2k + 1)!}\right)
+    \qquad \text{ s.t. } 2m + 1 \leq n, 2m + 3 \geq n
+\end{align*}
+
+Even easier: Consider the power series for $\sin$:
+\[ \sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots \]
+\[ \sin(2x) = (2x) - \frac{(2x)^3}{3!} + \frac{(2x)^5}{5!} - \ldots \]
+
+\subsection{Exercise 30.b}
+%
+\[ R_g^n(x; 0) = \abs{\frac{f^{(n+1)}(\xi)(x - 0)^{n+1}}{(n+1)!}} < 10^{-6} \]
+with $x, \xi \in [-\pi, \pi]$. We look at the following approximation ($\sin(x)$ and $\cos(x)$ is at most 1 and the factor $2^{n+1}$ of the derivative remains).
+Choose $\xi$ such that $\abs{f^{(n+1)}(\xi)} \leq 2^{n+1}$.
+\[
+  R_g^n(x;0) \leq \abs{\frac{2^{n+1} x^{n+1}}{(n+1)!}} < 10^{-6}
+  \iff
+  2^{n+1} x^{n+1} 10^{6} < (n+1)!
+  \iff
+  10^{6} < \frac{(n+1)!}{\abs{2^{n+1} x^{n+1}}} < (n+1)!
+\]
+In the worst case, $x$ is very large. The largest value it reaches is $\pi$. Hence,
+\[
+  \abs{R_g^n} \leq \frac{1}{(n+1)!} \cdot 2^{n+1} \cdot \pi^{n+1} \leq 10^{-6}
+  \qquad \forall x \in [-\pi, \pi]
+\]
+This holds if $n \geq 26$.
+
+\section{Exercise 26}
+\begin{ex}
+  Prove the following limit criterion for improper integrals.
+  Let $a \in \mathbb R$ and $f,g: [a,\infty) \to \mathbb R$ functions,
+  which satisfy $f \geq 0$ and $g > 0$ in $[a, \infty)$.
+  Furthermore the following limit exists:
+  \[ L \coloneqq \lim_{x\to\infty} \frac{f(x)}{g(x)} \in [0,\infty]. \]
+  Then it holds that,
+  \begin{enumerate}
+    \item $L = 0 \Rightarrow \left[\int_a^\infty g(x) \, dx < \infty \Rightarrow \int_a^\infty f(x) \, dx < \infty \right]$.
+    \item $L \in (0,\infty) \Rightarrow \left[
+        \int_a^\infty g(x) \, dx < \infty \Leftrightarrow \int_a^\infty f(x) \, dx < \infty
+      \right]$.
+    \item $L = \infty \Rightarrow \left[\int_a^\infty g(x) \, dx \text{ diverges } \Rightarrow \int_a^\infty f(x) \, dx \text{ diverges}\right]$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 26.a}
+We provide a counterexample:
+\[
+  f(x) = \begin{cases}
+    \frac1x & 0 < x < 1 \\
+    0 & x = 0 \\
+    \frac1{x^2} & x > 1
+  \end{cases}
+\] \[
+  g(x) = \frac{1}{x^2 + 1}
+\] \[
+  a = 0
+\]
+
+To make this proposition work, $f$ must be continuous or even boundedness should suffice.
+\[
+  \forall \varepsilon > 0 \exists x_0 \forall x \geq x_0:
+  \abs{\frac{f(x)}{g(x)}} < \varepsilon
+\]
+Both functions yield positive values:
+\[
+  \forall \varepsilon > 0 \exists x_0 \forall x \geq x_0:
+  \frac{f(x)}{g(x)} < \varepsilon
+\]
+
+\[ \int_a^\infty f(x) \, dx = \int_a^{x_0} f(x) \, dx + \int_{x_0}^\infty f(x) \, dx \]
+
+\[
+  \forall \varepsilon > 0 \exists x_0 \forall x \geq x_0:
+  \frac{f(x)}{g(x)} < \varepsilon
+  \iff
+  f(x) < \varepsilon \cdot g(x)
+  \implies
+  \int_{x_0}^\infty f(x) \, dx < \varepsilon \int^{\infty} g(x) \, dx
+\]
+
+Because of boundedness we can provide the following estimates:
+\[ \int_a^\infty f(x) \, dx = \underbrace{\int_a^{x_0} f(x) \, dx}_{<\infty} + \underbrace{\int_{x_0}^\infty f(x) \, dx}_{< \infty} \]
+\[ \implies < \infty \]
+
+\subsection{Exercise 26.b}
+\[
+  \forall \varepsilon > 0
+  \exists x_0
+  \forall x \geq x_0:
+  \abs{\frac{f(x)}{g(x)} - L} < \varepsilon
+\] \[
+  \iff L - \varepsilon < \frac{f(x)}{g(x)} < L + \varepsilon
+\] \[
+  \iff (L - \varepsilon) \cdot g(x) < f(x) < (L + \varepsilon) \cdot g(x)
+\] \[
+  (L - \varepsilon) \int_{x_0}^\infty g(x) \, dx
+  \leq \int_0^\infty f(x) \, dx
+  \leq (L + \varepsilon) \int_{x_0}^\infty g(x)
+\]
+
+\subsection{Exercise 27.c}
+\[
+  \forall n \exists x_0 \forall x \geq x_0:
+  \frac{f(x)}{g(x)} > n
+  \iff f(x) > n \cdot g(x)
+  \implies \int_{x_0}^\infty f(x) \, dx \geq n \cdot \int_{x_0}^\infty g(x)
+\]
+
 
 \end{document}
