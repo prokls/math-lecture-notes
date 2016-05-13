@@ -1,3 +1,4 @@
+% TODO: normalize "\Rightarrow" to "\implies"
 \documentclass[a4paper,landscape,twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -41,6 +42,7 @@
 \newcommand\norm[1]{\left\|#1\right\|}
 \newcommand\inorm[1]{\left\|#1\right\|_\infty}
 \newcommand\fun[1]{\left\langle{#1}\right\rangle}
+\newcommand\ang[2]{\left\langle#1,#2\right\rangle}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -4205,8 +4207,230 @@ in regards of the arc length.
 
 \meta{lecture}{13th of May 2016}{Wolfgang Ring}
 
+From now on: We denote the derivative by arc length of a function $f(s)$ using \enquote{$f'(s)$}.
 
+Again:
+\[ T'(s) = \kappa(S) \cdot N(S) \]
+\[ \langle T'(s), N(s)\rangle = \kappa(S) \cdot \underbrace{\langle N(S), N(S)\rangle}_{=1} \]
+\[ \kappa(S) = \langle T'(s), N(s)\rangle \]
 
+\index[English]{Curvature radius}
+\index[German]{\foreignlanguage{ngerman}{Krümmungsradius}}
+\begin{ex}
+  \[ \gamma(t) = r \begin{bmatrix} \cos(t) \\ \sin(t) \end{bmatrix} \]
+  where $r$ is the radius. It holds that $\norm{\dot{\gamma}(t)} = r$.
+  \[
+    S_{\gamma}(t) = \int_0^t r \, d\xi = r \cdot t
+    \implies t = \frac{s}{r}
+    \implies \beta(s) = r \begin{bmatrix} \cos{\frac{s}{r}} \\ \sin{\frac{s}{r}} \end{bmatrix}
+  \] \[
+    \beta'(s) = r \cdot \frac1{r} \begin{bmatrix}
+      -\sin{\frac{s}{r}} \\
+      \cos{\frac{s}{r}}
+    \end{bmatrix}
+    = \begin{bmatrix}
+      -\sin{\frac{s}{r}} \\
+      \cos{\frac{s}{r}}
+    \end{bmatrix}
+    = T(s)
+  \] \[
+    T'(s) = \frac1r \begin{bmatrix}
+      -\cos{\frac{s}{r}} \\
+      -\sin{\frac{s}{r}}
+    \end{bmatrix}
+  \] \[
+    N(s) = \begin{bmatrix}
+      - \cos(\frac{s}{r}) \\
+      - \sin(\frac{s}{r})
+    \end{bmatrix} = D \cdot T(s)
+  \] \[
+    \kappa(s) = \langle T'(s), N(s)\rangle
+    = \frac{1}{r} \cdot 1
+    = \frac{1}{r}
+  \]
+  For an arbitrary curve $\gamma$ we define the \emph{curvature radius} in
+  point $\gamma(t) = \beta(s)$ as $\rho(s) = \frac{1}{\kappa(s)}$
+  for $\kappa(s) \neq 0$.
+  $\rho(s) = \infty$ if $\kappa(s) = 0$.
+\end{ex}
+
+\begin{rem}
+  Hence the curvature radius of the circle line is $r$.
+  $\gamma^-(t)$ goes in counter-clockwise direction along the circumference of the circle.
+  If $\gamma^-(t) = r \cdot \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix}$,
+  an analogous calculation can be made:
+  $\kappa_{\gamma^{-}}(s) = -\frac{1}{r}$.
+\end{rem}
+
+\begin{theorem}
+  Let $\gamma: I \to \mathbb R^2$ be a regular, twice continuously differentiable
+  curve. Then it holds that
+  \[ \kappa(t) = \kappa_{\beta}(s) = \frac{\dot{x}(t) \ddot{y}(t) - \ddot{x}(t) \dot{y}(t)}{(\dot{x}(t)^2 + \dot{y}(t)^2)^{\frac32}} \]
+  if $\gamma(t) = \begin{bmatrix} t \\ f(t) \end{bmatrix}$ (function graph) it holds that
+  \[ \kappa(t) = \frac{f''(t)}{(1 + f'(t)^2)^{\frac32}} \]
+\end{theorem}
+
+\begin{proof}
+  \[ \beta(s) = \gamma(\underbrace{t(s)}_{s_\gamma^{-1}(s)}) \]
+  \[
+    \beta'(s) =
+    \dot{\gamma}(t(s)) \cdot \underbrace{t'(s)}_{\frac{1}{\dot{s}_{\gamma}(s_\gamma^{-1}(s))}}
+    = \dot{\gamma}(t(s)) \cdot \frac{1}{\norm{\dot{\gamma}(t(s))}}
+    = \frac{1}{\dot{s}_\gamma(t(s))} \cdot \dot{\gamma}(t(s))
+  \]
+  Let $\frac1{\lambda} = -\frac{1}{(\dot{s}_\gamma(t(s)))^2} \cdot \ddot{s}_\gamma(t(s)) \cdot t'(s) \cdot \dot{\gamma}(t(s))$.
+  \[
+    \beta''(s) = -\frac{1}{(\dot{s}_\gamma(t(s)))^2} \cdot \ddot{s}_\gamma(t(s)) \cdot t'(s)
+    + \frac{1}{s'_\gamma(t(s))} \cdot \ddot{\gamma}(t(s)) \cdot \underbrace{\frac{1}{\dot{s}_\gamma(t(s))}}_{t'(s)}
+  \] \[
+    \kappa(t) = \kappa(s) = \ang{N}{T'} = \langle D\beta'(s), \beta''(s)\rangle
+  \] \[
+    = \ang{D \cdot \frac{1}{\dot{s}_\gamma} \dot\gamma(t(s))}{\frac{1}{\dot{s}_\gamma(t(s))^2} \cdot \ddot{\gamma}(t(s)) - \lambda \dot{\gamma}(t(s))}
+  \]
+  where
+  \[
+    \ang{D \cdot \frac{1}{\dot{s}_\gamma} \dot\gamma(t(s))}{\ddot{\gamma}(t(s)) - \lambda \dot{\gamma}(t(s))} = 0
+  \]
+
+  TODO: missing contentn
+
+  \[
+    \implies
+    \kappa(t) = \frac{\dot{x}(t) \ddot(t) - \dot\gamma(t) \dot{x}(t)}{(\dot{x}^2(t) + \dot{\gamma}^2(t))^{\frac32}}
+  \]
+\end{proof}
+
+\index[English]{Curvature center}
+\index[German]{\foreignlanguage{ngerman}{Krümmungsmittelpunkt}}
+\begin{defi}
+  Let $\gamma: I \to \mathbb R^2$ be a regular, twice continuously differentiable curve.
+  Let $\rho(t) = \frac{1}{\kappa(t)}$ be the curvature radius in $\gamma(t)$.
+
+  Then let
+  \[ \underbrace{m(t)}_{\mathbb R^2} = \gamma(t) + \rho(t) \cdot N(t) \]
+  and denote $m(t)$ as \emph{curvature center} of $\gamma$ in $\gamma(t)$
+  (compare with Figure~\ref{img:curvature-center}).
+\end{defi}
+
+\index[English]{Osculating circle}
+\index[German]{\foreignlanguage{ngerman}{Schmiegkreis}}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/curvature_center.pdf}
+    \caption{Curvature center $m$.
+      A circle with center $m$ and radius $\rho$ is called curvature radius
+      or \enquote{osculating circle} (dt. \enquote{Schmiegkreis}) of $\gamma$ in $\gamma(t)$.
+    }
+    \label{img:curvature-center}
+  \end{center}
+\end{figure}
+
+\begin{rem}
+  The error (deviation) from the osculating circle is of order $\mathcal O^2$.
+\end{rem}
+\index[English]{Evolute}
+\index[German]{\foreignlanguage{ngerman}{Evolute}}
+\begin{rem}
+  The curve of curvature centers $t \to m(t)$ is called \emph{evolute}
+  of $\gamma$.
+\end{rem}
+
+\subsection{Situation in $\mathbb R^3$}
+%
+Let $\gamma: I \to \mathbb R^3$ be parameterized by its arc length.
+It is twice continuously differentiable.
+\[ T(s) = \beta'(s) \qquad \text{\dots tangential vector} \]
+Analogously to $\mathbb R^2$ it holds that $\ang{T'(s)}{T(s)} = 0$
+(this follows from $\ang{T(s)}{T(s)} = 1$).
+Hence the unit vector $N(s) \coloneqq \frac{T'(s)}{\norm{T'(s)}}$
+is normal to $T(s)$ (only for $T'(s) \neq 0$) and we let $\kappa(s) = \norm{T'(s)} \geq 0$.
+Also it holds that $\kappa(s) N(s) = T'(s)$ and $\ang{T'(s)}{N(s)} = \kappa(s)$.
+
+\subsection{Analysis in $\mathbb R^n$}
+%
+We look at some important inequalities:
+%
+\begin{theorem}[Jensen's inequality]
+  Let $I$ be an interval, $f: I \to \mathbb R$ is convex.
+  \[ \lambda_1, \lambda_2, \ldots, \lambda_n \in [0,1] \text{ and } \sum_{k=1}^{n} \lambda_k = 1 \]
+  Let $x_1, \ldots, x_n \in I$. Then it holds that
+  \[ f(\lambda_1 x_1 + \ldots + \lambda_n x_n) \leq \lambda_1 f(x_1) + \ldots + \lambda_n f(x_n) \]
+\end{theorem}
+\begin{proof}
+  By complete induction over $n$:
+  \begin{description}
+    \item[Case $n=1$:] Trivial
+    \item[Case $n=2$:] convexity
+    \item[Case $n\to n+1$:] left as an exercise to the reader
+  \end{description}
+\end{proof}
+\begin{rem}
+  Reminder: $f$ is convex if
+  \[
+    \forall x_1, x_2 \in I, \lambda \in [0,1]:
+    f(\lambda x_1 + (1 - \lambda) x_2) \leq \lambda f(x_1) + (1  - \lambda) f(x_2)
+  \]
+\end{rem}
+\begin{rem}
+  Is $f$ strictly convex, then equality holds only for $x_1 = x_2 = \ldots = x_n = x$.
+\end{rem}
+
+\begin{theorem}
+  Inequality between the weighted geometric and the weighted arithmetic mean.
+
+  Let $x_1, \ldots, x_n$ positive, real numbers.
+  Let $\lambda_i \in [0,1]$ for $i = 1, \ldots, n$
+  such that $\sum_{i=1}^n \lambda_i = 1$.
+
+  Then it holds that
+  \[
+    x_1^{\lambda_1} x_2^{\lambda_2} \ldots x_n^{\lambda_n}
+    \leq \lambda_1 x_1 + \ldots + \lambda_n x_n
+  \]
+  Especially for $\lambda_i = \frac1n \forall i$.:
+  \[
+    \underbrace{\sqrt[n]{x_1 x_2 \ldots x_n}}_{\text{geometric mean}}
+    \leq
+    \underbrace{\frac1n \left(x_1 + \ldots + x_n\right)}_{\text{arithmetic mean}}
+  \]
+  Equality in the equality above only holds for
+  $x_1 = x_2 = \ldots = x_n = x$.
+\end{theorem}
+\begin{proof}
+  Consider $f: (0,\infty) \to \mathbb R$ and $x \mapsto \ln(x)$.
+  \[ f''(x) = -\frac1{x^2} < 0 \text{ hence $f$ is concave} \]
+  $-f$ is convex. Jensen's inequality for $-f$:
+  \[
+    -\ln\underbrace{(\lambda_1 x_1 + \ldots + \lambda_n x_n)}_{\text{convex combination}}
+    \leq
+    - \lambda_1 \ln(x_1) - \ldots - \lambda_n \ln(x_n)
+  \] \begin{align*}
+    \ln(\lambda_1 x_1 + \ldots + \lambda_n x_n)
+      &\geq \lambda_1 \ln{x_1} + \ldots + \lambda_n \ln{x_n} \\
+      &= \ln{x_1^{\lambda_1}} + \ln{x_2^{\lambda_2}} + \ldots + \ln{x_n^{\lambda_n}} \\
+      &= \ln(x_1^{\lambda_1} \cdot x_2^{\lambda_2} \cdot \ldots \cdot x_n^{\lambda_n})
+  \end{align*}
+  Exponential function:
+  \[ \implies \lambda_1 x_1 + \ldots + \lambda_n x_n \geq x_1^{\lambda_1} \ldots x_n^{\lambda_n} \]
+  Equality in Jensen's inequality holds only for $x_1 = x_2 = \ldots = x_n$.
+\end{proof}
+\index[English]{$p$-norm}
+\index[German]{\foreignlanguage{ngerman}{$p$-norm}}
+\index[English]{maximum norm}
+\index[German]{\foreignlanguage{ngerman}{Maximumsnorm}}
+\index[English]{Euclidean norm}
+\index[German]{\foreignlanguage{ngerman}{Euklidsche Norm}}
+\index[English]{Infinity norm}
+\index[German]{\foreignlanguage{ngerman}{Unendlichnorm}}
+\begin{defi}
+  Let $x \in \mathbb R^n$. $x = \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}$.
+  We define
+  \[ \norm{x}_p = \left(\sum_{i=1}^n \abs{x_i}^p\right)^{\frac1p} \text{ for } p \geq 1 \]
+  $\norm{x}_p$ is called \emph{$p$-norm of $x$}.
+  For $p=2$, $\norm{x}_2$ is called \emph{Euclidean norm of $x$}.
+  \[ \norm{x}_\infty = \max\set{\abs{x_i}: i = 1, \ldots, n} \]
+  is called \emph{maximum norm} or \emph{$\infty$-norm}.
+\end{defi}
 
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
