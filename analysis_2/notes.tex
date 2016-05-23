@@ -1117,22 +1117,24 @@ Compare with Figure~\ref{img:deriv-r2}.
 \[ \abs{\gamma'(t)} = \sqrt{(-\sin(t))^2 + (\cos(t))^2} = 1 \]
 \[ \int_0^t \abs{\gamma'(\tau)} \, d\tau = \int_0^t 1 \, d\tau = t \]
 
-\section{Integration calculus}
+\section{Integral calculus}
 %
 Integration calculus was developed to determine areas of curves regions.
 It was developed by Leibniz, Cauchy, Riemann and Lebeque. There are different
 notions of integrations and it will discussed in further details in the courses
 \enquote{Functional analysis} and \enquote{Measure and integration theory}.
-For now, we look at the basis (as discussed by \foreignlanguage{ngerman}{Königsberger}).
+For now, we look at the basics (as discussed by \foreignlanguage{ngerman}{Königsberger}).
 
 \index[English]{Step function}
 \index[German]{\foreignlanguage{ngerman}{Treppenfunktion}}
-Let $[a,b]$ be an interval, $a,b \in \mathbb R$ with $a<b$ and $\phi: [a,b] \to \mathbb R$.
-We call $\varphi$ a \emph{step function}, if $n \in \mathbb N$ and $x_0, \ldots, x_n$
-exist such that
-\[ x_0 = a < x_1 < x_2 < \ldots < x_n = b \]
-and $\varphi|_{(x_{j-1}, x_j)} = c_j$ is constant.
-The points $x_j$ define a partition of the interval $[a,b]$.
+\begin{defi}[Step function]
+  Let $[a,b]$ be an interval, $a,b \in \mathbb R$ with $a<b$ and $\phi: [a,b] \to \mathbb R$.
+  We call $\varphi$ a \emph{step function}, if $n \in \mathbb N$ and $x_0, \ldots, x_n$
+  exist such that
+  \[ x_0 = a < x_1 < x_2 < \ldots < x_n = b \]
+  and $\varphi|_{(x_{j-1}, x_j)} = c_j$ is constant.
+  The points $x_j$ define a partition of the interval $[a,b]$.
+\end{defi}
 
 $\tau[a,b]$ defines the set of step functions of interval $[a,b]$.
 The function values defining the partitions do not have any constraints and
@@ -1148,9 +1150,9 @@ are therefore irrelevant for further considerations (compare with Figure~\ref{im
 
 \index[English]{Integral}
 \index[German]{\foreignlanguage{ngerman}{Integral}}
-\begin{defi}
+\begin{defi}[Integral]
   Let $\varphi:[a,b] \to \mathbb R$ be a step function and
-  $x_0 = a < x_1 < \ldots < x_n = b$ as partition of
+  $x_0 = a < x_1 < \ldots < x_n = b$ a partition of
   $[a,b]$ and let $\varphi|_{(x_{j-1}, x_j)} = c_j$
   for $j = 1,\ldots,n$.
   Then we define
@@ -4431,6 +4433,369 @@ We look at some important inequalities:
   \[ \norm{x}_\infty = \max\set{\abs{x_i}: i = 1, \ldots, n} \]
   is called \emph{maximum norm} or \emph{$\infty$-norm}.
 \end{defi}
+
+\meta{lecture}{19th of May 2016}{Wolfgang Ring}
+
+Reminder:
+\begin{rem}
+  Let $V$ be a vector space. Then $\|.\|: V \to [0,\infty)$ is called \emph{norm}, if
+  \begin{itemize}
+    \item $\norm{x} = 0 \Leftrightarrow x = 0$ in $V$
+    \item $\forall \lambda \in \mathbb R$ ($\mathbb C$) it holds that $\norm{\lambda x} = \abs{\lambda} \norm{x} \forall x \in V$
+    \item $\forall x,y \in V$ it holds that $\norm{x + y} \leq \norm{x} + \norm{y}$
+  \end{itemize}
+  A norm defines defines a distance function (metric) in $V$ with $d(x,y) = \norm{x - y}$.
+
+  Analogously,
+  \[ f: I \to \mathbb R \qquad I = [a,b] \]
+  \[ \norm{p}_p = \left(\int_a^b \abs{f(x)}^p \, dx\right)^{\frac1p} \]
+
+  Let $V \in \mathbb R^n$.
+  \[ V: \set{1, 2, \ldots, n} \to \mathbb R \]
+  \[ v(k) = v_k \]
+  \[ \int v \, \underbrace{dz}_{\text{counting measure}} \coloneqq \sum_{k=1}^{n} v_k \]
+  \[
+    \left(\int \abs{V}^p \, dz\right)^{\frac1p}
+    = \left(\sum_{k=1}^n \abs{V_k}^p\right)^{\frac1p}
+    = \norm{v}_p
+  \]
+
+  It holds that $\norm{.}_p$ for $p \geq 1$ and $\inorm{.}$ are norms in $\mathbb R^n$.
+
+  \begin{enumerate}
+    \item
+      \[ \inorm{.}: \inorm{v} = 0 \Rightarrow \max\set{\abs{v_k}: k = 1, \ldots, n} \]
+      \[ \Rightarrow \abs{v_k} = 0 \text{ for } k = 1, \ldots, n \Leftrightarrow v = \vec{0} \in \mathbb R^n \]
+    \item
+      \[ \inorm{\lambda v} = \max\set{\underbrace{\abs{\lambda v_k}}_{\abs{\lambda} \cdot \abs{v_k}}: k = 1, \ldots, n} \]
+      \[ = \abs{\lambda} \cdot \max\set{\abs{v_k}: k = 1, \ldots, n} = \abs{\lambda} \cdot \inorm{v} \]
+    \item
+      \begin{align*}
+        \inorm{v + w} = \max\set{\abs{v_k + w_k}: k = 1, \ldots, n} \\
+            &\leq \max\set{\abs{v_k} + \abs{w_k}: k = 1, \ldots, n} + \max\set{\abs{w_k}: k = 1, \ldots, n} \\
+            &= \inorm{v} + \inorm{w}
+      \end{align*}
+  \end{enumerate}
+  Hence $\inorm{.}$ is norm in $\mathbb R^n$.
+  For $\norm{.}_p$-norms it holds that $p \geq 1$.
+
+  \begin{enumerate}
+    \item
+      Let $\norm{v}_p = 0 \Rightarrow \left(\sum_{k=1}^{n} \abs{v_k}^p\right)^{\frac{1}{p}} = 0$.
+      \[ \Leftrightarrow \sum_{k=1}^n \underbrace{\abs{v_k}}_{\geq 0}^p = 0 \Leftrightarrow \abs{v_k}^p = 0 \text{ for } k = 1, \ldots, n \]
+      \[ \Leftrightarrow v_k = 0 \text{ for } k = 1, \ldots, n \iff v = \vec{0} \text{ in } \mathbb R^n \]
+    \item
+      Let $\lambda \in \mathbb R$.
+      \[ \norm{\lambda \cdot v}_p = \left(\sum_{k=1}^n \abs{\lambda v_k}^p\right)^{\frac1p} \]
+      \[ = \left(\sum_{k=1}^n \abs{\lambda^p} \cdot \abs{v_k}^p\right)^{\frac1p} = \left(\abs{\lambda}^p \sum_{k=1}^n \abs{v_k}^p\right) \]
+      \[ = \abs{\lambda} \left(\sum_{k=1}^n \abs{v_k}^p\right)^{\frac1p} = \abs{\lambda} \cdot \norm{v}_p \]
+    \item
+      Consider $p = 1$.
+      \[ \norm{v + w}_1
+        = \left(\sum_{k=1}^n \abs{v_k + w_k}^1\right)^{\frac{1}{1}}
+        \leq \left(\sum_{k=1}^n \left(\abs{v_k} + \abs{w_k}\right)\right)
+        = \norm{v}_1 + \norm{w}_1
+      \]
+      We want to consider $p > 1$. But first we need to talk about Hölder's inequality in $\mathbb R^n$.
+      \index[English]{Hölder's inequality}
+      \index[German]{\foreignlanguage{ngerman}{Hölders Ungleichung}}
+      \begin{theorem}[Hölder's inequality]
+        Let $p, q > 1$ with $\frac1p + \frac1q = 1$.
+        Let $v, w \in \mathbb R^n$. Then it holds that
+        \[ \sum_{k=1}^n \abs{v_k \cdot w_k} \leq \norm{v}_p \cdot \norm{w}_q \]
+      \end{theorem}
+      \begin{proof}
+        $v = \vec{0}$ holds, analogously $w = \vec{0}$ holds.
+
+        Hence let $\norm{v}_p \neq 0$ and $\norm{w}_q \neq 0$.
+        Inequality of geometrical and arithmetical mean for $\lambda_1 = \frac1p$, $\lambda_2 = \frac1q$ and
+        \[ x_1 = \frac{\abs{v_k}^p}{\norm{v}_p^p} \qquad x_2 = \frac{\abs{w_k}^q}{\norm{w}_q^q} \]
+        \[
+          \frac{\abs{v_k}}{\norm{v}_p} \cdot \frac{\abs{w_k}}{\norm{w}_q}
+          \leq \frac1p \frac{\abs{v_k}^p}{\norm{v}_p^p} + \frac1q \frac{\abs{w_k}^q}{\norm{w}_q^q}
+        \]
+        Sum over $k = 1, \ldots, n$.
+        \[
+          \frac{1}{\norm{v}_p \cdot \norm{w}_q} \sum_{k=1}^n \abs{v_k \cdot w_k}
+          \leq \frac1p \frac{\sum_{k=1}^n \abs{v_k}^p}{\norm{v}_p^p}
+            + \frac1q \frac{\sum_{k=1}^n \abs{w_k}^q}{\norm{w}_q^q}
+        \] \[
+          = \frac1p + \frac1q = 1
+          \implies
+          \sum_{k=1}^n \abs{v_k \cdot w_k} \leq \norm{v}_p \cdot \norm{w}_q
+        \]
+      \end{proof}
+      \begin{theorem}[Minkovski inequality]
+        Let $p > 1$.
+        \[ \forall v, w \in \mathbb R: \norm{v + w}_p \leq \norm{v}_p + \norm{w}_p \]
+      \end{theorem}
+      \begin{proof}
+        Let $s_k = \abs{v_k + w_k}^{\overbrace{p-1}^{>0}}$.
+        We chose $q$ such that $\frac1p + \frac1q = 1$.
+        \[ \left(\frac1q = \frac{1-p}{p}; q = \frac{p}{p-1}\right) \]
+        \[ \abs{v_k + w_k}^p = \abs{v_k + w_k} \cdot \abs{s_k} \overset{\text{triangle ineq. for 1st expr}}{\leq} \abs{v_k} \cdot \abs{s_k} + \abs{w_k} \cdot \abs{s_k} \]
+        \[
+          \underbrace{\sum_{k=1}^n \abs{v_k + w_k}^p}_{= \norm{v + w}_p^p}
+          \leq \sum_{k=1}^n \abs{v_k \cdot s_k} + \sum_{k=1}^n \abs{w_k \cdot s_k}
+        \] \[
+          \overset{\text{Hölder's ineq}}{\leq}
+          \norm{v}_p \cdot \norm{s}_q + \norm{w}_p \cdot \norm{s}_q
+        \]
+        with $s = \begin{bmatrix} s_1 \\ \vdots \\ s_n \end{bmatrix}$.
+        \[ \abs{s_k}^q = \abs{v_k + w_k}^{(p-1) \cdot q} = \abs{v_k + w_k}^p \]
+        \[
+          \norm{s_k}_q = \left(\sum_{k=1}^n \abs{v_k + w_k}^p\right)^{\frac1q \cdot \frac{p}{p}}
+          = \norm{v + w}_p^{\frac{p}{q}}
+        \]
+        It holds that $\frac{p}{q} = p - 1$.
+        \[ = \norm{v + w}_p^{p-1} \]
+
+        Insert into $\norm{v}_p \cdot \norm{s}_q + \norm{w}_p \cdot \norm{s}_q$:
+        \[ \norm{v+w}_p \leq \norm{p} \norm{v + w}_p^{p-1} + \norm{w}_p \norm{v + w}_p^{n-1} \]
+        \[ \Rightarrow \norm{v + w}_p \leq \norm{v}_p + \norm{w}_p \]
+      \end{proof}
+  \end{enumerate}
+\end{rem}
+
+\meta{lecture}{20th of May 2016}{Wolfgang Ring}
+
+\begin{rem}[Notation]
+  \[ v \in \mathbb R^n \qquad v = \begin{bmatrix} v^1 \\ v^2 \\ \vdots \\ v^n \end{bmatrix} \]
+  Coordinate index is at top.
+\end{rem}
+
+\begin{defi}
+  Let $V$ be a vector space and $\norm{.}_1$ and $\norm{.}_2$ are two norms in $V$.
+  We call $\norm{.}_1$ and $\norm{.}_2$ equivalent if $\exists m,M > 0$ such that
+  for all $v \in \mathbb V$ the relation.
+  \begin{align} m \norm{v}_1 &\leq \norm{v}_2 \leq M \norm{v}_1 \ref{eq:n1} \end{align}
+  Remark: Let $N = \setdef{\norm{.}}{\norm{.} \text{ is norm in } V}$.
+  Then Equation~\ref{eq:n1} defines an equivalence relation in $N$.
+  \begin{enumerate}
+    \item Reflexivity
+    \item Let $m \norm{v}_1 \leq \norm{v}_2 \leq M \norm{v}_1$
+      Then it holds that $\norm{v}_1 \geq \frac{1}{M} \norm{v}_2$
+      because $\norm{v_2} \leq M \norm{v}_1$. Furthermore
+      $\norm{v}_1 \leq \frac1{m} \norm{v}_2$ because $m \norm{v}_1 \leq \norm{v}_2$.
+      Hence we get symmetry.
+    \item Let
+      \begin{enumerate}
+      \item $m \norm{v}_1 \leq \norm{v}_2 \leq M \norm{v}_1$
+      \item and $m' \norm{v}_2 \leq \norm{v}_3$
+      \item and $\norm{v}_3 \leq M' \norm{v}_2$.
+      \end{enumerate}
+      \[ \Rightarrow m \cdot m' \norm{v}_1 \overbrace{\leq}^{(1)} m' \norm{v}_2 \overbrace{\leq}^{(2)} \norm{v}_3 \overbrace{\leq}^{(3)} M' \]
+      \[ \leq M' \cdot M \norm{v}_1 \]
+      Transitivity
+  \end{enumerate}
+\end{defi}
+
+\section{Topological terms in normed vector spaces}
+(Convergence, continuity, open set, compactness, etc.)
+
+Let $(V, \norm{.})$ be a normed vector space.
+
+\begin{defi}[Convergence]
+  Let $x_n \in V$ for $n \in \mathbb N$ and $x \in V$.
+  We state $(x_n)_{n\in\mathbb N}$ converges to $x$ in regards of $\norm{.}$, if
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: [n \geq N \Rightarrow \norm{x_n - x} < \varepsilon] \]
+  Notation: $\lim_{n\to\infty} x_n = x$ i.e. $x_n \to x$ for $n \to \infty$ (we replace norm by vertical bars for absolute value). \\
+  Remark: We explicitly tell for which norm the expression converges. If no norm is explicitly mentioned, we mean the only norm we talk about (denoted $x_n \overset{\norm{.}}{\to} x$).
+\end{defi}
+
+\begin{rem}
+  Let $(\xi)_{n\in\mathbb N}$ and $\xi_n \in \mathbb N_+$ with $\xi_n = \norm{x_n - x}$.
+  Then it holds that $x_n \overset{\norm{.}}{\to} x$ for $x \to \infty$ in $V$
+  $\Leftrightarrow \xi_n \to 0$ for $n \to \infty$ in $\mathbb N$.
+
+  Because $\xi_n \to 0$ in $\mathbb R$,
+  \[ \Leftrightarrow \forall \varepsilon > 0 \exists N \in \mathbb N: [n \geq N \Rightarrow \abs{\underbrace{\norm{x_n - x}}_{\xi_n \text{ with } \abs{\xi_n} = \xi}} < \varepsilon] \]
+\end{rem}
+
+\index[English]{Cauchy sequence in $V$}
+\index[German]{\foreignlanguage{ngerman}{Cauchyfolge in $V$}}
+\begin{defi}[Cauchy sequence in $V$]
+  Let $(x_n)_{n\in\mathbb N}$ be a sequence in $V$. We claim that
+  $(x_n)_{n\in\mathbb N}$ is a Cauchy sequence if
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: [n,m \geq N \Rightarrow \norm{x_n - x_m} < \varepsilon] \]
+\end{defi}
+
+\index[English]{Complete vector space}
+\index[German]{\foreignlanguage{ngerman}{Vollständiger Vektorraum}}
+\begin{defi}
+  $(V, \norm{.})$ is called \emph{complete} if every Cauchy sequence in $V$ is a convergent sequence in $V$,
+  hence has a limit. A complete, normed vector space is called \emph{Banach space}.
+
+  \fbox{Stefan Banach (1892--1945)}
+\end{defi}
+
+\begin{rem}
+  Every convergent sequence is also a Cauchy sequence. Proof as in $\mathbb R$ (relevant for exam).
+\end{rem}
+
+\index[English]{Continuity in normed vector spaces}
+\index[German]{\foreignlanguage{ngerman}{Stetigkeit in normierten Vektorräumen}}
+\begin{defi}
+  Let $f: D \leq V \to W$, $V$ and $W$ are normed vector spaces.
+  Let $x_0 \in D$. $f$ is called continuous in $x_0$, if
+  \[ \forall \varepsilon > 0 \exists \delta > 0: \forall x \in D: \norm{x - x_0}_V < \delta \Rightarrow \norm{f(x) - f(x_0)}_w < \varepsilon \]
+  Continuity is another concept, which depends in the norms used in $V$ and $W$.
+\end{defi}
+
+\index[English]{Sequence criterion for continuity}
+\index[German]{\foreignlanguage{ngerman}{Folgenkriterium für Stetigkeit}}
+\begin{rem}
+  Let $V$ and $W$ be normed vector spaces, $f: D \subseteq V \to W$,
+  $\overline{x} \in D$. Then $f$ is continuous in $\overline{x}$
+  \[ \Leftrightarrow \left[\forall (x_n)_{n \in \mathbb N} \text{ with } x_n \in D \land \lim_{n\to\infty} x_n = \overline{x} \text{ in terms of $\norm{.}_v$ } \implies \lim_{n\to\infty} f(x_n) = f(\overline{x}) \text{ in terms of } \norm{.}_W\right] \]
+\end{rem}
+\begin{proof}
+  Proof as in $\mathbb R$ (but not relevant for exam).
+\end{proof}
+
+\index[English]{Continuous function}
+\index[German]{\foreignlanguage{ngerman}{Stetige Funktion}}
+\begin{defi}
+  Let $f: D \subseteq V \to W$ and $V,W$ are normed vector spaces.
+  Then $f$ is called \emph{continuous in $D$} if $f$ is continuous in every point $\overline{x} \in D$.
+\end{defi}
+\begin{defi}
+  Let $V$ be a normed vector space.
+  \begin{enumerate}
+  \item Let $x \in V$ and $r \geq 0$. We let $B(x,r) \coloneqq \setdef{y \in V}{\norm{y - x} < r}$.
+    $B(x,r)$ is a ball (in terms of $\norm{.}$) with center $x$ and radius $r$.
+    $B(x,r) \coloneqq \setdef{y \in V}{\norm{y - x} \leq r}$ is a closed ball with center $x$ and radius $r$.
+  \item
+    $O \subseteq V$ is called open if $\forall x \in O \exists r > 0: B(x,r) \subseteq O$.
+    $A \subseteq V$ is called \emph{closed} (dt. abgeschlossen), if $V \setminus A$ is open in $V$.
+  \end{enumerate}
+\end{defi}
+
+\begin{rem}
+  $B(x,r)$ is open for $r \geq 0$. $\overline{B(x,r)}$ is closed for $r \geq 0$.
+  \[ B(x,O) = \emptyset \qquad \overline{B(x,O)} = \set{x} \]
+\end{rem}
+\begin{proof}
+  Left to the reader as an exercise.
+\end{proof}
+
+\begin{lemma}
+  Let $(V, \norm{.})$ be a normed vector space.
+  Then it holds that,
+  \begin{enumerate}
+  \item $\varphi$ is open in $V$, $V$ is open in $V$
+  \item Let $O_i$ with $i \in I$ be a family of open sets. Then the union
+    \[ \bigcup_{i \in I} O_i = \setdef{x \in V}{\exists i \in I: x \in O_i} \]
+    is open.
+  \item Let $O_1, O_2, \ldots, O_N$ be a set of open sets.
+    Then $\bigcap_{k=1}^N O_k$ is open.
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  \begin{enumerate}
+  \item It holds that
+    \[ \forall x \in \varphi \exists r > 0: B(x,r) \subseteq \varphi \]
+    \[ \forall x \in V: \exists r > 0: B(x, r) \subseteq V \]
+    For example for $r=1$.
+  \item Let $O = \bigcup_{i \in I} O_i$, $O_i$ is open and let $x \in O$.
+    Hence $\exists i \in I: x \in O_i$, because $O_i$ is open, there exists
+    some $r > 0$ such that
+    \[ B(x,r) \subseteq O_i \implies B(x,r) \subseteq O_i \subseteq \bigcup_{i \in I} O_i \]
+  \item
+    Let $O = \bigcap_{k=1}^N O_k$ and $x \in O$.
+    Hence $\forall k \in \set{1, \ldots, N}: x \in O_n$ and therefore exist $r_k > 0$
+    such that $B(x, r_k) \subseteq O_k$ (because every $O_k$ is open).
+    Choose $r = \min\set{\underbrace{r_1}_{>0}, \underbrace{r_2}_{>0}, \ldots, \underbrace{r_N}_{>0}} > 0$.
+    Then it holds that
+    \[ B(x, r) \subseteq B(x,r_k) \subseteq O_k \text{ for } k = 1, \ldots, N \implies B(x,r) \subseteq \bigcap_{k=1}^N O_k = O \]
+  \end{enumerate}
+\end{proof}
+
+\index[English]{Topology}
+\index[German]{\foreignlanguage{ngerman}{Topologie}}
+\begin{defi}
+  A system of sets $\tau \subseteq \mathcal P(V)$ (where $\mathcal P(V)$ denotes the power set of $V$)
+  which satisfy properties 1, 2 and 3 is called \emph{topology in $V$}.
+\end{defi}
+
+\begin{lemma}
+  Let $(V, \norm{.})$ be a normed vector space. Then it holds that
+  \begin{itemize}
+  \item[4.] If $\varphi$ is closed, then $V$ is closed.
+  \item[5.] If $I$ is an index set, $(A_i)_{i \in I}$ is a family of closed sets.
+    Then it holds that $\bigcap_{i \in I} A_i = \setdef{x \in V: \forall i \in I}{x \in A_i}$
+    is closed in $V$.
+  \item[6.] Let $A_1, A_2, \ldots, A_N$ be closed.
+    Then the union $\bigcup_{k=1}^N A_k$ is closed in $V$.
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  Follows by generation of complement generation and DeMorgan's laws.
+\end{proof}
+
+\begin{defi}[Limit point, Contact point, inner point]
+  Let $M \subseteq V$ where $V$ is a normed vector space.
+  \begin{itemize}
+  \item $x \in M$ is called \emph{inner point} of $M$ if $r > 0$ exists, such that $B(x, r) \subseteq M$.
+  \item $x \in V$ is called \emph{contact point} $M$ if $\forall r > 0: B(x,r) \cap M \neq \varphi$.
+  \item $x \in V$ is called \emph{limit point} of $M$ if $\forall r > 0: \left(B(x,r) \setminus \set{x}\right) \cap M \neq 0$
+    ($\left(B(x,r) \setminus \set{x}\right)$ is also called \emph{pointed ball} $\dot{B}(x,r)$).
+  \end{itemize}
+\end{defi}
+
+\begin{rem}
+  $O \subseteq V$ is open iff $\forall x \in O: x$ is inner point of $O$.
+  $A \subseteq V$ is closed iff $\forall x \in V$ where $x$ is contact point of $A$, $x \in A$ holds.
+\end{rem}
+\begin{proof}
+  Let $A$ be closed and $x$ is contact point of $A$. Assume $x \not\in A$, hence $x \in V \setminus A$ is open.
+  Because $V \setminus A$ is open, there exists $r > 0$:
+  \[ B(x, r) \subseteq V \setminus A \implies B(x,r) \cap A = 0 \]
+  is a contradiction to $x$ is a contact point of $A$.
+  On the opposite, let every contact point of $A$ be element of $A$.
+  Then it holds that $\forall x \not\in A$ (hence $x \in V \setminus A$)
+  that $x$ is not a contact point of $A$.
+  \[ \implies \exists r > 0: B(x, r) \cap A = \varphi \]
+  \[ \implies B(x, r) \subseteq V \setminus A \]
+  Hence $V \setminus A$ is open and therefore $A$ is closed.
+\end{proof}
+
+\begin{defi}
+  Let $M \subseteq V$. Then $\mathring{M} = \setdef{x \in M}{x \text{ is inner point of } M} \]
+  $\mathring{M}$ is called \emph{open kernel} of $M$.
+  $\overline{M} = \setdef{x \in V}{x \in \text{ contact point}}$
+  $\overline{M}$ is closed cover of $M$.
+\end{defi}
+
+\begin{lemma}
+  $\forall M \subseteq V$ it holds that
+  \begin{itemize}
+  \item $\mathring{M}$ is open, $\mathring{M} \subseteq M$
+  \item $\overline{M}$ is closed, $M \subseteq \overline{M}$
+  \item $M$ is open iff $M = \mathring{M}$
+  \item $M$ is closed iff $M = \overline{M}$
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  \mathring{M} \subseteq M$. Let $x \in \mathring{M}$.
+
+  Show that there exists $r > 0$ such that $B(x,r) \subseteq \mathring{M}$.
+  Choose $r > 0$ such that $B(x,r) \subseteq M$.
+
+  Show that $\forall y \in B(x,r)$ it holds that $y \in \mathring{M}$.
+  \[ y \in B(x,r) \implies \norm{y - x} < r #+
+  Choose $r_y = r - \norm{y-x} > 0$. We show
+  \[ B(y,r_y) \subseteq B(x,r) \subseteq M \]
+  hence $y \in \mathring{M}$.
+
+  Let $z \in B(y,r_y)$, hence $\norm{z-y} < r_y$.
+  It follows that
+  \[ \norm{z-y} = \norm{z-y+y-x} \leq \norm{z-y} + \norm{y-x} < r_y + \norm{y-x} = r - \norm{y-x} + \norm{y-x} = r \]
+  Therefore $\norm{z-x} < r$, hence $z \in B(x,r)$.
+  So it holds that $B(y,r_y) \subseteq B(x,r) \subseteq M$, so $y \in \mathring{M}$.
+\end{proof}
+
+\meta{lecture}{23rd of May 2016}{Wolfgang Ring}
 
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}

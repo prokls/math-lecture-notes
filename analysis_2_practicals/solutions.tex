@@ -1727,5 +1727,110 @@ Because of boundedness we can provide the following estimates:
   \implies \int_{x_0}^\infty f(x) \, dx \geq n \cdot \int_{x_0}^\infty g(x)
 \]
 
+\section{Exercise 31}
+\begin{ex}
+  Let $I \subseteq \mathbb R$ be an interval, $a \in I$, $n \in \mathbb N$
+  and $f: I \to \mathbb R$ is differentiable $n$-times.
+  Show: If a polynomial
+  \[ P(x) = \sum_{k=0}^{n} a_k(x - a)^k \]
+  with $a_k \in \mathbb R$, $0 \leq k \leq n$ satisfies
+  \[ \lim_{x\to a} \frac{f(x) - P(x)}{(x - a)^n} = 0 \]
+  then $P(x) = T_f^n(x;a)$.
+\end{ex}
+
+\[
+T_f^n(x;a) = f(a) + \frac{f'(a)(x - a)}{1!} + \frac{f''(a)(x - a)^2}{2!} + \ldots + f^{(n)}(a)(x - a)^n}{n!}
+= \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x - a)^k
+\]
+
+How do derivatives of $P$ look like?
+\[ P^{(1})(x) = \sum_{k=0}^n k a_k (x - a)^{k-1} \]
+\[ P^{(2)}(x) = \sum_{k=0}^n a_k k (k - 1) (x - a)^{k-2} \]
+\[ P^{(i)}(x) = \sum_{k=0}^n k (k-1) \cdot \ldots \cdot (k - i + 1) a_k (x - a)^{k-i}  \]
+\[ P^{(i)}(a) = a_k \cdot \underbrace{k (k-1) (k-2) \cdot \ldots \cdot (1)}_{=k!} \]
+\[ a_k = \frac{P^{(k)}(a)}{k!} \]
+\[ P(x) = \sum_{k=0}^n a_k (x - a)^k = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (x - a)^k \]
+
+For $k=0$:
+\[ P^{(0)}(a) = P(a) = a_k(a - a)^0 = a_k \]
+\[ \lim_{x \to a} \frac{f(x) - P(x)}{(x - a)^n} = \lim_{n\to\infty} \frac{f'(x) - P'(x)}{n (x - a)^{n-1}} = \text{apply L'H\^opital's rule $n$ times} = \lim_{x\to a} \frac{f^{(n)}(x) - P^{(n)}(x)}{n! (x - a)^0} = 0 \]
+
+Because $f$ and $p$ are continuous, we have
+\[ f(x) - P(x) \overset{x \to a}{\to} 0 \]
+\[ f(a) - P(a) = 0 \Leftrightarrow f(a) = P(a) \]
+
+We need to show: $P^{(k)}(a) = f^{(k)}(a)$ for $0 \leq k \leq n$ and $P^{(0)}(a) = f^{(0)}(a)$.
+
+\section{Exercise 32}
+\begin{ex}
+  Let $f_n: [a,b] \to \mathbb R$, $a < b$, be a sequence of regulated functions
+  converging uniformly to $f: [a,b] \to \mathbb R$. Prove that $f$ is a regulated
+  function and limes and integration can be exchanged as follows:
+  \[
+    \lim_{n\to\infty} \int_a^b f_n(x) \, dx
+    = \int_a^b \lim_{n\to\infty} f_n(x)\, dx \left( = \int_a^b f(x) \, dx\right)
+  \]
+\end{ex}
+
+\[ \forall \varepsilon > 0 \exists N = N(\varepsilon): \forall n \geq N: \ldots \]
+\[ \text{Especially for } n = N(\varepsilon): \ldots \]
+\[ \exists M = M(\varepsilon): \forall m \geq M: \ldots \]
+\[ \text{Especially for } m = M(\varepsilon): \ldots \]
+\[ \forall x: \abs{f_{N(\varepsilon)}(x) - f(x)} < \varepsilon \]
+\[ \abs{f_{N(\varepsilon)}(x) - f_{N(\varepsilon),M(\varepsilon)}} < \varepsilon \]
+
+\[ h_k \coloneqq g_{N(\frac1{k}),M(\frac{1}{k})} \]
+\[ \forall x \abs{f(x) - h_k(x)} \leq \frac{2}{k} \overset{k\to\infty}{\to} 0 \]
+
+\section{Exercise 33}
+
+\[ P(x) \coloneqq \sum_{k=0}^\infty a_k x^k \qquad \rho = c > 0 \]
+
+To show: \forall b \in (-c,c), a < b$:
+\[ \sum_{k=0}^\infty \int_a^b a_k x^k \, dx = \int_a^b \sum_{k=0}^\infty a_k x^k \, dx = \int_a^b P(x) \, dx \]
+
+\[ \sum_{k=0}^\infty \int_a^b a_k x^k \, dx = \lim_{n\to\infty} \sum_{k=0}^n \int_a^b a_k x^k \, dx
+= \lim_{n\to\infty} \int_a^b \sum_{k=0}^n a_k x^k \, dx \overset{\text{ex. 32}}{=} \int_a^b \lim_{n\to\infty} \sum_{k=0}^n a_k x^k \, dx \]
+
+But we need to show that the requirements for the equation in exercise~32 are satisfied.
+
+\[ f(x) = \sum_{k=0}^\infty a_k \cdot x^k \qquad g(f) = c \]
+\[ f_n(x) = \sum_{k=0}^n a_k \cdot x^k \]
+\[ \abs{f(x) - f_n(x)} = \abs{\sum_{k=0}^\infty a_k x^k - \sum_{k=0}^n a_k x^k} = \abs{\sum_{k=n+1}^\infty a_n \cdot x^k} \leq \sum_{k=n+1}^\infty \abs{a_k} \cdot \abs{x^k} \]
+
+It holds that $\abs{\frac{x}{r}}^k \leq \abs{\frac{x}{r}}^{n+1}$. Then consider
+\[ \abs{r < c} = \sum_{k=n+1}^\infty \abs{a_k} \cdot \frac{\abs{x}^k}{\abs{r}^k} \cdot \abs{r}^k \leq \abs{\frac{x}{r}}^{n+1} \underbrace{\sum_{k=n+1}^\infty \abs{a_n} \cdot \abs{r}^k}_{=S} = \underbrace{\abs{\frac{x}{r}}^{n+1}}_{<\varepsilon} \cdot S \]
+We chose some $c$ close enough such that our desired properties are fulfilled.
+
+\subsection{Elaboration}
+Convergence radius $c$: $\abs{x} < c$ and $\abs{x} < r < c$.
+Let $a_k r^k$ be bounded and $\sum_{k} a_k r^k$ be convergent.
+\[ \sum_{k=0}^\infty \abs{a_k x^k} \leq \sum_{k=0}^\infty \abs{\frac{x}{r}}^k \underbrace{\abs{a_k r^k}}_{\leq C} \leq C \sum_{k=0}^\infty \abs{\frac{x}{r}}^k = \frac{c}{1 - \abs{\frac{x}{r}}} \]
+
+\section{Exercise 34}
+\begin{ex}
+  Determine the power series representation $P(x)$ of $\arctan$ in $x_0 = 0$.
+  Furthermore give the largest interval $(-c, c)$ with $c > 0$ in which power
+  series $P(x)$ represents arctan.
+
+  Hint: Represent the derivative of arctan as a power series and use exercise~33.
+\end{ex}
+
+\[ \arctan(x) = \frac{1}{1 + x^2} = \sum_{n=0}^\infty (-1)^n x^{2n} \]
+
+Geometrical series:
+\[ \sum_{n=0}^\infty x^n = \frac{1}{1 - x} \qquad \text{ converges if } \abs{x} < 1 \]
+
+\[ \sum_{n=0}^\infty (-1)^n x^{2n} = \sum_{n=0}^\infty \left(\frac{(-1)^n}{2n + 1} x^{2n+1} + c\right)' \]
+
+\[ T_n(x,0) = \sum_{k=0}^n \frac{f^{(k)}(0)}{k!} \cdot x^k \]
+\begin{align*}
+  \arctan^{(2)}(x) &= \sum_{n=0}^\infty (-1)^n 2n x^{2n-1} \\
+  \arctan^{(3)}(x) &= \sum_{n=0}^\infty (-1)^n 2n (2n - 1) x^{2n-2} \\
+  \arctan^{(k)}(x) &= \sum_{n=0}^\infty (-1)^n (2n) (2n - 1) \ldots (2n - (k-2)) x^{(2n - (k-1))} \\
+  \arctan^{(k)}(0) &= (-1)^{\frac{k-1}{k}} (k-1)(k-2) \ldots (k-1-k+2) = (k-1)! (-1)^{\frac{k-1}{2}}
+\end{align*}
+\[ T_n(x;0) = \sum_{k=0}^n \frac{(-1)^l (2l)!}{(2l + 1)!} x^{2l+1} = \sum_{l=0}^n \frac{(-1)^l x^{2l+1}}{2l + 1} \]
+
 
 \end{document}
