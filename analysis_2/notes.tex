@@ -43,6 +43,7 @@
 \newcommand\inorm[1]{\left\|#1\right\|_\infty}
 \newcommand\fun[1]{\left\langle{#1}\right\rangle}
 \newcommand\ang[2]{\left\langle#1,#2\right\rangle}
+%\newcommand\mathring[1]{$\overset{o}{#1}$}  % TODO
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -4647,7 +4648,8 @@ Let $(V, \norm{.})$ be a normed vector space.
 \begin{rem}
   Let $V$ and $W$ be normed vector spaces, $f: D \subseteq V \to W$,
   $\overline{x} \in D$. Then $f$ is continuous in $\overline{x}$
-  \[ \Leftrightarrow \left[\forall (x_n)_{n \in \mathbb N} \text{ with } x_n \in D \land \lim_{n\to\infty} x_n = \overline{x} \text{ in terms of $\norm{.}_v$ } \implies \lim_{n\to\infty} f(x_n) = f(\overline{x}) \text{ in terms of } \norm{.}_W\right] \]
+  \[ \Leftrightarrow [\forall (x_n)_{n \in \mathbb N} \text{ with } x_n \in D \land \lim_{n\to\infty} x_n = \overline{x} \text{ in terms of $\norm{.}_v$ } \]
+  \[ \implies \lim_{n\to\infty} f(x_n) = f(\overline{x}) \text{ in terms of } \norm{.}_W] \]
 \end{rem}
 \begin{proof}
   Proof as in $\mathbb R$ (but not relevant for exam).
@@ -4761,7 +4763,7 @@ Let $(V, \norm{.})$ be a normed vector space.
 \end{proof}
 
 \begin{defi}
-  Let $M \subseteq V$. Then $\mathring{M} = \setdef{x \in M}{x \text{ is inner point of } M} \]
+  Let $M \subseteq V$. Then $\mathring{M} = \setdef{x \in M}{x \text{ is inner point of } M}$.
   $\mathring{M}$ is called \emph{open kernel} of $M$.
   $\overline{M} = \setdef{x \in V}{x \in \text{ contact point}}$
   $\overline{M}$ is closed cover of $M$.
@@ -4777,13 +4779,13 @@ Let $(V, \norm{.})$ be a normed vector space.
   \end{itemize}
 \end{lemma}
 \begin{proof}
-  \mathring{M} \subseteq M$. Let $x \in \mathring{M}$.
+  $\mathring{M} \subseteq M$. Let $x \in \mathring{M}$.
 
   Show that there exists $r > 0$ such that $B(x,r) \subseteq \mathring{M}$.
   Choose $r > 0$ such that $B(x,r) \subseteq M$.
 
   Show that $\forall y \in B(x,r)$ it holds that $y \in \mathring{M}$.
-  \[ y \in B(x,r) \implies \norm{y - x} < r #+
+  \[ y \in B(x,r) \implies \norm{y - x} < r \]
   Choose $r_y = r - \norm{y-x} > 0$. We show
   \[ B(y,r_y) \subseteq B(x,r) \subseteq M \]
   hence $y \in \mathring{M}$.
@@ -4795,8 +4797,203 @@ Let $(V, \norm{.})$ be a normed vector space.
   So it holds that $B(y,r_y) \subseteq B(x,r) \subseteq M$, so $y \in \mathring{M}$.
 \end{proof}
 
-\meta{lecture}{23rd of May 2016}{Wolfgang Ring}
+\meta{lecture}{24th of May 2016}{Wolfgang Ring}
 
+\begin{lemma}
+  Let $M \subseteq V$. Then it holds that
+  \begin{enumerate}
+    \item $\mathring{M}$ is open, if $\mathring{M} \subseteq M$.
+    \item $\overline{M}$ is closed, if $M \subseteq \overline{M}$.
+    \item $M$ is open, iff $M = \mathring{M}$.
+    \item $M$ is closed, iff $M = \overline{M}$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Trivial.
+    \item Direction $\Rightarrow$: $M$ is open, so every $x \in M$ is an inner point of $M$, so $\forall x \in M: x \in \mathring{M}$.
+
+      Direction $\Leftarrow$: $M = \mathring{M}$ is open, so $M$ is open.
+    \item Let $x \in M$. For all $r > 0$, $B(x, r) \cap M \supseteq \set{x} \neq \emptyset$, so $x \in \overline{M}$.
+      It remains to show: $\overline{M}$ is closed. We show $V \setminus \overline{M}$ is open. Let $y \not\in \overline{M}$. $\exists r > 0$ such that $B(y, r) \cap M = \emptyset$. Let $x \in B(y, r)$. So $\rho \coloneqq r - \abs{z - y} > 0$ and
+      \[ \forall w \in B(z, \rho): \abs{w - y} \leq \abs{w - z} + \abs{z - y} < \rho + \abs{z - y} = r \]
+      \[ \implies \forall w \in B(z, \rho): w \in B(y, r) \implies B(z, \rho) \subset B(y, r). \]
+      \[ B(z, \rho) \cap M \subseteq B(y, r) \cap M = \emptyset \text{ because } B(y,r) \cap M = \emptyset \]
+      \[ \implies z \not\in \overline{M}. \]
+      Hence $B(y, r) \subset V \setminus \overline{M}$ and therefore $V \setminus \overline{M}$ is open.
+    \item Direction $\Leftarrow$: $M = \overline{M}$. Due to the second property, $M$ must be closed.
+
+      Direction $\Rightarrow$: It remains to show: $\overline{M} \subset M$. Let $x \in \overline{M}$.
+      Assume $x \not\in M$. $x \not\in M \Rightarrow x \in V \setminus M$ is open.
+      \[ \implies \exists r > 0: B(x, r) \subset V \setminus M \]
+      \[ \implies B(x, r) \cap M \subset V \setminus M \cap M = \emptyset \]
+      \[ \implies x \not\in \overline{M} \]
+      Is a contradiction. Hence $x \in M$.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  \label{lemma:con-lim}
+  Let $x \in V$.
+  \begin{enumerate}
+    \item $x$ is a contact point of $M$ ($x \in \overline{M}$)
+      \[ \iff \exists (x_n)_{n\in\mathbb N} \subseteq M: \lim_{n\to\infty} x_n = x \]
+    \item $x$ is a limit point of $M$
+      \[ \iff \exists (x_n)_{n\in\mathbb N} \subseteq M \setminus \set{x}: \lim_{n\to\infty} x_n = x \]
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  We show the first property, but the second follows analogously.
+
+  Direction $\Rightarrow$:
+  Let $x$ be a contact point in $M$. We know $B\left(x, \frac1{n}\right) \cap M \neq \emptyset$ for all $n \in \mathbb N$.
+  \[ \forall n \in \mathbb N \exists x_n \in M: \norm{x_n - x} < \frac{1}{n} \land \lim_{n\to\infty} x_n = x \]
+
+  Analogously for the second property:
+
+  Let $x$ be a limit point in $M$. We know $B\left(x, \frac1n\right) \setminus \set{x} \cap M \neq \emptyset$ for all $n \in \mathbb N$.
+  \[ \forall n \in \mathbb N \exists x_n \in M \setminus \set{x}: \norm{x_n - x} < \frac{1}{n} \]
+  And $\lim_{n\to\infty} x_n = x$.
+
+  Direction $\Leftarrow$:
+  Let $x = \lim_{n\to\infty} x_n$ with $x_n \in M$.
+  (analogously: $x_n \in M \setminus \set{x}$).
+  Let $r > 0$. Choose $N \in \mathbb N$ such that $\forall n \geq N: \norm{x_n - x} < r$.
+  \[ x_N \in B(x,r) \implies x_N \in B(x, r) \cap M \]
+  Analogously:
+  \[ x_N \in B(x, r) \implies x_N \in B(x, r) \setminus \set{x} \cap M \]
+
+  Hence $x$ is contact point (analogously: limit point) of $M$.
+\end{proof}
+\begin{ex}
+  Consider unit circle and point $(2,0)$ in $V \coloneqq \mathbb R^2$.
+  \[ M \coloneqq \overline{B(0,1)} \cup \set{(2,0)} \]
+  $(2,0)$ is a contact point of $M$, but not limit point of $M$.
+\end{ex}
+
+\begin{cor}
+  Let $M$ be closed and $(x_n)_{n\in\mathbb N}$ is a convergent sequence in $M$.
+  Then $x \coloneqq \lim_{n\to\infty} x_n \in M$.
+\end{cor}
+\begin{proof}
+  From Lemma~\ref{lemma:con-lim} it follows that $x \in \overline{M} \implies x \in M$.
+\end{proof}
+
+\begin{lemma}
+  Let $\norm{.}_1$ and $\norm{.}_2$ be equivalent norms in $V$ and $(x_n)_{n\in\mathbb N} \subset V$, $x \in V$. $m \norm{v}_1 \leq \norm{v}_2 \leq M \norm{v}_1$.
+  \[ \implies \left(\lim_{n\to\infty} \norm{x_n - x}_1 = 0
+       \implies x_n \to x \text{ in } (V, \norm{.}_1)\right) \]
+  \[ \iff \left(\lim_{x_n - x} \norm{x_n - x}_2 = 0
+       \implies x_n \to x \text{ in } (V, \norm{.}_2)\right) \]
+\end{lemma}
+
+\begin{proof}
+  We only show direction $\Rightarrow$, because the other direction follows analogously.
+
+  Let $\varepsilon > 0$. Choose $N \in \mathbb N$ such that $\forall n \geq N: \norm{x_n - x}_1 < \frac{\varepsilon}{M}$.
+  Let $n \geq N$, then $\norm{x_n - x}_2 \leq M \norm{x_n - x}_1 < \varepsilon$.
+  So $\lim_{n\to\infty} \norm{x_n - x}_2 = 0$.
+\end{proof}
+
+\begin{lemma}
+  Let $\norm{.}_1$ and $\norm{.}_2$ be equivalent norms in $V$ and $O \subseteq V$.
+  Then $O$ is open in $(V, \norm{.}_1)$ if and only if $O$ is open in $(V, \norm{.}_2)$.
+\end{lemma}
+\begin{proof}
+  Let $O$ be open in $(V, \norm{.}_1)$.
+  Let $x \in O$.
+  \[ \exists r > 0: B_{\norm{.}_1}(x, r) \subseteq O \]
+  Consider $B_{\norm{.}_2}(x, r \cdot m)$. Let $y \in B_{\norm{.}_2}(x, r \cdot m)$.
+  Then
+  \[ \norm{y - x}_1 \leq \frac1m \norm{y - x}_2 < \frac{1}{m} r \cdot m = r \]
+  So $y \in B_{\norm{.}_1}(x, r)$. Hence $B_{\norm{.}_2}(x, r \cdot m) \subset B_{\norm{.}_1}(x, r) \subseteq O$ where $r \cdot m > 0$. So $O$ is open in $(V, \norm{.}_2)$.
+\end{proof}
+
+\begin{rem}
+  $A \subset V$ is closed in $(V, \norm{.}_1)$ if and only if $A$ is closed
+  in $(V, \norm{.}_2)$.
+\end{rem}
+\begin{lemma}
+  Let $V, W$ be normed vector spaces. $f: D \subset V \to W$, $\overline x \in D$. Let $\norm{.}_{1,v}$ and $\norm{.}_{2,v}$ be equivalent norms with $\norm{.}_{1,W}$ and $\norm{.}_{2,W}$ in $V$ and $W$ respectively.
+
+  Then it holds that
+  \begin{align*}
+         & f: D \subset (V, \norm{.}_{1,V}) \to (W, \norm{.}_{1,W}) \text{ is continuous in } \overline{x} \\
+    \iff & f: D \subset (V, \norm{.}_{2,V}) \to (W, \norm{.}_{2,W}) \text{ is continuous in } \overline{x}
+  \end{align*}
+\end{lemma}
+\begin{proof}
+  Let $(x_n)_{n\in\mathbb N} \subset V$ with $x_n \underset{x\to\infty}{\overset{\norm{.}_{2,V}}{\longrightarrow}} \overline{x}$, hence $\lim_{n\to\infty} \norm{x_n - \overline{x}}_{2,V} = 0$.
+  Show: $\lim_{n\to\infty} \norm{f(x_n) - f(\overline{x})}_{2,W} = 0$, hence $f(x_n) \overset{\norm{.}_{2,W}}{\underset{n\to\infty}{\longrightarrow}} f(\overline{x})$.
+  It holds that
+  \[ \lim_{n\to\infty} \norm{x_n - \overline{x}}_{1,V} = 0 \overset{\text{VS}}{\implies} \lim_{n\to\infty} \norm{f(x_n) - f(\overline{x})}_{1,W} = 0 \]
+  \[ \Rightarrow \lim_{n\to\infty} \norm{f(x_n) - f(\overline{x})}_{2,W} = 0 \]
+  Hence, $f$ is continuous in terms of $\norm{.}_{2,V}$ and $\norm{.}_{2,W}$ in $\overline{x}$ by the sequence criterion.
+\end{proof}
+
+\begin{lemma}
+  Consider $V \coloneqq \mathbb R^n$.
+  Let $1 \leq i \leq n$. Then the projective map
+  \[ p_i: (\mathbb R^n, \inorm{.}) \to (\mathbb R, \abs{.}) \]
+  \[ p_i(x) = x^i \qquad \text{ denotes the $i$-th component} \]
+  continuous in $\mathbb R^n$. Furthermore $\abs{p_i(x)} = \abs{x^i} \leq \inorm{x}$.
+\end{lemma}
+
+\begin{proof}
+  Let $\varepsilon > 0$, $x \in \mathbb R^n$. Let $\delta \coloneqq \varepsilon$.
+  Let $z \in \mathbb R^n$ with $\inorm{z - x} < \delta = \varepsilon$.
+  Then
+  \[ \abs{p_i(z) - p_i(x)} = \abs{z^i - x^i} \leq \max\setdef{\abs{z^i - x^i}}{i \in \set{1, \ldots, n}} = \inorm{z - x} < \varepsilon \]
+  So $p_i$ is continuous in $x$.
+\end{proof}
+
+\begin{lemma}
+  Let $(x_n)_{n\in\mathbb N} \subseteq \mathbb R^{\hat{n}}$, $x \in \mathbb R^{\hat{n}}$.
+  Then it holds that
+  \[
+  \left(\lim_{n\to\infty} \inorm{x_n - x} = 0 \implies x_n \to x \text{ in } (\mathbb R^{\hat{n}}, \inorm{.})\right) \iff \]
+  \[
+  \left(\forall i \in \set{1, \ldots, \hat n}: \lim_{n\to\infty} \abs{x_n^i - x^i} = 0 \implies \forall i \in \set{1, \ldots, \hat n}: x_n^i \to x^i \text{ in } (\mathbb R, \abs{\cdot})\right)
+  \]
+\end{lemma}
+\begin{proof}
+  Direction $\Rightarrow$: Trivial because of continuity of all $p_i$.
+
+  Direction $\Leftarrow$: Let $\varepsilon > 0$.
+  Choose $N_i \in \mathbb N$ with $\forall n \geq N_i: \abs{x_n^i - x^i} < \varepsilon$.
+  Let $N \coloneqq \max\setdef{N_i}{1 \leq i \leq \hat n}$. For $n \geq N$ it holds that
+  \[ \inorm{x_n - x} = \max\setdef{\abs{x_n^i - x^i}}{1 \leq i \leq \hat n} < \varepsilon \]
+  because $n \geq N_i$ for all $1 \leq i \leq \hat n$. Hence $\lim_{n\to\infty} \inorm{x_n - x} = 0$.
+\end{proof}
+
+\index[English]{Sequence compactedness}
+\index[German]{\foreignlanguage{ngerman}{Folgenkompaktheit}}
+\index[English]{Boundedness in normed vector spaces}
+\index[German]{\foreignlanguage{ngerman}{Beschränktheit in normierten Vektorräumen}}
+\begin{defi}
+  Let $K \subseteq V$ where $V$ is a normed vector space. Then $K$ is called \emph{sequence-compact} if and only if every sequence $(x_n)_{n\in\mathbb N} \subseteq K$ has a subsequence $(x_{n_k})_{k \in \mathbb N}$, which converges and whose limit $x$ is in $K$.
+
+  $M \subset V$ is called \emph{bounded} iff $\exists R > 0 \forall x \in M: \norm{x} \leq R$.
+\end{defi}
+
+\begin{lemma}
+  Let $V$ be a normed vector space. $K \subseteq V$. Then it holds that
+  \[ K \text{ is compact} \implies K \text{ is closed and bounded}. \]
+\end{lemma}
+\begin{proof}
+  Let $K$ be compact. Assume $K$ is unbounded, then
+  \[ \forall n \in \mathbb N \exists x_n \in K: \norm{x_n} > n \]
+  $(x_n)_n$ has no bounded subsequence and especially no convergent subsequence.
+Hence $K$ is not compact. This is a contradiction. So $K$ is bounded.
+
+  It remains to show: $\overline{K} \subseteq K$. Let $x \in \overline{K}$.
+  $\exists (x_n)_n \subseteq K: x_n \to x$. $K$ is compact, hence
+  \[ \exists (x_{n_k})_{k\in\mathbb N} \subset (x_n)_{n\in\mathbb N}, \overline{x} \in K: x_{n_k} \overset{k \to \infty}{\longrightarrow} \overline{x} \]
+  \[ \lim_{k\to\infty} x_{n_k} = \lim_{n\to\infty} x_n = x \implies x = \overline{x} \in K \]
+\end{proof}
+
+  
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
 
