@@ -1,4 +1,7 @@
 % TODO: normalize "\Rightarrow" to "\implies"
+% TODO: check every illustration
+% TODO: fix TODO flags
+% TODO: improve table of contents
 \documentclass[a4paper,landscape,twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -523,7 +526,7 @@ Conclusion:
   So $P'_n(z) = \sum_{k=1}^n k \cdot a_k z^{k-1}$ uniformly convergent in $\overline{B(0,r)}$ for $r<\rho$
   and therefore also uniformly convergent  in $[-r,r]$.
 
-  From Theorem~\ref{thm:diff-conv} (or \ref{thm:concl}?) it follows that $P(x)$ is differentiable % TODO: or?
+  From Theorem~\ref{thm:concl} it follows that $P(x)$ is differentiable
   in $[-r,r]$ and $P'(x) = \sum_{k=1}^\infty k \cdot a_k \cdot x^{k-1}$.
 
   Let $\abs{x} < \rho(P)$. Let $r = \frac12 (\abs{x} + \rho(P))$, then it holds that
@@ -858,21 +861,16 @@ Analogously, sine is periodic in $\mathbb C$ with period $2\pi$.
 \meta{lecture}{10th of March 2016}{Wolfgang Ring}
 
 \subsection{Periodicity and roots of trigonometric functions}
-
-TODO: equations missing
-
+%
 \[ \cos(z + 2\pi) = \cos(z) \]
 \[ \sin(z + 2\pi) = \sin(z) \]
+Compare with Figure~\ref{fig:unitcircle}.
 
-\begin{table}
-  \begin{tabular}{cccccc}
-TODO: table missing &&&&&
-  \end{tabular}
-\end{table}
-
-\begin{figure}[!h]
+\begin{figure}[p]
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{img/trigonometric-periodicity.pdf}
+    \includegraphics[width=0.4\textwidth]{img/trigonometric-periodicity.pdf}
+    \caption{Periodicity of $\cos$ and $\sin$ on the unit circle in the complex plane}
+    \label{fig:unitcircle}
   \end{center}
 \end{figure}
 
@@ -886,11 +884,11 @@ TODO: table missing &&&&&
 \index[English]{Period}
 \index[German]{\foreignlanguage{ngerman}{Periode}}
 \begin{defi}
-  \[ f: \mathbb C \to \mathbb C \qquad (f: \mathbb R \to \mathbb R) \]
+  $f: \mathbb C \to \mathbb C$ (or $f: \mathbb R \to \mathbb R$)
   is called \emph{periodic} with period $c \in \mathbb C$ ($c \in \mathbb R$)
   if $\forall z \in \mathbb C$ it holds that
   \[ f(z + c) = f(z) \]
-  \[ (\forall x \in \mathbb R: f(x + c) = f(x)) \]
+  \[ (\text{or } \forall x \in \mathbb R: f(x + c) = f(x)) \]
   $c$ is called \emph{period of $f$}.
 \end{defi}
 
@@ -1066,30 +1064,34 @@ Recall:
   \begin{align*}
     \lim_{h\to0} \frac{\sin(x + h) - \sin(h)}{h}
       &= \lim_{h\to0} \frac{\sin{x} \cdot \cos{h} + \sin{h} \cdot \cos{x} - \sin{x}}{h} \\
-      &= \sin(x) \cdot \underbrace{\lim_{h\to0} \frac{\cos(h) - 1}{h}}_{=0} + \cos(x) \cdot \underbrace{\lim_{h\to0} \frac{\sin{h}}{n}}_{=1} \\
+      &= \sin(x) \cdot \underbrace{\lim_{h\to0} \frac{\cos(h) - 1}{h}}_{=0} + \cos(x) \cdot \underbrace{\lim_{h\to0} \frac{\sin{h}}{h}}_{=1} \\
       &= \cos(x)
   \end{align*}
 \end{proof}
-
-TODO: incomplete graphics, verify text
-
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics{img/arc-length-sincos.pdf}
+    \includegraphics[width=0.3\textwidth]{img/arclength_on_unitcircle.pdf}
     \caption{The arc length is related to $\sin$ and $\cos$}
     \label{img:arc-length}
   \end{center}
 \end{figure}
 
-Figure~\ref{img:arc-length}. We now use tools of integral calculus:
+Compare with Figure~\ref{img:arc-length}. We now use tools of integral calculus:
 
-Let $I = [a,b]$ and $\gamma: I \to \mathbb R$ ($\mathbb R^2$).
+Let $I = [a,b]$ and $\gamma: I \to \mathbb R^n$ ($\mathbb R^2$).
 \[ \gamma(t) = \begin{bmatrix} \gamma_1(t) \\ \vdots \\ \gamma_n(t) \end{bmatrix} \]
-Assumption: $\gamma_1: [a,b] \to \mathbb R^n$.
+Assumption: $\gamma_1: [a,b] \to \mathbb R^n$ is continuously differentiable.
 
 \[ \gamma'(t) = \begin{bmatrix} \gamma'_1(t) \\ \vdots \\ \gamma'_n(t) \end{bmatrix} \]
+is the tangential vector in $\gamma$. Compare with Figure~\ref{img:tangentialvector}.
 
-TODO: graphics missing
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{img/curve_mapped.pdf}
+    \caption{Mapping of the curve and tangential vector $\gamma'(t)$}
+    \label{img:tangentialvector}
+  \end{center}
+\end{figure}
 
 Let $t \in [a,b]$. Then the arc length of $\gamma$ between $a$ and $t$
 is given by
@@ -1109,7 +1111,6 @@ is a curve in $\mathbb C \cong \mathbb R^2$.
   \begin{center}
     \includegraphics{img/derivative-in-r2.pdf}
     \caption{Derivative in $\mathbb R^2$}
-    % TODO: incomplete
     \label{img:deriv-r2}
   \end{center}
 \end{figure}
@@ -1163,11 +1164,11 @@ are therefore irrelevant for further considerations (compare with Figure~\ref{im
   \[ \int_a^b \varphi \, dx \text{ is called \emph{integral} of $\varphi$ over $[a,b]$} \]
 \end{defi}
 
-$\varphi$ is the step function in terms of the partition $\set{x_0,x_1,\ldots, x_5}$.
+$\varphi$ is the step function in terms of the partition $\set{x_0,x_1,\ldots, x_5}$,
+but also a step function in terms of $\set{w_0, w_1, \ldots, w_5}$.
 
 It remains to show that if $\varphi$ satisfies the definition of a step function in terms of
 partition $\set{x_0,\ldots,x_n}$ and $\varphi|_{(x_{j-1}, x_j)} = c_j$
-(TODO: text missing: \enquote{but \ldots})
 and $\varphi$ is a step function in terms of $\set{w_0,w_1,\ldots,w_m}$
 and $\varphi|_{(w_{l-1},w_l)} = c'_l$, then it holds that
 \[ \sum_{j=1}^n c_j \triangle x_j = \sum_{l=1}^m c'_l \triangle w_l \]
@@ -1181,7 +1182,6 @@ Compare with Figure~\ref{img:step-function}.
   \end{center}
 \end{figure}
 
-% TODO: verify
 \begin{proof}
   Let $Z = \set{x_0, \ldots, x_n}$ and $Z' = \set{w_0,\ldots,w_m}$.
   We define $Z'' = Z \cup Z'$ and $Z'' = \set{\alpha_0, \alpha_1, \ldots, \alpha_L}$.
@@ -1190,9 +1190,8 @@ Compare with Figure~\ref{img:step-function}.
   Because $Z \subseteq Z''$,
   \[ \forall x_j \exists k_j: x_j = \alpha_{k_j} \]
   Because $x_{j-1} < x_j$, it holds that $\alpha_{k_{j-1}} < \alpha_{k_j}$.
-  Followingly,
-  \[ k_{j-1} < k_j \]
-  Let $k_{j-1} < l \leq k_j$.
+  Followingly, $k_{j-1} < k_j$.
+  Now let $k_{j-1} < l \leq k_j$.
   It holds that $(\alpha_{l-1}, \alpha_l) \subseteq (x_{j-1}, x_j)$,
   because $l > k_{j-1} = l-1 \geq k_{j-1} \Rightarrow \alpha_{l-1} \geq \alpha_{k_{j-1}} = x_{j-1}$
   and $l \leq k_j$.
@@ -1213,11 +1212,13 @@ Compare with Figure~\ref{img:step-function}.
   and $c''_l = \varphi(x)$ for $x \in (\alpha_{l-1},\alpha_l)$, then $c''_l = c_j$.
 
   \[ \sum_{l=1}^L c''_l \cdot \triangle \alpha_l = \sum_{j=1}^n \sum_{l=k_{j-1}+1}^{k_j} c''_l \triangle \alpha_l \]
-  \[ = \sum_{j=1}^n c_j \sum_{l=k_{j-1}}^{k_j} \triangle \alpha_l \]
-  \[ \sum_{l=k_{j-1} + 1}^{k_j} \triangle \alpha_l = (\alpha_{k_{j-1}+1} - \alpha_{k_{j-1}})
-    + (\alpha_{k_{j-1}+2} - \alpha_{k_{j-1}+1}) + (\alpha_{k_{j-1}+3} - \alpha_{k_{j-1}+2})
+  \[ = \sum_{j=1}^n c_j \sum_{l=k_{j-1}+1}^{k_j} \triangle \alpha_l = \sum_{j=1}^n c_j \triangle x_j \]
+  Because
+  \[
+    \sum_{l=k_{j-1} + 1}^{k_j} \triangle \alpha_l
+    = (\alpha_{k_{j-1}+1} - \alpha_{k_{j-1}}) + (\alpha_{k_{j-1}+2} - \alpha_{k_{j-1}+1})
   \] \[
-    + \ldots + (\alpha_{k_j-1} - \alpha_{k_j-2}) + (\alpha_{k_j} - \alpha_{k_j-1})
+    + (\alpha_{k_{j-1}+3} - \alpha_{k_{j-1}+2}) + \ldots + (\alpha_{k_j-1} - \alpha_{k_j-2}) + (\alpha_{k_j} - \alpha_{k_j-1})
   \]
   This is a telescoping sum. What remains is:
   \[ = \alpha_{k_j} - \alpha_{k_{j-1}} \]
@@ -1242,7 +1243,7 @@ Compare with Figure~\ref{img:step-function}.
 \end{lemma}
 
 \begin{proof}
-  see above
+  See above.
 \end{proof}
 
 \index[English]{Linearity of integration}
@@ -1262,9 +1263,9 @@ Compare with Figure~\ref{img:step-function}.
       This gives \enquote{boundedness}.
     \item Let $\varphi$ and $\psi$ be real values and it holds that
       \[ \forall x \in [a,b]: \varphi(x) \leq \psi(x) \]
-      Then
-      TODO
-      Monotonicity
+      Hence monotonicity is given.
+      Then it holds that
+      \[ \int_a^b \varphi \, dx \leq \int_a^b \psi \, dx \]
   \end{itemize}
 \end{lemma}
 \begin{proof}
@@ -1313,7 +1314,7 @@ Compare with Figure~\ref{img:step-function}.
 \begin{defi}
   Let $A \subseteq \mathbb R$. Then we call $\chi_A = (\mathcal 1_A): \mathbb R \to \mathbb R$ as
   \[ \chi_A(x) = \begin{cases} 1 & x \in A \\ 0 & x \not\in A \end{cases} \]
-  the characteristic function of $A$. Hence $\chi_A(x)$ is $1$ if and only if $x$ is inside interval $A$.
+  the \emph{characteristic function of $A$}. Hence $\chi_A(x)$ is $1$ if and only if $x$ is inside interval $A$.
 \end{defi}
 \begin{rem}
   Let $a \leq a' < b' \leq b$. Then
@@ -1335,7 +1336,6 @@ Compare with Figure~\ref{img:step-function}.
   \]
 \end{rem}
 
-% TODO
 \section{Regulated functions}
 
 \index[English]{Left-sided limit}
@@ -1385,7 +1385,7 @@ Examples for regulated functions:
     Why? Consider $x \in (x_{i-1},x_i)$. Then
     \[ \lim_{\xi\to x^+} \varphi(\xi) = c_i = \lim_{\xi \to x^-} \varphi(\xi) \]
     Let $x = x_i$ be a partitioning point.
-    \[ \lim TODO \text{ and } \lim TODO \]
+    \[ \lim_{\xi \to x_i^-} \varphi(\xi) = c_i \text{ and } \lim_{\xi \to x_i^+} \varphi(\xi) = c_{i+1} \]
     So $\tau[a,b] \subseteq R[a,b]$. Compare with Figure~\ref{img:step-regulated}.
   \item
     Let $f: [a,b] \to \mathbb R$ be monotonically.
@@ -1395,7 +1395,7 @@ Examples for regulated functions:
 
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics{img/step-functions-are-regulated-functions.pdf}
+    \fbox{\includegraphics{img/step-functions-are-regulated-functions.pdf}}
     \caption{Step functions are also regulated functions}
     \label{img:step-regulated}
   \end{center}
@@ -1403,12 +1403,12 @@ Examples for regulated functions:
 
 \subsection{Approximation theorem for regulated functions}
 
-Let $f: [a,b] \in \mathbb C$. Then it holds that $f \in R[a,b] \Leftrightarrow \forall \varepsilon > 0 \exists \varphi \in \tau[a,b]$ such that $\norm{f - \varphi}_{\infty} < \varepsilon$. Hence $\forall x \in [a,b]: \abs{f(x)}$ TODO
-
+Let $f: [a,b] \to \mathbb C$. Then it holds that $f \in R[a,b] \Leftrightarrow \forall \varepsilon > 0 \exists \varphi \in \tau[a,b]$ such that $\norm{f - \varphi}_{\infty} < \varepsilon$. Hence,
+\[ \forall x \in [a,b]: \abs{f(x) - \varphi(x)} < \varepsilon \]
 \[ \Leftrightarrow \underbrace{\sup\set{\abs{f(x) - \varphi(x)}: x \in [a,b]}}_{\norm{f - \varphi}_{\infty}} < \varepsilon \]
 
-$S$ $\varepsilon_n = \frac1n \Rightarrow \exists \varphi_n \in \tau[a,b]$ such that
-\[ \abs{\varphi_n(x) - f(x)} < \varepsilon \forall x \in [a,b] \]
+Especially $\varepsilon_n = \frac1n \Rightarrow \exists \varphi_n \in \tau[a,b]$ such that
+\[ \abs{\varphi_n(x) - f(x)} < \varepsilon \qquad \forall x \in [a,b] \]
 hence $f$ is a continuous limit point of a sequence of step functions.
 Hence the function sequence $(\varphi_n)_{n\in\mathbb N}$ converges continuously towards $f$.
 
@@ -1661,16 +1661,13 @@ We have prove direction $\Rightarrow$.
 \begin{defi}[Normed vector spaces]
   Let $V$ be a vector space over $\mathbb C$ (or $\mathbb R$).
   A map $n: V \mapsto [0,\infty)$ is called \emph{norm} in $V$, if
-  \begin{enumerate}
-    \item $n(V) = 0 \Leftrightarrow V = 0$ ($V$ is null vector) \\
-      \enquote{definity}
-    \item $\forall \lambda \in \mathbb C$ ($\mathbb R$) $\forall v \in V: n(\lambda v) = \abs{\lambda} \cdot n(v)$
-      \enquote{positive homogeneity}
-    \item $\forall v,w \in V: n(v + w) \leq n(v) + n(w)$ \\
-      \enquote{triangle inequality}
-  \end{enumerate}
+  \begin{description}
+    \item[Definite form] $n(V) = 0 \Leftrightarrow V = 0$ ($V$ is null vector)
+    \item[Positive homogeneity] $\forall \lambda \in \mathbb C$ ($\mathbb R$) $\forall v \in V: n(\lambda v) = \abs{\lambda} \cdot n(v)$
+    \item[Triangle inequality] $\forall v,w \in V: n(v + w) \leq n(v) + n(w)$
+  \end{description}
   Common notation: $\norm{v}$ for $n(v)$ (\enquote{norm of $v$}) \\
-  A vector space satisfying the norm properties is called \emph{Normed vector space}
+  A vector space satisfying the norm properties is called \emph{normed vector space}.
 \end{defi}
 
 \begin{ex}
@@ -1687,27 +1684,29 @@ We have prove direction $\Rightarrow$.
   \enquote{supremum norm} of $\infty$-norm of $f$ in $D$.
 
   It holds that $\norm{\cdot}_{\infty}$ is a norm in $B(D)$.
-  \[ \norm{f}_\infty = 0 \Leftrightarrow \sup\set{\underbrace{\abs{f(z)}}_{\geq 0}: z \in D} = 0 \]
-  \[ \Leftrightarrow \abs{f(z)} = 0 \quad \forall z \in D \]
-  \[ \Rightarrow f = 0 \text{ in } B(D) \]
+  \begin{align*}
+    \norm{f}_\infty = 0
+    &\iff \sup\{\underbrace{\abs{f(z)}}_{\geq 0}: z \in D\} = 0 \\
+    &\iff \abs{f(z)} = 0 \quad \forall z \in D \\
+    &\implies f = 0 \text{ in } B(D)
+  \end{align*}
   Homogeneity:
   \begin{align*}
     \abs{\lambda \cdot f}_\infty
       &= \sup\set{\abs{\lambda f(z)}: z \in D} \\
       &= \sup\set{\abs{\lambda} \abs{f(z)}: z \in D} \\
-      &= \sup\set{\abs{f(z)}: z \in D} \cdot \abs{\lambda} \\
+      &= \abs{\lambda} \cdot \sup\set{\abs{f(z)}: z \in D} \\
       &= \abs{\lambda} \cdot \norm{f}_\infty
   \end{align*}
-  % TODO: verify
 
   Triangle inequality:
   Let $f,g \in B(D)$.
   \begin{align*}
     \norm{f+g}_\infty
       &= \sup\set{\abs{f(z) + g(z)}: z \in D} \\
-      &= \sup\set{\underbrace{\abs{f(z)}}_{\leq \norm{f}_\infty} + \underbrace{\abs{g(z)}}_{\leq \norm{g}_\infty}:} \\
-      &\leq TODO
-      &= \norm{f}_\infty + \norm{g}_\infty \\
+      &\leq \sup\set{\underbrace{\abs{f(z)}}_{\leq \norm{f}_\infty} + \underbrace{\abs{g(z)}}_{\leq \norm{g}_\infty}: z \in D} \\
+      &\leq \sup\set{\inorm{f} + \inorm{g}: z \in D} \\
+      &= \inorm{f} + \inorm{g}
   \end{align*}
 \end{ex}
 
@@ -1748,7 +1747,7 @@ We have prove direction $\Rightarrow$.
   \begin{align*}
     \text{requirement 1} &\Rightarrow \norm{v} - \norm{w} \leq \norm{v - w} \\
     \text{requirement 2} &\Rightarrow \norm{w} - \norm{v} \leq \norm{v - w} \\
-    \text{requirements} &\Rightarrow  TODO
+    \text{requirement 1 \text{ and } 2} &\Rightarrow \abs{\norm{v} - \norm{w}} \leq \norm{v - w}
   \end{align*}
 \end{proof}
 
@@ -1844,7 +1843,7 @@ We have prove direction $\Rightarrow$.
   \[ F = (\varphi_0, \psi_0, \varphi_1, \psi_1, \varphi_2, \ldots) \]
   $F$ is a sequence of step functions, which converge towards $f$ uniformly.
   Let $l$ be the limit of integrals of this sequence of step functions.
-  Then it holds that TODO (subsequences have the same limit)
+  Then it holds that (subsequences have the same limit)
   \[ i = l = j \]
 \end{proof}
 
@@ -1894,6 +1893,7 @@ We have prove direction $\Rightarrow$.
           \abs{\int_a^b f \, dx}
           = \abs{\lim_{n\to\infty} \int_a^b \varphi_n \, dx}
           = \lim_{n\to\infty} \abs{\int_a^b \varphi_n \, dx}
+        \] \[
           \leq \lim_{n\to\infty} \int_a^b \abs{\varphi_n} \, dx
           = \int_a^b \abs{f} \, dx
         \]
@@ -1937,7 +1937,7 @@ We have prove direction $\Rightarrow$.
   if the limit exists.
 \end{defi}
 
-\begin{theorem}[Mean value theorem of calculus]
+\begin{theorem}[Intermediate value theorem of calculus]
   Let $f: [a,b] \to \mathbb R$ be continuous in $[a,b]$ and $p: [a,b] \to \mathbb R$
   is a regulated function with $p(x) \geq 0 \quad \forall x \in [a,b]$.
 
@@ -1958,11 +1958,10 @@ We have prove direction $\Rightarrow$.
 \begin{rem}
   Consider $p \equiv 1$.
   \[ \exists \xi \in [a,b]: \int_a^b f(x) \cdot 1 \, dx = f(\xi) \cdot \int_a^b 1 \, dx = f(\xi) \cdot (b-a) \]
-  % TODO: missing
   \begin{figure}[!h]
     \begin{center}
-      \includegraphics{img/mean_value_theorem.pdf}
-      \caption{Mean value Theorem}
+      \includegraphics{img/intermediate_value_theorem.pdf}
+      \caption{Intermediate value theorem where the area below the curve is given as $I = \int_a^b f(x)\, dx = \eta \cdot (b - a) = f(\xi) (b - a)$.}
     \end{center}
   \end{figure}
 \end{rem}
@@ -2372,11 +2371,11 @@ We have prove direction $\Rightarrow$.
     \item[Case $n=0$]
       \[ \int_0^{\frac\pi2} \cos^{2\cdot 0} x \, dx = \int_0^{\frac\pi2} 1 \, dx = \frac\pi2 \]
       \[ \int_0^{\frac\pi2} \cos^{2\cdot 0 + 1} x \, dx = \int_0^{\frac\pi2} \cos{x} \, dx = \sin(x)|_0^{\frac\pi2} = 1 \]
-      \[
+      \begin{align*}
         \int_0^{\frac\pi2} \cos^{2(n+1)} \, dx
-          = \frac{1}{2(n+1)} \cdot \cos^{2(n+1)-1}(x) \cdot \sin(x) |_0^{\frac\pi2}
-          + \frac{2(n+1) - 1}{2(n+1)} \cdot \int_0^{\frac\pi2} \cos^{2n}(x) \, dx
-      \] \[
+          &= \left.\frac{1}{2(n+1)} \cdot \cos^{2(n+1)-1}(x) \cdot \sin(x) \right|_0^{\frac\pi2} \\
+          &+ \frac{2(n+1) - 1}{2(n+1)} \cdot \int_0^{\frac\pi2} \cos^{2n}(x) \, dx
+      \end{align*} \[
         = \frac{2n+1}{2n+2} \cdot \left(\underbrace{\prod_{k=1}^n \frac{2k-1}{2k}}_{\text{induction hypothesis}}\right) \cdot \frac\pi2
         = \left(\prod_{k=1}^{n+1} \frac{2k-1}{2k}\right) \cdot \frac\pi2
       \]
@@ -2528,21 +2527,25 @@ We have prove direction $\Rightarrow$.
   \]
   Analogously for $F(1) \in \mathbb Z$.
 
-  \[ (F'(x) \cdot \sin(\pi x) - \pi F(x) \cdot \cos(\pi x))' \]
-  \[ = F''(x) \cdot \sin(\pi x) + \pi^2 \cdot F(x) \cdot \sin{\pi x} + F'(x) (\cos(\pi x) - \pi \cos{\pi x}) \]
-  \[ = (F''(x) + \pi^2 F(x)) \cdot \sin(\pi x) \]
-  \[ F''(x) = b^n \cdot \left(\pi^{2n} \cdot f''(x) + \pi^{2n-2} f^{(4)}(x) + \pi^{2n - 4} f^{(6)}(x) - \ldots + (-1)^n f^{(2n+2)}(x)\right) \]
-  \[
-    \Rightarrow F''(x) + \pi^2 \cdot F(x)
-  \] \[
-    = b^n \left(
-      \pi^{2n} f''(x) - \pi^{2n - 2} f^{(4)}(x) + \pi^{2n - 4} f^{(6)}(x)
-      + \ldots + (-1)^n f^{(2n + 2)}(x)
-    \right)
-  \] \[
-    + b^n \left( \pi^{2n + 2} f(x) - \pi^{2n} f''(x) + \pi^{2n - 2} f^{(4)}(x)
-    - \pi^{2n-4} f^{(6)}(x) + \ldots + (-1)^n \pi^2 \cdot f^{(2n)}(x) \right)
-  \]
+  \begin{align*}
+    &(F'(x) \cdot \sin(\pi x) - \pi F(x) \cdot \cos(\pi x))' \\
+    &= F''(x) \cdot \sin(\pi x) + \pi^2 \cdot F(x) \cdot \sin{\pi x} \\
+    &+ F'(x) (\cos(\pi x) - \pi \cos{\pi x}) \\
+    &= (F''(x) + \pi^2 F(x)) \cdot \sin(\pi x)
+  \end{align*}
+  \begin{align*}
+    F''(x) &= b^n \cdot (\pi^{2n} \cdot f''(x) + \pi^{2n-2} f^{(4)}(x) + \\
+    &\hspace{35pt} \pi^{2n - 4} f^{(6)}(x) - \ldots + (-1)^n f^{(2n+2)}(x)) \\
+    &\implies F''(x) + \pi^2 \cdot F(x)
+  \end{align*}
+  \begin{align*}
+    F''(x) + \pi^2 \cdot F(x)
+    &= b^n (
+          \pi^{2n} f''(x) - \pi^{2n - 2} f^{(4)}(x) + \pi^{2n - 4} f^{(6)}(x) + \\
+    &\hspace{26pt} \ldots + (-1)^n f^{(2n + 2)}(x)) \\
+    &+ b^n ( \pi^{2n + 2} f(x) - \pi^{2n} f''(x) + \pi^{2n - 2} f^{(4)}(x) - \\
+    &\hspace{25pt} \pi^{2n-4} f^{(6)}(x) + \ldots + (-1)^n \pi^2 \cdot f^{(2n)}(x))
+  \end{align*}
   Almost all expressions cancel each other out.
   So it holds that
   \begin{align*}
@@ -2643,13 +2646,16 @@ We have prove direction $\Rightarrow$.
           &= - \left(-\frac\pi2\right) + \frac\pi2 \\
           &= \pi
       \end{align*}
-      % TODO: image missing (with -\frac\pi2 and shit)
+      Compare with Figure~\ref{img:tanarctan}.
   \end{enumerate}
 \end{ex}
 
-\begin{figure}[t]
+\begin{figure}[p]
   \begin{center}
-    \includegraphics{img/1divsmin1.pdf}
+    \includegraphics[width=0.3\textwidth]{img/tanarctan.pdf}
+    \caption{$\tan(x)$ and $\arctan(x)$}
+    \label{img:tanarctan}
+    \includegraphics[width=0.2\textwidth]{img/1divsmin1.pdf}
     \caption{$\frac{1}{1 - s}$}
     \label{img:1divs}
   \end{center}
@@ -2845,13 +2851,9 @@ Right-side integral boundary:
   So there exists $f^{-1}: [0,\infty) \to [0,\infty)$.
 
   Let $a,b \geq 0$. Then it holds that
-  \[
-    a \cdot b \leq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy
-  \]
+  \[ a \cdot b \leq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy \]
   Equality holds if and only if,
-  \[
-    b = f(a) \text{ i.e. } a = f^{-1}(b)
-  \]
+  \[ b = f(a) \text{ i.e. } a = f^{-1}(b) \]
 
   Compare with Figure~\ref{img:youngs-ineq}
 \end{theorem}
@@ -2872,22 +2874,23 @@ Right-side integral boundary:
     \end{vmatrix}
   \]
   \begin{align*}
-    &= TODO
-    &= \left. f(x) x \right|_0^{f^{-1}(b)} - \int_0^{f^{-1}(b)} 1 \cdot f(x) \, dx \\
+    &= \int_0^{f^{-1}(b)} \underbrace{f^{-1}(f(x))}_{x} \cdot f'(x) \, dx \\
+    &= \int_0^{f^{-1}(b)} x \cdot f'(x) \, dx \\
+    &= \left. f(x) \cdot x \right|_0^{f^{-1}(b)} - \int_0^{f^{-1}(b)} 1 \cdot f(x) \, dx \\
     &= f(f^{-1}(b)) \cdot f^{-1}(b) - \int_0^{f^{-1}(b)} f(x) \, dx \\
     &= b \cdot f^{-1}(b) - \int_0^{f^{-1}(b)} f(x) \, dx
   \end{align*}
   Therefore,
-  \[
-    \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy
-    = \int_0^a f(x) \, dx + \int_{f^{-1}(b)}^0 f(x) \, dx + b \cdot f^{-1}(b)
-  \]
+  \begin{align*}
+    I
+    &= \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy \\
+    &= \int_0^a f(x) \, dx + \int_{f^{-1}(b)}^0 f(x) \, dx + b \cdot f^{-1}(b) \\
+    &= \int_{f^{-1}(b)}^a f(x) \, dx + b \cdot f^{-1}(b)
+  \end{align*}
 
   \begin{description}
     \item[Case 1: $f^{-1}(b) = a$] ($f(a) = b$)
-      \[
-        \Rightarrow I = \underbrace{\int_a^b f(x) \, dx}_{=0} + b \cdot a = ab
-      \]
+      \[ \implies I = \underbrace{\int_a^b f(x) \, dx}_{=0} + b \cdot a = ab \]
       Proven.
     \item[Case 2: $b < f(a) \Leftrightarrow f^{-1}(b) < a$]
       $f$ is strictly monotonically increasing, hence $f(x) > f(f^{-1}(b)) = b$
@@ -3170,15 +3173,14 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
       It holds that $P(y_0) = 0$ because of $P^{(0)}(x_0) = 0$.
       Like above: $P(x) = (x - x_0) \tilde{P}(x)$ and
       \[ P^{(j)}(x) = (x - x_0) \tilde{P}^{(j)}(x) + j \tilde{P}^{(j-1)}(x). \]
-      \[ j \in \set{1,\ldots,k-1} \Rightarrow 0 = P^{(j)}(x_0) = TODO \]
-      \[ \Rightarrow \forall l \in \set{0,\ldots,k-2}: \tilde{P}^{(l)}(x_0) = 0 \]
-      TODO
+      \[ j \in \set{1,\ldots,k-1} \implies 0 = P^{(j)}(x_0) = j \cdot \tilde{P}^{(j-1)}(x_0) \]
+      \[ \implies \forall l \in \set{0,\ldots,k-2}: \tilde{P}^{(l)}(x_0) = 0 \]
 
-      \[ 0 \neq P^{(k)}(x_0) = k \tilde{P}^{(k-1)}(x_0) \Rightarrow \tilde{P}^{)k-1}(x_0) \neq 0 \]
+      \[ 0 \neq P^{(k)}(x_0) = k \tilde{P}^{(k-1)}(x_0) \Rightarrow \tilde{P}^{(k-1)}(x_0) \neq 0 \]
 
       induction hypothesis $\Rightarrow$
       \[ \tilde{P}(x) = (x - x_0)^{k-1} Q(x) \text{ with } Q(x_0) \neq 0 \]
-      \[ \Rightarrow P(x) = (x - x_0) \tilde{P}(x) = (x - x_0)^k Q(x). \]
+      \[ \implies P(x) = (x - x_0) \tilde{P}(x) = (x - x_0)^k Q(x). \]
   \end{description}
 \end{proof}
 
@@ -3442,8 +3444,10 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 %
 \index[English]{Parametric curve}
 \index[German]{\foreignlanguage{ngerman}{Parametrische Kurve}}
+\index[English]{Trace of a curve}
+\index[German]{\foreignlanguage{ngerman}{Trace of the curve}}
 \begin{defi}
-  A parametric curve is a map $\gamma: I \to \mathbb R^n$ where $I$ is an interval.
+  A parametric curve is a map $\gamma: I \to \mathbb R^n$ where $I$ is an interval which has form
   \[
     \gamma(t) = \begin{bmatrix}
       \gamma_1(t) \\
@@ -3452,13 +3456,13 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
       \gamma_n(t)
     \end{bmatrix}
   \]
-  where every function $\gamma_i: I \to \mathbb R$ ($i = 1, \ldots, n$) is continuous.
+  and every function $\gamma_i: I \to \mathbb R$ ($i = 1, \ldots, n$) is continuous.
   Often we write $\gamma_i(t) = x_i(t)$.
   If every $\gamma_i$ is differentiable in $I$, a differentiable, parameterized curve
   is given. $t$ is the curve parameter.
 
   We call $\Gamma = \setdef{\gamma(t)}{t \in I} = \gamma(I) \subseteq \mathbb R$
-  the trace of the curve $\gamma$.
+  the \emph{trace of the curve $\gamma$}.
 \end{defi}
 
 \begin{ex}
@@ -3478,13 +3482,15 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \end{ex}
 
 \begin{ex}
-  Let $\tilde{\gamma}(t) = \begin{bmatrix} \cos{t} \\ \sin{t} \end{bmatrix}$.
+  Let $\tilde{\gamma}(t) = \begin{bmatrix} \cos{t} \\ \sin{t} \end{bmatrix}$ with $\tilde{\gamma}: [0,\pi] \to \mathbb R^2$.
 
   \[ \forall \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \in \tilde{T}: T(x_1, x_2) = x_1^2 + x_2^2 - 1 = 0 \]
   but
   \[ \tilde{T} \neq \setdef{\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}}{F(x_1, x_2) = 0} \]
 \end{ex}
 
+\index[English]{Tangential vector of a curve}
+\index[German]{\foreignlanguage{ngerman}{Tangential vector}}
 \begin{defi}
   Let $\gamma: I \to \mathbb R^n$ be a differentiable, parameterized curve.
   We define
@@ -3498,7 +3504,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   speed vector of $\gamma$ in $t$.
 
   Consider
-  \[ \dot{\gamma}(t) = \lim_{h\to 0} \frac{1}{R} \left[\gamma(t + h) - \gamma(t)\right] \]
+  \[ \dot{\gamma}(t) = \lim_{h\to 0} \frac{1}{h} \left[\gamma(t + h) - \gamma(t)\right] \]
   as illustrated in Figure~\ref{img:curve_example}.
 
   \begin{figure}[!h]
@@ -3509,8 +3515,8 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
     \end{center}
   \end{figure}
 
-  If $\dot{\gamma}(t) \neq 0$, then $\dot{\gamma}$ is tangential into $\Gamma$
-  and we denote $\dot\gamma(t)$ as tangential vector of $\gamma$ in $t$.
+  If $\dot{\gamma}(t) \neq 0$, then $\dot{\gamma}$ is tangential in $\Gamma$
+  and we call $\dot\gamma(t)$ the \emph{tangential vector of $\gamma$ in $t$}.
 
   If $\dot\gamma(t) \neq 0$, we set
   \[ T_\gamma(t) = \frac{\dot\gamma(t)}{\norm{\dot\gamma(t)}_2} \]
@@ -3541,9 +3547,8 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \index[English]{Regular curve}
 \index[German]{\foreignlanguage{ngerman}{Reguläre Kurve}}
 \begin{defi}
-  % TODO: verify the following notes
   Let $\gamma: I \to \mathbb R^n$ be a differentiable, parameterized curve.
-  $\gamma$ is called \emph{regular} curve, if $\dot\gamma(t) \neq \vec0 \forall t \in I$.
+  $\gamma$ is called \emph{regular} curve, if $\dot\gamma(t) \neq \vec0 \quad \forall t \in I$.
 \end{defi}
 
 \index[English]{Neil's parabola}
@@ -3581,10 +3586,16 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   \[ \left(\frac{x_1}{a}\right)^2 + \left(\frac{x_2}{b}\right)^2 - 1 = 0 \]
   \[ \frac{x_1^2}{a^2} + \frac{x_2^2}{b^2} = 1 \]
 
-  $\gamma$ has an ellipsis as trace with major axes.
+  $\gamma$ has an ellipsis as trace with major axis lengths $a$ and $b$.
+  The interpretation of curve parameter $t$ is given in Figure~\ref{img:curpar}.
 
-  % TODO:
-  % TODO: ellipsis.svg
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/curve_parameter.pdf}
+      \caption{Curve parameter $t$}
+      \label{img:curpar}
+    \end{center}
+  \end{figure}
 \end{ex}
 
 \meta{lecture}{6th of May 2016}{Wolfgang Ring}
@@ -3599,15 +3610,19 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \index[English]{Hyperbolic sine function}
 \begin{defi}
   We define the \emph{cosine and sinus hyperbolic functions} as follows:
-  \[ \cosh: \mathbb C \to \mathbb C; \cosh(z) = \frac12 \left(e^z + e^{-z}\right) \]
-  \[ \sinh: \mathbb C \to \mathbb C; \sinh(z) = \frac12 \left(e^z - e^{-z}\right) \]
+  \[ \cosh: \mathbb C \to \mathbb C \qquad \cosh(z) = \frac12 \left(e^z + e^{-z}\right) \]
+  \[ \sinh: \mathbb C \to \mathbb C \qquad \sinh(z) = \frac12 \left(e^z - e^{-z}\right) \]
 
   For real values we get Figure~\ref{img:coshsinh}.
 
   Properties:
   \begin{align*}
-    TODO & \\
-    \cosh^2(x) - \sinh^2(x) &= \frac14 \left(e^{2x} + 2 e^x + TODO \right) \\
+    \cosh'(x) &= \frac12 (e^x - e^{-x}) \\
+    &= \sinh(x) \\
+    \sinh'(x) &= \frac12 (e^x + e^{-x}) \\
+    &= \cosh(x) \\
+    \cosh^2(x) - \sinh^2(x) &= \frac14 \left(e^{2x} + 2 \underbrace{e^x e^{-x}}_{=1} + e^{-2x} \right) \\
+      & -\frac14 \left(e^{2x} - 2 \underbrace{e^x e^{-x}}_{=1} + e^{-2x}\right) \\
       &= \frac14 \cdot 4 \cdot 1 = 1 \\
     \cosh^2(x) - \sinh(x) &= 1
   \end{align*}
@@ -3704,12 +3719,13 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   \[ = \frac{\ddot{\gamma}(t_0) \cdot \dot{x}(t_0) - \dot{y}(t_0) \ddot{x}(t_0)}{(\dot{x}(t_0))^3} \]
 \end{proof}
 
-TODO
+Figure~\ref{img:parametriccurve} gives an example for a curve which is not representable as function graph of $x$ in $\dot\gamma(t_0) = 0$.
 
 \begin{figure}[h!]
   \begin{center}
     \includegraphics{img/parametric_curve_hyperbola.pdf}
-    \caption{Parametric curve}
+    \caption{A parametric curve with $\dot\gamma(t_0) = 0$}
+    \label{img:parametriccurve}
   \end{center}
 \end{figure}
 
