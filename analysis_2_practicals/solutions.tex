@@ -40,6 +40,7 @@
 
 \newcommand\meta[3]{This #1 took place on #2 (#3).\par}
 \newcommand\abs[1]{\left|\,#1\,\right|}
+\newcommand\norm[1]{\left\|\,#1\,\right\|}
 \newcommand\set[1]{\left\{#1\right\}}
 \newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
 \newcommand\card[1]{\left|\,#1\,\right|}
@@ -1739,7 +1740,7 @@ Because of boundedness we can provide the following estimates:
 \end{ex}
 
 \[
-T_f^n(x;a) = f(a) + \frac{f'(a)(x - a)}{1!} + \frac{f''(a)(x - a)^2}{2!} + \ldots + f^{(n)}(a)(x - a)^n}{n!}
+T_f^n(x;a) = f(a) + \frac{f'(a)(x - a)}{1!} + \frac{f''(a)(x - a)^2}{2!} + \ldots + \frac{f^{(n)}(a)(x - a)^n}{n!}
 = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x - a)^k
 \]
 
@@ -1786,7 +1787,7 @@ We need to show: $P^{(k)}(a) = f^{(k)}(a)$ for $0 \leq k \leq n$ and $P^{(0)}(a)
 
 \[ P(x) \coloneqq \sum_{k=0}^\infty a_k x^k \qquad \rho = c > 0 \]
 
-To show: \forall b \in (-c,c), a < b$:
+To show: $\forall b \in (-c,c), a < b$:
 \[ \sum_{k=0}^\infty \int_a^b a_k x^k \, dx = \int_a^b \sum_{k=0}^\infty a_k x^k \, dx = \int_a^b P(x) \, dx \]
 
 \[ \sum_{k=0}^\infty \int_a^b a_k x^k \, dx = \lim_{n\to\infty} \sum_{k=0}^n \int_a^b a_k x^k \, dx
@@ -1832,5 +1833,250 @@ Geometrical series:
 \end{align*}
 \[ T_n(x;0) = \sum_{k=0}^n \frac{(-1)^l (2l)!}{(2l + 1)!} x^{2l+1} = \sum_{l=0}^n \frac{(-1)^l x^{2l+1}}{2l + 1} \]
 
+\section{Exercise 35}
+\begin{ex}
+  We consider the parametric curve
+  \[ x(t) \coloneqq a \cdot \cos(t), \qquad y(t) \coloneqq b \cdot \sin(t) \]
+  for $t \in [0,2\pi]$ and $a,b > 0$.
+  \begin{itemize}
+  \item Interpret the image of the curve and parameter $t$ geometrically.
+  \item Determine the tangent on the curve in point $(x(t), y(t))$ for $t \in (0, \pi/2)$. Determine also a parameter-free form of the equation.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 35.a}
+%
+Ellipse. The minimum and maximum $x$-values are $-a$ and $a$ respectively.
+The minimum and maximum $y$-values are $-b$ and $b$ respectively.
+
+\subsection{Exercise 35.b}
+
+\[
+  \dot{\gamma}(t)
+  = \begin{bmatrix} \dot{x}(t) \\ \dot{y}(t) \end{bmatrix}
+  = \begin{bmatrix} -a \cdot \sin(t) \\ b \cdot \cos(t) \end{bmatrix}
+\]
+
+\[ T(x) = \gamma(t_0) + \lambda \cdot \begin{bmatrix} -a \sin(t_0) \\ b \cos(t_0) \end{bmatrix} \]
+\begin{align*}
+  x &= a \cdot \cos(t) + \lambda \cdot (-a \cdot \sin(t_0)) \\
+  y &= b \cdot \sin(t) + \lambda \cdot (b \cdot \cos(t_0))
+\end{align*}
+\[
+  \implies \lambda = -\frac{x - a \cdot \cos(t_0)}{a \cdot \sin(t_0)}
+  = b \cdot \sin(t_0) - \frac{x - a \cdot \cos(t_0)}{a \cdot \sin(t_0)} (b \cdot \cos(t_0))
+\] \[
+  = \frac{-x \cdot b \cdot \cos(t_0)}{a \cdot \sin(t_0)} + \frac{\cos(t_0)}{\sin(t_0)} \cdot b \cdot \cos(t_0) + b \sin(t_0) = -\frac{b \cdot \cos(t_0)}{a \cdot \sin(t_0)} x + \ldots
+  \]
+We can simplify handling $d$ in $y = kx + d$ if we determine $d$ using $x = 0$.
+
+\section{Exercise 36}
+\begin{ex}
+  Let $\gamma: [a,b] \to \mathbb R^2$, $a < b$, be a continuous curve. It is differentiable in $(a,b)$ and $\gamma'(t) \neq 0$ for all $t \in (a,b)$. Show the following variant of the Intermediate Value Theorem: There exists some $c \in (a,b)$ and some $\rho \in \mathbb R$, such that
+  \[ \frac{\gamma(b) - \gamma(a)}{b - a} = \rho \gamma'(c) \]
+  So at $c$ the tangent is parallel to the chord (dt. \enquote{Sehne}).
+\end{ex}
+
+\begin{description}
+\item[$\gamma(a) = \gamma(b)$]
+  \[ \implies \frac{\gamma(b) - \gamma(a)}{b - a} = \frac{0}{b - a} = \rho \gamma'(c) \]
+\item[$\gamma(a) \neq \gamma(b)$]
+  \[ u = \gamma(b) - \gamma(a) \]
+  In $\mathbb R^2$, we can chose a basis.
+  \[ u = \begin{bmatrix} x(b) - x(a) \\ y(b) - y(a) \end{bmatrix} \]
+  \[ v = \begin{bmatrix} y(a) - y(b) \\ x(b) - x(a) \end{bmatrix} \]
+  We chose $v$ such that $v$ is orthogonal to $u$.
+
+  \[ \gamma(t) - \gamma(a) = \alpha(t) \cdot u + \beta(t) \cdot v \]
+  \[ 0 = \gamma(a) - \gamma(a) = \alpha(a) \cdot u + \beta(a) \cdot v \overset{\text{linear indep.}}{\implies} \alpha(a) = \beta(a) = 0 \]
+  \[ u = \gamma(b) - \gamma(a) = \alpha(b) + \beta(b) \cdot v \implies \alpha(b) = 1 \land \beta(b) = 0 \]
+
+  Lemma: $\beta'(t)$ is differentiable.
+  \[ \gamma(t) - \gamma(a) \eqqcolon \tilde{\gamma}(t) \]
+  \[ \tilde{\gamma}(t) = \alpha(t) \cdot u + \beta(t) \cdot v \]
+  \[ \langle \tilde{\gamma}(t), v\rangle = \alpha(t) \cdot \underbrace{\langle u, v\rangle}_{0} + \beta(t) \underbrace{\langle v,v\rangle}_{\neq 0} \]
+  Let $k \coloneqq \langle v,v\rangle$.
+  \[ \tilde{\gamma}_1(t) \cdot v_1 + \tilde{\gamma}_2(t) \cdot v_2 = \beta(t) \cdot k \]
+  Analogously, it can be proven that $\alpha'(t)$ is differentiable.
+
+  Given differentiability, we can now claim:
+  \[ \exists \xi \in (a,b): \frac{\beta(b) - \beta(a)}{b - a} = \beta'(\xi) \]
+  \[ \implies \gamma'(t) = \alpha'(t) \cdot u + \beta'(t) \cdot v \]
+  \[ \implies \gamma'(\xi) = \alpha'(\xi) (\gamma(b) - \gamma(a)) \]
+\end{description}
+
+\section{Exercise 37}
+\begin{ex}
+  Let $a,b \in \mathbb R$ with $a < b$ and a helix
+  \[ \gamma: [a,b] \to \mathbb R^3, \quad t \mapsto \begin{pmatrix} \cos{t} \\ \sin{t} \\ t \end{pmatrix} \]
+  \begin{itemize}
+  \item For all $t \in [a,b]$, determine the tangent vector of $\gamma$ in point $\gamma(t)$.
+  \item Determine the arc length of $\gamma\big|_{[a,c]}$ for arbitrary $c \in [a,b]$.
+    \item Does the variant of the Intermediate Value Theorem from Exercise~36 also hold in this case?
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 37.a}
+\[ \dot{\gamma}(t) = \begin{pmatrix} -\sin(t) \\ \cos(t) \\ 1 \end{pmatrix} \]
+
+\subsection{Exercise 37.b}
+\[
+s(\gamma|_{[a,c]}) = \int_a^c \norm{\dot{\gamma}(t)} \, dt
+= \int_a^c \sqrt{\sin^2(t) + \cos^2(t) + 1^2} \, dt
+= \int_a^c \sqrt{2} \, dt = c \sqrt{2} - a \sqrt{2} = \sqrt{2} (c - a)
+\]
+
+\subsection{Exercise 37.c}
+
+\[
+\begin{pmatrix}
+  \frac{\cos(b) - \cos(a)}{b - a} \\
+  \frac{\sin(b) - \sin(a)}{b - a} \\
+  \frac{b - a}{b - a}
+\end{pmatrix} = \rho \begin{pmatrix}
+  -\sin(c) \\
+  \cos(c) \\
+  1
+\end{pmatrix}
+\]
+
+Consider $a = 0, b = 2\pi$ and you will see that it cannot hold.
+Actually it does not hold for arbitrary $a$ and $b$.
+
+\section{Exercise 38}
+\begin{ex}
+  For $a,b > 0$ and $t \in [0, 2\pi]$ define the astroid using
+  \[ x(t) \coloneqq a \cdot \cos^3(t), \qquad \gamma(t) \coloneqq b \cdot \sin^3(t) \]
+  \begin{itemize}
+  \item Determine a representation $y = f(x)$ of the curve $(x(t), y(t))$ with $t \in [0,\pi]$.
+    \item Give the arc length of astroids and sketch its graph.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 38.a}
+%
+\[ y = f(x) \text{ needs to be found for } t \in [0,\pi] \]
+\[ x = a \cdot \cos^3(t) \Leftrightarrow t = \arccos\left(\frac{x^{\frac13}}{a^{\frac13}}\right) \]
+\[ y = b \cdot \sin^3 \cdot \left(\arccos\left(\frac{c^{\frac13}}{a^{\frac13}}\right)\right)
+= b \cdot \left(
+  \sin\left(
+    \arccos\left(
+      \frac{x^{\frac13}}{a^{\frac13}}
+    \right)
+    \right)^{3}
+\right) \] \[
+= b \cdot \left(\sqrt{1 - \frac{x^{\frac23}}{a^{\frac23}}}\right)^3
+\] \[
+  \sin(\arccos(x)) = \sqrt{1 - x^2}
+\]
+
+Simpler approach:
+\[ x(t) = a \cdot \cos^3(t) \]
+\[ \cos(t) = \left(\frac xa\right)^{\frac13} \]
+\[ \sin(t) = \sqrt{1 - \cos^2(t)} = \sqrt{1 - \left(\frac xa\right)^{\frac23}} \]
+
+\[ \left(\frac xa\right)^{\frac23} = \cos^2(t) \]
+\[ \left(\frac yb\right)^{\frac23} = \sin^2(t) \]
+\[ \left(\frac xa\right)^{\frac23} + \left(\frac ya\right)^{\frac23} = 1 \]
+
+Okay, with either approach, we come to our desired result.
+
+\subsection{Exercise 38.b}
+%
+\[ \dot\gamma(t) = \begin{pmatrix} -3a \sin(t) \cdot \cos^2(t) \\ 3b \cos(t) \sin^2(t) \end{pmatrix} \]
+\[
+  s = \int_0^{2\pi} \norm{\dot{\gamma}(t)} \, dt
+  = \int_0^{2\pi} \sqrt{9a^2 \sin^2(t) \cos^4(t) + 9b^2 \cos^2(t) \sin^4(t)} \, dt
+\] \[
+= \int_0^{2\pi} \abs{3 \sin(t) \cos(t)} \sqrt{a^2 \cos^2(t) + b^2 \sin^2(t)} \, dt
+\]
+Actually this does \emph{not} work! Because $\cos$ and $\sin$ can be negative, we cannot take it out of the square root. This makes our expression much more complex.
+
+We can simplify this expression. Use upper boundary value $\frac\pi2$ and take its integral/length times 4.
+
+\[ = 4 \int_0^{\frac\pi2} 3 \sin(t) \cos(t) \sqrt{a^2 \cos^2(t) + b^2 \sin^2(t)} \, dt \]
+Consider $u = a^2 \cos^2(t) + b^2 \sin^2(t)$, then $dt = \frac{du}{2 \sin(t) \cos(t) (-a^2 + b^2)}$.
+\[ = 4 \cdot \int_{t=0}^{t=\frac\pi2} \frac{3}{2(-a^2 + b^2)} \sqrt{u} \, du \]
+
+\[ \frac{6}{-a^2 + b^2} \int_{t=0}^{t=\frac\pi2} \sqrt{u} \, du = \left. \frac{6}{-a^2 + b^2} \cdot \frac23 u^{\frac32} \right|_{t=0}^{t=\frac\pi2} \]
+\[ = \left. \frac{4}{b^2 - a^2} \left(a^2 \cos^2(t) + b^2 \sin^2(t)\right)^{\frac32} \right|_{0}^{\frac\pi2} \]
+\[ = \frac4{b^2 - a^2} \left[\left(b^2\right)^{\frac32} - \left(a^2\right)^{\frac32}\right] \]
+\[ = \frac{4}{b^2 - a^2} (b^3 - a^3) \]
+Problem if $a = b$. You need to make a case distinction before substitution. This is missing here.
+
+Sketch: A star with center $(0, 0)$. The maximum/minimum $x$-value is $-a$ and $a$ respectively. The maximum/minimum $y$-value is $-b$ and $b$ respectively.
+
+\section{Exercise 39}
+\begin{ex}
+  We again consider astroids from Exercise~38.
+  \begin{itemize}
+  \item Determine in every point of the curve its curvature.
+  \item Find, for the evolute of astroids, a representation of form $(\xi(t), \eta(t))$ for $t \in [0,2\pi]$ and sketch its curves.
+  \end{itemize}
+\end{ex}
+
+\[ \gamma(t) = \begin{pmatrix} a \cdot \cos^3(t) \\ b \cdot \sin^3(t) \end{pmatrix} \]
+\[ \dot\gamma(t) = \begin{pmatrix} -3a \cdot \sin(t) \cos^2(t) \\ 3b \sin^2(t) \cos(t) \end{pmatrix} \]
+\[ \vec{n} = \begin{pmatrix} 3b \sin^2(t) \cos(t) \\ 3a \sin(t) \cos^2(t) \end{pmatrix} \]
+\[ \kappa(t) = \langle \ddot{\gamma}(t), \vec{n}\rangle \]
+
+\[ \ddot{\gamma}(t) =
+   \begin{pmatrix}
+    3a (2\cos(t) \sin^2(t) - \cos^3(t)) \\
+    3b (2\sin(t) \cos^2(t) - \sin^3(t))
+   \end{pmatrix}
+\] \[
+\kappa(t) = \left\langle \begin{pmatrix}
+  6a \cos(t) \sin^2(t) - 3a \cos^3(t) \\
+  6b \sin(t) \cos^2(t) - 3b \sin^3(t)
+\end{pmatrix}, \begin{pmatrix}
+  3b \sin^2(t) \cos(t) \\
+  3a \sin(t) \cos^2(t)
+\end{pmatrix}\right\rangle
+\]
+\[
+18ab \sin^4(t) \cos^2(t) - 9 ab \cos^4(t) \sin^2(t) + 18ab \sin^2(t) \cos^4(t) - 9ab\sin^4(t) \cos^2(t)
+\] \[
+= 9ab \sin^2(t) \cos^2(t) \underbrace{\left(2\sin^2(t) - \cos^2(t) + 2\cos^2(t) - \sin^2(t)\right)}_{=1}
+\] \[
+= 9ab \sin^2(t) \cos^2(t)
+\]
+
+This curvature form assumes that $N$ is already normalized.
+This solution looks suspicious, because the usual denominator is missing (this does not necessarily mean that it is wrong).
+
+Normalize it afterwards?! (here cubic)
+
+\[ \implies \frac{9ab \sin^2(t) \cos^2(t)}{\abs{\vec{n}}^3} \]
+
+Tutor's curvature equation:
+\[ \frac{\dot{x} \cdot \ddot{y} - \ddot{x} \cdot \dot{y}}{\left(\dot{x}^2 + \dot{y}^2\right)^{\frac32}} \]
+
+\[ \abs{\vec{n}}^3 = \sqrt{9b^2 \sin^4(t) \cos^2(t) + 9a^2 \sin^2(t) \cos^4(t)}^3 \]
+\[ = \left(3 \abs{\sin(t) \cos(t)} \sqrt{b^2 \sin^2(t) + a^2 \cos^2(t)}\right)^3 \]
+
+\subsection{Exercise 39.b}
+
+We used norm vector
+\[ \begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} = \begin{pmatrix} -\dot{y} \\ \dot{x} \end{pmatrix} \]
+So we should have actually used
+\[
+   \vec{n} =
+   \begin{pmatrix}
+    -3b \sin^2(t) \cos(t) \\
+    -3a \sin(t) \cos^2(t)
+  \end{pmatrix}
+\]
+
+
+\[ \begin{pmatrix} \xi(t) \\ \eta(t) \end{pmatrix}
+= \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} + \begin{pmatrix} -y'(t) \\ x'(t) \end{pmatrix} \cdot \frac{x'(t)^2 + y'(t)^2}{x'(t) y''(t) - x''(t) y'(t)} \]
+\[ x'(t)^2 + y'(t)^2 = 9\cos^2(t) \sin^2(t) (a^2 \cos^2(t) + b^2 \sin^2(t)) \]
+\[ x'(t) y''(t) - x''(t) y'(t) = -9ab\sin^2(t) \cos^2(t) \]
+
+\[ \xi(t) = a \cos^3(t) + 3b \sin^2(t) \cos(t) \cdot \frac{a^2 \cos^2(t) + b^2 \sin^2(t)}{ab} \]
+\[ \eta(t) = b\sin^3(t) + 3a \sin(t) \cos^2(t) \cdot \frac{a^2 \cos^2(t) + b^2 \sin^2(t)}{ab} \]
+
+Sketched, this is a rectangle, but the corner have a little higher distance from the center.
 
 \end{document}
