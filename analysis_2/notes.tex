@@ -96,7 +96,7 @@ For every complex number $z \in \mathbb C$ this series converges on entire $\mat
 \[ \exp(z + w) = \exp(z) \cdot \exp(w) \]
 \[ \lim_{z\to0} \frac{\exp(z) - 1}{z} = 1 \]
 \[ \exp(1) = e \in \mathbb R \]
-\[ z = \frac mn \in \mathbb Q \land n \neq 0 \Rightarrow \exp\left(\frac mn\right) = e^{\frac mn} \]
+\[ z = \frac mn \in \mathbb Q \land n \neq 0 \implies \exp\left(\frac mn\right) = e^{\frac mn} \]
 
 So we also denote
 \[ \exp(z) = e^z \qquad \text{for } z \in \mathbb C \]
@@ -126,7 +126,7 @@ Let $n \in \mathbb N$
 \section{The natural logarithm}
 %
 \[ \exp: \mathbb R \to (0,\infty) \]
-is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
+is injective, because $x_1 < x_2 \implies e^{x_1} < e^{x_2}$
 
 \begin{lemma}
   $\exp: \mathbb R \to (0,\infty)$
@@ -148,7 +148,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
       Let $y \in (0,1)$. Then it holds that $w = \frac1{y} > 1$.
       The same as in Case~1 applies:
       \[ \exists \xi \in [0,w]: \quad e^\xi = w = \frac1{y} \]
-      \[ \Rightarrow e^{-\xi} = \frac{1}{e^\xi} = y \]
+      \[ \implies e^{-\xi} = \frac{1}{e^\xi} = y \]
   \end{description}
 
   So it holds that $\exp: \mathbb R \to (0,\infty)$ is bijective.
@@ -166,7 +166,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
     \item It holds $\forall x \in \mathbb R: \ln(e^x) = x$ and $\forall y \in (0,\infty): e^{\ln(y)} = y$.
     \item $\ln: (0,\infty) \to \mathbb R$ is strictly monotonically increasing
       \begin{proof}
-        Let $0 < y_1 < y_2$. Assume $\ln(y_1) \geq \ln(y_2) \xRightarrow{\text{monotonicity}} e^{\ln(y_1)} \geq e^{\ln(y_2)} \Rightarrow y_1 \geq y_2$. Contradiction!
+        Let $0 < y_1 < y_2$. Assume $\ln(y_1) \geq \ln(y_2) \xRightarrow{\text{monotonicity}} e^{\ln(y_1)} \geq e^{\ln(y_2)} \implies y_1 \geq y_2$. Contradiction!
       \end{proof}
   \end{itemize}
 \end{defi}
@@ -195,7 +195,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
       \[ \lim_{n\to\infty} y_n = \ln(1) = 0 \]
       \[ \lim_{n\to\infty} \frac{\ln(w_n)}{w_n - 1} = \lim_{n\to\infty} \frac{y_n}{e^{y_n} - 1} = \frac11 = 1 \]
       where
-      \[ e^0 = 1 \Rightarrow \ln(1) = 0 \]
+      \[ e^0 = 1 \implies \ln(1) = 0 \]
   \end{itemize}
 \end{proof}
 
@@ -228,7 +228,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
   \begin{description}
     \item[First approach]
       Let $x > 0$, $x_n \to x$ with $x_n \neq x$, $x_n > 0$.
-      Let $\xi_n = \ln(x_n)$ and $\xi = \ln(x) \Rightarrow \xi_n \neq \xi$.
+      Let $\xi_n = \ln(x_n)$ and $\xi = \ln(x) \implies \xi_n \neq \xi$.
       \[ e^{\xi_n} = x_n \qquad e^\xi = x \qquad \xi_n \to \xi \]
       Then it holds that
       \[ \lim_{n\to\infty} \frac{\ln(x_n) - \ln(x)}{x_n - x} = \lim_{n\to\infty} \frac{\xi_n - \xi}{e^{\xi_n} - e^\xi} \]
@@ -240,9 +240,9 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
     \item[Second approach using chain rule]
       Compare with Figure~\ref{img:geo-diff}.
       \[ (f^{-1})'(y_0) = \frac{1}{f'(f^{-1}(y_0))} \]
-      \[ f(f^{-1}(y)) = y \Rightarrow f(f^{-1}) f(f^{-1}(y)) = y = f'(f^{-1}(y)) \cdot (f^{-1})'(y) = 1 \]
-      \[ \Rightarrow (f^{-1})'(y) = \frac{1}{f'(f^{-1}(y))} \text{ for } f(x) = \exp(x) \]
-      \[ \Rightarrow (\ln)'(y) = \frac{1}{\exp(\ln(y))} = \frac{1}{y} \]
+      \[ f(f^{-1}(y)) = y \implies f(f^{-1}) f(f^{-1}(y)) = y = f'(f^{-1}(y)) \cdot (f^{-1})'(y) = 1 \]
+      \[ \implies (f^{-1})'(y) = \frac{1}{f'(f^{-1}(y))} \text{ for } f(x) = \exp(x) \]
+      \[ \implies (\ln)'(y) = \frac{1}{\exp(\ln(y))} = \frac{1}{y} \]
 
       \[ f(f^{-1}(y)) = y \]
       \[ f'(f^{-1}(y)) \cdot (f^{-1}) \]
@@ -251,7 +251,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
     \item[Third approach]
       Let $x > 0$.
       \[ 0 = \ln(1) = \ln\left(x \cdot \frac1x\right) = \ln(x) + \ln\left(\frac1x\right) \]
-      \[ \Rightarrow \ln\left(\frac1x\right) = -\ln(x) \]
+      \[ \implies \ln\left(\frac1x\right) = -\ln(x) \]
 
       Let $x,y > 0$. Then it holds that
       \[ \ln{\frac{x}{y}} = \ln(x) - \ln(y) \]
@@ -275,7 +275,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
     = \frac1x \cdot \lim_{h\to0} \frac{\ln\left(1 + \frac{h}{x}\right)}{\frac{h}{x}}
     \text{ where } \frac hx \to 0
   \]
-  $1 + \frac{h}{x} = w$ then it holds that $h \to 0 \Rightarrow w \to 1$.
+  $1 + \frac{h}{x} = w$ then it holds that $h \to 0 \implies w \to 1$.
   \[ \frac{h}{x} = w - 1 \]
   \[ \lim_{h\to0} \frac{\ln\left(1 + \frac{h}{x}\right)} = \lim_{h\to0} \frac{\ln(w)}{w - 1} = 1 \]
 \end{proof}
@@ -310,7 +310,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
 
 \begin{proof}
   Let $y_n \to y_0$ and $y_n \in f(I)$; $y_0 = f(x_0)$; $y_0 \in f(I)$; $y_n = f(x_n)$.
-  $y_n \neq y_0 \Rightarrow x_n \neq x_0$.
+  $y_n \neq y_0 \implies x_n \neq x_0$.
   \[ \lim_{n\to\infty} \frac{f^{-1}(y_n) - f^{-1}(y_0)}{y_n - y_0} \]
   \[
     = \lim_{n\to\infty} \frac{x_n - x_0}{f(x_n) - f(x_0)}
@@ -443,7 +443,7 @@ is injective, because $x_1 < x_2 \Rightarrow e^{x_1} < e^{x_2}$
     \item $f_n \to f$ pointwise
     \item $f'_n(x) \to \varphi(x)$ for every $x$
     \item $\forall \varepsilon > 0 \forall u,v \in I \exists N: n \geq N
-      \Rightarrow \abs{(f_n - f)(u) - (f_n - f)(v)} < \varepsilon \abs{u - v}$
+      \implies \abs{(f_n - f)(u) - (f_n - f)(v)} < \varepsilon \abs{u - v}$
   \end{itemize}
   Then it holds that $f$ is differentiable and $f'(x) = \varphi(x) \forall x \in I$.
 \end{theorem}
@@ -457,7 +457,7 @@ Conclusion:
     \item $f_n \to f$ pointwise in $I$ for $n \to \infty$
     \item $\exists g: I  \to \mathbb R$ such that $f'_n \to g$ is \emph{uniform} in $I$,
       hence $\forall \varepsilon > 0 \exists N \in \mathbb N:
-      n \geq N \land x \in I \Rightarrow \abs{f'_n(x) - g(x)} < \varepsilon$
+      n \geq N \land x \in I \implies \abs{f'_n(x) - g(x)} < \varepsilon$
   \end{itemize}
   Then $f$ is differentiable in $I$ and $f'(x) = g(x) \forall x \in I$.
 \end{theorem}
@@ -555,13 +555,13 @@ Apply the previous theorem, followingly $g$ is differentiable in $(-1,1)$ and it
 
 Remark:
 \[ \left[-\ln(1 - x)\right]' = -\frac{1}{1 - x} \cdot (-1) = \frac1{1 - x} \]
-\[ \Rightarrow \sum_{k=1}^\infty \frac{x^k}{k} + \ln(1 - x) = \text{ constant} \]
+\[ \implies \sum_{k=1}^\infty \frac{x^k}{k} + \ln(1 - x) = \text{ constant} \]
 Let $x = 0$ (we determine the constant for this $x=0$):
 \[ 0 + 0 = 0 = \text{ constant} \]
-\[ \Rightarrow \ln(1 - x) = -\sum_{k=1}^\infty \frac{x^k}{k} \qquad \text{ for } \abs{x} < 1 \]
+\[ \implies \ln(1 - x) = -\sum_{k=1}^\infty \frac{x^k}{k} \qquad \text{ for } \abs{x} < 1 \]
 
 Let $x \in (-1,1) \Rightarrow -x \in (-1,1)$.
-\[ \Rightarrow \ln(1 - (-x)) = \ln(1 + x) = -\sum_{k=1}^\infty \frac{(-x)^k}{k} \]
+\[ \implies \ln(1 - (-x)) = \ln(1 + x) = -\sum_{k=1}^\infty \frac{(-x)^k}{k} \]
 \[ = \sum_{k=1}^\infty \frac{(-1)^{k-1} \cdot x^k}{k} = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \ldots \]
 
 \index[English]{Logarithmic series}
@@ -589,7 +589,7 @@ Compare with Figure~\ref{img:1x-1x}.
 \[ f'(x) = \frac{1 - (-1)}{(1 - x)^2} = \frac{2}{(1 - x)^2} > 0 \quad \text{ in } (-1, 1) \]
 Solve $\frac{1 + x}{1 - x} = w$ for $x$.
 
-\[ \Rightarrow 1 + x  = w - wx \]
+\[ \implies 1 + x  = w - wx \]
 \[ x (1 + w) = w - 1 \]
 \[ x = \frac{w - 1}{w + 1} \]
 
@@ -5551,7 +5551,7 @@ We consider only inner points as definition points of the derivative.
   \[ df(x_0; v) = \lim_{t\to 0} \frac1{t} \left(f(x_0 + tv) - f(x_0)\right) \]
   if the limit exists.
 
-  In this case we call $df(x_0; v)$ the directed derivative (\emph{Gateaux derivative})
+  In this case we call $df(x_0; v)$ the directed derivative (\emph{G\^ateaux derivative})
   of $f$ in direction $v$ in point $x_0$.
 
   % TODO: drawing
@@ -5562,20 +5562,278 @@ We consider only inner points as definition points of the derivative.
   \[ l_{x_0,v}: \mathbb R \to \mathbb R^n \]
   is linear affine (constant and linear).
   $l_{x_0,v}$ is differentiable in $\mathbb R$.
-  Furthermore it holds that $f(x_0 + t\cdot v) = f \circ l_{x_0,v}(t)$
+  Furthermore it holds (by chain rule) that $f(x_0 + t\cdot v) = f \circ l_{x_0,v}(t)$
   defines an environment of $t = o$.
-  \[ df(x_0;v) = D(f \circ l_{x_0,v}) (o) \]
-  \[ Dl_{x_0;v}(o) = v \in \mathbb R^n \quad \text{ column vector} \]
+  \[ df(x_0;v) = D(f \circ l_{x_0,v}) (0) \]
+  \[ Dl_{x_0;v}(0) = v \in \mathbb R^n \quad \text{ column vector} \]
   If $f$ is Frech\'et differentiable in $x_0$, then it holds (by the chain rule)
-  \[ df(x_0; v) = Df(l_{x_0,v}(o)) \cdot Dl_{x_0,v}(o) = Df(x_0) \cdot v \]
+  \[ df(x_0; v) = Df(l_{x_0,v}(0)) \cdot Dl_{x_0,v}(0) = Df(x_0) \cdot v \]
 \end{rem}
 
 \begin{lemma}
-  Let $f$ like above and Frech\'et differentiable in $x_0$. Then it holds that
+  Let $f$ be like above and Frech\'et differentiable in $x_0$. Then it holds that
   \[ df(x_0;v) = Df(x_0) \cdot v \]
   Now I can build the columns of $Df$.
 \end{lemma}
 
+\meta{lecture}{7th of June 2017}{Wolfgang Ring}
+
+\subsection{Special directed derivatives}
+
+\begin{rem}[Reminder]
+  We write indices for coordinates as superscript
+  (notation originates in differential geometry).
+  But in the following we also which to subscript,
+  which is more convenient under some circumstances.
+\end{rem}
+
+\index[English]{$k$-th partial derivative of $f$ in $x_0$}
+\index[German]{\foreignlanguage{ngerman}{$k$-te partielle Ableitung von $f$ in $x_0$}}
+\begin{defi}
+  Let $v = e_k$ where $1$ is at the $k$-th index;
+  i.e. $k$-th canonical basis vector in $\mathbb R^n$.
+
+  \[
+    df(x_0, e_l) = \lim_{t\to 0} \frac1{t} \left(f(x_0 + t \cdot e_k) - f(x_0)\right)
+    \text{ with } \begin{bmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{bmatrix}
+  \] \[
+    = \lim_{t \to 0} \frac{1}{t} \left(f(x_0^1, x_0^2, \ldots, x_0^k + t, x_0^{k-1}, \ldots, x_0^n) - f(x_0^1, \ldots, x_0^n)\right)
+  \] \[
+    = \frac{\partial f}{\partial x^k} = f_{x^k} = f_k = \partial_k f
+  \]
+  is called \emph{$k$-th partial derivative of $f$ in $x_0$}.
+\end{defi}
+
+\subsection{Determination of partial derivatives}
+%
+In the $k$-th derivative, $x^1, \ldots, x^{k-1}, x^{k+1}, \ldots, x^n$ are treated like constants.
+Derivative rules are applied to the \enquote{variable} $x^k$.
+
+An example:
+\[
+f(x^1, x^2, x^3) =
+\begin{bmatrix}
+  x^1 (x^3)^2 + \sin(x^2 x^3) \\
+  \frac{(x^2)^2}{(x^1)^2 + 1}
+\end{bmatrix}
+\]
+where $x^2$ is the derivative variable. Then:
+\[
+\partial_2 f(x_0^1, x_0^2, x_0^3) =
+\begin{bmatrix}
+  \cos(x^2 \cdot x^3) \cdot x^3 \\
+  \frac{2x^2}{(x^1)^2 + 1}
+\end{bmatrix}
+\]
+
+\index[English]{Jacobi matrix}
+\index[German]{\foreignlanguage{ngerman}{Jacobi Mmatrix}}
+\begin{theorem}
+  Let $f: D \to \mathbb R^m$, $D$ is open in $x_0 \in D$ differentiable.
+  Then it holds that
+  \[ Df(x_0) = \left(\partial_j f^i(x_0)\right)_{\substack{i = 1,\ldots,m \\ j = 1,\ldots,n}} \in \mathbb R^{m\times n} \]
+  \[ \left(\partial_j f^i(x_0)\right)_{\substack{i=1,\ldots,m \\ j = 1,\ldots,m}} \]
+  is called \emph{Jacobi matrix} of $f$ in $x_0$.
+\end{theorem}
+
+\begin{proof}
+  The matrix representation of the linear map $Df(x_0)$ in regards of canonical bases
+  in $\mathbb R^n$ (or equivalently $\mathbb R^m$) contains the vector
+  $Df(x_0) \cdot e_k = df(x_0; e_k)$ in the $k$-th column.
+
+  \[
+    df(x_0, e_k) = \partial_k f = \begin{bmatrix} \partial_k f^1 \\ \partial_k f^2 \\ \vdots \\ \partial_k f^m \end{bmatrix}
+    \implies (Df(x_0))_{i,k} = \partial_k f^i(x_0)
+  \]
+\end{proof}
+
+\begin{ex}
+  \[
+    f: \mathbb R^3 \to \mathbb R^2: f(\underbrace{x_1, x_2, x_3}_{\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}}) =
+    \begin{bmatrix}
+      x_1 x_3^2 + \sin(x_2 \cdot x_3) \\
+      \frac{x_2^2}{x_1^2 + 1}
+    \end{bmatrix}
+  \] \[
+  Df\left(\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}\right) =
+  \begin{bmatrix}
+    x_3^2                                   & \cos(x_2 x_3) \cdot x_3                & 2x_2 x_3^2 + \cos(x_2 x_3) \cdot x_2 \\
+    - \frac{x_2^2}{(x_1^2 + 1)} \cdot 2x_1   & \frac{2x_2}{x_1^2 + 1} \cdot 2x_1      & 0
+  \end{bmatrix}
+  \]
+\end{ex}
+
+\begin{theorem}
+  \[
+  f(x) = \begin{bmatrix}
+    f^1(x) \\ \vdots \\ f^m(x)
+  \end{bmatrix}
+  \]
+  TODO: content missing
+  in $x_0$ differentiable
+  TODO
+  $j = 1, \ldots, m$.
+\end{theorem}
+\begin{proof}
+  $f$ is differentiable in $x_0$ iff
+  \[ \forall \varepsilon > 0 \exists \delta > 0: \norm{x - x_0} < \delta
+  \implies \inorm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < \varepsilon \norm{x - x_0}
+  \] \[
+  \iff \forall \varepsilon > 0 \exists \delta > 0:
+  \norm{x - x_0} < \delta \implies
+  \abs{f^0(x) - f^0(x_0) - \sum_{k=1}^m \partial_k f^j(x_0)(x^k - x_0^k)}
+  < \varepsilon \norm{x - x_0} \text{ for } j = 1, \ldots, m
+  \]
+  $\iff$ $f^j$ is Fr\'echet differentiable in $x_0$ with derivative
+  % TODO: verify this expression
+  \[ Df^j(x_0) = [\partial_1 f^j, \partial_2 f^j, \ldots, \partial_n f^j] \]
+
+  Additionally,
+  \[ Df^j(x_0) = [\partial_1 f^j(x_0), \ldots, \partial_n f^j(x_0)] \]
+\end{proof}
+
+\index[English]{Total differential of $f$ in $x_0$}
+\index[German]{\foreignlanguage{ngerman}{Totales Differential von $f$ in $x_0$}}
+\index[English]{Gradient vector of $f$ in $x_0$}
+\index[German]{\foreignlanguage{ngerman}{Gradientenvektor von $f$ in $x_0$}}
+\index[English]{Nabla operator}
+\index[German]{\foreignlanguage{ngerman}{Nablaoperator}}
+\begin{rem}
+  For many considerations we can look at the
+  special case $f: D \subseteq \mathbb R^n \to \mathbb R$.
+
+  \emph{Notation:} Let $f: D \subseteq \mathbb R^m \to \mathbb R$
+  be given and differentiable in $x_0 \in D$.
+  \begin{align*}
+    Df(x_0) &= [\partial_1 f(x_0), \ldots, \partial_n f(x_0)] \\
+            &= df(x_0)
+  \end{align*}
+  is also called \emph{total differential of $f$ in $x_0$} (a row vector).
+
+  \[ Df(x_0) \cdot v = df(x_0; v) = [\partial_1 f(x_0), \ldots, \partial_n f(x_0)] \begin{bmatrix} v_1 \\ \vdots \\ v^n \end{bmatrix} \]
+  We let
+  \[
+  \nabla f(x_0) = \begin{bmatrix} \partial_1 f(x_0) \\ \vdots \\ \partial_n f(x_0) \end{bmatrix}
+  = (Df(x_0))^t
+  \]
+  is called \emph{gradient vector of $f$ in $x_0$} ($\nabla$ of the Old Greek alphabet is called \emph{nabla}).
+
+  With this notation it holds that the directed derivative
+  \[ Df(x_0) \cdot v = \langle \nabla f(x_0), v\rangle \]
+
+  The reason for different notations is coordinate transformation.
+
+  % TODO: image missing
+  This is illustrated in a missing Figure.
+  \[ f: 0 \to D \]
+  is differentiable everywhere and bijective.
+  \[ x = \varphi(y) \qquad \tilde{f} = f \circ \varphi: O \to \mathbb R \]
+  \[ x_0 = \varphi(y_0) \]
+  Coordinate transformation of $f$.
+  \[ D\tilde{f}(y_0) \underbrace{=}_{\text{chain rule}} Df(x_0) \cdot \underbrace{D\varphi(y_0)}_{\text{transformation by $D\varphi$}} \]
+  \begin{align*}
+    D\tilde{f}(y_0) &= \left(Df(x_0) \cdot D\varphi(y_0)\right)^t \\
+    &= D\varphi^t(y_0) \cdot Df(x)^t \\
+    &= D\varphi^t(y_0) \cdot \nabla f(x_0)
+  \end{align*}
+
+  \index[English]{Covariant transformation behavior}
+  \index[German]{\foreignlanguage{ngerman}{Kovariantes Transformationsverhalten}}
+  \index[English]{Contravariant transformation behavior}
+  \index[German]{\foreignlanguage{ngerman}{Kontravariantes Transformationsverhalten}}
+
+  Transformation behavior of $Df$ and $\nabla f$ is different.
+  $Df$ is a covariant vector (covector) and $\nabla f$ is a contravariant vector (vector).
+\end{rem}
+
+Question: If all partial derivatives of a function exist, is $f$ differentiable? \\
+Answer: In general no.
+
+\begin{ex}[Counterexample]
+  \[ f(x_1, x_2) = \begin{cases}
+    x_1 \cdot \frac{x_1 x_2}{x_1^2 + x_2^2} & \text{ for } (x_1, x_2) \neq (0, 0) \\
+    0                                     & \text{ for } (x_1, x_2) = (0, 0)
+  \end{cases} \]
+  $\partial_1 f$ and $\partial_2 f$ exist for $(x_1, x_2) \neq (0, 0)$.
+  Consider directed derivatives of $f$ in point $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+  Let $v = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}$.
+  \[
+  df(\vec{0}, v) = \lim_{t\to 0} \frac{f(t \cdot v) - 0}{t}
+  = \lim_{t\to 0} \frac1{t} \left(tv_1 \frac{tv_1 \cdot tv_2}{(tv_1)^2 + (tv_2)^2}\right)
+  = v_1 \frac{v_1 v_2}{v_1^2 + v_2^2}
+  \]
+  Hence in $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$ all directed derivatives
+  in directions $v \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix}$ exist.
+  \[ \partial_1 f(\vec{0}) = df(\vec{0}, e_1) = 1 \cdot \frac{1 \cdot 0}{1^2 + 0^2} = 0 \]
+  \[ \partial_2 f(\vec{0}) = df(\vec{0}, e_2) = 0 \cdot \frac{0 \cdot 1}{0^2 + 1^2} = 0 \]
+  Hence, if $f$ would be differentiable in $0$, then
+  \[ Df(0) = \begin{bmatrix} 0 & 0 \end{bmatrix} \]
+  Now consider $v = e_1 + e_2$
+  \[ df(\vec{0}, v) = Df(0) \cdot v = \begin{bmatrix} 0 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix} = 0 \]
+  But the determination from above of $df(\vec{0}, \vec{v})$ holds.
+  \[ df(\vec{0}, \vec{v}) = 1 \cdot \frac{1 \cdot 1}{1^2 + 1^2} = \frac12 \neq 0 \]
+  Recommendation: Plot this graph!
+\end{ex}
+\begin{proof}[Show that $f$ is not differentiable]
+  \[ f(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}) = \begin{cases}
+    x_1 \cdot \frac{x_1 \cdot x_2}{x_1^2 + x_2^2}  & \text{ for } \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
+    0  & \text{ for } \begin{bmatrix} x_1 \\ x_0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}
+  \end{cases}
+  \]
+  We already know
+  \[ \partial_1 f(\begin{bmatrix} 0 \\ 0 \end{bmatrix}) \neq \vec{0} \]
+  Then it holds that
+  \[ \partial_1 f(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}) = \frac{2 x_1 x_2 - x_1^2 x_2 \cdot 2x_1}{(x_1^2 + x_2^2)^2} \]
+  \[ \partial_2 f(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}) = \frac{x_1^2 (x_1^2 + x_2^2) - x_1^2 \cdot x_2 \cdot 2x_2}{(x_1^2 + x_2^2)^2} \]
+  \[ \partial_1 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) =
+    \frac{2 \varepsilon^2 \cdot 2 \varepsilon^2 - \varepsilon^2 \cdot \varepsilon \cdot 2\varepsilon}{(2 \varepsilon^2)^2} = \frac{2\varepsilon^4}{4 \varepsilon^4} = \frac12 \]
+  \[ \partial_2 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) = \frac{\varepsilon^2 \cdot 2\varepsilon^2 - \varepsilon^2 \cdot \varepsilon \cdot 2\varepsilon}{(2\varepsilon^2)^2} = 0 \]
+  It holds that
+  \[ \lim_{\varepsilon \to 0} \partial_2 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) = 0 = \partial_2 f(\begin{bmatrix} 0 \\ 0 \end{bmatrix}) \]
+  but
+  \[ \lim_{\varepsilon \to 0} \partial_1 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) = \frac12 \neq \partial_1 f(\begin{bmatrix} 0 \\ 0 \end{bmatrix}) \]
+  Hence $\partial_1 f$ is non-continuous in $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+\end{proof}
+
+
+\index[English]{Level line}
+\index[German]{\foreignlanguage{ngerman}{Niveaulinie}}
+\begin{rem}
+  % TODO: image missing
+  
+  Let $f: D \to \mathbb R^2$ be differentiable.
+  Let $\Gamma \subseteq \mathbb R^2$ be a \emph{level line} (dt. \foreignlanguage{ngerman}{Niveaulinie}) of $f$,
+  hence $\forall x \in \Gamma: f(x) = c = \text{const.}$.
+
+  % TODO: some definition is missing here
+  Assume $\Gamma \cap B(x_0, x) = \setdef{\gamma(t)}{t \in (a,b)}$,
+  hence $\gamma$ can be locally represented as parametric curve.
+  Then it holds that $f \circ \gamma: (a,b) \to \mathbb R$ is constant.
+  \[ f \circ \gamma(t) = c \quad \forall t \in (a,b) \]
+  Chain rule, $t=0$:
+  \[ Df(\underbrace{\gamma(0)}_{=x_0}) \cdot \underbrace{\dot\gamma(0)}_{D\gamma(0)} = 0 \]
+  \[ \langle \nabla f(x_0), \dot\gamma(0)\rangle = 0 \]
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/tangential_vector.pdf}
+      % TODO: graphics incomplete
+      \caption{Tangential vector}
+    \end{center}
+  \end{figure}
+  
+  $\nabla f(x_0)$ is normal to $\dot\gamma(0)$, hence normal to $\Gamma$.
+\end{rem}
+
+\begin{theorem}
+  Let $f: D \to \mathbb R$, $D \subset \mathbb R^m$ is open.
+  Assume $\forall x \in D$ exist all partial derivatives
+  $\partial_j f(x)$ for $j = 1, \ldots, m$ and every function $D \to \mathbb R$,
+  $x \mapsto \partial_j f(x)$, is continuous.
+  Then $f$ is differentiable in $D$.
+\end{theorem}
+\begin{proof}
+\end{proof}
 
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
