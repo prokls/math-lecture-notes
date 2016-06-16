@@ -2079,4 +2079,79 @@ So we should have actually used
 
 Sketched, this is a rectangle, but the corner have a little higher distance from the center.
 
+\section{Exercise 39-42}
+
+I was missing in class. Hopeful I will get access to other notes to transcribe them here.
+
+\section{Exercise 43}
+
+\[ f: \mathbb R^2 \to \mathbb R^2 \]
+\[ f(x,y) = \begin{bmatrix} x^2 + 3y^2 \\ 4x - y^2 \end{bmatrix} \]
+
+\[ \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} = \begin{bmatrix} 2 \\ -1 \end{bmatrix} \]
+
+Let $\varepsilon > 0$.
+
+\[ \norm{\begin{bmatrix} x \\ y \end{bmatrix} - \begin{bmatrix} 2 \\ -1 \end{bmatrix}} < \delta \]
+\[ \delta \coloneqq \min\left(\frac\varepsilon{14}, 1\right) \]
+\[ \norm{f(\begin{bmatrix} x \\ y \end{bmatrix}) - f(\begin{bmatrix} 2 \\ -1 \end{bmatrix})}_\infty = \norm{\begin{bmatrix} x^2 + 3y^2 - 7 \\ 4x - y^2 - 7 \end{bmatrix}}_\infty \]
+
+1st component:
+\[ \abs{x^2 + 3y^2 - 7} = \abs{x^2 - 4 + 3y^2 - 3} \leq \abs{x - 2} \abs{x + 2} + 3 \abs{y - 1} \abs{y + 1} \]
+
+\[
+  \begin{vmatrix}
+    \abs{x - 2} < \delta \leq 1 \implies \abs{x} < 3 \\
+    \abs{y + 1} < \delta \leq 1 \implies \abs{y} < 2 \\
+    \abs{x + 2} < 5; \abs{y - 1} < 3
+  \end{vmatrix}
+\] \[
+  < 5 \underbrace{\abs{x - 2}}_{<\delta} + 9 \abs{y - 1} < 5 \delta + 9 \delta = 14\delta \leq \varepsilon
+\]
+
+2nd component:
+\[ \abs{4x - y^2 - 7} = \abs{4x - 8 - y^2 + 1} \leq 4 \underbrace{\abs{x - 2}}_{< \delta} + \abs{1 - y} \underbrace{\abs{1 + y}}_{<\delta} \]
+\[ < 4\delta + 3\delta = 7\delta < \frac\varepsilon{2} < \varepsilon \]
+
+
+\section{Exercise 44}
+
+Show that $\norm{f} \coloneqq \max_{x \in [0,1]} \abs{f(x)}$.
+
+\[ \abs{f} \coloneqq \left(\int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12} \]
+defines a norm in $C([0,1], \mathbb R)$.
+
+\[ \norm{\lambda f} = \max \abs{\lambda f(x)} = \max \abs{\lambda} \abs{f(x)} = \abs{\lambda} \norm{f} \]
+\[ \norm{f+g} = \max\abs{(f + g)(x)} = \max\abs{f(x) + g(x)} \]
+\[ \leq \max\left(\abs{f(x)} + \abs{g(x)}\right) \leq \max\abs{f(x)} + \max\abs{g(x)} \]
+
+Let $\abs{f} = 0$, then
+\[ \left(\int_0^1 \underbrace{\abs{f(x)}^2}_{\geq 0 \; \forall x \in [0,1]} \, dx\right)^{\frac12} = 0 \iff f(x) = 0 \; \forall x \in [0,1] \]
+\[ \abs{\lambda f} = \left(\int_0^1 \abs{\lambda f(x)}^2 \, dx\right)^{\frac12}
+= \left(\int_0^1 \abs{\lambda}^2 \abs{f(x)}^2 \, dx\right)^{\frac12} \]
+\[
+= \left(\abs{\lambda}^2 \int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12}
+= \abs{\lambda} \left(\int_0^1 \, \abs{f(x)}^2 \, dx\right)^{\frac12}
+\]
+
+Show: $\abs{f + g} = \abs{f} + \abs{g}$.
+\[
+\abs{f + g}^2 = \int_0^1 \abs{(f + g)(x)}^2 \, dx
+= \int_0^1 \abs{f(x)^2 + 2f(x) g(x) + g(x)^2} \, dx
+\] \[
+\leq \int_0^1 \abs{f(x)}^2 \, dx + 2 \int_0^1 \abs{f(x) g(x)} \, dx + \int_0^1 \abs{g(x)}^2 \, dx
+\] \[
+\leq \int_0^1 \abs{f(x)}^2 \, dx + 2 \left(\int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12} \left(\int_0^1 \abs{g(x)}^2 \, dx\right)^{\frac12} + \int_0^1 \abs{g(x)}^2 \, dx
+\] \[
+= \abs{f}^2 + 2 \abs{f} \abs{g} + \abs{g}^2 = (\abs{f} + \abs{g})^2
+\] \[
+\implies \abs{f + g} \leq \abs{f} + \abs{g}
+\]
+
+Let $f_n(x) = x^n$.
+\[ \lim_{n\to\infty} \norm{f_n} \coloneqq \lim_{n\to\infty} \max_{x \in [0,1]} \abs{f(x)} = 1 \]
+\[ \lim_{n\to\infty} \abs{f_n} = \lim_{n\to\infty} \left(\int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12} \]
+\[ = \lim_{n\to\infty} \left(\left.\frac{x^{n+1}}{n+1} |_0^1\right)^{\frac12} \]
+\[ \limt_{n\to\infty} \left(\frac{1^{n+1}}{n + 1} - \frac{0^{n+1}}{n+1}\right)^{\frac12} = \lim \left(\frac{1}{n+1}\right)^{\frac12} = 0 \]
+
 \end{document}

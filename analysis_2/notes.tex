@@ -33,6 +33,8 @@
 \newtheorem{cor}{Corollary}
 \newtheorem{lemma}{Lemma}
 
+\DeclareMathOperator{\kernel}{kern}
+
 \newcommand\okay{\qquad\checkmark}
 \newcommand\set[1]{\left\{#1\right\}}
 \newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
@@ -4983,7 +4985,7 @@ Let $(V, \norm{.})$ be a normed vector space.
   because $n \geq N_i$ for all $1 \leq i \leq \hat n$. Hence $\lim_{n\to\infty} \inorm{x_n - x} = 0$.
 \end{proof}
 
-\index[English]{Sequence compactedness}
+\index[English]{Sequence compactness}
 \index[German]{\foreignlanguage{ngerman}{Folgenkompaktheit}}
 \index[English]{Boundedness in normed vector spaces}
 \index[German]{\foreignlanguage{ngerman}{Beschränktheit in normierten Vektorräumen}}
@@ -5132,7 +5134,7 @@ Hence $K$ is not compact. This is a contradiction. So $K$ is bounded.
   any two norms in $\mathbb R^n$ are equivalent.
 
   This implies that all topological terms like convergence, continuity,
-  open and closed sets, contact points, compactedness, et cetera are
+  open and closed sets, contact points, compactness, et cetera are
   independent of the norm choice in $\mathbb R^n$.
 \end{enumerate}
 \end{proof}
@@ -5833,6 +5835,417 @@ Answer: In general no.
   Then $f$ is differentiable in $D$.
 \end{theorem}
 \begin{proof}
+\end{proof}
+
+TODO: notes of 9th of June 2016 missing
+
+\meta{lecture}{14.06.2016}{Wolfgang Ring}
+
+Recall: A set $X$ with a map $d: X \times X \to [0, \infty)$ is called \emph{metrical space} if
+\begin{enumerate}
+  \item $d(x, y) = 0 \Leftrightarrow x = y$
+  \item $\forall x, y: d(x, y) = d(y, x)$
+  \item $\forall x, y, z \in X: d(x, z) \leq d(x, y) + d(y, z)$
+\end{enumerate}
+
+Using metrics, we can define convergent sequences and Cauchy sequences.
+
+$(x_n)_{n\in\mathbb N}$ is convergent with limit $x \in X$ if
+\[
+  \forall \varepsilon > 0 \exists N \in \mathbb N:
+          [n \geq N \implies d(x_n, x) < \varepsilon]
+\]
+Cauchy sequence:
+\[
+\forall \varepsilon > 0 \exists N \in \mathbb N:
+        [n,m \geq N \implies d(x_n, x_m) < \varepsilon]
+\]
+
+\begin{defi}
+  A metric space $(X, d)$ is called \emph{complete}, if every Cauchy sequence in $X$
+  is also a convergent sequence, hence has a limit.
+\end{defi}
+
+\begin{lemma}
+  Every normed vector space $(V, \norm{.})$ induces also a metric space
+  $d(v, w) = \norm{v - w}$.
+
+  Let $V$ be complete and $A \subseteq V$ bounded. Then $A$ with metric
+  $d(v,w) = \norm{v - w}$ is a complete metric space.
+\end{lemma}
+
+\begin{proof}[Metric properties of $d(v,w) = \norm{v - w}$]
+  Let $A \subseteq V$ be bounded and let $(v_n)_{n \in \mathbb N}$ be a Cauchy
+  sequence in $A$, hence $v_0 \in A \forall n \in \mathbb N$.
+  Then $(v_n)_{n\in\mathbb N}$ is a Cauchy sequence in $V$.
+  Because $V$ is complete, $\exists v \in V: v = \lim_{n\to\infty} v_n$.
+
+  This likewise means that $v$ is a contact point of $A$.
+  Because $A$ is bounded, it holds that $v \in A$ ($A = \overline{A}$).
+  Hence $(v_n)_{n\in\mathbb N}$ has a limit point in $A$.
+\end{proof}
+
+\index[English]{Banach's fixed point theorem}
+\index[German]{\foreignlanguage{ngerman}{Banach's Fixpunktsatz}}
+\index[English]{Contraction}
+\index[German]{\foreignlanguage{ngerman}{Kontraktion}}
+\index[English]{Fixed point}
+\index[German]{\foreignlanguage{ngerman}{Fixpunkt}}
+\begin{theorem}[Banach's fixed point theorem]
+  % TODO: image missing
+  Let $X$ be a complete metrical space. $F: X \to X$ with property
+  $\exists \sigma \in [0,1)$ such that $d(F(x), F(y)) \leq \sigma \cdot d(x,y)$
+  (a derivative with this property is called \emph{contraction}).
+
+  Then a uniquely defined point $\overline{x} \in X$ with $F(\overline{x}) = \overline{x}$. $\overline{x}$ is called \emph{fixed point} of $F$.
+\end{theorem}
+% TODO: \sigma should be \theta
+\begin{proof}
+  Let $x_0 \in X$ be arbitrary.
+  We define
+  \[
+  x_n = F(x_{n-1}) = \underbrace{F(F(\ldots(F(x_0))))}_{\text{nested } n \text{ times}}
+  = F^{n}(x_0) = \underbrace{(F \circ F \circ F \ldots \circ F)}_{ \text{ times}}(x_0)
+  \]
+  for $n \in \mathbb N$ with $n \geq 1$.
+
+  We show: $(x_n)_{n\in\mathbb N}$ is a Cauchy sequence. It holds that
+  \[ d(\underbrace{x_n}_{=F(x_n)}, \ldots, \underbrace{x_n}_{F(x_{n-1})} \leq \sigma \cdot \underbrace{d(x_n, x_{n-1})}_{F(x_{n-1})} \]
+  \[ \leq \sigma^2 d(x_{n-1}, x_{n-2}) \leq \ldots \leq \sigma^n d(x_1, x_0) \]
+
+  Then for every $m,n \in \mathbb N$ with $m > n$.
+  \begin{align*}
+    d(x_m, x_n) &\leq d(x_m, x_{m-1}) + d(x_{m+1}, d_{m-2}) + \ldots + d(x_{n+1}, x_n) \\
+    &\leq \sigma^m d(x_1, x_0) + \sigma^{m-1} \cdot d(x_1, x_0) + \ldots + \sigma^{n+1} d(x_1, x_0) \\
+    &= \sigma^{n} \frac{1 - \sigma^{m-n+1}}{1 - \sigma} d(x_1, x_0) \\
+    &< \sigma^{n} \frac{1}{1 - \sigma} d(x_1, x_0) \\
+    &< \varepsilon \text{ if } \sigma^n < \frac{\varepsilon (1 - \sigma)}{d(x_1, x_0) + 1}
+  \end{align*}
+  Hence $\sigma^n \to 0$ because $\sigma < 1$ for sufficiently large $n$.
+
+  So $(x_n)_{n \in \mathbb N}$ is a Cauchy sequence. Let $\overline{x}$ be the limit
+  of this Cauchy sequence (completeness of $X$).
+
+  $F$ is Lipschitz continuous, hence continuous in $X$.
+  So it holds that $\lim_{n\to\infty} F(x_n) = F(\overline{x})$.
+  \[ \lim_{n\to\infty} x_{n+1} = \overline{x} \]
+  Followingly $\overline{x} = F(\overline{x}$, so $\overline{x}$ is a fixed point
+  of $F$.
+
+  It remains to show uniqueness:
+
+  Let $\overline{y} = F(\overline{y})$. Assume $\overline{y} \neq \overline{x}$,
+  hence $d(\overline{x}, \overline{y}) > 0$. Hence it holds that
+  \[ d(\overline{x}, \overline{y}) = d(F(\overline{x}), F(\overline{y})) \]
+  \[ \overbrace{\text{contraction}}{\leq} \sigma d(\overline{x}, \overline{y}) \]
+  \[ \implies 1 \leq \sigma \]
+  This a contradiction.
+\end{proof}
+
+\index[English]{Local Inverse Map Theorem}
+\index[German]{\foreignlanguage{ngerman}{Lokaler Umkehrsatz}}
+\index[English]{Diffeomorphism}
+\index[German]{\foreignlanguage{ngerman}{Diffeomorphismus}}
+\begin{theorem}[Local Inverse Theorem, Theorem of the inverse map]
+  Let $O \subseteq \mathbb R^n$ be open and let $f: O \to \mathbb R^m$ be
+  continuously differentiable in $O$. Let $x_0 \in O$ such that
+  $\underbrace{Df(x_0)}_{\mathbb R^{n\times n}}$  is regular (invertible).
+
+  Then there exists an environment $U$ of $x_0$ such that $f: U \to f(U) \subseteq \mathbb R^m$ is bijective.
+
+  Even more it holds that $f: U \to f(U)$ is a \emph{Diffeomorphism}.
+  Hence $f$ is bijective and $f^{-1}: f(U) = V \to U$ is continuously differentiable.
+  Furthermore it holds that
+  \[ D(f^{-1})(\underbrace{y_0}_{f(x_0)}) = \left[Df(x_0)\right]^{-1} \]
+\end{theorem}
+\begin{proof}
+  Consider $\tilde{f}(x) = f(x + x_0) - f(x_0)$.
+  \[ \tilde{f}: O - x_0 = \set{z - x_0: z \in O} \to \mathbb R^n \]
+  \[ \tilde{f}(0) = 0 \]
+  \[ D\tilde{f}(0) = Df(x_0) \]
+  It follows immediately that $\tilde{f}$ is a Diffeomorphism iff $f$ is a Diffeomorphism.
+
+  % TODO: verify O? 0?
+  Let $F: \tilde{O} \to \mathbb R^n$ with $F(x) = \underbrace{[Df(x_0)]^{-1}}_{\text{exists by hypothesis}} \cdot \tilde{f}(x)$. Then it holds that $F(0) = 0$.
+  \[ DF(0) = TODO \]
+  So it holds that, $F$ is continuously differentiable in $\tilde{O}$ with $DF(0) = I$. We show: $F$ is a Diffeomorphism.
+
+  We let $y \in \mathbb R^n$ such that,
+  \[ \varphi_y(x) = y + x - F(x) \]
+  Then it holds that $\varphi_y(x) = x \iff x = y + x - F(x) \iff y = F(x)$.
+  Hence $x$ is the solution of $F(x) = y \iff x$ is fixed point of $\varphi_y$.
+
+  $F$ is continuously differentiable.
+  Because $F$ is continuously differentiable, it holds that $\varphi_y$ is continuously differentiable:
+  \[ D\varphi_y(X) = I - DF(x) \]
+  Because of continuous differentiability, $\underbrace{DF(x)}_{\mathbb R^{m\times n}}$ depends continuously on $x$.
+
+  So, $\forall \varepsilon > 0 \exists \delta > 0:$
+  \[ \norm{x - 0} < \delta \implies \underbrace{\norm{DF(x) - \underbrace{DF(0)}_{=I}}}_{\text{operator norm}} < \varepsilon \]
+  Choose $r > 0$ such that
+  \[ \norm{x} < 2r \implies \norm{DF(x) - I} < \frac12 \]
+  and we choose $r$ sufficiently small such that $B(0,2r) \subseteq \tilde{O}$. This works only because $\tilde{O}$ is open.
+
+  Let $x_1, x_2 \in B(O, 2r)$.
+  \[ l_{x_1,x_2}: (-\varepsilon, 1 + \varepsilon) \to B(0, 2r) \]
+  \[ l_{x_1,x_2}(t) = (1 - t) x_1 + t x_2 \]
+  \[ l_{x_1,x_2}(0) = x_1 \qquad l_{x_1,x_2}(1) = x_2 \]
+
+  Consider
+  \[ \norm{\varphi_y(x_2) - \varphi_y(x_1)} = \norm{\varphi_y \circ l_{x_1,x_2}(1) - \varphi_y \circ l_{x_1,x_2}(0)} \]
+  \[ = \norm{\int_0^1 \frac{d}{dt} [\varphi_y \circ l_{x_1,x_2}(t)] \, dt} \]
+  \[ = \norm{\int_0^1 D\varphi_y(l_{x_1,x_2}(t)) \cdot (x_2 - x_1) \, dt} \]
+  \[ \leq \int_0^1 \norm{D\varphi_y(l_{x_1,x_2}(t)) \cdot (x_2 - x_1)} \, dt \]
+  \[ \leq \int_0^1 \norm{D\varphi_y(l_{x_1,x_2}(t))} \norm{x_2 - x_1} \, dt \]
+  \[ = \int_0^1 \overbrace{\norm{I - DF(\underbrace{l_{x_1,x_2}(t)}_{\in B(0,2r)})}}^{\leq \frac12} \, dt \cdot \norm{x_2 - x_1} \]
+  \[ \leq \frac12 \norm{x_1 - x_2} \]
+
+  Hence $\varphi_y$ is a contraction with $\sigma = \frac12$.
+  It remains to show that $\varphi_y: B(0,r) \to B(0,r)$ ($\varphi_y$ maps to itself) for sufficiently small $y$.
+
+  Let $y \in B(0,r)$ and $x \in B(0, 2r)$. Then it holds that
+  \[ \norm{\varphi_y(x)} \leq \underbrace{\norm{\varphi_y(x) - \varphi_y(0)}}_{\leq \frac12 \norm{x - 0} \text{ by contraction}} + \underbrace{\norm{\varphi_y(0)}}_{=\norm{y}} \]
+  \[ \leq \frac12 \cdot 2r + r = 2r \]
+  \[ \varphi_y(x) \in B(0, 2r) \subseteq B(0,2r) \]
+  So for $y \in B(0,r)$ it holds tat
+  \[ \varphi_y: \overline{B(0,2r)} \to \overline{B(y,2r)} \]
+  Then by Banach's fixed point theorem, there exists some unique
+  $x \in \overline{B(0,2r)}$ with $\varphi_y(x) = x$, hence $F(x) = y$.
+
+  We show: $DF(x)$ is invertible for all $x \in U = F^{-1}(B(0,r)) \cap B(0,2n)$.
+
+  We know:
+  \[ \norm{v - DF(x) \cdot v} = \norm{(I - DF(x)) \cdot v} \]
+  \[ \leq \norm{I - DF(x)} \cdot \norm{v} \leq \frac12 \norm{v}
+  \qquad \forall x \in U \]
+  Let $v \in \kernel{(I - DF(x))}$.
+  Then it holds that
+  \[ \norm{v} = \norm{v - DF(x) \cdot v + DF(x) \cdot v} \]
+  \[ \leq \underbrace{\norm{v - DF(x) \cdot v}}_{\leq \frac12 \norm{v}} + \norm{DF(x) \cdot v}_{0} \]
+  \[ \implies \frac12 \norm{v} \leq 0 \implies v = 0 \]
+  For $x \in U$ it holds that $\kernel{DF(x)} = \set{0} \implies DF(x)$ is invertible.
+\end{proof}
+
+% FYI integral of a norm is smaller than the norm of an integral
+
+\meta{lecture}{16th of June 2016}{Wolfgang Ring}
+
+\begin{proof}[cont.]
+  because (by $\norm{\varphi_y(x)} \leq 2r$, the conclusion using Banach's fixed point theorem)
+  for the fixed point $x$ in $\varphi_y$, it holds that
+  \[ \norm{x} = \norm{\varphi_y(x)} < 2r \]
+  Hence for every $y \in B(0,r)$ there exists a unique $x \in B(0,2r)$ such that $F(x) = y$.
+
+  Hence in $U = B(0,2r) \cap F^{-1}(B(0,r))$ the map $f$ is injective. So $F: U \to F(U) = B(0,r)$
+  bijective. Furthermore $F^{-1}(B(0,r))$ is open\footnote{Preimages of open sets in continuous
+  maps are also open. Will be shown later.}.
+  Hence $U$ is open. Therefore $f$ (bijective backtransformation) bijective in some environment
+  of $x_0$.
+
+  We use a lemma, which is not proven here:
+  \begin{lemma}
+    Let $g: D \subseteq \mathbb R^n \to \mathbb R^n$ continuously differentiable in $D$.
+    Let $g$ be bijective and $Dg(x)$ invertible for all $x \in D$.
+    Then $g^{-1}: g(D) \to D$ is continuously differentiable in $g(D)$ and it holds that
+    \[ Dg^{-1}(\underbrace{y}_{g(x)}) = \left[Dg(x)\right]^{-1} \]
+  \end{lemma}
+  The lemma is proven in Königsberger volume 2, 3rd edition, page 105.
+
+  This implies that $F^{-1}$ is differentiable in $B(0,1)$ with given Jacobimatrix.
+  Therefore also $f^{-1}$ is differentiable.
+\end{proof}
+
+\subsection{A theorem about implicit functions}
+%
+\begin{theorem}
+  Let $U \subseteq \mathbb R^{n + m} = \mathbb R^n \times \mathbb R^m$ and let
+  $f: U \to \mathbb R^m$ continuously differentiable.
+
+  Notation: $(x,y) \in U$ with $x \in \mathbb R^n$ and $y \in \mathbb R^m$.
+  For some $(x_0, y_0) \in U$ let it hold that $f(x_0, y_0) = \vec{0}$.
+
+  Furthermore let
+  \[
+  Df(x_0, y_0) = \begin{vmatrix}
+    \partial x_1 f^1 & \partial x_2 f^1 & \ldots & \partial x_n f^1 & \partial y_1 f^1 & \ldots & \partial y_m f^1 \\
+    \partial x_1 f^2 & \partial x_2 f^2 & \ldots & \partial x_n f^2 & \partial y_1 f^2 & \ldots & \partial y_m f^2 \\
+    \vdots           &                 & \ddots &                  &                 & \ddots & \vdots \\
+    \partial x_1 f^m & \partial x_2 f^m & \ldots & \partial x_n f^m & \partial y_1 f^m & \ldots & \partial y_m f^m
+    \end{vmatrix}
+  \]
+  The left half side of the matrix is $D_x f(x_0, y_0) \in \mathbb R^{m\times n}$ whereas the right half of the matrix
+  is $D_yf(x_0, y_0) \in \mathbb R^{m\times m}$.
+
+  Assumption:$D_y f(x_0, y_0)$ is invertible.
+
+  Then there exists some environment $U'$ of $x_0$ in $\mathbb R^n$ and a continuously differentiable function
+  $g: U' \to \mathbb R^m$ with $g(x_0) = y_0$ and $f(x, g(x)) = \vec{0} \in \mathbb R^m$.
+
+  $y = g(x)$ solves the implicit equation $f(x,y) = 0$.
+\end{theorem}
+
+\begin{proof}
+  Let $F(x,y) = \begin{bmatrix} x \\ f(x,y) \end{bmatrix} \in \mathbb R^{n + m}$. $F: U \to \mathbb R^{n + m}$.
+  \[
+    DF(x,y) = \begin{bmatrix}
+      I & 0 \\
+      D_x f(x,y) & D_y f(x,y)
+    \end{bmatrix}
+  \] \[
+    DF(x_0, y_0) = \begin{bmatrix}
+      I  & 0 \\
+      D_x f(x_0, y_0) & D_y f(x_0, y_0)
+    \end{bmatrix}
+  \] \[
+    \det(DF(x_0, y_0))
+      = \det{I} \cdot \underbrace{\det{D_y f(x_0, y_0)}}_{\neq 0} \neq 0
+  \]
+  So $DF(x_0, y_0)$ is invertible.
+  From the local invertibility theorem it follows that
+  \[ \implies V \subset \mathbb R^{n+m}: V \text{ is open, environment of } (x_0, y_0) \]
+  \[ F: V \to F(V) \]
+  is a Diffeomorphism. Let $r, r' > 0$ such that
+  \[ B(x_0, r) \times B(y_0, r') \subseteq V \]
+  $U \times U' \coloneqq B(x_0, r) \times B(y_0, r')$ is an open ball in $\mathbb R^{n+m}$ with norm
+  $\norm{(x,y)}_{\mathbb R^{n+m}} = \max\set{\norm{x}, \norm{y}}$ in $\mathbb R^{n+m}$.
+  $V$ is open in regards of this norm.
+
+  For all $(\xi, \eta) \in F(U \times U')$ there exists a unique $(x,y) \in U \times U'$
+  with $(\xi, \eta)^t = F(x,y)$ (local invertibility).
+  \[ \iff \xi = x \land \eta = f(x, y) \]
+  $x$ and $y$ are uniquely defined by $(\xi, \eta)$.
+  Now let
+  \[
+  \begin{bmatrix} x \\ y \end{bmatrix}
+  = F^{-1}(\xi, \eta)
+  = \begin{bmatrix}
+    \xi \\ G(\xi, \eta)
+  \end{bmatrix}
+  \]
+  We let $g(x) = G(x, \vec{0})$.
+  Then it holds that
+  \[
+    \begin{bmatrix} x \\ 0 \end{bmatrix}
+    = F(F^{-1}(x, \vec{0}))
+    = F(x, \underbrace{g(x)}_{=G(x,0)})
+    = \begin{bmatrix} x \\ f(x, g(x)) \end{bmatrix}
+  \]
+  So $\vec{0} = f(x, g(x))$.
+
+  Continuous differentiability of $g(x) = G(x, 0)$
+  follows from continuous differentiability of $G$
+  (over $F^{-1}$) by the local invertibility theorem.
+\end{proof}
+
+\begin{ex}
+  Consider $f(x,y) = x^2 y - x^3 y^2 - 2$.
+  \begin{align*}
+    f(-1, 1) &= 1 - (-1) - 2 = 0 \\
+    \partial_x f(x,y) &= 2xy - 3 x^2 y^2 \\
+    \partial_y f(x,y) &= x^2 - 2 x^3 y \\
+    \partial_x f(-1,1) &= -5  \neq 0 \\
+    \partial_y f(-1,1) &= 3   \neq 0
+  \end{align*}
+  Hence, equation
+  \[ x^2 y - x^3 y^2 - 2 = 0 \]
+  in environment $(-1, 1)$ can uniquely solve
+  the problem with $x$ as well as $y$.
+\end{ex}
+
+\section{Higher partial derivatives}
+
+Consider $f: D \to \mathbb R$ (we consider
+$f: D \to \mathbb R^m$ component-wise).
+Let $D \subseteq \mathbb R^n$ be open.
+Let $f$ in $D$ be continuously differentiable,
+hence $\partial x_j f(x)$ is a continuous function
+in $D$. Assume $\partial x_j f$ is continuously
+differentiable in $D$. Let $\partial x_i x_j f
+\coloneqq \partial x_i (\partial x_j f)$.
+Analogously for higher derivatives: If
+$\partial x_{i_1} x_{i_2} x_{i_3} \ldots x_{i_n} f
+= \partial x_{i_1} (\partial x_{i_2} (\ldots (\partial x_{i_n} f) \ldots))$
+if $\partial x_{i_2} x_{i_3} \ldots x_{i_n} f$
+is continuously differentiable.
+
+\begin{ex}
+  \[ f(x, y) = x^2 y - x^3 y^2 - 2 \]
+  \begin{align*}
+    \partial x f &= 2xy - 3x^2 y^2 \\
+    \partial_y f &= x^2 - 2x^3 y \\
+    \partial_{xx} f &= 2y - 6xy^2 \\
+    \partial_{yx} f &= 2x - 6x^2y \\
+    \partial_{xy} f &= 2x - 6x^2 y \\
+    \partial_{yy} f &= 0 - 2x^3
+  \end{align*}
+  Apparently the 3 derivatives are equal,
+  so the order of $x$ and $y$ does not seem to be relevant.
+\end{ex}
+
+\index[English]{Hesse matrix}
+\index[German]{\foreignlanguage{ngerman}{Hesse Matrix}}
+Especially for 2 derivatives.
+\[
+  D^2 f(x) = \begin{bmatrix}
+    \partial x_1 x_2 f & \partial x_1 x_2 f & \ldots & \partial x_1 x_n f \\
+    \partial x_2 x_1 f & \partial x_2 x_2 f & \ldots & \partial x_2 x_n f \\
+    \vdots            & \ddots             & \ddots & \vdots \\
+    \partial x_n x_1 f & \ldots            & \ldots & \partial x_1 x_n f
+  \end{bmatrix}
+  (x)
+\]
+$D^2 f(x)$ is called \emph{Hesse matrix} of $f$. Under general conditions
+(see Theorem by Schwarz) $D^2 f(x)$ is symmetrical. Hence eigenvalues of
+$D^2 f(x)$ are real and there exists some orthonormal basis of eigenvectors.
+
+\index[English]{Saddle point}
+\index[German]{\foreignlanguage{ngerman}{Sattelpunkt}}
+\begin{theorem}[Sufficient optimality criterion]
+  Let $f: D \to \mathbb R$ such that the partial derivatives up to second
+  degree in $D$ exist and are continuous. Let $x_0 \in D$ such that $Df(x_0) = 0$
+  (i.e. $\nabla f(x_0) = \begin{bmatrix} 0 \\ \vdots \\ 0 \end{bmatrix}$).
+  If $D^2 f(x_0)$ is negative definite (i.e. all eigenvalues are negative)
+  \[ \fun{v, D^2f(x_0) v} < 0 \qquad \forall v \neq 0 \]
+  then $f$ in $x_0$ has a local maximum. If $D^2 f(x_0)$ is positive definite,
+  then $f$ in $x_0$ has a local minimum. If $D^2 f(x_0)$ is indefinite,
+  then $f$ in $x_0$ has \emph{no} local extremum.
+  We say: $f$ in $x_0$ has a \emph{saddle point}.
+\end{theorem}
+
+\begin{proof}
+  Will be given later.
+\end{proof}
+
+Existence of local or global maxima/minima is commonly shown by compactness.
+
+\index[English]{Continuously differentiable $k$ times}
+\index[German]{\foreignlanguage{ngerman}{$k$-mal stetig differenzierbar}}
+\begin{defi}
+  Let $f: D \to \mathbb R$. $D$ is open and all partial derivatives of $f$
+  up to degree $k$ exist and are continuous in $D$.
+  Then $f$ is called continuously differentiable $k$ times in $D$ and
+  we let
+  \[ \mathcal{C}^k(D) = \set{f: D \to \mathbb R:
+    f \text{ is continuously differentiable } k \text{ times}}
+  \]
+  $\mathcal{C}^k(D)$ is a real vector space.
+\end{defi}
+
+\fbox{Hermann Amandus Schwarz (1843--1921)}
+\begin{defi}
+  Let $D \subseteq \mathbb R^n$ be open, $f \in \mathcal{C}^2(D)$. Then it holds
+  that $\partial x_i x_j f = \partial x_j x_i f$ in $D$.
+\end{defi}
+\begin{proof}[Schwarz' Theorem, Symmetry of second derivatives]
+  Let $x_0 \in D$ be arbitrary. Let $r > 0$ such that $B(x_0, r) \subseteq D$
+  and let $h,k \in \mathbb R$ be sufficiently small such that
+  $x_0 + he_i \in B(x_0, \frac r2) \iff \norm{h \cdot e_i} \leq \frac r2$
+  and $x_0 + ke_j \in B(x, \frac r2) \iff \norm{k e_j} < \frac r2$.
+
+  Then it holds that $x_0 + he_i + ke_j \in B(x_0, r) \iff \norm{he_i + ke_j} < r$
+  follows immediately because $\norm{he_i + ke_j} \leq \norm{he_i} + \norm{ke_j} < \frac r2 + \frac r2$.
+
+  Let $F(h,k) = f(x_0 + he_i + ke_j) - f(x_0 + he_i) - f(x_0 + ke_j) + f(x_0)$.
 \end{proof}
 
 %\index[English]{}

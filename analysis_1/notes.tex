@@ -4197,7 +4197,6 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
   We define the binomial series for $s,z \in \mathbb C$ with
   \[ B_S(z) = \sum_{k=0}^\infty \underbrace{{s \choose k} z^k}_{\coloneqq a_k} \]
   What about convergence? Well,
-  % TODO: expression to high
   \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \frac{\abs{\frac{s \cdot (s-1) \cdot \ldots \cdot (s-(k+1)+1)}{(k+1)!} z^{k+1}}}{\abs{\frac{s(s-1)(s-2)\cdot \ldots\cdot (s-k+1)}{k!} z^k}} \]
   \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \abs{\frac{(s-k) z}{k+1}} = \abs{\frac{\left(\overbrace{\frac{s}{k}}^{\to 0} - 1\right) \cdot z}{1 + \underbrace{\frac1k}_{\to0}}} \to \abs{z} \]
 
@@ -4677,9 +4676,9 @@ TODO
     \item[Direction $\Rightarrow$]
       Let $K$ be compact. Assume $K$ is not bounded.
       Therefore for $m = 1, 2, \dots, 5$, there exists $z_m \in K$ with $\abs{z_m} > m$.
-      TODO
-      $\left(z_n\right)_{m\in\mathbb N}$ is also unbounded and therefore not convergent.
-      This is a contradiction.
+      $\left(z_m\right)_{m\in\mathbb N}$ has certainly no convergent subsequence, because
+      every subsequence $\left(z_m\right)_{m\in\mathbb N}$ is also unbounded and
+      therefore not convergent. This is a contradiction.
 
       It remains to show that $K$ is bounded. Let $z \in \overline{K}$ ($z$ is a contact point of $K$).
       There exists a sequence $\seq{z_n}$ with $z_n \in K$ and $z = \lim_{n\to\infty} z_n$.
@@ -4720,7 +4719,7 @@ TODO
       $f$ has a non-continuity in $z_0$.
       So $\varepsilon$ cannot be arbitrary small.
     \item
-      $f: \mathbb C \rightarrow \mathbb C$. TODO
+      $f: \mathbb C \rightarrow \mathbb C$. $f(z) = z^2$.
       Let $z_0 \in \mathbb C$ arbitrary. Then $f$ is continuous in $z_0$.
   \end{enumerate}
 \end{ex}
