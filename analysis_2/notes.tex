@@ -6244,9 +6244,184 @@ Existence of local or global maxima/minima is commonly shown by compactness.
 
   Then it holds that $x_0 + he_i + ke_j \in B(x_0, r) \iff \norm{he_i + ke_j} < r$
   follows immediately because $\norm{he_i + ke_j} \leq \norm{he_i} + \norm{ke_j} < \frac r2 + \frac r2$.
+  \meta{lecture}{17th of June 2016}{Wolfgang Ring}
 
   Let $F(h,k) = f(x_0 + he_i + ke_j) - f(x_0 + he_i) - f(x_0 + ke_j) + f(x_0)$.
+  Let $x_0$ and $k$ be fixed.
+  \[ \varphi(\lambda) = f(x_0 + \lambda e_i + k e_j) - f(x_0 + \lambda e_i) \]
+  \[ \varphi: I \to \mathbb R \qquad I = (-1,1) \]
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{img/schwarz-proof.pdf}
+      \caption{$\varphi$ in the proof of Schwarz' Theorem}
+      \label{img:schw-proof}
+    \end{center}
+  \end{figure}
+  Compare with Figure~\ref{img:schw-proof}.
+
+  \begin{align*}
+    \varphi(0) &= f(x_0 + ke_j) - f(x_0) \\
+    \varphi(h) &= f(x_0 + h\cdot e_i + k \cdot e_j) - f(x_0 + h \cdot e_i) \\
+    \varphi(h) - \varphi(0) &= F(h,k)
+  \end{align*}
+  \[  \varphi: (-r, r) \to \mathbb R \]
+  is continuously differentiable.
+  The Intermediate Value Theorem gives us:
+  \[ \exists \lambda \text{ with } \abs{\lambda} < \abs{h}: F(h,k) = \varphi(h) - \varphi(0) = h' \cdot \varphi'(\lambda) \]
+  \[ = Df(x_0 + \lambda \cdot e_i + k \cdot e_j) \cdot e_i - Df(x_0 + \lambda e_i) \cdot e_i \]
+  \[ = h \cdot \left[\partial x_i f(x_0 + \lambda \cdot e_i + k \cdot e_j) - \partial x_i f(x_0 + \lambda \cdot e_i)\right] \]
+  Consider $\psi: (-r, r) \to \mathbb R$.
+  \[ \psi(\mu) = \partial x_i f(x_0 + \lambda e_i + \mu e_j) \]
+  $\psi$ is continuously differentiable, because $\partial x_i f$ is continuously differentiable.
+  Hence
+  \[
+  F(h,k)
+  = h \cdot [\psi(k) - \psi(0)]
+  \underbrace{=}_{\text{IVT}, \abs{\mu} < \abs{\lambda}} h \cdot k \cdot \varphi'(\mu)
+  = h \cdot k \partial x_i x_j f(x_0 + \lambda e_i + \mu e_j).
+  \]
+  Analogously: $\tilde{\varphi}(\mu) = f(x_0 + h \cdot e_i + \mu \cdot e_j) - f(x_0 + \mu \cdot e_j)$.
+
+  Then it holds again that
+  \[ F(h,k) = \tilde{\varphi}(k) - \tilde{\varphi}(0) \overbrace{=}^{\text{IVT}, \abs{\tilde{\mu}} < \abs{k}} k \cdot \tilde{\varphi}'(\mu) \]
+  \[ = k \cdot \left[\partial x_j f(x_0 + he_i + \tilde{\mu} e_j) - \partial x_j f(x_0 + \tilde{\mu} \cdot e_j)\right] \]
+  \[ \underbrace{=}_{\text{IVT}, \abs{\tilde{\lambda}} < \abs{h}} k \cdot h \cdot \left[\partial x_i x_j f(x_0 + \tilde{\lambda} e_i + \tilde{\mu} e_j)\right] \]
+  \[ \implies h \cdot k \partial x_j \partial x_i f(x_0 + \lambda e_i + \mu e_j) \]
+  \[ = k \cdot h \partial x_i \partial x_j f(x_0 + \tilde{\lambda} e_i + \tilde{\mu} e_j) \]
+  \[
+    \left.\begin{array}{c}
+      \abs{\lambda} \abs{\tilde{\lambda}} < \abs{h} \\
+      \abs{\mu} \abs{\tilde{\mu}} < \abs{k}
+    \end{array}\right\}
+    \text{ let $h, k$ go to zero (2nd derivatives are non-continuous}
+  \]
+  \[ \implies \partial x_j \partial x_i f(x_0) = \partial x_i \partial x_j f(x_0) \]
 \end{proof}
+
+\begin{ex}[Counterexamples]
+  \[
+  f(x_1, x_2) = \begin{cases}
+    \frac{x_1 x_2 (x_1^2 - x_2^2)}{x_1^2 + x_2^2} & \text{ for } (x_1, x_2) \neq (0, 0) \\
+    0 & \text{else}
+  \end{cases}
+  \]
+  has second derivatives at every point. In $(0, 0)$ it holds that
+  $\partial x_1 \partial x_2 f(0, 0) \neq \partial x_2 \partial x_1 f(0, 0)$.
+\end{ex}
+
+\begin{theorem}[Generalization of Schwarz' Theorem]
+  Let $D \subseteq \mathbb R^n$ be open. $f \in \mathcal{C}^k(D)$.
+  Then consider two variables you derive equal times with.
+  Consider the corresponding resulting derivatives. They correspond
+  (order of derivatives muss be smaller-equal $k$).
+
+  For example:
+  \[ \partial x_1 \partial x_3 \partial x_3 \partial x_1 = \partial x_1 \partial x_1 \partial x_3 \partial x_3 \]
+\end{theorem}
+\begin{proof}
+  Can be done by complete induction.
+\end{proof}
+
+\index[English]{Multiindex}
+\index[German]{\foreignlanguage{ngerman}{Multiindex}}
+\begin{rem}[Multiindex notation]
+  Let $I = (\alpha_1, \alpha_2, \ldots, \alpha_n) \in \mathbb N^n, \alpha_i \geq 0$.
+  $I$ is called \emph{multiindex}. The number  $k = \abs{I} = \sum_{i=1}^n \alpha_i$
+  is called \emph{order of $I$}.
+
+  % TODO: normalize ``\partial smth'' to ``\partial_smth''
+  % TODO: this block is incomplete
+  Notation: $\partial_{x_i}^\alpha = \underbrace{\partial_{x_l} \partial_{x_l} \ldots \partial{x_l}}_{\alpha \text{ times}}$ for $\alpha \in \mathbb N$.
+
+  \[ \partial_{x_k}^0 f = f \]
+  Let $\partial_I f = \partial_{x_1}^{\alpha_1} \partial_{x_2}^{\alpha_2} \ldots \partial_{x_n}^{\alpha_n}$.
+
+  Further notational remarks:
+  \[ I! \coloneqq (\alpha_1!) (\alpha_2!) \ldots (\alpha_n!) = \prod_{i=1}^n (\alpha_i!) \]
+  Let $x = (x_1, x_2, \ldots, x_n)^t$.
+  Then we let $x^I = x_1^{\alpha_1} x_2^{\alpha_2} \ldots x_n^{\alpha_n} = \prod_{i=1}^n x_i^{\alpha_i}$.
+\end{rem}
+
+\begin{theorem}[Taylor's theorem]
+  Let $f \in \mathcal{C}^{k+1}(D), D \subseteq \mathbb R^n$ be open.
+  Let $x_0 \in D$ and $v$ sufficiently small such that the path between $x_0$ and $x_0 + v$ is entirely in $D$.
+
+  Then some $w \in (0,1)$ exists such that
+  \[ f(x_0 + v) = \underbrace{f(x_0) + \sum_{j=1}^k \sum_{i_1, i_2, \ldots, i_j = 1}^n \frac{1}{j!} \partial i_1, i_2, \ldots, i_j f(x_0) \cdot v_{i_1} \cdot v_{i_2} \cdot \ldots \cdot v_{i_m}}_{\text{Taylor polynomial of $f$ in $x_0$}}
+  \] \[
+  + \underbrace{\frac{1}{(j+1)!} \sum_{i_1, i_2, \ldots, i_{k+1}=1}^n \partial_{i_1, \ldots, i_{k+1}} f(x_0 + vw) \cdot v_{i_1} \cdot v_{i_2} \ldots v_{i_{k+1}}}_{R_{k+1}(f,v) \text{ as remaining term}}
+  \]
+\end{theorem}
+
+Alternatively, we can write:
+\[
+  f(x_0 + v)
+  = f(x_0) + \sum_{j=1}^k \sum_{\abs{I} = j} \frac{1}{I!} \partial_I f(x_0) \cdot v^I
+  + \sum_{\abs{I}=k+1} \frac{1}{I!} \partial_I f(x_0 + vw) \cdot v^I
+\]
+
+\begin{proof}
+  Let $B(x_0, r) \subseteq D$ and let $\abs{v} < r$. $\varphi: (-r, r) \to \mathbb R$.
+  \[ \varphi(t) = f(x_0 + t \cdot v) = f \circ l_{x_0,v}(t) \]
+  \[ l_{x_0,v}(t) = x_0 + t \cdot v \]
+  Because $k$ is $(k+1)$ times continuously differentiable and the linear function
+  $l_{x_0,v}$ can be differentiated arbitrary many times, so is $\varphi$ $k+1$ times differentiable.
+  \[ \varphi'(t) = df(x_0 + t \cdot v) \cdot v = \sum_{i_1=1}^n \underbrace{\partial i_1 f(x_0 + tv)}_{\text{cont. diff. by $t$}} \cdot v_{i_1} \]
+  \begin{align*}
+    \varphi''(t) &= \sum_{i_1=1}^n \left(\sum_{i_2=1}^n \partial_{i_2} \partial_{i_1} f(x_0 + t \cdot v) \cdot v_{i_2}\right) \cdot v_{i_1} \\
+    &= \sum_{i_1,i_2=1}^n \partial_{i_1,i_2} f(x_0 + t \cdot v) \cdot v_{i_1} v_{i_2}
+  \end{align*}
+  \[ \varphi^{(j)}(t) = \sum_{i_1,i_2,\ldots,i_j=0}^n \partial_{i_1,i_2,\ldots,i_j} f(x_0 + t v) \cdot v_{i_1} v_{i_2} \ldots v_{i_j} \]
+\end{proof}
+
+\begin{rem}[Taylor's theorem in the scalar case for $\varphi$]
+  \[ \varphi(1) = \varphi(0) + \sum_{j=1}^k \frac{1}{j!} \varphi^{(j)}(0) + \frac{1}{(j+1)!} \varphi^{(j+1)}(v) \cdot 1^{j+1} \]
+  with $v \in (0,1)$.
+\end{rem}
+
+\begin{rem}[Lagrange form of remaining term]
+  For $\varphi$ and $\varphi^{(j)}$ we insert,
+  \[ f(x_0 + v) = f(x_0) + \sum_{j=1}^k \frac{1}{j!} \sum_{i_1,i_2,\ldots,i_j=1}^n \partial_{i_1,i_2,\ldots,i_j} f(x_0) \cdot v_{i_1} \cdot v_{i_2} \cdot \ldots \cdot v_{i_j} \]
+  \[ + \sum_{i_1,\ldots,i_{k+1}=1}^n \partial i_1 \ldots i_{k+1} f(x_0 + vw) \cdot v_{i_1} v_{i_2} \ldots v_{i_{k+1}} \]
+
+  Taylor formula:
+  \[ \partial_{i_1 i_2 \ldots i_j} f = \partial_{i'_1 i'_2 \ldots i'_j} f \]
+  if $(i_1, i_2, \ldots, i_j) \in \mathbb N^j$ differs from $(i'_1, i'_2, \ldots, i'_j)$ only by its order.
+  Let $I = (\alpha_1, \alpha_2, \ldots, \alpha_n) \in \mathbb N^n$ be a multiindex $I$ corresponding to
+  derivative index
+  \[ (\underbrace{1, 1, \ldots, 1}_{\alpha_1 \text{ times}}, \underbrace{2, 2, \ldots, 2}_{\alpha_2 \text{ times}}, \ldots, \underbrace{n, \ldots, n}_{\alpha_n \text{ times}}) \]
+  \[ \abs{I} = j = \sum_{i=1}^n \alpha_i \qquad \tilde{I} \in \mathbb N^j \]
+  How many permutations of $\tilde{I}$ are there in $\mathbb N$?
+
+  Possibilities to distribute $\alpha_1$ ones over $j$ positions: $\binom{j}{\alpha_1}$.
+  For every position of ones, $j - \alpha_1$ positions for twos remain.
+  There exists $\binom{j-\alpha_1}{\alpha_2}$ possibilities to distribute the threes.
+  $\binom{j-\alpha_1-\alpha_1}{\alpha_3}$, etc.
+
+  Possibilities to distribute $\alpha_1$ ones, $\alpha_2$ twos, \dots, $\alpha_n$ n-es among $j$ positions:
+  \[ A_I \coloneqq \binom{j}{\alpha_1} \binom{j-\alpha_1}{\alpha_2} \binom{j-\alpha_1-\alpha_2}{\alpha_3} \ldots \binom{j-\alpha_1-\alpha_2-\ldots-\alpha_{n-1}}{\alpha_n} \]
+  is the number partial derivatives equivalent to $\partial_I$.
+  \[ A_I = \frac{j!}{\alpha_1! (j-\alpha_1)!} \frac{(j-\alpha_1)!}{\alpha_2! (j - \alpha_1 - \alpha_2)!} \frac{(j-\alpha_1-\alpha_2)!}{\alpha_3!(j-\alpha_1 - \alpha_2 - \alpha_3)!} \]
+  \[ \ldots \frac{(j-\alpha_1-\ldots-\alpha_{n-2})!}{\alpha_{n-1}!(j-\alpha_1-\ldots-\alpha_{n-1})!} \frac{(j-\alpha_1-\ldots-\alpha_{n-1})!}{\alpha_n! \underbrace{(j-\alpha_1-\ldots-\alpha_n)!}_{=0!=1}} \]
+  Many terms cancel out. What remains is,
+  \[ = \frac{j!}{\prod_{i=1}^n (\alpha_i)!} = \frac{j!}{I!} \]
+  If $(i_1, \ldots, i_j)$ and $(i'_1, \ldots, i'_j)$ only distinguish by their order, then it holds that
+  \[ v_{i_1} v_{i_2} \ldots v_{i_j} = v_{i'_1} \ldots v_{i'_j} = v^I \]
+  Insert all these expressions in the Taylor formula and sum up equivalent expressions.
+  \[ f(x_0 + v) = f(x_0) + \sum_{j=1}^k \frac{1}{j!} \sum_{\abs{I}=j} \frac{j!}{I!} \partial_I f(x_0) \cdot v^I + \frac{1}{(j+1)!} \sum_{\abs{I}=j+1} \frac{(j+1)!}{I!} \partial_I f(x_0 + vw) \cdot v^I \]
+\end{rem}
+
+\begin{ex}
+  Let $f: \mathbb R^2 \to \mathbb R$, $f$ arbitrary often continuously differentiable.
+
+  \[ f(x_0 + v) = f(x_0) + \partial_1 f(x_0) \cdot v_1 + \partial_2 f(x_0) v_2 \frac{1}{2! 0!} \partial_{(2,0)} f(x_0) \cdot v_1^2 + \frac{1}{1! 1!} \partial_{(1,1)} f(x_0) v_1 v_2 \]
+  The multiindex for $(1,1)$ is $(2,0)$.
+  \[ + \frac{1}{0! 2!} \partial_{(0,2)} f(x_0) v_2^2 + \frac{1}{3! 0!} \partial_{(3,0)} f(x_0) v_1^3 + \frac{1}{2! 1!} \partial_{(2,1)} f(x_0) v_1^2 v_2 \]
+  \[ + \frac{1}{1! 2!} \partial_{(1,2)} f(x_0) v_1 v_2^2 + \frac{1}{0! 3!} \partial_{(0,3)} f(x_0) v_2^3 + \ldots \]
+  \[ = f(x_0) + \partial_1 f(x_0) v_1 + \partial_2 f(x_0) v_2 + \frac12 \partial_{11} f(x_0) v_1^2 \]
+  \[ + \partial_{12} f(x_0) v_1 v_2 + \frac12 \partial_{22} f(x_0) v_2^2 + \frac16 \partial_{111} f(x_0) v_1^3 + \frac12 \partial_{112} f(x_0) v_1^2 v_2 \]
+  \[ + \frac12 \partial_{122} f(x_0) v_1 v_2^2 + \frac16 \partial_{222} f(x_0) v_2^3 + \ldots \]
+\end{ex}
 
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}

@@ -2151,7 +2151,267 @@ Show: $\abs{f + g} = \abs{f} + \abs{g}$.
 Let $f_n(x) = x^n$.
 \[ \lim_{n\to\infty} \norm{f_n} \coloneqq \lim_{n\to\infty} \max_{x \in [0,1]} \abs{f(x)} = 1 \]
 \[ \lim_{n\to\infty} \abs{f_n} = \lim_{n\to\infty} \left(\int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12} \]
-\[ = \lim_{n\to\infty} \left(\left.\frac{x^{n+1}}{n+1} |_0^1\right)^{\frac12} \]
-\[ \limt_{n\to\infty} \left(\frac{1^{n+1}}{n + 1} - \frac{0^{n+1}}{n+1}\right)^{\frac12} = \lim \left(\frac{1}{n+1}\right)^{\frac12} = 0 \]
+\[ = \lim_{n\to\infty} \left(\left.\frac{x^{n+1}}{n+1} \right|_0^1\right)^{\frac12} \]
+\[ \lim_{n\to\infty} \left(\frac{1^{n+1}}{n + 1} - \frac{0^{n+1}}{n+1}\right)^{\frac12} = \lim \left(\frac{1}{n+1}\right)^{\frac12} = 0 \]
+
+\section{Exercise 45}
+\begin{ex}
+  Let $I, J \subseteq \mathbb R$ be non-empty intervals and $\varphi: I \to \mathbb R$ and $\psi: J \to \mathbb R$ continuous. Prove that
+  \[ f: I \times J \to \mathbb R, \qquad f(x,y) \coloneqq \varphi(x) + \psi(y) \]
+  and
+  \[ g: I \times J \to \mathbb R, \qquad g(x,y) \coloneqq \varphi(x) \psi(y) \]
+  are continuous.
+\end{ex}
+
+\subsection{Part 1}
+
+We use the $\varepsilon$-$\delta$-criterion.
+
+\[
+  \forall x_0 \in I \forall \varepsilon > 0 \exists \delta_1 > 0: \forall x \in I:
+  \abs{x - x_0} < \delta_1 \implies \abs{\varphi(x) - \varphi(x_0)} < \frac{\varepsilon}{2}
+\] \[
+  \forall y_0 \in J \forall \varepsilon > 0 \exists \delta_2 > 0: \forall y \in J:
+  \abs{y - y_0} < \delta_2 \implies \abs{\psi(y) - \psi(y_0)} < \frac{\varepsilon}{2}
+\]
+
+Choose $\delta = \min\set{\delta_1, \delta_2}$.
+\[
+  \norm{\begin{pmatrix} x \\ y \end{pmatrix} - \begin{pmatrix} x_0 \\ y_0 \end{pmatrix}}_1
+  = \abs{x - x_0} + \abs{y - y_0} < \delta \implies \abs{x - x_0} < \delta \land \abs{y - y_0} < \delta
+\] \[
+  \abs{f\begin{pmatrix} x \\ y \end{pmatrix} - f\begin{pmatrix} x_0 \\ y_0 \end{pmatrix}}
+  = \abs{\varphi(x) + \psi(y) - (\varphi(x_0) - \psi(y_0))}
+\] \[
+  \leq \abs{\varphi(x) - \varphi(x_0)} + \abs{\psi(y) - \psi(y_0)}
+  < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon
+\]
+
+\subsection{Part 2}
+
+Let $(a_n)_{n\in\mathbb N}$ be a sequence in $I \times J$. $v = \lim_{n\to\infty}((v_n)_{n\in\mathbb N})$.
+\[ v'_n = \begin{pmatrix} x_n \\ y_n \end{pmatrix}_{n\in\mathbb N} \qquad v = \begin{pmatrix} x \\ y \end{pmatrix} \]
+\[ \norm{\begin{pmatrix} x_n \\ y_n \end{pmatrix} - \begin{pmatrix} x \\ y \end{pmatrix}}_1 = \abs{x_n - x} + \abs{y_n - y} < \varepsilon \qquad \text{for } n \geq N \]
+\[ x = \lim_{n\to\infty} (x_n)_{n \in \mathbb N} \qquad y = \lim_{y\to\infty} (y_n)_{n \in \mathbb N} \]
+
+$\varphi$ is continuous in $x$ and $\psi$ is continuous in $y$.
+
+\[ \lim_{n\to\infty} (\varphi(x_n)_{n\in\mathbb N}) = \varphi(x) \land \lim_{n\to\infty} (\psi(y_n)_{n\in\mathbb N}) = \psi(y) \]
+\[ \lim_{n\to\infty} g(x_n, y_n)_{n\in\mathbb N} = \lim_{n\to\infty} \left(\varphi(x_n)_{n\in\mathbb N} \cdot \varphi(y_n)_{n\in\mathbb N}\right)
+  = \lim_{n\to\infty} (\varphi(x_n)_{n\in\mathbb N}) \cdot \lim_{n\to\infty} (\psi(y_n)_{n\in\mathbb N}) = \varphi(x) \cdot \psi(y) \]
+
+Remark: Part~2 can also be proven using the $\varepsilon$-$\delta$-definition. It is a bit more cumbersome, but feasible.
+
+\section{Exercise 46}
+\begin{ex}
+  Consider the function $f: \mathbb R^2 \to \mathbb R$,
+  \[
+  f(x, y) \coloneqq \begin{cases}
+    \frac{xy^2}{x^2 + y^4}, & (x,y) \neq (0,0) \\
+    0, & (x,y) = (0, 0).
+    \end{cases}
+  \]
+  Show the $f$ satisfies the following properties:
+  \begin{itemize}
+    \item $f$ is continuous in $\mathbb R^2 \setminus \set{(0,0)}$, but non-continuous in $(0,0)$.
+    \item For all $h \in \mathbb R^2$ the directed derivative $f'(0,0;h)$ exists.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 46.a}
+
+We use the sequence criterion.
+\[ \lim_{h\to\infty} f(\vec{x}_k) = f(\vec{a}) \]
+\[ \lim_{h\to\infty} \vec{x}_k = \vec{a} \]
+We need to prove that the relationship between both equations with $\vec{a}$ holds.
+
+\[
+  \lim_{k\to\infty} \frac{x_k \cdot y_k^2}{x_k^2 + y_k^4}
+  = \frac{\lim_{k\to\infty} x_k \cdot (\lim_{k\to\infty} y_k)^2}{(\lim_{k\to\infty} x_k)^2 + (\lim_{k\to\infty} y_k)^4}
+  = \frac{x_0 y_0^2}{x_0^2 + y_0^2} = f(\vec{a})
+\]
+
+\[ (x_k)_{k \geq 1} = \frac{1}{k} \to_{k\to\infty} 0 \]
+\[ (y_k)_{k \geq 1} = \frac{1}{k} \to_{k\to\infty} 0 \]
+\[ \lim_{k\to\infty} \frac{\frac{1}{k^2} \cdot \frac{1}{k^2}}{\frac{1}{k^4} + \frac{1}{k^4}}
+= \lim_{k\to\infty} \frac{\frac{1}{k^4}}{\frac{2}{k^4}} = \frac12
+\]
+
+\subsection{Exercise 46.b}
+
+\[
+  \lim_{t\to 0} \frac{f(\vec{a} + t \cdot \vec{h}) - f(\vec{a})}{t} \in \mathbb R
+  \qquad \text{ with } \norm{h} = 1
+\]
+Let $h \neq (0, 0)$.
+\[
+  \lim_{t\to 0} \frac{\frac{tk_x \cdot (tk_y)^2}{(tk_x)^2 + (t k_y)^4)}}{t}
+  = \lim_{t\to0} \frac{k_x k_y^2}{k_x^2 + t^2 k_y^4}
+  = \begin{cases}
+    \frac{k_y^2}{k_x}  & k_x \neq 0 \\
+    0 & k_x = 0
+  \end{cases}
+\]
+Let $h = (0, 0)$.
+\[
+\lim_{t \to 0} \frac{f(0,0) - f(0,0)}{t}
+\]
+
+\section{Exercise 47}
+\begin{ex}
+  Let $f: \mathbb R^2 \to \mathbb R$ be given with
+  \[
+  f(x,y) \coloneqq \begin{cases}
+    \frac{x^3}{x^2 + y^2}, & (x,y) \neq (0,0), \\
+    0 & (x,y) = (0, 0).
+  \end{cases}
+  \]
+  Prove the following statements:
+  \begin{itemize}
+  \item $f$ is continuous in $\mathbb R^2$.
+  \item For all $h \in \mathbb R^2$ there exists a directed derivative $f'(0,0;h)$.
+    But it does not depend linearly on direction $h$.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 47.a}
+
+In general, this is a composition of continuous functions as long as the denominator is non-zero.
+However, this is only informally, but suffices for now.
+We now need to look at $(0, 0)^T$ more carefully.
+
+Show:
+\[
+  \forall \varepsilon > 0 \exists \delta > 0:
+  \norm{\vec{x} - \vec{x}_0} < \delta \implies \norm{f(\vec{x}) - f(\vec{x_0})} < \varepsilon
+\]
+
+\[
+  \norm{x - x_0}
+  = \norm{\begin{pmatrix} x \\ y \end{pmatrix}}
+  = \sqrt{x^2 + y^2} < \delta
+  \implies \abs{x} < \delta \land \abs{y} < \delta
+\]
+
+Let $\delta \coloneqq \varepsilon$:
+\[
+  \norm{f(x) - f(x_0)} = \abs{\frac{x^3}{x^2 + y^2}}
+  \leq \begin{cases}
+    \frac{\abs{x^3}}{\abs{x^2}} \cdot \abs{x} < \delta = \varepsilon,
+      & x \neq 0 \\
+    0 < \varepsilon,
+      & x = 0.
+  \end{cases}
+\]
+
+\subsection{Exercise 47.b}
+%
+$\forall h \in \mathbb R^2$ there exists $f'(0,0;h)$. $h \coloneqq \begin{pmatrix} r \\ s \end{pmatrix}$.
+\[
+  \lim_{t\to0} \frac{f\begin{pmatrix} 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} r \\ s \end{pmatrix} - f\begin{pmatrix} 0 \\ 0 \end{pmatrix}}{t}
+  = \lim_{t\to0} \frac{f\begin{pmatrix} tr \\ ts \end{pmatrix}}{t}
+  = \lim_{t\to0} \frac1t \cdot \frac{t^3 x^3}{t^2 r^2 + f^2 s^2} = \lim_{t\to 0} \frac{r^3}{r^2 + s^2} = \frac{r^3}{r^2 + s^2}
+\]
+
+Is it linearly dependent?
+\[ \partial f(0, 0; h_1) + \partial f(0, 0; h_2) = \partial f(0, 0; h_1 + h_2) \]
+Let $h_1 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $h_2 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$.
+\[ \frac{1^3}{1^2 + 0^2} = 1 \]
+\[ \frac{0^3}{0^2 + 1^2} = 0 \]
+But $f\begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{1^3}{1^2 + 1^2} = \frac12$.
+
+
+\section{Exercise 48}
+\begin{ex}
+  Determine the derivative of $f$ using Fr\'echet differentiability.
+  \[ f: \mathbb R^2 \to \mathbb R^2, \qquad f(x,y) \coloneqq \begin{pmatrix} x^2 - y^2 \\ 2xy \end{pmatrix} \]
+  in every point $(x_0, y_0) \in \mathbb R^2$.
+\end{ex}
+
+\[ \lim_{\norm{h}\to0} \frac{1}{\norm{h}} \norm{f\left(\begin{pmatrix} x_0 \\ y_0 \end{pmatrix} + \begin{pmatrix} h_1 \\ h_2 \end{pmatrix}\right) - f\begin{pmatrix} x_0 \\ y_0 \end{pmatrix} - Df \cdot h} \]
+
+\[
+  Df\begin{pmatrix} x_0 \\ y_0 \end{pmatrix} =
+  \begin{pmatrix}
+    2x_0 & -2y_0 \\
+    2y_0 & 2x_0
+  \end{pmatrix}
+\] \[
+  \lim_{\norm{h}\to 0} \frac{1}{\norm{h}} \norm{
+    \begin{pmatrix} (x_0 + h_1)^2 - (y_0 + h_2)^2 \\ 2 (x_0 + h_1) (x_0 + h_2) \end{pmatrix}
+    - \begin{pmatrix} x_0^2 - y_0^2 \\ 2 x_0 y_0 \end{pmatrix}
+    - \begin{pmatrix} 2 x_0 h_1 - 2 y_0 h_2 \\ 2 y_0 h_1 + 2 x_0 h_2 \end{pmatrix}
+  }
+\] \[
+  = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \norm{
+    \begin{pmatrix}
+      2 h_1 x_0 + h_1^2 - h_2^2 - 2 h_2 y_0 \\
+      2 h_1 y_0 + 2 h_2 x_0 + 2 h_1 h_2
+    \end{pmatrix} - \begin{pmatrix}
+      2 x_0 h_1 - 2 x_0 h_2 \\
+      2 y_0 h_1 + 2 x_0 h_2
+    \end{pmatrix}
+  }
+\] \[
+  = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \norm{
+    \begin{pmatrix} h_1^2 - h_2^2 \\ 2 h_1 h_2 \end{pmatrix}
+  } = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \sqrt{h_1^4 - 2 h_1^2 h_2^2 + h_2^4 + 2 h_1^2 h_2^2}
+\] \[
+  = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} (h_1^2 + h_2^2) = 0
+\]
+
+Or very informally, we can estimate:
+\[
+  \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \norm{\begin{pmatrix} h_1^2 - h_2^2 \\ 2 h_1 h_2 \end{pmatrix}}
+  \leq \norm{\begin{pmatrix} h_1^2 \\ 0 \end{pmatrix}} + \norm{\begin{pmatrix} 0 \\ h_2 \end{pmatrix}}^2 + 2 \norm{\begin{pmatrix} h_1 \\ 0 \end{pmatrix}} \norm{\begin{pmatrix} 0 \\ h_2 \end{pmatrix}}
+  \leq \norm{h}^2 + \norm{h}^2 + 2\norm{h}^2
+\]
+
+\section{Exercise 49}
+\begin{ex}
+  Determine the matrix norm induced by the $\infty$-norm in $\mathbb R^n$
+  \[
+  \norm{A}_\infty \coloneqq \sup_{x \neq 0} \frac{\norm{Ax}_\infty}{\norm{x}_\infty}
+  \]
+  for arbitrary $A \in \mathbb R^{n\times n}$
+\end{ex}
+
+First, we show:
+
+\[
+  \norm{Ax}_\infty = \max_{i = 1, \ldots, m} \abs{\sum_{j=1}^n a_{ij} \cdot x_j}
+  \leq \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \abs{x_j}
+  \leq \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \norm{x}_\infty
+\]
+\[ \norm{A}_\infty \leq \sup_{x\neq 0} \frac{\max_{i=1,\ldots,m} \sum_{j=1}^n \abs{a_{ij}} \norm{x}_\infty}{\norm{x}_\infty} = \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \]
+
+Now we show the other side:
+
+Let $i_0 \in \set{1,\ldots,n}$.
+\[ \sum_{j=1}^n \abs{a_{i_0 j}} = \max_{i=1,\ldots,n} \sum_{i=1}^n \abs{a_{ij}} \]
+\[ \tilde{x} = \left(\frac{a_{i_0 1}}{\abs{a_{i_0 1}}}, \ldots, \frac{a_{i_0 n}}{\abs{a_{i_0 n}}}\right) \qquad \norm{\tilde{x}}_\infty = 1\]
+
+Remark:
+\[
+\begin{cases}
+  \frac{a}{\abs{a}} \eqqcolon \operatorname{sgn}(a) & \text{for } a \neq 0 \\
+  0 & \text{ for } a = 0
+\end{cases}
+\]
+
+\[ \norm{A \tilde{x}}_\infty = \max_{i=1,\ldots,m} \abs{\sum a_{ij} \tilde{x}_2} \geq \abs{\sum_{j=1}^n a_{i_0 j} \tilde{x}_j} = \abs{\sum_{j=1}^n \abs{a_{i_0 j}}} = \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \]
+
+
+Tutor's approach:
+\[
+\frac{\norm{Ax}_\infty}{\norm{x}_\infty} = \norm{A \left(\frac{x}{\norm{x}_\infty}\right)}_\infty
+\] \[
+\sup_{x\neq0} \frac{\norm{Ax}_\infty}{\norm{x}_\infty} = \sup_{x\neq 0} \norm{A \left(\frac{x}{\norm{x}_\infty}\right)}_\infty = \sup_{\norm{x}_\infty = 1} \norm{Ax}_\infty
+\] \[
+\sup_{x: \abs{x_i} \leq 1 \forall i} \max_{j=1,\ldots,n} \abs{\sum_{j=1}^n a_{ij} x_j} = \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}}
+\]
+
+
+
 
 \end{document}
