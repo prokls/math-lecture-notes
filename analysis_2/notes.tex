@@ -6423,6 +6423,102 @@ Alternatively, we can write:
   \[ + \frac12 \partial_{122} f(x_0) v_1 v_2^2 + \frac16 \partial_{222} f(x_0) v_2^3 + \ldots \]
 \end{ex}
 
+\meta{lecture}{23rd of June 2016}{Wolfgang Ring}
+
+Formula of 2nd degree: $\abs{I} = 2, j = 2$
+\[ \sum_{i_1,i_2=1}^n \underbrace{\partial i_1 i_2 f(x_0)}_{[D_2 f(x_0)]_{i_1,i_2}} \cdot v_{i_1} v_{i_2} = \frac12 v^t \cdot D_2 f(x_0) \cdot v \]
+where
+\[ D_2f(x_0) =
+\begin{bmatrix}
+  \sum_{i_2=1}^n \partial_{1,i_2} f(x_0) \cdot v_{i_2} \\
+  \sum_{i_2=1}^n \partial_{2,i_2} f(x_0) \cdot v_{i_2} \\
+  \sum_{i_2=1}^n \partial_{n,i_2} f(x_0) \cdot v_{i_2}
+\end{bmatrix}
+\] \[
+  v^t = (v_1, v_2, \ldots, v_n)
+\]
+Term of 2nd order in Taylor series:
+\[ \frac12 v^t D_2 f(x_0) \cdot v \]
+
+% TODO: normalize ``\partial_X'' (correct) versus ``\partial X'' (wrong)
+\begin{theorem}[Taylor's Theorem, qualitative consideration]
+  Let $f \in \mathcal{C}^K(D), x_0 \in D, D \subseteq \mathbb R^n$ open.
+  Let $r>0$ such that $B(x_0, r) \subseteq D$ and let $\abs{v} < r$.
+  Then it holds that
+  \[ f(x_0 + v) = \sum_{j=0}^k \sum_{\abs{I} = j} \frac1{I!} \partial_I f(x_0) \cdot v^I + \underbrace{o(\norm{v}^k)}_{R_k(x_0;v)} \]
+  where $o(\norm{v}^k) = g(v) \cdot \norm{v}^k$ with $\lim_{v\to0} g(v) = 0$.
+\end{theorem}
+\begin{proof}
+  For this proof we use the Euclidean norm (then some estimates can be without constants).
+  Because of equivalence of all norms, the proof follows for all norms.
+
+  For Euclidean norm it holds that
+  \[ \abs{v_i} = \sqrt{v_i^2} \leq \sqrt{\sum_{j=1}^n v_j^2} = \norm{v}_2 \]
+  We use the Taylor formula with remaining term from before
+  (we look at degree up to $k-1$).
+
+  \[ f(x_0 + v) = \sum_{j=1}^{k-1} \sum_{\abs{I}=j} \frac{1}{\abs{I}!} \cdot \partial_I f(x_0) \cdot v^I + \sum_{\abs{I}=k} \frac{1}{I!} \cdot \partial_I f(x_0 + vw) v^I \]
+  \[ + \sum_{\abs{I}=k} \frac{1}{I!} \partial_I f(x_0) v^I - \sum_{\abs{I}=k} \frac{1}{I!} \partial_I f(x_0) \cdot v^I \]
+  \[ = \sum_{j=0}^k \sum_{\abs{I}=j} \frac{1}{I!} \partial_I f(x_0) v^I + \underbrace{\sum_{\abs{I}=k} \frac{1}{I!} \left[\partial_I f(x_0 + vw) - \partial_I f(x_0)\right] \cdot v^I}_{R_k(x_0;v)} \]
+
+  \[ \abs{R_k(x_0, v)} \leq \sum_{\abs{I}=k} \frac{1}{I!} \abs{\partial_I f(x_0 + vw) - \partial_I f(x_0)} \cdot \underbrace{\abs{v_1^{i_1} v_2^{i_2} \ldots v_n^{i_n}}}_{\leq \norm{v}^{i_1} \cdot \norm{v}^{i_2} \ldots \norm{v}^{i_n}} \]
+  \[ I = (i_1, i_2, \ldots, i_n) = \norm{v}^{i_1+\ldots+i_n} = \norm{v}^k \]
+  and $D_I f(x_0 + vw) - D_I f(x_0) \to 0$ for $v\to 0$ because $f \in \mathcal{C}^k(D)$.
+
+  So $\abs{R(x_0;v)} \leq \norm{v}^k \cdot \tilde{g}(v)$ with $\tilde{g}(v) \to 0$ for $v \to 0$, $\tilde{g}(v) \geq 0$.
+  \[ \implies g(v) = \frac{\abs{R(x_0;v)}}{\norm{v}^k} \text{ for } v \neq \vec{0} \]
+  \[ 0 \leq g(v) \leq \tilde{g}(v) \text{ and } \lim_{v\to0} g(v) = 0 \]
+\end{proof}
+
+\index[English]{Critical point}
+\index[German]{\foreignlanguage{ngerman}{Kritischer Punkt}}
+\begin{theorem}[Sufficient optimality criterion]
+  Let $f: D \to \mathbb R$; $D \subseteq \mathbb R^n$ open. Let $x_0 \in D$ be a \emph{critical point} of $f$,
+  hence $df(x_0) = \vec{0}$ or equivalently $\nabla f(x_0) = \vec{0}$.
+
+  Assume
+  \begin{enumerate}
+    \item Let $D_2 f(x_0)$ be positive definite. Then $f$ has a strict local minimum in $x_0$.
+    \item Let $D_2 f(x_0)$ be negative definite. Then $f$ has a strict local maximum in $x_0$.
+    \item Let $D_2 f(x_0)$ be indefinite. Then $x_0$ is not an extremum. $x_0$ is called saddle point of $f$.
+  \end{enumerate}
+  $M$ is positive definite iff $v^t M v > 0 \quad \forall v \neq 0$.
+\end{theorem}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{img/saddle_point.pdf}
+    \caption{Saddle point in $\mathbb R^2$, image by Nicoguaro}
+    \label{img:saddlepoint}
+  \end{center}
+\end{figure}
+
+\begin{proof}
+  Choose the Euclidean norm. Let $x_0$ be a critical point $D_2f(x_0)$ spd (symmetrically positive definite).
+  Taylor:
+  \[ f(x) = f(x_0) + \frac12 (x - x_0)^t D_2 f(x_0) (x - x_0) + o(\norm{x - x_0}) \]
+  $D_2 f(x_0) = \vec{0}$ because $x_0$ is a critical point.
+  \[ \implies f(x) - f(x_0) = \frac12 (x - x_0)^t D_2 f(x_0) (x - x_0) \norm{x - x_0}^2 \]
+  because $\lim_{v\to 0} g(v) = 0$. Let
+  \[ m = \min\set{\underbrace{\frac12 v^t D_2 f(x_0) v}_{>0 \quad \forall v \neq 0}: v \in \mathbb R^n, \norm{v} = 1} \]
+  \[ S^{n-1} = \set{v \in \mathbb R^n: \norm{v} = 1} \qquad \text{$(n-1)$ sphere compact in $\mathbb R^n$} \]
+  \[ v \mapsto \frac12 v^t D_2 f(x_0) v \]
+  is continuous.
+  So $m$ exists as minimum and $m > 0$.
+  Let $\norm{x - x_0}$ be sufficiently small ($< \delta$) such that $0 \leq g(x - x_0) < \frac{m}{2}$.
+  For $\norm{x - x_0} < \delta$ it holds that
+  \[ f(x) - f(x_0) = \norm{x - x_0}^2 \left( \frac12
+    \underbrace{\left(\frac{(x - x_0)^t}{\norm{x - x_0}}\right)^t}_{\eqqcolon v \in S^{n-1}}
+    D_2 f(x_0) \frac{(x - x_0)}{\norm{x - x_0}} + g(x - x_0)
+  \right)
+  \]
+  \[ \geq \norm{x - x_0}^2 (m - \frac{m}{2}) = \norm{x - x_0}^2 \frac{m}{2} > 0 \]
+  for $x \neq x_0$ and $\norm{x - x_0} < \delta$.
+  So $f(x) > f(x_0) \forall x\ in B(x_0, \delta) \setminus \set{x_0}$.
+  So $x_0$ is a strict minimum.
+\end{proof}
+
+  
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
 
