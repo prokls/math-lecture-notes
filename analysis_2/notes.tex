@@ -6494,6 +6494,8 @@ Term of 2nd order in Taylor series:
 \end{figure}
 
 \begin{proof}
+  \begin{enumerate}
+    \item
   Choose the Euclidean norm. Let $x_0$ be a critical point $D_2f(x_0)$ spd (symmetrically positive definite).
   Taylor:
   \[ f(x) = f(x_0) + \frac12 (x - x_0)^t D_2 f(x_0) (x - x_0) + o(\norm{x - x_0}) \]
@@ -6516,9 +6518,229 @@ Term of 2nd order in Taylor series:
   for $x \neq x_0$ and $\norm{x - x_0} < \delta$.
   So $f(x) > f(x_0) \forall x\ in B(x_0, \delta) \setminus \set{x_0}$.
   So $x_0$ is a strict minimum.
+
+  \item analogously
+
+  \item
+  Let $D_2 f(x_0)$ be indefinite. Hence there exists eigenvalues $\lambda > 0$
+  and $\mu < 0$ with eigenvectors $v,w$ such that
+  \[ v^t \cdot D_2 f(x_0) \cdot v = v^t \cdot \lambda v = \lambda \norm{v}^2 > 0 \]
+  and
+  \[ w^t \cdot D_2 f(x_0) \cdot w = w^t \cdot \mu \cdot w = \mu \cdot \norm{w}^2 < 0 \]
+
+  As in Taylor's formula:
+  \[ \varphi(t) = f(x_0 + tv) \]
+  \[ \varphi'(t) = \left\langle \nabla f(x_0 + tv); v\right\rangle \]
+  \[ \varphi'(0) = 0 \text{ because } \nabla f(x_0) = \vec{0} \]
+  \begin{align*}
+    \varphi''(t) &= \sum_{i,j=1}^n \partial_{ij} f(x_0 + tv) \cdot v_i \cdot v_j \\
+    &= \frac12 v^t D_2 f(x_0 + tv) \cdot v
+    \varphi''(0) &= \frac12 v^t \cdot \lambda v > 0
+  \end{align*}
+  Hence $\varphi$ has a strict local minimum in $t=0$ (extreme value in 1 dimensional setting).
+  \[ \varphi(t) = f(x_0 + tw) \]
+  Analogously,
+  \[ \psi'(0) = 0 \qquad \psi''(0) = \frac12 w^t \mu w < 0 \]
+  hence $\psi$ has a strict local maximum in $t=0$.
+
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{img/min.pdf}
+      \caption{
+        $x_0$ is maximum by approximation along $w$.
+        $x_0$ is minimum by approximation along $v$.
+      }
+      \label{img:min}
+    \end{center}
+  \end{figure}
+
+  Compare with Figure~\ref{img:min}.
+  Hence in every arbitrary small environment of $x_0$ there exists a point
+  with larger function value ($x_0 + \varepsilon v$ for sufficiently small $\varepsilon$)
+  and points with smaller function values ($x_0 + \varepsilon' w$ with $\varepsilon'$ sufficiently small).
+  Hence $x_0$ is neither local maximum nor local minimum.
+  \end{enumerate}
 \end{proof}
 
+\section{Additional results in topology}
+%
+To discuss topology any further, we need additional results to fill some gaps
+in our established theory. We look at those without context.
+
+Reminder: $x_0 \in \mathbb R^n$. Then $U \subseteq \mathbb R^n$
+with $x_0 \in U$ is called \emph{environment of $x_0$},
+if $r>0$ exists such that $x_0 \in B(x_0,r) \subset U$.
+
+$O \subseteq \mathbb R^n$ is open if and only if
+$O$ is environment of every point $x \in O$.
+
+\begin{lemma}
+  $U$ is environment of $x_0 \in U$ if and only if
+  there exists some open set in $\mathbb R^n$ with
+  $x_0 \in O \subseteq U$.
+\end{lemma}
+\begin{proof}
+  Let $U$ be an environment of $x_0$, then $B(x_0,r)
+  = \set{x \in \mathbb R^n: \norm{x_0 - x} < r}$
+  satisfies the properties of the open set $O$.
+  Hence $B(x_0, r)$ is open in $\mathbb R^n$.
+\end{proof}.
+
+On the opposite, let $x_0 \in O \subseteq U$ with open $O$.
+Then there exists, because $O$ is open, some $r > 0$:
+$B(x_0,r) < O \implies B(x_0,r) \subseteq U$ because $O \subseteq U$.
+
+Hence \enquote{environment} is a topological term
+(hence can be defined with open sets only).
+
+\index[English]{environments in $M$}
+\index[German]{\foreignlanguage{ngerman}{Umgebung in $M$}}
+\index[English]{environment relative to $M$}
+\index[German]{\foreignlanguage{ngerman}{Umgebung relativ zu $M$}}
+Let $M \subseteq \mathbb R^n$. We define environments and
+open sets \emph{in M} (\emph{relative} to $M$).
+
+\begin{defi}
+  $O \subseteq M$ is called \emph{open} in $M$ if some open set
+  $O^* \subseteq \mathbb R^n$ such that $O = M \cap O^*$.
+
+  $U \subseteq M$ is called environment of $x_0$ \emph{in $M$} if
+  some environment $U^*$ of $x_0$ in $\mathbb R^n$ exists such that
+  $U = M \cap U^*$.
+\end{defi}
+
+\begin{ex}
+  $M = Q \subseteq \mathbb R$.
+  $O^* = (0,1)$ is open in $\mathbb R$.
+  So $O = (0,1) \cap \mathbb Q = \set{g \in \mathbb Q: 0 < g < 1}$
+  is open in $\mathbb Q$.
+
+  But $O$ is \emph{not} an open set in $\mathbb R$ because in every
+  interval $(q - \varepsilon, q + \varepsilon)$ for $q \in O$
+  there are also irrational numbers.
+\end{ex}
+
+\begin{ex}
+  Similarly, $M = [0,1]$. Then $\left(-\frac12, \frac12\right) \cap M = \left[0,\frac12\right)$
+  is open in $M$, not open in $\mathbb R$.
+\end{ex}
+
+\begin{rem}
+  Let $M \subseteq \mathbb R^n$ be open itself. Then $O \subseteq M$ is open in $M$
+  if and only if $O$ is open.
+\end{rem}
+\begin{proof}
+  Let $O = M \cap O^*$ be open in $M$ where $M$ and $O^*$ are open.
+  Then $O$ is open in $\mathbb R^n$ as intersection of finitely many sets.
+
+  On the opposite: Let $O \subseteq M$ be open in $\mathbb R^n$ itself.
+  Then $O = M \cap O \implies O$ is open in $M$.
+\end{proof}
+
+\index[English]{Topology}
+\index[German]{\foreignlanguage{ngerman}{Topologie}}
+\index[English]{Relative topology}
+\index[German]{\foreignlanguage{ngerman}{Relativtopologie}}
+\begin{defi}
+  Let $X$ be a set. $\tau \subseteq \mathcal{P}(X)$.
+  Let $\tau$ satisfy properties:
+  \begin{enumerate}
+  \item $\psi \in \tau, x \in \tau$.
+  \item Let $I$ be an index set and for every $i \in I$ let $O_i \in \tau$.
+    Then it holds that $\bigcup_{i\in I} O_i \in \tau$.
+  \item Let $O_1, \ldots, O_k \in \tau$, $k \in \mathbb N$.
+    Then it holds that $\bigcap_{i=1}^k O_i \in \tau$.
+  \end{enumerate}
+
+  Then $\tau$ is called \emph{topology} in $X$. Elements $O$ of $\tau$ are called \emph{open sets}.
+
+  Remark: $\set{O \subseteq \mathbb R^n: O \text{ is open}}$ is an topology in $\mathbb R^n$.
+  Let $M \subseteq \mathbb R^n$. Then $\tau_M \coloneqq \set{O \subseteq M: O \text{ is open in } M}$
+  is also a topology in $M$. $\tau_M$ is called \emph{relative topology} of $M$ in regards of $\mathbb R^n$.
+\end{defi}
+
+\begin{lemma}
+  Let $M \subseteq \mathbb R^n$, $f: M \to \mathbb R^m$ and $x_0 \in M$.
+  Then $f$ is continuous in $x_0$ iff for every environment $V$ of $y_0 = f(x_0)$ in $\mathbb R$
+  it holds that $U = f^{-1}(V)$ is an environment of $x_0$ in $M$.
+
+  $f: M \to \mathbb R^m$ is continuous in $M$ iff for every open set $O \subseteq \mathbb R^m$
+  it holds that $f^{-1}(O)$ is open in $M$.
+\end{lemma}
+
+\begin{proof}
+  First part:
+
+  Let $\varepsilon > 0$ be arbitrary. Assume the preimages of environments of $y_0 = f(x_0)$
+  are environments of $x_0$.
+  Now let $V = B(y_0,\varepsilon)$ be an environment of $y_0$.
+  Let
+  \[ U = f^{-1}(V) = \set{x \in M: f(x) \in V} = \set{x \in M: \underbrace{\norm{f(x) - f(x_0)} < \varepsilon}_{\iff f(x) \in B(y_0,\varepsilon) = V}} \]
+  By assumption $U$ is the environment of $x_0$ \emph{in $M$}.
   
+  Hence $\exists \delta > 0: B(x_0, \delta) \cap M \subset U$.
+  So for every $x \in B(x_0,\delta) \cap M$ it holds that
+  $x \in U = f^{-1}(V)$ or equivalently $f(x) \in V$,
+  hence $\norm{f(x) - f(x_0)} < \varepsilon$.
+
+  We rewrite the implication of the last paragraph:
+  $\forall x \in M$ with $\norm{x - x_0} < \delta$ it holds that
+  $\norm{f(x) - f(x_0)} < \varepsilon$.
+  Hence $f$ is continuous in $x_0$.
+
+  On the opposite, let $f$ be continuous in $x_0$ and $V \subseteq \mathbb R^n$
+  an arbitrary environment of $y_0 = f(x_0)$.
+  Hence $\exists \varepsilon > 0: y_0 \in B(y_0, \varepsilon) \subseteq V$.
+  Continuity implies $\exists \delta > 0: \forall x \in B(x_0,\delta) \cap M$
+  it holds that $\norm{f(x) - f(x_0)} < \varepsilon$ with $f(x_0) = y_0$.
+  Hence for these $x$ it holds that $f(x) \in B(y_0,\varepsilon) \subseteq V$.
+
+  Equivalently $x \in f^{-1}(V)$.
+  So it holds that $B(x_0,\delta) \cap M \subseteq f^{-1}(V)$.
+  Then $f^{-1}(V)$ is environment of $x_0$ \emph{in $M$}.
+
+  Second part:
+
+  Let $f: M \to \mathbb R^m$ be continuous in every point of $M$.
+  Let $O \subseteq \mathbb R^m$ be open. Then $O$ is environment of
+  every point $y$ in $O$. Let $\tilde{O} = f^{-1}(O)$.
+  If $\tilde{O} = \emptyset$, nothing has to be proven, because $\emptyset$ is open.
+  Let $x \in \tilde{O}$ be arbitrary. Then it holds that $f(x) \in O$.
+  Hence $O$ is environment of $y = f(x)$.
+
+  By part 1, it holds that $\tilde{O}$ is environment of $x$.
+  Hence $\tilde{O}$ is environment of every point $x \in \tilde{O}$,
+  so $\tilde{O}$ is open in $M$.
+
+  Now it remains to prove the other direction.
+  
+  On the opopsite, let the preimages of open sets be open and $x_0 \in M$ is arbitrary.
+  Consider $y_0 = f(x_0) \in B(y_0,\varepsilon) \subseteq V$, hence $V$ is an
+  arbitrary environment of $y_0$. Then it holds that $f^{-1}(B(y_0,\varepsilon))$
+  is open in $M$. Furthermore it holds that
+  \[ x_0 \in f^{-1}(B(y_0,\varepsilon)) \]
+  Because $B(y_0,\varepsilon) \subseteq V$,
+  \[ f^{-1}(B(y_0,\varepsilon)) \subseteq f^{-1}(V) \]
+  where $f^{-1}(B(y_0,\varepsilon))$ is a relative open set, which contains $x_0$,
+  so $f^{-1}(V)$ is an environment of $x_0$. By part1 is $f$ continuous in every point
+  $x_0 \in M$.
+\end{proof}
+
+\section{Differentiability of linear and affine maps}
+%
+Let $A \in \mathbb R^{m\times n}$ and $f(x) = Ax + b$ ($b \in \mathbb R^m$).
+$f: \mathbb R^n \to \mathbb R^m$. Because
+\[ \norm{f(x) - f(y)} = \norm{Ax - Ay} \leq \norm{A} \cdot \norm{x - y} \]
+Hence $f$ is Lipschitz continuous with constant $L = \norm{A}$.
+$f$ is differentiable in every point $x \in \mathbb R^n$.
+\[ \norm{f(x+h) - f(x) - Df(x) \cdot h} \]
+We try $Df(x) = A$.
+\[ = \norm{A (x + h) + b - Ax - b - A \cdot h} \]
+\[ = \norm{\vec{0}} = 0 = O(\norm{H}) \]
+So every affine function $f(x) = Ax + b$ is differentiable in $\mathbb R^n$
+and it holds that $Df(x) = A$.
+
+
 %\index[English]{}
 %\index[German]{\foreignlanguage{ngerman}{}}
 

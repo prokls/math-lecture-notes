@@ -2411,7 +2411,160 @@ Tutor's approach:
 \sup_{x: \abs{x_i} \leq 1 \forall i} \max_{j=1,\ldots,n} \abs{\sum_{j=1}^n a_{ij} x_j} = \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}}
 \]
 
+\section{Exercise 50}
+\begin{ex}
+  We consider function $f: \mathbb R^2 \to \mathbb R$ with $f(0, 0) \coloneqq 0$ and
+  \[ f(x, y) \coloneqq \frac{x^3y - xy^3}{x^2 + y^2} \]
+  for $(x,y) \neq (0, 0)$. Prove the following statements:
+  \begin{itemize}
+  \item $\partial_x f$ and $\partial_y f$ exist in $\mathbb R^2$ and are continuous. Does $f \in C^1(\mathbb R^2)$ hold?
+  \item $\partial_{xy} f$ and $\partial_{yx} f$ exist in $\mathbb R^2$ and are continuous in $\mathbb R^2 \setminus \set{(0,0)}$.
+  \end{itemize}
+  Also determine $\partial_{xy} f(0,0)$ and $\partial_{yx} f(0,0)$ and interpret the result.
+\end{ex}
+
+\[ \partial_x f(x,y) = \frac{(x^2 + y^2) \cdot (3x^2 y - y^3) - (x^3 y - xy^3) \cdot (2x + y^2)}{(x^2 + y^2)^2} = \frac{x^4y + 4x^2 y^3 - y^5}{(x^2 + y^2)^2} \]
+\[ \partial_y f(x,y) = \frac{(x^3 - 3y^2 x) (x^2 + y^2) - (x^3 y - xy^3) \cdot 2y}{(x^2 + y^2)^2} = \frac{x^5 - 4x^3 y^2 - xy^4}{(x^2 + y^2)^2} \]
+
+\subsection{Exercise 50.a}
+If $x \neq 0 \neq y$, then continuous because of the sequence criterion.
+
+\[ \partial_x f(0,0) = \lim_{x\to 0} \frac{f(x,0) - f(0,0)}{x - 0} = \lim_{x\to 0} \frac{\frac{0}{x^2} - 0}{\frac{x}{1}} = \lim_{x \to 0} \frac{0}{x} = 0 \]
+If $x = 0 = y$, we have shown continuity, because limes $0$ exists.
+
+\subsection{Exercise 50.b}
+Case 1:
+\[ \abs{(x^2 + y^2) (3x^2 y - y^3)} \geq \abs{(x^3 y - xy^3) \cdot 2x} \]
+\[ \implies \abs{\frac{(x^2 + y^2)(3x^2 y - y^3) - (x^3 y - xy^3) \cdot (2x)}{(x^2 + y^2)^2}} \leq \frac{2\abs{(x^2 + y^2) (3x^2 y - y^3)}}{\abs{(x^2 + y^2)^2}}
+  \leq \frac{\abs{6x^2 y - y^3}}{\abs{x^2 + y^2}} \]
+\[ \leq \frac{\abs{2y^3    }}{\abs{x^2 + y^2}} \leq \frac{\abs{2y^3  }}{\abs{y^2}} = \abs{2y } \to_{y \to 0} 0 \]
+\[ \leq \frac{\abs{12 x^2 y}}{\abs{x^2 + y^2}} \leq \frac{\abs{12x^2y}}{\abs{x^2}} = \abs{12y} \to_{y \to 0} 0 \]
+  
+Case 2:
+\[
+\abs{\frac{(x^2 + y^2) \cdot (3x^2y - y^3) \ldots}{\ldots}}
+\leq \abs{\frac{2 (x^3 y - xy^3) \cdot 2x}{(x^2 + y^2)^2}}
+= \abs{\frac{4x^4y - 2x^2 y^3}{(x^2 + y^2)^2}}
+\] \[
+\begin{cases}
+  \abs{\frac{8x^4 y}{x^4}} = \abs{8y} \to 0 \\
+  \abs{\frac{4x^2 y^3}{2x^2 y^2}} = \abs{2y} \to 0
+\end{cases}
+\]
+
+\[ \partial_x f(0,y) = \frac{-y^5}{y^4} = -y \to_{y \to 0} 0 \]
+\[ \partial_x f(x,0) = \frac{0}{x^4} = 0 \to_{y\to 0} 0 \]
+
+\[ (x,y) \mapsto Df(x,y) = [\partial_x f(x,y) \quad \partial_y f(x,y)] \]
+
+\[ \norm{Df(x_1, y_1) - Df(x_2, y_2)} = \norm{[\underbrace{\partial_x f(x_1, y_1) - \partial_x f(x_0, y_0)}_{<\varepsilon'} \qquad \underbrace{\partial_y f(x_1, y_1) - \partial_y f(x_0, y_0)}_{<\varepsilon'}]} \]
+for $\norm{\begin{pmatrix} x_1 - x_0 \\ y_1 - y_0 \end{pmatrix}} < \delta$.
+Then $<\varepsilon$.
 
 
+\section{Exercise 51}
+\begin{ex}
+  Let $g: \mathbb R^2 \to \mathbb R$, $(x_1, x_2) \mapsto g(x_1, x_2)$ be a function for which $\partial_{x_1} g$ and $\partial_{x_2} g$
+  exist in $\mathbb R^2$ and is bounded. So there exists $M > 0$ such that
+  \[ \abs{\partial_{x_1} g(\xi_1, \xi_2)}, \abs{\partial_{x_2} g(\xi_1, \xi_2)} \leq M \]
+  for all $(\xi_1, \xi_2) \in \mathbb R^2$. Show that $g$ is Lipschitz-continuous and
+  give the Lipschitz constant $L > 0$ which satisfies
+  \[ \abs{g(x_1, x_2) - g(y_1, y_2)} \leq L \norm{(x_1, x_2) - (y_1, y_2)} \]
+  for all $(x_1, x_2), (y_1, y_2) \in \mathbb R^2$.
+  Does the statement above also hold for $\mathbb R^n$ with $n \in \mathbb N_+$?
+  Also give a Lipschitz constant $L$ here (if possible).
+\end{ex}
+
+\section{Exercise 52}
+\begin{ex}
+  Determine all local minima and maxima of function $u: \mathbb R^2 \to \mathbb R$,
+  \[ u(x,y) \coloneqq x^4 + y^4 - 2x^2 + 4xy - 2y^2 - 1. \]
+\end{ex}
+
+\begin{align*}
+  u_x(x,y) &= 4x^3 - 4x + 4y = 4(x^3 - x + y) \\
+  u_y(x,y) &= 4y^3 - 4y + 4x \\
+  u_{yy}(x,y) &= 12y^2 - 4 \\
+  u_{xx}(x,y) &= 12x^2 - 4
+\end{align*}
+
+\[ 4(x^3 - x + y) = 0 \iff -x^3 + x = y \]
+\[ 4(y^3 + x - y) = 0 \iff y^3 - y = -x \]
+\[ (-x^3 + x)^3 - (-x^3 + x) = -x \]
+\[ \iff (-x^3 + x) ((-x^3 + x)^2 - 1) = -x \]
+\[ \iff x (1 - x^2) (x^2 - 2x^4 + x^9 - 1) = -x \]
+\[ \iff x (1 - x^2) (x^2 (1 - 2x^2 + x^7 - 1)) + x = 0 \]
+\[ \vdots \]
+\[ x^3 (2 - x^2) (x^4 - x^2 + 1) = 0 \]
+\[ x_1 = 0 \qquad x_2 = \pm \sqrt{2} \]
+is not a root in $\mathbb R$.
+\[ \text{critical points}: (0, 0), (\sqrt{2}, -\sqrt{2}), (-\sqrt{2}, \sqrt{2}) \]
+\[ H(x,y) = \begin{pmatrix} 12x^4 - 4 & 4 \\ 4 & 12y^2 - 4 \end{pmatrix} \]
+\[ P_1(\sqrt2, -\sqrt2) = \begin{pmatrix} 20 & 4 \\ 4 & 20 \end{pmatrix} \implies \det([20]) > 0 \land \det\left(\begin{bmatrix} 20 & 4 \\ 4 & 20 \end{bmatrix}\right) = 400 - 16 = 384 > 0 \implies \text{ local min} \]
+\[ P_2(-\sqrt2, \sqrt2) = \begin{pmatrix} 20 & 4 \\ 4 & 20 \end{pmatrix} \implies \det([20]) > 0 \land \det\left(\begin{bmatrix} 20 & 4 \\ 4 & 20 \end{bmatrix}\right) = 400 - 16 = 384 > 0 \implies \text{ local min} \]
+\[ P_3(0, 0) = \begin{pmatrix} -4 & 4 \\ 4 & -4 \end{pmatrix} \implies \det(0,0) = 16 - 16 = 0 \]
+Inconclusive. Is it a saddle point or extremum?
+
+Prove
+\[ \forall \varepsilon > 0 \forall x: \norm{x - x_0} < \varepsilon \land f(x) > f(x_0) \]
+This estimate is not known at this point.
+But consider $g(x) = x$ and $h(x) = -x$. In $x(0, 0)$ one of $\set{g,h}$ becomes positive, one of $\set{g,h}$ becomes negative.
+So it is a saddle point.
+
+\section{Exercise 53}
+\begin{ex}
+  Given function $f: D \to \mathbb R$,
+  \[ f(x,y) \coloneqq x^3 + y^3 - 3xy \]
+  with $D \coloneqq (\frac12, 3) \times (-4,3)$. Prove the following properties of $f$:
+  \begin{itemize}
+  \item There exists exactly one $(x_0, y_0) \in D$ for which $\nabla f(x_0,y_0) = 0$ holds.
+  \item The Hessian matrix $D^2 f(x_0,y_0)$ is positive definite.
+  \item $f(x_0, y_0)$ is not a global minimum of $f$.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 53.a}
+\[ \nabla f(x,y) = \begin{pmatrix} 3x^2 - 3y \\ 3y^2 - 3x \end{pmatrix} \stackrel{!}{=} 0 \]
+
+\[ 3x^2 - 3y = 0 \iff 3x^2 = 3y \iff x^2 = y \]
+\[ 3y^2 - 3x = 0 \iff 3x^4 - 3x = 0 \iff 3x (x^3 - 1) \overset{!}{=} 0 \]
+
+\[ x_1 = 0 \not\in D \qquad x_2 = 1 \in D \]
+
+\subsection{Exercise 53.b}
+\[ H_f(x,y) = \begin{pmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{pmatrix} = \begin{pmatrix} 6x & -3 \\ -3 & 6y \end{pmatrix} \]
+\[ H_f(1,1) = \begin{pmatrix} 6 & -3 \\ -3 & 6 \end{pmatrix} \]
+\dots
+all eigenvalues are positive. Hence the Hessian matrix is positive definite.
+
+\subsection{Exercise 53.c}
+\[ f(x_0, y_0) = f(1, 1) = 1 + 1 - 3 = -1 \]
+\[ f(\frac34, -3) = -19.828125 \]
+Because $\exists x = (\frac34, -3)$ with $f(1, 1) > f(x)$, $(1,1)$ cannot be a global minimum.
+
+\section{Exercise 54}
+\begin{ex}
+  Which of the triangles with given curcumference $a + b + c = 2s$ has the largest area
+  $F = \sqrt{s (s - a) (s - b) (s - c)}$?
+\end{ex}
+
+We use Lagrange multiplicators, even though we didn't discuss it in lectures yet.
+\[ \mathcal{L}(x,y,\lambda) = f(x,y) + \lambda (c - g(x,y)) \]
+\[ \mathcal{L}(a,b,c,\lambda) = \sqrt{s (s-a) (s-b) (s-c)} + \lambda (-a - b - c + 2s) \]
+
+\begin{align*}
+  \frac{\partial \mathcal{L}}{\partial a} &= \frac12 - \frac{s (s-b) (s-c)}{\sqrt{s (s-a) (s-b) (s-c)}} - \lambda \\
+  \frac{\partial \mathcal{L}}{\partial b} &= \frac{1}{2} - \frac{s (s-a) (s-c)}{\sqrt{s (s-a) (s-b) (s-c)}} - \lambda \\
+  \frac{\partial \mathcal{L}}{\partial c}  = \frac12 - \frac{s (s-b) (s-a)}{\sqrt{s (s-a) (s-b) (s-c)}} - \lambda \\
+  \frac{\partial \mathcal{L}}{\partial \lambda} = -(a + b + c - 2s)
+\end{align*}
+
+We optimize and therefore set all expressions to zero.
+
+\[ \frac12 - \frac{s (s-b) (s-c)}{\sqrt{\ldots}} = \frac12 - \frac{s (s-a) (s-c)}{\sqrt{\ldots}} \]
+\[ s - b = s - a \iff b = a \iff \ldots \iff b = c \]
+Hence our solution is $a = b = c$ with $a = b = c = \frac23s$.
+
+Be aware that we always need to consider that no solutions get lost while reformulating expressions!
 
 \end{document}
