@@ -6516,7 +6516,7 @@ Term of 2nd order in Taylor series:
   \]
   \[ \geq \norm{x - x_0}^2 (m - \frac{m}{2}) = \norm{x - x_0}^2 \frac{m}{2} > 0 \]
   for $x \neq x_0$ and $\norm{x - x_0} < \delta$.
-  So $f(x) > f(x_0) \forall x\ in B(x_0, \delta) \setminus \set{x_0}$.
+  So $f(x) > f(x_0) \forall x\ \in B(x_0, \delta) \setminus \set{x_0}$.
   So $x_0$ is a strict minimum.
 
   \item analogously
@@ -6563,6 +6563,7 @@ Term of 2nd order in Taylor series:
 \end{proof}
 
 \section{Additional results in topology}
+\meta{lecture}{24th of June 2016}{Wolfgang Ring}
 %
 To discuss topology any further, we need additional results to fill some gaps
 in our established theory. We look at those without context.
@@ -6739,6 +6740,360 @@ We try $Df(x) = A$.
 \[ = \norm{\vec{0}} = 0 = O(\norm{H}) \]
 So every affine function $f(x) = Ax + b$ is differentiable in $\mathbb R^n$
 and it holds that $Df(x) = A$.
+
+\meta{lecture}{28th of June 2016}{Wolfgang Ring}
+\begin{lemma}
+  Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces. Then by
+  \[ d((x_1, y_1), (x_2, y_2)) = \max\set{d_X(x_1, x_2), d_Y(y_1, y_2)} \]
+  with $(x_1, y_1), (x_2, y_2) \in X \times Y$ also $X \times Y$ is also
+  a metric space.
+\end{lemma}
+\begin{proof}
+  Symmetry follows by triangle inequality.
+  Left as an exercise to the reader.
+\end{proof}
+
+\index[English]{Open cover}
+\index[German]{\foreignlanguage{ngerman}{Offene Überdeckung}}
+\index[English]{Partial open cover}
+\index[German]{\foreignlanguage{ngerman}{Offene Teilüberdeckung}}
+\begin{defi}
+  Let $(K, \tau)$ be a topological space.
+  Let $T \subseteq \mathbb{P}(X)$ be a topological space.
+  We call $\set{U_i: i \in I}$ with $I$ as index set
+  an \emph{open cover of $K$} if $U_1 \in \tau$ for all $i \in I$
+  and $K \subseteq \bigcup_{i \in I} U_i$.
+
+  The topological space $K$ is called compact if for every
+  open cover $(U_i)_{i \in I}$ a finite index set
+  $\set{i_1, i_2, \ldots, i_N} \subseteq I$ exists, such that
+  \[ K \subseteq \bigcup_{j=1}^N U_{i_j} \]
+  $(U_{i_j})_{j=1}^N$ is called \emph{finite partial cover} of $(U_i)_{i \in I}$.
+\end{defi}
+
+\index[English]{Sequence-compact space}
+\index[German]{\foreignlanguage{ngerman}{Folgenkompakter Raum}}
+\begin{defi}
+  A metric space $K$ is called \emph{sequence-compact}
+  if every sequence $(x_n)_{n \in \mathbb N}$ in $K$ has a convergent subsequence.
+\end{defi}
+
+\begin{theorem}
+  Let $(K,d)$ be a compact metric spac.e Then $K$ is also
+  sequence-compact.
+
+  In other words:
+  \begin{center} \enquote{Topologically compact implies sequence compact.} \end{center}
+\end{theorem}
+\begin{proof}
+  Let $K$ be cover-compact.
+  Let $(x_n)_{n \in \mathbb N}$ be an arbitrary sequence in $K$.
+  % TODO: limit point / Haeufungspunkt is actually \omega-accumulating point
+  Show that $(x_n)_{n \in \mathbb N}$ has a limit point (specifically: accumulating point).
+
+  Assume $(x_n)_{n \in \mathbb N}$ does not have a limit point.
+  $\forall y \in K \exists r_y > 0: B(y, r_y)$ contains only finitely many elements of the sequence.
+  $B(y, r_y)$ is open.
+  $(B(y, r_y))_{y \in K}$ is an open cover of $K$. Let $(B(y_i, r_{y_i}))_{i=1}^N$ a finite partial cover.
+  The cover properties imply that $\forall n \in \mathbb N \exists i \in \set{1,\ldots,N}: x_n \in B(y_i, r_{y_i})$.
+  On the other hand, every $B(y_i, r_{y_i})$ contains only finitely many sequence elements, hence
+  $\bigcup_{i=1}^N B(y_i, r_{y_i})$ contains only finitely many sequence elements.
+
+  This contradicts with statement that $\bigcup_{i=1}^N B(y_i, r_{y_i})$ contains all sequence elements.
+\end{proof}
+
+We also want to prove the opposite direction:
+Sequence compact implies (topologically) compact.
+
+\begin{lemma}
+  Let $(K, d)$ be a sequence-compact metric space and let $(U_i)_{i \in I}$ be an open cover of $K$.
+  Then there exists some $\delta > 0$ such that $\forall x \in K \exists i \in I$ with
+  $B(x,\delta) \subseteq U_i$.
+\end{lemma}
+\begin{proof}
+  Assume the statement does not hold. Then for every $\delta_n = \frac1n$ there exists
+  some corresponding $x_n \in K$ such that $\forall i \in I: B(x_n, \delta_n) \not\subseteq U_i$.
+
+  Due to sequence-compactness, $(x_n)_{n \in \mathbb N}$ is a convergent subsequence
+  $(x_{n_k})_{n \in \mathbb N}$ with $x = \lim_{k\to\infty} x_{n_k}$.
+  Because $(U_i)_{i \in I}$ cover $K$, there exists $i_x \in I$ such that $x \in U_{i_x}$
+  where $U_{i_x}$ is open.
+  So it holds that: $\varepsilon > 0: B(x, \varepsilon) \subseteq U_{i_k}$.
+  Now let $n$ be sufficiently large such that $\delta_{n_k} = \frac{1}{n_k} < \frac{\varepsilon}{2}$
+  and $d(x_{n_k}, x) < \frac{\varepsilon}{2}$.
+
+  Let $y \in B(x_{n_{k_1}}, \delta_{n_k})$.
+  \[ d(y, x) \leq f(y, x_{n_k}) + \underbrace{d(x_{n_k}, x)}_{< \frac\varepsilon2} < \varepsilon \]
+  $f(y, x_{n_k})$ because $y \in B(x_{n_k}, \delta_{n_k})$ and $\delta_{n_k} < \frac{\varepsilon}{2}$.
+  So it holds that $B(x_{n_k}, \delta_{n_k}) \subseteq B(x, \varepsilon) \subseteq U_{i_x}$.
+  This is a contradiction to propery of $x_n - s$.
+\end{proof}
+
+\begin{theorem}
+  Let $(K,d)$ be a sequence-compact topological space.
+  Then $K$ is complete and compact.
+\end{theorem}
+\begin{proof}
+  First we prove completeness.
+
+  Let $(x_n)_{n \in \mathbb N}$ be a Cauchy sequence.
+  Let $(x_{n_k})_{n \in \mathbb N}$ be a convergent subsequence with limit $x$.
+  Then $x$ is also a limit of $(x_n)_{n \in \mathbb N}$.
+
+  Reason: Let $\varepsilon > 0$ be arbitrary. Choose $N$ such that $n,m \geq N$.
+  Then $d(x_n, x_m) < \frac{\varepsilon}{2}$. Choose $n_k \in \mathbb N$ such that
+  $n_k \geq N$ such that $d(x_{n_k}, x) < \frac{\varepsilon}{2}$. Then for $n \geq N$
+  it holds that
+  \[ d(x_n, x) \leq d(x_n, x_{n_k}) + d(x_{n_k}, x) < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon \]
+  So it holds that $x = \lim_{n\to\infty} x_n$.
+
+  We show compactness.
+  Sequence-compactness implies compactness.
+
+  Let $(U_i)_{i \in I}$ be an open cover of $K$. Let $\delta > 0$
+  as in the previous lemma. Hence $\forall x \in K \in i(x) \in I$ with
+  $B(x, \delta) \subseteq U_{i(x)}$.
+
+  We show:
+  There are finitely many points $\set{y_1, y_2, \ldots, y_N}$ such that
+  \[ K \subseteq \bigcup_{j=1}^N B(y_j, \delta) \subseteq \bigcup_{j=1}^N U_{i(y_j)} \]
+  Then we have built a finite partial cover.
+
+  We prove this by contradiction.
+  Assume it does not hold. We construct $(y_i)_{i \in \mathbb N}$ inductively.
+  Let $y_1 \in K$ be arbitrary. Then $K \subseteq B(y_0, \delta)$.
+  Let $\set{y_1, \ldots, y_m}$ be already constructed.
+  \[ K \not\subseteq \bigcup_{j=1}^m B(y_j, \delta) \]
+  So there exists $y_{m+1} \in K \setminus \bigcup_{j=1}^m B(y_j, \delta)$,
+  hence $y_{m+1} \not\in B(y_j, \delta)$ for $j = 1, \ldots, m$, hence
+  $d(y_j, y_{m+1} > \delta$.
+
+  Consider $(y_j)_{j \in \mathbb N}$. For $j \neq l$ it holds that
+  $d(y_j, y_i) > \delta$. But $(y_j)_{j \in \mathbb N}$ is not a Cauchy
+  sequence. Then $(y_j)_{j \in \mathbb N}$ also has no convergent subsequence,
+  because every convergent subsequence must have the Cauchy property.
+  This contradicts with sequence-compactness.
+
+  So the proof is given and $\left(U_{i(y_j)}\right)_{j=1}^N$ is a finite partial cover of $K$.
+\end{proof}
+
+\index[German]{\foreignlanguage{ngerman}{Totalbeschränktheit}}
+\index[English]{\foreignlanguage{english}{Total boundedness of $K$}}
+\begin{defi}
+  $K$ has the property
+  \[ \forall \delta > 0 \exists \set{y_1, \ldots, y_N}: (N = N(\delta)) \]
+  such that $K \subseteq \bigcup_{i=1}^N B(y_i, \delta)$.
+  This property is called \emph{total boundedness of $K$}.
+  ($K$ must not be compact and can be an arbitrary metric space)
+\end{defi}
+
+\begin{cor}
+  \begin{center} compact $\iff$ complete and totally bounded \end{center}
+\end{cor}
+
+\subsection{Exchange theorems}
+
+\begin{theorem}[Tube lemma]
+  \label{tube-lemma}
+  Let $X$ be an arbitrary metric space.
+  Let $K$ be a compact metric space.
+  Let $x_0 \in X$.
+
+  We call set $\set{x_0} \times K$ the preimage (dt. Faser) over $x_0$ in $X \times K$.
+  Compare with Figure~$\ref{img:faser}$.
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/faser.pdf}
+      \caption{Faser over $x_0$ in $X \times K$}
+      \label{img:faser}
+    \end{center}
+  \end{figure}
+
+  Let $W \subset X \times K$ be open and $\set{x_0} \times K \subseteq W$.
+  Then there exists some environment $U$ of $x_0$ in $X$ such that
+  \[ \set{x_0} \times K \subseteq U \times K \subseteq W. \]
+
+  A counterexample is given with $y = \frac{1}{\abs{x}}$ and $y = -\frac{1}{\abs{x}}$.
+  % TODO: image
+\end{theorem}
+\begin{proof}
+  Let $(x_0, y) \in \set{x_0} \times K \subset W$ because $W$ is open,
+  there exists $B((x_0, y), r_y) \subseteq W$ with $r_y > 0$.
+
+  \begin{align*}
+    B((x_0, y), r_y) &= \set{(x,z): \max\set{d_X(x_0, x), d_K(y,z)} < r_y} \\
+    &= \set{(x,z): d_X(x_0,x) < r_y \land d_K(y,z) < r_y} \\
+    &= B_X(x_0, r_y) \times B_K(y, r_y)
+  \end{align*}
+  For $y \in K$, let $B_K(y, r_y)$ chosen as above. $\left(B_K(y, r_y)\right)_{y \in K}$ cover $K$.
+  Because $K$ is compact, we choose a finite partial cover.
+  Let $(B_k(y_i, r_{y_i}))_{i=1}^N$ be a finite partial cover.
+  Then it holds that
+  \[ \delta = \min\set{r_{y_i}: i = 1, \ldots, N} > 0 \]
+  \[ \bigcup_{i=1}^N B_X(x_0, \delta) \times B_K(y_i, r_{y_i}) \subseteq \bigcup_{i=1}^N B_X(x_0, r_{y_i}) \times B(y_i, r_{y_i}) \subseteq W \]
+  where $B_k(y_i, r_{y_i})$ cover $K$.
+  \[ \bigcup_{i=1}^N \set{x_0} \times B(y_i, r_{y_i}) \subseteq \bigcup_{i=1}^N B_x(x_0, \delta) \times B(y_i, r_{y_i}) \]
+  where $\bigcup_{i=1}^N \set{x_0} \times B(y_i, r_{y_i}) = \set{x_0} \times \bigcup_{i=1}^N B(y_i, r_{y_i}) = \set{x_0} \times K$.
+
+  \begin{align*}
+    \set{x_0} \times K \subseteq B_X(x_0, \delta) \times K
+    &= B_X(x_0, \delta) \times \bigcup_{i=1}^N B(y_i, r_{y_i}) \\
+    &= \bigcup_{i=1}^N \left(B_X(x_0, \delta) \times B(y_i, r_{y_i})\right) \subseteq W
+  \end{align*}
+\end{proof}
+
+\begin{cor}
+  Let $K, L$ be compact metric spaces. Then $K \times L$ are also compact.
+\end{cor}
+\begin{proof}
+  Let $(W_i)_{i \in I}$ be an open cover of $K \times L$.
+
+  Let $\set{x} \times L \subseteq K \times L$.
+  Then there exists $\forall (x,y) \in F_y$ some $W_{i(y)}$ with $i(y) \in I$
+  such that $(x,y) \in W_{i(y)}$ where $W_{i(y)}$ is open. Hence $\exists U_{i(y)}$
+  % TODO: normalize {environment, neighborhood} to neighborhood
+  and $V_{i(y)}$ as open neighborhood of $x$ in $K$ or equivalently
+  of $y$ in $L$ such that $(x,y) \in U_{i(y)} \times V_{i(y)} \subseteq W_{i(y)}$.
+  So for $x \in K$ it is fixed that the set system $(V_{i(y)})_{y \in L}$ is an open
+  cover of $L$. Because $L$ is compact, there exists $i(y_1), \ldots, i(y_M)$ such that
+  \[ L \subseteq \bigcup_{i=1}^M V_{i(y_j)} \]
+  so it holds that
+  \[ \set{x} \times L \subseteq \set{x} \times \bigcup_{j=1}^M V_i(y_j) \subseteq \bigcup_{j=1}^M U_{i(x_j)} \times V_{i(y_j)} \subseteq \bigcup_{j=1}^M W_{i(y_j)} \]
+  So the preimage (dt. Faser) over $x$ is covered by finitely many $W$s.
+  By the Tube lemma, let
+  \[ U_x \times L \subseteq \bigcup_{j=1}^M W_{i(y_j)} \]
+  where $\set{x} \times L \subseteq U_x$.
+  $(U_x)_{x \in K}$ cover $K$. Let $(U_{x_i})_{l=1}^N$ be a finite partial cover.
+  Every $U_{x_l} \times L$ is covered by finitely many $W$s. So
+  \[ \underbrace{\bigcup_{i=1}^N U_{x_l}}_{K} \times L = K \times L \]
+  is covered by finitely many $W$s.
+  Hence $K \times L$ is compact.
+\end{proof}
+
+\meta{lecture}{30th of June 2016}{Wolfgang Ring}
+
+\[ f: X \times [a,b] \to \mathbb R \]
+where $X$ is a metric space. Let $f$ be continuous.
+\[ d((x,t), (y,\tau)) = \max\set{d_X(x,y), \abs{t - \tau}} \]
+is a metric on $X \times [a,b]$.
+$f$ is continuous in $(x_0, t_0)$:
+\[
+  \forall \varepsilon > 0 \exists \delta > 0:
+  d((x, \tau), (x_0, t_0)) < \delta \implies
+  \abs{f(x, \tau) - f(x_0, t_0)} < \varepsilon
+\]
+
+For fixed $x \in X$, $t \mapsto f(x, t)$ is continuous in $[a,b]$. Hence,
+\[ F(x) = \int_a^b f(x,t) \, dt \]
+exists. $F: X \to \mathbb R$.
+
+\begin{theorem}
+  The function $F: X \to \mathbb R$ from above is continuous in $X$.
+  Hence for $x = \lim_{n\to\infty} x_n$ it holds that
+  \[ F(x) = \lim_{n\to\infty} F(x_n) = \lim_{n\to\infty} \int_a^b f(x_n,t) \, dt \]
+  \[ F(x) = \int_a^b f(x,t) \, dt = \int_a^b \left(\lim_{n\to\infty} f(x_n, t)\right) \, dt \]
+  due to continuity of $f$.
+\end{theorem}
+
+\begin{proof}
+  Let $x_0 \in X$. Show continuity of $F$ in $x_0$.
+  Let $\varepsilon > 0$ be arbitrary.
+  \[ \varphi(x,t) = f(x,t) - f(x_0,t) \]
+  Then $\varphi$ is continuous in $X \times [a,b]$ and $\varphi = 0$
+  in preimage (dt. Faser) $\set{x_0} \times [a,b]$.
+
+  We consider $W = \varphi^{-1}((-\varepsilon, \varepsilon))$ open in
+  $X \times [a,b]$ because $\varphi$ is continuous and are preimages of
+  open sets. $W$ is an open neighborhood of preimage (dt. Faser) $\set{x_0} \times [a,b]$.
+
+  From the Tube Lemma (Theorem~\ref{tube-lemma}) it follows that
+  \[ \exists \delta > 0: \set{x_0} \times [a,b] \subset B(x_0, \delta) \times [a,b] \subseteq W = \varphi^{-1}((-\varepsilon, \varepsilon)) \]
+  Hence for all $(x,t)$ with $d(x,x_0) < \delta$ and $t \in [a,b]$ it holds that
+  $\varphi(x,t) \in (-\varepsilon, \varepsilon)$, hence $\abs{\varphi(x,t)} < \varepsilon$.
+  Now let $d_X(x,x_0) < \delta$,
+  \begin{align*}
+    \abs{F(x) - F(x_0)} &= \abs{\int_a^b \left(f(x,t) - f(x_0,t)\right) \, dt} \\
+    &\leq \int_a^b \underbrace{\abs{f(x,t) - f(x_0, t)}}_{\varphi(x,t)} \, dt \\
+    &< \varepsilon \cdot \int_a^b 1 \, dt \\
+    &= \underbrace{\varepsilon (b - a)}_{\text{arbitrary small}}
+  \end{align*}
+  So $F$ is continuous in $x_0$.
+\end{proof}
+
+\begin{ex}[Application]
+  Let $X = [c,d]$ and $f: [c,d] \times [a,b] \to \mathbb R$ is continuous.
+  Then $F(x) = \int_a^b f(x,t) \, dt$ is continuous in $[c,d]$.
+  Hence, there exists
+  \[ \int_c^d F(x) \, dx = \int_c^d \int_a^b f(x,t) \, dt \, dx = \int_{x=c}^d \left( \int_{t=a}^b f(x,t) \, dt \right) \, dx \]
+\end{ex}
+
+\begin{theorem}[Derivative on integral]
+  Let $U \subseteq \mathbb R$ be open, $f: U \times [a,b] \to \mathbb R$ be continuous. We let
+  \[ F(x) = \int_a^b f(x,t) \, dt \]
+  $f$ furthermore satisfies,
+  \begin{itemize}
+    \item For every $t \in [a,b]$ let $x \mapsto f(x,t)$ be partially differentiable
+      in every coordinate direction.
+    \item The partial derivatives $\partial_{x_k} f(x,t)$ are continuous functions
+      in $U \times [a,b]$.
+  \end{itemize}
+  Then $F: U \to \mathbb R$ is continuously differentiable in $U$ and it holds that
+  \[ \partial_{x_k} F(x) = \int_a^b \partial_{x_k} f(x,t) \, dt \]
+\end{theorem}
+\begin{proof}
+  If suffices to show that every individual partial derivative
+  exists and is continuous. Hence without loss of generality,
+  $U \subseteq \mathbb R$, $f: U \times [a,b] \to \mathbb R$,
+  hence $f(x,t) \in \mathbb R$.
+
+  We let $\psi(x,t) = \partial_x f(x,t) - \partial_x f(x_0,t)$.
+  $\psi$ is continuous in $U \times [a,b]$.
+  In preimage (dt. Faser) $\set{x_0} \times [a,b]$, $\psi$ equals zero.
+  Continuity of $\psi$ is given.
+  \[ \psi^{-1}\left(\left(-\frac{\varepsilon}{b-a}, \frac{\varepsilon}{b-a}\right)\right) \]
+  is open in $U \times [a,b]$. From the Tube lemma it follows that
+  \[ \exists \delta > 0 \forall (x,t) \in \underbrace{(x_0 - \delta, x_0 + \delta) \cap U}_{\coloneqq V} \times [a,b] \] % TODO: suffix missing in this line
+  \[ \abs{\psi(x,t)} < \frac{\varepsilon}{b - a} \]
+
+  Now let $(x,t) \in V \times [a,b]$ with $x \neq x_0$.
+  \[ \frac{F(x) - F(x_0)}{x - x_0} - \int_a^b \partial_x f(x_0,t) \, dt = \int_a^b \left(\frac{f(x,t) - f(x_0,t)}{x - x_0} - \partial_x f(x_0,t)\right) \, dt \]
+  where
+  \[ \frac{f(x,t) - f(x_0,t)}{x - x_0} = \frac{\partial_x f(\xi(t),t) \cdot (x - x_0)}{(x - x_0)} \]
+  with $\xi(t)$ between $x$ and $x_0$, hence $\abs{\xi(x) - x_0}$ % TODO: missing suffix
+
+  \[ = \int_a^b \left(\underbrace{\partial_x f(\xi(t), t) - \partial_x f(x_0,t)}_{\psi(\xi(t),t)}\right) \, dt \]
+  % TODO: underbrace missing
+  \[ \abs{\frac{F(x) - F(x_0)}{x - x_0}} = TODO missing content \]
+  \[ = \abs{\int_a^b \psi(\xi(t),t)} \, dt < \frac{\varepsilon}{b - a} \ldots TODO missing content \]
+  Hence $F'(x_0) = \int_a^b \partial_x f(x,t) \, dt$.
+\end{proof}
+
+\begin{ex}[Application]
+  Let $f: [c,d] \times [a,b]$ be continuous. Then it holds that
+  \[ \int_{x=c}^d \left[ \int_{t=a}^b f(x,t) \, dt \right] \, dx = \int_{t=a}^b \left[ \int_{x=c}^d f(x,t) \, dx \right] \]
+  Exchangability of iterated integration.
+\end{ex}
+\begin{proof}
+  Define in $[c,d]$:
+  \[ \phi_1(\xi) = \int_{x=c}^\xi \left[ \int_a^b f(x,t) \, dt \right] \, dx \]
+  \[ \phi_2(\xi) = \int_{t=a}^b \left[ \int_c^\xi f(x,t) \, dx \right] \, dt \]
+  From the Fundamental theorem of Differential calculus it follows that:
+  \[ \phi_1'(x) = F(x) = \int_a^b f(x,t) \, dt \]
+  $\phi_2$ is integrand $g(\xi,t) = \int_c^\xi f(x,t) \, dx$ is continuous
+  by $\xi$ and differentiable with $\partial_\xi g(x,t) = f(x,t)$.
+  By the theorem above it holds that
+  \[ \phi_2'(x) = \int_a^b \partial_\xi g(x,t) \, dt = \int_a^b f(x,t) \, dt \]
+  So it holds that $\phi_1'(x) = \phi_2'(x)$.
+  So it holds that $\phi_1(x) = \phi_2(x) + k$.
+  \[ \phi_1(c) = \int_c^c \int_a^b f(x,t) \, dt \, dx = 0 \]
+  \[ \phi_2(c) = \int_a^b \underbrace{\int_c^c f(x,t) \, dx}_{=0} \, dt = 0 \]
+  So it holds that $\phi_1(x) = \phi(x) \quad \forall x \in [c,d]$.
+  \[ \phi_1(d) = \int_c^d \int_a^b f(x,t) \, dt \, dx \]
+  \[ \phi_2(d) = \int_a^b \int_c^d f(x,t) \, dx \, dt \]
+  where $\phi_1(d) = \phi_2(d)$. Hence, proof completed.
+\end{proof}
+
+This was a variation of the theorem by Fubini.
 
 
 %\index[English]{}
