@@ -2475,6 +2475,29 @@ Then $<\varepsilon$.
   Also give a Lipschitz constant $L$ here (if possible).
 \end{ex}
 
+To show:
+\[
+  \exists L > 0 \forall (y_1, y_2), (x_1, x_2) \in \mathbb R^2:
+  \abs{g(x_1, x_2) - g(y_1, y_2)} < L \norm{\begin{pmatrix} x_1 - y_1 & x_2 - y_2 \end{pmatrix}}
+\]
+
+Let $\varphi(x) = g(x, x_2)$ for $x_2 \in \mathbb R$.
+\[ \varphi: \mathbb R \to \mathbb R \qquad \varphi'(x) = \partial_{x_1} g(x, x_2) \text{ exists} \]
+\[ \implies \forall x > y \in \mathbb R: \exists \eta \in \mathbb R: \varphi'(\eta) \cdot (x - y) = (\varphi(x) - \varphi(y)) \]
+\[ \implies \partial_{x_1} g(\eta, x_2) \cdot (x - y) = g(x, x_2) - g(y, x_2) < M \]
+
+This works analogously for $x_2$.
+\[ \implies \partial_{x_2} g(y_1, \xi) \cdot (x - y) = g(y_1, x) - g(y_1, y) < M \]
+\[ \abs{g(x_1, x_2) - g(y_1, y_2)} \leq \abs{g(x_1, x_2) - g(y_1, x_2)} + \abs{g(y_1, x_2) - g(y_1, y_2)} \]
+\[ < M \cdot \abs{x_1 - y_1} + M \cdot \abs{x_2 - y_2} \]
+\[ = M \left(\abs{x_1 - y_1} + \abs{x_2 - y_2}\right) \leq L \cdot \norm{\begin{pmatrix} x_1 - x_2 & y_1 - y_2 \end{pmatrix}}_2 \]
+
+\[ \implies L \geq M \]
+
+Consider a diagonal line. The path $\abs{x - y}$ and $\abs{f(x) - f(y)}$ distinguishes itself at most by a factor of $\sqrt{2}$ from the diagonal path.
+
+Hence, the solution is $M = \sqrt{2}$.
+
 \section{Exercise 52}
 \begin{ex}
   Determine all local minima and maxima of function $u: \mathbb R^2 \to \mathbb R$,
@@ -2566,5 +2589,150 @@ We optimize and therefore set all expressions to zero.
 Hence our solution is $a = b = c$ with $a = b = c = \frac23s$.
 
 Be aware that we always need to consider that no solutions get lost while reformulating expressions!
+
+\section{Exercise 55}
+\begin{ex}
+  Determine for a function $f: \mathbb R^2 \to \mathbb R$, $f(x,y) \coloneqq e^{2x-3y}$,
+  the Taylor polynomial of third order $T_f^3(x, y; x_0, y_0)$ in point $(x_0, y_0) \coloneqq (0, 0)$.
+
+  \emph{Remark:} You can use the following formula for $n \in \mathbb N$ without proof:
+  \[ T_f^n(x, y; x_0, y_0) = \sum_{k=0}^n \frac1{k!} \left((x - x_0) \partial_x + (y - y_0) \partial_y\right)^k f(x_0, y_0). \]
+\end{ex}
+
+\begin{align*}
+  \partial_x f(x, y) &= 2 \cdot e^{2x - 3y} \\
+  \partial_y f(x, y) &= -3 \cdot e^{2x - 3y} \\
+  \partial_{x_i y_i} f(x, y) &= e^{2x - 3y} \cdot 2^i \cdot (-3)^j \\
+  \partial_{x_i y_j} f(0, 0) &= 2^i \cdot (-3)^j
+\end{align*}
+
+\begin{align*}
+  T_f^3(x, y; 0, 0) &= f(0, 0) + (x \partial_x + y \partial_y)^1 f(0, 0) \\
+  &+ \frac12 \left(x^2 \partial_{xx} + 2xy \partial_{xy} + y^2 \partial_{yy}\right) f(0, 0) \\
+  &+ \frac16 \left(x^3 \partial_{xxx} + 3x^2 y \partial_{xxy} + 3xy^2 \partial_{xyy} + y^3 \partial_{yyy}\right) f(0, 0)
+\end{align*}
+
+Now insert those derivatives and you are done.
+
+\section{Exercise 56}
+\begin{ex}
+  For a curve $\gamma: (-\varepsilon, \varepsilon) \to \mathbb R^2$ with $\varepsilon > 0$ and $\gamma(0) \coloneqq (0, 0)$
+  and functions $f, g: \mathbb R^2 \to \mathbb R$,
+  \[ f(x,y) \coloneqq e^{9x + 2y} \text{ and } g(x, y) \coloneqq \sin(4x + y), \]
+  it is known that
+  \[ \left. \frac{d}{dt} (f \circ \gamma)(t) \right|_{t=0} = 2 \text{ and } \left. \frac{d}{dt} (g \circ \gamma)(t) \right|_{t=0} = 1 \]
+  Determine $\gamma'(0)$.
+\end{ex}
+
+\[ Df(x, y) = \begin{bmatrix} \partial_x f(x, y) & \partial_y f(x, y) \end{bmatrix} = \begin{bmatrix} 9e^{9x+2y}    & 2e^{9x+2y} \end{bmatrix} \]
+\[ Dg(x, y) = \begin{bmatrix} \partial_x g(x, y) & \partial_y g(x, y) \end{bmatrix} = \begin{bmatrix} 4\cos(4x+y) & \cos(4x+y) \end{bmatrix} \]
+
+From the values $2$ and $1$ it follows that
+\[ \iff \left. D_f(\gamma(t)) \cdot \gamma'(t) \right|_{t=0} = 2 \text{ and } \left. Dg(\gamma(t)) \cdot \gamma'(t) \right|_{t=0} = 1 \]
+\[ \iff D_f(\gamma(0)) \cdot \gamma'(0) = 2 \text{ and } Dg(\gamma(0)) \cdot \gamma'(0) = 1 \]
+\[ \iff D_f\begin{pmatrix} 0 \\ 0 \end{pmatrix} \cdot \gamma'(0) = 2 \text{ and } Dg\begin{pmatrix} 0 \\ 0 \end{pmatrix} \cdot \gamma'(0) = 1 \]
+\[ \iff (9e^0 \quad 2e^0) \cdot \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} = 2 \text{ and } (4 \cos(0) \quad \cos(0)) \cdot \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} = 1 \]
+This gives a linear equation system. We solve it and get
+\[ \gamma'(0) = \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \]
+
+\subsection{Tutor's notes}
+\[ \gamma(t) = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} \]
+\[ \gamma'(t) = \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix} \]
+\[ x(0) = 0 \qquad y(0) = 0 \]
+
+\[ (f \circ \gamma)(t) = e^{9x(t) + 2y(t)} \]
+\[ (f \circ \gamma)'(t) = (9x'(t) + 2y'(t)) e^{9x(t) + 2y(t)} \]
+\[ 2 = (f \circ \gamma)'(0) = (9x'(0) + 2y'(0)) e^0 \]
+\[ 2 = 9x'(0) + 2y'(0) \]
+
+The point is, this should be a bit more briefer and more comprehensible.
+
+\section{Exercise 57}
+\begin{ex}
+  Verify the following properties of function $f: \mathbb R \to \mathbb R$,
+  \[ f(x) \coloneqq x - \arctan(x) - \frac{\pi}{2}. \]
+  \begin{enumerate}
+    \item $f$ satisfies all conditions for Banach's fixed point theorem
+      except for the contraction property. Instead it holds that
+      \[ \abs{f(x) - f(y)} < \abs{x - y} \]
+      for all $x, y \in \mathbb R$.
+    \item $f$ has no fixed point.
+  \end{enumerate}
+\end{ex}
+
+We additionally assume $x \neq y$, otherwise this inequality does not hold.
+
+\subsection{Exercise 57.a}
+Yes, $\mathbb R$ satisfies completeness.
+Yes, $\mathbb R$ is non-empty.
+Yes, $\mathbb R$ is a metric space with $d(x, y) \coloneqq \abs{x - y}$.
+
+Show,
+\[ \forall x, y \in \mathbb R: \abs{f(x) - f(y)} < \abs{x - y} \]
+
+\[ f'(x) = 1 - \frac{1}{1 + x^2} \]
+\[ \abs{f'(x)} = \abs{1 - \frac{1}{1 + x^2}} < 1 \]
+because $x^2 \geq 0$.
+
+By the Mean Value Theorem it follows that
+\[ \exists \xi \in \mathbb R: f(x) - f(y) = f'(\xi) (x - y) \]
+\[ \abs{f(x) - f(y)} = \abs{f'(\xi)} \cdot \abs{x - y} < 1 \cdot \abs{x - y} = \abs{x - y} \]
+
+\subsection{Exercise 57.b}
+
+$f$ has no fixed point.
+\[ x = x - \arctan(x) - \frac\pi2 \]
+\[ -\frac\pi2 = \arctan(x) \]
+This is a contradiction, because $\arctan: \mathbb R \to (-\frac{\pi}{2}, \frac\pi2)$.
+
+\subsection{Remark}
+%
+The contraction property does not hold. Fixed point theorem:
+\[ A \cap B \cap C \implies D \]
+We have proven:
+\[ A \cap B \text{ holds, but } \neg D \]
+Then followingly
+\[ \implies \neg C \]
+
+\subsection{Fixed point theorem as a poem}
+
+If $M$'s a complete metric space, \\
+And non-empty, we know it's the case, \\
+It f's a contraction \\
+Then under its action \\
+A single point stays in its place.
+
+\section{Exercise 58}
+\begin{ex}
+  Let $f: \mathbb R^3 \to \mathbb R$ defined by
+  \[ f(x, y, z) \coloneqq x^3 + y^3 + z^3 - 3xyz - 4 \]
+  and $(x_0, y_0, z_0) \coloneqq (1, 1, 2)$. Show that there exists some neighborhood
+  $U \subseteq \mathbb R^2$ of $(x_0, y_0)$ and some neighborhood $V \subseteq \mathbb R$
+  of $z_0$ and furthermore some uniquely defined $\varphi \in C^1(U, V)$ such that
+  \[ \varphi(x_0, y_0) = z_0 \text{ and } f(x, y, \varphi(x, y)) = 0 \]
+  for all $(x, y) \in U$. Furthermore determine $\varphi'(x_0, y_0)$.
+\end{ex}
+
+\[ (x_0, y_0, z_0) \coloneqq (1, 1, 2) \]
+\[ \varphi(x_0, y_0) = z_0 \land f(x, y, \varphi(x, y)) = 0 \]
+\[ \mathbb R^{m+n} \to \mathbb R^n \]
+\[ - 3xy + 3z^2 = 9 \neq 0 \]
+\[ f(1, 1, 2) = 1 + 1 + 8 - 6 - 4 = 0 \]
+
+So all properties for the Implict Function Theorem are satisfied.
+
+\[ f'(x_0, y_0, \varphi(x_0, y_0)) = 0 \]
+\[ \partial_x f(x_0, y_0, \varphi(x_0, y_0)) = 3x_0^2 + \partial_x \varphi(x_0, y_0) + 3 \varphi(x_0, y_0)^2 - 3 x_0 y_0 \partial_x \varphi(x_0, y_0) - 3 y_0 \varphi(x_0, y_0) \]
+
+Remark by the tutor:
+\[ f(x, y, \varphi(x, y)) = x^3 + y^3 + \varphi^3 - 3xy \varphi - 4 \]
+\[ \frac{\partial}{\partial x} f(x, y, \varphi) = 3x^3 + \left(\frac{\partial}{\partial x} \varphi\right) \cdot 3 \varphi^2 - 3y \varphi - 3yx \left(\frac{\partial}{\partial x \varphi}\right) \]
+
+
+\[ 3 + \partial_x \varphi(x_0, y_0) \cdot 12 - 3 \partial_x \varphi(x_0, y_0) - 6 < 0 \]
+\[ \iff 9 \partial_x \varphi(x_0, y_0) = 3 \]
+\[ \iff \partial_x \varphi(x_0, y_0) = \frac13 \]
+
+\[ D\varphi(x_0, y_0) = \left(\frac13, \frac13\right) \]
 
 \end{document}
