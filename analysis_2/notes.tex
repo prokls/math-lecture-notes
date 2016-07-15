@@ -3463,7 +3463,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   If every $\gamma_i$ is differentiable in $I$, a differentiable, parametric curve
   is given. $t$ is the curve parameter.
 
-  We call $\Gamma = \setdef{\gamma(t)}{t \in I} = \gamma(I) \subseteq \mathbb R$
+  We call $\Gamma = \setdef{\gamma(t)}{t \in I} = \gamma(I) \subseteq \mathbb R^n$
   the \emph{trace of the curve $\gamma$}.
 \end{defi}
 
@@ -4066,8 +4066,7 @@ of $\gamma$ using $\sigma$. Compare with Figure~\ref{img:reparam}.
 \index[English]{Orientation preserving reparameterization}
 \index[German]{\foreignlanguage{ngerman}{Orientierungserhaltende Reparameterisierung}}
 $\sigma$ is called parameter transformation.
-$\gamma$ is called orientation preserving, if $\sigma$ is strictly monotonically
-decreasing.
+$\gamma$ is called orientation preserving, if $\sigma$ is strictly monotonically increasing.
 
 \index[English]{Geometric curve measures}
 \index[German]{\foreignlanguage{ngerman}{Geometrisches Maß}}
@@ -4304,7 +4303,7 @@ Again:
     \beta''(s) = -\frac{1}{(\dot{s}_\gamma(t(s)))^2} \cdot \ddot{s}_\gamma(t(s)) \cdot t'(s)
     + \frac{1}{s'_\gamma(t(s))} \cdot \ddot{\gamma}(t(s)) \cdot \underbrace{\frac{1}{\dot{s}_\gamma(t(s))}}_{t'(s)}
   \] \[
-    \kappa(t) = \kappa(s) = \ang{N}{T'} = \langle D\beta'(s), \beta''(s)\rangle
+    \kappa(t) = \kappa(s(t)) = \ang{N}{T'} = \langle D\beta'(s), \beta''(s)\rangle
   \] \[
     = \ang{D \cdot \frac{1}{\dot{s}_\gamma} \dot\gamma(t(s))}{\frac{1}{\dot{s}_\gamma(t(s))^2} \cdot \ddot{\gamma}(t(s)) - \lambda \dot{\gamma}(t(s))}
   \]
@@ -4312,9 +4311,10 @@ Again:
   \[
     \ang{D \cdot \frac{1}{\dot{s}_\gamma} \dot\gamma(t(s))}{\ddot{\gamma}(t(s)) - \lambda \dot{\gamma}(t(s))} = 0
   \]
-
-  TODO: missing contentn
-
+  \[ = \underbrace{\frac{1}{(\dot{s}_\gamma(t))^3}}_{*}
+  \ang{\begin{bmatrix} -\dot{y}(t) \\ \dot{x}(t) \end{bmatrix}}%
+      {\begin{bmatrix} \ddot{x}(t) \\ \ddot{y}(t) \end{bmatrix}} \]
+  \[ * = \norm{\dot\gamma(t)} = \sqrt{\dot{x}^2(t) + \dot{y}^2(t)} \]
   \[
     \implies
     \kappa(t) = \frac{\dot{x}(t) \ddot(t) - \dot\gamma(t) \dot{x}(t)}{(\dot{x}^2(t) + \dot{\gamma}^2(t))^{\frac32}}
@@ -5280,7 +5280,6 @@ We consider only inner points as definition points of the derivative.
   A norm on $\mathcal{L}(\mathbb R^n, \mathbb R^m) = \mathbb R^{m\times n}$ is called \emph{matrix norm}.
 \end{defi}
 
-% TODO: verify
 \begin{ex}
   Let $A = [a_{ij}]_{\substack{i = 1, \ldots, m \\ j = 1, \ldots, n}}$ be an $m \times n$ matrix.
   We let $\norm{A}_{F} = \left(\sum_{i=1}^m \sum_{j=1}^n a_{i,j}^2\right)^{\frac 12}$.
@@ -5290,7 +5289,7 @@ We consider only inner points as definition points of the derivative.
 \index[English]{Operator norm}
 \index[German]{\foreignlanguage{ngerman}{Operatorennorm}}
 \begin{defi}
-  Let $A: \mathbb R^n \to \mathbb R^m$ be linear and let $\norm{.}_{\mathbb R^n}$ and $\norm{.}_{\mathbb R^m}$.
+  Let $A: \mathbb R^n \to \mathbb R^m$ be linear and let $\norm{.}_{\mathbb R^n}$ and $\norm{.}_{\mathbb R^m}$ be chosen.
   Then we define
   \[ \norm{A} = \sup_{V \neq \vec{0}}{\norm{A \frac{V}{{\norm{V}}_{\mathbb R^n}}}_{\mathbb R^m}} \]
   and we call $\norm{A}$ the \emph{operator norm} of $A$ in regards of $\norm{.}_{\mathbb R^n}$ and $\norm{.}_{\mathbb R^m}$.
@@ -5300,8 +5299,8 @@ We consider only inner points as definition points of the derivative.
   Let $\norm{.}_{\mathbb R^n}$ and $\norm{.}_{\mathbb R^m}$ be chosen norms.
   Let $A: \mathbb R^n \to \mathbb R^m$ be linear. Then it holds that
   \begin{enumerate}
-  \item $n(w) = \norm{w}_{\mathbb R^m}$ is a continuous map
-    \[ n: (\mathbb R^m, \norm{.}_{\mathbb R^m}) \to \mathbb R^+ \]
+  \item $h(w) = \norm{w}_{\mathbb R^m}$ is a continuous map
+    \[ h: (\mathbb R^m, \norm{.}_{\mathbb R^m}) \to \mathbb R^+ \]
   \item
     \[ \norm{A} = \sup_{V \neq 0} \norm{A \cdot \frac{V}{\norm{V}_{\mathbb R^n}}}_{\mathbb R^m} \]
     \[ \max_{\substack{x \in \mathbb R^n \\ \norm{x}_{\mathbb R^n} = 1}} \norm{A \cdot x}_{\mathbb R^m} \]
@@ -5312,29 +5311,28 @@ We consider only inner points as definition points of the derivative.
   \begin{enumerate}
   \item
     Let $\varepsilon > 0$ be arbitrary.
-    \[ \abs{n(w_1) - n(w_2)} = \abs{\norm{w_1}_{\mathbb R^m} - \norm{w_2}_{\mathbb R^m}} \]
-    \[ \overset{\text{inv. triangle ineq.}}{\leq} \norm{w_1 - w_2}_{\mathbb R^m} < \varepsilon \text{ if } \norm{w_1 - w_2} = \varepsilon \]
+    \[ \abs{h(w_1) - h(w_2)} = \abs{\norm{w_1}_{\mathbb R^m} - \norm{w_2}_{\mathbb R^m}} \]
+    \[ \overset{\text{inv. triangle ineq.}}{\leq} \norm{w_1 - w_2}_{\mathbb R^m} < \varepsilon \text{ if } \norm{w_1 - w_2} < \varepsilon \]
   \item
     Let $x \in S^{n-1}_{\norm{.}_{\mathbb R^n}} = \setdef{x \in \mathbb R^n}{\norm{x}_{\mathbb R^n} = 1}$.
-    Then it holds that $\norm{Ax}_{\mathbb R^n} = \norm{A \frac{x}{\norm{x}_{\mathbb R^n}}}_{\mathbb R^m}$.
-    \[ \leq \sup_{\substack{V \in \mathbb R^n \\ V \neq 0}} \norm{A \frac{V}{\norm{V}_{\mathbb R^n}}} = \norm{A} \]
+    Then it holds that
+    \[ \norm{Ax}_{\mathbb R^n} = \norm{A \frac{x}{\norm{x}_{\mathbb R^n}}}_{\mathbb R^m}
+       \leq \sup_{\substack{V \in \mathbb R^n \\ V \neq 0}} \norm{A \frac{V}{\norm{V}_{\mathbb R^n}}} = \norm{A} \]
     So it also holds
     \[ \sup_{x \in S^{n-1}_{\norm{.}_{\mathbb R^n}}} \norm{Ax} \leq \norm{A} \]
     On the opposite, let $v \in \mathbb R^n$ with $v \neq 0$ arbitrary.
     Then it holds that $z = \frac{V}{\norm{V}}_{\mathbb R^n} \in S^{n-1}_{\norm{.}_{\mathbb R^n}}$
     and
     \[ \norm{A \frac{V}{\norm{V}_{\mathbb R^n}}} = \norm{A z}_{\mathbb R^m} \leq \sup_{\norm{x}_{\mathbb R^n} = 1} \norm{Ax}_{\mathbb R^m} \]
-    \[ \implies \norm{A} = \sup_{\substack{V \neq 0 \\ V \in \mathbb R^n}} \in S^{n-1}_{\norm{.}_{\mathbb R^n}} \]
-    \[ \land \norm{A \frac{V}{\norm{V}_{\mathbb R^n}}} = \norm{A z}_{\mathbb R^m} \leq \sup_{\norm{x}_{\mathbb R^{n-1}}}{\norm{Ax}_{\mathbb R^m}} \]
-    \[ \implies \norm{A} = \sup_{\substack{V \neq 0 \\ V \in \mathbb R^n}} \norm{A \frac{V}{\norm{V}_{\mathbb R^n}}} \]
-    So it holds that $\sup\norm{A \frac{V}{\norm{V}}}$.
-
+    \[ \implies \norm{A} = \sup_{\substack{V \neq 0 \\ V \in \mathbb R^n}} \norm{A \cdot \frac{V}{\norm{V}_{\mathbb R^n}}} \leq \sup_{\norm{x}_{\mathbb R^n} = 1} \norm{Ax}_{\mathbb R^m} \]
+    So it holds that
+    \[ \sup_{\substack{V \neq 0 \\ V \in \mathbb R^n}} \norm{A \frac{V}{\norm{V}_{\mathbb R^n}}}_{\mathbb R^m} = \sup_{\substack{x \in \mathbb R^n \\ \norm{x}_{\mathbb R^n} = 1}} \norm{Ax}_{\mathbb R^m} \]
     It remains to show: right-sided $\sup$ is maximum.
 
-    We consider: $f: S^{n+1}_{\norm{.}_{\mathbb R^n}} \to \mathbb R$.
-    \[ f(x) = \norm{Ax}_{\mathbb R^m} = n \circ A(x) \]
-    Lineare maps $A \in \mathcal{L}(\mathbb R^n, \mathbb R^m)$ are continuous,
-    $h$ is continuous. Hence $f$ is continuous and takes in compact set $S^{n+1}_{\norm{.}_{\mathbb R^n}}$ the maximum value.
+    We consider: $f: S^{n-1}_{\norm{.}_{\mathbb R^n}} \to \mathbb R$.
+    \[ f(x) = \norm{Ax}_{\mathbb R^m} = h \circ A(x) \]
+    Linear maps $A \in \mathcal{L}(\mathbb R^n, \mathbb R^m)$ are continuous,
+    $h$ is continuous. Hence $f$ is continuous and takes the maximum value in compact set $S^{n-1}_{\norm{.}_{\mathbb R^n}}$.
   \end{enumerate}
 \end{proof}
 
@@ -5343,9 +5341,9 @@ We consider only inner points as definition points of the derivative.
 
   $M \subseteq \mathbb R$ is the smallest upper bound of $M$.
 
-  Hence $\norm{A} = \inf\set{\tilde{m} \geq 0}$
-
-  TODO
+  Hence $\norm{A} = \inf\set{\tilde{m} \geq 0: \norm{A \frac{V}{\norm{V}_{\mathbb R^n}}}_{\mathbb R^m} \leq \tilde{m} \quad \forall v \in \mathbb R^n \setminus \set{0}}$
+  \[ = \inf\set{\tilde{m} \geq 0: \underbrace{\norm{Av}_{\mathbb R^m} \leq \tilde{m} \norm{v}_{\mathbb R^n}}_{*}} \]
+  $*$ holds anyways for $v = 0$.
 
   So $\norm{A}$ is the smallest constant $\tilde{m}$ such that
   \[ \norm{A v}_{\mathbb R^m} \leq \tilde{m} \norm{v}_{\mathbb R^n} \]
@@ -5355,8 +5353,6 @@ We consider only inner points as definition points of the derivative.
     \end{mdframed}
   (This only works for operator norms. A very important result.)
 \end{rem}
-
-% TODO: end verify
 
 \meta{lecture}{3rd of June 2016}{Wolfgang Ring}
 
@@ -5449,36 +5445,34 @@ We consider only inner points as definition points of the derivative.
   \[ D(g \circ f)(x_0) = Dg(y_0) \cdot Df(x_0) = \underbrace{Dg(f(x_0))}_{\in \mathbb R^{l\times m}} \cdot \underbrace{Df(x_0)}_{\in \mathbb R^{m\times n}} \]
 \end{theorem}
 \begin{proof}
-  % TODO: verify underbraces
-  % TODO: verify \leq-s because he changed them
   Let $\varepsilon > 0$ be arbitrary.
-  Show that $\frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot Df(x_0) (x - x_0)} = r (x - x_0) < \varepsilon$
+  Show that
+  \[ \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot Df(x_0) (x - x_0)} = r (x - x_0) < \varepsilon \]
   for sufficiently small $\norm{x - x_0}$.
-  \[ \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot Df(x_0) (x - x_0)} \]
-  \[ \leq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) (f(x) - f(x_0))
-    + \frac{1}{\norm{x - x_0}} \norm{Dg(f(x_0)) \cdot \underbrace{\left(f(x) - f(x_0) - Df(x_0) (x - x_0)\right)}_{\text{small, because $g$ is differentiable in $f(x_0)$}}}}
-  \] \[
-  \leq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) (f(x) - f(x_0))}
-  + \frac{1}{\norm{x - x_0}} \norm{Dg(f(x_0))} \cdot \underbrace{\norm{f(x) - f(x_0) - Df(x_0) \cdot (x - x_0)}}_{\text{small, because $f$ is differentiable in $x_0$}} \]
+  \[ \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) \mp Dg(f(x_0)) \cdot (f(x) - f(x_0)) - Dg(f(x_0)) \cdot Df(x_0) (x - x_0)} \]
+  \[ \leq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) (f(x) - f(x_0))} \]
+  \[ + \frac{1}{\norm{x - x_0}} \norm{Dg(f(x_0)) \cdot \left(f(x) - f(x_0) - Df(x_0) (x - x_0)\right)} \]
+  \[ \leq \frac{1}{\norm{x - x_0}} \norm{\overbrace{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) (f(x) - f(x_0))}^{\text{small, because }g\text{ is differentiable in }f(x_0)}} \]
+  \[ + \frac{1}{\norm{x - x_0}} \norm{Dg(f(x_0))} \cdot \underbrace{\norm{f(x) - f(x_0) - Df(x_0) \cdot (x - x_0)}}_{\text{small, because $f$ is differentiable in $x_0$}} \]
+  Remember those expressions as (\#).
 
   First, choose $\delta_1$ such that
   \[ \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} \leq 1 \cdot \norm{x - x_0} \]
-  for all $\norm{x - x_0} \leq \delta_1$, $x \in O$.
+  for all $\norm{x - x_0} < \delta_1$, $x \in O$.
   Possible, because $f$ is differentiable in $x_0$.
-  \[ \implies \frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}} < 1 + \norm{Df(x_0)} + 1 \]
-  Choose $\delta_g$ such that $\norm{y - y_0} < \delta_g$ such that
+  \[ \implies \frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}} < 1 + \norm{Df(x_0)} \]
+  Choose $\delta_g$ such that $\norm{y - y_0} < \delta_g$ (with $f(x_0) = y_0$) such that
   \[ \norm{g(y) - g(y_0) - Dg(y_0) (y - y_0)} \leq \frac\varepsilon2 \frac{1}{\norm{Df(x_0)} + 1} \norm{y - y_0} \]
   is possible, because $g$ is differentiable in $y_0$.
   The inequality above also holds for $y = y_0$.
   Let $\delta_2$ such that for all $\norm{x - x_0} < \delta_2 \implies \norm{f(x) - f(x_0)} < \delta_g$.
-  This is possible, because $f$ is continuous in $x_0$.
+  This is possible, because $f$ is continuous in $x_0$
   (and $f$ differentiable in $x_0 \implies f$ is continuous in $x_0$).
 
   Now let $\norm{x - x_0} < \min\set{S_1, S_2}$. Then it holds that
-  \[ \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(y_0)\left(\underbrace{f(x) - f(x_0)}_{\norm{f(x) - f(x_0)} < \delta g}\right)} \]
-  \[ \leq \frac{\varepsilon}{2} \frac{1}{\norm{x - x_0}} \frac{1}{\norm{Df(x_0)} + 1} \underbrace{\norm{f(x) - f(x_0)}}_{\leq (\norm{Df(x_0)} + 1)\norm{x - x_0}} \]
-  The expression in the brace below the line holds, because of the choice of $\delta_1$.
-  \[ < \frac{\varepsilon}{2} \]
+  \[ \frac{1}{\norm{x - x_0}} \cdot \norm{g(f(x)) - g(f(x_0)) - Dg(y_0)\left(\underbrace{f(x) - f(x_0)}_{\norm{f(x) - f(x_0)} < \delta g}\right)} \]
+  \[ \leq \frac{\varepsilon}{2} \frac{1}{\norm{x - x_0}} \frac{1}{\norm{Df(x_0)} + 1} \underbrace{\norm{f(x) - f(x_0)}}_{\leq (\norm{Df(x_0)} + 1)\norm{x - x_0}} < \frac{\varepsilon}{2} \]
+  The expression in underbrace holds by choice of $\delta_1$.
   Now let $\delta_3 > 0$ such that
   \[ \norm{x - x_0} < \delta_3
   \implies \frac{1}{\norm{x - x_0}} \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} \]
@@ -5487,21 +5481,19 @@ We consider only inner points as definition points of the derivative.
   So it holds that $\norm{x - x_0} < \delta_3$.
   \[ \frac{1}{\norm{x - x_0}} \norm{Dg(y_0)} \cdot \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} \]
   \[ < \norm{Dg(y_0)} \cdot \frac{\varepsilon}{2} \cdot \frac{1}{\norm{Dg(y_0)} + 1} < \frac{\varepsilon}{2} \]
-  For $\norm{x - x_0} < \min{\delta_1, \delta_2, \delta_3}$ every expression from above % TODO: add reference
-  smaller than $\frac\varepsilon2$. The desired inequality was proven.
+  For $\norm{x - x_0} < \min{\delta_1, \delta_2, \delta_3}$ every expression from (\#)
+  is smaller than $\frac\varepsilon2$. The desired inequality was proven.
 \end{proof}
 
 \begin{lemma}
-  Let $f: D \subseteq \mathbb R$.
-  and $x_0 \in D$. If $f$ is differentiable in $x_0$, then $f$ is also continuous in $x_0$.
+  Let $f: D \subseteq \mathbb R$ where $D$ is open and $x_0 \in D$.
+  If $f$ is differentiable in $x_0$, then $f$ is also continuous in $x_0$.
 \end{lemma}
 \begin{proof}
-  % TODO: verify
   Let $\varepsilon > 0$ be arbitrary.
-  \[ \norm{f(x) - f(x_0)} \leq \overbrace{\norm{f(x) - f(x_0) - Df(x_0)(x - x_0)}}^{r(x - x_0) \norm{x - x_0)} + \norm{Df(x_0) (x - x_0)}} \]
+  \[ \norm{f(x) - f(x_0)} \leq \overbrace{\norm{f(x) - f(x_0) - Df(x_0)(x - x_0)}}^{r(x - x_0) \norm{x - x_0}} + \norm{Df(x_0) (x - x_0)} \]
   \[ \leq r (x - x_0) \norm{x - x_0} + \norm{Df(x_0)} \cdot \norm{x - x_0} \]
   Choose $\delta > 0$ such that
-  % TODO: end verify
   \begin{enumerate}
   \item $\delta < \frac\varepsilon2 \left(\norm{Df(x_0)} + 1\right)^{-1} \leq \frac{\varepsilon}{2}$
   \item for $\norm{x - x_0} < \delta \implies r(x - x_0) \leq 1$
@@ -5553,11 +5545,17 @@ We consider only inner points as definition points of the derivative.
   \[ df(x_0; v) = \lim_{t\to 0} \frac1{t} \left(f(x_0 + tv) - f(x_0)\right) \]
   if the limit exists.
 
-  In this case we call $df(x_0; v)$ the directed derivative (\emph{G\^ateaux derivative})
-  of $f$ in direction $v$ in point $x_0$.
-
-  % TODO: drawing
+  In this case we call $df(x_0; v)$ the directional derivative (\emph{G\^ateaux derivative})
+  of $f$ in direction $v$ in point $x_0$. Compare with Figure~\ref{img:gatder}.
 \end{defi}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{img/Gateaux_derivative.pdf}
+    \caption{Directional derivative and Gateaux derivative}
+    \label{img:gatder}
+  \end{center}
+\end{figure}
 
 \begin{rem}
   Let $l_{x_0,v}(t) = x_0 + t \cdot v$ (parameter form of a straight line).
@@ -5580,7 +5578,7 @@ We consider only inner points as definition points of the derivative.
 
 \meta{lecture}{7th of June 2017}{Wolfgang Ring}
 
-\subsection{Special directed derivatives}
+\subsection{Special directional derivatives}
 
 \begin{rem}[Reminder]
   We write indices for coordinates as superscript
@@ -5666,15 +5664,14 @@ where $x^2$ is the derivative variable. Then:
 \end{ex}
 
 \begin{theorem}
+  Let $D \subset \mathbb R^n \to \mathbb R^m$ and $D$ is open.
   \[
-  f(x) = \begin{bmatrix}
-    f^1(x) \\ \vdots \\ f^m(x)
-  \end{bmatrix}
+    f(x) = \begin{bmatrix}
+      f^1(x) \\ \vdots \\ f^m(x)
+    \end{bmatrix}
   \]
-  TODO: content missing
-  in $x_0$ differentiable
-  TODO
-  $j = 1, \ldots, m$.
+  Then if $f$ is differentiable in $x_0 \in D$,
+  then $f^j: D \to \mathbb R$ in $x_0$ is differentiable for $j = 1, \ldots, m$.
 \end{theorem}
 \begin{proof}
   $f$ is differentiable in $x_0$ iff
@@ -5687,8 +5684,7 @@ where $x^2$ is the derivative variable. Then:
   < \varepsilon \norm{x - x_0} \text{ for } j = 1, \ldots, m
   \]
   $\iff$ $f^j$ is Fr\'echet differentiable in $x_0$ with derivative
-  % TODO: verify this expression
-  \[ Df^j(x_0) = [\partial_1 f^j, \partial_2 f^j, \ldots, \partial_n f^j] \]
+  \[ Df^j(x_0) = [\partial_1 f^1, \partial_2 f^2, \ldots, \partial_n f^j](x_0) \]
 
   Additionally,
   \[ Df^j(x_0) = [\partial_1 f^j(x_0), \ldots, \partial_n f^j(x_0)] \]
@@ -5720,17 +5716,22 @@ where $x^2$ is the derivative variable. Then:
   \]
   is called \emph{gradient vector of $f$ in $x_0$} ($\nabla$ of the Old Greek alphabet is called \emph{nabla}).
 
-  With this notation it holds that the directed derivative
+  With this notation it holds that the directional derivative
   \[ Df(x_0) \cdot v = \langle \nabla f(x_0), v\rangle \]
 
   The reason for different notations is coordinate transformation.
 
-  % TODO: image missing
-  This is illustrated in a missing Figure.
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{img/coordinate_transformation.pdf}
+      \caption{Coordinate transformation}
+      \label{img:coordtrans}
+    \end{center}
+  \end{figure}
+  This is illustrated in Figure~\ref{img:coordtrans} with $f: O \to D$ is differentiable everywhere and bijective.
   \[ f: 0 \to D \]
   is differentiable everywhere and bijective.
-  \[ x = \varphi(y) \qquad \tilde{f} = f \circ \varphi: O \to \mathbb R \]
-  \[ x_0 = \varphi(y_0) \]
+  \[ x = \varphi(y) \qquad x_0 = \varphi(y_0) \qquad \tilde{f} = f \circ \varphi: O \to \mathbb R \]
   Coordinate transformation of $f$.
   \[ D\tilde{f}(y_0) \underbrace{=}_{\text{chain rule}} Df(x_0) \cdot \underbrace{D\varphi(y_0)}_{\text{transformation by $D\varphi$}} \]
   \begin{align*}
@@ -5757,14 +5758,14 @@ Answer: In general no.
     0                                     & \text{ for } (x_1, x_2) = (0, 0)
   \end{cases} \]
   $\partial_1 f$ and $\partial_2 f$ exist for $(x_1, x_2) \neq (0, 0)$.
-  Consider directed derivatives of $f$ in point $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+  Consider directional derivatives of $f$ in point $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
   Let $v = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}$.
   \[
   df(\vec{0}, v) = \lim_{t\to 0} \frac{f(t \cdot v) - 0}{t}
   = \lim_{t\to 0} \frac1{t} \left(tv_1 \frac{tv_1 \cdot tv_2}{(tv_1)^2 + (tv_2)^2}\right)
   = v_1 \frac{v_1 v_2}{v_1^2 + v_2^2}
   \]
-  Hence in $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$ all directed derivatives
+  Hence in $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$ all directional derivatives
   in directions $v \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix}$ exist.
   \[ \partial_1 f(\vec{0}) = df(\vec{0}, e_1) = 1 \cdot \frac{1 \cdot 0}{1^2 + 0^2} = 0 \]
   \[ \partial_2 f(\vec{0}) = df(\vec{0}, e_2) = 0 \cdot \frac{0 \cdot 1}{0^2 + 1^2} = 0 \]
@@ -5776,6 +5777,14 @@ Answer: In general no.
   \[ df(\vec{0}, \vec{v}) = 1 \cdot \frac{1 \cdot 1}{1^2 + 1^2} = \frac12 \neq 0 \]
   Recommendation: Plot this graph!
 \end{ex}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{img/level_lines.pdf}
+    \caption{Directional derivative}
+  \end{center}
+\end{figure}
+
 \begin{proof}[Show that $f$ is not differentiable]
   \[ f(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}) = \begin{cases}
     x_1 \cdot \frac{x_1 \cdot x_2}{x_1^2 + x_2^2}  & \text{ for } \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
@@ -5797,17 +5806,14 @@ Answer: In general no.
   Hence $\partial_1 f$ is non-continuous in $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
 \end{proof}
 
-
 \index[English]{Level line}
 \index[German]{\foreignlanguage{ngerman}{Niveaulinie}}
 \begin{rem}
-  % TODO: image missing
-  
   Let $f: D \to \mathbb R^2$ be differentiable.
   Let $\Gamma \subseteq \mathbb R^2$ be a \emph{level line} (dt. \foreignlanguage{ngerman}{Niveaulinie}) of $f$,
   hence $\forall x \in \Gamma: f(x) = c = \text{const.}$.
 
-  % TODO: some definition is missing here
+  $\exists \gamma: (a,b) \to D, x_0 = \gamma(0)$, $0 \in (a,b)$.
   Assume $\Gamma \cap B(x_0, x) = \setdef{\gamma(t)}{t \in (a,b)}$,
   hence $\gamma$ can be locally represented as parametric curve.
   Then it holds that $f \circ \gamma: (a,b) \to \mathbb R$ is constant.
@@ -5819,12 +5825,15 @@ Answer: In general no.
   \begin{figure}[!h]
     \begin{center}
       \includegraphics{img/tangential_vector.pdf}
-      % TODO: graphics incomplete
-      \caption{Tangential vector}
+      \caption{Tangential vector $\dot{\gamma}(0)$ on $\Gamma$ in $x_0$}
+      \label{img:tan}
     \end{center}
   \end{figure}
-  
-  $\nabla f(x_0)$ is normal to $\dot\gamma(0)$, hence normal to $\Gamma$.
+
+  \begin{itemize}
+    \item $\ang{\nabla f(x_0)}{\dot{\gamma}(0)} = 0$. Compare with Figure~\ref{img:tan}.
+    \item $\nabla f(x_0)$ is normal to $\dot\gamma(0)$, hence normal to $\Gamma$.
+  \end{itemize}
 \end{rem}
 
 \begin{theorem}
@@ -5836,6 +5845,8 @@ Answer: In general no.
 \end{theorem}
 \begin{proof}
 \end{proof}
+
+\meta{lecture}{09.06.2016}{Wolfgang Ring}
 
 TODO: notes of 9th of June 2016 missing
 
@@ -5892,14 +5903,19 @@ Cauchy sequence:
 \index[English]{Fixed point}
 \index[German]{\foreignlanguage{ngerman}{Fixpunkt}}
 \begin{theorem}[Banach's fixed point theorem]
-  % TODO: image missing
   Let $X$ be a complete metrical space. $F: X \to X$ with property
   $\exists \sigma \in [0,1)$ such that $d(F(x), F(y)) \leq \sigma \cdot d(x,y)$
   (a derivative with this property is called \emph{contraction}).
 
   Then a uniquely defined point $\overline{x} \in X$ with $F(\overline{x}) = \overline{x}$. $\overline{x}$ is called \emph{fixed point} of $F$.
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.2\textwidth]{img/banachs_fpt.pdf}
+      \caption{Illustration for Banach's fixed point theorem}
+    \end{center}
+  \end{figure}
 \end{theorem}
-% TODO: \sigma should be \theta
+
 \begin{proof}
   Let $x_0 \in X$ be arbitrary.
   We define
@@ -5911,17 +5927,17 @@ Cauchy sequence:
 
   We show: $(x_n)_{n\in\mathbb N}$ is a Cauchy sequence. It holds that
   \[ d(\underbrace{x_n}_{=F(x_n)}, \ldots, \underbrace{x_n}_{F(x_{n-1})} \leq \sigma \cdot \underbrace{d(x_n, x_{n-1})}_{F(x_{n-1})} \]
-  \[ \leq \sigma^2 d(x_{n-1}, x_{n-2}) \leq \ldots \leq \sigma^n d(x_1, x_0) \]
+  \[ \leq \vartheta^2 d(x_{n-1}, x_{n-2}) \leq \ldots \leq \vartheta^n d(x_1, x_0) \]
 
   Then for every $m,n \in \mathbb N$ with $m > n$.
   \begin{align*}
-    d(x_m, x_n) &\leq d(x_m, x_{m-1}) + d(x_{m+1}, d_{m-2}) + \ldots + d(x_{n+1}, x_n) \\
-    &\leq \sigma^m d(x_1, x_0) + \sigma^{m-1} \cdot d(x_1, x_0) + \ldots + \sigma^{n+1} d(x_1, x_0) \\
-    &= \sigma^{n} \frac{1 - \sigma^{m-n+1}}{1 - \sigma} d(x_1, x_0) \\
-    &< \sigma^{n} \frac{1}{1 - \sigma} d(x_1, x_0) \\
-    &< \varepsilon \text{ if } \sigma^n < \frac{\varepsilon (1 - \sigma)}{d(x_1, x_0) + 1}
+    d(x_m, x_n) &\leq d(x_m, x_{m-1}) + d(x_{m-1}, d_{m-2}) + \ldots + d(x_{n+1}, x_n) \\
+    &\leq \vartheta^m d(x_1, x_0) + \vartheta^{m-1} \cdot d(x_1, x_0) + \ldots + \vartheta^{n+1} d(x_1, x_0) \\
+    &= \vartheta^{n} \frac{1 - \vartheta^{m-n+1}}{1 - \vartheta} d(x_1, x_0) \\
+    &< \vartheta^{n} \frac{1}{1 - \vartheta} d(x_1, x_0) \\
+    &< \varepsilon \text{ if } \vartheta^n < \frac{\varepsilon (1 - \vartheta)}{d(x_1, x_0) + 1}
   \end{align*}
-  Hence $\sigma^n \to 0$ because $\sigma < 1$ for sufficiently large $n$.
+  Hence $\vartheta^n \to 0$ because $\vartheta < 1$ for sufficiently large $n$.
 
   So $(x_n)_{n \in \mathbb N}$ is a Cauchy sequence. Let $\overline{x}$ be the limit
   of this Cauchy sequence (completeness of $X$).
@@ -5937,7 +5953,7 @@ Cauchy sequence:
   Let $\overline{y} = F(\overline{y})$. Assume $\overline{y} \neq \overline{x}$,
   hence $d(\overline{x}, \overline{y}) > 0$. Hence it holds that
   \[ d(\overline{x}, \overline{y}) = d(F(\overline{x}), F(\overline{y})) \]
-  \[ \overbrace{\text{contraction}}{\leq} \sigma d(\overline{x}, \overline{y}) \]
+  \[ \overset{\text{contraction}}{\leq} \vartheta d(\overline{x}, \overline{y}) \]
   \[ \implies 1 \leq \sigma \]
   This a contradiction.
 \end{proof}
@@ -5965,9 +5981,8 @@ Cauchy sequence:
   \[ D\tilde{f}(0) = Df(x_0) \]
   It follows immediately that $\tilde{f}$ is a Diffeomorphism iff $f$ is a Diffeomorphism.
 
-  % TODO: verify O? 0?
   Let $F: \tilde{O} \to \mathbb R^n$ with $F(x) = \underbrace{[Df(x_0)]^{-1}}_{\text{exists by hypothesis}} \cdot \tilde{f}(x)$. Then it holds that $F(0) = 0$.
-  \[ DF(0) = TODO \]
+  \[ DF(0) = [Df(x_0)]^{-1} \cdot \underbrace{D\tilde{f}(0)}_{Df(x_0)} = I \]
   So it holds that, $F$ is continuously differentiable in $\tilde{O}$ with $DF(0) = I$. We show: $F$ is a Diffeomorphism.
 
   We let $y \in \mathbb R^n$ such that,
@@ -6330,11 +6345,8 @@ Existence of local or global maxima/minima is commonly shown by compactness.
   is called \emph{order of $I$}.
 
   % TODO: normalize ``\partial smth'' to ``\partial_smth''
-  % TODO: this block is incomplete
-  Notation: $\partial_{x_i}^\alpha = \underbrace{\partial_{x_l} \partial_{x_l} \ldots \partial{x_l}}_{\alpha \text{ times}}$ for $\alpha \in \mathbb N$.
-
-  \[ \partial_{x_k}^0 f = f \]
-  Let $\partial_I f = \partial_{x_1}^{\alpha_1} \partial_{x_2}^{\alpha_2} \ldots \partial_{x_n}^{\alpha_n}$.
+  Notation: $\partial_{x_l}^\alpha = \underbrace{\partial_{x_l} \partial_{x_l} \ldots \partial_{x_l}}_{\alpha \text{ times}}$ for $\alpha \in \mathbb N$.
+  \[ \partial_{x_k}^0 f = f \quad\text{ and }\quad \partial_I f = \partial_{x_1}^{\alpha_1} \partial_{x_2}^{\alpha_2} \ldots \partial_{x_n}^{\alpha_n} \]
 
   Further notational remarks:
   \[ I! \coloneqq (\alpha_1!) (\alpha_2!) \ldots (\alpha_n!) = \prod_{i=1}^n (\alpha_i!) \]
@@ -6545,7 +6557,7 @@ Term of 2nd order in Taylor series:
 
   \begin{figure}[!h]
     \begin{center}
-      \includegraphics[width=0.4\textwidth]{img/min.pdf}
+      \includegraphics[width=0.2\textwidth]{img/min.pdf}
       \caption{
         $x_0$ is maximum by approximation along $w$.
         $x_0$ is minimum by approximation along $v$.
@@ -6914,7 +6926,13 @@ Sequence compact implies (topologically) compact.
   \[ \set{x_0} \times K \subseteq U \times K \subseteq W. \]
 
   A counterexample is given with $y = \frac{1}{\abs{x}}$ and $y = -\frac{1}{\abs{x}}$.
-  % TODO: image
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{img/counterexample.pdf}
+      \caption{The counterexample}
+      \label{img:counterexample}
+    \end{center}
+  \end{figure}
 \end{theorem}
 \begin{proof}
   Let $(x_0, y) \in \set{x_0} \times K \subset W$ because $W$ is open,
@@ -7050,21 +7068,20 @@ exists. $F: X \to \mathbb R$.
   $\psi$ is continuous in $U \times [a,b]$.
   In preimage (dt. Faser) $\set{x_0} \times [a,b]$, $\psi$ equals zero.
   Continuity of $\psi$ is given.
-  \[ \psi^{-1}\left(\left(-\frac{\varepsilon}{b-a}, \frac{\varepsilon}{b-a}\right)\right) \]
+  \[ W = \psi^{-1}\left(\left(-\frac{\varepsilon}{b-a}, \frac{\varepsilon}{b-a}\right)\right) \]
   is open in $U \times [a,b]$. From the Tube lemma it follows that
-  \[ \exists \delta > 0 \forall (x,t) \in \underbrace{(x_0 - \delta, x_0 + \delta) \cap U}_{\coloneqq V} \times [a,b] \] % TODO: suffix missing in this line
+  \[ \exists \delta > 0 \forall (x,t) \in \underbrace{(x_0 - \delta, x_0 + \delta) \cap U}_{\coloneqq V} \times [a,b] \]
   \[ \abs{\psi(x,t)} < \frac{\varepsilon}{b - a} \]
 
   Now let $(x,t) \in V \times [a,b]$ with $x \neq x_0$.
   \[ \frac{F(x) - F(x_0)}{x - x_0} - \int_a^b \partial_x f(x_0,t) \, dt = \int_a^b \left(\frac{f(x,t) - f(x_0,t)}{x - x_0} - \partial_x f(x_0,t)\right) \, dt \]
   where
   \[ \frac{f(x,t) - f(x_0,t)}{x - x_0} = \frac{\partial_x f(\xi(t),t) \cdot (x - x_0)}{(x - x_0)} \]
-  with $\xi(t)$ between $x$ and $x_0$, hence $\abs{\xi(x) - x_0}$ % TODO: missing suffix
+  with $\xi(t)$ between $x$ and $x_0$, hence $\abs{\xi(x) - x_0} < \abs{x - x_0} < \delta$ by the Intermediate Value Theorem.
 
-  \[ = \int_a^b \left(\underbrace{\partial_x f(\xi(t), t) - \partial_x f(x_0,t)}_{\psi(\xi(t),t)}\right) \, dt \]
-  % TODO: underbrace missing
-  \[ \abs{\frac{F(x) - F(x_0)}{x - x_0}} = TODO missing content \]
-  \[ = \abs{\int_a^b \psi(\xi(t),t)} \, dt < \frac{\varepsilon}{b - a} \ldots TODO missing content \]
+  \[ = \int_a^b \left(\underbrace{\partial_x f(\xi(t), t) - \partial_x f(x_0,t)}_{\psi(\xi(t),t) \, dt}\right) \, dt \]
+  \[ \abs{\frac{F(x) - F(x_0)}{x - x_0} - \int_a^b \partial_x f(x,t) \, dt} \]
+  \[ = \underbrace{\abs{\int_a^b \psi(\xi(t),t)}}_{< \frac{\varepsilon}{b-a} \text{ because } \abs{\xi(t)-x_0} < \delta} \, dt \leq \frac{\varepsilon}{b - a} = \varepsilon \]
   Hence $F'(x_0) = \int_a^b \partial_x f(x,t) \, dt$.
 \end{proof}
 
@@ -7094,6 +7111,107 @@ exists. $F: X \to \mathbb R$.
 \end{proof}
 
 This was a variation of the theorem by Fubini.
+
+\meta{lecture}{1st of July 2016}{Wolfgang Ring}
+
+\section{Introduction to Variation Calculus}
+%
+Optimization problem:
+The unknown we search for is a function.
+It is an infinite dimensional problem.
+
+Formalization:
+$L: [a,b] \times \mathbb R \times \mathbb R$ open.
+
+Find $y: [a,b] \to \mathbb R$ such that
+\[ J(y) = \int_a^b L(x, y(x), y'(x)) \, dx \]
+needs to be minimal (maximal).
+
+$y \in \mathcal C^2([a,b])$ with property $y(a) = \alpha, y(b) = \beta$.
+Compare with Figure~\ref{img:var}.
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.3\textwidth]{img/variation.pdf}
+    \caption{Setting for examples in Variation Calculus}
+    \label{img:var}
+  \end{center}
+\end{figure}
+
+\begin{ex}
+  Find $y \in \mathcal H = \set{y \in \mathcal C^2[a,b]: y(a) = \alpha, y(b) = \beta}$ such that $F(x) \coloneqq \pi \int_a^b y(x) \sqrt{1 + (y'(x))^2} \, dx$
+  which represents the surface of a rotational device with
+  $F(x) \to \text{ min}$. Compare with Figure~\ref{img:rot}.
+\end{ex}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.3\textwidth]{img/var_problem_setting.pdf}
+    \caption{Rotational device in our problem setting.}
+    \label{img:rot}
+  \end{center}
+\end{figure}
+
+Assume $y_{\text{min}}(x)$ is a solution to our problem.
+For arbitrary $h$ such that $y_{\text{min}} + th \in H(\text{admissible set})$
+it must holds that $F(y_{\text{min}} + th) \geq F(y_{\text{min}})$,
+hence $f(t) = F(y_{\text{min}} + th)$ has a minimum in $t=0$ with $f'(0) = 0$.
+\[ f(t) = \int_a^b L(x, y_{\text{min}}(x) + th(x), y'_{\text{min}}(x) + th'(x)) \, dx \to \text{min} \text{ at } t=0 \]
+
+Necessary condition:
+$f'(0) = 0$, derivative under integral
+\[ \implies \int_a^b \left[\partial_y L(x, y_{\text{min}}(x), y_{\text{min}}'(x)) \cdot h(x) + \partial_p L(x, y_{\text{min}}(x), y_{\text{min}}'(x)) \cdot h'(x) \right] \, dx = 0 \]
+$\forall h \in \mathcal C^2([a,b])$ with $h(a) = h(b) = 0$.
+
+\[ \int_a^b \underbrace{\partial_p L(x, y_{\text{min}}(x), y_{\text{min}}'(x))}_{\coloneqq v} \cdot \underbrace{h'(x)}_{=u'} \, dx \]
+We apply integration by parts:
+\[ = \underbrace{h(x) \cdot \partial_p L(x, y_{\text{min}}(x), y_{\text{min}}'(x))}_{=0} \int_a^b - \int_a^b \partial_{xp} L(x, y_{\min}, y_{\min}') \]
+\[ + \partial_{yp} L(x, y_{\min}, y_{\min}') \cdot y_{\min}' + \partial_{pp} L(x, y_{\min}, y_{\min}') \cdot y_{\min}'') \cdot h \, dx \]
+So,
+\[ \int_a^b \left[ \partial_y L(x, y, y') - \partial_{xp} L(x, y, y') - \partial_{yp} L(x, y, y') - \partial_{pp} L(x, y, y') \right] \cdot h \, dx = 0 \]
+in $y = y_{\min}$. $\forall h \in \mathcal C^2([a,b])$ with $h(a) = h(b) = 0$.
+
+\index[English]{Euler-Lagrange Equation}
+\index[German]{\foreignlanguage{ngerman}{Euler-Lagrange Gleichung}}
+It holds that
+\[ Ly(x, y_{\min}, y_{\min}') - \partial_{xp} L(x, y_{\min}, y_{\min}') - \partial_{yp} L(x, y_{\min}, y_{\min}') y_{\min}' \]
+\[ - \partial_{pp} L(x, y_{\min}, y_{\min}') y_{\min}'' = 0 \]
+which is called \emph{Euler-Lagrange Equation} (EL).
+
+Differential equation of second order for $y_{\min}$.
+\[ y_{\min}(a) = \alpha \qquad y_{\min}(b) = \beta \]
+
+\index[English]{Lagrange function}
+\index[German]{\foreignlanguage{ngerman}{Lagrange Funktion}}
+\index[English]{Variation}
+\index[German]{\foreignlanguage{ngerman}{Variation}}
+$L$ is called \emph{Lagrange function}.
+$F(y_{\min} + th)$ is called \emph{variation of $y_{\min}$}.
+
+Special case: $L = L(y, p)$, so it does not depend on $x$
+(as for example in $L(y, p) = y \sqrt{1 + p^2}$).
+Then it holds that
+\[ L_y(y, y') - L_{yp}(y, y') \cdot y' - L_{pp}(y, y') \cdot y'' = 0 \]
+
+\begin{lemma}
+  If the Lagrange function does not depend on $x$,
+  then for every solution $\varphi(x)$ of Euler-Lagrange
+  equation, the expression
+  \[ E_{\varphi}(x) = L_p(\varphi(x), \varphi'(x)) \cdot \varphi'(x) - L(\varphi(x), \varphi'(x)) \]
+  is constant in regards of $x$.
+\end{lemma}
+\begin{proof}
+  \[ E_{\varphi}'(x) = \text{(EL)} = 0 \]
+  In our example,
+  \[ L_p(y, p) = y \cdot \frac12 \cdot \frac{1}{\sqrt{1 + p^2}} \cdot 2p = \frac{yp}{\sqrt{1 + p^2}} \]
+  \[ E_y = c \implies \frac{y y'}{\sqrt{1 + y'^2}} y' - y \sqrt{1 + y'^2} = c \]
+
+  At the beginning of the derivation:
+  \[ \partial_x [\partial_p L(y, y')] - \partial_y L(y, y') = 0 \]
+  \[ \frac{d}{dx} \left[\frac{yy'}{\sqrt{1 + y'^2}}\right] - \sqrt{1 + y'^2} = 0 \]
+  \[ \implies \frac{y}{\sqrt{1 + y'^2}} = \text{constant } c \]
+
+  \[ y(x) = c \cosh{\frac{1}{c}(x - x_0)} \]
+\end{proof}
 
 
 %\index[English]{}
