@@ -5846,11 +5846,159 @@ Answer: In general no.
 \begin{proof}
 \end{proof}
 
-\meta{lecture}{09.06.2016}{Wolfgang Ring}
+\meta{lecture}{9th of June 2016}{Wolfgang Ring}
 
-TODO: notes of 9th of June 2016 missing
+Now consider the counterexample above:
+\[
+  f(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}) = \begin{cases}
+    x_1 \frac{x_1 x_2}{x_1^2 + x_2^2}  & \text{for } \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
+    0                                & \text{for } \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}
+  \end{cases}
+\]
 
-\meta{lecture}{14.06.2016}{Wolfgang Ring}
+We know:
+\[ \partial_1 f(\begin{bmatrix} 0 \\ 0 \end{bmatrix}) = \partial_2 f(\begin{bmatrix} 0 \\ 0 \end{bmatrix}) = 0 \]
+Let $\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \neq \vec{0}$. Then it holds that
+\begin{align*}
+  \partial_1 f(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}) &= \frac{\overbrace{2 x_1 x_2}^{(x_1^2 + x_2^2)} - x_1^2 x_2 \cdot 2x_1}{(x_1^2 + x_2^2)^2} \\
+  \partial_2 f(\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}) &= \frac{x^2 (x_1^2 + x_2^2) - x_1^2 x_2 \cdot 2x_2}{(x_1^2 + x_2^2)^2} \\
+  \partial_1 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) &= \frac{2\varepsilon^2 \cdot 2\varepsilon^2 - \varepsilon^2 \varepsilon \cdot 2 \varepsilon}{(2\varepsilon^2)^2} \\
+    &= \frac{2\varepsilon^4}{4\varepsilon^4} = \frac12 \\
+  \partial_2 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) &= \frac{\varepsilon^2 \cdot 2 \varepsilon^2 - \varepsilon^2 \varepsilon \cdot 2 \varepsilon}{(2\varepsilon^2)^2} = 0
+\end{align*}
+
+It holds that
+\[ \lim_{\varepsilon\to0} \partial_2 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) = 0 = \partial_2 f(\begin{bmatrix} 0 \\ 0 \end{bmatrix}) \]
+but
+\[ \lim_{\varepsilon\to0} \partial_1 f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) = \frac12 \neq \partial_1 f(\begin{bmatrix} 0 \\ 0 \end{bmatrix}) \]
+Hence $\partial_1 f$ is non-continuous in $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+
+\begin{proof}
+  Idea: get close to $x_0 \in D$ along lines parallel to coordinate axes.
+  Use Mean Value Theorem. Let $x_0 = \begin{bmatrix} x_0^1 \\ x_0^2 \\ \vdots \\ x_0^n \end{bmatrix} \in D$
+  and $x = \begin{bmatrix} x^1 \\ \vdots \\ x^n \end{bmatrix} \in D$.
+  We build path of $x_0$ to $x$ along coordinate lines.
+
+  We let $\xi_0 = x_0$ and
+  \[
+  \xi_1 \coloneqq \begin{bmatrix} x^1 \\ x_0^2 \\ \vdots \\ x_0^n \end{bmatrix} \qquad
+  \xi_2 \coloneqq \begin{bmatrix} x^1 \\ x^2 \\ x_0^3 \\ \vdots \\ x_0^n \end{bmatrix} \qquad
+  \ldots \qquad
+  \xi_k \coloneqq \begin{bmatrix} x^1 \\ \vdots \\ x^k \\ x_0^{k+1} \\ \vdots \\ x_0^n \end{bmatrix} \qquad
+  \xi_n = X
+  \]
+
+  It holds that $\xi_k + (x^{k+1} - x_0^{k+1}) e_{k+1} = \xi_{k+1}$.
+  \[ \varphi_k: (-a_k, 1 + a_k) \subseteq \mathbb R \to \mathbb R \qquad a_k > 0 \]
+  \[ \varphi_k(t) = f(\xi_k + t(x^{k+1} - x_0^{k+1}) \cdot e_{k+1}) \]
+  \[ \varphi_k(0) = f(\varphi_k) \qquad \varphi_k(1) = f(\xi_{k+1}) \]
+
+  $\varphi$ is continuously differentiable on $(-a_k, 1 + a_k)$ because $\varphi_k = f \circ l_k$
+  and $l_k(t) = \xi_k + t(x^{k+1} - x_0^{k+1}) e_{k+1}$. $f$ is (along $l_k$) continuously differentiable
+  by precondition for continuity of the $(k+1)$-th partial derivative.
+  \[ \varphi'_k(t) = \partial_{k+1} f(l_n(t)) \cdot (x^{k+1} - x_0^{k+1}) \]
+\end{proof}
+
+\begin{align*}
+  &\lim_{h\to0} \frac1{h} \left(f(l_n(t+h)) - f(l_n(t))\right) \\
+  &= \lim_{h\to0} \frac1{h} \left(f(\xi_k + \overbrace{(t+h)(x^{k+1} - x_0^{k+1})\cdot e_{k+1}}^{= v_k + h(x^{k+1} - x_0^{k+1}) e_{k+1}})\right) \\
+  &- f\left(\xi_n + \overbrace{t(x^{k+1} - x_0^{k+1}) \cdot e_{k+1}}^{v_k}\right) \\
+  &\overset{(*)}{=} \lim_{h\to0} \frac1{h} (-f(\xi_k + v_k) + f(\xi_k + h \cdot (x^{k+1} - x_0^{k+1}) e_{k+1})) \\
+  &\overset{\text{claim}}{=} \partial_{k+1} f(\xi_k + v_k) \cdot (x^{k+1} - x_0^{k+1})
+\end{align*}
+This is true for $x^{k+1} = x_0^{k+1}$. For $x^{k+1} - x_0^{k+1} \neq 0$ it holds that
+\begin{align*}
+  (*) &= (x^{k+1} - x_0^{k+1}) \lim_{h\to0} \frac{1}{\underbrace{h(x^{k+1} - x_0^{k+1})}_{\tilde{h}}} \\
+  &\cdot (-f(\xi_k + v_k) - f(\xi_k + v_k + \overbrace{h(x^{k+1} - x_0^{k+1})}^{\tilde{h}} \cdot e_{k+1}) \\
+  &= (x^{k+1} - x_0^{k+1}) \cdot \underbrace{\lim_{\tilde{h}\to0} \left(-f(\xi_k + v_k) + f(\xi + v_k + \tilde{h} e_{k+1})\right)}_{\partial_{k+1} f(\xi_k + v_k)}
+\end{align*}
+
+Apply Mean Value Theorem to $\varphi_k$:
+\[ \exists \tau_k \in (0,1): f(\xi_{k+1}) - f(\xi_k) = \varphi(1) - \varphi(0) \]
+\[ = \varphi'(\tau_k) \cdot (1 - 0) = \partial_{k+1} f(\xi_k + \tau_k(x^{k+1} - x_0^{k+1}) \cdot e_{k+1}) \cdot (x^{k+1} - x_0^{k+1}) \]
+
+Claim: $f$ is differentiable, hence
+\[ Df(x_0) = \begin{bmatrix} \partial_1 f(x_0) & \ldots & \partial_n f(x_0) \end{bmatrix} \]
+Show that,
+\[ \frac{1}{\norm{x - x_0}} \norm{f(x) - f(x_0) - \begin{bmatrix} \partial_1 f(x_0) & \ldots & \partial_n f(x_0) \end{bmatrix} (x - x_0)} \to 0 \text{ for } x \to x_0 \]
+
+\begin{align*}
+  &\frac1{\norm{x - x_0}} \norm{\underbrace{f(x)}_{\xi_n} - \underbrace{f(x_0)}_{\xi_0} - \sum_{k=1}^n \partial_k f(x_0) (x^k - x_0^k)} \\
+  &=\frac{1}{\norm{x - x_0}} \| \underbrace{f(\xi_n) - f(\xi_{n-1})}_{\varphi_{k-1}(1) - \varphi_{k-1}(0)} + f(\xi_{n-1}) - f(\xi_{n-2}) + \ldots + f(\xi_1) \\
+  &\hspace{58pt}- f(\xi_1) - \sum_{k=1}^n \partial_k f(x_0) (x^k - x_0^k)\| \\
+  &= \frac{1}{\norm{x - x_0}} \| \sum_{k=1}^n \partial_k f(\xi_{k-1} + \tau_{k-1} (x^k - x_0^k) \cdot e_k) (x^k - x_0^k) \\
+  &\hspace{58pt}- \sum_{k=1}^n \partial_k f(x_0) (x^k - x_0^k) \| \\
+  &\leq \frac{1}{\norm{x - x_0}} \cdot \sum_{k=1}^n \abs{x^k - x_0^k} \cdot \norm{\partial_k f(\xi_{k-1} + \tau_{k-1}(x^k - x_0^k) \cdot e_k) - \partial_k f(x_0)}
+\end{align*}
+It holds that $\abs{x^k - x_0^k} \leq \norm{x - x_0}$.
+\[ \leq \sum_{k=1}^n \underbrace{\norm{\partial_k f(\xi_{k-1} + \tau_{k-1}(x^k - x_0) e_k) - \partial_k f(x_0)}}_{(**)} \]
+Now let $\varepsilon > 0$ be arbitrary and $\delta$ sufficiently large such that
+\[ \norm{\partial_k f(y) - \partial_k f(x_0)} < \frac{\varepsilon}{n} \]
+if $\norm{y - x_0} < \delta$.
+
+Now choose $\inorm{x - x_0} < \frac{\delta}{M}$ where $M$ will be defined later
+and consider $\xi_{k-1} + \tau_{k-1} (x^k - x_0^k) \cdot e_k - x_0$,
+\[
+\begin{bmatrix} x^1 \\ x^2 \\ \vdots \\ x_0^k \\ x_0^{k+1} \end{bmatrix}
++ \tau_{n-1} \begin{bmatrix} 0 \\ \vdots \\ x^k - x_0^k \end{bmatrix}
+- \begin{bmatrix} x_0^1 \\ \vdots \\ x_0^n \end{bmatrix}
+\]
+where $x^k - x_0^k$ can be found on the $k$-th index.
+\[ = \begin{bmatrix} x^1 - x_0^1 \\ x^2 - x_0^2 \\ \vdots \\ \tau_{k-1}(x^k - x_0^k) \\ 0 \\ \vdots \\ 0 \end{bmatrix} \]
+
+\[ \norm{\xi_{k-1} + \tau_{k-1} (x^k - x_0^k) e_k - x_0} \leq \sum_{j=1}^{k-1} \abs{x^j - x_0^j} \cdot \norm{e_j} + \tau_{k-1} \abs{x^k - x_0^k} \cdot \norm{e_k} \]
+\[ \leq \underbrace{\max_{k=1,\ldots,n} \abs{x^j - x_0^j}}_{\underbrace{\inorm{x - x_0}}_{\delta / M}} \cdot \underbrace{\max_{l=1,\ldots,n} \norm{e_k}}_{M>0} < \delta \]
+\[ \Rightarrow (**) = \norm{\partial_k f(\xi_{k-1} + \tau_{k-1}(x^k - x_0^k) e_k) \partial_k f(x_0)} < \frac\varepsilon{n} \]
+
+If $\inorm{x - x_0} < \frac\delta{M}$, it holds that
+\[ \frac{1}{\norm{x - x_0}} \norm{f(x) - f(x_0) - [\partial_1 f(x_0), \ldots, \partial_n f(x_0)](x - x_0)} < \varepsilon \]
+
+\subsection{Generalization}
+
+Let $f: D \subseteq \mathbb R^n \to \mathbb R^m$, $D \subseteq \mathbb R^n$ open.
+Assume all partial derivatives $\partial_j f^i(x)$ exist and be continuous in $x$ in $D$ with $j = 1, \ldots, n$ and $j = 1, \ldots, m$. Then $f$ is differentiable in $D$ and it holds that
+\[ Df(x) = \left(\partial_i f^j(x)\right)_{\substack{i=1,\ldots,m \\ j = 1,\ldots,n}} \]
+
+\subsection{Maxima and Minima}
+%
+\index[English]{Relative maximum}
+\index[English]{Relative minimum}
+\index[English]{Local maximum}
+\index[English]{Local minimum}
+\index[English]{Strict local maximum}
+\index[English]{Strict local minimum}
+\index[German]{\foreignlanguage{ngerman}{Relatives Maximum}}
+\index[German]{\foreignlanguage{ngerman}{Relatives Minimum}}
+\index[German]{\foreignlanguage{ngerman}{Lokales Maximum}}
+\index[German]{\foreignlanguage{ngerman}{Lokales Minimum}}
+\index[German]{\foreignlanguage{ngerman}{Striktes lokales Maximum}}
+\index[German]{\foreignlanguage{ngerman}{Striktes lokales Minimum}}
+Let $D \subseteq \mathbb R^n$ and $f: D \to \mathbb R$. We call $x_0 \in D$
+a \emph{relative maximum} (\emph{relative minimum}) or \emph{local maximum} (\emph{local minimum}) of $f$ if $\varepsilon > 0$ exists such that $\forall x \in B(x_0, \varepsilon) \cap D$ such that $f(x) \leq f(x_0)$ ($f(x) \geq f(x_0)$).
+We call the maximum (minimum) \emph{strict}, if for $x \neq x_0$, the inequality holds strictly.
+
+\subsection{Necessary optimality criterion}
+%
+\begin{theorem}[Necessary optimality criterion]
+Let $D \subseteq \mathbb R^n$ open, let $x_0 \in D$ be a local maximum or a local minimum. Let $f$ be differentiable in $x_0$. Then for all $v \in \mathbb R^n \setminus \{\vec{0}\}$:
+\[ df(x_0; v) = Df(x_0) \cdot v = 0 \]
+Especially $Df(x_0) \cdot e_k = \partial_k f(x_0) = 0$ for $k = 1, \ldots, n$. Hence,
+\[ Df(x_0) = \begin{bmatrix} 0 & 0 & \ldots & 0 \end{bmatrix}
+\quad \text{ or equivalently } \quad
+\nabla f(x_0) = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix} \]
+\end{theorem}
+%
+\begin{proof}
+  Let $l_{v,x_0}(t) = x_0 + t \cdot v$. If $x_0$ is a local maximum,
+  it holds that
+  \[ f(l_{v,x_0}(t)) \leq f(l_{v,x_0}(0)) = f(x_0) \]
+  for sufficiently small $t$.
+  So $f \circ l_{v,x_0}$ has a local maximum at $t = 0$.
+  \[ (f \circ l_{v,x_0})'(0) = df(x_0; v) = 0 \]
+  by necessary optimality criteria for functions in $\mathbb R$.
+\end{proof}
+
+\meta{lecture}{14th of June 2016}{Wolfgang Ring}
 
 Recall: A set $X$ with a map $d: X \times X \to [0, \infty)$ is called \emph{metrical space} if
 \begin{enumerate}
@@ -5999,10 +6147,10 @@ Cauchy sequence:
   \[ \norm{x - 0} < \delta \implies \underbrace{\norm{DF(x) - \underbrace{DF(0)}_{=I}}}_{\text{operator norm}} < \varepsilon \]
   Choose $r > 0$ such that
   \[ \norm{x} < 2r \implies \norm{DF(x) - I} < \frac12 \]
-  and we choose $r$ sufficiently small such that $B(0,2r) \subseteq \tilde{O}$. This works only because $\tilde{O}$ is open.
+  and we choose $r$ sufficiently small such that $B(O,2r) \subseteq \tilde{O}$. This works only because $\tilde{O}$ is open.
 
   Let $x_1, x_2 \in B(O, 2r)$.
-  \[ l_{x_1,x_2}: (-\varepsilon, 1 + \varepsilon) \to B(0, 2r) \]
+  \[ l_{x_1,x_2}: (-\varepsilon, 1 + \varepsilon) \to B(O, 2r) \]
   \[ l_{x_1,x_2}(t) = (1 - t) x_1 + t x_2 \]
   \[ l_{x_1,x_2}(0) = x_1 \qquad l_{x_1,x_2}(1) = x_2 \]
 
@@ -6012,22 +6160,22 @@ Cauchy sequence:
   \[ = \norm{\int_0^1 D\varphi_y(l_{x_1,x_2}(t)) \cdot (x_2 - x_1) \, dt} \]
   \[ \leq \int_0^1 \norm{D\varphi_y(l_{x_1,x_2}(t)) \cdot (x_2 - x_1)} \, dt \]
   \[ \leq \int_0^1 \norm{D\varphi_y(l_{x_1,x_2}(t))} \norm{x_2 - x_1} \, dt \]
-  \[ = \int_0^1 \overbrace{\norm{I - DF(\underbrace{l_{x_1,x_2}(t)}_{\in B(0,2r)})}}^{\leq \frac12} \, dt \cdot \norm{x_2 - x_1} \]
+  \[ = \int_0^1 \overbrace{\norm{I - DF(\underbrace{l_{x_1,x_2}(t)}_{\in B(O,2r)})}}^{\leq \frac12} \, dt \cdot \norm{x_2 - x_1} \]
   \[ \leq \frac12 \norm{x_1 - x_2} \]
 
   Hence $\varphi_y$ is a contraction with $\sigma = \frac12$.
-  It remains to show that $\varphi_y: B(0,r) \to B(0,r)$ ($\varphi_y$ maps to itself) for sufficiently small $y$.
+  It remains to show that $\varphi_y: B(O,r) \to B(O,r)$ ($\varphi_y$ maps to itself) for sufficiently small $y$.
 
-  Let $y \in B(0,r)$ and $x \in B(0, 2r)$. Then it holds that
+  Let $y \in B(O,r)$ and $x \in B(O, 2r)$. Then it holds that
   \[ \norm{\varphi_y(x)} \leq \underbrace{\norm{\varphi_y(x) - \varphi_y(0)}}_{\leq \frac12 \norm{x - 0} \text{ by contraction}} + \underbrace{\norm{\varphi_y(0)}}_{=\norm{y}} \]
   \[ \leq \frac12 \cdot 2r + r = 2r \]
-  \[ \varphi_y(x) \in B(0, 2r) \subseteq B(0,2r) \]
-  So for $y \in B(0,r)$ it holds tat
-  \[ \varphi_y: \overline{B(0,2r)} \to \overline{B(y,2r)} \]
+  \[ \varphi_y(x) \in B(O, 2r) \subseteq B(O,2r) \]
+  So for $y \in B(O,r)$ it holds tat
+  \[ \varphi_y: \overline{B(O,2r)} \to \overline{B(y,2r)} \]
   Then by Banach's fixed point theorem, there exists some unique
-  $x \in \overline{B(0,2r)}$ with $\varphi_y(x) = x$, hence $F(x) = y$.
+  $x \in \overline{B(O,2r)}$ with $\varphi_y(x) = x$, hence $F(x) = y$.
 
-  We show: $DF(x)$ is invertible for all $x \in U = F^{-1}(B(0,r)) \cap B(0,2n)$.
+  We show: $DF(x)$ is invertible for all $x \in U = F^{-1}(B(O,r)) \cap B(O,2n)$.
 
   We know:
   \[ \norm{v - DF(x) \cdot v} = \norm{(I - DF(x)) \cdot v} \]
@@ -6049,10 +6197,10 @@ Cauchy sequence:
   because (by $\norm{\varphi_y(x)} \leq 2r$, the conclusion using Banach's fixed point theorem)
   for the fixed point $x$ in $\varphi_y$, it holds that
   \[ \norm{x} = \norm{\varphi_y(x)} < 2r \]
-  Hence for every $y \in B(0,r)$ there exists a unique $x \in B(0,2r)$ such that $F(x) = y$.
+  Hence for every $y \in B(O,r)$ there exists a unique $x \in B(O,2r)$ such that $F(x) = y$.
 
-  Hence in $U = B(0,2r) \cap F^{-1}(B(0,r))$ the map $f$ is injective. So $F: U \to F(U) = B(0,r)$
-  bijective. Furthermore $F^{-1}(B(0,r))$ is open\footnote{Preimages of open sets in continuous
+  Hence in $U = B(O,2r) \cap F^{-1}(B(O,r))$ the map $f$ is injective. So $F: U \to F(U) = B(O,r)$
+  bijective. Furthermore $F^{-1}(B(O,r))$ is open\footnote{Preimages of open sets in continuous
   maps are also open. Will be shown later.}.
   Hence $U$ is open. Therefore $f$ (bijective backtransformation) bijective in some environment
   of $x_0$.
@@ -6066,7 +6214,7 @@ Cauchy sequence:
   \end{lemma}
   The lemma is proven in Königsberger volume 2, 3rd edition, page 105.
 
-  This implies that $F^{-1}$ is differentiable in $B(0,1)$ with given Jacobimatrix.
+  This implies that $F^{-1}$ is differentiable in $B(O,1)$ with given Jacobimatrix.
   Therefore also $f^{-1}$ is differentiable.
 \end{proof}
 
