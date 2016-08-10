@@ -4490,9 +4490,10 @@ Reminder:
       \[ = \abs{\lambda} \cdot \max\set{\abs{v_k}: k = 1, \ldots, n} = \abs{\lambda} \cdot \inorm{v} \]
     \item
       \begin{align*}
-        \inorm{v + w} = \max\set{\abs{v_k + w_k}: k = 1, \ldots, n} \\
-            &\leq \max\set{\abs{v_k} + \abs{w_k}: k = 1, \ldots, n} + \max\set{\abs{w_k}: k = 1, \ldots, n} \\
-            &= \inorm{v} + \inorm{w}
+        \inorm{v + w}
+        &= \max\set{\abs{v_k + w_k}: k = 1, \ldots, n} \\
+        &\leq \max\set{\abs{v_k} + \abs{w_k}: k = 1, \ldots, n} + \max\set{\abs{w_k}: k = 1, \ldots, n} \\
+        &= \inorm{v} + \inorm{w}
       \end{align*}
   \end{enumerate}
   Hence $\inorm{.}$ is norm in $\mathbb R^n$.
@@ -5254,14 +5255,14 @@ We consider only inner points as definition points of the derivative.
 \end{lemma}
 \begin{proof}
   \begin{align*}
-    \norm{\lambda f(x) - \lambda f(x_0) - \lambda Df(x_0) \cdot (x - x_0)}_{\mathbb K^m}
-    = \abs{\lambda} \cdot \norm{f(x) - f(x_0) - Df(x_0) \cdot (x - x_0)}_{\mathbb R^m}
-    = \underbrace{\abs{\lambda} \cdot r(x - x_0)}_{\lim_{x\to x_0} r(x- x_0) = 0} \cdot \norm{x - x_0} \text{with} \lim_{x\to x_0} r(x - x_0) = 0 = o(x - x_0)
+    &\norm{\lambda f(x) - \lambda f(x_0) - \lambda Df(x_0) \cdot (x - x_0)}_{\mathbb K^m} \\
+    &= \abs{\lambda} \cdot \norm{f(x) - f(x_0) - Df(x_0) \cdot (x - x_0)}_{\mathbb R^m} \\
+    &= \underbrace{\abs{\lambda} \cdot r(x - x_0)}_{\lim_{x\to x_0} r(x- x_0) = 0} \cdot \norm{x - x_0} \text{with} \lim_{x\to x_0} r(x - x_0) = 0 = o(x - x_0)
   \end{align*}
-
   \[
   \leq \underbrace{\norm{f(x) - f(x_0) - Df(x_0) (x - x_0)}_{\mathbb R^m}}_{o(x - x_0)} +
   \underbrace{\norm{g(x) - g(x_0) - Dg(x_0) (x - x_0)}_{\mathbb R^m}}_{o(x - x_0)}
+  \] \[
   = o(x - x_0)
   \]
 \end{proof}
@@ -5426,7 +5427,7 @@ We consider only inner points as definition points of the derivative.
   \[ \leq \norm{B} \cdot \underbrace{\max\set{\norm{Ax}: \norm{x} = 1}}_{= \norm{A}} = \norm{B} \cdot \norm{A} \]
 \end{proof}
 
-\subsection{Back to differential calculus in $\mathbb R^n$}
+\subsection{Returning to differential calculus in $\mathbb R^n$}
 %
 \begin{theorem}[Chain rule in multiple dimensions]
   Let $f: O \subseteq \mathbb R^n \to \mathbb R^m$.
@@ -5449,7 +5450,7 @@ We consider only inner points as definition points of the derivative.
   Show that
   \[ \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot Df(x_0) (x - x_0)} = r (x - x_0) < \varepsilon \]
   for sufficiently small $\norm{x - x_0}$.
-  \[ \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) \mp Dg(f(x_0)) \cdot (f(x) - f(x_0)) - Dg(f(x_0)) \cdot Df(x_0) (x - x_0)} \]
+  \[ \frac{1}{\norm{x - x_0}} \| g(f(x)) - g(f(x_0)) \mp Dg(f(x_0)) \cdot (f(x) - f(x_0)) \]\[ - Dg(f(x_0)) \cdot Df(x_0) (x - x_0)\| \]
   \[ \leq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) (f(x) - f(x_0))} \]
   \[ + \frac{1}{\norm{x - x_0}} \norm{Dg(f(x_0)) \cdot \left(f(x) - f(x_0) - Df(x_0) (x - x_0)\right)} \]
   \[ \leq \frac{1}{\norm{x - x_0}} \norm{\overbrace{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) (f(x) - f(x_0))}^{\text{small, because }g\text{ is differentiable in }f(x_0)}} \]
@@ -5675,14 +5676,13 @@ where $x^2$ is the derivative variable. Then:
 \end{theorem}
 \begin{proof}
   $f$ is differentiable in $x_0$ iff
-  \[ \forall \varepsilon > 0 \exists \delta > 0: \norm{x - x_0} < \delta
-  \implies \inorm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < \varepsilon \norm{x - x_0}
-  \] \[
-  \iff \forall \varepsilon > 0 \exists \delta > 0:
-  \norm{x - x_0} < \delta \implies
-  \abs{f^0(x) - f^0(x_0) - \sum_{k=1}^m \partial_k f^j(x_0)(x^k - x_0^k)}
-  < \varepsilon \norm{x - x_0} \text{ for } j = 1, \ldots, m
-  \]
+  \[\forall \varepsilon > 0 \exists \delta > 0: \norm{x - x_0} < \delta \]
+  \[ \implies \inorm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < \varepsilon \norm{x - x_0} \]
+
+  \[ \iff \forall \varepsilon > 0 \exists \delta > 0: \norm{x - x_0} < \delta \]
+  \[ \implies \abs{f^0(x) - f^0(x_0) - \sum_{k=1}^m \partial_k f^j(x_0)(x^k - x_0^k)} < \varepsilon \norm{x - x_0} \]
+  \[ \text{ for } j = 1, \ldots, m \]
+
   $\iff$ $f^j$ is Fr\'echet differentiable in $x_0$ with derivative
   \[ Df^j(x_0) = [\partial_1 f^1, \partial_2 f^2, \ldots, \partial_n f^j](x_0) \]
 
@@ -6568,13 +6568,20 @@ Alternatively, we can write:
   If $(i_1, \ldots, i_j)$ and $(i'_1, \ldots, i'_j)$ only distinguish by their order, then it holds that
   \[ v_{i_1} v_{i_2} \ldots v_{i_j} = v_{i'_1} \ldots v_{i'_j} = v^I \]
   Insert all these expressions in the Taylor formula and sum up equivalent expressions.
-  \[ f(x_0 + v) = f(x_0) + \sum_{j=1}^k \frac{1}{j!} \sum_{\abs{I}=j} \frac{j!}{I!} \partial_I f(x_0) \cdot v^I + \frac{1}{(j+1)!} \sum_{\abs{I}=j+1} \frac{(j+1)!}{I!} \partial_I f(x_0 + vw) \cdot v^I \]
+  \begin{align*}
+    f(x_0 + v) &= f(x_0) + \sum_{j=1}^k \frac{1}{j!} \sum_{\abs{I}=j} \frac{j!}{I!} \partial_I f(x_0) \cdot v^I \\
+    &+ \frac{1}{(k+1)!} \sum_{\card{I}=k+1} \frac{(k+1)!}{I!} \partial_I f(x_0 + vw) \cdot v^I
+  \end{align*}
 \end{rem}
 
 \begin{ex}
   Let $f: \mathbb R^2 \to \mathbb R$, $f$ arbitrary often continuously differentiable.
-
-  \[ f(x_0 + v) = f(x_0) + \partial_1 f(x_0) \cdot v_1 + \partial_2 f(x_0) v_2 \frac{1}{2! 0!} \partial_{(2,0)} f(x_0) \cdot v_1^2 + \frac{1}{1! 1!} \partial_{(1,1)} f(x_0) v_1 v_2 \]
+  \begin{align*}
+    f(x_0 + v)
+    &= f(x_0) + \partial_1 f(x_0) \cdot v_1 + \partial_2 f(x_0) \cdot v_2 \\
+    &+ \frac{1}{2! 0!} \cdot \partial_{(2,0)} f(x_0) \cdot v_1^2 \\
+    &+ \frac{1}{1! 1!} \cdot \partial_{(1,1)} f(x_0) \cdot v_1 v_2
+  \end{align*}
   The multiindex for $(1,1)$ is $(2,0)$.
   \[ + \frac{1}{0! 2!} \partial_{(0,2)} f(x_0) v_2^2 + \frac{1}{3! 0!} \partial_{(3,0)} f(x_0) v_1^3 + \frac{1}{2! 1!} \partial_{(2,1)} f(x_0) v_1^2 v_2 \]
   \[ + \frac{1}{1! 2!} \partial_{(1,2)} f(x_0) v_1 v_2^2 + \frac{1}{0! 3!} \partial_{(0,3)} f(x_0) v_2^3 + \ldots \]
