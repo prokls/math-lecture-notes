@@ -198,11 +198,14 @@ is injective, because $x_1 < x_2 \implies e^{x_1} < e^{x_2}$
       \[ \lim_{n\to\infty} \frac{\ln(w_n)}{w_n - 1} = \lim_{n\to\infty} \frac{y_n}{e^{y_n} - 1} = \frac11 = 1 \]
       where
       \[ e^0 = 1 \implies \ln(1) = 0 \]
+      \textbf{Personal notes:}
+      I don't understand why this gives $\frac11$, but it is simple to recognize:
+      \[ \lim_{x\to1} \frac{\ln{x}}{x-1} = \lim_{x\to0} \frac{\ln(x+1)}{x} = \lim_{x\to0} \frac{\ln(x+1) - \ln(1)}{x} = \left.\ln(t)'\right|_{t=1} = 1 \]
   \end{itemize}
 \end{proof}
 
 \begin{theorem}[Logarithmic growth]
-  $\forall n \in \mathbb N_+$ it holds that $\lim_{n\to\infty} \frac{\ln(x)}{\sqrt[n]{x}} = 0$
+  $\forall n \in \mathbb N_+$ it holds that $\lim_{x\to\infty} \frac{\ln(x)}{\sqrt[n]{x}} = 0$
 \end{theorem}
 \begin{proof}
   Let $x \in (0,\infty)$ with $x = e^{n\cdot\xi}$. That is,
@@ -263,9 +266,14 @@ is injective, because $x_1 < x_2 \implies e^{x_1} < e^{x_2}$
 
 \subsection{Extension of the functional equation of logarithm}
 %
+Let $x > 0$.
+\[ 0 = \ln(1) = \ln\left(x \cdot \frac1x\right) = \ln(x) + \ln\left(\frac1{x}\right) \]
+\[ \implies \ln\frac{1}{x} = -\ln(x) \]
+Let $x,y > 0$. Then it holds that
+\[ \ln(\frac{x}{y}) = \ln(x) - \ln(y) \]
+because $\ln\frac{x}{y} = \ln\left(x \cdot \frac{1}{y}\right) = \ln(x) - \ln(y)$.
 
-
-\subsection{A different proof for the derivative of logarithm}
+\subsubsection{A different proof for the derivative of logarithm}
 %
 \begin{proof}
   \[
@@ -429,7 +437,11 @@ is injective, because $x_1 < x_2 \implies e^{x_1} < e^{x_2}$
     \item $f_n \to f$ converges pointwise in $I$
       (like the first statement in the previous Theorem)
     \item There exists $g: I \to \mathbb R$ such that
-      $f'_n \to g$ is continuous in $I$
+      $f'_n \to g$ is uniformly continuous in $I$, hence
+      \[
+        \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N, x \in I
+        \implies \abs{f_n'(x) - g(x)} < \varepsilon
+      \]
   \end{enumerate}
   Then $f$ is differentiable in $I$ and it holds that
   \[ f'(x_0) = g(x_0) \quad \forall x_0 \in I \]
@@ -700,8 +712,8 @@ The cosine function in the complex space is even.
 
   Then $\sum_{n=0}^\infty (a_n + b_n)$ is absolute convergent with sum $s + s'$.
 \end{lemma}
-\begin{proof}[series sum]
-  Absolute convergence.
+\begin{proof}[Proof for series sum:]
+  Consider absolute convergence.
   Show that $\sum_{k=0}^n = \abs{a_k + b_k} = t_n$ and $(t_n)_{n\in\mathbb N}$ is bounded.
 
   Follows immediately, because
@@ -757,14 +769,14 @@ Followingly,
   \end{align*}
 
   \begin{align*}
-    \intertext{Addition:} \\
+    \intertext{Addition (cosine):}
     2 \cos(z+w) &= 2 (\cos{z} \cdot \cos{w} - \sin{z} \sin{w}) \\
     \Rightarrow \cos(z + w) &= \cos{z} \cos{w} - \sin{z} \sin{w}
-    \intertext{Subtraction:}
+    \intertext{Addition (sine):}
     \Rightarrow \sin(z + w) &= \cos{z} \sin{w} + \sin{z} \cos{w} \forall z,w \in \mathbb C
   \end{align*}
 
-  Variations: $w \leftrightarrow -w$
+  Substraction (hence $w \leftrightarrow -w$):
   \begin{align*}
     \cos(z - w) &= \cos{z} \cdot \underbrace{\cos{w}}_{=\cos(-w)} + \sin{z} \underbrace{\sin{w}}_{=-\sin(-w)} \\
     \sin(z - w) &= -\cos{z} \cdot \sin(w) + \sin(z) \cos(w)
@@ -3935,7 +3947,8 @@ Figure~\ref{img:parametriccurve} gives an example for a curve which is not repre
             \sum_{k=1}^N \norm{\int_{t_{k-1}}^{t_k} \dot\gamma(t) \, dt} \\
           &\overset{\text{Lemma}}{=}
             \sum_{n=1}^n \int_{t_{k-1}}^{t_k} \norm{\dot\gamma(t)} \, dt \\
-          &\sum_{n=1}^N TODO
+          &= \int_{t_0}^{t_N} \norm{\dot\gamma(t)} \, dt \\
+          &= \int_a^b \norm{\dot\gamma(t)} \, dt
       \end{align*}
     \item Let $\varepsilon > 0$ be arbitrary.
       Find decomposition $z$ such that $s(\gamma) \geq s(z) \geq \int_a^b \norm{\dot\gamma(t)} \, dt - \varepsilon$.
