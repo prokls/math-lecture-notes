@@ -2443,9 +2443,11 @@ We have prove direction $\Rightarrow$.
 \begin{proof}
   The right-side integral is given (according to the Fundamental Theorem) by
   \[ F(t(\beta)) - F(t(\alpha)) \]
-  The left-side integral, because of
-  \[ F(t(x))' = F'(t(x)) \cdot t(x) \]
-  Hence $F = t$ is primitive function of the left-side integral.
+  The left-side integral is
+  \[ F(t(x))' = F'(t(x)) \cdot t'(x) \]
+  Or more precisely:
+  \[ \frac{d}{d\,x} F(t(x)) = \frac{d}{d\,t} F(t) \cdot \frac{d\,t}{d\,x} \]
+  Hence $F \circ t$ is the primitive function of the left-side integral.
   So it holds that
   \[
     \int_a^b f(t(x)) \cdot t'(x) \, dx
