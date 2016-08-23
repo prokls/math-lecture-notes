@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.81"
-     inkscape:cx="153.31492"
+     inkscape:zoom="1.8633333"
+     inkscape:cx="150"
      inkscape:cy="150"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-height="717"
      inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-y="27"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -45,7 +45,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -90,25 +90,25 @@
        xml:space="preserve"
        id="flowRoot4143"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:'Gentium Basic', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(12.154696,745.17984)"><flowRegion
+       transform="translate(7.861315,747.8632)"><flowRegion
          id="flowRegion4145"><rect
            id="rect4147"
            width="91.160217"
            height="80.110497"
            x="104.97237"
            y="54.143646" /></flowRegion><flowPara
-         id="flowPara4149">sin t</flowPara></flowRoot>    <flowRoot
+         id="flowPara4149">sin(t)</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4143-3"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:'Gentium Basic', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(94.375957,855.14266)"><flowRegion
+       transform="translate(85.302611,855.14266)"><flowRegion
          id="flowRegion4145-1"><rect
            id="rect4147-2"
            width="91.160217"
            height="80.110497"
            x="104.97237"
            y="54.143646" /></flowRegion><flowPara
-         id="flowPara4149-2">cos t</flowPara></flowRoot>    <flowRoot
+         id="flowPara4149-2">cos(t)</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4175"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:'Gentium Basic', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -119,5 +119,7 @@
            height="54.696133"
            x="211.04973"
            y="23.756907" /></flowRegion><flowPara
-         id="flowPara4181">e^it</flowPara></flowRoot>  </g>
+         id="flowPara4181">e<flowSpan
+   style="font-size:65%;baseline-shift:super"
+   id="flowSpan4150">it</flowSpan></flowPara></flowRoot>  </g>
 </svg>
