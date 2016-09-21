@@ -13,15 +13,16 @@
 \usepackage{imakeidx} % before hyperref
 \usepackage[pdfborder={0 0 0},colorlinks=true,citecolor=red]{hyperref}
 \usepackage{mathtools}
+\usepackage{mdframed}
 \usepackage{stmaryrd}
 \usepackage{rotating}
 \usepackage{bbold}
 
-\title{Linear Algebra -- Lecture Notes}
+\title{Linear Algebra 1 -- Lecture Notes}
 \author{Lukas Prokop}
-\date{winter term 2015}
+\date{winter term 2015/2016}
 
-\newcommand\meta[3]{This #1 took place on #2 (#3).\par}
+\newcommand\meta[3]{\fbox{This #1 took place on #2 (#3).}\par}
 \newcommand\abs[1]{|\,#1\,|}
 \newcommand\set[1]{\left\{#1\right\}}
 \newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
@@ -31,13 +32,13 @@
 \newcommand\Q{\mathbb{Q}}
 \newcommand\nope{\lightning}
 \newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
-\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+\newcommand\textgreek[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{defi}{Definition}
-\newtheorem{ex}{Example}
-\newtheorem{rem}{Remark}
-\newtheorem{cor}{Corollary}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{ex}{Example}[section]
+\newtheorem{rem}{Remark}[section]
+\newtheorem{cor}{Corollary}[section]
 
 \DeclareMathOperator\Hom{Hom} % homomorphism
 \DeclareMathOperator\End{End} % endomorphism
@@ -80,18 +81,18 @@ Weekly schedule:
     Tue & 08:15--09:45 & TU P2 \\
     Tue & 10:15 & BE 01, Konversatorium \\
     Wed & 13:00--15:00 & UE + Onlinekreuzesystem, Deadline 11:00 \\
-    Mon, Tue, Thu & * & Tutorien \\
+    Mon, Tue, Thu & * & Tutorial sessions \\
     \hline \hline
   \end{tabular}
 \end{table}
 
 Exams:
 \begin{enumerate}
-  \item lecture exam (written, 3 dates per semester, w/o notes)
+  \item lecture exam (written, 3 dates per semester, no notes allowed)
   \item 2 practicals exams (25.11, 27.01, 1 hand-written DIN~A4 page allowed)
 \end{enumerate}
 
-\textbf{What is linear algebra?}
+\subsection{What is linear algebra?}
 \begin{itemize}
   \item Arithmetics (greek: \textgreek{ἀριθμός})
   \item Geometry (greek: \textgreek{γεωμετρία})
@@ -106,12 +107,12 @@ Exams:
   \end{itemize}
 \end{itemize}
 
-Mathematics is the search for statements of the structure: \emph{If A, then B}.
+Mathematics is searching for statements of the structure: \emph{If A, then B}.
 
-\section{Set theory, logic and linear equations}
+\section{Set theory, logic, relations and linear equations}
 \subsection{Axiomatic definition of a set}
 
-Georg Kantor (1869)
+\fbox{Georg Kantor (1869)}
 \begin{quote}
   Unter einer Menge verstehen wir eine Zusammenfassung von \emph{bestimmten}
   \emph{wohlunterschiedenen} Objekten unserer Anschauung oder unsres Denkens
@@ -122,13 +123,13 @@ Georg Kantor (1869)
   of our perception or of our thought--which are called elements of the set.
 \end{quote}
 
-Hence for every object $x$ one of these statements hold:
+Hence for every object $x$ exactly one of these statements hold:
 \begin{itemize}
     \item $x$ is part of $M$: $x \in M$
     \item $x$ is not part of $M$: $x \not\in M$
 \end{itemize}
 
-\subsection{Notation for set theory}
+\subsection{Set theory notation}
 
 Approaches for notations:
 \begin{itemize}
@@ -143,14 +144,14 @@ Approaches for notations:
   \item Description
     \begin{itemize}
       \item $\set{1, 4, 9, 16, \ldots}$
-      \item $\set{n | n \text{ is square of an integer}}$
-      \item $\set{n | \text{there exists } k \in \mathbb{N} \text{ such that } n = k^2} = \set{k^2 | k \in \mathbb{N}}$
+      \item $\set{\divides{n}{n} \text{ is square of an integer}}$
+      \item $\set{\divides{n}{\text{there exists } k \in \mathbb{N}} \text{ such that } n = k^2} = \set{k^2 | k \in \mathbb{N}}$
     \end{itemize}
   \item Defined set with shortcuts
     \begin{itemize}
       \item $\mathbb{N}$
       \item $\mathbb{Z} = \set{0, \pm 1, \pm 2, \ldots}$
-      \item $\mathbb{Q} = \set{\frac{p}{q} | p \in \mathbb{Z}, q \in \mathbb{N}}$
+      \item $\mathbb{Q} = \set{\divides{\frac{p}{q}}{p} \in \mathbb{Z}, q \in \mathbb{N}}$
       \item $\mathbb{R} = $ complex definition, see analysis
       \item $\mathbb{C} = \setdef{x + y}{x, y \in \mathbb{R}}$
       \item $\set{} = \emptyset$ as the empty set
@@ -158,8 +159,7 @@ Approaches for notations:
     \end{itemize}
 \end{itemize}
 
-\subsubsection{Examples for custom sets}
-
+\emph{Examples for invalid sets:}
 \begin{description}
   \item[\enquote{The set of all competent politicians}]
     Not well-defined, opinion-based
@@ -168,34 +168,46 @@ Approaches for notations:
     It renders to be opinion-based.
 \end{description}
 
-\subsection{Contradictions and axiomization of set theory}
+\subsection{Soundness and completeness of set theory}
 \subsubsection{Russell's paradox}
 
 \fbox{Bertrand Arthur William Russell, 1872--1970} \\
 \fbox{Ernst Friedrich Ferdinand Zermelo, 1871--1953}
 
 Russell 1901, Zermelo 1902
-
-$M$ = \enquote{the set of all sets} = \enquote{the set of all sets that does not contain itself}
+\begin{align*}
+  M &= \text{\enquote{the set of all sets}} \\
+    &= \text{\enquote{the set of all sets that does not contain itself}}
+\end{align*}
 
 \subsubsection{Berry's paradox}
-
-$M_{12}$ = set of all integers not definable with fewer than 12 words \\
-$n$ is \enquote{the smallest positive integer not definable in fewer than twelve words}
+\begin{align*}
+  M_{12} &= \text{set of all integers not definable with fewer than 12 words.} \\
+       n &= \text{\enquote{the smallest positive integer not definable in fewer than twelve words}}
+\end{align*}
 
 So $n$ is not contained in $M_{12}$. But $n$ itself is now defined with 11 words.
 So it's contained? Paradox.
 
+\subsection{Axiomatic set theory}
+
 \subsubsection{Axiomatic system of Zermelo-Frauenkel}
 
 \begin{enumerate}
-  \item For all sets $A, B$ it holds that $A = B$ iff $x \in A$ then also $x \in B$.
+  \item For all sets $A, B$ it holds that $A = B$ iff $x \in A$ then also $x \in B$ (axiom of extensionality).
   \item An empty set exists. Hence for all $x$ it holds that $x \notin \emptyset$.
-  \item If $A$ and $B$ are sets, then also $\set{A, B}$.
-  \item If $A$ and $B$ are sets, then also the union of  $A \cup B$ is a set.
-  \item An infinite set exists.
-  \item If $A$ is a set, then also the power set $\mathcal{P}(A) = \set{B | B \subseteq A}$
+  \item If $A$ and $B$ are sets, then also $\set{A, B}$ (axiom of pairing).
+  \item If $A$ and $B$ are sets, then also the union of  $A \cup B$ is a set (axiom of sum set).
+  \item An infinite set exists (axiom of infinity).
+  \item If $A$ is a set, then also the power set $\mathcal{P}(A) = \set{B | B \subseteq A}$ (axiom of power set).
 \end{enumerate}
+
+\begin{align*}
+  \text{ZF}  &= \{\text{extensionality, pairing, subset, sum set, power set,} \\
+             & \hspace{20pt}\text{infinity, replacement, foundation}\} \\
+  \text{Z}   &= ZF \setminus \{\text{replacement}\} \\
+  \text{ZFC} &= ZF \wedge \{\text{axiom of choice}\}
+\end{align*}
 
 \subsubsection{Basics of logic}
 
@@ -244,7 +256,7 @@ Kurt Gödel (1930)
 
 Example: \enquote{This statement is not provable.}
 
-\subsubsection{A clarification}
+\subsubsection{Sat theory fixed}
 
 Due to these contradictions:
 \begin{quote}
@@ -259,12 +271,12 @@ Due to these contradictions:
   \item[Negation]
     $\neg A$ means the truth value of $A$ is inverted
   \item[Conjunction]
-    $A \land B$ is true, if $A$ and $B$ is true
+    $A \land B$ is true, if $A$ and $B$ are true
 \end{description}
 
 Attention!
 \begin{itemize}
-  \item Eating and drinking forbidden (actually: \enquote{no eating or drinking})
+  \item Eating and drinking forbidden (actually: \enquote{no eating \emph{or} drinking})
   \item Solutions for $x^2 = 1$: $x_1 = 1$ and $x_2 = -1$ (\enquote{actually: $x_1 = 1$ \emph{or} $x_2 = -1$})
 \end{itemize}
 
@@ -274,21 +286,21 @@ Attention!
   \item[Exclusive disjunction]
     $A \dot\lor B$ is true if $A$ or $B$ but not both are true (latin \enquote{out})
   \item[Equivalence]
-    $A \leftrightarrow B$ is true if both share the same truth value ($\neg (A \dot\lor B)$)
+    $A \iff B$ is true if both share the same truth value ($\neg (A \dot\lor B)$)
   \item[Implication / subjunction]
     $A \implies B$ is true if $A$ is false or $A$ is true and $B$ is false.
     $A$ implies $B$. Deutsch: \enquote{A ist hinreichend für B. B ist notwendig für A.}
 \end{description}
 
-\subsubsection{Definition of equivalence}
-
+\emph{Equivalence of statements:}
 Two logical statements are equivalent if for every variable assignment,
-the same truth value is evaluated ($P(A_1, \ldots, A_n) \leftrightarrow Q(A_1, \ldots, A_n)$).
+the same truth value is evaluated ($P(A_1, \ldots, A_n) \iff Q(A_1, \ldots, A_n)$).
 
-\subsubsection{DeMorgan's law of logic}
+\subsubsection{DeMorgan's laws of logic}
 
 \begin{align*}
-  \neg(A \land B) &\Leftrightarrow \neg A \lor \neg B \\
+  \neg(A \land B) &\iff \neg A \lor \neg B \\
+  \neg(A \lor B) &\iff \neg A \land \neg B \\
 \end{align*}
 
 \meta{lecture}{6th of Oct 2015}{Prof. Franz Lehner}
@@ -297,7 +309,7 @@ the same truth value is evaluated ($P(A_1, \ldots, A_n) \leftrightarrow Q(A_1, \
 
 \subsubsection{Proofs}
 
-A sentence is a statement of kind:
+A sentence is a statement of form:
 \[ A \implies B \]
 
 $A$ is our requirement. $B$ is our conclusion.
@@ -306,11 +318,14 @@ A proof is showing that $B$ holds under assumption of $A$.
 \subsection[Example proof: $n^2$ is odd if $n$ is odd]{Example proof: $n^2$ is odd if $n$ is odd}
 \subsubsection{Direct proof of a statement}
 %
+\[ A \implies B \]
+
+\emph{Example:}
 \begin{quote}
-  Let $n \in \mathbb{N}$ be odd, than $n^2$ is odd.
+  Let $n \in \mathbb{N}$ be odd, then $n^2$ is odd.
 \end{quote}
 
-Proof:
+\begin{proof}
 \begin{itemize}
   \item[$A$.] $n$ is even and $n \in \mathbb{N}$, hence there exists some
            $k \in \mathbb{N}_0$ such that $n = 2k + 1$
@@ -321,10 +336,11 @@ Proof:
 We know, $n = 2k + 1$, so
 \[ \Rightarrow n^2 = (2k + 1)^2 = 4k^2 + 4k + 1 = 2\cdot(2k^2 + 2k) + 1 \]
 with $l = 2k^2 + 2k$, statement $B$ holds. Direct proof.
+\end{proof}
 
 \subsubsection{\enquote{Contraposition law} or \enquote{Indirect proof}}
 %
-\[ A \implies B \Leftrightarrow \neg B \implies \neg A \]
+\[ A \implies B \iff \neg B \implies \neg A \]
 %
 \begin{quote}
   If $n^2$ is even, than $n$ is even.
@@ -334,27 +350,26 @@ with $l = 2k^2 + 2k$, statement $B$ holds. Direct proof.
   \item[$A$.] $n^2$ is even
   \item[$B$.] $n$ is even
   \item[$\neg B$.] $n$ is odd
-  \item[$\neg A$.] $n$ is odd
+  \item[$\neg A$.] $n^2$ is odd
 \end{itemize}
 
-We already have shown,
-
+\begin{proof}
+We already have proven,
 \[ \neg B \implies \neg A \]
-
 hence also $A \implies B$ is true.
+\end{proof}
 
 \subsubsection{Proof by contradiction}
-
 \[ A \lor \neg A \]
 
-Tertium nondatur \\
-hence if $\neg A$ is false, then $A$ is true.
+\enquote{Tertium nondatur} (engl. no third possibility is given), \enquote{Law of excluded middle},
+if $\neg A$ is false then $A$ is true.
 
 \subsection{Example proof: $\sqrt{2}$ is irrational}
 %
 \[ \sqrt{2} \not\in \mathbb{Q} \]
-%
-Proof:
+
+\begin{proof}
 %
 \begin{itemize}
   \item[$A$.] Let $x \in \mathbb{R}$ such that $x^2 = 2$ and $x > 0$ and let $\sqrt{2}$ be that number
@@ -365,19 +380,19 @@ Assume $\neg B$ hence $\sqrt{2} \in \mathbb{Q}$. We find a contradiction.
 
 $\sqrt{2} \in \mathbb{Q}$ then there exists some $p \in \mathbb{Z}, q \in \mathbb{N}$ such that $\sqrt{2} = \frac{p}{q}$.
 
-Wlog (without loss of generality), we assume that the fraction is irreducible. Hence $\operatorname{gcd}(p, q) = 1$.
+Without loss of generality, we assume that the fraction is irreducible. Hence $\operatorname{gcd}(p, q) = 1$.
 
 Therefore $\sqrt{2}$ has the following property.
 \begin{align*}
   \sqrt{2} &= \frac{p}{q} \\
-  (\sqrt{2})^2 &= 2 \\
+  \left(\sqrt{2}\right)^2 &= 2 \\
   \frac{p^2}{q^2} &= 2 \\
   \Rightarrow p^2 &= 2 q^2 \\
   \Rightarrow p^2 \text{ is even} \\
   \Rightarrow p \text { is even }
 \end{align*}
 
-hence there exists some $k \in \mathbb{N}$ such that $p = 2k$
+Hence there exists some $k \in \mathbb{N}$ such that $p = 2k$
 
 \begin{align*}
   (2k)^2 &= 2q^2 \\
@@ -393,39 +408,40 @@ hence there is some $l \in \mathbb{N}$ such that $q = 2l$.
 
 is not reduced. This is contradictory to our original statement.
 
-\[ \operatorname{gcd}(p,q) = \operatorname{gcd}(2k, 2l) \]
-\[ \geq 2 \neq 1 \]
+\[ \operatorname{gcd}(p,q) = \operatorname{gcd}(2k, 2l) \geq 2 \neq 1 \]
 
 $\Rightarrow \neg B$ is wrong, so $B$ is true.
+\end{proof}
 
 \subsection{Remark about constructivism}
-
+%
 A few mathematicians deny \enquote{tertium non datur}.
 For those $A \lor \neg A$ means that there is no proof for either statement.
+Or in other words: Any proof giving existence, but not being constructive, is not a proof.
+Hence our previous proof about $\sqrt{2}$ is considered incomplete by constructivists.
 
 \subsubsection{$a^b$ is irrational with $a, b \in \mathbb{R}$}
 %
-Proof: We know that $\sqrt{2} \not\in \mathbb{Q}$.
-%
-\[
-    \left(\sqrt{2}^{\sqrt{2}}\right)^{\sqrt{2}}
-    = \sqrt{2}^{\sqrt{2}\cdot\sqrt{2}}
-    = \sqrt{2}^2
-    = 2^{\in \mathbb{Q}}
-\]
+Hilbert's 7th problem:
+\begin{quote}
+  Is $a^b$ always transcendental for algebraic $a \not\in \set{0,1}$
+  and irrational algebraic $b$?
+\end{quote}
+The Gelfond-Schneider theorem proves the problem statement true.
+Now consider $a, b$ not necessarily algebraic. Then $a^b$ is not necessarily transcendental.
 
-\begin{description}
-  \item[Case 1]
-    $\sqrt{2}^{\sqrt{2}}$ is irrational
-    $\Rightarrow$ choose $a = \sqrt{2}^{\sqrt{2}} \not\in \mathbb{Q},
-    b = \sqrt{2} \not\in \mathbb{Q}, a^b \in \mathbb{Q}$
-  \item[Case 2]
-    $\sqrt{2}^{\sqrt{2}} \in \mathbb{Q}$
-    $\Rightarrow$ choose $a = \sqrt{2} \not\in \mathbb{Q}$ and $b = \sqrt{2} \not\in \mathbb{Q}$
-    and $a^b \in \mathbb{Q}$.
-\end{description}
+\begin{proof}
+  We know that $\sqrt{2} \not\in \mathbb{Q}$.
+  \[
+      \left(\sqrt{2}^{\sqrt{2}}\right)^{\sqrt{2}}
+      = \sqrt{2}^{\sqrt{2}\cdot\sqrt{2}}
+      = \sqrt{2}^2
+      = 2 \in \mathbb{Q}
+  \]
+  where 2 is algebraic (i.e. not transcendental).
 
-With other means means that $\sqrt{2}^{\sqrt{2}} \not\in \mathbb{Q}$.
+  $\sqrt{2}^{\sqrt{2}} \not\in \mathbb Q$ by the Gelfond-Schneider Theorem.
+\end{proof}
 
 \subsection{First-order logic}
 \subsubsection{\enquote{Agreement} or \enquote{contract}}
@@ -433,16 +449,16 @@ With other means means that $\sqrt{2}^{\sqrt{2}} \not\in \mathbb{Q}$.
 A \emph{predicate} is an expression which depends on variable and
 by insertion of values, a statement is created.
 
-\[ P(n) \Leftrightarrow \text{ $n$ is even} \]
+\[ P(n) \iff \text{ $n$ is even} \]
 
 is not a statement unless we define $n$.
 
-\[ P(2) \Leftrightarrow \text{2 is even} \]
-\[ P(3) \Leftrightarrow \text{3 is even} \]
+\[ P(2) \iff \text{2 is even} \]
+\[ P(3) \iff \text{3 is even} \]
 
 \subsubsection{Quantifiers}
 
-\[ Q(n) \Leftrightarrow \left(P(n = 2k + 1) \implies P(n^2 = 2l + 1)\right) \]
+\[ Q(n) \iff \left(P(n = 2k + 1) \implies P(n^2 = 2l + 1)\right) \]
 
 hence the statement
 \[ Q(1) \land Q(2) \land Q(3) \land Q(4) \land Q(5) \ldots \]
@@ -458,56 +474,57 @@ $\bigwedge$ is called \enquote{all quantifier}.
 
 Analogously for $P(1) \lor P(2) \lor P(3) \lor \ldots$ is true if there is some $n$ such that $P(n)$ is true.
 
-\[ \bigvee_{n \in \mathbb{N}} P(n) \Leftrightarrow \exists n: P(n) \]
+\[ \bigvee_{n \in \mathbb{N}} P(n) \iff \exists n: P(n) \]
 
-Variant:
+Special case:
 \[ \dot\bigvee_{x \in X} P(x) \]
 
 there exists \emph{exactly one} $x$ such that $P(x)$ holds.
 
-\[ \exists! x \in X: P(x) \]
+\[ \exists! \, x \in X: P(x) \]
 
 \subsubsection{Proof using quantifiers}
 
 There exists some prime number:
 
 \begin{itemize}
-  \item $\bigwedge_{n \in \mathbb{N}} n \in \mathbb{P}$
+  \item $\bigvee_{n \in \mathbb{N}} n \in \mathbb{P}$
         where $\mathbb{P}$ is the set of prime numbers.
   \item An integer is a prime number, if it does not have real divisor.
         \[
-            \divides{k}{n} \: = \text{$k$ divides $n$}
-            \Leftrightarrow \bigvee_{l \in \mathbb{N}} k\cdot l = n
+            \divides{k}{n} \iff \text{$k$ divides $n$}
+            \iff \bigvee_{l \in \mathbb{N}} k\cdot l = n
         \] \[
-            \bigwedge_{n \in \mathbb{N}} n \in \mathbb{P}
-              \leftrightarrow \neg \bigvee_{k \in \mathbb{N}} (k > 1) \land (k < n) \land (\divides{k}{n})
+            \bigvee_{n \in \mathbb{N}} n \in \mathbb{P}
+              \iff \neg \bigvee_{k \in \mathbb{N}} (k > 1) \land (k < n) \land (\divides{k}{n})
         \]
 \end{itemize}
 
 \subsubsection{Negation with quantifiers}
-
-\[ \neg(A \land B) \Leftrightarrow \neg A \lor \neg B \]
-\[ \neg \bigwedge_{x \in X} P(x) \Leftrightarrow \bigvee_{x \in X} \neg P(x) \]
+%
+%\[ \neg(A \land B) \iff \neg A \lor \neg B \]
+\[ \neg \bigwedge_{x \in X} P(x) \iff \bigvee_{x \in X} \neg P(x) \]
+\[ \neg \bigvee_{x \in X} P(x) \iff \bigwedge_{x \in X} \neg P(x) \]
 
 \subsection{Relation between set theory and boolean algebra}
 
 \begin{align*}
-  A \cap B &= \setdef{x}{x \in A \land x \in B} \\
-  A \cup B &= \setdef{x}{x \in A \lor x \in B} \\
-  A \triangle B &= \setdef{x}{x \in A \dot\lor x \in B} \mathspace \text{\enquote{symbolic difference}} \\
-  A \setminus B &= \setdef{x}{x \in A \land x \notin B}
+  A \cap B &= \setdef{x}{x \in A \land x \in B} \mathspace \text{\enquote{intersection}} \\
+  A \cup B &= \setdef{x}{x \in A \lor x \in B} \mathspace \text{\enquote{union}} \\
+  A \triangle B &= \setdef{x}{x \in A \,\dot\lor\, x \in B} \mathspace \text{\enquote{symbolic difference}} \\
+  A \setminus B &= \setdef{x}{x \in A \land x \notin B} \mathspace \text{\enquote{difference}}
 \end{align*}
 \begin{align*}
   A^C &= \setdef{x \in U}{x \not\in A} \mathspace \text{\enquote{complement in $U$, the universe}} \\
       &= U \setminus A \\
-  A \subseteq B &\Leftrightarrow \bigwedge_{x \in A} x \in B \\
-                &\Leftrightarrow \bigwedge_{x} \left(x \in A \implies x \in B\right) \\
-  A = B &\Leftrightarrow \bigwedge_x x \in A \Leftrightarrow x \in B
+  A \subseteq B &\iff \bigwedge_{x \in A} x \in B \mathspace \text{\enquote{subset}} \\
+                &\iff \bigwedge_{x} \left(x \in A \implies x \in B\right) \\
+  A = B &\iff \bigwedge_x \left(x \in A \iff x \in B\right)
 \end{align*}
 
 Let $A_i$ with $i \in I$ (where $I$ is the index set) be sets than
-\[ \bigcap_{i \in I} A_i = \setdef{x}{\bigwedge_{i \in I} x \in A_i} \mathspace \text{intersection of all $A_i$} \]
-\[ \bigcup_{i \in I} A_i = \setdef{x}{\bigvee_i x \in A_i} \mathspace \text{union of all $A_i$} \]
+\[ \bigcap_{i \in I} A_i = \setdef{x}{\bigwedge_{i \in I} x \in A_i} \mathspace \text{\enquote{intersection of all $A_i$}} \]
+\[ \bigcup_{i \in I} A_i = \setdef{x}{\bigvee_{i \in I} x \in A_i} \mathspace \text{\enquote{union of all $A_i$}} \]
 
 \[
     \bigcap_{i \in I} A_i \cap \bigcap_{j \in J} A_j
@@ -516,17 +533,20 @@ Let $A_i$ with $i \in I$ (where $I$ is the index set) be sets than
 \]
 
 What happens at $I = \emptyset$?
-\[ \bigwedge_{x \in \emptyset} P(x) \Leftrightarrow W \mathspace\text{is always true} \]
+\[ \bigwedge_{x \in \emptyset} P(x) \iff W \mathspace\text{is always true} \]
 
 This is axiomatic:
 \[ \bigwedge_{x \in \emptyset} P(x) \mathspace \text{is always true} \]
 
 $I = \mathbb{R}$, for every $x \in \mathbb{R}$ a set $A_x$ is given
 \[ \bigcap_{x \in \mathbb{R}} A_x = \setdef{y}{\bigwedge_{x \in \mathbb{R}} y \in A_x} \]
+On the contrary:
 \[ \bigvee_{x \in \emptyset} Q(x) \mathspace\text{is always false} \]
 
 \subsubsection{Power sets}
-
+%
+\index[German]{\foreignlanguage{ngerman}{Potenzmenge}}
+\index[English]{Power set}
 Let $A$ be a set.
 \[ \mathcal P(A) = 2^A = \setdef{B}{B \subseteq A} \]
 is called a \enquote{power set} of $A$.
@@ -599,7 +619,7 @@ A relation of a set $X$ is a subset $R \subseteq X \times X$. We denote $x R y$ 
 A \emph{relation} $R$ operating on a set $X$ is called
 \begin{description}
   \item[reflexive] \hfill{} \\
-    if $\bigwedge_{x \in X} x R x$ (hence $(x, x) \in \mathbb{R}$)
+    if $\bigwedge_{x \in X} x R x$ (hence $(x, x) \in R$)
   \item[symmetrical] \hfill{} \\
     if $\bigwedge_{x \in X}{y \in X} \left(xRy \implies yRx\right)$
   \item[anti-symmetrical] \hfill{} \\
@@ -619,10 +639,12 @@ Examples 3, 4 and 5 are order relations.
 A relation satisfying reflexivity, anti-symmetry, transitivity and connexivity is called \emph{total order}.
 Example 2 is a total order.
 
+\index[English]{Equivalence class}
+\index[German]{\foreignlanguage{ngerman}{Equivalence class}}
 Let $\sim$ be an equivalence relation operating on set $X$.
 For $x \in X$,
 \[ [x] = \setdef{y \in X}{x \sim y} \]
-is called equivalence class of $x$.
+is called \emph{equivalence class} of $x$.
 
 Examples:
 \begin{itemize}
@@ -632,7 +654,11 @@ Examples:
   \item $[a] = \set{a, c}, [b] = \set{b}, [c] = \set{a, c}$
 \end{itemize}
 
-$\faktor{X}{\sim} = \setdef{[x]}{x = X}$ is called \emph{factor set} or \emph{quotient set}.
+\index[English]{Factor set}
+\index[German]{\foreignlanguage{ngerman}{Faktormenge}}
+\index[English]{Quotient set}
+\index[German]{\foreignlanguage{ngerman}{Quotientenmenge}}
+$\faktor{X}{\sim} = \setdef{[x]}{x \in X}$ is called \emph{factor set} or \emph{quotient set}.
 
 Examples:
 \begin{itemize}
@@ -652,6 +678,8 @@ Examples:
   \item $S = X$
   \item $S = \set{0, \ldots, n - 1}$
 \end{itemize}
+
+\subsection{Equivalence relation}
 
 \begin{theorem}
   \label{satz-1.2.9}
@@ -678,9 +706,9 @@ Let $X$ be a set. A \emph{partition} of $X$ is a subset $Z \subseteq \mathcal{P}
 $Z$ is the set of subsets of $X$ such that
 %
 \begin{itemize}
-  \item $\bigcup_{A = Z} A = X$
+  \item $\left(\bigcup_{A \in Z} A\right) = X$
   \item $\bigwedge_{A,B \in Z} \left(A \neq B \implies A \cap B = \emptyset\right)$
-    \[ \iff \bigwedge_{x \in X} \bigvee_{A \in Z} x \in A \]
+    \[ \iff \bigwedge_{x \in X} \dot\bigvee_{A \in Z} x \in A \]
 \end{itemize}
 
 \begin{theorem}
@@ -722,18 +750,22 @@ $Z$ is the set of subsets of $X$ such that
   \end{itemize}
 \end{proof}
 
+\subsection{Functions}
+\index[English]{Function}
+\index[German]{\foreignlanguage{ngerman}{Funktion}}
+
 \meta{lecture}{13rd of Oct 2015}{Prof. Franz Lehner}
 
-A \emph{function} (or mapping) between two sets $X$ and $Y$
+A \emph{function} (or mapping, map) between two sets $X$ and $Y$
 \[ f: X \rightarrow Y \]
 \[ x \mapsto f(x) \]
 is a relation assigning every element $x \in X$ some $f(x) \in Y$.
 
 $X$ is called domain and $Y$ is called co-domain (also range or image).
 $f(x)$ is called image of $x$ under $f$.
-We can find a symbolic expression for a function or explicitly enumerate all mappings possibilities.
+We denote a function by a symbolic expression for a function or we explicitly enumerate all mappings possibilities.
 
-Examples:
+\textbf{Examples:}
 \begin{align*}
   f_1: \mathbb{R} &\rightarrow \mathbb{R} \\
                 x &\mapsto x^2 \\
@@ -762,7 +794,7 @@ Remarks:
   \item
     The graph $G_f$ is a relation between $X$ and $Y$ such
     that every $x \in X$ occurs exactly once:
-    \[ G_f = \setdef{(x, f(x))}{x \in X} \subseteq X \times Y \]
+    \[ G_f = \setdef{(x, f(x))}{x \in X, f(x) \in Y} \subseteq X \times Y \text{ such that} \]
     \[ \bigwedge_{x\in X} \dot\bigvee_{y\in Y} (x,y) \in G_f \]
 
   \item
@@ -775,7 +807,9 @@ Remarks:
     \end{itemize}
 
   \item
-    The function $\text{id}_X: X \rightarrow X$ is called \enquote{identity}.
+    \index[English]{Identitätsfunktion}
+    \index[German]{Identity function}
+    The function $\text{id}_X: X \rightarrow X$ is called \emph{identity}.
 
   \item
     \index[English]{Indicator function}
@@ -826,6 +860,8 @@ Analogously $f$ indicates a function
 Remark:
 \[ f^{-1}(B) = \bigcup_{b \in B} f^{-1}(b) \]
 
+\subsection{Injective, surjective and bijective functions}
+
 \index[English]{Injective function}
 \index[German]{\foreignlanguage{ngerman}{Injektive Funktion}}
 A function $f: X \rightarrow Y$ is called \emph{injective} iff
@@ -862,12 +898,13 @@ Examples:
     $f: x \mapsto x^3$ in $\mathbb{R} \rightarrow \mathbb{R}$ is bijective.
   \item
     $f: A \mapsto A^C = X \setminus A$ in $\mathcal{P}(X) \rightarrow \mathcal{P}(X)$.
-    Injective if $A \neq B$. Wlog $x \in A$, $x \not\in B$
-    \[ \Rightarrow x \notin A^C, x \in B^C \Rightarrow B^C \neq A^C \]
+    Injective if $A \neq B \implies $ without loss of generality $x \in A$, $x \not\in B
+    \implies x \notin A^C, x \in B^C \implies B^C \neq A^C$.
     Surjective: Given $B \subseteq X$, find $A \subseteq X$ such that
     \[ f(A) = A^C = B \]
     Yes, if $A = B^C$ that $A^C = (B^C)^C = B$.
-    The inverse function is the function itself.
+    It even holds that the inverse function is the function itself.
+    This function is bijective and an involution.
 \end{itemize}
 
 \index[English]{Involution}
@@ -908,20 +945,18 @@ is called \emph{composition of $f$ and $g$}.
 \begin{proof}
   Let $f$, $g$ be injective. So $g\circ f$ must also be injective.
 
-  Let $x_1,x_2 \in X$ such that $g\circ f(x_1) = g\circ f(x_1)$.
+  Let $x_1,x_2 \in X$ such that $g\circ f(x_1) = g \circ f(x_2)$.
   We need to show $x_1 = x_2$.
 
-  \[ g\circ f(x_1) = g\circ f(x_2) \]
-  \[ \Rightarrow g(f(x(_1)) = g(f(x_2)) \]
-  \[ \Rightarrow y_1 = f(x_1), y_2 = f(x_2) \]
-  \[ g(y_1) = g(y_2) \xRightarrow{g \text{ injective}} Y_1 = Y_2 \]
-  \[ \Rightarrow f(x_1) = f(x_2) \xRightarrow{f \text{ injective}} x_1 = x_2 \]
+  \[ g\circ f(x_1) = g\circ f(x_2) \implies g(f(x_1)) = g(f(x_2)) \]
+  Let $y_1 = f(x_1), y_2 = f(x_2)$.
+  \[ g(y_1) = g(y_2) \xRightarrow{g \text{ injective}} y_1 = y_2 
+     \implies f(x_1) = f(x_2) \xRightarrow{f \text{ injective}} x_1 = x_2 \]
 \end{proof}
-
 Remarks:
 \begin{enumerate}
   \item
-    If $f: X \rightarrow Y$  is bijective, then $f^{-1}: Y \rightarrow X$ and it holds that
+    If $f: X \rightarrow Y$ is bijective, then $f^{-1}: Y \rightarrow X$ exists and it holds that
     \[ f\circ f^{-1} = \operatorname{id}_Y \]
     \[ f^{-1}\circ f = \operatorname{id}_X \]
 
@@ -934,8 +969,8 @@ Remarks:
     Let $f: X \to Y$ and $g: Y \to Z$ be functions.
     Then it holds that
     \begin{itemize}
-      \item $g \circ f$ surjective $\Rightarrow$ $g$ is surjective
-      \item $g \circ f$ injective $\Rightarrow$ $f$ is injective
+      \item $g \circ f$ surjective $\implies g$ is surjective
+      \item $g \circ f$ injective $\implies f$ is injective
     \end{itemize}
 \end{enumerate}
 
@@ -944,12 +979,14 @@ Remarks:
 \index[English]{Linear equation system}
 \index[German]{\foreignlanguage{ngerman}{Lineares Gleichungssystem}}
 A linear equation system is an equation system of structure:
-\begin{align*}
-  a_{1,1} x_1 + a_{1,2} x_2 + \ldots + a_{1,n} x_n &= b_1 \\
-  a_{2,1} x_1 + a_{2,2} x_2 + \ldots + a_{2,n} x_n &= b_2 \\
-    \vdots                                     &= \vdots \\
-  a_{n,1} x_1 + a_{n,2} x_2 + \ldots + a_{n,n} x_n &= b_n
-\end{align*}
+\[
+  \begin{array}{ccccccccc}
+    a_{1,1} x_1 &+& a_{1,2} x_2 &+& \ldots &+& a_{1,n} x_n &=& b_1 \\
+    a_{2,1} x_1 &+& a_{2,2} x_2 &+& \ldots &+& a_{2,n} x_n &=& b_2 \\
+      \vdots    & & \vdots      & & \vdots & & \ddots      &=& \vdots \\
+    a_{n,1} x_1 &+& a_{n,2} x_2 &+& \ldots &+& a_{n,n} x_n &=& b_n
+  \end{array}
+\]
 with coefficients $a_{ij}$, $b_i \in \mathbb{R}$ for all $i \in \set{1,2,\ldots,n}$ and $j \in \set{1,2,\ldots,n}$.
 $x_1,x_2,\ldots,x_n$ are the unknown variables.
 
@@ -963,7 +1000,7 @@ The scheme
   \begin{bmatrix}
     a_{1,1} & a_{1,2} & \ldots & a_{1,n} \\
     a_{2,1} & a_{2,2} & \ldots & a_{2,n} \\
-    \vdots &        & \ddots & \vdots \\
+    \vdots  & \vdots  & \ddots & \vdots \\
     a_{m,1} & a_{m,2} & \ldots & a_{m,n}
   \end{bmatrix}
 \end{displaymath}
@@ -1006,21 +1043,23 @@ Case distinction:
 \end{description}
 \end{ex}
 
-\[ n = 2, m = 2 \]
-\begin{align*}
-  a_{1,1} x + a_{1,2} y &= b_1 \\
-  a_{2,1} x + a_{2,2} y &= b_2
-\end{align*}
+\begin{ex}
+  Let $n = 2, m = 2$.
+  \begin{align*}
+    a_{1,1} x + a_{1,2} y &= b_1 \\
+    a_{2,1} x + a_{2,2} y &= b_2
+  \end{align*}
 
-Case distinction:
-\begin{description}
-  \item[Case 1]
-    intersection between two lines (exactly one solution)
-  \item[Case 2]
-    two parallel lines (no solution)
-  \item[Case 3]
-    one line (infinite solution)
-\end{description}
+  Case distinction:
+  \begin{description}
+    \item[Case 1]
+      intersection between two lines (exactly one solution)
+    \item[Case 2]
+      two parallel lines (no solution)
+    \item[Case 3]
+      one line (infinite solutions)
+  \end{description}
+\end{ex}
 
 \subsubsection{Substitution}
 
@@ -1033,9 +1072,7 @@ Case distinction:
   \end{align*}
 
   We subtract the second from the first equation.
-  \[ 0 - 2y = 1 \]
-  \[ \Rightarrow y = -\frac12 \]
-  \[ \Rightarrow x = 1 - y = \frac32 \]
+  \[ 0 - 2y = 1 \implies y = -\frac12 \implies x = 1 - y = \frac32 \]
   Distinct solution $(\frac32, -\frac12)$.
 \end{ex}
 
@@ -1113,8 +1150,8 @@ What if there are 3 unknown variables, but only one equation?
 What if there are three variables and two equations?
 
 \begin{description}
-  \item[Case 7] Two layers intersect in one line
-  \item[Case 8] Two layers are parallel
+  \item[Case 7] Two layers intersect in one line.
+  \item[Case 8] Two layers are parallel.
 \end{description}
 
 What if there are three variables and three equations?
@@ -1124,7 +1161,7 @@ What if there are three variables and three equations?
 \end{description}
 
 Or in general: point, line, layer, no solution or $\mathbb{R}^3$.
-On a line we have one degree of freedom whereas $\mathbb{R}^3$ gives us three degrees of freeedom.
+On a line we have one degree of freedom whereas $\mathbb{R}^3$ gives us three degrees of freedom.
 
 \paragraph{Example}
 \begin{align*}
@@ -1135,10 +1172,12 @@ On a line we have one degree of freedom whereas $\mathbb{R}^3$ gives us three de
 
 We use Gauss-Jordan elimination:
 
-\begin{align*}
-  2 + 3\cdot 1 & 0\cdot 2y - 7z = 12 \\
-  3 - 1        & 2y + 2z = 2
-\end{align*}
+\[
+  \begin{array}{ccc}
+    2 + 3\cdot 1 & \hspace{20pt} & 0\cdot 2y - 7z = 12 \\
+    3 - 1        & \hspace{20pt} & 2y + 2z = 2
+  \end{array}
+\]
 
 The following equation system then has the same solution:
 
@@ -1155,9 +1194,11 @@ We again use Gauss-Jordan elimination:
 \end{align*}
 
 Therefore we derived:
-\[ -x + y + 2z = 2 \]
-\[ 2y + 2z = 2 \]
-\[ 5z = 10 \]
+\begin{align*}
+  -x + y + 2z &= 2 \\
+  2y + 2z &= 2 \\
+  5z &= 10
+\end{align*}
 
 Then $z = 2$, $y = -1$ and $x = 1$ follows.
 
@@ -1361,7 +1402,7 @@ From $2x_3 = 0$, $x_3 = 0$ follows.
 
 Solution set: $\setdef{(-3 + 2t, 4 - 3t, 0, t)}{t \in \mathbb{R}}$
 
-\section{Vector spaces}
+\section{Vector spaces and group theory}
 
 A vector is an element of $\mathbb{R}^n$ ($\mathbb{R}^n = \mathbb{R} \times \mathbb{R} \times \ldots \times \mathbb{R}$):
 \[ \setdef{\begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_n\end{pmatrix}}{a_i \in \mathbb{R}} \]
@@ -1442,7 +1483,7 @@ Distributivity law:
 \[ (\lambda + \mu) \cdot a = \lambda a + \mu a \]
 \[ \mu \cdot (a + b) = \lambda a + \lambda b \]
 
-\subsection{Applications}
+\subsection{Geometric applications}
 \subsubsection{Diagonals of a parallelogram}
 %
 \begin{figure}[!h]
@@ -1491,12 +1532,12 @@ A layer can be defined by three points $P_1$, $P_2$ and $P_3$.
 
 \[ \setdef{\overrightarrow{0P_1} + s \cdot \overrightarrow{P_1 P_2} + t \cdot \overrightarrow{P_1 P_3}}{s, t \in \mathbb{R}} \]
 
-\subsection{Algebraic structures}
+\subsection{Algebraic structures and Group Theory}
 
 A set $M$ with a mapping $\circ: M \times M \rightarrow M$ with $(x, y) \mapsto x \circ y$
 is called \emph{Magma} or \emph{algebraic structure}.
 
-\subsubsection{Examples}
+\subsubsection{Examples of Magma}
 
 Examples for $M$:
 
@@ -1562,7 +1603,7 @@ Examples for mappings $\circ$:
     Example $M = X^X = \set{f: X \rightarrow X}$ of an arbitrary set. $f \circ g$ is the composition (compute $f$ after $g$).
 \end{enumerate}
 
-\subsection{Compositions}
+\subsection{Compositions and their properties}
 
 Let $(M, a)$ be a Magma. The composition is called
 
@@ -1654,6 +1695,8 @@ Examples:
   \item $(X^X, \circ)$ is a non-commutative monoid
 \end{enumerate}
 
+\subsection{Groups}
+
 \begin{theorem}
   A magma ($G, \circ$) is a group iff
   \begin{description}
@@ -1677,8 +1720,14 @@ Examples:
       \[ x \circ y = e \circ (x \circ y) = (z \circ y) \circ (x \circ y) \]
       From G3 it follows that
       \[ \bigvee_{z} z \circ y = e \]
-      From associativity it follows that $z \circ (y \circ x) \circ y \Rightarrow z \circ (e \circ z) \Rightarrow z \circ y = e$.
+      From associativity it follows that $x \circ y = z \circ (y \circ x) \circ y = z \circ e \circ y = z \circ y = e$.
     \item[i.]
+      % Does not seem like a proof to me. But inverse =>
+      % \forall x \exists y: x \circ y = e = y \circ x
+      % \exists e \forall x: e \circ x = x
+      % Show \forall x \in M: x \circ e = x
+      % e \circ x = x  \iff  (x \circ y) \circ x = x
+      % \iff x \circ (y \circ x) = x \iff x \circ e = x
       Let $x, y \in G$ with inverse elements $x^{-1}$ and $y^{-1}$.
       Let $z = y^{-1} \circ x^{-1}$. Then,
       \begin{align*}
@@ -1704,7 +1753,7 @@ Examples:
   Let $(G, \cdot)$ be a group.
   \begin{enumerate}
     \item The neutral element is unique
-    \item Inverse elements are unique (therefore every element has exactly one inverse)
+    \item Inverse elements are unique (i.e. every element has exactly one inverse)
     \item Equivalence laws:
       \[ \bigwedge_{x,y,z \in G} x \circ z = y \circ z \implies x = z \]
       \[ \bigwedge_{x,y,z \in G} z \circ x = z \circ y \implies x = y \]
@@ -1776,10 +1825,10 @@ Examples:
   \begin{center}
     \begin{tabular}{ll}
      \hline
-      Magma & $(M, \circ)$, $\circ: M \times M \rightarrow M$ \\
+      Magma     & $(M, \circ)$, $\circ: M \times M \rightarrow M$ \\
       Semigroup & +associative \\
-      Monoid & +neutral element $e$: $e \circ a = a = a \circ e$ \\
-      Group & invertibility of all elements: $\bigwedge_x \bigvee_y x\circ y = e = y \circ x$ \\
+      Monoid    & +neutral element $e$: $e \circ a = a = a \circ e$ \\
+      Group     & +invertibility of all elements: $\bigwedge_x \bigvee_y x\circ y = e = y \circ x$ \\
      \hline
     \end{tabular}
     \caption{Group theory cheatsheet}
@@ -1825,6 +1874,12 @@ Examples:
 How do we construct groups? We select an associative $(M, \circ)$.
 $G = \setdef{x \in M}{x \text{ invertible}}$ is a group.
 
+\subsection{Symmetric group}
+
+\index[English]{Permutation group}
+\index[German]{\foreignlanguage{ngerman}{Permutationsgruppe}}
+\index[English]{Symmetric group}
+\index[German]{\foreignlanguage{ngerman}{Symmetrische Gruppe}}
 \begin{cor}
   \[ (M, \circ) = (X^X, \circ) = \set{f: X \rightarrow X} \]
   \[ S_X = \set{f: X \rightarrow X \text{ bijective}} \]
@@ -1845,7 +1900,7 @@ $G = \setdef{x \in M}{x \text{ invertible}}$ is a group.
   is called \emph{permutation} (rearrangement).
 
   For finite sets $f: \set{1, \ldots, n} \rightarrow \set{1, \ldots, n}$ is bijective.
-  $\Leftrightarrow$ $f$ is injective. $\Leftrightarrow$ $f$ is surjective.
+  $\iff$ $f$ is injective. $\iff$ $f$ is surjective.
   This does not hold for infinite sets.
   \[ f: \mathbb{N} \rightarrow \mathbb{N} \]
   \[ f(n) = 2n \]
@@ -1967,10 +2022,12 @@ $S_3$ is non-commutative!
   \end{table}
 \end{ex}
 
+\subsection{Addition and multiplication in $\mathbb Z_n$}
+
 \begin{theorem}
   \label{2.15}
   Computations modulo $n$. The relation
-  \[ x \equiv y \mod{n} \Leftrightarrow \divides{n}{x - y} \]
+  \[ x \equiv y \mod{n} \iff \divides{n}{x - y} \]
   is an equivalence relation on $\mathbb{Z}$.
   The equivalence classes
   \[ [x]_n = \setdef{x + q \circ n}{q \in \mathbb{Z}} \]
@@ -1979,7 +2036,7 @@ $S_3$ is non-commutative!
   A system of representatives is
   \[ \set{0, \ldots, n-1} \]
   Factor set:
-  \[ \mathbb{Z}_n := \mathbb{Z}/n = \mathbb{Z}/n\mathbb{Z} := \mathbb{Z}/\equiv_n \]
+  \[ \mathbb{Z}_n := \mathbb{Z}/n = \mathbb{Z}/n\mathbb{Z} := \mathbb{Z}/\mathbb{Z}_n \]
   We define addition and multiplication
   \[ [x]_n + [y]_n := [x + y]_n \]
   \[ [x]_n \cdot [y]_n := [x \cdot y]_n \]
@@ -2001,9 +2058,7 @@ Does the definition not depend on the definition of the system of representative
       $(\mathbb{Z}_n, +)$ is an abelian group with neutral element $[0]_n$
       and inverse elements $-[x]_n = [-x]_n$.
     \item[(ii)] The multiplication on $\mathbb{Z}_n$ is well-defined if
-      \[ x \equiv x' \mod{n} \]
-      and
-      \[ y \equiv y' \mod{n} \]
+      \[ x \equiv x' \mod{n}  \;\land\; y \equiv y' \mod{n} \]
       then also $x \circ y \equiv x' \cdot y' \mod{n}$ (ie. $[x\cdot y]_n = [x'\cdot y']_n$).
       $(\mathbb{Z}_n, \cdot)$ is a commutative matroid with neutral element $[1]_n$.
       $\mathbb{Z}_n^* = \mathbb{Z}_n \setminus \set{[0]_n}$ is a group if $n \in \mathbb{P}$
@@ -2051,7 +2106,7 @@ Does the definition not depend on the definition of the system of representative
       \[ [x]_n + [-x]_n = [x - x]_n = [0]_n \]
       Analogously,
       \[ \left([x]_n \cdot [y]_n\right) \cdot [z]_n = [x]_n \left([y]_n \cdot [z]_n\right) \]
-      \[ [x]_n \cdot [1]_n = [x1]_n = [x]_n \]
+      \[ [x]_n \cdot [1]_n = [x \cdot 1]_n = [x]_n \]
       Therefore $[1]_n$ is the neutral element for multiplication
   \end{itemize}
 
@@ -2065,7 +2120,7 @@ Does the definition not depend on the definition of the system of representative
     \item[$n \not\in \mathbb{P}$]
       \[ \Rightarrow \bigvee_{1 < n_1, n_2 < n} n = n_1 \cdot n_2 \]
       \[ [n_1]_n \cdot [n_2]_n = [n_1 \cdot n_2]_n = [n]_n = [0]_n \]
-      \[ \Rightarrow [n_1]_n \text{ has not inverse element!} \]
+      \[ \Rightarrow [n_1]_n \text{ has no inverse element!} \]
       Assume
       \[ \bigvee_{[x]_n} [n_1]_n \cdot [x]_n = [1]_n \]
       \[ \Rightarrow [n_2] \cdot [n_1] \cdot [x]_n = [n_2]_n [1]_n \]
@@ -2081,37 +2136,35 @@ Does the definition not depend on the definition of the system of representative
       \begin{proof}
         \[ V_X = \set{[x], [2x], [3x], \ldots, [(n-1) x]} \text{ multiples of } [x]_n \]
         Then $[0]_n \not\in V_x$. Assume
-        \[ \bigvee_k [k\cdot x]_n = [0]_x \]
+        \[ \bigvee_k [k\cdot x]_n = [0]_n \]
         therefore
         \[ \bigvee_k k \cdot x \equiv 0 \mod{n} \]
-        \[ \Rightarrow \divides{n}{kx} \]
-        \[ \Rightarrow \divides{n}{k} \lor \divides{n}{x} \]
-        \[ \Rightarrow \divides{n}{x} \]
-        \[ \Rightarrow [x]_n \]
-        \[ \Rightarrow [0]_n \]
+        \[ \implies \divides{n}{kx} \]
+        \[ \implies \divides{n}{k} \lor \divides{n}{x} \]
+        \[ \implies \divides{n}{x} \implies [x]_n \implies [0]_n \]
         This is a contradiction.
       \end{proof}
 
       \begin{theorem}
-        All entries of $V_X$ are different.
+        All entries of $V_X$ are distinct.
       \end{theorem}
       \begin{proof}
         Assume
         \[ \bigvee_{1 \leq k, l \leq n-1} [kx]_n = [lx]_n \]
         \[ [kx]_n - [lx]_n = [0]_n \]
         \[ [(k-l) x] = [0]_n \]
-        \[ \Rightarrow (k-l) x \equiv 0 \mod{n} \]
-        \[ \Rightarrow \divides{n}{(k-l)x} \]
-        \[ \Rightarrow \divides{n}{k-l} \lor \divides{n}{x} \]
+        \[ \implies (k-l) x \equiv 0 \mod{n} \]
+        \[ \implies \divides{n}{(k-l)x} \]
+        \[ \implies \divides{n}{k-l} \lor \divides{n}{x} \]
         The second condition cannot hold.
-        \[ \Rightarrow k - l = 0 \]
+        \[ \implies k - l = 0 \]
         Requirement: $[x]_n \neq [0]_n$.
       \end{proof}
 
-      \[ \Rightarrow \set{[x]_n, [2x]_n, \ldots, [(n-1)x]} \subseteq \set{[1], [2], \ldots, [n-1]} \]
+      \[ \implies \set{[x]_n, [2x]_n, \ldots, [(n-1)x]} \subseteq \set{[1], [2], \ldots, [n-1]} \]
       are all different.
-      \[ \Rightarrow \bigvee_{k}: [kv]_n = [1]_n \]
-      \[ \Rightarrow [k]_n = [x]_n^{-1} \]
+      \[ \implies \bigvee_{k}: [kv]_n = [1]_n \]
+      \[ \implies [k]_n = [x]_n^{-1} \]
       $k$ is constructed using the Euclidean algorithm.
   \end{description}
 \end{ex}
@@ -2121,6 +2174,7 @@ Does the definition not depend on the definition of the system of representative
     \begin{center}
       \begin{tabular}{c|ccccc}
         $+$ & 0 & 1 & 2 & 3 & 4 \\
+      \hline
           0 & 0 & 1 & 2 & 3 & 4 \\
           1 & 1 & 2 & 3 & 4 & 0 \\
           2 & 2 & 3 & 4 & 0 & 1 \\
@@ -2134,6 +2188,7 @@ Does the definition not depend on the definition of the system of representative
     \begin{center}
       \begin{tabular}{c|ccccc}
         $\cdot$ & 0 & 1 & 2 & 3 & 4 \\
+      \hline
               0 & 0 & 0 & 0 & 0 & 0 \\
               1 & 0 & 1 & 2 & 3 & 4 \\
               2 & 0 & 2 & 4 & 1 & 3 \\
@@ -2150,12 +2205,13 @@ Does the definition not depend on the definition of the system of representative
   \begin{table}[!ht]
     \begin{center}
       \begin{tabular}{c|ccccc}
-        $\cdot$ & 1 & 2 & 3 & 4 \\
+        $\cdot$ & 1 & 2 & 3 & 4 & 5 \\
+      \hline
               1 & 1 & 2 & 3 & 4 & 5 \\
               2 & 2 & 4 & 0 & 2 & 4 \\
               3 & 3 & 0 & 3 & 0 & 3 \\
               4 & 4 & 2 & 0 & 4 & 2 \\
-              4 & 5 & 4 & 3 & 2 & 1
+              5 & 5 & 4 & 3 & 2 & 1
       \end{tabular}
       \caption{
         Composition table for $(\mathbb{Z}_6, \cdot)$.
@@ -2170,6 +2226,7 @@ Does the definition not depend on the definition of the system of representative
     \begin{center}
       \begin{tabular}{c|ccccc}
         $+$ & 0 & 1 \\
+      \hline
           0 & 0 & 1 \\
           1 & 1 & 0
       \end{tabular}
@@ -2180,6 +2237,7 @@ Does the definition not depend on the definition of the system of representative
     \begin{center}
       \begin{tabular}{c|ccccc}
         $\cdot$ & +1 & -1 \\
+      \hline
              +1 & +1 & -1 \\
              -1 & -1 & +1
       \end{tabular}
@@ -2195,6 +2253,8 @@ Does the definition not depend on the definition of the system of representative
   Therefore
   \[ h([x] + [y]) = h([x]) \cdot h([y]) \forall [x], [y] \]
 \end{ex}
+
+\subsection{Group homomorphism}
 
 \index[German]{\foreignlanguage{ngerman}{Homomorphismus}}
 \index[English]{Homomorphism}
@@ -2305,7 +2365,7 @@ Does the definition not depend on the definition of the system of representative
       \[ h(x + y) = -(x + y) = -x-y = h(x) + h(y) \]
       is homomorphism.
 
-      It is surjective ($x = h(-x)$) and injective ($h(x) = h(y) \Rightarrow x = y$).
+      It is surjective ($x = h(-x)$) and injective ($h(x) = h(y) \implies x = y$).
       Therefore it is an isomorphism.
     \item
       \[ (\mathbb R^+ = ]0, \infty[, \cdot) \rightarrow (\mathbb R, +) \]
@@ -2373,7 +2433,7 @@ Does the definition not depend on the definition of the system of representative
       Cutback law in $G_2 \Rightarrow e_2 = h(e_1)$
 
     \item
-      \[ h(x^{-1}) = h(x)^{-1} \Leftrightarrow h(x) \circ h(x^{-1}) = e_2 \]
+      \[ h(x^{-1}) = h(x)^{-1} \iff h(x) \circ h(x^{-1}) = e_2 \]
       \begin{align*}
         h(x) \circ_2 h(x^{-1}) &= h(x \circ_1 x^{-1})
           &\stackrel{\text{homomorphism}}{=} h(e_1) \\
@@ -2381,10 +2441,12 @@ Does the definition not depend on the definition of the system of representative
       \end{align*}
       Therefore $h(x^{-1}) \circ_2 h(x) = e_2$.
 
-      $\Rightarrow h(x^{-1})$ is left- and rightinverse to $h(x)$.
-      $\Rightarrow h(x)^{-1} = h(x^{-1})$.
+      $\implies h(x^{-1})$ is left- and rightinverse to $h(x)$.
+      $\implies h(x)^{-1} = h(x^{-1})$.
   \end{enumerate}
 \end{proof}
+
+\subsection{Subgroups}
 
 \begin{defi}
   \label{satz-2-22}
@@ -2421,15 +2483,15 @@ Does the definition not depend on the definition of the system of representative
   There is a subset $H \subseteq S_{n+1}$ which is a subgroup as by Theorem~\ref{satz-2-22}
   such that $S_n \tilde{=} H$.
   \[ H = \setdef{f: \set{1, \dots, n+1} \rightarrow \set{1, \dots, n+1}}{f \text{ is bijective}} \]
-  \[ \Rightarrow H \tilde{=} S_n \]
+  \[ \implies H \tilde{=} S_n \]
 \end{theorem}
 
 \begin{cor}
   \[ \mathbb Z \rightarrow n \cdot \mathbb Z \leq \mathbb Z \]
   \[ x \mapsto n \cdot x \]
   is bijective.
-  \[ \Rightarrow \mathbb Z \tilde{=} n \cdot \mathbb Z \]
-  \[ \Rightarrow \mathbb Z \text{ is isomorphous to its own subgroup} \]
+  \[ \implies \mathbb Z \tilde{=} n \cdot \mathbb Z \]
+  \[ \implies \mathbb Z \text{ is isomorphic to its own subgroup} \]
 \end{cor}
 
 \begin{rem}
@@ -2460,28 +2522,28 @@ Does the definition not depend on the definition of the system of representative
     \item
       Let $h(H_1) \leq G_2$.
       \begin{align*}
-        \Rightarrow & \bigwedge_{u,v \in h(H_1)} u \circ_2 v \in h(H_1) \\
-        \Rightarrow & \bigwedge_{x,y \in H_1} h(x) \circ h(y) \in h(H_1) \\
-        \Rightarrow & \bigwedge_{x,y \in H_1} \bigvee_{z \in H_1} h(x) \circ h(y) = h(z)
+        \implies & \bigwedge_{u,v \in h(H_1)} u \circ_2 v \in h(H_1) \\
+        \implies & \bigwedge_{x,y \in H_1} h(x) \circ h(y) \in h(H_1) \\
+        \implies & \bigwedge_{x,y \in H_1} \bigvee_{z \in H_1} h(x) \circ h(y) = h(z)
       \end{align*}
       $h$ is a homomorphism:
-      \[ \Rightarrow h(x) \circ_2 h(y) = h(x \circ_1 y) \]
-      \[ \Rightarrow \text{choose } z = x \circ_1 y \in H_1 \text{ because } H_1 \leq G_1 \]
+      \[ \implies h(x) \circ_2 h(y) = h(x \circ_1 y) \]
+      \[ \implies \text{choose } z = x \circ_1 y \in H_1 \text{ because } H_1 \leq G_1 \]
     \item
       Let $u \in h(H_1)$. We need to show that $u^{-1} \in h(H_1)$.
       Find $a \in H_1$ such that $u^{-1} = h(a)$.
       Let $b \in H_1$ with $h(b) = u$
-      \[ \Rightarrow u^{-1} = h(b)^{-1} = h(b^{-1}) \in h(H_1) \]
+      \[ \implies u^{-1} = h(b)^{-1} = h(b^{-1}) \in h(H_1) \]
       then $b^{-1} \in H_1$.
   \end{enumerate}
 \end{proof}
 
 \begin{rem}
-  Always two \emph{trivial subgroups} of a group $G$ exist, namely
+  Two \emph{trivial subgroups} of a group $G$ always exist, namely
   \[ H = G \]
   \[ H = \set{e} \]
 
-  One example which only has two trivial subgroups is $(\mathbb Z_p, +)$.
+  One example which has only two trivial subgroups is $(\mathbb Z_p, +)$.
 \end{rem}
 
 \begin{defi}
@@ -2560,7 +2622,7 @@ Does the definition not depend on the definition of the system of representative
 
 \begin{theorem}
   $(\mathbb Z_n, +, \cdot)$ is zero-divisor-free
-  $\Leftrightarrow n \in \mathbb P$
+  $\iff n \in \mathbb P$
 \end{theorem}
 
 \begin{defi}
@@ -2618,32 +2680,33 @@ Does the definition not depend on the definition of the system of representative
       Select $a \in R \setminus \set{0}$. Then
       \[ 1 \cdot a = a \]
       \[ 0 \cdot a = 0 \]
-      \[ \Rightarrow 1 \neq 0 \]
+      \[ \implies 1 \neq 0 \]
     \item[1.]
       Let $a, b \in K \setminus \set{a}$.
       Assume $a \cdot b = 0$.
       \[
-        \Rightarrow 0 = a^{-1} \cdot 0 \cdot b^{-1}
+        \implies 0 = a^{-1} \cdot 0 \cdot b^{-1}
         = a^{-1} \cdot (a \cdot b) \cdot b^{-1}
         = (a^{-1} \cdot a) \cdot (b \cdot b^{-1})
         = 1 \cdot 1
         = 1
-      \] \[ \Rightarrow 0 = 1 \qquad\lightning \]
+      \] \[ \implies 0 = 1 \qquad\lightning \]
     \item[2.]
       Let $a$ be inverse to $0$.
-      \[ \Rightarrow a \cdot 0 = 1 \]
-      \[ \Rightarrow a = 0 \]
+      \[ \implies a \cdot 0 = 1 \]
+      \[ \implies a = 0 \]
     \item[4.]
       \[ \bigwedge_{a \in R} a \cdot 0 = 0 \]
       \[ a \cdot 0 = a \cdot (0 + 0) \]
       \[ a \cdot 0 = a \cdot 0 + a \cdot 0 \]
-      \[ \Rightarrow a \cdot 0 + 0 = a \cdot 0 + a \cdot 0 \]
-      \[ \Rightarrow a \cdot 0 = 0 \]
+      \[ \implies a \cdot 0 + 0 = a \cdot 0 + a \cdot 0 \]
+      \[ \implies a \cdot 0 = 0 \]
   \end{enumerate}
 \end{proof}
 
-\begin{defi}
-  \emph{(field extensions.)}
+\subsection{Complex numbers and field extensions}
+
+\begin{defi}[field extensions]
   The equation $x^2 - 2 = 0$ has no solution in $\mathbb Q$.
   We claim:
   $K = \setdef{a + b \sqrt{2}}{a,b \in \mathbb Q}$ is a field.
@@ -2738,8 +2801,8 @@ Does the definition not depend on the definition of the system of representative
 
       Complex numbers in polar coordinates are defined with
       \[ x + iy = r(\cos{\varphi} + i \cdot \sin{\varphi}) \]
-      \[ \Rightarrow r = \sqrt{x^2 + y^2} \]
-      \[ \Rightarrow \varphi = \arctan{\frac yx} \]
+      \[ \implies r = \sqrt{x^2 + y^2} \]
+      \[ \implies \varphi = \arctan{\frac yx} \]
     \item The multiplication looks like this:
       \begin{align*}
         &= (x_1 + i y_1) \cdot (x_2 + i y_2) \\
@@ -2755,6 +2818,7 @@ Does the definition not depend on the definition of the system of representative
 \end{defi}
 
 \section{Reasoning about vector spaces and bases}
+\subsection{Vector spaces}
 
 \begin{defi}
   Let $(K, +, \cdot)$ be a field.
@@ -2830,7 +2894,7 @@ Does the definition not depend on the definition of the system of representative
       \[ K^X = \set{f: X \rightarrow K \quad \text{function}} \]
       \[ (f + g)(x) \coloneqq f(x) + g(x) \]
       \[ (\lambda f)(x) \coloneqq \lambda (f(x)) \]
-      \[ \Rightarrow f + g, \lambda \cdot f \in K^X \]
+      \[ \implies f + g, \lambda \cdot f \in K^X \]
   \end{enumerate}
 \end{ex}
 
@@ -2850,7 +2914,7 @@ Does the definition not depend on the definition of the system of representative
 \end{proof}
 
 \begin{defi}
-  If $(K, +, \cdot)$ is a ring, the structure is called \emph{module}.
+  If $(\mathbb K, +, \cdot)$ is a ring, the structure is called \emph{module}.
 \end{defi}
 
 \begin{cor}
@@ -2861,7 +2925,7 @@ Does the definition not depend on the definition of the system of representative
 \end{cor}
 
 \begin{ex}
-  Let $(K^n, +, \cdot)$ be a field.
+  Let $(\mathbb K^n, +, \cdot)$ be a field.
   \[ K^X = \set{f: X \rightarrow K} \]
 
   \[ \bigwedge_{x \in X} (f + g)(x) = f(x) + g(x) \]
@@ -2880,7 +2944,7 @@ Does the definition not depend on the definition of the system of representative
   \end{enumerate}
 \end{cor}
 
-$K$ has a zero element denoted $0$.
+$\mathbb K$ has a zero element denoted $0$.
 $(V, +)$ has a neutral element; also denoted $0$.
 You should infer from context which one is meant.
 At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
@@ -2892,7 +2956,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   \begin{enumerate}
     \item $\bigwedge_{v \in \mathbb V} 0 \cdot v = \underline{0}$
     \item $\bigwedge_{\lambda \in K} \lambda \cdot \underline{0} = \underline{0}$
-    \item $\bigwedge_{v \in V} \bigwedge_{\lambda \in K} \lambda \cdot v = \underline{0} \Rightarrow \lambda = 0 \lor v = \underline{0}$
+    \item $\bigwedge_{v \in V} \bigwedge_{\lambda \in K} \lambda \cdot v = \underline{0} \implies \lambda = 0 \lor v = \underline{0}$
     \item $\bigwedge_{v \in V} (-1) \cdot v = -v$ with $-v$ as neutral element in $(V, +)$
   \end{enumerate}
 \end{theorem}
@@ -2901,21 +2965,21 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   \begin{enumerate}
     \item For the zero element it holds,
       \[ 0 \cdot v = (0 + 0) \cdot v \underbrace{=}_{\text{distr. law}} 0 \cdot v + 0 \cdot v \]
-      but also $0 \cdot v + \underline{0} \Rightarrow 0 \cdot v + \underline{0} = 0\cdot v + 0\cdot v$.
+      but also $0 \cdot v + \underline{0} \implies 0 \cdot v + \underline{0} = 0\cdot v + 0\cdot v$.
       $\underline{0} = 0\cdot v$.
     \item
       \[ \lambda \cdot \underline{0} = \lambda (\underline{0} + \underline{0}) = \lambda \underline{0} + \lambda \underline{0} \]
-      \[ \lambda \cdot \underline{0} = \lambda \cdot \underline{0} + \underline{0} \Rightarrow \underline{0} = \lambda \cdot \underline{0} \]
+      \[ \lambda \cdot \underline{0} = \lambda \cdot \underline{0} + \underline{0} \implies \underline{0} = \lambda \cdot \underline{0} \]
     \item
-      \[ \lambda v = 0 \Rightarrow \lambda = 0 \lor v = 0 \]
+      \[ \lambda v = 0 \implies \lambda = 0 \lor v = 0 \]
       \[
-          A \rightarrow B \lor C \Leftrightarrow (\neg A \lor B \lor C)
-          \Leftrightarrow \neg(A \land \neg B) \lor C
-          \Leftrightarrow A \land \neg B \rightarrow C
+          A \implies B \lor C \iff (\neg A \lor B \lor C)
+          \iff \neg(A \land \neg B) \lor C
+          \iff A \land \neg B \implies C
       \]
-      We show: $(\lambda v = 0 \land \lambda \neq 0) \Rightarrow v = 0$.
+      We show: $(\lambda v = 0 \land \lambda \neq 0) \implies v = 0$.
       \begin{proof}
-        \[ \lambda \cdot v = \underline{0} \Rightarrow \lambda^{-1}(\lambda \cdot v) = \lambda^{-1} \cdot \underline{0} \]
+        \[ \lambda \cdot v = \underline{0} \implies \lambda^{-1}(\lambda \cdot v) = \lambda^{-1} \cdot \underline{0} \]
         \[ (\lambda^{-1} \lambda) \cdot v = \underline{0} \]
         \[ v = 1 \cdot v = \underline{0} \]
       \end{proof}
@@ -2931,7 +2995,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   \end{enumerate}
 \end{proof}
 
-\subsection{Subspaces, linear independence and bases}
+\subsection{Subspaces}
 
 \begin{defi}
   Let $(V, +, \cdot)$ be a vector space over $K$.
@@ -2952,18 +3016,17 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   The \emph{trivial} subspaces are $U = V$ and $U = \set{0}$.
 \end{cor}
 
-\begin{theorem}
+\begin{theorem}[subspace criterion]
   \label{satz-3-3}
-  (subspace criterion.)
   Let $U \subseteq V$ be a subspace.
-  \[ \Leftrightarrow U \neq \emptyset \land \bigwedge_{\lambda,\mu \in K} \bigwedge_{u,v \in U} \lambda u + \mu v \in U \]
+  \[ \iff U \neq \emptyset \land \bigwedge_{\lambda,\mu \in K} \bigwedge_{u,v \in U} \lambda u + \mu v \in U \]
 \end{theorem}
 
 \begin{proof}
   Let $\lambda, \mu \in K$ and $u,v \in U$.
   \begin{align*}
-    \textbf{U3} &\Rightarrow \lambda u \in U \land \mu v \in U \\
-    \textbf{U2} &\Rightarrow \lambda u + \mu v \in U
+    \textbf{U3} &\implies \lambda u \in U \land \mu v \in U \\
+    \textbf{U2} &\implies \lambda u + \mu v \in U
   \end{align*}
 
   So \textbf{U1} is immediate, \textbf{U2} follows with $\lambda = \mu = 1$ and \textbf{U3} follows with $v = 0$ and $\mu = 0$.
@@ -3019,19 +3082,20 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
 
 \begin{rem}
   A subspace always contains the zero-vector:
-  \[ U \neq \emptyset \Rightarrow \bigvee_{u} u \in U \xRightarrow{\textbf{U3}} \underline{0} = 0 \cdot u \in U \]
+  \[ U \neq \emptyset \implies \bigvee_{u} u \in U \xRightarrow{\textbf{U3}} \underline{0} = 0 \cdot u \in U \]
 \end{rem}
 
 \begin{rem}
   What is the usual approach to find possible subspaces?
   \begin{itemize}
-    \item Is $\underline{0} \in U$? If no, no subspace exists.
-    \item Else yes, $U \neq \emptyset$
+    \item Is $\underline{0} \in U$? If not, no subspace exists.
+    \item Else yes, if $U \neq \emptyset$
   \end{itemize}
   We proceed with the subspace criterion.
 \end{rem}
 
 \subsection{Construction of subspaces}
+\subsubsection{Intersection of subspaces}
 
 \begin{theorem}
   \label{satz-3-6}
@@ -3044,8 +3108,8 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   \begin{description}
     \item[\textbf{U1}]
       \[ \bigcap_{i \in I} U_i \neq \emptyset \]
-      \[ \bigwedge_{i \in I} 0 \in U_i \Rightarrow 0 \in \bigcap_{i \in I} U_i = \setdef{u}{\bigwedge_{i \in I} u \in U_i} \]
-      \[ \Rightarrow \bigcap_{i \in I} U_i \neq \emptyset \]
+      \[ \bigwedge_{i \in I} 0 \in U_i \implies 0 \in \bigcap_{i \in I} U_i = \setdef{u}{\bigwedge_{i \in I} u \in U_i} \]
+      \[ \implies \bigcap_{i \in I} U_i \neq \emptyset \]
     \item[\textbf{UR}]
       We need to show $\lambda, \mu \in K, a, b \in \bigcap_{i \in I} U_i$
       then $\lambda a + \mu b \in \bigcap_{i \in I} U_i$.
@@ -3055,7 +3119,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
           \xRightarrow{\text{all } U_i \text{ are subspaces}}
           \bigwedge_{i \in I} \lambda a + \mu b \in U_i
       \]
-      \[ \Rightarrow \lambda a + \mu b \in \bigcap_{i \in I} U_i \]
+      \[ \implies \lambda a + \mu b \in \bigcap_{i \in I} U_i \]
   \end{description}
 \end{proof}
 
@@ -3075,11 +3139,13 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   To construct a new subspace from $U_1 \cup U_2$ we need to extend it.
 \end{rem}
 
+\subsection{Linear hull of a vector space}
+
 \begin{defi}
   Let $(V, +, \cdot)$ be a vector space in $K$.
   \[ M \subseteq V \]
   The linear hull of $M$ is the smallest subspace of $V$, which contains $M$:
-  \[ [M] \coloneqq \bigcap\setdef{U \subseteq V}{U \cup R \text{ such that } M \subseteq U} \]
+  \[ [M] \coloneqq \bigcap\setdef{U \subseteq V}{U \text{ such that } M \subseteq U} \]
   This is a subspace by Theorem~\ref{satz-3-6}.
   For $M = 0$,
   \[ [\emptyset] = \set{0} \]
@@ -3090,7 +3156,7 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   $[M]$ is well-defined.
 
   At least one subspace exists which contains $M$:
-  \[ U = V \Rightarrow [M] \neq \emptyset \]
+  \[ U = V \implies [M] \neq \emptyset \]
 
   Every subspace $U \subseteq V$ which contains $M$,
   contains also $[M]$ because $M$ occurs in $M \subseteq U$ as intersection.
@@ -3129,11 +3195,12 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
       Distributivity: $(\lambda \cdot \alpha + \mu \cdot \beta) \cdot a \in K \cdot a$
 
       Using these laws the subfield is actually a plane.
-      So we look at the more general case in the next Theorem.
+      So we look at a more general case in Theorem~\ref{linear-comb}.
   \end{description}
 \end{ex}
 
 \begin{theorem}
+  \label{linear-comb}
   Let $(V, +, \cdot)$ be a vector space over $K$ with $a_1, \ldots, a_n \in V$.
 
   A \emph{linear combination} of vectors $a_1, \ldots, a_n$ is a vector of structure
@@ -3170,18 +3237,16 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
   We need to show $M \subseteq L(M)$.
   $L(M)$ is a subspace.
   \begin{description}
-    \item[U1] $L(M) \neq \emptyset$
-      if $M = \emptyset \Rightarrow$ by definition.
-      If $M \neq \emptyset \Rightarrow M \subseteq L(M)$.
+    \item[U1] $L(M) \neq \emptyset$.
+      If $M = \emptyset$, then by definition.
+      If $M \neq \emptyset$, then $M \subseteq L(M)$.
+    \item[UR]
+      $M \subseteq L(M)$. Let $a \in M \implies a = 1 \cdot a \in L(M)$
+      \[ n = 1 \qquad a_1 = a \qquad \lambda_1 = 1 \]
+
+      $M \subseteq L(M)$.
+      $L(M)$ is a subspace.
   \end{description}
-
-  $M \subseteq L(M)$. Let $a \in M \Rightarrow a = 1 \cdot a \in L(M)$
-  \[ n = 1 \qquad a_1 = a \qquad \lambda_1 = 1 \]
-
-
-  $M \subseteq L(M)$.
-  $L(M)$ is a subspace.
-
 
   Subfield:
   Let $u,v \in L(M)$ and $\lambda, \mu \in K$. Then also $\lambda u + \mu v \in L(M)$.
@@ -3210,12 +3275,13 @@ At the beginning we denote the neutral element of $(V, +)$ with $\underline{0}$.
 
 \meta{lecture}{16th of Nov 2015}{Franz Lehner}
 
-\subsection{Revision}
+\begin{mdframed}
+\paragraph{Revision}
 
 \[ U \subseteq V \qquad U \neq \emptyset \]
 \begin{description}
   \item[(1)] $U \neq \emptyset$
-  \item[(UR)] $a, b \in U \rightarrow \lambda a + \mu b$
+  \item[(UR)] $a, b \in U \implies \lambda a + \mu b$
 \end{description}
 
 Therefore every linear combination is also in $U$.
@@ -3226,6 +3292,7 @@ Therefore every linear combination is also in $U$.
       &\coloneqq \bigcap_{\substack{U \subseteq V \\ \text{ such that } M \subseteq U} } U \supseteq \set{0} \\
  L(M) &= \setdef{\lambda v_1 + \ldots + \lambda_n v_n}{n \in \mathbb N, \lambda \in K, v_n \in M}
 \end{align*}
+\end{mdframed}
 
 \begin{theorem}
   \[ [M] = L(M) \]
@@ -3238,7 +3305,7 @@ Therefore every linear combination is also in $U$.
   So $[M] \subseteq L(M)$.
 
   \[ \text{To show: } L(M) \subseteq [M] \]
-  Hence every subspace $U$, which contains $M$, contains also $L(M)$.
+  Hence every subspace $U$, which contains $M$, also contains $L(M)$.
 
   So every $U$ in $\bigcap{\substack{U \subseteq V \\ M \subseteq U}} U$ also contains $L(M)$.
   So $L(M) \subseteq \bigcap{\substack{U \subseteq V \\ M \subseteq U}} U$.
@@ -3247,25 +3314,25 @@ Therefore every linear combination is also in $U$.
   Let $U \subseteq V$ be a subspace containing $M \subseteq U$.
 
   \begin{itemize}
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       all $v_i \in U$
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       $\lambda_1 v_1 + \lambda_2 v_2 \in U$
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       $(\lambda_1 v_1 + \lambda_2 v_2) + \lambda_3 v_3 \in U$
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       By induction: $\lambda_1 v_1 + \ldots + \lambda_n v_n \in U$
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       Every linear combination of $M$ is in $U$
-    \item[$\Rightarrow$]
-      $L(M) \subseteq U \Rightarrow L(M) \subseteq [M]$
+    \item[$\implies$]
+      $L(M) \subseteq U \implies L(M) \subseteq [M]$
   \end{itemize}
 \end{proof}
 
 \begin{rem}
   \begin{enumerate}
     \item If $M \subseteq V$ is itself a subvector space
-      \[ \Rightarrow [M] = M \]
+      \[ \implies [M] = M \]
     \item especially for arbitrary subsets $M \subseteq V$
       \[ \left[[M]\right] = [M] \]
     \item Regarding notation: The linear combination of $M \subseteq V$
@@ -3324,7 +3391,7 @@ Therefore every linear combination is also in $U$.
 \end{theorem}
 \begin{proof}
   We need to show:
-  \[ a \in L(M) \Rightarrow L(M) = L(M \cup \set{a}) \]
+  \[ a \in L(M) \implies L(M) = L(M \cup \set{a}) \]
   \begin{itemize}
     \item $L(M) \subseteq L(M \cup \set{a})$ holds trivially.
     \item
@@ -3354,15 +3421,17 @@ Therefore every linear combination is also in $U$.
 
 \begin{center}
   Question:
-  Is there always a minimal generating system (also called \enquote{spanning set})?
+  Is there always a minimal span (also called \enquote{spanning set})?
   Can we determine whether $M$ is minimal?
 \end{center}
+
+\subsection{Linear independence}
 
 \begin{defi}
   Let $(V, +)$ be a vector space over $K$.
   A tuple $(v_1, \ldots, v_k) \in V$ is called linear independent, iff
-  \[ \bigwedge_{\lambda_1, \ldots, \lambda_n \in K} {\lambda}_1 v_1 + \lambda_2 v_2 + \ldots + \lambda_n v_n = 0 \]
-  \[ \Rightarrow \lambda_1 = \lambda_2 = \ldots = \lambda_n = 0 \]
+  \[ \bigvee_{\lambda_1, \ldots, \lambda_n \in K} {\lambda}_1 v_1 + \lambda_2 v_2 + \ldots + \lambda_n v_n = 0 \]
+  \[ \implies \lambda_1 = \lambda_2 = \ldots = \lambda_n = 0 \]
 \end{defi}
 
 \begin{ex}
@@ -3370,7 +3439,7 @@ Therefore every linear combination is also in $U$.
   is linear independent.
   \[ \lambda_1 \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} + \lambda_2 \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \]
   \[ \begin{pmatrix} \lambda_1 \\ \lambda_2 \\ \lambda_1 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \]
-  \[ \Rightarrow \lambda_1 = 0 \land \lambda_2 = 0 \]
+  \[ \implies \lambda_1 = 0 \land \lambda_2 = 0 \]
 \end{ex}
 
 \begin{ex}
@@ -3444,8 +3513,8 @@ Therefore every linear combination is also in $U$.
 
 \begin{cor}
   \[ (v_1, \ldots, v_n) \text{ is linear independent} \]
-  \[ \Leftrightarrow \bigvee_{\lambda_1, \ldots, \lambda_n \in K} \lambda_1 v_1 + \ldots + \lambda_n v_n = 0 \]
-  \[ \Rightarrow \bigvee_{k \in \set{1, \ldots, n}} \bigvee_{\lambda_1, \ldots, \lambda_n} v_l = \lambda_1 v_1 + \ldots + \lambda_n v_n \]
+  \[ \iff \bigvee_{\lambda_1, \ldots, \lambda_n \in K} \lambda_1 v_1 + \ldots + \lambda_n v_n = 0 \]
+  \[ \implies \bigvee_{k \in \set{1, \ldots, n}} \bigvee_{\lambda_1, \ldots, \lambda_n} v_l = \lambda_1 v_1 + \ldots + \lambda_n v_n \]
 
   Therefore one vector exists which can be represented using the other vectors.
 \end{cor}
@@ -3463,7 +3532,7 @@ Therefore every linear combination is also in $U$.
   is linear independent.
 
   \[ \lambda_1 = 0 \qquad \lambda_1 + \lambda_2 = 0 \]
-  \[ \Rightarrow \lambda_1 - \lambda_2 = 0 \]
+  \[ \implies \lambda_1 - \lambda_2 = 0 \]
 \end{ex}
 
 \begin{defi}
@@ -3496,10 +3565,10 @@ Therefore every linear combination is also in $U$.
 
   \begin{description}
     \item[$1 \rightarrow 2$]
-      For every $v \in L(v_1, \ldots, v_n)$, $\bigwedge_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n$.
+      For every $v \in L(v_1, \ldots, v_n)$, $\bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 v_1 + \ldots + \lambda_n v_n$.
       But is it unique? Assume $v = \mu_1 v_1 + \ldots + \mu_n v_n$.
       Show that for all $\lambda_i = \mu$.
-      \[ \Rightarrow v - v = \lambda_1 v_1  + \ldots + \lambda_n v_n - (\lambda_1 v_1 + \ldots + \lambda_n v_n) \]
+      \[ \implies v - v = \lambda_1 v_1  + \ldots + \lambda_n v_n - (\lambda_1 v_1 + \ldots + \lambda_n v_n) \]
       \[ 0 = (\lambda_1 - \mu_1) v_1 + (\lambda_2 - \mu_2) v_2 + \ldots + (\lambda_n - \mu_n) v_n \]
       linear independence $\Rightarrow \mu_1 - \mu = 0  \qquad \lambda_n - \mu_n = 0$
       Therefore for all, $\lambda_i = \mu_i$.
@@ -3553,13 +3622,13 @@ Therefore every linear combination is also in $U$.
 
 In general: $M \subseteq V$ is called linear independent, if every subfamily of $p_n$ different element is linear independent.
 \begin{align*}
-  &\Leftrightarrow
+  &\iff
      \bigwedge_{v \in L(\set{v_1, \ldots, v_n})}
      \dot\bigvee_{\lambda_1, \ldots, \lambda_n} v
      = \lambda_1 v_1 + \ldots + \lambda_n v_n \\
-  &\Leftrightarrow
+  &\iff
     \bigwedge_k v_k \not\in L(\set{v_1, \ldots, \hat{v_{k}}, \ldots, v_n}) \\
-  &\Leftrightarrow
+  &\iff
     \bigwedge_{v \in L(M)}
     \bigvee_{n \in \mathbb N}
     \dot{\bigvee}_{v_1, \ldots, v_n \in M}
@@ -3569,12 +3638,14 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
 %
 \[ L(M) = V \]
 %
+\subsection{Linear span}
+
 \begin{defi}
   \begin{itemize}
-    \item A family/set $S \subseteq V$ is called \emph{generating system} if $V = [S] = L(S)$.
+    \item A family/set $S \subseteq V$ is called \emph{span} if $V = [S] = L(S)$.
       \enquote{$V$ is generated by $S$.}
-    \item $V$ is called \emph{finitely generated} if a finite generating system exists.
-    \item A \emph{basis} of a vectorspace $V$ is a linear independent generating system.
+    \item $V$ is called \emph{finitely generated} if a finite span exists.
+    \item A \emph{basis} of a vectorspace $V$ is a linear independent span.
       Therefore a family $B = (b_i)_{i \in I} \subseteq V$ such that $L(B) = V$, $B$ is linear independent.
   \end{itemize}
 \end{defi}
@@ -3595,9 +3666,10 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
 \end{rem}
 
 \begin{ex}
-  In $K^n$.
-  Let $e_i = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}$ be the unit vector,
+  In $K^n$, let $e_i$ be the unit vector,
   then $(e_1, e_2, \ldots, e_n)$ is a basis of $K^n$; specifically called \emph{canonical basis} (or \emph{standard basis}).
+
+  \[ e_i = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} \text{ where 1 is at line $i$} \]
 \end{ex}
 
 \begin{rem}
@@ -3605,8 +3677,8 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
   \[
       \sum_{i=1}^n \lambda_i e_i
       = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}
+      = 0 \iff \text{ all } \lambda_i = 0
   \]
-  \[ = 0 \Leftrightarrow \text{ all } \lambda_i = 0 \]
   Every vector is reachable by a linear combination of $e_i$.
 \end{rem}
 
@@ -3615,8 +3687,8 @@ In general: $M \subseteq V$ is called linear independent, if every subfamily of 
   Is the vector space of all sequences.
   \[ e_i = (0, \ldots, 1, 0, \ldots) \qquad i \in \mathbb N_0 \]
   where $1$ is given on the i-th position.
-  If $\sum \lambda_i e_i = (0, 0, \ldots) \Rightarrow$  all $\lambda_i = 0$
-  and $(\lambda_0, \lambda_1, \ldots) \Rightarrow (e_i)_{i \in \mathbb N_0}$ is linear independent.
+  If $\sum \lambda_i e_i = (0, 0, \ldots) \implies$  all $\lambda_i = 0$
+  and $(\lambda_0, \lambda_1, \ldots) \implies (e_i)_{i \in \mathbb N_0}$ is linear independent.
 
   Is not a basis, because $1$ can never be reached.
   \[ (1, 1, 1, 1, \ldots) \in \mathbb R^{\mathbb N_0} \]
@@ -3638,7 +3710,7 @@ We identify the vector space of finite sequences with the vector space of formal
 Without loss of generality
 
 Instead of a unit vector $e_i$ the formal polynomial $x^i$ occurs.
-\[ \Rightarrow (x^n)_{n \geq 0} \text{ is a basis of } K[x] \]
+\[ \implies (x^n)_{n \geq 0} \text{ is a basis of } K[x] \]
 \[ \deg{p(x)} = \max\setdef{i}{a_i \neq 0} = n \]
 is the \emph{degree of the polynomial}.
 \[ p(x) = a_0 + q_1 x + q_x x^2 + \ldots a_n x^n \]
@@ -3664,6 +3736,8 @@ If $K$ has infinite cardinality, then the polynomial function defines the formal
 Does $K^{\mathbb N_0}$ have a basis?
 Does every vector space have a basis?
 
+\subsection{Every vector space has a basis or not - the Axiom of Choice}
+
 \begin{theorem}
   Every vector space has a basis.
 \end{theorem}
@@ -3672,17 +3746,17 @@ Does every vector space have a basis?
     \item[Case 1]
       $V$ is generated finitely.
 
-      Let $(v_1, \ldots, v_n)$ be a finite generating system. If $(v_1, \ldots, v_n)$ is linear independent, we are done.
+      Let $(v_1, \ldots, v_n)$ be a finite span. If $(v_1, \ldots, v_n)$ is linear independent, we are done.
       Otherwise we already know that (by a previous Theorem)
       \[ \bigvee_{k \in \set{1, \ldots, n}} v_k \in L(v_1, \ldots, \hat{v_k},  v_n) \]
-      \[ \Rightarrow L(v_1, \ldots, v_n) = L(v_1, \ldots, \hat{v_k}, \ldots, v_n) = V \]
+      \[ \implies L(v_1, \ldots, v_n) = L(v_1, \ldots, \hat{v_k}, \ldots, v_n) = V \]
       \begin{itemize}
         \item is this set linear independent, then this set is a basis.
         \item if not, then repeat this step.
       \end{itemize}
 
       Because originally only finitely many $v_i$ were given, this algorithm must terminate after finitely many steps.
-      The resulting system is linear independent and a generating system.
+      The resulting system is linear independent and a span.
       Therefore the result is a basis.
 
       This algorithm fails for $V$ which are not generated finitely.
@@ -3711,8 +3785,9 @@ Does every vector space have a basis?
   $(x_A)_{A \subseteq \mathbb R}$ such that $x_A \in A \forall A$.
   Such a selection cannot be made.
 
-  Constructivists: You cannot state it explicitly, so it is not true. \\
-  General mathematicians: Well, we cannot state it, but just take one.
+  Constructivists: You cannot give it constructively, so it is not true. \\
+  General mathematicians: Well, we cannot state it, but it exists,
+  even thjough we don't know what it looks like.
 
   A consequence of the axiom of choice is the \href{https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox}{Hausdorff-Banach-Tarski paradox}:
 
@@ -3748,23 +3823,25 @@ Does every vector space have a basis?
         = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}
       \]
     \item $B$ is a maximal linear independent family.
-    \item $B$ is a minimal generating system.
+    \item $B$ is a minimal span.
   \end{enumerate}
 \end{theorem}
 
-\index[English]{Minimal generating system}
+\subsection{Minimal linear span}
+
+\index[English]{Minimal span}
 \index[German]{Minimales Erzeugendensystem}
 \begin{rem}
   What does \emph{minimal} mean?
 
-  Minimal means no smaller generating system exists.
-  Minimal does not mean, it is the smallest generating system.
+  Minimal means no smaller span exists.
+  Minimal does not mean, it is the smallest span.
 
   Example:
   \[ \mathbb R^2: \set{\begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix}} \]
-  is a generating system. This is also a generating system:
+  is a span. This is also a span:
   \[ \set{\begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \end{pmatrix}} \]
-  is also a generating system.
+  is also a span.
 \end{rem}
 
 \begin{proof}
@@ -3773,8 +3850,8 @@ Does every vector space have a basis?
   We use circular reasoning (dt. Zirkelschluss).
   \begin{description}
     \item[$1 \rightarrow 2$]
-      Basis $\Rightarrow L(B) = V$ \\
-      Let $v \in V \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}$.
+      Basis $\implies L(B) = V$ \\
+      Let $v \in V \implies \bigvee_{\lambda_1, \ldots, \lambda_n} v = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}$.
 
       We need to show uniqueness of representation: Assume $v = \mu_1 b_{j_1} + \mu_2 b_{j_2} + \ldots + \mu_m b_{j_m}$.
       We fill up the vectors such that $m = n$ and $j_k = i_k$.
@@ -3782,11 +3859,12 @@ Does every vector space have a basis?
       Therefore
       \[ v = \mu_1 \cdot b_{j_1} + \ldots + \mu_n b_{i_n} \]
       \[
-          \Rightarrow 0 = v - v = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}
+          \implies 0 = v - v = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n}
           - (\mu_1 b_{i_1} + \ldots + \mu_n b_{i_n})
+      \] \[
           = (\lambda_1 - \mu_1) b_{i_1} + \ldots + (\lambda_n - \mu_n) b_{i_n}
       \]
-      $(b_i)$ are linear independent $\Rightarrow \bigwedge_{k \in \set{1, \ldots, n}} \lambda_k = \mu_k$.
+      $(b_i)$ are linear independent $\implies \bigwedge_{k \in \set{1, \ldots, n}} \lambda_k = \mu_k$.
     \item[$2 \rightarrow 1$]
       From 2 it follows that $L(B) = V$.
       Show that it is linear independent.
@@ -3795,7 +3873,7 @@ Does every vector space have a basis?
       Condition 2 for the vector $v = 0$ implies that it is the same representation
       like $0 b_{i_1} + \ldots + 0 b_{i_n} = 0$.
       So have two representations of the vector $v = 0$.
-      $\Rightarrow$ all $\lambda_k = 0$. Therefore $B$ is linear independent and therefore a linear basis.
+      $\implies$ all $\lambda_k = 0$. Therefore $B$ is linear independent and therefore a linear basis.
     \item[$1 \rightarrow 3$]
       From 1 it follows that $B$ is linear independent.
       $B$ maximal means that $\bigwedge_{v \in V\setminus B} B' = B \cup \set{v}$ is not linear independent any more.
@@ -3804,43 +3882,43 @@ Does every vector space have a basis?
       such that $v = \lambda_1 b_{i_1} + \ldots + \lambda_{n} b_{i_n}$.
       Therefore $\lambda_1 b_{i_1} + \lambda_2 b_{i_2} + \ldots + \lambda_n b_{i_n} - v = 0$
       Then a linear combination of $B \cup \set{v}$ is the coefficient of $v$. $-1 \neq 0$.
-      $\Rightarrow B' \cup \set{v}$ is not linear independent.
+      $\implies B' \cup \set{v}$ is not linear independent.
     \item[$3 \rightarrow 4$]
       Let $B$ be a maximal linear independent family.
+      Show that $B$ is span and minimal.
 
       \begin{enumerate}
-        \item Show that $B$ is generating system and minimal.
-
+        \item
           Every $v \in V$ is contained in $L(B)$. Let $v \in V$.
           Case distinction:
           \begin{itemize}
-            \item $v \in B \Rightarrow v \in L(B)$
+            \item $v \in B \implies v \in L(B)$
             \item $v \not\in B$.
               From 3 it follows that $B \cup \set{v}$ is linear dependent.
               \[
-                  \Rightarrow \bigvee_{\lambda_0, \lambda_1, \ldots, \lambda_n} \bigvee_{b_{i_1}, \ldots, b_{i_n} \in B}
+                  \implies \bigvee_{\lambda_0, \lambda_1, \ldots, \lambda_n} \bigvee_{b_{i_1}, \ldots, b_{i_n} \in B}
                   \lambda_0 v + \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n} = 0
               \]
               But not all $\lambda_0, \ldots, \lambda_n$ can be 0.
               If it would hold that $\lambda_0 = 0$, then $\lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n} = 0$.
-              \[ \Rightarrow \lambda_i = 0 \text{ because } B \text{ is linear independent} \]
+              \[ \implies \lambda_i = 0 \text{ because } B \text{ is linear independent} \]
               Therefore $\lambda_0$ cannot be $0$.
-
-              $\lambda_i \neq 0 \Rightarrow \text{ division allowed}$.
-              \[ \lambda_0 \cdot v = -\lambda_1 v_{i_1} - \ldots - \lambda_n b_{i_n} \]
-              \[ \Rightarrow v = -\frac{\lambda_1}{\lambda_0} b_{i_1} + \ldots - \frac{\lambda_1}{\lambda_0} b_{i_n} \in L(B) \]
-
-              This holds for every $v \in V$, therefore $V = L(B)$.
-            \item
-              $B$ is a minimal generating system.
-              Assume $B' = B \setminus \set{b_{i_0}}$ is also generating system.
-              Therefore \[ L(B \setminus \set{b_{i_0}}) = V \]
-              \[ \Rightarrow b_{i_0} \in L(B \setminus \set{b_{i_0}}) \]
-              \[ \Rightarrow \bigvee_{\lambda_1, \ldots, \lambda_n} \bigvee_{i_1, \ldots, i_n \neq i_0} = \lambda 1 b_{i_1} + \ldots + \lambda_n b_{i_n} \]
-              \[ \Rightarrow \lambda_n b_{i_1} + \ldots + \lambda_n b_{i_n} - b_{i_0} = 0 \]
-              The coefficient of $b_{i_0}$ is $\lambda_0 = - 1 \neq 0$.
-              This contradicts, because $B$ is linear independent.
           \end{itemize}
+
+          $\lambda_0 \neq 0 \implies \text{ division allowed}$.
+          \[ \lambda_0 \cdot v = -\lambda_1 b_{i_1} - \ldots - \lambda_n b_{i_n} \]
+          \[ \implies v = -\frac{\lambda_1}{\lambda_0} b_{i_1} - \ldots - \frac{\lambda_n}{\lambda_0} b_{i_n} \in L(B) \]
+
+          This holds for every $v \in V$, therefore $V = L(B)$.
+        \item
+          $B$ is a minimal span.
+          Assume $B' = B \setminus \set{b_{i_0}}$ is also span.
+          Therefore \[ L(B \setminus \set{b_{i_0}}) = V \]
+          \[ \implies b_{i_0} \in L(B \setminus \set{b_{i_0}}) \]
+          \[ \implies \bigvee_{\lambda_1, \ldots, \lambda_n} \bigvee_{i_1, \ldots, i_n \neq i_0} b_{i_0} = \lambda_1 b_{i_1} + \ldots + \lambda_n b_{i_n} \]
+          \[ \implies \lambda_n b_{i_1} + \ldots + \lambda_n b_{i_n} - b_{i_0} = 0 \]
+          The coefficient of $b_{i_0}$ is $\lambda_0 = - 1 \neq 0$.
+          This contradicts, because $B$ is linear independent.
       \end{enumerate}
   \end{description}
 \end{proof}
@@ -3849,10 +3927,9 @@ Does every vector space have a basis?
 
 \subsection{Revision}
 
-A basis is a linear independent generating system.
+A basis is a linear independent span.
 
-\[ \lambda_1 b_1 + \dots + \lambda_n b_n = 0 \]
-\[ \Rightarrow \lambda_i = 0 \]
+\[ \lambda_1 b_1 + \dots + \lambda_n b_n = 0 \implies \lambda_i = 0 \]
 
 $v=0$ has a unique representation as linear combination of the basis $B$.
 
@@ -3864,14 +3941,14 @@ $v=0$ has a unique representation as linear combination of the basis $B$.
 %    \item $B$ is a basis.
 %    \item Every $v \in V$ has a unique representation as linear combination of $B$.
 %    \item $B$ is a maximal linear independent family.
-%    \item $B$ is a minimal generating system.
+%    \item $B$ is a minimal span.
 %  \end{enumerate}
 %\end{theorem}
 
 \begin{proof}
   We have already shown 1 $\rightarrow$ 3 $\rightarrow$ 4. We prove 4 $\rightarrow$ 1.
 
-  Let $B$ be a minimal generating system. Show that $B$ is linear independent.
+  Let $B$ be a minimal span. Show that $B$ is linear independent.
   Proof by contradiction.
 
   Assume $B$ is not linear independent.
@@ -3879,15 +3956,15 @@ $v=0$ has a unique representation as linear combination of the basis $B$.
   such that
   \[ \lambda_1 b_{i_1} + \dots + \lambda_n b_{i_n} = 0 \]
   There exists some $k$ such that $\lambda_k \neq 0$.
-  \[ \Rightarrow \lambda_k \cdot b_{i_k} = -\sum_{j\neq k} \lambda_k \]
+  \[ \implies \lambda_k \cdot b_{i_k} = -\sum_{j\neq k} \lambda_k \]
   \[ b_{i_k} = -\sum_{j\neq k} \frac{\lambda_j}{\lambda_k} b_{i_j} \]
-  \[ \Rightarrow b_{i_k} \in L(B \setminus \set{b_{i_k}}) \]
+  \[ \implies b_{i_k} \in L(B \setminus \set{b_{i_k}}) \]
   \[
     L(B \setminus \set{b_{i_k}})
     = L(B \setminus \set{b_{i_k}}) \cup \set{b_{i_k}}
     = L(B) = V
   \]
-  $B \setminus \set{b_{i_k}}$ is also a generating system, but smaller.
+  $B \setminus \set{b_{i_k}}$ is also a span, but smaller.
   So $B$ is not minimal.
 \end{proof}
 
@@ -3908,7 +3985,7 @@ How can we construct/find bases?
   We need to show that
   \begin{itemize}
     \item $B'$ is linear independent.
-    \item $B'$ is generating system.
+    \item $B'$ is span.
   \end{itemize}
 
   \begin{enumerate}
@@ -3926,17 +4003,17 @@ How can we construct/find bases?
       \end{align*}
 
       \[ \mu_k \cdot \lambda_k = 0 \xRightarrow{\lambda_k \neq 0} \mu_k = 0 \]
-      \[ \Rightarrow \mu_i + \mu_k \lambda_i = 0 \Rightarrow \mu_i = 0 \text{ for all } i \neq k \]
-      \[ \Rightarrow \forall \mu_i = 0 \]
+      \[ \implies \mu_i + \mu_k \lambda_i = 0 \implies \mu_i = 0 \text{ for all } i \neq k \]
+      \[ \implies \forall \mu_i = 0 \]
     \item $L(B') = V$.
       It suffices to show that $b_k \in L(B')$.
 
       Then it holds that
       \[ L(B') = L(B' \cup \set{b_k}) \]
       \[ B' \cup \set{b_k} = (B \setminus \set{b_k}) \cup \set{b_k} \cup \set{v} = B \cup \set{v} \]
-      \[ \Rightarrow L(B \cup \set{v}) \supseteq L(B) = V \quad\checkmark \]
-      \[ v = \sum_{i=1}^n \lambda_i b_i = \sum_{i \neq k} \lambda_i b_i + \lambda_k b_k  \Rightarrow \lambda_k b_k = v - \sum_{i \neq k} \lambda_i b_i \]
-      \[ \lambda_k \neq 0 \Rightarrow b_k = \frac{1}{\lambda_k} v - \sum_{i \neq k} \frac{\lambda_i}{\lambda_k} b_i \in L(B') \]
+      \[ \implies L(B \cup \set{v}) \supseteq L(B) = V \quad\checkmark \]
+      \[ v = \sum_{i=1}^n \lambda_i b_i = \sum_{i \neq k} \lambda_i b_i + \lambda_k b_k  \implies \lambda_k b_k = v - \sum_{i \neq k} \lambda_i b_i \]
+      \[ \lambda_k \neq 0 \implies b_k = \frac{1}{\lambda_k} v - \sum_{i \neq k} \frac{\lambda_i}{\lambda_k} b_i \in L(B') \]
   \end{enumerate}
 \end{proof}
 
@@ -3969,10 +4046,10 @@ How can we construct/find bases?
           that $(v_1, b_1, \dots, b_{k-1}, b_{k+1}, \dots, b_n)$ is a basis.
           $\quad \checkmark$
       \end{enumerate}
-    \item[induction step $r \rightarrow r+1$] \hfill{} \\
+    \item[induction step $r \implies r+1$] \hfill{} \\
       Let $v_{1}, \dots, v_{r+1}$ be linear independent.
-      \[ \Rightarrow v_1, \ldots, v_r \text{ is also linear independent} \]
-      \[ \text{induction hypothesis} \Rightarrow \bigvee_{j_1, \dots, j_{n-r}} (v_1 \ldots, v_r, b_{j_1}, \dots, b_{j_{n-r}}) \text{ is a basis} \]
+      \[ \implies v_1, \ldots, v_r \text{ is also linear independent} \]
+      \[ \text{induction hypothesis} \implies \bigvee_{j_1, \dots, j_{n-r}} (v_1 \ldots, v_r, b_{j_1}, \dots, b_{j_{n-r}}) \text{ is a basis} \]
       \begin{enumerate}
         \item It holds that $r \leq n$.
 
@@ -3980,9 +4057,9 @@ How can we construct/find bases?
           In that case $r + 1 \leq n$ holds (with $r < n)$.
 
           Assume
-          \[ r = n \Rightarrow (v_1, \ldots, v_r) \text{ is a basis} \]
-          \[ \Rightarrow (v_1, \dots, v_r) \text{ is maximal linear independent family} \]
-          \[ \Rightarrow (v_1, \dots, v_{r + 1}) \text{ is not linear independent} \]
+          \[ r = n \implies (v_1, \ldots, v_r) \text{ is a basis} \]
+          \[ \implies (v_1, \dots, v_r) \text{ is maximal linear independent family} \]
+          \[ \implies (v_1, \dots, v_{r + 1}) \text{ is not linear independent} \]
 
           This is a contradiction to our assumption.
           So $r < n \Rightarrow r+1 \leq n$.
@@ -4022,19 +4099,19 @@ How can we construct/find bases?
       Let $(b_1, \dots, b_n)$ be a finite basis of $V$.
       Let $(v_i)_{i \in I}$ be linear independent in $V$.
 
-      \[ \Rightarrow \bigwedge_{r} v_{i_1}, \dots, v_{i_r} \text{ linear independent} \]
-      \[ \Rightarrow r \leq n \]
-      \[ \Rightarrow \card{I} \leq n \]
+      \[ \implies \bigwedge_{r} v_{i_1}, \dots, v_{i_r} \text{ linear independent} \]
+      \[ \implies r \leq n \]
+      \[ \implies \card{I} \leq n \]
 
       So every basis has at most $n$ elements.
 
     \item
-      Let $(b'_1, \dots, b'_r)$ be another basis $\Rightarrow$ maximal linear independent family $\Rightarrow r \leq n$.
+      Let $(b'_1, \dots, b'_r)$ be another basis $\implies$ maximal linear independent family $\implies r \leq n$.
       From Steinitz' exchange lemma it follows that
       \[ \bigvee_{j_1, \dots, j_{n-r}} (b'_1, \dots, b'_r, b_{j_1}, \dots, b_{j_{n-r}}) \text{ is a basis} \]
       \[ (b'_1, \dots, b'_r) \text{ is maximal linear independent family} \]
       \[ (b'_1, \dots, b'_r, b_j, \dots, b_{j_{n-r}}) \text{ is also linear independent} \]
-      \[ \Rightarrow n - r = 0 \Rightarrow n = r \]
+      \[ \implies n - r = 0 \implies n = r \]
   \end{itemize}
 \end{proof}
 
@@ -4044,7 +4121,7 @@ How can we construct/find bases?
 \end{rem}
 
 \begin{proof}
-  $\Rightarrow$ follows immediately.
+  $\implies$ follows immediately.
 
   $\Leftarrow$ use negative vectors until linear independent family remains.
 \end{proof}
@@ -4066,14 +4143,14 @@ How can we construct/find bases?
 \end{defi}
 
 \begin{ex}
-  \[ \dim{R^3} = 3 \]
+  \[ \dim{\mathbb R^3} = 3 \]
   \[ \dim{\emptyset} = 0 \]
-  \[ \dim{K^n} = n \]
-  \[ \dim{K^m} = \card{M} \]
-  \[ \dim{K[x]} = \infty \text{ \dots vector space of polynomials} \]
+  \[ \dim{\mathbb K^n} = n \]
+  \[ \dim{\mathbb K^m} = \card{M} \]
+  \[ \dim{\mathbb K[x]} = \infty \text{ \dots vector space of polynomials} \]
 
   Remember that $K[x] = \setdef{a_0 + a_1 x + \dots + a_n x^n}{n \in \mathbb N \text{ arbitrary}, a_i \in K}$.
-  \[ \Rightarrow (x^n)_{n \in \mathbb N} \text{ is basis } \Rightarrow \dim{K[x]} = \infty \]
+  \[ \implies (x^n)_{n \in \mathbb N} \text{ is basis } \implies \dim{K[x]} = \infty \]
 \end{ex}
 
 \begin{theorem}[Basis extension theorem (dt. \foreignlanguage{ngerman}{Basisergänzungssatz})]
@@ -4092,7 +4169,7 @@ How can we construct/find bases?
 \end{proof}
 
 \begin{theorem}[Basis selection theorem]
-  If $(v_1, \dots, v_r)$ is a generating system of $V$ (with $\dim{V} = n$).
+  If $(v_1, \dots, v_r)$ is a span of $V$ (with $\dim{V} = n$).
   Then $r \geq n$ and $\bigvee_{j_1, \dots, j_n} (v_{j_1}, \dots, v_{j_n})$ is a basis of $V$.
 \end{theorem}
 
@@ -4100,7 +4177,7 @@ How can we construct/find bases?
   If $(v_1, \dots, v_r)$ is linear independent, then it is already a basis.
   If it is linear dependent, then
   \[ \bigvee_{k} v_k \in L(v_1, \dots, v_{k-1}, v_{k+1}, \dots, v_r) \]
-  \[ \Rightarrow L(v_1, \dots, v_r) = L(v_1, \dots, v_{k-1}, v_{k+1}, \dots, v_r) = V \]
+  \[ \implies L(v_1, \dots, v_r) = L(v_1, \dots, v_{k-1}, v_{k+1}, \dots, v_r) = V \]
   We iterate this step until a linear independent family remains.
 \end{proof}
 
@@ -4109,7 +4186,7 @@ In a finite generating vector space $V$
 \begin{itemize}
   \item every basis has the same number of elements ($\dim{V} = n$).
   \item every linear independent family has at most $\dim{V}$ elements.
-  \item every generating system has at least $\dim{V}$ elements.
+  \item every span has at least $\dim{V}$ elements.
 \end{itemize}
 
 \begin{theorem}
@@ -4130,7 +4207,7 @@ In a finite generating vector space $V$
     \item[2 to 3]
       \[ L(v_1, \dots, v_n) = V \]
       From the basis extension theorem it follows that $v_{i_1}, \dots, v_{i_r}$ is a basis.
-      \[ \dim{V} = n \Rightarrow r=n \Rightarrow i = 1, \dots, n \]
+      \[ \dim{V} = n \implies r=n \implies i = 1, \dots, n \]
       So we cannot remove any elements, so $(v_1, \dots, v_n)$ is already a basis.
     \item[3 to 1]
       Follows analogously with the basis extension theorem.
@@ -4143,7 +4220,7 @@ In a finite generating vector space $V$
   Then it holds that,
   \begin{itemize}
     \item $\dim{U} \leq \dim{V}$.
-    \item $\dim{U} = \dim{V} \Leftrightarrow U = V$
+    \item $\dim{U} = \dim{V} \iff U = V$
   \end{itemize}
 \end{theorem}
 
@@ -4156,11 +4233,11 @@ In a finite generating vector space $V$
       Therefore $\leq \dim{V}$ elements.
 
       Let $v_1, \dots, v_r$ be basis of $U$.
-      \[ \Rightarrow r \leq \dim{V} \quad\checkmark \]
+      \[ \implies r \leq \dim{V} \quad\checkmark \]
     \item
       Let $n \coloneqq \dim{U} = \dim{V}$. Let $(u_1, \dots, u_n)$ be basis of $U$.
-      \[ \Rightarrow (u_1, \dots, u_n) \text{ is linear independent in } V \]
-      \[ \Rightarrow (u_1, \dots, u_n) \text{ is basis of } V \]
+      \[ \implies (u_1, \dots, u_n) \text{ is linear independent in } V \]
+      \[ \implies (u_1, \dots, u_n) \text{ is basis of } V \]
       From Theorem~\ref{satz-3-34}~(3) it follows that $U = L(u_1, \dots, u_n) = V$.
   \end{itemize}
 \end{proof}
@@ -4169,15 +4246,15 @@ In a finite generating vector space $V$
 
 \begin{itemize}
   \item It will turn out that vector spaces with the same dimension are isomorphic.
-  \item The dimension of a vector is the cardinality of every basis.
+  \item The dimension of a vector space is the cardinality of every basis.
   \item It is also the maximal cardinality of a linear independent family.
-  \item It is also the minimal cardinality of a generating system.
+  \item It is also the minimal cardinality of a span.
 \end{itemize}
 
 How do we find a basis?
 
 \begin{itemize}
-  \item If a generating system is given, remove elements until it is linear independent.
+  \item If a span is given, remove elements until it is linear independent.
   \item Otherwise add elements as long as the system remains linear independent.
 \end{itemize}
 
@@ -4212,17 +4289,17 @@ How do we find a basis?
   \[ \lambda_1 (1+x) + \lambda_2 (1-x) + \lambda_3(1+x+x^2) + \lambda_4(x^2+x^3) = 0 \]
   \[ (\lambda_1 + \lambda_2 + \lambda_3) \cdot 1 + (\lambda_1 - \lambda_2 + \lambda_3) x + (\lambda_3 + \lambda_4) x^2 + \lambda_4 x^3 = 0 \text{ (zero polynomial!)} \]
   \begin{align*}
-    \text{coefficient comparison} &\Rightarrow \lambda_1 + \lambda_2 + \lambda_3 = 0 \\
-      &\Rightarrow \lambda_1 - \lambda_2 + \lambda_3 = 0 \\
-      &\Rightarrow \lambda_3 + \lambda_4 = 0 \\
-      &\Rightarrow \lambda_4 = 0 \\
-    \text{coefficient comparison} &\Rightarrow \lambda_1 + \lambda_2 = 0 \\
-      &\Rightarrow \lambda_1 - \lambda_2 = 0 \\
-    \text{coefficient comparison} &\Rightarrow 2 \lambda_1 = 0 \\
-      &\Rightarrow \lambda_2 = 0
+    \text{coefficient comparison} &\implies \lambda_1 + \lambda_2 + \lambda_3 = 0 \\
+      &\implies \lambda_1 - \lambda_2 + \lambda_3 = 0 \\
+      &\implies \lambda_3 + \lambda_4 = 0 \\
+      &\implies \lambda_4 = 0 \\
+    \text{coefficient comparison} &\implies \lambda_1 + \lambda_2 = 0 \\
+      &\implies \lambda_1 - \lambda_2 = 0 \\
+    \text{coefficient comparison} &\implies 2 \lambda_1 = 0 \\
+      &\implies \lambda_2 = 0
   \end{align*}
 
-  $\Rightarrow B$ is linear independent $\land \card{B} = \dim{V} \Rightarrow B$ is basis (follows from Theorem~\ref{satz-3-34}).
+  $\implies B$ is linear independent $\land \card{B} = \dim{V} \implies B$ is basis (follows from Theorem~\ref{satz-3-34}).
 
   Find the coordinates of the polynomial:
   \[ p(x) = 3 + x - 3x^2 + x^3 \text{ with respect to } B \]
@@ -4244,7 +4321,7 @@ How do we find a basis?
     \lambda_1 - \lambda_2 = 1 - (-4) = 5
   \end{align*}
   \begin{align*}
-    2\lambda_1 = 12 &\Rightarrow \lambda_1 = 6 \\
+    2\lambda_1 = 12 &\implies \lambda_1 = 6 \\
     \lambda_2 = &7 - \lambda_1 = 1
   \end{align*}
 
@@ -4268,14 +4345,14 @@ How do we find a basis?
   Let $V$ be a vector space with basis $B$.
   $v_1, \dots, v_k \in V$ are linear independent.
 
-  \[ \Leftrightarrow \Phi_B(v_1) \dots \Phi_B(v_k) \text{ are linear independent in } K^n \]
+  \[ \iff \Phi_B(v_1) \dots \Phi_B(v_k) \text{ are linear independent in } K^n \]
 \end{ex}
 
 \section{Construction of vector spaces}
 
 \begin{rem}
   We have already seen $U, W \subseteq$ subspaces
-  $\Rightarrow U \cap W$ is subspace, but not $U \cup W$.
+  $\implies U \cap W$ is subspace, but not $U \cup W$.
 \end{rem}
 
 \begin{defi}
@@ -4307,8 +4384,8 @@ How do we find a basis?
       Show that $\lambda \cdot v + \mu v' \in E$.
 
       \begin{align*}
-         v \in E &\Rightarrow \bigvee_{u \in U} \bigvee_{w \in W} v = u + w \\
-         v' \in E &\Rightarrow \bigvee_{u' \in U} \bigvee_{w' \in W} v' = u' + w \\
+         v \in E &\implies \bigvee_{u \in U} \bigvee_{w \in W} v = u + w \\
+         v' \in E &\implies \bigvee_{u' \in U} \bigvee_{w' \in W} v' = u' + w \\
          \lambda v + \mu v' &= \lambda(u + w) + \mu(u' + w') \\
          &= \underbrace{(\lambda u + \mu v')}_{\in U} + \underbrace{(\lambda w + \mu w')}_{\in W} \in E
       \end{align*}
@@ -4321,10 +4398,10 @@ How do we find a basis?
 
       Let $Z$ be a subspace. Let $v \in E$. Show that $v \in Z$.
 
-      \[ v \in E \Rightarrow \bigvee_{u \in U} \bigvee_{w \in W} v = u + w \]
-      \[ u \in U \subseteq Z \Rightarrow u \in Z \]
-      \[ w \in W \subseteq Z \Rightarrow w \in Z \]
-      \[ \Rightarrow u + w \in Z \text{ because } Z \text{ is subspace} \]
+      \[ v \in E \implies \bigvee_{u \in U} \bigvee_{w \in W} v = u + w \]
+      \[ u \in U \subseteq Z \implies u \in Z \]
+      \[ w \in W \subseteq Z \implies w \in Z \]
+      \[ \implies u + w \in Z \text{ because } Z \text{ is subspace} \]
   \end{description}
 \end{proof}
 
@@ -4361,17 +4438,17 @@ How do we find a basis?
   \end{align*}
 
   \[ 1 \cdot \vecfour 1010 + 1 \cdot \vecfour 0101 - 1 \cdot \vecfour 1100 - 1 \cdot \vecfour 0011 = \vecfour 0000 \]
-  The linear combination gives $\vecfour 0000 \Rightarrow$ is not linear independent!
+  The linear combination gives $\vecfour 0000 \implies$ is not linear independent!
 
   \[ \vecfour 0011 = \vecfour 1010 + \vecfour 0101 - \vecfour 1100 \in L\left(\vecfour 1010, \vecfour 0101, \vecfour 1100\right) \]
-  \[ \Rightarrow \text{linear hull stays the same, if we remove } \vecfour 0011 \]
+  \[ \implies \text{linear hull stays the same, if we remove } \vecfour 0011 \]
   \[ U+W = L\left(\vecfour 1010, \vecfour 0101, \vecfour 1100\right) \]
   Linear independence:
   \[ \lambda \vecfour 1010 + \mu \vecfour 0101 + \gamma \vecfour 1100 = \vecfour 0000 \]
-  \[ \vecfour{\lambda+\gamma}{\mu+\gamma}{\lambda}{\mu} = \vecfour 0000 \Rightarrow \lambda = 0, \mu = 0 \Rightarrow \gamma = 0 \]
+  \[ \vecfour{\lambda+\gamma}{\mu+\gamma}{\lambda}{\mu} = \vecfour 0000 \implies \lambda = 0, \mu = 0 \implies \gamma = 0 \]
   \[ \left(\vecfour 1010, \vecfour 0101, \vecfour 1100\right) \text{ is linear independent and basis of } U + W \]
 
-  \[ \Rightarrow \dim(U + W) = 3 \]
+  \[ \implies \dim(U + W) = 3 \]
   \[ \dim{U} = 2 \qquad \dim{W} = 2 \]
 \end{ex}
 
@@ -4418,34 +4495,34 @@ How do we find a basis?
   \[ \bigvee_{w_1, \dots, w_q} (v_1, \dots, v_r, w_1, \dots, w_q) \text{ is basis of } W \]
 
   Therefore
-  \[ U = L(\setdef{v_1, \dots, v_r, u_1, \dots, u_p}) \]
+  \[ U = L(\set{v_1, \dots, v_r, u_1, \dots, u_p}) \]
   \[ W = L(v_1, \dots, v_r, w_1, \dots, w_q) \]
   \[ U + W = L(v_1, \dots, v_r, u_1, \dots, u_p, w_1, \dots, w_q) \]
   Assume $v_1, \dots, v_r, u_1, \dots, u_p, w_1, \dots, w_q$ are linear independent.
   \begin{align*}
         \dim(U+W) &= r + p + q \\
           \dim(U) &= r+p \\
-          \dim(W) &= r-q \\
+          \dim(W) &= r+q \\
     \dim(U\cap W) &= r
   \end{align*}
-  $\Rightarrow$ the equation holds.
+  $\implies$ the equation holds.
 
   It remains to show that $B$ is linear independent.
 
   Intermediate step:
   \[ U \cap L(w_1, \dots, w_q) = \set{0} \]
-  Let $v \in U \cap L(w_1, \dots, w_q) \subseteq U \cap W \Rightarrow v \in U \land v \in L(w_1, \dots, w_q)$.
-  \[ \Rightarrow \bigvee_{\lambda_1, \dots, \lambda_r, \mu, \dots, \mu_p} v = \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j \]
-  \[ \Rightarrow \bigvee_{\mu_1, \dots, \mu_q} v = \sum_{k=1}^q \mu_k w_k \]
+  Let $v \in U \cap L(w_1, \dots, w_q) \subseteq U \cap W \implies v \in U \land v \in L(w_1, \dots, w_q)$.
+  \[ \implies \bigvee_{\lambda_1, \dots, \lambda_r, \mu, \dots, \mu_p} v = \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j \]
+  \[ \implies \bigvee_{\mu_1, \dots, \mu_q} v = \sum_{k=1}^q \mu_k w_k \]
 
-  \[ v \in U \cap W \Rightarrow \bigvee_{\xi_1, \dots \xi_r} v = \sum_{l=1}^r \xi_l v_l \]
+  \[ v \in U \cap W \implies \bigvee_{\xi_1, \dots \xi_r} v = \sum_{l=1}^r \xi_l v_l \]
   Consider $v$ in $W$:
   \[ 0 = v - v = \sum_{k=1}^q v_k w_k - \sum_{l=1}^r \xi_l v_l \]
   \[ (v_1, \dots, v_r, w_1, \dots, w_q) \text{ is basis of } W \]
-  \[ \Rightarrow \text{ linear independence} \]
+  \[ \implies \text{ linear independence} \]
 
   $v$ in $W$ is linear combination which results in $0$. Therefore all coefficients are zero.
-  \[ \Rightarrow v = 0 \]
+  \[ \implies v = 0 \]
 
   The last step remains: $B$ is linear independent.
   \[ B = (v_1, \dots, v_r, u_1, \dots, u_p, w_1, \dots, w_q) \]
@@ -4454,17 +4531,17 @@ How do we find a basis?
   Show that all $\lambda_i$, all $\mu_j$ and all $\mu_k$ are zero.
 
   \[ a \coloneqq \underbrace{\sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j}_{\in U} + -\underbrace{\sum_{k=1}^q \mu_k w_k}_{\in L(w_1, \dots, w_q)} \]
-  \[ \Rightarrow a \in U \cap L(w_1, \dots, w_q) = \set{0} \]
-  \[ \Rightarrow a = 0 \Rightarrow \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j = 0 \]
+  \[ \implies a \in U \cap L(w_1, \dots, w_q) = \set{0} \]
+  \[ \implies a = 0 \implies \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j = 0 \]
   \[ \sum_{k=1}^q \mu_k w_k = 0 \]
 
-  $v_1, \dots, v_r, u_1 \dots, u_p$ are bases in U $\Rightarrow$ linear independent.
+  $v_1, \dots, v_r, u_1 \dots, u_p$ are bases in U $\implies$ linear independent.
 
-  From $0 \Rightarrow \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j = 0$ it follows
+  From $0 \implies \sum_{i=1}^r \lambda_i v_i + \sum_{j=1}^p \mu_j u_j = 0$ it follows
   that $\lambda_1 = \dots = \lambda_r = 0$ and $\mu_1 = \dots = \mu_p = 0$.
 
   \[ (\mu_1, \dots, \mu_r, w_1, \dots, w_q) \text{ is basis in } W \]
-  So $\Rightarrow$ linear independence $\Rightarrow (w_1, \dots, w_q)$ is linear independent.
+  So $\implies$ linear independence $\implies (w_1, \dots, w_q)$ is linear independent.
 
   From $\sum_{k=1}^q \mu_k w_k = 0$ it follows that $\mu_1, \dots, \mu_q = 0$.
 
@@ -4491,11 +4568,11 @@ How do we find a basis?
 
 \begin{theorem}
   \label{satz-4-8}
-  The sum $U+W$ is direct $\Leftrightarrow U \cap W = \set{0}$.
+  The sum $U+W$ is direct $\iff U \cap W = \set{0}$.
 \end{theorem}
 \begin{proof}
   Let $v \in U \cap W$.
-  \[ \Rightarrow v = \underbrace{v}_{\in U} + \underbrace{0}_{\in W} = \underbrace{0}_{\in U} + \underbrace{v}_{\in W} \]
+  \[ \implies v = \underbrace{v}_{\in U} + \underbrace{0}_{\in W} = \underbrace{0}_{\in U} + \underbrace{v}_{\in W} \]
   From the uniqueness of the decomposition it follows that $v = 0$.
 
   \[ u, u' \in U \qquad w, w' \in W\]
@@ -4503,8 +4580,8 @@ How do we find a basis?
   Let $v \in U + W$ with the representation $v = u + w = u + w'$.
   \[ 0 = v - v = u + w - (u' + w') = (u - u') + (w - w') \]
   \[ a \coloneqq \underbrace{u' - u}_{\in U} = \underbrace{w - w'}_{\in W} \]
-  \[ \Rightarrow a \in U \cap W = \set{0} \]
-  \[ \Rightarrow a = 0 \Rightarrow u' = u \land w = w' \]
+  \[ \implies a \in U \cap W = \set{0} \]
+  \[ \implies a = 0 \implies u' = u \land w = w' \]
   Coefficient is zero, so $v = 0$.
 \end{proof}
 
@@ -4516,7 +4593,7 @@ How do we find a basis?
 \end{theorem}
 
 \[ U + W = [U \cup W] = \setdef{u+w}{u \in U, w \in W} \]
-A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ is unique.
+A sum is called direct if for all $v \in U + W$, the decomposition $v = u + w$ is unique.
 
 \begin{theorem}
   The sum is direct if and only if $U \cap W = \set{0}$.
@@ -4539,21 +4616,21 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   \begin{description}
     \item[1 implies 2]
       \[ V = U \dot{+} W \]
-      \[ \Rightarrow V = U + W \land U \cap W = \set{0} \text{ Theorem~\ref{satz-4-8}} \]
+      \[ \implies V = U + W \land U \cap W = \set{0} \text{ Theorem~\ref{satz-4-8}} \]
       \[ \xRightarrow{\text{Theorem~\ref{satz-4-5b}}} \dim(U + W) = \dim(U) + \dim(W) \]
     \item[2 implies 3]
-      We use theorem~\ref{satz-4-5b}.
+      We use Theorem~\ref{satz-4-5b}.
       \[ \dim(U + W) = \dim(U) + \dim(W) - \dim(U \cap W) \]
-      \[ \Rightarrow \dim(V) = \dim(V) - \dim(U \cap W) \]
+      \[ \implies \dim(V) = \dim(V) - \dim(U \cap W) \]
       \[ \dim(U+W) = \dim(V) \text{ because } U + W = V \]
       \[ \dim(U) + \dim(W) = \dim(V) \text{ is required} \]
-      \[ \Rightarrow \dim(U \cap W) = 0 \]
-      \[ \Rightarrow U \cap W = \set{0} \]
+      \[ \implies \dim(U \cap W) = 0 \]
+      \[ \implies U \cap W = \set{0} \]
     \item[3 implies 1]
       \[ U \cap W = \set{0} \land \dim(U) + \dim(W) = \dim(V) \]
-      \[ \xRightarrow{\text{Theorem~ref{satz-4-5b}}} \dim(U+W) = \dim(U) + \dim(W) - \dim(\set{0}) \]
+      \[ \xRightarrow{\text{Theorem~\ref{satz-4-5b}}} \dim(U+W) = \dim(U) + \dim(W) - \dim(\set{0}) \]
       \[ \dim(U+W) = \dim(U) + \dim(W) \]
-      \[ U + W \subseteq V \land \dim(U+W) = \dim(V) \Rightarrow U + W = V \]
+      \[ U + W \subseteq V \land \dim(U+W) = \dim(V) \implies U + W = V \]
   \end{description}
 \end{proof}
 
@@ -4583,7 +4660,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 \begin{proof}
   Let $u_1, \dots, u_n$ be basis of $U \subseteq V$.
   We use the basis extension theorem~\ref{basis-extension}.
-  \[ \Rightarrow \bigvee_{w_1, \dots, w_n \in V} (u_1, \dots, u_v, w_1, \dots, w_m) \text{ is basis of } V \]
+  \[ \implies \bigvee_{w_1, \dots, w_n \in V} (u_1, \dots, u_v, w_1, \dots, w_m) \text{ is basis of } V \]
   Then $W = L(w_1, \dots, w_m)$ is a complementary space.
 
   We need to show that $V = U \dot{+} W$.
@@ -4595,15 +4672,15 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 
       $B$ is basis
       \[
-        \Rightarrow \bigvee_{\lambda_1, \dots, \lambda_m} \bigvee_{\mu_1, \dots, \mu_m} v
+        \implies \bigvee_{\lambda_1, \dots, \lambda_m} \bigvee_{\mu_1, \dots, \mu_m} v
         = \underbrace{\lambda_1 u_1 + \dots + \lambda_r u_r}_{= u \in U} + \underbrace{\mu_1 w_1 + \dots + \mu_m w_m}_{= w \in W}
         = u + w \in U + W
       \]
     \item
       Let $v \in U \cap W$.
-      \[ v \in U \Rightarrow \bigvee_{\lambda_1, \dots, \lambda_r} v = \lambda_1 u_1 + \dots + \lambda_r u_r \]
-      \[ v \in W \Rightarrow \bigvee_{\mu_1, \dots, \mu_m} v = \mu_1 w_1 + \dots + \mu_m w_m \]
-      \[ \Rightarrow 0 = v - v = \lambda_1 u_1 + \dots + \lambda_r u_r - \mu_1 w_1 - \dots - \mu_m w_m \]
+      \[ v \in U \implies \bigvee_{\lambda_1, \dots, \lambda_r} v = \lambda_1 u_1 + \dots + \lambda_r u_r \]
+      \[ v \in W \implies \bigvee_{\mu_1, \dots, \mu_m} v = \mu_1 w_1 + \dots + \mu_m w_m \]
+      \[ \implies 0 = v - v = \lambda_1 u_1 + \dots + \lambda_r u_r - \mu_1 w_1 - \dots - \mu_m w_m \]
       is linear combination of $B$, which results in $0$. The basis is linear independent,
       therefore all $\lambda_i = 0$ and $\mu_j = 0$. Therefore $v = 0$.
   \end{enumerate}
@@ -4642,7 +4719,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 \end{defi}
 
 \begin{theorem}
-  The characterization $U + W$ is direct $\Leftrightarrow U \cap W = \set{0}$
+  The characterization $U + W$ is direct $\iff U \cap W = \set{0}$
   cannot be generalized.
   It does not suffices that $U_1 \cap \dots \cap U_m = \set{0}$
 \end{theorem}
@@ -4656,17 +4733,17 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   Therefore every family $(u_1, \dots, u_m)$ with $u_i \in U_i \setminus \set{0}$ is linear independent.
 \end{theorem}
 \begin{proof}
-  Proof direction $\Rightarrow$.
+  Proof direction $\implies$.
 
   Let $u_i \in U_i \setminus \set{0}$.
-  Show that if $\sum_{i=1}^m \lambda_i u_i = 0 \Rightarrow \lambda_i = 0 \forall i$.
+  Show that if $\sum_{i=1}^m \lambda_i u_i = 0 \implies \lambda_i = 0 \forall i$.
 
   Followingly therefore $\lambda_i = 0 \forall i$ and then $\lambda_i \cdot u_i = 0$.
   From $u_i \neq 0 \forall i$ it follows that, $\lambda_i = 0$.
 
   Assume $\sum_{i=1}^m \lambda_i u_i = 0$.
   \[ \sum_{i=0}^m w_i \qquad w_i = \lambda_i u_i \in U_i \]
-  $\Rightarrow$ decomposition of vector $0$ in components from $U_i$.
+  $\implies$ decomposition of vector $0$ in components from $U_i$.
 
   If the sum is direct, then the decomposition must be the same.
   \[ 0 = 0 + 0 + \dots + 0 \]
@@ -4687,7 +4764,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
       u_i - u_i' & \text{if } u_i \neq u_i' \\
       z_i \in U_i \setminus \set{0} & \text{arbitrary}
     \end{cases}
-    \Rightarrow w_i \neq 0
+    \implies w_i \neq 0
   \]
   Correspondingly
   \[
@@ -4699,7 +4776,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 
   \[ \sum_{i=1}^m \lambda_i \cdot w_i = 0 \]
   \[ = \sum_{\substack{i \\ u_i \neq u_i'}} u_i - u_i' + \sum_{\substack{i \\ u_i \neq u_i'}} 0 \cdot z_i = 0 \]
-  \[ w_i \text{ is linear indep.} \Rightarrow \lambda_i = 0 \forall i \Rightarrow \bigwedge_{\substack{i \\ \lambda_i = 1 \text{ does not occur}}} u_i = u_i' \]
+  \[ w_i \text{ is linear indep.} \implies \lambda_i = 0 \forall i \implies \bigwedge_{\substack{i \\ \lambda_i = 1 \text{ does not occur}}} u_i = u_i' \]
 \end{proof}
 
 \begin{quote}
@@ -4742,16 +4819,16 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
           Show that all $\lambda_{ij} = 0$.
 
           Let $w_i = \sum_{i=1}^r \lambda_{ij} u_{ij} \in U_i$.
-          \[ \Rightarrow \sum_{i=1}^m w_i = 0 \]
+          \[ \implies \sum_{i=1}^m w_i = 0 \]
           The sum of $U_i$ is direct.
           Therefore the vector $0$ has a unique decomposition.
           Therefore all $w_i = 0$.
-          \[ \Rightarrow \sum_{j=1}^{r_i} = \lambda_{ij} u_{ij} = 0 \forall i \]
+          \[ \implies \sum_{j=1}^{r_i} = \lambda_{ij} u_{ij} = 0 \forall i \]
           $u_{ij}$ is basis of $U_i$.  So it is linear independent.
           So $\lambda_{ij} = 0 \forall j \in \set{1, \dots, r_i}$.
 
           This holds for every $i$
-          \[ \Rightarrow \lambda_{ij} = 0 \qquad \forall i \forall j \]
+          \[ \implies \lambda_{ij} = 0 \qquad \forall i \forall j \]
       \end{enumerate}
     \item[3 implies 1]
       Let $B_i = (u_{i,1}, u_{i,2}, \dots, u_{i,r_i})$ be basis of $U_i$
@@ -4764,7 +4841,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
       Let $w_i = \sum_{j=1}^{r_i} \lambda_{ij} u_{ij}$ be a decomposition of $w_i$ in regards of basis $B_i$.
       \begin{align*}
         w_i' &= \sum_{j=1}^{r_i} \mu_{ij} u_{ij} \\
-        \Rightarrow w &= \sum_{i=1}^m \left(\sum_{j=1}^{r_i} \lambda_{ij} u_{ij}\right) \\
+        \implies w &= \sum_{i=1}^m \left(\sum_{j=1}^{r_i} \lambda_{ij} u_{ij}\right) \\
          &= \sum_{i=1}^m \left(\sum_{j=1}^{r_i} \mu_{ij}, u_{ij}\right)
       \end{align*}
       Let $(u_{ij})$ be basis of $W$. Therefore all $\lambda_{ij} = \mu_{ij}$.
@@ -4774,7 +4851,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 
 \begin{rem}[Special case]
   \[ (b_1, \dots, b_m) \text{ is basis of } W \]
-  \[ \Leftrightarrow w = L(b_1) \dot{+} L(b_2) \dot{+} \dots \dot{+} L(b_m) \]
+  \[ \iff w = L(b_1) \dot{+} L(b_2) \dot{+} \dots \dot{+} L(b_m) \]
 \end{rem}
 
 \index[English]{Direct product}
@@ -4828,9 +4905,9 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
       \[ = \sum_{i=1}^m (\lambda_i v_i, 0) + \sum_{j=1}^n (0, \lambda_{m+j} w_j) \]
       \[ = \left(\sum_{i=1}^m (\lambda_i v_i, 0)\right) + \left(0, \sum_{j=1}^n \lambda_{m+j} w_j\right) \]
       \[ = \left(\sum_{i=1}^m \lambda_i v_i, \sum_{j=1}^n \lambda_{m+j} w_j\right) \stackrel{?}{=} (0_v, 0_w) \]
-      \[ \Rightarrow \sum_{i=1}^m \lambda_i v_i = 0_v \land \sum_{j=1}^n \lambda_{m+j} w_j = 0_w \]
+      \[ \implies \sum_{i=1}^m \lambda_i v_i = 0_v \land \sum_{j=1}^n \lambda_{m+j} w_j = 0_w \]
       $(v_1, \dots, v_m)$ is linear independent.
-      \[ \Rightarrow \lambda_1 = \dots = \lambda_m = 0 \qquad \Rightarrow \lambda_{m+1} = \dots = \lambda_{m+n} = 0 \]
+      \[ \implies \lambda_1 = \dots = \lambda_m = 0 \qquad \implies \lambda_{m+1} = \dots = \lambda_{m+n} = 0 \]
     \item Let $(v, w) \in V \oplus W$.
       \[ \leadsto \bigvee_{\lambda_i, \dots, \lambda_m} v = \sum_{i=1}^m \lambda_i v_i \]
       \[ \bigvee_{\mu_1, \dots, \mu_n} w = \sum_{j=1}^n \mu_j w_j \]
@@ -4899,11 +4976,11 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   Is a factor set $\mathbb Z_n = \mathbb Z / n\mathbb Z$.
 
   Factorization in regards of relation:
-  \[ x \equiv_1 y \Leftrightarrow n \divides x - y \Leftrightarrow x-y \in n\mathbb Z \]
+  \[ x \equiv_1 y \iff n \divides x - y \iff x-y \in n\mathbb Z \]
 
   Let $(G, +)$ be an abelian group. $H \subseteq G$ as subgroup.
   So this is a equivalence relation:
-  \[ x \equiv_H y \Leftrightarrow x - y \in H \]
+  \[ x \equiv_H y \iff x - y \in H \]
 \end{rem}
 
 \index[English]{Linear manifold}
@@ -4915,7 +4992,7 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   \begin{enumerate}
     \item
       The relation
-      \[ v \sim_u w \Leftrightarrow v - w \in U \]
+      \[ v \sim_u w \iff v - w \in U \]
       is an equivalence relation in $V$.
     \item
       The equivalence class of a vector $v \in V$ is
@@ -4924,9 +5001,9 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
 
       (Consider a vector $v$ and a line $U$. $v + U$ is the set of all lines parallel to $U$ and going through $v$.)
     \item
-      \[ \bigwedge_{v,v',w,w' \in V} v \sim_U v' \land w \sim_U w' \Rightarrow v+w \sim_U v' + w' \]
+      \[ \bigwedge_{v,v',w,w' \in V} v \sim_U v' \land w \sim_U w' \implies v+w \sim_U v' + w' \]
     \item
-      \[ \bigwedge_{\lambda \in K} \bigwedge_{v,v' \in V} v \sim_U v' \Rightarrow \lambda v \sim_U \lambda v' \]
+      \[ \bigwedge_{\lambda \in K} \bigwedge_{v,v' \in V} v \sim_U v' \implies \lambda v \sim_U \lambda v' \]
       We therefore define
       \[ [v]_U + [w]_U \coloneqq [v + w]_U \]
       \[ \lambda \cdot [v]_U \coloneqq [\lambda \cdot v]_U \]
@@ -4937,18 +5014,18 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   \begin{enumerate}
     \item
       \begin{description}
-        \item[reflexive] $v \sim_U v \Leftrightarrow v-v \in U$
-        \item[symmetrical] $v \sim_U w \Leftrightarrow v-w \in U \Rightarrow w-v \in U \Rightarrow w \sim_U v$
-        \item[transitive] $v \sim_U w \land w \sim_U z \Rightarrow v-w \in U, w - z \in U$
+        \item[reflexive] $v \sim_U v \iff v-v \in U$
+        \item[symmetrical] $v \sim_U w \iff v-w \in U \implies w-v \in U \implies w \sim_U v$
+        \item[transitive] $v \sim_U w \land w \sim_U z \implies v-w \in U, w - z \in U$
           and $v - z = (v - w) + (w - z) \in U$.
       \end{description}
     \item Follows immediately.
     \item
-      \[ v - v' \in U, w - w' \in U \Rightarrow v-v'+w-w' \in U \]
+      \[ v - v' \in U, w - w' \in U \implies v-v'+w-w' \in U \]
       \[ (v+w') - (v'+w') \]
       Here we can see, that this will not work in non-commutative groups\footnote{We need at least the requirement of a normal divisor.
       \[ xHx^{-1} = H \quad\forall x \in G \]}.
-    \item $v - v' \in U \Rightarrow \lambda v - \lambda v' = \lambda(v - v') \in U$
+    \item $v - v' \in U \implies \lambda v - \lambda v' = \lambda(v - v') \in U$
   \end{enumerate}
 \end{proof}
 
@@ -4962,9 +5039,9 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
   \[ \faktor{V}{U} \coloneqq \left(\faktor{V}{\sim U}, +, \cdot\right) \]
   with the operations
   \[ [v]_U + [w]_U \coloneqq [v+w]_U \]
-  \[ \left[\Rightarrow v+U + w+U = (v+w)+U\right] \]
+  \[ \left[\implies v+U + w+U = (v+w)+U\right] \]
   \[ \lambda\cdot [v]_U \coloneqq [\lambda v]_U \]
-  \[ \left[\Rightarrow \lambda \cdot (v + U) = \lambda v + U\right] \]
+  \[ \left[\implies \lambda \cdot (v + U) = \lambda v + U\right] \]
   is a vector space with neutral element
   \[ [0]_U = U \]
   and inverse element
@@ -5028,17 +5105,17 @@ A sum is called direct if for all $u \in U + W$, the decomposition $u = u + w$ i
     \item
       Let $\lambda_1, \dots, \lambda_m \in K$ such that $\lambda_1 (w_1 + U) + \dots + \lambda_m (w_m + U) = [0]_U$.
       \[ \lambda_1 w_1 + \dots + \lambda_m w_m + U = U \]
-      \[ \Rightarrow \lambda_1 w_1 + \dots + \lambda_m w_m \in U \]
+      \[ \implies \lambda_1 w_1 + \dots + \lambda_m w_m \in U \]
       We know: $U \cap L(w_1, \dots, w_m) = \set{0}$. So,
       \[ \lambda_1 w_1 + \dots + \lambda_m w_m \cap L(w_1, \dots, w_m) = \set{0} \]
       because the basis of $U$ is linear independent of $L(w_1, \dots, w_m)$.
-      \[ \Rightarrow \lambda_1 w_1 + \dots + \lambda_m w_m = 0 \]
-      \[ \Rightarrow \lambda_i = 0 \text{ because } (w_1, \dots, w_m) \text{ is linear independent (part of a basis)} \]
+      \[ \implies \lambda_1 w_1 + \dots + \lambda_m w_m = 0 \]
+      \[ \implies \lambda_i = 0 \text{ because } (w_1, \dots, w_m) \text{ is linear independent (part of a basis)} \]
     \item
       $L(\tilde{B}) \subseteq \faktor{V}{U}$ is obvious.
 
       Let $v + U \in \faktor{V}{U}$
-      \[ \Rightarrow v = \sum_{i=1}^r \lambda_i u_i + \sum_{i=1}^m \lambda_{r+i} w_i \]
+      \[ \implies v = \sum_{i=1}^r \lambda_i u_i + \sum_{i=1}^m \lambda_{r+i} w_i \]
       Decomposition in regards of basis $B$ of $V$.
       \[ v + U  = \underbrace{\sum_{i=1}^r \lambda_i u_i}_{\in U} + \sum_{i=1}^m \lambda_{r+i} w_i + U \]
       \[ = \sum_{i=1}^m \lambda_{r+i} w_i + U \]
@@ -5071,8 +5148,8 @@ What did we do in this section?
 \begin{theorem}
   \label{satz-5-2}
   $f: V \rightarrow W$ is linear
-  \[ \Leftrightarrow \bigwedge_{\lambda,\mu \in K} \bigwedge_{v,w \in V} f(\lambda v + \mu w) = \lambda f(v) + \mu f(w) \]
-  \[ \Leftrightarrow \bigwedge_{\lambda \in K} \bigwedge_{v,w \in V} f(\lambda v + w) = \lambda f(v) + f(w) \]
+  \[ \iff \bigwedge_{\lambda,\mu \in K} \bigwedge_{v,w \in V} f(\lambda v + \mu w) = \lambda f(v) + \mu f(w) \]
+  \[ \iff \bigwedge_{\lambda \in K} \bigwedge_{v,w \in V} f(\lambda v + w) = \lambda f(v) + f(w) \]
 \end{theorem}
 
 \begin{ex}
@@ -5132,7 +5209,7 @@ Homomorphisms and vector spaces:
   Pointwise operations.
 
   Let $x \in X$.
-  \[ \Rightarrow \Phi_x: V \rightarrow K \]
+  \[ \implies \Phi_x: V \rightarrow K \]
   \[ f \mapsto f(x) \]
   \[ \Phi_x(\lambda f + \mu g) = (\lambda f + \mu g)(x) = \lambda f(x) + \mu g(x) = \lambda \Phi_x(f) + u \Phi_x(g) \]
 \end{ex}
@@ -5186,7 +5263,7 @@ Homomorphisms and vector spaces:
   \[ C = \setdef{(x_n)_{n\in\mathbb N}}{x_n \in \mathbb R, x_n \text{ is convergent}} \]
   \[ \lim_{n\to\infty} (x_n + y_n) = \lim_{n\to\infty} x_n + \lim_{n\to\infty} y_n \]
   \[ \lim_{n\to\infty} (\lambda x_n) = \lambda \cdot \lim_{n\to\infty} x_n \]
-  \[ \Rightarrow \text{ the mapping } \lim_{n\to\infty} c \rightarrow \mathbb R \]
+  \[ \implies \text{ the mapping } \lim_{n\to\infty} c \implies \mathbb R \]
   \[ (x_n)_{n\in\mathbb N} \mapsto \lim_{n\to\infty} x_n\]
   is linear.
 \end{ex}
@@ -5197,16 +5274,16 @@ Homomorphisms and vector spaces:
   \[ \sum_{n=1}^\infty (x_n + y_n) = \sum_{n=1}^\infty x_n + \sum_{n=1}^\infty y_n \]
   \[ \sum_{n=1}^\infty \lambda x_n - \lambda \cdot \sum_{n=1}^\infty x_n \]
 
-  \[ \Rightarrow \sum_{n=1}^\infty: l^1 \rightarrow \mathbb R \text{ is linear} \]
+  \[ \implies \sum_{n=1}^\infty: l^1 \implies \mathbb R \text{ is linear} \]
   \[ (x_n)_{n\in\mathbb N} \mapsto \sum_{n=1}^\infty x_n \]
 \end{ex}
 
 \begin{ex}
   \[ V = U \dot{+} W \text{ is the direct sum} \]
   \[ \bigwedge_v \dot\bigvee_{u \in \mathbb U} \dot\bigvee_{w \in W} v = u + w \text{ is unambiguous} \]
-  \[ \pi_U: V \rightarrow U \quad\text{ \enquote{projections on U}} \]
+  \[ \pi_U: V \implies U \quad\text{ \enquote{projections on U}} \]
   \[ v \mapsto u \]
-  \[ \pi_W: V \rightarrow W \quad\text{ \enquote{projections on W}} \]
+  \[ \pi_W: V \implies W \quad\text{ \enquote{projections on W}} \]
   \[ v \mapsto w \]
 \end{ex}
 
@@ -5278,8 +5355,8 @@ Homomorphisms and vector spaces:
   Let $U, V$ and $W$ be vector spaces over $K$.
   \[ f: U \rightarrow V \qquad g: V \rightarrow W \text{ is linear} \]
   \begin{enumerate}
-    \item $\Rightarrow g \circ f: U \rightarrow W$ is linear.
-    \item $\Rightarrow$ if $f: U \rightarrow V$ is isomorphism,
+    \item $\implies g \circ f: U \rightarrow W$ is linear.
+    \item $\implies$ if $f: U \rightarrow V$ is isomorphism,
       then also $f^{-1}: V \rightarrow U$ is linear.
   \end{enumerate}
 \end{theorem}
@@ -5311,7 +5388,7 @@ Homomorphisms and vector spaces:
       &= \alpha \left(\alpha f(v) + \mu g(v)\right) + \beta(\lambda f(w) + \mu g(w)) \\
       &= \alpha (\lambda f + \mu g)(v) + \beta (\lambda f + \mu g)(w)
   \end{align*}
-  $\Rightarrow (\Hom(V, W), +, \cdot)$ is a vector space over $K$.
+  $\implies (\Hom(V, W), +, \cdot)$ is a vector space over $K$.
 \end{proof}
 
 \begin{theorem}
@@ -5373,11 +5450,11 @@ Homomorphisms and vector spaces:
       Let $w_1, w_2 \in f(V)$ then also $\lambda_1 w_1 + \lambda_2 w_2 \in f(V')$.
       Let $w_1, w_2 \in f(V')$.
       \[
-        \Rightarrow \bigvee_{v_1 \in V'} \bigvee_{v_2 \in V'}
+        \implies \bigvee_{v_1 \in V'} \bigvee_{v_2 \in V'}
         f(v_1) = w_1 \land f(v_2) = w_2
       \]
       \[ \lambda_1 w_1 + \lambda_2 w_2 = \lambda_1 f(v_1) + \lambda_2 f(v_2) \]
-      \[ f \text{ is linear} \Rightarrow f(\underbrace{\lambda_1 v_1 + \lambda_2 v_2}_{\in V'}) \in f(V') \]
+      \[ f \text{ is linear} \implies f(\underbrace{\lambda_1 v_1 + \lambda_2 v_2}_{\in V'}) \in f(V') \]
     \item Show that $v_1, v_2 \in f^{-1}(W')$ then also $\lambda_1 v_1 + \lambda_2 v_2 \in f^{-1}(W')$.
       Show that if $f(v_1), f(v_2) \in W'$ then $f(\lambda_1 v_1 + \lambda_2 v_2) \in W'$.
 
@@ -5397,22 +5474,22 @@ Homomorphisms and vector spaces:
     \item $f(L((v_i)_{i\in I})) = L((f(v_i))_{i \in I})$
       \[ M \subseteq V \]
       \[ f(L(M)) = L(f(M)) \]
-    \item $\left(f(v_i)\right)_{i \in I} \text{ linear independent} \Rightarrow (v_i)_{i \in I}$ linear independent
+    \item $\left(f(v_i)\right)_{i \in I} \text{ linear independent} \implies (v_i)_{i \in I}$ linear independent
   \end{enumerate}
   The inverse of the second statement does not hold (think about the zero-element).
 \end{theorem}
 \begin{proof}
   \begin{enumerate}
     \item
-      \[ w \in f(L((v_i)_{i \in I})) \Leftrightarrow \bigvee_{v \in L((v_i)_{i \in I})} w = f(v) \]
-      \[ \Leftrightarrow \bigvee_{m} \bigvee_{i, \dots, i_n} \bigvee_{\lambda_1, \dots, \lambda_n} w = f(\lambda_1 v_{i,1} + \dots + \lambda_n v_{i,n}) \]
-      \[ \Leftrightarrow \bigvee_{m} \bigvee_{i, \dots, i_n} \bigvee_{\lambda_1, \dots, \lambda_n} w = \lambda_1 f(v_{i,1}) + \dots + \lambda_n f(v_{i,n}) \]
-      \[ \Leftrightarrow w \in L((f(v_i))_{i \in I}) \]
+      \[ w \in f(L((v_i)_{i \in I})) \iff \bigvee_{v \in L((v_i)_{i \in I})} w = f(v) \]
+      \[ \iff \bigvee_{m} \bigvee_{i, \dots, i_n} \bigvee_{\lambda_1, \dots, \lambda_n} w = f(\lambda_1 v_{i,1} + \dots + \lambda_n v_{i,n}) \]
+      \[ \iff \bigvee_{m} \bigvee_{i, \dots, i_n} \bigvee_{\lambda_1, \dots, \lambda_n} w = \lambda_1 f(v_{i,1}) + \dots + \lambda_n f(v_{i,n}) \]
+      \[ \iff w \in L((f(v_i))_{i \in I}) \]
     \item
-      Let $\lambda_1 v_{i,1} + \dots + \lambda_n v_{i,n} = 0 \stackrel{!}{\Rightarrow} \text{ all } \lambda_i = 0$.
+      Let $\lambda_1 v_{i,1} + \dots + \lambda_n v_{i,n} = 0 \stackrel{!}{\implies} \text{ all } \lambda_i = 0$.
       \[ f(\lambda_1, v_{i,1} + \dots + \lambda_n v_{i,n}) = 0_w \]
-      \[ f \text{ linear} \Rightarrow \lambda_1 f(v_{i,1}) + \dots + \lambda_n f(v_{i,n}) = 0 \]
-      \[ f(v_i) \text{ linear independent} \Rightarrow \text{ all } \lambda_i = 0 \]
+      \[ f \text{ linear} \implies \lambda_1 f(v_{i,1}) + \dots + \lambda_n f(v_{i,n}) = 0 \]
+      \[ f(v_i) \text{ linear independent} \implies \text{ all } \lambda_i = 0 \]
   \end{enumerate}
 \end{proof}
 
@@ -5433,13 +5510,13 @@ Homomorphisms and vector spaces:
   \begin{enumerate}
     \item
       If $f$ is surjective and $L(M) = V$, then $L(f(M)) = W$.
-      If $f$ is surjective, then the image of the generating system is also a generating system.
+      If $f$ is surjective, then the image of the span is also a span.
       \[ L(f(M)) \stackrel{\text{Theorem~\ref{satz-5.12}}}{=} f(L(M)) = f(V) \stackrel{\text{surj.}}{=} W \]
     \item
       Let $f(v_i) \in f(M)$.
       Let $\sum \lambda_i f(v_i) = 0$. Then $f(\sum \lambda_i v_i) = 0_W = f(0_V)$.
-      \[ f \text{ inj.} \Rightarrow \sum \lambda_i v_i = 0_v \]
-      \[ M \text{ is linear indep.} \Rightarrow \text{ all } \lambda_i = 0 \]
+      \[ f \text{ inj.} \implies \sum \lambda_i v_i = 0_v \]
+      \[ M \text{ is linear indep.} \implies \text{ all } \lambda_i = 0 \]
     \item If $f$ is bijective and $B \subseteq V$ is basis, then $f(B)$ is basis.
   \end{enumerate}
 \end{proof}
@@ -5462,14 +5539,14 @@ Homomorphisms and vector spaces:
       $\dim{W} < \infty$, then from Theorem~\ref{satz-5-13} it follows that,
       $\left(f(b_i)\right)_{i \in I}$ is linear in W.
       $\dim{W}$ is given by maximal size of a linear independent family in $W$.
-      \[ \Rightarrow \dim{W} \geq [I] = \dim{V} \]
+      \[ \implies \dim{W} \geq [I] = \dim{V} \]
     \item
       If $\dim{V} = \infty$, we are done.
-      If $\dim{V} < \infty \Rightarrow \card{I} < \infty$.
+      If $\dim{V} < \infty \implies \card{I} < \infty$.
       From Theorem~\ref{satz-5-13}~(1) it follows that
       $\left(f(b_i)\right)_{i \in I}$ generates $W$.
       $\dim{W}$ is given by maximal size of a linear independent family in $W$.
-      \[ \Rightarrow \dim{W} \leq \card{I} = \dim{V} \]
+      \[ \implies \dim{W} \leq \card{I} = \dim{V} \]
     \item
       Follows from the previous two items or directly from Theorem~\ref{satz-5-13}~(2).
   \end{enumerate}
@@ -5497,7 +5574,7 @@ Homomorphisms and vector spaces:
 
 \begin{cor}
   Two linear mappings $f,g: V \rightarrow W$ are equal (ie. $\bigwedge_{v \in V} f(v) = g(v)$).
-  \[ \Leftrightarrow f|_B = g|_B \text{ for a basis of } V \]
+  \[ \iff f|_B = g|_B \text{ for a basis of } V \]
 \end{cor}
 \begin{proof}
   A linear mapping with $f(b_i) = w_i$ and linear combination $v = \sum \lambda_i b_i$ must give
@@ -5506,16 +5583,16 @@ Homomorphisms and vector spaces:
   \[ f(v) = \sum_{j=1}^n \lambda_j w_{ij} \]
   If $v = \sum_{j=1}^n \lambda_j b_{ij}$ (decomposition in regards of basis).
 
-  This define a function $f: V \rightarrow W$. So for every decomposition in regards of the basis,
+  This defines a function $f: V \rightarrow W$. So for every decomposition in regards of the basis,
   this decomposition is distinct. Therefore $f$ is well-defined.
 
   We now need to show: $f$ is linear.
-  \[ v = \sum_{i=1}^n \alpha_j b_{ij} \qquad v = \sum_{j=1}^n \beta_j b_{ij} \]
+  \[ u = \sum_{j=1}^n \alpha_j b_{ij} \qquad v = \sum_{j=1}^n \beta_j b_{ij} \]
   Without loss of generality in both vectors we have the same basis vectors $b_{ij}$
   (in other case we extend them using zero coefficients).
 
   \begin{align*}
-    f(\lambda u + \mu v) &= f(\lambda \sum_{j=1}^n \alpha_j b_{ij} + \mu \sum_{j=1}^n \beta_j b_{ij}) \\
+    f(\lambda u + \mu v) &= f\left(\lambda \sum_{j=1}^n \alpha_j b_{ij} + \mu \sum_{j=1}^n \beta_j b_{ij}\right) \\
       &= f(\sum_{j=1}^n \left(\lambda \alpha_j + \mu \beta_j\right) b_{ij}) \\
       &= \sum_{j=1}^n \left(\lambda \alpha_j + \mu \beta_j\right) w_{ij} \\
       &= \lambda \sum_{j=1}^n \alpha_j w_{ij} + \mu \sum_{j=1}^n \beta_j w_{ij} \\
@@ -5525,7 +5602,7 @@ Homomorphisms and vector spaces:
 
   Let $g: V \rightarrow W$ be linear with $g(b_i) = w_i$ for all $i$.
   We need to show that $g = f$. Therefore $g(v) = f(v)$ (for all $v \in V$).
-  Let $v \in V \Rightarrow v = \sum_{j=1}^n \lambda_j b_{ij}$ be a decomposition
+  Let $v \in V \implies v = \sum_{j=1}^n \lambda_j b_{ij}$ be a decomposition
   in regards of the basis. Therefore $g(v) = g\left(\sum_{j=1}^n \lambda_j b_{ij}\right)
   = \sum_{j=1}^n \lambda_j g(b_{ij}) = \sum_{j=1}^n \lambda_j w_{ij} = f(v)$.
 \end{proof}
@@ -5533,7 +5610,7 @@ Homomorphisms and vector spaces:
 \begin{theorem}
   \label{satz-5-16}
   Let $V$ and $W$ be finite-dimensional vector spaces.
-  Then $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
+  Then $V \cong W \iff \dim{V} = \dim{W}$.
 
   \[ \left(\delta_{x}\right)_{x \in \mathbb R} \subseteq \mathbb R^{\mathbb R} \]
   is linear independent, where
@@ -5546,7 +5623,7 @@ Homomorphisms and vector spaces:
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[Proof $\Rightarrow$]
+    \item[Proof $\implies$]
       Let $f: V \rightarrow W$ be an isomorphism. Then from Theorem~\ref{satz-5-14}~(3)
       it follows that $\dim{V} = \dim{W}$.
     \item[Proof $\Leftarrow$]
@@ -5563,8 +5640,8 @@ Homomorphisms and vector spaces:
           &= \sum_{i=1}^n \lambda_i f(v_i) - \sum_{i=1}^n \mu_i f(v_i) \\
           &= \sum_{i=1}^n \lambda_i w_i - \sum_{i=1}^n \mu_i w_i \\
           &= \sum_{i=1}^n (\lambda_i - \mu_i) w_i = 0
-          &\Rightarrow \lambda_i - \mu_i = 0 \quad\forall i \\
-          &\Rightarrow \text{all } \lambda_i = \mu_i \Rightarrow v = v'
+          &\implies \lambda_i - \mu_i = 0 \quad\forall i \\
+          &\implies \text{all } \lambda_i = \mu_i \implies v = v'
       \end{align*}
 
       \textbf{Surjectivity:} Let $w \in W$. We need to show that
@@ -5585,7 +5662,7 @@ Homomorphisms and vector spaces:
 \end{proof}
 
 \begin{cor}
-  \[ \dim{V} = n \Leftrightarrow V \cong K^n \]
+  \[ \dim{V} = n \iff V \cong K^n \]
   Isomorphism: Let $(b_1, \dots, b_n)$ be a basis of $V$.
   Then,
   \[ f: V \rightarrow K^n \]
@@ -5621,7 +5698,7 @@ Homomorphisms and vector spaces:
   \]
   Is distinct according to Theorem~\ref{satz-5-15}.
   This is a basis of $\Hom(V, W)$. So we need to shown linear independence and
-  that it is a generating system.
+  that it is a span.
 
   Let $B$ such that,
   \[
@@ -5653,8 +5730,8 @@ Homomorphisms and vector spaces:
         \end{cases}
       \]
 
-      $\Rightarrow = \sum_{j=1}^n \alpha_{k_j} w_j = f(v_k)$.
-      \[ \Rightarrow g|_{\set{v_1, \dots, v_m}} = f|_{\set{v_1, \dots, v_m}} \]
+      $\implies = \sum_{j=1}^n \alpha_{k_j} w_j = f(v_k)$.
+      \[ \implies g|_{\set{v_1, \dots, v_m}} = f|_{\set{v_1, \dots, v_m}} \]
       \[ \xRightarrow{\text{Theorem~\ref{satz-5-15}}} g = f \]
 
       And finally we need to show linear independence.
@@ -5665,7 +5742,7 @@ Homomorphisms and vector spaces:
 
       \begin{align*}
         0 &= \sum_{i=1}^n \sum_{j=1}^n \lambda_{ij} f_{ij}(v_k) \\
-          &= \sum_{j=1}^n \lambda_{kj} w_j = 0 \Rightarrow \bigwedge_j \in \set{1,\dots,n} \lambda_{kj} = 0
+          &= \sum_{j=1}^n \lambda_{kj} w_j = 0 \implies \bigwedge_j \in \set{1,\dots,n} \lambda_{kj} = 0
       \end{align*}
       where
       \[ f_{ij}(v_k) = \begin{cases} w_{j} & i = k \\ 0 & i \neq k \end{cases} \]
@@ -5681,11 +5758,11 @@ Homomorphisms and vector spaces:
 A factor set satisfies:
 \[ \faktor{V}{U} \quad U \subseteq V \text{ is a subspace} \]
 \[ = \setdef{v +  U}{v \in V} = \setdef{[v]}{v \in V} \]
-\[ v \sim_U v' \Leftrightarrow v - v' \in U \Leftrightarrow v \in V' + U \]
+\[ v \sim_U v' \iff v - v' \in U \iff v \in V' + U \]
 \[ \dim(\faktor{V}{U}) = \dim{U} = \dim{V} \]
 
 Constructing a basis for $\faktor{V}{U}$:
-\[ u_1, \dots, u_m \text{ is basis of } U \rightarrow \text{ extend to basis of } V \]
+\[ u_1, \dots, u_m \text{ is basis of } U \implies \text{ extend to basis of } V \]
 \[ u_1, \dots, u_m, w_1, \dots, w_{n-m} \text{ is basis of } V \]
 \[ w_1+U, \dots, w_{n-m}+U \text{ is basis of } \faktor{V}{U} \]
 
@@ -5729,20 +5806,20 @@ Images and preimages of subspaces are subspaces.
   \label{satz-5-20}
   Let $f: V \rightarrow W$ be linear.
   \begin{itemize}
-    \item $f$ is surjective $\Leftrightarrow \image(f) = W$
-    \item $f$ is injective $\Leftrightarrow \kernel(f) = \set{0_V}$
+    \item $f$ is surjective $\iff \image(f) = W$
+    \item $f$ is injective $\iff \kernel(f) = \set{0_V}$
   \end{itemize}
 \end{theorem}
 \begin{proof}
   \begin{itemize}
     \item Follows immediately.
-    \item $\Rightarrow$: Let $v \in \kernel(f) \Rightarrow f(v) = 0_W = f(0_V)$
-      and $f$ is injective $\Rightarrow v = 0_v$.
+    \item $\implies$: Let $v \in \kernel(f) \implies f(v) = 0_W = f(0_V)$
+      and $f$ is injective $\implies v = 0_v$.
 
       $\Leftarrow$: Let $v,v' \in V$ with $f(v) = f(v')$.
       \[ 0 = f(v) - f(v') = f(v - v') \]
-      \[ \Rightarrow v - v' \in \kernel(f) = \set{0} \]
-      \[ \Rightarrow v = v' \]
+      \[ \implies v - v' \in \kernel(f) = \set{0} \]
+      \[ \implies v = v' \]
   \end{itemize}
 \end{proof}
 
@@ -5750,7 +5827,7 @@ Images and preimages of subspaces are subspaces.
   \label{satz-5-21}
   Let $g: V \rightarrow \faktor{V}{U}$ be linear. $v \mapsto v + U$.
   Then it holds that:
-  \[ \tilde{f}: \faktor{V}{\kernel{f}} \rightarrow \image(f) \text{ is linear} \]
+  \[ \tilde{f}: \faktor{V}{\kernel{f}} \implies \image(f) \text{ is linear} \]
   \[ v + \kernel(f) \mapsto f(v) \]
   This gives an isomorphism.
 \end{theorem}
@@ -5769,9 +5846,9 @@ Images and preimages of subspaces are subspaces.
       So we need to show:
       If $v \sim_{\kernel(f)} v'$ ($v - v' \in \kernel(f)$) then $f(v) - f(v')$.
 
-      \[ v - v' \in \kernel(f) \Rightarrow f(v - v') = 0 \]
-      \[ \Rightarrow f(v) - f(v') = 0 \]
-      \[ \Rightarrow f(v) = f(v') \]
+      \[ v - v' \in \kernel(f) \implies f(v - v') = 0 \]
+      \[ \implies f(v) - f(v') = 0 \]
+      \[ \implies f(v) = f(v') \]
       Definition of $\tilde{f}(v + \kernel(f))$ is consistent.
     \item
       \begin{align*}
@@ -5779,7 +5856,7 @@ Images and preimages of subspaces are subspaces.
         \tilde{f}(\lambda(v + \kernel(f))) + \mu(v' + \kernel(f)) \\
         &= \tilde{f}((\lambda v + \mu v') + \kernel{f}) \\
         &= f(\lambda v + \mu v') \\
-      \text{$f$ is linear} \Rightarrow
+      \text{$f$ is linear} \implies
         &= \lambda f(v) + \mu f(v') \\
         &= \lambda \tilde{f}(v + \kernel(f)) + \mu \tilde{f}(v' + \kernel(f))
       \end{align*}
@@ -5792,7 +5869,7 @@ Images and preimages of subspaces are subspaces.
       We need to show that $\kernel(\tilde{f}) = \set{0 + \kernel(f)}$.
 
       Let $\tilde{f}(v + \kernel(f)) = 0$.
-      So $v \in \kernel(f) \Rightarrow v + \kernel(f) = \kernel(f) = 0 + \kernel(f)$.
+      So $v \in \kernel(f) \implies v + \kernel(f) = \kernel(f) = 0 + \kernel(f)$.
   \end{enumerate}
 \end{proof}
 
@@ -5802,9 +5879,9 @@ Images and preimages of subspaces are subspaces.
   Then $\dim{\kernel(f)} + \dim{\image(f)} = \dim{V}$.
 \end{cor}
 \begin{proof}
-  \[ \dim(\faktor{V}{\kernel(f)}) \stackrel{\text{Theorem~\ref{satz-4-24}}}{=} \dim{V} - \dim{\kernel(f)} \]
+  \[ \dim\left(\faktor{V}{\kernel(f)}\right) \stackrel{\text{Theorem~\ref{satz-4-24}}}{=} \dim{V} - \dim{\kernel(f)} \]
   \[ \tilde{f}: \faktor{V}{\kernel(f)} \rightarrow \image(f) \text{ is isomorphism} \]
-  \[ \Rightarrow \dim(\faktor{V}{\kernel(f)}) = \dim(\image(f)) \]
+  \[ \implies \dim(\faktor{V}{\kernel(f)}) = \dim(\image(f)) \]
 \end{proof}
 \begin{proof}[Alternative, more comprehensible proof]
   \[ \kernel(f) \subseteq V \text{ is subspace} \]
@@ -5815,9 +5892,9 @@ Images and preimages of subspaces are subspaces.
   \textbf{Claim.} $f|_U$ is surjective.
 
   Let $w \in \image(f)$
-  \[ \Rightarrow \bigvee_{v \in V} f(v) = w \]
-  \[ V = \kernel(f) \dot{+} U \Rightarrow \dot\bigvee_{u \in U} \dot\bigvee_{v_0 \in \kernel(f)} v = v_0 + u \]
-  \[ w = f(v) = f(v_0) + f(U) \Rightarrow w \in f(U) \]
+  \[ \implies \bigvee_{v \in V} f(v) = w \]
+  \[ V = \kernel(f) \dot{+} U \implies \dot\bigvee_{u \in U} \dot\bigvee_{v_0 \in \kernel(f)} v = v_0 + u \]
+  \[ w = f(v) = f(v_0) + f(U) \implies w \in f(U) \]
 
   $f_U$: is bijective. We need to show that $\kernel(f|_U) = \set{0}$.
   \[ \kernel(f|_U) = \kernel(f) \cap U = \set{0} \]
@@ -5846,18 +5923,18 @@ Images and preimages of subspaces are subspaces.
 \end{theorem}
 \begin{proof}
   \begin{enumerate}
-    \item $\Leftrightarrow f$ is injective $\Leftrightarrow \kernel{f} = \set{0}$
-      \[ \Leftrightarrow \dim{\kernel(f)} = 0 \]
+    \item $\iff f$ is injective $\iff \kernel{f} = \set{0}$
+      \[ \iff \dim{\kernel(f)} = 0 \]
       \[ \xLeftrightarrow{\text{Corollary~\ref{Korrolar-5-22}}} \dim{\image(f)} = \dim{V} = \dim{W} \]
 
       \[ \image(f) \subseteq W \text{ subspace} \]
       and $\dim{\inf(f)} = \dim{W}$.
-      \[ \Leftrightarrow \image(f) = W \]
-      \[ \Leftrightarrow f \text{ is surjective} \]
+      \[ \iff \image(f) = W \]
+      \[ \iff f \text{ is surjective} \]
 
-      \[ \dim{V} = n \Leftrightarrow V \cong K^n \]
+      \[ \dim{V} = n \iff V \cong K^n \]
       \[
-        \text{basis } f_{i,j}, v_k \rightarrow
+        \text{basis } f_{i,j}, v_k \implies
         \begin{cases}
           w_j & \text{if } k = i \\
           0 & \text{ else}
@@ -6088,7 +6165,7 @@ Every vector space has basis. Let $B \subseteq V$ be a basis
 Followingly, if two mappings $f, g \in \Hom(V, W)$ are equivalent
 if and only if $f|_B = g|_B$.
 
-If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
+If $\dim{V} < \infty$, $V \cong W \iff \dim{V} = \dim{W}$.
 
 \subsection{Matrix}
 \[
@@ -6167,7 +6244,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
       \[ f_{ij} = f_{E_{ji}} \text{ where } E_{ji} = \text{ elementary matrix} \]
       \[ f = \sum \alpha_{ij} f_{ij} \in \Hom(K^n, K^m) \]
       \[ (E_{ji})_{\substack{i = 1,\ldots,n \\ j = 1,\ldots,m}} \text{ build basis in } K^{m \times n} \]
-      \[ \Rightarrow f = f_{\sum \alpha_{ij} E_{ji}} = f_A \]
+      \[ \implies f = f_{\sum \alpha_{ij} E_{ji}} = f_A \]
       \[ A = \sum \alpha_{ij} E_{ji} \]
       The mapping
       \[ K^{m\times n} \rightarrow \Hom(K^n, K^m) \]
@@ -6337,7 +6414,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
           &= \sum_{k=1}^m (B^T)_{ik} (A^T)_{kj} \\
           &= \left(B^T \cdot A^T\right)_{ij}
       \end{align*}
-      \[ \Rightarrow \text{ for all } i,j: (A\cdot B)^T = B^T \cdot A^T \]
+      \[ \implies \text{ for all } i,j: (A\cdot B)^T = B^T \cdot A^T \]
   \end{enumerate}
 \end{proof}
 \begin{cor}
@@ -6375,7 +6452,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   \label{theorem-6.14}
   \begin{enumerate}
     \item $I_n$ is regular. $I_n \cdot I_n = I_n$
-    \item $A, B \in K^{n\times n}$ is regular $\Rightarrow A \cdot B$ is regular.
+    \item $A, B \in K^{n\times n}$ is regular $\implies A \cdot B$ is regular.
       \[ \left(A \cdot B\right)^{-1} = B^{-1} \cdot A^{-1} \]
     \item $A \in K^{n\times n}$ is regular, then $A^{-1}$ is also regular.
       \[ \left(A^{-1}\right)^{-1} = A \]
@@ -6400,7 +6477,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
       $A^{-1}$ has $A$ as inverse.
     \item[4.] $A^T \cdot (A^{-1})^T = \left(A^{-1} \cdot A\right)^T = I^T = I$
     \item[5.] $f_A \circ f_{A^{-1}} = f_{A \cdot A^{-1}} = f_I = \text{id}$.
-      So $f_A \circ f_B = \text{id} \Leftrightarrow A \cdot B = I$
+      So $f_A \circ f_B = \text{id} \iff A \cdot B = I$
   \end{enumerate}
 \end{proof}
 \index[English]{Permutation matrix}
@@ -6450,7 +6527,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
         \vdots & \ddots & \vdots \\
         0 & \ldots & a_n
       \end{bmatrix}
-      $ is regular $\Leftrightarrow$ all $a_i \neq 0$
+      $ is regular $\iff$ all $a_i \neq 0$
       \[
         \begin{bmatrix}
           a_1 & \ldots & 0 \\
@@ -6620,7 +6697,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
 %
 \begin{rem}
   \begin{enumerate}
-    \item Because of Remark~\ref{bemerkung-6.6} and Theorem~\ref{satz-5-12}
+    \item Because of Remark~\ref{bemerkung-6.6} and Theorem~\ref{satz-5.12}
       the column vectors of $A$ build the image space of $f_A$.
       Therefore,
       \[ \operatorname{srg}(A) = \dim \image(f_A) \]
@@ -6632,26 +6709,27 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   For all $A \in K^{m \times n}$, it holds that $\operatorname{zrg}(A) = \operatorname{srg}(A)$
   and is called \emph{rank} of A:
   \[ \operatorname{rk}(A) = \dim{\image(f_A)} \]
-  (in English $f_A$ is called \emph{range} of $f_A$)
 \end{theorem}
 \begin{proof}
   It suffices to show that
   \[ \operatorname{srg}(A) \leq \operatorname{zrg}(A) \]
-  \[ \dim{\operatorname{zrg}(A)} = \operatorname{srg}(A^T) \leq \operatorname{zrg}(A^T) = \operatorname{srg}(A) \]
+  \[ \operatorname{zrg}(A) = \operatorname{srg}(A^T) \leq \operatorname{zrg}(A^T) = \operatorname{srg}(A) \]
   Let $r = \operatorname{zrg}(A)$.
-  We need to find a generating system of column vectors with $\leq r$ elements.
+  We need to find a span of column vectors with $\leq r$ elements.
   From the basis selection theorem it follows that
   $z_{i_1}(A) \ldots z_{i_r}(A)$ are basis of row space.
   All other rows are linear combinations of these vectors:
-  \begin{align*}
-    \bigvee_{\substack{\beta_{ij} \in K \\ 1 \leq i \leq m \\ 1 \leq j \leq r}}
-      z_1 &= \beta_{i_1} z_{i_1} + \ldots + \beta_{i_r} z_{i_r} \\
-      z_2 &= \beta_{i_2} z_{i_2} + \ldots + \beta_{i_r} z_{i_r} \\
-          &= \vdots \\
-      z_m &= \beta_{i_m} z_{i_m} + \ldots + \beta_{i_r} z_{i_r}
-  \end{align*}
+  \[
+    \begin{array}{ccccccc}
+      \bigvee_{\substack{\beta_{ij} \in K \\ 1 \leq i \leq m \\ 1 \leq j \leq r}}
+        z_1 &=& \beta_{i_1} z_{i_1} &+& \ldots &+& \beta_{i_r} z_{i_r} \\
+        z_2 &=& \beta_{i_2} z_{i_2} &+& \ldots &+& \beta_{i_r} z_{i_r} \\
+     \vdots &=& \vdots              & & \vdots & & \vdots \\
+        z_m &=& \beta_{i_m} z_{i_m} &+& \ldots &+& \beta_{i_r} z_{i_r}
+    \end{array}
+  \]
 
-  We denote coordinatewise $(z_i)_j = a_ij$.
+  We denote coordinatewise $(z_i)_j = a_{ij}$.
   \begin{align*}
     a_{1j} = (z_i)_{j}
       &= (\beta_{11} z_{i 1} + \ldots + \beta_{1r} z_{i r})_j \\
@@ -6680,8 +6758,8 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   \]
   All column vectors are contained $L(b_1, \ldots, b_r)$, where $b_1$ to $b_r$
   are the vectors we wrote used for $s_j(A)$ above.
-  \[ \Rightarrow \text{column space} \subseteq L(b_1, \ldots, b_r) \]
-  \[ \Rightarrow \operatorname{srg}(A) = \dim{(\text{column space})} \leq r = \operatorname{zrg}(A) \]
+  \[ \implies \text{column space} \subseteq L(b_1, \ldots, b_r) \]
+  \[ \implies \operatorname{srg}(A) = \dim{(\text{column space})} \leq r = \operatorname{zrg}(A) \]
   Our next goal is to determine its rank.
 
   Approach: Gaussian elimination.
@@ -6958,9 +7036,9 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   Every row (column) transformation corresponds to multiplication with an invertible matrix $L_i$ ($R_j$) from left (right).
 
   \[ L_k \ldots L_2 L_1 A R_1 R_2 \ldots R_l = I_{m\times n}^{(r)} \]
-  \[ \rightarrow R = L_k \ldots L_2 L_1 \text{ is invertible} \]
-  \[ \rightarrow Q = R_1 R_2 \ldots R_l \text{ is invertible} \]
-  \[ \Rightarrow P \cdot A \cdot Q = I_{m\times n}^{(r)} \text{ are equivalent} \]
+  \[ \implies R = L_k \ldots L_2 L_1 \text{ is invertible} \]
+  \[ \implies Q = R_1 R_2 \ldots R_l \text{ is invertible} \]
+  \[ \implies P \cdot A \cdot Q = I_{m\times n}^{(r)} \text{ are equivalent} \]
 \end{proof}
 
 \begin{theorem}
@@ -6970,7 +7048,7 @@ If $\dim{V} < \infty$, $V \cong W \Leftrightarrow \dim{V} = \dim{W}$.
   $A$ is invertible.
   \[ \rank(A \cdot B) \leq \rank(B) \]
   \[ B = A^{-1} \cdot A \cdot B \]
-  \[ \Rightarrow \rank(B) \leq \rank(A \cdot B) \]
+  \[ \implies \rank(B) \leq \rank(A \cdot B) \]
 
   Or more to the point: Column and row transformations do not change the rank.
 \end{theorem}
@@ -7022,8 +7100,8 @@ with $\operatorname{rk}(A) = r$.
   \[ \operatorname{im}(AB) \subseteq \operatorname{im}(A) \]
   \[ (f(g(X))) \subseteq f(Y) \]
   \[ K^P \to K^m \to K^n \]
-  \[ \Rightarrow \dim{\image(AB)} \leq \dim{\image(A)} \]
-  \[ \Rightarrow \operatorname{rk}(AB) \leq \operatorname{rk}(A) \]
+  \[ \implies \dim{\image(AB)} \leq \dim{\image(A)} \]
+  \[ \implies \operatorname{rk}(AB) \leq \operatorname{rk}(A) \]
   \[ \operatorname{rk}(A\cdot B) = \operatorname{rk}\left((A\cdot B)^T\right) = \operatorname{rk}(B^T \cdot A^T) \leq \operatorname{rk}(B^T) = \operatorname{rk}(B) \]
 \end{proof}
 
@@ -7035,12 +7113,12 @@ with $\operatorname{rk}(A) = r$.
   \[ P \in \operatorname{GL}(m, K) \qquad Q \in \operatorname{GL}(n, K) \]
 \end{theorem}
 \begin{proof}
-  Let $A' = P \cdot A \Rightarrow \operatorname{rk}(A') \leq \operatorname{rk}(A)$. \\
-  $P$ invertible $\Rightarrow A = P^{-1} \cdot A^{-1} \Rightarrow \operatorname{rk}(A) \leq \operatorname{rk}(A')$.
+  Let $A' = P \cdot A \implies \operatorname{rk}(A') \leq \operatorname{rk}(A)$. \\
+  $P$ invertible $\implies A = P^{-1} \cdot A^{-1} \implies \operatorname{rk}(A) \leq \operatorname{rk}(A')$.
 
   So $\operatorname{rk}(A) = \operatorname{A'}$.
 
-  \[ A' = A' \cdot Q \Rightarrow \operatorname{rk}(A') = \operatorname{rk}(A) \]
+  \[ A' = A' \cdot Q \implies \operatorname{rk}(A') = \operatorname{rk}(A) \]
 \end{proof}
 
 \begin{cor}
@@ -7063,10 +7141,10 @@ with $\operatorname{rk}(A) = r$.
 \begin{proof}
   Consider Theorem~\ref{satz-6.30}.
   \[ \operatorname{rk}(A) = a \leq \operatorname{rk}(B) \]
-  \[ \Rightarrow \bigvee_{P,Q \text{ invertible}} P \cdot A \cdot Q = I_{m,n}^{(r)} \Rightarrow A \sim I_{m,n}^{(r)} \sim B \]
+  \[ \implies \bigvee_{P,Q \text{ invertible}} P \cdot A \cdot Q = I_{m,n}^{(r)} \implies A \sim I_{m,n}^{(r)} \sim B \]
   \[ \bigvee_{P', Q' \text{ invertible}} P' \cdot B \cdot Q' = I_{m,n}^{(r)} \]
 
-  \[ A \in K^{m\times n} \Rightarrow \operatorname{rk}(A) \in \set{0, \ldots, \min(m,n)} \]
+  \[ A \in K^{m\times n} \implies \operatorname{rk}(A) \in \set{0, \ldots, \min(m,n)} \]
 \end{proof}
 
 \begin{theorem}
@@ -7082,12 +7160,14 @@ with $\operatorname{rk}(A) = r$.
   \[
     \operatorname{rk}(A) = n = \operatorname{rk}(I_n)
     \xRightarrow{\text{Corollary~\ref{korollar-6.33}}}
-    A \sim I_n \Rightarrow
+    A \sim I_n
+  \] \[
+    \implies
     \bigvee_{P,Q \in \operatorname{GL}(n,K)} A
     = P \cdot I_n \cdot Q
     = P \cdot Q \in \operatorname{GL}(n, K)
   \]
-  \[ \Rightarrow A \text{ is regular} \]
+  \[ \implies A \text{ is regular} \]
 
   Regular $A$ is equivalent to $I_n$ by row operations from left and column operations from right.
 \end{proof}
@@ -7231,7 +7311,7 @@ with $\operatorname{rk}(A) = r$.
   \[ \image(f_A \cdot f_B) \subseteq \image(f_A) \]
   Long proof: We show, all columns of $A\cdot B$ are in column space of $A$.
   \[ s_j(A \cdot B)_i = (A\cdot B)_{ij} = \sum_{k=1}^m a_{ik} b_{kj} \]
-  \[ \Rightarrow s_j(AB) = \sum_{k=1}^m s_k(A) \cdot b_{kj} \in L(s_1(A), \ldots, s_m(A)) \]
+  \[ \implies s_j(AB) = \sum_{k=1}^m s_k(A) \cdot b_{kj} \in L(s_1(A), \ldots, s_m(A)) \]
   If $B$ is regular:
   \[ \image(A) = \image(A \cdot B \cdot B^{-1}) \subseteq \image(A \cdot B) \]
   \[ \image(A' \cdot B') \subseteq \image(A') \]
@@ -7357,13 +7437,13 @@ Applying only row transformations is the same as applying as only column transfo
   \begin{enumerate}
     \item Then $Ax = b$ is solvable.
       \begin{align*}
-        \Leftrightarrow & \hspace{10pt} \bigvee_{x \in K^n} Ax = b \\
-        \Leftrightarrow & \hspace{10pt} \bigvee_{x \in K^n} f_A(x) = b \\
-        \Leftrightarrow & \hspace{10pt} b \in f_A(K^n) = \image{f_A} & \text{(2.)}\\
-        \Leftrightarrow & \hspace{10pt} b \in L(s_1(A), \ldots, s_n(A)) \\
-        \Leftrightarrow & \hspace{10pt} L(s_1(A), \ldots, s_n(A), b) = L(s_1(A), \ldots, s_n(A)) \\
-        \Leftrightarrow & \hspace{10pt} \dim{L(s_1(A), \ldots, s_n(A), b)} = \dim{L(s_1(A), \ldots, s_n(A))} \\
-        \Leftrightarrow & \hspace{10pt} \operatorname{rk}(A|b) = \operatorname{rk}(A)
+        \iff & \hspace{10pt} \bigvee_{x \in K^n} Ax = b \\
+        \iff & \hspace{10pt} \bigvee_{x \in K^n} f_A(x) = b \\
+        \iff & \hspace{10pt} b \in f_A(K^n) = \image{f_A} & \text{(2.)}\\
+        \iff & \hspace{10pt} b \in L(s_1(A), \ldots, s_n(A)) \\
+        \iff & \hspace{10pt} L(s_1(A), \ldots, s_n(A), b) = L(s_1(A), \ldots, s_n(A)) \\
+        \iff & \hspace{10pt} \dim{L(s_1(A), \ldots, s_n(A), b)} = \dim{L(s_1(A), \ldots, s_n(A))} \\
+        \iff & \hspace{10pt} \operatorname{rk}(A|b) = \operatorname{rk}(A)
       \end{align*}
   \end{enumerate}
 \end{proof}
@@ -7401,8 +7481,8 @@ $A = P B P^{-1}$ is a much more difficult problem involving eigenvalues and dete
 Yesterday, we saw:
 \[
   Ax = b \text{ solvable }
-  \Leftrightarrow b \in f_A
-  \Leftrightarrow \operatorname{rk}(A | b) = \operatorname{rk}(A)
+  \iff b \in f_A
+  \iff \operatorname{rk}(A | b) = \operatorname{rk}(A)
 \]
 
 \begin{theorem}
@@ -7422,8 +7502,8 @@ Yesterday, we saw:
       such that $U = \kernel{f_A} = \setdef{x}{Ax = 0}$.
     \item Let $A \in K^{m\times n}, b \in K^m$.
       Let $x_0 \in K^n$ be a solution such that $Ax_0 = b$
-      \[ \Rightarrow L = \setdef{x}{Ax = b} = x_0 + \kernel{A} \]
-      $\Rightarrow$ linear manifold.
+      \[ \implies L = \setdef{x}{Ax = b} = x_0 + \kernel{A} \]
+      $\implies$ linear manifold.
   \end{enumerate}
 \end{theorem}
 \begin{proof}[Proof of Theorem~\ref{satz-6.44}]
@@ -7431,7 +7511,7 @@ Yesterday, we saw:
     \item
       $\kernel{A}$ is subspace. Because of Corollary~\ref{Korrolar-5-22}, it holds that
       \[ \dim{\kernel{f_A}} + \dim{\image{f_A}} = \dim{K^n} \]
-      \[ \Leftrightarrow \dim{L} + \operatorname{rk}(A) = n \]
+      \[ \iff \dim{L} + \operatorname{rk}(A) = n \]
     \item
       Given $U \subseteq K^n$.
       Let $u_1, \ldots, u_r$ be basis of $U$.
@@ -7443,16 +7523,16 @@ Yesterday, we saw:
       \[ f(u_i) = 0 \qquad 1 \leq i \leq r \]
       \[ f(u_{r + j}) = v_j \qquad 1 \leq j \leq n - r \]
       where $v_1, \ldots, v_{n-r} \in K^n$ is linear independent.
-      \[ \Rightarrow U \subseteq \kernel{f} \]
+      \[ \implies U \subseteq \kernel{f} \]
       and $U = \kernel{f}$ because $v_1, \ldots, v_{n-r}$ is linear independent.
       Choose $A \in K^{m\times n}$ such that $f = f_A$
-      \[ \Rightarrow U = \setdef{x}{Ax = 0} \]
+      \[ \implies U = \setdef{x}{Ax = 0} \]
     \item Let $Ax_0 = b$.
       Let $x \in K^n$, then it holds that
       \[
-        Ax = b \Leftrightarrow Ax = Ax_0 \Leftrightarrow A \cdot (x - x_0) = 0
-        \Leftrightarrow x - x_0 \in \kernel{A}
-        \Leftrightarrow x \in x_0 + \kernel{A}
+        Ax = b \iff Ax = Ax_0 \iff A \cdot (x - x_0) = 0
+        \iff x - x_0 \in \kernel{A}
+        \iff x \in x_0 + \kernel{A}
       \]
   \end{enumerate}
 \end{proof}
@@ -7473,10 +7553,10 @@ Yesterday, we saw:
             \end{bmatrix}
           \]
         \item $L$ is regular and in $K^{m\times n}$.
-          \[ Ax = b \Leftrightarrow LAx = Lb \]
-          $\rightarrow$ Elementary row transformations do not change the solution set.
+          \[ Ax = b \iff LAx = Lb \]
+          $\implies$ Elementary row transformations do not change the solution set.
         \item Row transformations
-          \[ (A \cdot Q) \cdot y = b \Leftrightarrow A \cdot (Q \cdot y) = b \Leftrightarrow y = Q^{-1} x \]
+          \[ (A \cdot Q) \cdot y = b \iff A \cdot (Q \cdot y) = b \iff y = Q^{-1} x \]
       \end{itemize}
       If you want to solve $Ax = b$ for $b_i$ with $i = 1, \ldots, k$.
       \[ AX = B \]
@@ -7494,9 +7574,9 @@ Yesterday, we saw:
           \vdots &  & \vdots
         \end{pmatrix}
       \]
-      \[ AX = I \Rightarrow X = A^{-1} \cdot I = A^{-1} \]
-      $\rightarrow$ also $k$-th column of $A^{-1}$ meaning the solution stays the same: $Ax = e_k$.
-      \[ Ax = b \qquad Ay \Leftrightarrow A(\lambda x + y) = \lambda b + \mu c \]
+      \[ AX = I \implies X = A^{-1} \cdot I = A^{-1} \]
+      $\implies$ also $k$-th column of $A^{-1}$ meaning the solution stays the same: $Ax = e_k$.
+      \[ Ax = b \qquad Ay \iff A(\lambda x + y) = \lambda b + \mu c \]
       $A^{-1}$ is a linear mapping.
 
       What do you get in the general case? ($m \neq n$ if we transform $(A | I_m)$)
@@ -7520,9 +7600,9 @@ Yesterday, we saw:
 \begin{ex}[Application of LU decomposition]
   \[ A = P^{-1} L R \]
   \begin{align*}
-    Ax = b &\Leftrightarrow PAx = Pb \\
-      &\Leftrightarrow LRx = Pb \\
-      &\Leftrightarrow \begin{cases}
+    Ax = b &\iff PAx = Pb \\
+      &\iff LRx = Pb \\
+      &\iff \begin{cases}
           c \coloneqq Ly = Pb \\
           y \coloneqq Rx
         \end{cases}
@@ -7543,8 +7623,8 @@ Yesterday, we saw:
   \label{lemma-6.47}
   \begin{itemize}
     \item Let $L_1, L_2 \in K^{m\times m}$ be a lower triangular matrix
-      \[ \Rightarrow L_1 \cdot L_2 \text{ is lower triangular matrix} \]
-      \[ \Rightarrow \text{ lower triangular matrices build a subalgebra of } K^{m\times m} \]
+      \[ \implies L_1 \cdot L_2 \text{ is lower triangular matrix} \]
+      \[ \implies \text{ lower triangular matrices build a subalgebra of } K^{m\times m} \]
     \item If $L$ is a triangular matrix, then $L^{-1}$ is triangular matrix.
   \end{itemize}
 \end{theorem}
@@ -7568,7 +7648,7 @@ Yesterday, we saw:
       \ldots & \ldots & \lambda_{m} & 0 & 1 \\
     \end{pmatrix}}
   \]
-  builds a group in regards of multiplication (\enquote{Frobenis matrices}).
+  builds a group in regards of multiplication (\enquote{Frobenius matrices}).
 \end{theorem}
 \begin{proof}
   \[
@@ -7587,6 +7667,7 @@ Yesterday, we saw:
       \ldots & \ldots & \ldots & \mu_{k+1} & 1 & 0 \\
       \ldots & \ldots & \ldots & \mu_{n} & 0 & 1
     \end{bmatrix}
+  \] \[
     =
     \begin{bmatrix}
       1 & 0 & 0 & 0 & \ldots & 0 \\
@@ -7607,7 +7688,7 @@ Yesterday, we saw:
     = I + \sum_{i=k+1}^n \left(\lambda_i + \mu_i\right) E_{i,k} + \sum_{i=k+1}^n \sum_{i=k+1}^n \lambda_i \mu_j \underbrace{E_{i,k} \cdot E_{j,k}}_{=0 \text{ because } j > k}
   \]
   \[
-    \Rightarrow
+    \implies
     \begin{pmatrix}
       1 & 0 & \ldots & 0 & \ldots & 0 & 0 \\
       0 & 1 & \ldots & 0 & \ldots & 0 & 0 \\
@@ -7631,214 +7712,213 @@ Yesterday, we saw:
 \end{proof}
 
 \begin{ex}[Example for LU decomposition]
-  \begin{itemize}
-    \item
-      \[
-        \underbrace{
-        \begin{tabular}{ccc|ccc}
-          1 & 1 & 1 & 1 &   & \\
-          2 & 3 & 5 &   & 1 & \\
-          4 & 6 & 8 &   &   & 1 \\
-        \hline
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & 1 & 3 & -2 & 1 & 0 \\
-          0 & 2 & 4 & -4 & 0 & 1
-        \end{tabular}
-        }_{\text{gives } L_1 \cdot A \text{ on the left and } L_1 \text{ on the right}}
-      \] \[
-        \underbrace{
-        \begin{tabular}{ccc|ccc}
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & 1 & 3 & -2 & 1 & 0 \\
-          0 & 0 & -2 & 0 & -2 & 1
-        \end{tabular}
-        }_{\text{gives } R \text{ on the left and } L_2 \cdot L_1 \text{ on the right}}
-      \]
-      \[ L_2 \cdot L_1 \cdot A = R \]
-      \[
-        A = L_1^{-1} \cdot L_2^{-1} \cdot R
-        = \underbrace{\begin{bmatrix}
-          1 & 0 & 0 \\
-          2 & 1 & 0 \\
-          4 & 2 & 1
-        \end{bmatrix} \cdot
-        \begin{bmatrix}
-          1 & 1 & 1 \\
-          0 & 1 & 3 \\
-          0 & 0 & -2
-        \end{bmatrix}}_{\text{LU decomposition of $A$}}
-      \]
-      \[
-        L_1^{-1} = \begin{bmatrix}
-          1 &   &   \\
-          2 & 1 &   \\
-          4 &   & 1
-        \end{bmatrix}
-        \qquad
-        L_2^{-1} = \begin{bmatrix}
-          1 &   & \\
-            & 1 & \\
-            & 2 & 1
-        \end{bmatrix}
-      \]
-    \item
-      \[
-        \underbrace{\begin{tabular}{ccc|ccc}
-          1 & 1 & 1 & 1 &   & \\
-          2 & 2 & 5 &   & 1 & \\
-          4 & 6 & 8 &   &   & 1 \\
-        \hline
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & 0 & 3 & -2 & 1 & 0 \\
-          0 & 2 & 4 & -4 & 0 & 1 \\
-        \hline
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & 2 & 4 & -4 & 0 & 1 \\
-          0 & 0 & 3 & -2 & 1 & 0
-        \end{tabular}}_{\text{gives } R \text{ on the left}}
-      \]
-      This is not a triangular matrix!
-      \[
-        L_1 = \begin{bmatrix}
-           1 &   & \\
-          -2 & 1 &  \\
-          -4 &   & 1
-        \end{bmatrix}
-        \qquad
-        P_2 = \begin{bmatrix}
-          1 & 0 & 0 \\
-          0 & 0 & 1 \\
-          0 & 1 & 0
-        \end{bmatrix}
-      \] \[
-        P_2 L_1^{-1} P_2^{-1}
-      \] \[
-        P_2 L_1 A = R
-      \] \[
-        \Rightarrow A = L_1^{-1} P_2^{-1} R
-      \] \[
-        = P_2^{-1} P_2 \cdot L_1^{-1} P_2^{-1} \cdot R
-      \]
-      \[
-        L_1^{-1} = \begin{bmatrix}
-          1 &   & \\
-          2 & 1 & \\
-          4 &   & 1
-        \end{bmatrix}
-      \] \[
-        P_2 L_1^{-1} P_2^{-1} = \begin{bmatrix}
-          1 &   & \\
-          4 & 1 & \\
-          2 &   & 1
-        \end{bmatrix}
-      \] \[
-        P_2 \cdot A = \underbrace{P_2 \cdot L_1^{-1} \cdot P_2^{-1}}_{(L_1')^{-1}} \cdot R
-          = \begin{bmatrix}
-            1 &   & \\
-            4 & 1 & \\
-            2 & 0 & 1
-          \end{bmatrix} \cdot \begin{bmatrix}
-            1 & 1 & 1 \\
-              & 2 & 4 \\
-              &   & 3
-          \end{bmatrix}
-      \]
-    \item
-      \[
-        \begin{array}{ccc|ccc}
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          2 & 2+\varepsilon & 5 & 0 & 1 & 0 \\
-          4 & 6 & 8 & 0 & 0 & 1 \\
-        \hline
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & \varepsilon & 3 & -2 & 1 & 0 \\
-          0 & 2 & 4 & -4 & 0 & 1 \\
-        \hline
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & \varepsilon & 3 & -2 & 1 & 0 \\
-          0 & 0 & 4-\frac6{\varepsilon} & -4+\frac4{\varepsilon} & -\frac2\varepsilon & 1
-        \end{array}
-      \] \[
-        L_1 = \begin{bmatrix}
-           1 &   & \\
-          -2 & 1 & \\
-          -1 &   & 1
-        \end{bmatrix}
-        \qquad
-        L_2 = \begin{bmatrix}
-          1 &   & \\
-            & 1 & \\
-            & -\frac2\varepsilon & 1
-        \end{bmatrix}
-      \] \[
-        A = L_1^{-1} \cdot L_2^{-1} \cdot R
-      \] \[
-        L_1^{-1} = \begin{bmatrix}
-          1 &   & \\
-          2 & 1 & \\
-          4 &   & 1
-        \end{bmatrix} \qquad
-        L_2^{-1} = \begin{bmatrix}
-          1 &   & \\
-            & 1 & \\
-            & \frac2\varepsilon & 1
-        \end{bmatrix}
-      \] \[
-        A = \begin{bmatrix}
-          1 &   & \\
-          2 & 1 & \\
-          4 & \frac2{\varepsilon} & 1
-        \end{bmatrix} \cdot \begin{bmatrix}
-          1 & 1 & 1 \\
-          0 & \varepsilon & 3 \\
-          0 & 0 & 4-\frac63
-        \end{bmatrix}
-      \]
-      Better row exchange:
-      \[
-        \begin{array}{ccc|ccc}
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & 2 & 4 & -4 & 0 & 1 \\
-          0 & \varepsilon & 3 & -2 & 1 & 0 \\
-        \hline
-          1 & 1 & 1 & 1 & 0 & 0 \\
-          0 & 2 & 4 & -4 & 0 & 1 \\
-          0 & 0 & 3-2\varepsilon & -2-2\varepsilon & 1 & -\frac\varepsilon2
-        \end{array}
-      \] \[
-        P_2 = \begin{bmatrix}
-         1 &   & \\
-           & 0 & 1 \\
-           & 1 & 0
-        \end{bmatrix}
-        \qquad
-        L_2 = \begin{bmatrix}
-          1 &   &  \\
-            & 1 &  \\
-            & -\frac\varepsilon2 & 1
-        \end{bmatrix}
-      \] \[
-        L_2 P_2 L_1 A = R
-      \] \[
-        \Rightarrow A = L_1^{-1} P_2^{-1} L_2^{-1} R
-      \] \[
-        = P_2^{-1} \cdot P_2 \cdot L_1^{-1} \cdot P_2^{-1} \cdot L_2^{-1} \cdot R
-      \] \[
-        P_2 \cdot A = P_2 L_1^{-1} P_2^{-1} \cdot L_2^{-1} \cdot R
-      \] \[
-        \begin{bmatrix}
-          1 &   & \\
-          4 & 1 & \\
-          2 & \frac\varepsilon2 & 1
-        \end{bmatrix}
-        \begin{bmatrix}
-          1 & 1 & 1 \\
-          0 & 2 & 4 \\
-          0 & 0 & 3-2\varepsilon
-        \end{bmatrix}
-      \]
-      The error does not increase!
-  \end{itemize}
+  \[
+    \underbrace{
+    \begin{tabular}{ccc|ccc}
+      1 & 1 & 1 & 1 &   & \\
+      2 & 3 & 5 &   & 1 & \\
+      4 & 6 & 8 &   &   & 1 \\
+    \hline
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & 1 & 3 & -2 & 1 & 0 \\
+      0 & 2 & 4 & -4 & 0 & 1
+    \end{tabular}
+    }_{\text{gives } L_1 \cdot A \text{ on the left and } L_1 \text{ on the right}}
+  \] \[
+    \underbrace{
+    \begin{tabular}{ccc|ccc}
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & 1 & 3 & -2 & 1 & 0 \\
+      0 & 0 & -2 & 0 & -2 & 1
+    \end{tabular}
+    }_{\text{gives } R \text{ on the left and } L_2 \cdot L_1 \text{ on the right}}
+  \]
+  \[ L_2 \cdot L_1 \cdot A = R \]
+  \[
+    A = L_1^{-1} \cdot L_2^{-1} \cdot R
+    = \underbrace{\begin{bmatrix}
+      1 & 0 & 0 \\
+      2 & 1 & 0 \\
+      4 & 2 & 1
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      1 & 1 & 1 \\
+      0 & 1 & 3 \\
+      0 & 0 & -2
+    \end{bmatrix}}_{\text{LU decomposition of $A$}}
+  \]
+  \[
+    L_1^{-1} = \begin{bmatrix}
+      1 &   &   \\
+      2 & 1 &   \\
+      4 &   & 1
+    \end{bmatrix}
+    \qquad
+    L_2^{-1} = \begin{bmatrix}
+      1 &   & \\
+        & 1 & \\
+        & 2 & 1
+    \end{bmatrix}
+  \]
+\end{ex}
+\begin{ex}[Example for LU decomposition]
+  \[
+    \underbrace{\begin{tabular}{ccc|ccc}
+      1 & 1 & 1 & 1 &   & \\
+      2 & 2 & 5 &   & 1 & \\
+      4 & 6 & 8 &   &   & 1 \\
+    \hline
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & 0 & 3 & -2 & 1 & 0 \\
+      0 & 2 & 4 & -4 & 0 & 1 \\
+    \hline
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & 2 & 4 & -4 & 0 & 1 \\
+      0 & 0 & 3 & -2 & 1 & 0
+    \end{tabular}}_{\text{gives } R \text{ on the left}}
+  \]
+  This is not a triangular matrix!
+  \[
+    L_1 = \begin{bmatrix}
+       1 &   & \\
+      -2 & 1 &  \\
+      -4 &   & 1
+    \end{bmatrix}
+    \qquad
+    P_2 = \begin{bmatrix}
+      1 & 0 & 0 \\
+      0 & 0 & 1 \\
+      0 & 1 & 0
+    \end{bmatrix}
+  \] \[
+    P_2 L_1^{-1} P_2^{-1}
+  \] \[
+    P_2 L_1 A = R
+  \] \[
+    \implies A = L_1^{-1} P_2^{-1} R
+  \] \[
+    = P_2^{-1} P_2 \cdot L_1^{-1} P_2^{-1} \cdot R
+  \]
+  \[
+    L_1^{-1} = \begin{bmatrix}
+      1 &   & \\
+      2 & 1 & \\
+      4 &   & 1
+    \end{bmatrix}
+  \] \[
+    P_2 L_1^{-1} P_2^{-1} = \begin{bmatrix}
+      1 &   & \\
+      4 & 1 & \\
+      2 &   & 1
+    \end{bmatrix}
+  \] \[
+    P_2 \cdot A = \underbrace{P_2 \cdot L_1^{-1} \cdot P_2^{-1}}_{(L_1')^{-1}} \cdot R
+      = \begin{bmatrix}
+        1 &   & \\
+        4 & 1 & \\
+        2 & 0 & 1
+      \end{bmatrix} \cdot \begin{bmatrix}
+        1 & 1 & 1 \\
+          & 2 & 4 \\
+          &   & 3
+      \end{bmatrix}
+  \]
+\end{ex}
+\begin{ex}[Example for LU decomposition]
+  \[
+    \begin{array}{ccc|ccc}
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      2 & 2+\varepsilon & 5 & 0 & 1 & 0 \\
+      4 & 6 & 8 & 0 & 0 & 1 \\
+    \hline
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & \varepsilon & 3 & -2 & 1 & 0 \\
+      0 & 2 & 4 & -4 & 0 & 1 \\
+    \hline
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & \varepsilon & 3 & -2 & 1 & 0 \\
+      0 & 0 & 4-\frac6{\varepsilon} & -4+\frac4{\varepsilon} & -\frac2\varepsilon & 1
+    \end{array}
+  \] \[
+    L_1 = \begin{bmatrix}
+       1 &   & \\
+      -2 & 1 & \\
+      -1 &   & 1
+    \end{bmatrix}
+    \qquad
+    L_2 = \begin{bmatrix}
+      1 &   & \\
+        & 1 & \\
+        & -\frac2\varepsilon & 1
+    \end{bmatrix}
+  \] \[
+    A = L_1^{-1} \cdot L_2^{-1} \cdot R
+  \] \[
+    L_1^{-1} = \begin{bmatrix}
+      1 &   & \\
+      2 & 1 & \\
+      4 &   & 1
+    \end{bmatrix} \qquad
+    L_2^{-1} = \begin{bmatrix}
+      1 &   & \\
+        & 1 & \\
+        & \frac2\varepsilon & 1
+    \end{bmatrix}
+  \] \[
+    A = \begin{bmatrix}
+      1 &   & \\
+      2 & 1 & \\
+      4 & \frac2{\varepsilon} & 1
+    \end{bmatrix} \cdot \begin{bmatrix}
+      1 & 1 & 1 \\
+      0 & \varepsilon & 3 \\
+      0 & 0 & 4-\frac63
+    \end{bmatrix}
+  \]
+  Better row exchange:
+  \[
+    \begin{array}{ccc|ccc}
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & 2 & 4 & -4 & 0 & 1 \\
+      0 & \varepsilon & 3 & -2 & 1 & 0 \\
+    \hline
+      1 & 1 & 1 & 1 & 0 & 0 \\
+      0 & 2 & 4 & -4 & 0 & 1 \\
+      0 & 0 & 3-2\varepsilon & -2-2\varepsilon & 1 & -\frac\varepsilon2
+    \end{array}
+  \] \[
+    P_2 = \begin{bmatrix}
+     1 &   & \\
+       & 0 & 1 \\
+       & 1 & 0
+    \end{bmatrix}
+    \qquad
+    L_2 = \begin{bmatrix}
+      1 &   &  \\
+        & 1 &  \\
+        & -\frac\varepsilon2 & 1
+    \end{bmatrix}
+  \] \[
+    L_2 P_2 L_1 A = R
+  \] \[
+    \implies A = L_1^{-1} P_2^{-1} L_2^{-1} R
+  \] \[
+    = P_2^{-1} \cdot P_2 \cdot L_1^{-1} \cdot P_2^{-1} \cdot L_2^{-1} \cdot R
+  \] \[
+    P_2 \cdot A = P_2 L_1^{-1} P_2^{-1} \cdot L_2^{-1} \cdot R
+  \] \[
+    \begin{bmatrix}
+      1 &   & \\
+      4 & 1 & \\
+      2 & \frac\varepsilon2 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+      1 & 1 & 1 \\
+      0 & 2 & 4 \\
+      0 & 0 & 3-2\varepsilon
+    \end{bmatrix}
+  \]
+  The error does not increase!
 \end{ex}
 \begin{rem}
   In numerics the rank is pointless, because a small error makes zero non-zero.
@@ -7851,13 +7931,13 @@ Yesterday, we saw:
 \meta{lecture}{25th of January 2016}{Franz Lehner}
 %
 Let $P \cdot A = L \cdot R$.
-\[ Ax = b \Rightarrow x = R^{-1} L^{-1} b \]
+\[ Ax = b \implies x = R^{-1} L^{-1} b \]
 
 \begin{ex}
   \label{ex-6.49}
   \[ P \cdot A \overset{!}{=} L \cdot R \]
   \[ A^{(0)} = A \]
-  Search for column $\neq 0 \rightarrow$ column number $j$.
+  Search for column $\neq 0 \implies$ column number $j$.
 
   Heuristic: Choose the greatest value $a_{i,j} \neq 0$ as pivot element.
   \begin{enumerate}
@@ -7912,7 +7992,7 @@ Let $P \cdot A = L \cdot R$.
               &
             \end{pmatrix}
           \]
-          The first column is kepts unmodified $\rightarrow$ Frobenius matrix.
+          The first column is kepts unmodified $\implies$ Frobenius matrix.
           \[
             F_2 \cdot T_{(2,i_2)} \cdot F_1 \cdot T_{(1,i_1)} \cdot A =
             \begin{pmatrix}
@@ -7956,7 +8036,7 @@ Let $P \cdot A = L \cdot R$.
   $\pi \in \sigma_m$ permutation with $\sigma(i) = i \forall i \leq k$.
   $T_\pi$ is the permutation matrix such that $T_\pi \cdot e_i = e_{\pi(i)}$
   \[
-    \Rightarrow T_\pi^{-1} F T_\pi = \begin{pmatrix}
+    \implies T_\pi^{-1} F T_\pi = \begin{pmatrix}
       1 & & & & \\
         & \ddots &  & & \\
         & & \lambda_{\pi(n+1)} & & \\
@@ -8022,19 +8102,21 @@ Let $P \cdot A = L \cdot R$.
   \] \[
     = P \cdot F_1' F_2' \cdot \ldots \cdot F_{r-2}' F_{r-1}' F_r^{-1} \cdot R
   \] \[
-    \Rightarrow P^{-1} \cdot A = L \cdot R
+    \implies P^{-1} \cdot A = L \cdot R
   \]
 \end{proof}
 
+\index[English]{Matrixrepräsentation}
+\index[German]{\foreignlanguage{ngerman}{Matrixrepräsentation}}
 \begin{theorem}[Matrix representation of linear maps]
   \label{satz-6.51}
-  \[ f: K^n \to K^m \leftrightarrow \text{matrix } A \in K^{m\times n} \text{ such that } \underbrace{f = f_A}_{f(x) = A \cdot x} \]
+  \[ f: K^n \to K^m \iff \text{matrix } A \in K^{m\times n} \text{ such that } \underbrace{f = f_A}_{f(x) = A \cdot x} \]
   \[ \Hom(K^n,K^m) \overset{\sim}{=} K^{m\times n} \]
   Let $V,W$ with $\dim{V} = n$, $\dim{W} = m$.
   \[
     V \overset{\sim}{=} K^n, \qquad
     W \overset{\sim}{=} K^m \qquad
-    \Rightarrow \Hom(V, W) \overset{\sim}{=} \Hom(K^n,K^m) \overset{\sim}{=} K^{m\times n}
+    \implies \Hom(V, W) \overset{\sim}{=} \Hom(K^n,K^m) \overset{\sim}{=} K^{m\times n}
   \]
   How does this isomorphism look like?
 
@@ -8191,7 +8273,7 @@ Let $P \cdot A = L \cdot R$.
   Let $C = (c_1, \ldots, c_m)$ be basis of $W$.
   Let $D = (d_1, \ldots, d_p)$ be basis of $Z$.
   \[ f: V \to W \qquad g: W \to Z \quad \text{ linear} \]
-  \[ \Rightarrow \Phi_D^B (g \circ f) = \Phi_D^C(g) \cdot \Phi_C^B(f) \]
+  \[ \implies \Phi_D^B (g \circ f) = \Phi_D^C(g) \cdot \Phi_C^B(f) \]
 \end{theorem}
 
 \begin{figure}[!h]
@@ -8278,12 +8360,12 @@ is the vector space of $m\times n$ matrices over $K$.
     \item
       $m = n$ is trivial.
 
-      \[ f \text{ is an isomorphism } \Leftrightarrow \image{f} = W \]
-      \[ \Leftrightarrow \dim{\image{f}} = n \]
+      \[ f \text{ is an isomorphism } \iff \image{f} = W \]
+      \[ \iff \dim{\image{f}} = n \]
       \[
-        \Leftrightarrow
+        \iff
         \rank\left(\underbrace{\Phi_C^B(f)}_{n\times n \text{ matrix}}\right)
-        = n \Leftrightarrow \underbrace{\Phi_C^B(f)}_{\text{regular}}
+        = n \iff \underbrace{\Phi_C^B(f)}_{\text{regular}}
       \] \[
         \Phi_C^B(f) \cdot \Phi_B^C(f^{-1})
           \overset{\text{Theorem~\ref{satz-6.56}}}{=} \Phi_C^C(f \cdot f^{-1})
@@ -8301,7 +8383,7 @@ is the vector space of $m\times n$ matrices over $K$.
   Bases $B = (b_1, \ldots, b_n)$ and $B' = (b'_1, \ldots, b'_n)$.
   \begin{enumerate}
     \item
-      \[ \Phi_{B'}^B(\text{id}_V) \leftrightarrow \Phi_{B'} \circ \Phi_B^{-1} \]
+      \[ \Phi_{B'}^B(\text{id}_V) \iff \Phi_{B'} \circ \Phi_B^{-1} \]
       \[ \Phi_{B'}^B(\text{id}_V) = T_{B'}^B \]
       \begin{center}
         \enquote{basis transformation matrix}
