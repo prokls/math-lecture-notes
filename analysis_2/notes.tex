@@ -143,9 +143,10 @@ is injective, because $x_1 < x_2 \implies e^{x_1} < e^{x_2}$
       First of all, let $y \in [1,\infty)$. Then it holds that
       \[ e^0 = 1 \leq y \quad\text{and}\quad e^y = 1 + y + \underbrace{\frac{y^2}{2} + \frac{y^3}{3!} + \frac{y^4}{4!} + \ldots}_{\geq 0} \]
       \[ \geq 1 + y > y \]
-      Therefore $e^0 \leq y < e^y$.
+      Therefore $e^0 \leq y < e^y$ ($\rightarrow$ strict monotonicity).
       Hence $\exp$ is continuous and the Intermediate Value Theorem applies:
       \[ \exists \xi \in [0,y]: \quad e^\xi = y \]
+      From continuity, strict monotonicity and its definition on $[0,\infty)$, surjectivity is given.
     \item[Case 2]
       Let $y \in (0,1)$. Then it holds that $w = \frac1{y} > 1$.
       The same as in Case~1 applies:
@@ -165,7 +166,7 @@ is injective, because $x_1 < x_2 \implies e^{x_1} < e^{x_2}$
 
   Properties:
   \begin{itemize}
-    \item It holds $\forall x \in \mathbb R: \ln(e^x) = x$ and $\forall y \in (0,\infty): e^{\ln(y)} = y$.
+    \item It holds that $\forall x \in \mathbb R: \ln(e^x) = x \iff \forall y \in (0,\infty): e^{\ln(y)} = y$.
     \item $\ln: (0,\infty) \to \mathbb R$ is strictly monotonically increasing
       \begin{proof}
         Let $0 < y_1 < y_2$. Assume $\ln(y_1) \geq \ln(y_2) \xRightarrow{\text{monotonicity}} e^{\ln(y_1)} \geq e^{\ln(y_2)} \implies y_1 \geq y_2$. Contradiction!
@@ -195,7 +196,7 @@ is injective, because $x_1 < x_2 \implies e^{x_1} < e^{x_2}$
       Let $w_n = 1 + x_n$. Then it holds that
       $\lim_{n\to\infty} w_n = 1$ and $y_n = \ln(1 + x_n) = \ln(w_n)$.
       \[ \lim_{n\to\infty} y_n = \ln(1) = 0 \]
-      \[ \lim_{n\to\infty} \frac{\ln(w_n)}{w_n - 1} = \lim_{n\to\infty} \frac{y_n}{e^{y_n} - 1} = \frac11 = 1 \]
+      \[ \lim_{n\to\infty} \frac{\ln(w_n)}{w_n - 1} = \lim_{n\to\infty} \frac{y_n}{e^{y_n} - 1} = 1 \]
       where
       \[ e^0 = 1 \implies \ln(1) = 0 \]
       \textbf{Personal notes:}
@@ -437,7 +438,7 @@ because $\ln\frac{x}{y} = \ln\left(x \cdot \frac{1}{y}\right) = \ln(x) - \ln(y)$
     \item $f_n \to f$ converges pointwise in $I$
       (like the first statement in the previous Theorem)
     \item There exists $g: I \to \mathbb R$ such that
-      $f'_n \to g$ is uniformly continuous in $I$, hence
+      $f'_n \to g$ is uniformly convergent in $I$, hence
       \[
         \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N, x \in I
         \implies \abs{f_n'(x) - g(x)} < \varepsilon
@@ -748,7 +749,7 @@ Followingly,
 
 \subsection{Functional equations of trigonometric functions}
 %
-\begin{theorem}[Addition and substraction theorems]
+\begin{theorem}[Addition and subtraction theorems]
   We derive them directly:
 
   Let $z,w \in \mathbb C$.
@@ -769,14 +770,14 @@ Followingly,
   \end{align*}
 
   \begin{align*}
-    \intertext{Addition (cosine):}
+    \intertext{Addition (cosine, corresponds to $\mathbb R$):}
     2 \cos(z+w) &= 2 (\cos{z} \cdot \cos{w} - \sin{z} \sin{w}) \\
     \Rightarrow \cos(z + w) &= \cos{z} \cos{w} - \sin{z} \sin{w}
     \intertext{Addition (sine):}
     \Rightarrow \sin(z + w) &= \cos{z} \sin{w} + \sin{z} \cos{w} \forall z,w \in \mathbb C
   \end{align*}
 
-  Substraction (hence $w \leftrightarrow -w$):
+  Subtraction (hence $w \leftrightarrow -w$):
   \begin{align*}
     \cos(z - w) &= \cos{z} \cdot \underbrace{\cos{w}}_{=\cos(-w)} + \sin{z} \underbrace{\sin{w}}_{=-\sin(-w)} \\
     \sin(z - w) &= -\cos{z} \cdot \sin(w) + \sin(z) \cos(w)
@@ -963,7 +964,7 @@ Compare with Figure~\ref{fig:unitcircle}.
   \begin{figure}[!h]
     \begin{center}
       \includegraphics[width=0.4\textwidth]{img/complementary-angle.pdf}
-      \caption{Complementary angle: co-sinus}
+      \caption{Complementary angle: co-sine}
       \label{img:cosine}
     \end{center}
   \end{figure}
@@ -1166,7 +1167,7 @@ are therefore irrelevant for further considerations (compare with Figure~\ref{im
 
 \index[English]{Integral}
 \index[German]{\foreignlanguage{ngerman}{Integral}}
-\begin{defi}[Integral]
+\begin{defi}[Integral, Cauchy integral]
   Let $\varphi:[a,b] \to \mathbb R$ be a step function and
   $x_0 = a < x_1 < \ldots < x_n = b$ a partition of
   $[a,b]$ and let $\varphi|_{(x_{j-1}, x_j)} = c_j$
@@ -1200,10 +1201,10 @@ Compare with Figure~\ref{img:step-function}.
   Let $Z = \set{x_0, \ldots, x_n}$ and $Z' = \set{w_0,\ldots,w_m}$.
   We define $Z'' = Z \cup Z'$ and $Z'' = \set{\alpha_0, \alpha_1, \ldots, \alpha_L}$.
   Duplicates get lost in the set.
-  \[ \alpha_0 = a < \alpha_1 < \ldots < \alpha_L = b \]
+  \[ a = \alpha_0 < \alpha_1 < \ldots < \alpha_L = b \]
   Because $Z \subseteq Z''$,
   \[ \forall x_j \exists k_j: x_j = \alpha_{k_j} \]
-  Because $x_{j-1} < x_j$, it holds that $\alpha_{k_{j-1}} < \alpha_{k_j}$.
+  Because $x_{j-1} < x_j$, it holds that $\alpha_{k_{j-1}} < \alpha_{k_j}$ (isotone map).
   Followingly, $k_{j-1} < k_j$.
   Now let $k_{j-1} < l \leq k_j$.
   It holds that $(\alpha_{l-1}, \alpha_l) \subseteq (x_{j-1}, x_j)$,
@@ -1808,13 +1809,15 @@ We have prove direction $\Rightarrow$.
 
 \subsection{Integration of regulated functions}
 %
-\begin{theorem}
+\begin{defi}
   Let $f \in \reg[a,b]$ and $\seq{\varphi_n}$ with $\varphi_n \in \tau[a,b]$ and $\varphi_n \to_{n\to\infty} f$
   uniform in $[a,b]$ ($\Leftrightarrow \norm{\varphi_n - f} \to 0$ for $n \to \infty$).
 
   Then we define
   \[ \int_a^b f\, dx = \lim_{n\to\infty} \int_a^b \varphi_n \, dx \]
   for the integral of $f$ in $[a,b]$.
+\end{defi}
+\begin{theorem}
   The right-sided limit exists for every sequence $\seq{\varphi}$ with the property above
   and is independent of the choice of the sequence $\seq{\varphi_n}$.
 \end{theorem}
@@ -1931,7 +1934,7 @@ We have prove direction $\Rightarrow$.
 
 \meta{lecture}{12th of April 2016}{Wolfgang Ring}
 
-\begin{defi}
+\begin{theorem}
   Let $f: [a,b] \to \mathbb R$ be given.
   Let $x_0 \in [a,b)$. We claim that $f$ has a right-sided derivative $f'_+(x_0)$ in $x_0$
   if the function
@@ -1949,7 +1952,7 @@ We have prove direction $\Rightarrow$.
   Analogously for the left-sided derivative:
   Let $x_0 \in (a,b]$. $f'_-(x_0) = \lim_{x \to x_0^-} \frac{f(x) - f(x_0)}{x - x_0}$
   if the limit exists.
-\end{defi}
+\end{theorem}
 
 \begin{theorem}[Intermediate value theorem of calculus]
   Let $f: [a,b] \to \mathbb R$ be continuous in $[a,b]$ and $p: [a,b] \to \mathbb R$
@@ -1993,7 +1996,7 @@ We have prove direction $\Rightarrow$.
   \end{figure}
 
   Furthermore it holds that
-  \[ \int_{\alpha}^\beta f(x) \, dx = \int_\alpha^\beta f(x) \, dx + \int_\beta^\gamma f(x) \, dx \]
+  \[ \int_{\alpha}^\gamma f(x) \, dx = \int_\alpha^\beta f(x) \, dx + \int_\beta^\gamma f(x) \, dx \]
 \end{lemma}
 
 \begin{proof}
@@ -2220,7 +2223,7 @@ We have prove direction $\Rightarrow$.
   \end{proof}
 \end{proof}
 
-\index[English]{Indefinite integral}
+\index[English]{improper integral}
 \index[German]{\foreignlanguage{ngerman}{Unbestimmtes Integral}}
 \begin{rem}[Notational remark]
   Let $f$ be a regulated function. Then we denote
@@ -2231,7 +2234,7 @@ We have prove direction $\Rightarrow$.
       \text{an arbitrary primitive function of } f
     \end{cases}
   \]
-  $\int f(x) \, dx$ is called \emph{indefinite integral}.
+  $\int f(x) \, dx$ is called \emph{improper integral}.
 \end{rem}
 
 \begin{rem}
@@ -2239,7 +2242,7 @@ We have prove direction $\Rightarrow$.
     \int x^n \, dx = \frac{1}{n+1} x^{n+1}
     \qquad \forall n \in \mathbb R \setminus \set{-1} \forall x > 0
   \]
-  If you consider all primitive functions of the indefinite integral,
+  If you consider all primitive functions of the improper integral,
   you consider a constant $c \in \mathbb R$.
   \[
     \int x^n \, dx = \frac{1}{n+1} x^{n+1} + c
@@ -2606,10 +2609,10 @@ We have prove direction $\Rightarrow$.
   $\pi$ is transcendental.
 \end{rem}
 
-\begin{theorem}[Integration of non-compact intervals]
+\begin{ex}[Integration of non-compact intervals]
   \[ \int_0^\infty e^{-x} \, dx = \lim_{c\to\infty} \int_0^c e^{-x} \, dx \]
-\end{theorem}
-\begin{defi}[Definition of indefinite integrals]
+\end{ex}
+\begin{defi}[Definition of improper integrals]
   Let $I$ be an interval with boundary values $a$ and $b$ with
   $- \infty \leq a < b \leq \infty$.
 
@@ -2635,7 +2638,7 @@ We have prove direction $\Rightarrow$.
           &= \left.\frac{1}{-s+1} \cdot x^{-s+1} \right|_1^\beta \\
           &= \lim_{\beta\to\infty} \frac{1}{1 - s} \cdot \frac{1}{\beta^{s-1}} - \frac{1}{1 - s}
         \intertext{$s - 1 > 0$ and $\frac{1}{1 - s} \to 1$}
-          &= \frac{1}{s - 1} \qquad \text{ so indefinite integral exists}
+          &= \frac{1}{s - 1} \qquad \text{ so improper integral exists}
       \end{align*}
     \item Let $s < 1$.
       \begin{align*}
@@ -2678,7 +2681,7 @@ We have prove direction $\Rightarrow$.
 \end{figure}
 
 \begin{rem}
-  \enquote{Integral converges} means \enquote{an (indefinite) integral exists}
+  \enquote{Integral converges} means \enquote{an (improper) integral exists}
 \end{rem}
 
 \begin{rem}
@@ -2698,11 +2701,11 @@ We have prove direction $\Rightarrow$.
   \end{align*}
 \end{rem}
 
-\index[English]{Direct comparison test for indefinite integrals}
+\index[English]{Direct comparison test for improper integrals}
 \index[German]{\foreignlanguage{ngerman}{Majorantenkriterium für unbestimmte Integrale}}
-\begin{theorem}[Direct comparison test for indefinite integrals]
-  (dt. \enquote{\foreignlanguage{ngerman}{Majorantenkriterium für uneigentliche Integrals}})
-  Let $f,g$ be regulated functions in $[a,b]$ and $\abs{f(x)} \leq g(x) \quad \forall x \in [a,b)$.
+\begin{theorem}[Direct comparison test for improper integrals]
+  (dt. \enquote{\foreignlanguage{ngerman}{Majorantenkriterium für uneigentliche Integrale}})
+  Let $f,g$ be regulated functions in $[a,b)$ and $\abs{f(x)} \leq g(x) \quad \forall x \in [a,b)$.
   Assume $\int_a^b g(x) \, dx$ exists. Then also $\int_a^b \abs{f(x)} \, dx$ exists
   and also $\int_a^b f(x) \, dx$.
 \end{theorem}
@@ -2772,7 +2775,7 @@ We can define new types of integration which yield new types of function which a
   The function variable of the $\Gamma$-function is a parameter of the integrand.
 \end{ex}
 
-The indefinite integral from above exists,
+The improper integral from above exists,
 \[ \lim_{\alpha\to 0_+} \int_\alpha^1 \underbrace{t^{x-1} e^{-t}}_{>0} \, dt \text{ exists} \]
 of $\int_\alpha^1 t^{x-1} e^{-t} \, dt$ is bounded in terms of $\alpha$.
 
@@ -2845,10 +2848,10 @@ Right-side integral boundary:
 
   So it holds that
   \begin{align*}
-    T(2) &= 1 \cdot T(1) = 1 \\
-    T(3) &= 2 \cdot T(2) = 2 \cdot 1 \\
-    T(4) &= 4 \cdot T(3) = 3 \cdot 2 \cdot 1 \\
-    T(5) &= 4 \cdot T(4) = 4 \cdot 3 \cdot 2 \cdot 1
+    \Gamma(2) &= 1 \cdot \Gamma(1) = 1 \\
+    \Gamma(3) &= 2 \cdot \Gamma(2) = 2 \cdot 1 \\
+    \Gamma(4) &= 4 \cdot \Gamma(3) = 3 \cdot 2 \cdot 1 \\
+    \Gamma(5) &= 4 \cdot \Gamma(4) = 4 \cdot 3 \cdot 2 \cdot 1
   \end{align*}
   By complete induction we can show that
   \[ \Gamma(n+1) = n! \qquad \forall n \in \mathbb N \]
@@ -3068,7 +3071,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   The integral is determined by elementwise integration
   \[ \int_{-r}^r a_k x^k \, dx = \left. a_k \frac{x^{k+1}}{k+1} \right|_{-r}^r \]
   Analogously for integration over any compact interval $[a,b] \subset (-\rho_f, \rho_f)$
-  i.e. for the indefinite integration. Hence,
+  i.e. for the improper integration. Hence,
   \[ \sum_{k=0}^\infty a_k \frac{x^{k+1}}{n+1} + c \]
   is primitive function of $f$ uniformly convergent on every interval
   $[-r,r] \subseteq (-\rho_f, \rho_f)$.
@@ -3105,23 +3108,24 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   of a function using a power series.
   \[
     \mathcal C^n((a,b))
-    = \setdef{f: (a,b) \to \mathbb R}{f \text{ differentiable $n$ times in } (a,b)}
+    = \setdef{f: (a,b) \to \mathbb R}{f \text{ continuously differentiable $n$ times in } (a,b)}
   \]
   Hence $f^{(k)}: (a,b) \to \mathbb R$ is continuous for $k = 0, 1, \ldots, n$.
   Choose $x_0 \in (a,b)$.
-  Find a polynomial $T_f^a(x)$ of degree $n$ such that
-  \[ \left(T_f^a\right)^{(k)}(x_0) = f^{(k)}(x_0) \]
-  It holds that $T_f^a$ can be determined uniquely as
-  \[ T_f^a(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \]
+  Find a polynomial $T^n_f(x)$ of degree $n$ such that
+  \[ \left(T_f^n\right)^{(k)}(x_0) = f^{(k)}(x_0) \]
+  It holds that $T_f^n$ can be determined uniquely as
+  \[ T_f^n(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \]
   Taylor polynomial of $n$-th order of $f$ in point $x_0$.
 \end{theorem}
 
 \meta{lecture}{29th of April 2016}{Kniely Michael}
 
-\begin{defi}[Additional remark to Taylor polynomials]
-  Let $P(x) \coloneqq \sum_{k=0}^n a_k x^k$, $a_n \neq 0$. Let $k \in \set{1, \ldots, n}$.
+\begin{defi}[Additional remark on polynomials]
+  If there exists $P(x) \coloneqq \sum_{k=0}^n a_k x^k$, $a_n \neq 0$ and $Q(x)$. Let $k \in \set{1, \ldots, n}$.
+  Then \dots
   \begin{enumerate}
-    \item $x_0$ is called $k$-th root of $P$ iff $P(x) = (x - x_0)^k Q(x)$ with $Q(x_0) \neq 0$.
+    \item $x_0$ is called $k$-th root of $P$ iff $P(x) = (x - x_0)^k Q(x)$ with $Q(x_0) \neq 0$ (compare with linear factors of polynomials).
     \item It holds that $x_0$ is a $k$-th  root of $P$ iff
       \[ \forall j \in \set{0,\ldots,k-1}: P^{(j)}(x_0) = 0 \land P^{(k)}(x_0) \neq 0 \]
   \end{enumerate}
@@ -3203,9 +3207,9 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \index[English]{Taylor polynomial}
 \index[German]{\foreignlanguage{ngerman}{Taylorpolynom}}
 \begin{theorem}
-  Let $f$ in $\mathbb C^n((a,b))$ with $n \in \mathbb N$.
+  Let $f$ in $\mathcal C^n((a,b))$ with $n \in \mathbb N$.
   Let $a,b \in [-\infty, \infty]$, $x_0 \in (a,b)$.
-  Find a polynomial $T$ of degree $n$ such property
+  Find a polynomial $T$ of degree $n$ such that
   \begin{align}
     \forall k \in \set{0,\ldots,n}: T^{(k)}(x_0) = f^{(k)}(x_0).
     \label{taypoly}
@@ -3271,7 +3275,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \index[English]{Lagrange representation of remainder}
 \index[German]{\foreignlanguage{ngerman}{Lagrange-Form des Restglieds}}
 \begin{theorem}[Lagrange representation of remainder]
-  Let $f \in C^{n+1}((a,b), \mathbb R), n \in \mathbb N$,
+  Let $f \in \mathcal C^{n+1}((a,b), \mathbb R), n \in \mathbb N$,
   $a,b \in [-\infty, \infty]$, $x_0,x \in (a,b)$. Then there exists some $\xi$
   between $x_0$ and $x$ such that
   \[ R_g^{n+1}(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} \]
@@ -3375,13 +3379,13 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 
 \begin{theorem}
   Assumption:
-  Let $f: I \to \mathbb R$ be arbitrarily often continuously derivable.
+  Let $f: I \to \mathbb R$ be smooth (continuous after every derivative).
   Hence,
   \[ T_f^n(x; x_0) \text{ exists for } \forall n \in \mathbb N \]
   Therefore we can consider a power series
   \[ T_f(x; x_0) = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \]
   $T_f(x; x_0)$ is called Taylor series of $f$ in $x_0$.
-  Is a power sereis in $\xi = (x - x_0)$.
+  Is a power series in $\xi = (x - x_0)$.
   Converges for $\abs{\xi} = \abs{x - x_0} < \rho(T_f)$.
 
   If $\rho(T_f) > 0$, it holds that $T_f(x;x_0) = f(x)$?
@@ -3427,6 +3431,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   Let $f(x) = \sum_{k=0}^\infty a_k (x - x_0)^k$ be a power series in $\xi = x - x_0$.
   Let $\rho(f) > 0$. We already know that $f$ is differentiable for all $\abs{\xi} = \abs{x - x_0} < \rho(f)$ (differentiable by $x$) and $f'$ is a power series with convergence radius $\rho(f') = \rho(f)$.
   \[ f'(x) = \sum_{k=1}^\infty a_k \cdot k x^{k-1} \]
+  So for a smooth function, the Taylor series is uniquely defined by the power series representation.
   By complete induction it follows that:
   \begin{itemize}
     \item For all $n \in \mathbb N$ there exists $f^{(n)}(x)$ as power series of form
@@ -3520,7 +3525,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   speed vector of $\gamma$ in $t$.
 
   Consider
-  \[ \dot{\gamma}(t) = \lim_{h\to 0} \frac{1}{h} \left[\gamma(t + h) - \gamma(t)\right] \]
+  \[ \dot{\gamma}(t) \coloneqq \lim_{h\to 0} \frac{1}{h} \left[\gamma(t + h) - \gamma(t)\right] \]
   as illustrated in Figure~\ref{img:curve_example}.
 
   \begin{figure}[!h]
@@ -3536,7 +3541,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 
   If $\dot\gamma(t) \neq 0$, we set
   \[ T_\gamma(t) = \frac{\dot\gamma(t)}{\norm{\dot\gamma(t)}_2} \]
-  and we call $T_\gamma(t)$ the tangential unit vector of $\gamma$ in $t$.
+  and we call $T_\gamma(t)$ the \emph{tangential unit vector of $\gamma$} in $t$.
 \end{defi}
 
 \begin{ex}
@@ -3567,11 +3572,11 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
   $\gamma$ is called \emph{regular} curve, if $\dot\gamma(t) \neq \vec0 \quad \forall t \in I$.
 \end{defi}
 
-\index[English]{Neil's parabola}
+\index[English]{Neile's parabola}
 \index[German]{\foreignlanguage{ngerman}{Neilsche Parabel}}
 \begin{ex}
   \[ \gamma(t) = \begin{bmatrix} t^2 \\ t^3 \end{bmatrix} \]
-  is called \emph{Neil's parabola} and non-regular.
+  is called \emph{Neile's parabola} and non-regular.
   \[ \dot\gamma(t) = \begin{bmatrix} 2t \\ 3t^3 \end{bmatrix} \]
   \[ \dot\gamma(0) = \vec0 \]
   Has no tangent in the root.
@@ -3580,7 +3585,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \begin{figure}[!h]
   \begin{center}
     \includegraphics{img/neils_parabola.pdf}
-    \caption{Neil's parabola}
+    \caption{Neile's parabola}
   \end{center}
 \end{figure}
 
@@ -3625,7 +3630,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \index[German]{\foreignlanguage{ngerman}{Sine Hyperbolicus Funktion}}
 \index[English]{Hyperbolic sine function}
 \begin{defi}
-  We define the \emph{cosine and sinus hyperbolic functions} as follows:
+  We define the \emph{cosine and sine hyperbolic functions} as follows:
   \[ \cosh: \mathbb C \to \mathbb C \qquad \cosh(z) = \frac12 \left(e^z + e^{-z}\right) \]
   \[ \sinh: \mathbb C \to \mathbb C \qquad \sinh(z) = \frac12 \left(e^z - e^{-z}\right) \]
 
@@ -3640,14 +3645,14 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
     \cosh^2(x) - \sinh^2(x) &= \frac14 \left(e^{2x} + 2 \underbrace{e^x e^{-x}}_{=1} + e^{-2x} \right) \\
       & -\frac14 \left(e^{2x} - 2 \underbrace{e^x e^{-x}}_{=1} + e^{-2x}\right) \\
       &= \frac14 \cdot 4 \cdot 1 = 1 \\
-    \cosh^2(x) - \sinh(x) &= 1
+    \cosh^2(x) - \sinh^2(x) &= 1
   \end{align*}
 \end{defi}
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics{img/sinhcosh.pdf}
-    \caption{Plot of hyperbolic cosine and sine}
+    \caption{Plot of hyperbolic cosine and sine for $\mathbb R \to \mathbb R$}
     \label{img:coshsinh}
   \end{center}
 \end{figure}
@@ -3706,7 +3711,7 @@ The resulting inequality is named \enquote{Cauchy-Schwarz inequality}
 \begin{proof}
   $\dot{y}_1$ has no root, is continuous,
   this means $\dot{\gamma}_1$ has a uniform sign in $I$.
-  Hence $\gamma_1$ is strictly monotonical in $I$.
+  Hence $\gamma_1$ is strictly monotonic in $I$.
   So $\gamma_1: I \to J = \gamma_1(I)$ is bijective.
 
   Let $\gamma_1^{-1}: J \to I$ be the inverse function.
@@ -3792,8 +3797,11 @@ Figure~\ref{img:parametriccurve} gives an example for a curve which is not repre
 \begin{ex}
   Let $\gamma: I \to \mathbb R^n$ be Lipschitz continuous.
   Hence
-  \[ \exists L \geq 0: \norm{\gamma(s) - \gamma(t)} \leq L(s - 1)  \]
+  \[ \exists L \geq 0: \norm{\gamma(s) - \gamma(t)} \leq L(s - t)  \]
   for all $s,t \in I$. Then $\gamma$ is rectifiable and $s(\gamma) \leq L \cdot (b-a)$.
+\end{ex}
+\begin{ex}
+  An example for a non-rectifiable function is $\cos\left(\frac1x\right)$.
 \end{ex}
 \begin{proof}
   Let $z$ be a partition of $I$.
@@ -4059,11 +4067,11 @@ Figure~\ref{img:parametriccurve} gives an example for a curve which is not repre
   They are called \emph{elliptic integral}.
 \end{ex}
 
-\subsection{Change of parameters, reparameterization}
+\subsection[Reparameterization]{Change of parameters - Reparameterization}
 \index[English]{Reparameterization}
 \index[German]{\foreignlanguage{ngerman}{Reparametrisierung}}
 %
-Let $\sigma: I \to J$ as smooth (ie. differentiable) as required.
+Let $\sigma: I \to J$ as smooth (or sufficiently many times differentiable) as required.
 $\sigma$ is bijective and $\sigma^{-1}: J \to I$ is be part
 of the same differentiation class like $\sigma$.
 Let $\gamma: I \to \mathbb R^n$ be a curve. We call
@@ -4602,12 +4610,12 @@ Reminder:
 \begin{defi}
   Let $V$ be a vector space and $\norm{.}_1$ and $\norm{.}_2$ are two norms in $V$.
   We call $\norm{.}_1$ and $\norm{.}_2$ equivalent if $\exists m,M > 0$ such that
-  for all $v \in \mathbb V$ the relation.
-  \begin{align} m \norm{v}_1 &\leq \norm{v}_2 \leq M \norm{v}_1 \ref{eq:n1} \end{align}
+  for all $v \in \mathbb V$ the relation holds:
+  \begin{align} m \norm{v}_1 &\leq \norm{v}_2 \leq M \norm{v}_1 \label{eq:n1} \end{align}
   Remark: Let $N = \setdef{\norm{.}}{\norm{.} \text{ is norm in } V}$.
-  Then Equation~\ref{eq:n1} defines an equivalence relation in $N$.
+  Then Equation~\eqref{eq:n1} defines an equivalence relation in $N$.
   \begin{enumerate}
-    \item Reflexivity
+    \item Reflexivity with $M=1$ and $n=1$.
     \item Let $m \norm{v}_1 \leq \norm{v}_2 \leq M \norm{v}_1$
       Then it holds that $\norm{v}_1 \geq \frac{1}{M} \norm{v}_2$
       because $\norm{v_2} \leq M \norm{v}_1$. Furthermore
@@ -4773,7 +4781,7 @@ Let $(V, \norm{.})$ be a normed vector space.
   Let $M \subseteq V$ where $V$ is a normed vector space.
   \begin{itemize}
   \item $x \in M$ is called \emph{inner point} of $M$ if $r > 0$ exists, such that $B(x, r) \subseteq M$.
-  \item $x \in V$ is called \emph{contact point} $M$ if $\forall r > 0: B(x,r) \cap M \neq \varphi$.
+  \item $x \in V$ is called \emph{contact point} $M$ if $\forall r > 0: B(x,r) \cap M \neq \emptyset$.
   \item $x \in V$ is called \emph{limit point} of $M$ if $\forall r > 0: \left(B(x,r) \setminus \set{x}\right) \cap M \neq 0$
     ($\left(B(x,r) \setminus \set{x}\right)$ is also called \emph{pointed ball} $\dot{B}(x,r)$).
   \end{itemize}
