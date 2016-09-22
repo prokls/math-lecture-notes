@@ -174,7 +174,7 @@ true, independent of the truth value of its subexpressions.
 Examples of tautologies:
 \begin{description}
   \item[\enquote{Law of excluded middle}] $A \lor \neg A$
-  \item[equivalences are always tautologies] $A \leftrightarrow \neg (\neg A)$
+  \item[equivalences with itself are always tautologies] $A \leftrightarrow \neg (\neg A)$
   \item[implication of itself] $A \rightarrow A$
 \end{description}
 
@@ -198,8 +198,9 @@ Tautology with multiple statements:
       &\iff \underbrace{(B \land \neg B)}_{\bot} \lor \neg A \\
       &\iff \neg A
   \end{align*}
+\end{proof}
 
-  Special case: $A = B$.
+\begin{proof}[special case $A = B$]
   \[ (A \rightarrow A) \land (A \rightarrow \neg A) \rightarrow \neg A \]
   \[ (A \rightarrow \neg A) \rightarrow \neg A \]
 \end{proof}
@@ -214,15 +215,16 @@ Tautology with multiple statements:
 
 \begin{proof}
   \[ (A \lor B) \rightarrow C \Leftrightarrow \neg (A \lor B) \lor C \Leftrightarrow (\neg A \land \neg B) \lor C \]
-  \[ (\neg A \lor C) \land (\neg B \lor C) \Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \]
-
-  \begin{align*}
-    (A \lor B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \\
-    (A \land B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \lor (B \rightarrow C) \\
-    A \rightarrow (B \land C) &\Leftrightarrow (A \rightarrow B) \land (A \rightarrow C) \\
-    A \rightarrow (B \lor C) &\Leftrightarrow (A \rightarrow B) \lor (A \rightarrow C)
-  \end{align*}
+  \[ \iff (\neg A \lor C) \land (\neg B \lor C) \Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \]
 \end{proof}
+
+Laws:
+\begin{align*}
+  (A \lor B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \\
+  (A \land B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \lor (B \rightarrow C) \\
+  A \rightarrow (B \land C) &\Leftrightarrow (A \rightarrow B) \land (A \rightarrow C) \\
+  A \rightarrow (B \lor C) &\Leftrightarrow (A \rightarrow B) \lor (A \rightarrow C)
+\end{align*}
 
 \begin{proof}[Example proof by contradiction: Number of prime numbers]
   We prove a statement by Euklid of Alexandria, 300 BC:
@@ -231,7 +233,7 @@ Tautology with multiple statements:
   \end{quote}
 
   Assume the number of prime numbers is finite.
-  Then there exists some $N \in \mathbb N$ such that $\mathbb P = \set{P_1, P_2, \ldots, P_n}$
+  Then there exists some $N \in \mathbb N$ such that $\mathbb P = \set{p_1, p_2, \ldots, p_N}$
   is the set of all prime numbers.
 
   Every integer can be represented as product of prime numbers.
@@ -243,7 +245,7 @@ Tautology with multiple statements:
   It holds that: Every $p_i \in \mathbb P$ is not a divisor of $m$.
   Because when dividing $\frac{m}{p_i}$, the remainder is always one.
 
-  So $q \in \mathbb P$, so there exists more than $N$ prime numbers (at least $N+1$).
+  So $a \in \mathbb P$, so there exists more than $N$ prime numbers (at least $N+1$).
   This contradicts with our assumption, that only $N$ prime numbers exist.
 
   Therefore always one more prime number exists. So the number of prime numbers is infinite.
@@ -261,8 +263,8 @@ if the set $X$ is not defined.
 \begin{defi}
   Let $M$ be a set, $x \in M$ and $P(x)$ a predicate.
 
-  The composed statement: for every $x \in M$, it holds that $P(x)$ is true,
-  if the truth value of $P(x)$ is always true independent of the selection of $x \in M$.
+  For every $x \in M$, it holds that $P(x)$ is true,
+  iff the truth value of $P(x)$ is always true independent of the selection of $x \in M$.
 \end{defi}
 
 \begin{ex}
@@ -292,8 +294,8 @@ if the set $X$ is not defined.
   $\exists$ is called \emph{existence quantifier}.
 
   Negation works as follows:
-  \[ \neg\left(\forall x \in M: P(x)\right) \Leftrightarrow \exists x \in M: \neg P(x) \]
-  \[ \neg\left(\exists x \in M: P(x)\right) \Leftrightarrow \forall x \in M: \neg P(x) \]
+  \[ \neg\left(\forall x \in M: P(x)\right) \iff \left(\exists x \in M: \neg P(x)\right) \]
+  \[ \neg\left(\exists x \in M: P(x)\right) \iff \left(\forall x \in M: \neg P(x)\right) \]
 \end{defi}
 
 
@@ -301,23 +303,27 @@ if the set $X$ is not defined.
 
 \[ \forall x \in M: (P(x) \land Q(x)) \iff (\forall x \in X: P(x)) \land (\forall y \in M: Q(y))) \]
 
-\[ \forall x \in M: (P(x) \lor Q(x)) \leftrightarrow (\forall x \in M: P(x)) \land (\forall x \in M: Q(x)) \]
+% 2016.09.22: This cannot hold in general?!
+% \[ \forall x \in M: (P(x) \lor Q(x)) \leftrightarrow (\forall x \in M: P(x)) \land (\forall x \in M: Q(x)) \]
 
 Counterexample:
 \[ M = \mathbb{R} \hspace{10pt} P(x) := ( x > 0 ) \hspace{10pt} \]
 
-A statement $B$ is stronger than $C$ if $C$
+A statement $B$ is stronger than $C$ if $B$ implies at least the same propositions that $C$ imply.
+\enquote{$B$ is stronger than $C$} means \enquote{$\setdef{D}{C \rightarrow D} \subsetneq \setdef{D}{B \rightarrow D}$}.
+In that sense the stronger statement covers more cases.
 
 \subsection{Composition of several quantifiers}
 %
-\begin{enumerate}
-  \item The order of quantfiers matters.
-  \item
-    For every real number $x$, there exists an integer $n \in \mathbb{N}$ with the property $n > x$:
-    \[ \forall x \in \mathbb{R} \exists n \in \mathbb{N}: n > x \]
-    The statement does not hold if the order is changed.
-    \[ \exists n \in \mathbb{N} \forall x \in \mathbb{R}: n > x \]
-\end{enumerate}
+\begin{theorem}
+  The order of quantifiers matters.
+\end{theorem}
+\begin{proof}
+  For every real number $x$, there exists $n \in \mathbb{N}$ with the property $n > x$:
+  \[ \forall x \in \mathbb{R} \exists n \in \mathbb{N}: n > x \]
+  The statement does not hold if the order is changed.
+  \[ \exists n \in \mathbb{N} \forall x \in \mathbb{R}: n > x \]
+\end{proof}
 
 \section{Sets}
 %
@@ -327,8 +333,12 @@ We consider objects, which we call \emph{sets}.
 For every set $M$ and every element $x$, it holds that
 \[ x \in M \lor \neg(x \in M) \]
 
-Consider the set $L = \set{M: M \text{ is a set and } M \not\in M}$.
-Does $L \not\in L$ or $L \in L$ hold?
+\subsection{Russell's paradox}
+
+\begin{quote}
+  Consider the set $L = \set{M: M \text{ is a set and } M \not\in M}$.
+  Does $L \not\in L$ or $L \in L$ hold?
+\end{quote}
 
 If $L \not\in L$, then $L$ satisfies the definition and therefore $L \in L$.
 If $L \in L$, then elements of $L$ satisfy the property; therefore $L \not\in L$.
@@ -345,12 +355,13 @@ If $L \in L$, then elements of $L$ satisfy the property; therefore $L \not\in L$
 \index[German]{\foreignlanguage{ngerman}{Vollständige Induktion}}
 Set operations:
 \begin{itemize}
-  \item union
-  \item intersection
-  \item subsets
+  \item union: $x \in (L \cup M) \iff x \in L \lor x \in M$
+  \item intersection: $x \in (L \cap M) \iff x \in L \land x \in M$
+  \item subsets: $L \subseteq M \iff \forall x: x \in L \implies x \in M$
   \item $\forall S: \emptyset \subseteq S$
-  \item complete induction
 \end{itemize}
+
+\subsection{Complete induction}
 
 \index{Triangular number}
 \index{\foreignlanguage{ngerman}{Dreieckszahl}}
@@ -376,21 +387,26 @@ Set operations:
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=200px]{img/triangular_number.pdf}
-    \caption{Illustration of the triangular number (illustrative proof)}
+    \caption{Illustration of the triangular number $\frac{n (n+1)}{2}$ (illustrative proof)}
   \end{center}
 \end{figure}
 
-\meta{lecture}{21st of October 2015}{Ring Wolfgang}
+\meta{lecture}{21st of October 2015}{Wolfgang Ring}
+
+\subsection{Notations to describe sets}
 
 \begin{itemize}
   \item Let $X$ be a set. $M = \set{x \in X: P(x)}$.
   \item $\mathbb N = \set{0,1,2,3,4, \dots}$ \dots \enquote{enumerating set representation}
   \item $M = \setdef{x \in X}{P(x)}$, $N = \setdef{x \in X}{Q(x)}$
   \item $M \cup N = \setdef{x \in X}{P(x) \lor Q(x)}$
-  \item Let $X$ be a set. $A_0 \subseteq X$, $A_1 \subseteq X$, $A_2 \subseteq X$, etc
-  \item $\forall n \in \mathbb N: A_n \subseteq X$
-  \item $A_0 \cup A_1 \cup A_2 \cup \dots = \bigcup_{n=1}^\infty A_{n} = \setdef{x \in X}{(x \in A_0) \lor (x \in A_1) \lor \dots} = \setdef{x \in X}{\exists n \in \mathbb N: x \in A_n}$
-  \item $A_0 \cap A_1 \cap A_2 \cap \dots = \bigcap_{n=1}^\infty A_n = \setdef{x \in X}{\forall n \in \mathbb N: x \in A_n}$
+  \item Sets as union or intersection of sets:
+    \begin{itemize}
+      \item Let $X$ be a set. $A_0 \subseteq X$, $A_1 \subseteq X$, $A_2 \subseteq X$, etc
+      \item $\forall n \in \mathbb N: A_n \subseteq X$
+      \item $A_0 \cup A_1 \cup A_2 \cup \dots = \bigcup_{n=1}^\infty A_{n} = \setdef{x \in X}{(x \in A_0) \lor (x \in A_1) \lor \dots} = \setdef{x \in X}{\exists n \in \mathbb N: x \in A_n}$
+      \item $A_0 \cap A_1 \cap A_2 \cap \dots = \bigcap_{n=1}^\infty A_n = \setdef{x \in X}{\forall n \in \mathbb N: x \in A_n}$
+    \end{itemize}
 \end{itemize}
 
 \subsection{Cartesian product}
@@ -399,7 +415,7 @@ Set operations:
 \begin{defi}
   Let $A$ and $B$ sets. The \emph{cartesian product of $A$ and $B$} is given as:
   \[ A \times B = \setdef{(x, y)}{x \in A, y \in B} \]
-  This operation is not commutative!
+  This operation is \emph{not} commutative!
 \end{defi}
 
 \begin{defi}
@@ -429,7 +445,8 @@ Set operations:
 \index[English]{power set}
 \index[German]{\foreignlanguage{ngerman}{Potenzmenge}}
 \begin{defi}
-  Let $X$ be a set. Then $\mathcal P(X)$ is the \emph{power set} of $x$.
+  Let $X$ be a set. Then $\mathcal P(X)$ is the \emph{power set} of $x$,
+  i.e. containing all subsets of $X$:
   \[ \mathcal P(X) = \setdef{A}{A \subseteq X} \]
 \end{defi}
 
@@ -455,8 +472,8 @@ Set operations:
     \item $\forall x \in A \land (y_1, y_2 \in B): \left[(x_1,y_1) \in f \land (x_1, y_2) \in f\right] \implies y_1 = y_2$
   \end{itemize}
   Notation:
-  \[ (x, y) \not\in f \Leftrightarrow y = f(x) \]
-  \[ \setdef{(x, f(x)) \in}{x \in A} \Rightarrow \text{graph from f} \]
+  \[ (x, y) \in f \Leftrightarrow y = f(x) \]
+  \[ \setdef{(x, f(x)) \in}{x \in A} =: \text{graph of f} \]
 \end{defi}
 
 \index[English]{Injective function}
@@ -479,17 +496,17 @@ Set operations:
       The mapping $f$ is called \emph{injective}, if
       \[ \forall x_1, x_2 \in A: (f(x_1) = f(x_2) \Rightarrow x_1 = x_2). \]
     \item
-      Let $B' \subseteq B$. Then we denote $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ as the \emph{preimage of $f$}.
+      Let $B' \subseteq B$. We denote $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ as the \emph{preimage of $f$}.
 
-      Attention! The preimage distinguishes itself from the domain (it is a subset)
+      \textbf{Attention!} The preimage distinguishes itself from the domain (it is a subset)
       and the inverse function $f^{-1}$ (a function must not be invertible to have a preimage)!
     \item
       Let $A' \subseteq A$. Then we call $f(A') = \setdef{f(x)}{x \in A} \subseteq B$ the \emph{image of $A'$} under $f$.
 
       Special case: $A' = A$, then $f(A) \subseteq B$ is the image of $A$ under $f$.
 
-      Let $f: A \rightarrow B$ be a mapping. We define $f: A \rightarrow f(A) \subseteq B$ with
-      $\tilde f(x) = f(x)$ for all $x \in A$. The mapping $\tilde f$ is surjective $\forall y \in f(A)$ there exists one $x \in A$ such that $y = f(x)$.
+      Let $f: A \rightarrow B$ be a mapping. We define $\tilde f: A \rightarrow f(A) \subseteq B$ with
+      $\tilde f(x) = f(x)$ for all $x \in A$. The mapping $\tilde f$ is surjective, i.e. $\forall y \in f(A)$ there exists one $x \in A$ such that $y = f(x)$.
     \item
       A mapping is called \emph{bijective}
       iff the mapping is surjective and injective.
@@ -513,7 +530,7 @@ Set operations:
       because $x^2 > 0$ for $x \neq 0$.
     \item[Induction step $\mathbf{n \rightarrow n+1}$] \hfill{} \\
       Assume $(1+x)^2 > 1 + n$, then $x > -1$ and $x \neq 0$.
-      \[ (1 + x)^{n+1} = (1 + x)^n \cdot \underbrace{(1 + x)}_{>0} > (1+nx) \cdot (1 + x) \]
+      \[ (1 + x)^{n+1} = (1 + x)^n \cdot \underbrace{(1 + x)}_{>0} \underbrace{>}_{\text{by ind. hypo.}} (1+nx) \cdot (1 + x) \]
       \[ = (1 + nx + x + nx^2) = (1 + (n+1)\cdot x + \underbrace{nx^2}_{>0}) > 1 + (n + 1) \cdot x \]
   \end{description}
 \end{proof}
@@ -529,7 +546,7 @@ Set operations:
 \index[German]{\foreignlanguage{ngerman}{Identitätsfunktion}}
 \index[English]{Inverse function}
 \index[German]{\foreignlanguage{ngerman}{Inverse Funktion}}
-Back to sets and functions (notes missing):
+Back to sets and functions (notes are missing, topics covered as follows):
 \begin{itemize}
   \item injective, surjective, bijective function
   \item composition of functions: Let $f: X \rightarrow Y$ and $g: Y \rightarrow Z$. $g \circ f: X \rightarrow Z$ is defined as $g(f(x))$ (\enquote{g after f}).
@@ -571,14 +588,14 @@ Laws:
         & \text{\enquote{triangular sum}}
 \end{align}
 
+\subsection{Factorials}
+%
 We consider $S_n = \set{(a_1, a_2, \ldots, a_n): a_i \in M_n \forall i = 1, \ldots, n
 \text{ with } a_i \neq a_j} \subseteq M_n \times M_n \times \dots \times M_n$.
 $S_n$ is the set of all arrangements of the numbers $1, \ldots, n$.
 
 Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
 
-\subsection{Factorials}
-%
 \begin{theorem}
   It holds that $\card{S_n} = n!$ for all $n \in \mathbb{N}$
 \end{theorem}
@@ -599,7 +616,7 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
           W_l = \set{(a_1, \ldots, a_{n+1}) \in S_{n+1}: a_l = n+1}
         \]
         It holds that $W_l \cap W_j = \emptyset$ for $l \neq j$
-        and $S_{n+1} = W_i \cup W_l \cup W_j \cup \ldots \cup W_{n+1}$.
+        and $S_{n+1} = W_1 \cup W_2 \cup W_3 \cup \ldots \cup W_{n+1}$.
         Then it holds that $\card{S_{n+1}} = \card{W_1} + \card{W_2} + \ldots + \card{W_{n+1}} = \sum_{l=1}^{n+1} \card{W_l}$
 
         \begin{theorem}
@@ -617,7 +634,7 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
                   = (a_1, a_2, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1}) \in S_n
           \]
 
-          $S_n$ is surjective.
+          $S_n$ is surjective:
           Let $(b_1, \ldots, b_n) \in S_n$, then it holds that $(b_1, \ldots, b_{l-1}, n+1, b_l, \ldots, b_n) \in W_l$
           \[ \phi_l((b_1, \ldots, b_{l-1}, n+1, b_l, \ldots, b_n)) = (b_1, \ldots, b_n) \]
 
@@ -631,7 +648,7 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
                (a_1, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1}) =
                (a_1, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1})
           \]
-          $\phi$ is bijective.
+          Hence, $\phi$ is bijective.
         \end{proof}
 
         Therefore $\card{W_l} = \card{S_n} = n!$.
@@ -639,13 +656,16 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
   \end{description}
 \end{proof}
 
+\index[English]{Symmetric group}
+\index[German]{\foreignlanguage{ngerman}{symmetrische Gruppe}}
+
 \begin{rem}
   Let $f: M_n \rightarrow M_n$. $f$ is represented as
   \[  (1, 2, 3, 4, \ldots, n-1, n) \rightarrow (f(1), f(2), f(3), f(4), \ldots, f(n-1), f(n))  \]
   Therefore $(f(1), f(2), \ldots, f(n)) \in S_n$. Analogously every $(a_1, \ldots, a_n) \in S_n$
   defined by $f(k) = a_k$ for $k=1,\ldots,n$ is a bijective mapping $f: M_n \rightarrow M_n$.
   Therefore we set $S_n = \set{f: M_n \rightarrow M_n: f \text{ is bijective}}$.
-  $S_n$ is called symmetric group of $n$ elements.
+  $S_n$ is called \emph{symmetric group of $n$ elements}.
 \end{rem}
 
 \subsection{Binomial coefficients}
@@ -669,7 +689,7 @@ Factorial laws:
   \binom{n}{n-k} &= \frac{n!}{(n-k!)(n - n + k)!} = \frac{n!}{k! (n-k)!} = \binom nk & \text{\enquote{symmetrical}}
 \end{align*}
 
-A recursive definition is given by
+A recursive definition is given by Pascal's Rule:
 \begin{align*}
     \binom nk &= \binom{n-1}{k-1} + \binom{n-1}{k}
     & n \geq 1, 1 \leq k \leq n-1
@@ -678,10 +698,12 @@ A recursive definition is given by
 \begin{proof}
   \begin{align*}
       \binom{n-1}{k-1} + \binom{n-1}{k}
-          &= \frac{(n-1)!}{(n-1)! (n-1 - (k-1))!} \\
-          &= \frac{(n-1)!}{k! (n-1-k)!} \\
-      &= \frac{(n-1)!}{(k-1)! (n-k)!} + \binom{(n-1)!}{k! (n-1-k)!} \\
+          &= \frac{(n-1)!}{(k-1)! (n-1 - (k-1))!} \\
+          &+ \frac{(n-1)!}{k! (n-1-k)!} \\
+      &= \frac{(n-1)!}{(k-1)! (n-k)!} + \frac{(n-1)!}{k! (n-1-k)!} \\
+      &= \frac{(n-1)! \cdot k}{k! \cdot (n-k)!} + \frac{(n-1)! \cdot (n-k)}{k! (n-k)!} \\
       &= \frac{k \cdot (n-1)! + (n-k)(n-1)!}{k! (n-k)!} \\
+      &= \frac{(n-k+k)(n-1)!}{k! (n-k)!} \\
       &= \frac{n (n-1)!}{k!(n-1)!} = \frac{n!}{k! (n-k)!} \\
       &= \binom nk
   \end{align*}
@@ -710,7 +732,7 @@ A recursive definition is given by
 \end{theorem}
 
 \begin{proof}
-  Let $n$ be fixed. Induction for $k$.
+  Let $n$ be fixed. Complete induction over $k$.
   \begin{description}
     \item[Induction base] $k=0$
       \begin{align*}
@@ -719,18 +741,18 @@ A recursive definition is given by
       \end{align*}
     \item[Induction step] $k\rightarrow k+1$
       \begin{align*}
-        T_n^k &= \underbrace{\set{\set{a_1, \ldots, a_k}: a_1 \in M_n, (i = 1, \ldots, k), a_i \neq a_j \text{ for } i \neq j}}_{A_1} \\
+        T_n^k &= \underbrace{\set{\set{a_1, \ldots, a_k}: a_i \in M_n, (i = 1, \ldots, k), a_i \neq a_j \text{ for } i \neq j}}_{A_1} \\
               &\cup \underbrace{\set{\set{a_1, \ldots, a_{k-1}} \cup [n] \in M_{n-1}}}_{A_2} \\
-        \card{T_N^k} &= \card{A_1} + \card{A_2}
+        \card{T_n^k} &= \card{A_1} + \card{A_2}
       \end{align*}
   \end{description}
 \end{proof}
 
-\meta{lecture}{28th of October 2015}{Ring Wolfgang}
+\meta{lecture}{28th of October 2015}{Wolfgang Ring}
 
 Let $A, B$ be sets and define
 \[ A \setminus B = \set{x: x \in A \land x \not\in B} \]
-Then the domain of $A \setminus B$ is \enquote{A without B}.
+Then $A \setminus B$ is called \enquote{A without B}.
 
 \begin{theorem}
   \[ T_n^x = \set{x \subseteq M_x: \card{X} = x} \]
@@ -763,13 +785,17 @@ Then the domain of $A \setminus B$ is \enquote{A without B}.
       \[ \forall 0 \leq k \leq 1: \card{T_n^k} = \binom{n}{k} \]
 
       Consider $M_{n+1}$. Special case $k = 0$:
-      \[ T_{n+1}^0 = \set{\emptyset} \qquad \card{T_{n+1}^0 = 1 = \binom{n+1}{0}} \]
+      \[ T_{n+1}^0 = \set{\emptyset} \qquad \card{T_{n+1}^0} = 1 = \binom{n+1}{0} \]
 
       Special case $k = n + 1$:
-      \[ T_n^{} = \set{M_{n+1}} \qquad \card{T_N{n+1}^{n+1}} = 1 = \binom{n+1}{n+1} \]
+      \[ T_n^{} = \set{M_{n+1}} \qquad \card{T_{n+1}^{n+1}} = 1 = \binom{n+1}{n+1} \]
 
       Let $1 \leq k \leq n$.
-      \[ T_{n+1}^x TODO \]
+      \begin{align*}
+        T_{n+1}^x &\coloneqq \set{(a_1, \ldots, a_x) : a_i \in M_{n+1}, \forall i \in \set{1, \ldots, x}, a_i \neq a_j \forall (i,j) \in \set{1, \ldots, x}} \\
+        R_{n+1}^k &\coloneqq \set{(a_1, \ldots, a_{k-1}, n+1): (a_1, \ldots, a_{k-1}) \in T_n^k} \\
+        S_{n+1}^k &\coloneqq \set{(a_1, \ldots, a_{l-1}, n+1, a_{l+1}, \ldots, a_{k-1}): (a_1, \ldots, a_{\hat{l}}, \ldots, a_k) \in T_n^k}
+      \end{align*}
 
       Union is disjoint $\Rightarrow \card{T_{n+1}^k} = \card{R_{n+1}^k} + \card{S_{n+1}^k}$
 
@@ -790,7 +816,7 @@ Then the domain of $A \setminus B$ is \enquote{A without B}.
       \[ f(A) = f(B) \Rightarrow A' = B' \Rightarrow A' \cup \set{n+1} = B' \cup \set{n+1} \Rightarrow A = B \]
       \[ \card{S_{n+1}^k} = \card{T_n^{k-1}} \stackrel{\text{ind. hypo.}}{=} \binom{n}{k-1} \]
       Therefore $\card{T_{n+1}^k} = \binom nn = \binom n{k-1} = \binom{n+1}{k}$.
-      The last equation follows from the recursive definition of binomial coefficients.
+      The last equality follows from the recursive definition of binomial coefficients.
   \end{description}
 \end{proof}
 
@@ -814,19 +840,19 @@ Then the domain of $A \setminus B$ is \enquote{A without B}.
           \] \[
             = \sum_{k=0}^n \binom nk a^{k+1} b^{n-k} + \sum_{k=0}^n \binom nk a^k b^{n-k+1}
           \] \[
-            = \underbrace{\sum_{n=0}^{n-1} \binom nk a^{k+1} b^{n-k}}_{\substack{\text{index shift} \\ h + 1 = j, h =0 \\ \Rightarrow j=1, h = j-1, h=n-1 \\ \Rightarrow j = n}} +
-              \underbrace{\binom nk a^{n+1} \cdot b^0}_{a^{n-1}}
+            = \underbrace{\sum_{k=0}^{n-1} \binom nk a^{k+1} b^{n-k}}_{\substack{\text{index shift} \\ k+1=j, k=j-1 \\ k=0 \implies j=1 \\ k=n-1 \implies j=n}} +
+              \underbrace{\binom nn a^{n+1} \cdot b^0}_{= a^{n+1}}
           \] \[
             + \sum_{k=1}^n \binom nk a^k b^{n+1-k} +
               \binom n0 a^0 b^{n+1}
           \] \[
-            \sum_{j=1}^n \binom{n}{j-1} a^j b^{n-(j-1)}
+            = \sum_{j=1}^n \binom{n}{j-1} a^j b^{n-(j-1)}
             + \sum_{k=1}^n \binom nk a^k b^{n+1-k}
           \] \[
             + \binom{n+1}{n+1} a^{n+1}
             + \binom{n+1}{0} b^{n+1}
           \]
-          Renaming $j$ to $k$:
+          Renaming $j$ to $k$. Then it holds that:
           \[
             = \sum_{k=1}^n \underbrace{\left[\binom{n}{k-1} + \binom nk\right]}_{\binom{n+1}{k} \text{ by recursive definition}} a^k b^{n+1-k}
           \] \[
@@ -840,7 +866,7 @@ Then the domain of $A \setminus B$ is \enquote{A without B}.
   \end{enumerate}
 \end{proof}
 
-\meta{lecture}{29th of October 2015}{Ring Wolfgang}
+\meta{lecture}{29th of October 2015}{Wolfgang Ring}
 
 \[ \forall a, b \in \mathbb{R}, n \in \mathbb{N}: (a + b)^n = \sum_{k=1}^n \binom{n}{k} a^k b^{n-k}  \]
 \begin{description}
@@ -904,8 +930,11 @@ We consider two fundamental arithmetic operators and determine fundamental prope
     \item the inverse element of $a$ is unique ($\tilde a$ is unique).
       Let $-a$ be the inverse element of $a$ and $a + b = 0 \Rightarrow b = -a$
       \begin{proof}
-        TODO
-        \[ (a + (-a)) + (b + 0) = a + b =  \]
+        Let $\tilde a$ be the inverse of $a$. Let $\tilde b$ the inverse of $a$.
+        Show $\tilde a = \tilde b$.
+        \[ \implies \tilde a + a = 0 \land \tilde b + a = 0 \]
+        \[ \implies \tilde a + a = \tilde b + a \]
+        \[ \implies \tilde a = \tilde b \]
       \end{proof}
     \item $0 \cdot a = 0$
       \begin{proof}
@@ -928,7 +957,7 @@ We consider two fundamental arithmetic operators and determine fundamental prope
 
 \subsection{Integers and the field of rational numbers $\mathbb{Q}$}
 %
-For $\mathbb{N}$, \textbf{A1}, \textbf{A2} and \textbf{A3}.
+For $\mathbb{N}$, \textbf{A1}, \textbf{A2} and \textbf{A3} hold.
 If $n \geq m$, then also $n - m \in \mathbb{N}$.
 $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
 
@@ -944,7 +973,7 @@ $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
     \item $z = -n$ for $n \in \mathbb{N}_+$
     \item $\tilde z = n$
   \end{itemize}
-  \[ \forall z \in \mathbb{Z} \exists \tilde z \in \mathbb{Z}: z + \tilde z = 0 \]
+  \[ \forall z \in \mathbb{Z} \, \exists \tilde z \in \mathbb{Z}: z + \tilde z = 0 \]
   In general we denote $\tilde z = (-z)$.
   Also $-(-z) = z$.
 
@@ -1001,7 +1030,7 @@ $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
   \[ 1 = \frac 11 \qquad \frac mn \cdot \frac 11 = \frac{m\cdot 1}{n\cdot 1} = \frac mn \]
   $1$ is a neutral element in regards of multiplication in $\mathbb{Q}$.
 
-  Let $\frac mn \in \mathbb{Q} \setminus \set{0} \Rightarrow m \neq 0 \Rightarrow \frac nm \in \mathbb{Q}$ and $\frac mn \frac nm = \frac{mn}{mn} = \frac 11$. TODO: verify
+  Let $\frac mn \in \mathbb{Q} \setminus \set{0} \implies m \neq 0 \implies \frac nm \in \mathbb{Q}$ and $\frac mn \frac nm = \frac{mn}{mn} = \frac 11$,
   because $m \cdot n \cdot 1 = 1\cdot m \cdot n$.
 \end{defi}
 
@@ -1011,7 +1040,7 @@ $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
   Therefore $\mathbb{Q}$ is a field.
 \end{cor}
 
-\meta{lecture}{30th of October 2015}{Ring Wolfgang}
+\meta{lecture}{30th of October 2015}{Wolfgang Ring}
 
 Literature:
 \begin{itemize}
@@ -1024,9 +1053,9 @@ Literature:
   Let $K$ be a field. We assume that $K$ is taken from two sets: $K = K_+ \cup \set{0} \cup K_-$
   with $0 \not\in K_+, 0 \not\in K_-$. It holds that
   \begin{itemize}
-    \item $\forall a \in K$ it holds that either $a \in K_+$ or $a = 0$ or $a \in K_+$ \\
+    \item $\forall a \in K$ it holds that either $a \in K_-$ or $a = 0$ or $a \in K_+$ \\
           $a \in K_+ \Leftrightarrow -a \in K_-$
-    \item $\forall a, b \in K_+$: $a + b \in K \land a\cdot b \in K$
+    \item $\forall a, b \in K_+$: $a + b \in K_+ \land a \cdot b \in K_+$
   \end{itemize}
   If those properties are satisfied, such a field is called an \emph{ordered field}.
   Instead of $a \in K_+$ we write $a > 0$ (namely \enquote{positive numbers})
@@ -1044,7 +1073,7 @@ Literature:
     \item $a \in K_+ \land b \in K_- \Rightarrow a \cdot b \in K_-$ \\
           $a \in K_- \land b \in K_- \Rightarrow a \cdot b \in K_+$
     \item $\forall a, b \in K$ one of the following relations hold:
-          \[ a > b \lor a = b \lor a < b \]
+          \[ a > b \;\lor\; a = b \;\lor\; a < b \]
           Therefore $<$ defines a total order on $K$.
     \item $\forall a, b, c \in K: \left[(a < b) \land (b < c) \implies a < c\right]$ \\
           Therefore $<$ is transitive.
@@ -1070,11 +1099,11 @@ Literature:
       Equivalently,
       \[ a > b \lor a = b \lor a < b \]
     \item Let $a > b$ and $b > c$. Therefore $a - b > 0$ and $b - c > 0$.
-      \[ \Rightarrow (a - b) + (b - c) > 0 \]
+      \[ \implies (a - b) + (b - c) > 0 \]
       \[ a(- b + b) - c > 0 \]
-      \[ a - c > 0 \Leftrightarrow a > c \]
-    \item Let $a > 0 \Rightarrow a^{-1} \neq 0$.
-      Assume $\frac{1}{a} = a^{-1} < 0 \Rightarrow a^{-1} \cdot a = 1 < 0$.
+      \[ a - c > 0 \iff a > c \]
+    \item Let $a > 0 \implies a^{-1} \neq 0$.
+      Assume $\frac{1}{a} = a^{-1} < 0 \implies a^{-1} \cdot a = 1 < 0$.
       Otherwise it holds that $1 = 1 \cdot 1 = 1^2 > 0 \lightning$
     \item Let $a > b > 0$. Then it holds that
       \[
@@ -1084,21 +1113,21 @@ Literature:
           = \frac1a \cdot \frac1b
           \Rightarrow a^{-1} < b^{-1}
       \]
-    \item $a < b$ therefore $a - b < 0 \Rightarrow a + c - c - b < 0 \Rightarrow (a + c) - (b + c) < 0$
-      \[ \Leftrightarrow a + c < b + c \]
-    \item Let $a > b, c > 0 \Rightarrow (a - b) > 0 \Rightarrow (a - b) \cdot c > 0 \Rightarrow ac - bc > 0
-      \Rightarrow ac > bc$. For the second statement, it holds analogously:
-      $a < b, c < 0 \Rightarrow (a - b) < 0 \Rightarrow (a - b) \cdot c < 0 \Rightarrow ac - bc < 0
-        \Rightarrow ac < bc$
-    \item $a > 0 \Rightarrow a \cdot a > 0$.
-      Let $a < 0 \Rightarrow (-a) > 0$. It holds $a \cdot a = (-a)(-a) > 0$.
+    \item $a < b$ therefore $a - b < 0 \implies a + c - c - b < 0 \implies (a + c) - (b + c) < 0$
+      \[ \iff a + c < b + c \]
+    \item Let $a > b, c > 0 \implies (a - b) > 0 \implies (a - b) \cdot c > 0 \implies ac - bc > 0
+      \implies ac > bc$. For the second statement, it holds analogously:
+      $a < b, c < 0 \implies (a - b) < 0 \implies (a - b) \cdot c < 0 \implies ac - bc < 0
+        \implies ac < bc$
+    \item $a > 0 \implies a \cdot a > 0$.
+      Let $a < 0 \implies (-a) > 0$. It holds $a \cdot a = (-a)(-a) > 0$.
       Therefore the square of two numbers is always positive.
   \end{enumerate}
 \end{proof}
 
 \subsection{Remarks about some common fields}
 \begin{rem}
-  $\mathbb{C}$ is not an ordered ordered field.
+  $\mathbb{C}$ is not an ordered field.
   $\mathbb{N}$, $\mathbb{Z}$ and $\mathbb{Q}$ are ordered.
 \end{rem}
 
@@ -1173,18 +1202,19 @@ Literature:
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[Case 1]
-      \[ a \cdot b > 0 \Rightarrow a \cdot b > 0: \abs{ab} = ab \qquad \abs{a}\cdot\abs{b} = ab \]
+    \item[Case 1] Let $a \cdot b > 0$
+      \[ \implies a \cdot b > 0: \abs{ab} = ab \qquad \abs{a}\cdot\abs{b} = ab \]
     \item[Case 2]
       \[ a > 0, b < 0: a \cdot b < 0: \abs{ab} = -ab \qquad \abs{a} \cdot \abs{b} = a \cdot (-b) \]
-      \[ b < 0 \Rightarrow -b > 0 \Rightarrow b < -b \Rightarrow \underbrace{a + b}_{\abs{a + b}} < \underbrace{a - b}_{\abs{a} + \abs{b}} \]
+      \[ b < 0 \implies -b > 0 \implies b < -b \implies \underbrace{a + b}_{\abs{a + b}} < \underbrace{a - b}_{\abs{a} + \abs{b}} \]
     \item[Case 3]
       \[ a < 0, b < 0: a \cdot b > 0: \abs{ab} = ab \qquad \abs{a} = -a \qquad \abs{b} = -b  \]
       \[ \abs{a} \cdot \abs{b} = -a \cdot -b = a b \]
+      \[ \abs{a + b} = \abs{(-1)(a + b)} = \abs{-a-b} = \abs{\underbrace{\abs{a}}_{\geq 0} + \underbrace{\abs{b}}_{\geq 0}} = \abs{a} + \abs{b} \]
     \item[Case 4]
       \[ a > 0, b < 0: a + b < 0 \]
       \[ \abs{a} = a \qquad \abs{b} = b \qquad \abs{a + b} = -(a + b) = -a - b \]
-      \[ a > 0 \Rightarrow -a < 0 \qquad -a - b < a - b \]
+      \[ a > 0 \implies -a < 0 \qquad -a - b < a - b \]
       \[ -(a + b) = \abs{a + b} \]
   \end{description}
 \end{proof}
@@ -6901,7 +6931,7 @@ with $\lim_{k\to\infty} w_k = w$ it holds that
   \[ \operatorname{exp}(z) = \lim_{n\to\infty} \left(1 + \frac{z}{n}\right)^n \]
 \end{defi}
 
-\meta{lecture}{29th of Jan 2016}{Ring Wolfgang}
+\meta{lecture}{29th of Jan 2016}{Wolfgang Ring}
 
 \[ w_n \to w \in \mathbb C \]
 
