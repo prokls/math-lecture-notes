@@ -609,11 +609,26 @@ Every algebra is also a ring. Every $\sigma$-algebra is also a $\sigma$-ring.
 \end{figure}
 
 Let $i \in \set{1,\ldots,n}$.
-We claim that $J_i = \set{\alpha_i^1, \beta_i^1, \alpha_i^2, \beta_i^2, \ldots, \alpha_i^k, \beta_i^k}$.
+We let $J_i = \set{\alpha_i^1, \beta_i^1, \alpha_i^2, \beta_i^2, \ldots, \alpha_i^k, \beta_i^k}$.
+But this is unordered. Sort $J_i$ in ascending order
+\[ J_i = \set{\xi_i^0, \xi_i^1, \ldots, \xi_i^{L_i}} \]
+with $\xi_i^{l-1} < x_i^l$ for $l = 1, \ldots, l^i$.
+Duplicate entries can be skipped.
 
-TODO continue writing, a small part of this date is missing here
+$\forall j \in \set{1,\ldots,k}$, $\alpha_i^j$ and $\beta_i^j$ occurs among $\xi_i^l$.
+This means that $\exists r_i^j, s_i^j \in \set{0, \ldots, L^i}: \alpha_i^j = \xi_1^{n_i^j}$ and $\beta_i^j = \xi_i^{s_i^j}$
+because $\alpha_i^j < \beta_i^j \implies r_i^j < s_i^j$.
+\[ G_v = \setdef{(\xi_i^{l_i})_{i=1}^n \in \mathbb R^n}{0 \leq l_i \leq L_i} \]
+is called the \emph{partition grid of $V$}. Let
+\[ \xi = (\xi_i^{l_i})_{i=1}^n \]
+be a point of the partition grid
+$l_1 \geq 1 \forall i \in \set{1,\ldots,n}$ (not zero, because otherwise there is no space for the cuboid left).
 
-%$\forall j \in \set{1,\ldots,k}$ comes $\alpha_i^j$ and $\beta_i^j$ 
+$\implies$ the cuboid at the left bottom of $\xi$:
+\[ Q^{l_1 l_2 \ldots l_n} = Q^\xi = \huge\times_{i=1}^n \left[\xi_i^{l_{i-1}}, \xi^{l_i}\right) \in \mathcal W \]
+is called. Cuboid of partition grid of $V$.
+
+% TODO insert graphics
 
 \begin{lemma}
   \label{l:seven}
@@ -688,7 +703,9 @@ TODO continue writing, a small part of this date is missing here
 \end{proof}
 
 
-\dateref{2017/10/11}
+%\dateref{2017/10/11}
+% TODO: what? we already had 2017/10/13 and this example is too short for one lecture
+%   Update, I think this dateref is just trailing
 
 \begin{example}
   \[ Q \coloneqq X_{i=1}^n [\alpha_i, \beta_i) \qquad \text{cuboid} \qquad \alpha_1 \geq \beta_1 \text{ for some } i \implies Q = \emptyset \]
@@ -847,11 +864,14 @@ Then we call $\mathcal B = \mathcal A_{\tau}$ the \enquote{Borel $\sigma$-algebr
 
   We prove the first statement:
 
-  $\exists n' \in \mathbb N$ with $x \in A_{n'}$ then $x \in \bigcup_{n=1}^\infty A_n$ and $\mu_x(\bigcup_{n=1}^\infty A_n) = 1 \forall n \neq n'$:
+  Case 1: $\exists n' \in \mathbb N$ with $x \in A_{n'}$ then $x \in \bigcup_{n=1}^\infty A_n$ and $\mu_x(\bigcup_{n=1}^\infty A_n) = 1 \forall n \neq n'$:
   $x \not\in A_n$ because otherwise $A_n \bigcap A_{n'} \neq \emptyset$. Therefore
-  $\sum_{n=1}^\infty \mu_x(A_n) = \underbrace{\mu_{x}\left(A_{n'}\right)}_{=1} + \sum_{\substack{n = 1 \\ n \neq n'}}^\infty \underbrace{TODO....?}$
-  Then $x \not\in \bigcup_{n=1}^\infty A_n$ and $\mu_x\left(\right) ...TODO???$
-  and also $\sum_{n=1}^\infty \underbrace{\mu_x(A_n)}_{=0} = 0$.
+  $\sum_{n=1}^\infty \mu_x(A_n) = \underbrace{\mu_{x}\left(A_{n'}\right)}_{=1} + \sum_{\substack{n = 1 \\ n \neq n'}}^\infty \underbrace{\mu_x(A_n)}_{=0} = 1$
+  
+  Case 2: $\forall n \in \mathbb N: x \not\in A_n \forall n \in \mathbb N$
+  \[ \implies x \not\in \bigcup_{n=1}^\infty A_n \land \mu_X(\bigcup_{n=1}^\infty A_n) = 0 \]
+  And also,
+  \[ \sum_{n=1}^\infty \underbrace{\mu_x(A_n)}_{=0} = 0 \]
 
   \begin{lemma}[Lemma 11]
     Let $\mathcal R$ be a $\sigma$-ring.
@@ -1801,7 +1821,6 @@ $s = \xi_A$ and $A \in \mathcal A$.
   On the other hand, if $\int_X \card{f} \, d\mu < \infty$. Then $\int_X f_+ \, d\mu$ % TODO
 \end{remark}
 
-
 $f \in \mathcal M$ is integrable iff $\int_X \card{f} \, d\mu < \infty$.
 \begin{itemize}
   \item We could define $\int_X f \, d\mu$ if only one condition $\int_X f_+ \, d\mu < \infty$ or $\int_+ f_- \, d\mu < \infty$ holds.
@@ -1935,6 +1954,208 @@ We discuss this norm briefly:
 Triangle inequality:
 \[ \norm{\overline{f+g}}_{L^1} = \int_X \card{f+g} \, d\mu \leq \int_X (\card{f} + \card{g}) \, d\mu = \norm{\overline{f}}_{L^1} + \norm{\overline{g}}_{L^1}  \]
 The relation $\leq$ holds because of monotonicity.
+
+\dateref{2017/11/29}
+
+\[ f: X \to [-\infty, \infty] \qquad f = f_+ - f_- \qquad \card{f} = f_+ + f_- \]
+\[ \int_X \card{f} \, d\mu < \infty \iff \int_X f_+ \, d\mu < \infty \qquad \int_X f_- \, d\mu < \infty \iff f \text{ integrable} \]
+\[ \int_X f \, d\mu = \int_X f_+ \, d\mu - \int_X f_- \, d\mu \]
+
+\begin{lemma} % Lemma 7
+  Let $(X, \mathcal A, \mu)$ be a measure space $f_1, f_2, g_1, g_2 \in \mathcal M_+$ and $f_1 - f_2 = g_1 - g_2$ on $X$
+  and $f_1, f_2, g_1, g_2$ are supposed to be integrable. Then $\int_X f_1 \, d\mu - \int_X f_2 \, d\mu = \int_X g_1 \, d\mu - \int_X g_2 \, d\mu$.
+\end{lemma}
+\begin{proof}
+  \begin{align*}
+    f_1 - f_2 &= g_1 - g_2 \implies \underbrace{f_1 + g_2}_{\in \mathcal M_+} = \underbrace{g_1 + f_2}_{\in \mathcal M_+} \\
+      &\implies \int_X (f_1 + g_2) \, d\mu = \int_X f_1 \, d\mu + \int_X g_2 \, d\mu \\
+      &\implies \int_X (g_1 + f_2) \, d\mu = \int_X g_1 d\mu + \int_X f_2 \, d\mu \\
+  \intertext{all integrals are finite}
+      &\implies \int_X f_1 \, d\mu - \int_X f_2 \, d\mu = \int_X g_1 \, d\mu - \int_X g_2 \, d\mu
+  \end{align*}
+\end{proof}
+
+\begin{proposition} % Proposition 9
+  Let $f, g$ be integrable on $X$, $f: X \to [-\infty, \infty]$, $g: X \to [-\infty, \infty]$.
+  Let $\alpha \in \mathbb R$. Then
+  \begin{enumerate}
+    \item $\alpha f$ and $f + g$ are integrable functions.
+    \item $\int_X \alpha f \, d\mu = \alpha \int_X f \, d\mu$
+    \item $\int_X (f + g) \, d\mu = \int_X f \, d\mu + \int_X g \, d\mu$
+    \item $f \leq g$ on $X$ then $\int_X f \, d\mu \leq \int_X g \, d\mu$
+    \item $\card{\int_X f \, d\mu} \leq \int_X \card{f} \, d\mu$
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \begin{align*}
+        \int_X \card{\alpha f} \, d\mu &= \int_X \underbrace{\card{\alpha} \card{f}}_{\in \mathcal M_+} \, d\mu \\
+          &= \card{\alpha} \underbrace{\int_X \card{f} \, d\mu}_{< \infty} < \infty
+      \end{align*}
+      so $\alpha f$ is integrable.
+      \[ \int_X \card{f+g} \, d\mu \leq \int_X\left(\card{f} + \card{g}\right) \, d\mu = \int_X \card{f} \, d\mu + \int_X \card{g} \, d\mu > \infty \]
+      The inequality $\leq$ holds because of monotonicity for functions in $\mathcal M_+$.
+
+    \item $\alpha = 0 \implies \alpha f = 0$.
+      \[ \int_X \alpha f \, d\mu = 0 \qquad \alpha \int_X f \, d\mu = 0 \]
+      
+      Consider $\alpha > 0$.
+      \[
+        (\alpha f)_+ = \begin{cases}
+          \alpha f(x) & \alpha f(x) \geq 0 \\
+          0 & \alpha f(x) < 0
+        \end{cases}
+      \] \[
+        = \alpha \begin{cases}
+          f(x) & f(x) \geq 0 \\
+          0 & f(x) < 0
+        \end{cases} = \alpha f_+
+      \]
+      Analogously: $(\alpha f)_- = \alpha \cdot f_-$.
+      \begin{align*}
+        \int_X (\alpha f) \, d\mu &= \int_X (\alpha f)_+ \, d\mu - \int_X (\alpha f)_- \, d\mu \\
+          &= \alpha \int_X f_+ \, d\mu - \alpha \int_X f_- \, d\mu \\
+          &= \alpha \left(\int_X f \, d\mu - \int_X f_- \, d\mu\right) \\
+          &= \alpha \int_X f \, d\mu
+      \end{align*}
+
+      Consider $\alpha < 0$.
+      \[
+        (\alpha f)_+(x) = \begin{cases}
+          \alpha f(x) & \alpha f(x) \geq 0 \\
+          0 & \text{else}
+        \end{cases}
+      \] \[
+        \alpha \begin{cases}
+          f(x) & f(x) \leq 0 \\
+          0 & \text{ else}
+        \end{cases}
+        = \alpha (-f_-)
+      \] \[
+        (\alpha f)_-(x) = \begin{cases}
+          -\alpha f(x) & \alpha f(x) \leq 0 \\
+          0 & \text{ else}
+        \end{cases}
+      \] \[
+        -\alpha \begin{cases}
+          f(x) & f(x) \geq 0 \\
+          0 & \text{ else}
+        \end{cases} = (-\alpha) f_+
+      \]
+      \begin{align*}
+        \int_X \alpha f \, d\mu &= \int_X (\alpha f)_+ \, d\mu - \int_X (\alpha f)_- \, d\mu \\
+          &= \int_X \underbrace{(-\alpha) (-\alpha) f_-}_{\in \mathcal M_+} \, d\mu - \int_X \underbrace{(-\alpha) f_+}_{\in \mathcal M_+} \, d\mu \\
+          &= -\alpha \int_X f_- \, d\mu + \alpha \int_X f_+ \, d\mu \\
+          &= \alpha \int_X f \, d\mu
+      \end{align*}
+
+    \item
+      \begin{align*}
+        f+g &= (f+g)_+ - (f+g)_- \\
+        f+g &= f_+ - f_- + g_+ - g_- = (f_+ + g_+) - (f_- + g_-)
+      \end{align*}
+      Now we apply Lemma~6:
+      \begin{align*}
+        \int_X (f+g)_+ \, d\mu - \int_X (f + g)_- \, d\mu
+          &= \int_X (f_+ + g_+) \, d\mu - \int_X (f_- + g_-) \, d\mu \\
+          &= \int_X f_+ \, d\mu + \int_X g_+ \, d\mu - \int_X f_- \, d\mu - \int_X g_- \, d\mu \\
+          &= \left(\int_X f_+ \, d\mu - \int_X f_- \, d\mu\right) + \left(\int_X g_+ \, d\mu - \int_X g_- \, d\mu\right) \\
+          &= \int_X f\, d\mu + \int_X g \, d\mu \checkmark
+      \end{align*}
+
+    \item
+      \[ f \leq g \implies g-f \geq 0 \implies g-f = (g-f)_+ \land (g-f)_- = 0 \]
+      \[ \int_x (g-f) \, d\mu = \int_X (g-f)_+ \, d\mu \geq 0 \]
+      \[ \int_x (g-f) \, d\mu = \int_X (g + (-f)) \, d\mu = \int_X g \, d\mu + \int_X (-f)\, d\mu = \int_X g \, d\mu - \int_X f \, d\mu \checkmark \]
+
+    \item
+      \[ f \leq \card{f} \stackrel{(4)}{\implies} \int_X f \, d\mu \leq \int_X \card{f} \, d\mu \]
+      \[ -f \leq \card{f} \stackrel{(4)}{\implies} \int_X (-f) \, d\mu = -\int_X f \, d\mu \leq \int_X \card{f} \, d\mu \]
+      \[ \implies \card{\int_X f \, d\mu} \leq \int_X \card{f} \, d\mu \]
+  \end{enumerate}
+\end{proof}
+
+\subsection{Convergence theorems}
+
+\begin{theorem}[Monotone convergence theorem]  % important for exam! (like everything that has a name)
+  By Beppo Levi (1875--1961)
+
+  Let $f_n, f \in \mathcal M_+$ and $f_n(x) \leq f_{n+1}(x) \leq f(x)$ (monotonicity) for all $n \in \mathbb N$ and for almost every $x \in X$.
+  Suppose $\lim_{n\to\infty} f_n(x) = f(x)$ almost everywhere on $X$.
+  Then $\lim_{n\to\infty} f_n \, d\mu = \int_X f \, d\mu = \int_X \lim_{n\to\infty} f_n \, d\mu$.
+\end{theorem}
+\begin{proof}
+  First, we replace almost everywhere by $\forall x \in X$.
+  $\left(\int_X f_n \, d\mu\right)_{n\in\mathbb N}$ is a monotone sequence in $[0,\infty]$
+  $\lim_{n\to\infty} \int_X f_n \, d\mu$ exists in $[0,\infty]$ and by monotonicity of the integral
+  \[ f_n \leq f \implies \lim_{n\to\infty} \int_X f_n \, d\mu \leq \int_X f \, d\mu \]
+  We know by Proposition~4: $\exists (g_n^k)_{k \in \mathbb N}$ for every $n \in \mathbb N$
+  such that $g_n^k \in \xi_+$, $g_n^k \leq g_n^{k+1} \leq f_n$ and $f_n(x) = \lim_{k\to\infty} g_n^k(x) \forall x \in X$.
+  \[ h_n \coloneqq \max\set{g_1^n, g_2^n, \ldots, g_n^n} \in \xi_+ \]
+  \[ h_{n+1} \geq \underbrace{g_i^{n+1}}_{\text{for } i \in \set{1,\ldots,n+1}} \stackrel{\substack{\text{by monotonicity} \\ \text{of } (g_i^k)}}{\geq} g_i^n \qquad \text{ for } i = 1,\ldots,n \]
+  So $h_{n+1} \geq \max\set{g_1^n, g_2^n, \ldots, g_n^n} = h_n$ where $(h_n)_{n \in \mathbb N}$ is a nondecreasing sequence of simple functions.
+  \[ g_i^n \leq f_i \stackrel{\substack{\text{by monotonicity} \\ \text{of } (f_n)}}{\leq} f_n \leq f \text{ for } i = 1,\ldots,n \]
+  \[ \stackrel{\max}{\implies} h_n \leq f_n \leq f \text{ on } X \]
+
+  \begin{claim}$\lim_{n\to\infty} h_n(x) = f(x) \forall x \in X$.\end{claim}
+  \begin{proof}
+    Case 1 is assuming $f(x) < \infty$.
+
+    Let $\varepsilon > 0$ be given. Choose $N_1 \in \mathbb N$ sufficiently large such that
+    \[ \underbrace{\card{f_n(x) - f(x)} < \frac{\varepsilon}{2}}_{\text{pointwise convergence}} \text{ for all } n \geq N_1 \]
+    Choose $N_2 \in \mathbb N$ such that $f_{N_1}(x) - g_{N_1}^{N_2}(x) < \frac{\varepsilon}{2}$.
+    It is less than $\frac{\varepsilon}{2}$, because $g_{N_1}^k$ approximates $f_{N_1}$.
+    Let $n \geq \max(N_1, N_2)$.
+    \[ \underbrace{f(x) - h_n(x)}_{\geq 0} = \underbrace{f(x) - f_{N_1}(x)}_ {< \frac\varepsilon2} + f_{N_1}(x) - h_n(x) \leq \frac\varepsilon2 + f_{N_1}(x) - g^n_{N_1}(x) \]
+    Then by monotonicity of $g_{N_1}^k$:
+    \[ \leq \frac\varepsilon2 + f_{N_1}(x) - g_{N_1}^{N_2}(x) < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon \]
+    So $f(x) = \lim_{n\to\infty} h_n(x)$
+
+    Case 2 is assuming $f(x) = \infty$.
+
+    Let $c > 0$ be given. $f_n(x) \to f(x)$. Choose $N_1 \in \mathbb N$ such that $n \geq N_1 \implies f_n(x) > 2c$. $g_{N_1}^k \to f_{N_1}$.
+    Choose $N_2 \in \mathbb N$ such that $g_{N_1}^{N_2}(x) > c$ for $n \geq \max(N_1, N_2) \cdot h_n(x) \geq g_n^{N_2}(x) \geq g_{N_1}^{N_2}(x) > c$.
+    \[ \lim_{n\to\infty} h_n(x) = \infty = f(x) \]
+  \end{proof}
+
+  Proposition 7 implies that $\int_X f \, d\mu = \lim_{n\to\infty} \int_X h_n \, d\mu$.
+  \[ \int_X f \, d\mu = \lim_{n\to\infty} \int_X h_n \, d\mu \underbrace{\leq}_{h_n \leq f_n} \lim_{n\to\infty} \int_X f_n \in d\mu \leq \int_X f \, d\mu \checkmark \]
+  Because LHS and RHS are the same, all inequalities must be equalities.
+
+  Regarding the almost everywhere situation:
+  Let $X' = \setdef{x \in X}{f_n(x) \leq f_{n+1}(x) \text{ and } f(x) = \lim_{n\to\infty} f_n(x)}$.
+  \[ E = X \setminus X' \qquad \mu(E) = 0 \qquad \tilde f_n = f_n \cdot \chi_{X'} \qquad \tilde f = f \cdot \chi_{X'} \]
+  Then $\int_X f_n \, d\mu = \int_X \tilde f_n \, d\mu$ because $\tilde f_n = f_n$ almost everywhere.
+  \[ \int_X \tilde f \, d\mu = \int f \, d\mu \]
+  $\tilde f_n$ and $\tilde f$ satisfy the condition of the theorem.
+  \[ \forall x \in X \implies \int_X f \, d\mu = \int_X \tilde f \, d\mu = \lim_{n\to\infty} \int_X \tilde f_n \, d\mu = \lim_{n\to\infty} \int_X f_n \, d\mu \]
+\end{proof}
+
+\begin{corollary}[Beppo-Levi Theorem] % Corollary 2
+  Let $f_n \in \mathcal M_+$ and consider $g = \sum_{n=1}^\infty f_n$. $\sigma_N = \sum_{n=1}^N f_n$, $g = \sup\setdef{\sigma_N}{N \in \mathbb N}$ so $g \in \mathcal M_+$.
+  Then $\int_X g \, d\mu = \sum_{n=1}^\infty f_n \, d\mu = \sum_{n=1}^\infty \int_X f_n \, d\mu = \lim_{N\to\infty} \sum_{n=1}^N \int_X f_n \, d\mu$
+\end{corollary}
+\begin{proof}
+  Apply monotone convergence theorem to sequence $\sigma_N$.
+\end{proof}
+
+An important conclusion:
+
+Let $(X, \mathcal A, \mu)$ be a measure space, $f \in \mathbb M_+$.
+We define $\nu: \mathcal A \to [0, \infty]$ as $\nu(A) = \int_A f \, d\mu = \int_X f \cdot \chi_A \, d\mu$.
+Then $\nu$ is a measure on $\mathcal A$.
+
+If $f$ is the constant function $1$, then we get $\nu = \mu$.
+
+\[ \nu(\emptyset) = 0 \checkmark \]
+We only need to prove $\sigma$-additivity of $\nu$:
+Let $(A_n)_{n\in\mathbb N}$.
+\[ A_n \in \mathcal A, A_n \cap A_m = \emptyset \text{ if } n \neq n' \text{ show that } \nu(A) = \sum_{n=1}^\infty \nu(A_n) \]
+\[ \chi_A = \begin{cases} 1 & x \in A_n \text{ for exactly one } n \\ 0 & \text{ else} \end{cases} \]
+\[ \sum_{n=1}^\infty \chi_{A_n} = \begin{cases} 1 & x \in A_n \text{ for one } n \in \mathbb N \\ 0 & x \not\in \bigcup_{n=1}^\infty A_n \end{cases} \]
+So $\chi_A = \sum_{n=1}^\infty \chi_{A_n}$.
+\[ \sum_{n=1}^\infty \nu(A_n) = \sum_{n=1}^\infty \int_X f \cdot \chi_{A_n} \, d\mu \stackrel{\text{Beppo Levi}}{=} \int_X f \sum_{n=1}^\infty \chi_{A_n} \, d\mu = \int_X f \chi_{A} \, d\mu = \nu(A) \checkmark \]
 
 \printindex
 \end{document}
