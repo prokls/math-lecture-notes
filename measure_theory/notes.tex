@@ -2157,5 +2157,299 @@ Let $(A_n)_{n\in\mathbb N}$.
 So $\chi_A = \sum_{n=1}^\infty \chi_{A_n}$.
 \[ \sum_{n=1}^\infty \nu(A_n) = \sum_{n=1}^\infty \int_X f \cdot \chi_{A_n} \, d\mu \stackrel{\text{Beppo Levi}}{=} \int_X f \sum_{n=1}^\infty \chi_{A_n} \, d\mu = \int_X f \chi_{A} \, d\mu = \nu(A) \checkmark \]
 
+\dateref{2017/12/06}
+
+TODO I was missing the first half an hour
+
+\begin{theorem}[Fatou's Lemma]
+  Pierre Fatou (1878-1929)
+
+  Let $f_n \in \mathcal M_+$ and we set $f = \liminf_{n\to\infty} f_n \in \mathcal M_+$ (is known) ($\coloneqq \lim_{n\to\infty}(\inf\setdef{f_k}{k \geq n})$).
+  \[ \implies \int_x f \, d\mu \leq \liminf_{n\to\infty} \int_X f_n \, d\mu \]
+\end{theorem}
+\begin{proof}
+  \[ g_n = \inf\setdef{f_k}{k \geq n} \]
+  $g_n$ is non-decreasing, measurable.
+  Monotone convergence implies that $f = \lim_{n\to\infty} g_n$ limit is pointwise, monotone.
+  \[ \int_X f \, d\mu = \lim_{n\to\infty} \int_X g_n \, d\mu = \liminf_{n\to\infty} \int_X g_n \, d\mu \underbrace{\leq}_{g_n \leq f_n} \liminf_{n\to\infty} \int_X f_n \, d\mu \]
+\end{proof}
+
+\begin{theorem}[Dominated convergence theorem, Lebesgue] % THeorem 3
+  Let $f_n \in \mathcal M$ and $f \in \mathcal M$ with $f(x) = \lim_{n\to\infty} f_n(x)$ almost everywhere on $X$.
+  Suppose that $\exists g \in \mathcal M_+$ with $0 \leq \int_x f \, d\mu < \infty$ ($g \in \mathcal L^1(x)$) and $\card{f_n(x)} \leq g(x)$ almost everywhere on $X$ $\forall n \in \mathbb N$.
+  $g$ is the so-called \emph{integratable majorant}.
+
+  Then $f_n \in \mathcal L^1(X) \forall n \in \mathbb X$ and $\lim_{n\to\infty} \int_X \card{f_n - f} \, d\mu = 0$. $f \in \mathcal L^1(X)$ and $\int_x f \, d\mu = \lim_{n\to\infty} \int_X f_n \, d\mu$.
+\end{theorem}
+\begin{proof}
+  \[ \card{f_n} \leq g \qquad \card{f} = \lim_{n\to\infty} \card{f_n} \leq g \text{ almost everywhere on } X \]
+  i.e. $\int_X \card{f_n} \, d\mu \leq \int_X g \, d\mu < \infty$ and $\int_x \card{f} \, d\mu \leq \int_X g \, d\mu < \infty$.
+  \[ \card{f_n} \leq g \land \card{f} \leq g \implies \card{f_n - f} \leq \card{f_n} + \card{f} \leq 2g \]
+  \begin{align*}
+    \underbrace{2g - \card{f_n - f}}_{\in \mathcal M_+} \geq 0 \text{ Fatou }
+    &\implies \int_X \liminf_{n\to\infty} (2g - \underbrace{\card{f_n - f}}_{\to 0}) \, d\mu \\
+    &\leq \liminf_{n\to\infty} \int_X (2g - \card{f_n - f}) \, d\mu \\
+    &= \liminf_{n\to\infty} (\int_X 2g \, d\mu - \underbrace{\int_X (f_n - f) \, d\mu}_{\geq 0}) \\
+    &= \int_X 2g \, d\mu - \limsup_{n\to\infty} \int_X \card{f_n - f} \, d\mu \\
+  0 &\leq -\limsup_{n\to\infty} \int_X \card{f_n - f} \, d\mu \iff \limsup_{n\to\infty} \int_X \card{f_n - f} \, d\mu \leq 0 \\
+    &\leq \liminf_{n\to\infty} \underbrace{\int_X \card{f_n - f} \, d\mu}_{\geq 0} \leq \limsup_{n\to\infty} \int_X \card{f_n - f} \, d\mu \leq  0 \\
+    &\implies \lim_{n\to\infty} \int_X \card{f_n - f} \, d\mu = 0 \\
+  0 &\leq \liminf_{n\to\infty} \left(\card{\underbrace{\int_X f_n \, d\mu - \int_X f \, d\mu}_{\card{\int_X (f_n - f) \, d\mu}}}\right) \\
+    &\leq \limsup_{n\to\infty} \left(\card{\int_X (f_n - f) \, d\mu}\right) \\
+    &\leq \lim_{n\to\infty} \int_X \card{f_n - f} \, d\mu = 0
+  \end{align*}
+  \[ (a_n)_{n\in\mathbb N} \qquad a_n \leq 0 \qquad \liminf_{n\to\infty} (a_n) = -\limsup_{n\to\infty} (\underbrace{-a_n}_{\geq 0}) \]
+\end{proof}
+
+
+TODO
+
+\begin{definition}[L-spaces]
+  Let ($X, \mathcal A, \mu$) be a given measure space.
+  \[ {\mathcal L}^1(X) = \setdef{f \in \mathcal M}{\int_X \card{f} \, d\mu < \infty} \]
+  \[ L^1(X) = \setdef{\overline{f}}{f \in L^1(x)} \]
+  \[ \overline{f} \sim f \iff \overline{f} = f \text{ almost everywhere on } X \]
+  Usually we write $f \in L^1(X)$ instead of $\overline{f} \in L^1(X)$.
+  \[ \norm{f}_{L^1(X)} = \int_{X} \card{f} \, d\mu \text{ is a norm on } L^1(X) \]
+  $L^1(X)$ is a vector space.
+\end{definition}
+
+\begin{definition}
+  Let $-\infty \leq a < b \leq \infty$. A function $\varphi: (a, b) \to \mathbb R$
+  is called \emph{convex} iff $\forall x, y \in (a,b)$ we have $\varphi((1 - \lambda)x + \lambda y) \leq (1 - \lambda) \varphi(x) + \lambda \varphi(y) \forall \lambda \in [0,1]$.
+  \[ \iff \forall r,s \in [0,1] \land r + s = 1: \varphi(rx + sy) \leq r\varphi(x) + s\varphi(y) \]
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/18_lspace_definition.pdf}
+      \caption{L-Space definition}
+    \end{center}
+  \end{figure}
+  Graph of $\varphi$ is below the secant between $x$ and $y$.
+\end{definition}
+
+\begin{remark}[Exercise]
+  \[ \varphi \text{ is convex } \iff \forall a < s < t < u < b \]
+  \[ \frac{\varphi(t) - \varphi(s)}{t - s} \leq \frac{\varphi(u) - \varphi(t)}{u - t} \]
+  The left-hand side represents the slope of the secant between $s$ and $t$.
+  The right-hand side represents the slope of the secant between $t$ and $u$.
+
+  \begin{proposition}
+    Let $\varphi$ be convex on $(a, b)$. Then $\varphi$ is continuous on $(a,b)$.
+  \end{proposition}
+  \begin{proof}[Informal proof sketch]
+    $x \in (a,b)$, $y \to x$ ($y > x)$.
+    Let $s < x < y < t$.
+    $X$ is below $SY$. $Y$ is above the line $SX$. $Y$ is below the line $XT$.
+
+    TODO drawing
+  \end{proof}
+\end{remark}
+
+\begin{theorem}[Jensen's inequality] % Theorem 4
+  Johann Jensen (1859-1925)
+
+  Let ($X, \mathcal A, \mu$) be a probability space (i.e. ($X, \mathcal A, \mu$) is a measure space with $\mu(X) = 1$).
+  Let $f \in \mathcal L^1(X)$ and $a < f(x) < b$ for all $x \in X$.
+  $a = -\infty$, $b = \infty$ is possible. Moreover, let $\varphi: (a,b) \to \mathbb R$ be convex.
+  Then
+  \[ \varphi\left(\int_X f \, d\mu\right) \leq \int_X \varphi \circ f \, d\mu \]
+\end{theorem}
+
+\begin{proof}
+  Let $t = \int_X f \, d\mu$
+  \[ a = a \int_X 1 \, d\mu = \int_X a \, d\mu < \int_X f \, d\mu < b \]
+  $t \in (a,b)$. Choose $a < s < t$ and $t < u < b$. Then,
+  \[ \frac{\varphi(t) - \varphi(s)}{t - s} \leq \frac{\varphi(u) - \varphi(t)}{u-t} \]
+  \[ \beta = \sup\setdef{\frac{\varphi(t) - \varphi(s)}{t - s}}{a < s < t} < \infty \]
+  We get,
+  \[
+    \frac{\varphi(t) - \varphi(s)}{t - s} \overbrace{\leq}^{\text{supremum}} \beta
+    \iff \varphi(t) \leq \beta(t-s) + \varphi(s)
+    \iff \varphi(t) + \beta(s - t) \leq \varphi(s)
+    \forall s \in (a,t)
+  \]
+  For $u > t$,
+  \[ \frac{\varphi(u) - \varphi(t)}{u - t} \geq \beta \iff \varphi(u) \geq \varphi(t) + \beta(u - t) \]
+  So $\forall y \in (a,b): \varphi(y) \geq \varphi(t) + \beta(y - t)$.
+  $y \in (a,t)$ and $y \in (t,b)$.
+  Because $f(x) \in (a,b) \implies \varphi(f(x)) > \varphi(t) + \beta(f(x) - t)$.
+  \[ \varphi(f(x)) - \varphi(t) - \beta(f(x) - t) \geq 0 \]
+  $\varphi$ is continuous. $\varphi \circ f$ is measurable. Integrate:
+  \[ \int_X \varphi \circ f \, d\mu - \int_X \varphi(t) \, d\mu - \beta \left(\int_X f \, d\mu - \int_X t \, d\mu\right) \geq 0 \]
+  Recognize that $\int_X t \, d\mu = t \int_X 1 \, d\mu = \int_X f \, d\mu$. Furthermore,
+  \[ \left(\int_X f \, d\mu - \int_X t \, d\mu\right) = 0 \]
+  \[ \int_X \varphi(t) \, d\mu = \varphi(t) \cdot \int_X 1 \, d\mu = \varphi(\int_X f \, d\mu) \]
+  Hence,
+  \[ \implies \int_X \varphi \circ f \, d\mu \geq \varphi(\int_X f \, d\mu) \]
+\end{proof}
+
+\begin{example}
+  \[ \varphi(x) = e^x = \exp(x) \]
+  \[ \exp(\int_X f \, d\mu) \leq \int_X \exp(f) \, d\mu \]
+  \[ X = \set{p_1, p_2, \ldots, p_n} \qquad \mu(\set{p_i}) = \frac{1}{n} \qquad \mu \]
+  \[ f(p_i) = x_i \qquad \varphi\left(\frac1n \sum_{i=1}^n x_i\right) \leq \frac{1}{n} \sum_{i=1}^{n} \varphi(x_i) \]
+  \[ \varphi = \exp \implies \exp(\frac{1}{n} \sum_{i=1}^n x_i) \leq \frac1n \sum_{i=1}^n e^{x_i} \]
+
+  TODO something is missing here
+\end{example}
+
+\dateref{2017/12/13}
+
+\[ \varphi(x) = e^x = \exp(x) \implies \exp\left(\int_X f \, d\mu\right) \leq \int_X \exp(f) \, d\mu \]
+$X = \set{p_1, p_2, \ldots, p_n}$ is finite, $\mu(\set{p_i}) = \frac1n$ for $i=1,\ldots,n$.
+\[ f: X \to \mathbb R, f(p_i) = X_i \]
+\[ \int_X f \, d\mu = \sum_{i=1}^n \underbrace{f(p_i)}_{= x_i} \cdot \underbrace{\mu(\set{p_1})}_{= \frac1n} = \frac1n \sum_{i=1}^n x_i \]
+\[ \int_x \exp \circ f \, d\mu = \sum_{i=1}^n e^{x_i} \cdot \frac1n \]
+
+From Jensen's inequality, it follows,
+\[ \implies \underbrace{\exp\left(\frac1n \sum_{i=1}^n x_i\right)}_{\left(\exp(\sum_{i=1}^n x_i)\right)^{\frac1n} = \left(\prod_{i=1}^n e^{x_i}\right)^{\frac1n}} \leq \frac1n \sum_{i=1}^n e^{x_i} \]
+Let $y_i = e^{x_i} > 0$.
+\[ \left(\prod_{i=1}^n y_i\right)^{\frac1n} \leq \frac1n \sum_{i=1}^n y_i \]
+Is the inequality of arithmetic and geometric mean.
+In some way, Jensen's inequality can be considered as generalization of it.
+
+\index{Conjugate exponents}
+\begin{definition}
+  Let $p,q > 1$ and suppose $p+q = p\cdot q \iff \frac1q + \frac1p = 1$ then $p$ and $q$ are called \emph{conjugate exponents} (or \emph{pair of conjugate exponents}).
+  
+  \textbf{Special case:} $p=q=2$ (Hilbert space). \\
+  \textbf{Special case} (or actually a definition): We also consider $\frac11 + \frac1\infty = \frac11 + 0 = 1$ so also $(1,\infty)$ is a pair of conjugate exponents.
+\end{definition}
+
+\begin{theorem}
+  Let $p,q \in (1,\infty)$ be conjugate exponents.
+  \index{H\"older's inequality}
+  Let $f,g \in \mathcal M_+$ and let $f(x) < \infty$ and $g(x) < \infty$ almost everywhere on $X$. Then H\"older's inequality holds:
+  \begin{align}
+    \int_X f \cdot g \, d\mu &\leq \left(\int_X f^p \, d\mu\right)^{\frac1p} \left(\int_X g^q \, d\mu\right)^{\frac1q} \label{eq:holder} \\
+    \left(\int_X (f + g)^p \, d\mu\right)^{\frac1p} &\leq \left(\int_X f^p \, d\mu\right)^{\frac1p} + \left(\int_X g^p \, d\mu\right)^{\frac1p} \label{eq:minkowski}
+  \end{align}
+  \index{Minkowsky inequality}
+  Equality~\ref{eq:holder} is called H\"older inequality. Equality~\ref{eq:minkowski} is called Minkowski inequality.
+  Correspondingly,
+  \begin{align*}
+    \norm{fg}_{L^1} &\leq \norm{f}_{L^p} \cdot \norm{g}_{L^q}   & f \in L^p(x), g \in L^q(x) \\
+    \norm{f+g}_{L^p} &\leq \norm{f}_{L^p} + \norm{g}_{L^p}      & f,g \in L^p(x)
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  First, we prove H\"older's inequality.
+
+  Let $A = \left(\int_X f^p \, d\mu\right)^{\frac1p}$ and $B = \left(\int_X g^q \, d\mu\right)^{\frac1q}$.
+  \begin{align*}
+    A = 0 &\implies \underbrace{f^p}_{\geq 0} = 0 \text{ almost everywhere on } X \\
+          &\implies f = 0 \text{ almost everywhere on } X \\
+          &\implies \int_X f g \, d\mu = 0 \text{ and right-hand side also } 0
+  \end{align*}
+  $B = 0 \checkmark$. $A = \infty, B \neq 0 \implies \text{right-hand side} = +\infty \checkmark$. \\
+  $A = \infty, B = 0 \implies g = 0$ almost everywhere on $X \implies f \cdot g = 0$ almost everywhere on $X$.
+  \[ \implies \int_X fg \, d\mu = 0 \]
+
+  Suppose $A > 0$ and $B > 0$. Let $F = \frac{f}{A}$ and $G = \frac{g}{B}$. Then $\int_x F^p \, d\mu = \frac{1}{A^p} \int_X f^p \, d\mu = 1$.
+  \[ \int_X G^q \, d\mu = \frac{1}{B^q} \int_X g^q \, d\mu = 1 \]
+  Assume (without loss of generality) $G(x) < \infty, F(x) < \infty$.
+
+  \begin{description}
+    \item[Case 1] 
+      Let $x \in X$ be such that $G(x) > 0$, $F(x) > 0$. Then there exists $s,t \in \mathbb R$ such that $F(x) = e^{\frac{s}{p}}$ and $G(x) = e^{\frac{t}{q}}$ ($s = \log(F(x)^p)$).
+      \[ F(x) G(x) = e^{\frac sp + \frac tq} \underbrace{\leq}_{(*)} \frac1p e^s + \frac1q e^t = \frac1p F(x)^p + \frac1q G(x)^q \]
+      where ($*$) follows from the convexity of exponents with $\lambda = \frac{1}{q}$, $1 - \lambda = \frac{1}{p}$.
+    \item[Case 2]
+      $F(x) = 0$ or $G(x) = 0$.
+      \[ \implies F(x) \cdot G(x) = 0 \leq \frac1p F(x)^p + \frac1g G(x)^q \]
+      Integration:
+      \[ \int_X FG \, d\mu \leq \frac1p \underbrace{\int_X F^p \, d\mu}_{=1} + \frac1q \underbrace{\int_X G^q \, d\mu}_{=1} = \frac1p + \frac1q = 1 \]
+      \[ \frac{1}{AB} \int_X fg \, d\mu \leq 1 \implies \int_X fg \, d\mu \leq A \cdot B \checkmark \]
+  \end{description}
+
+  Next, we prove the Minkowski inequality.
+
+  Let $p \in (1, \infty)$ given and $q = (1 - \frac1p)^{-1} = \frac{p}{p-1}$. Then $p$ and $q$ are conjugate exponents.
+  \[ (f + g)^p = (f + g)(f + g)^{p-1} = f(f+ g)^{p-1} + g(f + g)^{p-1} \]
+  By H\"older's inequality,
+  \[ \implies \int_X f(f+g)^{p-1} \, d\mu \leq \left(\int_X f^p d\mu\right)^{\frac1p} \cdot \left(\int_X (f + g)^{(pq - q)} \, d\mu\right)^{\frac1q} = \left(\int_X f^p \, d\mu\right)^{\frac1p} \cdot \left(\int_X (f + g)^p \, d\mu\right)^{\frac1q} \]
+  \[ \int_X g(f + g)^{p-1} \, d\mu \leq \left(\int_X g^p \, d\mu\right)^{\frac1p} \cdot \left(\int_X (f + g)^p \, d\mu\right)^{\frac1q} \]
+  By the sum,
+  \[
+    \implies \int_X (f + g) (f + g)^{p-1} \, d\mu
+    \leq \left[\left(\int_X f^p \, d\mu\right)^{\frac1p} + \left(\int_X g^p \, d\mu\right)^{\frac1p}\right] \left(\int_X (f + g)^p \, d\mu\right)^{\frac1q}
+  \]
+  \[ \iff \left(\int_X (f + g)^p \, d\mu\right)^{\underbrace{1 - \frac1q}_{=\frac1p}} \leq \left(\int_X f^p \, d\mu\right)^{\frac1p} + \left(\int_X g^p \, d\mu\right) \frac1p \]
+\end{proof}
+
+TODO remark is missing
+
+\begin{definition}
+  $L^1(X) \checkmark$. let $p \in (q, \infty)$. We set
+  \[ L^p(X) = \setdef{f \in \mathcal M}{\int_X \card{f}^p \, d\mu < \infty} \]
+  and we set,
+  \[ L^p(X) = \setdef{\overline{f}}{f \in L^p(X)} \]
+  where $\overline{f}$ is the equivalence class of $f$ with respect to equality almost everywhere.
+
+  For $f \in \mathcal L^p(X)$ we set $\norm{f}_{L^p} = \norm{f}_p = \left(\int_X \card{f}^p \, d\mu\right)^{\frac1p}$.
+  For $\overline{f} \in \mathcal L^1(X)$ we set $\norm{f}_{L^p} = \norm{f}_p \coloneqq \norm{f}_p$ for any $f \in \overline{f}$.
+  Notation $\norm{f}_{L^p}$ instead of $\norm{\overline{f}}_{L^p}$.
+\end{definition}
+
+\begin{remark}
+  $\norm{\cdot}_{L^p}$ is a norm on $L^p(X)$.
+  \begin{itemize}
+    \item $\norm{\overline{f}}_{L^p} = 0 \iff \left(\int_X \card{f}^p \, d\mu\right)^{\frac1p} = 0 \iff \card{f}^p = 0 \text{ almost everywhere on X } \iff \overline{f} = \overline{0}$.
+    \item Triangle inequality $\iff$ Morkowski inequality.
+    \item $\norm{\lambda f}_{L^p} = \left(\int_X \card{\lambda}^p \card{f}^p \, d\mu\right)^{\frac1p} = \left(\card{\lambda}^p \int_X \card{f}^p \, d\mu\right)^{\frac1p} = \card{\lambda} \norm{f}_{L^p}$
+  \end{itemize}
+\end{remark}
+
+\index{Banach space}
+\begin{theorem}
+  Let $1 \leq p < \infty$. Then $L^p(X)$ is a complete normed space, i.e. every Cauchy sequence $(f_n)_{n \in \mathbb N}$ in $L^p(X)$ has a limit $f \in L^p(X)$. $L^p(X)$ is called a \emph{Banach space}.
+\end{theorem}
+\begin{proof}
+  Let $(f_n)_{n \in \mathbb N}$ be a Cauchy sequence in $L^p(X)$, i.e. $\norm{f_n - f_m} < \varepsilon$ if $m,n$ are sufficiently large.
+  We choose a subsequence $(f_{n_i})_{i \in \mathbb N}$ such that $\norm{f_{n_{i+1}} - f_{n_{i}}} < \frac{1}{2^i}$.
+  For $k \in \mathbb N$, we let $g_k(x) = \sum_{i=1}^k \card{f_{n_{i+1}}(x) - f_{n_i}(x)}$ and $g(x) \coloneqq \sum_{i=1}^\infty \card{f_{n_{i+1}} - f_{n_{i}}(x)} \in [0,\infty]$. We have $g = \lim_{k\to\infty} g_k$ pointwise on $X$. By Minkowski's inequality,
+  \[ \card{g_k}_p \leq \sum_{i=1}^k \norm{f_{n_{i+1}} - f_{n_i}}_p < \sum_{i=1}^k \frac{1}{2^i} < 1 \]
+  By Fatou,
+  \[ \int_X g^p \, d\mu = \int_X \lim_{k\to\infty} g_k^p \, d\mu \leq \liminf_{k\to\infty} \int_X g_k^p \, d\mu \leq \int_X \liminf_{k\to\infty} g_k^p \, d\mu \leq 1 \] % TODO: verify this line
+
+  \[ \int_X g^p \, d\mu < \infty \implies g^p(x) < \infty \text{ almost everywhere on } X \implies g(x) < \infty \text{almost everywhere on } X \]
+  \[ g(x) = \sum_{i=1}^{\infty} \card{f_{n_{i+1}}(x) - f_{n_i}(x)}  < \infty \text{ almost everywhere on } X \]
+  Consider,
+  \[ f(x) = f_{n_i}(x) + \sum_{i=1}^{\infty} \left(f_{n_{i+1}}(x) - f_{n_i}(x)\right) \]
+  where the sum is absolutely convergent almost everywhere on $X$ due to $\sum_{i=1}^{\infty} \card{f_{n_{i+1}}(x) - f_{n_i}(x)}  < \infty$ a.e. on $X$.
+  We define,
+  \[
+    f(x) \coloneqq \begin{cases}
+      f_{n_i}(x) + \sum_{i=1}^\infty \left(f_{n_{i+1}}(x) - f_{n_i}(x)\right) & \text{if the series converges absolutely} \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  We have
+  \[ f_{n_{k+1}} = f_{n_i} + \sum_{i=1}^k \left(f_{n_{i+1}} - f_{n_i}\right) \to f \text{ almost everywhere on } X \]
+
+  Show: $\norm{f - f_n}_p \to 0$ as $n \to \infty$.
+
+  Choose $\varepsilon > 0$ and $N \in \mathbb N$ such that $n,m \geq N \implies \norm{f_n - f_m} < \varepsilon$. Fatou:
+  \begin{align*}
+    \int_X \card{f - f_n}^p \, d\mu &= \int_X \card{\lim_{i\to\infty} f_{n_i} - f_n} \, d\mu \\
+      &\leq \liminf_{i\to\infty} \int_X \card{f_{n_i} - f_n}^p \, d\mu = \liminf_{i\to\infty} \underbrace{\norm{f_{n_i} - f_n}_p^p}_{< \varepsilon} \text{ for } n_i \geq N
+  \end{align*}
+  So $\int_X \card{f - f_n}^p \, d\mu \leq \varepsilon^p$ if $n \geq N$. $\implies \norm{f - f_n}_{L^p} \to 0$ as $n \to \infty$.
+
+  The last remaining argument: Show that $f \in L^p(X)$.
+
+  By Minkowsky's inequality, 
+  \begin{align*}
+    \left(\int_X \card{f}^p \, d\mu\right)^{\frac1p} &= \left(\int_X \card{f - f_n + f_n}^p \, d\mu\right)^{\frac1p} \\
+      &\leq \left(\underbrace{\int_X \card{f_n - f}^p \, d\mu}_{<1 \text{ if $n$ is sufficiently large}}\right)^{\frac1p} + \left(\underbrace{\int_X \card{f_n}^p \, d\mu}_{<\infty}\right)^{\frac1p} < \infty
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Let $f_n \to f$ in $L^p$ where $(f_n)_{n \in \mathbb N}$ is also a Cauchy sequence.
+  Then there exists a subsequence $(f_{n_i})_{i \in \mathbb N}$ such that $f_{n_i}(x) \to f(x)$ almost everywhere on $X$.
+\end{corollary}
+
 \printindex
 \end{document}
