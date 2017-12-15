@@ -2451,5 +2451,70 @@ TODO remark is missing
   Then there exists a subsequence $(f_{n_i})_{i \in \mathbb N}$ such that $f_{n_i}(x) \to f(x)$ almost everywhere on $X$.
 \end{corollary}
 
+\dateref{2017/12/15}
+
+$L^p(X)$ is a complete normed vector space (Banach space) for every $1 \leq p \leq \infty$, $l(\alpha x + \beta y) = \alpha l(x) + \beta l(y)$.
+
+\begin{definition}
+  Let $B$ be a Banach space over $\mathbb R$. A linear map $l: B \to \mathbb R$ with the property $\exists C \geq 0$ s.t. $\card{l(x)} \leq C \norm{x} \forall x \in B$.
+  $l$ is called a bounded linear functional on $B$.
+  We set $B^* = \setdef{l}{l \text{ is bounded linear functional on $B$}}$.
+  Then $B^*$ is a vector space and $\norm{l}_{B^*} = \inf\setdef{c \geq 0}{\card{l(x)} \leq c \norm{x} \forall x \in X}$ is a norm on $B^*$.
+  $B^*$ is also a Banach space. We call $B^*$ the dual space to $B$.
+\end{definition}
+
+Consider conjugate exponents $p,q \in (1,\infty)$ and fix $g \in L^q(X)$. Consider $l(f) = \int_X f \cdot g \, d\mu$ for $f \in L^p(X)$. Then $l$ is linear on $L^p(X)$.
+\[ \card{l(f)} = \card{\int_X f \cdot g \, d\mu} \leq \int_X \card{f \cdot g} \, d\mu \underbrace{\leq}_{\text{H\"older}} \norm{g}_{L^q} \card{f}_{L^p} = C \norm{f}_{L^p} \]
+with $C = \norm{g}_{L^q}$. So $l \in \left(L^p(X)\right)^*$. It holds that
+\begin{itemize}
+  \item $\norm{l}_{(L^p)^*} = \norm{g}_{L^q}$
+  \item $\forall l \in (L^p(X))^*$ there exists $g \in L^q(X)$ such that $l(f) = \int_X f \cdot g \, d\mu$.
+\end{itemize}
+We say $\left(L^p(X)\right)^* = L^q(X)$.
+
+\begin{definition}
+  Let $g \in \mathcal M_+$. Let $\alpha \in \mathbb R$ such that $\mu(g^{-1}((\alpha, \beta])) = 0$. $S = \setdef{\alpha \geq 0}{\mu(g^{-1}((\alpha, \infty])) = 0}$.
+  If $S \neq \emptyset$, we set $\beta = \inf S$. We say that $g$ is essentially bounded from above if $S \neq \emptyset$ and we call $\beta$ the \emph{smallest essential upper bound for $g$} or \emph{essential supremum of $g$}.
+\end{definition}
+
+\[ \alpha \in S \iff g(x) \leq \alpha \text{ almost everywhere on } X \]
+We have $\beta \in S$, i.e. \enquote{inf} = \enquote{min}.
+\[ \underbrace{g^{-1}((\beta, \infty])}_{\text{nullset}} = \bigcup_{n=1}^\infty \underbrace{g^{-1}\left(\left(\beta + \frac1n, \infty\right]\right)}_{\text{nullset}} \]
+
+$\beta = \operatorname{esssup}(g)$ if $S \neq \emptyset$. $\operatorname{esssup}(g) = \infty$ if $S = \emptyset$.
+
+\begin{definition}
+  We set $\mathcal L^\infty(X) = \setdef{f \in \mathcal M}{\operatorname{esssup}\card{f} < \infty}$.
+  $\mathcal L^\infty(X)$ is a vector space over $\mathbb R$ (verify!).
+  We say that $f \in \mathcal L^\infty(X)$ is essentially bounded.
+  We set $\norm{f}_\infty = \operatorname{esssup}\card{f}$.
+  Again we define $L^\infty = \setdef{\overline{f}}{f \in \mathcal L^\infty(x)}$.
+\end{definition}
+
+Now we what to verify the statement: $\norm{f}_\infty$ is a norm on $L^{\infty}(X)$.
+
+\begin{theorem}
+  $L^\infty(X)$ is complete with respect to $\norm{\cdot}_{\infty}$.
+\end{theorem}
+\begin{proof}
+  Let $(f_n)_{n\in\mathbb N}$ is a Cauchy sequence in $L^\infty(X)$.
+  \[ A_K = \set{x \in X: \card{f_k(x)} > \norm{f_k}_{\infty}}, \mu(A_k) = 0 \]
+  \[ B_{n,m} = \setdef{x \in X: \card{f_n(x) - f_m(x)} > \norm{f_n - f_m}_{\infty}}, \mu(B_{m,n}) = 0 \]
+  \[ E = \left(\bigcup_{k=1}^\infty A_k\right) \cup \left(\bigcup_{m,n=1}^\infty B_{n,m}\right) \implies \mu(E) = 0 \]
+  Then
+  \[ \forall x \in X \setminus E \text{ and } \forall \varepsilon > 0 \exists N \in \mathbb N: m,n > N \implies \card{f_n(x) - f_m(x)} \leq \norm{f_n - f_m}_{\infty} < \varepsilon \]
+  The inequality $<$ on the right is given because $(f_n)$ is a Cauchy sequence.
+  i.e. $(f_n(x))_{n\in\mathbb N}$ is a Cauchy sequence in $\mathbb R$.
+  Completeness of $\mathbb R$: $\exists \alpha_x \in \mathbb R: f_n(x) \to \alpha_x$ as $n \to \infty$.
+  We define
+  \[ f(x) \coloneqq \begin{cases} \alpha_x & x \in E \\ 0 & x \not\in E \end{cases} \]
+  $f_n \to f$ pointwise almost everywhere on $X$. Then $\forall x \in X \setminus E$ and $n \geq N$.
+  \[ \card{f_n(x) - f(x)} = \lim_{m\to\infty} \card{\underbrace{f_n(x) - f_m(x)}_{< \varepsilon}} \leq \varepsilon \]
+  So, $\norm{f_n - f}_{\infty} < \varepsilon$ if $n \geq N$.
+  $f_n \to f$ in $L^\infty(X)$.
+  \[ \card{f} \leq \card{f - f_N} + \card{f_N} \leq \varepsilon + \card{f_N} \]
+  for $x \in X \setminus E \implies \norm{f}_{\infty} \leq \underbrace{\varepsilon + \norm{f_N}}_{<\infty}$.
+\end{proof}
+
 \printindex
 \end{document}
