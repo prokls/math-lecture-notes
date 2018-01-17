@@ -69,6 +69,8 @@
 \newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
 \makeatother
 
+\newcommand{\mtn}{(\mu\times\nu)} % mu times nu
+
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\detm}{det}
 \DeclareMathOperator{\perm}{det}
@@ -147,7 +149,7 @@ We desire certain properties:
   \[ \mu(A') = \mu(A) + \underbrace{\mu(A' \setminus A)}_{\geq 0} \]
 \end{proof}
 
-\begin{figure}[h]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[width=0.5\textwidth]{img/12_area.pdf}
     \caption{
@@ -196,7 +198,7 @@ We parameterize $K$ with $\mathcal O = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
 \[ A = K(\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}, 1) \subseteq \mathbb R^3 \]
 \[ K = K(\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}, 1) \cup K\left(\begin{bmatrix} 0 \\ 0 \\ 3 \end{bmatrix}, 1\right) \]
 
-\begin{figure}[h]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[width=0.5\textwidth]{img/08_bt_paradox.pdf}
     \caption{Banach Tarski paradox}
@@ -2710,7 +2712,7 @@ $\mathcal A \times \mathcal B$, $A \in \mathcal A$, $B \in \mathcal B$, $\mathca
       $(E_n)_{n \in \mathbb N}$ for $E_n \in \mathcal F \forall n \in \mathbb N$.
       \[ \left(\bigcup_{n=1}^\infty E_n\right)_x = \setdef{y \in Y}{\exists n \in \mathbb N: (x,y) \in E_n} = \bigcup_{n=1}^\infty \setdef{y \in Y}{(x,y) \in E_n} \]
       Therefore $\mathcal F$ is a $\sigma$-algebra (compare with Figure~\ref{img:rectAB}).
-      \begin{figure}
+      \begin{figure}[!h]
         \begin{center}
           \includegraphics{img/22.pdf}
           \caption{Rectangle $A \times B$}
@@ -2778,7 +2780,131 @@ $C_n \subseteq C_{n+1}, \bigcup_{n=1}^\infty C_n = \bigcup_{n=1}^\infty A_n = X$
     \nu((E \setminus F)_X) &= \nu(E_x \setminus F_x) = \underbrace{\nu(E_x)}_{<\infty} - \underbrace{\nu(F_x)}_{<\infty}
   \end{align*}
   $x \mapsto \nu((E \setminus F)_x)$ is the difference of two measurable functions, hence it is measurable.
+
+  \dateref{2018/01/17}
+
+  Revision: We have the following setting: $E \in \mathcal A \times \mathcal B$.
+  $x \mapsto \nu(E_x)$ is $\mathcal A$-measurable. $X \to [0, \infty]$.
+
+  \textbf{Assumption:} $\nu(Y) < \infty$.
+
+  \[ \mathcal F = \setdef{E \subseteq X \times Y}{x \to \nu(E_x) \text{ is measurable}} \]
+  \[ \mathcal C = \setdef{A \times B}{A \in \mathcal A, B \in \mathcal B} \subseteq \mathcal F \]
+  \[ \emptyset \in \mathcal F, E,F \in \mathcal F \text{ with } F \subseteq E \implies E \setminus F \in \mathcal F \]
+  Let $E_n \in F$, $E_n \subseteq E_{n+1}$. Show $\bigcup_{n=1}^\infty E_n \in \mathcal F$.
+
+  \[ \left(\bigcup_{n=1}^\infty E_n\right)_X = \setdef{y \in Y}{(x, y) \in E_n \text{ for one } n \in \mathbb N} = \bigcup_{n=1}^\infty (E_n)_x \]
+  \[ (E_n)_x \subseteq (E_{n+1})_x \]
+  \[ \nu\left(\bigcup_{n+1}^\infty (E_n)_x\right) = \lim_{n\to\infty} \nu((E_n)_x) \]
+  \[ x \mapsto \nu\left(\left(\bigcup_{n=1}^\infty E_n\right)_x\right) = \lim_{n\to\infty} \nu((E_n)_x) \]
+  measurable as limit of measurable function.
+  So $\mathcal F$ is a $d$-system, $\mathcal C \subseteq \mathcal F$, $\mathcal C$ is a $\pi$-system.
+  \[ \xRightarrow{\text{by Theorem~\ref{thm:one}}} \mathcal A \times \mathcal B \subseteq \mathcal F \]
+
+  \textbf{Case 2:} Let $D_n \in \mathcal B$ with $\nu(D_n) < \infty$.
+
+  $D_n \cap D_m = \emptyset$ if $n \neq m$ and $Y = \bigcup_{n=1}^\infty D_n$ (i.e. $Y$ is $\sigma$-finite).
+  We define $\nu_n: \mathcal B \to [0, \infty)$.
+  \[ \nu_n(B) = \nu(D_n \cap B) \]
+  $\nu_n$ is a measure on $\mathcal B$.
+  \[ \nu_n(B) \leq \nu_n(Y) = \nu(D_n) < \infty \]
+  \[
+    \forall B \in \mathcal B: \nu(B) = \nu\left(\underbrace{\left(\bigcup_{n=1}^\infty D_n\right)}_{=Y} \cap B\right)
+    = \nu\left(\bigcup_{n=1}^\infty \left(D_n \cap B\right)\right)
+    = \sum_{n=1}^\infty \nu\left(D_n \cap B\right)
+    = \sum_{n=1}^\infty \nu_n(B)
+  \]
+  $x \mapsto \nu_n(E_x)$ is measurable by part 1 for all $n \in \mathbb N$ and $E \in \mathcal A \times \mathcal B$.
+  $x \mapsto \nu(E_x) = \sum_{n=1}^\infty \nu_n(E_x)$ is measurable as sum of measurable non-negative functions.
 \end{proof}
+
+\begin{theorem}  % Theorem 2
+  \label{thm:two}
+  Let $(X, \mathcal A, \mu)$, $(Y, \mathcal B, \nu)$ be a $\sigma$-finite measure spaces. Then there exists a unique measure $\mu \times \nu$ on $\mathcal A \times \mathcal B$ such that
+  $\forall A \times B \in \mathcal C$ we have $(\mu \times \nu)(A \times B) = \mu(A) \cdot \mu(B)$. Moreover, we have
+  \[ (\mu \times \nu)(E) = \int_X \nu(E_x) \, d\mu = \int_Y \mu(E^y) \, d\nu  \qquad \forall E \in \mathcal A \times \mathcal B \]
+  $\mu \times \nu$ is called the produce measure.
+
+  Compare with Figure~\ref{img:24}.
+\end{theorem}
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/24.pdf}
+    \caption{Setting for Theorem~\ref{thm:two}}
+    \label{img:24}  \end{center}
+\end{figure}
+\begin{proof}
+  $x \mapsto \nu(E_x)$ is non-negative, $m$-able $\forall E \in \mathcal A \times \mathcal B$.
+  $y \mapsto \mu(E^y)$ is non-negative, $m$-able $\forall E \in \mathcal A \times \mathcal B$.
+  So $\int_Y \nu(E_x) \, d\mu \eqqcolon (\mu \times \nu)_1 (E)$, $\int_Y \mu(E^Y) \, d\nu \eqqcolon (\mu \times \nu)_2 (E)$.
+
+  Check: $(\nu \times \nu)_1$ and $(\mu \times \nu)_2$ are both measures on $\mathcal A \times \mathcal B$ (exercise).
+
+  \textbf{Case 1:} $\mu(X) < \infty$ and $\nu(Y) < \infty \implies (\mu \times \nu)_1$ and $(\mu \times \nu)_2$ are finite.
+  Let $E = A \times B \in \mathcal C$. Then $(\mu \times \nu)_1 (E) = \int_X \underbrace{\nu(E_x)}_{\nu(B) \chi_A} \, d\mu = \nu(B) \cdot \int_X \chi_A \, d\mu = \nu(B) \mu(A)$ and $(\mu \times \nu)_2(E) = \int_Y \mu(E^y) \, d\mu = \int_y \mu(A) \chi_B \, d\nu = \mu(A) \nu(B)$.
+  So $\forall E \in \mathcal C: (\mu \times \nu)_1 (E) = (\mu \times \nu)_2(E)$.
+  \[ F = \setdef{E \in \mathcal A \times \mathcal B}{(\mu \times \nu)_1 (E) = (\mu \times \nu)_2 (E)} \]
+  Show that $\mathcal F$ is a $d$-systemm, $\emptyset \in \mathcal F$.
+
+  \[ (\mu \times \nu)_1(F) = (\mu \times \nu)_2(F) \]
+  Let $E, F \in \mathcal F, F \subseteq E$.
+  \begin{align*}
+    (\mu \times \nu)_1 (F) + (\mu \times \nu)_1 (E \setminus F) &= \\
+    (\mu \times \nu)_1 (E) = (\mu \times \nu)_2 (E) &= \\
+    (\mu \times \nu)_2 (F) + (\mu \times \nu)_2 (E \setminus F) &
+  \end{align*}
+
+  We get $(\mu \times \nu)_1 (E \setminus F) = (\mu \times \nu)_2 (E \setminus F)$.
+  Let $E_n \in \mathcal F, E_n \subseteq E_{n+1}, \mtn_1(E_n) = \lim_{n\to\infty}\mtn_1(E_n) = \lim_{n\to\infty}\mtn_2(E_n) = \mtn_2(\bigcup_{n=1}^\infty E_n)$.
+  So $\mathcal F$ is a $d$-system.
+
+  By Theorem~\ref{thm:one}, $\mathcal A \times \mathcal B \subseteq \mathcal F \subseteq \mathcal A \times \mathcal B$.
+  So $\forall E \in \mathcal A \times \mathcal B: (\mu \times \nu_1)(E) = (\mu \times \nu)_2(E)$.
+  So also any measure $\kappa$ on $\mathcal A \times \mathcal B$ which coincides with $\mtn_1$ on $\mathcal C$ also coincides with $\mtn_1$ on $\mathcal A \times \mathcal B \implies$ uniqueness.
+
+  \textbf{Case 2:} $\sigma$-finite mesaures:
+  \[ A_n \in \mathcal A \qquad X = \bigcup_{n=1}^\infty A_n \qquad \mu(A_n) < \infty \qquad A_n \subseteq A_{n+1} \]  % ascending
+  $B_n \in \mathcal B$, $Y = \bigcup_{n=1}^\infty B_n$, $\nu(B_n) < \infty$, $C_n = A_n \times B_n,
+  \mtn_1(C_n) = \mu(A_n) \nu(B_n) = \mtn_2(C_n) < \infty$. $\mtn_1(E) = \mtn_1(E \cap \bigcup_{n=1}^\infty C_n) = \lim_{n\to\infty} \mtn_1 (E \cap C_n)$.
+  $= \lim_{n\to\infty} \mtn_2 (E \cap C_n)$ by part 1, $=\mtn_2(E)$.
+\end{proof}
+
+Leonida Tonelli, 1885--1946
+
+\begin{theorem}[Tonelli's Theorem]
+  Let $(X, \mathcal A, \mu)$, $(Y, \mathcal B, \nu)$ be $\sigma$-finite measure spaces.
+  Let $f: X \times Y \to [0, \infty]$ be $\mathcal A \times \mathcal B$ measurable. Then,
+  \begin{enumerate}
+    \item $x \mapsto \int_y f_x \, dy$ is $\mu$-measurable. $y \mapsto \int_x f^y \, d\mu$ is $\mathcal B$-measurable.
+    \item $\int_X \left( \int_y f_x \, d\nu\right) d\mu = \int_Y \left(\int_X f^y \, d\mu\right) \, d\nu = \int_{X \times Y} f \, d(\mu \times \nu)$.
+  \end{enumerate}
+\begin{remark}
+  $f_x(y) = f(x, y)$ and $f^y(x) = f(x,y)$.
+  \[ \int_X \int_Y f(x,y) \, d\nu(y) \, d\mu(x) = \int_Y \int_X f(x,y) \, d\mu(x) \, d\nu(y) \]
+\end{remark}
+\begin{proof}
+  We know $y \mapsto f_x(y)$ is non-negative and $\nu$-measurable so $\int_y f_x\, d\nu$ exists.
+  Likewise: $\int_X f^y \, d\mu$ exists $\forall y \in Y$.
+  We start with $f = \chi_E$ with $E \in \mathcal A \times \mathcal B$.
+  Then, \[ (\chi_E)_x(y) = \begin{cases} 1 & \underbrace{(x,y)}_{\Leftrightarrow y \in E_X} \in E \\ 0 & \text{else} \end{cases} \]
+  and this equals $\chi_{E_x}(y)$, so  $\int_Y(\chi_E)_X\,d\nu = \int_Y \chi_{E_x} \, d\nu = \nu(E_x)$. Therefore,
+  \[ \int_X \int_Y (\chi_E)_x \, d\nu \, d\mu = \int_Y \nu(E_x) \,d\mu \]
+  Analogously:
+  \[ \int_Y \int_X (\chi_E)^Y \, d\mu \, d\nu = \int_Y \mu(E^y) \, d\nu \]
+  but $\int_Y \nu(E_x) \,d\mu = \int_Y \mu(E^y) \, d\nu$ by Theorem~\ref{thm:two}.
+  \[ \stackrel{\text{by def.}}{=} \mtn(E) = \int_{X\times Y} \chi_E d\mtn \]
+  So the two statement of this theorem hold for all characteristic functions $\chi_E$ for $E \in \mathcal A \times \mathcal B$.
+  This implies that both statements hold for linear combinations of characteristic functions, i.e. for simple functions.
+
+  Let $f$ be $\mathcal A \times \mathcal B$ be measurable, $f: X \times Y \to [0, \infty]$. Then
+  $f = \lim_{n\to\infty} S_n$ pointwise $s_n \leq s_{n+1}$.
+  \[ \int_{X\times Y} f d\mtn \stackrel{\substack{\text{by monotone} \\ \text{convergence} \\ \text{theorem}}}{=} \lim_{n\to\infty} s_n d \mtn = \lim_{n\to\infty} \int_X \underbrace{\int_Y \underbrace{(S_n)_x}_{\text{measurable}} \, d\nu}_{\text{measurable}} \, d\mu \]
+  \[ \stackrel{\substack{\text{by monotone} \\ \text{convergence} \\ \text{theorem}}}{=} \int_X \int_Y \underbrace{\lim_{n\to\infty} (S_n)_X}_{=f_x} \, d\nu \, d\mu = \int_X \int_Y f_x \, d\nu \, d\mu \]
+  Then we can do a symmetric argument:
+  \[ \int_{X \times Y} f \, d(\mu \times \nu) = \int_Y \int_X f^Y \, d\mu \, d\nu \]
+\end{proof}
+
+\end{theorem}
 
 
 \printindex
