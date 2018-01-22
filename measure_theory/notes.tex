@@ -18,7 +18,7 @@
 \usepackage{makeidx}
 \usepackage{csquotes}
 \usepackage[pdfborder={0 0 0}]{hyperref}
-
+\usepackage{stmaryrd}
 \usepackage{titlesec}
 \titleformat{\paragraph}{\normalfont\itshape}{}{}{}
 
@@ -80,6 +80,7 @@
 \DeclareMathOperator{\argmax}{argmax}
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\vol}{vol}  % volume
+\DeclareMathOperator*{\bigtimes}{\vartimes}
 
 \makeatletter
 \providecommand*{\dotcup}{%
@@ -413,11 +414,11 @@ Every algebra is also a ring. Every $\sigma$-algebra is also a $\sigma$-ring.
   We call $Q$ \emph{abstract cuboid}, if it satisfies,
   \begin{align*}
     Q &= [\alpha_1, \beta_1) \times [\alpha_2, \beta_2) \times \ldots \times [\alpha_n, \beta_n) \\
-      &= \huge\times_{i=1}^n [\alpha_i, \beta_i) \subseteq \mathbb R^n
+      &= \bigtimes_{i=1}^n [\alpha_i, \beta_i) \subseteq \mathbb R^n  % TODO: huge is invalid in mathmode
   \end{align*}
   $Q = \emptyset$ if $\alpha_i \geq \beta_i$ for some $i \in \set{1,\ldots,n}$.
   Recall that, by definition, $A \times B = \emptyset$ for $A = \emptyset \lor B = \emptyset$.
-  \[ W \coloneqq \set{Q \subseteq \mathbb R^n: Q = {\huge\times}_{i=1}^n [\alpha_i, \beta_i)} \subseteq \mathcal P(\mathbb R^n) \]
+  \[ W \coloneqq \set{Q \subseteq \mathbb R^n: Q = {\bigtimes}_{i=1}^n [\alpha_i, \beta_i)} \subseteq \mathcal P(\mathbb R^n) \]
   % It is a subset, because points cannot be represented by half-open intervals.
   % Additionally the parameters $\alpha_i$ and $\beta_i$ are not yet decided. Hence, we cannot determine whether it is \subseteq or \subseteqq
   Compare with Figure~\ref{img:cuboid}.
@@ -457,7 +458,7 @@ Every algebra is also a ring. Every $\sigma$-algebra is also a $\sigma$-ring.
   In words: Intersections of cuboids of $W$ are cuboids again.
 \end{lemma}
 \begin{proof}
-  \[ Q = {\huge\times}_{i=1}^n [\alpha_i, \beta_i) \qquad R = {\huge\times}_{i=1}^n [\gamma_i, \delta_i) \]
+  \[ Q = {\bigtimes}_{i=1}^n [\alpha_i, \beta_i) \qquad R = {\bigtimes}_{i=1}^n [\gamma_i, \delta_i) \]
   Without loss of generality\footnote{This (wlog) simplification is not really required for the proof.}:
   \[ \alpha_i < \beta_i \land \gamma_i < \delta_i \]
   Otherwise $Q = \emptyset$ where $R = \emptyset$, then $Q \cap R = \emptyset \in W$. \\
@@ -471,7 +472,7 @@ Every algebra is also a ring. Every $\sigma$-algebra is also a $\sigma$-ring.
   \begin{align*}
     \Leftrightarrow & \forall i: x_i \geq \hat \alpha_i \text{ and } \forall i: x_i < \hat \beta_i \\
     \Leftrightarrow & x_i \in [\hat\alpha_i, \hat\beta_i) \\
-    \Leftrightarrow & x \in \huge\times_{i=0}^n [\hat\alpha_i, \hat\beta_i) \in W
+    \Leftrightarrow & x \in \bigtimes_{i=0}^n [\hat\alpha_i, \hat\beta_i) \in W
   \end{align*}
 \end{proof}
 
@@ -510,7 +511,7 @@ Every algebra is also a ring. Every $\sigma$-algebra is also a $\sigma$-ring.
   Let $Q, R \in W$. Then $Q \setminus R \in R_{W}$. Recall that $W \in R_W$.
 \end{lemma}
 \begin{proof}
-  Let $Q = {\huge\times}_{i=1}^n [\alpha_i, \beta_i)$ and $R = {\huge\times}_{i=1}^n [\gamma_i, \delta_i)$.
+  Let $Q = {\bigtimes}_{i=1}^n [\alpha_i, \beta_i)$ and $R = {\bigtimes}_{i=1}^n [\gamma_i, \delta_i)$.
   Without loss of generality\footnote{This proof is always done with the loss of generality condition.}:
   % TODO is this equivalent to Q \setminus R \neq \emptyset ?
   \[ \delta_i > \gamma_i \qquad \forall i = 1, \ldots, n \]
@@ -521,7 +522,7 @@ Every algebra is also a ring. Every $\sigma$-algebra is also a $\sigma$-ring.
     &\Leftrightarrow \left(\forall i: \alpha_i \leq x_i < \beta_i\right) \land
      \left(\exists l \in (1, \ldots, n): (x_l < \gamma_l \lor x_l \geq \delta_l)\right)
   \intertext{remember, that one dimension $l$ suffices, even though multiple dimensions might be in the intervals of $Q$}
-    &\Leftrightarrow x \in \bigcup_{l=1}^n \left({\huge\times}_{i=1}^n [\alpha_i, \beta_i) \cap \left((\mathbb R \times \ldots \times (-\infty, \gamma_l) \times \ldots \times \mathbb R) \cup (\mathbb R \times \ldots \times [\delta_l, \infty) \times \ldots \times \mathbb R)\right)\right)
+    &\Leftrightarrow x \in \bigcup_{l=1}^n \left({\bigtimes}_{i=1}^n [\alpha_i, \beta_i) \cap \left((\mathbb R \times \ldots \times (-\infty, \gamma_l) \times \ldots \times \mathbb R) \cup (\mathbb R \times \ldots \times [\delta_l, \infty) \times \ldots \times \mathbb R)\right)\right)
   \intertext{where $(-\infty, \gamma_l)$ and $[\delta_l, \infty)$ occur on the $l$-th index. Let $\hat\beta_l = \min\set{\gamma_l, \beta_l}$ and $\hat\alpha_l = \max\set{\delta_l, \alpha_l}$.}
     &x \in \bigcup_{l=1}^n \left(\underbrace{[\alpha_i, \beta_i) \times \ldots \times [\alpha_l, \hat \beta_l) \times \ldots \times [\alpha_n, \beta_n)}_{\text{cuboid}}
                             \cup \underbrace{[\alpha_i, \beta_i) \times \ldots \times [\hat \alpha_l, \beta_l) \times \ldots \times [\alpha_n, \beta_n)}_{\text{cuboid}}\right)
@@ -600,7 +601,7 @@ Every algebra is also a ring. Every $\sigma$-algebra is also a $\sigma$-ring.
   A non-standard notation.
 
   Let $V = \bigcup_{j=1}^k Q_j \in R_W$ and $Q_j \in W$.
-  \[ Q_j = \huge\times_{i=1}^n[\alpha_i^j, \beta_i^j), \qquad \alpha_i^j < \beta_i^j \forall i,j \]
+  \[ Q_j = \bigtimes_{i=1}^n[\alpha_i^j, \beta_i^j), \qquad \alpha_i^j < \beta_i^j \forall i,j \]
 \end{definition}
 
 \begin{figure}[!h]
@@ -627,7 +628,7 @@ be a point of the partition grid
 $l_1 \geq 1 \forall i \in \set{1,\ldots,n}$ (not zero, because otherwise there is no space for the cuboid left).
 
 $\implies$ the cuboid at the left bottom of $\xi$:
-\[ Q^{l_1 l_2 \ldots l_n} = Q^\xi = \huge\times_{i=1}^n \left[\xi_i^{l_{i-1}}, \xi^{l_i}\right) \in \mathcal W \]
+\[ Q^{l_1 l_2 \ldots l_n} = Q^\xi = \bigtimes_{i=1}^n \left[\xi_i^{l_{i-1}}, \xi^{l_i}\right) \in \mathcal W \]
 is called. Cuboid of partition grid of $V$.
 
 % TODO insert graphics
@@ -656,7 +657,7 @@ is called. Cuboid of partition grid of $V$.
       \[ \implies \forall i: x_i \in [\xi_{i}^{l_{i-1}}, \xi_i^{l_i}) \land x_i \in [\alpha_i^j, \beta_i^j) \]
       where $[\alpha_i^j, \beta_i^j) = [\xi_i^{r_i^j}, \xi_i^{s_i^j})$ with $r_i^j \leq l_{i-1} < l_i \leq s_i^j$.
       \[ \implies [\xi_i^{l_{i-1}}, \xi_i^{l_i}] \subseteq [\alpha_i^j, \beta_i^j] \]
-      \[ \implies Q^\xi = \huge\times_{i=1}^{n} [\xi_i^{l_i}, \xi_i^{l_i}) \subseteq \huge\times_{i=1}^n [\alpha_i^j, \beta_i^j) = Q^j \]
+      \[ \implies Q^\xi = \bigtimes_{i=1}^{n} [\xi_i^{l_i}, \xi_i^{l_i}) \subseteq \bigtimes_{i=1}^n [\alpha_i^j, \beta_i^j) = Q^j \]
   \end{itemize}
 \end{proof}
 
@@ -699,7 +700,7 @@ is called. Cuboid of partition grid of $V$.
     \end{center}
   \end{figure}
 
-  \[ \implies x \in \huge\times_{i=1}^{n} [\xi_i^{l_{i-1}}, \xi_i^{l_i}) = Q^\xi \cap \set{x} \subseteq Q^\xi \cap Q_j \]
+  \[ \implies x \in \bigtimes_{i=1}^{n} [\xi_i^{l_{i-1}}, \xi_i^{l_i}) = Q^\xi \cap \set{x} \subseteq Q^\xi \cap Q_j \]
   \[ \implies Q^\xi \land V \neq \emptyset \]
   \[ \implies x \in V' \]
 \end{proof}
@@ -2878,6 +2879,7 @@ Leonida Tonelli, 1885--1946
     \item $x \mapsto \int_y f_x \, dy$ is $\mu$-measurable. $y \mapsto \int_x f^y \, d\mu$ is $\mathcal B$-measurable.
     \item $\int_X \left( \int_y f_x \, d\nu\right) d\mu = \int_Y \left(\int_X f^y \, d\mu\right) \, d\nu = \int_{X \times Y} f \, d(\mu \times \nu)$.
   \end{enumerate}
+\end{theorem}
 \begin{remark}
   $f_x(y) = f(x, y)$ and $f^y(x) = f(x,y)$.
   \[ \int_X \int_Y f(x,y) \, d\nu(y) \, d\mu(x) = \int_Y \int_X f(x,y) \, d\mu(x) \, d\nu(y) \]
@@ -2904,7 +2906,77 @@ Leonida Tonelli, 1885--1946
   \[ \int_{X \times Y} f \, d(\mu \times \nu) = \int_Y \int_X f^Y \, d\mu \, d\nu \]
 \end{proof}
 
+\dateref{2018/01/19}
+
+Let
+\[ f: X \times Y \to [0, \infty] \]
+be $\mathcal A \times \mathcal B$ measurable.
+\[ \int_{X \times Y} f \, d(\mtn) = \int_X \int_Y f_x \, d\nu \, d\mu = \int_Y \int_X f^Y \, d\mu \, d\nu \]
+
+Guido Fubini (1876--1943)
+
+\begin{theorem}[Fubini's Theorem] % Theorem four
+  \label{thm:four}
+  Let $(X, \mathcal A, \mu)$, $(Y, \mathcal B, \nu)$ be $\sigma$-finite measure spaces.
+  Let $f: X \times Y = \overline{\mathbb R}$ be $\mtn$-integrable (i.e., $\int_X \card{f} \, d\mtn < \infty$).
+  Then:
+  \begin{enumerate}
+    \item for $\mu$ almost every $x \in X$ the section $f_X: Y \to \overline{\mathbb R}$ is $\nu$-integrable
+      and for $\nu$ almost every $y \in Y$ the section $f_Y: X \to \overline{\mathbb R}$ is $\mu$-integrable.
+    \item The functions
+      \[ I_f(x) = \begin{cases} \int_Y f_X \, d\nu & \text{if } f_X \text{ is integrable} \\ 0 & \text{ else} \end{cases} \]
+      \[ I_f(y) = \begin{cases} \int_X f^Y \, d\mu & \text{if } f^Y \text{ is integrable} \\ 0 & \text{ else} \end{cases} \]
+      are integrable with respect to $\mu$ and $\nu$ respectively.
+    \item And
+      \[ \int_X I_f(x) \, d\mu = \int_X I_f(y) \, d\nu = \int_{X \times Y} f \, d\mtn \]
+  \end{enumerate}
 \end{theorem}
+\begin{proof}
+  We will only prove the statements for $X$, the statement for $Y$ follow by symmetry.
+  \[ f = f^+ - f^- \text{ and } \card{f} = f^+ + f^- \]
+  $f_X^+$, $f_X^-$, $f_x$ are measurable.
+  By Tonelli's theorem it follows that
+  \[ x \mapsto \int_X f_X^+ \, d\mu \]
+  \[ x \mapsto \int_Y f_X^+ \, d\nu \]
+  are measurable with respect to $\mathcal A$. By Tonelli's Law,
+  \[ \infty > \int_{X \times Y} \card{f} \, d\mtn \geq \int_{X\times Y} f^+ \, d\mtn = \int_X \int_Y f_X^+ \, d\nu \, d\mu \]
+  \[ \implies \int_Y f_X^+ \, d\nu < \infty \text{ for almost every } x \in X \]
+  By the same argument, $\int_Y f_X^- \, d\nu < \infty$ for almost every $x \in X$.
+  \[ N = \setdef{x \in X}{\int_Y f_X^+ \, d\nu = \infty \text{ or } \int_X f_X^- \, d\nu = \infty} \]
+  then $\mu(N) = 0$. Almost everywhere on $X$:
+  \[ \int_Y \card{f_X} \, d\nu < \infty \]
+  \[ \int_Y \card{f_X} \, d\nu = \underbrace{\int_Y f_X^+ \, d\nu}_{<\infty} + \underbrace{\int_Y f_X^- \, d\nu}_{<\infty} \]
+  for $x \in X \setminus N$.
+
+  Define $I_f(x)$ as in the second statement,
+  \begin{align*}
+    \int_{X\times Y} f \, d\mtn
+      &= f^+ \, d\mtn + \int_{X\times Y} f^- \, d\mtn \\
+      &\stackrel{\text{by Tonelli}}= \int_X \int_Y f_X^+ \, d\nu \, d\mu - \int_X \int_Y f^-_X \, d\nu \, d\mu \\
+      &= \int_{X \setminus N} \underbrace{\int_Y (f_X^+ - f_X^-)}_{=I_f(x)} \, d\nu \, d\mu \\
+      &= \int_X I_f(x) \, d\mu
+  \end{align*}
+  Hence, we proved the third statement.
+
+  We use the same argument for $\card{f}$ instead of $f$.
+  \begin{align*}
+    \int_{X\times Y} \card{f} \, d\mtn
+      &= \int_{X\times Y} \left(f_X^+ + f_X^-\right) \, d\mtn \\
+      &= \int_X \int_Y f_X^+ \, d\nu \, d\mu + \int_X \int_Y f_X^- \, d\nu \, d\mu \\
+      &= \int_{X\setminus N} \underbrace{\int_Y \left(f_X^+ + f_X^-\right) \, d\nu}_{\int_Y \card{f_X} \, d\nu > \card{\int_Y f_X \, d\nu} = \card{I_f}(x) \text{ for } x \in X \setminus N} \, d\mu
+  \end{align*}
+  \[ \implies \int_X \card{I_f(x)} \, d\mu < \infty \]
+  which proves the second statement.
+\end{proof}
+
+\[ \mathbb R^{k+l} = \mathbb R^k + \mathbb R^l \]
+\[ \int_{\mathbb R^{k+l}} f \, d \lambda^{k+l} = \int_{\mathbb R^k} \int_{\mathbb R^l} f_X \, d\lambda^l \, d\lambda^k \]
+
+\index{Borel $\sigma$-algebra}
+$\mathcal B^k \subseteq \mathcal P(\mathbb R^k)$ is called \enquote{Borel $\sigma$-algebra on $\mathbb R^k$}.
+The $\sigma$-algebra generated by all half open $k$-dimensional parallelograms $\mathcal W = \set{\bigtimes_{i=1}^k [\alpha_i, \beta_i): \alpha_i \leq \beta_i}$.
+$\mathcal B^k \subseteq \mathcal L^k$. $\mathcal W$ is a $\pi$-system.
+Consider product $\sigma$-algebra $\mathcal B^k \times \mathcal B^l$ on $\mathbb R^k \times \mathbb R^l = \mathbb R^{k+l}$ and $\mathcal B^{k+l}$ on $\mathbb R^{k+l}$. It holds that $\mathcal B^k \times \mathcal B^l = \mathcal B^{k+l}$. Let $R \in \mathcal W^k \subseteq \mathcal B^k$ and $S \in \mathcal W^l \subseteq \mathcal B^l$ be given. Then $R \times S \in \mathcal W^{k+l}$. $\mathcal B^{k+l}$ is generated by $R \times S \in \mathcal W^{k+l}$. $R \times S$ is a measurable rectangle in $\mathcal B^k \times \mathcal B^l$, so $\mathcal B^k \times \mathcal B^l$ is a $\sigma$-algebra which contains $\mathcal W^{k+l} \implies \mathcal B^k \times \mathcal B^l \supseteq \mathcal B^{k+l}$.
 
 
 \printindex
