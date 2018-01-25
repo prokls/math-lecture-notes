@@ -473,7 +473,7 @@ Set operations:
   \end{itemize}
   Notation:
   \[ (x, y) \in f \Leftrightarrow y = f(x) \]
-  \[ \setdef{(x, f(x)) \in}{x \in A} =: \text{graph of f} \]
+  \[ \setdef{(x, f(x)) \in f}{x \in A} \eqqcolon \text{graph of f} \]
 \end{defi}
 
 \index[English]{Injective function}
@@ -496,7 +496,7 @@ Set operations:
       The mapping $f$ is called \emph{injective}, if
       \[ \forall x_1, x_2 \in A: (f(x_1) = f(x_2) \Rightarrow x_1 = x_2). \]
     \item
-      Let $B' \subseteq B$. We denote $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ as the \emph{preimage of $f$}.
+      Let $B' \subseteq B$. We call $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ the \emph{preimage of $f$}.
 
       \textbf{Attention!} The preimage distinguishes itself from the domain (it is a subset)
       and the inverse function $f^{-1}$ (a function must not be invertible to have a preimage)!
@@ -546,7 +546,7 @@ Set operations:
 \index[German]{\foreignlanguage{ngerman}{Identitätsfunktion}}
 \index[English]{Inverse function}
 \index[German]{\foreignlanguage{ngerman}{Inverse Funktion}}
-Back to sets and functions (notes are missing, topics covered as follows):
+Back to sets and functions (notes are missing, but the topics we covered are):
 \begin{itemize}
   \item injective, surjective, bijective function
   \item composition of functions: Let $f: X \rightarrow Y$ and $g: Y \rightarrow Z$. $g \circ f: X \rightarrow Z$ is defined as $g(f(x))$ (\enquote{g after f}).
@@ -662,6 +662,7 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
 \begin{rem}
   Let $f: M_n \rightarrow M_n$. $f$ is represented as
   \[  (1, 2, 3, 4, \ldots, n-1, n) \rightarrow (f(1), f(2), f(3), f(4), \ldots, f(n-1), f(n))  \]
+  where $(a, b, c, \ldots)$ denotes a permutation.
   Therefore $(f(1), f(2), \ldots, f(n)) \in S_n$. Analogously every $(a_1, \ldots, a_n) \in S_n$
   defined by $f(k) = a_k$ for $k=1,\ldots,n$ is a bijective mapping $f: M_n \rightarrow M_n$.
   Therefore we set $S_n = \set{f: M_n \rightarrow M_n: f \text{ is bijective}}$.
@@ -717,7 +718,7 @@ A recursive definition is given by Pascal's Rule:
       Pascal's triangle describes binomial coefficients.
       For every element of the triangle it holds that,
       it is adding up the two numbers above a number.
-      The margins are defined by $1$. For example $5$ is given by ${5 \choose 4}$.
+      The margins are defined by $1$. For example, $5$ is given by ${5 \choose 4}$.
     }
   \end{center}
 \end{figure}
@@ -755,18 +756,21 @@ Let $A, B$ be sets and define
 Then $A \setminus B$ is called \enquote{A without B}.
 
 \begin{theorem}
-  \[ T_n^x = \set{x \subseteq M_x: \card{X} = x} \]
-  Let $k \in \mathbb{N}$ and $0 \leq k \leq 1$.
-  \[ \card{T_n^x} = \binom{1}{k} \]
+  \[ T_n^k \coloneqq \set{X \subseteq M_n: \card{X} = x} \]
+  where $M_n = \set{1, 2, \ldots, n-1, n}$.
+  Let $k \in \mathbb{N}$ and $0 \leq k \leq n$. Then,
+  \[ \card{T_n^k} = \binom{n}{k} \]
   There are exactly $\binom{n}{k}$ k-ary subsets of $M_n$.
 \end{theorem}
 
+Example:
+\begin{align*}
+  T_3^1 &= \set{X \subseteq M_3: \card{X} = 1} \\
+    &= \set{X \in \set{\emptyset, \set{1}, \set{2}, \set{3}, \set{1,2}, \set{1,3}, \set{2,3}, \set{1,2,3}}: \card{X} = 1} \\
+  \card{T_3^1} &= \card{\set{1,2}, \set{1,3}, \set{2,3}} = 3
+\end{align*}
+
 \begin{proof}
-  \[
-      M_0 = \emptyset \qquad
-      T_0^0 = \set{\emptyset} \qquad
-      \card{T_n^0} = 1 = \binom{0}{n}
-  \]
   Proof by complete induction over $n$ of the following statement:
   \[
     \forall n \in \mathbb{N}: \forall k \in \mathbb{N} \text{ with } 0 \leq k \leq n:
@@ -775,11 +779,16 @@ Then $A \setminus B$ is called \enquote{A without B}.
   \begin{description}
     \item[Induction base]
       $n = 0$ is fine.
+      \[
+        M_0 = \emptyset \qquad
+        T_0^0 = \set{\emptyset} \qquad
+        \card{T_0^k} = 1 = \binom{0}{k}
+      \]
       For $n = 1$ there are two cases: $k = 0$ or $k = 1$.
       \[ M_1 = \set{1} \]
       \[ T_1^0 = \set{\emptyset} \qquad \card{T_1^0} = 1 = \binom{1}{0} \]
       \[ T_1^1 = \set{\set{1}} \qquad \card{T_1^1} = 1 = \binom{1}{1} \]
-      Is also fine.
+      Also in this case, the induction base is satisfied.
     \item[Induction step]
       The hypothesis is our assumption:
       \[ \forall 0 \leq k \leq 1: \card{T_n^k} = \binom{n}{k} \]
@@ -788,11 +797,11 @@ Then $A \setminus B$ is called \enquote{A without B}.
       \[ T_{n+1}^0 = \set{\emptyset} \qquad \card{T_{n+1}^0} = 1 = \binom{n+1}{0} \]
 
       Special case $k = n + 1$:
-      \[ T_n^{} = \set{M_{n+1}} \qquad \card{T_{n+1}^{n+1}} = 1 = \binom{n+1}{n+1} \]
+      \[ T_{n+1}^{n+1} = \set{M_{n+1}} \qquad \card{T_{n+1}^{n+1}} = 1 = \binom{n+1}{n+1} \]
 
-      Let $1 \leq k \leq n$.
+      Now we consider the more generic case. Let $1 \leq k \leq n$.
       \begin{align*}
-        T_{n+1}^x &\coloneqq \set{(a_1, \ldots, a_x) : a_i \in M_{n+1}, \forall i \in \set{1, \ldots, x}, a_i \neq a_j \forall (i,j) \in \set{1, \ldots, x}} \\
+        T_{n+1}^k &\coloneqq \set{(a_1, \ldots, a_k) : a_i \in M_{n+1}, \forall i \in \set{1, \ldots, k}, a_i \neq a_j \forall (i,j) \in \set{1, \ldots, k}} \\
         R_{n+1}^k &\coloneqq \set{(a_1, \ldots, a_{k-1}, n+1): (a_1, \ldots, a_{k-1}) \in T_n^k} \\
         S_{n+1}^k &\coloneqq \set{(a_1, \ldots, a_{l-1}, n+1, a_{l+1}, \ldots, a_{k-1}): (a_1, \ldots, a_{\hat{l}}, \ldots, a_k) \in T_n^k}
       \end{align*}
@@ -808,7 +817,7 @@ Then $A \setminus B$ is called \enquote{A without B}.
       \[ f(A) = f(A' \cup \set{n+1}) = A' \]
 
       $f$ is bijective.
-      $f$ is surjective: Let $A' \in T_n^k$ define $A = A' \cup \set{n+1} \in S_{n+1}^n$ and $f(A) = A'$.
+      $f$ is surjective: Let $A' \in T_n^k$ define $A = A' \cup \set{n+1} \in S_{n+1}^k$ and $f(A) = A'$.
       $f$ is injective: Let $f(A) = f(B)$ and $A = A' \cup \set{n+1} \in S_{n+1}^k$.
 
       $B = B' \cup \set{n+1} \in S_{n+1}^k$. $A', B' \in T_n^{k-1}$.
@@ -1145,8 +1154,8 @@ Literature:
   \[
     q \neq 0 \Rightarrow q = \begin{cases}
       \frac mn & m,n \in \mathbb{N}_+ \\
-      -\frac mn & m,n \in \mathbb{N}_+ \\
-      -\frac mn & m,n \in \mathbb{N}_+ \\
+      \frac {-m}n & m,n \in \mathbb{N}_+ \\
+      \frac m{-n} & m,n \in \mathbb{N}_+ \\
       \frac{-m}{-n} & m,n \in \mathbb{N}_+
     \end{cases}
   \]
@@ -1202,20 +1211,19 @@ Literature:
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[Case 1] Let $a \cdot b > 0$
-      \[ \implies a \cdot b > 0: \abs{ab} = ab \qquad \abs{a}\cdot\abs{b} = ab \]
-    \item[Case 2]
-      \[ a > 0, b < 0: a \cdot b < 0: \abs{ab} = -ab \qquad \abs{a} \cdot \abs{b} = a \cdot (-b) \]
-      \[ b < 0 \implies -b > 0 \implies b < -b \implies \underbrace{a + b}_{\abs{a + b}} < \underbrace{a - b}_{\abs{a} + \abs{b}} \]
-    \item[Case 3]
-      \[ a < 0, b < 0: a \cdot b > 0: \abs{ab} = ab \qquad \abs{a} = -a \qquad \abs{b} = -b  \]
+    \item[Case 1.] Let $a > 0 \land b > 0$
+      %\[ \implies a \cdot b > 0: \abs{ab} = ab \qquad \abs{a}\cdot\abs{b} = ab \]
+      \[ \implies a = \abs{a} \land b = \abs{b} \implies \abs{a + b} = a + b = \abs{a} + \abs{b} \]
+    \item[Case 2.] Let $a > 0 \land b < 0$.
+      \[ \implies a \cdot b < 0 \iff \abs{ab} = -ab \qquad \abs{a} \cdot \abs{b} = a \cdot (-b) \]
+      \[ b < 0 \iff -b > 0 \iff b < -b \iff \underbrace{a + b}_{\abs{a + b}} < \underbrace{a + (-1 \cdot b)}_{\abs{a} + \abs{b}} \]
+    \item[Case 3.] Let $a < 0 \land b < 0$.
+      \[ \implies a \cdot b > 0 \iff \abs{ab} = ab \qquad \abs{a} = -a \qquad \abs{b} = -b  \]
       \[ \abs{a} \cdot \abs{b} = -a \cdot -b = a b \]
       \[ \abs{a + b} = \abs{(-1)(a + b)} = \abs{-a-b} = \abs{\underbrace{\abs{a}}_{\geq 0} + \underbrace{\abs{b}}_{\geq 0}} = \abs{a} + \abs{b} \]
-    \item[Case 4]
-      \[ a > 0, b < 0: a + b < 0 \]
-      \[ \abs{a} = a \qquad \abs{b} = b \qquad \abs{a + b} = -(a + b) = -a - b \]
-      \[ a > 0 \implies -a < 0 \qquad -a - b < a - b \]
-      \[ -(a + b) = \abs{a + b} \]
+    \item[Case 4.] Let $a < 0 \land b > 0$.
+      \[ \implies a \cdot b < 0 \qquad \abs{a} = -a \qquad -\abs{a} = a \qquad \abs{b} = b \] 
+      \[ a < 0 \iff -a > 0 \iff a < a \implies \underbrace{a + b}_{\abs{a + b}} < \underbrace{(-1 \cdot a) + b}_{\abs{a} + \abs{b}} \]
   \end{description}
 \end{proof}
 
@@ -1227,7 +1235,7 @@ Literature:
   Let $y \geq 0$. Then it holds that $\abs{x} \leq y \Leftrightarrow -y \leq x \land x \leq y$
 \end{theorem}
 \begin{proof}
-  First direction $\Rightarrow$:
+  First direction $\implies$:
   \[
     \abs{x} = \begin{cases}
       x & \text{for } x \geq 0\\
@@ -1236,20 +1244,20 @@ Literature:
   \]
   \begin{description}
     \item[Case 1] Let $x \geq 0$. Then
-      \[ \abs{x} \leq y \Rightarrow x \leq y \Rightarrow -y \leq x \]
+      \[ \abs{x} \leq y \implies x \leq y \implies -y \leq x \]
       because $-y \leq 0 \land x \geq 0$ anyways.
     \item[Case 2] Let $x < 0$, therefore $\abs{x} = -x$. Because
-      \[ -x \leq y \Rightarrow x \geq -y \]
+      \[ -x \leq y \implies x \geq -y \]
       $x \leq y$ holds anyways because $x < 0$ and $y \geq 0$.
   \end{description}
 
-  Second direction $\Leftarrow$:
+  Second direction $\impliedby$:
 
   Let $-y \leq x \leq y$.
   \begin{description}
     \item[Case 1] $x \geq 0: \abs{x} = x \leq y$ because of the second inequality.
     \item[Case 2] $x < 0: \abs{x} = -x$
-      \[ -(-1) \Rightarrow -(-y) \geq -x \text{ or equivalently } y \geq -x = \abs{x} \]
+      \[ -(-1) \implies -(-y) \geq -x \text{ or equivalently } y \geq -x = \abs{x} \]
   \end{description}
 \end{proof}
 
@@ -1274,7 +1282,7 @@ Literature:
 
       Therefore it holds that $\varepsilon: \abs{x-y} = x - y > \frac12(x - y) = \varepsilon > 0$.
 
-    \item[Second direction $\Leftarrow$]
+    \item[Second direction $\impliedby$]
       $x = y \Rightarrow \abs{x-y} = 0 \leq \varepsilon \forall \varepsilon > 0$
   \end{description}
 \end{proof}
@@ -1303,13 +1311,14 @@ Additional remark from 14th of January 2016.
 $Q$ is dense in $\mathbb R$.
 
 \begin{theorem}
+  \label{QisdenseinR}
   For all $x \in \mathbb R$ and for every $\varepsilon > 0$ there exists $q \in Q$
   with $\abs{x - q} < \varepsilon$.
 
   \begin{figure}[!h]
     \begin{center}
       \includegraphics{img/dense_q.pdf}
-      \caption{$k$ and an $\varepsilon$ environment}
+      \caption{For every $x$ and every $\varepsilon$-neighborhood, some element of the rational numbers exist within this neighborhood}
     \end{center}
   \end{figure}
 \end{theorem}
@@ -1343,45 +1352,49 @@ $Q$ is dense in $\mathbb R$.
       $\forall n' \in A: k + 1 \leq n'$.
       \[ \Rightarrow k + 1 \in A \land k + 1 \text{ is lower bound of } A \]
       Therefore $k + 1 = \min{A}$.
-
       This is a contradiction to the assumption that $\min{A}$ does not exist.
       Therefore $\forall n \in A: k + 1 < n \Rightarrow k + 1 \in C$.
 
-      Due to the workings of induction: $\forall k \in \mathbb N: k \in C$
+      Due to the properties of induction: $\forall k \in \mathbb N: k \in C$
       equivalently means $C = \mathbb N$.
-
       Therefore $A = \emptyset$ holds.
       Assume $m \in A$, so it holds that $m \not\in C$, because $\neg (m < m)$.
   \end{description}
 \end{proof}
 
-\begin{proof}
+\begin{proof}[Proof of Theorem~\ref{QisdenseinR}]
   Case distinction:
   \begin{description}
-    \item[$x > 0$]
+    \item[Case $x > 0$.]
       Let $\varepsilon > 0$ be arbitrary.
       Choose $n \in \mathbb N_+$ such that $\frac1n < \varepsilon$
       and define $A = \setdef{k \in \mathbb N}{k > n \cdot x}$.
 
-      We know that $A \neq \emptyset$ (Archimedian axiom).
-      Let $M = \min{A}$, then it holds that $m > n \cdot x$ and $m - 1 \leq n \cdot x$.
-      Therefore $x < \frac mn$ and $x \geq \frac{m-1}{n}$.
-      Therefore it holds that
+      We know that $A \neq \emptyset$ (by Archimedean's property).
+      Let $m = \min{A}$.
       \[
-        \abs{x - \frac mn} = \frac mn - x \leq \frac mn - \frac{m-1}{n}
+        \implies m > n \cdot x \:\land\: m - 1 \leq n \cdot x
+        \quad\implies x < \frac mn \:\land\: x \geq \frac{m-1}{n}
+      \]
+      \[
+        \abs{x - \frac mn} = \abs{(-1) \left(\frac mn - x\right)}
+        = \frac mn - x \leq \frac mn - \frac{m-1}{n}
         = \frac{m - m + 1}{n} = \frac 1n < \varepsilon
       \]
-      and $\frac mn = q \in \mathbb Q$.
-    \item[$x < 0$]
-      Therefore $-x > 0$ and $\exists q \in \mathbb Q$:
-      \[ \abs{q - (-x)} < \varepsilon \]
-      \[ \abs{x + q} = \abs{x - \underbrace{(-q)}_{\in \mathbb Q}} \]
-    \item[$x = 0$]
+      with $\frac mn = q \in \mathbb Q$.
+    \item[Case $x < 0$.]
+      Therefore $-x > 0$. By the previous case, we know,
+      \[ \forall x \in \mathbb R_+ \forall \varepsilon > 0 \exists q \in \mathbb Q: \abs{x - q} < \varepsilon \]
+      \[ \implies \abs{-x - q} < \varepsilon \implies \abs{(-1) (x + q)} < \varepsilon \implies \abs{x - (-q)} < \varepsilon \]
+    \item[Case $x = 0$.]
       Let $q = 0 \in \mathbb Q$.
   \end{description}
 \end{proof}
 \index[English]{dense in $\mathbb R$}
 \index[German]{Dicht in $\mathbb R$}
+\index[English]{Adherent point}
+\index[English]{Contact point}
+\index[German]{Berührungspunkt}
 \begin{cor}
   $\forall x \in \mathbb R$ and $\forall \varepsilon > 0$ it holds that
   \[
@@ -1406,6 +1419,7 @@ $Q$ is dense in $\mathbb R$.
     \text{ with } q_n \in \mathbb Q
     \text{ with } \lim_{n \to \infty} q_n = x
   \]
+  Every limit point is a contact point.
 \end{cor}
 
 \subsection{Intervals}
@@ -1468,7 +1482,7 @@ $Q$ is dense in $\mathbb R$.
     \item Assume $\left(\frac mn\right)^2 = 2$.
     \item Then $\frac{m^2}{n^2} = 2$.
     \item Then $m^2 = 2 \cdot n^2$.
-    \item With $Z(m^2) = 2\cdot \operatorname{Z}(n)$.
+    \item With $Z(m^2) = 2\cdot \operatorname{Z}(m)$.
     \item With $\operatorname{Z}(2\cdot n^2) = \operatorname{Z}(n^2) + 1 = 2 \cdot \operatorname{Z}(n) + 1$.
     \item If $m^2 = 2n^2$, then $\operatorname{Z}(m^2)$ must be even and $\operatorname{Z}(2\cdot n^2)$ must be odd.
     \item Then equality cannot be satisfied \lightning
@@ -1476,6 +1490,8 @@ $Q$ is dense in $\mathbb R$.
 \end{proof}
 
 \subsection{Archimedean property and Completeness axiom}
+\index{Archimedean property}
+\index{Archimedean axiom}
 \begin{theorem}
   $\mathbb Q$ is geometrically incomplete.
 
@@ -1485,8 +1501,8 @@ $Q$ is dense in $\mathbb R$.
     \item[Archimedean property]
       $\mathbb N \subseteq \mathbb R$ with $\forall x \in \mathbb R: \exists n \in \mathbb N: x < n$
 
-      \[ \mathbb N \subseteq \mathbb R \forall n \in \mathbb N: -n \in \mathbb N \]
-      \[ \Rightarrow \forall n \in \mathbb N_+: n^{-1} \in \mathbb R \]
+      \[ \forall n \in \mathbb N: -n \in \mathbb Z \]
+      \[ \forall n \in \mathbb N_+: n^{-1} \in \mathbb R \]
       \[ \Rightarrow \mathbb Z \subseteq \mathbb R \]
 
       Therefore $\forall m \in \mathbb N: m \cdot \frac1n = \frac mn \in \mathbb R
@@ -1495,48 +1511,55 @@ $Q$ is dense in $\mathbb R$.
       \begin{defi}
         Let $I_0, I_1, \dots, I_z$. $(I_n)_{n \in \mathbb N}$ is a sequence of closed intervals with
         \begin{enumerate}
-          \item $\forall a \in \mathbb N: I_{n+1} \subseteq I_n$
-          \item $\forall \varepsilon > 0 \exists n \in \mathbb N: n \geq N \Rightarrow \abs{I_n} < \varepsilon$
+          \item $\forall n \in \mathbb N: I_{n+1} \subseteq I_n$
+          \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \Rightarrow \abs{I_n} < \varepsilon$
         \end{enumerate}
       \end{defi}
 
     \item[Completeness axiom]
+      \index[English]{Nested intervals theorem}
+      \index[Deutsch]{\foreignlanguage{ngerman}{Verschachtelte Intervalle Theorem}}
       Let $(I_n)_{n \in \mathbb N}$ be nested intervals in $\mathbb R$.
-      Then there exists some $x \in \mathbb R: x \in I_n: \forall n \in \mathbb N_+$.
+      Then for all $n \in \mathbb N$ there exists \emph{only one} $x \in \mathbb R$ such that $\forall n \in \mathbb N_+: x \in I_n$
+      (\enquote{Nested interval theorem}).
 
-      Be aware, there exists only \emph{one} $x \in \mathbb R$ with the property:
-      $x \in I_n \forall n \in \mathbb N$.
-
-      Assume $x \in I_n$ and $y \in I_n \forall n \in \mathbb N$ and $x \neq y$.
-      \[ \abs{\beta - \alpha} \leq b - a = \abs{I} \]
-
-      \begin{proof}
-        Without loss of generality: $\alpha \leq \beta$.
-        Then it holds that $\abs{\beta - \alpha} = \beta - \alpha \leq \beta
-        + (-\alpha) \leq b + (-\alpha) = b - a = \abs{I}$.
-        \[ a \leq \alpha \Rightarrow -a \geq -\alpha \]
-
+      \begin{proof}[Proof by contradiction]
+        Assume $x \in I_n$ and $y \in I_n \forall n \in \mathbb N$ and $x \neq y$.
+        Let $I_n = [a,b]$ and $I_{n+1} = [\alpha, \beta]$. It holds that:
+        \[ \abs{I_{n+1}} = \abs{\beta - \alpha} \leq \abs{b - a} = \abs{I_n} \]
+        %% 2018/01/23 prokls
+        %% I had to shorten and modify this proof. It was a complete mess
+        %% and not to the point.
+        % Without loss of generality: $\alpha \leq \beta$.
+        % Then it holds that $\abs{\beta - \alpha} = \beta - \alpha \leq \beta
+        % + (-\alpha) \leq b + (-\alpha) = b - a = \abs{I}$.
+        % \[ a \leq \alpha \Rightarrow -a \geq -\alpha \]
         Consider arbitrary small $\varepsilon > 0$ and $N \in \mathbb N$ sufficiently large,
-        such that $\abs{I_n} < \varepsilon$. Because $x,y \in I_n \Rightarrow
-        \abs{x - y} < \varepsilon \Rightarrow x = y$.
+        such that $\abs{I_n} < \varepsilon \:\forall n > N$. Because $x,y \in I_n \implies
+        \abs{x - y} < \varepsilon \implies x = y$.\footnote{
+          Be aware, that this implication holds in general.
+          An infinitesimal difference between two variables requires both variables
+          to have the same value. In fact Georgi E. Shilov in \enquote{Elementary Real and Complex Analysis}
+          defined that a \emph{single point} is given iff this property holds.
+        }%
       \end{proof}
   \end{description}
 \end{theorem}
 
 \begin{cor}
   From the Archimedean property it follows that,
-  \[ \forall \varepsilon > 0: \exists N \in \mathbb N: n \geq N \Rightarrow \frac1n < \varepsilon \]
+  \[ \forall \varepsilon > 0: \exists N \in \mathbb N: n \geq N \implies \frac1n < \varepsilon \]
 \end{cor}
 
 \begin{proof}
   Let $x > \frac1\varepsilon \in \mathbb R$.
   Archimedean property: $\exists N \in \mathbb N: N > x$.
 
-  For $n \geq \mathbb N$ it holds that $n > x > 0 \Rightarrow \frac1n < \frac1x = \varepsilon$.
+  For $n \geq \mathbb N$ it holds that $n > x > 0 \implies \frac1n < \frac1x = \varepsilon$.
 \end{proof}
 
 \begin{cor}
-  Let $p \in \mathbb R, p > 1 \forall x \in \mathbb R: n \geq N \Rightarrow p^n > x$.
+  Let $p \in \mathbb R, p > 1 \forall x \in \mathbb R: n \geq N \implies p^n > x$.
 \end{cor}
 
 \begin{proof}
@@ -1556,7 +1579,7 @@ $Q$ is dense in $\mathbb R$.
   Let $q \in \mathbb R$ with $\abs{q} < 1$. Then it holds that
   \[
     \forall \varepsilon > 0 \exists N \in \mathbb N:
-    n \geq N \Rightarrow \abs{q^n} = \abs{q}^n < \varepsilon
+    n \geq N \implies \abs{q^n} = \abs{q}^n < \varepsilon
   \]
 \end{theorem}
 
@@ -1568,13 +1591,13 @@ $Q$ is dense in $\mathbb R$.
     \abs{q}^n &< \varepsilon \forall \varepsilon > 0 \forall n \in \mathbb N
   \end{align*}
 
-  Let $q \neq 0$, then $0 < s < 1$. Let $p = \frac1s \Rightarrow p > 1$.
+  Let $q \neq 0$, then $0 < s < 1$. Let $p = \frac1s \implies p > 1$.
   Choose arbitrary $\varepsilon > 0$ and $x = \frac1\varepsilon$.
   Because of the Completeness axiom
-  \[ \exists N \in \mathbb N: n \geq N \Rightarrow p^n > X \]
+  \[ \exists N \in \mathbb N: n \geq N \implies p^n > X \]
   So it holds that
   \[ \frac1{p^n} = S^n < \frac1x = \varepsilon \forall n \geq N \]
-  \[ \Rightarrow \left(\abs{q}\right)^n = \abs{q^n} \]
+  \[ \implies \left(\abs{q}\right)^n = \abs{q^n} \]
 \end{proof}
 
 \begin{theorem}
@@ -1591,7 +1614,7 @@ $Q$ is dense in $\mathbb R$.
   $(I_n)_{n \in \mathbb N}$ such that $y \in \bigcap_{n \in \mathbb N} I_n$
   satisfies the property that $y^k = x$.
 
-  \[ 0 \leq y_1 < y_2 \Rightarrow y_1^k < y_2^k \]
+  \[ 0 \leq y_1 < y_2 \implies y_1^k < y_2^k \]
 
   We define $J_0 = [a_0, b_0]$ with $a_0 = 0$ and $b_0 = 1 + x$.
   Then it holds that
@@ -2361,7 +2384,7 @@ Taking the n-th root only works for positive integers, because $\forall x \geq 0
 and no solution in $\mathbb R$ exists for the equation $x^2 = -1$.
 
 In $\mathbb C$ it holds that $\forall w \in \mathbb C \setminus \set{0}$.
-$\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equation$ z^n = w$.
+$\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equation $z^n = w$.
 
 \section{Sequences of real and complex elements}
 \index[English]{Sequences}
@@ -3070,12 +3093,12 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 \index[German]{\foreignlanguage{ngerman}{Teilfolge}}
 \begin{defi}
   Let $\seq{a_n}$ with $a_n \in \mathbb C$. For example,
-  \[ (1, \frac12, \frac13, \frac14, \frac15, \frac16, \dots) \]
+  \[ \left(1, \frac12, \frac13, \frac14, \frac15, \frac16, \dots\right) \]
   We remove some elements
-  \[ (1, \frac13, \frac14, \frac16, \dots) \]
+  \[ \left(1, \frac13, \frac14, \frac16, \dots\right) \]
   A \emph{subsequence} is created.
   We also reenumerate the numbers:
-  \[ (\underbrace{1}_{n_0}, \underbrace{\frac13}_{n_1}, \underbrace{\frac14}_{n_2}, \underbrace{\frac16}_{n_3}, \dots) \]
+  \[ \left(\underbrace{1}_{n_0}, \underbrace{\frac13}_{n_1}, \underbrace{\frac14}_{n_2}, \underbrace{\frac16}_{n_3}, \dots\right) \]
   Let $n: \mathbb N \to \mathbb N$ be strictly monotonically increasing.
   Therefore
   \[ \forall k \in \mathbb N: n (k+1) > n(k) \Rightarrow n_{k+1} > n_k \]
@@ -3383,7 +3406,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 
 \begin{ex}
   We show a counterexample for the completeness of $\mathbb Q$.
-  So we have Cauchy sequences with limes, which lies outside $\mathbb Q$.
+  So we have Cauchy sequences with limes, which lie outside $\mathbb Q$.
 
   We define a recursion:
   \[
@@ -3431,8 +3454,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   We cannot argue equivalently to Theorem~\ref{monotonic-in-R} with the supremum.
 
   For this example we know that $\seq{a_n}$ is convergent in $\mathbb R$.
-  $\seq{a_n}$ is Cauchy sequence in $\mathbb R$.
-  So $\seq{a_n}$ is Cauchy sequence in $\mathbb Q$.
+  $\seq{a_n}$ is a Cauchy sequence in $\mathbb R$.
+  So $\seq{a_n}$ is a Cauchy sequence in $\mathbb Q$.
 
   For the limes $a$ it holds that,
   \[ a = \lim_{n\to\infty} a_{n+1} = \lim_{n\to\infty} \frac12 \left(a_n + \frac{2}{a_n}\right) \]
@@ -4606,7 +4629,7 @@ TODO
   of a set $M$ if $\forall r > 0$ it holds that $B(z, r)$ contains a point
   $w \in M$ with $m \neq z$.
 
-  Every limit point is also contact point.
+  Every limit point is also a contact point.
 \end{defi}
 
 % TODO: image illustration_of_a_limit_touching_point.svg
@@ -4955,40 +4978,40 @@ $f$ is continuous in $x_0$ if and only if
 
 Reminder:
 Let $z_0 \in U \subseteq \mathbb C$.
-$U$ is called environment of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subset U$.
+$U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subset U$.
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=200pt]{img/environment.pdf}
-    \caption{Environment with radius $r$}
+    \caption{Neighborhood with radius $r$}
   \end{center}
 \end{figure}
 
 \begin{defi}
   Let $D \subseteq \mathbb C$ and $z_0 \in U \subseteq D$.
-  We call $U$ \emph{environment} of $z_0$ \emph{in} $D$ if $\exists r > 0$
+  We call $U$ \emph{neighborhood} of $z_0$ \emph{in} $D$ if $\exists r > 0$
   such that $B(z_0, r) \cap D \subseteq U$.
 \end{defi}
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=200pt]{img/environment_D_and_U.pdf}
-    \caption{Environment $U$}
+    \caption{Neighborhood $U$}
   \end{center}
 \end{figure}
 
 \begin{theorem}
   Let $D \subseteq \mathbb C$ and $f: D \rightarrow \mathbb C$.
   Let $z_0 \in D$. Then $f$ is continuous in $z_0$
-  if and only if for every environment $U$ of $y_0 = f(z_0)$
-  it holds that $V = f^{-1}(u)$ is an environment of $z_0 \in D$
+  if and only if for every neighborhood $U$ of $y_0 = f(z_0)$
+  it holds that $V = f^{-1}(u)$ is an neighborhood of $z_0 \in D$
   (where $f^{-1}$ denotes the preimage).
 \end{theorem}
 
 \begin{proof}
   \begin{description}
     \item[$\Rightarrow$] \hfill{} \\
-      Let $f$ be continuous in $z_0$ and let $U$ be an environment
+      Let $f$ be continuous in $z_0$ and let $U$ be an neighborhood
       of $y_0 = f(z_0)$, hence $\exists \varepsilon > 0: B(y_0, \varepsilon)
       \subseteq U$ with $y_0 = f(z_0)$. Because $f$ is continuous in $z_0$,
       it holds that
@@ -5010,9 +5033,9 @@ $U$ is called environment of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subse
       So it holds that $B(z_0, \delta) \cap D \subseteq f^{-1}(U)$.
 
     \item[$\Leftarrow$] \hfill{} \\
-      Let the preimage of every environment in $y_0$ be an environment of $z_0$ in $D$.
-      Let $\varepsilon > 0$ arbitrary. Then it holds that $B(y_0, \varepsilon)$ is an environment of $y_0$.
-      By assumption it holds that $V = f^{-1}(B(y_0, \varepsilon))$ is an environment of $z_0$ in $D$,
+      Let the preimage of every neighborhood in $y_0$ be an neighborhood of $z_0$ in $D$.
+      Let $\varepsilon > 0$ arbitrary. Then it holds that $B(y_0, \varepsilon)$ is an neighborhood of $y_0$.
+      By assumption it holds that $V = f^{-1}(B(y_0, \varepsilon))$ is an neighborhood of $z_0$ in $D$,
       hence
       \[ \exists \delta > 0: B(z_0, \delta) \cap D \subseteq f^{-1}(B(y_0, \varepsilon)). \]
       Therefore for $z \in B(z_0, \delta) \cap D$ it holds that $f(z) \in B(y_0, \varepsilon)$.
@@ -5243,6 +5266,7 @@ Continuity and compactness implies existence of a maximum and minimum.
         \begin{center}
           \includegraphics{img/am_bm.pdf}
           \caption{Interval $I_{n+1}$}
+          \label{img:am_bm}
         \end{center}
       \end{figure}
       and it holds that $f(a_{n+1}) = f(a_n) \leq \eta$ and $f(b_{n+1}) = f(m_n) \geq \eta$.
