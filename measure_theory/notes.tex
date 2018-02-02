@@ -3095,5 +3095,286 @@ $F$ is a $\mathcal{C}^1$ diffeomorphism from $U$ onto $V$.
   \end{enumerate}
 \end{theorem}
 
+\dateref{2018/01/26}
+
+Let $U, V \subseteq \mathbb R^k$ be open, $F: U \to V$ be a $\mathcal C^1$-diffeomorphism.
+\[ B \subseteq U \implies \lambda(F(B)) = \int_B \card{J_F(x)} \, d\lambda \]
+$f: V \to \overline{\mathbb R}$ integrable:
+\[ \int_V f \, d\lambda = \int_U f \circ F(x) \card{J_F(x)} \, dx \]
+
+\begin{lemma}
+  Let $U \subseteq \mathbb R^k$ be open, $G: U \to \mathbb R^k$ be a $\mathcal C^1$-function.
+  Let $\varepsilon > 0$, $\overline{C} \subseteq U$, $C \in W$ be a cube with side length $b > 0$.
+  $C = \bigtimes_{i=1}^k [\alpha_i, \alpha_i+b)$. Assume that
+  \[ \forall x \in \overline {C}: \norm{DG(x) - \underbrace{E}_{k\times k \text{ unit matrix}}} \leq \varepsilon \]
+  Then $\lambda^*(G(C)) \leq (1 + \varepsilon)^k \cdot \lambda(C)$.
+
+  Remark: $G$ is diffeomorphism. $\lambda^* \leftrightsquigarrow \lambda$.
+\end{lemma}
+\begin{proof}
+  Let $x_0 = \begin{bmatrix} \alpha_1 + \frac b2 \\ \vdots \\ \alpha_k + \frac b2 \end{bmatrix}$
+  be the center of the cube.
+  $\overline{W} \subseteq U$ compact then DF is bounded on $\overline{W}$.
+  \[ \norm{\operatorname{DF}(x)} \leq M \forall x \in \overline{W} \]
+  \[ \norm{F(x_1) - F(x_2)} \leq \max_{\xi \in \overline{W}} \underbrace{\norm{\operatorname{DF}(\xi)}}_{\leq M} \norm{x_1 - x_2} \]
+  Let $L \in \mathbb R^{n\times n}$. $\norm{L} = \max\setdef{\norm{Lv}_{{\mathbb R^n}}}{\norm{v}_{\mathbb R^n} = 1}$.
+  Then $\norm{Lv}_{\mathbb R^n} \leq \norm{L} \cdot \norm{v}_{\mathbb R^n}$. Use $\norm{\cdot}_\infty$ on $\mathbb R^n$.
+
+  \[ \max\setdef{\card{x_i - x_{0,i}}}{x \in C, i = 1,\ldots,k} < \frac b2 \]
+  \[ \implies \norm{x - x_0}_{\infty} \leq \frac b2 \forall x \in C \]
+  \[ \norm{(G - \text{id})(x) - (G - \text{id})(x_0)}_{\infty} \leq \max_{\xi \in \overline{C}} \norm{\text{DG}(\xi) - E} \cdot \norm{x - x_0} \]
+  by our remark above.
+  \[ \leq \varepsilon \norm{x - x_0}_\infty \]
+
+  \[ \norm{G(x) - G(x_0)}_{\infty} \leq \norm{(G - \text{id})(x) - (G - \text{id})(x_0)}_{\infty} + \norm{x - x_0}_{\infty} \]
+  \[ \leq (1 + \varepsilon)\norm{x - x_0} \leq (1 + \varepsilon) \frac{b}{2} \]
+  \[ G(C) \subseteq \bigtimes_{i=1}^{k} \left[ G(x_0)_i - (1 + \varepsilon) \frac b2, G(x_0)_i + (1 + \varepsilon) \frac b2 \right] \]
+  \[ \lambda^*(G(C)) \leq \prod_{i=1}^k (1 + \varepsilon) \cdot b = (1 + \varepsilon)^k \cdot b^k = (1 + \varepsilon)^k \lambda(C) \]
+\end{proof}
+
+\begin{lemma}
+  Let $U, V, F$ be as in the statement of the transformation theorem.
+  Let $a > 0, B \subseteq U, B \in \mathcal B$.
+  \begin{itemize}
+    \item if $\card{J_F(x)} \leq a \forall x \in B$ then $\lambda(F(B)) \leq a \lambda(B)$
+    \item if $\card{J_F(x)} \geq a \forall x \in B$ then $\lambda(F(B)) \geq a \lambda(B)$.
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  Prove the first statement for the special case $B \subseteq U$ is such that $\overline{B} \subseteq U$ and $\overline{B}$ is compact and $B$ is open.
+  We assume that $\norm{J_F(x)} \leq a \forall x \in \overline{B}$.
+  $x \mapsto \frac{\partial F^i}{\partial x_j}$ is continuous on $B$ so this function is uniformly continuous.
+  $F^{-1}: F(\overline{B}) \to B$ is differentiable with $D(F^{-1}) = (DF)^{-1}$ is continuous on $F(\overline{B})$ (compact) so $DF^{-1}$ is bounded on $F(\overline{B})$.
+  Let $M \geq 0$ such that $\norm{(DF)^{-1}(y)} \leq M \forall y \in F(\overline{B})$.
+  By uniform continuity of $DF$ on $\overline{B} \implies \forall \varepsilon > 0 \exists \delta > 0: \norm{DF(x) - DF(x_0)} \leq \frac{\varepsilon}{M}$ if $\norm{x - x_0} \leq \delta$ and $x, x_0 \in \overline{B}$.
+
+  \[ B = \bigcup_{i=1}^\infty C_i \text{ with } C_i \in W \]
+  $C_i$ is a cube with side length $\leq 2\delta$, $C_i \cap C_j = \emptyset$.
+
+  Let $C$ be one of these cubes and $x_0$ its center.
+  \[ G(x) = (DF(x_0))^{-1} \cdot F(x) \text{ for } x \in C \]
+  \[ DG - E = (DF(x_0))^{-1} DF(x) - (DF(x_0))^{-1} DF(x_0) = (DF(x_0))^{-1} (DF(x) - DF(x_0)) \]
+  \[ \norm{DF(x) - E} \leq \norm{(DF(x_0))^{-1}} \cdot \norm{DF(x) - DF(x_0)} \leq M \frac{\varepsilon}{M} = \varepsilon \]
+  because $\norm{x - x_0}_{\infty} < \delta$.
+  By the previous Lemma,
+  \[ \lambda(F(C)) = \lambda(DF(x_0) \cdot G(c)) = \card{J_F(x_0)} \cdot \lambda(G(C)) \]
+  where the equality follows from:
+  \[ \lambda(F(B)) \leq a (1 + \varepsilon)^k \sum_{i=1}^\infty \lambda (C_i) = a(1 + \varepsilon)^k \]
+  By the lemma,
+  \[ \leq a (1 + \varepsilon)^k \lambda(c) \]
+\end{proof}
+
+\dateref{2017/01/31}
+
+\[ U, V \subseteq \mathbb R^k \text{ open} \]
+\[ F: U \to V \text{ diffeomorphism} \]
+\[ B \in \mathbb B, B \subseteq U \]
+\begin{itemize}
+  \item $\lambda(F(B)) = \int_B \card{J_F(x)} \, d\lambda(x)$
+  \item $f: V \to \overline{\mathbb R}$ integrable
+\end{itemize}
+\[ \int_V f \, d\lambda = \int_u f \circ F(x) \card{J_F(x)} \, d\lambda(x) \]
+
+\begin{lemma}
+  If $\card{J_F(x)} \leq a$ on $B$ then $\lambda(F(B)) \leq a \cdot \lambda(B)$.
+  If $\card{J_F(x)} \geq a$ on $B$ then $\lambda(F(B)) \geq a \cdot \lambda(B)$.
+\end{lemma}
+\begin{proof}[Proof of the transformation theorem]\hfill{} \\
+  \begin{enumerate}
+    \item
+      Suppose $\lambda(B) \leq \infty$ and for $n \in \mathbb N$, $k \in \mathbb N$, $n \geq 1$, $k \geq 1$.
+      \[ B_{n,k} = \setdef{x \in B}{\frac{k-1}{n} \leq \card{J_F(x)} \leq \frac kn} \]
+      \[ B = \bigcup_{k=1}^\infty B_{n,k} \qquad B_{n,k} \cap B_{n,l} = \emptyset \text{ if } k \neq l \]
+      \begin{lemma}
+        \[ \frac{k-1}{n} \cdot \lambda(B_{n,k}) \leq \lambda(F(B_{n,k})) \leq \frac kn \cdot \lambda(B_{n,k}) \]
+      \end{lemma}
+      Also:
+      \[ \frac{k-1}{n} \lambda(B_{n,k}) \leq \int_{B_{n,k}} \card{J_F(x)} \, d\lambda \leq \frac kn \cdot \lambda(B_{n,k}) \]
+      \[ \underbrace{\left(\frac{k-1}{n} - \frac kn\right)}_{-\frac1n} \lambda(B_{n,k}) \leq \lambda(F(B_{n,k})) - \int_{B_{n,k}} \card{J_F(x)} \, d\lambda \leq \underbrace{\left(\frac kn - \frac{k-1}{n}\right)}_{= \frac1n} \lambda(B_n, n) \]
+      \[ \card{\lambda(F(B_{n,k})) - \int_{B_{n,k}} \card{J_F(x)} \, d\lambda} \leq \frac1n \lambda(B_{n,k}) \]
+      \[ \card{\lambda(F(B)) - \int_B \card{J_F(x)} \, d\lambda} = \card{\sum_{k=1}^\infty \lambda(F(B_{n,k})) - \sum_{k=1}^\infty \int_{B_{n,k}} \card{J_F(x) \, dx}} \]
+      \[ \leq \sum_{k=1}^\infty \card{\lambda(F(B_{n,k})) - \int_{B_{n,k}} \card{J_F(x)} \, d\lambda} \leq \frac1n \sum_{k=1}^\infty \lambda(B_{n,k}) \leq \frac1n \underbrace{\lambda(B)}_{<\infty} \forall n \in \mathbb N \]
+      \[ \implies \card{\lambda(F(B)) - \int_F \card{J_F(x)} \, d\lambda} = 0 \]
+      For $\lambda(B) = \infty$. Set $B = \bigcup_{l=1}^\infty B_l$ with $B_l \cap B_{l'} = \emptyset$ if $l \neq l'$ and $\lambda(B_l) < \infty$.
+    \item
+      For $f = \chi_C$, $C = F(B)$, $B = F^{-1}(C)$, $C \subseteq V \iff B \subseteq U$.
+      \[ \int_V \chi_C \, d\lambda = \lambda(F(B)) \underbrace{=}_{\text{by } a} \int_B \card{J_F(x)} \, d\lambda = \int_U \chi_B \card{J_F} \, d\lambda = \int_U \chi_C \circ  F \cdot \card{J_F} \, d\lambda \]
+      So (2.) holds for characteristic functions
+      $\implies$ (2.) holds for simple functions
+      $\implies$ (2.) holds for $f \in \mathcal M^+(V, \lambda)$ (by approximation of monotone convergence)
+      $\implies$ (2.) holds for $f$ integrable (by $f = f^+ - f^-$)
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}
+  \index{Signed measures}
+  A few words about signed measures:
+  Let $\mathcal A$ be a $\sigma$-algebra on $X$, a map $\nu: \mathcal A \to [-\infty, \infty]$ with
+  \begin{enumerate}
+    \item $\nu(\emptyset) = 0$
+    \item $\forall A_n \in \mathcal A, A_n \cap A_m = \emptyset$ we have $\nu(\bigcup_{n=1}^\infty A_n) = \sum_{n=1}^\infty \nu(A_n)$ makes sense.
+  \end{enumerate}
+  Then $\nu$ is called a \emph{signed measure on ($X, \mathcal A$)}.
+\end{definition}
+
+$P \subseteq X$ with $P \in \mathcal A$ is called a positive set for $\nu$ iff $\forall E \subseteq P$ we have $\nu(E) \geq 0$.
+$N \subseteq X$, $N \in \mathcal A$ is called a negative set for $\nu$ iff $\forall E \subseteq N: \nu(E) \leq 0$.
+
+Hans Hahn (1879-1834)
+
+\begin{theorem}[Hahn decomposition theorem]
+  \index{Hahn decomposition theorem}
+  \index{Jordan decomposition}
+  Let $(X, \mathcal A)$ be given and $\nu$ is a signed measure on $X$.
+  Then there exists $P,N \in \mathcal A$ with $P \cup N = X$, $P \cap N = \emptyset$ such that
+  $P$ is a positive set and $N$ is a negative set for $\nu$.
+  We set $\nu_+(A) = \nu(P \cap A) \geq 0 \forall A \in \mathcal A$ is a measure.
+  $\nu_-(A) = -\nu(N \cap A) \geq 0 \forall A \in \mathcal A$ is also a measure on $X$.
+
+  $\nu = \nu_+ - \nu_-$ is the \emph{Jordan decomposition} of $\nu$.
+
+  At least one measure ($\nu_+$ or $\nu_-$) must be finite.
+\end{theorem}
+
+\begin{example}
+  \begin{enumerate}
+    \item
+      Let $\mu_1$ and $\mu_2$ be measures on $X$, one is finite.
+      Then $\nu(A) = \mu_1(A) - \mu_2(A)$ is a signed measure.
+    \item
+      $\nu(A) = \int_A f \, d\mu$ with $\mu$ measure on $\mathcal A$ and $f$ is an integrable function,
+      $\nu$ is a finite signed measure.
+      \[ P = \setdef{x \in X}{f(x) \geq 0} \qquad N = \setdef{x \in X}{f(x) < \infty} \]
+      \[ \nu_+(A) = \int_A f^+ \, d\mu \qquad \nu_-(A) = \int_A f^- \, d\mu \]
+  \end{enumerate}
+\end{example}
+
+\begin{definition}
+  Let $\nu, \mu$ be measures on $\mathcal A$. We say that $\nu$ is absolutely continuous with respect to $\mu$ ($\nu \ll \mu$)
+  iff $\forall A \in \mathcal A$ with $\mu(A) = 0$ we have $\mu(A) = 0$.
+\end{definition}
+
+\begin{remark}
+  \[ \nu \ll \mu \iff \forall \varepsilon > 0 \exists \delta > 0 \text{ such that } \mu(A) < \delta \implies \nu(A) < \varepsilon \]
+  ($A \in \mathcal A$)
+  Let $C \in \mathcal A$ and $\mu$ be a measure on $\mathcal A$.
+  We say that $\mu$ is concentrated on $C$ iff $\forall A \in \mathcal A: \mu(A) = \mu(A \cap C) \iff \mu(B) = 0 \forall B \cap C = \emptyset$.
+  We say that $\nu$ is signular with respect to $\mu \iff \nu$ is concentrated on $S \in \mathcal A$ and $\mu(S) = 0$.
+\end{remark}
+
+\begin{theorem}[Lebesgue composition theorem]
+  Let $\nu$ and $\mu$ be $\sigma$-finite measures on $\mathcal A$.
+  Then $\nu = \nu_a + \nu_s$ with $\nu_a \ll \mu$ and $\nu_s$ is singular with respect to $\mu$.
+\end{theorem}
+
+\begin{theorem}[Radon–Nikodym theorem]
+  Let $\mathcal A$ be a $\sigma$-algebra on $X$. Let $\nu$ and $\mu$ be measures on $\mathcal A$.
+  Let $\nu \ll \mu$. Then there exists $g \in M^+(X, \mathcal A)$ such that
+  \[ \mu(A) = \int_A g \, d\mu \qquad \forall A \in \mathcal A \]
+  Moreover $g$ is uniquely determined by $\nu$ almost everywhere with respect to $\mu$.
+  $g$ is called the Radon-Nikodym derivative of $\nu$.
+\end{theorem}
+\begin{proof}
+  We only prove the theorem for $\mu(X) < \infty$ and $\nu(X) < \infty$.
+  \[ G = \setdef{f \in \mathcal M^+(X, \mathcal A)}{\int_A f \, d\mu \leq \nu(A) \forall A \in \mathcal A} \]
+  $G \neq \emptyset$ because $0 \in G$. Show that $\exists g \in G$ such that $\int_{X} g \, d\mu \geq \int_X f \, d\mu \forall f \in \mathcal G$.
+
+  We need: if $f_1$ and $f_2 \in \mathcal G$ then $f_1 \lor f_2 = \max(f_1, f_2) \in \mathcal G$. Let $A \in \mathcal A$ be given
+  \[ A_1 = \setdef{x \in A}{f_1(x) \geq f_2(x)} \in \mathcal A \]
+  \[ A_2 = \setdef{x \in A}{f_2(x) > f_1(x)} \in \mathcal A \]
+  \[ \int_A(f_1 \lor f_2) \, d\mu = \int_{A_1} f_1 \, d\mu + \int_{A_2} f_2 \, d\mu \overbrace{\leq}^{f_1, f_2 \in \mathcal G} \nu(A_1) + \nu(A_2) = \nu(A) \]
+  so $f_1 \lor f_2 \in \mathcal G$.
+  $f_n \in \mathcal G$ with $\lim_{n\to\infty} \int_X f_n \, d\mu = S$ without loss of generality by replacing $f_n$ with $f_1 \lor f_2 \lor \ldots \lor f_n$.
+  Let $s = \sup\setdef{\int_X f \, d\mu}{f \in \mathcal G}$ and $(f_n)_{n\in\mathbb N}$. We can assume that $f_n \leq f_{n+1}$.
+
+  $f_n \leq f_{n+1}$. $g(x) = \lim_{n\to\infty} f_n(x)$, $g \in \mathcal M^+$ and we have $\lim_{n\to\infty} \int_X f_n \, d\mu = \int_X g \, d\mu$
+  by monotone convergence and $\nu(A) \geq \lim_{n\to\infty} f_n \, d\mu = \int_A g \, d\mu$ again by monotone convergence, so $g \in G$.
+
+  Show $\nu(A) = \int_X g \, d\mu$ for $g$ as constructed.
+  \[ \nu_0(A) = \underbrace{\nu(A)}_{\text{measure}} - \underbrace{\int_A g \, d\mu}_{\text{measure}} \]
+  is a signed measure on $A$. Show that $\nu_0$ is the $0$-measure on $\mathcal A$.
+  $\mu$ is finite and $\nu_0(X) \geq 0$. Assume that $\nu_0 \neq 0$ so $\nu_0(x) > 0$.
+
+  $\mu$ is finite, so $\exists \varepsilon > 0$ such that $\nu_0(X) > \varepsilon \cdot \mu(X)$.
+  Now consider $\nu_0 - \varepsilon \mu$ as difference of two measures, i.e. a signed measure.
+  Let $(P, N)$ be the Hahn decomposition of $\nu_0 - \varepsilon \mu \forall A \in \mathcal A$:
+  \[ \nu_0(A \cap P) \geq \varepsilon \mu(A \cap P) \]
+  so
+  \[ \nu(A) = \nu_0(A) + \int_A g \, d\mu \geq \nu_0(A \cap P) + \int_A g \, d\mu \geq \varepsilon \mu(A \cap P) + \int_A g \, d\mu = \int_A (g + \varepsilon \chi_P) \, d\mu \]
+  also $\mu(P) > 0$ because otherwise if
+  \[ \mu(P) = 0 \implies \nu_0(X) - \varepsilon \mu(X) \underbrace{=}_{\nu \text{ is abs. cont.}} \nu_0(N) - \varepsilon \mu(N) = (\nu_0 - \varepsilon \mu)(N)  \leq 0 \]
+  this contradicts to $(\nu_0 - \varepsilon \mu)(x) > 0$.
+
+  So $\nu(A) > \int_A (g + \varepsilon \chi_P) \, d\mu \forall A \in \mathcal A$
+  therefore $g + \varepsilon \chi_p \in G$ and
+  \[ \int_X (g + \varepsilon \chi_p) \, d\mu = \underbrace{\int_X g \, d\mu}_{S} + \underbrace{\varepsilon}_{>0} \underbrace{\mu(P)}_{0} > S \]
+  This contradicts to maximality of $g$.
+
+  $\implies \nu_0(X)$ cannot be positive so $\nu_0(X) = 0$ and $\nu_0$ is the $0$-measure on $\mathcal A \implies \nu(A) = \int_X g \, d\mu \forall A \in \mathcal A$.
+
+  \dateref{2017/02/02}
+
+  \[ \nu \ll \mu \text{ then } \exists g \in \mathcal M^+(X, \mathcal A) \text{ s.t. } \nu(A) = \int_A g \, d\mu \text{ existence} \]
+  $\mu, \nu$ finite.
+
+  \textbf{Uniqueness:} Suppose $h$ and $g$ both have the same properties.
+  \[ A^+ = \setdef{x \in X}{g(x) \geq h(x)} \in \mathcal A \]
+  Then
+  \[ \int_{A^+} \underbrace{(g - h)}_{\geq 0} \, d\mu = \nu(A^+) - \nu(A^+) = 0 \]
+  so $g-h = 0$ almost everywhere on $A^+$, $g = h$ almost everywhere on $A^+$.
+  Argument for $A^- = \setdef{x \in X}{h(x) > g(x)} \text{ analogously}$.
+\end{proof}
+
+\begin{definition}
+  Let $\nu: \mathcal A \to (-\infty, \infty)$ be a signed measure.
+  finite. Let $(P, N)$ be the Hahn decomposition of $\nu$.
+
+  \[ \nu_+(A) = \nu(A \cap P) \text{ is a measure} \]
+  \[ \nu_-(A) = \nu(A \cap N) \text{ is a measure} \]
+  \[ \nu(A) = \nu_+(A) - \nu_-(A) \text{ is a Jordan decomposition} \]
+  \[ \nu_+, \nu_- \text{ are singular with respect to each other} \]
+  \[ \card{\nu}(A) = \nu_+(A) + \nu_-(A) \text{ is a measure on } \mathcal A \]
+  \[ \card{\nu} \text{ is the total variation of } \nu \]
+\end{definition}
+
+\begin{theorem}[Radon-Nikodym theorem]
+  Let $\nu$ be a finite signed measure on $\mathcal A$. $\card{\nu} \ll \mu$.
+  Then there exists $g \in \mathcal L^1(X, \mathcal A, \mu)$ such that
+  \[ \nu(A) = \int_A g \, d\mu \forall A \in \mathcal A \]
+  and
+  \[ \card{\nu}(A) = \int_A \card{g} \, d\mu \]
+  Radon-Nikodym for $\lambda \leftrightsquigarrow \mu$ on $\mathbb R^k$.
+\end{theorem}
+
+\begin{definition}
+  Let $\nu$ be a finite signed measure on $\mathbb R^k$. For $x \in \mathbb R^k$ and $r > 0$,
+  we define
+  \[ Q_r(x) = \frac{\nu(B(x, r))}{\lambda(B(x, r))} \]
+  where $B(x, r)$ represents the ball surrounding $x$ with radius $r$.
+  Whenever $Q_r$ exists, we set $D\nu(x) = \lim_{r\to0} Q_r(x)$.
+\end{definition}
+
+\begin{definition}
+  Let $f \in \mathcal L^1(\mathbb R^k, \mathcal L, \lambda)$, $x \in \mathbb R^k$.
+  We say that $x$ is a Lebesgue point for $f$ iff
+  \[ \lim_{r\to0} \frac{1}{\lambda(B(x, r))} \int_{B(x, r)} \card{f(x) - f(y)} \, d\lambda(y) = 0 \]
+\end{definition}
+
+Suppose $x$ is a Lebesgue point. Then
+\[ \lim_{r\to0} \card{f(x) - \frac{1}{\lambda(B(x, r))} \int_{B(x, r)} f(y) \, d \lambda(y)} = \lim_{r\to0} \card{\frac{\int_{B(x, r)} f(x) \, d\lambda(y)}{\lambda(B(x, r))} - \frac{1}{\lambda(B(x, r))} \int_{B(x, r)} f(y) \, d \lambda(y)} \]
+\[ \leq \lim_{r\to0} \frac{1}{\lambda(B(x, r))} \int_{B(x, r)} \card{f(x) - f(y)} \, d\lambda(y) = 0 \text{ so } f(x) = \lim_{r\to0} \frac{1}{\lambda(B(x, r))} \int_{B(x, r)} f \, d\lambda \]
+
+\begin{theorem}
+  If $f \in \mathcal L^1(\mathbb R^k)$. Then almost every $x \in \mathbb R^k$ is a Lebesgue point for $f$.
+\end{theorem}
+\begin{theorem}
+  Let $\nu$ be a finite signed measure on $\mathbb R^k$ with $\card{\nu} \ll \lambda$. Then $D \nu(x)$ exists almost everywhere on $\mathbb R^k$ and $D\nu$ is a Radon-Nikodym derivative for $\nu$, i.e. $\nu(A) = \int_A D \nu(x) \, d\lambda(x)$.
+\end{theorem}
+\begin{proof}
+  Choose the Radon-Nikodym derivative $g \in \mathcal L^1$ for $\nu$. Then almost everywhere on $\mathbb R^k$:
+  \[ g(x) = \lim_{r \to 0} \frac{\int_{B(x, r)} g \, d\lambda}{\lambda(B(x, r))} = \lim_{r \to 0} \frac{\nu(B(x, r))}{\lambda(B(x, r))} = D \nu(x) \]
+\end{proof}
+
+
 \printindex
 \end{document}
