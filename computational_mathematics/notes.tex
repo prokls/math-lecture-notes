@@ -230,7 +230,7 @@ Supporting points $x_0, \dots, x_n$, $n+1$ non-zero elements and information $x_
     f_2(x) &= 1 - \frac1{26} x^2
   \end{align*}
 
-  \begin{figure}[!h]
+  \begin{figure}[t]
     \begin{center}
       \includegraphics{img/01_runge_function.pdf}
       \caption{Runge's function (1901) illustrates the problem of oscillation at the edges of an interval that occurs when using polynomial interpolation with polynomials of high degree over a set of equispaced interpolation points}
@@ -275,7 +275,7 @@ $\varphi_k$ polynomial of degree $n$
 \]
 Compare with Figure~\ref{img:lagrange-poly}
 
-\begin{figure}[!h]
+\begin{figure}[t]
   \begin{center}
     \includegraphics{img/02_lagrange_polynomial.pdf}
     \caption{Lagrange polynomials $L_3^4(x)$}
@@ -416,7 +416,7 @@ Recursive definition:
 
 Compare with Figure~\ref{img:cpp}.
 
-\begin{figure}[!h]
+\begin{figure}[t]
   \begin{center}
     \includegraphics{img/03_chebyshev_polynomials_properties.pdf}
     \caption{Chebyshev polynomials properties}
@@ -530,7 +530,7 @@ Scaled Chebyshev polynomials:
 
   Compare with Figure~\ref{img:scpt}.
 
-  \begin{figure}[b]
+  \begin{figure}[t]
     \begin{center}
       \includegraphics{img/03b_scaled_chebyshev_polynomials_theorem.pdf}
       \caption{Construction for proving the scaled Chebyshev polynomial theorem}
@@ -643,7 +643,7 @@ $2n + 2$ zeros.
 
 \[ [a,b], n \in \mathbb N, h = \frac{b - a}{n} \text{ step size} \]
 Uniform supporting points $x_k = a + kh$. Compare with Figure~\ref{img:pli}.
-\begin{figure}[!h]
+\begin{figure}[t]
   \begin{center}
     \includegraphics{img/03c_piecewise_linear_interpolation.pdf}
     \caption{Piecewise linear interpolation}
@@ -1128,7 +1128,7 @@ $Q_n f$ is the solution of
 \begin{align*}
   \| f - Q_h f \|^2_{L^2([a,b])}
     &= \int_a^b \left[ f(x) - (Q_h f)(x) \right] \left[ f(x) - (Q f)(x) \right] \, dx \\
-    &= \int_a^b \left[ f(x) - (Q_h f)(x) \right] f(x) \, dx - \underbrace{\int_a^b \left[f(x) - (Q_h f)(x)\right] Q_h f(x) (\text{something missing here?}) \, dx}_{=0, \text{ Galerkin orthogonality}} \\ % TODO
+    &= \int_a^b \left[ f(x) - (Q_h f)(x) \right] f(x) \, dx - \underbrace{\int_a^b \left[f(x) - (Q_h f)(x)\right] (Q_h f)(x) \, dx}_{=0, \text{ Galerkin orthogonality}} \\
     &= \int_a^b \left[f(x) - (Q_h f)(x)\right] f(x) \, dx - \underbrace{\int_a^b \left[f(x) - (Q_h f)(x)\right] g_h(x) \, dx}_{=0} \\
     &= \int_a^b \left[f(x) - (Q_h f)(x)\right] \left[f(x) - g_h(x)\right] \, dx \\
     &\leq \| f - Q_h f \|_{L^2([a,b])} \| f - g_h \|_{L^2([a,b])} \\
@@ -2342,7 +2342,7 @@ First, we consider the Householder transformation.
 First, for given $\underline{v} \in \mathbb R^n$ consider the symmetrical transformation
 \[ P(v) = I - \frac{2}{v^T v} v v^T \in \mathbb R^{n\times n} \]
 
-\begin{figure}[!h]
+\begin{figure}[t]
   \begin{center}
     \includegraphics{img/06_transformation_P.pdf}
     \caption{Transformation $P$}
@@ -2910,7 +2910,7 @@ In case if $A$ is not symmetrically positive definite,
   \[ \implies \underline r^2 \approx \begin{pmatrix} -0.08 \\ -0.064 \end{pmatrix} \left\| \begin{pmatrix} -5 \\ -4 \end{pmatrix} = \underline r^0\right. \]
 \end{example}
 
-\begin{figure}[!h]
+\begin{figure}[t]
   \begin{center}
     \includegraphics{img/gradient_method_search_direction.pdf}
     \caption{Gradient method search direction}
@@ -3513,7 +3513,7 @@ Our goals is the construction of approximate solutions $x_k$ (might be ambiguous
 with $\lim_{k\to\infty} x_k = \overline x$ with $\card{x_{k+1} - \overline x} \leq c \card{x_k - \overline x}^p$.
 $p$ is called \emph{convergence order}.
 
-\begin{figure}[!h]
+\begin{figure}[t]
   \begin{center}
     \includegraphics[width=0.5\textwidth]{img/11_ambiguous_solution.pdf}
     \caption{There might be multiple solutions for $f(x) = 0$ for $x \in [a,b]$}
@@ -3656,7 +3656,7 @@ Approximation of $f'(\eta) \leadsto$ approximation method
 \index{Chord method}
 This is the so-called \emph{chord method}.
 
-\begin{figure}[!h]
+\begin{figure}[!b]
   \begin{center}
     \includegraphics[width=0.5\textwidth]{img/12_approximation.pdf}
     \caption{The green slope is approximated with the yellow slope in the chord method}
