@@ -3375,6 +3375,18 @@ Suppose $x$ is a Lebesgue point. Then
   \[ g(x) = \lim_{r \to 0} \frac{\int_{B(x, r)} g \, d\lambda}{\lambda(B(x, r))} = \lim_{r \to 0} \frac{\nu(B(x, r))}{\lambda(B(x, r))} = D \nu(x) \]
 \end{proof}
 
+\begin{corollary}
+  Consequence: Let $k=1$ and $\lambda$ is a Lebesgue measure on $\mathbb R$ and $f \in \mathcal L^1(\mathbb R)$.
+  \[ F(x) = \int_{-\infty}^x f \, d\lambda \in \mathbb R \]
+  Define $\nu(A) = \int_A f \, d\lambda$ is a finite signed measure on $\mathbb R$, $\card{\nu} \ll \lambda$. Use the previous theorem.
+
+  Almost everywhere on $\mathbb R$:
+  \[ f(x) = \lim_{r\to0} \frac{\int_{(x-1, x+1]} f \, d\lambda}{\lambda((x-r, x+r])} = \lim_{r\to0} \frac{F(x+r) - F(x-r)}{2r} = F'(x) \]  % is it '2r' or 'Qr'?
+  We have $\frac{d}{dx} \left[\int_{-\infty}^x f \, d\lambda\right] = f(x)$ almost everywhere on $\mathbb R$.
+
+  This is the Fundamental Theorem of Calculus.
+\end{corollary}
+
 
 \printindex
 \end{document}

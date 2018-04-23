@@ -1,2738 +1,747 @@
-\documentclass[a4paper]{article}
+\documentclass{article}
+%\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
+\usepackage[german,english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage[LGR,T1]{fontenc}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{amsfonts}
+\usepackage{enumitem}
 \usepackage{amsthm}
-\usepackage{baskervald}
-\usepackage{bbold}
-\usepackage{csquotes}
-\usepackage{enumerate}
-\usepackage{faktor}
-\usepackage{fancyhdr}
-\usepackage[margin=1in]{geometry}
-\usepackage[pdfborder={0 0 0},colorlinks=true,citecolor=red]{hyperref}
-\usepackage{imakeidx} % before hyperref
-\usepackage{mathalfa}
-\usepackage{mathtools}
-\usepackage{mdframed}
-\usepackage[bigdelims,vvarbb]{newtxmath}
-\usepackage{rotating}
-\usepackage{stmaryrd}
-\usepackage{pifont}
+\usepackage{pxfonts}
 \usepackage{wasysym}
+\usepackage{framed}
 \usepackage{xcolor}
+\usepackage{makeidx}
+\usepackage{csquotes}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{stmaryrd}
+\usepackage{titlesec}
+\titleformat{\paragraph}{\normalfont\itshape}{}{}{}
 
-\renewcommand*\oldstylenums[1]{\textosf{#1}}
+\newtheorem{ex}{Exercise} %  TODO
 
-\theoremstyle{definition}
-\newmdtheoremenv[%
-  backgroundcolor=white,
-  linecolor=white!60!black,
-  linewidth=3pt]{ex}{Exercise}
+\newtheorem{theorem}{Theorem}  \numberwithin{theorem}{section}
+\newtheorem{problem}{Problem}  \numberwithin{problem}{section}
+\newtheorem{example}{Example}  \numberwithin{example}{section}
+\newtheorem*{hypothesis}{Hypothesis}%  \numberwithin{hypothesis}{section}
+\newtheorem{definition}{Definition}  \numberwithin{definition}{section}
+\newtheorem{lemma}{Lemma}  \numberwithin{lemma}{section}
+\newtheorem*{claim}{Claim}%  \numberwithin{claim}{section}
+\newtheorem{remark}{Remark}  \numberwithin{remark}{section}
+\newtheorem*{corollary}{Corollary}%  \numberwithin{corollary}{section}
+\newtheorem{proposition}{Proposition}  \numberwithin{proposition}{section}
 
-\DeclareMathOperator\kernel{kernel}
+\algnewcommand{\algorithmicgoto}{\textbf{go to}}%
+\algnewcommand{\Goto}[1]{\algorithmicgoto~\ref{#1}}%
+\algrenewcommand{\algorithmiccomment}[1]{\hskip2em$\triangleright$ {\footnotesize #1}}
 
-\title{Linear Algebra 2 -- Practicals}
+% definitions
+\newcommand{\drawing}[1]{%
+ \begin{figure}[t]
+  \begin{center}
+   \includegraphics{#1}
+  \end{center}
+ \end{figure}
+}
+\newcommand{\pic}[2]{%
+ \begin{figure}[t]
+  \begin{center}
+   \includegraphics{#1}
+   \caption{#2}
+  \end{center}
+ \end{figure}
+}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setdef}[2]{\left\{\left.#1\,\right|\,#2\right\}}
+\newcommand{\angel}[1]{\left\langle#1\right\rangle}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\given}[1]{\textbf{Given.} #1\par}
+\newcommand{\find}[1]{\textbf{Find.} #1\par}
+\newcommand{\dateref}[1]{\paragraph{\textit{This lecture took place on #1.}}}
+\newcommand{\exist}{\;\exists\,}
+\newcommand{\fall}{\;\forall\,}
+\newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
+\newcommand{\vectwo}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\makeatletter
+\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+\makeatother
+
+\newcommand{\mtn}{(\mu\times\nu)} % mu times nu
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\detm}{det}
+\DeclareMathOperator{\perm}{det}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\degree}{deg}
+\DeclareMathOperator{\prop}{probability}
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\vol}{vol}  % volume
+\DeclareMathOperator*{\bigtimes}{\vartimes}
+
+\makeatletter
+\providecommand*{\dotcup}{%
+  \mathbin{%
+    \mathpalette\@dotcup{}%
+  }%
+}
+\newcommand*{\@dotcup}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \hidewidth$\m@th#1\cdot$\hidewidth
+  }%
+}
+\makeatother
+
+
+% metadata
+\title{
+  Analysis 2 \\
+  \large{Lecture notes, University (of Technology) Graz} \\
+  based on the lecture by Wolfgang Ring
+}
+\date{\today}
 \author{Lukas Prokop}
-\date{summer term 2016}
 
-\newcommand\meta[3]{This #1 took place on #2 (#3).\par}
-\newcommand\abs[1]{\left|\,#1\,\right|}
-\newcommand\norm[1]{\left\|\,#1\,\right\|}
-\newcommand\set[1]{\left\{#1\right\}}
-\newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
-\newcommand\card[1]{\left|\,#1\,\right|}
-\newcommand\divides[2]{#1\,\mid\,#2}
-\newcommand\mathspace{\hspace{20pt}}
-\newcommand\functional[1]{\left\langle{#1}\right\rangle}
-\newcommand\Q{\mathbb{Q}}
-\newcommand\nope{\lightning}
-\newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
-\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
-
+% settings
 \parindent0pt
-\parskip7pt
-\setcounter{tocdepth}{1}
+\setlength{\parskip}{0.4\baselineskip}
+%\setcounter{tocdepth}{2}
 
 \begin{document}
-\maketitle
-\tableofcontents
 
-\section{Solution of the last lecture exam of Analysis~1}
-\subsection{Exam: Exercise 1}
-\begin{ex}
-  Determine the limes of
-  \[ \sum_{n=2}^\infty \frac{1}{n^2 - 1} \]
-\end{ex}
+Florian Kruse
 
-\[ \frac{1}{3} + \frac{1}{8} + \frac{1}{15} + \frac{1}{24} + \ldots \]
-does not help us. What about this representation?
-\[ \frac{1}{n^2-1} = \frac{1}{(n+1)(n-1)} = \frac{a}{n+1} + \frac{b}{n-1} = \frac{a(n-1) + b(n+1)}{(n+1)(n-1)} \]
-\[ a(n-1) + b(n+1) = 1 \]
-\[ (a + b)n + (b-a) = 1 \]
-\[ \Rightarrow a + b = 0 \land b - a = 1 \]
-\[ \Rightarrow a = -\frac12 \quad b = \frac12 \]
+Sprechstunde: Tue, 14--15
 
-Followingly,
-\[ \sum_{n=2}^\infty \frac{1}{n^2 - 1} = \sum_{n=2}^\infty \frac{1}{(n+1)(n-1)} = \sum_{n=2}^\infty \left(\frac{\frac12}{n-1} - \frac{\frac12}{n+1}\right) \]
-
-Okay, how to proceed? Let's build a pre-factor:
-\[ \frac12 \sum_{n=2}^\infty \left(\frac{1}{n-1} - \frac{1}{n+1}\right) \]
-\[ = \left(\frac11 - \frac13\right) + \left(\frac12 - \frac14\right) + \left(\frac13 - \frac15\right) + \left(\frac14 - \frac16\right) + \ldots \]
-\[ = \frac11 + \frac12 = \frac32 \]
-
-Let's describe this process of cancelling out formally as telescoping sum:
-\[
-  S_m \coloneqq \frac12 \sum_{n=2}^m \left(\frac1{n-1} - \frac1{n+1}\right)
-  = \frac12 \sum_{n=2}^m \frac{1}{n-1} - \frac12 \sum_{n=2}^m \frac{1}{n+1}
-\]
-
-Please be aware that we explicitly define $S_m$ because we want to work with finite sums.
-Only in finite sums, we are always allowed to split up sums.
-
-\[ = \frac12 \sum_{n=2}^m \frac{1}{n-1} - \frac12 \sum_{n=4}^{m+2} \frac{1}{n-1} \]
-\[ = \frac12 \left(\frac11 + \frac12\right) - \frac12 \left(\frac1m + \frac1{m+1}\right) \]
-
-We already know $\frac1m \xrightarrow{m\to\infty} 0$. Also $\frac1{m+1} \xrightarrow{m\to\infty} 0$.
-Followingly also $\frac12 \left(\frac1m + \frac1{m+1}\right) \xrightarrow{m\to\infty} 0$.
-
-
-
-\subsection{Exam: Exercise 2}
-\begin{ex}
-  A recursive definition of a sequence is given:
-  \[ a_0 \in \mathbb R, a_0 > 1, (a_n)_{n\in\mathbb N} \]
-  \[ a_{n+1} = \frac12 \left(a_n +  1\right) \]
-\end{ex}
-
-As an example, we look at the sequence with $a_0 = 2$:
-\[ a_0 = 2 \qquad a_1 = \frac32 \qquad a_2 = \frac54 \qquad a_3 \frac98 \]
-Another example is $a_0 = 7$:
-\[ a_0 = 7 \qquad a_1 = 4 \qquad a_2 = \frac52 \qquad a_3 \frac74 \]
+\section{Exercise 01/1}
 
 \begin{ex}
-  a) Show that $1 \stackrel!< a_n \stackrel!{\leq} a_0 \quad \forall n \in \mathbb N$
+  The Euclidean norm of $v = (v^1, v^2, \dots, v^n)^T \in \mathbb R^n$ is defined as
+  \[ \norm{v}_2 \coloneqq \sqrt{(v^1)^2 + (v^2)^2 + \ldots + (v^n)^2} \]
+  Show: A sequence $(x_k) \subset \mathbb R^n$ converges in regards of the Euclidean norm to $x \in \mathbb R$ iff they converge componentwise to $x$
+  \[ \lim_{k\to\infty} \norm{x_k - x}_2 = 0 \iff \forall j \in \set{1,\dots,n}: \lim_{k\to\infty} x_k^j = x^j \]
 \end{ex}
 
-Our examples suggest that this claim might hold.
+Direction $\Rightarrow$.
 
-We use induction over $n$ to prove this statement:
-\begin{description}
-  \item[induction base] $1 < a_0 \leq a_0$ holds trivially.
-  \item[induction step]
-    We are given $1 < a_n \leq a_0$ by the induction hypothesis.
+Let $\lim_{k \to \infty} \norm{x_k - x} = 0$.
 
-    \begin{align*}
-      a_{n+1} &= \frac12 (a_n + 1) \\
-              &\leq \frac12 (a_0 + a_0) &[\text{induction hypothesis and } 1 < a_0]
-    \end{align*}
-
-    \begin{align*}
-      a_{n+1} &= \frac12 (a_n + 1) \\
-              &> \frac12 (1 + 1) & [\text{induction hypothesis}] \\
-              &= 1
-    \end{align*}
-\end{description}
-
-\begin{ex}
-  b) Prove that $a_{n+1} \stackrel{!}{<} a_n \quad \forall n \in \mathbb N$
-\end{ex}
-
-\begin{align*}
-  a_{n+1} &= \frac12 (a_n + 1) \\
-          &< \frac12 (a_n + a_n)   &[\text{we have proven: } a_n > 1]
-\end{align*}
-
-\begin{ex}
-  c) Does this series converge? If so, give its limit.
-\end{ex}
-
-Yes, because it is monotonically decreasing (according to exercise b)
-and bounded below (according to exercise a).
-
-\[ b_n \coloneqq a_n - 1 \qquad \forall n \in \mathbb N \]
-\[ b_0 \coloneqq a_0 - 1 \]
-\[ b_{n+1} = a_{n+1} - 1 = \frac12 (a_n + 1) - 1 = \frac12 (b_n + 1 + 1) - 1 = \frac12 b_n \]
-
-\[ b_n = \frac1{2^n} b_0 \to 0 \cdot b_0 = 0 \]
-\[ \Rightarrow b_n \to 0 \]
-\[ \Rightarrow a_n = b_n + 1 \to 1 \]
-
-
-Does it work to just show: $1 = \frac12 (1 + 1)$?
-Nope, because in points of continuity this might be true even though $1$ is not its limes.
-
-Let $a_n \to a$ and $a_{n+1} = \frac12 (a_n + 1)$.
-\[ a_{n+1} \to a \qquad \frac12 (a_n + 1) \to \frac12 (a + 1) \qquad a = \frac12 (a + 1) \]
-
-\subsection{Exam: Exercise 3}
-\begin{ex}
-  $f: \mathbb R \to \mathbb R$ with $x \mapsto 2x^2 + 5x- 3$.
-  Show continuity with an $\varepsilon$-$\delta$-proof.
-\end{ex}
-
-If we don't need an $\varepsilon$-$\delta$-proof, we would argue with the Algebraic Continuity Theorem:
-The function $f$ is a composition of continuous functions, hence a continuous function itself.
-
-$\varepsilon$-$\delta$-definition:
-\[
-  \forall x_0 \in \mathbb R \forall \varepsilon > 0 \exists \delta > 0:
-  \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon
-\]
-
-If $\abs{x - x_0} < \delta$,
-\begin{align*}
-  \abs{f(x) - f(x_0)} &= \abs{2x^2 + 5x - 3 - (2x_0^2 + 5x_0 - 3)} \\
-    &= \abs{2x^2 + 5x - 2x_0^2 - 5x_0} \\
-    &\leq 2 \abs{x^2 - x_0^2} + 5 \abs{x - x_0} \\
-    &= 2 \abs{(x + x_0) (x - x_0)} + 5 \abs{x - x_0} \\
-    &= 2 \abs{x + x_0} \abs{x - x_0} + 5 \abs{x - x_0} \\
-    &\leq 2 (\abs{x} + \abs{x_0}) \abs{x - x_0} + 5 \abs{x - x_0} \\
-    &\leq 2 \left(\abs{x_0} + \delta + \abs{x_0}\right) + 5 \delta \\
-  \intertext{Our goal: we are able to claim $\stackrel!{<} \varepsilon$}
-    &= 4 \abs{x_0} \delta + 2 \delta^2 + 5 \delta \\
-    &= 2\delta^2 + (4 \abs{x_0} + 5) \delta
-\end{align*}
-
-In general (here it does not apply), that $x_0$ might be zero. So division is not allowed and requires case distinctions (cumbersome!).
-
-The following steps work only because we know $\varepsilon > 0$ and $\delta > 0$:
-\[ 2 \delta^2 < \frac{\varepsilon}{2} \]
-\[ \delta < \frac{\sqrt{\varepsilon}}{2} \]
-\[ (4 \abs{x_0} + 5) \delta < \varepsilon \]
-\[ \delta < \frac{\varepsilon}{4 \abs{x_0} + 5} \]
-
-Then we can submit those results as solution:
-
-Let $\varepsilon > 0$ and $\delta \coloneqq \min\left(\frac{\sqrt{\varepsilon}}{5}, \frac{\varepsilon}{4 \abs{x_0} + 6}\right)$.
-Then the $\varepsilon$-$\delta$ definition shows that $f$ is continuous.
-
-\section{Exam: Exercise 4}
-%
-\begin{ex}
-  Let $f: [0,1] \to \mathbb R$ be continuous and $f(0) = f(1)$.
-  Show that $\exists \xi \in [0,\frac12]$ with $f(\xi) = f(\xi + \frac12)$.
-
-  Hint: Consider $h: [0, \frac12] \to \mathbb R$ with $h(x) = f(x) - f(x + \frac12)$.
-\end{ex}
-
-Intuition:
-Let $\xi = 0$ with $f(\xi) = 0$ and $\xi = \frac12$ with $f(\xi) = \frac1{16}$.
-Then the difference $f(0) - f(\frac12)$ is negative. At the same time $f(\frac12) - f(1)$ is positive.
-So at some point between $x=0$ and $x=1$ the difference must be zero.
-
-\[ \exists \xi \in [0,\frac12]: h(\xi) = 0 \]
-\begin{align*}
-  h(0) &= f(0) - f\left(\frac12\right) \\
-  h(1) &= f\left(\frac12\right) - f(1) = f\left(\frac12\right) - f(0) = -h(0)
-\end{align*}
-
-$f(x)$ is continuous in $[0,\frac12]$. $f(x + \frac12)$ is continuous in $[0,\frac12]$.
-Therefore $h$ is continuous, because it is a composition of continuous functions.
-
-\begin{description}
-  \item[Case 1: $h(0) < 0$]
-    Then $h(\frac12) > 0$ and $h(0) < 0 < h(\frac12)$.
-    Due to Intermediate Value Theorem it holds that
-    \[ \exists \xi \in [0, \frac12]: h(\xi) = 0 \]
-    \[ \Rightarrow f(\xi) = f(\xi + \frac12) \]
-  \item[Case 2: $h(0) > 0$]
-    Then $h(\frac12) < 0$. Remaining part analogous.
-  \item[Case 3: $h(0) = 0$]
-    Then by definition $f(0) = f(\frac12)$, so choose $\xi = 0$.
-\end{description}
-
-\clearpage
-\section{Exercise 1}
-\begin{ex}
-  Investigate the function $f: \mathbb R \to \mathbb R, x \mapsto \frac12 (x \abs{x} + x^2)$
-  in terms of multiple differentiability in all points $x_0 \in \mathbb R$.
-\end{ex}
-
-\[ f'(x) = \begin{cases} 0 & x \leq 0 \\ 2x & x > 0 \end{cases} \]
-
-So this is differentiable, but in case of $x=0$, it remains questionable.
-
-We look at the definition of differentiability:
-\[
-  \lim_{x \to 0} \frac{f(x) - f(0)}{x}
-  = \lim_{x\to 0} \frac{f(x)}{x}
-\] \[
-  f'(x) = \begin{cases}
-    \lim_{x\to 0} \frac{0}{x} = 0 \\
-    \lim_{x\to 0^+} \frac{x^2}{x} = \lim_{x\to 0^+} x = 0
-  \end{cases}
-\]
-
-It follows that $f$ is differentiable one time.
-
-\[
-  f''(x) = \begin{cases}
-    0 & x < 0 \\
-    2x & x > 0
-  \end{cases}
-\]
-
-What about $x=0$?
-
-\[
-  \lim_{x\to 0} \frac{f'(x) - f'(0)}{x - 0}
-  \begin{cases}
-    \lim_{x\to 0} \frac0x = 0 \\
-    \lim_{x\to 0^+} \frac{2x}{x} = \lim_{x\to0^+} 2 = 2
-  \end{cases}
-\]
-
-Left and right limes differ. So it is not differentiable.
-
-\section{Exercise 2}
-\begin{ex}
-  Determine, possibly using l'H\^{o}pital's rule, the following limits:
-  \begin{enumerate}
-    \item $\lim_{x\to1} \frac{\ln{x}}{x - 1}$
-    \item $\lim_{x\to0^+} \frac{1}{x} - \frac{1}{\sin{x}}$
-    \item $\lim_{x\to\frac\pi2^-} \frac{\ln(\cos{x})}{\ln(1 - \sin{x})}$
-    \item $\lim_{x\to1^-} x^\frac{1}{1-x}$
-    \item $\lim_{\substack{n\to\infty \\ n \in \mathbb N}} n^{\frac{1}{\sqrt{n}}}$
-    \item $\lim_{x\to\infty} \frac{e^x - e^{-x}}{e^x + e^{-x}}$
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 2.a}
-%
-\[ \lim_{x\to1} \frac{\ln{x}}{x - 1} \]
-The conditions to apply L'H\^opital's rule are satisfied.
-
-\[ \Rightarrow \lim_{x\to1} \frac{\frac{1}{x}}{1} = 1 \]
-
-\subsection{Exercise 2.b}
-%
-\[ \lim_{x\to0^+} \frac{1}{x} - \frac{1}{\sin{x}} = \lim_{x\to0^+} \frac{\sin{x} - x}{x \sin{x}} \]
-The conditions to apply L'H\^opital's rule are satisfied.
-
-\[ \Rightarrow \lim_{x\to0^+} \frac{\cos{x} - 1}{\sin{x} + x \cos{x}} \]
-The conditions to apply L'H\^opital's rule are satisfied.
-
-\[ \Rightarrow \lim_{x\to0^+} \frac{-\sin{x}}{\cos{x} + \cos{x} - x \sin{x}} = \lim_{x\to0^+} \frac{-\sin{x}}{2 \cos{x} - x \sin{x}} = \frac02 = 0 \]
-
-A nice hint to find out whether this function is differentiable:
-\[ \sin{x} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots \]
-\[ \cos{x} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \ldots \]
-
-\[ \frac{\sin{x} - x}{x \sin{x}} = \frac{-\frac{x^3}{3!} + \frac{x^5}{5!} - \ldots}{x^2 - \frac{x^4}{3!} + \frac{x^6}{5!}} \approx x \to 0 \]
-
-This exploits, that it will take one run of L'H\^opital's rule (because each expression has at least degree $2$) and its limes will be 0 (because of $x$).
-
-\subsection{Exercise 2.c}
-%
-\[ \lim_{x\to\frac\pi2^-} \frac{\ln(\cos(x))}{\ln(1 - \sin(x))} \]
-The conditions to apply L'H\^opital's rule are partially satisfied.
-We claim that $\lim_{x\to0^+} f(x) = \lim_{x\to0^+} g(x) = \infty$ is fine.
-
-\[
-  \Rightarrow \lim_{x\to\frac\pi2^-} \frac{\frac{-\sin(x)}{\cos(x)}}{\frac{-\cos(x)}{1 - \sin(x)}}
-  = \lim_{x\to\frac\pi2^-} \frac{-\sin(x) \cdot \left(1 - \sin(x)\right)}{\cos(x)(-\cos(x))}
-\]
-The conditions to apply L'H\^opital's rule are partially satisfied.
-\[
-  \lim_{x\to\frac\pi2^-} \frac{-\cos(x)(1 - \sin(x)) - \sin(x) \cdot (-\cos(x))}{-\sin(x) (-\cos(x)) + \cos(x) \cdot \sin(x)} = \frac12
-\]
-
-If we want to apply the previous estimate here, we should consider
-\[ \sin(x) = \cos\left(\frac\pi2 - x\right) = \cos(y) \qquad y = \frac\pi2 - x \]
-\[ \cos(x) = \sin\left(\frac\pi2 - x\right) = \sin(y) \]
-
-This gives us a different estimate of the result:
-\[
-  \lim_{y\to0^+} \frac{\ln(\sin(y))}{\ln(1 - \cos(y))}
-  \approx \lim_{y\to0^+} \frac{\ln(y)}{\ln\left(\frac{y^2}{2}\right)}
-  = \lim_{y\to0^+} \frac{\ln(y)}{2\ln(y) - \ln(2)}
-  \approx \lim_{y\to0^+} \frac{\ln(y)}{2\ln(y)}
-  = \frac12
-\]
-
-
-We define neighborhoods:
-\[ N_\delta(x_0) = \set{x: \abs{x - x_0} < \delta} \]
-\[ N_R(\infty) = \set{x: x > R} \]
-
-\subsection{Exercise 2.d}
-%
-\[
-  \lim_{x\to1^-} x^{\frac{1}{1 - x}} = \lim_{x\to1^-} e^{\ln(x) \frac{1}{1 - x}}
-  = \exp\left(\lim_{x\to1^-} \underbrace{\frac{\ln(x)}{1 - x}}_{(-1) \cdot \text{Exercise a}}\right)
-  = \frac1e
-\]
-
-\subsection{Exercise 2.e}
-%
-\[
-  \lim_{n\to\infty} n^{\frac1{\sqrt{n}}} = \lim_{n\to\infty} \left(\exp\left(\frac{\ln{n}}{\sqrt{n}}\right)\right)
-    = \exp\left(\lim_{n\to\infty} \frac{\ln(n)}{\sqrt{n}}\right)
-\]
-The conditions to apply L'H\^opital's rule are satisfied (,,$\frac{\infty}{\infty}$'')
-
-\[
-  \exp\left(\lim_{n\to\infty} \frac{\frac{1}{n}}{\frac{1}{2\sqrt{n}}}\right)
-    = \exp\left(\lim_{n\to\infty} \frac{2\sqrt{n}}{n}\right)
-    = \exp(0) = 1
-\]
-
-\subsection{Exercise 2.f}
-%
-\[
-  \lim_{x\to\infty} \frac{e^x - e^{-x}}{e^x + e^{-x}}
-    = \lim_{n\to\infty} \frac{e^x \left(1 - e^{-2x}\right)}{e^x \left(1 + e^{-2x}\right)}
-    = \frac{\lim_{x\to\infty} 1 - \lim_{x\to\infty} \frac{1}{e^{2x}}}{\lim_{x\to\infty} 1 + \lim_{x\to\infty} \frac{1}{e^{2x}}}
-\]
-
-Remark:
-\[
-  \lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)}
-    \overset{\text{L'H\^opital}}= \lim_{x\to\infty} \frac{\cosh(x)}{\sinh(x)}
-    \overset{\text{L'H\^opital}}= \lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)}
-\] \[
-  y = \lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)} = \frac{1}{\lim_{x\to\infty} \frac{\sinh(x)}{\cosh(x)}}
-    = \frac1y
-\]
-
-\section{Exercise 3}
-%
-\begin{ex}
-  Show that the function $f: \mathbb R \to \mathbb R$ with $x \mapsto x + e^x$
-  is bijective. Furthermore determine $(f^{-1})'(1)$ and $\lim_{y\to\infty}(f^{-1})'(y)$.
-\end{ex}
-
-If the function is strictly monotonically increasing,
-it is injective.
-
-\[ f'(x) = 1 + e^x > 0 \qquad \forall x \in \mathbb R \]
-
-We show that it is strictly monotonically increasing:
-
-Let $x_1, x_2 \in \mathbb R$ with $x_1 < x_2$.
-\[ \frac{f(x_2) - f(x_1)}{x_2 - x_1} = f'(\alpha) \qquad \text{with } \alpha \in (x_1, x_2) \]
-\[ f(x_2) - f(x_1) = f'(\alpha)(x_2 - x_1) > 0  \]
-
-Is $f$ surjective?
-
-For an arbitrary $y_0 \in \mathbb R$ it holds that $\exists x_0 \in \mathbb R: f(x_0) = y_0$:
-\[ \exists f(a), f(b) \in \mathbb R: f(a) \leq y_0 < f(b) \]
+Consider: $\card{x_{jk} - x_j}$ for arbitrary $j \in \set{1,\dots,n}$.
 
 It holds that
-\[ \lim_{x\to-\infty} x + \underbrace{e^x}_{\to 0} = -\infty \]
-\[ \lim_{x\to+\infty} x + e^x = \infty \]
+\[ 0 \leq \card{x_{jk} - x} = \sqrt{(x_{jk} - x_j)^2} \leq \sqrt{(x_{1k} - x_1)^2 + \dots + (x_{1k} - x_n)} = \norm{x_k - x} \to 0 \]
+\[ \implies \lim_{k\to\infty} \card{x_{jk} - x_j} = 0 \forall j \]
 
-Formally:
-\[ \forall y_0 \exists x_0: \forall x < x_0: f(x) < y_0 \]
+Direction $\Leftarrow$.
 
-From the Intermediate Value Theorem it follows that
-\[ \Rightarrow \exists c \in [a,b): f(c) = y_0 \qquad c \eqqcolon x_0 \]
-So it is surjective.
+Let $\lim_{k\to\infty} x_{jk} = x_j \forall j \in \set{1,\dots,n}$.
 
-From injectivity and surjectivity it follows that it is bijective.
+The square root function is continuous.
+\[ \lim_{k\to\infty} \norm{x_k - x} = \sqrt{(x_{1k} - x_1)^2 + \dots + (x_{1k} - x_n)^2} \]
+\[ \sqrt{(\lim_{k\to\infty} x_{1k})^2 - 2 (\lim_{k\to\infty} x_i k) x_1 + x_{1j}^2 + \dots + (\lim_{k\to\infty} x_{n_k})^2 - 2 (\lim{x_{n_k}}) x_n + x_n^2} \]
+\[ = \sqrt{\underbrace{x_1^2 - 2x_1^2 + x_1^2}_{= 0} + \dots + \underbrace{x_n^2 - 2x_n^2 + x_n^2}_{= 0}} = 0 \]
 
-\subsection{Determine $(f^{-1})'(1)$}
-%
-\[ f(x) = x + e^x \]
-\[ f'(x) = 1 + e^x \]
+\textbf{Remark:}
+In $\mathbb R^n$, all norms are equivalent.
+This exercise showed this property.
+So it you pick two numbers in $\mathbb R^n$ and they get \enquote{closer}, they get \enquote{closer} in every norm.
 
-We apply the inverse function theorem:
-\[ \left(f^{-1}\right)'(y) = \frac{1}{f'(f^{-1}(y))} \]
+\section{Exercise 01/2}
 
-\[ y = 1 = f(x) \]
-\[ x = f^{-1}(1) \]
-
-An educated guess gives us that $x = 0$. In general determining $x$ is more difficult.
-
-\[ \left(f^{-1}\right)'(1) = \frac{1}{f'(0)} = \frac{1}{1 + e^0} = \frac12 \]
-
-\subsection{Determine $\lim_{y\to\infty} \left(f^{-1}\right)'(y)$}
-%
-\[
-  \lim_{y\to\infty} \left(f^{-1}\right)'(y)
-  = \lim_{y\to\infty} \frac{1}{1 + e^x}
-\]
-
-As $x$ grows to infinity, also $y$ grows to infinity.
-From bijectivity it follows that any value can be reached with $x$ as well as $f(x)$.
-
-\[ \underbrace{f'(\underbrace{f^{-1}(\underbrace{y}_{\to\infty})}_{\to\infty})}_{\to\infty} \]
-
-\section{Exercise 4}
 \begin{ex}
-  Let $D \subseteq \mathbb R$ be an open interval and $f: D \to \mathbb R$ be differentiable
-  in $x_0 \in D$.
-  Show
-  \[ \lim_{h\to0} \frac{f(x_0 + h) - f(x_0 - h)}{2} = f'(x_0) \]
+  In the lecture, we discussed the SCNF. $d_{\text{SCNF}}: \mathbb R^2 \times \mathbb R^2 \to \mathbb R$.
+  For some fixed $p \in \mathbb R^2$ it is defined as
+  \[
+    d_{\text{SCNF}} \coloneqq \begin{cases}
+      \norm{x - y}_2 & \text{ if } \exists \lambda > 0: y = p + \lambda (x - p) \\
+      \norm{x - p}_2 + \norm{y - p}_2 & \text{ else}
+    \end{cases}
+  \]
+  For $p \coloneqq (0,0)^T$ and $x \coloneqq (1,1)^T$, sketch the set $B_R(x)$ for $R=1$ and $R=2$.
+  \[ B_R(x) \coloneqq \setdef{y \in \mathbb R^2}{d_{\text{SCNF}} < R} \]
 \end{ex}
 
-\[ = \lim_{h\to0} \frac{f(x_0 + h) - f(x_0) + f(x_0) - f(x_0 - h)}{2h} \]
-\[ = \lim_{h'\to 0} \frac12 \cdot \left(f'(x_0) + \frac{f(x_0) - f(x_0 + h')}{-h'}\right) \]
-\[ = \lim_{h'\to 0} \frac12 \cdot \left(f'(x_0) + \frac{f(x_0 + h') - f(x_0)}{h'}\right) \]
-\[ = \frac12 (f'(x_0) + f'(x_0)) \]
-\[ = f'(x_0) \]
+\section{Exercise 01/3}
 
-\subsection{Exercise 4.b}
-\[
-  \lim_{h\to0} \frac{f(x_0 + rh) - f(x_0 + sh)}{h}
-    = \lim_{h\to0} \frac{f(x_0 + rh) - f(x_0)}{h}
-    + \lim_{h\to0} \frac{f(x_0) - f(x_0 + sh)}{h}
-\]
-\[ h_1 = rh \qquad h_2 = sh \]
-\[ = \lim_{h_1\to0} \frac{f(x_0 + h_1) - f(x_0)}{\frac1r \cdot h_1} + \lim_{h_2\to0} \frac{f(x_0) - f(x_0 + h_2)}{\frac1s \cdot h_2} \]
-\[ = r \cdot f'(x_0) - s \cdot f'(x_0) \]
-\[ = (r-s) \cdot f'(x_0) \]
-
-\section{Exercise 5}
 \begin{ex}
-  Let $D \subseteq \mathbb R$ be an open interval. $f: D \to \mathbb R$ is differentiable
-  and $f$ is twice differentiable in $x_0 \in D$.
+  Let $(M, d)$ be a metric space and $x \in M$.
+  Furthermore let $(x_k) \subset M$ be a sequence with property that every subsequence of $(x_k)$ contains a subsequence converging to $x$.
+  Prove by contradiction, that $(x_k)$ converges to $x$.
 \end{ex}
 
-\subsection{Exercise 5.a}
+$x_0 \not\to x$.
+
+There exists $\varepsilon_0 > 0$ for infinitely many $n \in \mathbb N: d(x_n, x) \geq \varepsilon_0$.
+Choose a subsequence $(x_{u_j})_{j\in\mathbb N}$ with $d(x_{n_j}, x) \geq \varepsilon_0 \forall j \in \mathbb N$.
+Then there does not exist a subsequence of $(x_{n_j})$ with limit $x$.
+
+\section{Exercise 01/4}
+
 \begin{ex}
-  Show that
-  \[ \lim_{h\to0} \frac{f(x_0 + h) - 2f(x_0) + f(x_0 - h)}{h^2} = f''(x_0) \]
+  Let $(M, d)$ be a metric space and complete space. The diameter of a nonempty set $A \subset M$ is given by
+  \[ \operatorname{diam}(A) \coloneqq \sup\setdef{d(x,y)}{x,y \in A} \]
+  Let $(A_j)_{j\in\mathbb N}$ be a sequence of nonempty, closed sets in $M$ with $A_{j+1} \subset A_j$ for all $j \in \mathbb N$.
+  Furthermore it holds that $\operatorname{diam}(A_j) \to 0$ for $j \to \infty$. Prove that $x \in M$ exists with
+  $\bigcap_{j=1}^\infty A_j = \set{x}$ and that $x$ is unique.
 \end{ex}
 
-$f$ is differentiable, therefore continuous, and $h$ goes to $0$. So we have ,,$\frac00$''.
-All conditions to apply L'H\^opital's rule are satisfied.
+$A_j \subseteq M$, because its a complete, metric space.
+\[ \implies \bigcap_{j=1}^\infty A_j \neq \emptyset \iff \exists x_0 \in M: \forall j \]
+Assume $\exists y_0 \in M: y_0 \neq x_0 \implies d(y_0, x_0) \geq \varepsilon > 0$
+\[ \forall j \in \mathbb N: \operatorname{diam}(A_j) \geq \varepsilon \]
+This is a contradiction.
+However, this is not the equality, we are looking for.
+Assume $\bigcap_{j=1}^\infty A_j = \set{x_0} = \set{y_0} \implies x_0 = y_0$.
+This is the equality, that was meant to be proven.
 
-\[ \lim_{h\to0} \frac{f'(x_0 + h) - f'(x_0 - h)}{2h} \approx \frac00 \]
+\subsection{Prove $\bigcap_{j=1}^\infty A_j \neq \emptyset \iff \exists x_0 \in M: \forall j$}
 
-We can apply L'H\^opital's Rule again or just use the result of exercise~4a.
-\[ \xRightarrow{4a} f''(x_0) \]
+\textbf{Hint:} If the assignment mentions that completeness must be proven, usually you have to construct a Cauchy sequence.
 
-\subsection{Exercise 5.b}
-%
-\begin{ex}
-  Show that the limes from exercise 5.a can also exist, even if $f''(x_0)$ does not exist.
-  Use the result from Exercise~1.
-\end{ex}
-\[ f(x) = \begin{cases} x^2 & x > 0 \\ 0 & x = 0 \\ -x^2 & x < 0 \end{cases} \]
+Construct $(x_j)_{j \in \mathbb N}$. Choose for $x_j$ some element of $A_j$.
+Choose $x_j \in A_j$ for $j \in \mathbb N$.
+This defines a Cauchy sequence $(x_j)_{j \in \mathbb N}$.
+Let $j \in \mathbb N$.
+$x_i \in A_j \supset A_{j+1}$ and $x_{j+1} \in A_{j+1} \forall i \in \mathbb N$.
+\[ \implies d(x_j, x_{j+i}) \leq \operatorname{diam}(A_j) \forall i \in \mathbb N \]
+where $\operatorname{diam}(A_j) \to 0$ with $i \to \infty$.
+\[ \implies \exists x \in M: \lim_{j \to \infty}(x_j) = x \]
+Because $(x_j)_{j\geq J} \subseteq A_j$ and $\lim_{j\to\infty} (x_j)_{j\geq J} = x$,
+it follows that $x \in A_j$ and then it follows that $x \in \bigcap_{j=1}^\infty A_j$.
 
-%For $x > 0$:
-%\[
-%  \lim_{h\to0} \frac{(x + h)^2 - 2x^2 + (x - h)^2}{h^2}
-%    = \frac{x^2 + 2xh + h^2 - 2x^2 + x^2 - 2xh + h^2}{h^2}
-%    = \lim_{n\to0} \frac{2h^2}{h^2} = \lim_{h\to0}
-%\]
+\dateref{2018/03/22}
 
-We know that it is not twice differentiable. But we want to show that the limes exists.
+\section{Exercise 02/1}
 
-We are only concerned with $x=0$.
-\[ \lim_{h\to0} f(x_0) = 0 \]
-\[
-  \lim_{h\to0} \frac{h^2 - h^2}{h^2} = \frac{0}{h^2} = 0
-\]
+\subsection{Blackboard solution}
 
-So if we traverse the graph from both sides at the same time $\frac{f(x_0 + h) - f(x_0 - h)}{h}$.
+Let $B$ be bounded.
+\[ \operatorname{diam}(B) < \infty \qquad \operatorname{diam}(B) = \operatorname{sup}(\setdef{d(x,y)}{x,y \in B}) \]
+\[ d(B_k, B_{k+1}) = \operatorname{inf}(\setdef{d(x,y)}{x \in B_k, y \in B_{k+1}}) \]
 
-\section{Exercise 6}
-\begin{ex}
-  Determine the following limit for arbitrary $c \in \mathbb R$:
-  \[ \lim_{n\to\infty} \frac{n}{\ln{n}} \left(\sqrt[n]{n^c} - 1\right). \]
-\end{ex}
+Exercise (a).
 
-\[ \lim_{n\to\infty} \frac{n}{\ln{n}} \left(\sqrt[n]{n^c} - 1\right) \]
-\[
-  \lim_{n\to\infty} \frac{n}{\ln{n}} \left(\sqrt[n]{n^c} - 1\right)
-    = \lim_{n\to\infty} \frac{e^{\frac cn \cdot \ln{n}} - 1}{\frac{\ln{n}}{n}}
-\]
-and
-\[
-  \left(e^{\frac cn \cdot \ln{n}}\right)'
-    = e^{\frac cn \cdot \ln{n}} \cdot \left(-\frac c{n^2} \cdot \ln{n} + \frac cn \cdot \frac1n\right)
-    = \frac c{n^2} e^{\frac cn \cdot \ln{n}} \cdot (1 - \ln(n))
-\]
+Prove:
+\[ \sum_{k=1}^\infty \operatorname{diam}(B_k) < \infty \land \sum_{k=1}^\infty d(B_k, B_{k+1}) \implies \operatorname{diam}(\bigcup_{k=1}^{\infty} B_k) < \infty \]
+\[ \operatorname{diam}(B_k \cup B_{k+1}) \leq \operatorname{diam}(B_k) + d(B_k, B_{k+1}) + \operatorname{diam}(B_{k+1}) \]
+We distinguish 3 cases:
+\begin{enumerate}
+  \item $x \in B_k, y \in B_k: d(x,y) \leq \operatorname{diam}(B_k) \leq \operatorname{diam}(B_k) + d(B_k, B_{k+1}) + \operatorname{diam}(B_{k+1})$
+  \item $x \in B_{k+1}, y \in B_{k+1}, d(x, y) \leq \operatorname{diam}(B_k) + d(B_k, B_{k+1}) + \operatorname{diam}(B_{k+1})$
+  \item $\forall x \in B_{k} \forall y \in B_{k+1}$
+\end{enumerate}
+Choose $x_0$ and $y_0$ on the border of sets $B_k$ and $B_{k+1}$ respectively.
+But $x_0, y_0$ do not necessarily exist if compactness is not given.
+But let $\varepsilon > 0$. Find $x_0, y_0$ with $d(x_0, y_0) \leq d(B_k, B_{k+1}) + \varepsilon$.
+\[ d(x,y) \leq \underbrace{d(x,x_0)}_{\leq \operatorname{diam}(B_k)} + \underbrace{d(x_0, y_0)}_{\leq d(B_k, B_{k+1}) + \varepsilon} + \underbrace{d(x_0, y)}_{\leq \operatorname{diam(B_k)}} \leq \operatorname{diam}(B_k) + d(B_k, B_{k+1}) + \operatorname{diam}(B_{k+1}) + \varepsilon \]
 
-All conditions are satisfied to apply L'H\^opital's rule (\enquote{$\frac00$}):
+Laurent Pfeiffer continued the following solution (until Exercise 2):
 
-\[
-  \lim_{n\to\infty} \frac{\frac c{n^2} e^{\frac cn \cdot \ln{n}} \cdot (1 - \ln{n})}{\frac{\frac{1}{n} \cdot n - \ln{n}}{n^2}}
-\] \[
-  = \lim_{n\to\infty} \frac{c \cdot e^{\frac cn \cdot \ln{n}} (1 - \ln(n))}{1 - \ln{n}}
-  = \lim_{n\to\infty} c \cdot e^{\frac cn \cdot \ln{n}}
-  = c \cdot 1
-\]
+\[ \operatorname{diam}((B_k \cup B_{k+1}) \cup B_{k+2}) \leq \operatorname{diam}(B_k \cup B_{k+1}) + \underbrace{d((B_k \cup B_{k+1}), B_{k+2})}_{\leq d(B_{k+1}, B_{k+2})} + \operatorname{diam}(B_{k+2}) \]
+\[ \leq \operatorname{diam}(B_k) + d(B_k, B_{k+1}) + \operatorname{diam}(B_{k+1}) + d((B_k \cup B_{k+1}), B_{k+2}) + \operatorname{diam}(B_{k+2}) \]
+By induction it follows that
+\[ \operatorname{diam}(B_k \cup B_{k+1} \cup \dots \cup B_n) \leq \operatorname{diam}(B_k) + d(B_k, B_{k+1}) + \operatorname{diam}(B_{k+1})  + d(B_{k+2}) + d(B_{n-1}, B_n) + \operatorname{diam}(B_n) \]
+\[ \operatorname{diam}(B_k \cup \dots \cup B_n) \leq \underbrace{\sum_{i=1}^n \operatorname{diam}(B_i) + d(B_i, B_{i+1})}_{D} \]
 
-\section{Exercise 7}
-\begin{ex}
-  \begin{itemize}
-    \item Show that $e^x \geq 1 + x$ holds for all $x \in \mathbb R$. \\
-      \emph{Hint:} On demand, use the Mean Value Theorem.
-    \item Prove that for all $x > 0$, the following estimates hold:
-      \[ \ln{x} \leq x - 1 \]
-      and for all $k \in \mathbb N_+$ it holds that
-      \[ k\left(1 - \frac{1}{\sqrt[k]{x}}\right) \leq \ln{x} \leq k \left(\sqrt[k]{x} - 1\right) \]
-  \end{itemize}
-\end{ex}
+Choose $x,y \in \bigcup_{i=1}^\infty B_i$. Then there exists some $k \in \mathbb N$ such that $x \in B_k$. There exists $n$ such that $y \in B_n$.
+\[ d(x,y) \leq \operatorname{diam}(B_k) + \dots + \operatorname{diam}(B_n) \leq D \]
 
-\begin{description}
-  \item[$x \geq 0$]
-    Choose $f(x) = e^x$ in $[0,x)$. Mean value theorem:
-    \[ \exists x_0: f'(x_0) = \frac{f(b) - f(a)}{b - a} \quad \text{ for } a < x_0 < b \]
-    \[ f'(x_0) = e^{x_0}   \qquad   e^{x_0} \geq 1   \qquad   x_0 \geq 0 \]
-    \[ e^{x_0} = \frac{f'(x) - f(0)}{x - 0} = \frac{e^x - e^0}{x} = \frac{e^x - 1}{x} \Rightarrow \frac{e^x - 1}{x} \geq 1 \]
+Exercise (b).
 
-    Or alternatively: $f$ is convex and therefoer $f''(x) > 0$.
-\end{description}
+Let $x \in M$. We define: $B_{k+1} = B_{k+2} = \dots = \set{x}$.
+For all $i \geq k$ it holds that
+\[ \operatorname{diam}(B_i) = 0 \]
+\[ d(B_i, B_{i+1}) = 0 \]
+Therefore,
+\[ \sum_{i=1}^\infty \operatorname{diam}(B_i) = \sum_{i=1}^k \underbrace{\operatorname{diam}(B_i)}_{<+\infty} < +\infty \]
+What about the distances?
+\[ \int_{i=1}^\infty d(B_i, B_{i+1}) = \sum_{i=1}^k d(B_i, B_{i+1}) < +\infty \]
+By (a), it follows that
+\[ \left(\bigcup_{i=1}^\infty B_i\right) \text{ is bounded } \implies \left(\bigcup_{i=1}^k B_i\right) \subseteq \left(\bigcup_{i=1}^\infty B_i\right) \text{ is also bounded}  \]
 
-Consider $f(x) = x - 1 - \ln{x}$
-\[ f'(x) = 1 - \frac1x \qquad f''(x) = \frac1{x^2} \]
-\[ f'(x) \stackrel!= 0 \]
-\[ 1 - \frac1x = 0 \Leftrightarrow x = -1 \]
-\[ f''(1) = 1 > 0 \Rightarrow \text{ minimum and because } f(1) = 0 \Rightarrow \forall x: x - 1 - \ln{x} \geq 0 \]
+Exercise (c).
 
-Or alternatively:
-\[ y \coloneqq x - 1 \]
-\[ x = y + 1 \]
-Show that $\ln(y + 1) \leq y \Leftrightarrow y + 1 \leq e^y$.
+We define
+\[ B_i = \left[\sum_{j=1}^i \frac1j , \sum_{j=1}^{i+1} \frac1j\right] \]
+Then it holds that
+\[ \operatorname{diam}(B_i) = \frac1{i+1} \xRightarrow{i\to\infty} 0 \]
+\[ \sum_{i=1}^\infty \operatorname{diam}(B_i) = \infty \]
+\[ B_i \cap B_{i+1} = \set{\sum_{j=1}^{i+1} \frac1j} \implies d(B_i, B_{i+1}) = 0 \]
+\[ B_1 \cup \dots \cup B_i = \left[1, \underbrace{\sum_{j=1}^{i+1} \frac1j}_{\to\infty}\right] \implies \underbrace{\bigcup_{i=1}^\infty B_i}_{\text{not bounded}} = [1,\infty) \]
 
-$e^x$ is monotonically increasing $\Rightarrow x \leq y \Leftrightarrow e^x \leq e^y$.
-
-And this has been proven previously.
-
-\subsection{Exercise 7.b}
-\[ \ln(x) \leq k \left(\frac[k]{x} - 1\right) \]
-\[ \ln(\sqrt[k]{x}) \leq \sqrt[k]{x} - 1 \Leftrightarrow \ln(y) \leq y - 1 \]
-And this has been proven in Exercise~a.
-
-The second part following analogously.
-
-\section{Exercise 8}
-\begin{ex}
-  Let $f: D \to \mathbb R$ with $D \subseteq \mathbb R$. Show: If $f$ is continuous in an environment
-  $U$ of $a \in D$, differentiable in $U \setminus \set{a}$ and there exists $\lim_{x\to a} f'(x)$,
-  such that $f$ in $a$ differentiable and
-  \[ f'(a) = \lim_{x\to a} f'(x). \]
-  \emph{Hint:} On demand, use the Mean Value Theorem.
-\end{ex}
-
-Let $h_n$ be an arbitrary zero-sequence (with $h_n(x) > 0 \quad \forall x \in D$) and due to Mean Value Theorem $\exists \xi_n \in D$ with $f'(\xi_n) = \frac{f(a + hn) - f(a)}{h_n}$.
-\[ \lim_{n\to\infty} f'(\xi_n) = \lim_{x\to a} f'(x) = \lim_{n\to\infty} \frac{f(a + h_n) - f(a)}{h_n} = f'(a) \]
-\[ \lim_{n\to\infty} \frac{f(a + h_n) - f(a)}{h_n} = \lim_{n\to\infty} f'(\xi_n) = \lim_{x\to a} f'(x) = z \]
-
-For the arbitrary zero-sequence, we really need to consider it arbitrary (otherwise we just show it for the one sequence). Consider this counterexample:
-\[
-  f(x) = \begin{cases}
-    0 & x = \frac1n \text{ for } n \in \mathbb N \\
-    1 & \text{else}
-  \end{cases}
-\]
-
-\subsection{Alternative approach}
-Application of \enquote{Schrankensatz}.
-
-\[ \exists \lim{f'(x)} = \alpha \]
-Hence for arbitrary $\varepsilon > 0: \exists \delta > 0 \forall x \in (a - \delta, a + \delta) \setminus \set{a}: \abs{f'(x) - \alpha} < \varepsilon$.
-Hence $\alpha - \varepsilon < f'(x) < \alpha + \varepsilon$.
-
+We define $B_i = \set{\sum_{j=1}^i \frac1{j}}$. For all $i$:
 \begin{itemize}
+  \item $\operatorname{diam}(B_i) = 0 \implies \sum_{i=1}^\infty \operatorname{diam}(B_i) = 0$
   \item
-    \[
-      \forall x \in (a, a + \delta):
-      \alpha - \varepsilon \leq \frac{f(x) - f(a)}{x - a} \leq \alpha + \varepsilon
-    \]
-  \item
-    \[
-      \forall x \in (a - \delta, a):
-      \alpha - \varepsilon \leq \frac{f(x) - f(a)}{x - a} \leq \alpha + \varepsilon
-    \]
+    \[ d(B_i, B_{i+1}) = \left(\sum_{j=1}^{i+1} \frac1j\right) - \left(\sum_{j=1}^i \frac1j\right) = \frac1{i+1} \xRightarrow{i\to\infty} 0 \]
+    \[ \sum_{i=1}^\infty d(B_i, B_{i+1}) = \sum_{i=1}^\infty \frac{1}{i+1} = \infty \]
+    The union is \emph{not} bounded, because $\sum_{j=1}^i \frac1j \in \bigcup_{j=1}^\infty B_j$.
 \end{itemize}
 
-\[ \Rightarrow \forall x \in (a - \delta, a + \delta) \setminus \set{a}: \abs{\frac{f(x) - f(a)}{x - a} - \alpha} \leq \varepsilon \]
-\[ \Rightarrow \lim_{x\to a} \frac{f(x) - f(a)}{x - a} = \alpha \]
+\section{Exercise 02/2}
 
-\subsection{Second alternative approach}
-%
-\[
-  \lim_{f(a + h) - f(a)}{h}
-\]
-If I know $f$ is continuous, then $f(a + h) \to f(a)$. So,
-\[ \enquote{\frac 00} \]
-\[ \lim_{h\to 0} \frac{f'(a + h) - 0}{1} = \lim_{h\to0} f'(a + h) = \lim_{x\to a} f'(x) \]
-
-\section{Exercise 9}
 \begin{ex}
-  Let $f: [a,b] \to \mathbb R$, $a < b$, differentiable with $f(a) > 0$, $f'(a) > 0$ and $f(b) = 0$.
-  Prove that there exists $\xi \in (a,b): f'(\xi) = 0$.
-\end{ex}
-
-First, we want to show that $f'(a) > 0 \Rightarrow \exists \delta > 0 \forall x \in (a, a + \delta): f(x) > f(a)$.
-
-\[ \exists \delta > 0 \forall x \in (a, a + \delta): \frac{f(x) - f(a)}{x - a} > \frac{f'(a)}{2} > 0 \]
-\[ \Rightarrow f(x) - f(a) > \frac{f'(a)}{2} (x - a) > 0 \]
-
-Indeed, $f(x)$ satisfies this property.
-
-Secondly, we want to show that,
-\[ \exists \eta \in (a + \delta, b): f(a) = f(\eta) \]
-\[ \exists \xi \in [a,\eta] \forall x_1 \in [a,\eta]: f(\xi) \geq f(x_1) \]
-\[ \exists \xi \in (a, \eta): \frac{f(\eta) - f(a)}{\eta - a} = f'(\eta) = 0 \]
-
-There might be more than this one $\xi$, so the $\xi$ between the second and third line might be different.
-Anyways, we found a $\xi$ with the desired property.
-
-\section{Exercise 10}
-\begin{ex}
-  Determine the pointwise limit of the following function sequences $f_n: [0,\infty) \to \mathbb R$
-  and determine its uniform convergence:
-  \begin{itemize}
-    \item $f_n(x) = \sqrt[n]{x}$
-    \item $f_n(x) = \frac{1}{1 + nx}$
-    \item $f_n(x) = \frac{x}{1 + nx}$
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 10.a}
-%
-If $x \neq 0$, $\lim_{n\to\infty} \sqrt[n]{x} = 1$. \\
-If $x = 0$, $\lim_{n\to\infty} \sqrt[n]{x} = \lim_{n\to\infty} 0^{\frac 1n} = 0$.
-
-In terms of uniform convergence:
-\[ \abs{\sqrt[n]{x} - 1} < \varepsilon \]
-\[ \lim_{x\to\infty} \sqrt[n]{x} = \infty \]
-
-Example:
-\begin{align*}
-  \abs{\sqrt[n]{x} - 1} &< \varepsilon \\
-  \sqrt[n]{x} - 1 &< \varepsilon \\
-  \sqrt[n]{x} &< \varepsilon + 1 \\
-  \sqrt[n]{100} &< \varepsilon + 1
-\end{align*}
-
-\subsection{Exercise 10.b}
-%
-\[ f_n(x) = \frac{1}{1 + nx} \]
-If $x \neq 0$,
-\[ \lim_{n\to\infty} \frac{1}{1 + nx} = 0 \]
-If $x = 0$,
-\[ \lim_{n\to\infty} \frac{1}{1 + n\cdot 0} = 1 \]
-
-Assume it it continuously convergent. Show that:
-\[ \exists \varepsilon > 0 \forall N \in \mathbb N \exists x \in [0,\infty): n \geq N \land \abs{f_n(x) - f(x)} \geq \varepsilon \]
-Does not hold for $\frac 9n \geq x$.
-
-\subsection{Exercise 10.c}
-%
-\[ f_n(x) = \frac{x}{1 + nx} \]
-If $x \neq 0$,
-\[ \lim_{n\to\infty} \frac{x}{1 + nx} = \lim_{n\to\infty} \frac{1}{\frac1x + n} = 0 \]
-If $x = 0$,
-\[ \lim_{n\to\infty} \frac{0}{1 + n \cdot 0} = 0 \]
-
-\[ \abs{\frac{x}{1 + nx} - 0} < \varepsilon \]
-\[ \abs{\frac{x}{1 + nx}} < \abs{\frac{x}{nx}} = \abs{\frac{1}{n}} \]
-
-Convergence is given. Uniform convergence is not given.
-
-\emph{Advice:} The simplest approach to show convergence is to show:
-\[ \abs{f_n(x) - f(x)} \leq a_n \to 0 \]
-where $a_n$ is independent from $x$.
-
-\section{Exercise 11}
-\begin{ex}
-  Determine $\cos{\alpha}$, $\sin{\alpha}$ and $\tan{\alpha}$ for $\alpha \in \set{\frac{\pi}{5}, \frac{2\pi}{5}}$.
-
-  Hint: Show that $u \coloneqq \cos{\frac{2\pi}{5}}$ and $v \coloneqq \cos{\frac{\pi}{5}}$ satisfy
-  the equations $u = 2v^2 - 1$ and $-2u^2 + 1 = v$.
-  Determine $u,v$ this way.
-\end{ex}
-
-\begin{align*}
-  u &= \cos\left(\frac{2\pi}{5}\right) = \cos\left(\frac\pi5 + \frac\pi5\right) \\
-    &= \cos^2\left(\frac\pi5\right) - \sin^2\left(\frac\pi5\right) \\
-    &= 2 \cos^2\left(\frac\pi5\right) - 1 \\
-    &= 2v^2 - 1
-\end{align*}
-
-To show: $v + 2u^2 - 1 = 0$, $\cos\left(\frac\pi5\right) + 2\cos^2\left(\frac\pi5\right) - 1 = 0$.
-
-\begin{align*}
-  \cos\left(\frac\pi5\right) + 2\cos\frac{2\pi}{5} - 1
-    &= \cos{\frac\pi5} + \cos{\frac{4\pi}{5}} \\
-    &= \cos{\frac\pi5} + \cos\left(\pi - \frac15 \pi\right) \\
-    &= \cos{\frac\pi5} + \cos\pi \cdot \cos\left(\frac{\pi}{5}\right) + \sin\pi \cdot \sin{\frac\pi{5}} - \cos\frac\pi5 \cdot \cos\frac\pi5 \\
-    &= 0
-\end{align*}
-
-For $u + v > 0$:
-\[ 2v^2 - 1 =u \]
-\[ -2u^2 + 1 = v \]
-\[ 2v^2 - 2u^2 = u + v \]
-\[ 2(v + u)(v - u) = u + v \]
-\[ 2(v - u) = 1 \Leftrightarrow v - u = \frac12 \]
-
-\[ v - 2v^2 + \frac12 = 0 \]
-\[ v^2 - \frac12 v - \frac14 = 0 \]
-\[ v_{1,2} = \frac14 \pm \sqrt{\frac{1}{16} + \frac{4}{16}} = \frac{1 \pm \sqrt{5}}{4} \]
-
-\[ 0 < \cos(\frac\pi5) = \frac{1 + \sqrt{5}}{4} \]
-\[ u = \cos\frac{2\pi}{5} = v - \frac12 = \frac{-1 + \sqrt{5}}{4} \]
-
-\[ \cos\left(\frac{2\pi}{5}\right) = \cos^2{\frac{\pi}{5}} - \sin^2{\frac{\pi}{5}} \]
-\[ \Leftrightarrow \frac{-1 + \sqrt{5}}{4} = \left(\frac{\sqrt{5} + 1}{4}\right)^2 - \sin^2\left(\frac{\pi}{5}\right) \]
-\[ \Leftrightarrow \sin^2\left(\frac{\pi}{5}\right) = \frac{5 + 2 \sqrt{5} + 1}{16} - \frac{-4 + 4\sqrt{5}}{16} \]
-\[ = \frac{5 + 2\sqrt{5} + 1 + 4 - 4\sqrt{5}}{16} = \frac{10 - 2\sqrt{5}}{16} = \frac{5 - \sqrt{5}}{8} \]
-\[ \sin\left(\frac{\pi}{5}\right) = \sqrt{\frac{5 - \sqrt{5}}{8}} \approx 0.59 \]
-
-\[
-  \sin\frac{2\pi}{5} = \sin\left(\frac{\pi}{5} + \frac{\pi}{5}\right) = \sin{\frac\pi5} \cdot \cos{\frac\pi5}
-    + \cos{\frac\pi5} \cdot \sin{\frac\pi5} = 2 \sin{\frac\pi5} \cdot \cos{\frac\pi5}
-\] \[
-  = 2 \frac{1 + \sqrt{5}}{4} \sqrt{\frac{5 - \sqrt{5}}{8}} = \frac{1 + \sqrt{5}}{2} \cdot \frac{5 - \sqrt{5}}{8}
-  = \sqrt{\frac{5 + \sqrt{5}}{8}} \approx 0.95
-\]
-
-\[
-  \tan{\frac\pi5} = \frac{\sin{\frac\pi5}}{\cos{\frac\pi5}}
-     = \frac{\sqrt{\frac{5 - \sqrt{5}}{8}}}{\frac{\sqrt{5} + 1}{4}} = \frac{\sqrt{2 (5 - \sqrt{5})}}{1 + \sqrt{5}}
-     = \sqrt{5 - 2\sqrt{5}} \approx 0.73
-\] \[
-  \tan\left(\frac{2\pi}{5}\right) = \frac{\sin{\frac{2\pi}{5}}}{\cos{\frac{2\pi}{5}}}
-     = \frac{4}{-1 + \sqrt{5}} \cdot \frac{1 + \sqrt{5}}{2} \cdot \sqrt{\frac{5 - \sqrt{5}}{8}}
-     = \sqrt{5 + 2\sqrt{5}} \approx 3.05
-\]
-
-\section{Exercise 12}
-\begin{ex}
-  To which order do you have to consider values in the series expansion of cosine,
-  to approximate $\cos{1}$ with an error smaller $10^{-7}$?
-  Furthermore show that $\cos{1}$ is irrational.
-
-  \textbf{Hint:} To show irrationality of $\cos{1}$, assume, $p,q \in \mathbb N_+$ with
-  $\cos{1} = \frac pq$. Replace that in the estimated error of
-  \[ \cos{1} - \sum_{k=0}^q \frac{(-1)^k}{(2k)!}, \]
-  multiply with $(2q)!$ and derive a contradiction.
-\end{ex}
-
-\subsection{Exercise 12.a}
-%
-\[ \cos{x} = \sum_{k=0}^\infty \frac{x^{2k}}{(2k)!} \cdot (-1)^k \]
-
-Consider,
-\[ S_{2m} = \sum_{k=0}^{2m} \frac{1}{(2k)!} (-1)^k \]
-\[ S_{2k+1} = \sum_{k=0}^{2k+1} \frac{1}{(2k)!} \cdot (-1)^k \]
-
-So $S_{2k+1}$ has a negative, last expression. $S_{2m}$ has a positive last expression.
-
-\[ S_{2k+1} < \cos{1} < S_{2m} \]
-
-\[ S_{2m} - S_{2m+1} = \sum_{k=0}^{2m} \frac{1}{(2k)!} (-1)^k - \sum_{k=0}^{2m+1} \frac{1}{(2k)!} (-1)^k \]
-
-\[ \triangle \cos(1) = -\frac{1}{(2(2m+1))!} \cdot (-1)^{2m+1} = \frac{1}{(2 \cdot (2m + 1))!} \stackrel{!}{<} 10^{-7} \]
-
-\[ N! > 10^7 \Rightarrow N > 11 \]
-\[ 2 \cdot (2m + 1) > 11 \]
-\[ 2m + 1 > \frac{11}{2} = 5.5 \]
-
-$\Rightarrow$ 10-th order because every odd expression is cancelled out.
-
-Consider paper: ``The irrationality of $e$ and Others''.
-
-\subsection{Exercise 12.b}
-\[
-  \cos(1) \not\in \mathbb Q
-\]
-
-Assume $\exists p \in \mathbb Z$, $q \in \mathbb N$:
-\[ \cos(1) = \frac{p}{q} \]
-
-\[ \abs{\cos(1) - \sum_{k=0}^n \frac{(-1)^k}{(2k)!}} \]
-\[ = \abs{\frac pq - \sum_{k=0}^{q-1} \frac{(-1)^k}{(2k)!}} < \frac{1}{(2q)!} \]
-\[ = \abs{\frac{p (2q)!}{q} - \sum_{k=0}^{q-1} \frac{(-1)^k \cdot (2q)!}{(2k)!}} < 1 \]
-\[ \abs{x - y} < 1 \Rightarrow 0 \qquad \text{ because } x \in \mathbb Z, y \in \mathbb Z \]
-
-Leibniz criterion requires that the limes is not achieved in the sequence,
-because the functions need to be strictly monotonical.
-
-\section{Exercise 13}
-\begin{ex}
-  Let $f: [\frac\pi2, \frac{3\pi}2] \to [-1,1]$, $x \mapsto \sin{x}$.
-  Show that $f$ is bijective and compute (using the formula for the derivative
-  of the inverse function $(f^{-1})'(y)$ at all possible points $y \in [-1,1]$).
-  Also give an explicit representation for $f^{-1}$
-\end{ex}
-
-\[ \ldots = - \frac{1}{\sqrt{1 - y^2}} \]
-
-It is important to recognize the negative sign.
-
-\section{Exercise 14}
-\begin{ex}
-  Let $w,z \in \mathbb R$ with $w, z, w + z \not\in \setdef{\frac\pi2 + k\pi}{k \in \mathbb Z}$.
-  Prove the addition theorem of the tangens function:
-  \[ \tan(w + z) = \frac{\tan(w) + \tan(z)}{1 - \tan(w) \tan(z)}. \]
-  Let $x,y \in \mathbb R$ with $xy < 1$. Show that $\arctan(x) + \arctan(y) \in (-\frac{\pi}{2}, \frac{\pi}{2})$
-  and use it to prove the addition theorem for the arcustangens function:
-  \[ \arctan(x) + \arctan(y) = \arctan\frac{x + y}{1 - xy}. \]
-\end{ex}
-
-\begin{enumerate}
-  \item Show that $\tan(w + z) = \frac{\tan(w) + \tan(z)}{1 - \tan(w) \tan(z)}$.
-
-    \[ \tan(w + z) = \frac{\sin(w + z)}{\cos(w + z)} = \frac{\cos(w) \cdot \sin(z) + \sin(w) \cos(z)}{\cos(w) \cos(z) - \sin(w) \sin(z)} \]
-    \[ \frac{\frac{\cos(w) \sin(w)}{\cos(w) \cos(z)} + \frac{\sin(w) \cdot \cos(z)}{\cos(w) \cdot \cos(z)}}{1 - \frac{\sin(w) \sin(z)}{\cos(w) \cos(z)}} \]
-    \[ = \frac{\tan(z) + \tan(w)}{1 - \tan(w) \tan(z)} \]
-  \item
-    \[ \arctan(x) + \arctan(y) \in (-\frac\pi2, \frac\pi2) \]
-    $x,y \in \mathbb R, xy < 1$.
-
-    Let $x = \tan(z)$ and $y = \tan(w)$.
-    \[ xy = \tan(z) \cdot \tan(w) = \frac{\sin(z) \cdot \sin(w)}{\cos(z) \cdot(w)} < 1 \]
-    \[ \sin(z) \cdot \sin(w) < \cos(z) \cos(w) \]
-    \[ \Leftrightarrow 0 < \cos(z) \cdot \cos(w) - \sin(z) \cdot \sin(w) \]
-    \[ \Leftrightarrow 0 \stackrel!< \cos(z + w) \Leftarrow z \in \left(-\frac\pi2, \frac\pi2\right) \lor w \in \left(-\frac\pi2, \frac\pi2\right) \]
-    This proof is insufficient! A case distinction for $\cos(z) \cos(w) > 0$ is required.
-  \item
-    Show that $\arctan(x) + \arctan(y) = \arctan\frac{x + y}{1 - xy}$.
-    Let $x = \tan(z)$ and $y = \tan(w)$.
-    \[
-      \arctan\left(\frac{x + y}{1 - xy}\right) = \arctan\left(\frac{\tan(z) + \tan(w)}{1 - \tan(z) \tan(w)}\right)
-      = \arctan(\tan(z + w)) = z + w = \arctan(x) + \arctan(y)
-    \]
-\end{enumerate}
-
-\section{Exercise 15}
-\begin{ex}
-  Compute the following integrals by approximating the integrands using a sequence
-  of step functions with the given points. Let $a,b \in \mathbb R$ with $a < b$.
+  Let $(X, d)$ be a sequentially compact, metric space. Show:
   \begin{enumerate}
-    \item $\int_a^b e^x \, dx$ with points $x_k \coloneqq a + k(b - a)/n$.
-    \item $\int_a^b x^p \, dx$ with points $x_k \coloneqq a q^k$, $q \coloneqq \sqrt[n]{b/a}$ and $p \in \mathbb R \setminus \set{-1}$.
+    \item[a.] $X$ is bounded.
+    \item[b.]
   \end{enumerate}
 \end{ex}
 
-\subsection{Exercise 15.a}
-%
-\[ = \lim_{n \to \infty} \frac{b-a}{n} \sum_{k=0}^{n-1} e^{a + \frac{k(b-a)}{n}} \]
-\[ = \lim_{n \to \infty} \frac{b-a}{n} e^a \sum_{k=0}^{n-1} \left(e^{\frac{b - a}{n}}\right)^k \]
-\[ = \lim_{n \to \infty} e^a \cdot \frac{b - a}{n} \frac{e^{\frac{b - a}{n}} - 1}{e^{\frac{b - a}{n} - 1}} \]
-\[ = \lim_{n \to \infty} e^a \left(e^{b - a} - 1\right) \cdot \underbrace{\frac{\frac{b - a}{n}}{e^{\frac{b - a}{n}} - 1}}_{\to 1} \]
-\[ = e^a \cdot \frac{e^b}{e^a} - e^a = e^b - e^a \]
+\subsection{Blackboard solution}
 
-\[ (\forall \varepsilon > 0) (\exists N \in \mathbb N) (\forall x \in [a,b]): \abs{\varphi_n(x)  - e^x} < \varepsilon \]
-\[ e^{a + (b-a)\frac{n-1}{n}} - e^b = e^{a + (b-a)(1 - \frac1n)} - e^b = e^{a + b - \frac{b}{n} - a + \frac{a}{n}} - e^b \]
-\[ = e^{b - \frac{b}{n} + \frac{a}{n} - e^b} \]
+Exercise (a).
 
-\subsection{Exercise 15.b}
-%
-\begin{figure}[t]
-  \begin{center}
-    \includegraphics{img/15b.pdf}
-    \caption{Illustration of 15b}
-  \end{center}
-\end{figure}
+Let $X$ be unbounded. Hence, there exists a tuple $(x_N, y_N) \in X \times X$ for every $N \in \mathbb N$ with $d(x_N, y_N) > N$.
+Because $(X, d)$ is sequentially compact, there exists a convergent subsequence $(x_{N_k}, y_{N_{k_i}})$ we can choose such that
+\[ \lim_{k\to\infty} x_{N_k} = \infty \qquad \lim_{i\to\infty} y_{N_{K_i}} = y_0 \qquad \lim_{i\to\infty} (x_{N_{k_i}}) = x_0 \]
+\[ \implies \underbrace{N_{k_i}}_{\xrightarrow{i\to\infty} \infty} < d(x_{N_{k_i}}, y_{N_{k_i}}) \xrightarrow{i\to\infty} d(x_0, y_0) \]
+By this contradiction, it follows that $X$ is bounded.
 
-\[ x_k \coloneqq aq^k \qquad q \coloneqq \left(\frac{b}{a}\right)^{\frac1n} \]
-\[ p \neq -1 \]
-\begin{align*}
-  y_k &\coloneqq x_{k+1} - x_k \\
-    &= aq^{k+1} - aq^{k} \\
-    &= aq^k (q - 1)
-\end{align*}
+Exercise (b).
 
-\[ \sum_{k=0}^{n-1} y_k x_k^p = \sum_{k=0}^{n-1} aq^k (q - 1) (aq^k)^p = a^{p+1} (q - 1) \sum_{k=0}^{n-1} (q^{p+1})^k \]
-Is a geometric series:
-\[ = a^{p+1} (q - 1) \frac{1 - (q^{p+1})^{n-1}}{1 - q^{p+1}} \]
+Let $(x_n)_{n\in\mathbb N}$ be a Cauchy sequence in $X$. Let $X$ be sequence compact $\implies$ there exists a convergent subsequence $x_{n_{k}} \xrightarrow{k\to\infty} x \in X$. Show that $x_n \xrightarrow{n\to\infty} x$.
 
-\[
-  \lim_{n\to\infty} \sum_{k=0}^{n-1} y_k x_k^p
-    = a^{p+1} \lim_{n\to\infty} \left(\left(\frac ba\right)^{\frac1n} - 1\right)
-    \frac{1 - (\frac ba)^{\frac{n-1}{n} (p+1)}}{1 - \left(\frac ba\right)^{\frac{p+1}{n}}}
-    = a^{p+1} \left(1 - \left(\frac ba\right)^{p+1}\right) \underbrace{\lim_{n\to\infty} \frac{\left(\frac ba\right)^{\frac 1n} - 1}{1 - \left(\frac ba\right)^{\frac{p+1}{n}}}}_{\enquote{0/0}}
-\] \[
-  \lim_{n\to\infty} \frac{\left(\frac ba\right)^{\frac1n} - 1}{1 - \left(\frac ba\right)^{\frac{p+1}{n}}} = \enquote{0/0}
-\]
-L'H\'opital's Rule:
-\[
-  = \lim_{n\to\infty} \frac{\exp\left(\frac1n \log\left(\frac ba\right)\right) - 1}{1 - \exp\left(\frac{p+1}{n} \log\left(\frac ba\right)\right)}
-  = \lim_{n\to\infty} \frac{\log\left(\frac ba\right) \cdot \frac{-1}{n^2} \exp\left(\frac1n \log\frac{b}{a}\right)}{-(p+1) \log\frac{b}{a} \cdot \frac{-1}{n^2} \exp\left(\frac{p+1}{n} \log\frac ba\right)}
-\] \[
-  = \lim_{n\to\infty} \frac{-1}{p+1} \frac{\left(\frac ba\right)^\frac 1n}{\left(\frac ba\right)^{\frac{p+1}{n}}}
-  = \frac{-1}{p+1}
-\]
+Let $\varepsilon > 0$ be arbitrary. Choose $N \in \mathbb N$ such that $\forall n,m \geq N: d(x_n, x_m) < \frac\varepsilon2$.
+Choose $k \in \mathbb N$ such that $n_k \geq N$ and $d(x_{n_k}, x) < \frac\varepsilon2$.
+\[ \forall n \geq n_k: d(x, x_n) \leq d(x, x_{n_k}) + d(x_{n_k}, x_n) < \varepsilon \]
 
-\[ \Rightarrow = (a^{p+1} - b^{p+1}) \cdot \frac{-1}{p+1} = \frac{b^{p+1} - a^{p+1}}{p+1} \]
+Exercise (c).
 
-The assignment explicitly asks for a step function. This approach only verifies that
-\[ \int_a^b x^p \, dx \]
-\[ \left.\frac{x^{p+1}}{p+1}\right|_{x=a}^{x=b} = \frac{b^{p+1}}{p+1} - \frac{a^{p+1}}{p+1} \]
-
-We only did the approximation from one side (also upper bound is needed which works analogously):
-
-\[ \sum_{k=0}^{n-1} y_k x_{k+1}^p = \ldots \]
-
-\section{Exercise 16}
-\begin{ex}
-  For an interval $I \subseteq \mathbb R$ let $f_n: I \to \mathbb R$ be a sequence of functions
-  which are uniformly continuous converging towards $f: I \to \mathbb R$. Show that the following
-  statements hold or provide a counterexample:
-  \begin{itemize}
-    \item If all $f_n$ are uniformly continuous, then $f$ is uniformly continuous.
-    \item If all $f_n$ are Lipschitz continuous, then $f$ is Lipschitz continuous.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 16.a}
-%
-It holds. So a proof is given in the following.
-
-We want to show:
-\[
-  \forall \varepsilon \exists \delta:
-  \abs{x - x_0} < \delta \Rightarrow
-  \abs{f(x) - f(x_0)} < \varepsilon
-\]
-
-\[ \abs{f(x) - f(x_0)} = \abs{f(x) - f_n(x) + f_n(x) - f(x_0) + f_n(x_0) - f(x_0)} \]
-\[
-  \leq
-    \underbrace{\abs{f(x) - f_n(x)}}_{<\frac\varepsilon3} +
-    \underbrace{\abs{f_n(x) - f_n(x_0)}}_{< \frac\varepsilon3} +
-    \underbrace{\abs{f_n(x_0) - f(x_0)}}_{< \frac\varepsilon3}
-\]
-
-We need to elaborate: For which $n$ does $\frac\varepsilon3$ hold?
-
-\[
-  \forall \varepsilon > 0 \exists \overset{\text{depends on $\varepsilon$}}{n_0}:
-  \forall n \geq n_0 \forall x \in I:
-  \abs{f(x) - f_n(x)} < \frac\varepsilon3
-\] \[
-  \forall \varepsilon > 0 \forall n \exists \delta = \delta(n, \varepsilon):
-  \forall x, x_0: \abs{x - x_0} < \delta \Rightarrow \abs{f_n(x) - f_n(x_0)} < \frac\varepsilon3
-\]
-
-\subsection{Exercise 16.b}
-%
-This does not hold. So we provide a counterexample.
-
-Consider $f(x) = \sqrt{x}$. It is not differentiable at $x=0$, but $f(0) = 0$ is defined.
-The function cannot be Lipschitz-continuous, because the Lipschitz constant grows as we tend towards $0$.
-We need functions $f_n$.
-
-Consider $f(x) = \sqrt{x + \frac1n}$. The function $f_n$ looks like $f$, but is shifted slightly to the left.
-As $n$ tends towards infinity, $f_n$ becomes $f$ and we get the problem at $x=0$.
-
-You can also consider:
-\[
-  f(x) = \begin{cases}
-    \sqrt{x} & \text{ for } x \geq \frac1n \\
-    \sqrt{\frac1n} & \text{ for } x < \frac1n
-  \end{cases}
-\]
-
-\section{Exercise 17}
-%
-\begin{ex}
-  Let $f: [0,1] \to \mathbb R$ be a regulated function continuous in $0$.
-  Show the following relation:
-  \[
-    \lim_{n\to\infty}
-    n \int_0^{\frac1n} f(s) \, ds = f(0).
-  \]
-\end{ex}
-\[
-  \lim_{n\to\infty}
-  n \int_0^{\frac1n} f(s) \, ds = f(0)
-  = \lim_{n\to\infty} n \cdot \left(F\left(\frac1n\right) - F(0)\right)
-  = \lim_{n\to\infty} \frac{F\left(\frac1n\right) - F(0)}{\frac1n}
-  = \lim_{h\to0} \frac{F(h) - F(0)}{h}
-  = f(0)
-\]
-
-\subsection{Other approach}
-Continuity at $x=0$:
-\[
-  \forall \varepsilon > 0 \exists \delta > 0 \forall \abs{x} < \delta:
-  \abs{f(x) - f(0)} < \varepsilon
-\] \[
-  \lim_{n\to\infty} n \int_0^{\frac1n} f(x) \, dx
-  \leq \lim_{n\to\infty} n \int_0^{\frac1n} (f(0) + \varepsilon) \, dx
-\]
-For $\frac1n < \delta$ it holds that $f(x) < f(0) + \varepsilon$ for $x \in [0,\frac1n]$.
-\[
-  = \lim_{n\to\infty} n (f(0) + \varepsilon) \frac1n
-  = f(0) + \varepsilon
-\]
-holds for all $\varepsilon > 0$.
-\[
-  \Rightarrow
-  \lim_{n\to\infty} n \int_0^{\frac1n} f(x) \, dx \leq f(0)
-\]
-
-\section{Exercise 18}
-\begin{ex}
-  Prove the Riemann-Lebesgue Lemma:
-  For every regulated function $f: [a,b] \to \mathbb R, a < b$ it holds that
-  \[ \lim_{\lambda\to\infty} \int_a^b f(x) \sin(\lambda x) \, dx = 0. \]
-  \emph{Hint:} Show the following partial results:
-  \begin{itemize}
-    \item For all intervals $[\alpha, \beta] \subseteq [a,b]$ it holds that
-      \[ \lim_{\lambda\to\infty} \int_\alpha^\beta \sin(\lambda x)\, dx = 0. \]
-    \item For all step functions $g \in \tau[a,b]$ it holds that
-      \[ \lim_{\lambda\to\infty} \int_a^b g(x) \sin(\lambda x) \, dx = 0. \]
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 18.a}
-\[
-  \left.-\frac1\lambda \cos(\lambda x)\right|_\alpha^\beta
-  = \underbrace{\frac1{\lambda}}_{\to 0} \underbrace{\left(-\cos(\beta \lambda) + \cos(\alpha\lambda)\right)}_{\text{bounded}}
-\]
-
-% The image 18.pdf illustrates the behavior of sin(\lambda x)
-
-\subsection{Exercise 18.b}
-Because $g$ is a step function of $[a,b]$, there exists a decomposition
-\[ a = x_0 < x_1 < \ldots < x_n = b \]
-such that $g(x)$ has a constant value $c_i$ in every subinterval $[x_{i-1}, x_i)$.
-\[
-  \lim_{\lambda\to\infty} \int_a^b f(x) \sin(\lambda x) \, dx
-  = \lim_{\lambda\to\infty} \sum_{i=1}^n c_i \int_{x_{i-1}}^{x_i} \sin(\lambda x) \, dx
-\]
-This can be done, because we consider a finite sum.
-\[
-  \sum_{i=1}^n c_i \underbrace{\int_{x_{i-1}}^{x_i} \sin(\lambda x) \, dx}_{\to 0 \forall \text{ subintervals } H(i)}
-\] \[
-  = \sum_{i=1}^n c_i \cdot \underbrace{\lim \int_{x_{i-1}}^{x_i} \sin(\lambda x) \, dx = 0}_{\to 0}
-\]
-
-\subsection{Conclusion}
-Because $f(x)$ is a regulated function $\forall \varepsilon > 0$, there exists a step function
-$g_\varepsilon(x)$ with $\abs{f(x) - g_{\varepsilon}(x)} < \varepsilon \quad \forall x \in [a,b]$.
-
-\[
-  \abs{\int_a^b f(x) \cdot \sin(\lambda x) \, dx}
-  \leq \underbrace{\int_a^b \abs{\underbrace{f(x) - g_\varepsilon(x)}_{< \varepsilon}}}_{< \varepsilon (b - a)} \cdot \abs{\underbrace{\sin(\lambda x)}_{\leq 1}} \, dx
-  + \underbrace{\abs{\int_a^b g_\varepsilon(x) \sin(\lambda x) \, dx}}_{\to 0 \text{ for } \lambda \to \infty}
-\] \[
-  \lim_{\lambda\to\infty} \abs{\int_a^b f(x) \sin(\lambda x) \, dx} \leq \varepsilon (b - a)
-\]
-We can choose $\varepsilon$ arbitrary, so it must tend towards $0$.
-
-\section{Exercise 19}
-\begin{ex}
-  Let $I, J \subseteq \mathbb R$ be intervals, $f: I \to \mathbb R$ continuous and $g,h: J \to I$ differentiable.
-  Furthermore it holds that $g \leq h$ in $J$. Prove that
-  \[ A: J \to \mathbb R, \quad x \mapsto \int_{g(x)}^{h(x)} f(\xi) \, d\xi \]
-  is differentiable and determine its derivative.
-\end{ex}
-
-\subsection{Exercise 19.a}
-Show differentiability.
-
-So
-\[ \lim_{x\to x_0} \frac{A(x) - A(x_0)}{x - x_0} \]
-exists.
-\[
-  \lim_{x\to x_0} \frac{A(x) - A(x_0)}{x - x_0}
-  = \lim_{x\to x_0} \frac{\int_{g(x)}^{h(x)} f(\xi) \, d\xi - \int_{g(x_0)}^{h(x_0)} f(\xi) \, d\xi}{x - x_0}
-  = \lim_{x\to x_0} \frac{F(h(x)) - F(g(x)) - F(h(x_0)) + F(g(x_0))}{x - x_0}
-\]
-$F(h(x))$ and $F(g(x))$ exists, because $h(x)$ is continuous, so a regulated function and regulated functions always have a primitive function.
-\[
-  \lim_{x\to x_0} \frac{F(h(x)) - F(h(x_0))}{x - x_0} -
-  \lim_{x\to x_0} \frac{F(g(x)) - F(g(x_0))}{x - x_0}
-\]
-If $h(x)$ is continuous, then $F(h(x))$ is differentiable (analogously for $g(x)$).
-And the composition is also differentiable.
-
-\subsection{Exercise 19.b}
-Determine its derivative.
-
-\[
-  (F \circ h)' (x) - (F \circ g)'(x_0)
-  = f(h(x_0)) \cdot h'(x_0) - f(g(x_0)) \cdot g'(x_0)
-\]
-
-\section{Exercise 20}
-\begin{ex}
-  Determine the following integrals for arbitrary $a,b \in \mathbb R, a < b$:
-  \begin{itemize}
-    \item $\int_a^b \frac{d}{dx} \left(x^5 \cdot e^x\right) \, dx$
-    \item $\int_a^b x^4 e^{x^5} \, dx$
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 20.a}
-\[
-  \int_a^b \frac{d}{dx} \left(x^5 e^{x}\right) \, dx
-  = \int_a^b 5x^4 e^x - x^5 e^x \, dx
-  = \int_a^b \underbrace{e^x}_{g'(x)} \underbrace{(5 x^4 - x^5)}_{= f(x)} \, dx
-\] \[
-  = \left.e^x (5x^4 - x^5) \right|_a^b - \int_a^b e^x (20 x^3 + 5x^4)
-  = e^b b^5 - e^a a^5
-\]
-
-\subsection{Exercise 20.b}
-\[
-  \int_a^b x^4 e^{x^5} \, dx
-\] \[
-  u \coloneqq x^5 \Rightarrow \frac{du}{dx} = 5x^4 \qquad dx = \frac{du}{5x^4}
-\] \[
-  = \int_{a^5}^{b^5} x^4 e^u \, \frac{du}{5x^4}
-  = \int_{a^5}^{b^5} e^u \, \frac{du}{5}
-  = \frac15 \int_{a^5}^{b^5} e^u \, du
-  = \frac15 \left(e^{b^5} - e^{a^5}\right)
-\]
-
-Other approach for 20.b:
-\[ F = \frac15 e^{x^5} \]
-\[ F' = x^4 e^{x^5} = f \]
-
-\section{Exercise 21}
-\begin{ex}
-  Consider function $f$.
-  \[
-    f: [-1, 1] \to \mathbb R,
-    \quad
-    x \mapsto \begin{cases}
-      0,              & x = 0, \\
-      \frac{1}{n+2},  & x \in \left[-\frac1n, -\frac1{n+1}\right) \cup \left(\frac1{n+1}, \frac1n\right], n \in \mathbb N_+.
-    \end{cases}
-  \]
-  Is $f$ a step function? Is $f$ a regulated function? Furthermore determine
-  \[ \int_{-1}^1 f(x) \, dx. \]
-\end{ex}
-
-Is not a step function, because the number of intervals is not finite.
-
-Is it a regulated function? We can approximate $f$ using the following construction:
-\[
-  \varphi_k(x) = \begin{cases}
-    0 & x = 0 \\
-    \frac{1}{n+2}  & x \in \left[-\frac1n, -\frac1{n+1}\right) \cup \left(\frac1{n+1}, \frac1n\right], n \in \mathbb N, n \leq k \\
-    0 & \text{else}
-  \end{cases}
-\]
-We choose a $k$ such that all elements smaller $k$ are nonzero.
-This approximates our function $f$.
-
-Consider
-\[
-  \int_{-1}^1 f(x) \, dx \overset{\varphi_n \to f \text{ uniformly}}{=}
-  \lim_{h\to\infty} \int_{-1}^1 \varphi_n(x) \, dx
-\]
-\[
-  \int_{-1}^1 \varphi_n(x) \, dx
-  = \sum_{j=1}^N c_j \triangle x_j
-  = \sum_{n=1}^k \frac{1}{n+2} \cdot \abs{\frac1n - \frac1{n+1}} \cdot 2
-  = 2 \cdot \sum_{n=1}^k \left(\frac{1}{n (n + 2)} - \frac{1}{(n + 2) (n + 1)}\right)
-\] \[
-  = 2 \cdot \sum_{n=1}^k \left(\frac12 \left(\frac1n - \frac1{n+2}\right) - \left(\frac1{n + 1} - \frac1{n+2}\right)\right)
-\]
-Alternatively we can also split it up, because we estimate that a series with $\frac1{n^2}$ converges.
-\[
-  = 2 \sum_{n=1}^k \frac12 \left(\frac1n - \frac1{n+2}\right)
-  - 2 \sum_{n=1}^k \left(\frac{1}{n+1} - \frac{1}{n+2}\right)
-  = 1 + \frac12 - 2 \cdot \frac12 = \frac12
-\]
-This expression is easier to evaluate as telescoping sum.
-
-If we take the first approach, we need to apply partial fraction decomposition.
-\[
-  \frac12 \int_k = \frac12 \int_{-1}^1 \varphi_k(x) \, dx
-  = \frac34 - \frac12 + \frac12 \left(\underbrace{\frac1{k+1}}_{\to 0} + \underbrace{\frac1{k+2}}_{\to 0}\right) - \frac{1}{k+1} \overset{h\to\infty}{\longrightarrow} \frac34 - \frac12 = \frac14
-\]
-
-\section{Exercise 22}
-\begin{ex}
-  Let $I \subseteq \mathbb R$ be an interval. Determine with the idea from below
-  a primitive function of
-  \[ f: I \to \mathbb R, \qquad x \mapsto x^2 \sin{x^3} \cos{x^3}. \]
-  \begin{itemize}
-    \item For all $x \in \mathbb R$ it holds that
-      \[ \sin{x} \cos{x} = \frac12 \sin(2x). \]
-    \item For all $x \in \mathbb R$ it holds that
-      \[ \sin{x} \cos{x} = \frac12 \frac{d}{dx} \sin^2(x). \]
-  \end{itemize}
-  Explain possible differences between the results.
-\end{ex}
-
-\subsection{Exercise 22.a}
-%
-\[
-  \int x^2 \sin(x^3) \cos(x^3) \, dx
-  = \int x^2 \frac12 \sin(2x^3) \, dx
-\]
-Substitute with $u = 2x^3$ and $dx = \frac{du}{6x^2}$.
-\[
-  = \int x^2 \frac12 \sin(u) \frac{du}{6x^2}
-  = - \frac1{12} \cos(u) + c
-  = - \frac1{12} \cos(2x^3) + c
-\]
-
-\subsection{Exercise 22.b}
-%
-\[ \forall x \in \mathbb R: \sin(x) \cos(x) = \frac12 \frac{d}{dx} \sin^2(x) \]
-\[
-  \forall x \in \mathbb R:
-    \sin(x^3) \cos(x^3)
-      = \frac{1}{6x^2} \frac{d}{dx} \sin^2(x^3)
-      = \frac1{6x^2} 2 \sin(x^3) \cos(x^3) 3x^2
-      = \sin(x^3) \cos(x^3)
-\]
-
-\[
-  \int x^2 \sin(x^3) \cos(x^3) \, dx =
-  \int x^2 \frac{1}{6x^2} \frac{d}{dx} \sin^2(x^3) \, dx
-  = \frac16 \sin^2(x^3) + c
-\]
-
-\subsection{Exercise 22.c}
-
-\[
-  \cos(2x^3) = \cos^2(x^3) - \sin^2(x^3)
-    = 1 - \sin^2(x^3) - \sin^2(x^3)
-    = 1 - 2 \sin^2(x^3)
-\] \[
-  \Rightarrow \frac16 \sin^2(x^3) + \tilde c
-\]
-with $\tilde c \approx \frac1{12} + c$.
-
-\section{Exercise 23}
-\begin{ex}
-  Determine the following integrals using integration by parts.
-  \begin{enumerate}
-    \item $\int e^x \sin{x} \, dx$
-    \item $\int \arcsin{x} \, dx$
-    \item $\int_0^1 x^2 \ln^3(x) \, dx$
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 23.a}
-\[ \int \underset{u}{e^x} \underset{v'}{\sin(x)} \, dx \]
-with $v = -\cos{x}$ and $u' = e^x$.
-\[ = e^x (-\cos{x}) - \int \underset{u}{e^x} \cdot \underset{v'}{(-\cos{x})} \, dx \]
-with $u' = e^x$ and $v = -\sin{x}$.
-\[ = e^x (-\cos{x}) - \left(e^x \cdot (-\sin{x})\right) + \int e^x (-\sin{x}) \, dx \]
-\[ = e^x \left(-\cos{x} + \sin{x}\right) - \int e^x \sin{x} \, dx \]
-
-\[ \Rightarrow 2 \int e^x \sin(x) \, dx = e^x \left(-\cos(x) + \sin(x)\right) + c \]
-
-\subsection{Exercise 23.b}
-\[
-  \int \arcsin(x) \, dx = \int \underset{v}{\arcsin(x)} \cdot \frac{v'}{1} \, dx
-\]
-with $v = x$ and $u' = \frac{1}{\sqrt{1 - x^2}}$.
-\[ = \arcsin(x) \cdot x - \int x \frac{1}{\sqrt{1 - x^2}} \, dx \]
-Let $t = 1 - x^2$. Hence $\frac{dt}{dx} = -2x$.
-\[ = \arcsin(x) \cdot x - \int \frac{x}{\sqrt{t}} \cdot \frac{1}{-2x} \, dt \]
-\[ = \arcsin(x) \cdot x + \frac12 \int \frac{1}{\sqrt{t}} \, dt \]
-\[ = \arcsin(x) \cdot x + \frac12 \cdot 2 \sqrt{t} + c \]
-Backsubstitution:
-\[ = \arcsin(x) \cdot x + \sqrt{1 - x^2} + c \]
-
-\subsection{Exercise 23.c}
-\[
-  \int_0^1 \underbrace{x^2}_{f'} \underbrace{\left(\ln{x}\right)^3}_{g} \, dx
-  = \left.\frac13 x^3 \left(\ln{x}\right)^3 \right|_0^1 - \int_0^1 \frac13 x^3 \left(\ln{x}\right)^2 \cdot 3 \frac1x \, dx
-\] \[
-  = \frac13 \cdot 0 - \frac13 \cdot \left(
-    \lim_{x\to 0} (x^3 \ln^3{x})
-    - \int_0^1 \underbrace{x^2}_{f'} \underbrace{\ln^2(x)}_{g} \, dx
-  \right)
-\]
-In the end, we can apply L'H\^opital's Rule once we have expressions like $-\frac13 \varphi^3 \frac{\ln^3{\varphi}}{\ln^3{\varphi}}$.
-\[
-  = \frac23 \left(- \int_0^1 \frac13 x^2 \, dx\right)
-  = \left. -\frac29 \cdot \frac13 x^3 \right|_0^1 = -\frac{2}{27}
-\]
-
-\section{Exercise 24}
-\begin{ex}
-  Determine the following integrals using appropriate substitions:
-  \begin{enumerate}
-    \item $\int \frac{\cos^3(x)}{1 - \sin(x)} \, dx$.
-    \item $\int \frac{dx}{\sin^2(x) \cos^4(x)} \, dx$ using $t \coloneqq \tan{x}$.
-    \item $\int_0^{\frac12} \frac{x^2}{\sqrt{1 - x^2}} \, dx$ using $t \coloneqq \arcsin(x)$.
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 24.a}
-\[
-  \frac{\cos^3(x)}{1 - \sin(x)} \, dx
-  = \int \frac{\cos(x)\left(1 - \sin^2(x)\right)}{1 - \sin(x)} \, dx
-  = \int \cos'(x) \left(1 = \sin{x}\right) \, dx
-\]
-with $u = 1 + \sin{x}$ and $\frac{du}{dx} = \cos{x}$ we get
-\[
-   = \int \cos{x} \cdot u \cdot \frac{du}{\cos{x}}
-   = \frac12 u^2 + c = \frac12 \left(1 + \sin{x}\right)^2 + c
-\]
-
-Do not forget $c$ for indefinite integrals!
-
-\subsection{Exercise 24.b}
-\[
-  \int \frac{1}{\sin^2(x) \cdot \cos^4(x)} \, dx
-\] \[
-  = \int \frac{\sin^4(x) + 2 \sin^2(x) \cos^2(x) + \cos^4(x)}{\sin^2(x) \cos^4(x)} \, dx
-\] \[
-  = \int \frac{\sin^2(x)}{\cos^4(x)} + \frac{2}{\cos^2(x)} + \frac{1}{\sin^2(x)} \, dx
-\] \[
-  = \int \frac{\tan^2(x) + 2}{\cos^2(x)} \, dx + \int \frac{1}{\sin^2(x)} \, dx
-\]
-
-Consider the left-handed expression.
-Consider $t = \tan(x)$ and $\frac{dt}{dx} = \frac{1}{\cos^2(x)}$.
-\[
-  \int \frac{t^2 + 2}{\cos^2(x)} \cdot \cos^2(x) \, dt
-    = \int t^2  + 2 \, dt = \frac13 t^3 + 2t + c
-    = \frac13 \tan^3(x) + 2 \tan(x) + c_1
-\]
-
-Consider the right-handed expression.
-\[
-  \int \frac{1}{\sin^2(x)} \, dx
-    = \int \frac{\sin^2(x) + \cos^2(x)}{\sin^2(x)} \, dx
-    = \int -\frac{(\cos{x})' \sin{x} - \cos{x} \cdot (\sin(x))'}{\sin^2(x)} \, dx
-\] \[
-  = -\int \left(\frac{\cos{x}}{\sin{x}}\right)' \, dx = -\frac{\cos{x}}{\sin{x}}  + c_2
-\]
-
-So for the overall expression it holds that
-\[
-  \int \frac{\tan^2(x) + 2}{\cos^2(x)} \, dx + \int \frac{1}{\sin^2(x)} \, dx
-  = \frac13 \tan^3(x) + 2\tan(x) - \frac{1}{\tan(x)} + c_3
-\]
-
-\subsection{Exercise 24.b: Alternative approach}
-\[ \int \frac{1}{s^2 c^4} \, dx \]
-with $s = \sin(x)$, $c = \cos(x)$, $t = \tan(x)$ and $\frac{dt}{dx} = \frac{1}{c^2}$.
-It holds that
-\[
-  t^2 = \frac{s^2}{c^2} = \frac{1 - c^2}{c^2} = \frac{1}{c^2} - 1
-\] \[
-  c^2 = \frac{1}{1 + t^2}
-\] \[
-  t^2 = \frac{s^2}{c^2} = \frac{s^2}{1 - s^2} = -1 + \frac{1}{1 - s^2}
-\] \[
-  1 - s^2 = \frac{1}{1 + t^2}
-\] \[
-  s^2 = 1 - \frac{1}{1 + t^2} = \frac{t^2}{1 + t^2}
-\]
-
-\[
-  \int \frac{1}{s^2 c^4} \, dx
-     = \int \frac{1}{s^2 c^2} \, dt
-     = \int \frac{1 + t^2}{t^2}(1 + t^2) \, dt
-\]
-
-\subsection{Exercise 24.c}
-\[
-  \int_0^{\frac12} \frac{x^2}{\sqrt{1 - x^2}^3} \, dx
-  = \int_0^{\frac12} \frac{x^2 + 1 - 1}{\sqrt{1 - x^2}^3} \, dx
-  = - \int_0^{\frac12} \frac{1}{\sqrt{1 - x^2}} \, dx
-  + \int_0^{\frac12} \frac{1}{\sqrt{1 - x^2}^3} \, dx
-\]
-\[
-  = \left. -\arcsin(x) \right|_0^{\frac12}
-  + \int_0^{\frac12} \frac{1}{\sqrt{1 - x^2}^3} \, dx
-\]
-with $t = \arcsin(x)$ and $\frac{dx}{dt} = \cos(t)$ with $x = \sin(t)$.
-Also $\sqrt{1 - x^2}^3 = \sqrt{\cos^2(t)}^3 = \cos(t)^3$.
-
-Recognize that $x$ must be positive for this to hold. As it turns out,
-this is fine within the interval $(0, \frac12)$.
-
-\[
-  = \left. -\arcsin(x) \right|_0^{\frac12}
-  + \int_{x=0}^{x = \frac12} \frac{1}{\cos^3(t)} \cdot \cos(t) \, dt
-\] \[
-  = \left. -\arcsin(x) \right|_0^{\frac12}
-  + \int_{x=0}^{x = \frac12} \frac{1}{\cos^2(t)} \, dt
-\] \[
-  = \left. -\arcsin(x) \right|_0^{\frac12}
-  + \left. \tan(t) \right|_{x=0}^{x=\frac12}
-\] \[
-  = \left. -\arcsin(x) \right|_0^{\frac12}
-  + \left. \tan(\arcsin(x))  \right|_0^{\frac12}
-\] \[
-  = -\arcsin\left(\frac12\right) + \arcsin(0) + \tan\left(\frac\pi6\right) - \tan(0)
-\] \[
-  = -\frac\pi6 + 0 + \frac{\frac12}{\sqrt{\frac34}} - 0
-\] \[
-  = -\frac\pi6 + 0 + \frac1{\sqrt{3}} - 0
-\]
-
-\section{Exercise 25}
-\begin{ex}
-  Determine
-  \begin{itemize}
-    \item $\int \frac{\sin{x}}{\sin{x} + \cos{x}} \, dx$.
-    \item $\int_{\frac\pi4}^{\frac\pi3} \frac{\sqrt{\tan{x}}}{\cos^2(x)} \, dx$.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 25.a}
-\[
-  \int \frac{\sin{x}}{\sin{x} + \cos{x}}
-    = \frac{\frac12 \left(\sin{x} + \cos{x}\right) - \frac12 \left(-\sin{x} + \cos{x}\right)}{\sin{x} + \cos{x}} \, dx
-\] \[
-  = \int \left(\frac12 + \frac{\sin{x} - \cos{x}}{2 (\sin{x} + \cos{x})}\right) \, dx
-\]
-With $u = \sin{x} + \cos{x}$ and $dx = \frac{du}{\cos(x) - \sin{x}}$, we get
-\[ = \frac12 x + \frac12 \cdot \int -\frac{1}{u} \, du \]
-\[ = \frac x2 - \frac12 \cdot \ln(\sin{x} + \cos{x}) + c \]
-
-\section{Exercise 25.b}
-\[
-  \int_{\frac\pi4}^{\frac\pi3} \frac{\sqrt{\tan{x}}}{\cos^2(x)} \, dx
-\]
-Consider $u = \tan{x}$ and $dx = du \, \cos^2{x}$.
-\[
-  = \int_{x=\frac{\pi}{4}}^{x = \frac\pi3} \sqrt{u} \, du
-  = \left. \frac23 (\tan(x))^{\frac32} \right|_{\frac\pi4}^{\frac\pi3}
-\] \[
-  = \frac23 \left(3^{\frac34} - 1\right)
-\]
-
-\section{Exercise 27}
-\begin{ex}
-  Investigate the following impropert integrals for convergence.
-  \begin{enumerate}
-    \item $\int_1^\infty \frac{x^2}{2x^4 - x + 1} \, dx$.
-    \item $\int_0^\infty x^\alpha e^{-x} \, dx$, $\alpha \in \mathbb R$.
-    \item $\int_0^\infty \frac{\sqrt{x}}{(1 + x)^2} \, dx$.
-    \item $\int_0^\infty \left(\frac{\pi}{2} - \arctan(x)\right) \, dx$.
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 27.a}
-\[ \int_1^\infty \frac{x^2}{2x^4 - x + 1} \, dx \]
-\[ \frac{x^2}{2x^4 - x + 1} = \frac{x^2}{x (2x^3 - 1) + 1} < \frac{x}{2x^3 - 1} \leq \frac{x}{x^3} = \frac{1}{x^2} \]
-\[ \int_1^b \frac{x^2}{2x^4 - x + 1} \, dx < \int_1^b \frac1{x^2} \, dx = \left[-\frac1x\right]_1^b = -\frac1b + 1 < 1 \]
-
-In general: Approximately $\int_1^\infty \frac{x^2}{2x^4 - x + 1}$ converges becomes it looks close to $\int_1^\infty \frac{x^2}{2x^4} \, dx$.
-
-\subsection{Exercise 27.b}
-\[ \int_1^\infty \frac{x^\alpha}{e^x} \, dx \qquad \alpha \in \mathbb R \]
-\[ \frac{x^\alpha}{e^x} = \frac{e^{\alpha \cdot \ln{x}}}{e^x} = e^{\alpha \ln(x) - x} \]
-\[ e^x = \sum_{k=0}^\infty \frac{x^k}{k!} > \sum_{k=l}^\infty \frac{x^k}{k!} \quad l \geq \alpha \]
-\[ x \geq 1: \frac{x^\alpha}{e^x} \leq \frac{x^l}{e^x} = \frac{x^l}{\sum_{k=0} \frac{x^k}{k!}} < \frac{x^l}{\frac{x^{l+2}}{(l+2)!}} = \frac{(l+2)!}{x^2} \]
-\[ \int_1^b \frac{x^\alpha}{e^x} \, dx < \int_1^b \frac{(l+2)!}{x^2} \, dx < (l + 2)! \]
-
-\subsection{Exercise 27.c}
-\[ \int_0^\infty \frac{\sqrt{x}}{(1 + x)^2} \, dx = \int_0^1 \frac{\sqrt{x}}{(1 + x)^2} \, dx + \int_1^\infty \frac{\sqrt{x}}{(1 + x)^2} \, dx \]
-\[ x \geq 1: \frac{\sqrt{x}}{(1 + x)^2} < \frac{\sqrt{x}}{x^2} = x^{-\frac32} \]
-\[ \int_1^b \frac{\sqrt{x}}{(1 + x)^2} \, dx < \int_1^b x^{-\frac32} \, dx = 2 - \frac{2}{\sqrt{b}} < 2 \]
-\[ 0 \leq x \leq 1: \frac{\sqrt{x}}{(1 + x)^2} < \frac{\sqrt{x}}{1} = \sqrt{x} < 1 \]
-
-\subsection{Exercise 27.d}
-\[ \int_0^\infty \left(\frac\pi2 - \arctan(x)\right) \, dx \]
-\[ \int \arctan(x) \cdot 1 \, dx = x \cdot \arctan(x) - \int \frac{x}{1 + x^2} \, dx \]
-Integration by substitution:
-\[ t = 1 + x^2 \qquad \frac{dt}{dx} = 2x \Rightarrow dx = \frac{dt}{2x} \]
-\[ = x \cdot \arctan(x) - \int \frac{* \, dx}{t \cdot 2*} = x \cdot \arctan(x) - \frac{1}{2} \ln(1 + x^2) + c \]
-\[ \Rightarrow \int_0^b (x - \arctan(x)) \, dx = \left.\frac\pi2 - x \cdot \arctan(x) + \frac12 \ln(1 + x^2) \right|_0^b \]
-\[
-  = \underbrace{b}_{>0} \underbrace{\left(\frac\pi2 - \arctan(b)\right)}_{>0} + \frac12 \ln(1 + b^2)
-  > \frac12 \ln(1 + b^2) > M
-\]
-
-\subsection{Remark by the tutor}
-\[ \int_1^\infty \frac{1}{x^c} \, dx \text{ converges} \iff c > 1 \]
-\[
-  \lim_{x\to\infty} \frac{\frac\pi2 - \arctan(x)}{\frac1x}
-  \overset{\text{L'H\^opital}}{=}
-  \lim_{x\to\infty} \frac{-\frac{1}{1 + x^2}}{-\frac{1}{x^2}} = -1
-\] \[
-  \exists x_0: \frac{\pi}{2} - \arctan(x) > \frac12 \cdot \frac1x
-  \quad \forall x \geq x_0
-\] \[
-  \int_0^\infty \frac{\pi}{2} - \arctan(x) \, dx \geq \int_{x_0}^\infty \frac12 \frac1x \, dx
-\]
-
-\section{Exercise 28}
-\begin{ex}
-  Find all primitive functions of $f: (-1, 1) \to \mathbb R$ with $x \mapsto \frac{1}{1 - x^4}$ using partial fraction decomposition.
-
-  Hint: To derive the partial fraction decomposition use
-  \[ \frac{1}{(1 - x)(1 + x)(1 + x^2)} = \frac{a}{1 - x} + \frac{b}{1 + x} + \frac{cx + d}{1 + x^2} \]
-  with constants $a,b,c,d \in \mathbb R$. Determine the values for $a,b,c,d$.
-\end{ex}
-
-\[ \int \frac{1}{1 - x^4} \, dx = \int \frac{1}{4(1 - x)} \, dx + \int \frac{1}{4(1 + x)} \, dx + \int \frac{1}{2(1 + x^2)} \, dx \]
-
-The first resulting integrals are:
-\[ \frac14 \int \frac{1}{1 - x} \, dx = -\frac14 \ln{1 - x} + c \]
-\[ \frac14 \int \frac{1}{1 + x} \, dx = \frac14 \ln(1 + x) + c \]
-\[ \frac12 \int \frac{1}{1 + x^2} \, dx = \frac12 \arctan(x) + c \]
-
-\[ \int \frac{1}{1 - x^4} \, dx = -\frac14 \ln(1 - x) + \frac14 \ln(1 + x) + \frac{1}{2} \arctan(x) + c \]
-\[ \frac14 \ln\left(\frac{1 + x}{1 - x}\right) + \frac12 \arctan(x) + c \]
-
-\section{Exercise 29}
-\begin{ex}
-  Given a function $f: (0, \infty) \to \mathbb R$ with $x \mapsto \frac{1}{x + \sqrt{x}}$.
-  \begin{itemize}
-    \item Determine the Taylor polynomial of second degree $T_f^2(x;1)$ of function $f$ in point $x_0 = 1$.
-    \item Determine an upper bound for the error $\abs{f(x) - T_f^2(x;1)}$ in interval $[1;2]$.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 29.a}
-\[ f'(x) = -\frac{1 + 2\sqrt{x}}{2 \cdot x^{\frac32} (1 + \sqrt{x})^2} \]
-\[ f''(x) = \frac{3 + 9\sqrt{x} + 8x}{4 \cdot x^{\frac52} \cdot (1 + \sqrt{x})^3} \]
-
-\[ T_f^2(x;1) = f(1) + \frac{f'(1)}{1!} (x - 1)^1 + \frac{f^{(2)}(1)}{2!} \cdot (x - 1)^2 \]
-\[ T_f^2(x;1) = \frac12 + \frac38 (x - 1) + \frac{20}{64} (x - 1)^2 \]
-
-\subsection{Exercise 29.b}
-\[ R_f^n(x;a) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \cdot (x - x_0)^{n+1} \qquad \xi \in [x_0, x] \]
-\[ f'''(x) = - \frac{3 \cdot (16 x^{\frac32} + 29x + 20\sqrt{x} + 5}{8 \cdot (\sqrt{x} + 1)^4 \cdot x^{\frac52}} \]
-\[ \abs{R_f^n(x;1)} = \frac{(x - 1)^3}{(3)!} \]
-
-Upper bound (not the best, but works):
-\[ \frac{3 \cdot 65 x^{\frac32} + 15}{8 \cdot 16 \cdot x^{\frac52}} \leq \frac{3 \cdot 65}{8 \cdot 16x} + \frac{15}{8 \cdot 16x^{\frac52}} \]
-
-$f'''(x)$ is monotonically increasing and we look at the interval $[1,2]$.
-So we are closest to $0$, if $x=1$.
-
-\section{Exercise 30}
-\begin{ex}
-  Let $g: \mathbb R \to \mathbb R$, $x \mapsto \sin(2x)$.
-  \begin{enumerate}
-    \item For arbitrary $n \in \mathbb N$, determine the Taylor polynomial of $n$-th degree
-      $T_g^n(x;0)$ of $g$ in $x_0 = 0$.
-    \item Give a Taylor polynomial $T_g^n(x; 0)$ such that $\abs{g(x) - T_g^n(x; 0)} < 10^{-6}$
-      holds for $[-\pi,\pi]$.
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 30.a}
-
-\begin{align*}
-  g(x) &= \sin(2x) \\
-  g^{(1)}(x) &= \cos(2x) \cdot 2 \\
-  g^{(2)}(x) &= -\sin(2x) \cdot 2^2 \\
-  g^{(3)}(x) &= -\cos(2x) \cdot 2^3 \\
-  \ldots & \ldots
-\end{align*}
-
-\begin{align*}
-  T_g^n(x;0) &= g(0) + \frac{g^{(1)}(0) (x - 0)}{1!} + \ldots \\
-    &= \underbrace{\sin(0)}_{=0} + \underbrace{\cos(0) \cdot 2x}_{=2x} + \frac{-\sin(0) \cdot 2^2 x^2}{2} + \frac{-\cos(0) \cdot 2^3 x^3}{3!} = -\frac{2^3 x^3}{3!} + \ldots \\
-  T_g^n(x;0) &= \sum_{k=0}^m (-1)^k \cdot \left(\frac{(2x)^{2k+1}}{(2k + 1)!}\right)
-    \qquad \text{ s.t. } 2m + 1 \leq n, 2m + 3 \geq n
-\end{align*}
-
-Even easier: Consider the power series for $\sin$:
-\[ \sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots \]
-\[ \sin(2x) = (2x) - \frac{(2x)^3}{3!} + \frac{(2x)^5}{5!} - \ldots \]
-
-\subsection{Exercise 30.b}
-%
-\[ R_g^n(x; 0) = \abs{\frac{f^{(n+1)}(\xi)(x - 0)^{n+1}}{(n+1)!}} < 10^{-6} \]
-with $x, \xi \in [-\pi, \pi]$. We look at the following approximation ($\sin(x)$ and $\cos(x)$ is at most 1 and the factor $2^{n+1}$ of the derivative remains).
-Choose $\xi$ such that $\abs{f^{(n+1)}(\xi)} \leq 2^{n+1}$.
-\[
-  R_g^n(x;0) \leq \abs{\frac{2^{n+1} x^{n+1}}{(n+1)!}} < 10^{-6}
-  \iff
-  2^{n+1} x^{n+1} 10^{6} < (n+1)!
-  \iff
-  10^{6} < \frac{(n+1)!}{\abs{2^{n+1} x^{n+1}}} < (n+1)!
-\]
-In the worst case, $x$ is very large. The largest value it reaches is $\pi$. Hence,
-\[
-  \abs{R_g^n} \leq \frac{1}{(n+1)!} \cdot 2^{n+1} \cdot \pi^{n+1} \leq 10^{-6}
-  \qquad \forall x \in [-\pi, \pi]
-\]
-This holds if $n \geq 26$.
-
-\section{Exercise 26}
-\begin{ex}
-  Prove the following limit criterion for improper integrals.
-  Let $a \in \mathbb R$ and $f,g: [a,\infty) \to \mathbb R$ functions,
-  which satisfy $f \geq 0$ and $g > 0$ in $[a, \infty)$.
-  Furthermore the following limit exists:
-  \[ L \coloneqq \lim_{x\to\infty} \frac{f(x)}{g(x)} \in [0,\infty]. \]
-  Then it holds that,
-  \begin{enumerate}
-    \item $L = 0 \Rightarrow \left[\int_a^\infty g(x) \, dx < \infty \Rightarrow \int_a^\infty f(x) \, dx < \infty \right]$.
-    \item $L \in (0,\infty) \Rightarrow \left[
-        \int_a^\infty g(x) \, dx < \infty \Leftrightarrow \int_a^\infty f(x) \, dx < \infty
-      \right]$.
-    \item $L = \infty \Rightarrow \left[\int_a^\infty g(x) \, dx \text{ diverges } \Rightarrow \int_a^\infty f(x) \, dx \text{ diverges}\right]$.
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 26.a}
-We provide a counterexample:
-\[
-  f(x) = \begin{cases}
-    \frac1x & 0 < x < 1 \\
-    0 & x = 0 \\
-    \frac1{x^2} & x > 1
-  \end{cases}
-\] \[
-  g(x) = \frac{1}{x^2 + 1}
-\] \[
-  a = 0
-\]
-
-To make this proposition work, $f$ must be continuous or even boundedness should suffice.
-\[
-  \forall \varepsilon > 0 \exists x_0 \forall x \geq x_0:
-  \abs{\frac{f(x)}{g(x)}} < \varepsilon
-\]
-Both functions yield positive values:
-\[
-  \forall \varepsilon > 0 \exists x_0 \forall x \geq x_0:
-  \frac{f(x)}{g(x)} < \varepsilon
-\]
-
-\[ \int_a^\infty f(x) \, dx = \int_a^{x_0} f(x) \, dx + \int_{x_0}^\infty f(x) \, dx \]
-
-\[
-  \forall \varepsilon > 0 \exists x_0 \forall x \geq x_0:
-  \frac{f(x)}{g(x)} < \varepsilon
-  \iff
-  f(x) < \varepsilon \cdot g(x)
-  \implies
-  \int_{x_0}^\infty f(x) \, dx < \varepsilon \int^{\infty} g(x) \, dx
-\]
-
-Because of boundedness we can provide the following estimates:
-\[ \int_a^\infty f(x) \, dx = \underbrace{\int_a^{x_0} f(x) \, dx}_{<\infty} + \underbrace{\int_{x_0}^\infty f(x) \, dx}_{< \infty} \]
-\[ \implies < \infty \]
-
-\subsection{Exercise 26.b}
-\[
-  \forall \varepsilon > 0
-  \exists x_0
-  \forall x \geq x_0:
-  \abs{\frac{f(x)}{g(x)} - L} < \varepsilon
-\] \[
-  \iff L - \varepsilon < \frac{f(x)}{g(x)} < L + \varepsilon
-\] \[
-  \iff (L - \varepsilon) \cdot g(x) < f(x) < (L + \varepsilon) \cdot g(x)
-\] \[
-  (L - \varepsilon) \int_{x_0}^\infty g(x) \, dx
-  \leq \int_0^\infty f(x) \, dx
-  \leq (L + \varepsilon) \int_{x_0}^\infty g(x)
-\]
-
-\subsection{Exercise 27.c}
-\[
-  \forall n \exists x_0 \forall x \geq x_0:
-  \frac{f(x)}{g(x)} > n
-  \iff f(x) > n \cdot g(x)
-  \implies \int_{x_0}^\infty f(x) \, dx \geq n \cdot \int_{x_0}^\infty g(x)
-\]
-
-\section{Exercise 31}
-\begin{ex}
-  Let $I \subseteq \mathbb R$ be an interval, $a \in I$, $n \in \mathbb N$
-  and $f: I \to \mathbb R$ is differentiable $n$-times.
-  Show: If a polynomial
-  \[ P(x) = \sum_{k=0}^{n} a_k(x - a)^k \]
-  with $a_k \in \mathbb R$, $0 \leq k \leq n$ satisfies
-  \[ \lim_{x\to a} \frac{f(x) - P(x)}{(x - a)^n} = 0 \]
-  then $P(x) = T_f^n(x;a)$.
-\end{ex}
-
-\[
-T_f^n(x;a) = f(a) + \frac{f'(a)(x - a)}{1!} + \frac{f''(a)(x - a)^2}{2!} + \ldots + \frac{f^{(n)}(a)(x - a)^n}{n!}
-= \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x - a)^k
-\]
-
-How do derivatives of $P$ look like?
-\[ P^{(1})(x) = \sum_{k=0}^n k a_k (x - a)^{k-1} \]
-\[ P^{(2)}(x) = \sum_{k=0}^n a_k k (k - 1) (x - a)^{k-2} \]
-\[ P^{(i)}(x) = \sum_{k=0}^n k (k-1) \cdot \ldots \cdot (k - i + 1) a_k (x - a)^{k-i}  \]
-\[ P^{(i)}(a) = a_k \cdot \underbrace{k (k-1) (k-2) \cdot \ldots \cdot (1)}_{=k!} \]
-\[ a_k = \frac{P^{(k)}(a)}{k!} \]
-\[ P(x) = \sum_{k=0}^n a_k (x - a)^k = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (x - a)^k \]
-
-For $k=0$:
-\[ P^{(0)}(a) = P(a) = a_k(a - a)^0 = a_k \]
-\[ \lim_{x \to a} \frac{f(x) - P(x)}{(x - a)^n} = \lim_{n\to\infty} \frac{f'(x) - P'(x)}{n (x - a)^{n-1}} = \text{apply L'H\^opital's rule $n$ times} = \lim_{x\to a} \frac{f^{(n)}(x) - P^{(n)}(x)}{n! (x - a)^0} = 0 \]
-
-Because $f$ and $p$ are continuous, we have
-\[ f(x) - P(x) \overset{x \to a}{\to} 0 \]
-\[ f(a) - P(a) = 0 \Leftrightarrow f(a) = P(a) \]
-
-We need to show: $P^{(k)}(a) = f^{(k)}(a)$ for $0 \leq k \leq n$ and $P^{(0)}(a) = f^{(0)}(a)$.
-
-\section{Exercise 32}
-\begin{ex}
-  Let $f_n: [a,b] \to \mathbb R$, $a < b$, be a sequence of regulated functions
-  converging uniformly to $f: [a,b] \to \mathbb R$. Prove that $f$ is a regulated
-  function and limes and integration can be exchanged as follows:
-  \[
-    \lim_{n\to\infty} \int_a^b f_n(x) \, dx
-    = \int_a^b \lim_{n\to\infty} f_n(x)\, dx \left( = \int_a^b f(x) \, dx\right)
-  \]
-\end{ex}
-
-\[ \forall \varepsilon > 0 \exists N = N(\varepsilon): \forall n \geq N: \ldots \]
-\[ \text{Especially for } n = N(\varepsilon): \ldots \]
-\[ \exists M = M(\varepsilon): \forall m \geq M: \ldots \]
-\[ \text{Especially for } m = M(\varepsilon): \ldots \]
-\[ \forall x: \abs{f_{N(\varepsilon)}(x) - f(x)} < \varepsilon \]
-\[ \abs{f_{N(\varepsilon)}(x) - f_{N(\varepsilon),M(\varepsilon)}} < \varepsilon \]
-
-\[ h_k \coloneqq g_{N(\frac1{k}),M(\frac{1}{k})} \]
-\[ \forall x \abs{f(x) - h_k(x)} \leq \frac{2}{k} \overset{k\to\infty}{\to} 0 \]
-
-\section{Exercise 33}
-
-\[ P(x) \coloneqq \sum_{k=0}^\infty a_k x^k \qquad \rho = c > 0 \]
-
-To show: $\forall b \in (-c,c), a < b$:
-\[ \sum_{k=0}^\infty \int_a^b a_k x^k \, dx = \int_a^b \sum_{k=0}^\infty a_k x^k \, dx = \int_a^b P(x) \, dx \]
-
-\[ \sum_{k=0}^\infty \int_a^b a_k x^k \, dx = \lim_{n\to\infty} \sum_{k=0}^n \int_a^b a_k x^k \, dx
-= \lim_{n\to\infty} \int_a^b \sum_{k=0}^n a_k x^k \, dx \overset{\text{ex. 32}}{=} \int_a^b \lim_{n\to\infty} \sum_{k=0}^n a_k x^k \, dx \]
-
-But we need to show that the requirements for the equation in exercise~32 are satisfied.
-
-\[ f(x) = \sum_{k=0}^\infty a_k \cdot x^k \qquad g(f) = c \]
-\[ f_n(x) = \sum_{k=0}^n a_k \cdot x^k \]
-\[ \abs{f(x) - f_n(x)} = \abs{\sum_{k=0}^\infty a_k x^k - \sum_{k=0}^n a_k x^k} = \abs{\sum_{k=n+1}^\infty a_n \cdot x^k} \leq \sum_{k=n+1}^\infty \abs{a_k} \cdot \abs{x^k} \]
-
-It holds that $\abs{\frac{x}{r}}^k \leq \abs{\frac{x}{r}}^{n+1}$. Then consider
-\[ \abs{r < c} = \sum_{k=n+1}^\infty \abs{a_k} \cdot \frac{\abs{x}^k}{\abs{r}^k} \cdot \abs{r}^k \leq \abs{\frac{x}{r}}^{n+1} \underbrace{\sum_{k=n+1}^\infty \abs{a_n} \cdot \abs{r}^k}_{=S} = \underbrace{\abs{\frac{x}{r}}^{n+1}}_{<\varepsilon} \cdot S \]
-We chose some $c$ close enough such that our desired properties are fulfilled.
-
-\subsection{Elaboration}
-Convergence radius $c$: $\abs{x} < c$ and $\abs{x} < r < c$.
-Let $a_k r^k$ be bounded and $\sum_{k} a_k r^k$ be convergent.
-\[ \sum_{k=0}^\infty \abs{a_k x^k} \leq \sum_{k=0}^\infty \abs{\frac{x}{r}}^k \underbrace{\abs{a_k r^k}}_{\leq C} \leq C \sum_{k=0}^\infty \abs{\frac{x}{r}}^k = \frac{c}{1 - \abs{\frac{x}{r}}} \]
-
-\section{Exercise 34}
-\begin{ex}
-  Determine the power series representation $P(x)$ of $\arctan$ in $x_0 = 0$.
-  Furthermore give the largest interval $(-c, c)$ with $c > 0$ in which power
-  series $P(x)$ represents arctan.
-
-  Hint: Represent the derivative of arctan as a power series and use exercise~33.
-\end{ex}
-
-\[ \arctan(x) = \frac{1}{1 + x^2} = \sum_{n=0}^\infty (-1)^n x^{2n} \]
-
-Geometrical series:
-\[ \sum_{n=0}^\infty x^n = \frac{1}{1 - x} \qquad \text{ converges if } \abs{x} < 1 \]
-
-\[ \sum_{n=0}^\infty (-1)^n x^{2n} = \sum_{n=0}^\infty \left(\frac{(-1)^n}{2n + 1} x^{2n+1} + c\right)' \]
-
-\[ T_n(x,0) = \sum_{k=0}^n \frac{f^{(k)}(0)}{k!} \cdot x^k \]
-\begin{align*}
-  \arctan^{(2)}(x) &= \sum_{n=0}^\infty (-1)^n 2n x^{2n-1} \\
-  \arctan^{(3)}(x) &= \sum_{n=0}^\infty (-1)^n 2n (2n - 1) x^{2n-2} \\
-  \arctan^{(k)}(x) &= \sum_{n=0}^\infty (-1)^n (2n) (2n - 1) \ldots (2n - (k-2)) x^{(2n - (k-1))} \\
-  \arctan^{(k)}(0) &= (-1)^{\frac{k-1}{k}} (k-1)(k-2) \ldots (k-1-k+2) = (k-1)! (-1)^{\frac{k-1}{2}}
-\end{align*}
-\[ T_n(x;0) = \sum_{k=0}^n \frac{(-1)^l (2l)!}{(2l + 1)!} x^{2l+1} = \sum_{l=0}^n \frac{(-1)^l x^{2l+1}}{2l + 1} \]
-
-\section{Exercise 35}
-\begin{ex}
-  We consider the parametric curve
-  \[ x(t) \coloneqq a \cdot \cos(t), \qquad y(t) \coloneqq b \cdot \sin(t) \]
-  for $t \in [0,2\pi]$ and $a,b > 0$.
-  \begin{itemize}
-  \item Interpret the image of the curve and parameter $t$ geometrically.
-  \item Determine the tangent on the curve in point $(x(t), y(t))$ for $t \in (0, \pi/2)$. Determine also a parameter-free form of the equation.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 35.a}
-%
-Ellipse. The minimum and maximum $x$-values are $-a$ and $a$ respectively.
-The minimum and maximum $y$-values are $-b$ and $b$ respectively.
-
-\subsection{Exercise 35.b}
-
-\[
-  \dot{\gamma}(t)
-  = \begin{bmatrix} \dot{x}(t) \\ \dot{y}(t) \end{bmatrix}
-  = \begin{bmatrix} -a \cdot \sin(t) \\ b \cdot \cos(t) \end{bmatrix}
-\]
-
-\[ T(x) = \gamma(t_0) + \lambda \cdot \begin{bmatrix} -a \sin(t_0) \\ b \cos(t_0) \end{bmatrix} \]
-\begin{align*}
-  x &= a \cdot \cos(t) + \lambda \cdot (-a \cdot \sin(t_0)) \\
-  y &= b \cdot \sin(t) + \lambda \cdot (b \cdot \cos(t_0))
-\end{align*}
-\[
-  \implies \lambda = -\frac{x - a \cdot \cos(t_0)}{a \cdot \sin(t_0)}
-  = b \cdot \sin(t_0) - \frac{x - a \cdot \cos(t_0)}{a \cdot \sin(t_0)} (b \cdot \cos(t_0))
-\] \[
-  = \frac{-x \cdot b \cdot \cos(t_0)}{a \cdot \sin(t_0)} + \frac{\cos(t_0)}{\sin(t_0)} \cdot b \cdot \cos(t_0) + b \sin(t_0) = -\frac{b \cdot \cos(t_0)}{a \cdot \sin(t_0)} x + \ldots
-  \]
-We can simplify handling $d$ in $y = kx + d$ if we determine $d$ using $x = 0$.
-
-\section{Exercise 36}
-\begin{ex}
-  Let $\gamma: [a,b] \to \mathbb R^2$, $a < b$, be a continuous curve. It is differentiable in $(a,b)$ and $\gamma'(t) \neq 0$ for all $t \in (a,b)$. Show the following variant of the Intermediate Value Theorem: There exists some $c \in (a,b)$ and some $\rho \in \mathbb R$, such that
-  \[ \frac{\gamma(b) - \gamma(a)}{b - a} = \rho \gamma'(c) \]
-  So at $c$ the tangent is parallel to the chord (dt. \enquote{Sehne}).
-\end{ex}
+Show that $A \subset X$ is sequentially compact iff $A$ is closed.
 
 \begin{description}
-\item[$\gamma(a) = \gamma(b)$]
-  \[ \implies \frac{\gamma(b) - \gamma(a)}{b - a} = \frac{0}{b - a} = \rho \gamma'(c) \]
-\item[$\gamma(a) \neq \gamma(b)$]
-  \[ u = \gamma(b) - \gamma(a) \]
-  In $\mathbb R^2$, we can chose a basis.
-  \[ u = \begin{bmatrix} x(b) - x(a) \\ y(b) - y(a) \end{bmatrix} \]
-  \[ v = \begin{bmatrix} y(a) - y(b) \\ x(b) - x(a) \end{bmatrix} \]
-  We chose $v$ such that $v$ is orthogonal to $u$.
+  \item[$\Rightarrow$]
+    Let $(x_n)_{n \in \mathbb N}$ be a convergent sequence, $(x_n)_{n \in \mathbb N} \subset A$, $\lim_{n\to\infty} x_n = x_0 \in X$.
+    Show that $x_0 \in A$.
 
-  \[ \gamma(t) - \gamma(a) = \alpha(t) \cdot u + \beta(t) \cdot v \]
-  \[ 0 = \gamma(a) - \gamma(a) = \alpha(a) \cdot u + \beta(a) \cdot v \overset{\text{linear indep.}}{\implies} \alpha(a) = \beta(a) = 0 \]
-  \[ u = \gamma(b) - \gamma(a) = \alpha(b) + \beta(b) \cdot v \implies \alpha(b) = 1 \land \beta(b) = 0 \]
+    Set $A$ is sequentially compact. Choose subsequence $(x_{n_k})_{k \in \mathbb N} \subset A$, $\lim_{k\to\infty} x_{n_k} = x_0 \in A \implies A$ is closed.
+  \item[$\Leftarrow$]
+    $A$ is closed. Show that $A$ is sequentially compact.
 
-  Lemma: $\beta'(t)$ is differentiable.
-  \[ \gamma(t) - \gamma(a) \eqqcolon \tilde{\gamma}(t) \]
-  \[ \tilde{\gamma}(t) = \alpha(t) \cdot u + \beta(t) \cdot v \]
-  \[ \langle \tilde{\gamma}(t), v\rangle = \alpha(t) \cdot \underbrace{\langle u, v\rangle}_{0} + \beta(t) \underbrace{\langle v,v\rangle}_{\neq 0} \]
-  Let $k \coloneqq \langle v,v\rangle$.
-  \[ \tilde{\gamma}_1(t) \cdot v_1 + \tilde{\gamma}_2(t) \cdot v_2 = \beta(t) \cdot k \]
-  Analogously, it can be proven that $\alpha'(t)$ is differentiable.
-
-  Given differentiability, we can now claim:
-  \[ \exists \xi \in (a,b): \frac{\beta(b) - \beta(a)}{b - a} = \beta'(\xi) \]
-  \[ \implies \gamma'(t) = \alpha'(t) \cdot u + \beta'(t) \cdot v \]
-  \[ \implies \gamma'(\xi) = \alpha'(\xi) (\gamma(b) - \gamma(a)) \]
+    Let $(x_n)_{n\in\mathbb N} \subset A$ and there exists subsequence $(x_{n_k})_{k \in \mathbb N}$ with $\lim_{k\to\infty} x_{n_k} = x_0 \in X$, because $X$ is sequentially compact.
+    $(x_{n_k})_{k \in \mathbb N} \subset A \implies A$ is sequentially compact.
 \end{description}
 
-\section{Exercise 37}
+\section{Exercise 02/2}
+
 \begin{ex}
-  Let $a,b \in \mathbb R$ with $a < b$ and a helix
-  \[ \gamma: [a,b] \to \mathbb R^3, \quad t \mapsto \begin{pmatrix} \cos{t} \\ \sin{t} \\ t \end{pmatrix} \]
-  \begin{itemize}
-  \item For all $t \in [a,b]$, determine the tangent vector of $\gamma$ in point $\gamma(t)$.
-  \item Determine the arc length of $\gamma\big|_{[a,c]}$ for arbitrary $c \in [a,b]$.
-    \item Does the variant of the Intermediate Value Theorem from Exercise~36 also hold in this case?
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 37.a}
-\[ \dot{\gamma}(t) = \begin{pmatrix} -\sin(t) \\ \cos(t) \\ 1 \end{pmatrix} \]
-
-\subsection{Exercise 37.b}
-\[
-s(\gamma|_{[a,c]}) = \int_a^c \norm{\dot{\gamma}(t)} \, dt
-= \int_a^c \sqrt{\sin^2(t) + \cos^2(t) + 1^2} \, dt
-= \int_a^c \sqrt{2} \, dt = c \sqrt{2} - a \sqrt{2} = \sqrt{2} (c - a)
-\]
-
-\subsection{Exercise 37.c}
-
-\[
-\begin{pmatrix}
-  \frac{\cos(b) - \cos(a)}{b - a} \\
-  \frac{\sin(b) - \sin(a)}{b - a} \\
-  \frac{b - a}{b - a}
-\end{pmatrix} = \rho \begin{pmatrix}
-  -\sin(c) \\
-  \cos(c) \\
-  1
-\end{pmatrix}
-\]
-
-Consider $a = 0, b = 2\pi$ and you will see that it cannot hold.
-Actually it does not hold for arbitrary $a$ and $b$.
-
-\section{Exercise 38}
-\begin{ex}
-  For $a,b > 0$ and $t \in [0, 2\pi]$ define the astroid using
-  \[ x(t) \coloneqq a \cdot \cos^3(t), \qquad \gamma(t) \coloneqq b \cdot \sin^3(t) \]
-  \begin{itemize}
-  \item Determine a representation $y = f(x)$ of the curve $(x(t), y(t))$ with $t \in [0,\pi]$.
-    \item Give the arc length of astroids and sketch its graph.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 38.a}
-%
-\[ y = f(x) \text{ needs to be found for } t \in [0,\pi] \]
-\[ x = a \cdot \cos^3(t) \Leftrightarrow t = \arccos\left(\frac{x^{\frac13}}{a^{\frac13}}\right) \]
-\[ y = b \cdot \sin^3 \cdot \left(\arccos\left(\frac{c^{\frac13}}{a^{\frac13}}\right)\right)
-= b \cdot \left(
-  \sin\left(
-    \arccos\left(
-      \frac{x^{\frac13}}{a^{\frac13}}
-    \right)
-    \right)^{3}
-\right) \] \[
-= b \cdot \left(\sqrt{1 - \frac{x^{\frac23}}{a^{\frac23}}}\right)^3
-\] \[
-  \sin(\arccos(x)) = \sqrt{1 - x^2}
-\]
-
-Simpler approach:
-\[ x(t) = a \cdot \cos^3(t) \]
-\[ \cos(t) = \left(\frac xa\right)^{\frac13} \]
-\[ \sin(t) = \sqrt{1 - \cos^2(t)} = \sqrt{1 - \left(\frac xa\right)^{\frac23}} \]
-
-\[ \left(\frac xa\right)^{\frac23} = \cos^2(t) \]
-\[ \left(\frac yb\right)^{\frac23} = \sin^2(t) \]
-\[ \left(\frac xa\right)^{\frac23} + \left(\frac ya\right)^{\frac23} = 1 \]
-
-Okay, with either approach, we come to our desired result.
-
-\subsection{Exercise 38.b}
-%
-\[ \dot\gamma(t) = \begin{pmatrix} -3a \sin(t) \cdot \cos^2(t) \\ 3b \cos(t) \sin^2(t) \end{pmatrix} \]
-\[
-  s = \int_0^{2\pi} \norm{\dot{\gamma}(t)} \, dt
-  = \int_0^{2\pi} \sqrt{9a^2 \sin^2(t) \cos^4(t) + 9b^2 \cos^2(t) \sin^4(t)} \, dt
-\] \[
-= \int_0^{2\pi} \abs{3 \sin(t) \cos(t)} \sqrt{a^2 \cos^2(t) + b^2 \sin^2(t)} \, dt
-\]
-Actually this does \emph{not} work! Because $\cos$ and $\sin$ can be negative, we cannot take it out of the square root. This makes our expression much more complex.
-
-We can simplify this expression. Use upper boundary value $\frac\pi2$ and take its integral/length times 4.
-
-\[ = 4 \int_0^{\frac\pi2} 3 \sin(t) \cos(t) \sqrt{a^2 \cos^2(t) + b^2 \sin^2(t)} \, dt \]
-Consider $u = a^2 \cos^2(t) + b^2 \sin^2(t)$, then $dt = \frac{du}{2 \sin(t) \cos(t) (-a^2 + b^2)}$.
-\[ = 4 \cdot \int_{t=0}^{t=\frac\pi2} \frac{3}{2(-a^2 + b^2)} \sqrt{u} \, du \]
-
-\[ \frac{6}{-a^2 + b^2} \int_{t=0}^{t=\frac\pi2} \sqrt{u} \, du = \left. \frac{6}{-a^2 + b^2} \cdot \frac23 u^{\frac32} \right|_{t=0}^{t=\frac\pi2} \]
-\[ = \left. \frac{4}{b^2 - a^2} \left(a^2 \cos^2(t) + b^2 \sin^2(t)\right)^{\frac32} \right|_{0}^{\frac\pi2} \]
-\[ = \frac4{b^2 - a^2} \left[\left(b^2\right)^{\frac32} - \left(a^2\right)^{\frac32}\right] \]
-\[ = \frac{4}{b^2 - a^2} (b^3 - a^3) \]
-Problem if $a = b$. You need to make a case distinction before substitution. This is missing here.
-
-Sketch: A star with center $(0, 0)$. The maximum/minimum $x$-value is $-a$ and $a$ respectively. The maximum/minimum $y$-value is $-b$ and $b$ respectively.
-
-\section{Exercise 39}
-\begin{ex}
-  We again consider astroids from Exercise~38.
-  \begin{itemize}
-  \item Determine in every point of the curve its curvature.
-  \item Find, for the evolute of astroids, a representation of form $(\xi(t), \eta(t))$ for $t \in [0,2\pi]$ and sketch its curves.
-  \end{itemize}
-\end{ex}
-
-\[ \gamma(t) = \begin{pmatrix} a \cdot \cos^3(t) \\ b \cdot \sin^3(t) \end{pmatrix} \]
-\[ \dot\gamma(t) = \begin{pmatrix} -3a \cdot \sin(t) \cos^2(t) \\ 3b \sin^2(t) \cos(t) \end{pmatrix} \]
-\[ \vec{n} = \begin{pmatrix} 3b \sin^2(t) \cos(t) \\ 3a \sin(t) \cos^2(t) \end{pmatrix} \]
-\[ \kappa(t) = \langle \ddot{\gamma}(t), \vec{n}\rangle \]
-
-\[ \ddot{\gamma}(t) =
-   \begin{pmatrix}
-    3a (2\cos(t) \sin^2(t) - \cos^3(t)) \\
-    3b (2\sin(t) \cos^2(t) - \sin^3(t))
-   \end{pmatrix}
-\] \[
-\kappa(t) = \left\langle \begin{pmatrix}
-  6a \cos(t) \sin^2(t) - 3a \cos^3(t) \\
-  6b \sin(t) \cos^2(t) - 3b \sin^3(t)
-\end{pmatrix}, \begin{pmatrix}
-  3b \sin^2(t) \cos(t) \\
-  3a \sin(t) \cos^2(t)
-\end{pmatrix}\right\rangle
-\]
-\[
-18ab \sin^4(t) \cos^2(t) - 9 ab \cos^4(t) \sin^2(t) + 18ab \sin^2(t) \cos^4(t) - 9ab\sin^4(t) \cos^2(t)
-\] \[
-= 9ab \sin^2(t) \cos^2(t) \underbrace{\left(2\sin^2(t) - \cos^2(t) + 2\cos^2(t) - \sin^2(t)\right)}_{=1}
-\] \[
-= 9ab \sin^2(t) \cos^2(t)
-\]
-
-This curvature form assumes that $N$ is already normalized.
-This solution looks suspicious, because the usual denominator is missing (this does not necessarily mean that it is wrong).
-
-Normalize it afterwards?! (here cubic)
-
-\[ \implies \frac{9ab \sin^2(t) \cos^2(t)}{\abs{\vec{n}}^3} \]
-
-Tutor's curvature equation:
-\[ \frac{\dot{x} \cdot \ddot{y} - \ddot{x} \cdot \dot{y}}{\left(\dot{x}^2 + \dot{y}^2\right)^{\frac32}} \]
-
-\[ \abs{\vec{n}}^3 = \sqrt{9b^2 \sin^4(t) \cos^2(t) + 9a^2 \sin^2(t) \cos^4(t)}^3 \]
-\[ = \left(3 \abs{\sin(t) \cos(t)} \sqrt{b^2 \sin^2(t) + a^2 \cos^2(t)}\right)^3 \]
-
-\subsection{Exercise 39.b}
-
-We used norm vector
-\[ \begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} = \begin{pmatrix} -\dot{y} \\ \dot{x} \end{pmatrix} \]
-So we should have actually used
-\[
-   \vec{n} =
-   \begin{pmatrix}
-    -3b \sin^2(t) \cos(t) \\
-    -3a \sin(t) \cos^2(t)
-  \end{pmatrix}
-\]
-
-
-\[ \begin{pmatrix} \xi(t) \\ \eta(t) \end{pmatrix}
-= \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} + \begin{pmatrix} -y'(t) \\ x'(t) \end{pmatrix} \cdot \frac{x'(t)^2 + y'(t)^2}{x'(t) y''(t) - x''(t) y'(t)} \]
-\[ x'(t)^2 + y'(t)^2 = 9\cos^2(t) \sin^2(t) (a^2 \cos^2(t) + b^2 \sin^2(t)) \]
-\[ x'(t) y''(t) - x''(t) y'(t) = -9ab\sin^2(t) \cos^2(t) \]
-
-\[ \xi(t) = a \cos^3(t) + 3b \sin^2(t) \cos(t) \cdot \frac{a^2 \cos^2(t) + b^2 \sin^2(t)}{ab} \]
-\[ \eta(t) = b\sin^3(t) + 3a \sin(t) \cos^2(t) \cdot \frac{a^2 \cos^2(t) + b^2 \sin^2(t)}{ab} \]
-
-Sketched, this is a rectangle, but the corner have a little higher distance from the center.
-
-\section{Exercise 39-42}
-
-I was missing in class. Hopeful I will get access to other notes to transcribe them here.
-
-\section{Exercise 43}
-
-\[ f: \mathbb R^2 \to \mathbb R^2 \]
-\[ f(x,y) = \begin{bmatrix} x^2 + 3y^2 \\ 4x - y^2 \end{bmatrix} \]
-
-\[ \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} = \begin{bmatrix} 2 \\ -1 \end{bmatrix} \]
-
-Let $\varepsilon > 0$.
-
-\[ \norm{\begin{bmatrix} x \\ y \end{bmatrix} - \begin{bmatrix} 2 \\ -1 \end{bmatrix}} < \delta \]
-\[ \delta \coloneqq \min\left(\frac\varepsilon{14}, 1\right) \]
-\[ \norm{f(\begin{bmatrix} x \\ y \end{bmatrix}) - f(\begin{bmatrix} 2 \\ -1 \end{bmatrix})}_\infty = \norm{\begin{bmatrix} x^2 + 3y^2 - 7 \\ 4x - y^2 - 7 \end{bmatrix}}_\infty \]
-
-1st component:
-\[ \abs{x^2 + 3y^2 - 7} = \abs{x^2 - 4 + 3y^2 - 3} \leq \abs{x - 2} \abs{x + 2} + 3 \abs{y - 1} \abs{y + 1} \]
-
-\[
-  \begin{vmatrix}
-    \abs{x - 2} < \delta \leq 1 \implies \abs{x} < 3 \\
-    \abs{y + 1} < \delta \leq 1 \implies \abs{y} < 2 \\
-    \abs{x + 2} < 5; \abs{y - 1} < 3
-  \end{vmatrix}
-\] \[
-  < 5 \underbrace{\abs{x - 2}}_{<\delta} + 9 \abs{y - 1} < 5 \delta + 9 \delta = 14\delta \leq \varepsilon
-\]
-
-2nd component:
-\[ \abs{4x - y^2 - 7} = \abs{4x - 8 - y^2 + 1} \leq 4 \underbrace{\abs{x - 2}}_{< \delta} + \abs{1 - y} \underbrace{\abs{1 + y}}_{<\delta} \]
-\[ < 4\delta + 3\delta = 7\delta < \frac\varepsilon{2} < \varepsilon \]
-
-
-\section{Exercise 44}
-
-Show that $\norm{f} \coloneqq \max_{x \in [0,1]} \abs{f(x)}$.
-
-\[ \abs{f} \coloneqq \left(\int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12} \]
-defines a norm in $C([0,1], \mathbb R)$.
-
-\[ \norm{\lambda f} = \max \abs{\lambda f(x)} = \max \abs{\lambda} \abs{f(x)} = \abs{\lambda} \norm{f} \]
-\[ \norm{f+g} = \max\abs{(f + g)(x)} = \max\abs{f(x) + g(x)} \]
-\[ \leq \max\left(\abs{f(x)} + \abs{g(x)}\right) \leq \max\abs{f(x)} + \max\abs{g(x)} \]
-
-Let $\abs{f} = 0$, then
-\[ \left(\int_0^1 \underbrace{\abs{f(x)}^2}_{\geq 0 \; \forall x \in [0,1]} \, dx\right)^{\frac12} = 0 \iff f(x) = 0 \; \forall x \in [0,1] \]
-\[ \abs{\lambda f} = \left(\int_0^1 \abs{\lambda f(x)}^2 \, dx\right)^{\frac12}
-= \left(\int_0^1 \abs{\lambda}^2 \abs{f(x)}^2 \, dx\right)^{\frac12} \]
-\[
-= \left(\abs{\lambda}^2 \int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12}
-= \abs{\lambda} \left(\int_0^1 \, \abs{f(x)}^2 \, dx\right)^{\frac12}
-\]
-
-Show: $\abs{f + g} = \abs{f} + \abs{g}$.
-\[
-\abs{f + g}^2 = \int_0^1 \abs{(f + g)(x)}^2 \, dx
-= \int_0^1 \abs{f(x)^2 + 2f(x) g(x) + g(x)^2} \, dx
-\] \[
-\leq \int_0^1 \abs{f(x)}^2 \, dx + 2 \int_0^1 \abs{f(x) g(x)} \, dx + \int_0^1 \abs{g(x)}^2 \, dx
-\] \[
-\leq \int_0^1 \abs{f(x)}^2 \, dx + 2 \left(\int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12} \left(\int_0^1 \abs{g(x)}^2 \, dx\right)^{\frac12} + \int_0^1 \abs{g(x)}^2 \, dx
-\] \[
-= \abs{f}^2 + 2 \abs{f} \abs{g} + \abs{g}^2 = (\abs{f} + \abs{g})^2
-\] \[
-\implies \abs{f + g} \leq \abs{f} + \abs{g}
-\]
-
-Let $f_n(x) = x^n$.
-\[ \lim_{n\to\infty} \norm{f_n} \coloneqq \lim_{n\to\infty} \max_{x \in [0,1]} \abs{f(x)} = 1 \]
-\[ \lim_{n\to\infty} \abs{f_n} = \lim_{n\to\infty} \left(\int_0^1 \abs{f(x)}^2 \, dx\right)^{\frac12} \]
-\[ = \lim_{n\to\infty} \left(\left.\frac{x^{n+1}}{n+1} \right|_0^1\right)^{\frac12} \]
-\[ \lim_{n\to\infty} \left(\frac{1^{n+1}}{n + 1} - \frac{0^{n+1}}{n+1}\right)^{\frac12} = \lim \left(\frac{1}{n+1}\right)^{\frac12} = 0 \]
-
-\section{Exercise 45}
-\begin{ex}
-  Let $I, J \subseteq \mathbb R$ be non-empty intervals and $\varphi: I \to \mathbb R$ and $\psi: J \to \mathbb R$ continuous. Prove that
-  \[ f: I \times J \to \mathbb R, \qquad f(x,y) \coloneqq \varphi(x) + \psi(y) \]
-  and
-  \[ g: I \times J \to \mathbb R, \qquad g(x,y) \coloneqq \varphi(x) \psi(y) \]
-  are continuous.
-\end{ex}
-
-\subsection{Part 1}
-
-We use the $\varepsilon$-$\delta$-criterion.
-
-\[
-  \forall x_0 \in I \forall \varepsilon > 0 \exists \delta_1 > 0: \forall x \in I:
-  \abs{x - x_0} < \delta_1 \implies \abs{\varphi(x) - \varphi(x_0)} < \frac{\varepsilon}{2}
-\] \[
-  \forall y_0 \in J \forall \varepsilon > 0 \exists \delta_2 > 0: \forall y \in J:
-  \abs{y - y_0} < \delta_2 \implies \abs{\psi(y) - \psi(y_0)} < \frac{\varepsilon}{2}
-\]
-
-Choose $\delta = \min\set{\delta_1, \delta_2}$.
-\[
-  \norm{\begin{pmatrix} x \\ y \end{pmatrix} - \begin{pmatrix} x_0 \\ y_0 \end{pmatrix}}_1
-  = \abs{x - x_0} + \abs{y - y_0} < \delta \implies \abs{x - x_0} < \delta \land \abs{y - y_0} < \delta
-\] \[
-  \abs{f\begin{pmatrix} x \\ y \end{pmatrix} - f\begin{pmatrix} x_0 \\ y_0 \end{pmatrix}}
-  = \abs{\varphi(x) + \psi(y) - (\varphi(x_0) - \psi(y_0))}
-\] \[
-  \leq \abs{\varphi(x) - \varphi(x_0)} + \abs{\psi(y) - \psi(y_0)}
-  < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon
-\]
-
-\subsection{Part 2}
-
-Let $(a_n)_{n\in\mathbb N}$ be a sequence in $I \times J$. $v = \lim_{n\to\infty}((v_n)_{n\in\mathbb N})$.
-\[ v'_n = \begin{pmatrix} x_n \\ y_n \end{pmatrix}_{n\in\mathbb N} \qquad v = \begin{pmatrix} x \\ y \end{pmatrix} \]
-\[ \norm{\begin{pmatrix} x_n \\ y_n \end{pmatrix} - \begin{pmatrix} x \\ y \end{pmatrix}}_1 = \abs{x_n - x} + \abs{y_n - y} < \varepsilon \qquad \text{for } n \geq N \]
-\[ x = \lim_{n\to\infty} (x_n)_{n \in \mathbb N} \qquad y = \lim_{y\to\infty} (y_n)_{n \in \mathbb N} \]
-
-$\varphi$ is continuous in $x$ and $\psi$ is continuous in $y$.
-
-\[ \lim_{n\to\infty} (\varphi(x_n)_{n\in\mathbb N}) = \varphi(x) \land \lim_{n\to\infty} (\psi(y_n)_{n\in\mathbb N}) = \psi(y) \]
-\[ \lim_{n\to\infty} g(x_n, y_n)_{n\in\mathbb N} = \lim_{n\to\infty} \left(\varphi(x_n)_{n\in\mathbb N} \cdot \varphi(y_n)_{n\in\mathbb N}\right)
-  = \lim_{n\to\infty} (\varphi(x_n)_{n\in\mathbb N}) \cdot \lim_{n\to\infty} (\psi(y_n)_{n\in\mathbb N}) = \varphi(x) \cdot \psi(y) \]
-
-Remark: Part~2 can also be proven using the $\varepsilon$-$\delta$-definition. It is a bit more cumbersome, but feasible.
-
-\section{Exercise 46}
-\begin{ex}
-  Consider the function $f: \mathbb R^2 \to \mathbb R$,
-  \[
-  f(x, y) \coloneqq \begin{cases}
-    \frac{xy^2}{x^2 + y^4}, & (x,y) \neq (0,0) \\
-    0, & (x,y) = (0, 0).
-    \end{cases}
-  \]
-  Show the $f$ satisfies the following properties:
-  \begin{itemize}
-    \item $f$ is continuous in $\mathbb R^2 \setminus \set{(0,0)}$, but non-continuous in $(0,0)$.
-    \item For all $h \in \mathbb R^2$ the directed derivative $f'(0,0;h)$ exists.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 46.a}
-
-We use the sequence criterion.
-\[ \lim_{h\to\infty} f(\vec{x}_k) = f(\vec{a}) \]
-\[ \lim_{h\to\infty} \vec{x}_k = \vec{a} \]
-We need to prove that the relationship between both equations with $\vec{a}$ holds.
-
-\[
-  \lim_{k\to\infty} \frac{x_k \cdot y_k^2}{x_k^2 + y_k^4}
-  = \frac{\lim_{k\to\infty} x_k \cdot (\lim_{k\to\infty} y_k)^2}{(\lim_{k\to\infty} x_k)^2 + (\lim_{k\to\infty} y_k)^4}
-  = \frac{x_0 y_0^2}{x_0^2 + y_0^2} = f(\vec{a})
-\]
-
-\[ (x_k)_{k \geq 1} = \frac{1}{k} \to_{k\to\infty} 0 \]
-\[ (y_k)_{k \geq 1} = \frac{1}{k} \to_{k\to\infty} 0 \]
-\[ \lim_{k\to\infty} \frac{\frac{1}{k^2} \cdot \frac{1}{k^2}}{\frac{1}{k^4} + \frac{1}{k^4}}
-= \lim_{k\to\infty} \frac{\frac{1}{k^4}}{\frac{2}{k^4}} = \frac12
-\]
-
-\subsection{Exercise 46.b}
-
-\[
-  \lim_{t\to 0} \frac{f(\vec{a} + t \cdot \vec{h}) - f(\vec{a})}{t} \in \mathbb R
-  \qquad \text{ with } \norm{h} = 1
-\]
-Let $h \neq (0, 0)$.
-\[
-  \lim_{t\to 0} \frac{\frac{tk_x \cdot (tk_y)^2}{(tk_x)^2 + (t k_y)^4)}}{t}
-  = \lim_{t\to0} \frac{k_x k_y^2}{k_x^2 + t^2 k_y^4}
-  = \begin{cases}
-    \frac{k_y^2}{k_x}  & k_x \neq 0 \\
-    0 & k_x = 0
-  \end{cases}
-\]
-Let $h = (0, 0)$.
-\[
-\lim_{t \to 0} \frac{f(0,0) - f(0,0)}{t}
-\]
-
-\section{Exercise 47}
-\begin{ex}
-  Let $f: \mathbb R^2 \to \mathbb R$ be given with
-  \[
-  f(x,y) \coloneqq \begin{cases}
-    \frac{x^3}{x^2 + y^2}, & (x,y) \neq (0,0), \\
-    0 & (x,y) = (0, 0).
-  \end{cases}
-  \]
-  Prove the following statements:
-  \begin{itemize}
-  \item $f$ is continuous in $\mathbb R^2$.
-  \item For all $h \in \mathbb R^2$ there exists a directed derivative $f'(0,0;h)$.
-    But it does not depend linearly on direction $h$.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 47.a}
-
-In general, this is a composition of continuous functions as long as the denominator is non-zero.
-However, this is only informally, but suffices for now.
-We now need to look at $(0, 0)^T$ more carefully.
-
-Show:
-\[
-  \forall \varepsilon > 0 \exists \delta > 0:
-  \norm{\vec{x} - \vec{x}_0} < \delta \implies \norm{f(\vec{x}) - f(\vec{x_0})} < \varepsilon
-\]
-
-\[
-  \norm{x - x_0}
-  = \norm{\begin{pmatrix} x \\ y \end{pmatrix}}
-  = \sqrt{x^2 + y^2} < \delta
-  \implies \abs{x} < \delta \land \abs{y} < \delta
-\]
-
-Let $\delta \coloneqq \varepsilon$:
-\[
-  \norm{f(x) - f(x_0)} = \abs{\frac{x^3}{x^2 + y^2}}
-  \leq \begin{cases}
-    \frac{\abs{x^3}}{\abs{x^2}} \cdot \abs{x} < \delta = \varepsilon,
-      & x \neq 0 \\
-    0 < \varepsilon,
-      & x = 0.
-  \end{cases}
-\]
-
-\subsection{Exercise 47.b}
-%
-$\forall h \in \mathbb R^2$ there exists $f'(0,0;h)$. $h \coloneqq \begin{pmatrix} r \\ s \end{pmatrix}$.
-\[
-  \lim_{t\to0} \frac{f\begin{pmatrix} 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} r \\ s \end{pmatrix} - f\begin{pmatrix} 0 \\ 0 \end{pmatrix}}{t}
-  = \lim_{t\to0} \frac{f\begin{pmatrix} tr \\ ts \end{pmatrix}}{t}
-  = \lim_{t\to0} \frac1t \cdot \frac{t^3 x^3}{t^2 r^2 + f^2 s^2} = \lim_{t\to 0} \frac{r^3}{r^2 + s^2} = \frac{r^3}{r^2 + s^2}
-\]
-
-Is it linearly dependent?
-\[ \partial f(0, 0; h_1) + \partial f(0, 0; h_2) = \partial f(0, 0; h_1 + h_2) \]
-Let $h_1 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $h_2 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$.
-\[ \frac{1^3}{1^2 + 0^2} = 1 \]
-\[ \frac{0^3}{0^2 + 1^2} = 0 \]
-But $f\begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{1^3}{1^2 + 1^2} = \frac12$.
-
-
-\section{Exercise 48}
-\begin{ex}
-  Determine the derivative of $f$ using Fr\'echet differentiability.
-  \[ f: \mathbb R^2 \to \mathbb R^2, \qquad f(x,y) \coloneqq \begin{pmatrix} x^2 - y^2 \\ 2xy \end{pmatrix} \]
-  in every point $(x_0, y_0) \in \mathbb R^2$.
-\end{ex}
-
-\[ \lim_{\norm{h}\to0} \frac{1}{\norm{h}} \norm{f\left(\begin{pmatrix} x_0 \\ y_0 \end{pmatrix} + \begin{pmatrix} h_1 \\ h_2 \end{pmatrix}\right) - f\begin{pmatrix} x_0 \\ y_0 \end{pmatrix} - Df \cdot h} \]
-
-\[
-  Df\begin{pmatrix} x_0 \\ y_0 \end{pmatrix} =
-  \begin{pmatrix}
-    2x_0 & -2y_0 \\
-    2y_0 & 2x_0
-  \end{pmatrix}
-\] \[
-  \lim_{\norm{h}\to 0} \frac{1}{\norm{h}} \norm{
-    \begin{pmatrix} (x_0 + h_1)^2 - (y_0 + h_2)^2 \\ 2 (x_0 + h_1) (x_0 + h_2) \end{pmatrix}
-    - \begin{pmatrix} x_0^2 - y_0^2 \\ 2 x_0 y_0 \end{pmatrix}
-    - \begin{pmatrix} 2 x_0 h_1 - 2 y_0 h_2 \\ 2 y_0 h_1 + 2 x_0 h_2 \end{pmatrix}
-  }
-\] \[
-  = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \norm{
-    \begin{pmatrix}
-      2 h_1 x_0 + h_1^2 - h_2^2 - 2 h_2 y_0 \\
-      2 h_1 y_0 + 2 h_2 x_0 + 2 h_1 h_2
-    \end{pmatrix} - \begin{pmatrix}
-      2 x_0 h_1 - 2 x_0 h_2 \\
-      2 y_0 h_1 + 2 x_0 h_2
-    \end{pmatrix}
-  }
-\] \[
-  = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \norm{
-    \begin{pmatrix} h_1^2 - h_2^2 \\ 2 h_1 h_2 \end{pmatrix}
-  } = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \sqrt{h_1^4 - 2 h_1^2 h_2^2 + h_2^4 + 2 h_1^2 h_2^2}
-\] \[
-  = \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} (h_1^2 + h_2^2) = 0
-\]
-
-Or very informally, we can estimate:
-\[
-  \lim_{\norm{h} \to 0} \frac{1}{\norm{h}} \norm{\begin{pmatrix} h_1^2 - h_2^2 \\ 2 h_1 h_2 \end{pmatrix}}
-  \leq \norm{\begin{pmatrix} h_1^2 \\ 0 \end{pmatrix}} + \norm{\begin{pmatrix} 0 \\ h_2 \end{pmatrix}}^2 + 2 \norm{\begin{pmatrix} h_1 \\ 0 \end{pmatrix}} \norm{\begin{pmatrix} 0 \\ h_2 \end{pmatrix}}
-  \leq \norm{h}^2 + \norm{h}^2 + 2\norm{h}^2
-\]
-
-\section{Exercise 49}
-\begin{ex}
-  Determine the matrix norm induced by the $\infty$-norm in $\mathbb R^n$
-  \[
-  \norm{A}_\infty \coloneqq \sup_{x \neq 0} \frac{\norm{Ax}_\infty}{\norm{x}_\infty}
-  \]
-  for arbitrary $A \in \mathbb R^{n\times n}$
-\end{ex}
-
-First, we show:
-
-\[
-  \norm{Ax}_\infty = \max_{i = 1, \ldots, m} \abs{\sum_{j=1}^n a_{ij} \cdot x_j}
-  \leq \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \abs{x_j}
-  \leq \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \norm{x}_\infty
-\]
-\[ \norm{A}_\infty \leq \sup_{x\neq 0} \frac{\max_{i=1,\ldots,m} \sum_{j=1}^n \abs{a_{ij}} \norm{x}_\infty}{\norm{x}_\infty} = \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \]
-
-Now we show the other side:
-
-Let $i_0 \in \set{1,\ldots,n}$.
-\[ \sum_{j=1}^n \abs{a_{i_0 j}} = \max_{i=1,\ldots,n} \sum_{i=1}^n \abs{a_{ij}} \]
-\[ \tilde{x} = \left(\frac{a_{i_0 1}}{\abs{a_{i_0 1}}}, \ldots, \frac{a_{i_0 n}}{\abs{a_{i_0 n}}}\right) \qquad \norm{\tilde{x}}_\infty = 1\]
-
-Remark:
-\[
-\begin{cases}
-  \frac{a}{\abs{a}} \eqqcolon \operatorname{sgn}(a) & \text{for } a \neq 0 \\
-  0 & \text{ for } a = 0
-\end{cases}
-\]
-
-\[ \norm{A \tilde{x}}_\infty = \max_{i=1,\ldots,m} \abs{\sum a_{ij} \tilde{x}_2} \geq \abs{\sum_{j=1}^n a_{i_0 j} \tilde{x}_j} = \abs{\sum_{j=1}^n \abs{a_{i_0 j}}} = \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}} \]
-
-
-Tutor's approach:
-\[
-\frac{\norm{Ax}_\infty}{\norm{x}_\infty} = \norm{A \left(\frac{x}{\norm{x}_\infty}\right)}_\infty
-\] \[
-\sup_{x\neq0} \frac{\norm{Ax}_\infty}{\norm{x}_\infty} = \sup_{x\neq 0} \norm{A \left(\frac{x}{\norm{x}_\infty}\right)}_\infty = \sup_{\norm{x}_\infty = 1} \norm{Ax}_\infty
-\] \[
-\sup_{x: \abs{x_i} \leq 1 \forall i} \max_{j=1,\ldots,n} \abs{\sum_{j=1}^n a_{ij} x_j} = \max_{i=1,\ldots,n} \sum_{j=1}^n \abs{a_{ij}}
-\]
-
-\section{Exercise 50}
-\begin{ex}
-  We consider function $f: \mathbb R^2 \to \mathbb R$ with $f(0, 0) \coloneqq 0$ and
-  \[ f(x, y) \coloneqq \frac{x^3y - xy^3}{x^2 + y^2} \]
-  for $(x,y) \neq (0, 0)$. Prove the following statements:
-  \begin{itemize}
-  \item $\partial_x f$ and $\partial_y f$ exist in $\mathbb R^2$ and are continuous. Does $f \in C^1(\mathbb R^2)$ hold?
-  \item $\partial_{xy} f$ and $\partial_{yx} f$ exist in $\mathbb R^2$ and are continuous in $\mathbb R^2 \setminus \set{(0,0)}$.
-  \end{itemize}
-  Also determine $\partial_{xy} f(0,0)$ and $\partial_{yx} f(0,0)$ and interpret the result.
-\end{ex}
-
-\[ \partial_x f(x,y) = \frac{(x^2 + y^2) \cdot (3x^2 y - y^3) - (x^3 y - xy^3) \cdot (2x + y^2)}{(x^2 + y^2)^2} = \frac{x^4y + 4x^2 y^3 - y^5}{(x^2 + y^2)^2} \]
-\[ \partial_y f(x,y) = \frac{(x^3 - 3y^2 x) (x^2 + y^2) - (x^3 y - xy^3) \cdot 2y}{(x^2 + y^2)^2} = \frac{x^5 - 4x^3 y^2 - xy^4}{(x^2 + y^2)^2} \]
-
-\subsection{Exercise 50.a}
-If $x \neq 0 \neq y$, then continuous because of the sequence criterion.
-
-\[ \partial_x f(0,0) = \lim_{x\to 0} \frac{f(x,0) - f(0,0)}{x - 0} = \lim_{x\to 0} \frac{\frac{0}{x^2} - 0}{\frac{x}{1}} = \lim_{x \to 0} \frac{0}{x} = 0 \]
-If $x = 0 = y$, we have shown continuity, because limes $0$ exists.
-
-\subsection{Exercise 50.b}
-Case 1:
-\[ \abs{(x^2 + y^2) (3x^2 y - y^3)} \geq \abs{(x^3 y - xy^3) \cdot 2x} \]
-\[ \implies \abs{\frac{(x^2 + y^2)(3x^2 y - y^3) - (x^3 y - xy^3) \cdot (2x)}{(x^2 + y^2)^2}} \leq \frac{2\abs{(x^2 + y^2) (3x^2 y - y^3)}}{\abs{(x^2 + y^2)^2}}
-  \leq \frac{\abs{6x^2 y - y^3}}{\abs{x^2 + y^2}} \]
-\[ \leq \frac{\abs{2y^3    }}{\abs{x^2 + y^2}} \leq \frac{\abs{2y^3  }}{\abs{y^2}} = \abs{2y } \to_{y \to 0} 0 \]
-\[ \leq \frac{\abs{12 x^2 y}}{\abs{x^2 + y^2}} \leq \frac{\abs{12x^2y}}{\abs{x^2}} = \abs{12y} \to_{y \to 0} 0 \]
-  
-Case 2:
-\[
-\abs{\frac{(x^2 + y^2) \cdot (3x^2y - y^3) \ldots}{\ldots}}
-\leq \abs{\frac{2 (x^3 y - xy^3) \cdot 2x}{(x^2 + y^2)^2}}
-= \abs{\frac{4x^4y - 2x^2 y^3}{(x^2 + y^2)^2}}
-\] \[
-\begin{cases}
-  \abs{\frac{8x^4 y}{x^4}} = \abs{8y} \to 0 \\
-  \abs{\frac{4x^2 y^3}{2x^2 y^2}} = \abs{2y} \to 0
-\end{cases}
-\]
-
-\[ \partial_x f(0,y) = \frac{-y^5}{y^4} = -y \to_{y \to 0} 0 \]
-\[ \partial_x f(x,0) = \frac{0}{x^4} = 0 \to_{y\to 0} 0 \]
-
-\[ (x,y) \mapsto Df(x,y) = [\partial_x f(x,y) \quad \partial_y f(x,y)] \]
-
-\[ \norm{Df(x_1, y_1) - Df(x_2, y_2)} = \norm{[\underbrace{\partial_x f(x_1, y_1) - \partial_x f(x_0, y_0)}_{<\varepsilon'} \qquad \underbrace{\partial_y f(x_1, y_1) - \partial_y f(x_0, y_0)}_{<\varepsilon'}]} \]
-for $\norm{\begin{pmatrix} x_1 - x_0 \\ y_1 - y_0 \end{pmatrix}} < \delta$.
-Then $<\varepsilon$.
-
-
-\section{Exercise 51}
-\begin{ex}
-  Let $g: \mathbb R^2 \to \mathbb R$, $(x_1, x_2) \mapsto g(x_1, x_2)$ be a function for which $\partial_{x_1} g$ and $\partial_{x_2} g$
-  exist in $\mathbb R^2$ and is bounded. So there exists $M > 0$ such that
-  \[ \abs{\partial_{x_1} g(\xi_1, \xi_2)}, \abs{\partial_{x_2} g(\xi_1, \xi_2)} \leq M \]
-  for all $(\xi_1, \xi_2) \in \mathbb R^2$. Show that $g$ is Lipschitz-continuous and
-  give the Lipschitz constant $L > 0$ which satisfies
-  \[ \abs{g(x_1, x_2) - g(y_1, y_2)} \leq L \norm{(x_1, x_2) - (y_1, y_2)} \]
-  for all $(x_1, x_2), (y_1, y_2) \in \mathbb R^2$.
-  Does the statement above also hold for $\mathbb R^n$ with $n \in \mathbb N_+$?
-  Also give a Lipschitz constant $L$ here (if possible).
-\end{ex}
-
-To show:
-\[
-  \exists L > 0 \forall (y_1, y_2), (x_1, x_2) \in \mathbb R^2:
-  \abs{g(x_1, x_2) - g(y_1, y_2)} < L \norm{\begin{pmatrix} x_1 - y_1 & x_2 - y_2 \end{pmatrix}}
-\]
-
-Let $\varphi(x) = g(x, x_2)$ for $x_2 \in \mathbb R$.
-\[ \varphi: \mathbb R \to \mathbb R \qquad \varphi'(x) = \partial_{x_1} g(x, x_2) \text{ exists} \]
-\[ \implies \forall x > y \in \mathbb R: \exists \eta \in \mathbb R: \varphi'(\eta) \cdot (x - y) = (\varphi(x) - \varphi(y)) \]
-\[ \implies \partial_{x_1} g(\eta, x_2) \cdot (x - y) = g(x, x_2) - g(y, x_2) < M \]
-
-This works analogously for $x_2$.
-\[ \implies \partial_{x_2} g(y_1, \xi) \cdot (x - y) = g(y_1, x) - g(y_1, y) < M \]
-\[ \abs{g(x_1, x_2) - g(y_1, y_2)} \leq \abs{g(x_1, x_2) - g(y_1, x_2)} + \abs{g(y_1, x_2) - g(y_1, y_2)} \]
-\[ < M \cdot \abs{x_1 - y_1} + M \cdot \abs{x_2 - y_2} \]
-\[ = M \left(\abs{x_1 - y_1} + \abs{x_2 - y_2}\right) \leq L \cdot \norm{\begin{pmatrix} x_1 - x_2 & y_1 - y_2 \end{pmatrix}}_2 \]
-
-\[ \implies L \geq M \]
-
-Consider a diagonal line. The path $\abs{x - y}$ and $\abs{f(x) - f(y)}$ distinguishes itself at most by a factor of $\sqrt{2}$ from the diagonal path.
-
-Hence, the solution is $M = \sqrt{2}$.
-
-\section{Exercise 52}
-\begin{ex}
-  Determine all local minima and maxima of function $u: \mathbb R^2 \to \mathbb R$,
-  \[ u(x,y) \coloneqq x^4 + y^4 - 2x^2 + 4xy - 2y^2 - 1. \]
-\end{ex}
-
-\begin{align*}
-  u_x(x,y) &= 4x^3 - 4x + 4y = 4(x^3 - x + y) \\
-  u_y(x,y) &= 4y^3 - 4y + 4x \\
-  u_{yy}(x,y) &= 12y^2 - 4 \\
-  u_{xx}(x,y) &= 12x^2 - 4
-\end{align*}
-
-\[ 4(x^3 - x + y) = 0 \iff -x^3 + x = y \]
-\[ 4(y^3 + x - y) = 0 \iff y^3 - y = -x \]
-\[ (-x^3 + x)^3 - (-x^3 + x) = -x \]
-\[ \iff (-x^3 + x) ((-x^3 + x)^2 - 1) = -x \]
-\[ \iff x (1 - x^2) (x^2 - 2x^4 + x^9 - 1) = -x \]
-\[ \iff x (1 - x^2) (x^2 (1 - 2x^2 + x^7 - 1)) + x = 0 \]
-\[ \vdots \]
-\[ x^3 (2 - x^2) (x^4 - x^2 + 1) = 0 \]
-\[ x_1 = 0 \qquad x_2 = \pm \sqrt{2} \]
-is not a root in $\mathbb R$.
-\[ \text{critical points}: (0, 0), (\sqrt{2}, -\sqrt{2}), (-\sqrt{2}, \sqrt{2}) \]
-\[ H(x,y) = \begin{pmatrix} 12x^4 - 4 & 4 \\ 4 & 12y^2 - 4 \end{pmatrix} \]
-\[ P_1(\sqrt2, -\sqrt2) = \begin{pmatrix} 20 & 4 \\ 4 & 20 \end{pmatrix} \implies \det([20]) > 0 \land \det\left(\begin{bmatrix} 20 & 4 \\ 4 & 20 \end{bmatrix}\right) = 400 - 16 = 384 > 0 \implies \text{ local min} \]
-\[ P_2(-\sqrt2, \sqrt2) = \begin{pmatrix} 20 & 4 \\ 4 & 20 \end{pmatrix} \implies \det([20]) > 0 \land \det\left(\begin{bmatrix} 20 & 4 \\ 4 & 20 \end{bmatrix}\right) = 400 - 16 = 384 > 0 \implies \text{ local min} \]
-\[ P_3(0, 0) = \begin{pmatrix} -4 & 4 \\ 4 & -4 \end{pmatrix} \implies \det(0,0) = 16 - 16 = 0 \]
-Inconclusive. Is it a saddle point or extremum?
-
-Prove
-\[ \forall \varepsilon > 0 \forall x: \norm{x - x_0} < \varepsilon \land f(x) > f(x_0) \]
-This estimate is not known at this point.
-But consider $g(x) = x$ and $h(x) = -x$. In $x(0, 0)$ one of $\set{g,h}$ becomes positive, one of $\set{g,h}$ becomes negative.
-So it is a saddle point.
-
-\section{Exercise 53}
-\begin{ex}
-  Given function $f: D \to \mathbb R$,
-  \[ f(x,y) \coloneqq x^3 + y^3 - 3xy \]
-  with $D \coloneqq (\frac12, 3) \times (-4,3)$. Prove the following properties of $f$:
-  \begin{itemize}
-  \item There exists exactly one $(x_0, y_0) \in D$ for which $\nabla f(x_0,y_0) = 0$ holds.
-  \item The Hessian matrix $D^2 f(x_0,y_0)$ is positive definite.
-  \item $f(x_0, y_0)$ is not a global minimum of $f$.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 53.a}
-\[ \nabla f(x,y) = \begin{pmatrix} 3x^2 - 3y \\ 3y^2 - 3x \end{pmatrix} \stackrel{!}{=} 0 \]
-
-\[ 3x^2 - 3y = 0 \iff 3x^2 = 3y \iff x^2 = y \]
-\[ 3y^2 - 3x = 0 \iff 3x^4 - 3x = 0 \iff 3x (x^3 - 1) \overset{!}{=} 0 \]
-
-\[ x_1 = 0 \not\in D \qquad x_2 = 1 \in D \]
-
-\subsection{Exercise 53.b}
-\[ H_f(x,y) = \begin{pmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{pmatrix} = \begin{pmatrix} 6x & -3 \\ -3 & 6y \end{pmatrix} \]
-\[ H_f(1,1) = \begin{pmatrix} 6 & -3 \\ -3 & 6 \end{pmatrix} \]
-\dots
-all eigenvalues are positive. Hence the Hessian matrix is positive definite.
-
-\subsection{Exercise 53.c}
-\[ f(x_0, y_0) = f(1, 1) = 1 + 1 - 3 = -1 \]
-\[ f(\frac34, -3) = -19.828125 \]
-Because $\exists x = (\frac34, -3)$ with $f(1, 1) > f(x)$, $(1,1)$ cannot be a global minimum.
-
-\section{Exercise 54}
-\begin{ex}
-  Which of the triangles with given curcumference $a + b + c = 2s$ has the largest area
-  $F = \sqrt{s (s - a) (s - b) (s - c)}$?
-\end{ex}
-
-We use Lagrange multiplicators, even though we didn't discuss it in lectures yet.
-\[ \mathcal{L}(x,y,\lambda) = f(x,y) + \lambda (c - g(x,y)) \]
-\[ \mathcal{L}(a,b,c,\lambda) = \sqrt{s (s-a) (s-b) (s-c)} + \lambda (-a - b - c + 2s) \]
-
-\begin{align*}
-  \frac{\partial \mathcal{L}}{\partial a} &= \frac12 - \frac{s (s-b) (s-c)}{\sqrt{s (s-a) (s-b) (s-c)}} - \lambda \\
-  \frac{\partial \mathcal{L}}{\partial b} &= \frac{1}{2} - \frac{s (s-a) (s-c)}{\sqrt{s (s-a) (s-b) (s-c)}} - \lambda \\
-  \frac{\partial \mathcal{L}}{\partial c}  = \frac12 - \frac{s (s-b) (s-a)}{\sqrt{s (s-a) (s-b) (s-c)}} - \lambda \\
-  \frac{\partial \mathcal{L}}{\partial \lambda} = -(a + b + c - 2s)
-\end{align*}
-
-We optimize and therefore set all expressions to zero.
-
-\[ \frac12 - \frac{s (s-b) (s-c)}{\sqrt{\ldots}} = \frac12 - \frac{s (s-a) (s-c)}{\sqrt{\ldots}} \]
-\[ s - b = s - a \iff b = a \iff \ldots \iff b = c \]
-Hence our solution is $a = b = c$ with $a = b = c = \frac23s$.
-
-Be aware that we always need to consider that no solutions get lost while reformulating expressions!
-
-\section{Exercise 55}
-\begin{ex}
-  Determine for a function $f: \mathbb R^2 \to \mathbb R$, $f(x,y) \coloneqq e^{2x-3y}$,
-  the Taylor polynomial of third order $T_f^3(x, y; x_0, y_0)$ in point $(x_0, y_0) \coloneqq (0, 0)$.
-
-  \emph{Remark:} You can use the following formula for $n \in \mathbb N$ without proof:
-  \[ T_f^n(x, y; x_0, y_0) = \sum_{k=0}^n \frac1{k!} \left((x - x_0) \partial_x + (y - y_0) \partial_y\right)^k f(x_0, y_0). \]
-\end{ex}
-
-\begin{align*}
-  \partial_x f(x, y) &= 2 \cdot e^{2x - 3y} \\
-  \partial_y f(x, y) &= -3 \cdot e^{2x - 3y} \\
-  \partial_{x_i y_i} f(x, y) &= e^{2x - 3y} \cdot 2^i \cdot (-3)^j \\
-  \partial_{x_i y_j} f(0, 0) &= 2^i \cdot (-3)^j
-\end{align*}
-
-\begin{align*}
-  T_f^3(x, y; 0, 0) &= f(0, 0) + (x \partial_x + y \partial_y)^1 f(0, 0) \\
-  &+ \frac12 \left(x^2 \partial_{xx} + 2xy \partial_{xy} + y^2 \partial_{yy}\right) f(0, 0) \\
-  &+ \frac16 \left(x^3 \partial_{xxx} + 3x^2 y \partial_{xxy} + 3xy^2 \partial_{xyy} + y^3 \partial_{yyy}\right) f(0, 0)
-\end{align*}
-
-Now insert those derivatives and you are done.
-
-\section{Exercise 56}
-\begin{ex}
-  For a curve $\gamma: (-\varepsilon, \varepsilon) \to \mathbb R^2$ with $\varepsilon > 0$ and $\gamma(0) \coloneqq (0, 0)$
-  and functions $f, g: \mathbb R^2 \to \mathbb R$,
-  \[ f(x,y) \coloneqq e^{9x + 2y} \text{ and } g(x, y) \coloneqq \sin(4x + y), \]
-  it is known that
-  \[ \left. \frac{d}{dt} (f \circ \gamma)(t) \right|_{t=0} = 2 \text{ and } \left. \frac{d}{dt} (g \circ \gamma)(t) \right|_{t=0} = 1 \]
-  Determine $\gamma'(0)$.
-\end{ex}
-
-\[ Df(x, y) = \begin{bmatrix} \partial_x f(x, y) & \partial_y f(x, y) \end{bmatrix} = \begin{bmatrix} 9e^{9x+2y}    & 2e^{9x+2y} \end{bmatrix} \]
-\[ Dg(x, y) = \begin{bmatrix} \partial_x g(x, y) & \partial_y g(x, y) \end{bmatrix} = \begin{bmatrix} 4\cos(4x+y) & \cos(4x+y) \end{bmatrix} \]
-
-From the values $2$ and $1$ it follows that
-\[ \iff \left. D_f(\gamma(t)) \cdot \gamma'(t) \right|_{t=0} = 2 \text{ and } \left. Dg(\gamma(t)) \cdot \gamma'(t) \right|_{t=0} = 1 \]
-\[ \iff D_f(\gamma(0)) \cdot \gamma'(0) = 2 \text{ and } Dg(\gamma(0)) \cdot \gamma'(0) = 1 \]
-\[ \iff D_f\begin{pmatrix} 0 \\ 0 \end{pmatrix} \cdot \gamma'(0) = 2 \text{ and } Dg\begin{pmatrix} 0 \\ 0 \end{pmatrix} \cdot \gamma'(0) = 1 \]
-\[ \iff (9e^0 \quad 2e^0) \cdot \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} = 2 \text{ and } (4 \cos(0) \quad \cos(0)) \cdot \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} = 1 \]
-This gives a linear equation system. We solve it and get
-\[ \gamma'(0) = \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \]
-
-\subsection{Tutor's notes}
-\[ \gamma(t) = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} \]
-\[ \gamma'(t) = \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix} \]
-\[ x(0) = 0 \qquad y(0) = 0 \]
-
-\[ (f \circ \gamma)(t) = e^{9x(t) + 2y(t)} \]
-\[ (f \circ \gamma)'(t) = (9x'(t) + 2y'(t)) e^{9x(t) + 2y(t)} \]
-\[ 2 = (f \circ \gamma)'(0) = (9x'(0) + 2y'(0)) e^0 \]
-\[ 2 = 9x'(0) + 2y'(0) \]
-
-The point is, this should be a bit more briefer and more comprehensible.
-
-\section{Exercise 57}
-\begin{ex}
-  Verify the following properties of function $f: \mathbb R \to \mathbb R$,
-  \[ f(x) \coloneqq x - \arctan(x) - \frac{\pi}{2}. \]
+  Let $f: \mathbb R \to \mathbb R$, $f(x) = \sqrt{1 + x^2}$.
   \begin{enumerate}
-    \item $f$ satisfies all conditions for Banach's fixed point theorem
-      except for the contraction property. Instead it holds that
-      \[ \abs{f(x) - f(y)} < \abs{x - y} \]
-      for all $x, y \in \mathbb R$.
-    \item $f$ has no fixed point.
+    \item Show that $\card{f(x) - f(y)} < \card{x - y} \forall x, y \in \mathbb R$ with $x \neq y$
+    \item Investigate which conditions of Banach's Fixed Point Theorem are [not] met.
+    \item Is Banach's Fixed Point Theorem applicable? Does $f$ have a fixed point?
   \end{enumerate}
 \end{ex}
 
-We additionally assume $x \neq y$, otherwise this inequality does not hold.
+Exercise (a).
 
-\subsection{Exercise 57.a}
-Yes, $\mathbb R$ satisfies completeness.
-Yes, $\mathbb R$ is non-empty.
-Yes, $\mathbb R$ is a metric space with $d(x, y) \coloneqq \abs{x - y}$.
+\[ \card{f(x) - f(y)} < \card{x - y} \qquad x,y \in \mathbb R, x \neq y \]
+\[ \card{\sqrt{1 + x^2} - \sqrt{1 + y^2}} < \card{x - y} \]
+\[ 1 + x^2 + 1 + y^2 - 2 \sqrt{(1 + x^2) (1 + y^2)} < x^2 + y^2 - 2xy \]
+\[ 2 - 2\sqrt{(1 + x^2)(1 + y^2)} < -2xy \]
+\[ 1 + xy < \sqrt{(1 + x^2)(1 + y^2)} \]
+We need to distinguish 2 cases here ($x$ and $y$ have same signum, $x$ and $y$ have different signum). This is trivial.
+\[ 1 + 2xy + x^2 y^2 < 1 + x^2 + y^2 + x^2 y^2 \]
+\[ 0 < x^2 + y^2 - 2xy \]
+\[ 0 < (x - y)^2 \]
 
-Show,
-\[ \forall x, y \in \mathbb R: \abs{f(x) - f(y)} < \abs{x - y} \]
+Exercise (b and c).
 
-\[ f'(x) = 1 - \frac{1}{1 + x^2} \]
-\[ \abs{f'(x)} = \abs{1 - \frac{1}{1 + x^2}} < 1 \]
-because $x^2 \geq 0$.
+Let $x \in \mathbb R$.
+\[ f(x) = x \]
+\[ \sqrt{1 + x^2} = x \]
+\[ 1 + x^2 = x^2 \]
+\[ 1 = 0 \]
 
-By the Mean Value Theorem it follows that
-\[ \exists \xi \in \mathbb R: f(x) - f(y) = f'(\xi) (x - y) \]
-\[ \abs{f(x) - f(y)} = \abs{f'(\xi)} \cdot \abs{x - y} < 1 \cdot \abs{x - y} = \abs{x - y} \]
+\dateref{2018/04/12}
 
-\subsection{Exercise 57.b}
-
-$f$ has no fixed point.
-\[ x = x - \arctan(x) - \frac\pi2 \]
-\[ -\frac\pi2 = \arctan(x) \]
-This is a contradiction, because $\arctan: \mathbb R \to (-\frac{\pi}{2}, \frac\pi2)$.
-
-\subsection{Remark}
-%
-The contraction property does not hold. Fixed point theorem:
-\[ A \cap B \cap C \implies D \]
-We have proven:
-\[ A \cap B \text{ holds, but } \neg D \]
-Then followingly
-\[ \implies \neg C \]
-
-\subsection{Fixed point theorem as a poem}
-
-If $M$'s a complete metric space, \\
-And non-empty, we know it's the case, \\
-It f's a contraction \\
-Then under its action \\
-A single point stays in its place.
-
-\section{Exercise 58}
+\section{Exercise 03/4}
 \begin{ex}
-  Let $f: \mathbb R^3 \to \mathbb R$ defined by
-  \[ f(x, y, z) \coloneqq x^3 + y^3 + z^3 - 3xyz - 4 \]
-  and $(x_0, y_0, z_0) \coloneqq (1, 1, 2)$. Show that there exists some neighborhood
-  $U \subseteq \mathbb R^2$ of $(x_0, y_0)$ and some neighborhood $V \subseteq \mathbb R$
-  of $z_0$ and furthermore some uniquely defined $\varphi \in C^1(U, V)$ such that
-  \[ \varphi(x_0, y_0) = z_0 \text{ and } f(x, y, \varphi(x, y)) = 0 \]
-  for all $(x, y) \in U$. Furthermore determine $\varphi'(x_0, y_0)$.
+  Let $(X, d)$ be a metric space and $x_0 \in X$. A function $f: X \to \mathbb R$ is called half-continuous from below in $x_0$, if for every $\varepsilon > 0$ some $\delta > 0$ exists, such that $d(x, x_0) < \delta$ implies $f(x_0) - f(x) < \varepsilon$. If $f$ is half-continuous from below in every $x_0 \in X$, then $f$ is called half-continuous from below.
 \end{ex}
 
-\[ (x_0, y_0, z_0) \coloneqq (1, 1, 2) \]
-\[ \varphi(x_0, y_0) = z_0 \land f(x, y, \varphi(x, y)) = 0 \]
-\[ \mathbb R^{m+n} \to \mathbb R^n \]
-\[ - 3xy + 3z^2 = 9 \neq 0 \]
-\[ f(1, 1, 2) = 1 + 1 + 8 - 6 - 4 = 0 \]
+Obviously, continuity implies half-continuity.
 
-So all properties for the Implict Function Theorem are satisfied.
+\subsection{Exercise 03/4a}
+\begin{ex}
+  Give some half-continuous from below $f: [-1, 1] \to \mathbb R$ such that $f$ is non-continuous.
+\end{ex}
 
-\[ f'(x_0, y_0, \varphi(x_0, y_0)) = 0 \]
-\[ \partial_x f(x_0, y_0, \varphi(x_0, y_0)) = 3x_0^2 + \partial_x \varphi(x_0, y_0) + 3 \varphi(x_0, y_0)^2 - 3 x_0 y_0 \partial_x \varphi(x_0, y_0) - 3 y_0 \varphi(x_0, y_0) \]
+Let $f: [-1,1] \to \mathbb R$.
+\[
+  x \mapsto \begin{cases}
+    -1 & x = -1 \\
+    -x & x \neq -1
+  \end{cases}
+\]
+\[ \underbrace{f(-1)}_{=-1} - \underbrace{f(x)}_{\geq -1} \leq 0 < \varepsilon \]
 
-Remark by the tutor:
-\[ f(x, y, \varphi(x, y)) = x^3 + y^3 + \varphi^3 - 3xy \varphi - 4 \]
-\[ \frac{\partial}{\partial x} f(x, y, \varphi) = 3x^3 + \left(\frac{\partial}{\partial x} \varphi\right) \cdot 3 \varphi^2 - 3y \varphi - 3yx \left(\frac{\partial}{\partial x \varphi}\right) \]
+\subsection{Exercise 03/4b}
+\begin{ex}
+  Give some half-continuous from below $f: [-1, 1] \to \mathbb R$, but does not have a maximum.
+\end{ex}
+Same $f$ can be chosen.
 
+\subsection{Exercise 03/4c}
+\begin{ex}
+  Give some half-continuous from below $f: [-1, 1] \to \mathbb R$, but does not have a minimum.
+\end{ex}
+$f$ as $f|_{[-1,1]}$ can be chosen.
 
-\[ 3 + \partial_x \varphi(x_0, y_0) \cdot 12 - 3 \partial_x \varphi(x_0, y_0) - 6 < 0 \]
-\[ \iff 9 \partial_x \varphi(x_0, y_0) = 3 \]
-\[ \iff \partial_x \varphi(x_0, y_0) = \frac13 \]
+\subsection{Exercise 03/4d}
+\begin{ex}
+  Prove that every half-continuous from below function in a compact set has a minimum.
+\end{ex}
 
-\[ D\varphi(x_0, y_0) = \left(\frac13, \frac13\right) \]
+\textbf{Hint:} It is assumed that cover-compactness seems to be more cumbersome than sequential compactness. \\
+\textbf{Remark:} This is a generalization of the theorem, that every continuous, compact function has a minimum and maximum.
+
+Let $K \subseteq X$ be compact. $f: K \to \mathbb R$ is half-continuous from below.
+
+Show that $f^k = \operatorname{inf}(f(K)) \in f(K)$.
+
+\[ \exists (x_n)_{n\in\mathbb N} \subseteq K \text{ with } f(x_n) - f^k < \frac1n \]
+$K$ is compact. Hence, there exists $(x_{n_k})_{k \in \mathbb N}$ with $\lim_{k\to\infty} x_{n_k} \coloneqq x^* \in K$.
+Let $\varepsilon > 0$ be arbitrary.
+By half-continuity from below, it follows that $\exists \delta > 0: d(x^*, x) < \delta \implies f(x^*) - f(x) < \varepsilon$.
+\[ \exists K \in \mathbb N \forall k \geq K: d(x^k, x_{n_k}) < \delta \implies f(x^k) - f(x_{n_k}) < \varepsilon \iff f(x^*) < f(x_{n_k}) + \varepsilon \]
+\[ \implies f(x^*) \leq \lim_{k\to\infty} f(x_{n_k}) \implies f(x^*) \leq \lim_{n\to\infty} f(x_n) = f^* \]
+\[ \implies f(x^*) = f^* \implies f^* \text{ is minimum of } f(X) \]
+
+\section{Exercise 03/3}
+\begin{ex}
+  Let $(X, d)$ and $(Y, e)$ be metric spaces, where $d: X \to \mathbb R$ is a discrete metric,
+  hence
+  \[
+    d(x_1, x_2) = \begin{cases}
+      0 & \text{if } x_1 = x_2 \\
+      1 & \text{if } x_1 \neq x_2
+    \end{cases}
+  \]
+\end{ex}
+
+\subsection{Exercise 03/3a}
+\begin{ex}
+  Every map $f: X \to Y$ is continuous.
+\end{ex}
+
+Let $f: X \to Y$ be arbitrary.
+Let $x_0 \in X$ and $\varepsilon > 0$ be arbitrary.
+Show that
+\[ \exists \delta > 0: d(x, x_0) < \delta \implies d(f(x), f(x_0)) < \varepsilon \]
+\[ K_{\frac12}(x_0) = \set{x_0} \]
+
+\subsection{Exercise 03/3b}
+\begin{ex}
+  A map $f: X \to Y$ is not necessarily bounded.
+\end{ex}
+
+$M \geq 0$ arbitrary. $\exists x,y \in f(X): e(x,y) > M$.
+
+\[ f: \mathbb Z \to \mathbb Z \qquad x \mapsto x \]
+\[ f(x) = \mathbb Z \qquad x = 0 \qquad y = M + 1 \]
+$e = \card{\cdot}$.
+
+\subsection{Exercise 03/3c}
+\begin{ex}
+  Every map $g: Y \to X$ is bounded.
+\end{ex}
+Let $g: Y \to X$ be arbitrary.
+Show that $\exists M \geq 0 \forall x,y \in g(Y): d(x,y) \leq M$.
+Choose $M = 2$. $\forall x,y \in X: d(x,y) \leq 1 \leq 2$.
+
+\subsection{Exercise 03/3d}
+\begin{ex}
+  In case $(Y, e) = (\mathbb R, \card{\cdot})$, every non-constant map $g: Y \to X$ is non-continuous.
+\end{ex}
+
+We show: continuity implies constant.
+
+Let $g: \mathbb R \to X$ continuous.
+Let $x_0 \in \mathbb R$ be arbitrary and $\varepsilon = \frac12$.
+$\exists \delta_0 > 0: \card{x_0 - x} < \delta \implies d(g(x_0), g(x)) < \frac12$
+for $x_0 \in \mathbb R$ there exists $\delta_0$ such that 
+$\forall x \in (x_0 - \delta, x_0 + \delta): g(x) = g(x_0)$.
+\[ \operatorname{sup}\setdef{s \in [x_0, \infty)}{g(x) = g(x_0) \forall x \in [x_0, s)} \]
+
+\section{Exercise 03/2}
+\begin{ex}
+  Let $V$ be the vector space of bounded, complex sequences, hence
+  \[
+    V \coloneqq \setdef{(a_k)_{k \in \mathbb N} \subset \mathcal C}{\exists M \in \mathbb R \text{ with } \card{a_k} \leq M \forall k \in \mathbb N}
+  \]
+  additionally with norm
+  \[ \norm{(a_k)_{k \in \mathbb N}}_{\infty} \coloneqq \sup\setdef{\card{a_k}}{k \in \mathbb N} \]
+\end{ex}
+
+This solution was done by Mr. Kruse himself.
+
+\subsection{Exercise 03/2b}
+\begin{ex}
+  The unit sphere in $(V, \norm{\cdot}_{\infty})$,
+  \[ B_1(0) = \setdef{a \in V}{\norm{a}_{\infty} \leq 1} \]
+  is closed and bounded, but not sequentially compact.
+\end{ex}
+
+We need to prove boundedness.
+
+Let $C, D \in B_1(0)$.
+\[ \implies \norm{\underbrace{C}_{= (c_k)} - \underbrace{D}_{=(d_k)}}_{\infty} \leq 2 \]
+\[ \sup\set{\card{\underbrace{c_k - d_k}_{\leq \underbrace{\card{c_k}}_{\leq 1 \forall k} + \underbrace{\card{d_k}}_{\leq 1 \forall k} \leq 2 \forall k } }: k \in \mathbb N} \leq 2 \]
+
+We need to prove closedness.
+
+\[ (A^n)_{n \in \mathbb N} \subset B_1(0) \text{ with } \lim_{n\to\infty} A^n = A \]
+Show that $A \in B_1(0)$.
+\[ \text{For every } A^n \coloneqq (a^n_k)_{k \in \mathbb N} \text{ it holds that } \norm{\underbrace{(a^n_k)_{k \in \mathbb N}}_{= \sup\set{\card{a^n_k}: k \in \mathbb N} \leq 1}}_{\infty} \leq 1 \]
+
+\[ (A^n)_{n \in \mathbb N} \subset B_1(0) \text{ with } \lim_{n\to\infty} A^n = A \]
+\[ \iff \lim_{n \to \infty} \norm{A^n - A}_{\infty} = 0 \]
+
+$\card{a^n_k}$ in
+\[ \sup\set{\card{a^n_k}: k \in \mathbb N}  \]
+converges to $\card{a_k} \leq 1$ for $n \to \infty$.
+
+We need to prove sequentially non-compact of $B_1(0)$.
+So we only need to find some sequence that does not have some converging subsequence.
+
+We define
+\[
+  A^n \coloneqq (a^n_k)_{k \in \mathbb N} \coloneqq \begin{cases}
+    0 & \text{ if } k \neq n \\
+    1 & \text{ if } k = n
+  \end{cases}
+\]
+for every $n \in \mathbb N$. As such we get a sequence
+\[ \implies (A^n)_{n \in \mathbb N} \subset B_1(0) \]
+but it holds that $\norm{A^n - A^m}_{\infty} = 1 \forall n \neq m$.
+This is also not a Cauchy sequence.
+
+\section{Exercise 03/1}
+\begin{ex}
+  Let $(X,d)$ be a metric space. A set $K \subset X$ is called cover-compact,
+  if for every family of open sets $(U_i)_{i \in I} \subset X$ with $K \subset \bigcup_{i \in I} U_i$ it holds that:
+  There exists a finite set $J \subset I$ with $K \subset \bigcup_{i \in J} U_i$. Let $K \subset X$ be cover-compact.
+\end{ex}
+
+\subsection{Exercise 03/1a}
+\begin{ex}
+  Show that $K$ is totally bounded, hence for every $r>0$, there exists $x_1, \dots, x_n$ in $K$
+  with $K \subset \bigcup_{i=1}^n B_r(x_i)$.
+\end{ex}
+
+Construct a family of open spheres ($\left(\mathcal B_r(x)\right)_{x \in K} \subset K$ covering $K$).
+By cover-compactness it follows there exists some finite $J \subset K$ with $K \subset \bigcup_{x \in J} B_r(x)$.
+
+\subsection{Exercise 03/1b}
+\begin{ex}
+  Prove that $K$ is sequentially compact.
+\end{ex}
+
+Proof by contradiction: Assume $K$ is not sequentially compact.
+
+Then there exists a sequence $(x_n)_{n \in \mathbb N} \in K$ which has a subsequence $(x_{n_k})_{k \in \mathbb N} \to c \not\in K$.
+\[ \forall x \in K: \exists r_x > 0: B_{r_x}(x) \text{ contains finitely many sequence elements} \]
+Because $\bigcup_{x \in K} B_{r_x}(x) \supset K$ it holds: there exists $J \subset K$ finite $\bigcup_{x \in J} B_{r_x}(x) \supset K$.
+This contradicts with $(x_n)_{n \in \mathbb N} \subset K$.
+
+\subsection{Exercise 04/1}
+\begin{ex}
+  Let $(M,d)$ be a complete metric space and $(A_k)_{k \in \mathbb N} \subset M$
+  is a sequence of closed sets. Use Cantor's Theorem to prove:
+  $\bigcup_{k \in \mathbb N} A_k$ contains an open set if at least one $A_k$
+  contains an open set. Illustrate this statement for $(M,d) = (\mathbb R, \card{\cdot})$.
+\end{ex}
+
+First we illustrate it in $\mathbb R$.
+
+\[ (A_k) = \set{a_k} \]
+where $a_k \in \mathbb R$.
+
+Consider some 
+
+\section{Exercise 04/2}
+\begin{ex}
+  Let $f: [-1,1] \to \mathbb C$ be continuous and $O \subset \mathbb C$ is an open set.
+  In the lecture we have seen that $f^{-1}(O)$ is open.
+  Review the result and prove for $O = \mathbb C$.
+  \begin{enumerate}
+    \item The set $O$ is open.
+    \item It holds that $f^{-1}(O) = [-1,1]$
+    \item The set $[-1,1] \subset \mathbb R$ is not open.
+    \item The statement of the lecture about $f^{-1}(O)$ is still correct.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 04/2a}
+Show that $\mathbb C$ is open.
+
+Let $z \in \mathbb C$. $\exists \varepsilon > 0$,
+\[ B(z, \varepsilon) \subseteq \mathbb C \]
+
+\subsection{Exercise 04/2b}
+Follows from the definition of a function.
+
+\subsection{Exercise 04/2c}
+If it is an open set, there must be a neighborhood of arbitrary $\varepsilon$
+such that this neighborhood is completely in the set.
+
+Let $\varepsilon > 0$. Choose $x \in B(1, \varepsilon)$ with $x = 1 + \frac{\varepsilon}2$.
+\[ \implies x \in B(1, \varepsilon) \land x \not\in [-1,1] \]
+
+\subsection{Exercise 04/2d}
+Let $(X,d)$ and $(Y,e)$ be metric spaces and $f: X \to Y$ continuous
+then $f^{-1}(O)$ is open $\forall O \subseteq Y$ open.
+
+Show:
+\[ \forall x \in [-1,1] \exists \varepsilon > 0: \underbrace{B(x, \varepsilon)}_{= \setdef{z \in [-1,1]}{d(x, z) < \varepsilon}} \subseteq [-1,1] \]
+So the difference is the domain of $z$ ($[-1,1]$ unlike exercise c, where we used $\mathbb R$).
+
+The point was to illustrate how to read the theorem properly.
+
+\section{Exercise 04/3}
+\begin{ex}
+  Let $\Omega$ be a non-empty set and $B(\Omega)$ the vector space of real-valued bounded functions on $\Omega$.
+  Hence,
+  \[ B(\Omega) \coloneqq \setdef{f: \Omega \to \mathbb R}{\exists M \in \mathbb R \text{ with } \card{f(x)} \leq M \forall x \in \Omega} \]
+  with norm
+  \[ \norm{f}_{\infty} \coloneqq \sup\setdef{\card{f(x)}}{x \in \Omega} \]
+  Prove the following statements:
+  \begin{enumerate}
+    \item $(B(\Omega), \norm{\cdot}_{\infty})$ is a complete normed vector space.
+    \item The unit circle $U$ in $B(\Omega)$ is closed and bounded.
+      \[ U = \setdef{f \in B(\Omega)}{\norm{f}_{\infty} \leq 1} \]
+    \item The unit circle is sequentially compact if and only if $\Omega$ is finite.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 04/3a}
+Given $\Omega \neq 0$.
+\[ B(\Omega) \coloneqq \setdef{f: \Omega \to \mathbb R}{\exists M \in \mathbb R: \card{f(x)} \leq M \quad \forall x \in \Omega} \]
+
+First, we show that $\norm{\cdot}_{\infty}$ is indeed a norm. We just show absolute homogeneity for illustrative purposes:
+\begin{align*}
+  \norm{\lambda f}_{\infty}
+    &= \sup\setdef{\card{\lambda \cdot f(x)}}{x \in \Omega} \\
+    &= \sup\setdef{\card{\lambda} \cdot \card{f(x)}}{x \in \Omega} \\
+    &= \card{\lambda} \cdot \sup\set{\card{f(x)}}{x \in \Omega} \\
+    &= \card{\lambda} \cdot \norm{f}
+\end{align*}
+
+We show completeness of $(B(\Omega), \norm{\cdot}_{\infty})$.
+Equivalently, all Cauchy sequences in $B(\Omega)$ are convergent.
+Equivalently, for all Cauchy sequences $(f_n)_{n \in \mathbb N}: \exists f \in B(\Omega): \norm{f_n - f}_{\infty} \to 0$ for $n \to \infty$.
+
+Let $(f_n)_{n \in \mathbb N}$ be an arbitrary Cauchy sequence. Hence,
+\[ \forall \varepsilon > 0 \exists N \in \mathbb N: n,m > N \implies \norm{f_n - f_m}_{\infty} = \sup\setdef{(f_n - f_m)(x)}{x \in \Omega} < \varepsilon \]
+\[ \forall \varepsilon > 0: n,m > N \]
+\[ \forall x \in \Omega: \card{(f_n - f_m)(x)} < \varepsilon \]
+\[ \implies \forall x \in \Omega: (f_n(x))_{n \in \mathbb N} \subseteq R \]
+is a Cauchy sequence in $\mathbb R$.
+\[ \iff \forall x \in \Omega: (f_n(x))_{n \in \mathbb N} \text{ converges} \]
+\[ \forall x \in \Omega: (f_n(x)))_{n\in\mathbb N} \to f(x) \forall \varepsilon > 0 \exists N \in \mathbb N: n > N \implies \card{f_n(x) - f(x)} < \varepsilon \]
+\[ \exists N \in \mathbb N \forall n > N: \norm{f_n - f}_{\infty} < 1 \]
+\[ \norm{f}_{\infty} = \norm{f - f_N + f_N}_{\infty} \leq \underbrace{\norm{f - f_N}_{\infty}}_{<1} + \underbrace{\norm{f_N}}_{\leq M} < 1 + M \]
+
+\subsection{Exercise 04/3b}
+Let $K_1 \coloneqq \setdef{f \in B(\Omega)}{\norm{f}_{\infty} \leq 1}$.
+Show $K_1$ is bounded and closed.
+
+\subsubsection{$K_1$ is bounded}
+Let $f,g \in K_1$ be arbitrary.
+\[ \norm{f - g}_{\infty} \leq \norm{f}_{\infty} + \norm{g}_{\infty} \leq 1 + 1 = 2 \]
+$2$ is a boundary and therefore $K_1$ is bounded.
+
+\subsubsection{$K_1$ is closed}
+Let $(f_n)_{n \in \mathbb N}$ be a convergent sequence in $K_1$
+with $\lim_{n\to\infty} f_n = f \iff \lim_{n\to\infty} \norm{f_n - f} = 0$.
+
+Show $f \in K_1$.
+
+\[ \forall f_n \in K_1: \norm{f_n} \leq 1 \]
+\[ \norm{f}_{\infty} = \norm{f - f_n}_{\infty} \leq \underbrace{\norm{f - f_n}_{\infty}}_{\xrightarrow{n \to \infty} 0} + \underbrace{\norm{f_n}_{\infty}}_{\leq 1} \leq 1 \]
+\[ \implies \norm{f}_{\infty} \leq 1 \implies f \in K_1 \]
+
+\subsection{Exercise 04/c}
+$f$ is sequentially compact if and only if $\Omega$ is finite?
+Equivalently, every sequence $(f_n)_{n \in \mathbb N} \subseteq K_1$ has a convergent subsequence with limit in $K_1$.
+
+Direction $\implies$.
+
+Let $\Omega$ be infinite. Then $\exists$ a sequence $(f_n)_{n \in \mathbb N}$ without convergent subsequence.
+We build a sequence $(f_n)_{n \in \mathbb N}$ in $K_1$.
+
+Let $(x_i)_{i \in \mathbb N}$ be an arbitrary sequence in $\Omega$ with $x_i \neq x_j \forall i \neq j$.
+\[
+  f_n(x) \coloneqq \begin{cases}
+    1 & \text{ if } x = x_n \\
+    0 & \text{ else}
+  \end{cases}
+\]
+Then it holds that $\forall n \neq m$,
+\[ \norm{f_n - f_m}_{\infty} = 1 \]
+
+Assume there exists a convergent subsequence in $(f_{n_k})_{k \in \mathbb N}$ of $(f_n)_{n \in \mathbb N}$ with limit $f$.
+\[ \implies \exists M > 0: k > M: \norm{f_{n_k} - f}_{\infty} < \frac12 \]
+Let $k,l > M$ with $k \neq l$
+\[ \implies \norm{f_{n_k} - f_{n_l}}_{\infty} \leq \norm{f_{n_k} - f}_{\infty} + \norm{f_{n_l} - f}_{\infty} < \frac12 + \frac12 = 1 \]
+This is a contradiction to $\norm{f_n - f_m}_{\infty} = 1$.
+
+Direction $\impliedby$.
+
+Let $(f_n)_{n \in \mathbb N}$ be a sequence in $K_1$ without limit.
+Let $n \in \mathbb N$.
+\[ \Omega = \set{x_1, \ldots, x_n} \implies \card{\set{f_n(x_1), \ldots, f_n(x_n)}} < \infty \]
+Let $f_n \in K_1 \implies \card{f_n(x_i)} \leq 1 \forall i \in \set{1, \ldots, m} \forall n \in \mathbb N$.
+
+Consider $x_1 \in \Omega$.
+\[
+  (f_n(x_1)) = y_n^1 \in [-1,1]
+\] \[
+  [-1,1] \text{ compact }
+  \implies (y_n^1)_{n \in \mathbb N} \text{ has convergent subsequence } (y^1_{n_k})_{k \in \mathbb N} \to \tilde y^1
+\] \[
+  (f_{n_k}(x_1))_{k \in \mathbb N} = (y^1_{n_k})_{k \in \mathbb N} \to \tilde y_1 \coloneqq f(x_1)
+\]
+and this goes on up to
+\[ (f_{n_{\ddots_z}}(x_m))_{z \in \mathbb N} \to f(x_m) \]
+For every $\varepsilon > 0$
+\[ \exists N_1: \forall n \in N_1: \card{f_{n_{\ddots_{2}}}(x_1) - f(x_1)} < \varepsilon \]
+\[ \vdots \]
+\[ \exists N_m: \forall n \in N_m: \card{f_{n_{\ddots_{2}}}(x_m) - f(x_m)} < \varepsilon \]
+
+Choose $N \coloneqq \max{N_1, \ldots, N_m}$. For all $n \geq N$,
+\[ \implies \norm{f_{n_{\ddots_{2}}}}_{\infty} < \varepsilon \]
+
+\section{Exercise 04/4}
+\begin{ex}
+  Let $k \in \mathbb N$. Show: $\exists \phi_k: \sqrt{k\pi} \leq \xi_k \leq \sqrt{(k+1)\pi}$ such that
+  \[ \int_{\sqrt{k\pi}}^{\sqrt{(k+1)\pi}} \sin(x^2) \, dx = \frac{(-1)^k}{\xi_k} \]
+\end{ex}
+
+\[
+  \int_{\sqrt{k\pi}}^{\sqrt{(k+1)\pi}} \sin(x^2) \, dx
+  = \int_{\sqrt{k\pi}}^{\sqrt{(k+1) \pi}} \frac{x \cdot \sin(x^2)}{x} \, dx
+  = \frac{1}{\xi_k} \cdot \int_{\sqrt{k\pi}}^{\sqrt{(k+1)\pi}} x \cdot \sin(x^2) \, dx
+\]
+But this IVT is unconventional.
+\[
+  = \left. \frac{1}{\xi_k} \cdot \left(-\frac12 \cdot \cos(x^2)\right) \right|_{\sqrt{k\pi}}^{\sqrt{(k+1)\pi}}
+\]
+
+If $k$ is even:
+\[ \frac{1}{\xi_k} \left(\frac12 + \frac12\right) = \frac{1}{\xi_k} \]
+If $k$ is odd:
+\[ \frac{1}{\xi_k} \left(-\frac12 - \frac12\right) = -\frac{1}{\xi_k} \]
+
+This implies a boundary of
+\[ \frac{(-1)^k}{\xi_k} \]
 
 \end{document}

@@ -39,17 +39,20 @@
 
 \title{Linear Algebra 2 -- Practicals}
 \author{Lukas Prokop}
-\date{summer term 2016}
+\date{summer term 2018}
 
+\newcommand\dateref[1]{These practicals took place on #1.\par}
 \newcommand\meta[3]{This #1 took place on #2 (#3).\par}
 \newcommand\abs[1]{|\,#1\,|}
 \newcommand\set[1]{\left\{#1\right\}}
 \newcommand\setdef[2]{\left\{#1\,\middle|\,#2\right\}}
 \newcommand\card[1]{\left|\,#1\,\right|}
 \newcommand\divides[2]{#1\,\mid\,#2}
+\newcommand\angel[1]{\langle#1\rangle}
 \newcommand\mathspace{\hspace{20pt}}
 \newcommand\fun[1]{\left\langle{#1}\right\rangle}
 \newcommand\norm[1]{\left\|{#1}\right\|}
+\newcommand\vectwo[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \newcommand\Q{\mathbb{Q}}
 \newcommand\nope{\lightning}
 \newcommand\vecfour[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
@@ -62,1981 +65,1088 @@
 \setcounter{tocdepth}{1}
 
 \begin{document}
-~
-
-\vspace{200pt}
-{\Huge
-  As of 11th of May 2016,
-  I am not attending LinAlg2
-  anymore due to difficulties
-  with my upcoming student exchange year
-  and work on my master thesis.
-
-  I therefore suppose this document will not be updated any more.
-}
-\newpage
-
 
 \maketitle
 \tableofcontents
 
 \clearpage
-Exercise I did on the board: 3, 7.
+
+Exercises, I did on the board: 
 
 \section{Exercise 1}
 \begin{ex}
   Determine the matrix representation of the linear map
-  \[ f: \mathbb R_1[x] \to \mathbb R_2[x] \]
-  \[ p(x) \mapsto (x-1) \cdot p(x) \]
-  in regards of bases $B = \set{1-x, 1+x} \subseteq \mathbb R_1[x]$ and $C = \set{1, 1 + x, 1 + x + x^2} \subseteq \mathbb R_2[x]$.
+  \[ f: \mathbb R_2[x] \to \mathbb R_3[x] \]
+  \[ p(x) \mapsto x \cdot p(x) \]
+  in terms of the bases $B = \set{1, x, x^2 - 1} \subseteq \mathbb R_2[x]$ and $C = \set{1, x, x^2 - 1, x^3 - 2x} \subseteq \mathbb R_3[x]$
 \end{ex}
+
+\subsection{Blackboard solution}
+
+\[ \mathcal L(\set{\underbrace{1, x, x^2-1}_{b_1, b_2, b_3}}) \to \mathcal L(\set{\underbrace{1, x, x^2-1, x^3 - 2x}_{c_1, c_2, c_3, c_4}}) \]
+\[ f: \alpha \mapsto x \cdot \alpha \]
+
+\[ f(1) = x = 1 c_2 \]
+\[ f(x) = x = x^2 = 1c_3 + 1 c_1 \]
+\[ f(x^2-1) = x^3 - x = 1 c_4 + 1 c_2 \]
 
 \[
-  f: \mathbb R_1[x] \to \mathbb R_2[x]
-\] \[
-  f: p(x) \mapsto (x-1) p(x)
-\] \[
-  B = \set{1-x, 1+x} \eqqcolon \set{b_1, b_2}
-\] \[
-  C = \set{1, 1+x, 1+x+x^2} \eqqcolon \set{c_1, c_2, c_3}
+  \begin{matrix}
+        & b_1 & b_2 & b_3 \\
+  \hline
+    c_1 & 0 & 1 & 0 \\
+    c_2 & 1 & 0 & 1 \\
+    c_3 & 0 & 1 & 0 \\
+    c_4 &   & 0 & 1
+  \end{matrix}
 \]
 
-Find $A \in \mathbb K^{3\times 2} \eqqcolon M_C^B(f)$.
-
-\[ \forall v \in \mathbb R_1: f(v) = w : \Phi_C(w) = A \Phi_B(v) \]
-
-\[ f(b_1) = (1-x)(x-1) = -x^2 + 2x - 1 \]
-\[ f(b_2) = (x-1)(x+1) = x^2 - 1 \]
-
-\[ \Phi_C(f(b_1)) \]
-
-Coefficient comparison:
-\begin{align*}
-  -x^2 + 2x - 1 &= \lambda_1 \cdot 1 + \lambda_2 (1 + x) + \lambda_3 (1 + x + x^2) \\
-  x^2: & \lambda_3 = -1 \\
-  x^1: & 2 = \lambda_2 + \lambda_3 \Rightarrow \lambda_2 = 3 \\
-  x^0: & -1 = \lambda_1 + \lambda_2 + \lambda_3 \Rightarrow \lambda_1 = -3
-\end{align*}
-
-\[ \Phi_C(f(b_1)) = \begin{pmatrix} 3 \\ 3 \\ 1 \end{pmatrix} \]
-\[ \Phi_C(f(b_2)): x^2 - 1 = \lambda_1 \cdot 1 + \lambda_2 (1 + x) + \lambda_3 (1 + x + x^2) \]
-\begin{align*}
-  x^2: & \lambda_3 = 1 \\
-  x^1: & \lambda_2 + \lambda_3 = 0 \Rightarrow \lambda_2 = -1 \\
-  x^0: & -1 = \lambda_1 + \lambda_2 + \lambda_3 \\
-       & -1 = \lambda_1 - 1 + 1 \\
-       & -1 = \lambda_1
-\end{align*}
-
-\[ \Phi_C(f(b_2)) = \begin{pmatrix} -1 \\ -1 \\ 1 \end{pmatrix} \]
-\[ A = \begin{pmatrix} -3 & -1 \\ 3 & -1 \\ 1 & 1 \end{pmatrix} \]
-
-
-\section{Exercise 3}
-\begin{ex}
-  Let $A_1, A_2, \ldots, A_k$ be quadratic $n\times n$ matrices over the field $\mathbb K$.
-  Show that the product $A_1 A_2 \ldots A_k$ is invertible if and only if all $A_i$ are invertible.
-\end{ex}
-
-All $A_i$ are invertible, then $\prod A_i$ is invertible.
-
-$A, B$ invertible, then $AB$ is invertible and $(AB)^{-1} = B^{-1} A^{-1}$.
-Generalize by induction.
-
-If $\prod A_i$ is invertible, then all $A_i$ are invertible.
-
-Sidenote: We know that $\operatorname{rank}(A) = n - \dim{\kernel(A)}$.
-
-\begin{description}
-  \item[$k=1$] trivial
-  \item[$k=2$] $A_1 A_2$ is invertible. Let $C = (A_1 A_2)^{-1}$. Then $C A_1 A_2 = I_n$.
-    Let $x \in \kernel(A_2) \Rightarrow A_2 x = 0 \Rightarrow \underbrace{C A_1}_{I_n} A_2 x = C A_1 0 = 0$.
-    \[ \kernel(A_2) = 0 \Rightarrow \operatorname{rank}(A_2) = n - 0: n \Rightarrow A_2 \text{ invertible} \]
-    \[ A_1 = \underbrace{A_1 A_2}_{\text{invertible}} \cdot \underbrace{A_2^{-1}}_{\text{invertible}} \]
-  \item[$k \to k+1$]
-    Let $A_1 \ldots A_{k+1}$ is invertible $\Rightarrow (A_1, \ldots, A_k) A_{k+1}$ is invertible $\xRightarrow{k=2} A_1, \ldots, A_k$ is invertible, $A_{k+1}$ invertible $\xRightarrow{\text{induction base}}$ $A_1, \ldots, A_k, A_{k+1}$ is invertible.
-\end{description}
-
-Remark:
-$A,B \in \mathbb K^{n\times n}$. $B$ is inverse of $A$
-\[ \Leftrightarrow AB = I = BA \Leftrightarrow AB = I \Leftrightarrow BA = I \]
-
-\section{Exercise 2}
-%
-\begin{ex}
-  Let $V$ be a vector space and $f: V \to \mathbb V$ is a nilpotent linear map,
-  hence there exists some $k \in \mathbb N$ such that $f^k = 0$.
-\end{ex}
-
-\subsection{Part a}
-\begin{ex}
-  Show that $\text{id}_V - f$ is invertible with $(\text{id}_V - f)^{-1} = \text{id}_V + f + f^2 + \ldots + f^{k-1}$.
-\end{ex}
-
-Show that: $(\text{id}_v - f)^{-1} = \sum_{i=0}^{k-1} f^i$.
-\[ (\text{id}_V - f) \circ \left(\sum_{i=0}^{k-1} f^{i}\right) = \text{id}_V \circ \sum_{i=0}^{k-1} f^i - f \circ \sum_{i=0}^{k-1} f^i - \sum_{i=0}^{k-1} f^{i+1} = f^0 + \sum_{i=1}^{k-1} f^i - \sum_{i=1}^{k-1} f^i - f^k = \text{id}_V - 0 = \text{id}_V \]
-and $\left(\sum_{i=0}^{k-1} f^i\right) \circ \left(\text{id}_V - f\right)$ analogously.
-
-\subsection{Part b}
-\begin{ex}
-  Use part a) to determine the inverse of the matrix
-  \[
-    \begin{pmatrix}
-      1 & 2 & 3 & 4 \\
-      0 & 1 & 2 & 3 \\
-      0 & 0 & 1 & 2 \\
-      0 & 0 & 0 & 1
-    \end{pmatrix}
-  \]
-\end{ex}
-\[
-  \begin{pmatrix}
-    1 & 2 & 3 & 4 \\
-    0 & 1 & 2 & 3 \\
-    0 & 0 & 1 & 2 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  \eqqcolon A
-  = \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  - f_A
-\] \[
-  f_A = I_n - A =
-  \begin{pmatrix}
-    0 & -2 & -3 & -4 \\
-    0 & 0 & -2 & -3 \\
-    0 & 0 & 0 & -2 \\
-    0 & 0 & 0 & 0
-  \end{pmatrix}
-\] \[
-  f^2_A = f \cdot f = \begin{pmatrix} 0 & 0 & 4 & 12 \\ 0 & 0 & 0 & 4 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
-\] \[
-  f^3 = f^2 \cdot f = \begin{pmatrix} 0 & 0 & 0 & -8 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
-\] \[
-  f^4 = f^3 \cdot f = \begin{pmatrix} 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
-\]
-$\Rightarrow$ f nilpotent.
-
-\[ A^{-1} = (\operatorname{id}_v - f)^{-1} = \operatorname{id}_v + f + f^2 + f^3 \]
-\[
-  = \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  +
-  \begin{pmatrix}
-    0 & -2 & -3 & -4 \\
-    0 & 0 & -2 & -3 \\
-    0 & 0 & 0 & -2 \\
-    0 & 0 & 0 & 0
-  \end{pmatrix}
-  +
-  \begin{pmatrix} 0 & 0 & 4 & 12 \\ 0 & 0 & 0 & 4 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
-  +
-  \begin{pmatrix} 0 & 0 & 0 & -8 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
-\] \[
-  = \begin{pmatrix} 1 & -2 & 1 & 0 \\ 0 & 1 & -2 & 1 \\ 0 & 0 & 1 & -2 \\ 0 & 0 & 0 & 1 \end{pmatrix}
-\] \[
-  A \cdot A' =
-  \begin{pmatrix} 1 & 2 & 3 & 4 \\ 0 & 1 & 2 & 3 \\ 0 & 0 & 1 & 2 \\ 0 & 0 & 0 & 1 \end{pmatrix} \cdot
-  \begin{pmatrix} 1 & -2 & 1 & 0 \\ 0 & 1 & -2 & 1 \\ 0 & 0 & 1 & -2 \\ 0 & 0 & 0 & 1 \end{pmatrix}
-  = \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}
-\]
-
-\section{Exercise 4}
-\subsection{Part a}
-\begin{ex}
-  Let $A$ be an invertible $n\times n$ matrix over a field $\mathbb K$ and $u,v$ are
-  column vectors (hence $n\times 1$ matrices), such that $\sigma  1 + v^t A^{-1} u \neq 0$.
-  Show that $(A + uv^t)$ is invertible and that
-  \[ (A + uv^t)^{-1} = A^{-1} - \frac1{\sigma} A^{-1} uv^t A^{-1} \]
-\end{ex}
-
-\subsection{Part b}
-\begin{ex}
-  Apply this formula to determine the inverse of the matrix
-  \[
-    A = \begin{pmatrix}
-      5 & 3 & 0 & 1 \\
-      3 & 2 & 0 & 0 \\
-      0 & 0 & 2 & 3 \\
-      0 & 0 & 3 & 5
-    \end{pmatrix}
-  \]
-\end{ex}
-
-\[
-  B = A + S
-\] \[
-  B = \begin{pmatrix} 5 & 3 & 0 & 0 \\ 3 & 2 & 0 & 0 \\ 0 & 0 & 2 & 3 \\ 0 & 0 & 3 & 5 \end{pmatrix}
-  + \begin{pmatrix} 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
-\] \[
-  \begin{pmatrix} 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
-    = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \cdot \begin{pmatrix} 0 & 0 & 0 & 1 \end{pmatrix}
-\]
-
-$A$ is invertible, because it is a block matrix\footnote{That's why chose $A$ and $S$ that way}.
-
-\[
-  A^{-1} = \begin{pmatrix}
-    2 & -3 & 0 & 0 \\
-    -3 & 5 & 0 & 0 \\
-    0 & 0 & 5 & -3 \\
-    0 & 0 & -3 & 2
-  \end{pmatrix}
-\] \[
-  \sigma = 1 + \begin{pmatrix} 0 & 0 & 0 & 1 \end{pmatrix} A^{-1} \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} = 1 + 0 \neq 0
-\]
-
-\[ \Rightarrow B^{-1} = A^{-1} - A^{-1} \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \cdot \begin{pmatrix} 0 & 0 & 0 & 1 \end{pmatrix} A^{-1}
-  = \begin{pmatrix}
-    2 & -3 & 6 & -4  \\
-    -3 & 5 & -9 & 6 \\
-    0 & 0 & 5 & -3 \\
-    0 & 0 & -3 & 2
-  \end{pmatrix}
-\]
-
-\section{Exercise 5}
-\begin{ex}
-  Show that the linear maps $f,g,h: \mathbb R^2 \to \mathbb R^2$ defined as
-  \[
-    f: (x_1, x_2) \mapsto (x_1 + x_2, x_1 - x_2) \quad
-    g: (x_1, x_2) \mapsto (x_1 + x_2, x_1 + x_2) \quad
-    h: (x_1, x_2) \mapsto (x_2, x_1)
-  \]
-  are linear independent, if they are considered as elements of the vector space
-  $\Hom(\mathbb R^2, \mathbb R^2)$ of all maps from $\mathbb R^2$ to $\mathbb R^2$.
-\end{ex}
-
-Let $\lambda_1, \lambda_2, \lambda_3 \in \mathbb R$.
-Show that
-\[ \lambda_1 f + \lambda_2 g + \lambda_3 h = 0 \stackrel!{=} \lambda_1 = \lambda_2 = \lambda_3 = 0 \]
-
-\[ f: x \mapsto Ax \qquad A_f = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \qquad A_g = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} \qquad A_n = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \]
-
-Is an isomorphism, $\Hom(\mathbb R^2, \mathbb R^2) \to \mathbb R^{2 \times 2}$ with $f \mapsto A_f$.
-
-\[ \lambda_1 \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} + \lambda_2 \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} + \lambda_3 \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix} \]
-
-\[
-  \begin{pmatrix}
-    1 & 1 & 0 \\
-    1 & 1 & 1 \\
-    -1 & 1 & 0
-  \end{pmatrix}
-  \leadsto
-  \begin{pmatrix}
-    1 & 1 & 0 \\
-    0 & 0 & 1 \\
-    0 & 2 & 0
-  \end{pmatrix}
-  \leadsto
-  \begin{pmatrix}
-    1 & 0 & 0 \\
-    0 & 1 & 0 \\
-    0 & 0 & 1 \\
-  \end{pmatrix}
-\]
-\[ \Rightarrow \lambda_i = 0 \forall i \in \set{1,2,3} \]
-
-\section{Exercise 6}
-\begin{ex}
-  Let $V$ be a vector space with $\dim{V} = n < \infty$ and $U \subseteq V$ is a
-  subspace with $\dim{U} = m$.
-  \begin{enumerate}
-    \item Show that
-      \[ U^\bot = \setdef{v^* \in V^*}{U \subseteq \kernel(v^*)} \]
-      is a subspace of $V^*$.
-    \item Determine $\dim{U^\bot}$.
-    \item Is $\setdef{v^* \in V^*}{U = \kernel{v^*}}$ also a subspace?
-  \end{enumerate}
-\end{ex}
-
-$U^\bot$ is called orthogonal space or annihilation of $U$.
-
-\begin{enumerate}
-  \item
-    \[ U^\bot = \setdef{v^* \in V^*}{U \subseteq \kernel(v^*)} \]
-    $v^* \in \Hom(V,\mathbb K)$.
-    \[ \kernel(v^*) = \setdef{x \in V}{v^*(x) = 0} \supseteq U \Leftrightarrow \forall x \in U: v^*(x) = 0 \]
-
-    \begin{description}
-      \item[$\mathbf{U^\bot}$ is nonempty] \hfill{} \\
-        The constant zero-function $u: V \to \mathbb K$ with $x \mapsto 0 \in U^\bot$ exists.
-        Hence $U^\bot \neq \emptyset$.
-      \item[Additivity: $\mathbf{\bigwedge_{u_1,u_2 \in U^\bot} u_1 + u_2 \in U^\bot}$] \hfill{} \\
-        Let $u_1,u_2 \in U^\bot$ be linear. Let $x \in U$.
-        \[ (u_1 + u_2)(x) = \underbrace{u_1(x)}_{\in U^\bot} + \underbrace{u_2(x)}_{\in U^\bot} = 0 + 0 = 0 \]
-      \item[Multiplication: $\mathbf{\bigwedge_{\lambda \in \mathbb K} \bigwedge_{u \in U^\bot} \lambda \cdot u \in U^\bot}$] \hfill{} \\
-        Let $\lambda \in \mathbb K$, $u \in U^\bot$ and $x \in U$.
-        \[ (\lambda \cdot u)(x) = \lambda \cdot \underbrace{u(x)}_{\in U^\bot} \Rightarrow \lambda \cdot 0 = 0 \]
-    \end{description}
-
-  \item
-    \[ \dim{V} = n \qquad \dim{V^*} = n \qquad \dim{U} = m \]
-    $U$ is subspace of $V$, so $m \leq n$.
-    \[ k \coloneqq \dim{U^\bot} \leq n = \dim{V^*} \]
-    Let $(u_1, \ldots, u_m)$ be basis of $U$.
-
-    We apply the \emph{basis extension theorem}:
-    Let $(u_1, \ldots, u_m, u_{m+1}, \ldots, u_n)$ be a basis of $V$.
-
-    Let $(v_1^*, \ldots, v_n^*)$ the dual basis to $(v_1, \ldots, v_n)$ to $V^*$.
-    Hence
-    \[ v_1^*(v_j) = \delta_{ij} = \begin{cases} 1 & i=j \\ 0 & i \neq j \end{cases} \]
-
-    Claim: $U^\bot = L(\set{v^*_{m+1}, \ldots, v_n^*}) \Rightarrow (v^*_{m+1}, \ldots, v^*_n)$
-    is basis of $U^\bot \Rightarrow \dim{U^\bot} = n - m$.
-
-    Let $v \in V^*$ be arbitrary, $v = \lambda_1 v_1^* + \ldots + \lambda_n v_n^*$.
-
-    \[ v \in U^\bot \Leftrightarrow \forall x \in U: v(x) = 0 \Leftrightarrow v|_{U} = 0 \xLeftrightarrow{(u_1,\ldots, u_m) \text{ is basis of } U} v(u_i) = 0 \quad i = 1, \ldots, m \]
-    \begin{align*}
-        &\Leftrightarrow \forall i \in \set{1, \ldots, m} (\lambda_1 v^*_1 + \ldots + \lambda_n v^*_n)(v_i) = 0 \\
-        &\Leftrightarrow \forall i \in \set{1, \ldots, m} v_1 v^*_1(v_i) + \ldots + \lambda_n v_n^*(v_i) = 0 \\
-        &\Leftrightarrow v^k \in L(v^*_{m+1}, \ldots, v^*_n) \\
-        &\Leftrightarrow \forall i \in \set{1, \ldots, m} \lambda_i = 0
-    \end{align*}
-
-    \[ \pi: V \to \faktor{V}{U} \]
-    \[ x \mapsto v + U \]
-    \[ \pi^t: (\faktor{V}{U})^* \to V^* \]
-    \[ w \to w \circ \pi \]
-
-    $\pi$ surjective, then $\pi^t$ is injective and
-    \[ \operatorname{image}(\pi^t) = U^t \Rightarrow \faktor{V}{U}^k \to U^\bot \]
-
-  \item
-    Is $\setdef{v^* \in V^*}{U = \kernel{v^*}}$ also a subspace?
-
-    Counterexample:
-    Let $u = \set{0}$ and $V \neq \set{0}$.
-    \[ \kernel(v^*) = \setdef{x \in V}{x^*(x) = 0} = \set{0} = U \]
-
-    If it is a subspace, then the constant null function (which is the zero element of this set) must be contained.
-    This is a contradiction to \enquote{only $x=0$ maps to $0$}.
-\end{enumerate}
-
-\section{Exercise 8}
-\begin{ex}
-  Let $\mathbb R[x]$ be the vector space of real polynomials.
-  Show that the dimension of the dual space $\mathbb R[x]^*$ is overcountable.
-
-  \emph{Hint:} Show that linear functionals $(\delta_t)_{t \in \mathbb R}$ defined
-  as $\fun{\delta_t, p(x)} = p(t)$ (function application) is linear independent.
-\end{ex}
-
-\begin{quote}
-  \enquote{In welchem Vektorraum leben wir?} (Florian Kainrath)
-\end{quote}
-
-$\delta_t$ are linear maps.
+\subsection{My solution}
 
 \begin{align*}
-  \forall p \in \mathbb R[x]: \sum_{i=1}^n \lambda_t \delta_{t_i}(p(x))
-    &= 0 \Rightarrow \lambda_i = 0 \forall i \in \set{1, \ldots, n} \\
-  \forall p \in \mathbb R[x]: \sum_{i=1}^n \lambda_t p(t_i) = 0
-    &\Rightarrow \lambda_i = 0
+  B &= \set{1, x, x^2 - 1} \eqqcolon \set{b_1, b_2, b_3} \\
+  C &= \set{1, x, x^2 - 1, x^3 - 2x} \eqqcolon \set{c_1, c_2, c_3, c_4}
+  f(b_1) &= x \cdot (1) = x \\
+  f(b_2) &= x \cdot (x) = x^2 \\
+  f(b_3) &= x \cdot (x^2 - 1) = x^3 - x
 \end{align*}
-
-Consider the polynomial $(x - t_1)(x - t_2) \ldots (x - \hat{t}_j)(x - t_{j+1}) \ldots (x - t_n) = p(x)$.
-\[ \Rightarrow \sum_{i=1}^n \lambda_i p_j(t_i) = 0 \Leftrightarrow \lambda_j p_j(t_j) = 0 = \lambda_j = 0 \]
-
-\section{Exercise 9}
-\begin{ex}
-  Let $f \in \Hom(V, W)$ be a linear map between two finite-fimensional vector spaces
-  with bases $B \subseteq V$ and $C \subseteq W$. Show that the matrix representation
-  of the transposed map
-  \[ f^t: W^* \to V^* \]
-  \[ w^* \mapsto w^* \circ f \]
-  in regards of the dual basis $C^*$ and $B^*$ has the matrix representation
-  \[ \Phi_{B^*}^{C^*}(f^t) = \Phi_C^B(f)^t \]
-\end{ex}
-
-Show that $f \in \Hom(V, W)$ and $B = (b_1, \ldots, b_m)$ is basis of $V$ with dual basis $B^* = (b_1^*, \ldots, b_m^*)$.
-$C = (c_1, \ldots, c_n)$ is basis of $W$ with dual basis $C^* = (c_1^*, \ldots, c_n^*)$.
-\[ \Phi_{B^*}^{C^*}(f^t) = \Phi_C^B(f)^t \]
-\[ A \coloneqq \Phi_C^B(f) \]
-
-$\Phi_{B^*}^{C^*}(f^t) = P = A^t \forall i \in \set{1, \ldots, n} j \in \set{1, \ldots, m}$ and $a_{ij} = p_{ji}$.
-$A \in \mathbb K^{n \times m}$ and $P \in \mathbb K^{m\times n}$.
-
-\[ (a_{ij}) = A = \Phi_C^B(f) \Leftrightarrow  \forall j \in \set{1, \ldots, m} \]
-\[ \Phi_C(f(b_j)) = A \Phi_B(b_j) = \begin{pmatrix} a_{1j} \\ \vdots \\ a_{nj} \end{pmatrix} \Leftrightarrow A = \begin{pmatrix} a_{1j} \\ \vdots \\ a_{nj} \end{pmatrix}  \Phi_C^{-1} \]
-\[ f(b_j) = \sum_{i=1}^n a_{ij} c_i \qquad \forall j \in \set{1, \ldots, m} \]
-\[ (p_{ij}) = p = \Phi_{B^*}^{C^*}(f^t) \Leftrightarrow f^t(c_j^*) = \sum_{i=1}^m p_{ij} b_i^* \forall j \in \set{1,\ldots,n} \]
-\[ \Leftrightarrow f^t(c_j^*) \text{ with }j \in \set{1,\ldots, n} = \sum_{i=1}^m p_{ij} b^*_i \xLeftrightarrow{w} c_i \circ f = \sum_{i=1}^m p_{ij} b_i^* \forall j \in \set{1,\ldots,n} \]
-
-Show that $a_{kj} = p_{ik}$ with $k \in \set{1, \ldots, n}$, $j \in \set{1, \ldots, m}$.
-
-\[ a_{kj} = C_k^*\left(\sum_{i=1}^n a_{ij} c_i\right) = c_k^*\left(f(b_j)\right) = \left(f^t(c_k^*)(b_j)\right)
-  = \left(\sum_{i=1}^m p_{ik} b_i^*\right)(b_i) = p_{jk} \]
-
-\section{Exercise 10}
-\begin{ex}
-  \begin{itemize}
-    \item Determine the dual basis of $(\mathbb R^4)^*$ to the basis.
-      \[
-        B = \left\{
-          \begin{bmatrix} 1 \\ 2 \\ 1 \\ 0 \end{bmatrix},
-          \begin{bmatrix} 1 \\ 0 \\ -1 \\ 1 \end{bmatrix},
-          \begin{bmatrix} -1 \\ -2 \\ 2 \\ -1 \end{bmatrix}
-          \begin{bmatrix} 2 \\ -1 \\ 1 \\ 1 \end{bmatrix}
-        \right\}
-      \]
-    \item
-      Determine the matrix of the unique (why?) projection map
-      $\varphi: \mathbb R^4 \to \mathbb R^4$ with $\image(\varphi) = \mathcal L\set{(1,2,1,0)^t, (1,0,-1,1)^t}$
-      and $\kernel(\varphi) = \mathcal L\set{(-1, -2, 2, -1)^t, (2, -1, 1, 1)^t}$.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 10.a}
-
-\[
-  \begin{pmatrix}
-    1 & 1 & -1 & 2  & 1 & 0 & 0 & 0 \\
-    2 & 0 & -2 & -1 & 0 & 1 & 0 & 0 \\
-    1 & -1 & 2 & 1  & 0 & 0 & 1 & 0 \\
-    0 & 1 & -1 & 1  & 0 & 0 & 0 & 1
-  \end{pmatrix}
-  \leadsto
-  \begin{pmatrix}
-    1 & 0 & 0 & 0 & -3 & 1 & 2 & 5 \\
-    0 & 1 & 0 & 0 & -9 & 2 & 5 & 15 \\
-    0 & 0 & 1 & 0 & -5 & 1 & 3 & 8 \\
-    0 & 0 & 0 & 1 & 4 & -1 & -2 & -6
-  \end{pmatrix}
-\]
-
-So
-\[
-  b_1^* = \begin{pmatrix} -3 \\ 1 \\ 2 \\ 5 \end{pmatrix} \quad
-  b_2^* = \begin{pmatrix} -9 \\ 2 \\ 5 \\ 15 \end{pmatrix} \quad
-  b_3^* = \begin{pmatrix} -5 \\ 1 \\ 3 \\ 8 \end{pmatrix} \quad
-  b_4^* = \begin{pmatrix} 4 \\ -1 \\ -2 \\ -6 \end{pmatrix}
-\]
-
-\[
-  B^* = \begin{pmatrix}
-    -3 & 1 & 2 & 5 \\
-    -9 & 2 & 5 & 15 \\
-    -5 & 1 & 3 & 8 \\
-    4 & -1 & -2 & -6
-  \end{pmatrix}
-\]
-
-\[ (\mathbb R^n)^* \cong \mathbb R^{1 \times 4} \]
-\[ b_i^*(b_j) = \delta_{ij} \]
-
-\subsection{Exercise 10.b}
-
-Find a projective map $\varphi: \mathbb R^4 \to \mathbb R^4$ such that $U_1 = \varphi(\mathbb R^4)$.
-So $\image(\varphi) = \mathcal L(U_1)$ and $\kernel(\varphi) = U_2$.
-
-\[ U_1 = \mathcal L\set{(1, 2, 1, 0)^t, (1, 0, -1, 1)^t} \]
-\[ U_2 = \mathcal L\set{(-1, -2, 2, -1)^t, (2, -1, 1, 1)^t} \]
-
-Why do we get a unique map?
-
-$\varphi$ is a projection map iff $\varphi$ is linear and $\varphi \circ \varphi = \varphi$.
-Consider $b_1 \in U_1 = \varphi(\mathbb R^4)$ and $b_1 = \varphi(x) \quad x \in \mathbb R^4$.
-$\varphi(b_1) = \varphi(\varphi(x)) = \varphi(x) = b_1$. This isomorphism ensures that
-the solution is unique.
-
-Because $\varphi: \mathbb R^4 \to \mathbb R^4$, the linear map will be represented by a $4 \times 4$ matrix.
-
-\[
-  \begin{pmatrix}
-    1 & 2 & 1 & 0 & 1 & 2 & 1 & 0 \\
-    1 & 0 & -1 & 1 & 1 & 0 & -1 & 1 \\
-    -1 & -2 & 2 & -1 & 0 & 0 & 0 & 0 \\
-    2 & -1 & 1 & 1 & 0 & 0 & 0 & 0
-  \end{pmatrix}
-  \leadsto
-  \begin{pmatrix}
-    1 & 0 & 0 & 0 & -12 & -6 & 6 & -9 \\
-    0 & 1 & 0 & 0 & 3 & 2 & -1 & 2 \\
-    0 & 0 & 1 & 0 & 7 & 4 & -3 & 5 \\
-    0 & 0 & 0 & 1 & 20 & 10 & -10 & 15
-  \end{pmatrix}
-\] \[
-  \begin{pmatrix}
-    -12 & 3 & 7 & 20 \\
-    -6 & 2 & 4 & 10 \\
-    6 & -1 & -3 & -10 \\
-    9 & 2 & 5 & 15
-  \end{pmatrix}
-\]
-
-\section{Exercise 11}
-\begin{ex}
-  Given the permutation
-  \[ \pi = \left(\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 2 & 5 & 1 & 6 & 3 & 7 & 4 \end{pmatrix}\right) \]
-  \begin{itemize}
-    \item Determine $\pi^{-1}$ and $\pi^k$ for some $k \in \mathbb N$.
-    \item Determine all inversions of $\pi$ and determine $\sign(\pi)$.
-    \item Decompose $\pi$ in a product of transpositions.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 11.a}
-
-\[ \pi = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 2 & 5 & 1 & 6 & 3 & 7 & 4 \end{pmatrix} \]
-\[ \pi^{-1} = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 3 & 1 & 5 & 7 & 2 & 4 & 6 \end{pmatrix} \]
-
-We give a recursive definition:
-\[
-  \pi_{(i)}^k = \begin{cases}
-    \pi_{(i)}^{k \bmod{4}} & i \in \set{1,2,3,5} \\
-    \pi_{(i)}^{k \bmod{3}} & i \in \set{4, 6, 7}
-  \end{cases}
-\]
-
-\subsection{Exercise 11.b}
-%
-Inversions are:
-\[ f_\pi = \setdef{(i,j)}{i < j \land \pi(i) > \pi(j)} \]
-\[ F_\pi = \set{(1,3), (2,3), (2,5), (2,7), (4,5), (4,7), (6,7)} \]
-
-\[ \sign(\pi) = (-1)^f_\pi = -1 \]
-
-\subsection{Exercise 11.c}
-%
-\[ \pi \circ \tau_{1,3} = (1\ 5\ 2\ 6\ 3\ 7\ 4) \]
-\[ \pi \circ \tau_{1,3} \circ \tau_{2,3} \circ \tau_{3,5} \circ \tau_{4,7} \circ \tau_{6,7} = \text{ id} \]
-\[ \pi = \tau_{6,7} \circ \tau_{4,7} \circ \tau_{3,5} \circ \tau_{2,3} \circ \tau_{1,3} \]
-
-In terms of notation, remember:
-\[
-  \begin{pmatrix}
-    1 & 2 & \ldots & n \\
-    \pi(1) & \pi(2) & \ldots & \pi(n)
-  \end{pmatrix}
-  \circ
-  \tau_{i,j}
-  = \begin{pmatrix}
-    1 & i & j & n \\
-      & \pi(j) & \pi(i) &
-  \end{pmatrix}
-\]
-
-\section{Exercise 12}
-\begin{ex}
-  A permutation $\pi \in \mathfrak S_n$ is called cyclic, if there exists
-  some $k \geq 1$ and a sequence $i_1, i_2, \ldots, i_k$ such that
-  $\pi(i_j) = i_{j+1}$ for $1 \leq j \leq k-1$, $\pi(i_k) = i_1$
-  and $\pi(i) = i$ for $i \not\in \set{i_1, i_2, \ldots, i_k}$, hence
-  \[ i_1 \to i_2 \to \ldots \to i_k \to i_1 \]
-  and all other $i$ are fixed. Common notation: $\pi = (i_1, i_2, \ldots, i_k)$.
-  \begin{itemize}
-    \item Show that two cyclic permutations $\pi = (i_1, i_2, \ldots, i_k)$
-      and $\rho = (j_1, j_2, \ldots, j_l)$ commute ($\pi \circ \rho = \rho \circ \pi$)
-      if $\set{i_1, \ldots, i_k} \cap \set{j_1, \ldots, j_l} = \emptyset$.
-    \item
-      Decompose the cycle into a product of transpositions and show that
-      for a cyclic permutation it holds that $\sign(\pi) = (-1)^{k-1}$.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 12.a}
-
-\begin{description}
-  \item[Case 1: $m \in \set{i_1, i_2, \ldots, i_k}$]
-    \[ \pi \circ \rho(m) = \pi(\rho(m)) = \pi(m) \]
-    \[ \rho \circ \pi(m) = \rho(\pi(m)) = \pi(m) \]
-  \item[Case 2: $m \in \set{j_1, j_2, \ldots, j_l}$]
-    \[ \pi \circ \rho(m) = \pi(\rho(m)) = \rho(m) \]
-    \[ \rho \circ \pi(m) = \rho(\pi(m)) = \rho(m) \]
-  \item[Case 3: $m \not\in \set{i_1, \ldots, i_k} \cup \set{j_1, \ldots, j_l}$]
-    \[ \pi \circ \rho(m) = \pi(\rho(m)) = m \]
-    \[ \rho \circ \pi(m) = \rho(\pi(m)) = m \]
-\end{description}
-
-\subsection{Exercise 12.b}
-%
-\[
-  \pi = \begin{pmatrix}
-    1 & 2 & \ldots & i_1 & i_2 \ldots & i_k & \ldots & n \\
-    1 & 2 & \ldots & i_2 & i_3 \ldots & i_1 & \ldots & n
-  \end{pmatrix}
-\] \[
-  \pi \circ \tau_{i_{1},i_k} = \begin{pmatrix}
-    1 & 2 & \ldots & i_1 & i_2 \ldots & i_k & \ldots & n \\
-    1 & 2 & \ldots & i_1 & i_3 \ldots & i_2 & \ldots & n
-  \end{pmatrix}
-\] \[
-  \pi \circ \tau_{i_{1},i_k} \circ \tau_{i_2,i_k} = \begin{pmatrix}
-    1 & 2 & \ldots & i_1 & i_2 & i_3 & \ldots & i_k & \ldots & n \\
-    1 & 2 & \ldots & i_1 & i_2 & i_4 & \ldots & i_3 & \ldots & n
-  \end{pmatrix}
-\] \[
-  \tau \circ \tau_{i_1,i_k} \circ \tau_{i_2,i_k} \circ \ldots \circ \tau_{i_{k-1},i_k} = \text{id}
-\] \[
-  \pi = \tau_{i_{k-1},i_k} \circ \ldots \circ \tau_{i_l,i_{l+1}} \circ \ldots \circ \tau_{i_1,i_k}
-\]
-
-\subsection{Exercise 13}
-\begin{ex}
-  Let $\pi \in \mathfrak S_n$ be a permutation and $i \in \set{1,2,\ldots,n}$.
-  \begin{itemize}
-    \item Show that the sequence $i$, $\pi(i)$, $\pi^2(i)$, \ldots is periodic and the first number
-      which occurs twice is $i$.
-    \item The sequence $(i, \pi(i), \pi^2(i), \ldots, \pi^{k-1}(i))$ where $k$ is the smallest exponent
-      such that $\pi^k(i) = i$, is called cycle of $i$. Show that the relation,
-      $i \sim j: \Leftrightarrow j$ is in cycle of $i$, is a equivalence relation in $\set{1,2,\ldots,n}$.
-    \item Show that every permutation can be represented as product of commutative cycles.
-    \item Apply this decomposition for the permutation $\pi$ from exercise~11.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 13.a}
-
-\begin{itemize}
-  \item $i$, $\pi(i)$, \ldots, $\pi^k(i)$ is periodic.
-  \item the first element which occurs twice is $i$
-  \item
-    \[ \setdef{\pi^k(i)}{k \in \set{1, \ldots, n+1}} \]
-    at least one elemtn must have occured twice.
-  \item
-    \[ \pi^k(i) = \pi^l(i) \]
-    wlog. $k > l$
-    \[ \pi^{k-l}(i) = i \qquad k-l < k \]
-\end{itemize}
-
-\[ \pi^{k-l}(i) = (\pi^l)^{-1} \left(\pi^k (\tau)\right) = \left(\pi^e\right)^{-1} \left(\pi^e(i)\right) \]
-
-\subsection{Exercise 13.b}
-
-\begin{description}
-  \item[reflexive]
-    \[ i \sim i \quad\Leftrightarrow\quad \exists k: \pi^k(i) = i \]
-  \item[symmetrical]
-    \[
-      i \sim j \Rightarrow j \sim i
-      \qquad
-      \exists l: \pi^l(i) = j \quad
-      \pi^k(i) = i \quad
-      \pi^{k-l}(i) = i
-    \]
-  \item[transitive]
-    \[
-      i \sim j \land j \sim m \Rightarrow i \sim m
-      \qquad
-      (\exists l_1: \pi^{l_1}(i) = j) \land (\exists l_2: \pi^{l_2}(j) = m)
-    \]
-    \[ \Rightarrow \exists l_3 = l_1 + l_2: \pi^{l_3}(i) = m \]
-\end{description}
-
-\subsection{Exercise 13.c}
-
-Lengthy and therefore skipped.
-
-\subsection{Exercise 13.d}
-%
-\[
-  \pi = \begin{pmatrix}
-    1 & 2 & 3 & 4 & 5 & 6 & 7 \\
-    2 & 5 & 1 & 6 & 3 & 7 & 4
-  \end{pmatrix}
-\] \[
-  \pi = (1\ 2\ 5\ 3) (4\ 6\ 7)
-\]
-
-\section{Exercise 14}
-\begin{ex}
-  Determine the determinant of the following matrix using three different methods
-  (Leibniz, Laplace, Gau\ss-Jordan).
-  \[
-    \begin{bmatrix}
-      1 & 2 & 3 \\
-      1 & 1 & 2 \\
-      2 & -1 & 2
-    \end{bmatrix}
-  \]
-\end{ex}
-
-Using Leibniz' definition:
-\[
-  \det(A) = 1 \cdot (-1)^{1+1} \begin{vmatrix} 1 & 2 \\ -1 & 2 \end{vmatrix}
-    + (-1)^{2+1} \begin{vmatrix} 2 & 3 \\ -1 & 2 \end{vmatrix}
-    + 2 (-1)^4 \begin{vmatrix} 2 & 3 \\ 1 & 2 \end{vmatrix}
-\]
-
-Using Gau\ss' definition:
-\[
-  \det{
-  \begin{pmatrix}
-    1 & 2 & 3  \\
-    1 & 1 & 2 \\
-    2 & -1 & 2
-  \end{pmatrix}
-  } = \det{
-  \begin{pmatrix}
-    1 & 2 & 3 \\
-    0 & -1 & -1 \\
-    0 & -5 & -4
-  \end{pmatrix}
-  } = \det{
-  \begin{pmatrix}
-    1 & 2 & 3 \\
-    0 & -1 & -1 \\
-    0 & 0 & 1
-  \end{pmatrix}
-  } = -1
-\]
-
-Using Leibniz' definition:
-\[
-  \begin{vmatrix}
-    1 & 2 & 3 \\
-    1 & 1 & 2 \\
-    2 & -1 & 2
-  \end{vmatrix}
-  = 1 \cdot 1 \cdot 2 + 2 \cdot 2 \cdot 2 + 3 \cdot 1 \cdot (-1)
-  - 2 \cdot 1 \cdot 3 - (-1) \cdot 2 \cdot 1 - 2 \cdot 1 \cdot 2 = -1
-\]
-
-\section{Exercise 15}
-\begin{ex}
-  The numbers $18984$, $10962$, $40026$, $17976$ and $14994$ are divisible by $42$.
-  Show that the determinant of $A$ is divisible by $42$ without explicitly computing it.
-  \[
-    A = \begin{pmatrix}
-      1 & 8 & 9 & 8 & 4 \\
-      1 & 0 & 9 & 6 & 2 \\
-      4 & 0 & 0 & 2 & 6 \\
-      1 & 7 & 9 & 7 & 6 \\
-      1 & 4 & 9 & 9 & 4
-    \end{pmatrix}
-  \]
-\end{ex}
-
-\[
-  \begin{vmatrix}
-    1 & 8 & 9 & 8 & 4 \\
-    1 & 0 & 9 & 6 & 2 \\
-    4 & 0 & 0 & 2 & 6 \\
-    1 & 7 & 9 & 7 & 6 \\
-    1 & 4 & 9 & 9 & 4
-  \end{vmatrix}
-  =
-  \begin{vmatrix}
-    1 & 8 & 9 & 8 & 18984 \\
-    1 & 0 & 9 & 6 & 10962 \\
-    4 & 0 & 0 & 2 & 40026 \\
-    1 & 7 & 9 & 7 & 17976 \\
-    1 & 4 & 9 & 9 & 14994
-  \end{vmatrix}
-  = 42 \cdot B
-\]
-where $B$ is some matrix with modified 5-th column.
-
-Why does this work?
-Well, this can be proven using Leibniz' definition of the determinant.
-\[
-  \det((a_{ij}))
-  = \sum_{\sigma \in S_n}
-    \operatorname{sgn}(\sigma) a_1  \ldots
-\]
-
-\section{Exercise 16}
-\begin{ex}
-  Compute the $n\times n$-determinants:
-  \begin{enumerate}
-    \item \[
-        \begin{pmatrix}
-          1 & 2 & 3 & 4 & \ldots & n-1 & n \\
-          -1 & 0 & 3 & 4 & \ldots & n-1 & n \\
-          -1 & -2 & 0 & 4 & \ldots & n-1 & n \\
-          \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
-          -1 & -2 & -3 & -4 & \ldots & 0 & n \\
-          -1 & -2 & -3 & -4 & \ldots & -n+1 & 0
-        \end{pmatrix}
-      \]
-    \item \[
-        \begin{pmatrix}
-          0 & 0 & \ldots & 0 & a_n \\
-          0 & 0 & \ldots & a_{n-1} & * \\
-          \vdots & & \vdots & \vdots & \vdots \\
-          0 & a_2 & * & \ldots & * \\
-          a_1 & * & \ldots &  & *
-        \end{pmatrix}
-      \]
-  \end{enumerate}
-\end{ex}
-
-\[
-  \begin{pmatrix}
-    1 & 2 & 3 & 4 & \ldots & n-1 & n \\
-    -1 & 0 & 3 & 4 & \ldots & n-1 & n \\
-    -1 & -2 & 0 & 4 & \ldots & n-1 & n \\
-    \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
-    -1 & -2 & -3 & -4 & \ldots & 0 & n \\
-    -1 & -2 & -3 & -4 & \ldots & -n+1 & 0
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    1 & 2 & 3 & 4 & \ldots & n-1 & n \\
-    0 & 2 & * & * & \ldots & n-1 & n \\
-    0 & 0 & 3 & * & \ldots & n-1 & n \\
-    \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
-    0 & 0 & 0 & 0 & \ldots & 0 & n
-  \end{pmatrix}
-  = 1 \cdot 2 \cdot 3 \cdot \ldots \cdot n = n!
-\]
-
-\[
-  \begin{vmatrix}
-    0 & 0 & \ldots & 0 & a_n \\
-    0 & 0 & \ldots & a_{n-1} & * \\
-    \vdots & & \vdots & \vdots & * \\
-    0 & a_2 & * & \ldots & * \\
-    a_1 & * & \ldots &  & *
-  \end{vmatrix}
-  =
-  (-1)^k
-  \begin{vmatrix}
-    a_1 & *   & \ldots & *       & a_n \\
-    0   & a_2 & \ldots & \ddots  & * \\
-    \vdots    &        & \vdots  & \ddots & \vdots \\
-    0   & 0   &        & a_{n-1} & * \\
-    0   & 0   & \ldots & 0       & a_n \\
-  \end{vmatrix}
-  =
-  \left(\prod_{k=1}^n a_k\right) (-1)^k
-\]
-where $k = \frac n2$ is $n$ is even or $k = \frac{n-1}2$ is odd.
-
-\section{Exercise 17}
-\begin{ex}
-  Let $A \in \mathbb K_{m\times m}$, $B \in \mathbb K_{m\times n}$, $D \in \mathbb K_{n\times n}$ matrices.
-  Show that,
-  \[
-    \det{\begin{pmatrix}
-      A & B \\
-      0 & D
-    \end{pmatrix}}
-    = \det{A} \cdot \det{D}
-  \]
-\end{ex}
-
-Let $T = \begin{pmatrix}
-  A & B \\
-  0 & D
-\end{pmatrix}$
-
-If $A$ is singular, the rows are linear dependent. So $\det{T} = 0$.
-The same applies to $D$.
-
-We apply row operations to $A$ to retrieve an upper triangular matrix $A_1$.
-If we do the same operations on $T$, we get $B_1$.
-We apply row oeprations to $D$ to retrieve an upper triangular matrix $D_1$.
-
-\[
-  \hat T = \begin{pmatrix}
-    A_1 & B_1 \\
-    0 & D_1
-  \end{pmatrix}
-\]
-
-Let $a$ be the product of diagonal elements of $A_1$.
-Let $d$ be the product of diagonal elements of $D_1$.
-
-So $a \cdot d$ is the product of diagonal elements of $\hat T$.
-
-Let $p$ be the number of swaps in $A_1$. Let $q$ be the number of swaps in $A_2$.
-\[ p + q = \hat{T} \]
-
-Then
-\[ \det{A} = (-1)^p a \qquad \det{D} = (-1)^q b \]
-\[ \det{T} = (-1)^{p+q} a \cdot b \]
-
-\section{Exercise 18}
-\begin{ex}
-  Compute the entry $(A^{-1})_{4,3}$ of the inverse matrix
-  \[
-    A = \begin{bmatrix}
-      1 & 0 & 0 & 0 & -2 \\
-      0 & 0 & -1 & 0 & 0 \\
-      0 & 2 & 2 & -1 & -2 \\
-      0 & 1 & 2 & 0 & -2 \\
-      0 & 0 & 0 & 0 & -1
-    \end{bmatrix}
-  \]
-\end{ex}
-
-We compute the inverse matrix $A^{-1}$.
-
-\[
-  \left(\begin{bmatrix}
-    1 & 0 & 0 & 0 & -2 \\
-    0 & 0 & -1 & 0 & 0 \\
-    0 & 2 & 2 & -1 & -2 \\
-    0 & 1 & 2 & 0 & -2 \\
-    0 & 0 & 0 & 0 & -1
-  \end{bmatrix}\right)^{-1}
-  =
-  \begin{bmatrix}
-    1 & 0 & 0 & 0 & 2 \\
-    0 & 2 & 0 & 1 & -2 \\
-    0 & -1 & 0 & 0 & 0 \\
-    0 & 2 & -1 & 2 & -2 \\
-    0 & 0 & 0 & 0 & -1
-  \end{bmatrix}
-\]
-
-But we can also use the Theorem from the lecture.
-
-Use the adjoint matrix $\hat{A}$ of $A$ where $\hat{a}_{kl} = (-1)^{k+l} \det{A_{lk}}$.
-Then $A^{-1} = \frac{1}{\det{A}} \cdot \hat{A}$.
-
-\[ A^{-1} = \frac{1}{\det{A}} \cdot \hat{A} \]
-\[ A^{-1}_{43} = \frac{1}{\det{A}} (-1)^{3+4} \det{A_{3,4}} = -1 \]
-
-But we can also determine it more easily.
-$(A^{-1})_{4,3}$ is the element in the 4th row and 3rd column.
-It is also the element in the $4$-th row of $A^{-1} e_3$.
-
-So
-\[ A_{e_4} = -e_3 \]
-So $-1$.
-
-\section{Exercise 19}
-\begin{ex}
-  Let $\mathbb K$ be a field and $a_1, a_2, \ldots, a_n \in \mathbb K$. Show that
-  \[
-    \begin{vmatrix}
-      1 & a_1 & a_1^2 & \ldots & a_1^{n-1} \\
-      1 & a_2 & a_2^2 & \ldots & a_2^{n-1} \\
-      \ldots & \ldots & \ldots & \ldots & \ldots \\
-      1 & a_n & a_n^2 & \ldots & a_n^{n-1}
-    \end{vmatrix}
-    = \prod_{i < j}
-    (a_j - a_i)
-  \]
-\end{ex}
-
-Proof by complete induction over $n$.
-
-\begin{description}
-  \item[Induction base: $n = 0$]
-    Empty product.
-    \[ \begin{vmatrix} 1 \end{vmatrix} = 1 \]
-    Is true.
-  \item[Induction step: $n \to n+1$]
-    We start from the last column and add it to the second from last row.
-    This goes on for all columns.
-    \[
-      \begin{vmatrix}
-        1 & a_1 & a_1^2 & \ldots & a_1^n \\
-        \vdots & & & \ddots & \vdots \\
-        1 & a_{n+1} & \ldots & \ldots & a_{n+1}^n
-      \end{vmatrix}
-      \stackrel{!}{=}
-      \prod_{\substack{i,j = 1 \\ j > i}} (a_j - a_i)
-      \leadsto
-      \begin{vmatrix}
-        1 & (a_1 - a_{n+1}) & \ldots & a_1^{n-1}(a_1 - a_{n+1}) \\
-        \vdots & \vdots & \ddots & \vdots \\
-        1 & (a_n - a_{n+1}) & \ldots & a_n^{n-1} (a_n - a_{n+1}) \\
-        1 & (a_{n+1} - a_{n+1}) & \ldots & a_n^{n-1} (a_{n+1} - a_{n+1}) \\
-      \end{vmatrix}
-    \] \[
-      = (-1)^{n+1+1} (a_1 - a_{n+1}) \cdot (a_2 - a_{n+1}) \ldots (a_n - a_{n+1}) \cdot
-      \begin{vmatrix}
-        1 & a_1 & \ldots & a_1^{n-1} \\
-        \vdots &  & \ddots & \vdots \\
-        1 & a_n & \ldots & a_n^{n-1}
-      \end{vmatrix}
-    \] \[
-      \overset{\text{induction hypothesis}}{=} (a_{n+1} - a_1) \ldots (a_{n+1} - a_n) \cdot \prod_{\substack{i,j = 1 \\ j > i}} (a_j - a_i) = \prod_{j,i=1}^{n+1} (a_j - a_i)
-    \]
-\end{description}
-
-\section{Exercise 20}
-\begin{ex}
-  Let $A,B \in \mathbb K^{n \times n}$. Show that, using elementary row and column transformations,
-  the following identity holds for block matrices.
-  \[
-    \begin{vmatrix}
-      I & B \\
-      -A & 0
-    \end{vmatrix}
-    =
-    \begin{vmatrix}
-      I & B \\
-      0 & AB
-    \end{vmatrix}
-  \]
-  Use this to derive an alternative proof for the multiplicity of the determinant.
-  \[ \det(AB) = \det(A) \cdot \det(B) \]
-\end{ex}
-
-\subsection{Exercise 20.a}
-
-\[
-  \begin{vmatrix}
-    1 & 0 & \ldots & 0 & b_{11} & b_{12} & \ldots & b_{1n} \\
-    0 & 1 & \ldots & 0 & b_{21} & b_{22} & \ldots & b_{2n} \\
-    \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ldots & \vdots \\
-    0 & 0 & \ldots & 1 & b_{n,1} & b_{n,2} & \ldots & b_{n,n} \\
-    -a_{11} & -a_{12} & \ldots & -a_{1n} & 0 & 0 & \ldots & 0 \\
-    -a_{21} & -a_{22} & \ldots & -a_{2n} & 0 & 0 & \ldots & 0 \\
-    \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
-    -a_{n,1} & -a_{n,2} & \ldots & -a_{n,n} & 0 & 0 & \ldots & 0
-  \end{vmatrix}
-\]
-
-Add the $a_{11}$-multiple of the first row to the $n+1$-th row.
-Add the $a_{21}$-multiple of the first row to the $n+1$-th row.
-Add the $a_{n1}$-multiple of the first row to the $2n$-th row.
-
-\[
-  \begin{vmatrix}
-    1 & 0 & \ldots & 0 &      \\
-    0 & 1 & \ldots & 0 &    B \\
-    \vdots & \vdots & \ddots & \vdots & \\
-    0 & 0 & \ldots & 1 & \\
-      &   &        &   & \\
-      & 0 &        &   & A \cdot B
-  \end{vmatrix}
-\]
-
-\subsection{Exercise 20.b}
-
-\[
-  \begin{vmatrix}
-    I & B \\
-    -A & 0
-  \end{vmatrix}
-  = (-1)^n \begin{vmatrix} B & I \\ 0 & -A \end{vmatrix}
-  = (-1)^n \cdot \det{B} \cdot \det{-A}
-\]
-We multiply $n$ rows by $-1$,
-\[
-  = (-1)^n \cdot (-1)^n \cdot \det{B} \cdot \det{A}
-  = \det{A} \cdot \det{B}
-\]
-
-\section{Exercise 21}
-\begin{ex}
-  Let $A, B, C, D \in \mathbb K_{n\times n}$ be matrices where $D$ is invertible.
-  Let $M$ be a $2n \times 2n$ block matrix.
-  \[
-    M = \begin{bmatrix}
-      A & B \\
-      C & D
-    \end{bmatrix}
-  \]
-  \begin{enumerate}
-    \item Show: $M$ is invertible iff $A - BD^{-1}C$ is invertible.
-    \item Show: $\det{M} = \det(A - BD^{-1} C) \cdot \det{D}$.
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 21.b}
-
-\[
-  \det{M} = \det(A - B D^{-1} C) \cdot \det(D)
-\] \[
-  \begin{pmatrix}
-    A & B \\
-    C & D
-  \end{pmatrix} = \begin{pmatrix}
-    1 & B \\
-    0 & D
-  \end{pmatrix} \cdot \begin{pmatrix}
-    A - BD^{-1} C & 0 \\
-    D^{-1} C & 1
-  \end{pmatrix}
-\] \[
-  \begin{vmatrix}
-    A & B \\
-    C & D
-  \end{vmatrix}
-  = \operatorname{det}\left[
-    \begin{pmatrix}
-      1 & B \\
-      0 & D
-    \end{pmatrix} \cdot \begin{pmatrix}
-      A - BD^{-1} & 0 \\
-      D^{-1} C & 1
-    \end{pmatrix}
-  \right]
-  = \begin{vmatrix}
-  1 & B \\
-  0 & D
-  \end{vmatrix} \cdot \begin{vmatrix}
-  A - B D^{-1} C & 0 \\
-  D^{-1} C & 1
-  \end{vmatrix}
-\] \[
-  = \det(1) \cdot \det(D) \cdot \det(A - BD^{-1} C)
-\] \[
-  = \det(D) \cdot \det(A - BD^{-1} C)
-\]
-
-\subsection{Exercise 21.b}
-$M$ is invertible, so $A - BD^{-1} C$ is invertible.
-$\det(D) \neq 0$.
-
-\[ \det{M} \neq 0 \Leftrightarrow \det(A - BD^{1} C) \cdot \det(D) \neq 0 \]
-\[ \Leftrightarrow \det(A - BD^{-1} C) \neq 0 \]
-
-Corollary of this exercise:
-\[ \det(AD - BC) = \begin{vmatrix} A & B \\ C & D \end{vmatrix} \]
-
-\section{Exercise 22}
-\begin{ex}
-  Let $V$ be an $n$-dimensional vector space over a field $\mathbb K$
-  and $\triangle: V^n \to \mathbb K$ is a non-trivial determinant form.
-  Furthermore let $a_1, a_2, \ldots, a_{n-1} \in V$ vectors.
-  Show that
-  \begin{itemize}
-    \item
-      the following element is a linear functional
-      with $\mathcal L(a_1, a_2, \ldots, a_{n-1}) \subseteq \kernel{v^*}$
-      \begin{align*}
-        v^*: V &\to \mathbb K \\
-             x &\mapsto \triangle(a_1, a_2, \ldots, a_{n-1}, x)
-      \end{align*}
-    \item
-      $\mathcal L(a_1, a_2, \ldots, a_{n-1}) = \kernel{v^*}$ iff $a_1, a_2, \ldots, a_{n-1}$
-      is linear independent.
-    \item
-      Determine the equation (hence, a linear functional $v^*$ such that $\kernel{v^*} = U$)
-      \[
-        U = \mathcal L\left(
-          \begin{bmatrix} 1 \\ 2 \\ 3 \\ 1 \end{bmatrix},
-          \begin{bmatrix} -1 \\ 2 \\ 0 \\ 0 \end{bmatrix},
-          \begin{bmatrix} 3 \\ -1 \\ 2 \\ 1 \end{bmatrix},
-        \right)
-      \]
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 22.a}
-\begin{enumerate}
-  \item
-    Firstly,
-    \begin{align*}
-      v^*(x_1 + x_2) = v^*(x_1) + v^*(x_2): v^*(x+1 + x_2)
-      &= \triangle(a_1, a_2, \ldots, a_{n-1}, x_1 + x_2) \\
-      &= \triangle(a_1, \ldots, a_{n-1}, x_1) + \triangle(a_1, \ldots, a_{n-1}, x_2) \\
-      &= v^*(x_1) + v^*(x_2)
-    \end{align*}
-    Secondly,
-    \begin{align*}
-      v^*(\lambda x_1) = \lambda v^*(x_1): v^*(\lambda x_1)
-      &= \triangle(a_1, a_2, \ldots, a_{n-1}, \lambda x_1) \\
-      &= \lambda \triangle(a_1, \ldots, a_{n-1}, x_1)
-    \end{align*}
-\end{enumerate}
-
-$\mathcal{L}(a_1, \ldots, a_{n-1}) \subseteq \kernel(v^*)$ is by definition $\triangle(a_1, \ldots, a_n) = 0$
-if $i,j \in \set{1,\ldots,n}$ and $i \neq j$ and $a_1$ and $a_j$ are linear independent.
-\[ \forall i \in \set{1, \ldots, n-1}: \triangle(a_1, \ldots, a_{n-1}, a_i) = 0 \]
-
-\subsection{Exercise 22.b}
-First we show $\Leftarrow$.
-
-Let $a_1, \ldots, a_{n-1}$ be linear independent.
-\[ \mathcal L(a_1, \ldots, a_{n-1}) \subseteq \kernel(v^*) \]
-Assume $\kernel(v^*) \supsetneqq \mathcal L(a_1, \ldots, a_{n-1})$.
-So there exists $x \in \kernel(v^*)$ with $x \not\in \mathcal L(a_1, \ldots, a_{n-1})$.
-So $(a_1, \ldots, a_{n-1}, x)$ are linear independent.
-This forms a basis of $V$.
-\[ \triangle(a_1, \ldots, a_{n-1}, x) \neq 0 \Rightarrow v^*(x) \neq 0 \]
-This is a contradiction to our assumption that $x \in \kernel(v^*)$.
-
-Second we show $\Rightarrow$.
-
-Proof by contradiction. Assume $\mathcal L(a_1, a_2, \ldots, a_{n-1}) = \kernel{v^*}$
-and $a_1, a_2, \ldots, a_{n-1}$ linear independent.
-\[
-  \triangle (a_1, \ldots, a_{n-1}, x) = 0
-  \qquad \forall x \in V
-\]
-$\Rightarrow V - \mathcal L(a_1, \ldots, a_{n-1})$ is a contradiction to $\dim(K) = n$.
-
-\subsection{Exercise 22.c}
-Use the linear functional from exercise (a).
-\begin{align*}
-  v^* &: \mathbb K^4 \to \mathbb K \\
-    x &\mapsto \det(a_1, a_2, a_3, x)
-\end{align*}
-
-\[
-  v^* =
-  \begin{vmatrix}
-    1 & -1 & 3 & x_1 \\
-    2 & 2 & -1 & x_2 \\
-    3 & 0 & 2 & x_3 \\
-    1 & 0 & 1 & x_4
-  \end{vmatrix}
-  = 2x_1 + x_2 + x_3 - 7x_4
-\]
-
-\section{Exercise 23}
-\begin{ex}
-  Let $x,y,u,v \in \mathbb R^3$.
-  \begin{enumerate}
-    \item Show that the identity $\fun{x \times y, u \times v} = \fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u}$
-    \item Conclude that
-      \[ \norm{u}^2 \norm{v}^2 = \norm{u \times v}^2 + \fun{u,v}^2 \]
-      for arbitrary vectors $u,v \in \mathbb R^3$.
-  \end{enumerate}
-\end{ex}
-
-\subsection{Exercise 23.a}
-\begin{description}
-  \item[Case 1: $u \times v = 0$]
-    So $u$ and $v$ are linear dependent, so $\exists a \in \mathbb R: u = av$ or $v = au$.
-    Without loss of generality: $u = av$ ($v = au$ analogously).
-
-    \[ \fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u} \]
-    \[ = \fun{x,u} \fun{y,av} - \fun{x,au} \fun{y,v} = a \fun{x,u} \fun{y,u} - a \fun{x,u} \fun{y,u} \]
-    \[ = 0 = \fun{x\times y, 0} = \fun{x \times y, u \times u} \]
-  \item[Case 2: $u \times v \neq 0$]
-    \[
-      \fun{x \times y, u \times v} \fun{u \times v, u \times v}
-      = \det(x \abs{y} uxv) \cdot \det(u \abs{v} u \times v)
-      = \det(x \abs{y} u \times v)^t \cdot \det(u \abs{v} u \times v)
-    \] \[
-      = \det\begin{pmatrix} x^t \\ y^t \\ (u \times v)^t \end{pmatrix}
-      \cdot \det(u \abs{v} u \times v)
-      = \det\begin{pmatrix} x^t \\ y^t \\ (u \times v)^t \end{pmatrix} (u \abs{v} u \times v)
-    \] \[
-      = \det\begin{pmatrix}
-        xv & x^t v & x^t (u \times v) \\
-        y v^t & y^t v & y&t (u \times v) \\
-        (u \times v)^t \cdot v & (u \times v)^t \cdot v & (u \times v)^t (u \times v)
-      \end{pmatrix}
-      = \det\begin{pmatrix}
-        \fun{x,u} & \fun{x,v} & \fun{x,u\times v} \\
-        \fun{y,u} & \fun{y,v} & \fun{y,u\times v} \\
-        \fun{u\times v, v} & \fun{u\times v, v} & \fun{u\times v, u \times v}
-      \end{pmatrix}
-    \]
-    \[ \fun{u\times v, u\times v} \cdot (\fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u}) \]
-    \[ \Rightarrow \fun{x \times y, u\times v} = \fun{x,u} \fun{y,v} - \fun{x,v} \fun{y,u} \]
-\end{description}
-
-\subsection{Exercise 23.b}
-\begin{align*}
-  \norm{u \times v}^2
-    &= \fun{u \times v, u \times v} = \fun{u,u} \fun{v,v} - \fun{u,v} \fun{v,u} \\
-    &= \norm{u}^2 \norm{v}^2 - \fun{u,v}^2
-\end{align*}
-\[ \Rightarrow \norm{u \times v}^2 + \fun{u,v}^2 = \norm{u}^2 \cdot \norm{v}^2 \]
-
-
-\section{Exercise 24}
-\begin{ex}
-  \begin{itemize}
-    \item
-      Show: A (Hermitian) matrix $A$ is positive semi-definite if and only if
-      there exists some matrix $B$ such that $A = B^* B$. Which property
-      must $B$ have such that $A$ is positive definite?
-    \item
-      Let $A$ be positive definite. Show that $A^{-1}$ is also positive definite.
-    \item
-      Let $A$ be positive semi-definite. Show that $a_{ii} \geq 0$ for all $i$
-      and if for some $i$ with diagonal value $a_{ii} = 0$ holds, then $a_{ji} = 0$
-      for all $j$.
-    \item
-      Does the following variation of the generalized Sylvester's criterion hold? \\
-      \enquote{An $n \times n$ matrix $A$ is positive semidefinite iff $\det{A_r} \geq 0$
-      for all $r = 1,2,\ldots,n$}
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 24.a}
-%
-Prerequisite: $(C^*)^{-1} = (C^{-1})^*$.
-
-First direction: $\Rightarrow$. \\
-Let $A$ be Hermitian, show that $A \geq 0 \Leftrightarrow \exists B: A = B^* B$.
-So $A \geq 0$.
-\[
-  \exists C \in \operatorname{GL}(\mathbb K): C^* A C = D
-  \Leftrightarrow
-  A = (C^*)^{-1} DC^{-1}
-  \Leftrightarrow
-  A = (C^{-1})^* D^2 C^{-1}
-\]
-holds because $D = D^2$.
-\[ \Leftrightarrow A = ((C^{-1})^* D) (D C^{-1}) = \tilde{C}^* \tilde{C} \]
-
-Second direction: $\Leftarrow$. \\
-$A = B^* B$. Let $x \in \mathbb K^n$:
-\[ x^t A \overline{x} = x^t B^* B \overline{x} = (\overline{B}x)^t B \overline{x} = (\overline{B} x)^t \overline{(\overline{B} x)} \]
-\[ = \langle\overline{B}x, \overline{B}x\rangle_2 \geq 0 \]
-
-If $\rank(B) = n$, then $A = B^* I B \Leftrightarrow A \cong I$.
-If $A > 0 \Rightarrow B \in \operatorname{GL}_n(\mathbb K)$.
-\[
-  \Leftarrow x \in \mathbb K^k \setminus \set{0}
-  \Rightarrow \overline{\beta} x \neq 0
-  \Rightarrow \langle \overline{B}x, \overline{B}x\rangle_2
-  \Rightarrow x^t A \overline{x} > 0
-  \Rightarrow A > 0
-\]
-
-\subsection{Exercise 24.b}
-%
-Let $A > 0$. Then $\exists C \in \operatorname{GL}_n(\mathbb K)$:
-\[ A = C^* C \Leftrightarrow A^{-1} = C^{-1} (C^*)^{-1} = C^{-1} (C^{-1})^* \]
-Let $B = (C^{-1})^* \Rightarrow A^{-1} = B^* B \Rightarrow A^{-1} > 0$ (because $\rank(B) = \max$)
-
-\subsection{Exercise 24.c}
-%
-Let $A \geq 0$. Show $a_{ii} \geq 0 \quad \forall i = 1, \ldots, n$.
-Assume $\exists a_{ii} < 0$,
-\[ \forall \xi \in \mathbb C^{n} \setminus \set{0}: \xi^T A \xi \geq 0\]
-Let $\xi = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$.
-\[
-  \Rightarrow
-  \xi^T A \xi = \begin{pmatrix} a_{i1} \\ \vdots \\ a_{ii} \\ \vdots \\ a_{in} \end{pmatrix}^T
-  \begin{pmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{pmatrix} = a_{ii} < 0
-\]
-
-Second part: $A$ must be Hermitian.
-
-Let $a_{ii} = 0$ and assume $a_{ij} \neq 0$.
-\[ \xi^T A \overline{\xi} \geq 0 \forall \xi \in \mathbb C^n \]
-Consider
-\[ \xi = \begin{pmatrix} 0 \\ \vdots \\ c \\ \vdots \\ 1 \end{pmatrix} = c e_i + e_j \]
-where $c$ is in the $i$-th row and $1$ is in the $j$-th row.
-
-%\[
-%  \Rightarrow \xi^T A \overline\xi
-%  = (ca_{i1} + a_{j1}, ca_{i2} + a_{j2}, \ldots, ca_{ii} + a_{ji}, \ldots, ca_{in} + a_{jn})
-%    \cdot \begin{pmatrix} 0 \\ \vdots \\ \overline{c} \\ \vdots \\ 1 \end{pmatrix}
-%\] \[
-%  = \overline{c} c a_{ii} + \overline{c} a_{ji} + c a_{ji} + a_{jj}
-%  = c a_{ij} + \overline{c} \overline{a}_{ij}
-%\]
-
-\[
-  \delta^T A\overline{\delta} = \fun{c e_i + e_j, c e_{i} + e_j}_A
-    = \fun{c e_i, ce_i} + \fun{ce_i, e_j} + \fun{e_j, ce_i} + \fun{e_j, e_j}
-    = c \overline{c} a_{ii} + ca_{ij} + \overline{c} a_{ji} + a_{jj}
-\]
-
-\[ 2 \Re(ca_{ij}) xa_{jj} \geq 0 \]
-\[ c = -\overline{a}_{ij} \]
-\[ 2\Re(-\abs{a_{ij}}^2) + a_{jj} \]
-
-As it turns out this approach should be started differently.
-We therefore exchange $i$ and $j$.
-\[ = c \overline{c} a_{ii} + ca_{ij} + \overline{c} a_{ji} \]
-\[ = c \overline{c} a_{ii} + c \overline{a_{ji}} + \overline{c} a_{ji} \]
-\[ = c \overline{c} a_{ii} + 2 \Re(\overline{c} a_{ji}) \geq 0 \]
-
-Goal: $c$ cancels itself out.
-
-Does not work out. According to Mr. Kainrath we need to choose:
-\[ c \in \mathbb C \]
-\[ d \in \mathbb R \setminus \set{0} \]
-\[ \xi = ce_i + de_j \]
-
-\subsection{Exercise 24.c: fixed proof}
-%
-Assume $a_{ii} = 0$. By $A = B^* B$ with $B \in \mathbb K^{n\times n}$.
-
-\[
-  0 = a_{ii} = e_i^t A e_i = e_i^t B^t B e_i = (\overline{B} e_i)^T \overline{(\overline{B} e_i)}
-\] \[
-  = \langle \overline{B} e_i, \overline{B} e_i\rangle_2 = \norm{\overline{B} e_i}_2^2
-  \Rightarrow \overline{B} e_i = 0
-\] \[
-  a_{ij} = e_i A e)j^T = e_i B^t B e^t_j = (\overline{B} e_i)^t B e_j^t = 0 \cdot B e_j^t = 0
-\]
-
-\subsection{Exercise 24.d}
-%
-Wrong.
-
-Assume $\det(Ar) \geq 0 \quad \forall r = 1, \ldots, n \Rightarrow A \geq 0$.
-\[
-  A = \begin{pmatrix} 1 & 0 \\ -1 & 0 \end{pmatrix}
-  \qquad
-  x = \begin{pmatrix} 1 \\ 2 \end{pmatrix} \Rightarrow x^T Ax = \begin{pmatrix} -1 & 0 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \end{pmatrix} = -1 < 0
-\]
-This is a contradiction.
-
-However, direction $\Rightarrow$ holds.
-
-\subsection{Exercise 25}
-\begin{ex}
-  Show that the relation $A \leq B \Leftrightarrow B - A \geq 0$ (hence $B - A$
-  is positive semidefinite) defines an order relation on the set of self-adjoint matrices.
-\end{ex}
-
-\subsection{Reflexivity}
-Show: $A \leq A$.
-
-\[ A - A \stackrel{?}{\geq} 0 \]
-\[ 0 \geq 0 \]
-The bilinear form by the zero-matrix maps every value to $0$.
-So this holds.
-
-\subsection{Anti-symmetry}
-Show: $A \leq B \land B \leq A \Rightarrow A = B$.
-
-\[ B - A \geq 0 \land A - B \geq 0 \]
-From $A - B \geq 0$ it follows that $B - A \leq 0$. From that $B - A = 0$ follows.
-
-In more detail:
-I know $\forall x \in \mathbb K^n: x^t C \overline{x} \geq 0$ and $x^t C \overline{x} \leq 0$.
-Then $\forall x \in \mathbb K^n: x^t C \overline{x} = 0$. From exercise~24 it follows that
-$C = 0$.
-
-\subsection{Transitivity}
-Show: $A \leq B \land B \leq C \Rightarrow A \leq C$.
 
 \begin{align*}
-  A \leq B &\Leftrightarrow B - A \geq 0 \\
-  B \leq C &\Leftrightarrow C - B \geq 0
+  x &= \lambda_1 \cdot 1 + \lambda_2 \cdot x + \lambda_3 \cdot (x^2 - 1) + \lambda_4 \cdot (x^3 - 2x) \\
+    &= \lambda_1 - \lambda_3 + (\lambda_2 - 2 \lambda_4) x + \lambda_3 x^2 + \lambda_4 x^3
 \end{align*}
+By coefficient comparison, we get $\lambda_1 = \lambda_3 = 0$ and $\lambda_2 - 2\lambda_4 = 1$ where $\lambda_4 \stackrel!= 0$. Hence $\lambda_2 = 1$.
 
-\[ \forall x \in \mathbb K^n: x^t (C - A) \overline{x} \geq 0 \]
-Let $x \in \mathbb K^n$:
-\[ x^t (C - A) \overline{x} = x^t (C - B + B - A) \overline{x} = \underbrace{x^t (C - B) \overline{x}}_{\geq 0, \in \mathbb R} + \underbrace{x^t (B - A) \overline{x}}_{\geq 0} \geq 0 \]
+\[ \implies \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} \]
 
-\section{Exercise 26}
-\begin{ex}
-  Determine index and signature of the matrix $A$ such that $C^* A C = D$:
-  \[
-    A = \begin{bmatrix}
-      0 & 1 & -1 & 0 \\
-      1 & 0 & 1 & 1 \\
-      -1 & 1 & 0 & -1 \\
-      0 & 1 & -1 & 0
-    \end{bmatrix}
-  \]
-  $D$ is a diagonal matrix with entries in $\set{+1,-1,0}$ and a basis $B$ of $\mathbb R^4$
-  such that $x^t A y = \Phi_B(x)^t$
-\end{ex}
+\begin{align*}
+  x^2 &= \lambda_1 - \lambda_3 + (\lambda_2 - 2 \lambda_4) x + \lambda_3 x^2 + \lambda_4 x^3
+\end{align*}
+By coefficient comparison, we get $\lambda_3 = 1$ and $\lambda_1 = \lambda_2 = \lambda_4 = 0$.
 
-Is certainly not positive semidefinite. Compare with Exercise 26 (c).
-So at least one $-1$ must occur in our result.
+\[ \implies \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} \]
 
-\[
-  \begin{pmatrix}
-    0 & 1 & -1 & 0 \\
-    1 & 0 & 1 & 1 \\
-    -1 & 1 & 0 & -1 \\
-    0 & 1 & -1 & 0
-  \end{pmatrix}
-\] \[
-  C_1 = \begin{pmatrix}
-    1 & 1 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-\] \[
-  \begin{pmatrix}
-    1 & 1 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  \cdot
-  \begin{pmatrix}
-    0 & 1 & 1 & 0 \\
-    1 & 0 & 1 & 1 \\
-    -1 & 1 & 0 & -1 \\
-    0 & 1 & -1 & 0
-  \end{pmatrix}
-  \cdot
-  \begin{pmatrix}
-    1 & 1 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    0 & 1 & -1 & 0 \\
-    1 & 2 & 0 & 1 \\
-    -1 & 0 & 0 & -1 \\
-    0 & 1 & -1 & 0
-  \end{pmatrix}
-  = A_1
-\] \[
-  C_2 = \begin{pmatrix}
-    0 & 1 & 0 & 0 \\
-    1 & 0 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-\] \[
-  \begin{pmatrix}
-    0 & 1 & 0 & 0 \\
-    1 & 0 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  \cdot
-  \begin{pmatrix}
-    0 & 1 & -1 & 0 \\
-    1 & 2 & 0 & 1 \\
-    -1 & 0 & 0 & -1 \\
-    0 & 1 & -1 & 0
-  \end{pmatrix}
-  \cdot
-  \begin{pmatrix}
-    0 & 1 & 0 & 0 \\
-    1 & 0 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  = \begin{pmatrix}
-    2 & 1 & 0 & 1 \\
-    1 & 0 & -1 & 0 \\
-    0 & -1 & 0 & -1 \\
-    1 & 0 & -1 & 0
-  \end{pmatrix}
-  = A_2
-\]
+\begin{align*}
+  x^3 - x &= \lambda_1 - \lambda_3 + (\lambda_2 - 2 \lambda_4) x + \lambda_3 x^2 + \lambda_4 x^3
+\end{align*}
+By coefficient comparison, we get $\lambda_1 = \lambda_3 = 0$ and $\lambda_2 - 2 \lambda_4 = -1$ with $\lambda_4 \stackrel!= 1$, hence $\lambda_2 = 1$.
 
-Don't forget to also apply the column transformations as well.
-This algorithm is based on quadratic extension.
-The number of iteration depends on the transformation you choose.
+\[ \implies \begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix} \]
 
-\[ C = C_1 \cdot C_2 \cdot \ldots \cdot C_8 \]
-\[
-  C = \begin{pmatrix}
-    \frac1{\sqrt{2}} & -\frac1{\sqrt{2}} & \frac1{\sqrt{2}} & -1 \\
-    \frac1{\sqrt{2}} & \frac1{\sqrt{2}} & -\frac1{\sqrt{2}} & 0 \\
-    0 & \frac1{\sqrt{2}} & 0 & 0 \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-\] \[
-  D = \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & -1 & 0 \\
-    0 & 0 & 0 & 0
-  \end{pmatrix}
-\]
-\[ \operatorname{sig} = 1 \]
-
-Determine basis of $\mathbb R^4$: $x^t A y = \Phi_B(x) \cdot D \cdot \Phi_B(y)$.
-\[ C^t A C = D \Leftrightarrow A = (C^{-1})^t D C^{-1} \]
-\[ x^t A y = x^t (C^{-1})^t DC^{-1} y = (C^{-1}x)^t D C^{-1} y \underbrace{=}_{\Phi_B(x) = B^{-1}x} \Phi_C(x)^t \cdot D \cdot \Phi_C(y) \]
-
-We will also consider other methods in advanced courses,
-but keep in mind those methods require the roots of polynomials, which are not always possible to determine.
-
-\section{Exercise 27}
-\begin{ex}
-  Show: The block matrix $A$ is positive definite iff $I - B^* B$ is positive definite.
-  \[ A = \begin{pmatrix} I & B \\ B^* & I \end{pmatrix} \]
-\end{ex}
-
-\[ I, B, B^* \in \mathbb K^{n\times n} \qquad \Rightarrow A \in \mathbb K^{2n \times 2n} \]
-
-Consider
-\[
-  C = \begin{pmatrix}
-    I & 0 \\
-    -B^* & I
-  \end{pmatrix}
-  \qquad
-  \text{and}
-  \qquad
-  C^* = \begin{pmatrix}
-    I & -B \\
-    0 & I
-  \end{pmatrix}
-\] \[
-  \Rightarrow C^* A C = \begin{pmatrix}
-    I - B B^* & 0 \\
-    0 & I
-  \end{pmatrix}
-  \eqqcolon M
-\]
-Hence $A$ is congruent to $M$ (according to lecture, reference 8.23) with $A \hat{=} M$.
-
-Then it holds that (lecture, reference 8.29)
-\[ A > 0 \overset{(ii)}{\Leftrightarrow} \operatorname{index}(A) = 2n \overset{(ii)}{\Leftrightarrow} \operatorname{index}(M) = 2n \operatorname{(iii)}{\Leftrightarrow} M > 0 \]
-
-Hence, it suffices to show: $M > 0 \Leftrightarrow I - BB^* > 0$.
-
-Direction $\Rightarrow$.
-Let $M > 0$. Then the leading minor theorem yields (lecture reference 8.32)
-\[ M > 0 \Leftrightarrow \det{M_r} > 0 \qquad \forall r = \set{1,\ldots,2n} \]
-Especially it holds that
-\[ \det(M_r) = \det((I - BB^*)_2) \qquad r = 1, \ldots, n \]
-\[ \overset{8.32}{\Leftrightarrow} I - BB^* > 0 \]
-
-Direction $\Leftarrow$.
-Let $I - BB^* > 0$. Then by 8.29~(iii) it holds that
-\[ \operatorname{ind}(I - BB^*) = n \]
-\[ \operatorname{ind}(I) = n \]
-\[ \Rightarrow \operatorname{ind}(M) = 2n \]
-because the index corresponds to the number of ones minus the number of $-1$.
-Here no $-1$ are possible, because we consider a positive definite matrix.
-Hence
-\[ \overset{(iii)}{\Leftrightarrow} M > 0\]
-Hence positive definite.
-
-\section{Exercise 29}
-\begin{ex}
-  For which values of $a$ and $b$ is the $M$ positive definite?
-  \[
-    M = \begin{bmatrix}
-      2 & -b + a & b + a & 0 \\
-      -b + a & 2 & 0 & b + a \\
-      b + a & 0 & 2 & -b + a \\
-      0 & b + a & -b + a & 2
-    \end{bmatrix}
-  \]
-\end{ex}
-
-We use the following theorem: $C^* A C = B$.
-\[ A > 0 \overset{3.}{\Leftrightarrow} \operatorname{ind}(A) = n \overset{2.}{\Leftrightarrow} \operatorname{ind}(B) = n \Leftrightarrow B > 0 \]
-\[ C \in \textrm{GL}(n, \mathbb C) \]
-
-$a, b$ must be in $\mathbb R$. If $a,b \in \mathbb C$, $M$ is not Hermitian.
-
+So our solution is,
 \[
   M =
   \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    \frac{b-a}{2} & 1 & 0 & 0 \\
-    \frac{-b-a}{2} & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
+    0 & 0 & 0 \\
+    1 & 0 & 1 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
   \end{pmatrix}
-  \cdot A \cdot
+\]
+
+\section{Exercise 2}
+\begin{ex}
+  A chain complex $C$ is a sequence of linear maps
+  \[ 0 = V_n \xrightarrow{f_n} V_{n-1} \xrightarrow{f_{n-1}} V_{n-2} \xrightarrow{f_{n-2}} \cdots \xrightarrow{f_1} V_0 \xrightarrow{f_0} 0 \]
+  with the property such that $\operatorname{im}{f_{k+1}} \subseteq \operatorname{ker}{f_{k}}$ for all $0 \leq k \leq n-1$, hence,
+  $f_k \circ f_{k+1} = 0$. The quotient space $H_k(C) = \operatorname{ker}{f_k} / \operatorname{im}{f_{k+1}}$ is called $k$-th \emph{homology}
+  of the complex. Show that for finite-dimensional chain complexs (hence, $\dim{V_k} < \infty$ for all $k$) the following formula holds:
+  \[ \sum_{k=0}^{n-1} (-1)^k \dim{V_k} = \sum_{k=0}^{n-1} (-1)^k \dim{H_k}(C) \]
+\end{ex}
+
+\subsection{Blackboard solution}
+
+$V \subset W$ vector spaces.
+\[ V = \mathcal L\set{v_1, \dots, v_n} \qquad W = \mathcal L\set{v_1, \dots, v_n, w_1, \dots, w_n} \]
+
+$\faktor{W}{V} = \set{[x]_V: x \in W}$
+
+\[ [x]_n \coloneqq \setdef{x+v}{v \in V} \]
+
+$[w_1]_v, \dots, [w_n]_v$ is a basis of vector space $\faktor{w}{v}$.
+
+for $x, y \in W$,
+\[ x \sim_V y \coloneqq x - y \in V \]
+\[ y + v_2 \in [y]_V \]
+\[ [x]_V \bigodot [y]_V = [x + v_1 + y + v_2]_V \]
+
+\[ [x]_V \bigodot [y]_V = [x+y]_V \]
+\[ \alpha [x]_V = [\alpha x]_V \]
+
+
+\[ \sum_{k=0}^{n-1} (-1)^k \dim{V_k} = \sum_{k=0}^{n-1} (-1)^k \dim{H_k(C)}. \]
+
+where $\dim(V_k) = \dim\kernel(f_k) + \dim\image(f_k)$ and $\dim(H_k) = \dim\kernel(f_k) - \dim\image(f_k) = \dim\kernel(f_k) - \dim\image(f_{k+1})$.
+
+\section{Exercise 3}
+\begin{ex}
+  Let $A \in \mathbb K^{n\times n}$ be a nilpotent matrix, hence, there exists $k \in \mathbb N$ such that $A^k = 0$.
+  \begin{itemize}
+    \item Show that $I - A$ is invertible with $(I - A)^{-1} = I + A + A^2 + \dots + A^{k-1}$.
+    \item Use the previous result to derive the inverse of the matrix:
+      \[
+        \begin{pmatrix}
+          1 & a & b & c \\
+          0 & 1 & a & b \\
+          0 & 0 & 1 & a \\
+          0 & 0 & 0 & 1
+        \end{pmatrix}
+      \]
+  \end{itemize}
+\end{ex}
+
+\subsection{Blackboard solution}
+
+\[ 1 + x + x^2 + x^3 + \dots + x^{n-1} = \frac{x^n - 1 [= (x-1)(1 + x + x^2 + \dots + x^{n-1}])}{x-1} \]
+
+Just verify:
+\[ (I - A)(I - A + A^2 + \dots + A^{n-1}) \]
+
+\section{Exercise 4}
+\begin{ex}
+  \begin{enumerate}
+    \item Let $A$ be an invertible $n \times n$ matrix over the field $\mathbb K$ and $u,v$ are column vectors (hence, $n\times 1$ matrices),
+          such that $\sigma = 1 + v^t A^{-1} u \neq 0$. Show that $(A + uv^t)$ is invertible and that
+          \[ (A + uv^t)^{-1} = A^{-1} - \frac1\sigma A^{-1} uv^t A^{-1} \]
+    \item Apply this formula, to determine the inverse of matrix
+          \[
+            \begin{pmatrix}
+              5 & 3 & 0 & 1 \\
+              3 & 2 & 0 & 0 \\
+              0 & 0 & 2 & 3 \\
+              0 & 0 & 3 & 5
+            \end{pmatrix}
+          \]
+          efficiently.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Blackboard solution}
+
+\[ (A + uv^t)^{-1} = A^{-1} - \frac1\sigma A^{-1} uv^t A^{-1} \qquad \text{ (Sherman-Morrison-Formula)} \]
+\[ \sigma = 1 + v^t A^{-1} u \neq 0 \]
+
+\[ (A + uv^t)(A^{-1} - \frac1\sigma A^{-1} uv^t A^{-1}) = A A^{-1} + uv^t A^{-1} - \frac1\sigma (A A^{-1} uv^t A^{-1} + uv^t A^{-1} uv^t A^{-1}) \]
+\[ = I + uv^t A^{-1} - \frac1\sigma (uv^t A^{-1} + (v^t A^{-1} u) uv^t A^{-1} )\]
+\[ = I + uv^t A^{-1} - \frac1\sigma (1 + v^t A^{-1} u) uv^t A^{-1} \]
+\[ = I + uv^t A^{-1} - \frac\sigma\sigma uv^t A^{-1} = I \]
+
+\dateref{2018/03/14}
+
+\section{Exercise 5}
+\begin{ex}
+  \begin{enumerate}
+    \item[a.] Determine the dual basis of $(\mathbb R)^4$ to $B$
+    \[
+      B \coloneqq \set{
+        \begin{pmatrix} 1 \\ 2 \\ 1 \\ 0 \end{pmatrix},
+        \begin{pmatrix} 1 \\ 0 \\ -1 \\ 1 \end{pmatrix},
+        \begin{pmatrix} -1 \\ -2 \\ 2 \\ -1 \end{pmatrix},
+        \begin{pmatrix} 2 \\ -1 \\ 1 \\ 1 \end{pmatrix}
+      }
+    \]
+
+    \item[b.] Determine the matrix of the distinct (why distinct?) projection map
+      $\varphi: \mathbb R^4 \to \mathbb R^4$ with
+      \[
+        \image{\varphi} = \mathcal L\set{\begin{pmatrix} 1 \\ 2 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ -1 \\ 1 \end{pmatrix}}
+        \text{ and }
+        \kernel{\varphi} = \mathcal L\set{\begin{pmatrix} -1 \\ -2 \\ 2 \\ -1 \end{pmatrix}, \begin{pmatrix} 2 \\ -1 \\ 1 \\ 1 \end{pmatrix}}
+      \]
+  \end{enumerate}
+\end{ex}
+
+\subsection{Blackboard solution}
+
+It must hold that
+\[ \angel{b_1, b_1^*} = 1 \]
+\[ \angel{b_2, b_2^*} = 0 \]
+
+
+\[
   \begin{pmatrix}
-    1 & \frac{b-a}{2} & \frac{-b-a}{2} & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1
+    1 & 2 & 1 & 0     & 1 & 0 & 0 & 0 \\
+    1 & 0 & -1 & 1    & 0 & 1 & 0 & 0 \\
+    -1 & -2 & 2 & -1  & 0 & 0 & 1 & 0 \\
+    2 & -1 & 1 & 1    & 0 & 0 & 0 & 1
   \end{pmatrix}
-\] \[
-  \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & \frac{-b-a}{2} \\
-    0 & 0 & 1 & \frac{b+a}{2} \\
-    0 & 0 & 0 & 1
-  \end{pmatrix}
-  \cdot M \cdot
-  \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & \frac{-b-a}{2} & \frac{b-a}{2} & 1
-  \end{pmatrix}
-\] \[
-  = \begin{pmatrix}
-    2 & 0 & 0 & 0 \\
-    0 & -b^2 - a^2 + 2 & b^2 - a^2 & 0 \\
-    0 & b^2-a^2 & -b^2 - a^2 + 2 & 0 \\
-    0 & 0 & 0 & 2
-  \end{pmatrix}
-\] \[
   \leadsto
   \begin{pmatrix}
+    1 & 0 & 0 & 0 &  3 & -4 & -5 & 4 \\
+    0 & 1 & 0 & 0 &  1 & 2 & 1 & -1 \\
+    0 & 0 & 1 & 0 &  2 & 5 & 3 & -2 \\
+    0 & 0 & 0 & 1 &  5 & 15 & 8 & -6
+  \end{pmatrix}
+\]
+Pay attention! We transposed the matrix initially.
+Now we can read the solution vectors in columns.
+You can also transpose it only in the end.
+
+\[ B^* = \set{b_1^*, b_2^*, b_3^*, b_4^*} \]
+where e.g. $b_1^* = (3, 1, 2, 5)^T$.
+
+Exercise b: $\varphi: \mathbb R^4 \to \mathbb R^4$.
+
+\[ \image{\varphi} = L((b_1, b_2)) \]
+\[ \kernel{\varphi} = L((b_3, b_4)) \]
+\[
+  \begin{pmatrix}
+    1 & 1 & 0 & 0 \\
     2 & 0 & 0 & 0 \\
-    0 & 2 & 0 & 0 \\
-    0 & 0 & -b^2 - a^2 + 2 & b^2 - a^2 \\
-    0 & 0 & b^2-a^2 & -b^2 - a^2 + 2
+    1 & -1 & 0 & 0 \\
+    0 & 1 & 0 & 0
   \end{pmatrix}
-\]
-This can only be positive definite if the first leading minor is greater $0$.
-So $2 - a^2 + b^2 > 0$ must hold.
-
-Furthermore,
-\[ \underbrace{(2 - a^2 - b^2)^2}_{>0} - \underbrace{(b^2 - a^2)^2}_{> 0} > 0 \]
-\[ \Leftrightarrow (\underbrace{(2 - a^2 - b^2) - (b^2 - a^2)}_{(2 - 2b^2)})(\underbrace{(2 - a^2 - b^2) + (b^2 - a^2)}_{(2 - 2a^2)}) > 0 \]
-\[ \Leftrightarrow (1 - b^2)(1 - a^2) > 0 \]
-\[ ((1 - b^2) > 0 \land (1 - a^2) > 0) \lor ((1 - b^2) < 0 \land (1 - a^2) < 0) \]
-The second case cannot occur, because the criterion due to the first leading minor must hold.
-
-In conclusion,
-$A$ is positive definite iff $a^2 < 1$ and $b^2 < 1$.
-
-\section{Exercise 30}
-\begin{ex}
-  Let $(V, \langle ., .\rangle)$ be a vector space with scalar product and
-  $U \subseteq V$ be a subspace. Show:
-  \begin{itemize}
-    \item $U^\bot = U^{\bot \bot \bot}$;
-    \item $V = U \dot{+} U^{\bot} \Rightarrow U = U^{\bot\bot}$.
-  \end{itemize}
-\end{ex}
-
-\subsection{Exercise 30.a}
-We know that $U \subset U^{\bot\bot}$ and $N \subseteq M \Rightarrow M^\bot \subseteq N^\bot$.
-It immediately following that $U^{\bot\bot\bot} \subseteq U^{\bot}$ with $N = U$ and $M = U^{\bot\bot}$.
-
-\begin{align*}
-  U^\bot &\subseteq U^{\bot\bot\bot} \\
-  U^\bot &= \setdef{v \in V}{\forall u \in U: \fun{v,u} = 0} \\
-  U^{\bot\bot} &= \setdef{v \in V}{\forall u^\bot \in U^\bot: \fun{v,u^\bot} = 0} \\
-    &\Rightarrow \forall u^\bot \in U^\bot: \forall u^{\bot\bot} \in U^{\bot\bot}: \fun{u^\bot, u^{\bot\bot}} = 0 \\
-    &U^{\bot\bot\bot} = \setdef{v \in V}{\forall u^{\bot\bot} \in U^{\bot\bot}: \fun{\underbrace{v}_{\in U^\bot}, u^{\bot\bot}} = 0} \\
-    &\Rightarrow U^\bot \subseteq U^{\bot\bot\bot}
-\end{align*}
-\[ \Rightarrow U^{\bot} \subseteq (U^\bot)^{\bot\bot} \]
-
-\subsection{Exercise 30.b}
-Show that $V = U \dot{+} U^{\bot} \Rightarrow U = U^{\bot\bot}$.
-
-Direction $\subseteq$:
-Let $u \in U^{\bot\bot}$ by assumption:
-\[ \exists! v \in U \exists ! w \in U^{\bot}: u = v + w \]
-\[ \forall u \in U^{\bot\bot} \forall w \in U^{\bot}: \fun{u,w} = 0 \]
-\[ \fun{v+w, w} = \underbrace{\fun{v,w}}_{=0} + \fun{w,w} = 0 \]
-\[ \fun{w,w} = 0 \Leftrightarrow w = 0 \]
-\[ u = v \]
-\[ \Rightarrow u \in U \]
-
-\section{Exercise 31}
-\begin{ex}
-  Let $U$ be a subspace of $\mathbb R^4$ and $v = (1, -1, 1, -1)^t$.
-  \[ U = \setdef{x \in \mathbb R^4}{\substack{x_1 - x_2 + x_3 - x_4 = 0 \\ x_1 + x_3 + x_4 = 0}} \]
-  \begin{itemize}
-    \item Determine the orthogonal projection $\pi_U(v)$ using the Gramian matrix.
-    \item Determine $\pi_U(v)$ using the orthonormal basis of $U$.
-    \item Determine the matrix representation of $\pi_U$ in regards of the canonical basis.
-  \end{itemize}
-\end{ex}
-
-You first need to recognize that $v$ exactly represents the upper equation.
-$v$ is in the orthogonal complement. This immediately solves exercises a and b.
-
-\subsection{Exercise 31.a}
-Equation system:
-\[
-  \begin{pmatrix}
-    1 & -1 & 1 & -1 & 0 \\
-    1 & 0 & 1 & 1 & 0
-  \end{pmatrix}
-\] \[
-  \begin{pmatrix}
-    1 & -1 & 1 & -1 & 0 \\
-    0 & 1 & 0 & 2 & 0
-  \end{pmatrix}
-\]
-\[ x_3 = s, x_4 = t \Rightarrow x_1 = -s-t, x_2 = -2t \]
-
-\[ U = \mathcal L\left(\begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} -1 \\ 0 \\ 0 \\ 1 \end{pmatrix}\right) = (b_1, b_2) \]
-
-\[ \pi_U(v) = \sum_{i=1}^n \eta_i \cdot b_i \]
-\[ \rightarrow \begin{pmatrix} \eta_1 \\ \eta_2 \end{pmatrix} = G^{-1} \begin{pmatrix} \fun{v, b_1} \\ \fun{v, b_2} \end{pmatrix} \]
-\[
-  G = \operatorname{Gram}(b_1, b_2) = \begin{pmatrix}
-    \fun{b_1, b_1} & \fun{b_1, b_2} \\
-    \fun{b_2, b_1} & \fun{b_2, b_2}
-  \end{pmatrix}
-\] \[
-  \fun{b_1, b_1} = 2 \qquad \fun{b_1, b_2} = 1
-\] \[
-  \fun{b_2, b_1} = 1 \qquad \fun{b_2, b_2} = 6
-\]
-
-\[ \Rightarrow G = \begin{pmatrix} 2 & 1 \\ 1 & 6 \end{pmatrix} \]
-\[ \Rightarrow G^{-1} = \begin{pmatrix} \frac6{11} & -\frac{1}{11} \\ -\frac{1}{11} & \frac{2}{11} \end{pmatrix} \]
-
-Furthermore it holds that
-\[
-  \begin{pmatrix}
-    \fun{v, b_1} \\
-    \fun{v, b_2}
-  \end{pmatrix}
-  = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
-\]
-\[ \Rightarrow \begin{pmatrix} \eta_1 \\ \eta_2 \end{pmatrix} = G^{-1} \cdot \begin{pmatrix} 0 \\ 2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \]
-\[ \Rightarrow \pi_U(v) = \sum_{i=1}^2 \eta_i \cdot b_i = 0 \]
-
-\subsection{Exercise 31.b}
-We orthogonalize using Gram-Schmid process.
-\[ a_1 = \frac{b_1}{\norm{b_1}} \text{ with } \norm{b_1}^2 = \fun{b_1, b_1} = 2 \Rightarrow \norm{b_1} \cdot \sqrt{2} \Rightarrow a_1 = \frac{1}{\sqrt 2} \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \]
-\[ \tilde{a_2} = b_2 - \fun{b_2, a_1} \cdot a_1 = \begin{pmatrix} -1 \\ 2 \\ 0 \\ 1 \end{pmatrix} - \fun{\begin{pmatrix} -1 \\ -2 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix}} \cdot \frac{1}{\sqrt 2} \cdot \frac{1}{\sqrt 2} \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} -\frac12 \\ -2 \\ -\frac12 \\ 1 \end{pmatrix} \]
-\[ \Rightarrow a_2 - \frac{\tilde{a_2}}{\norm{a_2}} = \sqrt{\frac2{11}} \cdot \begin{pmatrix} -\frac12 \\ -2 \\ -\frac12 \\ 1 \end{pmatrix} \]
-
-\[ \pi_U(v) = \sum_{i=1}^n \fun{v, a_i} \cdot a_i = 0 \cdot \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \cdot \frac1{\sqrt{2}} + 0 \sqrt{\frac{2}{11}} \cdot \begin{pmatrix} -\frac12 \\ -2 \\ -\frac14 \\ 1 \end{pmatrix} = 0 \]
-\[ \Rightarrow \pi_U(v) = 0 \Rightarrow v \in U^{\bot} \]
-
-\subsection{Exercise 31.c}
-\[ p = \sum_{i=1}^n a_i a_i^* \qquad \text{ with } a_i \text{ is ONB of } U \forall i = 1, \ldots n \]
-Images of $P \cdot u = \sum_{i=1}^n \fun{u_i, v} \cdot u_i \quad \forall i = 1,\ldots,n$ with $u_i$ as ONB.
-
-\[ P = B \cdot (B^T B)^{-1} \cdot B^T \]
-\[
-  B = \begin{pmatrix} -1 & -1 \\ 0 & -2 \\ 1 & 0 \\ 0 & 1 \end{pmatrix}
-  \Rightarrow B^T = \begin{pmatrix} -1 & 0 & 1 & 0 \\ -1 & -2 & 0 & 1 \end{pmatrix}
+  \cdot B^{{*}^T} = P
 \]
 
 \[
   P = \begin{pmatrix}
-    \frac6{11} & \frac2{11} & -\frac5{11} & -\frac1{11} \\
-    \frac2{11} & \frac8{11} & \frac2{11} & -\frac4{11} \\
-    -\frac5{11} & \frac2{11} & \frac6{11} & -\frac{1}{11} \\
-    -\frac1{11} & -\frac4{11} & -\frac1{11} & -\frac2{11}
+    -12 & 3 & 7 & 20 \\
+    -6 & 2 & 4 & 10 \\
+    6 & -1 & -3 & -10 \\
+    -4 & 2 & 5 & 15
   \end{pmatrix}
 \]
 
-\section{Exercise 32}
+Why distinct?
+The projection matrix is given with
+\[
+  \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}
+\]
+where row $i$ is $b_i$ and column $j$ is $d_j$ where $b$ and $d$ are the bases of the two vector spaces.
+
+\[ \begin{pmatrix} 1 \\ 2 \\ 3 \\ 4 \end{pmatrix}_B = 1 \cdot b_1 + 2 \cdot b_2 + 3 \cdot b_3 + 4 \cdot b_4 \]
+
+\[ P_{E,E} = \Phi_B^E \cdot P_{B,B} \cdot \overbrace{\underbrace{\Phi_{E}^B}_{(\Phi_B^E)^{-1}} v_E}^{v_B} \]
+
+
+
+How to compute the inverse efficiently?
+
+Let $A, B, C \in \mathbb R^{2 \times 2}$.
+\[
+  \begin{pmatrix}
+    A & B \\
+    0 & C
+  \end{pmatrix} \begin{pmatrix}
+    \alpha & \beta \\
+    0 & \gamma
+  \end{pmatrix}
+  = \begin{pmatrix}
+    A \alpha & A \beta + B \gamma \\
+    0 & C \gamma
+  \end{pmatrix}
+  \stackrel!= \mathcal 1
+\]
+\[ \alpha = A^{-1} \qquad \gamma = C^{-1} \]
+\[ \beta = -A^{-1} B \gamma \]
+
+\section{Exercise 6}
 \begin{ex}
+  Let $V = \mathbb R[x]_2$.
+  \[ \xi_1 < \xi_2 < \xi_3 \in \mathbb R \]
+\end{ex}
+
+\subsection{Whiteboard solution}
+
+Exercise a:
+\[ \beta_i: V \to \mathbb R \]
+\[ p(x) \mapsto p(\xi_i) \]
+\[ \dim(V) = \dim(V^*) = 3 \]
+\[ \sum a_i \beta_i =0 \iff a_i = 0 \forall i \]
+
+\[ \forall p \in \mathbb R[x]_2: \sum a_i \beta_i(p(x)) \stackrel!= 0 \]
+\[ \forall p \in \mathbb R[x]_2: \sum a_i \beta_i(\xi_i) \stackrel!= 0 \]
+
+\[ \implies p_1(\xi_1) = p_1(x_2) = 0 \implies a_3 = 0 \dots a_i = 0 \forall i \]
+hence linear independent.
+
+Exercise b:
+\[ \gamma: p(x) \mapsto p'(\xi_2) \]
+\[ \gamma(p(x)) = \sum a_i \beta_i(p(x)) = \sum a_i p(\xi_i) = p'(\xi_2) \]
+\[ p(x) = \alpha + \beta x + \delta x^2 \]
+\[ \implies p'(\xi_2) = \beta + 2 \delta \xi_2 \]
+\[ p(x) = \alpha + \beta x + \delta x^2 \]
+
+\[
+  \underbrace{\begin{pmatrix}
+    1 & 1 & 1 \\
+    \xi_1 & \xi_2 & \xi_3 \\
+    \xi_1^2 & \xi_2^2 & \xi_3^2
+  \end{pmatrix}}_{= A}
+  \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}
+  = \begin{pmatrix} 0 \\ 1 \\ 2\xi_2 \end{pmatrix}
+\]
+
+
+\[
+  A^{-1} = \begin{pmatrix}
+    \frac{\xi_2 \xi_3}{(\xi_2 - \xi_1)(\xi_3 - \xi_1)} & \dots \\
+    -\frac{\xi_3 \xi_1}{(\xi_2 - \xi_1)(\xi_3 - \xi_2)} & \dots \\
+    \frac{\xi_1 \xi_2}{(\xi_3 - \xi_1)(\xi_3 - \xi_2)} & \dots
+  \end{pmatrix}
+\]
+\[
+  \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}
+  = A^{-1} \begin{pmatrix} 0 \\ 1 \\ 2 \xi_2 \end{pmatrix}
+  = \begin{pmatrix}
+    \frac{\xi_2 - \xi_3}{(\xi_2 - \xi_1)(\xi_3 - \xi_1)} \\
+    \frac{\xi_1 - 2\xi_2 + \xi_3}{(\xi_2 - \xi_1)(\xi_3 - \xi_2)} \\
+    \frac{\xi_2 - \xi_1}{(\xi_3 - \xi_1)(\xi_3 - \xi_2)}
+  \end{pmatrix}
+\]
+
+Exercise c:
+\[ B = \set{b_1(x), b_2(x), b_3(x)} \]
+\[ l_i = \sum_{j=1}^2 a_{ji} x^j \]
+\[ \beta_l(l_i(x)) = \delta_{li} \]
+
+\[
+  \begin{pmatrix}
+    1 & \xi_1 & \xi_1^2 \\
+    1 & \xi_2 & \xi_2^2 \\
+    1 & \xi_3 & \xi_3^2
+  \end{pmatrix} \cdot
+  \begin{pmatrix}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23} \\
+    a_{31} & a_{32} & a_{33}
+  \end{pmatrix}
+  = \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+  \end{pmatrix}
+\]
+In essence, we look for $p(x) = \frac{(x_1 - x)(x_2 - x)}{(\xi_1 - \xi_3)(\xi_2 - \xi_3)}$.
+This is a Lagrange polynomial with $l_3 = p$.
+
+\section{Exercise 7}
+\begin{ex}
+  Let $V$ be a vector space with $\dim{V} = n < \infty$
+  and $U \subseteq V$ is a subspace with $\dim{U} = m$.
+  \begin{enumerate}
+    \item[a.] Show that $U^\bot = \set{v^* \in V^*}{U \subseteq \kernel{v^*}}$ is a subspace of dual space $V^*$ and give $\dim{U^{\bot}}$.
+    \item[b.] Is $\setdef{v^* \in V^*}{U = \kernel{v^*}}$ also a subspace?
+  \end{enumerate}
+\end{ex}
+
+Exercise a:
+\[
+  \begin{pmatrix}
+    U^\bot &= \setdef{v^* \in V^*}{U \subseteq \kernel{v^*}}
+           &= \setdef{v^* \in V}{\forall u \in U: v^*(u) = 0}
+  \end{pmatrix}
+\]
+We prove subspace criteria:
+\begin{enumerate}
+  \item $U^\bot \neq \emptyset$. Let $v^*: V \to \mathbb K$ with $v \mapsto 0$.
+  \item
+    \[ \forall u^\bot_1, u^\bot_2 \in U^\bot \forall \lambda, \mu \in \mathbb K: \lambda u_1^\bot + \mu u_2^\bot \in U^\bot \]
+    \[ \lambda \underbrace{v_1^*(u)}_{0} + \mu v_2^*(u) = 0  \qquad \text{ for } \forall v_1^*, v_2^* \in U^\bot, u \in U \]
+\end{enumerate}
+
+Now, we need to determine the dimension $\dim{U^{\bot}}$.
+
+Let $B_U = \set{v_1, v_2, \dots, v_m}$.
+\[ B_V = \set{v_1, v_2, \dots, v_m, v_{m+1}, \dots, v_n} \]
+\[ B_{V^*} = \set{v_1^*, v_2^*, \dots, v_n^*} \]
+\[ B_{U^{\bot}} = \set{v_{m+1}^*, v_{m+2}^*, \dots, v_n^*} \text{ is basis of } U^\bot \]
+
+\[ \forall u \in U: v^*_j(u) = 0^C \forall j \in \set{m+1, \dots, n} \]
+\[ B_U = \set{v_1, v_2, \dots, v_m} \]
+\[ B_V = \set{v_1, v_2, \dots, v_m, v_{m+1}, \dots, v_n} \]
+\[ B_{V^*} = \set{v_1^*, v_2^*, \dots, v_n^*} \]
+\[ B_{U^\bot} = \set{v_{m+1}^*, v_{m+2}^*, \dots, v_n^*} \text{ is basis of } U^\bot \]
+\[ \implies \dim(U^\bot) = n - m \]
+
+Exercise b:
+\[ W^\bot = \setdef{v^* \in V^*}{U = \kernel(v^*)} \]
+The reason was given orally.
+
+\section{Exercise 8}
+\begin{ex}
+  Let $f \in \operatorname{Hom}(V, W)$ be a linear map between two finite-dimensional vector space with bases $B \subseteq V$ and $C \subseteq W$. We define the transposed map
+  \[ f^T: W^* \to V^* \]
+  \[ w^* \mapsto w^* \circ f \]
+  Hence $f^T(w^*)$ is a linear functional and $(f^T(w^*))(v) = w^*(f(v))$
+  \begin{enumerate}
+  	\item[a.]
+  	  Show that $f^T$ is linear.
+  	\item[b.]
+  	  Show that the matrix representation, in regards of dual bases $C^*$ and $B^*$, has the following matrix representation: $\Phi_{B^*}^{C^*}(f^T) = \Phi_C^B(f)^T$
+  \end{enumerate}
+\end{ex}
+
+Exercise a:
+Let $v \in V$ and $\lambda \in \mathbb K$, $w_1^*, w_2^* \in W^*$.
+\[ (f^T(w_1^* + w_2^*))(v) = (w_1^* + w_2^*)f(v) = w_1^*(f(v)) + w_2^*(f(w_1^*))(v) + (f^T(w_2^*))(v) \]
+\[ (f^T(\lambda w_1^*))(v) = (\lambda w_1^*)(f(v)) = \lambda w_1^*(f(v)) = \lambda (f^T(w_1^*))(v) \]
+We proved $g(w_1 + \lambda w_2) = g(w_1) + \lambda g(w_2)$. Hence $f^*$ is linear.
+
+Exercise b:
+\[ \Phi_{B^*}^{C^*}(f^T) = \Phi_C^B(f)^T \]
+\[ \set{v_1 \dots, v_n} = B \qquad \set{w_1, \dots, w_m} = C \]
+\[ f(v_j) = \sum_{i=1}^m m_{ij} w_i \]
+\[ (f^t(w_i^*))(v_k) = w_j^*(f(v_k)) = w_j^* \left(\sum_{l=1}^m {lk} w_l\right) = m_{jk} \]
+\[ m_{jk} = \sum_{l=1}^n m_{jl} \underbrace{v_{l}^*(v_k)}_{\delta_{lk}} \]
+\[ = \sum_{l=1}^n m_{jl} v_l^*(v_k) \]
+\[ \implies f^T(w_j^*) = \sum_{l=1}^n A_{l,j} v_l^* \]
+\[ \implies A = \Phi_C^B(f)^T \]
+\[ A = \Phi_{B^*}^{C^*}(f^T) \]
+
+\dateref{2018/03/21}
+
+\section{Exercise 10}
+\begin{ex}
+  A permutation $\pi \in \sigma_n$ is called cyclic, if there exists some $k \geq 1$ and a sequence $i_1, i_2, \dots, i_k$ such that $\pi(i_j) = i_{j+1}$ for $1 \leq j \leq k-1$, $\pi(i_k) = i_1$ and $\pi(i) = i$ for $i \not\in \set{i_1, i_2, \dots, i_k}$, hence
+  \[ i_1 \to i_2 \to \dots \to i_1. \]
+  and all other $i$ are fixed. Common notation: $\pi = (i_1, i_2, \dots, i_k)$.
   \begin{itemize}
-    \item Show that $\fun{f,g}$ defines a postiive definite scalar in $\mathbb R[x]$.
-      \[ \fun{f,g} = \int_{-1}^1 (1 - t^2) f(t) g(t) \, dt \]
-    \item Orthogonalize the canonical basis $(1, x, x^2)$ of the subspace $\mathbb R_2[x]$ in regards of the scalar product.
+    \item Show, that two cyclic permutations $\pi = (i_1, i_2, \dots, i_k)$ and $\rho = (j_1, j_2, \dots, j_l)$ commutate ($\pi \circ \rho = \rho \circ \pi$), if $\set{i_1, i_2, \dots, i_k} \cap \set{j_1, j_2, \dots, j_l} = \emptyset$.
+    \item Decompose the cycle into a product of transpositions and show that for a cyclic permutation, it holds that $\sign(\pi) = (-1)^{k-1}$.
   \end{itemize}
 \end{ex}
 
-\subsection{Exercise 32.a}
-Show that
-\[ \fun{\lambda f, g} = \lambda \fun{f,g} \qquad \forall f,g \in \mathbb R[x] \]
-\begin{align*}
-  &= \int_{-1}^1 (1 - t^2) (\lambda f)(t) g(t) \, dt \\
-  &= \int_{-1}^1 (1 - t^2) \lambda f(t) g(t) \, dt \\
-  &= \lambda \int_{-1}^1 (1 - t^2) f(t) g(t) \, dt \\
-  &= \lambda \fun{f, g}
-\end{align*}
+For the first part,
 
-Show that
-\[ \fun{x+y, z} = \fun{x,z} + \fun{y,z} \qquad \forall x,y,z \in \mathbb R[x] \]
-\begin{align*}
-  \int_{-1}^1 (1 - t^2) (x + y)(t) z(t) \, dt
-    &= \int_{-1}^1 (1 - t^2) x(t) z(t) + (1 - t^2) y(t) z(t) \, dt \\
-    &= \int_{-1}^1 (1 - t^2) x(t) z(t) \, dt + \int_{-1}^1 (1 - t^2) y(t) z(t) \, dt \\
-    &= \fun{x,z} + \fun{y,z}
-\end{align*}
+Let $\operatorname{supp}(\pi) \cap \operatorname{supp}(\rho) = \emptyset$ where $\operatorname{supp}(\pi)$ defines the elements in the cycle of permutation $\pi$.
+\begin{description}
+  \item[$i \not\in \operatorname{supp}(\pi) \cup \operatorname{supp}(\rho)$] 
+    \[ \implies \rho(i) = i = \pi(i) = i \]
+    \[ \implies \pi(\rho(i)) = \rho(\pi(i)) = i \]
+  \item[$i \in \operatorname{supp}(\pi)$]
+    $i \in \operatorname{supp}(\pi) \implies \pi(i) \in \operatorname{supp}(\pi)$
+    \[ \rho(\pi(i)) = \pi(i) \implies \rho(\pi(i)) = \pi(i) = \pi(\rho(i)) \]
+\end{description}
 
-Show that
-\[ \fun{y,x} = \fun{x,y} \qquad \forall x,y \in \mathbb R[x] \]
-\[ \int_{-1}^1 (1 - t^2) y(t) x(t) \, dt = \int_{-1}^1 (1 - t^2) x(t) y(t) \, dt = \fun{x,y} \]
+For the second part,
 
-Show that
-\[ \fun{f,f} \geq 0 \qquad \forall f \in \mathbb R[x] \land \fun{f,f} = 0 \to f = 0 \]
-\begin{align*}
-  \int_{-1}^1 (1 - t^2) f(t) f(t) \, dt
-    &= \int_{-1}^1 \underbrace{(1 - t^2) f^2(t)}_{\geq 0} \, dt \geq 0
-\end{align*}
-Given a positive function, its integral is positive in at most one root.
-Polynomial functions are continuous. This is why it works.
+\[ \pi = \tau_1 \cdot \tau_2 \cdot \dots = (i_1, i_2) (i_2, i_3) \dots (i_{k-1}, i_k) (i_k, i_1) \]
+giving $k-1$ transposition.
+\[ \implies \sign(\pi) = (-1)^{k-1} \]
 
-\subsection{Exercise 32.b}
-\[ \fun{f,g} = \int_{-1}^1 (1 - t^2) f(t) g(t) \, dt \]
-\[ \norm{v_1}^2 = \int_{-1}^1 (1 - t^2) \cdot 1 \cdot 1 \, dt = \frac43 \]
+\[ \tau_{24} = 1432 \]
+\[ T_{34}^{2341} T_{23}^{2314} T_{42}^{2134} \]
 
-\[ u_1 = \frac{v_1}{\norm{v_1}} = \frac{\sqrt{3}}{2} \]
-\[ \tilde{u}_2 = v_2 - \fun{v_2, u_1} u_1 - t - \fun{t,\frac{\sqrt{3}}{2}} \frac{\sqrt{3}}{2} = t \]
-\[ \norm{\tilde{u}_2}^2 = \int_{-1}^1 (1 - t^2) t^2 \, dt = \ldots \frac{4}{15} \]
+\section{Exercise 11}
+\begin{ex}
+  Let $\pi \in \sigma_n$ be a permutation and $i \in \set{1, 2, \dots, n}$.
+  \begin{enumerate}
+    \item Show that the sequence $i, \pi(i), \pi^2(i), \dots$ is periodic and that the first number occuring twice is $i$.
+    \item The sequence $(i, \pi(i), \pi^2(i), \dots, \pi^{k-1}(i))$, where $k$ is the smallest exponent such that $\pi^k(i) = i$, is called \emph{cycle of $i$}. Show that the relation $i \sim j : \iff $($j$ is in inside the cycle) defines an equivalence relation in $\set{1,2,\dots,n}$.
+    \item Show that every permutation can be written as product of commutative cycles.
+    \item Apply this decomposition to permutation $\pi$ in Exercise~9.
+  \end{enumerate}
+\end{ex}
 
-\[ u_2 = \frac{\sqrt{15}}{2} t \]
-\[ \norm{\tilde{u}_3} = v_3 - \fun{v_3, u_1} u_1 - \fun{v_3, u_2} u_2 = t^2 - \frac1{5} \]
-\[ \norm{u_3}^2 = \int_{-1}^1 (1 - t^2) (t^2 - \frac15)^2 \, dt = \frac{32}{525} \]
-\[ u_3 = (t^2 - \frac15) \sqrt{\frac{525}{32}} = (t^2 - \frac15) \frac{5 \sqrt{21}}{4 \sqrt{2}} \]
+Exercise (a).
 
-Further remark:
+$k$ is certainly finite, because of the pidgeonhole principle. Furthermore smaller than $n$, because there are at most $n$ numbers it can be mapped to. We have $n$ distinct elements. $i$ is the first element, which is not mapped to any number. So $i$ is the first number which will occur for the second time. This implies that the map is bijective, which is given for any permutation.
 
-If you look at Gramian's matrix, we get:
+Exercise (b).
+
+Reflexivity is trivial.
+Symmetry: Let $\pi^l(i) = j$, then $\pi^{k-l}(j) = i$. This shows that both are in the same cycle and symmetry is given.
+If $i \sim j \land j \sim m \implies i \sim m$.
+\[ \pi(i) = j \qquad \pi^p(j) = m \iff \pi^p(\pi^l(i)) = m \iff \pi^{p+l}(i) = m \]
+\[ \pi^p \circ \pi^l(i) = m \]
+
+Exercise (c).
+
+\[ 1 \quad \pi(1) \quad \pi(\pi(1)) \quad \pi(\pi(\pi(1))) \quad \dots \]
+\[ \pi = (\quad)  (1, \dots, \pi^{k-1}) a_2 \pi(a_2) \neq a_2 \]
+
+Exercise (d).
+
+\[ \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 2 & 5 & 1 & 6 & 3 & 7 & 4 \end{pmatrix} = (1253) (467) \]
+
+\section{Exercise 12}
+\begin{ex}
+  Show that every permutation $\pi \in \sigma_n$ can be written as composition of permutations
+  $\gamma = \begin{pmatrix} 1 & 2 & \dots & n-1 & n \\ 2 & 3 & \dots & n & n-1 \end{pmatrix}$
+  and $\tau = \begin{pmatrix} 1 & 2 & \dots & n-1 & n \\ 2 & 1 & \dots & n-1 & n \end{pmatrix}$
+\end{ex}
+
+From the lecture:
+\begin{quote}
+  Every permutation $\sigma \in \sigma_n$ with $\sigma \neq \operatorname{id}$ can be denoted as a product of transpositions.
+\end{quote}
+
+\begin{enumerate}
+  \item Consider the theorem from the lecture.
+  \item Every transposition can be represented as composition of swapping two neighbors.
+    \[ \tau_{ij} = (i, i+1) (i+1, i+2) \dots (j-1, j) (j-2, j-1) \dots (i, i+1) \]
+  \item
+    \[ \tau_{i,i+1} = \gamma^{i-1} \cdot \tau \cdot \gamma^{-(i-1)} \]
+\end{enumerate}
+
+\section{Exercise 13}
+\begin{ex}
+  In the sliding 6-puzzle, which permutations can be reached?
+\end{ex}
+
+We begin with the initial position (right-bottom shows the vacant field) and need to end with the initial position as well.
+We can only do transpositions with the vacant field.
+\begin{enumerate}
+  \item even number of transpositions
+  \item signature $\pi = (-1)^{\text{\# transpositions}}$
+  \item no permutation with $\sign - 1$
+\end{enumerate}
+
+The second item is wrong.
+
 \[
+  \pi_1 = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 3 & 4 & 5 & 1 \end{pmatrix} \qquad
+  \pi_2 = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\ 1 & 2 & 4 & 5 & 3 \end{pmatrix}
+\]
+Any permutation is a product of $\pi_1$ and $\pi_2$.
+
+We can permute in a shape of the infinity symbol.
+
+\section{Exercise 14}
+\begin{ex}
+  Determine the determinant using three different methods (Leibniz, Laplace, Gauss-Jordan) of the matrix
+  \[
+    \begin{vmatrix}
+      1 & 2 & 3 \\
+      1 & 1 & 2 \\
+      2 & -1 & 2
+    \end{vmatrix}
+  \]
+\end{ex}
+
+TODO
+
+\section{Exercise 15}
+\begin{ex}
+  The numbers $18270$, $16128$, $63042$, $17304$ and $17934$ are divisible by $42$.
+  Show that the determinant
+  \[
+    \det(A) = \begin{vmatrix}
+      1 & 8 & 2 & 7 & 0 \\
+      1 & 6 & 1 & 2 & 8 \\
+      6 & 3 & 0 & 4 & 2 \\
+      1 & 7 & 3 & 0 & 4 \\
+      1 & 7 & 9 & 3 & 4
+    \end{vmatrix}
+  \]
+  is divisible by $42$ without explicit evaluation.
+\end{ex}
+
+\[
+  \begin{vmatrix}
+    1 & 8 & 2 & 7 & 0 \\
+    1 & 6 & 1 & 2 & 8 \\
+    6 & 3 & 0 & 4 & 2 \\
+    1 & 7 & 3 & 0 & 4 \\
+    1 & 7 & 9 & 3 & 4
+  \end{vmatrix}
+  =
+  \begin{vmatrix}
+    1 & 8 & 2 & 7 & 18270 \\
+    1 & 6 & 1 & 2 & 16128 \\
+    6 & 3 & 0 & 4 & 63042 \\
+    1 & 7 & 3 & 0 & 17304 \\
+    1 & 7 & 9 & 3 & 17934
+  \end{vmatrix}
+\]
+\[
+  \det(A) = \sum_{k=1}^5 a_{k,5} \underbrace{(-1)^{k+5} \det{A_{k,5}}}_{\in \mathbb Z}
+\]
+$\det(A)$ consists of $5$ summands, which are divisible by $42$ each, hence the sum is divisible 
+
+\dateref{2018/04/11}
+
+\section{Exercise 17}
+\begin{ex}
+  Evaluate the determinants:
+\end{ex}
+
+\subsection{Exercise 17a}
+\begin{ex}
+  \[
+    \begin{vmatrix}
+      1+x & 1 & 1 & 1 \\
+      1 & 1-x & 1 & 1 \\
+      1 & 1 & 1+y & 1 \\
+      1 & 1 & 1 & 1-y
+    \end{vmatrix}
+  \]
+\end{ex}
+
+\[
+  \begin{vmatrix}
+    0 & -x & -x & y+xy-x \\
+    0 & -x & 0 & y \\
+    0 & 0 & y & y \\
+    1 & 1 & 1 & 1-y
+  \end{vmatrix}
+  =
+  -1 \cdot
+  \begin{vmatrix}
+    -x & -x & y+xy-x \\
+    -x & 0 & y \\
+    0 & y & y
+  \end{vmatrix}
+\] \[
+  = (-1) (-xy^2 - (xy)^2 + x^2y - x^2y + xy^2)
+  = (xy)^2
+\]
+
+\subsubsection{A simpler solution}
+
+Assume $C \in \operatorname{GL}(\mathbb R)$ and $\vec{V}, \vec{W} \in \mathbb R^n$ where GL is the set of invertible matrices.
+Then it holds that
+\[ \operatorname{det}(C + \vec v \vec w^t) = \det C \left( 1 + \langle C^{-1} \vec v, \vec w\rangle \right) \]
+where $\langle \cdot, \cdot \rangle$ is an inner product with $\langle \vec v, \vec w \rangle = v_1 \cdot w_1 + \ldots + v_n \cdot w_n$.
+\[ A \vec x = \vec b \]
+\[ x_i = \frac{\det(A_j)}{\det{A}} \]
+
+\subsection{Exercise 17b}
+\begin{ex}
+  \[
+    \begin{vmatrix}
+      x  & 0  & \ldots & a_0 \\
+      -1 & x  & \ldots & a_1 \\
+         & -1 & \ddots & \\
+         & \ddots & \ddots & \\
+      0  &    & -1 & x+a_{n-1}
+    \end{vmatrix}
+  \]
+\end{ex}
+
+Alternative approach: Use Laplace expansion theorem along the last column.
+
+Always consider: A division by $x$ requires a case distinction!
+
+Case 1: $x \neq 0$:
+
+\[
+  \begin{vmatrix}
+    x &   & \ldots & a_0 \\
+    0 & x & \ldots & a_1 + \frac{a_0}{x} \\
+      & -1 & \ddots& \vdots \\
+    \vdots & \ddots & \ddots & \\
+    0 &   & -1 & x + a_{n-1}
+  \end{vmatrix}
+  =
+  \begin{vmatrix}
+    x &        & a_0 \\
+      & \ddots & a_1 + \frac{a_0}{x} \\
+      &        & x + a_{n-1} + \frac{a_{n-2}}{x} + \ldots + \frac{a_0}{x^{n-1}}
+  \end{vmatrix}
+\] \[
+  = x^{n-1} (x + a_{n-1} + \frac{a_{n-2}}{x} + \ldots)
+  = x^n + x^{n-1} a_{n-1} + \ldots + a_0
+  = x^n + \sum_{i=1}^n a_{n-i} x^{n-i}
+\]
+
+Case 2: $x = 0$.
+
+\[
+  \begin{vmatrix}
+    0 &         & a_0 \\
+    -1 & \ddots & \\
+       &        & -1\cdot a_{n-1}
+  \end{vmatrix}
+  = (-1)^{n+1} \cdot a_0 \cdot
+  \begin{vmatrix}
+    -1     &        & 0 \\
+    \vdots & \ddots & \vdots \\
+    0      &        & -1
+  \end{vmatrix}
+  = (-1)^{n+1} \cdot a_0 \cdot (-1)^{n-1} = (-1)^{2n} \cdot a_0 = a_0
+\]
+
+\subsection{Exercise 17c}
+\begin{ex}
+  \[
+    \begin{vmatrix}
+      0 & 0 & \ldots &         & a_n \\
+      0 & 0 & \ldots & a_{n-1} & * \\
+      \vdots & & & & \vdots \\
+      0 & a_2 & & & \vdots
+      a_1 & * & & & *
+    \end{vmatrix}
+  \]
+\end{ex}
+
+Case distinction: $n$ is even.
+
+\[
+  = (-1)^{\frac n2} \begin{vmatrix}
+    a_1 & *   &   & & * \\
+        & a_2 & * & & \vdots \\
+        &     & \ddots & & \\
+    0   &     &        & & a_n
+  \end{vmatrix}
+  = (-1)^{\frac{n-1}{2}} \prod_{i=1}^n a_i
+\]
+
+You can skip the case distinction if you use the Gaussian bracket: $(-1)^{\lfloor \frac n2\rfloor}$
+
+\section{Exercise 18}
+\begin{ex}
+  Show: There exists some matrix $A \in \mathbb R^{n\times n}$ with entries $a_{ij} = \pm 1$ such that $\det(A) = n!$ if and only if $n < 3$.
+
+  Hint: For $n=2$, it is easy. For $n=3$, consider why no all summands in Leibniz' formula for determinants have the same sign. The case $n>3$ can be reduced to the case $n=3$.
+\end{ex}
+
+For $n=2$,
+\[ 2! = 2 \qquad \begin{vmatrix} 1 & 1 \\ -1 & 1 \end{vmatrix} = 1 - (-1) = 2 \]
+
+For $n=3$, we consider the Rule of Sarrus and assume such a matrix $A$ exists.
+Because $n! = 6$, we need all summands of the Rule of Sarrus to be positive. We consider the diagonals given in the Rule of Sarrus and recognize, that both diagonals use the same elements. 
+Consider the diagonals with positive sign. All of them must either use zero or two $-1$. At the same time, all diagonals with negative sign must either use three or one $-1$. This contradicts assuming they use the same elements. The proof by contradiction has been completed.
+
+Now we look for the generalization of $n \to n+1$ for $n \geq 3$.
+
+This will be proven by complete induction.
+\begin{description}
+  \item[Induction hypothesis] $A \in \mathbb R^{n \times n}$ with $a_{ij} = \pm 1$
+  \item[Induction base] $n=3$ has been proven
+  \item[Induction step] We apply Laplace expansion along one row.
+    Let $\varepsilon^{(i)}$ be the value of $\det(A_n^{(i)})$ where $A_n$ is a square matrix of dimension $n \times n$.
+    \begin{align*}
+      \det(A_{n+1}) &= +\underbrace{\det(A_n^{(1)})}_{< n!} - \underbrace{\det(A_n^{(2)})}_{< n!} + \underbrace{\det(A_n^{(3)})}_{< n!} - \ldots \\
+        &= \sum_{i=1}^{n+1} \det(A_n^{(i)}) = \sum_{i=1}^{n+1} \varepsilon^{(i)} < (n+1) n! = (n+1)!
+    \end{align*}
+    Hence $\det(A_{n+1}) < (n+1) n!$.
+\end{description}
+
+\section{Exercise 19}
+\begin{ex}
+  \begin{enumerate}
+    \item[(a)]
+      Let $\mathbb K$ be a field and $a_1, a_2, \dots, a_n \in \mathbb K$. Show that
+      \[
+        \begin{vmatrix}
+          1 & a_1 & a_1^2 & \ldots & a_1^{n-1} \\
+          1 & a_2 & a_2^2 & \ldots & a_2^{n-1} \\
+          \ldots & \ldots & \ldots & \ldots & \ldots \\
+          1 & a_n & a_n^2 & \ldots & a_n^{n-1} \\
+        \end{vmatrix}
+        = \prod_{i < j} (a_j - a_i)
+      \]
+    \item[(b)]
+      Conclude from this, that for given pairwise different numbers $x_0, x_1, \ldots, x_n \in \mathbb K$
+      and arbitrary $y_0, y_1, \ldots, y_n \in \mathbb K$ there exists exactly one polynomial $p(x) \in \mathbb K[x]$ with degree $n$,
+      such that $p(x_i) = y_i$ for all $i$.
+    \item[(c)]
+      Extra point to be solved on a computer:
+      Determine for each different $n$, one polynomial $p(x) \in \mathbb R[x]$, such that $p(x_k) = \card{x_k}$, $k = -n, \ldots, n$, with $x_k = \frac{k}{n}$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 19a}
+
+Induction base: $n=2$.
+\[ \begin{vmatrix} 1 & a_1 \\ 1 & a_2 \end{vmatrix} = (a_2 - a_1) \]
+
+Induction step: $n-1 \to n$.
+\[
+  \begin{vmatrix}
+    1 & a_1 & a_1^2 & \ldots & a_1^{n-1} \\
+    1 & a_2 & a_2^2 & \ldots & a_2^{n-1} \\
+    \ldots & \ldots & \ldots & \ldots & \ldots \\
+    1 & a_n & a_n^2 & \ldots & a_n^{n-1} \\
+  \end{vmatrix}
+  = \begin{vmatrix}
+    1 & a_1       & \ldots        &        & a_1^{n-1} \\
+    0 & a_2 - a_1 & a_2^2 - a_1^2 & \ldots & a_2^{n-1} - a_1^{n-1} \\
+    \ldots & & & & \\
+    0 & a_n-a_1 & a_2^2 - a_1^2 & & a_n^{n-1} - a_1^{n-1}
+  \end{vmatrix}
+\]
+
+The following equation holds:
+\[
+  (x^n - y^n) = (x - y) \sum_{i=0}^{n-1} x^{n-1-i} y^i
+\]
+
+\[
+  =
+  \begin{vmatrix}
+    (a_2 - a_1) & (a_2^2 - a_1^2) & (a_2^{n-1} - a_1^{n-1}) \\
+    \vdots      & \vdots          & \vdots \\
+    (a_n - a_1) & (a_n^2 - a_n^2) & (a_n^{n-1} - a_1^{n-1})
+  \end{vmatrix}
+  = \prod_{i=2}^n (a_j - a_1) \cdot
+  \begin{vmatrix}
+    1      & (a_2 + a_1) & (a_2^{n-2} + a_2^{n-3} a_1 + \ldots + a_1^{n-2}) \\
+    1      & (a_3 + a_1) & \vdots \\
+    \vdots & \vdots      & \vdots \\
+    1      & (a_n + a_1) & (a_n^{n-2} + \ldots + a_1^{n-2})
+  \end{vmatrix}
+\] \[
+  = \prod_{j=2}^n (a_j - a_1) \cdot
+  \begin{vmatrix}
+    1      & a_2    & a_2^2  & \ldots & a_2^{n-2} \\
+    1      & a_3    & a_3^2  & \ldots & a_3^{n-2} \\
+    \vdots & \vdots & \vdots & \ldots & \vdots \\
+    1      & a_n    & a_n^2  & \ldots & a_n^{n-2}
+  \end{vmatrix}
+\] \[
+  = \prod_{j=2}^n (a_j - a_1) \prod_{\substack{i < j \\ i,j \neq 1}}^n (a_j - a_i) = \prod_{i < j}^n (a_j - a_i)
+\]
+
+\subsection{Exercise 19b}
+
+Show: there exists exactly one polynomial $p \in \mathbb K_n[x] (\forall i \in \set{0, \ldots, n}): p(x_i) = y_i$.
+
+\[ p(x) = a_0 + a_1 x + a_2 x^2 + \ldots + a_n x^n \]
+
+\[
+  \begin{array}{cccccccc}
+    a_0 & + & a_1 x_0 & + & \ldots & a_n x_0^n & = & y_0 \\
+    a_0 & + & a_1 x_1 & + & \ldots & a_n x_1^n & = & y_1 \\
+    \vdots & & & & & & & \\
+    a_0 & + & a_1 x_n & + & \ldots & a_n x_n^n & = & y_n
+  \end{array}
+  \iff
   \begin{pmatrix}
-      \frac43 & 0 & \frac4{15} \\
-      0 & \frac{4}{15} & 0 \\
-      \frac4{15} & 0 & \frac{4}{35}
+    1 & x_0 & x_0^2 & \ldots & x_0^n \\
+    1 & x_1 & x_1^2 & \ldots & x_1^n \\
+    \vdots & &      & \ddots & \vdots \\
+    1 & x_n & x_n^2 & \ldots & x_n^2
+  \end{pmatrix} \begin{pmatrix}
+    a_0 \\ a_1 \\ \vdots \\ a_n
+  \end{pmatrix} = \begin{pmatrix}
+    y_0 \\ y_1 \\ \vdots \\ y_n
   \end{pmatrix}
 \]
 
-How can I compute $\norm{U_3}^2$ without integration?
-We get
-\[ \fun{u_3, u_3} = \begin{pmatrix} -\frac15 & 0 & 1 \end{pmatrix} G \begin{pmatrix} -\frac15 \\ 0 \\ 1 \end{pmatrix} \]
+\[ \det(M) = \prod_{i<j} (x_j - x_i) \]
+\[
+  \begin{pmatrix} a_0 \\ a_1 \\ \vdots \\ a_n \end{pmatrix}
+  = \begin{pmatrix} 1 & \ldots & x_0^1 \\ \vdots & & \vdots \\ 1 & \ldots & x_n^n \end{pmatrix}
+  \begin{pmatrix} y_0 \\ y_1 \\ \vdots \\ y_n \end{pmatrix}
+\]
 
-\section{Exercise 33}
+\subsection{Exercise 20}
 \begin{ex}
-  Let ($V, \langle ., .\rangle$) a vector space with scalar product and $V = U \dot{+} W$ be a decomposition as direct sum and $\pi: V \to U$ be the projection in the first component.
-  Show that $W = U^\bot$ holds iff $\forall v \in V: \norm{\pi(v)} \leq \norm{v}$. \\
-  \emph{Hint:} One direction was shown in the lecture. The other can be proven easily using an indirect proof.
+  Let $A, B \in \mathbb K^{n\times n}$. Show by elementary row- and column transformations, that the following identity for block matrices holds:
+  \[
+    \begin{vmatrix}
+     I & B \\
+     -A & 0
+    \end{vmatrix} = \begin{vmatrix}
+      I & B \\
+      0 & AB
+    \end{vmatrix}
+  \]
+  Derive an alternative proof for the multiplication law of determinants ($\det(AB) = \det(A) \cdot \det(B)$).
 \end{ex}
 
-We only look at $\mathbb R$.
+\begin{enumerate}
+  \item We consider the left-hand side.
+  \item We add the $n+1$-th row to the first row multiplied by $a_{11}$ and use the result as row $n+1$.
+    As a result, the value in $a_{n+1,1}$ becomes $0$.
+  \item We add the $n+2$-th row to the first row multiplied by $a_{21}$ and use the result as row $n+2$.
+    As a result, the value in $a_{n+2,1}$ becomes $0$.
+  \item We also do this process for columns and the second row.
+  \item As a result we get $\begin{vmatrix} I & B \\ 0 & AB \end{vmatrix}$.
+\end{enumerate}
 
-Show that
-\[ \forall v \in V: \norm{\pi(v)} \leq \norm{v} \Rightarrow w = U^\bot \]
-
-Indirect proof:
-\[ U^\bot \neq W \Rightarrow \exists x: \norm{x} < \norm{\pi_U(x)} \]
-Let $U^\bot \subsetneq W: \exists \tilde{w} \in W: \tilde{w} \notin U^\bot$.
-For $c \in \mathbb R$ and $u \in U$: $x = u + c \cdot \tilde{w}$.
-
-\[ \norm{x}^2 = \norm{u + c \tilde{w}}^2 = \fun{u + c\tilde{w}, u + c \tilde{w}} = \fun{u,u} + \fun{u,c\tilde{w}} + \fun{c\tilde{w}, u} + \fun{c\tilde{w},c\tilde{w}} \]
-\[ = \norm{\pi_U(x)}^2 + 2 \Re{\fun{u, c\tilde{w}}} + c\cdot\norm{\tilde{w}}^2 \]
-
-Choose $c > -\frac{2\Re{\fun{u,\tilde{w}}}}{\norm{\tilde{w}}^2}$.
-Then it holds that:
-\[ \norm{\pi_U(x)}^2 = \norm{x}^2 - 2 \cdot c \cdot \Re{\fun{u,\tilde{w}}} - c^2 \norm{\tilde{w}}^2 \]
-\[ = \norm{x}^2 - c (2 \Re{\fun{v,\tilde{w}}} + c \norm{\tilde{w}}^2) \]
-
-This does not work out:
-\[ c(2 \Re{\fun{v, \tilde{w}}} + c \norm{\tilde{w}}) \leq 0 \]
-\[ c < -\frac{2\Re{\fun{u, \tilde{w}}}}{\norm{w^2}^2} \]
-Those equations must be satisfied, but contradict.
-
-\subsection{Correction of Exercise 33}
-
-Let $u \in U$. $u$ shall satisfy $\Re\fun{u,\tilde{w}} < 0$.
-
-Let $u \in U$ with $\fun{u,\tilde{w}} \neq 0$.
-\[ \Re\fun{v, \tilde{w}} \neq 0 \]
-\[ \Rightarrow \Im\fun{v,\tilde{w}} \neq 0 \]
-\[ \Rightarrow \Re{\fun{v, i\tilde{w}}} \neq 0 \]
-
-\[ \Rightarrow \Re{\fun{u, i\tilde{w}}} \neq 0 \]
-\[ \frac{2\Re\fun{u,\tilde{w}}}{\norm{\tilde{w}}^2} \]
-\[ 0 < c < -\frac{2\Re{\fun{u,\tilde{w}}}}{\norm{w^2}^2} \]
+\[
+  \det(AB)
+  = \begin{vmatrix} I & B \\ 0 & AB \end{vmatrix}
+  = \begin{vmatrix} I & B \\ -A & 0 \end{vmatrix}
+  = (-1)^n \begin{vmatrix} I & B \\ A & 0 \end{vmatrix}
+  = (-1)^n (-1)^n \begin{vmatrix} A & 0 \\ I & B \end{vmatrix}
+  = (-1)^{2n} \det(A) \det(B)
+\]
 
 
-\section{Exercise 34}
+\section{Exercise 21}
 \begin{ex}
-  Let ($V, \fun{.,.}$) be an $n$-dimensional vector space with scalar product over $\mathbb R$ and
-  $U, W \subseteq V$ are two $m$-dimensional subspaces. Show:
-  If $u \in U \setminus \set{0}$ exists with $u \bot W$, then there exists some $w \in W \setminus \set{0}$
-  with $w \bot U$.
+  Prove by induction:
+  \[
+    A \coloneqq
+    \begin{vmatrix}
+      \alpha & \beta & \beta & \ldots & \beta \\
+      \beta & \alpha & \beta & \ldots & \beta \\
+      \vdots &       &       & \ddots & \vdots \\
+      \beta & \beta & \beta & \ldots & \alpha
+    \end{vmatrix}
+    = (\alpha - \beta)^{n-1} (\alpha + (n - 1) \beta)
+  \]
 \end{ex}
 
+\begin{description}
+  \item[Induction base] 
+    For $n=1$, it holds that $|\alpha| = \alpha$. Induction base satisfied.
+  \item[Induction step]
+    \[
+      \frac1{\alpha^n}
+      \begin{vmatrix}
+        \alpha & \alpha \beta & \alpha\beta & \ldots & \\
+        \beta  & \alpha^2     &             &        & \\
+        \vdots &              & \ddots      &        & \\
+               &              &             &        & a^2
+      \end{vmatrix}
+    \] \[
+       = \frac1{\alpha^n}
+      \begin{vmatrix}
+        \alpha & \alpha \beta & \alpha \beta & \ldots & \\
+        \beta  & \alpha^2     &              &        & \\
+        \vdots &              & \ddots       &        & \\
+               &              &              &        & a^2
+      \end{vmatrix}
+    \] \[
+       = \frac1{\alpha^n}
+      \begin{vmatrix}
+        \alpha & 0            & 0            & \ldots & \\
+        \beta  & \alpha^2 - \beta^2 &              &        & \\
+        \vdots & \beta (\alpha - \beta) & \ddots       &        & \\
+               &              &              &        &
+      \end{vmatrix}
+    \] \[
+      = \alpha \frac{1}{alpha^n}
+      \begin{vmatrix}
+        \alpha^2 - \beta^2 & & \beta (\alpha - \beta) \\
+                           & \ddots & \\
+        \beta (\alpha - \beta) &    & \alpha^2 - \beta^2
+      \end{vmatrix} \eqqcolon d
+    \]
+    \begin{align*}
+      d &=
+          \frac{1}{\alpha^{n-1}} (\alpha^2 - \beta^2 - \alpha \beta + \beta^2)^{n-1}
+          \left(\alpha^2 - \beta^2 + (n-1)(\alpha \beta - \beta^2) \right) \\
+        &= \frac{1}{\alpha^{n-1}} (\alpha(\alpha - \beta))^{n-1} (\alpha + \beta)(\alpha - \beta) + (n-1)\beta(\alpha - \beta) \\
+        &= \frac{1}{\alpha^{n-1}} \alpha^{n-1} (\alpha - \beta)^{n-1} \cdot (\alpha - \beta)(\alpha + \beta + (n-1) \beta) \\
+        &= (\alpha - \beta)^n (\alpha + n\beta)
+    \end{align*}
+\end{description}
 
-\section{Some exercise??}
-% Kovnersatorium
-\[ u_i^*: V \to \mathbb C \]
-\[ x \mapsto \fun{x, u_i} \]
-\[ u_i \cdot u_i^*: V \to V \]
-\[ x \mapsto u_i \fun{x, u_i} \]
+Again: the division by $\alpha$ implies that $\alpha \neq 0$. It is important to consider $\alpha = 0$. It is easy to show this case, but if you skip it, points are lost.
 
-\[ \tilde{u}_1 = v_1 = t^0  \qquad v_2 = t^2 \qquad v_3 = t^3 \]
-\[ \int_{-1}^1 t^k \, dt = \frac{1 + (-1)^{k+1}}{k+1} \]
-\[ \int_{-1}^1 (1 - t^t) t^k \, dt = \frac{1 + (-i)^k}{k+1} + \frac{1 + (-1)^k}{k+3} \]
-\[ \fun{t^i, t^j} = \frac{1 + (-1)^{i+j}}{i + j + 1} + \frac{1 + (-1)^{i+j}}{i + j + 3} \]
-\[ \norm{t^0}^2 = 2 - \frac23 = \frac43 \]
+\section{Exercise 22}
+\begin{ex}
+  Let $P_i = (x_i, y_i)$ are pairwise different points in $\mathbb R^2$.
+  \begin{enumerate}
+    \item Show that the uniquely determined line $g$ crossing points $P_1$ and $P_2$ can be described by the following equation:
+      \[ g = \set{(x,y) \in \mathbb R^2: \begin{vmatrix} 1 & x_1 & y_1 \\ 1 & x_2 & y_2 \\ 1 & x & y \end{vmatrix} = 0} \]
+    \item Show that the uniquely determined circle $k$ crossing points $P_1$, $P_2$ and $P_3$,
+      can be described by:
+      \[
+        k = \set{
+          (x,y) \in \mathbb R^2:
+          \begin{vmatrix}
+            1 & x_1 & y_1 & x_1^2 + y_1^2 \\
+            1 & x_2 & y_2 & x_2^2 + y_2^2 \\
+            1 & x_3 & y_3 & x_3^2 + y_3^2 \\
+            1 & x & y & x^2 + y^2
+          \end{vmatrix}
+        } = 0
+      \]
+      What is the result, if the points are colinear?
+    \item Determine the center of the circle crossing points $(-4, 1)$, $(-2, -3)$ and $(4,5)$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 22a}
+\[ k =\frac{y_2 - y_1}{x_2 - x_1} \]
+Again, consider: $x_2 = x_1$ separately!
+
+Laplace expansion along the last row:
+\[ 1 \cdot (x_1 y_2 - x_2 y_1) - x(y_2 - y_1) + y(x_2 - x_1) \overset!= 0 \]
+\[
+  \underbrace{\frac{(x_1 y_2 - x_2 y_1)}{x_2 - x_1}}_{d}
+  - x \underbrace{\frac{(y_2 - y_1)}{x_2 - x_1}}_{k}
+\] \[
+  y_0 = \frac{y_2 - y_1}{x_2 - x_1} x_1 + d
+\] \[
+  d = y_1 - \frac{(y_2 - y_1) x_1}{(x_2 - x_1) x_1}
+  = \frac{y_1 x_2 - y_1 x_1 - y_2 x_1 + y_2 x_1}{x_2 - x_1}
+\]
+This corresponds to the slope of the line. Hence, our model matches the formula (the one involving the determinant).
+
+What about $x_2 = x_1$? Then the second column is a linear combination of the others. Hence, determinant equals 0.
+
+\subsection{Exercise 22b}
+
+Consider 3 points $P_1$, $P_2$ and $P_3$.
+Consider point $A$ half-way of $\overline{P_1 P_2}$.
+Consider point $B$ half-way of $\overline{P_1 P_3}$.
+If the line $g_1$, orthogonal to $P_1 P_2$ and crossing $A$, crosses with the line $g_2$,
+orthogonal to $P_1 P_3$ and crossing $B$, meet this crosspoint $M$ is the center of the circumference circle of $P_1$, $P_2$ and $P_3$.
+
+\[ v_1 = P_2 - P_1 = (2, -4) \to A = P_1 + \frac{v_1}{2} = (-3, -1) \]
+\[ v_2 = P_3 - P_1 = (8, 4) \to B = P_1 + \frac{v_2}{2} = (0, 3) \]
+
+\[ n_1 = \bot v_1 = (4, 2) \]
+\[ n_2 = \bot v_2 = (4, -8) \]
+
+\[ g_1 = A + t \cdot n_1 \]
+\[ g_2 = B + s \cdot n_2 \]
+
+\subsection{Exercise 22c}
+
+\[ \vectwo{-3}{-1} + t \vectwo42 = \vectwo03 + s\vectwo{4}{-8} \]
+Gives $t=1$ and
+\[ \vectwo{-3}{-1} + 1 \vectwo42 = \vectwo11 = M \]
+
+\subsection{Exercise 22b: What if all points are colinear?}
+
+A generic circle equation is given by
+\[ (x - \overline x)^2 + (y - \overline y)^2 = r^2 \]
+
+\[ x^2 - 2x \overline x + \overline x^2 + y^2 - 2y\overline y + \overline y^2 = r^2 \]
+\[ x^2 + y^2 = \underbrace{r^2 - \overline x^2 - \overline y^2}_{K} + 2 \overline y y + 2 \overline x x \]
+\[ M \cdot \begin{pmatrix} K \\ 2 \overline x \\ 2 \overline y \end{pmatrix} = V \]
+where $M$ are the first three columns and $V$ is the last column.
+
+\section{Exercise 23}
+\begin{ex}
+  Let $A, B, C, D \in \mathbb K_{n\times n}$ be matrices.
+  $D$ is invertible and $M$ is a $2n \times 2n$ block matrix.
+  \[ M = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \]
+  \begin{enumerate}
+    \item Show: $M$ is invertible iff $A - BD^{-1}C$ is invertible
+    \item Show: $\det(M) = \det(A - BD^{-1} C) \det(D)$
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 23a}
+\[ \det(M) = \underbrace{\det(A - BD^{-1} C)}_{\neq 0 \text{ if invertible}} \underbrace{\det(D)}_{\neq 0 \text{ if invertible}} \]
+$\det(D)$ is invertible by the exercise specification.
+\[ \det(A - BD^{-1} C) \neq 0 \implies A - BD^{-1} C = \text{ invertible} \]
+
+\subsection{Exercise 23b}
+\[
+  M = \begin{bmatrix} A & B \\ C & D \end{bmatrix}
+  = \begin{bmatrix} I & B \\ 0 & D \end{bmatrix} \begin{bmatrix} A-BD^{-1}C & 0 \\ D^{-1}C & I \end{bmatrix}
+\] \[
+  \begin{vmatrix} I & B \\ 0 & D \end{vmatrix}
+  \begin{vmatrix} A - BD^{-1} C & 0 \\ D^{-1} C & I \end{vmatrix}
+  = \det(D) \cdot \det(A - BD^{-1}C) \det(I)
+\]
+
+\section{Exercise 25}
+\begin{ex}
+  Let $A$ be a $m \times n$ matrix. Show that $\rank(A)$ is identical with the largest number $k \in \set{1,2,\ldots,\min(m,n)}$ for which a non-vanishing subdeterminant of order $k$ exists, hence
+  index sets $i_1 < i_2 < \ldots < i_k$ and $j_1 < j_2 < \ldots < j_k$, such that
+  \[
+    \card{A_{i_k,j_k}} \coloneqq
+    \begin{vmatrix}
+      a_{i_1,j_1} & a_{i_1,j_2} & \ldots & a_{i_1,j_k} \\
+      a_{i_2,j_1} & a_{i_2,j_2} & \ldots & a_{i_2,j_k} \\
+      \ldots      & \ldots      & \ddots & \vdots      \\
+      a_{i_k,j_1} & a_{i_k,j_2} & \ldots & a_{i_k,j_k} \\
+    \end{vmatrix}
+    \neq 0
+  \]
+\end{ex}
+
+Assume $k \geq \rank(A)$.
+\[ A \to \tilde A \]
+$m - \rank(A)$ rows and $n - \rank(A)$ columns.
+$\rank(A)$ is the number linear independent rows (or equivalently, columns)
+
+\[ \implies k \leq \rank(A) \implies k = \rank(A) \]
 
 
-\[ u_1 = \frac{\sqrt{3}}{2\sqrt{2}} 1 \]
-\[ \tilde{u}_2 = v_2 - \fun{v_2, u_1} u_1 = v_2 - \frac{\fun{v_2, \tilde{u}_1} \tilde{u}_1}{\norm{\tilde{u}_1}^2} = v_2 \]
-\[ \fun{v_2, \tilde{u}_1} = \fun{t, 1} = 0 \]
-\[ \norm{v_2}^2 = \fun{t, t} = \frac23 - \frac25 = 2 \cdot \frac{8}{15} = \frac{4}{15} \]
-
-\[ u_2 = \frac{\sqrt{15}}{2} x \]
-\[ \tilde{u}_3 = v_3 - \underbrace{\fun{v_3, u_2} u_1}_{= \frac{\fun{v_3, \tilde{u}_2} \tilde{u}_1}{\norm{\tilde{u}_1}^2}} - \underbrace{\fun{v_3, u_2}}_{=0} u_2 \]
-\[ = x^2 - \frac4{15} \cdot \frac{\mathbb 1^{\tilde{u}_1}}{\frac43} = x^2 - \frac15 \]
-\[ \fun{u_3, \tilde{u}_1} = \fun{x^2, x^0} = \frac23 - \frac25 = \frac4{15} \]
-\[ \norm{\tilde{u}_3}^2 = \int_{-1}^1 \left(1 - t^2\right) \left(t^2 - \frac15\right)^2 \, dt = \frac{32}{525} \]
 
 \end{document}

@@ -1,1 +1,3 @@
-pdflatex notes.tex
+#!/bin/sh
+
+xelatex notes
