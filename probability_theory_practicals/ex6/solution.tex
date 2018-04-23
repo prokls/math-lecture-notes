@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\newcommand\set[1]{\left\{#1\right\}}
+
+\begin{document}
+\section{Probability method}
+
+Take a die. If the outcome is $5$ or $6$, roll again.
+If the outcome is between $1$ and $4$, the number denotes the student's group.
+
+If one group has reached cardinality $4$, it is excluded just like $5$ and $6$.
+
+\textbf{Rationale:} As the result of $5$ or $6$ does not influence
+the probability of outcomes $1$ to $4$, this defines a uniform discrete probability distribution.
+
+\section{Probability space}
+
+\[ \Omega = \operatorname{permutations}(\set{1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4}) \]
+where the groups are implicitly defined by indices 1--4, 5--8, 9--12 and 13--16.
+\[ \mathcal A = \mathcal P(\Omega) \]
+\[ \mathbb P(A) = \frac14^{|A|} \]
+
+\section{In a group of friends}
+
+Let Peter and Alice be Moritz' friends.
+Let $\mathbb P[M=1]$ be the probability that Moritz is assigned to group 1.
+Let $\mathbb P[P=N]$ and $\mathbb P[A=N]$ be correspondingly.
+
+\[ \mathbb P[M=1] = \frac14 \]
+\[ \mathbb P[M=N] = \frac14 \]
+
+\[ \mathbb P[M=1, P=1] = \frac14 \cdot \frac14 \]
+\[ \mathbb P[M=N, P=N] = \sum_{N=1}^4 \frac14 \cdot \frac14 = \frac14 \]
+
+\[ \mathbb P[M=1, P=1, A=1] = \frac14 \cdot \frac14 \cdot \frac14 = \frac14^3 \]
+\[ \mathbb P[M=N, P=N, A=N] = \sum_{N=1}^4 \frac14^3 = 4 \frac14^3 \]
+
+\section{Blackboard solution}
+
+Approach: All children draw balls from one urn.
+
+\[ \Omega = \set{\text{set partitions of $\{1, \dots, 16\}$ in $4$-tary subsets}} \]
+$(k_1, \dots, k_{16})$
+
+We can arrange 16 elements ($16!$).
+In each group, you can arrange the students as well ($(4!)^5$)
+
+\[ \frac{16!}{(4!)^5} = 2627625 \]
+
+Moritz' group consists of members:
+\[ \set{M, F_1, F_2, R} \]
+
+We can $13$ choices for the remaining child.
+\[ \frac{13 {12 \choose 4} {8 \choose 4} {4 \choose 4} \cdot 4}{{16 \choose 4} {12 \choose 4} {8 \choose 4} {4 \choose 4}} = \frac{1}{35} \]
+
+You can also draw probability trees.
+You get one branch $\left(\frac14 \cdot \frac3{15} \cdot \frac2{14}\right) \cdot 4 = \frac1{35}$
+
+\end{document}

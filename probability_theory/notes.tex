@@ -1,0 +1,278 @@
+\documentclass{article}
+%\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
+\usepackage[german,english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{pxfonts}
+\usepackage{wasysym}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{eufrak}
+\usepackage{makeidx}
+\usepackage{csquotes}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{stmaryrd}
+\usepackage{titlesec}
+\titleformat{\paragraph}{\normalfont\itshape}{}{}{}
+
+\newtheorem{theorem}{Theorem}  \numberwithin{theorem}{section}
+\newtheorem{problem}{Problem}  \numberwithin{problem}{section}
+\newtheorem{example}{Example}  \numberwithin{example}{section}
+\newtheorem*{hypothesis}{Hypothesis}%  \numberwithin{hypothesis}{section}
+\newtheorem{definition}{Definition}  \numberwithin{definition}{section}
+\newtheorem{lemma}{Lemma}  \numberwithin{lemma}{section}
+\newtheorem*{claim}{Claim}%  \numberwithin{claim}{section}
+\newtheorem{remark}{Remark}  \numberwithin{remark}{section}
+\newtheorem*{corollary}{Corollary}%  \numberwithin{corollary}{section}
+\newtheorem{proposition}{Proposition}  \numberwithin{proposition}{section}
+
+\algnewcommand{\algorithmicgoto}{\textbf{go to}}%
+\algnewcommand{\Goto}[1]{\algorithmicgoto~\ref{#1}}%
+\algrenewcommand{\algorithmiccomment}[1]{\hskip2em$\triangleright$ {\footnotesize #1}}
+
+% definitions
+\newcommand{\drawing}[1]{%
+ \begin{figure}[t]
+  \begin{center}
+   \includegraphics{#1}
+  \end{center}
+ \end{figure}
+}
+\newcommand{\pic}[2]{%
+ \begin{figure}[t]
+  \begin{center}
+   \includegraphics{#1}
+   \caption{#2}
+  \end{center}
+ \end{figure}
+}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setdef}[2]{\left\{\left.#1\,\right|\,#2\right\}}
+\newcommand{\angel}[1]{\left\langle#1\right\rangle}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\given}[1]{\textbf{Given.} #1\par}
+\newcommand{\find}[1]{\textbf{Find.} #1\par}
+\newcommand{\dateref}[1]{\paragraph{\textit{This lecture took place on #1.}}}
+\newcommand{\exist}{\;\exists\,}
+\newcommand{\fall}{\;\forall\,}
+\newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
+\newcommand{\vectwo}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\makeatletter
+\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+\makeatother
+
+\newcommand{\mtn}{(\mu\times\nu)} % mu times nu
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\detm}{det}
+\DeclareMathOperator{\perm}{det}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\degree}{deg}
+\DeclareMathOperator{\prop}{probability}
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\vol}{vol}  % volume
+\DeclareMathOperator*{\bigtimes}{\vartimes}
+
+\makeatletter
+\providecommand*{\dotcup}{%
+  \mathbin{%
+    \mathpalette\@dotcup{}%
+  }%
+}
+\newcommand*{\@dotcup}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \hidewidth$\m@th#1\cdot$\hidewidth
+  }%
+}
+\makeatother
+
+
+% metadata
+\title{
+  Probability Theory \\
+  \large{Lecture notes, University (of Technology) Graz} \\
+  based on the lecture by Wolfgang Müller
+}
+\date{\today}
+\author{Lukas Prokop}
+
+% settings
+\parindent0pt
+\setlength{\parskip}{0.4\baselineskip}
+%\setcounter{tocdepth}{2}
+
+\makeindex
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\dateref{2018/03/12}
+
+A continuous measure is a measure with monotonic property.
+
+Laplace experiments are finite experiments where each outcome occurs with the same probability.
+
+\begin{example}[Lottery \enquote{6 aus 45}]
+  \begin{description}
+    \item[1st solution]
+      Result of a drawing is described as a 6-element subset $\omega = \set{\omega_1, \dots, \omega_6}$ with $\omega_i \in \set{1, \dots, 45}$.
+      \[ \Omega \coloneqq \set{\omega \subseteq \set{1, \dots, 45}: \card{\omega} = 6} \]
+      Every result $\set{\omega} \in \Omega$ is equal to $\omega$.
+      Hence a Laplace experiment is given.
+
+      Tipp: $\tau = \set{\tau_1, \dots, \tau_6}$.
+
+      Event: $A_k = \setdef{\omega = \set{\omega_1, \dots, \omega_6} \in \Omega}{\card{\omega \cap \tau} = k}$.
+
+      \[ \mathbb P(A_k) = \frac{\card{A_k}}{\card{\Omega}} \qquad \card{\Omega} = {n \choose k} = {45 \choose 6} \approx 8 \cdot 10^6 \]
+
+      \[ \card{A_k} = {6 \choose k} \cdot {45-6 \choose 6-k} \implies \mathbb P(A_k) = \frac{{6 \choose k} {39 \choose 6-k}}{{45 \choose 6}} \qquad 0 \leq k \leq 6 \]
+    \item[2nd solution]
+      The result of the drawing is represented by a 6-element tuple $\omega = (\omega_1, \omega_2, \dots, \omega_6)$ of distinct numbers out of $1, \dots, 45$.
+      \[ \Omega = \setdef{(\omega_1, \omega_2, \dots, \omega_6)}{\omega_i \in \set{1, \dots, 45} \text{ distinct}} \]
+      \[ \card{\Omega} = 45 \cdot 44 \cdot 43 \cdot 42 \cdot 41 \cdot 40 \]
+      Every tuple has same $\omega$; a Laplace experiment is given.
+      \[ A_k' \coloneqq \set{(\omega_1, \dots, \omega_6): \omega_i \text{ distinct and exactly } k \text{ from } \tau } \]
+      \[ \card{A'_6} = 6! \implies \mathbb P'(A_6') = \frac{\card{A_6'}}{\card{\Omega'}} = \frac{6!}{45! / 39!} = \frac{1}{{45 \choose 6}} = \frac{1}{8145060} = \mathbb P(A_6) \]
+      Relation between the models: $f: (\omega_1, \dots, \omega_6) \to \set{\omega_1, \dots, \omega_6}$, then $A'_k = f^{-1}(A_k)$
+      because
+      \[
+        \card{f^{-1}(\set{\set{\omega_1, \dots, \omega_6}})} = \card{\text{all permutations of } \omega_1, \dots, \omega_6} = 6!
+        \implies \card{A'_k} = 6! \card{A_k}
+      \] \[
+        \implies \mathbb P'(A'_k) = \frac{\card{A'_k}}{\card{\Omega'}} = \frac{6! \card{A_k}}{6! \card{\Omega}} = \frac{\card{A_k}}{\card{\Omega}} = \mathbb P(A_k)
+      \]
+  \end{description}
+\end{example}
+
+\begin{example}[Urn models]
+  Urns with $m$ balls (enumerated). We draw $n$ times.
+  \begin{description}
+    \item[Drawing with place back] 
+      Result: $n$-tuple $\omega = (\omega_1, \dots, \omega_n)$ with $\omega_i \in \Omega_1 \coloneqq \set{1, \dots, m}$
+      $\implies$ Laplace experiment in
+      \[ \Omega = \Omega_1^n = \setdef{\omega = (\omega_1, \dots, \omega_n)}{\omega_i \in \Omega_1} \qquad \card{\Omega} = \card{\Omega_1}^{n} \]
+    \item[Drawing without place back]
+      Result: $n$-tuple $\omega = \set{\omega_1, \dots, \omega_n}$ with \emph{distinct} $\omega_i$:
+      \[ \Omega = \setdef{(\omega_1, \dots, \omega_n)}{\omega_i \in \Omega_1 \text{ all distinct}} \]
+      \[ \card{\Omega} = m (m - 1) \dots (m-n+1) \qquad (n \leq m) \]
+    \item[Drawing $n\leq m$ balls simultaenously]
+      Result: $n$-subset $\set{\omega_1, \dots, \omega_n} \subseteq \set{1, \dots, n}$
+      \[ \Omega = \set{\set{\omega_1, \dots, \omega_n} \subseteq \Omega_1} \qquad \card{\Omega} = {m \choose n} \]
+  \end{description}
+\end{example}
+
+The notes have not been continued as the content is covered entirely in the official lecture notes.
+
+Addendum to continuous, uniform distributions:
+Consider a circle where a subset of the circle area is considered. What is the probability that the point lies within the given subset area? Important: the closer to the center, the less dense the area is.
+
+Topic random variables, continuous uniform choice of a point in $(0,1)^2$:
+\[ \Omega = (0,1)^2 \qquad \mathcal A = \mathcal B((0,1)^2) \qquad \mathcal P = \left.\lambda_2\right|_{(0,1)^2} \]
+
+Distribution of sum of dice $S$ when drawing 2 dice. Let $B \in \mathcal B(\mathbb R)$:
+\[ \mathbb P_S(B) = \mathbb P(S \in B) = \sum_{k \in B \cap \set{2, \dots, 12}} \underbrace{\mathbb P(S = k)}_{P_k} = \sum_{k \in B \cap \set{2, \dots, 12}} P_k \]
+\[ P_k = \mathbb P(S = k) = \mathbb P(S^{-1}(\set{k})) = \mathbb P\left(\setdef{(\omega_1, \omega_2)}{1 \leq \omega_1, \omega_2 \leq 6, \omega_1 + \omega_2 = k}\right) \]
+\[ = \sum_{\substack{1 \leq \omega_1, \omega_2 \leq b \\ \omega_1 + \omega_2 = k}} \mathbb P(\set{(\omega_1, \omega_2)}) = \frac1{36} \cdot \card{\setdef{(\omega_1, \omega_2)}{1 \leq \omega_1, \omega_2 \leq 6, \omega_1 + \omega_2 = k}} \]
+with $\card{\setdef{(\omega_1, \omega_2)}{1 \leq \omega_1, \omega_2 \leq 6, \omega_1 + \omega_2 = k}} = \card{\setdef{\omega_1}{1 \leq \omega_1 \leq 6, 1 \leq k - \omega_1 \leq 6}} = \card{\setdef{\omega_1}{\omega_1 \in \set{1, \dots, 6} \cap \set{k-6, \dots, k-1}}}$
+\[
+  \begin{cases}
+    \card{\set{k-6, \dots, 6}} = 13-k & k \geq 7 \\
+    \card{\set{1, \dots, k-1}} = k-1 & k \leq 6
+  \end{cases}
+  = 6 - \card{k - 7}
+\]
+
+Distribution of continuous uniform choice of a point in $(0,1)^2$ on page 16:
+\[ \mathbb P_X(B) = \mathbb P(X^{-1}(B)) \coloneqq \mathbb P(\set{(\omega_1, \omega_2) \in (0,1)^2: (\omega_1, \omega_2) \in B}) = \mathbb P(B \cap (0,1)^2) = \lambda_2(B \cap (0,1)^2) \]
+models a continuous uniform distribution on $(0,1)^2$ $\forall B \in \mathcal B(\mathbb R^2)$.
+Furthermore $X_1$ is continuously uniformly distributed in $(0,1)$.
+\[ \mathbb P_{X_1}(B) \coloneqq \mathbb P(X_1^{-1}(B)) = \mathbb P(\set{(\omega_1, \omega_2) \in (0,1)^2}{X_1((\omega_1, \omega_2)) \in B}) = \mathbb P((B \cap (0,1)) \times (0,1)) \]
+for $B \in \mathcal B(\mathbb R)$
+\[ = \lambda_2 ((B \cap (0,1)) \times (0,1)) = \lambda_1 (B \cap (0,1)) \cdot \lambda_1((0,1)) \]
+\[ = \frac{\lambda_1(B \cap (0,1))}{\lambda_1(0,1)} \]
+
+Regarding right-continuity in the correspondence theorem:
+
+\[ (-\infty, x] = \lim_{x_n \downarrow x} (-\infty, x_n] \text{ is a monotone set sequence} \]
+\[ F(x) = \nu((-\infty, x]) = \lim_{x_n \downarrow x} \nu(-\infty, x_n] = \lim_{x_n \downarrow x} F(x_n) \text{ right-sided} \]
+
+Regarding the third property of the correspondence theorem:
+
+\[ x_n \to \infty \]
+Without loss of generality: $x_n \text{ monotone } \to \infty$
+\[ (-\infty, x_n] \to (-\infty, \infty) \text{ is monotone } \xrightarrow{\text{continuity of $\nu$}} F(x_n) \to \nu((-\infty, \infty)) = 1 \]
+
+\subsection{Proof, \enquote{Bemerkung} on page 18}
+
+We show: If $U$ is continuously uniformly distributed on $(0,1)$, then $X = F^{-1}(U)$ has the distribution function $F_X = F$.
+
+Let $x \in \mathbb R$.
+\[ F_X(x) = \mathbb P(X \leq x) = \mathbb P(F^{-1}(U) \leq x) = \mathbb P(U \leq F(x)) = \mathbb P(U \in (0, \underbrace{F(x)}_{\leq 1})) = F(x) \]
+\[ \nu \coloneqq \mathbb P_X \text{ has distribution function } F \]
+
+\subsection{Inverse distribution function}
+\[ F_X(x) = t \qquad 0 < t < 1 \]
+\[ \iff 1 - e^{-\lambda x} = t \iff 1 - t = e^{-\lambda x} \iff x = -\frac1\lambda \log(1 - t) \]
+\[ F^{(-1)}(t) = -\frac{1}{\lambda} \log(1 - t) \]
+$U \sim U(0,1)$, then $X = -\frac1\lambda \log(1 - U)$ exponential with parameter $\lambda$.
+
+\subsection{Absolutely continuous in regards of $\mu$}
+%
+$\nu$ has a probability density function in regards of $\mu$ $\iff$ $\nu \ll \mu$ (from $\mu(B) = 0 \implies \nu(B) = 0$) (Radon-Nikodym).
+
+\subsection{Notation $I_{(a,b)}(x)$}
+%
+$I_{(a,b)}(x)$ denotes the indicator function of $x$ in $(a,b)$. So it returns $1$, if $x \in (a,b)$ and $0$ otherwise.
+
+\dateref{2018/03/20}
+
+On discrete distributions, page 22:
+
+\[ \nu(B) = \int_B f \, d\xi_T = \sum_{x \in B \cap T} \int_{\set{x}} f(u) \, d \xi_T(u) = \sum_{x \in B \cap T} f(x) \]
+
+\dateref{2018/04/09}
+
+On \enquote{die Randdichten der stetigen Gleichverteilung auf (0, 1) n sind die Dichten der
+eindimensionalen stetigen Gleichverteilung auf (0, 1)}:
+
+\[
+  f_{(X_1, \dots, X_n)}(x_1, \dots, x_n) = I_{(0,1)^n}(x_1, \dots, x_n)
+\] \[
+  \implies f_{X_j}(n) = \int_{\mathbb R^{n-1}} I_{(0,1)^n} (x_1, \dots, x_{j-1}, u, x_{j+1}, \dots, x_n) d(x_1, \dots, x_{j-1}, x_{j+1}, \dots, x_n)
+\]
+
+On \enquote{$(X_1, X_2)$ is continuously uniformly distributed on $K_1$}:
+\[ f_{(X_1, X_2)} = \frac1\pi I_{K_1} \]
+\[
+  \implies f_{X_1}(x) = \int_{\mathbb R} f_{(X_1, X_2)} (x, x_2) \, dx_2
+  = \frac1\pi I_{\underbrace{\set{x^2 + x_2^2 \leq 1}}_{\underbrace{\set{x_2^2 \leq 1 - x^2}}_{= \set{-\sqrt{1 - x^2} \leq x_2 \leq \sqrt{1 - x^2}}}}} \, dx_2
+  = \begin{cases} 0 & \card{x} \geq 1 \\ \frac2\pi \sqrt{1 - x^2} & \card{x} < 1 \end{cases}
+\]
+
+On independence: We distinguish between causal independence and stochastic independence. Intuitively, we think of causal independence, but this must not necessarily overlap with stochastic independence. Usually proving independence is difficult and done rarely. Usually, independence is assumed by the model. One pragmatic approach to evaluate independence is Satz~3.3 \emph{independence criterion}.
+
+\dateref{2018/04/17}
+
+Example for Kolmogorov's zero-one law:
+
+\begin{align*}
+  \set{(X_j)_{j \geq 1} \text{ conv.}}
+    &= \set{(X_j)_{j \geq 1} \text{ is a Cauchy sequence}} \\
+    &= \bigcap_{k \geq 1} \bigcup_{n \geq 1} \underbrace{\bigcap_{\lim \geq n} \set{\card{X_l - X_m} < \frac1k}}_{\sigma(X_n , X_{n+1}, \ldots)} \\
+    &\subseteq \bigcap_{k \geq 1} \bigcup_{n \geq 1} \underbrace{\bigcap_{\lim \geq \max(n, N)} \set{\card{X_l - X_m} < \frac1k}}_{\in \sigma(X_n, X_{n+1}, \ldots)} \subseteq \sigma(X_N, X_{N+1}, \ldots) \forall N \geq 1
+\end{align*}
+
+\end{document}

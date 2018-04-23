@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\newcommand\set[1]{\left\{#1\right\}}
+
+\begin{document}
+\section{Exercise 7}
+
+Given 5 women and 9 men.
+Let $\mathbb P(F)$ denote the probability that a female member is chosen.
+Let $\mathbb P(F\,|\,F)$ denote the probability that a female member is chosen, given that one woman was already chosen before.
+
+We assume independent events with uniform distribution when choosing members.
+
+\subsection{$\mathbb P(F)$}
+%
+In 5 of 14 cases, the chosen member will be female.
+\[ \mathbb P(F) = \frac{5}{14} \]
+
+\begin{verbatim}
+def prob(s):
+  women, men = 5, 9
+  p = '1.0'
+  for x in s:
+    if x.upper() == 'F':
+      p += ' * ({} / {})'.format(women, men + women)
+      women -= 1
+    elif x.upper() == 'M':
+      p += ' * ({} / {})'.format(men, men + women)
+      men -= 1
+  return p
+
+# prob('FFMM')
+\end{verbatim}
+
+\subsection{$\mathbb P(F|F)$}
+%
+As one woman is chosen, we are left with $4$ out of $13$ cases.
+\[ \mathbb P(F|F) = \frac{4}{13} \]
+
+\subsection{Probability that two women are chosen}
+%
+\begin{align*}
+  &\mathbb P(\text{FFMM}) + \mathbb P(\text{FMFM}) + \mathbb P(\text{FMMF}) + \mathbb P(\text{MFFM}) + \mathbb P(\text{MFMF}) + \mathbb P(\text{MMFF}) \\
+  &= \frac{5}{14} \cdot \frac{4}{13} \cdot \frac{9}{12} \cdot \frac{8}{11}
+  + \frac{5}{14} \cdot \frac{9}{13} \cdot \frac{4}{12} \cdot \frac{8}{11}
+  + \frac{5}{14} \cdot \frac{9}{13} \cdot \frac{8}{12} \cdot \frac{4}{11} \\
+  &+ \frac{9}{14} \cdot \frac{5}{13} \cdot \frac{4}{12} \cdot \frac{8}{11}
+  + \frac{9}{14} \cdot \frac{5}{13} \cdot \frac{8}{12} \cdot \frac{4}{11}
+  + \frac{9}{14} \cdot \frac{8}{13} \cdot \frac{5}{12} \cdot \frac{4}{11} \\
+  &= \frac{1440}{24024} + \frac{1440}{24024} + \frac{1440}{24024} + \frac{1440}{24024} + \frac{1440}{24024} + \frac{1440}{24024} \\
+  &= 6 \cdot \frac{1440}{24024} = \frac{8640}{24024} = \frac{360}{1001}
+\end{align*}
+
+\subsection{Probability that three women are chosen}
+%
+\begin{align*}
+  &\mathbb P(\text{FFFM}) + \mathbb P(\text{FFMF}) + \mathbb P(\text{FMFF}) + \mathbb P(\text{MFFF}) \\
+  &= \frac{5}{14} \cdot \frac{4}{13} \cdot \frac{3}{12} \cdot \frac{9}{11}
+  + \frac{5}{14} \cdot \frac{4}{13} \cdot \frac{9}{12} \cdot \frac{3}{11}
+  + \frac{5}{14} \cdot \frac{9}{13} \cdot \frac{4}{12} \cdot \frac{3}{11}
+  + \frac{9}{14} \cdot \frac{5}{13} \cdot \frac{4}{12} \cdot \frac{3}{11} \\
+  &= \frac{540}{24024} + \frac{540}{24024} + \frac{540}{24024} + \frac{540}{24024} \\
+  &= 4 \cdot \frac{540}{24024} = \frac{2160}{24024} = \frac{90}{1001}
+\end{align*}
+
+\subsection{Probability that two or three women are chosen}
+%
+\[ \frac{360}{1001} + \frac{90}{1001} = \frac{450}{1001} \]
+
+This corresponds to,
+\[ \frac{{5 \choose 2} {8 \choose 2}}{{14 \choose 4}} + \frac{{5 \choose 3} {9 \choose 1}}{{14 \choose 4}} \]
+
+
+\end{document}

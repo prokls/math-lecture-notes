@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{csquotes}
+\newcommand\set[1]{\left\{#1\right\}}
+
+\begin{document}
+\section{Exercise 8}
+
+\subsection{Royal Flush}
+10, jack, queen, king, ace in one suit
+\[ \sum_{s \in \set{\clubsuit, \diamondsuit, \diamondsuit, \spadesuit}} \frac{5}{52} \cdot \frac{4}{51} \cdot \frac{3}{50} \cdot \frac{2}{49} \cdot \frac{1}{48} = 4 \cdot \frac{120}{311875200} \approx 1.5390\cdot 10^{-6} \]
+Consider one suit. It is okay to pick one of five cards. Then 4 admissible cards are left. Then 3 cards. Then 2. Then 1. For four suits.
+
+\subsection{Straight Flush}
+5 cards in same suit with consecutive rank.
+
+%\[ \sum_{s \in \set{\clubsuit, \diamondsuit, \diamondsuit, \spadesuit}} \frac{13}{52} \cdot \frac{4}{51} \cdot \frac{3}{50} \cdot \frac{2}{49} \cdot \frac{1}{48} = 4 \cdot \frac{312}{311875200} = 4.0016\cdot 10^{-6} \]
+%Card 1 must match one specific color, the second card must be one of 4 neighboring cards of same suit. This continues to 5 cards.
+%
+%Now we need to exclude the royal flush:
+%\[ 4 \cdot \frac{312}{311875200} - 4 \cdot \frac{120}{311875200} = \frac{768}{311875200} \approx 2.4625 \cdot 10^{-6} \]
+%
+%This result is wrong according to Wikipedia (should be more likely).
+
+The ranks can begin with 1, 2, 3, \dots up to 10. There are 4 suits.
+\[ \frac{4 \cdot 10}{311875200} \]
+
+\subsection{Poker / Four of a kind}
+4 cards of same rank.
+\[ \frac{1}{1} \cdot \frac{3}{51} \cdot \frac{2}{50} \cdot \frac{1}{49} = \frac{6}{124950} \]
+
+\subsection{Full House}
+3 cards of same rank and 2 cards of same rank.
+\[ \frac11 \cdot \frac{3}{51} \cdot \frac{2}{50} \cdot \frac{48}{49} \cdot \frac{3}{48} = \frac{864}{5997600} \approx 0.0001 \]
+The first choice is arbitrary, the second choice must be of same rank (3 of same suit are left, 51 cards left), as well as the third choice.
+The fourth choice excludes 4 cards of same rank (the fourth card must not be picked!), hence $52 - 3 - 1 = 48$. The fifth choice must be of same rank (there are 3 suits of same rank left).
+
+\subsection{Flush}
+5 cards of same suit
+\[ \frac{1}{1} \cdot \frac{12}{51} \cdot \frac{11}{50} \cdot \frac{10}{49} \cdot \frac{9}{48} = \frac{11880}{5997600} \approx 0.0020 \]
+
+Verified with \href{https://en.wikipedia.org/wiki/Poker_probability}{Wikipedia: Poker probability}
+
+\section{Whiteboard solution}
+
+The solutions do not necessarily respect the previous solutions (a Royal Flush is a Flush).
+
+\[ \mathbb P(\text{\enquote{Royal Flush}}) = \frac{{4 \choose 1} {47 \choose 1}}{{52 \choose 5}} \approx 1.539 \cdot 10^{-6} \]
+There are $4$ different Royal Flushs (because of $4$ suits).
+
+\[ \Omega = \{A \subseteq \{1, \dots, 4\} \times \{2, \dots, 14\} \,|\, |A| = 5\} \]
+
+\[ \mathbb P(\text{\enquote{Straight Flush}}) = \frac{{4 \choose 1} {9 \choose 1}}{{52 \choose 5}} = \frac{36}{{52 \choose 5}} \approx 0.0000138 \]
+
+\[ \mathbb P(\text{\enquote{Poker}}) = \frac{{13 \choose 1} {48 \choose 1}}{{52 \choose 5}} \approx 0.0002401 \]
+\[ \mathbb P(\text{\enquote{Full House}}) = \frac{{13 \choose 1} {4 \choose 3} {12 \choose 1} {4 \choose 2}}{{52 \choose 5}} \approx 0.00144 \]
+\[ \mathbb P(\text{\enquote{Flush}}) = \frac{{4 \choose 1} {13 \choose 5}}{{52 \choose 5}} \]
+minus Royal Flush: $- \frac{36}{{52 \choose 5}} - \frac{4}{{52 \choose 5}} \approx 0.001965$
+
+\end{document}

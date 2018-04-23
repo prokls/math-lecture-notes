@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{csquotes}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\newcommand\set[1]{\left\{#1\right\}}
+\newcommand\card[1]{\left|#1\right|}
+
+\begin{document}
+\section{Exercise 10}
+
+\begin{verbatim}
+#!/usr/bin/env python
+
+import itertools
+
+def experiment(n):
+    distribution = [0] * (n + 1)
+    for outcome in itertools.product({'L', 'R'}, repeat=2*n-1):
+        bags = {'L': n, 'R': n}
+        for out in outcome:
+            bags[out] -= 1
+            if bags[out] == 0:
+                break
+
+        print(outcome, bags)
+
+        outcome_k = max(bags.values())
+        distribution[outcome_k] += 1
+
+    return distribution
+
+
+print(experiment(5))
+\end{verbatim}
+
+For $n=5$, it gives $k=1$ in 140 cases, $k=2$ in 140 cases, $k=3$ in 120 cases, $k=4$ in 80 cases and $k=5$ in 32 cases.
+See OEIS A172068 \enquote{Triangular array T(n,k) = the number of n-step one dimensional walks that return to the origin exactly k times.}.
+
+
+\[ \Omega = \set{0,1}^{2n-k} \]
+\[ \mathcal A = \mathcal P(\Omega) \]
+\[ \mathbb P(A_k) = \frac{\card{A_k}}{\card{\Omega}} \]
+
+$0$ represents a left drawing, $1$ represents a right drawing.
+
+\[ \implies A_k = R_k + L_k \]
+
+Regards $L_k$, there must be a $1$ at its tail.
+Before that $(n+1)$ ones and $n-k$ zeros will be distributed on $2n - k - 1$ places.
+\[ \implies {2n-k-1 \choose n-1} \]
+
+
+
+The probability that right-sided box is chosen: ${1 \over 2}^{n-1}$
+The probability that left-sided box is chosen: ${1 \over 2}^{n-k}$
+
+In the last trial, we chose a right-sided box, so $\cdot \frac12$.
+The probability that right-sided box is empty and left-sided box has
+$k$ elements,
+\[
+  {2n - k - 1 \over n-1} \cdot {1 \over 2}^{n-1} {1 \over 2} {1 \ over 2}^{n-k} = {2n-k-1 \over n-1} \cdot {1 \over 2}^{2n-k}
+\]
+$L_k$ has same cardinality like $R_k$, hence times $2$.
+
+\[
+  \mathbb P(A_k) = 2 \cdot {2n-k-1 \choose n-1} {1 \over 2}^{2n-k} = {2n-k-1 \over n-1} \cdot {1 \over 2}^{2n-k-1}
+\]
+
+\end{document}

@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\newcommand\setdef[2]{\left\{\left.{#1}\,\right|\,{#2}\right\}}
+\newcommand\card[1]{\left|#1\right|}
+\begin{document}
+
+\section[Probability space]{Probability space $(\Omega, \mathcal A, \mathbb P)$}
+\begin{description}
+  \item[$\Omega$] is the set of outcomes ($n$-tuples, 1 of 365 days for $n$ people)
+    \[ \Omega = \left\{(d_1, d_2, \dots, d_n): 1 \leq d_i \leq 365 \: \forall i \in \{1, \dots, n\}\right\} \]
+  \item[$\mathcal A$] is the set of events (power set of $\Omega$)
+    \[ \mathcal A = \mathcal P(\Omega) \]
+    \begin{align*}
+      \{\} &\in \mathcal A \\
+      \Omega &\in \mathcal A \\
+      \{(d_1, d_2, \dots, d_n): d_i = d_j \text{ for any } i \neq j\} &\in \mathcal A \\
+      \{(d_1, d_2, \dots, d_n): d_i \neq d_j \forall i \neq j\} &\in \mathcal A
+    \end{align*}
+  \item[$\mathbb P$] is the probability measure for given $A \in \mathcal A$
+    \[ \mathbb P(\{\}) = 0 \]
+    \[ \mathbb P(\Omega) = 1 \]
+    \[ \mathbb P(\{(d_1, d_2, \dots, d_n): d_i \neq d_j \forall i \neq j\}) = \frac{n! \cdot {365 \choose n}}{365^n} \]
+    \[ \mathbb P(\{(d_1, d_2, \dots, d_n): d_i = d_j \text{ for any } i \neq j\}) = 1 - \frac{n! \cdot {365 \choose n}}{365^n} \]
+    where ${365 \choose n}$ is the number of possibilities to assign $n$ people to 365 dates without collision. Once you have chosen $n$ slots, there are $n!$ ways to permute the specific assignment for person $1$ to $n$. As usual we divide the number of desired outcomes by the number of possible outcomes. The possible outcomes are left. We have $365^n$ ways to assign one of $365$ days to $n$ people.
+\end{description}
+
+\subsection{Whiteboard solution for (a)}
+\[ \mathbb P((x_1, \dots, x_n)) = 365^n \]
+\[ \mathbb P(X \geq 2) = 1 - \mathbb P(X = 1) \]
+Event $A = \setdef{(x_1, \dots, x_n) \in \Omega}{\text{at least two $x_i$ are equal}}$.
+\[ A^C = \setdef{(x_1, \dots, x_n) \in \Omega}{x_i \neq x_j, j \neq i} \]
+\[ \mathbb P(A^C) = \frac{\card{A^C}}{\card{\Omega}} = \frac{365 \cdot 364 \cdot \dots \cdot (365-n+1)}{365^n} \]
+
+\section{Find $n$ such that $\mathbb P(A) > 0.5$ with $|A| = 1$}
+
+Using R:
+
+\begin{verbatim}
+# via https://stackoverflow.com/a/40527881
+ramanujan <- function(n){
+  n*log(n) - n + log(n*(1 + 4*n*(1+2*n)))/6 + log(pi)/2
+}
+bignchoosek <- function(n,k){
+  exp(ramanujan(n) - ramanujan(k) - ramanujan(n-k))
+}
+f <- function (n) { 1 - factorial(n) * bignchoosek(365, n)/365^n }
+f(5)
+# [1] 0.02713187
+for (i in 1:365) {
+  if (f(i) > 0.5) {
+    print(i)
+    break
+  }
+}
+# [1] 23
+\end{verbatim}
+
+Using Python:
+
+\begin{verbatim}
+>>> import math
+>>> fac = math.factorial
+>>> f = lambda n: 1 - fac(n) * (fac(365) / (fac(n) * fac(365 - n))) / 365.0**n
+>>> for i in range(1,365):
+...     if f(i) > 0.5:
+...         print(i)
+...         break
+... 
+23
+\end{verbatim}
+
+Answer: 23
+
+\section{Find $n$ such that $\mathbb P(A) > 0.99$ with $|A| = 1$}
+
+Using R:
+
+\begin{verbatim}
+for (i in 1:365) {
+  if (f(i) > 0.99) {
+    print(i)
+    break
+  }
+}
+# [1] 57
+\end{verbatim}
+
+Using Python:
+
+\begin{verbatim}
+>>> for i in range(1,365):
+...     if f(i) > 0.99:
+...         print(i)
+...         break
+... 
+57
+\end{verbatim}
+
+\end{document}

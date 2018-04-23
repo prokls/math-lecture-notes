@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\newcommand\set[1]{\left\{#1\right\}}
+
+\begin{document}
+\section{Exercise 9}
+
+\subsection{Straight}
+
+This is five cards in a sequence (e.g., 4,5,6,7,8), with aces allowed to be either 1 or 13 (low or high) and with the cards allowed to be of the same suit (e.g., all hearts) or from some different suits. The number of such hands is $10 \cdot {4 \choose 1}^5$. The probability is 0.003940
+
+\subsection{3 of a kind}
+
+This hand has the pattern AAABC where A, B, and C are from distinct kinds. The number of such hands is ${13 \choose 1}{4 \choose 3}{12 \choose 2}{4 \choose 1}^2 = 54 912$. After dividing by ${52 \choose 5}$, the probability is $0.021128$.
+
+\subsection{2 pair}
+
+This hand has the pattern AABBC where A, B, and C are from distinct kinds. The number of such hands is ${13 \choose 2}{4 \choose 2}{4 \choose 2}{11 \choose 1}{4 \choose 1}$. After dividing by ${52 \choose 5}$, the probability is $0.047539$.
+
+\subsection{Pair}
+
+ This the hand with the pattern AABCD, where A, B, C and D are from the distinct "kinds" of cards: aces, twos, threes, tens, jacks, queens, and kings (there are 13 kinds, and four of each kind, in the standard 52 card deck). The number of such hands is ${13 \choose 1}\cdot{4 \choose 2}\cdot{12 \choose 3}\cdot {4 \choose 1}^3$. If all hands are equally likely, the probability of a single pair is obtained by dividing by ${52 \choose 5}$. This probability is 0.422569.
+
+\subsection{High card}
+
+We have to choose 5 distinct kinds ${13 \choose 5}$ but exclude any straights (subtract 10). We can have any pattern of suits except the 4 patterns where all 5 cards have the same suit: $4^5-4$. The total number of such hands is $[{13 \choose 5}-10] \cdot (4^5-4)$. The probability is $0.501177$.
+
+\section{Whiteboard solution}
+
+\[ \Omega = \set{\omega \subseteq \set{1, \dots, 52}\,|\, |\omega| = 5} \]
+
+\begin{description}
+  \item[Straight]
+    \[ \mathbb P(\text{straight}) = \frac{10 \cdot 4^5}{{52 \choose 5}} - \frac{36}{{52 \choose 5}} - \frac{4}{{52 \choose 5}} = \frac{10200}{{52 \choose 5}} = 0.003925 \]
+  \item[3 with same rank] $13$ different ranks.
+    \[ {4 \choose 3} \text{ for color combinations} \]
+    \[ {12 \choose 2} \text{ possibilities for remainder} \]
+    \[ 4^2 \text{ color combinations} \]
+    \[ \mathbb P(\text{3 of a kind}) = \frac{13 {4 \choose 3} {12 \choose 2} 4^2}{{52 \choose 5}} - \frac{54912}{{52 \choose 5}} \]
+  \item[2-pair] $2\times 2$ cards of same rank
+    \[ \mathbb P(\text{2-pair}) = \frac{{13 \choose 2} {4 \choose 2} {4 \choose 2} {11 \choose 1} \cdot 4}{{52 \choose 5}} \]
+  \item[pair]
+    13 for the rank, ${4 \choose 2}$ for colors ensures that we avoid duplicates
+    \[ \mathbb P(\text{pair}) = \frac{13 {4 \choose 2} {12 \choose 3} 4^3}{|\Omega|} \]
+  \item[high card]
+    We can simply compute $1 - \text{(what we had so far)}$, but we will be exhaustive here:
+
+    Possibilities for $5$ cards: ${13 \choose 5}$ \\
+    -10 straights: $[{13 \choose 5} - 10]$ \\
+    $4^5$ color combinations \\
+    $-4$: $[4^5 - 4]$
+
+    \[ \mathbb P(\text{high card}) = \frac{[{13 \choose 5} - 10] [4^5 - 4]}{{52 \choose 5}} \]
+\end{description}
+
+\end{document}
