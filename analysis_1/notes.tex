@@ -705,7 +705,7 @@ A recursive definition is given by Pascal's Rule:
       &= \frac{(n-1)! \cdot k}{k! \cdot (n-k)!} + \frac{(n-1)! \cdot (n-k)}{k! (n-k)!} \\
       &= \frac{k \cdot (n-1)! + (n-k)(n-1)!}{k! (n-k)!} \\
       &= \frac{(n-k+k)(n-1)!}{k! (n-k)!} \\
-      &= \frac{n (n-1)!}{k!(n-1)!} = \frac{n!}{k! (n-k)!} \\
+      &= \frac{n (n-1)!}{k!(n-k)!} = \frac{n!}{k! (n-k)!} \\
       &= \binom nk
   \end{align*}
 \end{proof}
@@ -1308,11 +1308,11 @@ Literature:
 %
 Additional remark from 14th of January 2016.
 
-$Q$ is dense in $\mathbb R$.
+$\mathbb Q$ is dense in $\mathbb R$.
 
 \begin{theorem}
   \label{QisdenseinR}
-  For all $x \in \mathbb R$ and for every $\varepsilon > 0$ there exists $q \in Q$
+  For all $x \in \mathbb R$ and for every $\varepsilon > 0$ there exists $q \in \mathbb Q$
   with $\abs{x - q} < \varepsilon$.
 
   \begin{figure}[!h]
@@ -2320,14 +2320,12 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 
 \begin{proof}[\textbf{Proof} of the triangle inequality]
   We show that $\abs{z + w}^2 \leq \left(\abs{z} + \abs{w}\right)^2$.
-  \[
-      \abs{z + w}^2 = (z + w)(\overline z + \overline w)
-      = \underbrace{z \overline z}_{\abs{z}^2} + w \overline z
-      + z \overline w + \underbrace{w \overline w}_{\abs{w}^2}
-  \]
   \begin{align*}
-      &= 2 \Re{(w \overline{z})} \\
-      &= (w \overline{z} + \underbrace{\overline{(w \cdot \overline z)}}_{\overline w \cdot \overline z = \overline w \cdot z} \\
+    \abs{z + w}^2
+      &= (z + w)(\overline z + \overline w) \\
+      &= \underbrace{z \overline z}_{\abs{z}^2} + w \overline z + z \overline w + \underbrace{w \overline w}_{\abs{w}^2} \\
+  2 \Re{(w \overline{z})} &= (w \overline{z} + \underbrace{\overline{(w \cdot \overline z)}}_{\overline w \cdot \overline z = \overline w \cdot z}) \\
+    \abs{z + w}^2
       &= \abs{z}^2 + 2\Re{(w \cdot \overline z)} + \abs{w}^2 \\
       &\leq \abs{z}^2 + 2\abs{\Re{(w \cdot \overline z)}} + \abs{w}^2 \\
       &\leq \abs{z}^2 + 2 \cdot \abs{w \cdot \overline{z}} + \abs{w}^2 \\
@@ -2545,7 +2543,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \begin{proof}[\textbf{Proof of sequence 1}]
   Let $0 \leq x_n < x_2$.
   \[ \Rightarrow 0 \leq x_1^p < x_2^p \Rightarrow \sqrt[q]{x_1^p} < \sqrt[q]{x_2^p} \]
-  Therefore $f(x) = x^s$ is strongly monotonic rising for $x \in (0, \infty)$.
+  Therefore $f(x) = x^s$ is strictly monotonically increasing for $x \in (0, \infty)$.
   Let $\varepsilon > 0$ arbitrary and $N > \frac1{\varepsilon^{\frac1s}} = \varepsilon^{\frac1s} = \varepsilon^{-\frac qp}$.
   Then it holds that $n \geq N$:
   \[ \abs{\frac1{n^s} - 0} = \frac{1}{n^s} \leq \frac{1}{N^s} \]
@@ -2677,9 +2675,9 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \begin{proof}
   \begin{enumerate}
     \item Let $\varepsilon > 0$ arbitrary. Because $(a_n)_{n \in \mathbb N}$ is convergent,
-      \[ \exists N_1: \left[n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}{2}\right] \]
+      \[ \exists N_1: \left[n \geq N_1 \implies \abs{a_n - a} < \frac{\varepsilon}{2}\right] \]
       $(b_n)$ is convergent hence
-      \[ \exists N_2: \left[n \geq N_2 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2\right] \]
+      \[ \exists N_2: \left[n \geq N_2 \implies \abs{b_n - b} < \frac{\varepsilon}2\right] \]
       $N = \max\set{N_1, N_2}$, hence for $n \geq N$ both statements above hold.
       Let $n \geq N$, then the triangle inequality holds:
       \[
@@ -2692,10 +2690,10 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
       \[ \exists m \geq 0: \forall n \in \mathbb N: \abs{a_n} \leq m \]
 
       $\seq{b_n}$ is convergent, hence
-      \[ \exists N_1: n \geq N_1: \Rightarrow \abs{b_n - b} < \frac\varepsilon2 \cdot \frac1{m+1} \]
+      \[ \exists N_1: n \geq N_1: \abs{b_n - b} < \frac\varepsilon2 \cdot \frac1{m+1} \]
 
       $(a_n)_{n \in \mathbb N}$ is convergent, hence
-      \[ \exists N_2 \leq N: n \geq N_2 \Rightarrow \abs{a_n - a} < \frac\varepsilon2 \frac{1}{\abs{b} + 1} \]
+      \[ \exists N_2 \leq N: n \geq N_2 \implies \abs{a_n - a} < \frac\varepsilon2 \frac{1}{\abs{b} + 1} \]
 
       $N = \max\set{N_1, N_2}$. For $n \geq N$ both relations above hold.
       Let $n \geq N:$
@@ -3506,7 +3504,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   Let $\seq{a_n}$ be a real sequence which is bounded below and
   \[ H = \setdef{\xi \in \mathbb R}{\xi \text{ is limit point of } \seq{a_n}} \neq \emptyset \]
 
-  Then $H$ is also bounded by below and we call $S^* = \inf{H}$ a \emph{limes inferior}
+  Then $H$ is also bounded by below and we call $S_* = \inf{H}$ a \emph{limes inferior}
   of the sequence $\seq{a_n}$. We denote:
   \[ S_* = \liminf_{n\to\infty} a_n \]
 \end{defi}
@@ -3800,21 +3798,21 @@ The analogous result for the limes inferior also holds and is given in the pract
 \index[English]{Harmonic series}
 \index[German]{\foreignlanguage{ngerman}{Harmonische Reihe}}
 \begin{theorem}
-  Let $a_n = \frac1n$ hence $\sum_{k=1}^\infty \frac1k$.
-  \[ \sum_{k=1}^\infty \frac1n \text{ is divergent} \]
+  Let $a_n = \frac1n$ hence $\sum_{n=1}^\infty \frac1n$.
+  \[ \sum_{n=1}^\infty \frac1n \text{ is divergent} \]
 \end{theorem}
 \begin{proof}
   Consider
-  \[ \sum_{k=1}^\infty \frac1n = 1 + \frac12 + \frac13 + \frac14 + \frac15 + \frac16 + \frac17 + \frac18 + \dots \]
+  \[ \sum_{n=1}^\infty \frac1n = 1 + \frac12 + \frac13 + \frac14 + \frac15 + \frac16 + \frac17 + \frac18 + \dots \]
   \[ > \frac12 + \frac12 + \frac12 + \frac14 + \frac14 + \frac16 + \frac16 + \frac18 + \frac18 + \dots \]
   \[ = \frac12 + 2 \left(\frac12 + \frac14 + \frac16 + \frac18 + \frac1{10} + \dots\right) \]
   \[ = \frac12 + 2 \frac12 \left(1 + \frac12 + \frac13 + \frac14 + \frac15 + \dots\right) \]
   \[ = \frac12 + \left(1 + \frac12 + \frac13 + \frac14 + \frac15 + \dots\right) \]
-  \[ = \frac12 + \sum_{k=1}^\infty \frac1n \]
+  \[ = \frac12 + \sum_{n=1}^\infty \frac1n \]
   So we have,
-  \[ \sum_{k=1}^\infty \frac1n > \frac12 + \sum_{k=1}^\infty \frac1n \]
-  Let $\sum_{k=1}^\infty \frac1n = H$, then $H > \frac12 + H$ must hold for some real value.
-  This is impossible, so $H$ cannot exist. Hence $\sum_{k=1}^\infty \frac1n$ diverges.
+  \[ \sum_{n=1}^\infty \frac1n > \frac12 + \sum_{n=1}^\infty \frac1n \]
+  Let $\sum_{n=1}^\infty \frac1n = H$, then $H > \frac12 + H$ must hold for some real value.
+  This is impossible, so $H$ cannot exist. Hence $\sum_{n=1}^\infty \frac1n$ diverges.
 \end{proof}
 
 \meta{lecture}{9th of December 2015}{Wolfgang Ring}
@@ -4048,9 +4046,10 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
 \index{\foreignlanguage{ngerman}{Majoranten}}
 \index{Minorant}
 \index{\foreignlanguage{ngerman}{Minorante}}
-\begin{theorem}[Direct comparison test (dt. \foreignlanguage{ngerman}{Majorantenkriterium})] \hfill{}
+\begin{theorem}[Direct comparison test] \hfill{}
   \begin{enumerate}
     \item
+      (dt. \foreignlanguage{ngerman}{Majorantenkriterium})
       Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
       Let $\sum_{k=0}^\infty b_k$ be absolute convergent and $\exists N \in \mathbb N: k \geq N
       \Rightarrow \abs{a_k} \leq \abs{b_k}$.
@@ -4058,7 +4057,8 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
       Then $\sum_{k=0}^\infty a_k$ is absolute convergent.
       $\sum_{k=0}^\infty b_k$ is called \emph{majorant} of $\sum_{k=0}^\infty a_k$.
 
-    \item (dt. \foreignlanguage{ngerman}{Minorantenkriterium})
+    \item
+      (dt. \foreignlanguage{ngerman}{Minorantenkriterium})
       Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
       Let $\sum_{k=0}^\infty a_k$ be divergent.
       Assume $\exists N \in \mathbb N: k \geq N \Rightarrow \abs{a_k} \leq \abs{b_k}$.
@@ -4627,7 +4627,7 @@ TODO
   of a set $M$, if $\forall r > 0: B(z, r) \cap M \neq \emptyset$.
   A point $z \in \mathbb C$ ($\mathbb R$) is called \emph{limit point}
   of a set $M$ if $\forall r > 0$ it holds that $B(z, r)$ contains a point
-  $w \in M$ with $m \neq z$.
+  $w \in M$ with $w \neq z$.
 
   Every limit point is also a contact point.
 \end{defi}
@@ -4649,23 +4649,25 @@ TODO
   % TODO: illustration image illustration_of_point.svg
 \end{lemma}
 \begin{proof}
-  \begin{enumerate}
-    \item Let $z$ be a contact point of $M$. Choose $r_n = \frac1n$, due to contact point property
-      there exists z $z_n \in M$ to $r_n$ with $z_n \in B(z, \frac1n)$ hence $\abs{z_n - z} < \frac1n$.
+  \begin{itemize}
+    \item[$\Rightarrow$]
+      Let $z$ be a contact point of $M$. Choose $r_n = \frac1n$, due to contact point property
+      there exists sequence $z_n \in M$ to $r_n$ with $z_n \in B(z, \frac1n)$ hence $\abs{z_n - z} < \frac1n$.
       Then it holds $\lim_{n\to\infty} z_n = z$, then for $\varepsilon > 0$ arbitrary let $N$ be arbitrary large,
       such that $\frac1N < \varepsilon$. Then it holds that for $n \geq N$:
       \[ \abs{z_n - z} < \frac1n \leq \frac1N < \varepsilon \]
+      This approach is general enough to hold true for contact \emph{and} limit points.
     \item[$\Leftarrow$] Assume $\exists \seq{z_n}$ with limes $z$. $z_n \in M$.
       Choose $r > 0$ arbitrary. Due to convergenze of $\seq{z_n}$ there exists some
       $N \in \mathbb N: n \geq N$ such that $\abs{z_n - z} < r$.
       \[ \Rightarrow z_n \in M \land z_n \in B(z, r) \Rightarrow z \text{ is contact point of $M$} \]
       Also,
       \[ \Rightarrow z_n (\neq z) \in M \land z_n \in B(z, r) \Rightarrow z \text{ is limit point of $M$} \]
-  \end{enumerate}
+  \end{itemize}
 \end{proof}
 
 \begin{theorem}
-  $A \subseteq \mathbb C (\mathbb R, \mathbb R^n)$ is closed if and only if
+  $A \subseteq \mathbb C$ (or $\mathbb R, \mathbb R^n$) is closed if and only if
   for every contact point $z$ of $A$ it holds that $z \in A$.
 \end{theorem}
 \begin{proof}
@@ -4733,13 +4735,14 @@ TODO
       every subsequence $\left(z_m\right)_{m\in\mathbb N}$ is also unbounded and
       therefore not convergent. This is a contradiction.
 
-      It remains to show that $K$ is bounded. Let $z \in \overline{K}$ ($z$ is a contact point of $K$).
+      It remains to show that $K$ is closed (for this, we have to show that $\overline M \subseteq M$).
+      Let $z \in \overline{K}$ ($z$ is a contact point of $K$).
       There exists a sequence $\seq{z_n}$ with $z_n \in K$ and $z = \lim_{n\to\infty} z_n$.
       Because $K$ is compact, there exists a subsequence $\left(z_{n_k}\right)_{l\in\mathbb N}$ of
       $\seq{z_n}$ with $\lim_{l\to\infty} z_{n_l} = w$ and $w \in K$.
       Because $\seq{z_n}$ is already convergent, every subsequence is convergent
       with limes $z$.
-      It follows that $w \in K$ and $w = z$, so $z \in K$. So $K$ is bounded.
+      It follows that $w \in K$ and $w = z$, so $z \in K$. So $K$ is closed.
   \end{description}
 \end{proof}
 
@@ -5126,7 +5129,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 \begin{defi}[Lipschitz continuity]
   Another notion of continuity is given by \fbox{Rudolf Lipschitz (1832--1903)}.
 
-  $f: D \subset \mathbb C \rightarrow \mathbb C$ is called Lipschitz continuous
+  $f: D \subseteq \mathbb C \mapsto \mathbb C$ is called Lipschitz continuous
   if $k \geq 0$ exists such that
   \[
     \forall z_1, z_2 \in D:
