@@ -81,6 +81,7 @@
 \DeclareMathOperator{\argmax}{argmax}
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\vol}{vol}  % volume
+\DeclareMathOperator{\sinc}{sinc}
 \DeclareMathOperator*{\bigtimes}{\vartimes}
 
 \makeatletter
@@ -1167,7 +1168,7 @@ Regarding the equivalence of norms:
 
 \begin{definition}
   Let $\varphi \in \tau[a,b]$ in terms of partition $(X_j)_{j=0}^n$ with $\varphi|_{(X_{j-1}, X_j)} = c_j$ and $\triangle X_j = X_j - X_{j-1} > 0$ for $g = 1,\dots,n$. Then we define \dots
-  \[ \int_a^b \varphi \, dx = \sum_{j=1}^n c_0 \triangle x_j \]
+  \[ \int_a^b \varphi \, dx = \sum_{j=1}^n c_j \triangle x_j \]
   is called \emph{integral of $\varphi$} in terms of partition $(x_j)_{j=0}^n$
 \end{definition}
 
@@ -1318,7 +1319,7 @@ TODO drawing
 \begin{definition}
   Now let $A \subseteq \mathbb R$ and $x$ is a accumulation point of $A$.
   Let $f: A \to \mathbb R$ be given. We say $f$ has a right-sided limit $c$ in $x$
-  with $c = \lim_{\xi \to x^+} f(\xi) = c$ if $\forall \varepsilon > 0 \exists \delta > 0: \forall \xi \in A, \xi > X$
+  with $c = \lim_{\xi \to x^+} f(\xi) = c$ if $\forall \varepsilon > 0 \exists \delta > 0: \forall \xi \in A, \xi > x$
   \[ \land  \card{\xi - x} = \xi - x < \delta \implies \card{f(\xi) - c} < \varepsilon \]
 
   The left-sided limit follows analogously.
@@ -1343,6 +1344,7 @@ TODO drawing
 \end{remark}
 
 \begin{lemma}[Cauchy criterion of limits of functions] % Lemma 6
+  \label{cauchy-crit}
   Let $f: A \subseteq X \to \mathbb R$. Let $x$ be an accumulation point of $A$.
   Let $X$ be a metric space. Then it holds that
   $f$ has a limit in $x$ if and only if
@@ -2396,6 +2398,7 @@ Usually they are composites of basic functions. Some of these are given in Table
 \end{example}
 
 \begin{theorem} % Satz 7
+  \label{satz7countable}
   Let $f, \tilde f \in \mathcal R[a,b]$ and $A \subseteq [a,b]$ countable.
   Furthermore $f(x) = \tilde f(x) \forall x \in [a,b] \setminus A$.
   Then it holds that
@@ -2403,5 +2406,236 @@ Usually they are composites of basic functions. Some of these are given in Table
   Then it follows especially that
   \[ \int_a^b f \, dx = \int_a^b \tilde f \, dx \]
 \end{theorem}
+
+\dateref{2018/04/24}
+
+\begin{proof}
+  Show: $r \in \mathcal R[a,b], r \geq 0$. $\int_a^b r \, dx = 0$
+  and $r(x) = 0$ for $x \in [a,b] \setminus A$. Then it holds that $\int_a^b r \, dx = 0$.
+  Let $r$ be as above. First, we show: $r_+(x) = \lim_{\xi\to x_+} r(\xi) = 0 \forall x \in [a,b)$
+  and also $r_-(x) = 0 \forall x \in (a,b]$.
+
+  Proof of that: Let $x \in [a,b)$ and $y = r_+(x)$ (exists because $r \in \mathcal R[a,b]$).
+  Choose $\delta_n = \frac1n$. $(x, x + \frac1n) \cap [a,b)$ is an open interval with uncountable many points,
+  so there is certainly one point in $A$. So there exists $\xi_n \in ((x, x + \frac1n) \cap [a,b)) \setminus A$
+  and $\card{\xi_n - x} < \delta_n = \frac1n$.
+  Hence, $\lim_{n\to\infty} \xi_n = x$ and $r(\xi_n) = 0$. Therefore, $\lim_{n\to\infty} r(\xi_n) = 0$ where $r(\xi_n) = y = r_+(x)$.
+
+  Analogously, $r_-(x) = 0$ on $(a,b]$.
+
+  Let $\varepsilon > 0$ be arbitrary. We let $A_{\varepsilon} = \setdef{w \in [a,b]}{r(w) > \varepsilon}$.
+  We show: $A_{\varepsilon}$ is finite.
+
+  Assume $A_{\varepsilon}$ would have infinitely many points. Choose a sequence $(w_n)_{n \in \mathbb N}$ with $w_n \in A_{\varepsilon}$ and $w_n \neq w_m$ for $n \neq m$ (works because $A_{\varepsilon}$ is infinite). $(w_n)_{n \in \mathbb N}$ is bounded, hence there exists a convergent subsequence $(w_{n_k})_{k \in \mathbb N}$ with $x = \lim_{k\to\infty} w_{n_k} \in [a,b]$ and $w_{n_k} \in [a,b]$.
+
+  Either $(w_{n_k})$ contains infinitely many sequence element $w_{n_k} < x$ (variant (a)) or infinitely many $w_{n_k} > x$ (variant (b)). Let variant b hold without loss of generality.
+
+  Combine all $w_{n_k} > x$ to one subsequence $(w_{n_{k_l}})_{l \in \mathbb N}$. This gives $\lim_{l\to\infty} w_{n_{k_l}} = x$ and $w_{n_{k_l}} > x$, thus $\lim_{l\to\infty} \underbrace{r(w_{n_{k_l}})}_{\geq \varepsilon \text{ because } w_{n_{k_l}} \in A_{\varepsilon}} = r_+(x) = 0$. This gives a contradiction. $A_{\varepsilon}$ must be finite.
+
+  Consider
+  \[ A_{\frac1n} = \set{w_1^n, \dots, w_{m_n}^n} \]
+  finite. Let $\varphi_n = \sum_{k=1}^{m_n} r(w_k^n) \cdot \chi_{\set{w_k^n}} \in \tau[a,b]$.
+
+  For $x = w^n_k \in A_{\frac1n}$ it holds that
+  \[ \varphi_n(w_k^n) = \sum_{k=1}^{m_n} r(w_k^n) \cdot \underbrace{\chi_{\set{w_k^n}} (w_j^n)}_{\delta_{jk}} = r(w_j^n) \]
+  so $\card{\varphi_n(x) - r(x)} = 0 \forall x \in A_{\frac1n}$.
+  Let $x \in [a,b] \setminus A_{\frac1n}$. Then it holds $0 \leq r(x) < \frac1n$ and for $x \not\in A_{\frac1n}$ it holds that $\varphi(x) = 0$.
+  Therefore,
+  \[ \card{r(x) - \varphi(x)} = r(x) < \frac1n \]
+  hence $\norm{r - \varphi_n}_{\infty} < \frac1n$. This means that $\varphi_n \to r$ uniformly on $[a,b]$.
+  Therefore
+  \[ \lim_{n\to\infty} \underbrace{\int_a^b \varphi_n \, dx}_{= 0} = \int_a^b r \, dx = 0 \]
+
+  Now we want to finish the proof of our theorem: Let $r(x) = \card{f(x) - \tilde f(x)} \geq 0$ and $r(x) = 0$ for $x \not\in A$.
+  So, $\int_a^b \card{f - \tilde f} \, dx = 0$ (first part proven).
+  \[ \card{\int_a^b f \, dx - \int_a^b \tilde f \, dx} = \card{\int_a^b (f - \tilde f) \, dx} \leq \int_a^b \card{f - \tilde f} \, dx = 0 \]
+  \[ \implies \int_a^b f\, dx = \int_a^b \tilde f \, dx \]
+  Second part proven.
+\end{proof}
+
+\begin{lemma} % Lemma 11
+  Let $f \in \mathcal R[a,b]$. Then it holds that $f_+ \in \mathcal R[a,b]$ and also $f_- \in \mathcal R[a,b]$.
+\end{lemma}
+\begin{proof}
+  Only for $f_+$: First, we show: Let $x \in [a,b)$.
+  \[ f_+(x) = \lim_{\xi \to x_+} f(\xi) = \lim_{\xi \to x_+} f_+(x) \]
+  (the plus is important on the right-hand side!).
+
+  Proof of this: Let $\varepsilon > 0$ be arbitrary. Then there exists $\delta > 0$ such that
+  $\forall \xi \in (x, x + \delta)$: $\card{f(\xi) - f_+(x)} < \frac\varepsilon2$.
+  Now let $z \in (x, x + \delta)$ be arbitrary chosen. For $z$ there exists $\xi \in (z, x + \delta)$.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/20_x_z.pdf}
+      \caption{$x$ and $z$}
+      \label{img:xz}
+    \end{center}
+  \end{figure}
+
+  $\xi$ sufficiently close enough to $z$ such that $\card{f(\xi) - f_+(z)} \leq \frac\varepsilon2$ because $f_+(z)$ exists.
+
+  \[ \card{f_+(z) - f_+(x)} \leq \card{f_+(z) - f(\xi)} + \card{f(\xi) - f_+(x)} < \frac\varepsilon2 + \frac\varepsilon2 \]
+  TODO some content missing here
+
+  It remains to show: $f_+$ has left-sided limits.
+  Let $x \in (a,b]$ be arbitrary and $f_-(x) = \lim_{\xi \to x_-} f(\xi)$. We show: $f_-(x) = \lim_{\xi \to x_-} f_+(x)$ (again: the plus is important).
+
+  Let $\varepsilon > 0$ be arbitrary. Choose $\delta > 0$ such that $\forall z \in (x - \delta, x)$ it holds that $\card{f(z) - f_-(x)} < \frac\varepsilon2$.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/21_xi_z.pdf}
+      \caption{$\xi$ and $z$}
+      \label{img:xiz}
+    \end{center}
+  \end{figure}
+
+  Now let $\xi \in (x - \delta, x)$ (compare with Figure~\ref{img:xiz}) and choose $x > z > \xi$ with the property that $\card{f(z) - f_+(\xi)} < \frac\varepsilon2$ (possible because $f$ in $\xi$ has a right-sided limit):
+  \[
+    \card{f_+(\xi) - f_-(x)}
+    \leq \underbrace{\card{f_+(\xi) - f(z)}}_{< \frac\varepsilon2} + \underbrace{\card{f(z) - f_-(x)}}_{< \frac\varepsilon2}
+  \]
+  because of the choice of $\delta$ and $z \in (\xi, x) \subseteq (x - \delta, x)$.
+
+  Hence, $\lim_{\xi \to x_-} f_+(\xi) = f_-(x)$. Analogously for $f_-$
+\end{proof}
+
+\begin{remark}
+  \[ \lim_{\xi \to x_+} f_+(\xi) = f_+(x) \]
+  \[ \lim_{\xi \to x_-} f_-(\xi) = f_-(x) \]
+  from the proof. So $f_+$ is right-sided continuous and $f_-$ is left-sided continuous.
+\end{remark}
+
+\begin{lemma} % Lemma 12
+  Let $f \in \mathcal R[a,b]$. Then it holds that
+  \[ \int_a^b f \, dx = \int_a^b f_+ \, dx = \int_a^b f_- \, dx \]
+\end{lemma}
+
+\begin{proof}
+  For $f_+$:
+  \[ f, f_+ \in \mathcal R[a,b] \]
+  $\forall x \in [a,b]$ with $f$ is continuous in $x$ it holds that
+  \[ f(x) = \lim_{\xi\to x} f(\xi) = \lim_{\xi\to x_+} f(\xi) = f_+(x) \]
+  $f$ has at most countable many discontinuity points. By Satz~\ref{satz7countable},
+  \[
+    \int_a^b \card{f - f_+} \, dx = 0
+    \quad \text{ or equivalently } \quad
+    \int_a^b f \, dx = \int_a^b f_+ \, dx
+  \]
+\end{proof}
+
+\subsection{Improper integrals}
+
+Let $I$ be an interval in $\mathbb R$ with marginal points $a$ and $b$ with $-\infty \leq a < b \leq +\infty$.
+Let $f$ be a regulated function on $I$.
+We define
+\begin{enumerate}
+  \item If $I = [a,b)$, $\int_a^b f \, dx = \lim_{\beta \to b_-} \int_a^\beta f \, dx$
+  \item If $I = (a,b]$, $\int_a^b f \, dx = \lim_{\alpha \to a_+} \int_\alpha^b f \, dx$
+  \item If $I = (a,b)$, $\int_a^b f \, dx = \lim_{\alpha \to a_+} \int_\alpha^c f \, dx + \lim_{\beta \to b_-} \int_c^\beta f \, dx$
+\end{enumerate}
+for an arbitrarily chosen $c \in (a,b)$ under the constraint that the corresponding limits in $\mathbb R$ exist.
+
+Standard examples will follow:
+\begin{example}
+  Let $s > 1$.
+  \[ \int_1^\infty x^{-s} \, dx = \lim_{\beta \to \infty} \int_1^\beta x^{-s} \, dx = \left.\lim_{\beta \to \infty} \left(\frac{1}{-s + 1} x^{-s+1}\right) \right|_1^\beta \]
+  \[ = \frac1{1 - s} \cdot \underbrace{\lim_{\beta \to \infty} \frac{1}{\beta^{\underbrace{s-1}_{> 0}}}}_{= 0} - \frac{1}{1 - s} \cdot 1 = \frac{1}{s-1} \]
+  TODO drawing
+\end{example}
+
+\begin{example}
+  Let $s < 1$.
+  \[
+    \int_0^1 x^{-s} \, dx = \lim_{\alpha \to 0_+} \int_\alpha^1 x^{-s} \, ds
+    = \left. \lim_{\alpha\to 0_+} \frac{1}{-s + 1} x^{-s+1} \right|_\alpha^1
+  \] \[
+    = \frac1{1 - s} - \frac1{1 - s} \cdot \underbrace{\lim_{\alpha \to 0} \alpha^{\overbrace{1 - s}^{> 0}}}_{= 0} = \frac1{1 - s}
+  \]
+  TODO drawing
+
+  For $s = 1$, neither $\int_0^1 \frac1x \, dx$ nor $\int_1^\infty \frac1x \, dx$ exists.
+\end{example}
+
+\begin{example}
+  For $c > 0$,
+  \[ \int_0^\infty e^{-cx} \, dx = \lim_{\beta \to \infty} \int_0^\beta e^{-cx} \, dx = \left. \lim_{\beta \to \infty} \left(-\frac1c\right) \cdot e^{-cx} \right|_0^\beta - \frac1c \cdot \underbrace{\lim_{\beta \to \infty} e^{-c\beta}}_{= 0} + \frac1c = \frac1c \]
+\end{example}
+
+\begin{theorem}[Direct comparison test for improper integrals] % Satz 8
+  \label{dctii}
+  In German, \enquote{\foreignlanguage{german}{Majorantenkriterium f\"ur uneigentliche Intergale}}.
+
+  Let $f, g$ be regulated functions on $I$ and it holds that
+  \[ \card{f(x)} \leq g(x) \forall x \in I \]
+  Assume $\int_a^b g \, dx$ exists as improper integral. Then also the following improper integrals exist:
+  \[ \int_a^b \card{f} \, dx \text{ and } \int_a^b f \, dx \]
+  In German, $g$ is called \foreignlanguage{german}{Majorante} of $f$ (there is no equivalent terminology in English).
+\end{theorem}
+
+\begin{proof}
+  Without loss of generality, let $I = [a,b)$.
+  Let $G(\beta) = \int_a^\beta g \, dx$. We know that $\lim_{\beta \to b_-} G(\beta)$ exists.
+  By Lemma~\ref{cauchy-crit} (Cauchy criterion for existence of limits):
+  Let $\varepsilon > 0$ be arbitrary, then there exists a right-sided neighborhood $U$ of $b$
+  ($U = (b - \delta, b)$ if $b < \infty$ and $U = (M, \infty)$ if $b = \infty$)
+  with $u,v \in U$, then it holds that $\card{G(v) - G(u)} < \varepsilon$.
+  \[
+    \card{G(v) - G(u)} = \card{\int_a^v g \, dx - \int_a^u g \, dx}
+      = \card{\int_u^a g \, dx + \int_a^v g \, dx}
+      = \card{\int_u^v g \, dx}
+  \]
+  Let $F(\beta) = \int_a^\beta \card{f} \, dx$.
+  Analogously as for $G$, it holds that $F(v) - F(u) = \int_u^v \card{f} \, dx$.
+  Let $u,v \in U$. Then it holds that
+  \[
+    \card{F(v) - F(u)} = \card{\int_u^v \card{f} \, dx} \leq \card{\int_u^v g \, dx}
+      = \card{G(v) - G(u)} < \varepsilon
+  \]
+  hence by the Cauchy criterion for $F$:
+  $\lim_{\beta\to b_-} F(\beta)$ exists, so there exists $\int_a^b \card{f} \, dx$ as improper integral.
+  The same applies for the existence of $\int_a^b f \, dx$.
+\end{proof}
+
+\begin{example}
+  The cardinal sine function is defined as
+  \[ \sinc(x) = \frac{\sin{x}}{x} \]
+  \[ \lim_{x\to 0} \frac{\sin{x}}{x} = 1 \qquad \sinc(0) = 1 \]
+  So $\sinc(x)$ is continuous on $\mathbb R$.
+  \[ \int_0^\infty \frac{\sin{x}}{x} \, dx = \underbrace{\int_0^1 \underbrace{\frac{\sin{x}}{x}}_{\text{continuous}} \, dx}_{\text{exists}} + \int_1^\infty \frac{\sin{x}}{x} \, dx \]
+  How about $\int_1^\infty \frac{\sin(x)}{x} \, dx$?
+  \[
+    \lim_{\beta\to\infty} \int_1^\beta \frac{\sin{x}}{x} \, dx =
+      \begin{vmatrix}
+        u = \frac1x & u' = -\frac1{x^2} \\
+        v' = \sin{x} & v = -\cos{x}
+      \end{vmatrix}
+      = \lim_{\beta\to\infty} \left[
+        -\frac1x \cos{x}
+      \right]_1^\beta - \int_1^\beta \frac{\cos{x}}{x^2} \, dx
+  \] \[
+    = \cos(1) - \lim_{\beta\to\infty} \int_1^\beta \frac{\cos(x)}{x^2} \, dx
+  \] \[
+    \card{\frac{\cos(x)}{x^2}} \leq \frac1{x^2} \text{ on } [1, \beta]
+  \]
+  and $\int_1^\infty \frac1{x^2} \, dx$ exists.
+  So $g(x) = \frac1{x^2}$ is a majorant of $\frac{\cos(x)}{x^2}$ and by Theorem~\ref{dctii},
+  $\lim_{\beta\to\infty} \int_1^\beta \frac{\cos(x)}{x^2} \, dx$ eixsts.
+
+  Attention! $\int_0^\infty \card{\frac{\sin(x)}{x}} \, dx$ does not exist. Is not Lebesgue integrable.
+\end{example}
+
+\index{Euler's Gamma function}
+\index{Gamma function}
+\begin{definition} % Definition 11
+  Let $x > 0$.
+  We call $\Gamma$ \emph{Euler's Gamma function}.
+  \[ \Gamma(x) \coloneqq \int_0^\infty t^{x - 1} e^{-t} \, dx \]
+\end{definition}
+
+\begin{remark}
+  The improper integral in the definition of the $\Gamma$-function exists for all $x > 0$.
+\end{remark}
 
 \end{document}
