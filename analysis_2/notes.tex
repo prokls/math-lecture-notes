@@ -121,11 +121,8 @@
 
 \dateref{2018/03/06}
 
-\section{Lecture}
-
-\section{Mathematical Redux}
-\subsection{Topological fundamentals}
-\subsubsection{General, abstract concepts}
+\section{Mathematical Redux and topological fundamentals}
+\subsection{Metric}
 
 \index{Metric}
 \index{Distance function}
@@ -173,6 +170,8 @@
   \end{align*}
 \end{proof}
 
+\subsection{Cauchy-Schwarz inequality}
+
 \begin{theorem}[Cauchy-Schwarz inequality]
   \[ \card{\angel{x, y}} \leq \norm{x} \norm{y} \]
 \end{theorem}
@@ -183,6 +182,8 @@
   \[ \implies 0 \leq \norm{x}^2 - \frac{\card{\angel{x, y}}^2}{\norm{y}^2} \]
   \[ \implies \card{\angel{x, y}}^2 \leq \norm{x}^2 \cdot \norm{y}^2 \]
 \end{proof}
+
+\subsection{Euclidean norm}
 
 \index{Euclidean norm}
 \index{Norm}
@@ -204,6 +205,8 @@ Let $X \subseteq \mathbb R^n$ ($V$ is a normed vector space), then $d(x, y) = \n
 \[ \norm{y - x} = \norm{(-1) (x - y)} = \card{-1} \cdot \norm{x - y} = \norm{x - y} \]
 \[ d(x, y) = 0 \iff \norm{x - y} = 0 \iff x - y = 0 \iff x = y \]
 \[ d(x, z) = \norm{z - x} = \norm{z - y + y - x} \leq \norm{z - y} + \norm{y - x} = d(z, y) + d(y, x) \]
+
+\subsection{Metric space}
 
 \begin{example}[metric space]
   Metric space, distance is not a norm.
@@ -234,6 +237,8 @@ Let $X \subseteq \mathbb R^n$ ($V$ is a normed vector space), then $d(x, y) = \n
     \end{cases}
   \]
 \end{example}
+
+\subsection{Open sets, convergence and accumulation points}
 
 Now we put some terminology into the context of a metric space.
 $(X, d)$ is a metric space.
@@ -292,6 +297,8 @@ TODO
 \[ \forall x,y \in X: d(x,y) = d(y,x) \]
 \[ d(x,z) \leq d(x,y) + d(y,z) \forall x,y,z \in X \]
 
+\subsection{Norm}
+
 \index{Norm}
 Let $V$ be a vector space. $\norm{\cdot}$ is called \emph{norm on $V$}.
 \[ \norm{x} = 0 \iff x = 0 \]
@@ -343,7 +350,8 @@ The concepts \enquote{subsequence}, \enquote{final element of a sequence}, \enqu
   See Analysis 1 course
 \end{proof}
 
-\section{Sets in metric spaces}
+%\subsection{Sets in metric spaces}
+\subsection{Contact point}
 
 Let $B \subseteq X$, $X$ is a metric space. Then $B$ with $d$ is a metric space itself.
 
@@ -545,6 +553,8 @@ So it holds that $z \in K_r(x)$ and therefore $K_{r'}(y) \subseteq K_r(x)$.
   By Lemma~\ref{lemma4}, Theorem~\ref{saetzchen1} and De Morgan's Laws:
   \[ \left(\bigcup_{i \in I} A_i\right)^C = \bigcap_{i in I} A_i^C \]
 \end{proof}
+
+\subsection{Topology}
 
 \index{Topology}
 \index{Topological spcae}
@@ -2638,4 +2648,262 @@ Standard examples will follow:
   The improper integral in the definition of the $\Gamma$-function exists for all $x > 0$.
 \end{remark}
 
+\dateref{2018/04/26}
+
+TODO I missed the first 15 minutes
+
+Proof of this:
+\begin{proof}
+  \[ \lim_{t\to\infty} \underbrace{t^{x-1}}_{\text{polynomially in } t} \cdot \underbrace{e^{-t}}_{\text{exponentially } \to 0} = 0 \]
+  Also there exists $L > 1$, such that $\forall x > L$ it holds that $t^{x-1} e^{-t/2} < 1$ on $[1,L]$ (which is a compact interval) continuous.
+  So there exists $M > 0$ such that $t^{x-1} e^{-\frac t2} \leq M \forall t \in [1,L]$.
+  Let $c = \max\set{M, 1}$. Therefore it holds on $[1,L]$ and also on $(L,\infty)$.
+  \[ t^{x-1} e^{-\frac t2} \leq c \]
+  Multiply with $e^{-\frac t2} > 0$, then it holds that $t^{x-1} \cdot e^{-t} \leq ce^{-\frac t2} \forall t \in [1,\infty)$.
+  \[ c \int_1^\infty e^{-\frac t2} \, dt \]
+  exists.
+  By the direct comparison test, we get $\int_1^\infty t^{x-1} e^{-t} \, dt$ exists.
+\end{proof}
+
+\begin{lemma} % Lemma 13
+  \label{lemma13}
+  For all $x > 0$ it holds that
+  \[ \Gamma(x + 1) = x \cdot \Gamma(x) \qquad \text{ (functional equation of the $\Gamma$-function)} \]
+  Especially with $\Gamma(1) = 1$ it holds that $\Gamma(n+1) = n!$ for all $n \in \mathbb N_0$.
+\end{lemma}
+
+\begin{proof}
+  \[ \Gamma(x + 1) = \int_0^\infty t^{x+1-1} e^{-t} \, dt = \int_0^\infty t^{x} e^{-t} \, dt \]
+  \begin{align*}
+    &= \begin{vmatrix} u = t^x & u' = x \cdot t^{x-1} \\ v' = e^{-t} & v = -e^{-t} \end{vmatrix} \\
+    &= \underbrace{\left. -t^x \cdot e^{-t} \right|_0^\infty}_{\substack{= 0 \text{ on the upper bound} \\ = 0 \text{ on the lower bound}}}
+    + \int_0^\infty x \cdot t^{x-1} \cdot e^{-t} \, dt = x \int_0^\infty t^{x-1} e^{-t} \, dt = x \Gamma(x)
+  \end{align*}
+  \[ \Gamma(1) = \int_0^\infty \underbrace{t^{1-1}}_{=1} \cdot e^{-t} \, dt = \left. -e^{-t} \right|_0^\infty = 1 \]
+  \[ \Gamma(n+1) = n \cdot \Gamma(n) = n \cdot (n - 1) \Gamma(n-1) = n \cdot (n-1) \cdot \ldots \cdot 1 \cdot \underbrace{\Gamma(1)}_{=1} = n! \]
+\end{proof}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/22_gamma_on_C.pdf}
+    \caption{$\Gamma$ on $\mathbb C$}
+    \label{img:gamma}
+  \end{center}
+\end{figure}
+
+\begin{remark}
+  There exists a power series $\Gamma(x) = \sum_{n=0}^\infty a_n (x - x_0)^n$.
+  $\Gamma(z)$ is also defined for $z \in \mathbb C$ with $\Re{z} > 0$.
+  Compare with Figure~\ref{img:gamma}.
+\end{remark}
+
+\subsection{Young's inequality}
+
+Some important inequalities in integration theory follow.
+
+\index{Young's inequality}
+\begin{theorem}[Young's inequality] % Satz 9
+  Let $f: [0, \infty) \to [0,\infty)$ be continuous differentiable, strictly monotonically increasing with $f(0) = 0$ and $f$ is unbounded.
+  Then $f: [0, \infty) \to [0,\infty)$ bijective and $f^{-1}: [0,\infty) \to [0,\infty)$ is strictly monotonically increasing and continuous.
+  Let $a, b \geq 0$ be given. Then it holds that
+  \[ ab \leq \int_0^\alpha f(x) \, dx + \int_0^b f^{-1}(y) \, dy \]
+  Equality is given if and only if, $b = f(a)$ or $a = f^{-1}(b)$.
+  Compare with Figure~\ref{img:young}.
+\end{theorem}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/23_young.pdf}
+    \caption{Young's inequality visualized. The blue area denotes $\int_0^\alpha f \, dx$ and $\int_0^b f^{-1}(y) \, dy$ is the green area.}
+    \label{img:young}
+  \end{center}
+\end{figure}
+
+\begin{proof}
+  Let $f:[0,\infty) \to [0,\infty)$ be as above.
+  Let $x_1 \neq x_2$. Without loss of generality $x_1 < x_2$.
+  Then it holds that $f(x_1) < f(x_2) \implies f$ is injective.
+  Surjectivity: $f(0) = 0$, hence $0 \in f([0,\infty])$.
+  Let $\eta > 0$ be arbitrary. Because $f$ is unbounded, there exists $z \in (0,\infty)$ with $f(z) > \eta$.
+  $f(0) = 0 < \eta < f(z)$.
+
+  By the Intermediate Value Theorem ($f$ is continuous), there exists $\xi \in (0,z)$ with $f(\xi) = \eta$.
+  So $f$ is surjective.
+  \[ f^{-1}: [0,\infty) \to [0,\infty) \]
+  \emph{Monotonicity:} Let $y_1 < y_2$. Then it holds that $x_1 = f^{-1}(y_1) < x_2 = f^{-1}(y_2)$.
+  If this would not be true (hence, $x_2 \leq x_1$) then $y_2 = f(x_2) \leq y_1 = f(x_1)$ gives a contradiction.
+
+  \emph{Continuity of $f^{-1}$:}
+  Let $\varepsilon > 0$ be arbitrary. Let $y \in (0,\infty)$ be chosen arbitrarily.
+  We show $f^{-1}$ is continuous in $y$.
+  Let $x = f^{-1}(y) > 0$ and choose $\hat\varepsilon = \min\set{\frac{x}2, \frac{\varepsilon}2}$.
+  \[ x_1 = x - \hat\varepsilon > 0 \qquad x_2 = x + \hat \varepsilon > 0 \]
+  Let $y_1 = f(x_1)$, $y_2 = f(x_2)$, $x_1 = f^{-1}(y_1)$ and $x_2 = f^{-1}(y_2)$.
+  By monotonicity of $f$: $x_1 < x < x_2 \implies y_1 < y < y_2$.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/24_setup_delta.pdf}
+      \caption{$\delta$, $y$, $y_1$ and $y_2$}
+      \label{img:dyyy}
+    \end{center}
+  \end{figure}
+
+  Choose $\delta = \min\set{y - y_1, y_2 - y} > 0$ (compare with Figure~\ref{img:dyyy}).
+  Hence $(y - \delta, y + \delta) \subseteq (y_1, y_2) \forall \eta \in (y - \delta, y + \delta)$ it holds that
+  \[ f^{-1}(\eta) < f^{-1}(y + \delta) < f^{-1}(y_2) = x_2 = x + \hat\varepsilon \]
+  \[ f^{-1}(\eta) < f^{-1}(y - \delta) < f^{-1}(y_1) = x_1 = x - \hat\varepsilon \]
+  So $f^{-1}(\eta) \in (x - \hat{\varepsilon}, x + \hat{\varepsilon})$, or equivalently
+  \[ \card{\eta - y} < \delta \implies \card{f^{-1}(\eta) - \underbrace{f^{-1}(y)}_{=x}} < c \leq \frac{\varepsilon}{2} < \varepsilon \]
+  So $f^{-1}$ is continuous in $y$ and $f^{-1}$ is continuous in $y_0$ analogously.
+\end{proof}
+
+Consider
+\[
+  \int_0^b f^{-1}(y) \, dy = \begin{vmatrix}
+    y &= f(x) \\
+    dy &= f'(x) \, dx \\
+    y = 0 &\implies x = f^{-1}(0) = 0 \\
+    y = b &\implies x = f^{-1}(b)
+  \end{vmatrix}
+  = \int_0^{f^{-1}(b)} \underbrace{f^{-1}(f(x))}_{=x} \cdot f'(x) \, dx = \int_0^{f^{-1}(b)} x \cdot f'(x) \, dx
+\] \[
+  \underbrace{=}_{\text{integration by parts}}
+  \left. x \cdot f(x) \right|_0^{f^{-1}(b)} - 0 \int_0^{f^{-1}(b)} 1 \cdot f(x) \, dx
+\] \[
+  = f^{-1}(b) \cdot b - \int_0^{f^{-1}(b)} f(x) \, dx
+\]
+So
+\[
+  I = \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy = \int_{f^{-1}(b)}^0 f(x) \, dx + b \cdot f^{-1}(b)
+\] \[
+  = \int_{f^{-1}(b)}^a f(x) \, dx + b \cdot f^{-1}(b)
+\]
+
+\begin{description}
+  \item[Case 1] $a = f^{-1}(b)$
+    \[ \implies I = \underbrace{\int_a^a f(x) \, dx}_{=0} + b \cdot a \]
+  \item[Case 2] $b < f(a)$, or equivalently $f^{-1}(b) < a$
+    \[ \implies \int_{f^{-1}(b)}^a \underbrace{f(x)}_{f(f^{-1}(b)) \text{ for } x > f^{-1}(b)} \, dx > \overbrace{b}^{\text{minimal value}} \cdot \underbrace{(a - f^{-1}(b))}_{\text{length of integration interval}}  \]
+    Therefore $I > b(a - f^{-1}(b)) + b \cdot f^{-1}(b) = ab$.
+  \item[Case 3] $b > f(a)$, or equivalently $f^{-1}(b) > a$
+    \[ \int_{f^{-1}(b)}^a f(x) \, dx = \int_a^{f^{-1}(b)} \underbrace{(-f(x))}_{\substack{\text{monotonically decreasing} \\ > -f(f^{-1}(b)) \forall x \in [a,f^{-1}(b))}} \, dx > -f(f^{-1}(b)) \cdot (f^{-1}(b) - a) \]
+    \[ = -b(f^{-1}(b) - a) \]
+    \[ I > -b (f^{-1}(b) - a) + b \cdot f^{-1}(b) = ab \]
+\end{description}
+
+\begin{remark}
+  Young's inequality also holds without requiring differentiability of $f$ (but the proof is more complex).
+\end{remark}
+
+\index{Conjugate exponents}
+\begin{lemma}[Special case of Young's inequality] % Lemma 14
+  \label{lemma14}
+  Let $A, B \geq 0$ and $p,q > 1$ such that $\frac1p + \frac1q = 1 \iff p + q = p \cdot q$.
+  Then $p$ and $q$ are called \emph{conjugate exponents}.
+  Then it holds that $AB \leq \frac{A^p}{p} + \frac{B^q}{q}$.
+\end{lemma}
+\begin{proof}
+  \[ f(x) = x^{p-1} \text{ in Young's inequality} \]
+  \[ y = x^{p-1} \iff x = y^{\frac{1}{p-1}} \]
+  \[ \frac{1}{p-1} = q - 1 \text{ is immediate, because } \]
+  \[ \frac{1}{p-1} = q - 1 \iff 1 = pq - p - q + 1 \iff p + q = pq \]
+  So $f^{-1}(y) = y^{\frac{1}{p-1}} = y^{q - 1}$.
+  By Young's inequality:
+  \[ AB \leq \int_0^A x^{p-1} \, dx + \int_0^B y^{q - 1} \, dy \]
+  \[ = \left.\frac{x^p}{p}\right|_0^A + \left. \frac{y^q}{q} \right|_0^B = \frac{A^p}{p} + \frac{B^q}{q} \]
+\end{proof}
+
+\begin{remark}
+  \[ AB = \frac{A^p}{p} + \frac{B^q}{q} \]
+  Equality holds if and only if $B = A^{p-1} \iff B^q = A^{\overbrace{pq-q}^{p}} = A^p$.
+\end{remark}
+
+\subsection{H\"older's ineqaulity}
+
+\index{H\"older's inequality}
+\index{$L^p$-norm}
+\begin{theorem}[H\"older's inequality] % Satz 10
+  Let $I$ be an interval with boundary values $a$ and $b$. $-\infty \leq a < b \leq +\infty$.
+  Let $p$ and $q$ be conjugate exponents. Let $f_1$ and $f_2$ be regulated function on $I$
+  such that
+  \[ \int_a^b \card{f_1(x)}^p \, dx < \infty \]
+  \[ \int_a^b \card{f_2(x)}^q \, dx < \infty \]
+  both exist.
+
+  We let $\norm{f_1}_p \coloneqq \left(\int_a^b \card{f_1(x)}^p \, dx\right)^{\frac1p}$ and $\norm{f_2}_q \coloneqq \left(\int_a^b \card{f_2(x)}^q \, dx\right)^{\frac1q}$.
+  They are called $L^p$-norm of $f_1$ and $L^q$-norm of $f_2$.
+
+  Then it holds that
+  \[ \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx < \infty \]
+  exists and
+  \[ \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx \leq \norm{f_1}_p \cdot \norm{f_2}_q \]
+\end{theorem}
+
+\begin{proof}
+  Assume that $\norm{f_1}_p > 0$  and $\norm{f_2}_q > 0$.
+  Let $A = \frac{\card{f_1(x)}}{\norm{f_1}_p}$ and $B = \frac{\card{f_2(x)}}{\norm{f_2}_q}$.
+  By Lemma~\ref{lemma14},
+  \[
+    \frac{\card{f_1(x)}}{\norm{f_1}_p} \cdot \frac{\card{f_2(x)}}{\norm{f_2}_q}
+    \leq \frac{1}{q} \cdot \frac{\card{f_1(x)}^p}{\norm{f_1}^p_p} + \frac1q \cdot \frac{\card{f_2(x)}^q}{\norm{f_2}_q^q}
+  \]
+  We integrate the inequality,
+  \[
+    \frac{1}{\norm{f_1}_p \cdot \norm{f_2}_q} \cdot \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx
+  \] \[
+    \leq \frac{1}{p} \cdot \frac{1}{\norm{f_1}^p_p} \cdot \underbrace{\int_a^b \card{f_1(x)^p} \, dx}_{= \norm{f_1}_1^p}
+    + \frac1q \cdot \frac{1}{\norm{f_2}_q^q} \underbrace{\int_a^b \card{f_2(x)}^q \, dx}_{= \norm{f_2}_q^q}
+    = \frac1p + \frac1q = 1
+  \]
+
+  \[
+    \frac{1}{\norm{f_1}_p \cdot \norm{f_2}_q} \cdot \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx
+    \implies \int_a^b \card{f_1(x) f_2(x)} \, dx
+    \leq \norm{f_1}_p \cdot \norm{f_2}_q
+  \]
+  Special case: Let $\norm{f_1}_p = 0$
+  \[
+    \implies
+    \left(\int_a^b \card{f_1(x)}^p \, dx\right)^{\frac1p} = 0
+    \implies \int_a^b \underbrace{\card{f_1(x)}^p}_{\geq 0} \, dx = 0
+  \]
+  By Theorem~\ref{satz7countable}, $f_1(x) = 0 \forall x \in [a,b] \setminus A$
+  and $A$ is at most countable.
+  \[ \implies f_1(x) \cdot f_2(x) = 0 \forall x \in [a,b] \setminus A \]
+  \[ \implies \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx = 0 \]
+  \[ \implies 0 = 0 \text{ in H\"older's inequality} \]
+\end{proof}
+
+\index{Cauchy-Schwarz inequality}
+\begin{remark}[Special case of H\"older's inequality]
+  Let $p = q = 2$, $\frac12 + \frac12 = 1$.
+  \[ \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx \leq \norm{f_1}_2 \norm{f_2}_2 \]
+  is called Cauchy-Schwarz inequality for $L^2$ functions.
+
+  \[ \int_a^b f_1(x) f_2(x) \, dx = \angel{f_1,f_2}_2 = \angel{f_1, f_2}_{L^2} \]
+  is an inner product on a proper space of functions.
+\end{remark}
+
+\section{Elaboration on differential calculus}
+
+We consider a metric space $X$ and functions $f: X \to \mathbb C$.
+We define a concept of uniform convergence of such sequences:
+\[ f_n: X \to \mathbb C \quad (n \in \mathbb N) \text{ and } f: X \to \mathbb C \]
+We say, $(f_n)_{n \in \mathbb N}$ converges uniformly towards $f$ if $\forall \varepsilon > 0 \forall N \in \mathbb N$
+such that $\forall x \in X$ and $\forall n \geq N$ it holds that
+\[ \underbrace{\card{f_n(x) - f(x)}}_{\text{absolute value in } \mathbb C} < \varepsilon \]
+\[ \iff \sup\set{\card{f_n(x) - f(x)}: x \in X} < \varepsilon \]
+
+\begin{remark}
+  Do not use $\norm{f}_{\infty}$ for the definition of uniform convergence,
+  because $f_n$ and $f$ must not be necessarily bounded. Hence,
+  \[ \norm{f}_\infty = \set{\card{f(x)}: x \in X} \]
+  must not be finite.
+\end{remark}
+
+\begin{theorem} % Satz 1
+  Let $X$ be a metric space, $f_n: X \to \mathbb C$ be a sequence of continuous functions and $f: X \to \mathbb C$ such that
+  $f_n \to f$ uniform on $X$. Then $f$ is also continuous on $X$.
+\end{theorem}
 \end{document}

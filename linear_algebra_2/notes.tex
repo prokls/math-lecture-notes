@@ -67,6 +67,7 @@
 \newcommand{\fall}{\;\forall\,}
 \newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
 \newcommand{\vectwo}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\vecthree}[3]{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}}
 \makeatletter
 \newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
 \makeatother
@@ -415,6 +416,8 @@ Then the fourth property follows:
   \[ \triangle \left(\vectwo ac, \vectwo bd\right) = ad - bc = \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} \]
 \end{example}
 
+\subsection{Permutations and transpositions}
+
 \begin{definition} % 7.8
   A \emph{permutation} is a bijective map $\sigma: \set{1,\dots,n} \to \set{1,\dots,n}$.
   $\sigma_n$ is the set of all permutations.
@@ -672,6 +675,8 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
   \end{align*}
 \end{proof}
 
+\subsection{Leibniz formula for determinants}
+
 \index{Determinant}
 \begin{definition} % 7.20
   \label{det}
@@ -876,6 +881,8 @@ Basis $b_1,\dots,b_n$.
   \[ \implies \triangle_2(v_1, \dots, v_n) = \frac{\triangle_2(b_1, \dots, b_n)}{\triangle_1(b_1, \dots, b_n)} \cdot \triangle_1(v_1, \dots, v_n) \]
   \[ \implies C_f = \frac{\triangle^f(b_1, \dots, b_n)}{\triangle (b_1, \dots, b_n)} = \det(f) \]
 \end{proof}
+
+\subsection{On determinants, invertibility and linear independence}
 
 \begin{corollary} % Folgerung 7.27
   $B = (b_1, \dots, b_n)$ is basis of $V$.
@@ -1798,6 +1805,8 @@ Or better: $(\sin{nx})_{n \in \mathbb N} \cup (\cos{nx})_{n \in \mathbb N}$.
   The answer to the question, which functions satisfy this theorem, is an open research topic.
 \end{theorem}
 
+\subsection{Law of cosines}
+
 \begin{theorem}[Law of cosines]
   In German, \foreignlanguage{german}{\enquote{Kosinussatz}}.
 
@@ -1819,6 +1828,8 @@ How to find an orthogonal vector?
   Find $\vec{b}$ such that $\angel{\rh{a}, \rh{b}} = 0$, $a_1 b_1 + a_2 b_2 = 0$. For example, $b_1 = a_2$ and $b_2 = -a_1$.
   \[ \rh{a} = \begin{pmatrix} a_1 \\ a_2 \end{pmatrix} \qquad \rh{b} = \begin{pmatrix} a_2 \\ -a_1 \end{pmatrix} \]
 \end{remark}
+
+\subsection{Outer product}
 
 \index{Outer product}
 \index{Cross product}
@@ -1939,6 +1950,7 @@ How to find an orthogonal vector?
   \includegraphics{img/05_application.pdf} % TODO
 \end{example}
 
+\subsection{Inner products and positive definiteness}
 From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
 
 \begin{definition} % Definition 8.13
@@ -2103,6 +2115,8 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
     \item Triangle inequality
   \end{itemize}
 \end{proof}
+
+\subsection{Cauchy-Bunyakovskii-Schwarz inequality}
 
 \begin{lemma}[Cauchy-Bunyakovskii-Schwarz inequality] % 8.20
   \label{thm:cbs}
@@ -2290,6 +2304,8 @@ in regards of basis $b_1, \dots, b_n$.
   \[ \exists P,Q \in \operatorname{GL}(n): PAQ = \begin{pmatrix} 1 & & & \\ & 1 & & \\ & & \ddots & \\ & & & 0 \end{pmatrix} \]
   \[ A \sim PAQ \text{ is equivalent} \]
 \end{remark}
+
+\subsection{Congruence of matrices}
 
 \index{Congruence of matrices}
 \begin{definition}[Congruence] % Definition 8.23
@@ -3678,7 +3694,8 @@ because
 Hence, $\forall i \in \set{1, \ldots, m}$:
 \[ \ip{u_i}{u} = \ip{u_1}{x} \implies \forall i \in \set{1, \ldots, m}: \ip{u_i}{x - u} = 0 \implies x - u \in \set{u_1, \ldots, u_m}^\bot \]
 
-\begin{example}
+\begin{example} % Beispiel 8.55
+  \label{ex855}
   Find polynomial $p(t)$ of degree $2$ such that
   \[ \int_0^1 \card{t^3 - p(t)}^2 \, dt \overset!= \min \]
   $V = C[0,1]$, scalar product
@@ -3737,6 +3754,8 @@ Hence, $\forall i \in \set{1, \ldots, m}$:
   \[ \eta_j = \ip{v}{u_j} \]
 \end{proof}
 
+\subsection{Gram-Schmidt process}
+
 Given: $U = \mathcal L(v_1, \ldots, v_m)$ \\
 Find: orthonormal basis of $U$.
 
@@ -3772,5 +3791,250 @@ Find: orthonormal basis of $U$.
       then $\tilde u_k - v_k \in \mathcal L(u_1, \ldots, u_{k-1})$
   \end{description}
 \end{proof}
+
+\dateref{2018/04/25}
+
+Gram-Schmidt process:
+\[ \mathcal L(v_1, v_2) = \mathcal L(v_2 - p(v_2), v_1) \qquad v_2 - p(v_2) \bot v_1 \]
+
+Given: $v_1, \ldots, v_m$
+\[ u_i = \frac{v_i}{\norm{v_i}} \]
+\[ \tilde u_k = v_k - \sum_{i=1}^{k-1} \ip{v_k}{u_i} \cdot u_i \]
+\[ u_k = \frac{\tilde u_k}{\norm{\tilde u_k}} \qquad \frac{\ip{v_k}{\tilde u_i} \tilde u_i}{\norm{\tilde u_i}^2} \]
+
+\begin{example}
+  Let $V = \mathbb R^3$.
+  \[ \ip xy = x^t A y \]
+  \[
+    A = \begin{bmatrix}
+      1 & -1 & 1 \\
+      -1 & 3 & -1 \\
+      1 & -1 & 2
+    \end{bmatrix}
+  \]
+  \[ v_i = \text{ standard basis } e_i \]
+  \[ \norm{v_1}^2 = \ip{v_1}{v_1} = v_1^T A v_1 = a_{11} = 1 \]
+  \[ \norm{v_2}^2 = \ip{v_2}{v_2} = a_{12} = 3 \]
+  \[ u_1 = \frac{v_1}{\norm{v_1}} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \]
+  \[ \tilde u_2 = v_2 - u_1 \ip{v_2}{u_1} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \cdot (0 \: 1 \: 0) A \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} \]
+  \[ u_2 = \frac{\tilde u_2}{\norm{\tilde u_2}} \qquad \norm{\tilde u_2}^2 = \ip{\tilde u_2}{\tilde u_2} = (1 \: 1 \: 0) \cdot A \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} = 2 \qquad u_2 = \frac{1}{\sqrt2} \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} \]
+  \[ \tilde u_3 = v_3 - u_1 \ip{v_3}{u_1} - u_2 \ip{v_3}{u_2} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} - \vecthree100 \cdot \underbrace{(0 \: 0 \: 1) \cdot A \cdot \vecthree100}_{a_{31} = 1} - \frac{1}{\sqrt{2}} \vecthree110 \cdot \underbrace{(0 \: 0 \: 1) \cdot A \cdot \vecthree110}_{a_{31} + a_{32} = 0} \cdot \frac{1}{\sqrt2} = \vecthree{-1}01 \]
+  \[ \norm{\tilde u_3}^2 = (-1 \: 0 \: 1) \cdot A \cdot \vecthree{-1}{0}1 = 1 - 1 - 1 + 2 = 1 \qquad u_3 = \vecthree{-1}{0}{1} \]
+\end{example}
+
+\begin{remark}[Alternative method to build orthogonal projection on subspace $U \subseteq \mathbb C^n$ with standard scalar product] % 8.59
+  \begin{enumerate}
+    \item Determine an orthonormal basis of $U$: $u_1, \ldots, u_m \in \mathbb C^{n\times 1}$
+    \item $P = \sum_{i=1}^m u_1 \cdot u_i^*$
+  \end{enumerate}
+  \[ P \cdot v = \sum_{i=1}^m u_i \underbrace{u_i^* \cdot v}_{\ip{v}{v_i}} = \sum_{i=1}^m u_i \ip{v}{v_i} \]
+  Gram matrix = $I$
+\end{remark}
+
+\begin{example}[Example~\ref{ex855} again] % 8.60
+  \[ V = C[0,1] \qquad U = \mathcal L(1, x, x^2) \eqqcolon \mathcal L(v_1, v_2, v_3) \]
+  \[ \ip fg = \int_0^1 f(t) \overline{g(t)} \, dt \]
+  Orthonormal basis:
+  \[ \norm{v_i}^2 = \int_0^1 1^2 \, dt = 1 \]
+  \[ u_1 = 1 \]
+  \[ \tilde u_2 = v_2 - u_1 \cdot \ip{v_2}{u_1} = x - 1 \cdot \underbrace{\int_0^1 t \cdot 1 \, dt}_{= \frac12} = x - \frac12 \]
+  \[ \norm{\tilde u_2}^2 = \int_0^1 (t - \frac12)^2 \, dt = \left.\frac{(t - \frac12)^3}{3} \right|_0^1 = \frac{(\frac12)^3 - (-\frac12)^2}{3} = \frac1{12} \]
+  \[ u_2 = \frac{\tilde u_2}{\norm{\tilde u_2}} = \sqrt{12} \cdot (x - \frac12) \]
+  \begin{align*}
+    \tilde u_3 &= v_3 - u_1 \ip{v_3}{u_1} - u_2 \cdot \ip{v_3}{u_2} \\
+      &= x^2 - 1 \cdot \underbrace{\int_0^1 t^2 \cdot 1 \, dt}_{= \frac13} - \sqrt{12} (x - \frac12) \int_0^1 t^2 \sqrt{12} (t - \frac12) \, dt \\
+      &= x^2 - \frac13 - 12 (x - \frac12) \cdot \frac1{12} \\
+      &= x^2 - x + \frac16
+  \end{align*}
+  Side note:
+  \[ \int_0^1 t^2 (t - \frac12) \, dt = \int_0^1 (t^3 - \frac12 t^2) \, dt = \frac14 - \frac16 = \frac1{12} \]
+  \[ \norm{\tilde u_3}^2 = \int_0^1 (t^2 - t + \frac16)^2 \, dt = \frac1{180} \]
+  \[ \implies u_3 = \sqrt{180} \cdot (x^2 - x + \frac16) \]
+
+  Projection:
+  \[ \int_0^1 (t^3 - p(t))^2 \, dt = \operatorname{min}! \]
+  Solution: $\pi_U(x^3) \qquad U = \mathcal L(1, x, x^2)$
+  \begin{align*}
+    \pi_U(x^3) &= u_1 \ip{x^3}{u_1} + u_2 \ip{x^3}{u_2} + u_3 \ip{x^3}{u_3} \\
+      &= 1 \cdot \int_0^1  t^3 \cdot 1 \, dt + \sqrt{12} (x - \frac12) \int_0^1 t^3 \sqrt{12} (t - \frac12) \, dt + \sqrt{180} (x^2 - x + \frac16) \int_0^1 t^3 \sqrt{180} (t^2 - t + \frac16) \, dt
+  \end{align*}
+\end{example}
+
+\index{Chebyshev polynomials}
+Consider $\ip fg \coloneqq \int_{-1}^1 \sqrt{1 - t^2} f(t) \overline{g(t)} \, dt$.
+Take $1, x, x^2, \ldots$ and apply Gram schmidt process to retrieve the Chebyshev polynomials.
+
+\[ \int_0^1 f(t) g(t) \, dt \qquad \text{ Laguerre} \]
+\[ \frac1{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{t^2}{2}}  f(t) g(t) \, dt \qquad \text{ Hermite polynomials} \]
+
+\subsection{Riesz representation theorem}
+
+Frigyes Riesz (1880--1956)
+
+Let $(V, \ip{\cdot}{\cdot})$ be a vector space with scalar product $\dim{V} < \infty$.
+
+$V^*$ is the dual space $= \operatorname{Hom}(V, \mathbb K) = $ space of linear functionals.
+For fixed $y \in V$ the map $T_y(x) = \ip{x}{y}$ is linear in $x$, hence $T_y \in V^*$.
+
+Then the map $V \to V^*$ with $y \mapsto Ty: V \to \mathbb K$ with $x \mapsto \ip xy$ is an antilinear isomorphism (antiisomorphism).
+
+This is trivial in $\mathbb R$, but in $\mathbb C$ is much more complex (pun intended).
+
+Hence,
+\begin{enumerate}
+  \item For every $y$ it holds that $Ty \in V^*$
+  \item For every linear functional $f \in V^*$
+    \[ \exists! y \in V: f = T_y \]
+  \item Let $y \mapsto Ty$ is an antilinear map.
+    \[ T_{\lambda y_1 + \mu y_2} = \overline{\lambda} Ty_1 + \overline{\mu} Ty_2 \]
+\end{enumerate}
+
+\begin{example}[For point 2]
+  \[ V = C[0,1] \]
+  Scalar product: $\ip fg = \int f(t) g(t) \, dt$.
+  Let $F: C[0,1] \to \mathbb R$ linear.
+  Then by the Riesz representation theorem,
+  there exists $g \in C[0,1]: F(f) = \int f(t) g(t) \, dt$.
+
+  For example $f \to f(1)$
+  \[ \exists g(t): f(1) = \int_0^1 f(t) g(t) \, dt \]
+  In physics, e.g. the Dirac delta function.
+\end{example}
+
+\begin{proof}[Proof of point 3]
+  We show linearity.
+
+  \[ Ty(x) = \ip xy \text{ is linear in } X \implies T_y \in V^* \]
+  \begin{align*}
+    \forall x \in V: T_{\lambda y_1 + \mu y_2}(x)
+      &= \ip{x}{\lambda y_1 + \mu y_2} = \overline{\lambda} \ip{x}{y_1} + \overline{\mu}\ip{x}{y_2} \\
+      &= \overline{\lambda} Ty_1(x) + \overline{\mu} Ty_2(x) = (\overline{\lambda} Ty_1 + \overline{\mu} Ty_2)(x) \\
+      &\implies T_{\lambda y_1 + \mu y_2} = \overline{\lambda} Ty_1 + \overline{\mu} Ty_2
+  \end{align*}
+  
+  We show injectivity: the map $y \mapsto Ty$ is injective.
+
+  Assume: $Ty = 0$ (zero functional). Show $y = 0$.
+  $Ty = 0$ means $\forall x \in V: Ty(x) = 0$, especially for $x = y$, $T_y(y) = \ip yy = 0 \implies y = 0$.
+
+  We show surjectivity: the map $y \mapsto Ty$ is surjective.
+
+  Let $u_1, \ldots, u_n$ is an orthonormal basis (exists because of Gram-Schmidt).
+  
+  Given: $f \in V^*$.
+  Find: $y$ such that $f = Ty$.
+  \[ \text{Hence, } \forall x \in V: f(x) = \ip xy \underbrace{\iff}_{\text{by \foreignlanguage{german}{Fortsetzungssatz}}} f(u_i) = \ip{u_i}{y} \]
+  Let $y = \sum_{j=1}^n \overline{f(u_j)} \cdot u_j$.
+  \[ \implies \ip{u_i}{y} = \ip{u_1}{\sum_{j=1}^n \overline{f(u_j)} u_j} = \sum_{j=1}^n f(u_j) \underbrace{\ip{u_i}{u_j}}_{\delta_{ij}} = f(u_i) \]
+  Hence, $y$ satisfies the condition.
+\end{proof}
+
+\begin{remark}
+  The Riesz representation theorem also holds in infinite dimensions in the case of Hilbert spaces.
+  In those spaces, there exists some Hilbert base:
+  \[ (u_i)_{i \in I}: x = \sum_{i \in I} \ip x{u_i} \cdot u_i \forall x \]
+  So every $x$ has such a representation and in infinite dimensions, this representation is a series.
+\end{remark}
+
+\begin{corollary} % Folgerungen 8.62
+  \begin{enumerate}
+    \item $v = 0 \iff \forall w \in V: \ip vw = 0$
+    \item $\norm{v} = \sup\setdef{\card{\ip vw}}{\norm{w} \leq 1}$
+  \end{enumerate}
+  Equivalently in the dual space:
+  \begin{enumerate}
+    \item $v = 0 \iff \forall f \in V^*: f(v) = 0$
+    \item $\norm{v} = \sup\setdef{\card{f(v)}}{f \in V^* \quad \norm{f} \leq 1}$
+  \end{enumerate}
+  holds in general in a normed space.
+\end{corollary}
+
+\begin{remark}
+  We make a small revision: dual space $V^* = \operatorname{Hom}(V, \mathbb K)$
+  \[ W \xrightarrow{T} V \xrightarrow{f} \mathbb K \]
+  \[ \implies f \circ T: W \to \mathbb K \in W^* \]
+  is a linear functional on $W$.
+  Hence, the map $\operatorname{Hom}(V, \mathbb K) \to \operatorname{Hom}(W, \mathbb K)$ and $f \mapsto f \cdot T$ is linear.
+  \[ (\lambda f + \mu g) \circ T = \lambda \cdot f_0 T + \mu g \circ T \qquad \text{\enquote{transposed map}} \]
+  Linear map: $T^*: V^* \to W^*$.
+
+  Let $V$, $W$ be spaces with a scalar product. Then $V \simeq V^*$ and $W \simeq W^*$ where $\simeq$ means anti-isomorphic.
+  $T: W \to V \implies T^*: V \to W$.
+\end{remark}
+
+\index{Adjoint map}
+\begin{definition}[Theorem and definition] % 8.63
+  \label{def863}
+  Let $(V, \ip{}{}_V)$ and $(W, \ip{}{}_W)$ be spaces with a scalar product. $\dim{V}, \dim{W} < \infty$.
+  \[ T \in \operatorname{Hom}(W, V) \text{ hence, } T: W \to V \text{ linear} \]
+  \begin{enumerate}
+    \item For every $v \in V$ is the map
+      \[ w \mapsto \ip{T(w)}{v}_V \qquad \text{ linear} \]
+    \item $\forall v \in V \exists! u \in W \forall w \in W: \ip{T(w)}{v}_V = \ip{w}{u}_W$ and $T^*(v) = u$.
+  \end{enumerate}
+  Hence,
+  \[ \ip{T(w)}{v}_V = \ip{w}{T^*(v)}_W \qquad \forall w \in W \quad \forall v \in V \]
+  \begin{enumerate}
+    \item[3.] The map $T^*: V \to W$ with $v \mapsto u$ is linear, hence $T^* \in \operatorname{Hom}(V, W)$ and is called \emph{adjoint map}.
+    \item[4.] The map $\operatorname{Hom}(W, V) \mapsto \operatorname{Hom}(V, W)$ with $T \mapsto T^*$ is antilinear and $T^{**} = T$.
+  \end{enumerate}
+\end{definition}
+
+\begin{proof}
+  \begin{enumerate}
+    \item $\ip{T(w)}{v} = T_V(T(w)) = T_v \circ T(w)$ \\
+      Composition of linear maps is linear.
+    \item $T_V \circ T \in W^*$. By Riesz representation theorem, $\exists! u \in W: T_V \circ T(w) = \ip{w}{u} \forall w \in W = \ip{T(w)}{v} = \ip wu$
+    \item Show that,
+      \[ \forall v_1, v_2 \in V \forall \lambda, \mu: T^*(\lambda v_1 + \mu v_2) = \lambda T^*(v_1) + \mu T^*(v_2) \]
+      It suffices to show that
+      \[ \ip{w}{T^*(\lambda v_1 + \mu v_2)} = \ip{w}{\lambda T^*(v_1) + \mu T^*(v_2)} \forall w \in W \]
+      Compare with corollary: $w_1 = w_2$ in $W \iff \forall w: \ip{w}{w_1} = \ip{w}{w_2}$.
+      \begin{align*}
+        \ip{w}{T^*(\lambda v_1 + \mu v_2)} &= \ip{T(w)}{\lambda v_1 + \mu v_2} \\
+          &= \overline{\lambda} \ip{T(w)}{v_1} + \overline{\mu} \ip{T(w)}{v_2} \\
+          &= \overline{\lambda} \ip{w}{T^*(v_1)} + \overline{\mu} \ip{w}{T^*(v_2)} \\
+          &= \ip{w}{\lambda T^*(v_1)} + \ip{w}{\mu T^*(v_2)} \\
+          &= \ip{w}{\lambda T^*(v_1) + \mu T^*(v_2)}
+      \end{align*}
+    \item Show $(\lambda T_1 + \mu T_2)^* = \overline{\lambda} T_1^* + \overline{\mu} T_2^*$. \\
+      \[ \iff \forall v \in V: (\lambda T_1 + \mu T_2)^* v = (\overline{\lambda} T_1^* + \overline{\mu} T_2^*)(v) \]
+      \[ \forall v \in V \forall w \in W: \ip{w}{(\lambda T_1 + \mu T_2)^*(v)} = \ip{w}{(\overline{\lambda} T_1^* + \overline{\mu} T_2^*)(v)} \]
+      Hence,
+      \begin{align*}
+        \ip{w}{(\lambda T_1 + \mu T_2)^*(v)}
+          &= \ip{(\lambda T_1 + \mu T_2)(w)}{v} \\
+          &= \lambda \ip{T_1(w)}{v} + \mu\ip{T_2(w)}{v} \\
+          &= \lambda \ip{w}{T_1^*(v)} + \mu \ip{w}{T_2^*(v)} \\
+          &= \ip{w}{\overline{\lambda} T_1^*(v)} + \ip{w}{\overline{\mu} T_2^*(v)} \\
+          &= \ip{w}{\overline{\lambda} T_1^*(v) + \overline{\mu} T_2^*(v)} \\
+          &= \ip{w}{(\overline\lambda T_1^* + \overline\mu T_2^*)(v)}
+      \end{align*}
+
+      \[ T: W \to V \qquad T^*: V \to W \qquad T^{**}: W \to V \]
+      Show that $\forall w \in W: T^{**}(w) = T(w)$. Hence $\forall w \in W \forall v \in V: \ip{T^{**}(w)}{v}_V = \ip{T(w)}{v}_V$
+      \begin{align*}
+        \ip{T^{**}(w)}{v}_V &= \overline{\ip{v}{T^{**}(w)}} = \overline{\ip{T^*(v)}{v}} = \ip{w}{T^*(v)} \\
+          &= \ip{T(w)}{v} \\
+        \ip{Tw}{v} &= \ip{w}{T^*v}
+      \end{align*}
+      If $V = W$, then $T = T^*$.
+    \item Assume $u = D^*(x)$ exists $\in \mathbb R[x]$ \\
+      \[ \implies M \coloneqq \max_{t \in [0,1]} \card{u(t)} < \infty \]
+      \[ \card{\card{x^n}{D^*(x)}} = \card{\int_0^1 t^n \cdot u(t) \, dt} \leq \int_0^1 t^n \cdot M \, dt = \frac{M}{n+1} \]
+      \[ \implies \frac{n}{n+1} \leq \frac{M}{n+1} \forall n \in \mathbb N \]
+      \[ \implies u(x) \not\in \mathbb R[x] \]
+  \end{enumerate}
+\end{proof}
+
+\begin{example}[For Definition~\ref{def863}, point~3] % Beispiel 8.64
+  If $\dim{V} = \infty$, then not every linear map has an adjoint map!
+  \[ V = \mathbb R[x]_1 \]
+  \[ \ip{f}{g} = \int_0^1 f(t) g'(t) \, dt \]
+  \[ D: V \to V \qquad p(x) \mapsto p'(x) \]
+  Recall: The derivative of a linear combination is the linear combination of derivatives.
+  Assume $D$ has an adjoint $D^*$.
+  \[ \implies \ip{x^n}{D^*(x)} = \ip{D(x^n)}{x} = \int_0^1 n t^{n-1} t \, dt = \frac{n}{n+1} \]
+\end{example}
 
 \end{document}

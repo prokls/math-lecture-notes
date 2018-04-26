@@ -1147,6 +1147,242 @@ $\rank(A)$ is the number linear independent rows (or equivalently, columns)
 
 \[ \implies k \leq \rank(A) \implies k = \rank(A) \]
 
+\section{Exercise 26}
+\begin{ex}
+  Let $A \in \mathbb K^{m\times n}, B \in \mathbb K^{n \times m}$. Show that
+  \[
+    \det(AB) = \sum_{i_1 < i_2 < \ldots < i_m}
+    \begin{vmatrix}
+      a_{1i_1} & a_{1i_2} & \ldots & a_{1i_m} \\
+      a_{2i_1} & a_{2i_2} & \ldots & a_{2i_m} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      a_{mi_1} & a_{mi_2} & \ldots & a_{mi_m}
+    \end{vmatrix}
+    \begin{vmatrix}
+      a_{i_11} & a_{i_21} & \ldots & a_{i_m1} \\
+      a_{i_12} & a_{i_22} & \ldots & a_{i_m2} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      a_{i_1m} & a_{i_2m} & \ldots & a_{i_mm}
+    \end{vmatrix}
+  \]
+  Hint: Use Leibniz formula.
+\end{ex}
 
+\[ \det(AB) = \sum \det(A_{i_m \ldots}) \det(B^{i_1 \ldots i_m}) \]
+\[ A,B \in \mathbb K^{m \times m} \]
+\[ \det(AB) = \sum_{\sigma \in S_m} \sign(\sigma) \prod_{i=1}^m (AB)_{i \sign(i)} =
+  \sum_{\sigma \in S_m} \sign(\sigma) \prod_{i=1}^n \left(\sum_{k=1}^n A_{i,k} B_{k \sigma(i)} \right)
+\]
+Let $N = \set{1, \ldots, n}$. Let $M = \set{1, \ldots, m}$. Let $N^M$ be the functions mapping $M$ to $N$.
+\[
+  \sum _{\sigma \in \sigma_n} \sign(\sigma) \sum_{k \in N^M} \prod_{i=1}^m A_{i k(i)} B_{k(i) \sigma(i)}
+\] \[
+  = \sum_{k \in N^M} \sum_{\sigma \in S_m} \sign(\sigma) \prod_{i=1}^m A_{ik(i)} \prod_{i=1}^m B_{k(i) \sigma(i)}
+  = \sum_{k \in N^M} \prod_{i=1}^m A_{i k(i)} \underbrace{\sum_{\sigma \in S_m} \sign(\sigma) \prod_{i=1}^m B_{k(i) \sigma(i)}}_{\det(B^{k(1) \ldots k(m)})}
+\]
+Let $k, \tilde k \in N^M$. $k \sim \tilde k :\iff \image(k) = \image(\tilde k)$.
+\[ = \sum_{k \in N^M \text{injective} / \sim} \sum_{\tilde k \sim k} \prod_{i=1}^m A_{ik(i)} \underbrace{\det(B^{(\tilde k(1) \ldots \tilde k(m))})}_{\sign(\delta) \det(B^{k(1) \ldots k(m)} \text{ with } k(1) < k(2) < \ldots < k(n)}) \]
+where $\cdot/\sim$ denotes the set of equivalence classes. $\tilde k \sim k \implies \exists \delta \in \delta_m: \tilde k = k \circ \delta$.
+\[ = \sum_{k \in N^M \text{ injective} / \sim} \left(\sum_{\delta \in \delta_m} \sign(\delta) \prod A_{i k(\delta_i)}) \det(B^*) \]
+
+\section{Exercise 28}
+\begin{ex}
+  Let $A \in \mathbb C^{n \times n}$ be a Hermitian matrix. Show
+  \begin{enumerate}
+    \item $A \geq 0 \iff \exists B \in \mathbb C^{n \times n}: A = B^* \cdot B$
+    \item $A > 0 \implies A \text{ regular and } A^{-1} > 0$
+    \item Let $A \geq 0 \implies a_{ii} \geq 0 \forall i$ and if $\exists i: a_{ii} = 0 \implies a_{ij} = 0$
+    \item Does the following generalized first-minors criterion apply?
+      \enquote{A $n \times n$ matrix $A$ is positive semidefinite iff $\det{A_r} \geq 0 \forall r = 1, 2, \ldots, n$}
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 28a}
+
+Direction $\Leftarrow$.
+
+Let $B$ be given such that $B^* \cdot B = A$.
+
+\[ z^* \cdot B^* \cdot B \cdot z = (Bz)^* \cdot B \cdot z \]
+\[ (Bz)^* = z^* B^* \]
+\[ (Bz)^* Bz = [v_1, \ldots, v_n] \cdot \begin{bmatrix} \overline{v_1} \\ \vdots \\ \overline{v_n} \end{bmatrix} \coloneqq \sum_{i=1}^n \overline{v_1} \cdot v_1 = \sum_{i=1}^n \card{v_i}^2 \geq 0 \]
+
+Direction $\Rightarrow$.
+
+Side remark:
+\[
+  \begin{bmatrix} I_r & 0 \\ 0 & 0 \end{bmatrix}^2 =
+  \begin{bmatrix} I_r & 0 \\ 0 & 0 \end{bmatrix}
+\]
+
+Let $A \geq 0$.
+\[
+  \implies \exists C \in \mathbb C^{n \times n}:
+  A = C^* \begin{bmatrix} 1 & & & \\ & \ddots & & \\ & & 1 & \\ & & & 0 \end{bmatrix} C
+\] \[
+  A = C^* \begin{bmatrix} 1 & & & \\ & \ddots & & \\ & & 1 & \\ & & & 0 \end{bmatrix} \begin{bmatrix} 1 & & & \\ & \ddots & & \\ & & 1 & \\ & & & 0 \end{bmatrix} C = C^* \begin{bmatrix} 1 & & & \\ & \ddots & & \\ & & 1 & \\ & & & 0 \end{bmatrix}^* \begin{bmatrix} 1 & & & \\ & \ddots & & \\ & & 1 & \\ & & & 0 \end{bmatrix} C = (C')^* \cdot C' \iff A = (C')^* \cdot C'
+\]
+
+\subsection{Exercise 28b}
+
+$A > 0$, iff $A \hat= I_n$.
+
+\[ B^* AB = I_n \iff B^* AB = I_n \iff AB = (B^*)^{-1} \iff ABB^* = I_n \]
+\[ B^*A = B^{-1} \qquad \underbrace{BB^* A}_{A^{-1}} = I_n \]
+
+$A^{-1} > 0$.
+
+\[ A^{-1} \hat= I_n \iff \exists C \in \operatorname{GL}(n, \mathbb C): C^* \cdot A^{-1} \cdot C = I_n \iff A^{-1} = (C^*)^{-1} \cdot C^{-1} \]
+\[ A^{-1} = B \cdot B^* \qquad (B^{-1})^* = C \]
+
+\subsection{Exercise 28c}
+
+Show: $A \geq 0 \implies a_{ii} = 0$ and $a_{ii} = 0 \implies \text{ without loss of generality } a_{11} = 0 \qquad a_{1i} \neq 0 \quad a_{ij} = 0 \forall j$.
+
+\[ A = B^* B \implies a_{11} = \sum_{j=1}^n \overline{b_{j1}} \cdot b_{j1} = \sum_{j=1}^n \card{b_{j1}}^2 \overset!= 0 \]
+\[ \implies b_{j1} = 0 \forall j \]
+\[ a_{1i} = 0 \qquad \text{gives a contradiction} \]
+
+\subsection{Exercise 28d}
+
+\[ A = 0 \iff \det(A_r) \geq 0 \forall r \in \set{1, \ldots, n} \]
+\[
+  \begin{vmatrix}
+    1 & 0 & 0 \\
+    0 & 0 & 0 \\
+    0 & 0 & -1
+  \end{vmatrix}
+\]
+
+\section{Exercise 29}
+\begin{ex}
+  Show
+  \begin{enumerate}
+    \item $A \leq B :\iff B - A \geq 0$ (hence $B-A$ is semidefinite) defines an order relation on the set of self-adjoint matrices.
+    \item If $B > 0$ and $A \geq B$, then $A > 0$
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 29a}
+
+An order relation is a partial order. We show:
+\begin{description}
+  \item[reflexivity] $xRx$
+  \item[anti symmetry] $xRy \land yRx \implies x = y$
+  \item[transitivity] $xRy \land yRz \implies xRz$
+\end{description}
+
+We show antisymmetry.
+
+\[ \forall A \in M \text{ with } B-A \geq 0 \text{ and } A - B = 0 \]
+it holds that $\forall x \in V:$
+\[ x^T (B - A) \overline{x} \geq 0 \land x^T (A - B) \overline{x} \geq 0 \]
+\[ x^T (B - A) \overline{x} = 0 \implies x^T B \overline{x} = x^T A \overline{x} \]
+
+
+\[ B - A = C^* DC \]
+\[ D = \begin{bmatrix} 1 &  & & &  & \\ & \ddots & & &  & \\ & & 1 & & & \\ & & & 0 & & \\ & & & & \ddots & \\ & & & & & 0 \end{bmatrix} \]
+
+\[ A - B = C^* (-D) C \]
+\[ D = -D = 0 \]
+\[ \implies B = A \]
+
+We show reflexivity.
+
+\[ \forall A \in M \forall x \in V: 0 = x^T \cdot 0 \cdot \overline{x} = x^T (A - A) \overline{x} = 0 \implies A - A \geq 0 \]
+
+We show transitivity.
+
+\[ \forall A, B, C \in M: B - A \geq 0 \land A - B > 0 \]
+
+It holds that
+\[ \forall x \in V: x^T (B - A) \overline{x} \geq 1 \qquad x^T (C - B) \overline{x} \geq 0 \]
+\[ \implies 0 \leq x^T (B - A) \overline{x} + x^T (C - B) \overline{x} \]
+\[ = x^T \left((B - A) \overline{x} + (C - B) \overline{x}\right) = x^T (B - A, C - B) \overline{x} = \underbrace{x^T (C - A) \overline{x}}_{0 \leq} \]
+\[ \implies C - A \geq 0 \]
+
+\subsection{Exercise 29b}
+
+Let $B > 0$ and $A \geq B$ then it holds that $A > 0$.
+\[ \forall x \in V: x^T B \overline{x} > 0: x^T (A - B) \overline{x} - x^T A \overline{x}- x^T B \overline{x} \geq 0 \]
+\[ \implies x^T A \overline{x} \geq x^T B \overline{x} > 0 \]
+
+
+\[ \langel x, x\rangel_B = x^T B x = x^T Ax = \langel x,x\rangel_A \]
+\[ x = e_j \implies B_{jj} = A_{jj} \]
+
+\[ A = 0 \qquad B = \operatorname{rot}(\frac\pi2) \qquad \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} = \pi \]
+
+\section{Exercise 30}
+\begin{ex}
+  Let $Tr(A) = \sum_{i=1}^n a_{ii}$ be the trace of an $n\times n$ matrix over $\mathbb R$ or $\mathbb C$.
+  Show:
+  \begin{enumerate}
+    \item $Tr: \mathbb K^{n\times n} \to \mathbb K$ is linear and for $A \in \mathbb K^{n\times m}, B \in \mathbb K^{m\times n}$ it holds that $Tr(AB) = Tr(BA)$ but in general $Tr(ABC) = Tr(ACB)$ does not hold.
+    \item Let $A,B$ be $n\times n$ matrices. $B$ is invertible. Show $Tr(B^{-1}AB) = Tr(A)$.
+    \item Show: $\not\exists A,B: AB - BA = I$
+    \item Show that $\langle A,B\rangle = Tr(B^*A)$ defines a positive definite scalar product over $\mathbb C^{n\times n}$.
+    \item Find a real matrix $A$ such that $Tr(A^2) < 0$
+    \item For a fixed positive definite matrix $A$, $\langle A,B\rangle_Q = Tr(B^*QA)$ defines a positive definite scalar product.
+  \end{enumerate}
+  Hint: Exercise 28 can be helpful.
+\end{ex}
+
+\subsection{Exercise 30a}
+
+Show linearity.
+\[ \forall A,B \in \mathbb K^{n \times n}: \underbrace{Tr(A + B)}_{\sum_{i=1}^n (a_{ii} + b_{ii})} = \underbrace{Tr(A)}_{\sum_{i=1}^n a_{ii}} + \underbrace{Tr(B)}_{\sum_{i=1}^n b_{ii}} \]
+\[ \lambda \in K: \lambda Tr(A) + Tr(\lambda A) \]
+\[ \lambda \sum_{i=1}^n a_{ii} = \sum_{i=1}^n \lambda a_{ii} \]
+
+Show that multiplication is commutative for two traces.
+Let $A \in \mathbb K^{n\times m}, B \in \mathbb K^{m\times n}$.
+\[ Tr(AB) = Tr(BA) \]
+\[ \sum_{i=1}^n \sum_{j=1}^m a_{ij} b_{{ji}} = \sum_{i=1}^m \sum_{j=1}^n b_{ij} a_{ji} = \sum_{i=1}^m \sum_{j=1}^n a_{ji} b_{ij} \]
+
+Show that multiplication is not commutative in general. Does not hold unless $B = C$.
+\[ Tr(ABC) \neq Tr(ACB) \]
+
+\subsection{Exercise 30b}
+
+Show that $Tr(B^{-1}(AB)) = Tr(A) \iff Tr(ABB^{-1}) = Tr(A)$.
+
+\subsection{Exercise 30c}
+
+Let $A, B \in \mathbb K^{n\times n}$.
+\[ Tr(I_n) = n \]
+\[ Tr(AB - BA) = Tr(AB) - Tr(BA) = 0 \]
+\[ 0 \neq n \]
+This gives a contradiction.
+
+\subsection{Exercise 30d}
+
+\begin{enumerate}
+  \item Sesquilinearity:
+    \[ \langle A+\lambdaB, C\rangle \overset!= \angel{A,C} + \lambda \angel{B,C} \]
+    \[ \angel{A, C+\lambda B} = Tr((C + \lambda B)^* A) = Tr((C^* + \overline{\lambda} B^*) A) = Tr(C^* A + \lambda B) \]
+  \item Positive definiteness:
+    \[ \angel{A,A} > 0 \qquad A \neq 0 \]
+    \[ \Tr(A^*A) = \sum_{j=1}^n \sum_{l=1}^n \overline{a}_{l_j} a_{l_j} = \sum_{j=1}^{n} \sum_{l=1}^{n} \card{a_{lj}}^2 \]
+\end{enumerate}
+
+\subsection{Exercise 30e}
+
+\[ A = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} \]
+
+\subsection{Exercise 30f}
+
+$Q$ is positive definite.
+\begin{align*}
+  \angel{A,B}_Q &= Tr(B^*QA) \\
+  \angel{A,A}_Q &= Tr(A^* M^* M A) \\
+    &= Tr((MA)^* MA) \\
+    &= \sum_{i=1}^n \sum_{j=1}^n \overline{(ma)}_j (ma)_j = \sum_{i=1}^n \sum_{j=1}^n  \card{ma_j}^2
+\end{align*}
+
+\[ Q = C^* DC \]
+\[ \exists M: (Q)^{-1} = (M^* M)^{-1} = M^{-1} (M^*)^{-1} \]
+
+Show $MA \neq 0$ if $A \neq 0$ and $\exists M^{-1} \iff A = M^{-1} 0$ gives a contradiction. Thus, we are finished.
 
 \end{document}
