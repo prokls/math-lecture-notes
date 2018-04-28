@@ -744,4 +744,155 @@ If $k$ is odd:
 This implies a boundary of
 \[ \frac{(-1)^k}{\xi_k} \]
 
+\dateref{2018/04/26}
+
+\section{Sheet 5, Exercise 1}
+\begin{ex}
+  Let $\mathcal R[a,b]$ be the vector space of real-valued regulated functions on $[a,b] \subseteq \mathbb R$, hence
+  \[ \mathcal R[a,b] \coloneqq \setdef{f: [a,b] \to \mathbb R}{f \text{ is a regulated function}} \]
+  annotated with a norm $\norm{\cdot}_\infty$ of Sheet 4 Exercise 3.
+  Prove that $(\mathcal R[a,b], \norm{\cdot}_\infty)$
+  is a complete normed vector space with a sequentially non-compact unit sphere.
+\end{ex}
+
+\section{Sheet 5, Exercise 2}
+\begin{ex}
+  Let $f, b \in \mathcal R[a,b]$ with
+  \[ f_+(x) = g_+(x) \qquad \forall x \in [a,b) \]
+  \[ f_-(x) = g_-(x) \qquad \forall x \in (a,b] \]
+  \begin{enumerate}
+    \item For $\alpha,\beta \in [a,b]: \int_\alpha^\beta f(x) \, dx = \int_\alpha^\beta g(x) \, dx$ holds.
+    \item For every antiderivative $F: [a,b] \to \mathbb R$ of $f$ there exists an antiderivative $G: [a,b] \to \mathbb R$ of $g$ with $F(x) = G(x)$ for all $x \in [a,b]$.
+  \end{enumerate}
+\end{ex}
+
+\section{Sheet 5, Exercise 2a}
+
+Let $f,g \in \mathcal R[a,b]$.
+\[ F'_+(x) \coloneqq f_+(x) = g_+(x) \]
+\[ F'_-(x) \coloneqq f_-(x) = g_-(x) \]
+Show: $\int_\alpha^\beta f(x) \, dx = \int_\alpha^\beta g(x) \, dx$.
+
+In general $f_+(x) \neq f(x) \neq f_-(x)$.
+
+\[ F \coloneqq \int f(x) \, dx \]
+\[ G \coloneqq \int g(x) \, dx \]
+
+\[ \int_\alpha^\beta f(x) \, dx = \left. F \right|_\alpha^\beta \overset{(b)}{=} \underbrace{F(\beta) + K}_{G(\beta)} - \underbrace{(F(\alpha) - K)}_{G(\alpha)} = \int_\alpha^\beta g(x) \, dx \]
+
+\section{Sheet 5, Exercise 2b}
+$F$ is an antiderivative of $f$ if and only if
+\[ F = \int f(x) \, dx \]
+\[ F_+'(x) = f_+(x) = g_+(x) = g_+(x) \qquad \forall x \in [a,b) \]
+\[ F_-'(x) = f_-(x) = g_-(x) = g_-(x) \qquad \forall x \in (a,b] \]
+
+
+\section{Sheet 5, Exercise 3}
+\begin{ex}
+  \begin{enumerate}
+    \item Let $f: [a,b] \to \mathbb R$ continuously differentiable with $f(x) \neq 0 \forall x \in [a,b]$. Show that
+      \[ \int_a^b \frac{f'(x)}{f(x)} \, dx = \ln{\card{f(b)}} - \ln{\card{f(a)}} \]
+    \item Determine the value of $I$ using $\cos(x) = \frac12 (\sin{x} + \cos{x} + \cos{x} - \sin{x})$
+      \[ I \coloneqq \int_0^{\frac\pi2} \frac{\cos{x}}{\sin{x} + \cos{x}} \, dx \]
+    \item Determine $I$ using the substitution $y(x) = \frac\pi2 - x$.
+  \end{enumerate}
+\end{ex}
+
+\section{Sheet 5, Exercise 3a}
+\[ \int_a^b \frac{f'(x)}{f(x)} \, dx = \begin{vmatrix} t = f(x) \\ dt = f'(x) \, dx \end{vmatrix} = \int_{f(a)}^{f(b)} \frac{1}{t} \, dt \]
+\[ = \left[\ln\card{t}\right]_{f(a)}^{f(b)} = \ln\card{f(b)} - \ln\card{f(a)} \]
+
+\section{Sheet 5, Exercise 3b}
+\[
+  \int_0^{\frac\pi2} \frac{\cos(x)}{\sin(x) + \cos(x)} = \underbrace{\frac12 \int_0^{\frac\pi2} \frac{\sin(x) + \cos(x)}{\sin(x) + \cos(x)}}_{\frac\pi4} + \frac12 \int_0^{\frac\pi2} \underbrace{\frac{\cos(x) - \sin(x)}{\cos(x) + \sin(x)}}_{f(x)}
+\] \[
+  = \frac\pi4 + \ln{\card{\cos(\frac\pi4) + \sin(\frac\pi2)} - \ln\card{\cos(0) + \sin(0)}}
+\] \[
+  = \frac\pi4 + 0
+\]
+
+\section{Sheet 5, Exercise 3c}
+\[ u(x) = \frac\pi2 - x \]
+\begin{align*}
+  \int_0^{\frac\pi2} \frac{\cos(x)}{\sin(x) + \cos(x)} \, dx
+  &= \int_{\frac\pi2}^0 -\frac{\cos(\frac\pi2 - u)}{\sin(\frac\pi2 - u) + \cos(\frac\pi2 - u)} \, du \\
+  &= \int_0^{\frac\pi2} \frac{\cos(\frac\pi2 - u)}{\sin(\frac\pi2 - u) + \cos(\frac\pi2 - u)} \, du \\
+  &= \int_0^{\frac\pi2} \frac{\sin(u)}{\sin(u) + \cos(u)} \, du \\
+  \implies 2I &= \int_0^{\frac\pi2} \frac{\sin(u)}{\sin(u) + \cos(u)} \, du + \int_0^{\frac\pi2} \frac{\cos(u)}{\sin(u) + \cos(u)} \, du \\
+  2I &= \int_0^{\frac\pi2} \frac{\sin(u) + \cos(u)}{\sin(u) + \cos(u)} \, du \\
+  2I = \frac\pi2 &\iff I = \frac\pi4
+\end{align*}
+
+\section{Sheet 5, Exercise 4}
+\begin{ex}
+  \begin{enumerate}
+    \item Evaluate using integration by parts: $\int_0^\pi (\sin{x})^2 \, dx$
+    \item Determine (for $n \in \mathbb N$) by integration by parts: $\int_0^{\frac\pi2} (\cos{x})^{2n} \, dx$
+    \item Determine by integration by parts followed by substitution: $\int_0^1 \log(x  + 1) \, dx$
+  \end{enumerate}
+\end{ex}
+
+\section{Sheet 5, Exercise 4a}
+
+Let $u \coloneqq \sin(x)$, $u' = \cos(x)$, $v' \coloneqq \sin(x)$ and $v = -\cos(x)$.
+
+\begin{align*}
+  \int_0^\pi (\sin(x))^2 \, dx
+    &= \left[-\sin(x) \cos(x)\right]_0^\pi - \int_0^\pi -\cos(x) \cos(x) \, dx \\
+    &= \int_0^\infty 1 - \int_0^\pi \sin(x)^2 \, dx \\
+  \iff \int_0^\pi 2 \cdot \sin(x)^2 \, dx = \int_0^\infty 1 = \pi \\
+    &= \frac\pi2
+\end{align*}
+
+\section{Sheet 5, Exercise 4b}
+
+Let $n \in \mathbb N \setminus \set{0}$.
+\[ \int_0^{\frac\pi2} (\cos(x))^{2n} \, dx \]
+
+We prove by complete induction:
+Consider $n = 0$.
+\[ \int_0^{\frac\pi2} (\cos(x))^{2n} \, dx = \frac\pi2 \]
+
+Consider $n - 1 \to n$.
+\[ \int_0^{\frac\pi2} \cos(x)^{2n+2} \, dx = \int_0^{\frac\pi2} \underbrace{\cos(x)^{2n+1}}_{u} \underbrace{\cos(x)}_{v'} \, dx \]
+\begin{align*}
+  \int_0^{\frac\pi2} (\cos(x))^2 &= \frac\pi4 \\
+  \text{By induction hypothesis } \int_0^{\frac\pi2} \cos(x)^{2n} \, dx &= \frac{2n-1}{2n} \int_0^{\frac\pi2} \cos(x)^{2(n-1)} \\
+    &= \begin{vmatrix}
+      u' &= -(2n + 1) \sin(x) \cos(x)^{2n} \\
+      v &= \sin(x)
+    \end{vmatrix}
+\end{align*}
+
+
+\[
+  [\cos(x)^{2n+1} \cdot \sin(x)]_0^{\frac\pi2} + (2n+1) \cdot \int_0^{\frac\pi2} \cos(x)^{2n} \cdot \sin(x)^2 \, dx
+    = (2n + 1) \cdot \int_0^{\frac\infty2} \cos(x)^{2n} \, dx - (2n+1) \int_0^{\frac\pi2} \cos(x)^{2n+2} \, dx
+\] \[
+  \implies (2n + 2) \int_0^{\frac\pi2} \cos(x)^{2n+2} \, dx = (2n + 1) \int_0^{\frac\pi2} \cos(x)^{2n} \, dx
+\] \[
+  \implies \int_0^{\frac\pi2} \cos(x)^{2n+2} \, dx = \frac{(2n+1)}{2n+2}\int_0^{\frac\pi2} \cos(x)^{2n} \, dx
+\] \[
+  \frac{2n-1}{2n} \cdot \frac{2n-3}{2n-2} \cdot \ldots \cdot \frac12 \cdot \frac\pi2
+\]
+
+\section{Sheet 5, Exercise 4c}
+
+\[
+  \int_0^1 x \cdot \log(x + 1) \, dx
+    = \begin{vmatrix}
+      u' = x  \qquad & u = \frac{x^2}{2}   \\
+      v = \log(x+1) \qquad & v' = \frac1{1+x}
+    \end{vmatrix}
+\] \[
+  \left[\frac{x^2}{2} \log(x+1)\right]_0^1 - \int_0^1 \left(\frac{x^2}2 \cdot \frac{1}{1+x}\right) \, dx \qquad u(x) = 1 + x
+\] \[
+  = \left[\frac{x^2}{2} \log(x+1)\right]_0^1 - \frac12 \underbrace{\int_1^2 (u - 1)^2 \cdot \frac1u \, du}_{\int_1^2 \left(\frac{u^2 + 1 - 2u}{u}\right) \, du = \int_1^2 u + \frac1u - 2 \, du}
+\] \[
+  \frac{\log(2)}{2} - \frac12 \left[\frac{u^2}{2} + \log(u) - 2u\right]_1^2 = \frac14
+\]
+
+It is valid to assume that $\log = \ln$ in this exercise, because it is not specified otherwise.
+But you can also consider a factor $a$, which normalizes it to $\ln$.
+
 \end{document}
