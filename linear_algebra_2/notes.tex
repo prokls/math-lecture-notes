@@ -80,7 +80,10 @@
 \DeclareMathOperator{\perm}{perm}
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\degree}{deg}
+\DeclareMathOperator{\im}{image}
+\DeclareMathOperator{\ke}{kern}
 \DeclareMathOperator{\prop}{probability}
+\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\argmax}{argmax}
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\vol}{vol}  % volume
@@ -184,6 +187,7 @@ Leibniz was not the first discovering it. The result was found before 1685 by Se
 
 \subsection{Definition}
 
+\index{Determinant of a matrix}
 \[ \det{\begin{pmatrix} a & b \\ c & d \end{pmatrix}} \eqqcolon ad - bc \eqqcolon \begin{vmatrix} a & b \\ c & d \end{vmatrix} \]
 \index{Determinant of a matrix}
 is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$}.
@@ -214,6 +218,7 @@ is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatr
     \[ \det\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = 1 \]
 \end{itemize}
 
+\index{Bilinearity}
 \begin{theorem} % section 7.3
   The properties 1--3 characterize the determinant.
   If $\varphi: \mathbb K^2 \times \mathbb K^2 \to \mathbb K$.
@@ -3149,12 +3154,12 @@ Back to the scalar product:
 \begin{definition} % 8.36
   Let $(v, \ip ,)$ be a vector space with scalar product.
   A family $(v_i)_{i \in I} \subseteq V$ is called
-  \begin{enumerate}
-    \item \emph{orthogonal} if $\forall i \neq j: \ip{v_i}{v_j} = 0$
-    \item \emph{orthonormal} if additionally $\norm{v_i} = 1 \forall i$ \\
-      hence $\forall i,j: \ip{v_i,v_j} = \delta_{ij}$
-    \item \emph{orthonormal basis} if they are orthonormal and give a basis of $V$.
-  \end{enumerate}
+  \begin{description}
+    \item[orthogonal] if $\forall i \neq j: \ip{v_i}{v_j} = 0$
+    \item[orthonormal] if additionally $\norm{v_i} = 1 \forall i$ \\
+      hence $\forall i,j: \ip{v_i}{v_j} = \delta_{ij}$
+    \item[orthonormal basis] if they are orthonormal and give a basis of $V$.
+  \end{description}
 \end{definition}
 
 \begin{example} % 8.37
@@ -4037,4 +4042,346 @@ Hence,
   \[ \implies \ip{x^n}{D^*(x)} = \ip{D(x^n)}{x} = \int_0^1 n t^{n-1} t \, dt = \frac{n}{n+1} \]
 \end{example}
 
+\dateref{2018/05/02}
+
+\index{Involution}
+Riesz representation theorem \\
+$V$ with scalar product \\
+$\operatorname{Hom}(V, \mathbb K) \simeq V$ where $\simeq$ is antilinear \\
+$\forall f \in \operatorname{Hom}(V, \mathbb K): \exists! y \in V: f = T_y$ \\
+\[ T_y(x) = \ip xy \]
+\[ T_{\lambda x + \mu y} = \overline{\lambda} T_x + \overline\mu T_y \]
+For $f \in \operatorname{Hom}(V, W)$, the map $x \mapsto \ip{f(x)}{y} \in \operatorname{Hom}(V, \mathbb K)$
+\[ \implies \exists! z \in V: \forall x \in V: \ip{f(x)}{y} = \ip xz \]
+\[ z \eqqcolon f^*(y) \text{ \dots adjoint map} \]
+\[ f^*: W \to V \text{ is linear} \]
+\[ \operatorname{Hom}(V, W) \to \operatorname{Hom}(W, V) \]
+\[ f \mapsto f^* \]
+is an antilinear \emph{involution}.
+\[ f^{**} = f \]
+
+\begin{theorem} % 8.65
+  Let $B \subseteq V, C \subseteq W$ be orthonormal bases. $f \in \operatorname{Hom}(V, W)$.
+  \[ \Phi_B^C(f^*) = \Phi_C^B(f)^* = \overline{\Phi_C^B(f)^T} \]
+\end{theorem}
+
+\begin{proof}
+  \[ A = \Phi_C^B(f) \]
+  Column $s_j(A)$ is the coordinate of $b_j \in B$ in regards of basis $C$.
+  \begin{align*}
+    a_{ij} &= \text{ i-th coordinate of } f(b_j) \\
+      &= \Phi_C(f(b_j))_i = \ip{f(b_j)}{c_i} \\
+      &= \ip{b_j}{f^*(c_i)} = \overline{\ip{f^*(c_i)}{b_j}} \\
+      &= \text{ j-th coordinate of } f^*(c_i) \\
+      &= \overline{\Phi_B^C(f^*)_{ji}} = \overline{\tilde{a}_{ji}}
+  \end{align*}
+  if $\tilde A = \Phi_B^C(f^*)$
+\end{proof}
+
+\begin{theorem} % 8.66
+  Let $U, V, W$ be finite-dimensional.
+  \[ U \xrightarrow f V \xrightarrow g W \]
+  \begin{enumerate}
+    \item $(g \circ f)^* = f^* \circ g^*$
+    \item $f^{**} = f$
+    \item $\ker{f} = (\im{f^*})^\bot$
+    \item $\im{f} = (\ke{f^*})^\bot$
+    \item $f$ injective $\iff f^*$ surjective
+    \item $f$ surjective $\iff f^*$ injective
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \begin{enumerate}
+    \item Let $u \in V, w \in W$
+      \begin{align*}
+        \ip{(g \circ f)(u)}{w}_W &= \ip{g(f(u))}{w}_W \\
+          &= \ip{f(u)}{g^*(w)}_V \\
+          &= \ip{u}{f^*(g^*(w))}_U
+      \end{align*}
+      holds $\forall u \in U \forall w \in W$. By definition
+      \[ \ip{(g \circ f)(u)}{w}_W = \ip{u}{(g \circ f)^*(w)} \]
+      Hence,
+      \[ \implies (g \circ f)^* = f^* \circ g^* \]
+    \item[3.] Show that
+      \begin{itemize}
+        \item $\ke{f} \subseteq (\im{f^*})^\bot$
+        \item $(\im{f^*})^\bot \subseteq \ke{f}$
+      \end{itemize}
+      Proof:
+      \begin{itemize}
+        \item Let $u \in \ke{f}$. Show that $\forall y \in \im{f^*}: \ip uy = 0$
+          \[ y \in \im{f^*} \implies \exists v \in V: y = f^*(v) \]
+          \[ {\ip uy}_U = \ip{u}{f^*(v)}_U = \ip{\underbrace{f(u)}_{=0}}{v}_V = 0 \]
+        \item Let $u \in (\im{f^*})^\bot$, hence $\forall v \in V: u \bot f^*(v)$.
+          Hence $\forall v in V: \ip{u}{f^*(v)}_U = 0$.
+          \[ \forall v \in V: \ip{f(u)}{v}_V = 0 \]
+          \[ \implies f(u) \ in V^\bot = \set{0} \]
+          \[ \implies u \in \ke{f} \]
+      \end{itemize}
+    \item[4.]
+      Apply (3) to $f^*$.
+      \[ \ke{f^*} = (\im{f^{**}})^\bot = (\im{f})^\bot \]
+      \[ \implies \left(\ke{f^*}\right)^\bot = (\im{f})^{\bot\bot} \underbrace{=}_{\dim < \infty} \im{f} \]
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}[Addition to Theorem~\ref{thm841}]
+  So, if subspace $U \subseteq V$. Then $U^{\bot\bot} = U$.
+
+  Proof: It holds that $U \dot{+} U^\bot = V$ and $U^\bot \dot{+} U^{\bot\bot} = V$.
+  $U \subseteq U^{\bot\bot}$ and $\dim{U} = \dim{U}^{\bot\bot} \implies U = U^{\bot\bot}$.
+\end{remark}
+
+\index{Self-adjoint map}
+\index{Unitary transformation}
+\index{Linear isometry}
+\begin{definition} % 8.67
+  Let $V$ be a vector space with scalar product.
+  \begin{enumerate}
+    \item $f: V \to V$ is called \emph{self-adjoint}, if $f = f^*$.
+      Hence $\forall x, y \in V: \ip{f(x)}{y} = \ip{x}{f(y)} \iff \Phi_B^B(f) = \Phi_B^B(f)^*$
+      if $B$ is orthonormal basis of $V$.
+    \item
+      $f \in \Hom(V,W)$ is called \emph{unitary transformation} or \emph{linear isometry} if
+      \[ \forall x,y \in V: \ip{f(x)}{f(y)} = \ip{x}{y} \]
+      esp. $\norm{f(x)} = \norm{x}$, hence lengths (and also angles) are preserved. \\
+      \emph{mostly} it is additionally required that $f$ is invertible.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark} % Bemerkung 8.68
+  \label{bem868}
+  \begin{enumerate}
+    \item Unitary transformations are injective.
+    \item If $\dim{V} = \dim{W} < \infty$ and $f: V \to W$ is linear and unitary,
+    then $f$ is regular and $f^{-1} = f^*$.
+    \item If $\dim{V} = \infty$, $f: V \to V$ is isometry, it does not imply that $f$ is invertible.
+  \end{enumerate}
+\end{remark}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Immediate: $f(v) = 0 \implies \norm{f(v)} = \norm{v} = 0 \implies v = 0$
+      \[ \ke{f} = \set{0} \]
+    \item $f$ unitary $\xRightarrow{(1.)}$ $f$ injective $\implies$ $f$ surjective.
+      \begin{align*}
+        \forall x,y \in V: \ip xy &= \ip{f(x)}{f(y)} \\
+          &= \ip{x}{f^* \circ f(y)}
+      \end{align*}
+      hence for fixed $y$, it holds that
+      \begin{align*}
+        \forall x \in V: \ip{x}{y} &= \ip{x}{f^* \circ f(y)} \\
+          & \implies y = f^* \circ f(y) \text{ for all } y \implies f^* \circ f = \operatorname{id}
+      \end{align*}
+    \item $V = l^2 = \setdef{(x_n)_n}{\sum \card{x_n}^2 < \infty}$
+      \[ S: l^2 \to l^2 \]
+      \[ (x_1, x_2, \dots) = (0, x_1, x_2, \dots) \]
+      \[ \norm{S(x)} = \norm{x} \]
+      \begin{align*}
+        \ip{S(x)}{S(y)} &= \ip{(0, x_1, x_2, \ldots)}{()} \\
+          &= 0 + \sum_{i=1}^\infty x_i \overline{y_i} \\
+          &= \ip xy \\
+        \ip{x}{S^*y} &= \ip{Sx}{y} \\
+          &= \ip{(0, x_1, x_2, \dots)}{(y_1, y_2, \dots)} \\
+          &= 0 \cdot \overline{y_1} + x_1 \cdot \overline{y_2} + x_2 \cdot \overline{y_3} + \dots \\
+          &= \ip{(x_1, x_2, \dots)}{(y_1, y_2, \dots)} \\
+        S^*(y_1, y_2, \dots) &= (y_2, y_3, \dots) \\
+        \ip{S_x}{S_y} &= \ip{x}{S^*Sy} \forall x,y \\
+          &\implies S^* \circ S = \operatorname{id} \\
+        \text{but } S \circ S^*(x_1, x_2, \dots)
+          &= S(x_2, x_3, \dots) \\
+          &= (0, x_2, x_3, \dots) \\
+          &\implies S \circ S^* \neq \operatorname{id} \\
+          & S \text{ is not invertible}
+      \end{align*}
+      This shifting of indices works in a finite number of dimensions, but does not work in infinity (in this case you miss one dimension).
+  \end{enumerate}
+\end{proof}
+
+\index{Unitary matrix}
+\index{Orthogonal matrix}
+\index{Isometry}
+\begin{definition} % 8.69
+  \begin{enumerate}
+    \item A matrix $U$ is called \emph{unitary} if $U^* U = I$
+    \item A matrix $U \in \mathbb R^{n\times n}$ is called \emph{orthogonal} if $U^T U = I$
+  \end{enumerate}
+\end{definition}
+\begin{theorem} % 8.70
+  For a matrix $T \in \mathbb C^{n \times n}$ it holds equivalently:
+  \begin{enumerate}
+    \item $T$ is unitary ($T^* \cdot T = I$)
+    \item $\forall x \in \mathbb C^n: \norm{Tx} = \norm{x}$ (isometry)
+    \item $\forall x,y \in \mathbb C^n: \Re{\ip{Tx}{Ty}} = \Re{\ip xy}$
+    \item $\forall x,y \in \mathbb C^n: \ip{Tx}{Ty} = \ip xy$
+    \item The columns of $T$ define an orthonormal basis of $\mathbb C^n$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[1. $\to$ 2.]
+      \[ \norm{Tx}^2 = \ip{Tx}{Ty} = \ip{x}{T^*Tx} = \ip{x}{Ix} = \norm{x}^2 \]
+    \item[2. $\to$ 3.]
+      \begin{align*}
+        \norm{T(x+y)}^2 &= \norm{x+y}^2 \\
+        \norm{T(x-y)}^2 &= \norm{x-y}^2 \\
+        \norm{Tx + Ty}^2 &= \norm{Tx}^2 + 2\Re{\ip{Tx}{Ty}} + \norm{Ty}^2 \\
+        \norm{Tx - Ty}^2 &= \norm{Tx}^2 - 2\Re{\ip{Tx}{Ty}} + \norm{Ty}^2  \\
+      \hline
+        \norm{Tx + Ty}^2 - \norm{Tx - Ty}^2 &= 4\Re{\ip{Tx}{Ty}} \\
+        \text{analogously, } \norm{x + y}^2 - \norm{x - y}^2 &= 4\Re{\ip xy} \\
+      \hline
+        \implies \Re{\ip{Tx}{Ty}} &= \Re{\ip xy}
+      \end{align*}
+    \item[3. $\to$ 4.]
+      \[ \Re{\ip{Tx}{Ty}} = \Re{\ip xy} \qquad \forall x,y \in \mathbb C^{n} \]
+      also holds for $i \cdot y$ instead of $y$
+      \[ \Re{\ip{Tx}{iTy}} = \Re{\ip{x}{iy}} \qquad \forall x,y \in \mathbb C^n \]
+      \[ \Re\left(-i \ip{Tx}{Ty}\right) = \Re(-i \ip xy) \]
+      \begin{align*}
+        \Re(-i(a + ib)) &= \Re(-ia + b) = b \\
+        \Re(-i \cdot z) &= \Im({z})
+      \end{align*}
+      \[ \Im{\ip{Tx}{Ty}} = \Im{\ip{x}{y}} \qquad \forall x,y \in \mathbb C^n \]
+      $\Re$ and $\Im$ are equivalent.
+      \[ \implies \ip{Tx}{Ty} = \ip xy \qquad \forall x,y \]
+      (this is a common proof pattern, that you only show it for $\Re$ and $\Im$ follows immediately)
+    \item[4. $\to$ 5.]
+      $e_1, \dots, e_n$ define some orthonormal basis.
+      \[ \implies (Te_1, \dots, Te_n) \text{ is orthonormal basis} \]
+      \[ u_i = T_{e_i} = \text{ i-th column of } T \]
+      \[ \ip{u_i}{u_j} = \ip{Te_i}{Te_j} = \ip{e_i}{e_j} = \delta_{ij} \]
+    \item[5. $\to$ 4.]
+      $(T^* T)_{ij}$ is the $i$-th column vector of $T^*$ times the $j$-th column vector of $T$.
+      \[ u_j^* \cdot u_j = \ip{u_j}{u_i} = \delta_{ji} \]
+      \[
+        \implies T^* T = \begin{bmatrix}
+          1 & \dots & 0 \\
+            & \ddots & \\
+          0 & \dots & 1
+        \end{bmatrix}
+        = I
+      \]
+  \end{description}
+\end{proof}
+
+What do isometries of $\mathbb R^n$ or $\mathbb C^n$ look like?
+
+\index{Isometry}
+\begin{definition}
+  An isometry between two metric spaces $(M_1, d_1)$ and $(M_2, d_2)$.
+  Metric $d$:
+  \begin{align*}
+    d(x,y) &\geq 0 \\
+    d(x,y) = 0 &\iff x = y \\
+    d(x,y) \leq d(x,z) + d(z,y)
+  \end{align*}
+  is a map $f: M_1 \to M_2$ such that
+  \[ d_2(f(x), f(y)) = d_1(x, y) \]
+  Every normed space has metric $d(x,y) = \norm{x - y}$.
+  An isometry between two spaces is a (not necessarily linear) map $f: V \to W$ such that
+  $\norm{f(x) - f(y)} = \norm{x - y}$.
+\end{definition}
+
+\begin{example}[Translation]
+  \[ x_0 \in V \qquad T_{x_0}: V \to V \qquad x \mapsto x + x_0 \]
+  is isometry, but is not unitary because non-linear\footnote{$0$ is not mapped to $0$, but $x_0$}
+  \[ \norm{T_{x_0}(x) - T_{x_0}(y)} = \norm{x + x_0 - (y + x_0)} = \norm{x - y} \]
+\end{example}
+
+Other examples in $\mathbb R^n$:
+\begin{enumerate}
+  \item rotation
+  \item reflection
+  \item unitary/orthogonal map
+\end{enumerate}
+
+\begin{example}[Rotation in $\mathbb R^2$]
+  \[ U(e_1) = \vectwo{\cos\alpha}{\sin\alpha} \]
+  \[ U(e_2) = \vectwo{-\sin\alpha}{\cos\alpha} \]
+  Compare with Figure~\ref{img:rotr2}.
+  \[
+    U_{\alpha} = \begin{bmatrix}
+      \cos\alpha & \dots & -\sin\alpha \\
+                 & \ddots & \\
+      \sin\alpha & \dots & \cos\alpha
+    \end{bmatrix}
+    = \begin{bmatrix} 1 & \\ & 1 \end{bmatrix} \cdot \cos{\alpha} + \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot \sin\alpha
+  \]
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/13_rotation.pdf}
+      \caption{Rotation in $\mathbb R^2$}
+      \label{img:rotr2}
+    \end{center}
+  \end{figure}
+\end{example}
+
+\begin{example}[Rotation considered as motion]
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/14_rotation_as_motion.pdf}
+      \caption{Rotation in $\mathbb R^2$ considered as motion. Commonly done by physicists.}
+      \label{img:rotr2mot}
+    \end{center}
+  \end{figure}
+
+  Tangent $a$:
+  \[ \vectwo{x(t)}{y(t)} = \vectwo{\dot{x}(t)}{\dot{y}(t)} \]
+  \[ \vec x(t) \bot \vec{x}(t) \]
+  \[ \dot\vec{x}(t) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \vec{x}(t) \]
+  \[ \vec{x}(t) = e^{\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} t} \cdot \vec{x_0} \]
+  Compare with Figure~\ref{img:rotr2mot}.
+
+  \[ x'(t) = a\cdot x(t) \implies x(t) = c \cdot e^{at} \]
+  \[ \frac{dx}{dt} = ax \]
+  \[ dx = ax \cdot dt \]
+  \[ \int \frac{dx}{x} = \int a \cdot dt \]
+  \[ \log{x} = at + C \]
+  \[ x = C_1 \cdot e^{at} \]
+
+  \[ e^x = \sum_{n=0}^\infty \frac{x^n}{n!} \]
+  \[ e^{\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}t} = \sum_{n=0}^\infty \frac{\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^n}{n!} t^n \]
+  \[ e^{it} = \cos{t} + i \cdot \sin{t} \]
+  insert $\sum_{n=0}^\infty \frac{(it)^n}{n!}$ and split $\Re$ and $\Im$.
+
+  \[ \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^2 = \begin{bmatrix} -1 & \\ & -1 \end{bmatrix} \]
+  \[ \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^3 = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \]
+  \[ \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}^4 = \begin{bmatrix} 1 &  \\  & 1 \end{bmatrix} \]
+
+  \[ i^2 = -1 \qquad i^3 = -i \qquad i^4 = 1 \]
+
+  \[
+    e^{\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} t} = \cos(t) \cdot \begin{bmatrix} 1 & \\ & 1 \end{bmatrix} + \sin(t) \cdot \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} 
+  \] \[
+    U_{\alpha + \beta} = U_{\alpha} \cdot U_{\beta}
+  \] \[
+    \begin{bmatrix}
+      \cos(\alpha + \beta) & -\sin(\alpha + \beta) \\
+      \sin(\alpha + \beta) & \cos(\alpha + \beta)
+    \end{bmatrix} =
+    \begin{bmatrix}
+      \cos\alpha & -\sin\alpha \\
+      \sin\alpha & \cos\alpha
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      \cos\beta & -\sin\beta \\
+      \sin\beta & \cos\alpha
+    \end{bmatrix} =
+    \begin{bmatrix}
+      \cos\alpha \cos\beta - \sin\alpha \sin\beta & -\cos\alpha \cos\beta - \sin\alpha \sin\beta \\
+      \sin\alpha \cos\beta + \cos\alpha \sin\beta & \sin\alpha \cos\beta + \cos\alpha \sin\beta
+    \end{bmatrix}
+  \]
+\end{example}
+
+\begin{example}[Reflection in $\mathbb R^2$]
+  \[ S(e_1) = \begin{bmatrix} \cos(2\varphi) \\ \sin(2\varphi) \end{bmatrix} \]
+  \[ S(e_2) = \begin{bmatrix} \cos(2\varphi - \frac\pi2) \\ \sin(2\varphi - \frac\pi2) \end{bmatrix} = \begin{bmatrix} \sin(2\varphi) \\ -\cos(2\varphi) \end{bmatrix} \]
+  \[ \frac\pi2 - 2\psi = \frac\pi2 - 2(\frac\pi2 - \varphi) = 2\varphi - \frac\pi2 \]
+  \[ S = \begin{bmatrix} \cos(2\varphi) & \sin(2\varphi) \\ \sin(2\varphi) & -\cos(2\varphi) \end{bmatrix} \]
+\end{example}
+
+\printindex
 \end{document}
