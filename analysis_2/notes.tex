@@ -2903,7 +2903,253 @@ such that $\forall x \in X$ and $\forall n \geq N$ it holds that
 \end{remark}
 
 \begin{theorem} % Satz 1
+  \label{satz1cont}
   Let $X$ be a metric space, $f_n: X \to \mathbb C$ be a sequence of continuous functions and $f: X \to \mathbb C$ such that
   $f_n \to f$ uniform on $X$. Then $f$ is also continuous on $X$.
 \end{theorem}
+
+\dateref{2018/05/03}
+
+\begin{proof}
+  Let $\varepsilon > 0$ be arbitrary.
+  Choose $x \in X$. Show: $f$ is continuous in $x$.
+
+  Compare with Figure~\ref{img:uniconv}.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/25_uniform_convergence_of_fN_to_f.pdf}
+      \caption{Uniform convergence of $f_N$ to $f$}
+      \label{img:uniconv}
+    \end{center}
+  \end{figure}
+
+  Because of uniform convergence $f_n \to f$, there exists $N \in \mathbb N$ such that $\card{f_N(z) - f(z)} < \frac\varepsilon3 \forall z \in X$.
+  Let $N$ be fixed. Because $f_N$ is continuous in $x$, there exists $\delta > 0$ such that $d(x, \xi) < \delta \implies \card{f_N(\xi) - f_N(x)} < \frac\varepsilon3$.
+
+  We consider now $\xi \in X$ with $d_X(x, \xi) < \delta$. Then it holds that
+  \begin{align*}
+    \card{f(x) - f(\xi)}
+      &= \card{f(x) - f_N(x) + f_N(x) - f_N(\xi) + f_N(\xi) - f(\xi)} \\
+      &\leq \underbrace{\card{f(n) - f_N(x)}}_{< \frac\varepsilon2} + \underbrace{\card{f_N(x) - f_N(\xi)}}_{< \frac\varepsilon3} + \underbrace{\card{f_N(\xi) - f(\xi)}}_{< \frac\varepsilon3} \\
+      &= \varepsilon
+  \end{align*}
+  by uniform convergence, by continuity and by uniform convergence respectively.
+
+  Thus, $f$ is continuous in $x$.
+\end{proof}
+
+\begin{theorem} % Satz 2
+  Let $P(z) = \sum_{k=0}^\infty a_k z^k$ be a power series in $\mathbb C$ with convergence radius $\rho_P > 0$.
+  Furthermore, let $0 < r < \rho_P$.
+  Let $P_n(z) = \sum_{k=0}^n a_k z^k$ ($n$-th partial sum of $P$).
+  Then $P_n \to P$ uniformly on $\overline{K_r(0)}$.
+\end{theorem}
+
+\begin{remark}
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/26_uniform_convergence.pdf}
+      \caption{We cannot make a general statement about convergence/divergence. But on every small closed sphere $P$ converges absolutely for every $z$}
+      \label{img:uconv}
+    \end{center}
+  \end{figure}
+\end{remark}
+
+\begin{proof}
+  Approximation theorem for power series.
+  Lettl Analysis 1, lecture notes, section 5, theorem~10.
+
+  Let $0 < r < \rho_P$. Choose $\overline{r}$ with $r < \overline{r} < \rho_P$.
+  Then it holds for $z \in \overline{K_r(0)}$ that
+  \[ \card{P(z) - P_n(z)} < \frac{\overline{r}}{\overline{r} - r} \cdot \left(\frac{r}{\overline{r}}\right)^n \]
+  \[ \frac{r}{\overline{r}} < 1 \]
+  hence $\left(\frac{r}{\overline{r}}\right)^n$ is arbitrary small, for every $n$ sufficiently large.
+  \[ \implies \sup\set{\card{P(z) - P_n(z): z \in \overline{K_r(0)}}} \leq \underbrace{\frac{\overline r}{\overline r - r}}_{\text{fixed}} \cdot \underbrace{\left(\frac{r}{\overline{r}}\right)^n}_{\substack{\text{arbitrary small for $n$} \\ \text{sufficiently large}}} \]
+  Hence, $P_n \to P$ uniform on $\overline{K_r(0)}$.
+\end{proof}
+
+\begin{corollary}
+  $P$ is continuous on $K_{\rho_P}(0)$.
+\end{corollary}
+
+\begin{theorem}
+  Let $I \subseteq \mathbb R$ be an interval.
+  Let $f_n: I \to \mathbb R$ be continuously differentiable on $I \forall n \in \mathbb N$.
+  It holds that
+  \begin{enumerate}
+    \item $\exists g: I \to \mathbb R$ such that $f_n' \to g$ uniform on $I$
+    \item $\exists f: I \to \mathbb R$ such that $\forall x \in I$ it holds that $f(x) = \lim_{n\to\infty} f_n(x)$ (\enquote{pointwise convergence}).
+  \end{enumerate}
+  Then it holds that $f$ is continuously differentiable on $I$ and $g = f'$.
+\end{theorem}
+
+\begin{proof}
+  $g$ is continuous as uniform limit of continuous $f_n'$ (Theorem~\ref{satz1cont}).
+  For $f_n$, the Fundamental Theorem of Differential Calculus can be applied ($f_n'$ is continuous, hence a regulated function).
+  Let $x_0 \in I$. Then it holds that
+  \[ f_n(x) = f_n(x_0) + \int_{x_0}^x f_n'(\xi) \, d\xi \]
+  Convergence for $n \to \infty$:
+  \[ f_n(x) \to f(x) \qquad f_n(x_0) \to f(x_0) \]
+  (Pointwise convergence)
+  \[ \int_{x_0}^x f_n'(\xi) \, d\xi \to \int_{x_0}^x g(\xi) \, d\xi \]
+  Therefore, for $n \to \infty$,
+  \[ f(x) = f(x_0) + \int^x_{x_0} g(\xi) \, d\xi \]
+  The right-hand side is continuously differentiable by $x$ according to the Fundamental Theorem, variant 1,
+  with
+  \[ \left(f(x_0) + \int_{x_0}^x g(\xi) \, d\xi\right)'(x) = g(x) \]
+  Hence, by $f(x) = f(x_0) + \int^x_{x_0} g(\xi) \, d\xi$ it follows that
+  \[ f'(x) = g(x) \qquad \forall x \in I \]
+\end{proof}
+
+To finish our proof, we need a result we missed in the section about Integrals.
+
+\begin{lemma}
+  Let $(f_n)_{n \in \mathbb N}$ be a sequence of regulated functions on $[a,b]$ and
+  $f_n \to f$ uniform on $[a,b]$. Then it holds that
+  \[ \int_a^b \card{f_n - f} \, dx \to 0 \qquad \text{ for } n \to \infty \qquad \text{ especially } \int_a^b f_n \, dx \to \int_a^b f \, dx \]
+\end{lemma}
+
+\begin{proof}
+  $f$ as a uniform limit of regulated functions is a regulated function.
+  The proof has been done in the practicals.
+
+  Let $N \in \mathbb N$ large enough such that
+  \[ \forall n \geq N \forall x \in [a,b]: \card{f_n(x) - f(x)} < \frac{\varepsilon}{b - a} \]
+  Then it holds that
+  \[ \int_a^b \card{f_n(x) - f(x)} \, dx < \int_a^b \frac{\varepsilon}{b - a} \, dx = \frac{\varepsilon}{b - a} (b - a) = \varepsilon \]
+  Hence,
+  \[ \lim_{n\to\infty} \int_a^b \card{f_n(x) - f(x)} \, dx = 0 \]
+  \[ \underbrace{\card{\int_a^b f_n \, dx - \int_a^b f \, dx}}_{\implies \to 0 } \leq \underbrace{\int_a^b \card{f_n - f} \, dx}_{\to 0} \]
+  So,
+  \[ \int_a^b f \, dx = \lim_{n\to\infty} \int_a^b f_n \, dx \]
+\end{proof}
+
+\subsection{Higher derivatives and Taylor's Theorem}
+
+\begin{definition} % Definition 1
+  Let $f: I \to \mathbb R$, $I \subseteq \mathbb R$ is an interval.
+  We define inductively:
+  \[ f^{(0)}(x) = f(x) \]
+  Assume $f^{(n-1)}$ is defined continuously on $I$ and differentiable in $x \in I$.
+  Then we let
+  \[ f^{(n)}(x) = \left(f^{(n-1)}\right)'(x) \]
+  $f^{(n)}(x)$ is called $n$-th derivative of $f$ in $x$.
+  
+  Notational remark:
+  \[ f^{(0)} = f \qquad f^{(1)} = f' \qquad f^{(2)} = f'' \qquad f^{(3)} = f''' \qquad f^{(4)} = f'''' \]
+
+  Furthermore, we let
+  \[ \mathcal C^n(I) \coloneqq \set{f: I \to \mathbb R: f^{(k)}(x) \text{ exists } \forall x \in I \text{ and } x \mapsto f^{(k)}(x) \text{ is continuous } \forall 0 \leq k \leq n} \]
+  We call $\mathcal C$ the space of $n$-times continuously differentiable functions on $I$.
+\end{definition}
+
+\begin{remark}
+  $\mathcal C^n(I)$ is a vector space.
+  If $I = [a,b]$ is compact, then
+  \[ \norm{f}_{\mathcal C^n} = \max\set{\sup{\card{f^{(k)}(x)}: x \in I}: 0 \leq k \leq n} \]
+  defines a norm on $\mathcal C^n(I)$ with $\sup{\card{f^{(k)}(x)}: x \in I} = {\norm{f^{(k)}}_{\infty}}$.
+\end{remark}
+
+\begin{remark}[New topic]
+  Let $f \in \mathcal C^n(I)$ and $x_0 \in I$. Find an appropriate polynomial $T$ which approximated $f$ in an environment of $x_0$ in the \enquote{best} way.
+\end{remark}
+
+\begin{definition} % Definition 2
+  Let $P(x) = \sum_{k=0}^n a_k x^k$ be a polynomial with $a_n \neq 0$
+  (hence degree of $P$ is $n$).
+  \[ P \in \mathbb R[x] \dots \text{ set of all polynomials with coefficients in } \mathbb R \]
+  This set of polynomials is a ring.
+
+  $x_0 \in \mathbb R$ is called $k$-times root of $P$ ($k \in \mathbb N$) if $Q \in \mathbb R[x]$ exists such that
+  $P(x) = (x - x_0)^k Q(x)$ with $Q(x_0) \neq 0$.
+\end{definition}
+
+\begin{remark}
+  $P(x) = (x - x_0)^k \cdot Q(x)$ means that division of $P$ by $(x - x_0)^k$ gives no remainder.
+  Recall that division with remainder means that $\exists \hat Q, \hat R$ that are polynomials of degree $\hat R < k$,
+  \[ P(x) = (x - x_0)^k \cdot \hat Q(x) + \hat R(x) \]
+  $\hat Q, \hat R$ is unique.
+  If $P(x) = (x - x_0)^k \cdot Q(x) \implies \hat R = 0, \hat Q = Q$.
+\end{remark}
+
+\begin{lemma} % Lemma 2
+  Let $P(x) = \sum_{l=0}^n a_l x^l$ with $a_n \neq 0$.
+  Let $1 \leq k \leq n$. Then it holds that $x_0 \in \mathbb R$ is a $k$-times root of polynomial $P \iff$
+  $P^{(j)}(x_0) = 0$ for $j = 0, \ldots, k-1$ and $P^{(k)}(x_0) \neq 0$.
+\end{lemma}
+
+\begin{proof}
+  Proof by complete induction.
+
+  \begin{description}
+    \item[Induction begin]
+      Consider $k=1$. Direction $\implies$.
+
+      Let $x_0$ be a simple root of $P$, then it holds that $P(x) = (x - x_0) \cdot Q(x)$ and $Q(x_0) \neq 0$.
+      Hence, $P(x_0) = (x_0 - x_0) \cdot Q(x_0) = 0$ and $P'(x) = Q(x) + (x - x_0) \cdot Q'(x)$.
+      Thus, $P'(x_0) = Q(x_0) + (x_0 - x_0) \cdot Q'(x_0) = Q(x_0) \neq 0$.
+
+      Direction $\impliedby$.
+
+      Let $P(x_0) = 0$ and $P'(x_0) \neq 0$. Division with remainder: $P(x) = (x - x_0) \cdot Q(x) + R(x)$
+      with $\operatorname{degree}(R) \leq \operatorname{degree}(x - x_0) = 1$. Thus, $R$ is constant.
+      We insert $x_0$. This gives $P(x_0) = (x_0 - x_0) \cdot Q(x_0) + R$ with $P(x_0) = 0$ and $(x_0 - x_0) = 0$.
+      Hence, $R = 0$ is the zero polynomial and $P(x) = (x - x_0) \cdot Q(x)$.
+      It remains to show that $Q(x_0) \neq 0$. $P'(x) = 1\cdot Q(x_0) + (x - x_0) \cdot Q'(x_0)$.
+      We insert $x = x_0 \implies 0 \neq P'(x_0) = Q(x_0) + (x_0 - x_0) \cdot Q'(x)$.
+      Thus is holds that $Q(x_0) = P'(x_0) \neq 0$.
+    \item[Induction step]
+      \begin{claim}[Auxiliary claim]
+        Let $P(x) = (x - x_0) \cdot \tilde P(x)$.
+        Let $P, \tilde P$ be polynomials. Then it holds $\forall j \in \mathbb N$ that
+        \[ P^{(j)}(x) = (x - x_0) \cdot \tilde P^{(j)}(x) + j \cdot \tilde P^{(j-1)}(x) \]
+      \end{claim}
+      \begin{proof}
+        Proof by complete induction.
+
+        Let $j = 1$.
+        \[ P'(x) = 1 \cdot \underbrace{\tilde P(x)}_{\tilde P^{(0)}(x)} + (x - x_0) \cdot \underbrace{\tilde P'(x)}_{\tilde P^{(1)}(x)} \]
+
+        Consider $j \to j + 1$.
+        \begin{align*}
+          P^{(j+1)}(x) &= \left(P^{(j)}\right)'(x) \\
+          &\underbrace{=}_{\substack{\text{induction} \\ \text{assumption}}} ((x - x_0) \cdot \tilde P^{(j)}(x) \\
+          &+ j \tilde P^{(j-1)}(x))' (x - x_0) \tilde P^{(j+1)}(x) + \tilde P^{(j)}(x) + j \cdot \tilde P^{(j)}(x) \\
+          &= (x - x_0) \tilde P^{(j+1)}(x) + (j + 1) \cdot \tilde P^{j}(x)
+        \end{align*}
+      \end{proof}
+
+      We continue with the induction step after verifying our auxiliary claim. Direction $\implies$.
+
+      Let $x_0$ be an $k+1$ times zero of $P$. Hence $P(x) = (x - x_0)^{k+1} \cdot Q(x)$. $Q(x_0) \neq 0$.
+      Let $\tilde P(x) = (x - x_0)^k \cdot Q(x)$. 
+      We can apply the induction assumption on $\tilde P$. Hence
+      \[ \tilde P^{(j)} = 0 \qquad \text{ for } j = 0, \ldots, k-1 \qquad \text{ and } \qquad \tilde P^{(k)}(x_0) \neq 0 \]
+      \[ P(x) = (x - x_0) \cdot \tilde P(x) \]
+      By the auxiliary claim, $P^{(j)}(x) = (x - x_0) \cdot \tilde P^{(j)}(x) + j \cdot \tilde P^{(j-1)}(x)$.
+      Therefore
+      \[
+        P^{(j)}(x_0) = j \cdot \tilde P^{(j-1)}(x) = \begin{cases}
+          0 & \text{ for } j = 0, \dots, k \\
+          (k+1)\tilde P^{(k)}(x_0) \neq 0 & \text{ for } j = k+1
+        \end{cases}
+      \]
+      Hence, our claim about the derivatives is true (all derivatives are zero).
+
+      Direction $\impliedby$.
+
+      Let $P^{(j)}(x_0) = 0$ for $j = 0, \dots, k$ and $P^{(k+1)}(x_0) \neq 0$ and induction assumption holds for $k$.
+      Division with remainder and $P^{(0)}(x_0) = 0 \implies P(x) = (x - x_0) \cdot \tilde P(x)$.
+      By our auxiliary claim, we get
+      \[ P^{(j)}(x) = (x - x_0) \cdot \tilde P^{(j)}(x) + j \tilde P^{(j-1)}(x) \]
+      we insert $x = x_0$ and use $P^{(j)}(x_0) = 0$ for $j = 0, \dots, k$
+      \[ \implies \tilde P^{(j)}(x_0) = 0 \qquad \text{ for } j = 0, \dots, k-1 \]
+      By the induction assumption, $\tilde P(x) = (x - x_0)^k Q(x)$ with $Q(x_0) \neq 0$
+      \[ \implies P(x) = (x - x_0) \cdot \tilde P(x) = (x - x_0)^{k+1} Q(x) \]
+
+  \end{description}
+\end{proof}
+
+
 \end{document}

@@ -101,8 +101,8 @@
 
 % metadata
 \title{
-  Analysis 2 \\
-  \large{Lecture notes, University (of Technology) Graz} \\
+  Analysis 2 Practicals \\
+  \large{Notes, University (of Technology) Graz} \\
   based on the lecture by Wolfgang Ring
 }
 \date{\today}
@@ -114,12 +114,17 @@
 %\setcounter{tocdepth}{2}
 
 \begin{document}
+\maketitle
+\tableofcontents
 
-Florian Kruse
+\section{Practicals}
+\begin{itemize}
+  \item Florian Kruse
+  \item Analysis 2 practicals, every Thu, 15:00--16:30
+  \item Sprechstunde: Tue, 14--15
+\end{itemize}
 
-Sprechstunde: Tue, 14--15
-
-\section{Exercise 01/1}
+\section{Sheet 1, Exercise 1}
 
 \begin{ex}
   The Euclidean norm of $v = (v^1, v^2, \dots, v^n)^T \in \mathbb R^n$ is defined as
@@ -152,7 +157,7 @@ In $\mathbb R^n$, all norms are equivalent.
 This exercise showed this property.
 So it you pick two numbers in $\mathbb R^n$ and they get \enquote{closer}, they get \enquote{closer} in every norm.
 
-\section{Exercise 01/2}
+\section{Sheet 1, Exercise 2}
 
 \begin{ex}
   In the lecture, we discussed the SCNF. $d_{\text{SCNF}}: \mathbb R^2 \times \mathbb R^2 \to \mathbb R$.
@@ -167,7 +172,7 @@ So it you pick two numbers in $\mathbb R^n$ and they get \enquote{closer}, they 
   \[ B_R(x) \coloneqq \setdef{y \in \mathbb R^2}{d_{\text{SCNF}} < R} \]
 \end{ex}
 
-\section{Exercise 01/3}
+\section{Sheet 1, Exercise 3}
 
 \begin{ex}
   Let $(M, d)$ be a metric space and $x \in M$.
@@ -181,7 +186,7 @@ There exists $\varepsilon_0 > 0$ for infinitely many $n \in \mathbb N: d(x_n, x)
 Choose a subsequence $(x_{u_j})_{j\in\mathbb N}$ with $d(x_{n_j}, x) \geq \varepsilon_0 \forall j \in \mathbb N$.
 Then there does not exist a subsequence of $(x_{n_j})$ with limit $x$.
 
-\section{Exercise 01/4}
+\section{Sheet 1, Exercise 4}
 
 \begin{ex}
   Let $(M, d)$ be a metric space and complete space. The diameter of a nonempty set $A \subset M$ is given by
@@ -217,7 +222,7 @@ it follows that $x \in A_j$ and then it follows that $x \in \bigcap_{j=1}^\infty
 
 \dateref{2018/03/22}
 
-\section{Exercise 02/1}
+\section{Sheet 2, Exercise 1}
 
 \subsection{Blackboard solution}
 
@@ -284,7 +289,7 @@ We define $B_i = \set{\sum_{j=1}^i \frac1{j}}$. For all $i$:
     The union is \emph{not} bounded, because $\sum_{j=1}^i \frac1j \in \bigcup_{j=1}^\infty B_j$.
 \end{itemize}
 
-\section{Exercise 02/2}
+\section{Sheet 2, Exercise 2}
 
 \begin{ex}
   Let $(X, d)$ be a sequentially compact, metric space. Show:
@@ -329,7 +334,7 @@ Show that $A \subset X$ is sequentially compact iff $A$ is closed.
     $(x_{n_k})_{k \in \mathbb N} \subset A \implies A$ is sequentially compact.
 \end{description}
 
-\section{Exercise 02/2}
+\section{Sheet 2, Exercise 2}
 
 \begin{ex}
   Let $f: \mathbb R \to \mathbb R$, $f(x) = \sqrt{1 + x^2}$.
@@ -362,14 +367,14 @@ Let $x \in \mathbb R$.
 
 \dateref{2018/04/12}
 
-\section{Exercise 03/4}
+\section{Sheet 3, Exercise 4}
 \begin{ex}
   Let $(X, d)$ be a metric space and $x_0 \in X$. A function $f: X \to \mathbb R$ is called half-continuous from below in $x_0$, if for every $\varepsilon > 0$ some $\delta > 0$ exists, such that $d(x, x_0) < \delta$ implies $f(x_0) - f(x) < \varepsilon$. If $f$ is half-continuous from below in every $x_0 \in X$, then $f$ is called half-continuous from below.
 \end{ex}
 
 Obviously, continuity implies half-continuity.
 
-\subsection{Exercise 03/4a}
+\subsection{Sheet 3, Exercise 4a}
 \begin{ex}
   Give some half-continuous from below $f: [-1, 1] \to \mathbb R$ such that $f$ is non-continuous.
 \end{ex}
@@ -383,19 +388,19 @@ Let $f: [-1,1] \to \mathbb R$.
 \]
 \[ \underbrace{f(-1)}_{=-1} - \underbrace{f(x)}_{\geq -1} \leq 0 < \varepsilon \]
 
-\subsection{Exercise 03/4b}
+\subsection{Sheet 3, Exercise 4b}
 \begin{ex}
   Give some half-continuous from below $f: [-1, 1] \to \mathbb R$, but does not have a maximum.
 \end{ex}
 Same $f$ can be chosen.
 
-\subsection{Exercise 03/4c}
+\subsection{Sheet 3, Exercise 4c}
 \begin{ex}
   Give some half-continuous from below $f: [-1, 1] \to \mathbb R$, but does not have a minimum.
 \end{ex}
 $f$ as $f|_{[-1,1]}$ can be chosen.
 
-\subsection{Exercise 03/4d}
+\subsection{Sheet 3, Exercise 4d}
 \begin{ex}
   Prove that every half-continuous from below function in a compact set has a minimum.
 \end{ex}
@@ -415,7 +420,7 @@ By half-continuity from below, it follows that $\exists \delta > 0: d(x^*, x) < 
 \[ \implies f(x^*) \leq \lim_{k\to\infty} f(x_{n_k}) \implies f(x^*) \leq \lim_{n\to\infty} f(x_n) = f^* \]
 \[ \implies f(x^*) = f^* \implies f^* \text{ is minimum of } f(X) \]
 
-\section{Exercise 03/3}
+\section{Sheet 3, Exercise 3}
 \begin{ex}
   Let $(X, d)$ and $(Y, e)$ be metric spaces, where $d: X \to \mathbb R$ is a discrete metric,
   hence
@@ -427,7 +432,7 @@ By half-continuity from below, it follows that $\exists \delta > 0: d(x^*, x) < 
   \]
 \end{ex}
 
-\subsection{Exercise 03/3a}
+\subsection{Sheet 3, Exercise 3a}
 \begin{ex}
   Every map $f: X \to Y$ is continuous.
 \end{ex}
@@ -438,7 +443,7 @@ Show that
 \[ \exists \delta > 0: d(x, x_0) < \delta \implies d(f(x), f(x_0)) < \varepsilon \]
 \[ K_{\frac12}(x_0) = \set{x_0} \]
 
-\subsection{Exercise 03/3b}
+\subsection{Sheet 3, Exercise 3b}
 \begin{ex}
   A map $f: X \to Y$ is not necessarily bounded.
 \end{ex}
@@ -449,7 +454,7 @@ $M \geq 0$ arbitrary. $\exists x,y \in f(X): e(x,y) > M$.
 \[ f(x) = \mathbb Z \qquad x = 0 \qquad y = M + 1 \]
 $e = \card{\cdot}$.
 
-\subsection{Exercise 03/3c}
+\subsection{Sheet 3, Exercise 3c}
 \begin{ex}
   Every map $g: Y \to X$ is bounded.
 \end{ex}
@@ -457,7 +462,7 @@ Let $g: Y \to X$ be arbitrary.
 Show that $\exists M \geq 0 \forall x,y \in g(Y): d(x,y) \leq M$.
 Choose $M = 2$. $\forall x,y \in X: d(x,y) \leq 1 \leq 2$.
 
-\subsection{Exercise 03/3d}
+\subsection{Sheet 3, Exercise 3d}
 \begin{ex}
   In case $(Y, e) = (\mathbb R, \card{\cdot})$, every non-constant map $g: Y \to X$ is non-continuous.
 \end{ex}
@@ -471,7 +476,7 @@ for $x_0 \in \mathbb R$ there exists $\delta_0$ such that
 $\forall x \in (x_0 - \delta, x_0 + \delta): g(x) = g(x_0)$.
 \[ \operatorname{sup}\setdef{s \in [x_0, \infty)}{g(x) = g(x_0) \forall x \in [x_0, s)} \]
 
-\section{Exercise 03/2}
+\section{Sheet 3, Exercise 2}
 \begin{ex}
   Let $V$ be the vector space of bounded, complex sequences, hence
   \[
@@ -483,7 +488,7 @@ $\forall x \in (x_0 - \delta, x_0 + \delta): g(x) = g(x_0)$.
 
 This solution was done by Mr. Kruse himself.
 
-\subsection{Exercise 03/2b}
+\subsection{Sheet 3, Exercise 2b}
 \begin{ex}
   The unit sphere in $(V, \norm{\cdot}_{\infty})$,
   \[ B_1(0) = \setdef{a \in V}{\norm{a}_{\infty} \leq 1} \]
@@ -524,14 +529,14 @@ for every $n \in \mathbb N$. As such we get a sequence
 but it holds that $\norm{A^n - A^m}_{\infty} = 1 \forall n \neq m$.
 This is also not a Cauchy sequence.
 
-\section{Exercise 03/1}
+\section{Sheet 3, Exercise 1}
 \begin{ex}
   Let $(X,d)$ be a metric space. A set $K \subset X$ is called cover-compact,
   if for every family of open sets $(U_i)_{i \in I} \subset X$ with $K \subset \bigcup_{i \in I} U_i$ it holds that:
   There exists a finite set $J \subset I$ with $K \subset \bigcup_{i \in J} U_i$. Let $K \subset X$ be cover-compact.
 \end{ex}
 
-\subsection{Exercise 03/1a}
+\subsection{Sheet 3, Exercise 1a}
 \begin{ex}
   Show that $K$ is totally bounded, hence for every $r>0$, there exists $x_1, \dots, x_n$ in $K$
   with $K \subset \bigcup_{i=1}^n B_r(x_i)$.
@@ -540,7 +545,7 @@ This is also not a Cauchy sequence.
 Construct a family of open spheres ($\left(\mathcal B_r(x)\right)_{x \in K} \subset K$ covering $K$).
 By cover-compactness it follows there exists some finite $J \subset K$ with $K \subset \bigcup_{x \in J} B_r(x)$.
 
-\subsection{Exercise 03/1b}
+\subsection{Sheet 3, Exercise 1b}
 \begin{ex}
   Prove that $K$ is sequentially compact.
 \end{ex}
@@ -552,7 +557,7 @@ Then there exists a sequence $(x_n)_{n \in \mathbb N} \in K$ which has a subsequ
 Because $\bigcup_{x \in K} B_{r_x}(x) \supset K$ it holds: there exists $J \subset K$ finite $\bigcup_{x \in J} B_{r_x}(x) \supset K$.
 This contradicts with $(x_n)_{n \in \mathbb N} \subset K$.
 
-\subsection{Exercise 04/1}
+\subsection{Sheet 4, Exercise 1}
 \begin{ex}
   Let $(M,d)$ be a complete metric space and $(A_k)_{k \in \mathbb N} \subset M$
   is a sequence of closed sets. Use Cantor's Theorem to prove:
@@ -567,7 +572,7 @@ where $a_k \in \mathbb R$.
 
 Consider some 
 
-\section{Exercise 04/2}
+\section{Sheet 4, Exercise 2}
 \begin{ex}
   Let $f: [-1,1] \to \mathbb C$ be continuous and $O \subset \mathbb C$ is an open set.
   In the lecture we have seen that $f^{-1}(O)$ is open.
@@ -580,23 +585,23 @@ Consider some
   \end{enumerate}
 \end{ex}
 
-\subsection{Exercise 04/2a}
+\subsection{Sheet 4, Exercise 2a}
 Show that $\mathbb C$ is open.
 
 Let $z \in \mathbb C$. $\exists \varepsilon > 0$,
 \[ B(z, \varepsilon) \subseteq \mathbb C \]
 
-\subsection{Exercise 04/2b}
+\subsection{Sheet 4, Exercise 2b}
 Follows from the definition of a function.
 
-\subsection{Exercise 04/2c}
+\subsection{Sheet 4, Exercise 2c}
 If it is an open set, there must be a neighborhood of arbitrary $\varepsilon$
 such that this neighborhood is completely in the set.
 
 Let $\varepsilon > 0$. Choose $x \in B(1, \varepsilon)$ with $x = 1 + \frac{\varepsilon}2$.
 \[ \implies x \in B(1, \varepsilon) \land x \not\in [-1,1] \]
 
-\subsection{Exercise 04/2d}
+\subsection{Sheet 4, Exercise 2d}
 Let $(X,d)$ and $(Y,e)$ be metric spaces and $f: X \to Y$ continuous
 then $f^{-1}(O)$ is open $\forall O \subseteq Y$ open.
 
@@ -606,7 +611,7 @@ So the difference is the domain of $z$ ($[-1,1]$ unlike exercise c, where we use
 
 The point was to illustrate how to read the theorem properly.
 
-\section{Exercise 04/3}
+\section{Sheet 4, Exercise 3}
 \begin{ex}
   Let $\Omega$ be a non-empty set and $B(\Omega)$ the vector space of real-valued bounded functions on $\Omega$.
   Hence,
@@ -622,7 +627,7 @@ The point was to illustrate how to read the theorem properly.
   \end{enumerate}
 \end{ex}
 
-\subsection{Exercise 04/3a}
+\subsection{Sheet 4, Exercise 3a}
 Given $\Omega \neq 0$.
 \[ B(\Omega) \coloneqq \setdef{f: \Omega \to \mathbb R}{\exists M \in \mathbb R: \card{f(x)} \leq M \quad \forall x \in \Omega} \]
 
@@ -650,7 +655,7 @@ is a Cauchy sequence in $\mathbb R$.
 \[ \exists N \in \mathbb N \forall n > N: \norm{f_n - f}_{\infty} < 1 \]
 \[ \norm{f}_{\infty} = \norm{f - f_N + f_N}_{\infty} \leq \underbrace{\norm{f - f_N}_{\infty}}_{<1} + \underbrace{\norm{f_N}}_{\leq M} < 1 + M \]
 
-\subsection{Exercise 04/3b}
+\subsection{Sheet 4, Exercise 3b}
 Let $K_1 \coloneqq \setdef{f \in B(\Omega)}{\norm{f}_{\infty} \leq 1}$.
 Show $K_1$ is bounded and closed.
 
@@ -669,7 +674,7 @@ Show $f \in K_1$.
 \[ \norm{f}_{\infty} = \norm{f - f_n}_{\infty} \leq \underbrace{\norm{f - f_n}_{\infty}}_{\xrightarrow{n \to \infty} 0} + \underbrace{\norm{f_n}_{\infty}}_{\leq 1} \leq 1 \]
 \[ \implies \norm{f}_{\infty} \leq 1 \implies f \in K_1 \]
 
-\subsection{Exercise 04/c}
+\subsection{Sheet 4, Exercise c}
 $f$ is sequentially compact if and only if $\Omega$ is finite?
 Equivalently, every sequence $(f_n)_{n \in \mathbb N} \subseteq K_1$ has a convergent subsequence with limit in $K_1$.
 
@@ -720,7 +725,7 @@ For every $\varepsilon > 0$
 Choose $N \coloneqq \max{N_1, \ldots, N_m}$. For all $n \geq N$,
 \[ \implies \norm{f_{n_{\ddots_{2}}}}_{\infty} < \varepsilon \]
 
-\section{Exercise 04/4}
+\section{Sheet 4, Exercise 4}
 \begin{ex}
   Let $k \in \mathbb N$. Show: $\exists \phi_k: \sqrt{k\pi} \leq \xi_k \leq \sqrt{(k+1)\pi}$ such that
   \[ \int_{\sqrt{k\pi}}^{\sqrt{(k+1)\pi}} \sin(x^2) \, dx = \frac{(-1)^k}{\xi_k} \]
@@ -893,5 +898,187 @@ Consider $n - 1 \to n$.
 
 It is valid to assume that $\log = \ln$ in this exercise, because it is not specified otherwise.
 But you can also consider a factor $a$, which normalizes it to $\ln$.
+
+\section{Sheet 6, Exercise 1}
+\begin{ex}
+  Let $\mathcal R[a,b]$ be the set of regulated functions, $\mathcal C[a,b]$ be the set of continuous functions
+  and $\mathcal M[a,b]$ be the set of montonic functions on $[a,b] \subset \mathbb R$. Show:
+  \begin{enumerate}
+    \item $f \in \mathcal C[a,b] \implies f \in \mathcal R[a,b]$
+    \item $f \in \mathcal M[a,b] \implies f \in \mathcal R[a,b]$
+    \item $f \in \mathcal C[a,b], g \in \mathcal R[a,b] \land g([a,b]) \subset [a,b] \implies f \circ g \in \mathcal R[a,b]$
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 6, Exercise 1a}
+Assume $f \in \mathcal C[a,b]$.
+For all $x \in [a,b]$, $f$ has one-sided limits.
+
+\subsection{Sheet 6, Exercise 1b}
+Let $x \in [a,b]$. Consider $x_{n \in \mathbb N} \nearrow x$.
+Show that $\lim_{n\to\infty} f(x_n)$ exists.
+We consider a monotonic subsequence
+\[ f(x_{n_k}) \geq f(x_{n_{k+1}}) \forall k \in \mathbb N \]
+\[ f(x) \leq f(x_{n_k}) \forall k \in \mathbb N \]
+
+\subsection{Sheet 6, Exercise 1c}
+$(x_n)_{n\in\mathbb N} \nearrow x$.
+\[ \lim_{n\to\infty} f(g(x_n)) \text{ exists} \]
+\[ \lim_{n\to\infty} \underbrace{g(x_n)}_{\eqqcolon y_n} = y \in \mathbb R \]
+\[ \lim_{n\to\infty} f(y_n) = f(\lim_{n\to\infty}) = f(\lim_{n\to\infty} y_n) TODO \]
+
+$g: [a,b] \to [a,b]$.
+$f \in \mathcal R[a,b]$, $g \in \mathcal C([a,b]), g([a,b]) \subset [a,b]$.
+
+
+\section{Sheet 6, Exercise 2}
+\begin{ex}
+  Determine all antiderivatives:
+  \begin{align}
+    &\int \frac{1}{x (\ln{x})^3} \, dx \qquad (x > 0) \\
+    &\int \sin^3(x) \cos^4(x) \, dx \\
+    &\int \operatorname{arsinh}(x) \, dx
+  \end{align}
+\end{ex}
+
+\subsection{Sheet 6, Exercise 2a}
+
+We apply integration by substitution:
+\[ \int_{g(a)}^{g(b)} f(x) \, dx = \int_a^b f(g(u)) \cdot g'(u) \, du \]
+
+We consider:
+\[ f(x) = \left(\frac1{x^3}\right) = \frac1{x^3} \]
+\[ g(x) = \ln(x) \qquad g'(x) = \frac1x \]
+
+\[ \int \frac{1}{x (\ln{x})^3} \, dx = \int \left(\frac1{u^3}\right) \, du = \int u^{-3} \, du = \frac{u^{-2}}{-2} + c = \frac{1}{-2 \cdot u^2} + c = \frac{1}{-2 \cdot \ln(x)^2} + c \]
+
+\textbf{Hint.} Because we apply Backsubstitution, we do what we usually do by computing the integral over some specified limits. Therefore the improper integral is exact as well.
+
+\subsection{Sheet 6, Exercise 2b}
+
+\begin{align*}
+  \int \sin(x)^2 \cdot \sin(x) \cdot \cos(x)^4 \, dx
+    &= \int (1 - \cos(x)^2) \cdot \cos(x)^4 \cdot \sin(x) \, dx \\
+    &= \int (\cos(x)^4 - \cos(x)^6) \cdot \sin(x) \, dx \\
+    &\begin{vmatrix} u = \cos(x) \\ u' = -\sin(x) \\ du = dx \cdot u' \end{vmatrix} \\
+    &= \int (u^4 - u^6) \cdot (-1) \, du = \int (-u^4 + u^6) \, du \\
+    &= \frac{u^7}{7} - \frac{u^5}{5} + c = \frac{\cos(x)^7}{7} - \frac{\cos(x)^5}{5} + c
+\end{align*}
+
+\subsection{Sheet 6, Exercise 2c}
+
+\begin{align*}
+  \int \operatorname{arsinh}(x) \, dx
+    &= \int \ln(x + \sqrt{x^2 + 1}) \, dx \\
+    &\begin{vmatrix} u = \ln(x + \sqrt{x^2+1}) \\ v' = 1 \\ v = x \\ u' = \frac{1}{\sqrt{x^2 + 1}} \end{vmatrix} \\
+    &= \ln(x + \sqrt{x^2 + 1}) x - \int \frac{1}{\sqrt{x^2 + 1}} x \, dx \\
+    &\begin{vmatrix} u = x^2 + 1 \\ u' = 2x \\ du = 2x \, dx \end{vmatrix} \\
+    &= \operatorname{arsinh}(x) \cdot x - \int \frac1{\sqrt{u}} \frac12 \, du \\
+    &= \operatorname{arsinh}(x) \cdot x - \sqrt{u} + c \\
+    &= \operatorname{arsinh}(x) \cdot x - \sqrt{x^2 + 1} + c
+\end{align*}
+
+\section{Sheet 6, Exercise 3}
+\begin{ex}
+  For $a = 0$ and $a > 0$, determine all antiderivatives:
+  \[ \int \frac{\ln(x)}{\sqrt{a + x}} \, dx \qquad (x > 0) \]
+\end{ex}
+
+Case $a = 0$:
+
+\begin{align*}
+  \int \frac{ln(x)}{\sqrt{x}}
+    &\begin{vmatrix} u' = \frac1{\sqrt{x}} & u = 2\sqrt{x} \\ v = \ln(x) & v' = \frac{1}{x} \end{vmatrix} \\
+    &= \ln(x) \cdot 2 \sqrt{x} ... \\
+    &= \ln(x) \cdot \sqrt{x} - 4 \sqrt{x} + c
+\end{align*}
+
+Case $a > 0$:
+
+\begin{align*}
+  \int \frac{\ln(x)}{\sqrt{x + a}}
+    &= \int \frac{\ln(x)}{\sqrt{x + a}} \cdot 2 \sqrt{x + a} \, du \\
+    &\begin{vmatrix} u = \sqrt{x + a} \\ \frac{du}{dx} = \frac{1}{2\sqrt{x + a}} \implies dx = 2\sqrt{x + a} \, du \\ u = \sqrt{x + a} \implies x = u^2 - a \end{vmatrix} \\
+    &= 2\int \ln(x) \, du \\
+    &= 2 \ln(u^2 - a) \, du \\
+    &= 2 \int \ln(u + \sqrt{a}) + \ln(u - \sqrt{a}) \, du \\
+    &= 2 \left(\int (u + \sqrt{a}) \, du + \int \ln(u - \sqrt{a}) \, du\right)
+\end{align*}
+
+We compute separately:
+\begin{align*}
+  \int \ln(x + c) \, dx
+    &= \int 1 \cdot \ln(x + c) \, dx \\
+    &\begin{vmatrix} u' = 1 \implies u = x \\ v = \ln(x + c) \implies v' = \frac{1}{x + c} \end{vmatrix} \\
+    &= x \ln(x + c) - \int \frac{x + c - c}{x + c}  \\
+    &= x \ln(x + c) - x + c \ln(x + c) \\
+    &= (x + c) \ln(x + c) - x + c
+\end{align*}
+with
+\[ \int \frac{x + c}{x + c} - \frac{c}{x + c} = \int 1 - \frac{c}{x + c} = x - c \ln(x + c) + c \]
+
+We continue:
+\begin{align*}
+  &= 2 ((u + \sqrt{a}) \ln(u + \sqrt{a}) - (u + \sqrt{a}) + (u - \sqrt{a}) \ln (u - \sqrt{a}) - (u - \sqrt{a})) + c \\
+  &= 2 (u \ln(u^2 - a) + \sqrt{a} \ln\left(\frac{u + \sqrt{a}}{u - \sqrt{a}}\right) - 2u) + c \\
+  &= 2\sqrt{x + a} \ln(x) + \sqrt{a} \ln\left(\frac{\sqrt{x + a} + \sqrt{a}}{\sqrt{x + a} - \sqrt{a}}\right) - 4\sqrt{x + a} + c
+\end{align*}
+
+\section{Sheet 6, Exercise 4}
+\begin{ex}
+  Let $k \in \mathbb Z$, $I_k \coloneqq ((2k - 1) \pi, (2k + 1)\pi)$ and
+  \[ f: \mathbb R \to \mathbb R, \qquad f(x) \coloneqq \frac{1}{3\cos(x) + 5} \]
+  \begin{enumerate}
+    \item Prove for all $x \in I_k$ the identity
+      \[ \cos(x) = \frac{1 - \tan(x/2)^2}{1 + \tan(x/2)^2} \]
+    \item Determine all antiderivatives:
+      \[ \int f(x) \, dx, x \in I_k \]
+      Begin by integration by substitution with $u(x) = \tan(\frac x2)$.
+    \item Construct a continuous function $F: \mathbb R \to \mathbb R$,
+      that is an antiderivative of $f$ on every compact interval.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 6, Exercise 4a}
+
+\[ \tan\left(\frac x2\right) = \frac{\sin x}{1 + \cos(x)} \]
+Proof:
+Let $u = \frac x2$ and $x = 2u$.
+\[ \tan(u) = \frac{\sin{2u}}{1 + \cos(2u)} = \frac{2 \sin(u) \cos(u)}{1 + \cos^2(u) - \sin^2(u)} = \frac{2 \sin(u) \cos(u)}{2 \cos^2(u)} = \frac{\sin(u)}{\cos(u)} = \tan(u) \]
+
+Then,
+\begin{align*}
+  \frac{1 - \tan(x/2)^2}{1 + \tan(x/2)^2}
+    &= \frac{1 - \frac{\sin^2(x)}{1 + \cos(x)}}{1 + \frac{\sin^2(x)}{(1 + \cos(x))^2}} \\
+    &= \frac{(1 + \cos(x))^2 - \sin^2(x)}{(1 + \cos(x))^2 + \sin^2(x)} \\
+    &= \frac{1 + 2\cos(x) + \cos(x)^2 - \sin(x)}{1 + 2\cos(x) + \underbrace{\cos(x)^2 + \sin^2(x)}_{=1}} \\
+    &= \frac{2 \cos(x) (1 + \cos(x))}{2(1 + \cos(x))} \\
+    &= \cos(x)
+\end{align*}
+
+\subsection{Sheet 6, Exercise 4b}
+
+Let $x \in I_k$.
+\begin{align*}
+  \int f(x) \, dx
+    &= \int \frac{1}{3 \cos(x) + 5} \, dx \\
+    &= \int \frac{1}{3 \left(\frac{1 - \tan^2(x/2)}{1 + \tan^2(x/2)}\right) + 5} \, dx \\
+    &\begin{vmatrix} u = \tan(x/2) \\ du = \frac{1}{2 \cos^2(x/2)} \, dx \end{vmatrix} \\
+    &= \int \frac{1}{3 \left(\frac{1 - u^2}{1 + u^2} + 5\right)} 2 \cos^2(x/2) \, du \\
+    &= 2 \int \frac{1}{\left(3 \left(\frac{1 - u^2}{1 + u^2} + 5\right) + 5\right)\left(1 + u^2\right)} \, du \\
+  \cos(x) = \frac{1}{1 + \tan^2(x)}
+\end{align*}
+
+We compute separately:
+\[
+  \left(\frac{3 (1 - u^2) + 5}{1 + u^2} + 5\right)(1 + u^2) = \frac{3 (1 - u^2)}{1 + u^2} (1 + u^2) + 5(1 + u^2) = 2 (4 + u^2)
+\] \[
+  = 2 \int \frac12 \frac{1}{4 + u^2} \, du = \int \frac{1}{4 + u^2} \, du = \begin{vmatrix} t = \frac u2 \\ dt = \frac12 du \end{vmatrix}
+  = 2 \int \frac{1}{4 + 4 t^2} \, dt = \frac24 \int \frac{1}{1 + t^2} \, dt
+\]
+
+\[ \frac12 \arctan(t) + c = \frac12 \arctan\left(\frac u2\right) + c = \frac12 \arctan\left(\frac{\tan(x/2)}{2}\right) + c \]
+
+Is expected to be continuously differentiable.
 
 \end{document}

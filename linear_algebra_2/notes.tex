@@ -136,7 +136,7 @@
 
 \section{Linear algebra 1}
 
-Leibnis (1693)
+Gottfried Wilhelm von Leibniz (1646--1716). Results from 1693:
 
 \begin{itemize}
   \item Vector spaces (first definition in 1880)
@@ -214,7 +214,7 @@ is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatr
   \item If two rows are the same, then $\det(M) = 0$.
     \[ \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ab - ba = 0 \]
     \[ \det\begin{pmatrix} a & a \\ c & c \end{pmatrix} = ac - ca = 0 \]
-  \item The determinant of the unit matrix is zero.
+  \item The determinant of the unit matrix is one.
     \[ \det\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = 1 \]
 \end{itemize}
 
@@ -285,10 +285,10 @@ By property~1,
     \[ F(\lambda v, w) = \lambda \cdot F(v, w) \]
     \[ F(v + v', w) = F(v, w) + F(v', w) \]
 
-    Let $\lambda \in \mathbb N$. We multiple the area $n$ times.
+    Let $\lambda \in \mathbb N$. We multiply the area $n$ times.
     \[ F(n \cdot v, w) = n \cdot F(v, w) \]
   \item
-    \[ F(\frac1n \cdot v, w) = \frac1n F(v, w) \]
+    \[ F\left(\frac1n \cdot v, w\right) = \frac1n F(v, w) \]
     follows from $F(\lambda v, w) = \lambda \cdot F(v, w)$, because $v = n \cdot (\frac1n v)$:
     \[ F\left(n \left(\frac1n v\right), w\right) = n \cdot F\left(\frac1n v, w\right) \]
   \item
@@ -685,13 +685,15 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
 \index{Determinant}
 \begin{definition} % 7.20
   \label{det}
-  \[ \dim V = n \]
-  Let $B = (b_1, \dots, b_n)$ be a basis of $V$. $a_1, \dots, a_n \in V$ with coordinates
-  \[ \psi_B(a_j) = \begin{pmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{nj} \end{pmatrix} \]
-  \[ A \coloneqq \begin{bmatrix} a_{11} & \dots & a_{1n} \\ \vdots &  & \vdots \\ a_{n1} & \dots & a_{nn} \end{bmatrix} \]
-
+  Let $\dim V = n$. Let $B = (b_1, \dots, b_n)$ be a basis of $V$. $a_1, \dots, a_n \in V$ with coordinates
+  \[
+    \psi_B(a_j) = \begin{pmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{nj} \end{pmatrix}
+    \qquad
+    A \coloneqq \begin{bmatrix} a_{11} & \dots & a_{1n} \\ \vdots &  & \vdots \\ a_{n1} & \dots & a_{nn} \end{bmatrix}
+  \]
   Then $\triangle(a_1, \dots, a_n) = \det(A) \cdot \triangle(b_1, \dots, b_n)$
-  where $\det(A) = \sum_{\pi \in \sigma_n} \sign(\pi) a_{1\pi(1)} a_{2 \pi(2)} \dots a_{n\pi(n)}$
+  where
+  \[ \det(A) \coloneqq \sum_{\pi \in \sigma_n} \sign(\pi) a_{1\pi(1)} a_{2 \pi(2)} \dots a_{n\pi(n)} \]
   is called \emph{determinant of $A$}
 
   This formula was discovered by Leibniz.
@@ -1390,7 +1392,7 @@ Basis $b_1,\dots,b_n$.
   \]
 \end{definition}
 
-Laplace (1749--1827)
+Pierre-Simon Laplace (1749--1827)
 \begin{definition}[Laplace expansion] % Definition 7.37
   In German, this theorem is called \foreignlanguage{german}{Entwicklungssatz von Laplace}
   
@@ -4368,7 +4370,9 @@ Other examples in $\mathbb R^n$:
     \begin{bmatrix}
       \cos\beta & -\sin\beta \\
       \sin\beta & \cos\alpha
-    \end{bmatrix} =
+    \end{bmatrix}
+  \] \[
+    =
     \begin{bmatrix}
       \cos\alpha \cos\beta - \sin\alpha \sin\beta & -\cos\alpha \cos\beta - \sin\alpha \sin\beta \\
       \sin\alpha \cos\beta + \cos\alpha \sin\beta & \sin\alpha \cos\beta + \cos\alpha \sin\beta

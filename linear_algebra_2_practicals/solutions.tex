@@ -36,6 +36,7 @@
 \DeclareMathOperator\image{image}
 \DeclareMathOperator\sign{sign}
 \DeclareMathOperator\Hom{Hom}
+\DeclareMathOperator\Tr{Tr}
 
 \title{Linear Algebra 2 -- Practicals}
 \author{Lukas Prokop}
@@ -51,6 +52,7 @@
 \newcommand\angel[1]{\langle#1\rangle}
 \newcommand\mathspace{\hspace{20pt}}
 \newcommand\fun[1]{\left\langle{#1}\right\rangle}
+\newcommand\ip[2]{\langle{#1},{#2}\rangle}
 \newcommand\norm[1]{\left\|{#1}\right\|}
 \newcommand\vectwo[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \newcommand\Q{\mathbb{Q}}
@@ -1183,7 +1185,7 @@ Let $N = \set{1, \ldots, n}$. Let $M = \set{1, \ldots, m}$. Let $N^M$ be the fun
 Let $k, \tilde k \in N^M$. $k \sim \tilde k :\iff \image(k) = \image(\tilde k)$.
 \[ = \sum_{k \in N^M \text{injective} / \sim} \sum_{\tilde k \sim k} \prod_{i=1}^m A_{ik(i)} \underbrace{\det(B^{(\tilde k(1) \ldots \tilde k(m))})}_{\sign(\delta) \det(B^{k(1) \ldots k(m)} \text{ with } k(1) < k(2) < \ldots < k(n)}) \]
 where $\cdot/\sim$ denotes the set of equivalence classes. $\tilde k \sim k \implies \exists \delta \in \delta_m: \tilde k = k \circ \delta$.
-\[ = \sum_{k \in N^M \text{ injective} / \sim} \left(\sum_{\delta \in \delta_m} \sign(\delta) \prod A_{i k(\delta_i)}) \det(B^*) \]
+\[ = \sum_{k \in N^M \text{ injective} / \sim} \left(\sum_{\delta \in \delta_m} \sign(\delta) \prod A_{i k(\delta_i)}\right) \det(B^*) \]
 
 \section{Exercise 28}
 \begin{ex}
@@ -1308,7 +1310,7 @@ Let $B > 0$ and $A \geq B$ then it holds that $A > 0$.
 \[ \implies x^T A \overline{x} \geq x^T B \overline{x} > 0 \]
 
 
-\[ \langel x, x\rangel_B = x^T B x = x^T Ax = \langel x,x\rangel_A \]
+\[ \langle x, x\rangle_B = x^T B x = x^T Ax = \langle x,x\rangle_A \]
 \[ x = e_j \implies B_{jj} = A_{jj} \]
 
 \[ A = 0 \qquad B = \operatorname{rot}(\frac\pi2) \qquad \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} = \pi \]
@@ -1359,7 +1361,7 @@ This gives a contradiction.
 
 \begin{enumerate}
   \item Sesquilinearity:
-    \[ \langle A+\lambdaB, C\rangle \overset!= \angel{A,C} + \lambda \angel{B,C} \]
+    \[ \langle A+\lambda B, C\rangle \overset!= \angel{A,C} + \lambda \angel{B,C} \]
     \[ \angel{A, C+\lambda B} = Tr((C + \lambda B)^* A) = Tr((C^* + \overline{\lambda} B^*) A) = Tr(C^* A + \lambda B) \]
   \item Positive definiteness:
     \[ \angel{A,A} > 0 \qquad A \neq 0 \]
@@ -1384,5 +1386,177 @@ $Q$ is positive definite.
 \[ \exists M: (Q)^{-1} = (M^* M)^{-1} = M^{-1} (M^*)^{-1} \]
 
 Show $MA \neq 0$ if $A \neq 0$ and $\exists M^{-1} \iff A = M^{-1} 0$ gives a contradiction. Thus, we are finished.
+
+\section{Exercise 31}
+\begin{ex}
+  Let $A, B \in \mathbb C^{n\times n}$ be Hermitian matrices. Show:
+  \begin{enumerate}
+    \item $A \geq 0 \iff \exists x_1, x_2, \dots, x_n \in \mathbb C^{n\times 1}: A = \sum_{i=1}^n x_i x_i^*$.
+    \item Let $C$ be the matrix with entries $c_{ij} = a_{ij} b_{ij}$. If $A \geq 0$ and $B \geq 0$, then also $C \geq 0$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 31a}
+
+By Exercise 28, we know: $A \geq 0 \implies \exists B: A \cdot B^* \cdot B$.
+\[ x_i \ldots (B^*)_i \qquad x_i^* \ldots (B)_i \]
+
+\[ (x_i \cdot x_i^*)_W = x_i^k \cdot x_i^{*j} \]
+\[ \sum_{i} (x_i x_i^*)_{k,j} = (B^*)_k \cdot (B)_j \]
+
+\[ a_{kj} = \sum_{i=1}^n b_k^* b_{ij} \]
+
+\subsection{Exercise 31b}
+
+Direction $\Leftarrow$.
+
+\[ A = \sum_{i=-1}^n x_i x_i^* \]
+\[ y^T A \overline{y} = y^T \sum_{i=1}^n x_i x_i^* \cdot \overline{y} = \sum (y^T x_i)_{1\times 1} (x_i^* \overline{y})_{1 \times 1} = \sum \norm{y^T x_i}^2 \geq 0 \]
+
+Direction $\Rightarrow$.
+
+\[ A = \sum x_i x_i^* \qquad B = \sum y_i y_i^* \]
+\[
+  c_{ij} = a_{ij} \cdot b_{ij}
+    = \sum_{k=1}^n x_k^i \cdot \overline{x_k^j} \cdot \sum_{l=1}^n y_l^i \overline{y_l^j}
+    = \sum_{k,l=1}^n \underbrace{\left(x_k^i y_l^j\right)}_{z_{k,l^i}} \underbrace{\left(\overline{x_k^j} \overline{y_l^j}\right)}_{\overline{z_{k,l^j}}}
+\]
+\[
+  \implies C = \sum_{k,l=1}^n z_{k,l} \cdot z_{k,l}^*
+\]
+
+\section{Exercise 32}
+\begin{ex}
+  Let $(V, \ip{.}{.})$ be a vector space with scalar product and $U \subseteq V$ is a subspace. Show:
+  \begin{enumerate}
+    \item $U^\bot = U^{\bot\bot\bot}$;
+    \item $V = U \dot{+} U^{\bot} \implies U = U^{\bot\bot}$.
+    \item Show that the following construction is a counterexample for inversion of the previous statement:
+      $V = C[-1,1]$ with scalar product $\langle f,g\rangle = \int_{-1}^1 f(t) g(t) \, dt$
+      and subspace $U = \set{f \in C[-1,1] \middle| f(t) = 0 \forall t < 0}$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 32a}
+
+\[ U^\bot = \set{v \in V: \forall u \in U: \ip uv = 0} \]
+We prove:
+\begin{enumerate}
+  \item $U^\bot \subseteq U^{\bot\bot\bot}$
+  \item $U^\bot \supseteq U^{\bot\bot\bot}$
+\end{enumerate}
+
+We begin with (1.)
+
+Let $v \in U^\bot \implies v \in U^{\bot\bot\bot}$
+\[ U^{\bot\bot\bot} = \set{v \in V \middle| \ip{v}{u''} = 0 \forall u'' \in U^{\bot\bot}} \]
+By definition, this satisfies the claim.
+
+In other words: we know $U \subseteq U^{\bot\bot}$. Consider $W = U^{\bot}$. Then $W \subset W^{\bot\bot}$.
+
+We prove (2.)
+
+Let $x \in U^{\bot\bot\bot} \implies \forall u \in U^{\bot\bot}: \ip xu = 0$.
+Because $U \subseteq U^{\bot\bot}$, $\implies \forall u' \in U: \ip{x}{u'} = 0 \implies x \in U^{\bot}$.
+Hence $U^{\bot} \in U^{\bot\bot\bot}$.
+
+\subsection{Exercise 32b}
+
+\[ V = U + U^{\bot} \implies U = U^{\bot\bot} \]
+Show that $U^{\bot\bot} \subseteq U$.
+Let $x \in U^{\bot\bot}$. $x = U + W$. $u \in U, w \in U^{\bot}$.
+\[ \implies \forall y \in U^{\bot}: \ip xy = 0 = \ip{u+w}{y} = \ip uy + \ip wy = 0 \implies w = 0 \]
+\[ \implies x = u \in U \]
+
+\subsection{Exercise 32c}
+Example for $U = U^{\bot\bot}$ but $V \neq U + U^{\bot}$.
+
+\[ V = [-1,1] \qquad \ip fg = \int_{-1}^1 f(x) \cdot g(x) \, dx \]
+\[ U = \set{f \in C[-1,1]: f(t) = 0 \forall t < 0} \]
+
+Claim:
+\[ U^{\bot} = \set{f \in C[-1,1], f(t) = 0 \forall t \geq 0} \]
+
+Assume $f \in U^{\bot}$. Choose $g \in U$. We build a triangle below the point $f(g)$ and function $f$. The area of the triangle is non-negative and therefore non-zero.
+
+Claim:
+\[ U^{\bot\bot} = \set{f \in C[-1,1], f(t) = 0 \forall t < 0} \implies U = U^{\bot\bot} \]
+
+\section{Exercise 33}
+\begin{ex}
+  Let $V = \mathbb R^{n\times n}$ and $\langle A,B\rangle = \operatorname{Tr}(B^TA)$ the scalar product of Exercise~30.
+  Determine the orthogonal complement.
+  \[ \set{A \in \mathbb R^{n\times n} \middle| A = A^T}^\bot \]
+\end{ex}
+
+\[ U = \set{A \in \mathbb R^{n\times 1}: A = A^T}, \qquad V = \mathbb R^{n\times n} \]
+\[
+  A_{ii} = \begin{pmatrix}
+    0 &   & 0 \\
+      & 1 & \\
+    0 &   & 0
+  \end{pmatrix}
+\]
+positive at $(i,i)$.
+\[
+  A_{ij} = \begin{pmatrix}
+    0 &   & 1 \\
+      & 0 &  \\
+    1 &   & 0
+  \end{pmatrix}
+\]
+positive at $(j,i)$ with $i \neq j$.
+
+\[ \Tr(B^T A) = \sum_{k,i=1}^n B_{ik} A_{ki} \overset!= 0 \]
+
+For $A = A_{ii} \implies B_{ii} = 0$.
+For $A = A_{ij} \implies B_{ij} + B_{ji} = 0$.
+Skew-symmetric.
+
+\section{Exercise 34}
+\begin{ex}
+  Let
+  \[ U = \set{x \in \mathbb R^5 \middle| \substack{x_1 - x_2 + x_3 - x_4 + x_5 = 0 \\ x_1 + x_3 + x_5 = 0}} \]
+  be a subspace of $\mathbb R^5$ and $v = (1,-1,1,-1,1)^T$.
+  \begin{enumerate}
+    \item Determine the orthogonal projection $\pi_U(v)$ using the Gramian matrix.
+    \item Determine the orthonormal basis of $U$
+    \item Determine $\pi_U(v)$ using the orthonormal basis.
+    \item Determine the matrix representation of $\pi_U$ in terms of the canonical basis.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 34b}
+
+\[ \tilde a_1 = \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} \]
+\[ \norm{\tilde a_1} = \sqrt2 \]
+\[ a_1 = \frac1{\sqrt2} \tilde a_1 \]
+\[ \tilde a_2 = \begin{pmatrix} 0 \\ -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} - \frac12 \ip{\begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}}{\begin{pmatrix} 0 \\ -1 \\ 0 \\ 1 \\ 0 \end{pmatrix}} \begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \]
+\[ \norm{\tilde a_2} = \sqrt2 \qquad a_2 = \frac1{\sqrt{2}} \tilde a_2 \]
+\[ \tilde a_3 = \begin{pmatrix} -1 \\ 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} - \frac12 \ip{\begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}}{\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}} \begin{pmatrix} -1 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} = \frac12 \ip{\begin{pmatrix} 0 \\ -1 \\ 0 \\ 1 \\ 0 \end{pmatrix}}{\begin{pmatrix} -1 \\ 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}} \begin{pmatrix} 0 \\ -1 \\ 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} -\frac12 \\ 0 \\ -\frac12 \\ 0 \\ 1 \end{pmatrix} \]
+\[ \norm{\tilde a_3} = \frac{\sqrt{6}}{2} \qquad a_3 = \frac2{\sqrt{6}} \tilde a_3 \]
+
+\subsection{Exercise 34d}
+
+\[ P = \sum_{i=1}^3 a_i a_i^* \]
+\[
+  P = \begin{pmatrix}
+    \frac23 & 0 & -\frac23 & 0 & -\frac13 \\
+    0 & \frac12 & 0 & -\frac12 & 0 \\
+    -\frac23 & 0 & \frac23 & 0 & \frac13 \\
+    0 & -\frac12 & 0 & \frac12 & 0 \\
+    -\frac13 & 0 &\frac13 & 0 & \frac23
+  \end{pmatrix}
+\]
+
+
+\section{Exercise 35}
+\begin{ex}
+  Given the data $\vec x = (-2, -1, 1, 2)$ and $y = (1,1,-1, 1)$. Determine the coefficients $a_0, a_1, a_2$ of the quadratic polynomial function $f$ using an orthogonal projection.
+  \[ f: \mathbb R \to \mathbb R \qquad x \mapsto a_0 + a_1 x + a_2 x^2 \]
+  such that the value
+  \[ \sum_{i=1}^4 (f(x_i) - y_i)^2 \]
+  is minimal. Reason that the solution is unique.
+\end{ex}
 
 \end{document}
