@@ -4387,5 +4387,285 @@ Other examples in $\mathbb R^n$:
   \[ S = \begin{bmatrix} \cos(2\varphi) & \sin(2\varphi) \\ \sin(2\varphi) & -\cos(2\varphi) \end{bmatrix} \]
 \end{example}
 
+\dateref{2018/05/07}
+
+Linear isometries:
+
+\begin{theorem} % 8.73
+  \[ \mathcal O(n) = \setdef{U \in \mathbb R^{n\times n}}{U^TU = I} \qquad \text{ orthogonal group} \]
+  \[ \mathcal U(n) = \setdef{U \in \mathbb C^{n\times n}}{U^*U = I} \qquad \text{ unitary group} \]
+  \[ \mathcal{SO}(n) = \setdef{U \in \mathbb O}{\det(U) = 1} \subseteq \mathcal O(n) \qquad \text{ subgroup, special orthogonal group} \]
+  \[ \mathcal{SU}(n) = \setdef{U \in \mathbb U}{\det(U) = 1} \subseteq \mathcal U(n) \qquad \text{ subgroup, special unitary group} \]
+  \[ \mathcal{GL}(n, \mathbb K) = \setdef{A \in \mathbb K^{n\times n}}{\text{ invertible}} \qquad \text{ general linear group} \]
+  \[ \mathcal{SL}(n, \mathbb K) = \setdef{A \in \mathbb \mathcal{GL}(n)}{\det(A) = 1} \qquad \text{ special linear group} \]
+  Then, e.g. $\mathcal O(2)$ is the group of rotations and reflections.
+\end{theorem}
+
+\begin{remark}
+  For $U \in \mathcal U(n)$ it holds that $\card{\det(U)} = 1$. Why?
+
+  We know: $U^* U = I \implies \det(U^* U) = I = \det(U^*) \det(U) = \det(\overline{U}^T) \det(U) = \overline{\det(U^T)} \det(U) = \overline{\det(U)} \det(U) = \card{\det(U)}^2 = 1$.
+\end{remark}
+
+\begin{example}[Rotation]
+  \[ U = \begin{bmatrix} \cos{\varphi} & -\sin{\varphi} \\ \sin{\varphi} & \cos{\varphi} \end{bmatrix} \]
+  \[ \det{U_{\varphi}} = \cos^2(\varphi) + \sin^2(\varphi) = 1 \qquad \implies U_{\varphi} \in \mathcal {SO}(2) \]
+  \[ S_{\varphi} = \begin{bmatrix} \cos(2\varphi) & \sin(2\varphi) \\ \sin(2\varphi) & -\cos(2\varphi) \end{bmatrix} \]
+  \[ \det(S_{\varphi}) = -\cos^2(2\varphi) - \sin^2(2\varphi) = -1 \]
+
+  General orthogonal matrix in $\mathcal O(2)$.
+  \[ U = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \text{ with } \overline U U = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \]
+  \[
+    \begin{bmatrix} a & c \\ b & d \end{bmatrix} \begin{bmatrix} a & b \\ c & d \end{bmatrix}
+    = \begin{bmatrix} a^2 + c^2 & ab + cd \\ ab + cd & b^2 + d^2 \end{bmatrix}
+    \overset!= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+  \]
+  Resulting constraints:
+  \begin{align}
+    a^2 + c^2 &= 1 \\
+    b^2 + d^2 &= 1 \\
+    ab + cd &= 0 \\
+  \end{align}
+  \[ a = \cos\varphi \qquad c = \sin\varphi \qquad b = \cos\psi \qquad d = \sin\psi \]
+  \[ \cos\varphi \cdot \cos\psi + \sin\varphi \cdot \sin\psi = 0 \]
+  \[
+    \begin{bmatrix} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{bmatrix}
+    \begin{bmatrix} \cos\beta & -\sin\beta \\ \sin\beta & \cos\beta \end{bmatrix}
+    = \begin{bmatrix}
+      \cos(\alpha + \beta) \\
+    \end{bmatrix}
+  \]
+  \[ \cos \alpha \cos \beta - \sin \alpha \sin \beta = \cos(\alpha + \beta) \]
+  \[ \cos \varphi \cdot \cos \psi = \cos(\varphi - \psi) \]
+  \[ \cos \alpha = 0 \text{ for } \alpha = \frac\pi2 + k \cdot \pi = (k + \frac12) \pi \qquad (k \in \mathbb Z) \]
+  \[ \implies \varphi - \psi = (k + \frac12) \pi \]
+  \[ \varphi = \psi + (k + \frac12) \pi \]
+  \begin{align*}
+    \cos\varphi &= \cos(\psi + (k + \frac12) \pi) = \cos\psi \cos(k + \frac12) \pi - \sin\psi \underbrace{\sin(k + \frac12) \pi}_{\varepsilon \in \set{\pm 1}} \\
+       &= -\varepsilon \cdot \sin\psi \implies \sin\psi = -\varepsilon \cos\varphi
+  \end{align*}
+  \[ \sin\alpha \cos\beta + \cos\alpha \sin\beta = \sin(\alpha + \beta) \]
+  \[ \sin(\varphi) = \sin(\psi + (k + \frac12) \pi) = \underbrace{\sin\psi \cos\left(k + \frac12\right) \pi}_{= \varepsilon \cdot \cos(\psi)} + \underbrace{\cos \psi \sin \left(k + \frac12\right) \pi}_{= 0} \]
+  \[ \cos\psi = \varepsilon \sin\varphi \]
+  \[
+    U = \begin{bmatrix} \cos\varphi & \varepsilon \cdot \sin(\psi) \\ \sin\varphi & -\varepsilon \cos\varphi \end{bmatrix}
+    = \underbrace{\begin{bmatrix} \cos\varphi & -\sin\varphi \\ \sin\varphi & \cos\varphi \end{bmatrix}}_{\substack{\text{rotation} \\ \det = 1}} \cdot \underbrace{\begin{bmatrix} 1 & \\ & -\varepsilon \end{bmatrix}}_{\substack{\varepsilon = 1: \\ \text{reflection on x-axis} \\ \varepsilon = -1: \operatorname{id}}}
+  \] \[
+    U_{\varphi} = \cos\varphi \begin{bmatrix} 1 & \\ & 1 \end{bmatrix} + \sin\varphi \begin{bmatrix} & -1 \\ 1 & \end{bmatrix}
+  \]
+  Hence, every orthogonal matrix is either a rotation ($\det = 1$) or a reflection ($\det = -1$).
+
+  \[ \mathcal{SO}(2): \set{U_{\varphi} = \cos\varphi + i \cdot \sin\varphi \qquad 1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, i = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}} \]
+  \[ \mathcal{SU}(2): \setdef{a_0 + i a_1 + j a_2 + k a_3}{\sum a_i^2 = 1} \]
+\end{example}
+
+\subsection{Quaternions}
+
+William Rowan Hamilton (1805--1865).
+
+\index{Quaternions}
+\index{Complex numbers}
+\begin{remark}[Quaternions]
+  Hamilton defined the complex numbers in the modern sense in 1833.
+  \[ \mathcal C = \setdef{(a,b)}{a,b \in \mathbb R} \]
+  \[ (a,b) \cdot (c, d) = (ac - bd, ad + bc) \]
+  He tried to invent them over 10 years for the third dimension.
+  He failed.
+  On 1843/10/16, he invented the quaternions next to a bridge.
+  It works on four dimensions, but it is non-commutative.
+  It is a screw field (\foreignlanguage{german}{Schiefk\"orper}).
+  \[ ij = k \qquad jk = i \qquad ki = j \qquad ji = -k \qquad kj = -i \qquad ik = -j \]
+  anti-commutative.
+  \[ i^2 = j^2 = k^2 = -1 \]
+  \[ (a_0 + a_1 i + a_2 j + a_3 k) (b_0 + b_1 i + b_2 j + b_3 k) \qquad \text{ linear} \]
+  \[ (a_0 + \vec a) (b_0 + \vec b) = a_0 b_0 + a_0 \vec b + b_1 \vec a + \vec a \times \vec b \]
+\end{remark}
+
+\[ \mathcal{SO}(2) \eqsim \setdef{\cos\varphi + i \cdot \sin\varphi}{\varphi \in [0,2\pi]} = \setdef{z \in \mathbb C}{\card{z} = 1} = \mathcal T \text{ Torus} \]
+\[ \mathcal{SU}(2) = \setdef{a_0 + i a_1 + j a_2 + k a_3}{\sum a_i^2 = 1} \]
+\[ \mathcal{SO}(2) \eqsim \setdef{\cos \varphi + i \sin\varphi}{q \in [0,2\pi]} \]
+
+\section{Polynomials and algebras}
+
+\index{Algebra}
+\begin{definition} % definition 9.1
+  Let $\mathbb K$ be a field, a $\mathbb K$ algebra, a vector space $\mathcal A$ over $\mathbb K$
+  with a multiplication operator $*: \mathcal A \times \mathcal A \to \mathcal A$ with $(a,b) \to a * b$ such that
+  \begin{enumerate}
+    \item $a * (b + c) = a * b + a * c$ (distributive law, $a, b, c \in \mathcal A$)
+    \item $(a + b) * c = a * c + b * c$
+    \item $\lambda \cdot (a * b) = (\lambda \cdot a) * b = a * (\lambda \cdot b)$ ($a, b \in \mathcal A, \lambda \in \mathbb K$, associativity)
+  \end{enumerate}
+\end{definition}
+
+\index{Associative algebra}
+\index{Commutative algebra}
+\begin{remark} % Bemerkung 9.2
+  \begin{description}
+    \item[Associativity] is not generally required.
+      \[ a * (b * c) = (a * b) * c \]
+      If satisfied, it is called \emph{associative algebra}.
+    \item[Commutativity] is not generally required.
+      \[ a * b = b * a \]
+      If satisfied, it is called \emph{commutative algebra}.
+  \end{description}
+\end{remark}
+
+\index{Jacobian identity}
+\index{Commutator}
+\index{Lie algebra}
+\index{Lie groups}
+\index{Jordan algebra}
+\begin{example} % Beispiel 9.3
+  \begin{enumerate}
+    \item $(\mathbb K, +, * = \cdot)$ is a one-dimensional $\mathbb K$ algebra.
+    \item $(\mathbb K^{n \times n}, +, * = \text{ matrix multiplication})$ is an associative non-commutative algebra
+      where $\mathbb K^{n \times n} \simeq \Hom(V, V)$ and $f * g = f \circ g$.
+    \item $\mathbb K^\times = \set{f: X \to \mathbb K}$. Let $X$ be an arbitrary set.
+      \[ (\lambda f + \mu g)(x) = \lambda \cdot f(x) + \mu \cdot g(x) \]
+      \[ (f * g)(x) = f(x) \cdot g(x) \]
+      $(\mathbb K^\times, +, *)$ is an associative, commutative algebra.
+    \item $\mathbb R^3$ with $a \times b$ is an algebra.
+      \[ a \times b = -b \times a \]
+      is non-commutative and also non-associative:
+      \[ a \times (b \times c) \neq (a \times b) \times c \]
+      Jacobian identity:
+      \[ a \times (b \times c) + b \times (c \times a) + c \times (a \times b) = 0 \]
+    \item $\mathcal A = \mathbb K^{n\times n}$
+      \[ A * B = [A,B] = A \cdot B - B \cdot A \qquad \text{\enquote{commutator}} \]
+      is an algebra with Jacobian identity. Lie algebra:
+      \[ [A, [B,C]] + [B, [C,A]] + [C, [A,B]] = 0 \]
+      \[ [A,B] = -[B,A] \]
+      The so-called Lie groups (like $\mathcal O(n), \mathcal U(n), \mathcal{SO}(n), \mathcal{SU}(n)$).
+    \item
+      $\mathcal A = \mathbb K^{n\times n}$
+      \[ A * B = A \cdot B + B \cdot A \]
+      is associative. It is an Jordan algebra.
+      Pascual Jordan (1902--1980)\footnote{Different Jordan than in Gauss-Jordan and different than C. Jordan (19th century) about to come}.
+  \end{enumerate}
+\end{example}
+
+O. Perron (1880/05/07--1975)
+
+\index{Cauchy product}
+\begin{definition} % Definition 9.4
+  \[ \mathbb K^\infty = \setdef{(a_0, a_1, a_2, \dots)}{a_i \in \mathbb K} \]
+  \[ P_{\mathbb K} = \setdef{(a_0, a_1, \dots, a_n, 0, \dots)}{n \in \mathbb N, a_i \in \mathbb K} \]
+  Cauchy product:
+  \[ (a_n)_{n \geq 0} * (b_n)_{n \geq 0} = (c_n)_{n \geq 0} \]
+  \[ c_n = \sum_{k=0}^n a_k b_{n-k} \]
+\end{definition}
+
+\index{Polynomial algebra}
+\index{Formal power series algebra}
+\begin{lemma} % Lemma 9.5
+  \begin{enumerate}
+    \item $(P_{\mathbb K}, *)$ is a commutative, associative algebra with one-element $(1, 0, \dots)$.
+      The basis is given with $1, x, x^2, \dots$. The algebra is called \emph{polynomial algebra}
+      \[ \mathbb K[x] = \setdef{\sum_{k=0}^n a_k x^k}{a_k \in \mathbb K, n \in \mathbb N} \]
+    \item $(\mathbb K^\infty, *)$ is a commutative algebra with one-element $(1, 0, \dots)$
+      and is called \emph{algebra of formal power series}\footnote{We don't need to consider convergence. This is purely formal object.}
+      \[ \mathbb K[[x]] = \setdef{\sum_{k=0}^\infty a_k x^k}{a_k \in \mathbb K} \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Show that $\forall a,b \in P_{\mathbb K}: a * b \in P_{\mathbb K}$, hence only finitely many $c_n$ are $\neq 0$.
+
+  Remark: $a_k = 0 \forall k > m$ and $b_k = 0 \forall k > n$.
+
+  \begin{claim}
+    \[ c_k = 0 \forall k > m + n \]
+  \end{claim}
+
+  \begin{align*}
+    c_k &= \sum_{l=0}^k a_l b_{k-l} \\
+      &= \sum_{l=0}^{m-1} a_l b_{k-l} \qquad \text{equality if $l > m \implies a_l = 0$} \\
+      &= 0
+  \end{align*}
+  \[ k > m + n, l < m \implies -l > -m \implies k - l \underbrace{>}_{\implies b_{k-l} = 0} m + n - m = n \]
+  About the Cauchy product:
+  \[ c_n = \sum_{k=0}^n a_k b_{n-k} = \sum_{k'=0}^n a_{n-k'} b_{k'} = (b * a)_n \qquad (k' = n - k) \]
+
+  Law of distributivity:
+  \begin{align*}
+    [(a + b) * c]_n &= \sum_{k=0}^n (a + b)_k \cdot c_{n-k} \\
+      &= \sum_{l=0}^n (a_k c_{n-k}) + (b_k c_{n-k}) \\
+      &= (a * c)_n + (b * c)_n
+  \end{align*}
+\end{proof}
+
+\index{Basis of a polynomial}
+\index{Degree of a polynomial}
+\begin{definition} % Definition 9.6
+  Let $x^0 = (1, 0, \dots)$ and $x^k = (0, \dots, 1, 0, \dots)$ create a basis.
+  The elements of $p(x) = \mathbb K[x]$ are called polynomials in the formal variable $x$
+  \[ \deg{p(x)} = \max\setdef{k}{a_k \neq 0} \text{ is called \emph{degree of the polynomial}} \]
+  \[ \deg(0) \coloneqq -\infty \]
+\end{definition}
+
+\begin{lemma}[Will be done in the practicals] % Lemma 9.7
+  \begin{enumerate}
+    \item $\deg(p(x) \cdot q(x)) = \deg(p(x)) + \deg(q(x))$
+    \item $\mathbb K[x]$ is zero-divisor-free,
+      hence $p(x) \cdot q(x) = 0 \implies p(x) = 0 \lor q(x) = 0$
+  \end{enumerate}
+\end{lemma}
+
+\index{Polynomial function}
+\begin{definition} % Definition 9.8
+  Every polynomial $p(x) \in \mathbb K[x]$ induces a polynomial function $p: \mathbb K \to \mathbb K$ with $\alpha \mapsto p(\alpha)$
+  with $p \in \mathbb K^{\mathbb K}$.
+  \[ \implies (\lambda p + \mu q) (\alpha) = \lambda \cdot p(\alpha) + \mu \cdot q(\alpha) \]
+  \[ (p \cdot q)(\alpha) = p(\alpha) \cdot q(\alpha) \]
+  The map $\mathbb K[x] \to \mathbb K^{\mathbb K}$ with $p(x) \mapsto$ polynomial function $p$
+  is linear and multiplicative (called \emph{algebra homomorphism}).
+\end{definition}
+
+\begin{remark} % Bemerkung 9.9
+  A polynomial and a polynomial function are not the same.
+  If $\card{\mathbb K} < \infty$, for example consider $\mathbb Z_5$.
+  \[ \card{\mathbb Z_5^{\mathbb Z_5}} = 5^5 \]
+  \[ \card{K[x]} = \infty \]
+  For example, $\prod_{\alpha \in \mathbb K}(x - \alpha)$ corresponds to the polynomial function $0$.
+  Hence the map $\mathbb K[x] \to \mathbb K^{\mathbb K}$ is surjective but not injective.
+
+  On finite fields, every function is a polynomial function.
+  \[ \eta_i = f(\xi_i) \qquad \set{\xi_1, \dots, \xi_n} = \mathbb K \]
+  From the practicals, it will follow that there exists a polynomial of degree $n$ such that $p(\xi_i) = \eta_i$.
+\end{remark}
+
+\index{Algebra homomorphism}
+\begin{definition} % Definition 9.10
+  An algebra homomorphism is a linear map between $\psi$ and two $\mathbb K$-algebras $\mathcal A$ and $\mathcal B$ such that
+  $\forall a,b \in \mathcal A: \psi(a * b) = \psi(a) * \psi(b)$.
+\end{definition}
+
+\begin{example} % Beispiel 9.11
+  \begin{enumerate}
+    \item $\mathbb K[x] \to \mathbb K^{\mathbb K}$ with $p(x) \mapsto$ polynomial function
+    \item
+      Let $\alpha \in \mathbb K$ be fixed.
+      $\psi_{\alpha}: \mathbb K[x] \to \mathbb K$ with $p(x) \mapsto p(\alpha)$ is an algebra homomorphism of $\mathbb K[x] \to \mathbb K$.
+      \[ \psi_\alpha(\lambda p + \mu q) = (\lambda p + \mu q)(\alpha) = \lambda p(\alpha) + \mu q(\alpha) = \lambda \psi_{\alpha}(p) + \mu \psi_{\alpha}(q) \]
+    \item Consider $\iota: \mathbb K \to \mathbb K[x]$ with $\iota: \alpha \mapsto \alpha \cdot x^0$.
+      \[ (\alpha \cdot x^0) \cdot (\beta \cdot x^0) = (\alpha \cdot \beta) \cdot x^0 \]
+  \end{enumerate}
+\end{example}
+
+\begin{theorem}[Insertion theorem, dt. \foreignlanguage{german}{Einsetzungssatz}] % Satz 9.12
+  Let $\mathcal A$ be an associative algebra with one-element $\mathbf 1_A$
+  and $\iota: \mathbb K \to \mathcal A$ with $\alpha \mapsto \alpha \cdot \mathbf 1_A$ is the insertion of $\mathbb K$.
+
+  Then for every $a \in \mathcal A$ the map
+  \[ \psi_a: \mathbb K[x] \to \mathcal A \]
+  \[ \sum_{k=0}^n c_k x^k \mapsto \sum_{k=0}^n c_k a^k \]
+  of the unique algebra homomorphism of $\mathbb K[x] \to \mathcal A$ with the property $\psi_a(x) = a$.
+  We say, $\mathbb K[x]$ is a \emph{free, associative algebra over $\mathbb K$}.
+  Every algebra homomorphism $\mathbb K[x] \to \mathcal A$ has the structure.
+\end{theorem}
+
+
+
 \printindex
 \end{document}
