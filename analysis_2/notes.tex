@@ -1,3 +1,4 @@
+% TODO: normalize IVT for definite integrands does not exist (but Mean Value Theorem for definite integrands does)
 \documentclass{article}
 %\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
 \usepackage[german,english]{babel}
@@ -426,7 +427,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Let $X$ be a metric space.
   \begin{itemize}
     \item
-      $A_i \subseteq X$ be closed $\forall i in I$.
+      $A_i \subseteq X$ be closed $\forall i \in I$.
       Then $A = \bigcap_{i \in I} A_i = \setdef{x \in X}{x \in A_i \forall i \in I}$
       is closed itself.
     \item
@@ -676,7 +677,10 @@ TODO I missed the first twenty minutes (including Satz~3 and 4)
 
 TODO drawing Banach's fixed point theorem
 
-% Common exam question
+\begin{remark}
+  The following proof is a very common exam question.
+\end{remark}
+
 \begin{proof}
   Let $x_0 \in X$ be arbitrary.
   $x_n$ is constructed inductively by $x_n = f(x_{n-1})$ for all $n \geq 1$.
@@ -871,19 +875,21 @@ Be aware, that this proof is a common exam question and students often begin wit
 
   \begin{claim}
     For $\hat{x} = \lim_{l\to\infty} \tilde{x}_l$ and $\hat{y} = \lim_{l\to\infty} \tilde{y}_l$, it holds that $\hat{x} = \hat{y}$.
+  \end{claim}
+  \begin{proof}
     Let $\varepsilon' > 0$ be arbitrary, $l$ large enough such that
     \begin{itemize}
       \item $\frac1l < \frac{\varepsilon'}{3}$
       \item $d_X(\tilde{x}_l, \hat{x}) < \frac{\varepsilon'}{3}$
       \item $d_X(\tilde{y}_l, \hat{y}) < \frac{\varepsilon'}{3}$
     \end{itemize}
-  \end{claim}
-  Therefore it holds that
-  \[
-    d_X(\hat x, \hat y) \leq d_X(\hat x, \tilde x_l) + d_X(\tilde x_l, \tilde y_l) + d_X(\tilde y_l, \hat y)
-    < \frac{\varepsilon'}{3} + \frac1l + \frac{\varepsilon'}{3} < \varepsilon'
-  \]
-  Therefore it holds that $d_X(\hat{x}, \hat{y}) = 0$, hence $\hat{x} = \hat{y}$.
+    Therefore it holds that
+    \[
+      d_X(\hat x, \hat y) \leq d_X(\hat x, \tilde x_l) + d_X(\tilde x_l, \tilde y_l) + d_X(\tilde y_l, \hat y)
+      < \frac{\varepsilon'}{3} + \frac1l + \frac{\varepsilon'}{3} < \varepsilon'
+    \]
+    Therefore it holds that $d_X(\hat{x}, \hat{y}) = 0$, hence $\hat{x} = \hat{y}$.
+  \end{proof}
   Because $f$ is continuous and $\tilde{x_l} \to \hat{x}$ and $\tilde{y}_l \to \hat{x}$, there exists $l \in \mathbb N$ such that
   \[ d_Y(f(\tilde x_l), f(\hat{x})) < \frac\varepsilon2 \]
   and also
@@ -1127,7 +1133,7 @@ Regarding the equivalence of norms:
   \end{enumerate}
 \end{proof}
 
-\section{Integral calculus}
+\section{Integration calculus}
 
 \index{Partition of an interval}
 \index{Step function}
@@ -1235,7 +1241,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       \[ \int_a^b (\alpha f + \beta g) \, dx = \alpha \int_a^bf \, dx + \beta \int_a^b g \, dx \]
       Hence, the integral is linear on $[a,b]$. $\tau[a,b]$ is a vector space.
     \item $f \leq g$ in $[a,b]$, then $\int_a^b f \, dx \leq \int_a^b g \, dx$ (monotonicity).
-    \item $\card{\int_a^b f \, dx} \leq \int_a^b \card{f} \, dx$ ($\card{f(x)}$ s also a step function)
+    \item $\card{\int_a^b f \, dx} \leq \int_a^b \card{f} \, dx$ ($\card{f(x)}$ is also a step function)
   \end{itemize}
 \end{lemma}
 
@@ -1858,7 +1864,7 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
   \end{enumerate}
 \end{remark}
 
-\begin{theorem}[Mean value theorem of integral calculus]
+\begin{theorem}[Mean value theorem of integration calculus]
   \label{mvt} \label{satz3}
   Let $f$ be continuous on $[a,b]$ and $p \in \mathcal R[a,b]$
   and $p \geq 0$ in $[a,b]$.
@@ -3151,5 +3157,219 @@ To finish our proof, we need a result we missed in the section about Integrals.
   \end{description}
 \end{proof}
 
+\dateref{2018/05/08}
 
+TODO I missed the first 15 minutes
+
+% TODO missing \label{lemma2-2}
+
+\index{Taylor polynomial of $f$ of order $n$ in $x_0$}
+\begin{definition} % Definition 3
+  \label{def3}
+  Let $I$ be an interval, $f \in \mathcal C^n(I)$.
+  We let
+  \[ T_f^n(; x_0)  \sum_{k=0}^n \frac{1}{k!} f^{(k)}(x_0) (x - x_0)^k \]
+
+  $T_f^n(x; x_0)$ is a polynomial in $x$ with degree $T_f^n \leq n$.
+  $T_f^n(x; x_0)$ is called \emph{Taylor polynomial of $f$ of order $n$ in $x_0$}.
+\end{definition}
+Brook Taylor (1685--1731)
+
+\begin{lemma}
+  The premise is the same like in Definition~\ref{def3}
+  The Taylor polynomial of $T_f^n(x; x_0)$ is the only polynomial of degree $\neq n$ which satisfies
+  \[ (T_f^n)^{(k)}(x_0) = f^{(k)}(x_0) \qquad \text{ for k = 0, \dots, n} \]
+\end{lemma}
+
+\begin{proof}
+  Claim:
+  \[ (T_f^n)^{(k)}(x; x_0) = \sum_{l=k}^n \frac{f^{(l)}(x_0)}{(l - k)!} (x - x_0)^{l-k} \qquad \text{ for } 0 \leq k \leq n \]
+
+  Proof of the claim by complete induction:
+  \begin{description}
+    \item[Induction base $n = 0$] 
+      \[ (T_f^n)^{(0)} (x; x_0) = \sum_{l=0}^n \frac{f^{(l)}(x_0)}{l!} (x - x_0)^l \]
+    \item[Induction step $k \to k + 1$]
+      Let $(T_f^n)^{(k)}(x; x_0)$
+      \[ = \sum_{l=k}^{n} \frac{f^{(l)}(x_0)}{(l - k)!} (x - x_0)^{(l-k)} \]
+      by induction hypothesis. Then,
+      \begin{align*}
+        &= \sum_{l=k+1}^n \frac{f^{(l)}(x_0)}{(l-k)!} (l - k) \cdot (x - x_0)^{l - k - 1} \\
+        &= \sum_{l=k+1}^n \frac{f^{(l)}(x_0)}{(l - (k+1))!} (x - x_0)^{l - (k+1)}
+      \end{align*}
+      We apply insertion: $x = x_0$ into $(T_f^n)^{(k)}(x; x_0)$
+      \[ (T_f^n)^{(k)}(x; x_0) = \sum_{l=k}^n \frac{f^{(l)}(x_0)}{(l - k)!} (x - x_0)^{l-k} = \frac{f^{(k)}(x_0)}{0!} = f^{(k)}(x_0) \]
+  \end{description}
+
+  We need to prove uniqueness: Let $T, \tilde T$ be polynomials with $T^{(k)}(x_0) = \tilde T^{(k)}(x_0) = f^{(k)}(x_0)$ for $k = 0, \dots, n$.
+  Assume $T \neq \tilde T$, hence $T - \tilde T \neq 0$ (where $0$ is the zero polynomial).
+  For $P = T - \tilde T$ it holds that
+  \[ P^{(k)}(x_0) = T^{(k)}(x_0) - \tilde T^{(k)}(x_0) = 0 \qquad (\text{for } 0 \leq k \leq n) \]
+  By Lemma~\ref{lemma2-2} it holds that $x_0$ is an $n+1$-times root of $P$. Thus, there exists a polynomial $Q \neq 0$ with $Q(x_0) \neq 0$ such that
+  \[ \underbrace{P(x)}_{\text{degree } \leq n} = \underbrace{(x - x_0)^{(n+1)} \cdot Q(x)}_{\text{degree } \geq n+1} \]
+  This is a contradiction. Hence it holds that $T - \tilde T = 0$.
+\end{proof}
+
+\index{Approximation error of a Taylor polynomial}
+\index{Remainder of a Taylor polynomial}
+\begin{definition} % Definition 4
+  \label{def4}
+  Let $f \in \mathcal C^n(I)$, $x_0 \in I$. Furthermore let $T_f^n(x; x_0)$ be the Taylor polynomial of $n$-th degree of $f$ in $x_0$.
+  We let $R_f^n(x; x_0) = f(x) - T_f^n(x; x_0)$. We call $R_f^{n+1}(x; x_0)$ the \emph{approximation error} of the Taylor polynomial.
+  Also called \emph{remainder term of $n+1$-th order}. Compare with Figure~\ref{img:taylor-rem}.
+\end{definition}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/27_taylor_remainder.pdf}
+    \caption{Visualization of the remainder term of a Taylor polynomial}
+    \label{img:taylor-rem}
+  \end{center}
+\end{figure}
+
+\index{Integral form of the Taylor remainder}
+\begin{theorem} % Satz 4
+  \label{thm4} 
+  Let $f^{(n+1)}(I)$, $x \in I$, $x_0 \in I$. Then it holds that
+  \[ R_f^{n+1}(x; x_0) = \frac1{n!} \int_{x_0}^x (x - t)^n f^{(n+1)}(t) \, dt \]
+  We call it the \emph{integral form of the remainder term}.
+\end{theorem}
+
+\begin{proof}
+  Complete induction over $n$.
+  \begin{description}
+    \item[Induction base $n = 0$]
+      \[ T_f^0(x; x_0) = f(x_0) \]
+      \begin{align*}
+        R_f^1(x; x_0) &= \underbrace{f(x) - f(x_0)}_{f \in \mathcal C^1} \\
+          &= \int_{x_0}^x f'(t) \, dt \\
+          &= \frac1{0!} \int_{x_0}^x (x - t)^0 f^{(1)}(t) \, dt
+      \end{align*}
+    \item[Induction step $n-1 \to n$]
+      \begin{align*}
+        R_f^n(x; x_0) &= f(x) - T_f^{n-1}(x; x_0) \\
+          &\underbrace{=}_{\text{ind. hypothesis}} \frac{1}{(n-1)!} \int_{x_0}^x (x - t)^{n-1} f^{(n)}(t) \, dt \\
+          &= \begin{vmatrix} u' = (x - t)^{n-1} & v = f^{(n)}(t) \\ u = -\frac1n (x - t)^n & v' = f^{(n+1)}(t) \end{vmatrix} \\
+          &= \left.\frac{1}{(n-1)!} \underbrace{\left[-\frac1n (x - t)^n \cdot f^{(n)}(t)\right]}_{= \frac1{n!} (x - x_0)^n \cdot f^{(n)}(x_0)} \right|_{t = x_0}^{x} + \underbrace{\frac{1}{(n-1)!} \int \frac1n (x - t)^n \cdot f^{(n+1)}(t) \, dt}_{= \frac1{n!} \int_{x_0}^x (x - t)^n \cdot f^{(n+1)}(t) \, dt}
+      \end{align*}
+      So,
+      \[ f(x) \underbrace{- T_f^{n-1}(x; x_0) - \frac{1}{n!} f^{(n)}(x_0)(x - x_0)^n}_{- T_f^n(x; x_0)} \]
+      \[ = \frac1{n!} \int_{x_0}^x (x - t)^n \cdot f^{(n+1)}(t) \, dt \]
+      Therefore,
+      \[ R_f^{(n+1)}(x; x_0) = \frac{1}{n!} \int_{x_0}^x (x - t)^n f^{(n+1)}(t) \, dt \]
+  \end{description}
+\end{proof}
+
+\index{Lagrange form of the remainder}
+\begin{theorem}[Lagrange form of the remainder term] % Satz 5
+  \label{thm5}
+  Let $f \in \mathcal C^{n+1}(I)$, $n \in \mathbb N_0$, $x, x_0 \in I$, $x \neq x_0$.
+  Then there exists some $\xi$ between $x_0$ and $x$ (hence, $\xi \in (x_0, x)$ if $x > x_0$ or $\xi \in (x, x_0)$ if $x < x_0$) such that
+  \[ R_f^{(n+1)}(x; x_0) = \frac{1}{(n+1)!} f^{(n+1)}(\xi) (x - x_0)^{n+1} \]
+\end{theorem}
+
+\begin{proof}
+  Idea: we apply the Mean Value Theorem for definite integrals on the Taylor remainder.
+
+  \begin{description}
+    \item[Case 1] Let $x_0 < x$.
+      \begin{align*}
+        R_f^{n+1}(x; x_0)
+          &= \frac{1}{n!} \int_{x_0}^x \underbrace{(x - t)^n}_{\substack{\geq 0 \\ \text{regulated function}}} \underbrace{f^{(n+1)}(t)}_{\text{continuous in } t} \, dt \\
+          &\underbrace{=}_{\text{MVT}} \frac{1}{n!} f^{(n+1)}(\xi) \cdot \int_{x_0}^x (x - t)^n \, dt \\
+          &= \frac{1}{n!} f^{(n+1)} (\xi) \left[- \frac{1}{n+1} (x - t)^{n+1}\right]_{t = x_0}^x \\
+          &= \frac{1}{(n+1)!} f^{(n+1)}(\xi)(x - x_0)^{n+1}
+      \end{align*}
+      where MVT is the Mean Value Theorem for definite integrals (Theorem~\ref{satz3}).
+    \item[Case 2] Let $x < x_0$ and $n$ odd.
+      \begin{align*}
+        R_f^{n+1}(x; x_0) &= -\frac{1}{n!} \int_{x}^{x_0} \underbrace{(x - t)^n}_{= (-1)^n (t - x)^n} \cdot f^{(n+1)}(t) \, dt \\
+          &= \frac{1}{n!} \int_x^{x_0} \underbrace{(t - x)^n}_{\geq 0} \cdot \underbrace{f^{(n+1)}(t)}_{\text{continuous}} \, dt \\
+          &= \frac{f^{(n+1)}(\xi)}{n!} \int_x^{x_0} (t - x)^n \, dt \\
+          &= \left.\frac{f^{(n+1)}(\xi)}{n!} \left[\frac{1}{n+1} (t - x)^{n+1}\right]\right|_{x}^{x_0} \\
+          &= \frac{1}{(n+1)!} f^{(n+1)}(\xi)(x_0 - x)^{n+1} \\
+        \intertext{$n+1$ is even} \\
+          &= \frac{1}{(n+1)!} f^{(n+1)}(\xi)(x - x_0)^{n+1}
+      \end{align*}
+    \item[Case 3] Let $x < x_0$ and $n$ even.
+      \begin{align*}
+        R_f^{n+1}(x; x)
+          &= -\frac{1}{n!} \int_x^{x_0} \underbrace{(x - t)^n}_{\geq 0} \cdot \underbrace{f^{(n+1)}(t)}_{\text{continuous}} \, dt \\
+          &= -\frac1{n!} f^{(n+1)}(\xi) \cdot \int_x^{x_0} (x - t)^n \, dt \\
+          &= \left. -\frac1{n!} f^{(n+1)}(\xi) \cdot \left[-\frac{1}{n+1} (x - t)^{n+1}\right]\right|_x^{x_0} \\
+          &= \frac{1}{(n+1)!} f^{(n+1)}(\xi) (x - x_0)^{n+1}
+      \end{align*}
+  \end{description}
+\end{proof}
+
+Any extreme value satisfies its derivative is zero. But not every point with derivative zero is an extreme value.
+We now consider conditions to select extreme values from all value satisfying derivative zero.
+
+\begin{corollary}[Sufficient conditions for existence of extreme values]
+  Let $I$ be an open interval. Let $x_0 \in I$ and $f \in \mathcal C^{n+1}(I)$. Assume
+  \[ f^{(1)}(x_0) = f^{(2)}(x_0) = \dots = f^{(n)}(x_0) = 0 \] % TODO I think he gave some examples here - content missing?!
+  and $f^{(n+1)}(x_0) \neq 0$. Then $f$ in $x_0$ has
+  \begin{enumerate}
+    \item a strict local maximum if $n$ is even and $f^{(n+1)}(x_0) < 0$
+    \item a strict local minimum if $n$ is odd and $f^{(n+1)}(x_0) > 0$
+    \item no extreme value in $x_0$ if $n$ is even.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  \begin{description}
+    \item[Case a]
+      Let $f^{(n+1)}(x_0) < 0$ and $f^{(n+1)}$ is continuous,
+      then $\exists \varepsilon > 0$ such that $(x_0 - \varepsilon, x_0 + \varepsilon) \subseteq I$ ($I$ is open)
+      and $f^{(n+1)}(\xi) < 0 \forall \xi \in (x_0 - \varepsilon, x_0 + \varepsilon)$.
+      Now let $x \in (x_0 - \varepsilon, x_0 + \varepsilon)$.
+      Then by Theorem~\ref{thm5},
+      \[ \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} = R_f^{n+1}(x; x_0) = f(x) - \sum_{k=0}^n \frac{1}{k!} f^{(k)}(x_0) (x - x_0)^k = f(x) - f(x_0) \]
+      for $k = 1, \dots, n$. So,
+      \[ f(x) - f(x_0) = \frac{\overbrace{f^{(n+1)}(\xi)}^{< 0}}{\underbrace{(n+1)!}_{> 0}} \underbrace{(x - x_0)^{\overbrace{n+1}^{\text{even}}}}_{> 0 \text{ for } x \neq x_0} \]
+      hence $f(x) - f(x_0) < 0$, or equivalently
+      \[ f(x) < f(x_0) \qquad \forall x \in (x_0 - \varepsilon, x_0 + \varepsilon), x \neq x_0 \]
+      So $f$ is a strict local maximum.
+    \item[Case b] Analogously.
+    \item[Case c] We apply the same idea as in Case~a up to the point, where we consider $f(x) - f(x_0)$.
+      \[ f(x) - f(x_0) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} \]
+      $f^{(n+1)}(\xi)$ has the same sign as $\underbrace{f^{(n+1)}(x_0)}_{\neq 0} \quad \forall \xi \in (x_0 - \varepsilon, x_0 + \varepsilon)$.
+      This is possible due to continuity of $f^{(n+1)}$ for sufficiently small $\varepsilon$.
+      \[
+        f(x) - f(x_0)
+        = \underbrace{\frac{f^{(n+1)}(\xi)}{(n+1)}}_{\text{has constant sign indep. of } x} \cdot {\underbrace{(x - x_0)}_{\text{changes its sign}}}^{\overbrace{n+1}^{\text{odd}}}
+      \]
+      Therefore $f(x) - f(x_0)$ changes its sign for $x = x_0$. Hence $f$ has no extreme value in $x = x_0$.
+  \end{description}
+\end{proof}
+
+\index{Qualitative Taylor equation}
+\begin{theorem}[Qualitative Taylor equation]
+  Let $f \in \mathcal C^n(I)$, $x, x_0 \in I$. Then there exists some function $r \in \mathcal C(I)$ with $r(x_0) = 0$ such that
+  \[ f(x) = T_f^n(x; x_0) + (x - x_0)^n \cdot r(x) \]
+  or equivalently,
+  \[ R_f^{n+1}(x; x_0) = (x - x_0)^n \cdot r(x) \]
+\end{theorem}
+
+\begin{remark}
+  For some function $r$ with $\lim_{x\to x_0} r(x) = 0$, we also denote $o(x - x_0)$ instead of $r(x)$.
+  This general notation is called Landau's Big-Oh notation.
+  \[ f(x) = T_f^n(x; x_0) + (x - x_0)^n \cdot o(x - x_0) \]
+\end{remark}
+
+\begin{proof}
+  Let $r(x) = \frac{f(x) - T_f^n(x; x_0)}{(x - x_0)^n}$ for $x \neq x_0$ and $r(x_0) \coloneqq 0$.
+  Then $f$ is continuous and $T_f^n$ is continuous in every point $x \neq x_0$.
+  It remains to show that $r$ is continuous in $x = x_0$.
+  \begin{align*}
+    r(x) &= \frac{1}{(x - x_0)^n} (\underbrace{f(x) - T_f^{n-1}(x; x_0)}_{R_f^n(x; x_0)} - \frac1{n!} f^{(n)}(x_0)(x - x_0)^n) \\
+      &\underbrace{=}_{\text{Lagrange}} \frac{1}{(x - x_0)} \left[ \frac{1}{n!} (x - x_0)^n \cdot f^{(n-1)}(\xi) - \frac{1}{n!} f^{(n)}(x_0)(x - x_0)^n \right] \\
+    \intertext{$\xi \in (x_0, x)$} \\
+      &= \frac{1}{n!} \left[f^{(n)}(\xi) - f^{(n)}(x_0)\right] \to 0 \text{ for } x \to x_0 \text{ because } f^{(n)} \text{ is continuous} \\
+    \intertext{as $x_0 < x < x$, hence $\xi \to x_0$ for $x \to x_0$} 
+  \end{align*}
+  So $\lim_{x\to x_0} r(x) = 0 = r(x_0)$, so $r$ in $x_0$ is continuous.
+\end{proof}
+
+\printindex
 \end{document}

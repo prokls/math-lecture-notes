@@ -1,3 +1,4 @@
 #!/bin/sh
 
-xelatex notes
+makeindex notes
+pdflatex notes

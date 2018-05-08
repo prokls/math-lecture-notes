@@ -1,2 +1,2 @@
 #!/bin/sh
-xelatex solutions
+pdflatex solutions
