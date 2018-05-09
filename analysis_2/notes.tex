@@ -2064,7 +2064,8 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
   One-sided derivatives: Let $x \in [a,b)$ and $\varepsilon > 0$ be arbitrary.
   Choose $\delta > 0$ such that $\forall \xi \in [x, x+\delta)$ it holds that $\card{f(\xi) - f_+(x)} < \varepsilon$.
   For $\xi \in (x, x+\delta)$ it holds that
-  \[ \card{\frac{F(\xi) - F(x)}{\xi - x} - f_+(x)} = \frac1{\card{\xi - x}} \card{\underbrace{\int_x^\xi f \, dy}_{F(\xi) - F(x)} - \underbrace{f_+(x)(\xi - x)}_{\int_x^\xi \underbrace{f_+(x)}_{\text{const.}} \, dy}} = \frac{1}{\card{\xi - x}} \card{\int_x^\xi (f - f_+(x)) \, dy} \leq \frac{1}{\card{\xi - x}} \int_x^\xi \underbrace{\card{f(y) - f_+(x)}}_{< \varepsilon} \, dy \]
+  \[ \card{\frac{F(\xi) - F(x)}{\xi - x} - f_+(x)} = \frac1{\card{\xi - x}} \card{\underbrace{\int_x^\xi f \, dy}_{F(\xi) - F(x)} - \underbrace{f_+(x)(\xi - x)}_{\int_x^\xi \underbrace{f_+(x)}_{\text{const.}} \, dy}} \]
+  \[ = \frac{1}{\card{\xi - x}} \card{\int_x^\xi (f - f_+(x)) \, dy} \leq \frac{1}{\card{\xi - x}} \int_x^\xi \underbrace{\card{f(y) - f_+(x)}}_{< \varepsilon} \, dy \]
   \[ y \in (x, \xi) \subseteq (x, x+\delta) \]
   \[ < \frac{1}{\xi - x} \varepsilon \cdot \underbrace{\int_x^\xi 1 \, dy}_{\card{\xi - x}} = \varepsilon \]
   Hence, $F'_+(x) = f_+(x)$.

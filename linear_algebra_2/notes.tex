@@ -15,7 +15,7 @@
 \usepackage{wasysym}
 \usepackage{framed}
 \usepackage{xcolor}
-\usepackage{eufrak}
+%\usepackage{eufrak}
 \usepackage{makeidx}
 \usepackage{csquotes}
 \usepackage[pdfborder={0 0 0}]{hyperref}
@@ -799,7 +799,8 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
       \begin{align*}
         \triangle(a_1, \dots, a_k + v, \dots, a_n)
           &= \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots (a_{\pi(k) k} + v_{\pi(k)}) \cdot a_{\pi(n)} n \\
-          &= \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots a_{\pi(k) k} \dots a_{\pi(n) n} + \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots v_{\pi(k) k} \dots a_{\pi(n) n} \\
+          &= \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots a_{\pi(k) k} \dots a_{\pi(n) n} \\
+    &+ \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots v_{\pi(k) k} \dots a_{\pi(n) n} \\
           &= \triangle(a_1, \dots, a_k, \dots, a_n) + \triangle(a_1, \dots, v, \dots, a_n)
       \end{align*}
       This proves multilinearity.
@@ -859,13 +860,14 @@ Basis $b_1,\dots,b_n$.
 
 \begin{proof}
   \begin{enumerate}
-  	\item Multilinear
-  		\begin{align*}
-  		  \triangle^f (v_1, \dots, \lambda v_k + \mu v_k', \dots, v_n) &= \triangle (f(v_1), \dots, f(\lambda v_k + \mu v_k'), \dots, f(v_n)) \\
-  		  	&= \triangle(f(k), \dots, \lambda f(v_k) + \mu f(v_k'), \dots, f(v_k)) \\
-  		  	&= \lambda \triangle (f(v_1), \dots, f(v_k), \dots, f(v_n)) + \mu \triangle(f(v_1), \dots, f(v_k'), \dots, f(v_n)) \\
-  		  	&= \lambda \triangle^f(v_1, \dots, v_k, \dots, v_n) + \mu \triangle^f (v_1, \dots, v_k', \dots, v_n)
-  		\end{align*}
+    \item Multilinear
+      \begin{align*}
+        &\triangle^f (v_1, \dots, \lambda v_k + \mu v_k', \dots, v_n) \\
+        &= \triangle (f(v_1), \dots, f(\lambda v_k + \mu v_k'), \dots, f(v_n)) \\
+        &= \triangle(f(k), \dots, \lambda f(v_k) + \mu f(v_k'), \dots, f(v_k)) \\
+        &= \lambda \triangle (f(v_1), \dots, f(v_k), \dots, f(v_n)) + \mu \triangle(f(v_1), \dots, f(v_k'), \dots, f(v_n)) \\
+        &= \lambda \triangle^f(v_1, \dots, v_k, \dots, v_n) + \mu \triangle^f (v_1, \dots, v_k', \dots, v_n)
+      \end{align*}
   \end{enumerate}
 \end{proof}
 
@@ -900,12 +902,12 @@ Basis $b_1,\dots,b_n$.
 \begin{proof}
   \[ \det(f) = \frac{\triangle(f(b_1)), \dots, \triangle(f(b_n)))}{\triangle (b_1, \dots, b_n)} \]
   \begin{align*}
-  	f(b_j) &= \sum_{i=1}^n \phi_B(f(b_i))_i \cdot b_i \\
-  		   &= \sum_{i=1}^n \left(\phi_B^B(f)\right)_{ij} b_i
+    f(b_j) &= \sum_{i=1}^n \phi_B(f(b_i))_i \cdot b_i \\
+         &= \sum_{i=1}^n \left(\phi_B^B(f)\right)_{ij} b_i
   \end{align*}
   with $\phi_B^B(f)_{ij} = \phi_B(f(b_j))_i$.
   \begin{align*}
-  	\det{f} &= \frac{\det{\phi_B^B(f) \cdot \triangle(b_1, \dots, b_n)}}{\triangle(b_1, \dots, b_n)}
+    \det{f} &= \frac{\det{\phi_B^B(f) \cdot \triangle(b_1, \dots, b_n)}}{\triangle(b_1, \dots, b_n)}
   \end{align*}
 \end{proof}
 
@@ -926,9 +928,9 @@ Basis $b_1,\dots,b_n$.
   \[ \exists k: f(b_k) = \sum_{i\neq k} \lambda_i f(b_i) \]
   Without loss of generality: $k = n$
   \begin{align*}
-  	\triangle(f(b_1), \dots, f(b_n)) &= \triangle(f(b_1), \dots, f(b_{n-1}), \sum_{i=1}^{n-1} \lambda_i f(b_i)) \\
-  		&= \sum_{i=1}^n \lambda_i \triangle(\underbrace{f(b_1), \dots, f(b_{n-1})}_{=0 \forall i \in \set{1,\dots,n-1}}, f(b_i)) \\
-  		&= 0
+    \triangle(f(b_1), \dots, f(b_n)) &= \triangle(f(b_1), \dots, f(b_{n-1}), \sum_{i=1}^{n-1} \lambda_i f(b_i)) \\
+      &= \sum_{i=1}^n \lambda_i \triangle(\underbrace{f(b_1), \dots, f(b_{n-1})}_{=0 \forall i \in \set{1,\dots,n-1}}, f(b_i)) \\
+      &= 0
   \end{align*}
 \end{proof}
 
@@ -948,7 +950,7 @@ Basis $b_1,\dots,b_n$.
   for arbitrary bases $(b_1, \dots, b_n)$ of $V$.
   \begin{align*}
     \det(f \circ g) &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\triangle(b_1, \dots, b_n)} \cdot \frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(g(b_1), \dots, g(b_n))} \\
-    	&= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\underbrace{\triangle(g(b_1), \dots, g(b_n))}_{0 \neq \det(f)}} \cdot \underbrace{\frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(b_1, \dots, b_n)}}_{\det(g) \neq 0}
+      &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\underbrace{\triangle(g(b_1), \dots, g(b_n))}_{0 \neq \det(f)}} \cdot \underbrace{\frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(b_1, \dots, b_n)}}_{\det(g) \neq 0}
   \end{align*}
   $g$ invertible
   \[ \implies g(b_1), \dots, g(b_n) \text{ is basis} \]
@@ -971,17 +973,17 @@ Basis $b_1,\dots,b_n$.
   \label{cor730}
   For $A, B \in \mathbb K^{n\times n}$ it holds that
   \begin{enumerate}
-  	\item $\det(A \cdot B) = \det(A) \cdot \det(B)$
-  	\item $\det(A^{-1}) = \frac{1}{\det(A)}$ if invertible
-  	\item $\det(A) = 0 \iff \rank(A) < n$
-  	\item $\det(A^t) = \det(A)$
+    \item $\det(A \cdot B) = \det(A) \cdot \det(B)$
+    \item $\det(A^{-1}) = \frac{1}{\det(A)}$ if invertible
+    \item $\det(A) = 0 \iff \rank(A) < n$
+    \item $\det(A^t) = \det(A)$
   \end{enumerate}
 \end{corollary}
 
 \begin{proof}[Proof of Corollary~\ref{cor730}]
   \begin{enumerate}
-  	\item $\det(A \cdot B) = \det(f_A \circ f_B) = \det(f_A) \cdot \det(f_B) = \det(A) \cdot \det(B)$
-  	\item $A \cdot A^{-1} = I$ and $1 = \det(A \cdot A^{-1}) = \det(A) \cdot \det(A^{-1})$
+    \item $\det(A \cdot B) = \det(f_A \circ f_B) = \det(f_A) \cdot \det(f_B) = \det(A) \cdot \det(B)$
+    \item $A \cdot A^{-1} = I$ and $1 = \det(A \cdot A^{-1}) = \det(A) \cdot \det(A^{-1})$
   \end{enumerate}
   \begin{remark}[From the practicals]
     \[ \det(A) = \det(f_A) \]
@@ -997,14 +999,14 @@ Basis $b_1,\dots,b_n$.
   $s_1$ are column vectors of $A$.
   Let $\triangle$ be the uniquely defined determinant form by $\triangle(e_1, \dots, e_n) = 1$.
   \[
-  	A \cdot B
-  	= \begin{bmatrix} s_1 & \dots & s_n \\ \vdots &  & \vdots \end{bmatrix} \cdot \begin{bmatrix} b_{11} & b_{12} & \dots & b_{1n} \\ \vdots & & & \vdots \\ b_{n1} & & & b_{nn} \end{bmatrix}
+    A \cdot B
+    = \begin{bmatrix} s_1 & \dots & s_n \\ \vdots &  & \vdots \end{bmatrix} \cdot \begin{bmatrix} b_{11} & b_{12} & \dots & b_{1n} \\ \vdots & & & \vdots \\ b_{n1} & & & b_{nn} \end{bmatrix}
   \] \[
-  	= \begin{bmatrix} s_1 b_{11} + s_2 b_{21} + \dots + s_n b_{n1} & s_1 b_{12} + s_2 b_{22} + \dots + s_n b_{n2} & \dots & s_1 b_{1n} + s_2 b_{2n} + \dots + s_n b_{nn} \\
-  	\vdots & \vdots &  & \vdots \end{bmatrix}
+    = \begin{bmatrix} s_1 b_{11} + s_2 b_{21} + \dots + s_n b_{n1} & s_1 b_{12} + s_2 b_{22} + \dots + s_n b_{n2} & \dots & s_1 b_{1n} + s_2 b_{2n} + \dots + s_n b_{nn} \\
+    \vdots & \vdots &  & \vdots \end{bmatrix}
   \] \[
-  	\det(A \cdot B) = \frac{\triangle(s_1(A \cdot B), \dots, s_n(A \cdot B))}{\triangle (e_1, \dots, e_n)}
-  	  = \triangle\left(\sum_{i_1=1}^n s_{i_1} b_{i_1 1}, \sum_{i_2=1}^n s_{i_2} b_{i_2 2}, \dots, \sum_{i_n=1}^n s_{i_n} b_{i_n n}\right)
+    \det(A \cdot B) = \frac{\triangle(s_1(A \cdot B), \dots, s_n(A \cdot B))}{\triangle (e_1, \dots, e_n)}
+      = \triangle\left(\sum_{i_1=1}^n s_{i_1} b_{i_1 1}, \sum_{i_2=1}^n s_{i_2} b_{i_2 2}, \dots, \sum_{i_n=1}^n s_{i_n} b_{i_n n}\right)
   \] \[
     = \sum_{i_1=1}^n \dots \sum_{i_n=1}^n b_{i_1 1} b_{i_2 2} \dots b_{i_n n} \underbrace{\triangle(s_{i1}, \dots, s_{in}}_{=0}
   \]
@@ -1329,17 +1331,17 @@ Basis $b_1,\dots,b_n$.
 
 \begin{proof}
   Proof of (ii)
-  \[
+  \begin{align*}
     \begin{vmatrix}
              &         &           & 0  \\
       B      &         &           & \vdots \\
              &         &           & 0  \\
       a_{n,1} & \ldots & a_{n,n-1} & a_{n,n}
     \end{vmatrix}
-    = \sum_{\pi \in \sigma_n} (-1)^{\pi} a_{\pi(1) 1} \dots a_{\pi(n) n}
-    = \sum_{\pi' in \sigma_{n-1}} (-1)^{\pi'} a_{\pi'(1) 1} \dots a_{\pi'(n-1) n-1} \cdot a_{nn}
-    = \det(B) \cdot a_{nn}
-  \]
+    &= \sum_{\pi \in \sigma_n} (-1)^{\pi} a_{\pi(1) 1} \dots a_{\pi(n) n} \\
+    &= \sum_{\pi' in \sigma_{n-1}} (-1)^{\pi'} a_{\pi'(1) 1} \dots a_{\pi'(n-1) n-1} \cdot a_{nn} \\
+    &= \det(B) \cdot a_{nn}
+  \end{align*}
   \[ \setdef{\pi \in \sigma_n}{\pi(n) = n} \]
   \[ \pi(n) = n \]
   \[
@@ -1868,7 +1870,11 @@ How to find an orthogonal vector?
     \item If $\lambda > 0$, it follows immediate.
       If $\lambda < 0$, lengths stay the same, but orientation swaps.
     \item If $c = 0$, it is trivial. If $c \neq 0$,
-      \includegraphics{img/04_apbmc_eq_amcpbmc.pdf}
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics{img/04_apbmc_eq_amcpbmc.pdf}
+        \end{center}
+      \end{figure}
       E is the plane orthogonal to $c$. $a'$ and $b'$ are projections of $a$ and $b$ to $E$.
 
       \begin{enumerate}
@@ -1933,7 +1939,7 @@ How to find an orthogonal vector?
 
 \begin{proof}
   \begin{align*}
-    (a_1 e_1 + a_2 e_2 + a_3 e_3) \times (b_1 e_1 + b_2 e_2 + b_3 e_3)
+      &(a_1 e_1 + a_2 e_2 + a_3 e_3) \times (b_1 e_1 + b_2 e_2 + b_3 e_3) \\
       &= a_1 b_1 e_1 \times e_1 + a_1 b_2 e_1 \times e_2 + a_1 b_3 e_1 \times e_3 \\
       &+ a_2 b_1 e_2 \times e_1 + a_2 b_2 e_2 \times e_2 + a_2 b_3 e_2 \times e_3 \\
       &= a_3 b_1 e_3 \times e_1 + a_3 b_2 e_3 \times e_2 + a_3 b_3 e_3 \times e_3 \\
@@ -2086,7 +2092,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
 \begin{remark}
   Every norm is a metric with $d(x,y) = \norm{x - y}$.
 
-  $d$ is translationinvariant. $d(x + x_0, y + x_0) = d(x, y)$.
+  $d$ is translation invariant. $d(x + x_0, y + x_0) = d(x, y)$.
   This is compatible to a vector space.
 
   In a black hole ($\to$ physics), you have a different metric in every point (Riemannian geometry): $\angel{x,y}_{A(x,y)}$.
@@ -2240,8 +2246,8 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   is called \emph{conjugate transpose}.
 
   $A$ is called \emph{self-adjoint} if $A = A^*$.
-  $A$ is called \emph{symmetrical} if additionally $\mathbb K = \mathbb R$
-  or $A$ is called \emph{Hermitian} if additionally $\mathbb K = \mathbb C$.
+  $A$ is called \emph{symmetrical} if $A = \overline{A}$ and $\mathbb K = \mathbb R$
+  or $A$ is called \emph{Hermitian} if $A = A^*$ and $\mathbb K = \mathbb C$.
 
   $A = A^*$ is called (positive/negative) (semidefinite/definite) if the corresponding sesquilinear form
   \[ \angel{\xi, \eta}_A = \xi^T \cdot A \cdot \overline{\eta} \]
@@ -2751,7 +2757,8 @@ in regards of basis $b_1, \dots, b_n$.
   such that $x^* Ax = \Phi_{\tilde B}(x)^* \tilde D \tilde\Phi_{\tilde B}(x)$.
   For $x \in \mathcal L(\set{b_1, \dots, b_r}) \setminus \set{0}$,
   \[ \Phi_B(x) = \begin{pmatrix} \xi_1 \\ \vdots \\ \xi_r \\ 0 \\ \vdots \\ 0 \end{pmatrix} \]
-  \[ \implies x^* A x = \Phi_B(x)^* D \Phi_B(x)
+  \[ \implies x^* A x = \Phi_B(x)^* D \Phi_B(x) \]
+  \[
     = (\overline{\xi}_1, \dots, \overline{\xi}_r, 0, \dots, 0)
     \begin{bmatrix}
        +1 &        &       &    &        &    &   &        & \\
@@ -2779,6 +2786,7 @@ in regards of basis $b_1, \dots, b_n$.
       \end{pmatrix}
   \] \[
     x^* Ax = \Phi_{\tilde B}(x)^* \tilde D \Phi_{\tilde B}(x)
+  \] \[
     = (0, \dots, 0, \tilde \xi_{\tilde r + 1}, \dots, \tilde \xi_n)
     \begin{bmatrix}
        +1 &        &       &    &        &    &   &        & \\
@@ -2980,8 +2988,8 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
   \end{description}
 \end{proof}
 
-\[
-  A' = \begin{bmatrix}
+\begin{align*}  % TODO: what the fuck is this?
+  A' &= \begin{bmatrix}
     C & \vdots 0 \vdots \\
     \ldots 0 \ldots & 1
   \end{bmatrix}
@@ -2989,8 +2997,8 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
   \begin{bmatrix}
     C & \\
     & 1
-  \end{bmatrix}
-  = \begin{bmatrix}
+  \end{bmatrix} \\
+  &= \begin{bmatrix}
     C^* & \vdots 0 \vdots \\
     \ldots 0 \ldots & 1
   \end{bmatrix} \begin{bmatrix}
@@ -3002,14 +3010,15 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
   \end{bmatrix} \begin{bmatrix}
     C & \vdots 0 \vdots \\
     \ldots 0 \ldots & 1
-  \end{bmatrix}
-  = \begin{bmatrix}
+  \end{bmatrix} \\
+  &= \begin{bmatrix}
     I & & & & a_{1,n} \\
       & & & & a_{2,n} \\
       & & & & \vdots \\
     \overline{a_{1,n}} & \overline{a_{2,n}} & \ldots & \overline{a_{n-1,n}} & a_{n,n}
   \end{bmatrix}
-\] \[
+\end{align*}
+\[
   C' = \begin{bmatrix}
     1 &  & 0 & -a_{1,n} \\
       & \ddots &  & -a_{2,n} \\
@@ -3825,11 +3834,13 @@ Given: $v_1, \ldots, v_m$
   \[ u_1 = \frac{v_1}{\norm{v_1}} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \]
   \[ \tilde u_2 = v_2 - u_1 \ip{v_2}{u_1} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \cdot (0 \: 1 \: 0) A \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} \]
   \[ u_2 = \frac{\tilde u_2}{\norm{\tilde u_2}} \qquad \norm{\tilde u_2}^2 = \ip{\tilde u_2}{\tilde u_2} = (1 \: 1 \: 0) \cdot A \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} = 2 \qquad u_2 = \frac{1}{\sqrt2} \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} \]
-  \[ \tilde u_3 = v_3 - u_1 \ip{v_3}{u_1} - u_2 \ip{v_3}{u_2} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} - \vecthree100 \cdot \underbrace{(0 \: 0 \: 1) \cdot A \cdot \vecthree100}_{a_{31} = 1} - \frac{1}{\sqrt{2}} \vecthree110 \cdot \underbrace{(0 \: 0 \: 1) \cdot A \cdot \vecthree110}_{a_{31} + a_{32} = 0} \cdot \frac{1}{\sqrt2} = \vecthree{-1}01 \]
+  \[ \tilde u_3 = v_3 - u_1 \ip{v_3}{u_1} - u_2 \ip{v_3}{u_2} \]
+  \[ = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} - \vecthree100 \cdot \underbrace{(0 \: 0 \: 1) \cdot A \cdot \vecthree100}_{a_{31} = 1} - \frac{1}{\sqrt{2}} \vecthree110 \cdot \underbrace{(0 \: 0 \: 1) \cdot A \cdot \vecthree110}_{a_{31} + a_{32} = 0} \cdot \frac{1}{\sqrt2} = \vecthree{-1}01 \]
   \[ \norm{\tilde u_3}^2 = (-1 \: 0 \: 1) \cdot A \cdot \vecthree{-1}{0}1 = 1 - 1 - 1 + 2 = 1 \qquad u_3 = \vecthree{-1}{0}{1} \]
 \end{example}
 
-\begin{remark}[Alternative method to build orthogonal projection on subspace $U \subseteq \mathbb C^n$ with standard scalar product] % 8.59
+\begin{remark} % 8.59
+  This is an alternative method to build orthogonal projection on subspace $U \subseteq \mathbb C^n$ with standard scalar product.
   \begin{enumerate}
     \item Determine an orthonormal basis of $U$: $u_1, \ldots, u_m \in \mathbb C^{n\times 1}$
     \item $P = \sum_{i=1}^m u_1 \cdot u_i^*$
@@ -3863,7 +3874,8 @@ Given: $v_1, \ldots, v_m$
   Solution: $\pi_U(x^3) \qquad U = \mathcal L(1, x, x^2)$
   \begin{align*}
     \pi_U(x^3) &= u_1 \ip{x^3}{u_1} + u_2 \ip{x^3}{u_2} + u_3 \ip{x^3}{u_3} \\
-      &= 1 \cdot \int_0^1  t^3 \cdot 1 \, dt + \sqrt{12} (x - \frac12) \int_0^1 t^3 \sqrt{12} (t - \frac12) \, dt + \sqrt{180} (x^2 - x + \frac16) \int_0^1 t^3 \sqrt{180} (t^2 - t + \frac16) \, dt
+      &= 1 \cdot \int_0^1  t^3 \cdot 1 \, dt + \sqrt{12} (x - \frac12) \int_0^1 t^3 \sqrt{12} (t - \frac12) \, dt \\
+      &+ \sqrt{180} (x^2 - x + \frac16) \int_0^1 t^3 \sqrt{180} (t^2 - t + \frac16) \, dt
   \end{align*}
 \end{example}
 
@@ -4387,6 +4399,7 @@ Other examples in $\mathbb R^n$:
   \[ S = \begin{bmatrix} \cos(2\varphi) & \sin(2\varphi) \\ \sin(2\varphi) & -\cos(2\varphi) \end{bmatrix} \]
 \end{example}
 
+
 \dateref{2018/05/07}
 
 Linear isometries:
@@ -4665,7 +4678,340 @@ O. Perron (1880/05/07--1975)
   Every algebra homomorphism $\mathbb K[x] \to \mathcal A$ has the structure.
 \end{theorem}
 
+\dateref{2018/05/09}
 
+We consider algebras as vector spaces with associative multiplication. For example, matrices and polynomials.
+An algebra homomorphism is linear and multiplicative.
+\[ \Phi(a + b)= \Phi(a) * \Phi(b) \]
+$A$ is an associative algebra with $\mathbf 1_A$.
+\[ l: \substack{\mathbb K \to \mathcal A \\ \alpha \to \alpha \cdot \mathbf 1_{\mathcal A}} \]
+$a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \mathcal A$ subalgebra.
+
+\begin{enumerate}
+  \item 
+    \[ \exists! \Phi_a: \mathbb K[a] \to \mathcal A \text{ algebra homomorphism} \]
+    such that $\Phi_a(x) = a$, namely $\Phi_a\left(\sum_{k=0}^n c_k x^k\right) = \sum_{k=0}^n c_k a^k$.
+  \item
+    Every homomorphism $\Psi: \mathbb K[x] \to \mathcal A$ has this structure.
+    \begin{proof}
+      Let $a = \Psi(x) \implies \Psi(x^n) = \Psi(x)^n = a^n$ by homomorphism.
+      \[ \Psi \text{ linear } \implies \Psi\left(\sum_{k=0}^n c_k x^k\right) = \sum_{k=0}^n c_k \Psi(x^k) = \sum_{k=0}^n c_k a^k \]
+      $x^0, x^1, \dots$ give a basis of $\mathbb K[x]$.
+      Hence $\Psi = \Phi_a$ with $a = \Psi(x)$. On the opposite (1.): Obviously $\Phi_a$ is linear.
+      Multiplicative: Show that
+      \[ \underbrace{\Psi_a(p(x) \cdot q(x))}_{= p(a) \cdot q(a)} \overset!= \underbrace{\Phi_a(p(x)) \cdot {}_{\mathcal A}\Phi_a(q(x))}_{= p(a) \cdot q(a)} \]
+    \end{proof}
+\end{enumerate}
+
+\begin{example} % Beispiel 9.13
+  \begin{enumerate}
+    \item $\mathcal A = \mathbb K$.
+      \[ \Psi_\alpha: \substack{\mathbb K[x] \to \mathbb K \\ p(x) \mapsto p(\alpha)} \]
+    \item $\mathcal A = \mathbb K^{n\times n} \eqsim \Hom(V, V)$
+      \[ A^0 = I \qquad A^n = A \cdot A^{n-1} \]
+      \[ l: \substack{\mathbb K \to \mathbb K^{n\times n} \\ \alpha \mapsto \alpha \cdot I} \]
+      \[ \Psi_\alpha: \substack{\mathbb K[x] \to \mathbb K^{n\times n} \\ p(x) \mapsto p(A) \\ \sum_{k=0}^n c_k x^k \mapsto \sum_{k=0}^n c_k \cdot A^k}  \]
+  \end{enumerate}
+\end{example}
+
+\begin{remark} % Bemerkung 9.14
+  Let $\mathbb K[x]$ be a free, associative algebra over $\mathbb K$ with a generator.
+  Hence, for all associative algebras $\mathcal A$, given some element $a \in \mathcal A$.
+  There exists exactly one homomorphism $\varphi: \mathbb K[x] \to \mathcal A$ such that $\varphi(x) = a$.
+
+  Compare it with a free group with one generator. Is a group $G$ generated by $x$ such that $\forall$ groups $H$, if $h \in H$ given,
+  there exists exactly one group homomorphism $\varphi: G \to H$ such that $\varphi(x) = h$. Namely, $G = (\mathbb Z, +)$ is generated by $\mathbf 1$.
+  Given $h \in H \to \varphi_h: \mathbb Z \to H_k$ and $k \mapsto h$.
+\end{remark}
+
+\index{Root of a polynomial}
+\begin{definition}
+  A \emph{root of a polynomial} $p(x) \in \mathbb K[x]$ is a $\xi \in \mathbb K$ such that $p(\xi) = \Psi_{\xi}(p) = 0$,
+  hence $p(x) \in \ker{\Psi_{\xi}}$.
+\end{definition}
+
+\begin{remark}
+  $p(x) = C_0$ is no root except $c_0 = 0$.
+
+  $p(x) = c_0 + c_1 x$ is the only root, $\xi = -\frac{c_0}{c_1}$.
+
+  \[ p(x) = c_0 + c_1 x + c_2 x^2 \]
+  has two roots over $\mathbb C$.
+
+  \[ p(x) = c_0 + c_1 x + c_2 x^2 + c_3 x^3 \]
+  has three roots.
+
+  To find roots, formulas up to fourth degree exist.
+  For degree $\geq 5$, there is no equation.
+\end{remark}
+
+Paolo Ruffini (1765--1822) \\
+Niels Henrik Abel (1802--1829) \\
+Gerolamo Cardano (1501--1576)
+
+\begin{remark}
+  Cardano was a polymath.
+  \begin{enumerate}
+    \item founder of probability theory
+    \item \emph{Liber de ludo aleae}: important book on probability
+    \item Cardan joint (dt. \foreignlanguage{german}{Kardanische Welle})
+    \item Gimbal (dt. \foreignlanguage{german}{Kardanische Aufh\"angung})
+    \item used $\sqrt{-1}$ as a valid expression for the first time
+    \item published a solution for roots of cubic polynomials (Ars Magna, 1545)
+  \end{enumerate}
+
+  Scipione del Ferro (1465--1526)
+
+  \begin{enumerate}
+    \item used a solution for roots of cubic polynomials in competitions, kept it secret
+    \item came up with the same solution like Tartaglia
+    \item lost competitions on cubic polynomials to Antonio Fiore, because Ferro's solution was not generic enough
+  \end{enumerate}
+
+  Niccol\`o Fontana Tartaglia (1500--1557)
+
+  \begin{enumerate}
+    \item Cardano cajoled Tartaglia into revealing his solution to the cubic equations by promising not to publish them.
+  \end{enumerate}
+
+  Ludovico Ferrari (1522--1565)
+\end{remark}
+
+\index{Method by Cardano/del Ferro}
+\begin{theorem}[Method by Cardano/del Ferro] % 9.16
+  \[ a_0 + a_1 x + a_2 x^2 + a_3 x^3 = 0 \]
+  \[ x \to x + a \qquad \text{ such that } a_2 = 0 \]
+
+  \[ x^3 + px + q = 0 \]
+  Cubus p.6 rebus aeq 20 \\
+  $x^3 + 6x = 20$
+
+  $x = $ res, $x^2 = $ census, $x^3 = $ cubus.
+
+  Approach: $x = u + v$.
+
+  \[ u^3 + 3u^2v + 3uv^2 + v^3 + p(u + v) + q = 0 \]
+  \[ u^3 + v^3 + (3uv + p)(u + v) + q = 0 \]
+
+  Requirement:
+  $u$ and $v$ such that $3uv + p = 0$.
+
+  \[
+    \begin{cases}
+      u^3 + v^3 + q = 0 & \implies v^3 = -(q + u^3) \\
+      3uv + p = 0 & \implies uv = -\frac{p}{3u}
+    \end{cases}
+  \]
+  \[ u^3 \cdot v^3 = -\frac{p^3}{27} \]
+  \[ -u^3 (q + u^3) = -\frac{p^3}{27} \]
+  \[ u^6 + qu^3 - \frac{p^3}{27} = 0 \]
+  \[ u^3 = ? \]
+
+  Equation for degree 2 by Vi\`ete, Francois (1540--1603):
+
+  \[ (y - \alpha)(x - \beta) = x^2 - (\alpha + \beta) x + \alpha \beta \]
+  \[ x^2 + px + q \]
+  \[ p = -(\alpha + \beta) \]
+  \[ q = \alpha \cdot \beta \]
+
+  \[ \alpha = \frac12 \left[(\alpha + \beta) + \sqrt{(\alpha - \beta)^2}\right] \]
+  \[ \beta = \frac12 \left[(\alpha + \beta) - \sqrt{(\alpha - \beta)^2}\right] \]
+  \[
+    \frac\alpha\beta = \frac12 \left(\alpha + \beta \pm \sqrt{(\alpha - \beta)^2}\right)
+    = \frac12 \left(\alpha + \beta \pm \sqrt{\underbrace{\alpha^2 + \beta^2 - 2\alpha\beta}_{(\alpha + \beta)^2 - 4\alpha\beta}}\right)
+    = \frac12 \left(-p \pm \sqrt{p^2 - 4q}\right)
+  \]
+
+  Hence,
+  \begin{align*}
+    u^3 &= \frac12\left(-q \mp \sqrt{q^2 + \frac{4p^3}{27}}\right) \\
+    u^3 &= \frac{q}2 \pm \sqrt{\frac{q^2}{4} + \frac{p^3}{27}} \\
+    u &= \sqrt[3]{-\frac{q}2 \pm \sqrt{\frac{q^2}{4} + \frac{p^3}{27}}} \\
+    v^3 &= -q - u^3 = -\frac{q}{2} \mp \sqrt{\frac{q^2}{4} + \frac{p^3}{27}} \\
+    x = u + v &= \sqrt[3]{-\frac{q}2 + \sqrt{\frac{q^2}{4} + \frac{p^3}{27}}} + \sqrt[3]{-\frac{q^2}{2} - \sqrt{\frac{q^2}{4} + \frac{p^3}{27}}}
+  \end{align*}
+\end{theorem}
+
+\index{Polynomial division}
+\begin{theorem}[Division with remainder] % 9.17 Satz
+  $p(x), q(x) \in \mathbb K[x]$, $q(x) \neq 0$.
+
+  Then there exists exactly one polynomial $s(x), r(x) \in \mathbb K[x]$,
+  \[ p(x) = s(x) \cdot q(x) + r(x) \]
+  with $\deg{r(x)} < \deg{q(x)}$.
+\end{theorem}
+
+\begin{proof}
+  Induction over $\deg{p(x)}$.
+  \begin{description}
+    \item[Induction base]
+      \[ \deg{p(x)} < \deg{q(x)} \leadsto p(x) = 0 \cdot q(x) + p(x) \]
+      If $\deg{p(x)} \geq \deg{q(x)}$,
+      \[ p(x) = \sum_{k=0}^n a_k x^k \qquad q(x) = \sum_{k=0}^m b_k x^k  \]
+      \[ a_n \neq 0 \qquad m \leq n \qquad b_m \neq 0 \]
+
+      \begin{align*}
+        p_1(x) &= p(x) - \frac{a_n}{b_m} \cdot q(x) \cdot x^{n-m} \
+      \intertext{cancels the largest term $a_n x^n$ in $p(x)$.}
+          &= \sum_{k=0}^n a_k x^k - \frac{a_n}{a_m} \sum_{k=0}^m b_k x^{k+n-m} \\
+          &= a_n x^n + \sum_{k=0}^{n-1} a_k x^k - \frac{a_n}{a_m} b_m \cdot x^{m+n-m} - \frac{a_n}{b_m} \sum_{k=0}^{m-1} b_k x^{k+n-m} \\
+      \end{align*}
+      what remains is a polynomial of degree $\deg{p_1(x)} \leq n-1$.
+      \[ \implies p(x) = \frac{a_n}{b_m} x^{n-m} \cdot q(x) + p_1(x) \]
+      By induction hypothesis,
+      \[ p_1(x) = s_1(x) \cdot q(x) + r_1(x) \]
+      Hence,
+      \[ p(x) = \left(\frac{a_n}{a_m} x^{n-m} + s_1(x)\right) q(x) + r_1(x) \]
+  \end{description}
+\end{proof}
+
+\begin{example} % Beispiel 9.18
+  \begin{align*}
+    p(x) &= 3x^5 - x^4 + 2x^3 + x^2 + 1 \\
+    q(x) &= x^2 - 3x + 1 \\
+  \end{align*}
+  \[
+    \begin{vmatrix}
+      3x^5 &- x^4 &+ 2x^3 &+ x^2 &+ 1 &: x^2 &- 3x &+ 1 &= 3x^2 + 8x^2 + 23x + 62 \\
+      -3x^5 & +9x^4 & -3x^3 \\
+      0 & 8x^4 & -x^3 & +x^2 & +1 \\
+        & 8x^4 & -24x^3 & +8x^2 \\
+        & 0 & 23x^3 & -7x^2 & +1 \\
+        &   & 23x^3 & -69x^2 & +23x \\
+        &   & 0     & 62x^2 & -23x & +1 \\
+        &   &       & 62x^2 & -186x & +62 \\
+        &   &       &       & 163x & -61
+    \end{vmatrix}
+  \]
+  Hence, $s(x) = 3x^3 + 8x^2 + 23x + 62$ and $r(x) = 163x - 61$.
+\end{example}
+
+\begin{definition} % 9.19
+  $q(x)$ \emph{divides} $p(x)$ is the remainder is zero.
+
+  There exists $s(x)$ such that $p(x) = s(x) \cdot q(x)$.
+\end{definition}
+
+\begin{theorem} % Satz 9.20
+  \begin{enumerate}
+    \item If $p(x) = s(x) \cdot (x - \xi) + r$
+      \[ q(x) = x - \xi \qquad \implies p(\xi) = r \]
+    \item $\xi$ is root of $p(x) \implies x - \xi$ divides $p(x)$
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Ruffini-Horner's method]
+  Given $p(x) \in \mathbb K[x]$, $\lambda \in \mathbb K$. \\
+  Find $p(\lambda)$.
+
+  \begin{align*}
+    p(x) &= a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 \\
+      &= a_n \lambda^n + a_{n-1} \lambda^{n-1} + \ldots + a_1 \lambda + a_0 \\
+      &= \left(a_n \lambda^{n-1} + \dots + a_n\right) \lambda + a_0 \\
+      &= \left((a_n \lambda^{n-2} + \dots + a_n) \lambda + a_1\right) \lambda + a_0 \\
+      &= \vdots
+  \end{align*}
+
+  Algorithm:
+  \[ \xi_n = a_n \text{ for } k = n-1, \dots, 0 \qquad \xi_k = \lambda \xi_{k+1} + a_k \]
+  \[ p(\lambda) = \xi_0 \]
+  If $p(x) = s(x) (x - \lambda) + r$, $p(\lambda) = r$.
+\end{theorem}
+
+\begin{example} % Beispiel 9.22
+  \[ 3x^5 - x^4 + 2x^3 + x^2 + 1 \]
+  \[ p(5) = ? \qquad \xi_5 = 3 \]
+  \[
+    \begin{vmatrix}
+      3x^5 & -x^4 & +2x^3 & +x^2 & +1 & : (x - 5) & = & 3x^4 + 14x^3 + 72x^2 + 361x + 1805 \\
+      3x^5 & -15x^4 \\
+      0    & 14x^4 & +2x^3 & +x^2 & +1 \\
+           & 14x^4 & -70x^3 & \\
+           & 0     & +72x^3 & +x^2 & +1 \\
+           &       & 72x^3 & -360x^2 \\
+           &       & 0     & +361x^2 & +1 \\
+           &       &       & 361x^2 & -1805x \\
+           &       &       &        & 1805x & +1 \\
+           &       &       &        & 1805x & -5 \cdot 1805 \\
+           &       &       &        &       & 5 \cdot 1805+1
+    \end{vmatrix}
+  \]
+  \[ \xi_5 = 3 \]
+  \[ \xi_4 = 5 \cdot \xi_5 + (-1) = 5 \cdot 3 - 1 = 14 \]
+  \[ \xi_3 = 5 \cdot 14 + 2 = 72 \]
+  \[ \xi_2 = 5 \cdot 72 + 1 = 361 \]
+  \[ \xi_1 = 5 \cdot 361 + 0 = 1805 \]
+  \[ \xi_0 = 5 \cdot 1805 + 1 = 9026 \]
+\end{example}
+
+\index{Reducible polynomial}
+\index{Irreducible polynomial}
+\index{Factorization of a polynomial}
+\begin{definition} % 9.23
+  A polynomial $p(x) \in \mathbb K[x]$ is called \emph{reducible},
+  if $\exists p_1(x), p_2(x): \deg{p_1(x)} < \deg{p(x)}$ and $p(x) = p_1(x) \cdot p_2(x)$ (is the factorization).
+  $\deg{p_2(x)} < \deg{p(x)}$ (proper divisor).
+  Otherwise the polynomial is called \emph{irreducible}.
+\end{definition}
+
+\begin{remark} % Bemerkung 9.24
+  An irreducible polynomial of degree $>1$ has no roots.
+\end{remark}
+
+\begin{example} % Beispiel 9.25
+  \begin{itemize}
+    \item
+      Consider $x^2 = -2$ irreducible over $\mathbb Q \subseteq \mathbb R \subseteq \mathbb R$.
+      Its roots are $\pm \sqrt2$.
+
+      It is reducible over $\mathbb R$: $x^2 - 2 = (x - \sqrt2)(x + \sqrt2)$. \\
+      It is reducible over $\mathbb Q(\sqrt{2}) = \setdef{a + b\sqrt{2}}{a,b \in \mathbb Q}$.
+    \item
+      Consider $x^2+1$ irreducible over $\mathbb Q, \mathbb R$ and reducible over $\mathbb C$.
+      Its roots are $\pm i$.
+
+      $\mathbb Q(i) = \setdef{a + bi}{a,b \in \mathbb Q}$.
+      $x^2 + 1 = (x + i)(x - i)$.
+    \item
+      Consider $\mathbb K = \mathbb Z_2$ and $p(x) = x^2 + x + 1$.
+      This polynomial has no roots and is irreducible.
+    \item
+      $x^5 + x + 1$ has no roots, is reducible.
+      \[ x^5 + x + 1 = (x^2 + x + 1)(x^3 + x^2 + 1) \]
+      Is there some field $\mathbb K \supseteq \mathbb Z_2$ such that $x^3 + x^2 + 1$ has roots?
+
+      \underline{Yes}. Let $\alpha$ be a number such that $\alpha^3 + \alpha^2 + 1 = 0 \implies \alpha^3 = -\alpha^2 - 1 = \alpha^2 + 1$.
+      \[ \mathbb K = \mathbb Z_2(\alpha) = \setdef{a + b\alpha + c\alpha^2}{a,b,c \in \mathbb Z_2} \]
+      with $\alpha^3 = \alpha^2 + 1$ is a field.
+
+      Let $i$ be a number such that $i^2 + 1 = 0$, thus $i^2 = -1$
+      \[ \mathbb C = \mathbb R(i) = \setdef{a + bi}{a,b \in \mathbb R} \]
+  \end{itemize}
+  Hence, irreducible is not equivalent to some root exists.
+  The implication works only in one direction.
+  There always exists some field such that roots exist.
+\end{example}
+
+\begin{theorem}[Fundamental theorem of Algebra] % Satz 9.26
+  $\mathbb C$ is algebraically closed, hence every polynomial has a root over $\mathbb C$.
+\end{theorem}
+
+\begin{corollary}
+  Every polynomial over $\mathbb C$ \dots
+  \begin{enumerate}
+    \item has a factorization $p(x) = (x - \xi_1) (x - \xi_2) \dots (x - \xi_n)$.
+    \item $p(x)$ is irreducible $\iff \deg{p(x)} \leq 1$.
+  \end{enumerate}
+\end{corollary}
+\begin{remark}
+  No algebraic proof exists. It is more like a Fundamental Theorem of Calculus over complex numbers.
+  The proof is given by the Lionville theorem (not done here).
+\end{remark}
+
+\begin{theorem} % Satz 9.27
+  For arbitrary fields, it holds that
+  every polynomial has exactly one factorization (except for its order) in irreducible factors.
+\end{theorem}
 
 \printindex
 \end{document}
