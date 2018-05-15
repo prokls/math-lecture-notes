@@ -3372,5 +3372,220 @@ We now consider conditions to select extreme values from all value satisfying de
   So $\lim_{x\to x_0} r(x) = 0 = r(x_0)$, so $r$ in $x_0$ is continuous.
 \end{proof}
 
+\dateref{2018/05/15}
+
+\subsection{Taylor series}
+
+\index{Taylor series}
+Assume $f: I \to \mathbb R$ is infinitely often differentiable on $I$, $x_0 \in I$. Then there exists $T_f^n(x; x_0)$ for arbitrary $n \in \mathbb N$.
+\[ T_f(x; x_0) = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k \]
+$T_f(x; x_0)$ defines the \emph{Taylor series} on $f$ in $x_0$.
+Power series in $\xi = x - x_0$.
+$T_f$ has a convergence radius,
+\[ \rho(T_f) = \left[\limsup_{k\to\infty} \sqrt[k]{\frac{\card{f^{(k)}(x_0)}}{k!}}\right]^{-1} \]
+If $\rho(T_f) > 0$, then it holds that
+\[ f(x) = T_f(x; x_0) = \sum_{k=0}^\infty \frac{f^{(k)}(x)}{k!} (x - x_0)^k \]
+in $(x_0 - \rho(T_f), x_0 + \rho(T_f))$.
+Compare with Figure~\ref{img:tay}.
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/28_Taylor_series.pdf}
+    \caption{Taylor series}
+    \label{img:tay}
+  \end{center}
+\end{figure}
+
+\begin{example}[Counterexample]
+  Let $f: \mathbb R \to \mathbb R$.
+  \[ f(x) = \begin{cases} e^{-\frac1x} & \text{ if } x > 0 \\ 0 & \text{ if } x \leq 0 \end{cases} \]
+  It holds for $x > 0$,
+  \[ f^{(n)}(x) = \frac{P(x)}{Q(x)} \cdot e^{-\frac1x} \]
+  where $P, Q$ are polynomials.
+  So not every infinitely often differentiable function must not equate with its Taylor series.
+\end{example}
+
+\begin{proof}
+  Proof by complete induction oer $n$.
+
+  \begin{description}
+    \item[Case $n=0$] immediate with $P = Q = 1$.
+    \item[Case $n\mapsto n+1$]
+      \[ f^{(n+1)}(x) = \left[\underbrace{\frac{P(x)}{Q(x)} \cdot e^{-\frac1x}}_{f^{(n)}(x) \text{ by induction hypothesis}}\right]' \]
+      \[ = \frac{P' \cdot Q - Q' \cdot P}{Q^2} \cdot e^{-\frac1x} + \frac PQ \cdot \frac1{x^2} \cdot e^{-\frac1x} \]
+      \[ = \frac{(P' Q - Q' P) x^2 + PQ}{Q^2 x^2} \cdot e^{-\frac1x} \]
+      It holds that $\lim_{x\to0_+} \frac{P(x)}{Q(x)} \cdot e^{-\frac1x} = 0$.
+      Immediately, $\lim_{x \to 0^-} f^{(n)}(x) = 0$, hence $f^{(n)}(0) = 0 \forall n \in \mathbb N$.
+      $f$ is arbitrarily often continuously differentiable on $\mathbb R$. Thus,
+      \[ T_f(x; 0) = \sum_{k=0}^\infty \frac{\overbrace{f^{(k)}(0)}^{=0}}{k!} x^k = 0 \]
+      but $f(x) \neq 0$ on $\mathbb R$. Thus, it holds that $f \neq T_f(x; 0)$.
+      But it holds that $R_f = f - T_f(x; 0) = f$.
+      \[ \card{R_f(x)} \leq c_n \card{x}^n \qquad \forall n \in \mathbb N \]
+  \end{description}
+\end{proof}
+
+\begin{theorem} % Satz 7
+  Let $f(x) = \sum_{k=0}^\infty a_k (x - x_0)^k$ be an analytical\footnote{Reminder: A function is analytical if it is locally given by a convergent power series.} function with convergence radius $\rho(f) > 0$.
+  Then $f$ is infinitely often continuously differentiable on $I \coloneqq (x_0 - \rho(f), x_0 + \rho(f))$
+  and it holds that $a_k = \frac{f^{(k)}(x_0)}{k!}$, hence the given power series is the Taylor series of the function.
+\end{theorem}
+
+\begin{proof}
+  See Analysis 1 lecture notes, chapter 8, theorem 1 by G. Lettl.
+
+  $f$ is differentiable on $I = (x_0 - \rho(f), x_0 + \rho(f))$ and it holds that $f'(x) = \sum_{k=0}^\infty k a_k (x - x_0)^{k-1}$.
+  Thus, $f'$ is also analytical and the power series of $f'$ converges on $K(x_0) \implies \rho(f') \geq \rho(f)$
+  (if you consider the Cauchy-Hadamard Theorem, then $\rho(f') = \rho(f)$).
+
+  Induction:
+  $f^{(n)}(x)$ is analytical on $I$ and it holds that
+  \[ f^{(n)}(x) = \sum_{k=n}^\infty k \cdot (k - 1) \dots (k - n + 1) \cdot a_k \cdot (x - x_0)^{k-n} \]
+  We insert: $x = x_0$
+  \[ f^{(n)}(x_0) = n \cdot (n - 1) \dots 1 \cdot a_n \implies a_n = \frac{f^{(n)}(x_0)}{n!} \]
+\end{proof}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/29_expansion_on_a_different_point.pdf}
+    \caption{Expansion on a different point}
+    \label{img:expan}
+  \end{center}
+\end{figure}
+
+Revision: Expansion on a different point ($\xi_0$ instead of $x_0$):
+
+\[ f(z) = \sum_{k=0}^\infty a_k (z - x_0)^k = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!} (z - x_0)^k \]
+with $a_k = \frac{f^{(k)}(x_0)}{k!}$. $f(z) = \sum_{k=0}^\infty \hat a_k(z - \xi_0)^k$ TODO incomplete.
+Compare with Figure~\ref{img:expan}.
+
+\section{Multidimensional differential calculus} % Chapter 3
+
+Let $V,W$ be vector space over $\mathbb K$ ($\mathbb R, \mathbb C$).
+\[ \underbrace{\mathcal L(V, W)}_{\operatorname{Hom}(V, W)} = \set{\varphi: V \to W: \varphi \text{ is linear}} \]
+$\operatorname{Hom}(V, W)$ has vector space properties.
+$\varphi, \psi \in \mathcal L(V, W), \lambda, \mu \in \mathbb K$.
+Then it holds that $\lambda \varphi + \mu \psi \in \mathcal L(V, W)$.
+In general, it is possible that to define a norm on $\mathcal L(V, W)$.
+Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
+\begin{enumerate}
+  \item $\norm{\varphi} = 0 \iff \varphi = 0$ (zero mapping)
+  \item $\forall \lambda \in \mathbb K, \varphi \in \mathcal L(V, W)$ it holds that $\norm{\lambda \varphi} = \card{\lambda} \cdot \norm{\varphi}$.
+  \item $\forall \varphi, \psi \in \mathcal L(V, W)$ it holds that $\norm{\varphi + \psi} \leq \norm{\varphi} + \norm{\psi}$.
+\end{enumerate}
+
+\index{Frobenius norm}
+\index{Matrix norm}
+\begin{example}
+  Let $\mathcal L(\mathbb R^m, \mathbb R^n) \cong \mathbb R^{n \times n}$.
+  (identify linear maps with its matrix representation in regards of the canonical basis)
+  \[ A \in \mathbb R^{n \times m} \qquad A = (a_{ij})_{\substack{i=1,\dots,n \\ j=1,\dots,m}} \]
+  \[ \norm{A}_F = \left(\sum_{i=1}^n \sum_{j=1}^m \card{a_{ij}}^2\right)^{\frac12} \qquad \text{\enquote{Forbenius norm}} \]
+  It basically works by appending the next column to the previous one. Hence, this gives a column vector. We square every entries, sum it up and take its square root (a common norm procedure).
+  A norm on $\mathbb R^{n \times m}$ is called \emph{matrix norm} ($\mathbb C^{n \times m}$).
+\end{example}
+
+\index{Operator norm}
+\begin{definition} % Definition 1
+  \label{opdef}
+  Let $V, W$ be normed vector spaces over $\mathbb K$. A linear map $\varphi: V \to W$ is called \emph{bounded} if $\exists m \geq 0: \norm{\varphi(x)}_W < m \cdot \norm{x}_V$ (we call this the \emph{boundedness criterion})
+  such that $\norm{\varphi(x)}_W \leq m \cdot \norm{x}_V$ for all $x \in V$.
+
+  The set $\mathcal L_b(V, W) = \set{\varphi: V \to W: \varphi \text{ is linear and bounded}}$ is a subvectorspace of $\mathcal L(V, W)$. We let
+  \[ \norm{\varphi} = \inf\set{m \geq 0: \norm{\varphi(x)}_W \leq m \cdot \norm{x}_V \forall x \in V} \]
+  and call $\norm{\varphi}$ the \emph{operator norm} on $\varphi$ in regards of $\norm{\cdot}_V$ and $\norm{\cdot}_W$.
+\end{definition}
+
+Regarding the subvector space property:
+
+Let $\varphi, \psi \in \mathcal L_b(V, W), \lambda, \mu \in \mathbb K$.
+Show that $\lambda \varphi + \mu \psi \in \mathcal L_b(V, W)$.
+
+\begin{align*}
+  \norm{(\lambda \varphi + \mu \psi)(x)}_W
+    &= \norm{\lambda \cdot \varphi(x) + \mu \cdot \psi(x)}_W \\
+    &\leq \card{\lambda} \norm{\varphi(x)}_W + \card{\mu} \norm{\varphi(x)}_W \\
+    &\underbrace{\leq}_{\text{because } \varphi, \psi \text{ are bounded}} \card{\lambda} m \norm{x}_V + \card{\mu} m' \norm{x}_V \\
+    &= \underbrace{\left(\card{\lambda} m + \card{\mu} m'\right)}_{= \tilde m \geq 0} \norm{x}_V
+\end{align*}
+hence $\lambda \varphi + \mu \psi \in \mathcal L_b(V, W)$.
+$\mathcal L_b(V, W) \neq \emptyset$.
+
+\begin{lemma} % Lemma 1
+  Let $V, W$ be normed vector spaces. Then it holds for any $\varphi \in \mathcal L_b(V, W)$
+  \begin{enumerate}
+    \item $\norm{\varphi(x)}_W \leq \norm{\varphi} \cdot \norm{x}_V \forall x \in V$.
+      Hence, $m = \norm{\varphi}$ satisfies the boundedness criterion, hence
+      informally $\inf$ equals $\min$ in Definition~\ref{opdef}.
+    \item
+      \[ \norm{\varphi} = \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \in V \setminus \set{0}} = \sup\set{\norm{\varphi(x)}_W: x \in V \text{ with } \norm{x}_V = 1} \]
+    \item $\norm{\cdot}$ is a norm on $\mathcal L_b(V,W)$.
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  \begin{enumerate}
+    \item Let $m_n \geq 0$ with $m_n$ satisfies the boundedness criterion, hence
+      \[ \norm{\varphi(x)}_W \leq m_n \cdot \norm{x}_V \forall x \in V \]
+      and $m_n \to \norm{\varphi}$.
+      The inequality retains in the limit. Thus, $\norm{\varphi(x)}_W \leq \norm{\varphi} \cdot \norm{x}_V$.
+    \item Let $\tilde m = \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0}$.
+      Hence, $\frac{\norm{\varphi(x)}_W}{\norm{x}_V} \leq \tilde m \forall x \in V$, because $\tilde m$ is an upper bound.
+      So, $\norm{\varphi(x)}_W \leq \tilde m \norm{x}_V$. Thus $\tilde m$ satisfies the boundedness criterion and $\norm{\varphi} \leq \tilde m$.
+
+      On the opposite: Let $m$ such that the boundedness criterion is satisfied $\implies \norm{\varphi(x)}_W \leq m \cdot \norm{x}_V \forall x \in V, x \neq 0$
+      or equivalently, $\frac{\norm{\varphi(x)}}{\norm{x}_V} \leq m$.
+      Hence, $m$ is upper bound of $\set{\frac{\norm{\varphi(x)}}{\norm{x}_V} : X \neq 0}$, hence $m \geq \tilde m = \sup\set{\cdot}$.
+      Hence, $m \geq \tilde m = \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0}$.
+      The statement above also holds for the infimum of $m-s$, hence $\norm{\varphi} \geq \tilde m$,
+      hence $\norm{\varphi} = \tilde m = \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0}$.
+      Because $\set{x \in V: \norm{x} = 1} \subseteq \set{x \in V: x \neq 0}$ it holds that
+      $\sup{\norm{\varphi(x)}_W: \norm{x} = 1} = \sup{\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V} : \norm{x}_V = 1}} \leq \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V} : x \neq 0} = \norm{\varphi}$.
+
+      On the opposite: Let $x \neq 0$. Then $\tilde x = \frac{x}{\norm{x}_V}$ defines a \emph{unit vector}.
+      \[ \norm{\tilde x}_V = \norm{\frac{x}{\norm{x}_V}} = \frac{1}{\norm{x}_V} \cdot \norm{x}_V = 1 \]
+      and it holds that
+      \[ \frac{\norm{\varphi(x)}_W}{\norm{x}_V} = \frac{1}{\norm{x}_V} \norm{\varphi(x)}_W = \norm{\frac{1}{\norm{x}_V} \varphi(x)}_W \underbrace{=}_{\varphi \text{ is linear}} = \norm{\varphi(\frac{x}{\norm{x}_V})}_W = \norm{\varphi(\tilde x)} \]
+      \[ \implies \forall x \neq 0: \frac{\norm{\varphi(x)}_W}{\norm{x}_V} = \norm{\varphi(\tilde x)} \leq \sup\set{\norm{\varphi(z)}_W: \norm{z}_V = 1} \]
+      \[ \implies \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0} \leq \sup\set{\norm{\varphi(z)}_W: \norm{z}_V = 1} \]
+    \item Show that $\norm{\varphi}$ is a norm.
+
+      \[ \norm\varphi = 0 \iff \forall x \in V: \norm{\varphi(x)}_W \leq 0 \cdot \norm{x}_W \]
+      hence $\varphi(x) = 0 \forall x \in V$ or equivalently, $\varphi = 0$ in $\mathcal L(V, W)$.
+      \[ \norm{\lambda \varphi} = \sup\set{\norm{\lambda \varphi(x)}_W: \norm{x}_V = 1} = \sup\set{\card{\lambda} \norm{\varphi(x)}_W: \norm{x}_V = 1} \]
+      \[ = \card{\lambda} \sup\set{\norm{\varphi(x)}_W: \norm{x}_V = 1} = \card{\lambda} \norm{\varphi} \]
+      Triangle inequality:
+      Let $\varphi, \psi \in \mathcal L_b(V,W)$.
+      \begin{align*}
+        \norm{\varphi(x) + \psi(x)}_W
+          &\underbrace{\leq}_{\text{triangle inequality in } W} \norm{\varphi(x)}_W + \norm{\psi(x)}_W \\
+          &\leq \norm \varphi \cdot \norm{x}_V + \norm \psi \cdot \norm{x}_V = (\norm{\varphi} + \norm{\psi}) \cdot \norm{x}
+      \end{align*}
+      By (1.), $\norm{\varphi} + \norm{\psi}$ satisfies the boundedness criterion for the linear map $\varphi + \psi$.
+      Hence, $\norm{\varphi + \psi} \leq \norm{\varphi} + \norm{\psi}$.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  \begin{itemize}
+    \item $\norm{A}_F$ is no operator norm on $\mathcal L(\mathbb R^m, \mathbb R^n)$.
+    \item Boundedness of linear mappings is required to define $\norm{\varphi}$.
+  \end{itemize}
+  We consider special case $V = \mathbb R^m, W = \mathbb R^n$.
+  \[ \norm{\cdot}_V = \norm{\cdot}_\infty \qquad \norm{\cdot}_W = \norm{\cdot}_\infty \]
+  Let $A \in \mathbb R^{n\times m}$ ($\mathcal L(\mathbb R^m, \mathbb R^n)$).
+  Then it holds that
+  \begin{align*}
+    \norm{Ax}_\infty
+      &= \max\set{\card{(Ax)_i}: i = 1, \dots, n} \\
+      &= \max\set{\card{\sum_{j=1}^m a_{ij} x_j}: i = 1, \dots, n} \\
+      &\leq \max\set{\sum_{j=1}^m \card{a_{ij}} \cdot \underbrace{\card{x_j}}_{\leq \norm{x}_{\infty}}: i = 1, \dots, n} \\
+      &\leq \max\set{\norm{x}_\infty \cdot \sum_{j=1}^m \card{a_{ij}}: i = 1, \dots, n} \\
+      &= \underbrace{\max\set{\sum_{j=1}^m \card{a_{ij}}: i = 1, \dots, n}}_{= m} \cdot \norm{x}_\infty \\
+      &= m \cdot \norm{x}_\infty
+  \end{align*}
+  Hence the boundedness criterion is satisfied.
+  $A$ is bounded in regards of $\norm{\cdot}_\infty$ in the preimage and image space.
+  By the norm equivalence theorem, it follows that $A$ is bounded in regards of arbitrary norms on $\mathbb R^m$, or equivalently $\mathbb R^n$.
+\end{remark}
+
 \printindex
 \end{document}

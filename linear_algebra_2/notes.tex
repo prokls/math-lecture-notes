@@ -5013,5 +5013,337 @@ Gerolamo Cardano (1501--1576)
   every polynomial has exactly one factorization (except for its order) in irreducible factors.
 \end{theorem}
 
+\dateref{2018/05/14}
+
+\subsection{The greatest common divisor of polynomials}
+
+The Euclidean algorithm determines the greatest common divisor.
+
+Consider $n = q \cdot m + r$. For the Euclidean algorithm, it holds that $\operatorname{gcd}(n, m) = \operatorname{gcd}(m, r)$
+The analogous solution holds for polynomials. Consider $p(x) = s(x) \cdot q(x) + r(x)$.
+Then the $\operatorname{gcd}(p(x), q(x))$ returns the polynomial of maximum degree that divides the polynomial with leading coefficient $1$.
+
+\begin{corollary}
+  The Euclidean algorithm also works for polynomials.
+\end{corollary}
+
+An application: Find all multiple roots (i.e. roots with multiplicity greater 1).
+\[ (x - \xi)^k | p(x) \]
+\[ \implies (x - \xi)^{k-1} | p'(x) \]
+
+\[ p(x) = s(x) \cdot (x - \xi)^k \]
+\[ p'(x) = s'(x) \cdot (x - \xi)^k + s(x) \cdot k \cdot (x - \xi)^{k-1} = (s'(x) (x - \xi) + s(x) \cdot k) (x - \xi)^{k-1} \]
+\[ \implies (x - \xi)^{k-1} | \operatorname{gcd}(p(x), p'(x)) \]
+
+\section{Eigenvectors and eigenvalues}
+
+Given $f: V \to V$. Find a basis of $V$ such that $\Phi_B^B(f)$ has the simplest possible representation.
+Hence,
+\[ A = \Phi_B^B(f) = \begin{bmatrix} a_{11} &  & 0 \\ & \ddots & \\ 0 &  & a_{nn} \end{bmatrix} \]
+\[ A \cdot e_i = \lambda_i \cdot e_i \]
+Find vector $v \in V$ such that $f(v) = \lambda \cdot v$.
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/15_screwing_map.pdf}
+    \caption{How map $f$ transforms a circle}
+  \end{center}
+\end{figure}
+
+\index{Eigenvalue}
+\index{Eigenvector}
+\index{Spectrum}
+\begin{definition} % Definition 10.1
+  $f \in \operatorname{Hom}(V, V) = \operatorname{End}(V)$.
+  $\lambda \in \mathbb K$ is called \emph{eigenvalue} if
+  $\exists v \in V \setminus \set{0}: f(v) = \lambda \cdot v$.
+  Then $v$ is called \emph{eigenvector} of eigenvalue $\lambda$.
+  $\operatorname{spec}(f) = \set{\text{eigenvalues of } f}$ is called \emph{spectrum of $f$}.
+\end{definition}
+
+In 1925 in quantum mechanisms, it was discovered that the spectrum of light is given as a linear map (spectrum in the mathematical sense).
+
+\index{Eigenspace}
+\begin{lemma}
+  For $\lambda \in \mathbb K$, $f \in \operatorname{End}(V)$.
+  \[ \eta_{\lambda} = \set{v}{f(v) = \lambda \cdot v} \]
+  is a subspace and is called eigenspace of $f$ for eigenvalue $\lambda$.
+\end{lemma}
+\begin{proof}
+  \begin{align*}
+    f(v) = \lambda \cdot v \iff f(v) - \lambda \cdot v &= 0 \\
+    (f - \lambda \cdot \operatorname{id}) (v) &= 0 \\
+    \iff v \in \underbrace{\operatorname{ker}(f - \lambda \cdot \operatorname{id})}_{\text{subspace}} &
+  \end{align*}
+\end{proof}
+
+\begin{example} % Beispiel 10.3
+  \begin{enumerate}
+    \item $f = \mu \cdot \operatorname{id}$. $\operatorname{spec}(f) = \set{\mu}$. $f(v) = \mu \cdot v \forall v \in V$. $\eta_\mu = V$.
+    \item Let $b_1, \dots, b_n$ be a basis of $V$. Let $\lambda_1, \dots, \lambda_n \in \mathbb K$.
+      Then there exists a unique, linear map $f$ such that $f(b_i) = \lambda_i \cdot b_i$.
+      Every $b_i$ is an eigenvector to eigenvalue $\lambda_i$.
+      \[ \eta_{\lambda} = \mathcal L(\setdef{b_i}{\lambda_i = \lambda}) \]
+      Assume $f(v) = \lambda \cdot v$.
+      \begin{align*}
+        v &= \alpha_1 \cdot b_1 + \dots + \alpha_n b_n \\
+        f(v) &= \alpha_1 f(b_1) + \dots + \alpha_n f(b_n) \\
+          &= \alpha_1 \lambda_1 b_1 + \dots + \alpha_n \lambda_n b_n \\
+          &= \lambda(\alpha_1 b_1 + \dots + \alpha_n b_n) \\
+        \hline
+        \implies 0 &= \alpha_1(\lambda_1 - \lambda) b_1 + \dots + \alpha_n(\lambda_n - \lambda) \cdot b_n \\
+        \text{linear indep.} \implies& \forall i: \alpha_i (\lambda_i - \lambda) = 0 \\
+        \text{hence either } \alpha_i = 0 \text{ or } \lambda_i = \lambda
+      \end{align*}
+      \[ \implies \operatorname{spec}(f) = \set{\lambda_1, \dots, \lambda_n} \]
+      \[ \Phi_B^B(f) = \begin{bmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_n \end{bmatrix} \]
+    \item Let $V = C^{\infty}(\mathbb R)$.
+      \[ \frac{d}{dx} y(x) = \lambda \cdot y(x) \qquad \frac{dy}{dx} = \lambda \cdot y \]
+      \[ \int \frac{dy}{y} = \int \lambda \cdot dx \]
+      \index{Eigen function}
+      \[ \operatorname{log}(y) = \lambda \cdot x + C \qquad \text{ \emph{Eigen function} (compare with Fourier analysis)} \]
+      \[ y = C \cdot e^{\lambda x} \]
+      \[ \frac{d}{dx} e^{\lambda x} = \lambda \cdot e^{\lambda x} \]
+    \item Let $V = C^{\infty}[0, a]$.
+      \begin{align*}
+        \frac{d^2}{dx^2} y(x) &= \lambda \cdot y(x) \\
+        \frac{d^2}{dx^2} e^{\lambda x} &= \frac{d}{dx} \lambda e^{\lambda x} = \lambda^2 e^{\lambda x} \\
+        \frac{d^2}{dx^2} e^{i \omega x} &= -\omega^2 e^{i\omega x} \\
+        \frac{d^2}{dx^2} \sin{\omega x} &= \frac{d}{dx} \omega \cdot \cos(\omega x) = -\omega^2 \cdot \sin(\omega x) \\
+        \frac{d^2}{dx^2} \cos{\omega \alpha} &= \frac{d}{dx} (-\omega) \sin(\omega x) = -\omega^2 \cos(\omega x)
+      \end{align*}
+      \[ y(0) = y_0 \to y(x) = y_0 \cdot e^{\lambda x} \]
+      \[ y(0) = y(a) = 0 \]
+      \[ y(x) = \sin(\omega x) \]
+      \[ \omega a = k \cdot \pi \implies y(0) = y(a) = \pi \]
+      \[ \omega = \frac{k \cdot \pi}{a} \]
+      Eigen values of $H = P^2 + Q$ and $PQ - QP = \frac{\hbar}{i} I$. Heisenberg: Quantum mechanics is not commutative (impulses are matrices, not values).
+  \end{enumerate}
+\end{example}
+
+\index{Right-sided eigenvalue}
+\index{Left-sided eigenvalue}
+\begin{definition} % Definition 10.4
+  Let $A$ be a $n \times n$ matrix.
+  $\lambda$ is called right-sided eigenvalue if $\exists x \in \mathbb K^n \setminus \set{0}: Ax = \lambda \cdot x$.
+  $\lambda$ is called left-sided eigenvalue if $\exists x \in \mathbb K^n \setminus \set{0}: x^T A = \lambda \cdot x^T$
+  But this definition is satisfied $\iff A^T x = \lambda \cdot x$, hence right-sided eigenvalue of $A^T$.
+  Thus, these definitions collapse.
+\end{definition}
+
+\begin{lemma} % Lemma 10.5
+  Left-sided eigenvalue $\iff$ right-sided eigenvalue.
+  Let $\lambda$ be a right-sided eigenvalue.
+  \begin{align*}
+    Ax = \lambda x &\iff (A - \lambda \cdot I) \cdot x = 0 \\
+      &\iff \exists x \neq 0: x \in \ker(A - \lambda I) \\
+      &\iff \ker(A - \lambda I) \neq \set{0} \\
+      &\iff \rank(A - \lambda I) < n \\
+      &\iff \rank(A^T - \lambda I) < n \\
+      &\iff \ker(A^T - \lambda I) \neq \set{0} \\
+      &\iff \exists x \neq 0: A^T x = \lambda \cdot x \\
+      &\iff \lambda \text{ is a left-sided } eigenvalue
+  \end{align*}
+\end{lemma}
+
+\begin{example} % Beispiel 10.6
+  For $\dim = \infty$, this must not hold.
+  \[ S: \substack{\mathbb K^\infty \to \mathbb K^\infty \\ (x_1, x_2, \dots) \mapsto (x_2, x_3, \dots)} \]
+  \[ S(1, 0, \dots) = (0, 0, \dots) \]
+  \[ \implies (1, 0, \dots) \text{ is eigenvector for eigenvalue } 0 \]
+  hence, element of $\ker(S)$.
+  \[
+    S = \begin{bmatrix}
+      0 & 1 & 0 & 0 \\
+      \vdots & 0 & 1 & 0 \\
+      \vdots & \vdots & 0 & 1 \\
+      \vdots & \vdots & \vdots & 0 \\
+      \vdots & \vdots & \vdots & \vdots \\
+      0 & & &
+    \end{bmatrix}
+  \] \[
+    S^T = \begin{bmatrix}
+      0 & & & \\
+      1 & 0 &  & 0 \\
+        & 1 & \ddots & \\
+        & \ddots & \ddots & \\
+      0 &  & 1 & 0
+    \end{bmatrix}
+  \]
+  $S^T(x_1, x_2, \dots) \mapsto (0, x_1, x_2)$ is injective.
+  $\ker(S^T) = \set{0}$. Hence $0$ is no eigenvalue.
+  $0$ is right-sided eigenvalue of $S$, but not left-sided eigenvalue.
+\end{example}
+
+\begin{remark}
+  The theory of eigenvalues in infinite-dimensional spaces is more complex then the finite-dimensional case.
+\end{remark}
+
+\begin{definition} % Definition 10.7
+  For $A \in \mathbb K^{n \times n}$.
+  \begin{align*}
+    \operatorname{spec}(A) &= \set{\text{right-sided eigenvalue of } A} \\
+        &= \set{\text{left-sided eigenvalue of } A}
+  \end{align*}
+  is called \emph{spectrum of $A$}.
+\end{definition}
+
+\begin{remark}[Proof exercise]
+  $\dim{V} = n, f \in \operatorname{End}(V), B$ is basis of $V$.
+  \[ \implies \operatorname{spec}(f) = \operatorname{spec}(\Phi_B^B(f)) \]
+\end{remark}
+
+\begin{corollary}
+  The spectrum does not depend on the choice of the basis. Hence,
+  \[ \operatorname{spec}(T^{-1} AT) = \operatorname{spec}(A) \]
+
+  \begin{proof}[Direct proof]
+    \begin{align*}
+      Ax &= \lambda x \\
+      A \cdot T \cdot T^{-1} x &= \lambda \cdot x \\
+      \implies T^{-1} AT \cdot T^{-1} x &= \lambda T^{-1} x \\
+        &\text{ if } x \text{ is eigenvector of } A \\
+      \implies y = T^{-1} x &\text{ eigenvector of } T^{-1} AT
+    \end{align*}
+  \end{proof}
+\end{corollary}
+
+\begin{remark}
+  $\lambda$ is eigen value of $A$.
+  \begin{align*}
+    &\iff \ker(\lambda \cdot I - A) \neq \set{0} \\
+    &\iff \rank(\lambda \cdot I - A) < n \\
+    &\iff \det(\lambda \cdot I - A) = 0
+  \end{align*}
+\end{remark}
+
+\index{Characteristic polynomial}
+\begin{theorem}[Theorem and definition] \hfill{} % Satz & Definition 10.10
+  \begin{enumerate}
+    \item $\chi_A(\lambda) \coloneqq \det(\lambda \cdot I - A)$ is a polynomial function and is called \emph{characteristic polynomial of $A$}.
+    \item $\lambda$ is eigenvector $\iff \chi_A(\lambda) = 0$
+  \end{enumerate}
+\end{theorem}
+
+\begin{example} % Beispiel 10.11
+  \[
+    A = \begin{bmatrix}
+      -1 & 1 & 2 \\
+      -1 & -5 & 2 \\
+      2 & -2 & -4
+    \end{bmatrix}
+  \]
+  \[
+    \chi_A(\lambda) = \det(\lambda I - A)
+    = \begin{vmatrix}
+      \lambda + 1 & -1 & -2 \\
+      1 & \lambda + 5 & -2 \\
+      -2 & 2 & \lambda+4
+    \end{vmatrix}
+    = \begin{vmatrix}
+      \lambda+1 & -1 & -2 \\
+      1 & \lambda+5 & -2 \\
+      0 & 2\lambda+12 & \lambda
+    \end{vmatrix}
+  \] \[
+    = \begin{vmatrix}
+      \lambda & -\lambda-6 & 0 \\
+      1 & \lambda+5 & -2 \\
+      0 & 2\lambda+12 & \lambda
+    \end{vmatrix} = \lambda \cdot \begin{vmatrix}
+      \lambda+5 & -2 \\
+      2\lambda+12 & \lambda
+    \end{vmatrix}
+    - \begin{vmatrix}
+      -\lambda - 6 & 0 \\
+      2\lambda+12 & \lambda
+    \end{vmatrix}
+  \] \[
+    = \lambda \cdot [\lambda^2 + 5\lambda + 4\lambda + 24] - \lambda(-\lambda-6)
+  \] \[
+    = \lambda(\lambda^2 + 5\lambda + 4\lambda + 24 + \lambda + 6)
+  \] \[
+    = \lambda(\lambda^2 + 10\lambda + 30)
+  \] \[
+    x_1 = 0 \qquad \lambda_{2,3} = \frac{-10 \pm \sqrt{10^2 - 120}}{2} = \frac{-10 \pm 2\sqrt{-5}}{2} = -5 \pm i\sqrt{5}
+  \]
+  Thus, the existence of eigenvalues depends on the field.
+\end{example}
+
+\index{Symmetrical minors}
+\begin{theorem} % Satz 10.12
+  Let $A \in \mathbb K^{n \times n}$.
+  \[ \implies \chi_A(x) = \det(x \cdot I - A) \text{ is polynomial of degree } n \]
+  specifically, $\chi_A(x) = \sum_{k=0}^n (-1)^{n-k} c_k(A) \cdot x^k$ with $c_k(A) = \sum_{\substack{j \in \set{1, \dots, n} \\ |j| = n - k}} \det(A_{jj})$
+  with $A_{jj} = (a_{ij})_{\substack{i \in J \\ j \in J}}$ called \emph{symmetrical minors}.
+
+  What are values of $c_i$?
+  \begin{align*}
+    c_0 &= \det(A) \\
+    C_n &= 1 \\
+    C_{n-1} &= \sum a_{ii} = \operatorname{Tr}(A)
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  The proof is given using the Leibniz formula for determinants.
+
+  \begin{align*}
+    \det(x \cdot I - A) &= \sum_{\pi \in \sigma_n} (-1)^\pi \prod_{i=1}^n \underbrace{(x \cdot I - A)_{\pi(i),i}}_{x \cdot \delta_{\pi(i),i} - a_{\pi(i),i}} \\
+      &= (x - a_{11})(x - a_{22}) \dots (x - a_{nn}) +
+        \underbrace{
+          \sum_{\substack{\pi \in \sigma_n \\ \pi \neq \operatorname{id}}}
+          (-1)^\pi \prod_{i=1}^n
+          \left(x \delta_{\pi(i),i} - a_{\pi(i),i}\right)
+        }_{\text{for at least 2 $i$, $\delta_{\pi(i),i} = 0$}} \\
+      &= \text{ expression of degree } n + \text{ expression of degree } n -2
+  \end{align*}
+  Hence $x^n$ stays the same. Hence the degree of $\chi_A(x)$ is $n$.
+  \begin{align*}
+    \det{\prod_{i=1}^n (x \delta_{\pi(i),i} - a_{\pi(i),i})} &= \#\setdef{i}{\pi(i) = i} \\
+      &= \#\operatorname{fixedpoints}(\pi)
+  \end{align*}
+  Let $s_1, \dots, s_n$ be the columns of $A$.
+  \[ \det(xI - A_i) = \triangle(x\cdot e_1 - s_1, x \cdot e_2 - s_2, \dots, x \cdot e_n - s_n) = \sum_{I \subseteq \set{1, \dots, n}} \triangle(y_1, \dots, y_n) \]
+
+  \[ y_i = \begin{cases} x \cdot e_i & i \in I \\ -s_{i_k} & i \in I^C \end{cases} \]
+  Let $k \in I$.
+  \[
+    \triangle(y_1, \dots, y_{k-1}, x \cdot e_k, y_{k+1}, \dots, y_n) = \begin{vmatrix}
+      y_1 & y_2 & \dots & y_{k-1} & 0 & y_{k+1} & \dots & y_n \\
+      \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+      \vdots & \vdots & \vdots & \vdots & 0 & \vdots & \vdots & \vdots \\
+      \vdots & \vdots & \vdots & \vdots & x & \vdots & \vdots & \vdots \\
+      \vdots & \vdots & \vdots & \vdots & 0 & \vdots & \vdots & \vdots \\
+      \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+      \vdots & \vdots & \vdots & \vdots & 0 & \vdots & \vdots & \vdots
+    \end{vmatrix}
+  \]
+  Permute the $k$-th column into the first column: $(-1)^{k-1}$. \\
+  Permute the $k$-th row into the first row: $(-1)^{k-1}$.
+  \[
+    = \begin{vmatrix}
+      x & \tilde{y_1} & \tilde{y_2} & \dots & \tilde{k-1} & \tilde{k+1} & \dots & \tilde{n} \\
+      0 & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+      \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+      0 & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+    \end{vmatrix}
+    = x \cdot \begin{vmatrix}
+      \tilde{\tilde{y_1}} & \dots & \tilde{\tilde{y_{k-1}}} & \tilde{\tilde{y_{k+1}}} & \vdots & \tilde{\tilde{y_n}} \\
+      \vdots & \vdots & \vdots & \vdots & \vdots & \vdots
+    \end{vmatrix}
+  \]
+  where $\tilde{y}$ is the permutation of $y_i$ such that the $k$-th row moved to the first.
+
+  Every time, one $x$ is eliminated, the corresponding row and column of $A$ is removed.
+  In the end,
+  \[ x^{\card{I}} \cdot \underbrace{\det{A_{I^C I^C}}}_{\text{minor of the complement $\card{I^C} = n-k$}} \cdot (-1)^{\card{I^C}} \]
+  \begin{align*}
+    \implies \chi_A(x) &= \sum_{I \subseteq \set{1, \dots, n}} x^{\card{I}} \cdot \det[A_{I^C I^C}] (-1)^{\card{I^C}}
+      &= \sum_{k=0}^n x^k (-1)^{n-k} c_k(A)
+  \end{align*}
+  with $c_k(A) = \sum_{\card{J} = n-k} \det[A_{jj}]$.
+\end{proof}
+
 \printindex
 \end{document}
