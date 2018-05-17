@@ -1081,4 +1081,114 @@ We compute separately:
 
 Is expected to be continuously differentiable.
 
+\section{Sheet 7, Exercise 1}
+\begin{ex}
+  Use the direct comparison criterion to determine the convergence of these integrals:
+  \[ (a) \int_1^{\infty} \frac{1}{x^2 + 5x + 1} \, dx \qquad (b) \int_0^\infty \frac{1}{x^s + x^{\frac1s}} \, dx \quad s \in \mathbb R \setminus \set{0} \]
+\end{ex}
+
+\subsection{Sheet 7, Exercise 1a}
+\[ \int_1^\infty \frac{1}{x^2 + 5x + 1} \, dx \leq \int_1^\infty \frac{1}{x^2} \, dx \]
+\[ \int_1^\infty \frac1{x^p} < \infty \iff p > 1 \]
+
+\subsection{Sheet 7, Exercise 1b}
+\begin{description}
+  \item[Case $s = 1$]
+    \begin{align*}
+      \int_0^\infty \frac{1}{x + x} \, dx &= \frac12 \int_0^\infty \frac{1}{x} = \frac12 \left(\int_0^1 \frac1x + \int_1^\infty \frac1x\right) \\
+        &= \frac12 \lim_{t\to\infty} \int_0^t \frac1x \, dx \\
+        &= \frac12 \left(\lim_{t\to\infty} \int_1^t \frac1x \, dx + \lim_{t\to\infty} \int_t^1 \frac1x \, dx \right)
+    \end{align*}
+  \item[Case $s < 0$]
+    \[ \int_0^\infty \frac{1}{x^s + x^{\frac1s}} \, dx \]
+    Because $s < 0$, $x^s + x^{\frac1s}$ is monotonically decreasing and positive.
+    \[ \frac{1}{x^s + x^{\frac1s}} \]
+    is monotonically increasing.
+    More specifically:
+    \[ \int_0^1 \underbrace{\frac{1}{x^s + x^{\frac1s}}}_{\geq 0} + \int_1^\infty \underbrace{\frac{1}{x^s + x^{\frac1s}}}_{\geq 1} \]
+    \[ \int_1^\infty 1 \, dx = \infty \]
+\end{description}
+
+\section{Sheet 7, Exercise 2}
+\begin{ex}
+  Prove the following statements:
+  \begin{enumerate}
+    \item $\forall k \in \mathbb N \cup \set{0}: \int_{k\pi}^{(k+1)\pi} \card{\operatorname{sinc}(x)} \, dx \geq \frac{2}{(k+1)\pi}$.
+    \item The improper integral $\int_0^\infty \card{\operatorname{sinc}(x)} \, dx$ does not exist.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 7, Exercise 2a}
+
+We apply the Mean Value Theorem:
+\[ \exists \xi \in [k\pi, (k+1)\pi]: I = \frac1\xi \int_{u\pi}^{(u+1)\pi} \card{\sin(x)} \, dx \]
+\[ \int_{k\pi}^{(k+1)\pi} \card{\sin(x)} \, dx = \card{\int_{k\pi}^{(k+1)\pi} \sin(x) \, dx} = \card{\left. -\cos(x) \right|_{k\pi}^{(k+1)\pi}} = 2 \]
+\[ \implies I = \frac1\xi 2 \geq \frac{2}{(k+1)\pi} \forall n \in \mathbb N \]
+
+\[ \overbrace{\operatorname{sinc}(0)}^{=1} \geq \frac{\overbrace{\sin(0)}^{=0}}{\pi} \]
+
+Let $k=0$:
+\[ \int_0^\infty \operatorname{sinc}(x) \, dx \overbrace{\implies}^{\text{ for } x \neq 0} \operatorname{sinc}(x) = \frac{\sin(x)}{x} \geq \frac{\sin(x)}{\pi} \forall x \in (0, \pi] \]
+We can exclude the case $x = 0$, because individual finitely many values don't matter.
+\[ \geq \int_0^\pi \frac{\sin(x)}{\pi} \, dx = \frac2\pi = \frac{2}{(k+1)\pi} \]
+\[ \implies \operatorname{sinc}(x) \geq \frac{\sin(x)}{\pi} \forall x \in [0,\pi] \]
+
+\subsection{Sheet 7, Exercise 2b}
+Sketch of the proof (but it lacks details acc. to the tutor)
+\[ \int_0^\infty \card{\sin(x)} \, dx = \sum_{k=0}^\infty \int_{k\pi}^{(k+1)\pi} \card{\operatorname{sinc}(x)} \, dx \]
+\[ \geq \lim_{n\to\infty} \sum_{k=0}^N \underbrace{\frac{2}{(k+1)\pi}}_{\to \infty} = \sum_{k=0}^\infty \frac{2}{k\pi + \pi} \]
+\[ \lim_{N\to\infty} \frac2\pi \sum_{k=1}^N \frac{1}{k} \]
+\[ \int_{k\pi}^{(k+1)\pi} \card{\sin(x)} \geq \frac{2}{(k+1)\pi} \]
+
+We add some details:
+\[ \lim_{N\to\infty} \sum_{k=0}^N T_n \cdot \triangle x \eqqcolon \int f \]
+\[ \int_a^b f \, dx + \int_b^c f \, dx = \int_a^b f \, dx \]
+\[ \lim_{R\to\infty} \int_0^{R\pi} \card{\operatorname{sinc}(x)} \, dx \geq \lim_{N\to\infty} \sum_{k=0}^{N-1} \int_{k\pi}^{(k+1)\pi} \card{\operatorname{sinc}(x)} \, dx \]
+
+\section{Sheet 7, Exercise 3}
+\begin{ex}
+\end{ex}
+
+\section{Sheet 7, Exercise 4}
+\begin{ex}
+  Let $n \in \mathbb N$. For $k \in \set{0,1,\dots,n}$, we define $x_k \coloneqq \frac{k}{n}$ and the step function
+  \[ T_n: [0,1] \to \mathbb R \qquad T_n(x) \coloneqq \begin{cases} x_k^2 & \text{ if } x \in [x_{k-1}, x_k) \\ 1 & \text{ if } x = 1 \end{cases} \]
+  \begin{enumerate}
+    \item Show that: For every $\varepsilon > 0$ there exists $N \in \mathbb N$ such that $\norm{T_n(x) - x^2} < \varepsilon$ for all $n \geq N$.
+    \item Determine $\int_0^1 x^2 \, dx$ using sequence $(T_n)_{n\in\mathbb N}$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 7, Exercise 4a}
+
+\[ \forall \varepsilon > 0 \exists N \in \mathbb N: \forall n \geq N: \norm{T_n(x) - x^2}_{\infty} < \varepsilon \]
+\[ \norm{T_n(x) - x^2}_{\infty} = 1 - x_{n-1}^2 \]
+\[ \norm{T_n(x) - x^2}_{\infty} = 1 - x_{n-1}^2 = 1 - \left(\frac{n-1}{n}\right)^2 = \frac{2n-1}{n^2} \]
+\begin{enumerate}
+  \item $\forall x \in [x_{k-1}, x_k): \card{T_n(x) - x^2} \leq x_k^2 - x_{k-1}^2 = \left(\frac kn\right)^2 - \left(\frac{k-1}{n}\right)^2 = \frac{2k-1}{n^2}$. \\
+    Remark: Also $\frac{2k-1}{n^2} \leq \frac{2n - 1}{n^2} \to 0$. \\
+    Remark: $x_k^2 - x_{k-1}^2 = (x_k - x_{k-1})(x_k + x_{l-1}) = \frac1n \delta$ with $0 \leq \delta \leq 2$.
+  \item $\forall k \in \set{0,1,\dots,n-2}: x_{k+1}^2 - x_k^2 < x_{k+2}^2 - x_{k+1}^2$
+    \[ \left(\frac{k+1}{n}\right)^2 - \left(\frac{k}{n}\right)^2 = \frac{k^2 + 2k + 1 - k^2}{n^2} < \frac{2k+3}{n^2} \]
+    \[ = \frac{k^2 + 4k + 4 - (k^2 + 2k + 1)}{n^2} = \left(\frac{k+2}{n}\right)^2 - \left(\frac{k+1}{n}\right)^2 \]
+\end{enumerate}
+
+\subsection{Sheet 7, Exercise 4b}
+\[ \int_0^1 x^2 \, dx \]
+By exercise (4a), it follows that $\lim_{n\to\infty} \norm{T_n - x^2}_{\infty} = 0$.
+\[ \int_0^1 x^2 \, dx = \lim_{n\to\infty} \int_0^1 T_n(x) \, dx = \lim_{n\to\infty} \frac1n \sum_{k=1}^n x_k^2 = \lim_{n\to\infty} \frac{1}{n^3} \sum_{k=1}^n k^2 = \frac13 \]
+\[ \lim_{n\to\infty} \frac{1}{n^3} \sum_{k=1}^n k^2 = \frac{n (n+1) (2n + 1)}{6} = \frac{n^3}{6} \cdot \left[1 \cdot \left(1 + \frac1n\right) \cdot \left(2 + \frac1n\right)\right] \]
+The integral is independent of the particular chosen approximating sequence (see lecture notes).
+
+\subsection{Remark on integrals}
+You are allowed to change a regulated function in countable infinite many points. Its limit won't change.
+\[ \int_a^b f \, dx \]
+\[
+  \tilde f \coloneqq \begin{cases}
+    f(x) & x \in (a,b] \\
+    0 & x = a
+  \end{cases}
+\]
+Then $\int_a^b f \, dx = \int \tilde f \, dx$.
+
 \end{document}

@@ -473,10 +473,10 @@ The reason was given orally.
   \[ w^* \mapsto w^* \circ f \]
   Hence $f^T(w^*)$ is a linear functional and $(f^T(w^*))(v) = w^*(f(v))$
   \begin{enumerate}
-  	\item[a.]
-  	  Show that $f^T$ is linear.
-  	\item[b.]
-  	  Show that the matrix representation, in regards of dual bases $C^*$ and $B^*$, has the following matrix representation: $\Phi_{B^*}^{C^*}(f^T) = \Phi_C^B(f)^T$
+    \item[a.]
+      Show that $f^T$ is linear.
+    \item[b.]
+      Show that the matrix representation, in regards of dual bases $C^*$ and $B^*$, has the following matrix representation: $\Phi_{B^*}^{C^*}(f^T) = \Phi_C^B(f)^T$
   \end{enumerate}
 \end{ex}
 
@@ -1558,5 +1558,202 @@ Skew-symmetric.
   \[ \sum_{i=1}^4 (f(x_i) - y_i)^2 \]
   is minimal. Reason that the solution is unique.
 \end{ex}
+
+\section{Partial exam, Exercise 4}
+
+\[ A= \set{a_{ij}} \qquad C = \set{(-1)^{i+j}a_{ij}} \]
+\[ \det(A) = \sum_{\sigma \in S_n} \prod_{i=1}^n a_{i \in \sigma(i)} \operatorname{sign}(\sigma) \]
+\[ \det(C) = \sum_{\sigma \in S_n} \underbrace{\prod_{i=1}^n \underbrace{c_{i,\sigma(i)}}_{i-\sigma(i)}}_{\prod_{i=1}^n a_{i,\sigma(i)} (-1)^{\sum i - \sigma(i)}} \operatorname{sign}(\sigma) \]
+
+\section{Partial exam, Exercise 5}
+
+\[ U_i \bot U_j \qquad i \neq j \]
+\[ \forall u_i, w_i \in U_i: \sum w_i = \sum u_i \iff w_i = u_i \]
+
+Consider $\sum (w_i - u_i)$. $\sum (w_i - u_i) = 0$.
+\[ 0 = \norm{w_i - u_i}^2 = \ip{\sum w_i - u_i}{\sum w_i - u_i} = \sum \norm{w_i - u_i}^2 \]
+
+\section{Exercise 39}
+\begin{ex}
+  $\ip uv = u^T Av$ is the scalar product with $A = \begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}$.
+  Determine the adjugate map to the linear map $f(x,y) = (2x - y, x + y)$.
+\end{ex}
+\[ V = \mathbb R^2 \qquad \ip uv = u^T Av \qquad f(x,y) = 2(x-y,x+y) \]
+\[ f^*: \forall x, y \in \mathbb R: \ip{f^*(x),y} = \ip{x}{f(y)} \]
+\[ f\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} \qquad f^*\begin{pmatrix} x \\ y \end{pmatrix} = C\begin{pmatrix} x \\ y \end{pmatrix} \]
+\[ \implies C^T A = AB \implies C^T = ABA^{-1} \]
+\[ \ip{f^*(x)}{y} = \ip{Cx}{y} = (Cx)^T Ay = x^T C^T Ay \]
+\[ \ip{x}{f(y)} = x^T A(By) \]
+\[  C^T = \begin{pmatrix} 6 & 7 \\ 3 & -3 \end{pmatrix} \implies C = \begin{pmatrix} 6 & 3 \\ -7 & -3 \end{pmatrix} \]
+
+\section{Exercise 40}
+\begin{ex}
+  \begin{enumerate}
+    \item Determine the matrix representation of the orthogonal reflection $\sigma_U$ on the plane $U = \set{x \in \mathbb R^3: x_1 + x_2 - x_3 = 0}$
+    in regards of an appropriate orthonormal basis and in regards of a standard basis.
+    \item Let $\sigma_V$ be an orthogonal reflection on the plane
+      \[ V = \set{x \in \mathbb R^3: x_1 + x_2 + x_3 = 0}. \]
+      Determine the matrix of the composition $\rho = \sigma_V \circ \sigma_U$ in regards of the standard basis and give a reason, why $\rho$ is a rotation. Determine rotation axis and rotation angle of $\rho$.
+  \end{enumerate}
+\end{ex}
+
+Exercise (a).
+
+\[ V = \set{x \in \mathbb R^3 \middle| x_1 + x_2 - x_3 = 0} \qquad \vec n = \begin{pmatrix} 1 \\ 1 \\ -1 \end{pmatrix} \]
+Points on the plane $U$:
+\begin{align*}
+  &(0, 0, 0) \\
+  &(1, -1, 0) \\
+  &(1, 1, 2)
+\end{align*}
+\[ P_0(x_{10}, x_{20}, x_{30}) \]
+Solve equation system.
+\[
+  \begin{pmatrix} x_{10} \\ x_{20} \\ x_{30} \end{pmatrix} + \lambda_n \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}
+  = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} + \lambda_1 \begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix} + \lambda_2 \begin{pmatrix} 1 \\ 1 \\ 2 \end{pmatrix}
+\]
+\[ \lambda_n = \frac13 (x_{30} - x_{20} - x_{10}) \]
+\[ \delta_{UB} \coloneqq \begin{pmatrix} 1&0&0 \\ 0&1&0 \\ 0&0&-1 \end{pmatrix} \]
+\[ B = \begin{pmatrix} \frac{1}{\sqrt2} \\ -\frac1{\sqrt2} \\ 0 \end{pmatrix}, \begin{pmatrix} \frac1{\sqrt6} \\ \frac1{\sqrt6} \\ \frac2{\sqrt6} \end{pmatrix}, \begin{pmatrix} \frac1{\sqrt3} \\ \frac1{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{pmatrix} \]
+\[
+  \sigma_U(p_0) = \begin{pmatrix} x_{10} \\ x_{20} \\ x_{30} \end{pmatrix} + 2 \frac13 (x_{30} - x_{20} - x_{10}) \begin{pmatrix} 1 \\ 1 \\ -1 \end{pmatrix}
+  = \frac13 \begin{pmatrix} x_{10} - 2x_{20} + 2x_{30} \\ -2x_{10} + x_{20} + 2x_{30} \\ 2x_{10} + 2x_{20} + x_{30} \end{pmatrix} \delta_{U,B} = \begin{pmatrix} \frac13 & -\frac23 & \frac23 \\ -\frac13 & \frac13 & \frac23 \\ \frac23 & \frac23 & \frac13 \end{pmatrix}
+\]
+
+Exercise (b).
+
+\[
+  p \cdot \begin{pmatrix} 1 \\ 1 \\ 2 \end{pmatrix} = \begin{pmatrix} -\frac{15}9 \\ -\frac{15}9 \\ \frac19 \end{pmatrix}
+\] \[
+  \cos\varphi = \frac{\ip{\begin{pmatrix} 1 \\ 1 \\ 2\end{pmatrix}}{\begin{pmatrix} -\frac19 \\ -\frac19 \\ \frac19 \end{pmatrix}}}{\sqrt6 \cdot \sqrt{\frac{151}{81}}}
+\] \[
+  = \frac{-\frac{28}{9}}{\sqrt6 \cdot \sqrt{\frac{451}{81}}}
+\]
+
+\[ \varphi = 122.5^\circ \]
+
+But these calculations contain an error. $\approx 141^\circ$ should be correct.
+
+\section{Exercise 41}
+\begin{ex}
+  Show that every matrix $U \in \operatorname{SU}_2(\mathbb C)$ has structure $U = \begin{bmatrix} z & -\overline{w} \\ w & z \end{bmatrix}$ with $\card{z}^2 + \card{w}^2 = 1$.
+\end{ex}
+
+\[ U \in \operatorname{SU}_2(\mathbb C) \iff U = \begin{bmatrix} z & -\overline{w} \\ w & \overline{w} \end{bmatrix} \land \card{z}^2 + \card{w}^2 = 1 \]
+
+Direction $\Leftarrow$.
+
+Is easy. $U^* U = \dots = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$.
+
+Direction $\Rightarrow$.
+
+\[
+  \begin{pmatrix}
+    \overline a & \overline c \\
+    \overline b & \overline d
+  \end{pmatrix} = U^{-1}
+\] \[
+  U^{-1} = \frac{1}{\det(U)} \cdot \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}
+  = \frac11 \cdot \begin{pmatrix} d & -b  \\ -c & a \end{pmatrix} = \begin{pmatrix} \overline a & \overline c \\ \overline b & \overline d \end{pmatrix}
+\] \[
+  \implies d = \overline a \qquad b = -\overline c
+\]
+
+\section{Exercise 42}
+\begin{ex}
+  Quaternions are elements of a $4$-dimensional vector space
+  \[ \mathbb H = \set{a_0 + a_1 i + a_2 j + a_3 k: a_i \in \mathbb R} \]
+  over $\mathbb R$ with formal basis $\set{1,i,j,k}$ and multiplication laws:
+  \[ ij = k = -ji \qquad jk = i = -kj \qquad ki = j =-ik \qquad i^2 = j^2 = k^2 = -1 \]
+  Show that
+  \begin{enumerate}
+    \item Quaterions give an associative algebra.
+    \item Every quaternion has a multiplicative inverse.
+    \item The map $\Phi: \mathbb H \to M_2(\mathbb C)$
+      \[ a_0 + a_1i + a_2j + a_3k \mapsto a_0 \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} + a_1 \begin{pmatrix} i & 0 \\ 0 & -i \end{pmatrix} + a_2 \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} + a_3 \begin{pmatrix} 0 & i \\ i & 0 \end{pmatrix} \]
+    \item Show that $\operatorname{SU}_2(\mathbb C) \simeq \setdef{q \in \mathbb H}{q\overline q = 1}$. Hint: compare with 41.
+  \end{enumerate}
+\end{ex}
+
+Exercise (a).
+
+Simply long calculations.
+
+Exercise (b).
+
+Let $q \in \mathbb H \setminus \set{0}$.
+\[ (a_0 + a_1 i + a_2 j + a_3 k)(a_0 - a_1 i - a_2 j - a_3 k) = a_0^2 + a_1^2 + a_2^2 + a_3^2 \]
+\[ q^{-1} = \frac{a_0 - a_1 i - a_2 j - a_3 k}{a_0^2 + a_1^2 + a_2^2 + a_3^2} \]
+
+$0$ is a quaternion, but just like in the real numbers, a multiplicative inverse only exists for the group except for $0$.
+
+Exercise (c).
+
+\[ (a_1 i + a_2 j) \mapsto a_1 \underbrace{\begin{pmatrix} i & 0 \\ 0 & -i \end{pmatrix}}_{\eqqcolon A} + a_2 \underbrace{\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}}_{\eqqcolon B} \]
+$AB = C$. $C = \begin{pmatrix} 0 & i \\ i & 0 \end{pmatrix}$. And so on and so forth.
+
+Exercise (d).
+
+\[ \mathbb H_1 \coloneqq \setdef{q \in \mathbb H}{g \overline g = 1} \]
+\[ \Phi: \mathbb H \to M_2(\mathbb C) \]
+\[
+  \begin{pmatrix} \alpha \\ \beta \\ \gamma \\ \delta \end{pmatrix}
+  \mapsto \begin{bmatrix}
+    \alpha + i \beta & \gamma + i\delta \\
+    -\overline{(\gamma + i\delta)} & \overline{\alpha + i\beta}
+  \end{bmatrix}
+\]
+
+Prove injectivity:
+\[ p,q \in \mathbb H_1 \]
+Show: $\Phi(p) = \Phi(q) \implies p = q$.
+
+\[
+  \begin{bmatrix}
+    \alpha_1 + i\beta_1 & \gamma_1 + i\delta_1 \\
+    \dots & \dots
+  \end{bmatrix} - \begin{bmatrix}
+    \alpha_1 + i\beta_1 & \gamma_1 + i\delta_1 \\
+    \dots & \dots
+  \end{bmatrix}
+  = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}
+\] \[
+  (\alpha_1 + i \beta_1) - (\alpha_2 + i\beta_2) = 0 \implies \alpha_1 = \alpha_2 \land \beta_1 = \beta_2
+\]
+
+Prove surjectivity:
+
+Immediate if you look at the matrix representation above.
+
+\section{Remark: Rationale for quaternions}
+
+\[ v - (v_x, v_y, v_z) \in S^2 = \set{\card{x}^2 + \card{y}^2 + \card{z}^2 = 1} \]
+\[ \nu \in [0,2\pi] \]
+Rotation with axis $v$ and angle $\theta = R_{\theta}^v$.
+\[ q_{\nu}^V \coloneqq \cos(\frac\nu 2) - (v_x i + v_y j + v_z k) \sin(\frac\nu{2}) \]
+\[ R_{\nu}^V w = q_\nu^v w \overline{q^v}_w \]
+with $w = (w_x i + w_y j + w_z k)$.
+
+Every rotation matrix can be represented as quaternion.
+
+\section{Exercise 38}
+
+Exercise b.
+
+Let $\set{p_n}_{n\geq 0}$ be orthogonal polynomials in $\mathbb R[x]$ in regards of $\int fgw \, dx$ (from Exercise a)
+$\det(P_n) = n$ with leading coefficients $(p_n) = 1$.
+What is $xp_n(x)$? $\sum_{j=0}^{n+i} \alpha_j p_j$.
+The claim is $\alpha_j = 0 \forall j \in \set{0,\dots, n-2}$. $\alpha_{n+1} = 1$.
+
+How about $\ip{xp_n}{p_0}$?
+\[ \ip{xp_n}{p_0} = \int_{a}^b xp_2 1 w \, dt + 0 = \int_{a}^b xp_2 1 w \, dt + \int_{a}^b p_n \cdot c \cdot w \, dt = \int_{a}^b xp_2 1 w \, dt + \ip{p_n}{c \cdot p_0} \]
+\[ \int_a^b p_n\underbrace{(x + c)}_{\eqqcolon p_1} w \,dt = \underbrace{\ip{p_n}{p_n}}_{n > 1} = 0 \]
+
+How about $\ip{xp_n}{p_1}$?
+\[ \ip{xp_1}{p_1} = \int_a^b \overbrace{x p_n (x + c)}^{p_n (x^2 + cx)} w \, dt + \underbrace{0}_{= \int_a^b p_n(x + c) \lambda w \, dt = \ip{p_n}{\lambda p_1}} \]
+\[ = \int_a^b p_1(x^2 + (c + \lambda) x + \lambda c) w \, dt + \underbrace{0}_{\ip{p_n}{\gamma}} \]
+\[ \gamma = \gamma \cdot p_0 \]
+\[ \int_a^b p_n \underbrace{\left(x^2 + (c + \lambda) x + c \lambda + \gamma\right)}_{p_2} w \, dt \]
+\[ \ip{p_n}{p_2} = 0 \]
 
 \end{document}

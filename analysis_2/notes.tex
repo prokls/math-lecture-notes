@@ -1327,7 +1327,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 
   We usually consider $A = [a,b] \subseteq \mathbb R$, $x \in [a,b]$.
 
-  It is possible, that $f$ in $x$ has a limit, $x \in A$ and $c = \lim_{\xi\to x} f(\xi) \neq f(x)$.
+  It is feasible, that $f$ in $x$ has a limit, $x \in A$ and $c = \lim_{\xi\to x} f(\xi) \neq f(x)$.
 \end{remark}
 
 TODO drawing
@@ -1569,7 +1569,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$).
 \begin{enumerate}
   \item Let $x \in (a, b)$. Let $\varepsilon$ as above such that \eqref{neghypo} holds on every interval $[a_n, b_n]$.
-    Let $c_+ = \lim_{\xi \to x^+} f(\xi)$ and $c_- = \lim_{\xi \to x^-} f(\xi)$ (possible, because $f \in \mathcal R[a,b]$).
+    Let $c_+ = \lim_{\xi \to x^+} f(\xi)$ and $c_- = \lim_{\xi \to x^-} f(\xi)$ (feasible, because $f \in \mathcal R[a,b]$).
 
     Limes property: $\exists \delta > 0: \card{\xi - x} < \delta$ and $\xi < x$, then $\card{f(\xi) - c_-} < \varepsilon$
     and $\card{\xi - x} < \delta$ and $x < \delta$ then $\card{f(\xi) - c_+} < \varepsilon$.
@@ -1602,7 +1602,7 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
       \end{cases} < \varepsilon
     \]
     Now let $N$ be sufficiently large enough such that $[a_N, b_N] \subseteq (x - \delta, x + \delta)$
-    (possible because $([a_n, b_n])_{n \in \mathbb N}$ gives nested intervals tightening on $x$).
+    (feasible because $([a_n, b_n])_{n \in \mathbb N}$ gives nested intervals tightening on $x$).
     Then it holds on $[a_N, b_N]$ that:
     \[ \hat\varphi|_{[a_N, b_N]} \in \tau[a_N, b_N] \]
     and $\forall \xi \in [a_N, b_N] \subseteq (x - \delta, x + \delta)$ it holds that
@@ -2508,7 +2508,7 @@ Usually they are composites of basic functions. Some of these are given in Table
     \end{center}
   \end{figure}
 
-  Now let $\xi \in (x - \delta, x)$ (compare with Figure~\ref{img:xiz}) and choose $x > z > \xi$ with the property that $\card{f(z) - f_+(\xi)} < \frac\varepsilon2$ (possible because $f$ in $\xi$ has a right-sided limit):
+  Now let $\xi \in (x - \delta, x)$ (compare with Figure~\ref{img:xiz}) and choose $x > z > \xi$ with the property that $\card{f(z) - f_+(\xi)} < \frac\varepsilon2$ (feasible because $f$ in $\xi$ has a right-sided limit):
   \[
     \card{f_+(\xi) - f_-(x)}
     \leq \underbrace{\card{f_+(\xi) - f(z)}}_{< \frac\varepsilon2} + \underbrace{\card{f(z) - f_-(x)}}_{< \frac\varepsilon2}
@@ -3335,7 +3335,7 @@ We now consider conditions to select extreme values from all value satisfying de
     \item[Case c] We apply the same idea as in Case~a up to the point, where we consider $f(x) - f(x_0)$.
       \[ f(x) - f(x_0) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} \]
       $f^{(n+1)}(\xi)$ has the same sign as $\underbrace{f^{(n+1)}(x_0)}_{\neq 0} \quad \forall \xi \in (x_0 - \varepsilon, x_0 + \varepsilon)$.
-      This is possible due to continuity of $f^{(n+1)}$ for sufficiently small $\varepsilon$.
+      This is feasible due to continuity of $f^{(n+1)}$ for sufficiently small $\varepsilon$.
       \[
         f(x) - f(x_0)
         = \underbrace{\frac{f^{(n+1)}(\xi)}{(n+1)}}_{\text{has constant sign indep. of } x} \cdot {\underbrace{(x - x_0)}_{\text{changes its sign}}}^{\overbrace{n+1}^{\text{odd}}}
@@ -3465,7 +3465,7 @@ Let $V,W$ be vector space over $\mathbb K$ ($\mathbb R, \mathbb C$).
 $\operatorname{Hom}(V, W)$ has vector space properties.
 $\varphi, \psi \in \mathcal L(V, W), \lambda, \mu \in \mathbb K$.
 Then it holds that $\lambda \varphi + \mu \psi \in \mathcal L(V, W)$.
-In general, it is possible that to define a norm on $\mathcal L(V, W)$.
+In general, it is feasible that to define a norm on $\mathcal L(V, W)$.
 Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
 \begin{enumerate}
   \item $\norm{\varphi} = 0 \iff \varphi = 0$ (zero mapping)
@@ -3586,6 +3586,231 @@ $\mathcal L_b(V, W) \neq \emptyset$.
   $A$ is bounded in regards of $\norm{\cdot}_\infty$ in the preimage and image space.
   By the norm equivalence theorem, it follows that $A$ is bounded in regards of arbitrary norms on $\mathbb R^m$, or equivalently $\mathbb R^n$.
 \end{remark}
+
+\dateref{2018/05/17}
+
+Further remarks:
+\begin{remark}
+  A linear map $A: \mathbb R^m \to \mathbb R$ is always bounded. Thus,
+  \[ \norm{Ax_1 - Ax_2}_{\mathbb R^n} = \norm{A(x_1 - x_2)}_{\mathbb R^n} \leq \norm{A} \norm{x_1 - x_2}_{\mathbb R^m} \]
+  So every linear map $A: \mathbb R^m \to \mathbb R^n$ is Lipschitz \emph{continuous} with Lipschitz constant $\norm{A}$.
+\end{remark}
+
+The considerations above hold for arbitrary finite-dimensional normed vector spaces $V$ and $W$ (over $\mathbb K = \mathbb R, \mathbb C$).
+
+\begin{lemma} % Lemma 2
+  Let $X, Y$ and $Z$ be normed vector spaces.
+  Let $A: X \to Y$ be linear and bounded. Let $B: Y \to Z$ be linear and bounded.
+  Then
+  \[ B \cdot A: X \to Z \]
+  is also bounded and it holds that
+  \[ \norm{B \cdot A} \leq \norm{B} \cdot \norm{A} \]
+\end{lemma}
+
+\begin{proof}
+  Let $x \in X$ be arbitrary and $BAx = B(Ax) \in Z$ and
+  \[ \norm{BAx}_Z = \norm{B(Ax)}_Z \overbrace{\leq}_{B \text{ is bounded}} \norm{B} \norm{Ax}_Y \underbrace{\leq}_{A \text{ is bounded}} \norm{B} \cdot \norm{A} \norm{x}_X \]
+  Hence $m = \norm B \norm A$ satisfies the boundedness criterion for the linear map $B \cdot A: X \to Z$. Because $\norm{B\cdot A}$ is the smallest constant
+  for which the boundedness criterion holds, it follows that $\norm{BA} \leq \norm B \norm A$.
+\end{proof}
+
+% TODO on the date 2018/05/17, I might have mixed up big-o and small-o notation. Review required
+\begin{definition}[Landau $\mathbb O$ symbols] % Definition 2
+  Let $h, g: D \subseteq \mathbb R^n \to \mathbb R$, $D$ is open, $a \in D$.
+  \begin{enumerate}
+    \item We denote $h = \mathcal O(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist gro\"s $\mathcal O$ von $g$}) iff
+      $\exists U \subseteq D$ environment of $a$ in $D$ and $\exists r: U \to \mathbb R$ with $r$ bounded such that $h(x) = r(x) \cdot g(x) \forall x \in U$.
+      Thus,
+      \[ \card{\frac{h(x)}{g(x)}} = \card{r(x)} \leq M \qquad \forall x \in U \]
+      ($g(x) = 0$ iff $h(x) = 0$)
+    \item We denote $h = o(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist klein $o$ von $g$}) iff $\exists U \subseteq D$, with $U$ being the environment of $a$, and $r: U \to \mathbb R$ such that $\lim_{x\to a} r(x) = 0$
+    and $h(x) = r(x) \cdot g(x) \forall x \in U$. In that sense,
+      \[ \lim_{x \to a} \frac{h(x)}{g(x)} = 0 \]
+      Most often,
+      \[ \mathcal O(\underbrace{\norm{x - x_0}^n}_{g(x)}) \]
+      is used and $a = x_0$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Definition of the derivative of a function]
+  \[ f: D \subseteq \mathbb R^m \to \mathbb R^n \qquad D \text{ is open}, x_0 \in D \]
+  \[ f(x) = \begin{bmatrix} f_1(x) \\ f_2(x) \\ \vdots \\ f_n(x) \end{bmatrix} \in \mathbb R^n \]
+  \[ f_i(x) = f_i(\begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_m \end{bmatrix}) = f_i(x_1, x_2, \dots, x_m) \in \mathbb R \]
+\end{definition}
+
+\begin{remark}
+  First trial to define of a the derivative:
+  \[ f'(x_0) \coloneqq \lim_{x\to x_0} \frac{\overbrace{f(x) - f(x_0)}^{\in \mathbb R^n}}{\underbrace{x - x_0}_{\in \mathbb Rm}} \]
+  Does not work because of incompatibility of dimensions (and we cannot divide vectors).
+\end{remark}
+
+\begin{remark}
+  We use Taylor's Theorem to characterize $f'(x_0)$. A Taylor polynomial of 1st degree is given by
+  \[ f(x) = f(x_0) + f'(x_0) (x - x_0) + R_f^2(x; x_0) \]
+  and $R_f^2(x; x_0) = r(x) (x - x_0)$ with $\lim_{x\to x_0} r(x) = 0$.
+  Hence,
+  \[ f(x) - f(x_0) - f'(x_0)(x - x_0) = \mathcal O(x - x_0) \]
+  or we insert the absolute operators:
+  \[ \card{f(x) - f(x_0) - f'(x_0) (x - x_0)} = \card{r(x)} \cdot \card{x - x_0} = o(\card{x - x_0}) \]
+  where $(f(x) - f(x_0)) \in \mathbb R^n$ for the multidimensional case
+  and $(x - x_0) \in \mathbb R^m$ for the multidimensional case. Thus,
+  \[ = \mathcal O(\card{x - x_0}) \]
+\end{remark}
+
+\begin{definition} % Definition 3
+  \label{defp}
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$, $D$ is open and $x_0 \in D$.
+  We say, \enquote{f is differentiable in $x_0$} (specifically, \enquote{Frech\'et differentiable})
+  if there exists $A \in \mathbb R^{n \times m}$ such that
+  \[ \norm{f(x) - f(x_0) - A(x - x_0)}_{\mathbb R^n} = o(\norm{x - x_0}_{\mathbb R^m}) \]
+  We call this condition \emph{differentiability condition}.
+  $A$ is a linear approximation of $f$ in $x_0$.
+  Because of norm equivalence on $\mathbb R^n$, or equivalently $\mathbb R^m$,
+  it is irrelevant which norm $\norm{\cdot}_{\mathbb R^n}$ and $\norm{\cdot}_{\mathbb R^m}$ is chosen.
+\end{definition}
+
+\begin{lemma} % Lemma 3
+  Let $f$ be, as in Definition~\ref{defp}, differentiable in $x_0$.
+  Then the linear approximation $A$, by the differentiability condition, is uniquely determined.
+\end{lemma}
+
+\begin{proof}
+  Assume $A, B \in \mathbb R^{n\times m}$ satisfy the differentiability condition.
+  Let $r > 0$ such that $K_r(x_0) \subseteq D$ (feasible because $D$ is open and $x_0 \in D$).
+  Furthermore let $v \in \mathbb R^m$ and $\norm{v} < r$, hence $x = x_0 + v \in K_r(x_0) \subset D$
+  and $v = x - x_0$.
+  \[ \norm{(A - B) v} = \norm{Av - Bv} = \norm{A(x - x_0) - B(x - x_0)} \]
+  \[ = \norm{f(x) - f(x_0) - B(x - x_0) - (f(x) - f(x_0) - A(x_0 - x_0))} \]
+  \[ \leq \norm{f(x) - f(x_0) - B(x - x_0)} + \norm{f(x) - f(x_0) - A(x - x_0)} \]
+  by the differentiability criterion
+  \[ r(x) \cdot \norm{x - x_0} + \tilde r(x) \norm{x - x_0} \]
+  with $\lim_{x\to x_0} r(x) = \lim_{x\to x_0} \tilde r(x) = 0$. Hence, for $\hat r(x) = r(x) + \tilde r(x)$ it holds that
+  \[ \norm{(A - B) v} \leq \hat r(x) \norm{x - x_0} = \hat r(x) \norm{v} = \mathcal O(\norm{v}) \text{ in } x_0 \]
+  (Thus $\lim_{x\to x_0} \hat r(x) = 0$)
+
+  Show: $(A - B)w = 0 \forall w \in \mathbb R^m$. Assume $\exists w \in \mathbb R^m, w \neq 0$ with $(A - B)w \neq \diameter$.
+  For $\card{\alpha} < \frac r{\norm{w}}$ (with $r$ as radius of the sphere) it holds that
+  \[ \norm{\alpha w} = \card{\alpha} \norm{w} < \frac{r}{\norm{w}} \cdot \norm{w} = r \]
+  Let $v = \alpha w$. Then it holds that
+  \[ \norm{(A - B) v} = \card{\alpha} \norm{(A - B) w} \leq \hat r(x) \norm{\alpha w} = \card{\alpha} \hat r(x) \cdot \norm{w} \]
+  \[ \implies \norm{(A - B) w} \leq \underbrace{\hat r(x)}_{\to 0 \text{ for } x \to x_0} \cdot \underbrace{\norm w}_{\text{constant}} \]
+  \[ \implies (A - B) w = 0 \]
+  This contradicts with our assumption.
+
+  THus, $Aw = Bw \forall w \in \mathbb R^m$, hence $A = B$.
+\end{proof}
+
+\index{Frech\'et derivative}
+\begin{definition}[Part 2 of Definition~\ref{defp}] % Definition 3
+  If $f$ is differentiable in $x_0$, then we call the uniquely determined linear map $A$ the \enquote{Frech\'et derivative} of $f$ in $x_0$
+  and denote $A = Df(x_0)$. An alternative notations are $f'(x_0)$ and $D_{x_0}f$.
+\end{definition}
+
+\begin{lemma} % Lemma 4
+  Let $f: D \to \mathbb R^n$, $D \subseteq \mathbb R^m$ open, $x_0 \in D$.
+  If $f$ is differentiable in $x_0$, then $f$ is also continuous in $x_0$.
+\end{lemma}
+
+\begin{proof}
+  Let $x \in D$. Then it holds that
+  \begin{align*}
+    \norm{f(x) - f(x_0)}_{\mathbb R^n}
+      &= \norm{f(x) - f(x_0) - Df(x_0) \cdot (x - x_0) + Df(x_0) (x - x_0)} \\
+      &\leq \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} + \norm{Df(x_0) (x - x_0)} \\
+      &\leq r(x) \cdot \underbrace{\norm{x - x_0}}_{\to 0 \text{ for } x \to x_0} + \overbrace{\norm{\underbrace{Df(x_0)}_{\in \mathbb R^{n\times m}}}}^{\text{constant}} \cdot \underbrace{\norm{x - x_0}}_{\to 0 \text{ for } x \to x_0} \\
+      &\to 0 \text{ for } x \to x_0
+  \end{align*}
+  Hence $f$ is continuous in $x_0$.
+\end{proof}
+
+\begin{lemma} % Lemma 5
+  \label{lem5}
+  Let $f,g: D \subseteq \mathbb R^m \to \mathbb R^n$. Let $f$ and $g$ be differentiable in $x_0 \in D$.
+  Let $\lambda \in \mathbb R$. Then it holds that
+  \begin{enumerate}
+    \item $f + g$ is differentiable in $x_0$ with
+      \[ D(f + g)(x_0) = Df(x_0) + Dg(x_0) \]
+    \item $\lambda f$ is differentiable in $x_0$ and
+      \[ D(\lambda f)(x_0) = \lambda Df(x_0) \]
+  \end{enumerate}
+  Thus differentiability is a linear operation on the vector space's appropriate differentiable functions.
+\end{lemma}
+
+\begin{proof}
+  Let $F \coloneqq \norm{(f + g)(x) - (f + g)(x_0) - \underbrace{[Df(x_0) + Dg(x_0)]}_{D(f + g)(x_0)}(x - x_0)]}$.
+  Show that $F = o(\norm{x - x_0})$.
+  \begin{align*}
+    F &\leq \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} + \norm{g(x) - g(x_0) - Dg(x_0)(x - x_0)} \\
+      &= o(\norm{x - x_0}) + o(\norm{x - x_0}) \\
+      &= o(\norm{x - x_0})
+  \end{align*}
+  For $\lambda f$ it holds analogously.
+\end{proof}
+
+\begin{lemma} % Lemma 6
+  Let $C: D \to \mathbb R^n$. $c(x) = k \in \mathbb R^n$ is constant.
+  Then $c$ be differentiable in every point $x_0 \in D$ and it holds that $D C(x_0) = 0 \in \mathbb R^{n\times m}$.
+  Let $A: \mathbb R^m \to \mathbb R^n$ be linear. Then $A$ is differentiable in every point $x_0 \in \mathbb R^m$ and it holds that $DA(x_0) = A$.
+
+  Let $f(x) = k + Ax: \mathbb R^m \to \mathbb R^n$ be linear affine, then $f$ is differentiable in every point $x_0 \in \mathbb R^m$ with $Df(x_0) = A$.
+\end{lemma}
+
+\begin{proof}
+  \[ \norm{c(x) - c(x_0) - 0 \cdot (x - x_0)} \]
+  where $0$ denotes the zero-matrix.
+  \[ = \norm{k - k} = \norm{0} = 0 = o(\norm{x - x_0}) \]
+  Hence $0$ satisfies the differentiability condition for $c$.
+  \[ \implies 0 = Dc(x_0) \]
+  in the linear case
+  \[ \norm{Ax - Ax_0 - A(x - x_0)} = \norm{Ax - Ax_0 - Ax + Ax_0} = 0 = o({x - x_0}) \]
+  hence $DA(x_0) = A$.
+  Affine: use Lemma~\ref{lem5}.
+  \[ D(k + A)(x_0) = \underbrace{Dk(x_0)}_{=0} + \underbrace{DA(x_0)}_{= A} = A \]
+  This is analogous to the one-dimensional case:
+  \[ (k + ax)' = a \]
+\end{proof}
+
+\begin{theorem}[Chain rule in multiple dimensions]
+  Let $D \subseteq \mathbb R^l$ be open. Let $E \subseteq \mathbb R^m$ be open.
+  Let $f: D \to \mathbb R^m$ such that $f(D) \subseteq E$ and $g: E \to \mathbb R^n$.
+  Compare with Figure~\ref{chainrule}.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/30_fg.pdf}
+      \caption{Chain rule in multiple dimensions}
+      \label{chainrule}
+    \end{center}
+  \end{figure}
+
+  Let $f$ in $x_0$ be differentiable and $g$ in $y_0 = f(x_0)$ is differentiable.
+  Then also $g \circ f: D \to \mathbb R^n$ is differentiable in $x_0$ and it holds that
+  \[ \underbrace{D(g \circ f)(x_0)}_{\in \mathbb R^{n \times l}} = \underbrace{Dg(f(x_0))}_{\in \mathbb R^{n \times m}} \underbrace{Df(x_0)}_{\in \mathbb R^{m \times l}} \]
+  (The dimensions match.)
+\end{theorem}
+\begin{proof}
+  Let $\varepsilon > 0$ be arbitrary, but $\varepsilon < 2$.
+  Show that
+  \[ \frac1{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(y_0) \cdot Df(x_0) (x - x_0)} < \varepsilon \]
+  for sufficiently small $\norm{x - x_0}$ ($x \neq x_0$).
+
+  \begin{align*}
+    &\frac1{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(y_0) \cdot Df(x_0) (x - x_0)} \\
+    &= \frac1{\norm{x - x_0}} \| g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot (f(x) - f(x_0)) \\
+    &+ Dg(f(x_0)) (f(x) - f(x_0)) - Dg(f(x_0)) Df(x_0) (x - x_0) \| \\
+  \intertext{recognize that we have a common factor $Dg(f(x_0))$}
+    &\leq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0))(f(x) - f(x_0))} \\
+    &+ \frac{1}{\norm{x - x_0}} \norm{Dg(y_0)} \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} \\
+    &\coloneqq (I) + (II)
+  \end{align*}
+  Choose $\delta_1 > 0$ such that $\norm{x - x_0} < \delta_1 \implies$
+  \[ \frac{1}{\norm{x - x_0}} \cdot \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < \frac{\varepsilon}2 \frac{1}{\norm{Dg(y_0)} + 1} \]
+  is feasible, because $f$ is differentiable in $x_0$.
+  \[ \frac{\varepsilon}{2} \cdot \frac{1}{\norm{Dg(y_0)} + 1} < \frac22 = 1 \]
+  so it also holds that
+  \[ \norm{f(x) - TODO} \]
+  TODO
+\end{proof}
 
 \printindex
 \end{document}
