@@ -5685,12 +5685,244 @@ Eigen vector: $e_1, \dots, e_n$.
   \begin{align*}
     AB &= \begin{bmatrix} Ab_1 & Ab_2 & \dots & Ab_d & Ab_{d+1} & \dots & Ab_n \\ \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \end{bmatrix} \\
        &= \begin{bmatrix} \lambda b_1 & \lambda b_2 & \dots & \lambda b_d & Ab_{d+1} & \dots & Ab_n \\ \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \end{bmatrix} \\
-       &= \begin{bmatrix} b_1 & \dots & b_d & b & \dots & b_n \\ \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \end{bmatrix} \begin{bmatrix} \lambda & & & \dots \\ & \lambda & & \dots \\ & & \lambda & \dots \\ 0 & 0 & 0 & \dots \\   & \dots 0 \dots &   & \dots \\ 0 & 0 & 0 & \dots \\ \end{bmatrix} \\
+	       &= \begin{bmatrix} b_1 & \dots & b_d & b & \dots & b_n \\ \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \end{bmatrix} \begin{bmatrix} \lambda & & & \dots \\ & \lambda & & \dots \\ & & \lambda & \dots \\ 0 & 0 & 0 & \dots \\   & \dots 0 \dots &   & \dots \\ 0 & 0 & 0 & \dots \\ \end{bmatrix} \substack{\text{ where $\lambda$ occurs in} \\ \text{$d$ different columns}} \\
     B^{-1}AB &= \begin{bmatrix} \lambda & & & \dots \\ & \ddots & & \dots \\ & & \lambda & \dots \\ 0 & 0 & 0 & \\ 0 & 0 & 0 & \tilde A \\ 0 & 0 & 0 & \end{bmatrix} \eqqcolon M
   \end{align*}
 
-  \[ \chi_A(x) = \chi_{B^{-1} AB}(x) = \det(x \cdot I - M) TODO = (x - \lambda)^d \det(xI - \tilde A) \]
+  \begin{align*}
+    \chi_A(x) &= \chi_{B^{-1} AB}(x) = \det(x \cdot I - M) \\
+      &= \begin{bmatrix} x-\lambda & & & \dots \\ & \ddots & & \dots \\ & & x-\lambda & \dots \\ 0 & 0 & 0 & \\ 0 & 0 & 0 & xI_{n-d} - \tilde A \\ 0 & 0 & 0 & \end{bmatrix} \\
+      &= (x - \lambda)^d \det(xI - \tilde A)
+  \end{align*}
   $\implies x - \lambda$ is d-multiple factor of $\chi_A(x) \implies k(\lambda) \geq d(\lambda)$.
+\end{proof}
+
+\dateref{2018/05/23}
+
+Revision:
+$A$ is diagonalizable iff $\exists T$:
+\[ T^{-1} AT = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \]
+where $T$ is basis of eigen vectors.
+\[ \iff d(\lambda) = \text{ geometrical multiplicity } = \dim{\eta_{\lambda}} \]
+\[ \overset!= k(\lambda) = \text{ algebraic multiplicity} \]
+
+\begin{example}
+  \[ A = \begin{bmatrix} \lambda & 1 & 0 \\ 0 & \lambda & 1 \\ 0 & 0 & \lambda \end{bmatrix} \]
+  Eigen values:
+  \[ \chi_A(x) = \begin{vmatrix} x - \lambda & -1 & 0 \\ 0 & x - \lambda & -1 \\ 0 & 0 & x - \lambda \end{vmatrix} = (x - \lambda)^3 \]
+  The only eigenvalue: $\lambda$.
+  $k(\lambda) = 3$.
+  \[ \ker{\eta_{\lambda}} = \ker\begin{bmatrix} 0 & -1 & 0 \\ & 0 & -1 \\ & & 0 \end{bmatrix} \]
+  \[ d(\lambda) = \dim\ker{\eta_{\lambda}} = 1 \implies \text{ not diagonalizable} \]
+\end{example}
+
+Camille Jordan (1838--1922): Jordan curvature.
+
+\section{The Jordan normal form}
+
+Causs-Wilhelm-Jordan (1842--1899)
+
+Pasend Jordan Algebra: $A * B = A \cdot B + B \cdot A$
+
+Nilpotent matrix:
+\[
+  \begin{bmatrix} 0 & * & * \\ 0 & 0 & * \\ 0 & 0 & 0 \end{bmatrix}^2
+  = \begin{bmatrix} 0 & 0 & * \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
+  = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
+\]
+
+\index{Invariant subspace}
+\begin{definition} % Definition 11
+  Let $f: V \to V$ (or matrix $A \in \mathbb K^{n\times n}$) be linear.
+  A subspace $U \subseteq V$ is called \emph{invariant} under $f$, if $f(U) \subseteq U$.
+  \[ Ax \in U \forall x \in U \]
+\end{definition}
+
+\begin{example} % Beispiel 11.2
+  \begin{enumerate}
+    \item $\set{0}$. $f(0) = 0 \in \set{0}$. $V$ is trivially invariant.
+    \item $\ker{f}$. Let $x \in \ker{f} \implies f(x) = 0 \implies f(f(x)) = 0 \implies f(x) \in \ker{f}$. \\
+      $\im{f}$ is invariant. $y \in \im{f} \implies f(y) \in \im{f}$.
+    \item Eigenspaces are invariant.
+      \[ f(x) = \lambda \cdot x \implies f(f(x)) = f(\lambda \cdot x) = \lambda \cdot f(x) \implies f(x) \in \eta_{\lambda} \]
+    \item If $U$ are invariant with $\dim{U} = 1$, then $U = \mathcal L(x)$ with $x$ as eigenvector. \\
+      If $x \in U \setminus \set{0}$ ($\implies U = \mathcal L(x)$), $f(x) \in U$. $\exists \lambda \cdot f(x) = \lambda \cdot x \implies x$ is eigenvector.
+    \item $A = \begin{bmatrix} a_{11} & \dots & \dots & \dots \\ & a_{22} & \dots & \dots \\ & & \ddots & \dots \\ & & & a_{nn} \end{bmatrix}$.
+      \[ A \cdot e_1 = a_{11} \cdot e_1 \implies e_1 \text{ is eigenvalue } \implies \mathcal L(e_1) \text{ is invariant} \]
+      \[ A(\lambda_1 e_1 + \lambda_2 e_2) = \lambda_1 a_{11} e_1 + a_{12} \lambda_2 e_2 + a_{22} \lambda_2 e_2 \in \mathcal L(e_1, e_2) \implies \mathcal L(e_1, e_2) \text{ is invariant} \]
+      \[ A \cdot e_k \in \mathcal L(e_1, \dots, e_k) \implies \forall k: \mathcal L(e_1, \dots, e_k) \text{ is invariant} \]
+  \end{enumerate}
+\end{example}
+
+Numerically unstable:
+\[
+  \begin{bmatrix} \lambda & & \\ & \vdots & \\ & & \lambda \end{bmatrix}
+  \text{ is diagonalizable}
+\] \[
+  \begin{bmatrix} \lambda & & \varepsilon \\ & & \\ 0 & & \lambda \end{bmatrix}
+  \text{ is not diagonalizable}
+\]
+
+\begin{theorem} % Satz 11.3
+  \label{s113}
+  Let $A \in \mathbb K^{n\times n}, V = \mathbb K^n$.
+  \begin{enumerate}
+    \item If $U \subseteq V$ is invariant and $p(x) \in \mathbb K[x]$, then $U$ is invariant under $p(A)$.
+      \[ p(x) \coloneqq \sum_{k=0}^n a_k x^k \]
+      \[ p(A) = \sum_{k=0}^n a_k A^k \]
+      \[ \psi_A: \substack{\mathbb K[x] \to \mathbb K^{n\times n} \\ x \mapsto A} \]
+    \item $U_1, \dots, U_k$ is an invariant subspace.
+      \[ \implies \substack{U_1 \cap \dots \cap U_k \\ U_1 + \dots + U_k} \text{ are invariant} \]
+    \item Let $x \in U \implies Ax U$. $A^2 \cdot x = A \cdot (Ax) \in U$ with $Ax \in U$. This goes on inductively. Thus $A^k x \in U$. $\implies \sum a_k A^k x \in U$ because it is a linear combination of elements of $U$ where $U$ is the subspace with $A^k x \in U$.
+    \item Let $x \in \bigcap_{i=1}^k u_i \implies Ax \in U_i \forall i \implies Ax \in \bigcap_{i=1}^k U_i$.
+      Let $x \in U_1 + \dots + U_k \implies x = u_1 + u_2 + \dots + u_k \text{ for } u_i \in U_i$.
+      \[ \implies Ax = \underbrace{Au_1}_{\in U_1} + \underbrace{Au_2}_{\in U_2} + \dots + \underbrace{Au_k}_{U_k} \in U_1 + \dots + U_k \]
+      \[ \implies U_1 + \dots + U_k \text{ is invariant} \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{lemma} % Lemma 11.4
+  Let $f: V \to V$ and $U \subseteq V$ is an invariant subspace.
+  $\implies f|_U: U \to U$ is homomorphism.
+  (If $U$ is not invariant, $\varphi|_U: U \to V$ must not map $U \to U$.)
+\end{lemma}
+
+\begin{theorem} % Satz 11.5
+  Let $f: V \to V$. Let $U, W \subseteq V$ be invariant with $V = U \dot+ W$.
+  Let $B = \set{b_1, \dots, b_m}$ be a basis of $U$, $B' = \set{b_1', \dots, b_n'}$ is basis of $W$.
+  $\implies B \cup B'$ is basis of $V$.
+  \[
+    \Phi_{B\cup B'}^{B\cup B'}(f) = \left[\begin{array}{c|c}
+      \Phi_B^B(f|_U) & 0 \\
+    \hline
+      0 & \Phi_{B'}^{B'}(f|_W)
+    \end{array}\right]
+  \]
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{s113}]
+  \begin{enumerate}
+    \item[4.] In the first $m$ columns, we have the images of $b_i$ (basis of $U$)
+      \[ U \text{ invariant } \implies f(b_i) \in U \]
+      \[ \implies \text{ coordinates in regards of } b'_1 \dots b'_n \text{ are } 0 \]
+      \[
+        \begin{bmatrix}
+          f(b_1) & \dots  & f(b_m) & f(b_1') & \dots  & f(b_m') \\
+                 & \ddots &        & 0       &        & 0 \\
+                 &        &        & 0       &        & 0 \\
+          0      & \dots  & 0      & \ddots  &        & \\
+          0      & \dots  & 0      &         & \ddots & \\
+          0      & \dots  & 0      &         &        & \ddots \\
+        \end{bmatrix}
+      \]
+  \end{enumerate}
+\end{proof}
+
+In the last $n$ columns, we can find the images of $b_j'$.
+$W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1, \dots, b_m$ are $0$.
+
+\begin{corollary} % Korollar 11.6
+  \label{k116}
+  Let $f: V \to V$. $U_1, \dots, U_k \subseteq V$ is invariant with $V = U_1 \dot+ U_2 \dot+ \dots \dot+ U_k$.
+  Let $B_i$ be basis of $U_i \implies B = B_1 \cup \dots \cup B_k$ is basis of $V$ and
+  \[
+    \Phi_B^B(f) = \left[\begin{array}{c|ccc}
+      \Phi_{B_1}^{B_1}(f|_{U_1}) & 0 & 0 & 0 \\
+    \hline
+      0 & \Phi_{B_2}^{B_2}(f|_{U_2}) & 0 & 0 \\
+      0 & \vdots & \ddots & 0 \\
+      1 &   &  & \Phi_{B_k}^{B_k}(f|_{U_k})
+    \end{array}\right]
+  \]
+  Hence, if $V$ can be decomposed into a direct sum of invariant subspaces, then $A$ be transformed into block diagonal form.
+  ($A$ is diagonalizable $\iff V$ can be decomposed into direct sum of one-dimensional subspaces)
+\end{corollary}
+
+\begin{corollary} % Korollar 11.7
+  Corollary related to Corollary~\ref{k116}.
+  \[ \chi_f(x) = \prod_{i=1}^k \chi_{f|_{U_i}}(x) \]
+\end{corollary}
+
+\begin{lemma}[Fitting lemma]
+  Hans Fitting (1906--1938).
+
+  Let $\dim{V} = n, f \in \operatorname{End}(V)$.
+  \begin{enumerate}
+    \item $\set{0} \subseteq \ker{f} \subseteq \ker{f^2} \subseteq \ker{f^3}$
+      \[ \im{f} \supseteq \im{f^2} \supseteq \im{f^3} \supseteq \dots \]
+    \item $\exists m \leq n: \ker{f^m} = \ker{f^{m+1}}$
+    \item The following statements are equivalent:
+      \begin{enumerate}
+        \item $\ker{f^m} = \ker{f^{m+1}}$
+        \item $\im{f^m} = \im{f^{m+1}}$
+        \item $\ker{f^m} = \ker{f^{m+k}} \forall k \geq 1$
+        \item $\im{f^m} = \im{f^{m+k}} \forall k \geq 1$
+        \item $\ker{f^m} \cap \im{f^m} = \set{0}$
+        \item $V = \ker{f^m} + \im{f^m}$
+      \end{enumerate}
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Let $k \in \ker{f}. f^2(x) = f(f(x)) = f(0) = 0$.
+      \[ y \in \im{f^2} \implies \exists x: y = f(f(x)) \in \im{f} \]
+    \item If $\set{0} \subsetneq \ker{f} \subsetneq \ker{f^2} \subsetneq \dots \subsetneq \ker(f^m)$
+      \[ \implies 0 < \dim{\ker{f}} < \dim{\ker{f^2}} < \dots < \dim{\ker{f^m}} \]
+      \[ \implies m \leq n \]
+    \item We prove a set of equivalences.
+      \begin{itemize}
+        \item 
+          We prove (a) $\leftrightarrow$ (b).
+          Because of (1.), we know
+          \[ \ker(f^m) \subseteq \ker(f^{m+1}) \]
+          \[ \implies \ker(f^m) = \ker(f^{m+1}) \iff \dim\ker{f^m} = \dim\ker{f^{m+1}} \]
+          \[ \iff n - \dim\im(f^m) = n - \dim\im(f^{m+1}) \]
+          \[ \iff \dim\im(f^m) = \dim\im(f^{m+1}) \]
+          Because of (1.), $\im{f^m} \supseteq f^{m+1}$
+          \[ \iff \im(f^m) = \im(f^{m+1}) \]
+        \item
+          The proof of (c) $\leftrightarrow$ (d) follows analogously.
+          The proofs (a) $\leftrightarrow$ (c) and (d) $\leftrightarrow$ (b) are trivial.
+        \item
+          We prove (a) $\leftrightarrow$ (c):
+          \[ 0 \subseteq \ker{f} \subseteq \ker{f^2} \subseteq \ker{f^3} \subseteq \dots \]
+          \[ m_0 = \min\setdef{m}{\ker(f^m) = \ker(f^{m+1})} \]
+          Claim:
+          \[ \ker{f^{m_0 + k}} = \ker{f^{m_0 + k + 1}} \forall k \geq 0 \]
+          Direction $\subseteq$ is immediate.
+          Direction $\supseteq$: Let $x \in \ker{f^{m_0 + k + 1}} \implies f^{m_0 + k + 1}(x) = f^{m_0 + 1}(f^k(x)) = 0$.
+          \[ \implies f^k(x) \in \ker{f^{m_0 + 1}} = \ker{f^{m_0}} \implies f^{m_0 + k}(x) = 0 \implies x \in \ker{f^{m_0 + k}} \]
+          with $f^k(x) \in \ker{f^{m_0 + 1}} = \ker{f^{m_0}}$ following from the definition of $m_0$.
+        \item
+          We prove (b) $\leftrightarrow$ (d).
+          Let $m_0 = \min\setdef{m}{\im{f^m} = \im{f^{m+1}}}$.
+          Claim: $\im{f^{m_0 + k}} = \im{f^{m_0 + k + 1}} \forall k \geq 0$.
+          Direction $\supseteq$ is trivial.
+          Direction $\subseteq$:
+          Let $y \in \im{f^{m_0 + k}}$.
+          \[ \implies \exists x: y = f^{m_0 + k}(x) = f^k(\underbrace{f^{m_0}(x)}_{\in \im{f^{m_0} = \im{f^{m_0 + 1}}}}) \]
+          hence $\exists z: f^{m_0}(x) = f^{m_0 + 1}(z)$.
+          \[ \implies y = f^k(f^{m_0 + 1}(z)) = f^{m_0 + k + 1}(z) \in \im{f^{m_0 + k + 1}} \]
+        \item We prove ((a) - (d)) $\leftrightarrow$ (e).
+          Let $w = \im{f^m}$ is invariant under $f^m$.
+          \[ g \coloneqq f^m|_W \in \operatorname{Hom(W, W)} \]
+          \[ \ker{g} \coloneqq \ker{f^m} \cap W = \ker{f} \cap \im{f^m} \]
+          \[ \ker{f^m} \cap \im{f^m} = \set{0} \iff \ker{g} = \set{0} \]
+          \[ \iff g \text{ injective } \iff g \text{ surjective } \iff \im{g} = W \]
+          \[ \iff f^m(f^m(V)) = f^m(V) \iff f^{2m}(w) = f^m(w) \]
+          \[ f^{m+m}(v) = f^m(v) \]
+          \[ \im{f^{m+m}} = \im{f^m} \]
+        \item We prove (d) $\leftrightarrow$ (b).
+          \[ \im{f^{m+m}} = \im{f^m} \iff \im{f^{m+1}} = \im{f^m} \]
+        \item (f) $\leftrightarrow$ (e) is trivial.
+        \item We prove (e) $\leftrightarrow$ (f).
+          \[ \dim\im{f^m} + \dim\ker{f^m} = n \]
+          \[ \im{f^m} \cap \ker{f^m} = \set{0} \]
+          \[ \implies \im{f^m} + \ker{f^m} = V \]
+          because of dimensionality reasons.
+      \end{itemize}
+  \end{enumerate}
 \end{proof}
 
 \printindex
