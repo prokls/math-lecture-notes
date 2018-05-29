@@ -5925,5 +5925,327 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
   \end{enumerate}
 \end{proof}
 
+\dateref{2018/05/28}
+
+Fitting Lemma:
+\[ \ker{A} \leq \ker{A^2} \leq \ker{A^r} \]
+\[ \im{A} \geq \im{A^2} \geq \dots \geq \im{A^r} = \im{A^{r+1}} \]
+\[ \ker{A^r} \oplus \im{A^r} = V \]
+\[ \ker{A^r} \cap \im{A^r} = \set{0} \]
+
+\begin{example} % Beispiel 11.9
+  \[ A = \begin{bmatrix} 0 & 1 & \\ & 0 & 1 \\ & &  0 \end{bmatrix} \]
+  \[ \ker{A} = \mathcal L\vecthree 100 \qquad \im{A} = \mathcal L\left(\vecthree 100, \vecthree 010\right) \]
+  \[ A^2 = \begin{bmatrix} 0 & 0 & 1 \\ & 0 & 0 \\ & &  0 \end{bmatrix} \]
+  \[ \ker{A^2} = \mathcal L\left(\vecthree 100, \vecthree 010\right)\qquad \im{A^2} = \mathcal L\left(\vecthree 100\right) \]
+  \[ A^3 = \begin{bmatrix} 0 & 0 & 0 \\ & 0 & 0 \\ & &  0 \end{bmatrix} \]
+  \[ \ker{A^3} = \mathbb K^3 \qquad \im{A^3} = \set{0} \]
+
+  \[ x \in \ker{A^k} \implies A \cdot x \in \ker{A^{k-1}} \]
+\end{example}
+
+\begin{example}
+  \[A = \begin{bmatrix} \lambda & 1 &  \\ & \lambda & 1 \\ & & \lambda \end{bmatrix} \]
+  Eigenvalue: $\lambda$
+  \[ \lambda I - A = \begin{bmatrix} 0 & -1 & \\ & 0 & -1 \\ & & 0 \end{bmatrix} \]
+  \[ \ker(\lambda I - A) = \mathcal L\left(\vecthree 100\right) \]
+  TODO
+\end{example}
+
+\index{Main space}
+\begin{definition} % Definition 11.10
+  Let $A \in \mathbb K^{n\times n}$, $\lambda \in \operatorname{spec}(A)$.
+  Then $\ker(\lambda I - A)^n$ is called \emph{main space} (dt. \foreignlanguage{german}{Hauptraum})
+  TODO
+\end{definition}
+
+Fitting:
+\[ \mathbb K^n = \ker(\lambda I - A)^r \oplus \im{\lambda I - A}^r \]
+Next step: decomposition for \emph{different} eigenvalues.
+
+\begin{lemma} % Lemma 11.11
+  \label{lemma1111}
+  Let $\lambda_1, \dots, \lambda_k$ be different eigenvalues of $A$ and
+  $\ker(\lambda I - A)^{r_i}$ the corresponding main spaces where
+  \[ \ker(\lambda_i I - A)^{r_{i-1}} \subsetneq \ker(\lambda_i I - A)^{r_i} = \ker(\lambda_i \cdot I - A)^{r_i + 1} \]
+  \[ \implies \bigcap_{i=1}^k \im(\lambda_i - A)^{r_i} \cap \ker(\lambda_1 I - A)^{r_1} (\lambda_2 I - A)^{r_2} \dots (\lambda_k I - A)^{r_k} = \set{0} \]
+\end{lemma}
+
+\begin{remark}
+  \[ \ker(\lambda_1 I - A)^{r_1} \dots (\lambda_k I - A)^{r_k} \supseteq \ker(\lambda_i I - A)^{r_i} \forall i \]
+  \[ \supseteq \ker(\lambda_1 I - A)^{r_1} + \dots + \ker(\lambda_k I - A)^{r_k} \]
+  if $(\lambda_i I - A)^{r_i} \cdot x = 0$,
+  \[ (\lambda_1 I - A)^{r_1} \dots (\lambda_k I - A)^{r_k} \cdot x \]
+  \[ = (\lambda_1 I - A)^{r_1} \dots (\lambda_{i-1} I - A)^{r_{i-1}} (\lambda_{i+1} I - A)^{r+1} \dots (\lambda_k I - A)^{r_k} \cdot \underbrace{(\lambda_i \cdot I - A)^{r_i}}_{=0} x = 0 \]
+  If one of the factors is zero, the product is zero.
+  \[ p(A) \cdot q(A) = q(A) \cdot p(A) \text{ for arbitrary polynomials } p(x) \text{ and } q(x) \]
+  especially: $p_i(x) = (\lambda_i - x)^{r_i}$.
+\end{remark}
+
+\begin{example} % Example 11.12
+  \[
+    A = \begin{bmatrix}
+      1 & 1 &   &   &   &   &   & \\
+        & 1 &   &   &   &   &   & \\
+        &   & 1 &   &   &   &   & \\
+        &   &   & 2 & 1 &   &   & \\
+        &   &   &   & 2 & 1 &   & \\
+        &   &   &   &   & 2 &   & \\
+        &   &   &   &   &   & 0 & -1 \\
+        &   &   &   &   &   & 1 & 0
+    \end{bmatrix}
+    \text{ over $\mathbb R$}
+  \]
+  \[ \operatorname{spec}(A) = \set{1,2} \cup \underbrace{(\set{\pm i})}_{\not\in \mathbb R} \]
+
+  Consider $\lambda = 1$.
+  \[
+    \ker\left[ I - A \right] =
+    \ker\begin{bmatrix}
+      0 & -1 &   &    &    &    &    & \\
+        & 0  &   &    &    &    &    & \\
+        &    & 0 &    &    &    &    & \\
+        &    &   & -1 & -1 &    &    & \\
+        &    &   &    & -1 & -1 &    & \\
+        &    &   &    &    & -1 &    & \\
+        &    &   &    &    &    & 1  & 1 \\
+        &    &   &    &    &    & -1 & 1
+    \end{bmatrix}
+  \]
+  \[ \ker(I - A) = \mathcal L(e_1, e_2) \]
+  \[
+    (I - A)^2 = \ker\begin{bmatrix}
+      0 & 0  &   &    &    &    &    & \\
+      0 & 0  &   &    &    &    &    & \\
+        &    & 0 &    &    &    &    & \\
+        &    &   & -1 & -1 &    &    & \\ % )^2
+        &    &   &    & -1 & -1 &    & \\ % )
+        &    &   &    &    & -1 &    & \\ % )   is regular
+        &    &   &    &    &    & 1  & 1 \\ %  )^2
+        &    &   &    &    &    & -1 & 1    %  )   is regular
+    \end{bmatrix}
+    % TODO visualize block matrix squares
+  \]
+  \[ \ker(I - A)^2 = \mathcal L(e_1, e_2, e_3) \]
+  \[ \im(I - A)^2 = \mathcal L(e_4, e_5, e_6, e_7, e_8) \]
+  \[
+    (2I - A) = \ker\begin{bmatrix}
+      1 & -1 &   &    &    &    &    & \\
+        & 1  &   &    &    &    &    & \\
+        &    & 1 &    &    &    &    & \\
+        &    &   & 0  & -1 &    &    & \\
+        &    &   &    & 0  & -1 &    & \\
+        &    &   &    &    & 0  &    & \\
+        &    &   &    &    &    & 2  & 1 \\
+        &    &   &    &    &    & -1 & 2
+    \end{bmatrix}
+    % TODO visualize block matrix squares
+  \] \[
+    \ker(2I - A) = \mathcal L(e_{4})
+  \] \[
+    (2I - A)^2 = \ker\begin{bmatrix}
+      1 & 1  &   &    &    &    &     \\   % }^2
+        & 1  &   &    &    &    &     \\   % }   is regular
+        &    & 1 &    &    &    &     \\
+        &    &   & 0  & 0  & 1  &     \\
+        &    &   &    & 0  & 0  &     \\
+        &    &   &    &    & 0  &     \\
+        &    &   &    &    &    & [\text{regular}]
+    \end{bmatrix}
+  \] \[
+    \ker(2I - A)^2 = \mathcal L(e_4, e_5)
+  \] \[
+    (2I - A)^3 = \ker\begin{bmatrix}
+      [\text{regular}  &   &    &    &    &     \\
+            & 1 &    &    &    &     \\
+            &   & 0  & 0  & 1  &     \\
+            &   &    & 0  & 0  &     \\
+            &   &    &    & 0  &     \\
+            &   &    &    &    & [\text{regular}]
+    \end{bmatrix}
+  \] \[
+    \ker(2I - A)^3 = \mathcal L(e_4, e_5, e_6)
+  \] \[
+    \im(2I - A)^3 = \mathcal L(e_1, e_2, e_3, e_7, e_8)
+  \] \[
+    (2I - A) = \begin{bmatrix}
+      1 & -1 &   &   &    &    &    & \\
+        & 1  &   &   &    &    &    & \\
+        &    & 1 &   &    &    &    & \\
+        &    &   & 0 & -1 &    &    & \\
+        &    &   &   & 0  & -1 &    & \\
+        &    &   &   &    & 0  &    & \\
+        &    &   &   &    &    & 2  & 1 \\
+        &    &   &   &    &    & -1 & 2
+    \end{bmatrix}
+  \] \[
+    \ker(2I - A) = \mathcal L(e_4)
+  \] \[
+    \bigcap{i=1}^2 \im(\lambda_i I - A)^{r_i} = \mathcal L(e_7, e_8)
+  \] \[
+    (I - A)^2 (2I - A)^3 = \begin{bmatrix}
+      0 & 0 &   & & \\
+      0 & 0 &   & & \\
+        &   & 0 & & \\
+        &   &   & [\text{regular } 3 \times 3] & \\
+        &   &   &       & [\text{regular } 2 \times 2]
+    \end{bmatrix} \cdot \begin{bmatrix}
+      [\text{regular } 2 \times 2] &
+        & 1 &   &   &   & \\
+        &   & 0 & 0 & 0 & \\
+        &   & 0 & 0 & 0 & \\
+        &   & 0 & 0 & 0 & \\
+        &   &   &   &   & [\text{regular } 2 \times 2]
+    \end{bmatrix}
+  \] \[
+    \ker(I-A)^2 (2I - A) \text{TODO}
+  \]
+\end{example}
+
+\begin{proof}[Proof of Lemma~\ref{lemma1111}]
+  Show: If $x \in \bigcap{i=1}^k \im(\lambda_i I - A)^{r_i}$ and $(\lambda_1 I - A)^{r_1} \dots (\lambda_k I - A)^{r_k} \cdot x = 0$, then $x = 0$.
+
+  Proof by induction over $k$:
+  \begin{description}
+    \item[Case $k=1$]
+      \[ x \in \im(\lambda_1 I - A)^{r_1} \land (\lambda_1 I - A)^{r_1} x = 0 \]
+      \[ \xRightarrow{\text{Fitting}} x = 0 \]
+    \item[Case $k \to k+1$]
+      Let $x \in \bigcap_{i=1}^k \im(\lambda_i I - A)^{r_i}$ and $(\lambda_1 I - A)^{r_1} \dots (\lambda_{k+1} I - A)^{r_{k+1}} x = 0$.
+      Let $y = (\lambda_{k+1} - A)^{r_{k+1}} x \implies y \in \ker(\lambda_i I - A)^{r_i} \dots (\lambda_k I - A)^{r_k}$.
+      \begin{align*}
+        \forall i \in \set{1, \dots, k+1} \exists u_i: x &= (\lambda_i I - A)^{r_i} \cdot u_i \\
+        y = (\lambda_{k+1} - A)^{r_{k+1}} x &= (\lambda_{k+1} - A)^{r_{k+1}} (\lambda_i I - A)^{r_i} \cdot u_i \\
+          &= (\lambda_i I - A)^{r_i} (\lambda_{k+1} I - A)^{r_{k+1}} u_i \\
+          &\in \im(\lambda_i I - A)^{r_i}
+      \end{align*}
+      \[ p(A) q(A) = q(A) p(A) \]
+      \[ p(x) = (\lambda_{k+1} - x)^{r_{k+1}} \qquad q(x) = (\lambda_i - x)^{r_i} \]
+      \[ \implies y \in \bigcap_{i=1}^{k} \im(\lambda_i I - A)^{r_i} \]
+      By the induction hypothesis, $y = 0$.
+      \[ \implies x \in \ker(\lambda_{k+1} I - A)^{r_{k+1}} \land x \in \im(\lambda_{k+1} I - A)^{r_{k+1}} \]
+      \[ \xRightarrow{\text{Fitting}} x = 0 \]
+  \end{description}
+\end{proof}
+
+\begin{lemma} % Lemma 11.13
+  \label{le1113}
+  \begin{enumerate}
+    \item $\forall \lambda \neq \mu \forall k,l \geq 1: \ker(\lambda I - A)^k \cap \ker(\mu I - A)^l = \set{0}$
+    \item The sum $\ker(\lambda_i I - A)^{r_1} + \dots + \ker(\lambda_k I - A)^{r_k}$ is direct for arbitrary pairwise different $\lambda_1, \dots, \lambda_k$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Proof of the first statement. Induction over $m = k + l$.
+  \begin{description}
+    \item[Induction base] 
+      Consider $m = 2, k = l = 1$.
+      \[ \ker(\lambda I - A) \cap \ker(\mu I - A) = \set{0} \]
+      The eigenvectors for different eigenvalues are linear independent.
+    \item[Induction step $m-1 \to m$:]
+      Consider $m \geq 3$. Without loss of generality: $k \geq 2$.
+      Let $x \in \ker(\lambda I - A)^k \cap \ker(\mu I - A)^l$.
+      Let $y = (\lambda I - A)x \in \ker(\lambda I - A)^{k-1} \cap \ker(\mu I - A)^l$. Then,
+      \[ (\mu I - A)^l \cdot y = (\mu I - A)^l (\lambda I - A) \cdot x = (\lambda I - A) \underbrace{(\mu I - A)^l}_{=0} \cdot x = 0 \]
+      Let $k - 1 + l = m - 1$.
+      By induction hypothesis, $y = 0$.
+      \[ \implies x \in \ker(\lambda I - A) \]
+      \[ \implies x \in \ker(\lambda I - A) \cap \ker(\mu I - A)^l \xRightarrow{\text{induction hypothesis}} x = 0 \]
+      \[ 1 + l \leq m - 1 \]
+  \end{description}
+
+  Proof of the second statement. Induction over $k$.
+  \begin{description}
+    \item[Induction base $k = 1$:] trivial
+    \item[Induction step $k \to k+1$] \hfill{} \\
+      Show: if $v_i \in \ker(\lambda_i I - A)^{r_i} \quad i = 1, \dots, k+1$ and $v_1 + \dots + v_{k+1} = 0
+      \implies \text{ all } v_i = 0$.
+
+      Let $w_i = (\lambda_{k+1} I - A)^{r_{k+1}} v_i \implies w_{k+1} = 0$.
+      \[ \sum_{i=1}^k w_i = \sum_{i=1}^{k+1} w_i = (\lambda_{k+1} I - A)^{r_{k+1}} \underbrace{\sum_{i=1}^{k+1} v_i}_{=0} = 0 \]
+
+      \[ (\lambda_i - A)^{r_i} w_i = (\lambda_i I - A)^{r_i} (\lambda_{k+1} I - A)^{r_{k+1}} v_i = (\lambda_{k+1} I - A)^{r_{k+1}} \underbrace{(\lambda_i I - A)^{r_i} \cdot v_i}_{=0} = 0 \]
+      \[ p(x) = (\lambda_i - x)^{r_i} \qquad q(x) = (\lambda_{k+1} - x)^{r_{k+1}} \]
+      \[ \implies w_i \in \ker(\lambda_i I - A)^{r_i} \]
+      \[ \xRightarrow{\text{induction hypothesis}} w_i = 0 \forall i \]
+      \[ \implies v_i \in \ker(\lambda_{k+1} I - A)^{r_{k+1}} \]
+      \[ v_i \in \ker(\lambda_i - A)^{r_i} \]
+      \[ \implies v_i \in \ker(\lambda_{k+1} I - A)^{r_{k+1}} \cap \ker(\lambda_i I - A)^{r_i} = \set{0} \]
+      \[ \implies v_i = 0 \qquad \forall i = 1, \dots, k \]
+      \[ \implies 0 + \dots + 0 + v_{k+1} = 0 \implies v_{k+1} = 0 \]
+  \end{description}
+\end{proof}
+
+\begin{theorem} % Satz 11.14
+  Let $\lambda_1, \dots, \lambda_k$ be pairwise different eigenvalues of $A \in \mathbb K^{n\times n}$.
+  \begin{enumerate}
+    \item \[
+        V = \ker(\lambda_1 I - A)^{n} \oplus \dots \oplus \ker(\lambda_k I - A)^n \oplus \underbrace{\bigcap_{i=1}^k \im(\lambda_i I - A)^n}_{\eqqcolon W}
+      \]
+      Compare with example $(I - A)^2$:
+      \[
+        \begin{bmatrix}
+          0 &   &   &         & \\
+            & 0 &   &         & \\
+            &   & 0 &         & \\
+            &   &   & [\dots] & \\
+            &   &   &         & [\dots]
+        \end{bmatrix}
+      \]
+      $(2I - A)^2$:
+      \[
+        \begin{bmatrix}
+          [\dots] &   &         & \\
+            & 1 &         & \\
+            &   & 0 & \\
+            &   &         & \underbrace{[\dots]}_{W}
+        \end{bmatrix}
+      \]
+    \item $W$ is invariant under $A$ and $\lambda_i \not\in \operatorname{spec}(A|_W) \forall i = 1, \dots, k$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Induction over $k$
+      \begin{description}
+        \item[Induction base $k=1$:] 
+          \[ V = \ker(\lambda_i - I - A)^n \oplus \im(\lambda_i I - A)^n \qquad (\text{Fitting}) \]
+        \item[Induction step $k \to k+1$:]
+          We assume:
+          \[ V = \ker(\lambda_i I - A)^n \oplus \dots \oplus \ker(\lambda_k I - A)^k \oplus W_k \]
+          \[ W_k = \bigcap_{i=1}^k \im(\lambda_i I - A)^n \]
+          $W_k$ is invariant: $y \in W_k \overset!\implies A_y \in W_k$.
+          Let $y \in W_k$. $\implies \forall i = 1, \dots, k: \exists x_i: y = (\lambda i - A)^n x_i$.
+          \[ \implies Ay = A \cdot (\lambda_i I - A)^n x_i = (\lambda_i I - A)^n \cdot Ax_i \in \im(\lambda_i I - A)^n \]
+          For all $i = 1,\dots,k$ it holds that
+          \[ \implies Ay \in \bigcap_{i=1}^k \im(\lambda_i I - A)^n \]
+          \[ p(x) = x \qquad q(x) = (\lambda_i - x)^n \]
+
+          Consider $g: W_k \to W_k$ with $x \mapsto Ax$ with $\dim(W_k) \leq n$.
+          \[ \text{Fitting } \implies \ker(\lambda_{k+1} - g)^n \oplus \im(\lambda_{k+1} - g)^n = W_k \]
+          where $\im(\lambda_{k+1} - g)^n \subseteq \im(\lambda_{k+1} - A)^n$.
+          \[ \subseteq \ker(\lambda_{k+1} I - A)^n + (\im(\lambda_{k+1} - A)^n) \cap W_k \]
+          \[ = \ker(\lambda_{k+1} I - A)^n + \bigcap_{i=1}^{k+1} \im(\lambda_i I - A)^n \]
+
+          \[ \implies V = \ker(\lambda_1 I - A)^n + \dots + \ker(\lambda_k I - A)^n + \ker(\lambda_{k+1} I - A)^n + W_{k+1} \]
+          Claim: This sum is direct.
+
+          Let $x_i \in \ker(\lambda_i I - A)^n$ and $i=1,\dots,k+1$.
+          Let $y \in W_{k+1} = \bigcap_{i=1}^{k+1} \im(\lambda_i I - A)^{r_i}$.
+          Show that all $x_i = 0$ and $y = 0$. Thus $\sum_{i=1}^{k+1} x_i + y = 0$.
+
+          \[ 0 = \prod_{i=1}^{k+1} (\lambda_i I - A)^n \left(\sum_{i=1}^{k+1} x_i + y\right) = \sum_{i=1}^{k+1} 0 + \prod_{i=1}^{k+1} (\lambda_i I - A)^n \cdot y \]
+          \[ \implies j \in \ker{\prod_{i=1}^{k+1} (\lambda_i I - A)^n \cap \bigcap_{i=1}^{k+1} \im(\lambda_i I - A)^n} \xRightarrow{\norm{\cdot}} y = 0 \]
+          \[ \implies \sum_{i=1}^{k+1} x_i = 0 \xRightarrow{\text{Lemma~\ref{le1113}}} \text{ TODO} \]
+      \end{description}
+    \item
+      $W_k$ is invariant, see proof of part (1)
+      \[ \ker(\lambda_i - A) \cap W_k \subseteq \ker(\lambda_i - A)^n \cap \set{0} \]
+      $\implies$ no eigenvector for $\lambda_1$ in $W_k$.
+  \end{enumerate}
+\end{proof}
+
 \printindex
 \end{document}

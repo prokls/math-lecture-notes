@@ -292,7 +292,7 @@ $\mathbb R$ is complete. $\mathbb R^n$ is also complete. $\mathbb Q \subseteq \m
 
 \dateref{2018/03/08}
 
-TODO
+$(X, d)$ is called \emph{metric space}.
 
 \[ d(x,y) =0 \iff x = y \]
 \[ \forall x,y \in X: d(x,y) = d(y,x) \]
@@ -481,25 +481,42 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   We say $x$ is an \emph{inner point of $U$} if $\exists r > 0: K_r(x) \subseteq U$.
   We let $\mathring{U} = \setdef{x \in U}{x \text{ is inner point of } U}$ and call it \emph{interior of $U$} (\foreignlanguage{german}{offenen Kern von $U$} or \foreignlanguage{german}{das Innere von $U$}).
   $O \subseteq X$ is called \emph{open} (open set), if every point $x \in O$ is also an inner point of $O$.
-  Hence $\mathring{O} = O$.
+  Hence $\mathring{O} = O$. Compare with image~\ref{img:inner}.
 \end{definition}
 
-% TODO drawing 04_open.svg
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/04_inner_point.pdf}
+    \caption{$x$ is an inner point of $U$ if $\exists r > 0: K_r(x) \subseteq U$}
+    \label{img:inner}
+  \end{center}
+\end{figure}
 
 \begin{example}
   Let $K_r(x)$ with $r > 0$ be an open sphere in $X$.
   Then $K_r(x)$ is an open set in $X$.
+  Compare with image~\ref{img:opensp}.
 \end{example}
 
-Why? Let $y \in K_r(x)$. Show that $y$ is an inner point of the sphere.
-$d(y,x) = s < r$. Define $r' = r - s > 0$.
-Claim: $K_r'(y) \subseteq K_r(x)$.
+\begin{proof}
+  Why? Let $y \in K_r(x)$. Show that $y$ is an inner point of the sphere.
+  $d(y,x) = s < r$. Define $r' = r - s > 0$.
 
-TODO drawing %05_open_sphere.pdf
+  Claim: $K_r'(y) \subseteq K_r(x)$.
 
-TODO
+  Let $z \in K_{r'}(y)$, hence $d(z, y) < r'$. Then,
+  \[ d(z, x) \leq \underbrace{d(x, y)}_{< r'} + \underbrace{d(y, z)}_{= s} < r' + s = r \]
+  So it holds that $z \in K_r(x)$ and therefore $K_{r'}(y) \subseteq K_r(x)$.
+\end{proof}
 
-So it holds that $z \in K_r(x)$ and therefore $K_{r'}(y) \subseteq K_r(x)$.
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/05_open_sphere.pdf}
+    \caption{Let $K_r(x)$ with $r>0$ be an open sphere in $X$. Then $K_r(x)$ is an open set in $X$.}
+    \label{img:opensp}
+  \end{center}
+\end{figure}
+
 
 \begin{lemma}
   Let $U \subseteq X$ be arbitrary. Then $\mathring{U} \subseteq X$ be an open set in $X$.
@@ -1014,7 +1031,7 @@ Addendum:
   \item Let $(x_n)_{n \in \mathbb N}$ be in $(X, d)$, then it holds that
     \[ \underbrace{x = \lim_{n\to\infty} x_n}_{\text{in } X} \iff \underbrace{\lim_{n\to\infty} d(x_n, x) = 0}_{\text{in } \mathbb R} \]
     \[ (\iff \lim_{n\to\infty} \norm{x_n - x} = 0 \text{ in normed vector spaces } V) \]
-  \item Inversed triangle inequality: Let $V$ be a normed vector space. Let $x, y \in V$.
+  \item Reversed triangle inequality: Let $V$ be a normed vector space. Let $x, y \in V$.
     \[ \norm{x} = \norm{x - y + y} \leq \norm{x - y} + \norm{y} \]
     Hence,
     \[ \norm{x} - \norm{y} \leq \norm{x - y} \]
@@ -2189,7 +2206,7 @@ it holds that $u \not\in A$, hence $f$ is differentiable in $u$.
   Let $f \in \mathcal R[a,b]$, $\phi$ is an antiderivative of $f$,
   hence $\phi_+' = f_+$, $\phi_-' = f_-$. Let $\alpha \in [a,b]$ be arbitrary.
   By the Theorem variant 1, $F(x) = \int_{\alpha}^x f \, d\xi$ is also an antiderivative of $f$.
-  By Lemma~\ref{lemma}, $\exists K \in \mathbb R: F(x) = \int_{\alpha}^x f \, d\xi = \phi(x) + K$.
+  By Lemma~\ref{lemma10}, $\exists K \in \mathbb R: F(x) = \int_{\alpha}^x f \, d\xi = \phi(x) + K$.
   Determine $K$: Let $x = \alpha \implies F(\alpha) = \int_\alpha^\alpha f \, dx = 0 = \phi(\alpha) - K$
   hence $K = \phi(\alpha)$. Hence,
   \[ \int_\alpha^x f \, d\xi = \phi(x) - \phi(\alpha) \]
@@ -3385,7 +3402,7 @@ $T_f$ has a convergence radius,
 \[ \rho(T_f) = \left[\limsup_{k\to\infty} \sqrt[k]{\frac{\card{f^{(k)}(x_0)}}{k!}}\right]^{-1} \]
 If $\rho(T_f) > 0$, then it holds that
 \[ f(x) = T_f(x; x_0) = \sum_{k=0}^\infty \frac{f^{(k)}(x)}{k!} (x - x_0)^k \]
-in $(x_0 - \rho(T_f), x_0 + \rho(T_f))$.
+in $(x_0 - \rho(T_f), x_0 + \rho(T_f))$?
 Compare with Figure~\ref{img:tay}.
 
 \begin{figure}[t]
@@ -3402,7 +3419,7 @@ Compare with Figure~\ref{img:tay}.
   It holds for $x > 0$,
   \[ f^{(n)}(x) = \frac{P(x)}{Q(x)} \cdot e^{-\frac1x} \]
   where $P, Q$ are polynomials.
-  So not every infinitely often differentiable function must not equate with its Taylor series.
+  So not every infinitely often differentiable function must not equate with its Taylor series. % TODO: double negation? wrong or confusing.
 \end{example}
 
 \begin{proof}
@@ -3697,7 +3714,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \[ \implies (A - B) w = 0 \]
   This contradicts with our assumption.
 
-  THus, $Aw = Bw \forall w \in \mathbb R^m$, hence $A = B$.
+  Therefore, $Aw = Bw \forall w \in \mathbb R^m$, hence $A = B$.
 \end{proof}
 
 \index{Frech\'et derivative}
@@ -3801,16 +3818,425 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \intertext{recognize that we have a common factor $Dg(f(x_0))$}
     &\leq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0))(f(x) - f(x_0))} \\
     &+ \frac{1}{\norm{x - x_0}} \norm{Dg(y_0)} \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} \\
-    &\coloneqq (I) + (II)
+    &\eqqcolon (I) + (II)
   \end{align*}
   Choose $\delta_1 > 0$ such that $\norm{x - x_0} < \delta_1 \implies$
   \[ \frac{1}{\norm{x - x_0}} \cdot \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < \frac{\varepsilon}2 \frac{1}{\norm{Dg(y_0)} + 1} \]
   is feasible, because $f$ is differentiable in $x_0$.
   \[ \frac{\varepsilon}{2} \cdot \frac{1}{\norm{Dg(y_0)} + 1} < \frac22 = 1 \]
   so it also holds that
-  \[ \norm{f(x) - TODO} \]
-  TODO
+  \[ \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < 1 \cdot \norm{x - x_0} \]
+  By the reverse triange inequality,
+  \[ \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} \geq \norm{f(x) - f(x_0)} - \norm{Df(x_0) (x - x_0)} \]
+  \[ \geq \norm{f(x) - f(x_0)} - \norm{Df(x_0)} \cdot \norm{x - x_0} \]
+  \[ \implies \frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}} \leq \norm{Df(x_0)} + 1 \]
+
+  \dateref{2018/05/24}
+
+  \[ \norm{f(x) - f(x_0)} - \norm{Df(x_0)} \norm{x - x_0} < 1 \norm{x - x_0} \]
+  hence, for $x \neq x_0$
+  \[ \frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}} < \norm{Df(x_0)} + 1 \]
+
+  $g$ is differentiable in $y_0 = f(x_0)$. Hence, we can choose $\delta_g > 0$ such that $\forall y \in E$ with $\norm{y - y_0} < \delta_g$
+  it holds that
+  \[ \norm{g(y) - g(y_0) - Dg(y_0) \cdot (y - y_0)} < \frac{\varepsilon}{2 \left(\norm{Df(x_0) + 1}\right)} \norm{y - y_0} \]
+  Because $f$ is continuous in $x_0$, there exists $\delta_2 > 0$ such that $x \in D$ and $\norm{x - x_0} < \delta_2 \implies \norm{f(x) - f(x_0)} < \delta_g$.
+  Now let $\delta = \min(\delta_1, \delta_2) > 0$. Then it holds that
+  \[ I = \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot (f(x) - f(x_0))} \]
+  Let $y = f(x), y_0 = f(x_0)$.
+  Because $\norm{f(x) - f(x_0)} < \delta_g$ gives $\norm{x - x_0} < \delta_2$
+  \[ \implies I < \frac{\varepsilon}{2 \left(\norm{Df(x_0)} + 1\right)} \underbrace{\frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}}}_{< \norm{Df(x_0)} + 1} < \frac\varepsilon2 \]
+  \[ II = \norm{Dg(y_0)} \frac{1}{\norm{x - x_0}} \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} \]
+  \[ < \norm{Dg(y_0)} \cdot \frac{\varepsilon}{2} \cdot \frac{1}{\norm{Dg(y_0)} + 1} < \frac\varepsilon2 \]
+  hence, $I + II < \varepsilon$ for $\norm{x - x_0} < \delta$.
 \end{proof}
+
+\index{Differentiable on $D$}
+\begin{definition}
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ be differentiable in every point $x \in D$.
+  Then we are used to say \enquote{$f$ is differentiable \emph{on} $D$}.
+
+  In this case, we call the map
+  \[ x \mapsto Df(x) \]
+  \[ D \subseteq \mathbb R^m \to \mathbb R^{n \times m} \]
+  the mapping function of $f$ (dt. \foreignlanguage{german}{Abbildungsfunktion}).
+  If this function is continuous (in terms of $\norm{\cdot}_{\mathbb R}$ or $\norm{\cdot}_{\mathbb R^{n \times m}}$ \dots operator norm),
+  then $f$ is called continuously differentiable on $D$.
+\end{definition}
+
+\begin{remark}
+  To define the differentiability of $f$, we require $x_0$ to be an accumulation point of $D$.
+  So $x_0$ might also be a point on the boundary of $D$.
+\end{remark}
+
+\subsubsection{Determination of $Df(x_0) \in \mathbb R^{n \times m}$}
+
+\begin{definition}
+  \label{defin5}
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ be given.
+  $D$ is open, $x_0 \in D$, $v \in \mathbb R^m$ is arbitrary, but $v \neq 0$.
+  We consider $t \mapsto f(x_0 + tv)$ defined on $(-\frac{r}{\norm{v}}, \frac{r}{\norm{v}})$
+  for $r > 0$ such that $K_r(x_0) \subseteq D$.
+  \[ \left(-\frac{r}{\norm{v}}, \frac{r}{\norm{v}}\right) \subseteq \mathbb R \to \mathbb R^n \]
+  Compare with Figure~\ref{img:set5}.
+
+  \index{Directional derivative}
+  We define $df(x_0; v) = \lim_{t \to 0} \frac1{t} (f(x_0 + tv) - f(x_0))$ if this limit exists. $df(x_0, v)$ is called \emph{directional derivative} of $f$ in $x_0$ in direction $v$. It is also called \emph{Gateaux derivative of $f$ in $x_0$ in direction $v$}.
+\end{definition}
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/31_setting.pdf}
+    \caption{Setting in Definition~\ref{defin5}. The line is given by $g = \set{x_0 + tv: t \in \mathbb R}$}
+    \label{img:set5}
+  \end{center}
+\end{figure}
+
+\begin{remark}
+  How does it go together?
+  
+  Derivative $Df(x_0)$ and $df(x_0; \cdot)$.
+  Assumption: Let $f$ be differentiable in $x_0$.
+  We define $l_{x_0,v}(t) = x_0 + tv$
+  where $tv$ is the linear part.
+  \[ l_{x_0,v}: \left(-\frac{r}{\norm{v}}, \frac{r}{\norm{v}}\right) \to D \]
+  $l_{x_0,v}$ is linear affine from $\mathbb R$ to $\mathbb R^m$.
+  \[ Dl_{x_0,v}(0) = V \in \mathbb R^{m \times 1} \]
+  with $V$ as linear part of $l_{x_0,v}$.
+  \[ l_{x_0, v}(0) = x_0 \]
+  \[ f(x_0 + tv) = f \circ l_{x_0,v}(t) \]
+  Therefore it holds that (chain rule)
+  \[ D(f \circ l_{x_0,v})(0) = Df(l_{x_0,v}(0)) \cdot Dl_{x_0,v}(0) = Df(x_0) \cdot v \]
+  On the other side, it holds that
+  \[ 0 = \underbrace{\lim_{t\to 0} \frac{1}{\card{t}} \card{f_{x_0,v}(t) - f_{x_0,v}(0) - Df_{x_0,v}(0) \cdot t}}_{=0} \]
+  \[ = \lim_{t\to0} \frac{1}{\card{t}} \card{f(x_0 + tv) - f(x_0) - Df_{x_0,v}(0) \cdot t} \]
+  \[ = \lim_{t\to0} \card{\frac{f(x_0 + tv) - f(x_0)}{t} - Df_{x_0,v}(0)} = 0 \]
+  therefore it holds that
+  \[ Df_{x_0,v}(0) = \lim_{t\to 0} \frac{f(x_0 + tv) - f(x_0)}{t} = df(x_0;v) \]
+\end{remark}
+
+\begin{lemma} % Lemma 7
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ in $x_0 \in D$ (Frech\'et) differentiable with derivative $Df(x_0)$.
+  Then also the directional derivative $df(x_0; v)$ for every direction $v \in \mathbb R^m \setminus \set{0}$ and it holds that
+  \[ df(x_0; v) = Df(x_0) \cdot v \]
+\end{lemma}
+
+\begin{remark}
+  $v \mapsto df(x_0; v)$ is linear. We can derive the structure of the derivative matrix.
+  Let $f$ as above. Let $\mathcal B = \set{e_1, \dots, e_m}$ be the canonical basis in $\mathbb R^m$.
+  Then it holds that: $Df(x_0) \cdot e_j$ is the $j$-th column of $Df(x_0)$ for $j=1,\dots,m$.
+  On the other hand,
+  \[ Df(x_0) \cdot e_j = df(x_0; e_j) = \lim_{t\to0} \frac1{t} \left[f(x_0 + te_j) - f(x_0)\right] \]
+  \[
+    = \begin{bmatrix}
+      \lim_{t\to 0} \frac1t \left(f_1(x_0 + te_j) - f_1(x_0)\right) \\
+      \vdots \\
+      \lim_{t\to 0} \frac1t \left(f_n(x_0 + te_j) - f_n(x_0)\right) \\
+    \end{bmatrix}
+    \text{ for }
+    f(x) = \begin{bmatrix} f_1(x) \\ \vdots \\ f_n(x) \end{bmatrix} \in \mathbb R^n
+  \]
+\end{remark}
+\begin{remark}[Notation]
+  Consider $x$ instead of $x_0$
+  \[ x = \begin{bmatrix} x_1 \\ \vdots \\ x_m \end{bmatrix} = [x_1, \dots, x_m]^t \]
+  Instead of $f(x) = f\left(\begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_m \end{bmatrix}\right)$
+  we also write $f(x_1, x_2, \dots, x_m)$.
+\end{remark}
+
+\index{Partial derivative}
+\begin{definition} % Definition 6
+  Let $f: D \to \mathbb R^n$, $x \in D$ as above. $f$ is differentiable in $x$. Then we let
+  \begin{align*}
+    \frac{\partial f}{\partial x_j}(x)
+      &= df(x; e_j) = \lim_{t\to0} \frac1t \left[f(x + te_j) - f(x)\right] \\
+      &= \lim_{t\to0} \frac1t \left[f(x_1, \dots, x_j + t, \dots, x_m) - f(x_1, \dots, x_j, \dots, x_m)\right]
+  \end{align*}
+  and we call $\frac{\partial f}{\partial x_j} (x)$ the \emph{partial derivative} of $f$ of variable $x_j$ in point $x$.
+  
+  Notations for $\frac{\partial f}{\partial x_j}$:
+  \[ f_{x_j} \qquad f_j \qquad \partial_j f \]
+  The second notation is ambiguous. We will prefer the last one.
+\end{definition}
+
+\index{Jacobi matrix}
+\begin{remark}
+  \[
+    \frac{\partial f}{\partial x_j}(x_0) =
+    \begin{bmatrix}
+      df_1(x; e_j) \\
+      df_2(x; e_j) \\
+      \vdots \\
+      df_n(x; e_j) \\
+    \end{bmatrix}
+    = \begin{bmatrix}
+      \frac{\partial f_1}{\partial x_j}(x)
+      \vdots \\
+      \frac{\partial f_n}{\partial x_j}(x)
+    \end{bmatrix}
+    \in \mathbb R^n
+  \]
+  Because $\frac{\partial f}{\partial x_j}(x)$ is the $j$-th column of $Df(x_0)$,
+  we get
+  \[ \left(Df(x)\right)_{i,j} = \frac{\partial f_i}{\partial x_j}(x) = \partial_j f_i(x) \]
+  We say, $Df(x) = (\partial_j f_i(x))_{\substack{i = 1,\dots,n \\ j = 1,\dots,m}}$ is the \emph{Jacobi matrix} of $f$.
+\end{remark}
+
+\begin{remark}
+  The Jacobi matrix can exist even though the derivative does not exist.
+  If the derivative exists, the Jacobi matrix exists for sure.
+\end{remark}
+
+\begin{remark}
+  \[ \frac{\partial f}{\partial x_j} = \lim_{t\to0} \frac1t \left[f(x_1, \dots, x_j+t, \dots, x_m) - f(x_1, \dots, x_j, \dots, x_n)\right] \]
+  Thus, consider $x_j$ as derivation variable and all $x_k$ for $k \neq j$ as constant parameters.
+\end{remark}
+
+\begin{example}
+  Consider $f: \mathbb R^3 \to \mathbb R^2$ wit
+  \[
+    f(x_1, x_2, x_3) = \begin{bmatrix}
+      x_1 x_3^2 + \sin(x_1 x_3) \\
+      \frac{x_2^2}{x_1^2 + 1}
+    \end{bmatrix}
+  \]
+  \[
+    \partial_1 f(x_1, x_2, x_3) = \begin{bmatrix}
+      1 \cdot x_3^2 \\
+      -x_2^2 (x_1^2 + 1)^{-2} \cdot 2x_1
+    \end{bmatrix} = \begin{bmatrix}
+      x_3^2 \\
+      -2 \frac{x_1 x_2^2}{(x_1^2 + 1)^2}
+    \end{bmatrix}
+  \] \[
+    \partial_2 f(x_1, x_2, x_3) = \begin{bmatrix}
+      x_3 \cos(x_2 x_3) \\
+      \frac{2x_2}{x_1^2 + 1}
+    \end{bmatrix}
+  \] \[
+    \partial_3 f(x_1, x_2, x_3) = \begin{bmatrix}
+      2x_1 x_3 + x_2 \cos(x_2 x_3) \\
+      0
+    \end{bmatrix}
+  \]
+  Jacobi-Matrix
+  \[
+    Df(x)
+    = \left[\frac{\partial f_i}{\partial x_j}\right]_{\substack{i = 1,\dots,2 \\ j = 1,\dots,3}}
+    = \begin{bmatrix}
+      x_3^2 & x_3 \cos(x_2 x_3) & 2 x_1 x_3 + x_2 \cos(x_2 x_3) \\
+      - \frac{2x_1 x_2^2}{(x_1^2 + 1)^2} & \frac{2x_2}{x_1^2 + 1} & 0
+    \end{bmatrix}
+  \]
+\end{example}
+
+\begin{remark}
+  Existence of partial derivatives of $f$ does not suffice to ensure Frech\'et-differentiability.
+\end{remark}
+
+\dateref{2018/05/29}
+
+Usually, we always have to point out which norm is used to define differentiability.
+Of course, in $\mathbb R$ itself, all norms are equivalent.
+
+\begin{remark}
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ be given.
+  Let $\norm{\cdot}_{1,m}$ and $\norm{\cdot}_{2,m}$ be two equivalent norms on $\mathbb R^m$ (norm equivalence theorem)
+  and $\norm{\cdot}_{1,n}$ and $\norm{\cdot}_{2,n}$ are equivalent norms on $\mathbb R^n$.
+
+  Let $f$ in $x_0 \in D$ be differentiable in regards of $\norm{\cdot}_{1,m}$ and $\norm{\cdot}_{1,n}$.
+  Then also $f$ is differentiable in $x_0$ in regards of $\norm{\cdot}_{2,m}$ and $\norm{\cdot}_{2,n}$.
+
+  \emph{Rationale:} Let $c \norm{x}_{2,m} \leq \norm{x}_{1,m} \leq C \norm{x}_{2,m}$ and
+  $k \norm{y}_{2,n} \leq \norm{y}_{1,n} \leq K \norm{y}_{2,n}$, then
+  \[ \frac{\norm{f(x) - f(x_0) - A(x - x_0)}_{2,n}}{\norm{x - x_0}_{2,m}} \]
+  \[ \leq \frac{\frac1k \norm{f(x) - f(x_0) - A(x - x_0)}_{1,n}}{\frac1c \norm{x - x_0}_{1,m}} \]
+  \[ = \frac ck \underbrace{\frac{\norm{f(x) - f(x_0) - A (x - x_0)}_{1,n}}{\norm{x - x_0}_{1,m}}}_{\xrightarrow{x \to x_0} 0} \]
+
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$, $f(x) = \begin{bmatrix} f_1(x) \\ \vdots \\ f_n(x) \end{bmatrix}$.
+  Then $f$ is differentiable in $x_0 \in D \iff f_k: D \to \mathbb R$ is differentiable for all $k \in \set{1, \dots, n}$.
+  
+  \emph{Rationale:} Let $f$ be differentiable in $x_0$. Let $A = \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix}$ be the derivative of $f$.
+  Let $a_k$ be the rows of $A$. $f$ is differentiable in $x_0$, so
+  \[ \frac{\norm{f(x) - f(x_0) - A(x - x_0)}_{\infty}}{\norm{x - x_0}} \xrightarrow{x \to x_0} 0 \]
+  \[ \iff \frac{\card{f_n(x) - f_k(x) - a_k(x - x_0)}}{\norm{x - x_0}} \xrightarrow{x \to x_0} 0 \] % TODO criterion for k missing
+  where $a_k$ is a row vector and $x-x_0$ is a column vector.
+  \[ \iff f_k \text{ is differentiable in } x_0 \]
+\end{remark}
+
+\begin{example}[Counterexample]
+  We define $f: \mathbb R^2 \to \mathbb R$.
+  \[
+    f(x_1, x_2) = \begin{cases}
+      \frac{x_1^2 x_2}{x_1^2 + x_2^2} & \text{ for } \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
+      0 & \text{ for } \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
+    \end{cases}
+  \]
+  Partial derivatives exist in every point $\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+  \[ \partial_1 f(x_1, x_2) = \frac{2 x_1 x_2 (x_1^2 + x_2^2) - x_1^2 x_2 2x_1}{(x_1^2 + x_2^2)^2} = \frac{2 x_1 x_2^3}{(x_1^2 + x_2^2)^2} \]
+  \[ \partial_2 f(x_1, x_2) = \frac{x_1^2 (x_1^2 + x_2^2) - x_1^2 x_2 \cdot 2x_2^2}{(x_1^2 + x_2^2)^2} = \frac{x_1^2 (x_1^2  x_2^2)}{(x_1^2 + x_2^2)^2} \]
+  \[ \partial_1 f(0,0) = \lim_{x_1 \to 0} \frac{1}{x_1} [\underbrace{f(x_1, 0)}_{=0} - \underbrace{f(0, 0)}_{=0}] = 0 \]
+  \[ \partial_2 f(0,0) = \lim_{x_2 \to 0} \frac{1}{x_2} [\underbrace{f(0, x_2)}_{=0} - \underbrace{f(0, 0)}_{=0}] = 0 \]
+  If $f$ would be differentiable in $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$ then $Df(0) = [0 0]$, $df(0, v) = Df(0) \cdot v$.
+  Choose $v = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \implies df(0; v) = [0 0]\begin{bmatrix} 1 \\ 1 \end{bmatrix} = 0$. But!
+  \begin{align*}
+    df(0; v)
+    &= \lim_{t \to 0} \frac{1}{t} [f(tv) - f(0)]
+    = \lim_{t \to 0} \frac{1}{t} [f(t, t) - f(0, 0)] \\
+    &= \lim_{t \to 0} \frac 1t \left[\frac{t^2 \cdot t}{t^2 + t^2} - 0\right]
+    = \lim_{t \to 0} \frac{t^3}{2t^3} = \frac12
+  \end{align*}
+\end{example}
+
+\index{Totally differentiable}
+\index{Total differential}
+\index{Nabla operator}
+\index{Gradient of a function}
+\begin{remark}
+  Notation: $f: D \subseteq \mathbb R^m \to \mathbb R$.
+  Often, we denote $df(x_0)$ ($\in \mathbb R^{1 \times m}$, row vector) instead of $Df(x_0)$
+  and we call $df(x_0)$ the \emph{total differential of $f$}. We let
+  \[
+    \nabla f(x_0) = df(x_0)^t = \left[Df(x_0)\right]^t
+    = \begin{bmatrix} \partial_1 f(x_0) \\ \partial_2 f(x_0) \\ \vdots \\ \partial_n f(x_0) \end{bmatrix}
+  \]
+  $\nabla f(x_0)$ is called \emph{gradient of $f$ in $x_0$}.
+  We call $\nabla$ the \emph{nabla operator}. It is also denoted $\operatorname{grad}(f)$ instead of $\nabla f$.
+  It holds that
+  \[ df(x_0; v) = df(x_0) \cdot v = \nabla f(x_0)^t \cdot v = \langle \nabla f(x_0), v\rangle_{\mathbb R^m} \]
+\end{remark}
+
+\begin{remark}
+  Let $f: D \subseteq \mathbb R^2 \to \mathbb R$ continuously differentiable be given on $D$.
+  Consider $T_s = \setdef{x \in D}{f(x) = s}$. Compare with Figure~\ref{img:niveau}.
+
+  %TODO
+  %\begin{figure}[!h]
+  %  \begin{center}
+  %    \includegraphics{img/32_niveau.pdf}
+  %    \caption{TODO}
+  %    \label{img:niveau}
+  %  \end{center}
+  %\end{figure}
+
+  Assume $\Gamma_s$ is a graph of a family of curves (dt. \foreignlanguage{german}{Parametrisierte Kurve}) $\gamma_s: I \to D$.
+  $I$ is an interval. $\Gamma_s = \setdef{\gamma_s(t)}{t \in I}$. We assume, that $\gamma_s$ is regular, hence $\gamma$ is differentiable
+  and $\gamma_s'(t) = \begin{bmatrix} \gamma_1'(t) \\ \gamma_2'(t) \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix} \forall t \in I$.
+  $\gamma_s'(t)$ is tangential vector on $\Gamma_s$ in point $x = \gamma_s(t)$.
+
+  It holds that
+  \[ \angle{\nabla f(\gamma_s(t)), \gamma'_s(t)} = \angle{\nabla f(x), v} = 0 \]
+  \[ f(\underbrace{\gamma_s(t)}_{\in \Gamma_s}) = s \qquad \text{ constant} \]
+  \[ \implies \frac{d}{dt} [f(\gamma_s(t))] = 0  \]
+  where
+  \begin{align*}
+    f(\gamma_s(t))
+      = \underbrace{D f(x)}_{\nabla f(x)^t} \cdot \underbrace{D \gamma_s(x)}_{\gamma_s'(t)}
+      &= \nabla f(x)^t \cdot \gamma'_s(t) \\
+      &= \angle{\nabla f(x), \gamma'_s(t)}
+  \end{align*}
+
+  %TODO
+  %image 33_gradient2.svg
+\end{remark}
+
+\begin{theorem} % Satz 2
+  \label{thm:rel2}
+  This theorem establishes the relation of differentiability and partial derivatives.
+
+  Let $f: D \to \mathbb R$, $D \subseteq \mathbb R^m$ is open.
+  Assume $\forall x \in D$ exist all partial derivatives $\partial_i f(x)$ for $j = 1, \dots, m$
+  and the functions $x \mapsto \partial_j f(x)$ on $D \to \mathbb R$ are continuous for $j = 1, \dots, m$.
+  Then $f$ is differentiable in every point $x_0 \in D$ with $Df(x_0) = [\partial_1 f(x_0), \dots, \partial_m f(x_0)]$.
+  Then $f$ is also continuously differentiable.
+\end{theorem}
+
+\begin{proof}
+  Proof idea: We come closer to $x_0$ (starting from $x_0 \in D$) along lines parallel to the coordinate system axes.
+
+  % TODO: image 34_axes.svg
+
+  Let
+  \[
+    x_0 \coloneqq \begin{bmatrix} x_1^0 \\ \vdots \\ x_m^0 \end{bmatrix} \qquad
+    x \coloneqq \begin{bmatrix} x_1 \\ \vdots \\ x_m \end{bmatrix} \qquad
+    \xi_0 \coloneqq x_0 = \begin{bmatrix} x_1^0 \\ x_2^0 \\ \vdots \\ x_m^0 \end{bmatrix} \qquad
+    \xi_1 \coloneqq \begin{bmatrix} x_1 \\ x_2^0 \\ \vdots \\ x_m^0 \end{bmatrix} \qquad
+    \xi_2 \coloneqq \begin{bmatrix} x_1 \\ x_2 \\ x_3^0 \\ \vdots \\ x_m^0 \end{bmatrix} \qquad
+  \] \[
+    \xi_k \coloneqq \begin{bmatrix} x_1 \\ \vdots \\ x_{k_0} \\ x_{k+1} \\ \vdots \\ x_m^0 \end{bmatrix} \qquad
+    \dots \qquad
+    \xi_m \coloneqq \begin{bmatrix} x_0 \\ \vdots \\ x_m \end{bmatrix} = x
+  \]
+  where $\xi_i$ are \enquote{intermediate} points.
+  It holds that $\xi_k + (x_{k+1} - x_{k+1}^0) \cdot e_{k+1} = \xi_{k+1}$ for $k = 0, \dots, m-1$.
+  Define $\varphi_k: [0,1] \to \mathbb R$.
+  \[ \varphi_k(t) = f(\xi_k + t(x_{k+1} - x_{k+1}^0) \cdot e_{k+1}) \]
+  then it holds that $\varphi_k(0) = f(\xi_k); \varphi_k(1) = f(\xi_{k+1})$. $\varphi_k'(t) = $?
+  \[ \underbrace{f(\xi_k + t(x_{k+1} - x_{k+1}^0) \cdot e_{k+1})}_{= \varphi_k(t)} = f(x_1, \dots, x_k, x_{k+1}^0 + t(x_{k+1} - x_{k+1}^0), x_{k+2}^0, \dots, x_m^0) \]
+  \[ \varphi_k'(t) = \frac{d}{dt} \left[f(x_1, \dots, x_k, \underbrace{x_{k+1}^0 + t(x_{k+1} - x_{k+1}^0)}_{(k+1)-\text{th variable}}, x_{k+2}^0, \dots, x_m^0)\right] \]
+  \[ = \partial_{k+1} f(x_1, \dots, x_k, x_{k+1}^0 + t(x_{k+1} - x_{k+1}^0), x_{k+2}^0, \dots, x_m^0) \cdot (x_{k+1} - x_{k+1}^0) \]
+  \[ = \partial_{k+1} f(\xi_k + t(x_{k+1} + t(x_{k+1} - x_{k+1}^0) \cdot e_{k+1})) \cdot (x_{k+1} - x_{k+1}^0) \]
+  $\varphi_k$ is continuously differentiable on $[0,1]$ because $\partial_{k+1} f$ is continuous.
+  By the mean value theorem of differential calculus, it follows that some $\tau_{k+1} \in (0,1)$ exists such that
+  \[ \varphi(1) - \varphi(0) = \varphi'(\tau_{k+1}) \cdot (1 - 0) \]
+  \[ \implies f(\xi_{k+1}) - f(\xi_k) = \partial_{k+1} f(\xi_k + \tau_{k+1}(x_{k+1} - x_{k+1}^0) \cdot e_{k+1}) \cdot (x_{k+1} - x_{k+1}^0) \]
+  For differentiability, we have to show:
+  \[ \lim_{x\to x_0} \frac{1}{\norm{x - x_0}} \card{f(x) - f(x_0) - [\partial_1 f(x_0), \dots, \partial_m f(x_0)] \begin{bmatrix} x_1 - x_1^0 \\ x_2 - x_2^0 \\ \vdots \\ x_m - x_m^0 \end{bmatrix}} = 0 \qquad (*) \]
+  Choose $\norm{x} = \norm{x}_{\infty}$ on $\mathbb R^m$.
+  \[ \frac{1}{\norm{x - x_0}} \card{\underbrace{f(x)}_{\xi_m} - \underbrace{f(x_0)}_{\xi_0} - \sum_{k=1}^m \partial_k f(x_0) (x_k - x_k^0)} \]
+  \[ = \frac{1}{\norm{x - x_0}} \card{\underbrace{\sum_{k=1}^m (f(\xi_k) - f(\xi_{k-1})}_{\text{telescoping sum}} - \partial_k f(x_0) (x_k - x_k^0))} \]
+  \[ \underbrace{\leq}_{\text{triangle ineq.}} \frac{1}{\norm{x - x_0}} \sum_{k=1}^m \card{\partial_k f(\xi_{k-1} + \tau_k (x_k - x_k^0) \cdot e_k) (x_k - x_k^0) - \partial_k f(x_0) (x_k - x_k^0)} \]
+  \[ = \sum_{k=1}^m \underbrace{\frac{\card{x_k - x_k^0}}{\norm{x - x_0}}}_{\leq 1} \cdot \card{\partial_k f(\xi_{k-1} + \tau_k(x_k - x_k^0) \cdot e_k) - \partial_k f(x_0)} \qquad (\#) \]
+  Choose $\varepsilon > 0$ arbitrary. By continuity of $\partial_k f(x)$, there exists $\delta > 0$ such that $\norm{y - y_0}_{\infty} < \delta \implies \card{\partial_k f(y) - \partial_k f(x_0)} < \frac\varepsilon{m}$ for every $k \in \set{1, \dots, m}$.
+  Choose $x$ such that $\norm{x - x_0} \leq \delta$. We consider
+  \[
+    \xi_{k-1} + \tau_k (x_k - x_k^0) \cdot e_k - x_0
+    = \begin{bmatrix} x_1 \\ \vdots \\ x_{k-1} \\ x_k^0 \\ \vdots \\ x_m \end{bmatrix}
+    + \begin{bmatrix} 0 \\ \vdots \\ 0 \\ \tau_k(x_k - x_k^0) \\ 0 \\ \vdots \\ 0 \end{bmatrix}
+    - \begin{bmatrix} x_1^0 \\ \vdots \\ x_{k-1}^0 \\ x_k^0 \\ \vdots \\ x_m^0 \end{bmatrix}
+    = \begin{bmatrix} x_1 - x_1^0 \\ \vdots \\ x_{k-1} - x_{k-1}^0 \\ \tau_k(x_k - x_k^0) \\ 0 \\ \vdots \\ 0 \end{bmatrix}
+  \] \[
+    \implies
+    \norm{\xi_{k-1} + \tau_k (x_k - x_k^0) \cdot e_k - x_0}_{\infty}
+  \] \[
+    = \max\set{\card{x_1 - x_1^0}, \card{x_2 - x_2^0}, \dots, \card{x_{k-1} - x_{k-1}^0}, \underbrace{\tau_k}_{\in (0,1)} \card{x_k - x_k^0}}
+  \] \[
+    \leq \norm{x - x_0}_{\infty}
+    < \delta
+  \] \[
+    \implies \card{\partial_k f(\xi_{k-1} + \tau_k (x - x_0^k) e_k) - \delta_k f(x_0)} < \frac\varepsilon{m}
+  \] \[
+    (\#) \leq 1 \cdot \sum_{k=1}^m \frac\varepsilon m = m \cdot \frac\varepsilon m = \varepsilon
+  \]
+  Thus, $f$ is differentiable in $x_0$.
+
+  Because $Df(x) = [\partial_1 f(x), \dots, \partial_m f(x)]$ depends continuously on $x$,
+  $f$ is continuously differentiable on $D$
+\end{proof}
+
+\begin{corollary}
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$.
+  \[ f(x) = \begin{bmatrix} f_1(x) \\ \vdots \\ f_n(x) \end{bmatrix} \]
+  such that all partial derivatives $\partial_k f_i(x)$ exist and are continuous in $x$ (for $k=1,\dots,m$; $i=1,\dots,n$).
+  Then $f$ is continuously differentiable on $D$.
+\end{corollary}
+\begin{proof}[Rationale]
+  Use $f$ is continuously differentiable on $D \iff f_i$ is continuously differentiable for $i = 1,\dots,n$ and use Theorem~\ref{thm:rel2}.
+\end{proof}
+
+\begin{example}[Counterexample]
+  \[
+    f(x_1, x_2) = \frac{x_1^2 x_2}{x_1^2 + x_2^2}
+    \qquad \partial_1 f(x) = \frac{2x_1 x_2^3}{(x_1^2 + x_2^2)^2}
+    \qquad \partial_2 f(x) = \frac{x_1^2 (x_1^2 - x_2^2)}{(x_1^2 + x_2^2)}
+  \] \[
+    \partial_1 f(0) = \partial_2 f(0) = 0
+  \] \[
+    \partial_1f(\begin{bmatrix} \varepsilon \\ \varepsilon \end{bmatrix}) = \frac{2 \varepsilon \varepsilon^3}{(\varepsilon^2 + \varepsilon^2)^2} = \frac{2\varepsilon^4}{4 \varepsilon^4} = \frac12 \not\to 0
+  \]
+  Therefore, $\partial_1 f$ is not continuous in $0$.
+\end{example}
 
 \printindex
 \end{document}

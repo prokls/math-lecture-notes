@@ -1756,4 +1756,180 @@ How about $\ip{xp_n}{p_1}$?
 \[ \int_a^b p_n \underbrace{\left(x^2 + (c + \lambda) x + c \lambda + \gamma\right)}_{p_2} w \, dt \]
 \[ \ip{p_n}{p_2} = 0 \]
 
+\dateref{2018/05/23}
+
+\section{Exercise 43}
+\begin{ex}
+  The derivative of the polynomial $p(x) = a_0 + a_1x + \dots + a_n x^n \in \mathbb K[x]$ is defined (over an arbitrary field!) as
+  \[ p'(x) = a_1 + 2a_2 x + 3a_3 x^2 + \dots + na_n x^{n-1}. \]
+  Show:
+  \begin{enumerate}
+    \item The map $p(x) \mapsto p'(x)$ is linear and the Leibniz rule holds
+      \[ (pq)'(x) = p'(x) q(x) + p(x) q'(x) \]
+      as well as the chain rule
+      \[ (p \circ q)'(x) = p'(q(x)) q'(x) \]
+    \item If $q(x)$ is an irreducible factor of $p(x)$ with multiplicity $\geq 2$, then also $q(x)$ is a divisor of $\operatorname{gcd}(p(x), p'(x))$
+    \item For $\mathbb K = \mathbb Q, \mathbb R, \mathbb C$ the inverse of the previous item holds as well. What can go wrong in finite fields?
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 43a}
+\[ (x^n x^m)' = (x^{n + m})' = (n + m) x^{n + m-1} \]
+\[ \overset{\text{?}}= n x^{n-1} x^m + m x^{m-1} x^n \]
+
+\subsection{Exercise 43b}
+\[ ((p(x))^n)' = n p(x)^{n-1} p'(x) \]
+\[ p(x)' = (q(x) q(x) p_R(x))' = q(x)' q(x) p_R(x) x q'(x) q(x) p_R(x) + p'_R(x) q(x) g(x) \]
+
+\subsection{Exercise 43c}
+Remark: $q(x)$ is irreducible.
+\[ q(x) | p(x) \]
+\[ q(x) | p'(x) \]
+
+
+\[ q(x)^2 = p(x) \]
+
+\section{Exercise 44}
+\begin{ex}
+  \[ p(x) \coloneqq 8 + 12x + 14x^2 + 13x^3 + 6x^4 + x^5 \]
+  Decompose polynomial $p(x)$ into irreducible factors over
+  \[
+    (a) \: \mathbb Q \qquad
+    (b) \: \mathbb R \qquad
+    (c) \: \mathbb C \qquad
+    (d) \: \mathbb Z_{11} \qquad
+    (e) \: \mathbb Z_{13}
+  \]
+\end{ex}
+
+\subsection{Exercise 44c}
+\[ (x + 2)^3 (x^2+1) \]
+\begin{align*}
+  x^2 + 1 &= 0 \\
+  x^2 &= -1 \\
+    &= \pm 1
+\end{align*}
+Factors are:
+\[ (x + 2)^3 (x + i) (x - i) \]
+
+\subsection{Exercise 44a,b}
+Factors are:
+\[ (x^2)^3 (x^2 + 1) \]
+
+\subsection{Exercise 44d}
+Considering $(x^2+1)$ in $\mathbb Z_{11}$.
+\begin{align*}
+  x^2 &\equiv -1 \\
+  x^2 &\equiv -1 \pmod{11} \\
+  x^2 &\equiv 10 \pmod{11} \\
+  x^2 &\equiv -1 \pmod{11} \\
+\end{align*}
+
+\subsection{Exercise 44e}
+Considering $(x^2+1)$ in $\mathbb Z_{13}$.
+\[ x^2 \equiv -1 \pmod{13} \]
+holds for $x = 5 \land x = 8$.
+\[ (x^2 + 1) = (x - 5)(x - 8) = x^2 - \underbrace{13x}_{\equiv 0} + \underbrace{40}_{\equiv 1} \]
+
+\section{Exercise 45}
+\begin{ex}
+  Let $p(x) \coloneqq x^7 - x^5 + x^4 - x^3 + x - 1$ and $q(x) \coloneqq x^8 - x^5 - x^4 + x^3 - 2x^2 + 2x - 2$.
+  Determine $\operatorname{gcd}(p(x), q(x))$ with Euclidean algorithm over $\mathbb Q[x]$ and polynomials $a(x)$ and $b(x)$ such that $a(x) p(x) + b(x) q(x) = \operatorname{gcd}(p(x), q(x))$
+\end{ex}
+
+\[ x^8 - x^5 - x^4 + x^3 - 2x^2 + 2x - 2 = (x^3 - 2) \cdot \operatorname{gcd} \]
+\[ \operatorname{gcd} = x^5 + x^2 - x + 1 \overset!= (x^2 + 1)(x^3 - x + 1) \]
+
+\[ a(x) p(x) + b(x) q(x) = \operatorname{gcd} \]
+
+Evaluation:
+\[ q(x) : p(x) = x \]
+\[ p(x) : R_1 = x+2 \]
+\[ 3x^5 + 3x^2 - 3x + 3 = R_2 \]
+\[ R_1 : R_2 = \frac13 x - \frac23 \]
+\[ 0 = R_3 \]
+
+\begin{align*}
+  q(x) &= p(x) x + R_1 \\
+    &= \left[(x + 2) \cdot R_1 + R_2\right] \cdot x + R_1 \\
+    &= \left[(x + 2) \cdot \left(\frac13 x - \frac23\right) R_2 + R_2\right] \cdot x + \left[\frac13 x - \frac23\right] R_2 \\
+    &R_2\left[\left[(x + 2) \left(\frac13 x^2 - \frac23\right) + 1\right] \cdot x + \left(\frac13 x - \frac23\right)\right] \\
+    &= \frac13 R_2 \left[\left[(x + 2) (1x - 2) + 3\right] \cdot x + (1x - 2)\right] \\
+    &\frac13 R_2 [(x^2 - 4) + 3] \cdot x + (1x - 2) \\
+    &x^3 - 4x + 3x + 1x - 2 \\
+    &x^3 - x + x - 2 \\
+    &\frac13 R_2(x^3 - 2)
+\end{align*}
+
+\begin{center}
+  \begin{tabular}{ccc}
+    i & $b_i$  & $a_i$ \\
+  \hline
+    1 & 0      & 1 \\
+    2 & 1      & $0 - (x + 2)$ \\
+    3 & $-x-2$ & $1 - [x (x + 2)]$
+  \end{tabular}
+\end{center}
+\[ 1 - [x (x + 2)] = x^2 + 2x + 1 \]
+
+\section{Exercise 46}
+\begin{ex}
+  Let $p(x)$ and $q(x)$ be non-disappearing polynomials of degree $m$ and $n$ over some field $\mathbb K$. Show:
+  \begin{itemize}
+    \item $\operatorname{gcd}(p(x), q(x)) = 1 \iff$ polynomials $a(x)$ and $b(x)$ exist such that $a(x) p(x) + b(x) q(x) = 1$.
+    \item $\operatorname{gcd}(p(x), q(x))$ is non-trivial iff polynomials $A(x)$ and $B(x)$ exist with $\deg{A(x)} < n$ and $\deg{B(x)} < m$ such that $A(x) p(x) + B(x) q(x) = 0$.
+    \item Let $p(x) = p_0 + p_1 x + \dots + p_m x^m$ and $q(x) = q_0 + q_1 x + \dots + q_n x^n$ polynomials of degree $m$ and $n$ with $p_m, q_n \neq 0$.
+      Show that $p(x)$ and $q(x)$ have a non-trivial common divisor iff the determinant $R(p, q)$ disappears.
+      \[
+        R(p, q) \coloneqq \begin{bmatrix}
+          p_m & 0 & \dots & 0 & q_n & 0 & \dots & 0 \\
+          p_{m-1} & p_m & \ddots & \vdots & q_{n-1} & q_n & \ddots & \vdots \\
+          \vdots & p_{m-1} & \ddots & 0 & \vdots & q_{n-1} & \ddots & 0 \\
+          p_0 & \vdots & \ddots & p_m & q_0 & \vdots & \ddots & q_n \\
+          0 & p_0 & \ddots & p_{m-1} & 0 & q_0 & \ddots & q_{n-1} \\
+          \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+          0 & 0 & \dots & p_0 & 0 & 0 & \dots & q_0
+        \end{bmatrix}
+      \]
+      with $n + m$ columns.
+  \end{itemize}
+\end{ex}
+
+\subsection{Exercise 46a}
+$\operatorname{gcd}(p(x), q(x)) = 1 \iff \exists a(x), b(x): a(x) p(x) + b(x) q(x) = 1$.
+
+\subsection{Exercise 46b}
+\[ \deg(\operatorname{gcd}(p(x), q(x))) \geq 1 \iff \exists A(x), B(x) \]
+s.t. $\deg(A(x)) < n = \deg(q(x))$ and $\deg(B(x)) < m = \deg(p(x))$
+and $A(x) p(x) + B(x) q(x) = 0$.
+
+Direction $\implies$.
+
+\[ p(x) = \operatorname{gcd} \cdot \underbrace{p_R(x)}_{\deg < m} \]
+\[ q(x) = \operatorname{gcd} \cdot \underbrace{q_R(x)}_{\deg < n} \]
+
+\[ A(x) = q_R(x)(-1) \qquad B(x) = p_R(x) \]
+
+\[ a(x) p_R(x) \cdot \operatorname{gcd}(p, q) + b(x) q_R \cdot \operatorname{gcd}(p, q) = 1 \]
+\[ \deg(\operatorname{polynom}(x) \cdot \operatorname{gcd}) = \deg(1) = 0 \]
+\[ \underbrace{\deg(\operatorname{polynom}(x))}_{\leq 0} + \underbrace{\deg(\operatorname{gcd})}_{\geq 0} = 0 \]
+
+Direction $\impliedby$.
+
+Without loss of generality, $\operatorname{A, B} = 1$.
+\[ A(x) p(x) = -B(x) q(x) \]
+\[ \underbrace{\deg(A(x) p(x))}_{< m + n} = \deg(B \cdot q) \]
+
+\[ \implies p(x) | B(x) q(x) \]
+$\implies \exists$ factor/irreducible polynomial.
+\[ p(x) = \prod_{i=1}^{m'} \underbrace{p_i(x)}_{\text{irreducible}} \]
+\[ \deg(B) < m \]
+$p(x)$ does not divide $B(x)$. Thus, $\exists i \in \set{1, \dots, m}: p_i | q(x)$.
+
+\subsection{Exercise 46c}
+
+\[ L: \mathbb R^{n + m} \to \mathbb R \]
+\[ \begin{pmatrix} a_n \\ a_{n-1} \\ a_{n-2} \\ \vdots \\ a_0 \\ b_m \\ b_{m-1} \\ \vdots \\ b_0 \end{pmatrix} \mapsto p(x) ({a_n x^n + a_{n-1} x^{n-1} + \dots + a_0}^{\eqqcolon A(x)}) + q(x) (\overbrace{b_m x^m + b_{m-1} x^{m-1} + \dots + b_0}^{\eqqcolon B(x)}) \to \mathbb R^{n + m} \]
+$\angle(\vec v) = R(q, p) \cdot \vec v$
+
 \end{document}
