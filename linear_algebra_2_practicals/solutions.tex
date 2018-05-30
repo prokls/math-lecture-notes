@@ -1932,4 +1932,142 @@ $p(x)$ does not divide $B(x)$. Thus, $\exists i \in \set{1, \dots, m}: p_i | q(x
 \[ \begin{pmatrix} a_n \\ a_{n-1} \\ a_{n-2} \\ \vdots \\ a_0 \\ b_m \\ b_{m-1} \\ \vdots \\ b_0 \end{pmatrix} \mapsto p(x) ({a_n x^n + a_{n-1} x^{n-1} + \dots + a_0}^{\eqqcolon A(x)}) + q(x) (\overbrace{b_m x^m + b_{m-1} x^{m-1} + \dots + b_0}^{\eqqcolon B(x)}) \to \mathbb R^{n + m} \]
 $\angle(\vec v) = R(q, p) \cdot \vec v$
 
+\section{Exercise 47}
+\begin{ex}
+  Let $A = \begin{bmatrix} a & b \\ 0 & a \end{bmatrix}$ and $p(x) \in \mathbb K[x]$ is a polynomial.
+  Determine $p(A)$. Hint: Consider the polynomials $p(x) = x^n$, $n = 1, 2, \dots$ and prove the result.
+\end{ex}
+
+\[ p(x) = \alpha_m x^m + \alpha_{m-1} x^{m-1} + \dots + \alpha_1 x^1 + \alpha_0 x^0 \]
+\[ A^2 = A \cdot A = \begin{pmatrix} a & b \\ 0 & a \end{pmatrix} \begin{pmatrix} a & b \\ 0 & a \end{pmatrix} = \begin{pmatrix} a^2 & 2ab \\ 0 & a^2 \end{pmatrix} \]
+\[ A^3 = \begin{pmatrix} a^3 & 3a^2 b \\ 0 & a^3 \end{pmatrix} \]
+\[ A^n = \begin{pmatrix} a^n & na^{n-1} b \\ 0 & a^n \end{pmatrix} \]
+\[
+  \forall A > 0:
+  p(A) = \begin{pmatrix}
+    p(a) & p'(a) b \\
+    0 & p(a)
+  \end{pmatrix} \qquad a \neq 0
+\]
+
+\section{Exercise 48}
+\begin{ex}
+  Determine the eigenvalues and eigenvectors of the matrix
+  \[
+    \begin{bmatrix}
+      9 & 6 & -2 & 3 \\
+      -15 & -9 & 4 & -5 \\
+      15 & 9 & -4 & 5 \\
+      12 & 6 & -4 & 4
+    \end{bmatrix}
+  \]
+  over $\mathbb R$ and $\mathbb C$ and if possible, a matrix $B$ such that $B^{-1} AB = \operatorname{diag}(\lambda_1, \lambda_2, \lambda_3, \lambda_4)$.
+\end{ex}
+
+\[ \det(A - \lambda I) = \lambda^4 - \lambda^2 \]
+
+\[ v_1 = \begin{pmatrix} 0 & -2 & 3 & 6 \end{pmatrix} \]
+\[ v_2 = \begin{pmatrix} 2 & -2 & 4 & 0 \end{pmatrix} \]
+\[ v_3 = \begin{pmatrix} -i-3 & 5 & -5 & 2i-4 \end{pmatrix} \]
+\[ v_4 = \begin{pmatrix} i-3 & 5 & -5 & -2i-4 \end{pmatrix} \]
+
+\section{Exercise 49}
+\begin{ex}
+  Let $A$ be a $\mathbb K^{n\times n}$ matrix. Show:
+  \begin{enumerate}
+    \item If $p(x) \in \mathbb K[x]$ is a polynomial such that $p(A) = 0$, then all eigenvalues $\lambda \in \operatorname{spec}(A)$ satisfy $p(\lambda) = 0$.
+    \item If $A$ is regular, then the eigenvalues are given by
+      \[ \operatorname{spec}(A^{-1}) = \set{\frac1{\lambda} : \lambda \in \operatorname{spec}(A)} \]
+      and the associated eigenspaces are the same.
+  \end{enumerate}
+\end{ex}
+
+\section{Exercise 50}
+\begin{ex}
+  Let $A, B \in \mathbb K^{n \times n}$. Show that $\operatorname{spec}(AB) = \operatorname{spec}(BA)$.
+\end{ex}
+
+We use a case distinction. Consider $\lambda \neq 0$.
+
+There exists $v \neq 0$, such that
+\[ AB v = \lambda v \iff (BA)(Bv) = \lambda (Bv) \iff \lambda \in \operatorname{spec}(BA) \text{ with } Bv \neq 0 \]
+We chose some $v \neq 0$. The opposite direction works analogously, but we cannot simply claim the proof works for both directions (because we chose some specific $v$).
+
+Consider $\lambda = 0$.
+
+\[ \det(0I - AB) = 0 \iff \det(-A) \det(B) = 0 \iff \det(-BA) = 0 \iff 0 \in \operatorname{spec}(BA) \]
+
+\section{Exercise 51}
+\begin{ex}
+  Let $A$ be a $\mathbb K^{n\times n}$ diagonalizable matrix with eigenvalues $\lambda_1, \lambda_2, \dots, \lambda_n$.
+  \begin{enumerate}
+    \item Show there exist matrices $M_1, M_2, \dots, M_n \in \mathbb K^{n\times n}$ with properties:
+      \begin{enumerate}
+        \item idempotent, $M_i^2 = M_i$
+        \item $M_i M_j = 0$ if $i \neq j$
+        \item $\operatorname{rank}(M_i) = 1$
+      \end{enumerate}
+      such that $A = \sum_{i=1}^n \lambda_i M_i$. Furthermore $A^k = \sum_{i=1}^n \lambda_i^k M_i \forall k \in \mathbb N$.
+    \item Let $\mathbb K = \mathbb C$. Determine the matrices $M_1, M_2, \dots, M_n$ for the $n\times n$ matrix
+      \[
+        \begin{bmatrix}
+          0 & 0 & 0 & \dots & 0 & 1 \\
+          1 & 0 & 0 & \dots & 0 & 0 \\
+          0 & 1 & 0 & \dots & 0 & 0 \\
+          \ldots & \ldots & \ldots & \ddots & \vdots & \ldots \\
+          0 & 0 & 0 & \dots & 1 & 0 \\
+        \end{bmatrix}
+      \]
+  \end{enumerate}
+\end{ex}
+
+\[ \exists B \in \mathbb K^{n\times n}: B^{-1} AB = D = \operatorname{diag}(\lambda_1, \dots, \lambda_n) \iff A = BDB^{-1} \]
+\begin{align*}
+  a_{ij} &= (BDB^{-1})_{ij} \\
+         &= \sum_{k=1}^n (BD)_{ik} (B^{-1})_{kj} \\
+         &= \sum_{k=1}^n \left((\sum_{i=1}^n B)_{il} \cdot (D)_k\right) \cdot (B^{-1})_{kj} \\
+         &= \sum_{k=1}^n (B_{ik}) \cdot \lambda_k \cdot (B^{-1})_{kj}
+\end{align*}
+\[ B = (b_{ij})_{1 \leq i, j \leq n} \qquad B^{-1} = (b'_{ij})_{1 \leq i,j \leq n} \]
+
+\[ a_{ij} = \sum_{k=1}^n \lambda_k \cdot b_{ik} \cdot b_{kj}' \]
+\[ M_i = (b_{ir} \cdot b'_{rj})_{1 \leq i,j \leq n} \implies A = \sum_{i=1}^{n} \lambda_i \cdot M_i \]
+
+The three properties:
+\begin{enumerate}
+  \item
+    \begin{align*}
+      (M_r^2) &= \sum_{k=1}^n (M_r)_{ik} \cdot (M_r)_{kj} \\
+        &= \sum_{k=1}^n b_{ir} \cdot b_{rk}' \cdot b_{kr} \cdot b_{ij}' \\
+        &= b_{ir} \cdot b_{ij} \cdot \sum_{k=1}^{n} b_{rk}' \cdot b_{kl} \\
+        &= (M_r)_{ij} (B^{-1} B)_{rr} = (M_r)_{ij}
+    \end{align*}
+  \item Let $r \neq s$.
+    \begin{align*}
+      (M_r M_s)_{ij} &= \sum_{k=1}^n (M_i)_{ik} (M_j)_{kj} \\
+        &= \sum_{k=1}^n b_{ii} \cdot b_{ik}' \cdot b_{ks} \cdot b_{si}' \\
+        &= b_{ir} \cdot b_{sj}' \cdot (B^{-1} B)_{is} = 0
+    \end{align*}
+  \item $\operatorname{rank}(M_i) = 1$. Let $r \in \set{1, \dots, n}$ is arbitrarily fixed and let $v_k$ be the k-th column vector. \dots. 1
+\end{enumerate}
+
+
+\subsection{Exercise 51b}
+\[ \mathbb K = \mathbb C \]
+\[
+  T = \begin{pmatrix}
+    0 & 0 & \ldots & 1 \\
+    1 & \ddots & 0 & 0 \\
+    \vdots & \ddots & 0 & \vdots \\
+  \end{pmatrix}
+\]
+\[ \det(\lambda - T) = \begin{vmatrix} \lambda & 0 & & -1 \\ -1 & \ddots & 0 & 0 \\ \vdots & \ddots & \ddots & \vdots \\ 0 & & -1 & \lambda \end{vmatrix} = \lambda \begin{vmatrix} \lambda & & 0 \\ -1 & \ddots & \\ \vdots & \ddots & \\ 0 & & -i\lambda \end{vmatrix} + (-1)(-1)^{n+1} \begin{vmatrix} -1 & \lambda & &  \\ & \ddots & \ddots & \\ & & -1 \end{vmatrix} \]
+\[ = \lambda^n - 1 \overset!= 0 \implies \lambda = \sqrt[n]{n} \]
+\[ \lambda_k = e^{i \frac{2\pi k}{n}}: k \in \set{1,\dots,n} \]
+\[ T v_{k} = T\begin{pmatrix} v_{k,1} \\ \vdots \\ v_{k,n} \end{pmatrix} = \begin{pmatrix} v_{k,1} \\ v_{k,2} \\ \vdots \\ v_{k,n-1} \end{pmatrix} = \lambda_k \begin{pmatrix} v_{k,1} \\ \vdots \\ v_{k,n} \end{pmatrix} \implies v_{k,l} = \frac{e^{-i \frac{2\pi kl}{n}}}{\sqrt{n}} \]
+\[ v_{k,n} = \lambda_k v_{k,n} \qquad v_{k,l} = \lambda_k v_{k,l+1} \qquad l = 1, \dots, n-2 \]
+\[ \langle v_k, v_m\rangle = \sum_{l=1}^n e^{-i \frac{2\pi (k-m) l}{n}} = \frac{e^{-i \frac{2\pi (k-m)}{n}} \left(1 - e^{-i 2\pi (k-m) \frac nn}\right)}{1 - e^{-i \frac{2\pi(k-m)}{n}}} = 0 \]
+\[ \implies B = \begin{pmatrix} \vdots v_1 \vdots & \dots & \vdots v_n \vdots \end{pmatrix} \]
+\[ B^{-1} = B^* \]
+\[ M_k = B\begin{pmatrix} 0 & & & & 0 \\ & \ddots & & & \\ & & 1 & & \\ & & & \ddots & \\ 0 & & & & 0 \end{pmatrix} \cdot B^{-1} = v_k \cdot v_k^* = M_k \]
 \end{document}

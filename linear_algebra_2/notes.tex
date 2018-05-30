@@ -72,6 +72,7 @@
 \newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
 \makeatother
 \newcommand{\rh}[1]{\vec{#1}}
+\newcommand{\sout}[1]{#1} % TODO define a strike-through for math mode
 
 \newcommand{\mtn}{(\mu\times\nu)} % mu times nu
 
@@ -6246,6 +6247,294 @@ Next step: decomposition for \emph{different} eigenvalues.
       $\implies$ no eigenvector for $\lambda_1$ in $W_k$.
   \end{enumerate}
 \end{proof}
+
+\dateref{2018/05/30}
+
+The sum of main spaces $\ker(\lambda_1 I - A)^n + \dots + \ker(\lambda_k I - A)^n + W$ is direct.
+The main spaces are invariant and also $W = \bigcap_{i=1}^k \im(\lambda_i I - A)^n$ and the
+restriction $A|_W$ has no $\lambda_i$ as eigenvalue.
+
+Let $B_0$ be a basis of $W$, $B_i$ is a basis of $\ker(\lambda_i I - A)^n$.
+Then $B \coloneqq B_1 \cup B_2 \cup \dots \cup B_k \cup B_0$ is a basis and in this basis,
+\[
+  \Phi_B^B(A) = \begin{bmatrix}
+    [B_1] &       &        &       &       \\
+          & [B_2] &        &       &       \\
+          &       & \ddots &       &       \\
+          &       &        & [B_k] &       \\
+          &       &        &       & [B_0]
+  \end{bmatrix}
+\]
+
+If $x \in \mathcal L(B_i) \implies Ax \in \mathcal L(B_i)$.
+By invariance, $\Phi_B^B(A)$ has block diagonal form.
+\[ \ker(\lambda_i I - A)^n = \mathcal L(B_i) \]
+\[ \implies \left. (\lambda_i I - A)^n \right|_{\mathcal L(B_i)} = 0 \implies \text{ nilpotent} \]
+
+\begin{theorem} % Satz 11.15
+  Let $\mathbb K$ be algebraically closed (hence, every other matrix has eigenvalue)
+  and let $\lambda_1, \dots, \lambda_k$ all eigenvalues of a matrix $A \in \mathbb K^{n\times n}$.
+  \[ \implies \mathbb K^{n} = \ker(\lambda_1 I - A)^n \oplus \dots \oplus \ker(\lambda_k I - A)^n \]
+\end{theorem}
+
+\begin{proof}
+  \[ \mathbb K^n = \ker(\lambda_1 I - A)^n \oplus \dots \oplus \ker(\lambda_n I - A)^n \oplus W \]
+  \[ W = \bigcap_i \im(\lambda_i I - A)^n \]
+  $A|_W$ has no eigenvalue (because eigenvalue of $A|_W$ are also eigenvalues of $A$, but none of $\lambda_i$ is an eigenvalue of $A|_W$), otherwise the sum is not direct.
+  $\implies W$ is trivial ($W = \set{0}$).
+\end{proof}
+
+\index{Nilpotent matrix}
+\begin{theorem}
+  A matrix/linear map $f: V \to V$ is called \emph{nilpotent}, if $\exists k \in \mathbb N: f^k = 0$.
+  The smallest $k$ is called \emph{index} of nilpotency of $f$.
+\end{theorem}
+
+\[ (\lambda_i I - A)|_{i\text{-th main space}} \text{ is nilpotent} \]
+Goal: Structure of nilpotent matrices:
+\[
+  \begin{bmatrix}
+    0 & * & \ddots & 0 \\
+      & \ddots & \ddots & \\
+      & \ddots & \ddots & * \\
+    0 &  & & 0
+  \end{bmatrix}
+\]
+
+\begin{lemma} % Lemma 11.17
+  \label{lemma1117}
+  Let $\ker(f^m) \subseteq \ker(f^{m+1}) \subseteq \ker(f^{m+2})$
+  \begin{align*}
+    u_1 \dots u_p & \dots \text{ basis of } \ker{f^n} \\
+    u_1 \dots u_p v_1 \dots v_k & \dots \text{ basis of } \ker{f^{m+1}} \\
+    u_1 \dots u_p v_1 \dots v_k w_1 \dots w_r & \dots \text{ basis of } \ker{f^{m+2}}
+  \end{align*}
+  Then $(u_1 \dots u_p, f(w_1), \dots, f(w_r))$ is linear independent.
+\end{lemma}
+
+\begin{proof}
+  Immediate: $f(w_i) \in \ker{f^{m+1}}$, thus $f(\ker{f^{m+2}}) \subseteq \ker{f^{m+1}}$.
+
+  Show that: $\sum_{i=1}^p \lambda_i u_i + \sum_{j=1}^r \mu_j f(w_j) = 0 \overset!\implies \text{ all } \lambda_i = 0, \mu_j = 0$.
+  \[ \implies \underbrace{f^m(\dots)}_{= \sum_{j=1}^p \lambda_i \underbrace{f^m(u_i)}_{=0} + \sum_{i=1}^r \mu_j f^{m+1}(w_j) = 0} = 0 \]
+  \[ \implies \sum_{i=1}^r \mu_j w_j \in \ker{f^{m+1}} \]
+  but $\ker{f^{m+2}} = \ker{f^{m+1}} \oplus \underbrace{\mathcal L(w_1, \dots, w_r)}_{w_j \in \mathcal L(w_1, \dots, w_r)}$.
+  Hence, $\ker{f^{m+1}} \cap \mathcal L(w_1, \dots, w_r) = \set{0}$.
+  \[ \implies \sum_{i=1}^r \mu_j w_j = 0 \xRightarrow{w_j \text{ linear indep.}} \text{ all } \mu_j = 0 \]
+  \[ \implies \sum_{i=1}^p \mu_i u_i = 0 \xRightarrow{u_i \text{ linear indep.}} \text{ all } \lambda_i = 0 \]
+\end{proof}
+
+\index{Jordan's normal form}
+\begin{theorem} % Satz 11.18
+  \emph{Jordan's normal form} is a nilpotent matrix.
+  Let $\dim{V} = n$. $f: V \to V$ is nilpotent of index $p$ ($f^p = 0$).
+  $d = \dim\ker{f}$.
+  Then there exists a basis $B$ of $V$ such that
+  \[
+    \Phi_B^B(f) = \begin{bmatrix}
+      [N_1] &       &        & \\
+            & [N_2] &        & \\
+            &       & \ddots & \\
+            &       &        & [N_d]
+    \end{bmatrix}
+  \]
+  where
+  \[ N_i = \begin{bmatrix} 0 & 1 & \ddots & 0 \\  & 0 & 1 & \\ & & \ddots & 1 \\ 0 & & \ddots & 0 \end{bmatrix}_{n_i \times n_i} \]
+  \[ p = n_1 \geq n_2 \geq \dots \geq n_d \geq 1 \]
+  \[ n_1 + \dots + n_d = n \]
+\end{theorem}
+
+\begin{proof}
+  Let $U_k = \ker{f^k}$, $\dim{U_k} = m_k$. $U_1 \subseteq U_2 \subseteq \dots \subseteq U_p = V$.
+  $d = m_1 \leq m_2 \leq m_3 \leq \dots \leq m_p = n$.
+  \[ f(U_i) \subseteq U_{i-1} \]
+  \[ \underbrace{[\underbrace{[\underbrace{[u_1 \dots u_{m_1}]}_{U_1} u_{m_1+1} \dots u_{m_2}]}_{U_2} \dots u_{m_{p-1}+1} \dots U_{m_p}]}_{U_p} \]
+  $u_1 \dots u_{m_k}$ is basis of $U_k$.
+
+  We start from behind:
+  \[ \ker{f^{p-2}} \leq \ker{f^{p-1}} \leq \ker{f^p} \]
+  We apply Lemma~\ref{lemma1117}.
+  \[ u_1 \dots u_{m_{p-2}} | u_{m_{p-2}+1} \dots u_{m_{p-1}} | u_{m_{p-1}+1} \dots u_{m_p} \]
+  \[ v_1^{(p)} \coloneqq u_{m_{p-1}+1} \qquad v_2^{(p)} = u_{m_{p-1} + 2} \dots v_{m_p - m_{p-1}}^{(p)} \coloneqq u_{m_p} \]
+  is basis of $U_p \ominus U_{p-1}$.
+  \[ v_1^{(p+1)} = f(v_1^{(p)}) \qquad v_2^{(p-1)} = f(v_2^{(r)}) \ddots v_{m_p - m_{p-1}}^{(p-1)} \in U_{p-1} \underbrace{\ominus}_{(*)} U_{p-2} \]
+  (*) by Lemma~\ref{lemma1117} $f(v_j^{(p)})$ linear independent of $u_1 \dots u_{m_{p-2}}$.
+
+  And these $v_i^{(p-1)}$ are linear independent of $u_1 \dots u_{m_{p-2}}$.
+  Extend $u_1 \dots u_{m_{p-2}} v_1^{(p-1)} \dots v_{m_p - m_{p-1}}^{(p-1)}$ to basis of $U_{p-1}$: $v_{m_p - m_{p-1}+1}^{(p+1)} \dots v_{m_{p-1} - m_{p-2}}$ chosen from $u_{m_{p-2} + 1} \dots u_{m_{p-1}}$.
+  \[ m_{p-2} + \dots + m_{p-1} - m_{p-2} = m_{p-1} \]
+  \[ u_1 \dots u_{m_{p-2}} | u_{m_{p-2}+1} \dots u_{m_{p-1}} | u_{m_{p-1}+1} \dots u_{m_p} \]
+  \[ \underbrace{\underbrace{\underbrace{u_1 \dots u_{m_{p-2}}}_{U_{p-2}} v_1^{(p-1)} \dots v_{m_{p-1} - m_{p-2}}^{(p-1)}}_{f(n_{m_{p-1}+1}) \dots f(u_{m_p}) U_{p-1}} u_{m_{p-1}+1} \dots u_{m_p}}_{U_p} \]
+  where $u_{m_{p-1}+1} = v_1^{(p)} \dots u_{m_p} = v_{m_p - m_p - 1}^{(p)}$.
+
+  Iteration:
+  \begin{align*}
+    v_1^{(p-2)} &= f(v_1^{(p-1)}) \in U_{p-2} \ominus U_{p-3} \\
+    v_2^{(p-2)} &= f(v_2^{(p-1)})  \\
+     & \vdots \\
+    v_{m_{p-1} - m_{p-2}}^{(p-2)} &= f\left(v_{m_{p-1} - m_{p-2}}^{(p-1)}\right)
+  \end{align*}
+  \[ \leadsto u_1 \dots u_{m_{p-3}} v_1^{(p-2)} \dots v_{m_{p-1} - m_{p-2}}^{(p-2)} \subseteq U_{p-2} \]
+  are linear independent.
+  $\to$ extend to basis of $U_{p-2}$:
+  \[ u_1 \dots u_{m_{p-3}} v_1^{(p-2)} \dots v_{m_{p-2} - m_{p-3}}^{(p-2)} \]
+  and so on and so forth.
+
+  In the end, we get a basis:
+  \[
+  \begin{array}{cccccccc}
+    v_1^{(p)} & v_2^{(p)} & \dots & v_{m_p - m_{p-1}}^{(p)} &  & & & \\
+    v_1^{(p-1)} & v_2^{(p-1)} & \dots & v_{m_p - m_{p-1}}^{(p-1)} & \dots & v_{m_{p-1} - m_{p-2}}^{(p-1)} & & \\
+    v_1^{(p-2)} & v_2^{(p-2)} & \dots & v_{m_p - m_{p-1}}^{(p-2)} & \dots & v_{m_{p-1} - m_{p-2}}^{(p-2)} & \dots & v_{m_{p-2} - m_{p-3}}^{(p-2)} \\
+    \vdots & & &  & & & & \\
+    v_1^{(1)} & v_2^{(1)} & & & & & & v_{m_1}^{(1)}
+  \end{array}
+  \]
+  where each successive row can be reached by applying $f$.
+  The last row represents the basis of $U_1$, all rows give the basis of $U_p$.
+  \begin{enumerate}
+    \item The last row is basis of $U_1$
+    \item $f$ maps $k$-th row to $k-1$-th column.
+  \end{enumerate}
+  \[
+    B = \begin{bmatrix}
+      \vdots & & \\
+      \vdots & \vdots & \\
+      \vdots & \vdots & \vdots
+    \end{bmatrix}
+  \]
+  \[
+    B = V_1^{(1)} v_n^{(2)} \dots v_1^{(p)} v_2^{(i)} v_{2}^{(2)} \dots v_2^{(p)}
+    TODO
+  \]
+  \[ B = v_1^{(i)} \dots v_1^{(p)} v_2^{(i)} \dots v_2^{(n_2)} v_3^{(1)} \dots v_3^{(n_3)} \dots v_d^{(1)} \dots v_d^{(n_d)} \]
+  \[ n_3 \leq n_2 \leq n_1 \]
+  \[ f(v_i^{(i)}) = 0 \forall i = 1, \dots, d \]
+  \[ f(v_i^{(2)}) = v_i^{(1)} \qquad f(v_i^{(3)}) = v_1^{(2)} \]
+  \[
+    \Phi_B^B(f) = \begin{bmatrix}
+      0 & 1 &        &        &   & \vdots & & & \\
+        & 0 & 1      &        &   & \vdots & & & \\
+        &   & \ddots & \ddots &   & \vdots & & & \\
+        &   &        &        & 0 & \vdots & & & \\
+      \vdots &       &        &   & 0 & 1 &        & \\
+      \vdots &       &        &   &   & 0 & 1      & \\
+      \vdots &       &        &   &   &   & \ddots & \\
+      \vdots &       &        &   &   &   &        & 1 \\
+      \vdots &       &        &   &   &   &        & 0 \\
+      0 &      0     &\dots   & 0 &   &   &        &
+    \end{bmatrix}
+  \]
+  where this matrix goes on with these block matrices in the diagonal from $n_1$ to $n_d$.
+ \end{proof}
+
+ \begin{example}
+  \[
+    A = \begin{bmatrix}
+     0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+     0 & 0 & 3 & 0 & -2 & 0 & -1 & 0 \\
+     0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     0 & 3 & 0 & 0 & 1 & 3 & 0 & 0 \\
+     0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     0 & 0 & -2 & 0 & 0 & 0 & 1 & 0 \\
+     0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     0 & -4 & 0 & 0 & 0 & -4 & 0 & 0
+    \end{bmatrix}
+    \leadsto
+    \begin{bmatrix}
+     0 & 0 & 3 & 0 & -2 & 0 & -1 & 0 \\
+     0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+     0 & 0 & -2 & 0 & 0 & 0 & 1 & 0 \\
+     0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+     0 & 0 & 3 & 0 & 0 & 0 & -1 & 0 \\
+     0 & 0 & -2 & 0 & 0 & 0 & 1 & 0 \\
+    \hline
+     0 & 0 & 1 & 0 & 0 & 0 & 0 & 0
+    \end{bmatrix}
+  \] \[
+    x_2 = -x_6 \qquad x_5 = 0 \qquad x_7 = 2x_3 = 0 \qquad x_3 = 0
+  \]
+  Bases of $\ker(A) = e_1, e_4, e_8, -e_2 + e_6 \eqqcolon \set{u_1, u_2, u_3, u_4}$.
+  \[
+    \ker{A} = \ker{N_1}, N_1 = \begin{bmatrix}
+      0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+      0 & 0 & -2 & 0 & 0 & 0 & 1 & 0 \\
+      0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+    \end{bmatrix}
+    \text{ are pivot rows}
+  \] \[
+    \ker{A^2} = \ker{N_1 \cdot A}
+  \] \[
+    \text{because}: A^2x = 0 \iff Ax \in \ker{A} \iff Ax \in \ker{N_1} \iff N_1 \cdot Ax = 0
+  \]
+  \[
+    \ker(N_1 \cdot AU) = \ker\begin{bmatrix}
+      0 & 0 & 1 & 0 & -2 & 0 & 0 & 0 \\
+      0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+      0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+      0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+    \end{bmatrix}
+  \] \[
+    \ker{A^2}: x_3 = 2x_5
+  \] \[
+    \text{Basis of } \ker{A^2}: \sout{e_1}, e_2, \sout{e_4}, \sout{e_6}, e_7, \sout{e_8}, 2e_3 + e_5
+  \] \begin{align*}
+    u_1 & u_2 & u_3 & u_4 & u_5 & u_6 & u_7 \\
+    e_1 & e_4 & e_8 & -e_2+e_6 & e_2 & e_7 & 2e_3 + e_5
+  \end{align*}
+  \[ \text{Basis of } U_2 \qquad m_2 = 7 \]
+
+  \[ A^3 = 0 \]
+  \[ U_3 = \ker{A^3} = \mathbb R^8 \]
+  Basis of $U_3$.
+  \begin{align*}
+    u_1 & u_2 & u_3 & u_4 & u_5 & u_6 & u_7 & u_8 \\
+    e_1 & e_4 & e_8 & -e_2+e_6 & \sout{e_2} & e_7 & 2e_3 + e_5 & e_3
+  \end{align*}
+  \[ p = 3 \qquad d = 4 \]
+  $\rightarrow$ 4 blocks, $n_i \leq 3$.
+  \[ A \cdot v_1^{(3)} = A \cdot e_{3} = 3e_2 - 2e_6 \]
+
+  \begin{align*}
+    u_1 & u_2 & u_3 & u_4 & u_1^{(2)} & u_2^{(2)} & v_3^{(3)} & v_1^{(3)} \\
+    e_1 & e_4 & e_8 & -e_2+e_6 & 3e_2-2e_6 & e_7 & 2e_3+e_5 & e_3
+  \end{align*}
+  \[ v_1^{(3)} = v_{8} = e_3 \]
+  \[ v_1^{(2)} = A \cdot v_1^{(3)} = 3e_2 - 2e_6 \qquad v_2^{(2)} = e_7 \qquad v_3^{(2)} = 2e_3 + e_5 \]
+  \[ v_1^{(1)} = Av_1^{(2)} = e_1 + 3e_4 - 4e_8 \qquad v_2^{(1)} = -e_2+e_6 \qquad v_3^{(1)} = 4e_2 + e_4 - 4e_6 \qquad v_4^{(1)} = e_1 \]
+
+  \[
+    v_1^{(1)} = A \cdot v_1^{(2)}
+    = A \cdot \begin{bmatrix} 0 \\ 3 \\ 0 \\ 0 \\ 0 \\-2 \\ 0 \\ 0 \end{bmatrix}
+    = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 3 \\ 0 \\ 0 \\ 0 \\ -4 \end{bmatrix}
+  \] \[
+    v_2^{(1)} = A \cdot v_2^{(2)} = A e_7 = -e_2 + e_6
+  \] \[
+    v_3^{(2)} = A \cdot \begin{bmatrix} 0 \\ 0 \\ 2 \\ 0 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 4 \\ 0 \\ 1 \\ 0 \\ -4 \\ 0 \\ 0 \end{bmatrix}
+  \]
+  \begin{align*}
+                  & u_1 & u_2 & u_3 & u_4 & u_5 & u_6 & u_7 & u_8 \\
+    \text{step 2} & e_1 & e_4 & e_8 & -e_2+e_6 & 3e_2-2e_6 & e_7 & 2e_3+e_5 & e_3 \\
+    \text{step 3} & e_1+3e_4-4e_8 & -e_2+e_6 & 4e_2+e_4-4e_6 & e_1 & 3e_2-2e_6 & e_7 & 2e_3+e_5 & e_3
+  \end{align*}
+
+  \[
+    B = \underbrace{e_1 + 3e_4 - 4e_8, 3e_2 - 2e_6, e_3}_{n_1 = 3} | \underbrace{-e_2+e_6, e_7}_{n_2 = 2} | \underbrace{4e_2 + e_4 - 4e_6, 2e_3 + e_5}_{n_3 = 2} | \underbrace{e_1}_{n_4 = 1}
+  \] \[
+    \Phi_B^B(A) = \begin{bmatrix}
+      0 & 1 &   &   &   &   &   & \\
+        & 0 & 1 &   &   &   &   & \\
+        &   &   & 0 & 1 &   &   & \\
+        &   &   & 0 & 0 &   &   & \\
+        &   &   &   &   & 0 & 1 & \\
+        &   &   &   &   & 0 & 0 & \\
+        &   &   &   &   &   &   & 0
+    \end{bmatrix}
+    \text{ is the Jordan norm form of } A
+  \]
+ \end{example}
 
 \printindex
 \end{document}

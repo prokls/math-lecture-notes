@@ -538,17 +538,23 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{theorem}
 
 \begin{proof}
-  Direction $\Leftarrow$.
   Let $A$ be closed and $O + A^C$. We choose $x \in O$ and show that $x$ is in the interior of $O$.
 
   Assume the opoosite.
   \[ \forall \varepsilon > 0: \underbrace{\neg \left(K_{\varepsilon}(x) \subseteq O\right)}_{\iff K_{\varepsilon}(x) \cap O^C \neq \emptyset} \]
-  where $O^C = A$. So $x$ is contact point of $A$. Because $A$ is closed, it holds that $x \in A$.
-  This contradicts with $x \in O = A^C$.
+  where $O^C = A$.
+
+  Direction $\Leftarrow$.
+  So $x$ is contact point of $A$.
+  Because $A$ is closed, it holds that $x \in A$.
+  This contradicts with $x \in O = A^C$. Thus $O$ is open.
 
   Direction $\Rightarrow$.
-  TODO
-  $K_r(x) \cap \underbrace{A}_{=O^C} = \emptyset$. Hence $x$ is not a contact point of $A$.
+  Let $O = A^C$ be open and let $x$ be a contact point of $A$. Show that $x \in A$.
+
+  Assume the opposite, hence $x \in A^C = O$ and $O$ is open.
+  So $\exists r > 0: K_r(x) \subseteq O$, so $K_r(x) \cap A = \diameter$ where $A = O^C$.
+  Hence $x$ is not a contact point of $A$.
 
   So every contact point of $A$ is also an element of $A$ and $A$ is closed.
 \end{proof}
@@ -614,12 +620,39 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
 \dateref{2018/03/13}
 
-TODO I missed the first twenty minutes (including Satz~3 and 4)
+\begin{theorem} % Satz 3
+  \label{satz3t}
+  Let $X$ and $Y$ be metric spaces. $f: X \to Y$. Let $x_0 \in X$ be given.
+  Then the following statements are equivalent:
+  \begin{enumerate}
+    \item $f$ is continuous in $x_0$
+    \item For every neighborhood $V$ of $y_0 = f(x_0)$ it holds that $f^{-1}(V)$ is a neighborhood of $x_0$
+    \item For every sequence $(x_n)_{n \in \mathbb N}$ with $\lim_{n\to\infty} f(x_n) = f(x_0)$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  See Analysis 1.
+\end{proof}
+
+\index{Continuity on a set}
+\begin{definition} % Definition 12
+  Let $f: X \to Y$ is called continuous on $X$, if $f$ is continuous in every point $x_0 \in X$.
+\end{definition}
+
+\begin{theorem} % Satz 4
+  Let $f: X \to Y$ be given.
+  Then $f$ is continuous on $X \iff \forall \text{ open } O \subseteq Y: U = f^{-1}(O) \text{ open in } X$.
+\end{theorem}
+
+\begin{remark}
+  This characterization of continuity also works in topological spaces.
+\end{remark}
 
 \begin{proof}
   Direction $\Rightarrow$.
 
-  Let $f$ be continuous in $X$ and let $O \subseteq Y$ be open. Let $U = f^{-1}(O)$ and choose $x_0 \in U$. Then $f(x_0) \in O$, hence $O$ is a neighborhood of $f(x_0)$. By Theorem~\ref{satz3}~(b), it follows that $U = f^{-1}(O)$ is a neighborhood of $x_0$.
+  Let $f$ be continuous in $X$ and let $O \subseteq Y$ be open. Let $U = f^{-1}(O)$ and choose $x_0 \in U$. Then $f(x_0) \in O$, hence $O$ is a neighborhood of $f(x_0)$. By Theorem~\ref{satz3t}~(b), it follows that $U = f^{-1}(O)$ is a neighborhood of $x_0$.
 
   Hence, $U$ is neighborhood of every of its points, hence open in $X$.
 
@@ -628,7 +661,7 @@ TODO I missed the first twenty minutes (including Satz~3 and 4)
   Let the preimages of open sets be open and $x_0 \in X$ and $y_0 = f(x_0)$.
   Let $V$ be a neighborhood of $y_0 = f(x_0)$, hence $\exists \varepsilon > 0: K_{\varepsilon}(f(x_0)) \subseteq V$. Because $K_{\varepsilon}(f(x_0))$ is an open set, it holds that $f^{-1}(K_{\varepsilon}(f(x_0))) \in x_0$ is open in $X$.
 
-  Therefore, there exists $\delta > 0$ such that $K_{\delta}(x_0) \subseteq f^{-1}(K_{\varepsilon}(f(x_0))) \subseteq f^{-1}(V)$. Hence, $f^{-1}(V)$ is a neighborhood of $x_0$. Then by Theorem~\ref{satz3}~(b), it follows that $f$ is continuous in $x_0$ (chosen arbitrarily). Hence $f$ is continuous on $X$.
+  Therefore, there exists $\delta > 0$ such that $K_{\delta}(x_0) \subseteq f^{-1}(K_{\varepsilon}(f(x_0))) \subseteq f^{-1}(V)$. Hence, $f^{-1}(V)$ is a neighborhood of $x_0$. Then by Theorem~\ref{satz3t}~(b), it follows that $f$ is continuous in $x_0$ (chosen arbitrarily). Hence $f$ is continuous on $X$.
 \end{proof}
 
 \section{Variations of continuity notions}
@@ -677,7 +710,7 @@ TODO I missed the first twenty minutes (including Satz~3 and 4)
   A Lipschitz continuous map $f: X \to X$ with Lipschitz constant $L < 1$ is called \emph{contraction on $X$}. Compare with Figure~\ref{img:contraction}
 \end{definition}
 
-\begin{figure}
+\begin{figure}[t]
   \begin{center}
     \includegraphics{img/07_contraction.pdf}
     \caption{A contraction maps to points closer to each other}
@@ -687,12 +720,19 @@ TODO I missed the first twenty minutes (including Satz~3 and 4)
 
 \index{Fixed point}
 \begin{theorem}[Banach fixed-point theorem] % Satz 5
-  Let $f: X \to X$ be a contraction and $X$ be complete. Then there exists a uniquely defined $\hat{x} \in X$ such that $\hat{x} = f(\hat{x})$. $\hat{x}$ is called fixed point on $f$.
-  Furthermore it holds that $x_0 \in X$ is arbitrary and $x_n = f(x_{n-1})$ for all $n \geq 1$.
+  Let $f: X \to X$ be a contraction and $X$ be complete.
+  Then there exists a uniquely defined $\hat{x} \in X$ such that $\hat{x} = f(\hat{x})$. $\hat{x}$ is called fixed point on $f$.
+  Furthermore it holds that $x_0 \in X$ is arbitrary and $x_n = f(x_{n-1})$ for all $n \geq 1$. Compare with Figure~\ref{img:banachfixed}.
   \[ \lim_{n \to \infty} x_n = \hat{x} \]
 \end{theorem}
 
-TODO drawing Banach's fixed point theorem
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/07b_banach_fixed_point_theorem.pdf}
+    \caption{Banach's Fixed Point Theorem states that applying $f$ iteratively gives a point coming closer and closer to the previous one}
+    \label{img:banachfixed}
+  \end{center}
+\end{figure}
 
 \begin{remark}
   The following proof is a very common exam question.
@@ -929,7 +969,13 @@ is a sphere with center $x$ and radius $r$ in $\Omega$.
 \[ K_r^V(x) = \setdef{y \in V}{\norm{y - x} < r} \]
 obvious: $K_r^\Omega(x) = \Omega \cap K_r^V(x)$.
 
-TODO drawing 08
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/08.pdf}
+    \caption{Subsets of $(\mathbb R^n, \norm{\cdot})$ as metric spaces}
+    \label{img:subs}
+  \end{center}
+\end{figure}
 
 \begin{lemma} % Lemma 10
   Let $O' \subseteq \Omega \subseteq V$.
@@ -1009,7 +1055,7 @@ Then $(x_n)_{n \in \mathbb N}$ also has a convergent subsequence in $V$.
   Equivalence of norms is an equivalence relation.
   \begin{description}
     \item[reflexivity]
-      Let $m = M = 1$. TODO
+      $\norm{\cdot}_1$ is equivalent to $\norm{\cdot}_1$ with $m = M = 1$.
     \item[symmetry]
       \[ m \norm{v}_1 \leq \norm{v}_2 \implies \norm{v}_1 \leq \frac1m \norm{v}_2 \land \norm{v}_2 \leq M \cdot \norm{v}_1 \implies \frac1M \norm{v}_2 \leq \norm{v}_1 \]
       \[ \implies \underbrace{\frac1M}_{m'} \norm{v}_2 \leq \norm{v_1} \leq \underbrace{\frac1m}_{M'} \norm{v}_2 \]
@@ -1177,8 +1223,15 @@ Regarding the equivalence of norms:
       Then $(\xi_i)_{i=0}^n$ is a refinement of $(x_j)_{j=0}^k$ if
       $\set{x_0, x_1, \dots, x_n} \subseteq \set{\xi_0, \xi_1, \dots, \xi_m}$
 
-      TODO drawing %10_refinement.pdf
+      \begin{figure}[h]
+        \begin{center}
+          \includegraphics{img/10_refinement.pdf}
+          \caption{(top) Refinement (middle) function values in points $x_j$ are unrestricted (bottom) step functions on a refinement}
+          \label{img:refine}
+        \end{center}
+      \end{figure}
 
+      Compare with Figure~\ref{img:refine}.
       Functions values in boundaries $x_{j-1}$ and $x_j$ do not have any constraints and will be relevant for an integral.
       A $\varphi$ can be a step function in terms of many, various partitions.
   \end{itemize}
@@ -1193,8 +1246,15 @@ Regarding the equivalence of norms:
   $i_0 = 0, i_n = m$. $i_{j-1} < i_j$.
 
   Let $i \in \set{1, \dots, m}$. Then there exists a uniquely determined $j \in \set{1, \dots, n}$ such that $\xi_{i_{j-1}} < \xi_i \leq \xi_j$
+  Compare with Figure~\ref{img:xi}.
 
-  TODO drawing % 11_xi.pdf
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/11_xi.pdf}
+      \caption{$\xi$ on a refinement $x_{i_j}$}
+      \label{img:xi}
+    \end{center}
+  \end{figure}
 
   Then it holds that $(\xi_{i-1}, \xi_i) \subseteq \underbrace{(\xi_{i_{j-1}})}_{= (x_{j-1}, x_j)}, \xi_{i_j})$ and $\varphi|_{(\xi_{i-1}, \xi_j)} = c_j = \text{const}$. So $\varphi$ is a subsequence in regards of $(\xi_i)_{i=0}^m$.
 \end{proof}
@@ -3098,6 +3158,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 \end{remark}
 
 \begin{lemma} % Lemma 2
+  \label{lemma2-2}
   Let $P(x) = \sum_{l=0}^n a_l x^l$ with $a_n \neq 0$.
   Let $1 \leq k \leq n$. Then it holds that $x_0 \in \mathbb R$ is a $k$-times root of polynomial $P \iff$
   $P^{(j)}(x_0) = 0$ for $j = 0, \ldots, k-1$ and $P^{(k)}(x_0) \neq 0$.
@@ -3171,24 +3232,19 @@ To finish our proof, we need a result we missed in the section about Integrals.
       \[ \implies \tilde P^{(j)}(x_0) = 0 \qquad \text{ for } j = 0, \dots, k-1 \]
       By the induction assumption, $\tilde P(x) = (x - x_0)^k Q(x)$ with $Q(x_0) \neq 0$
       \[ \implies P(x) = (x - x_0) \cdot \tilde P(x) = (x - x_0)^{k+1} Q(x) \]
-
   \end{description}
 \end{proof}
 
 \dateref{2018/05/08}
 
-TODO I missed the first 15 minutes
-
-% TODO missing \label{lemma2-2}
-
 \index{Taylor polynomial of $f$ of order $n$ in $x_0$}
 \begin{definition} % Definition 3
   \label{def3}
-  Let $I$ be an interval, $f \in \mathcal C^n(I)$.
+  Let $I \subseteq \mathbb R$ be an interval, $f \in \mathcal C^n(I)$.
   We let
-  \[ T_f^n(; x_0)  \sum_{k=0}^n \frac{1}{k!} f^{(k)}(x_0) (x - x_0)^k \]
+  \[ T_f^n(x; x_0) = \sum_{k=0}^n \frac{1}{k!} f^{(k)}(x_0) (x - x_0)^k \]
 
-  $T_f^n(x; x_0)$ is a polynomial in $x$ with degree $T_f^n \leq n$.
+  $T_f^n(x; x_0)$ is a polynomial in $x$ with $\operatorname{degree}(T_f^n) \leq n$.
   $T_f^n(x; x_0)$ is called \emph{Taylor polynomial of $f$ of order $n$ in $x_0$}.
 \end{definition}
 Brook Taylor (1685--1731)
@@ -4108,36 +4164,41 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
 
 \begin{remark}
   Let $f: D \subseteq \mathbb R^2 \to \mathbb R$ continuously differentiable be given on $D$.
-  Consider $T_s = \setdef{x \in D}{f(x) = s}$. Compare with Figure~\ref{img:niveau}.
+  Consider $\Gamma_s = \setdef{x \in D}{f(x) = s}$. Compare with Figure~\ref{img:niveau}.
 
-  %TODO
-  %\begin{figure}[!h]
-  %  \begin{center}
-  %    \includegraphics{img/32_niveau.pdf}
-  %    \caption{TODO}
-  %    \label{img:niveau}
-  %  \end{center}
-  %\end{figure}
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/32_niveau.pdf}
+      \caption{$\Gamma_S$ is the niveau level of $f$}
+      \label{img:niveau}
+    \end{center}
+  \end{figure}
 
   Assume $\Gamma_s$ is a graph of a family of curves (dt. \foreignlanguage{german}{Parametrisierte Kurve}) $\gamma_s: I \to D$.
-  $I$ is an interval. $\Gamma_s = \setdef{\gamma_s(t)}{t \in I}$. We assume, that $\gamma_s$ is regular, hence $\gamma$ is differentiable
+  Let $I$ be an interval. $\Gamma_s = \setdef{\gamma_s(t)}{t \in I}$. We assume, that $\gamma_s$ is regular, hence $\gamma$ is differentiable
   and $\gamma_s'(t) = \begin{bmatrix} \gamma_1'(t) \\ \gamma_2'(t) \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix} \forall t \in I$.
   $\gamma_s'(t)$ is tangential vector on $\Gamma_s$ in point $x = \gamma_s(t)$.
 
   It holds that
-  \[ \angle{\nabla f(\gamma_s(t)), \gamma'_s(t)} = \angle{\nabla f(x), v} = 0 \]
-  \[ f(\underbrace{\gamma_s(t)}_{\in \Gamma_s}) = s \qquad \text{ constant} \]
+  \[ \angel{\nabla f(\gamma_s(t)), \gamma'_s(t)} = \angel{\nabla f(x), v} = 0 \]
+  \[ f(\underbrace{\gamma_s(t)}_{\in \Gamma_s}) = s \qquad \text{\dots constant} \]
   \[ \implies \frac{d}{dt} [f(\gamma_s(t))] = 0  \]
   where
   \begin{align*}
-    f(\gamma_s(t))
+    \frac{d}{dt} f(\gamma_s(t))
       = \underbrace{D f(x)}_{\nabla f(x)^t} \cdot \underbrace{D \gamma_s(x)}_{\gamma_s'(t)}
       &= \nabla f(x)^t \cdot \gamma'_s(t) \\
-      &= \angle{\nabla f(x), \gamma'_s(t)}
+      &= \angel{\nabla f(x), \gamma'_s(t)}
   \end{align*}
+  Compare with Figure~\ref{img:nab}.
 
-  %TODO
-  %image 33_gradient2.svg
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/33_gradient_2.pdf}
+      \caption{$Df(x) = \nabla f(x)^T$}
+      \label{img:nab}
+    \end{center}
+  \end{figure}
 \end{remark}
 
 \begin{theorem} % Satz 2
