@@ -1338,10 +1338,12 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       Thus,
       \[ \alpha f + \beta g \in \tau[a,b] \]
     \item
-      Let $h \in \tau[a,b]$ with $h(x) \geq 0 \forall x \in [a,b]$ be a step function
-      and $\int_a^b h \, dx = \sum_{i=1}^m \underbrace{h_i}_{\geq 0} \delta \xi_i \geq 0$
-      TODO
-      Hence, it holds that $0 \leq \int_a^b h \, dx = \int_a^b (g - f) \, dx = \int_a^b g \, dx - \int_a^b f \, dx$.
+      Let $h \in \tau[a,b]$ and $h(x) \geq 0 \forall x \in [a,b]$,
+      then it holds that $v_i = h|_{(\xi_{i-1}, \xi_i)} \geq 0$ and
+      \[ \int_a^b h \, dx = \sum_{i=1}^m \underbrace{h_i}_{\geq 0} \underbrace{\triangle \xi_i}_{\geq 0} \geq 0 \]
+      Now let $f, g \in \tau[a,b]$; $f \leq g$. Then $h = g - f \in \tau[a,b]$ (membership because of (1.)) and $h \geq 0$.
+      Therefore,
+      \[ 0 \leq \int_a^b h \, dx = \int_a^b (g - f) \, dx = \int_a^b g \, dx - \int_a^b f \, dx \]
     \item
       $f \leq \card{f}$, hence $\int_a^b f \, dx \leq \int_a^b \card{f} \, dx$ and also
       $-f \leq \card{f}$, so
@@ -1365,16 +1367,35 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
     \end{cases}
   \]
   a \emph{characteristic function} (indicator function) of set $A$.
-  Often denoted as $\chi_A = \mathbbm{1}$.
+  Often denoted as $\chi_A = \mathbbm{1}$. Compare with Figure~\ref{img:charf}.
 \end{definition}
 
-\begin{remark}
-  TODO drawings
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/13_characteristic_function.pdf}
+    \caption{A characteristic function takes value $1$ inside a set $A$ which can be an interval (left) or a single point (right)}
+    \label{img:charf}
+  \end{center}
+\end{figure}
 
+\begin{remark}
   Let $A = (a', b')$ with $a \leq a' < b' \leq b$.
   Then $\chi_{(a',b')} \in \tau[a,b]$. Also for $x \in [a,b]$, it holds that $\chi_{\set{x}} = \tau[a,b]$.
-  Therefore every linear combination of characteristic functions of open subintervals ($a',b'$) of $[a,b]$
-  as characteristic functions of one-point sets $\chi_{\set{x}}, x \in [a,b]$ a step function on $[a,b]$.
+  Therefore
+  \begin{itemize}
+    \item every linear combination of characteristic functions of open subintervals ($a',b'$) of $[a,b]$ or
+    \item characteristic functions of one-point sets $\chi_{\set{x}}, x \in [a,b]$
+  \end{itemize}
+  are step functions on $[a,b]$. Compare with Figure~\ref{img:linchar}.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/13b_char_function_as_step_function.pdf}
+      \caption{Linear combinations of characteristic functions are step functions}
+      \label{img:linchar}
+    \end{center}
+  \end{figure}
+
   \[ \sum_{j=1}^n \alpha_j \chi_{(a_j,b_j)} + \sum_{k=1}^m \beta_k \chi_{\set{x_k}} \in \tau[a,b] \]
   On the opposite, $f \in \tau[a,b]$, hence
   \[ f|_{(x_{j-1},x_j)} \underbrace{=}_{j=1,\dots,n} c_j \text{ and } f(x_j) \underbrace{=}_{j=0,\dots,n} d_j \]
@@ -1404,10 +1425,17 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 
   We usually consider $A = [a,b] \subseteq \mathbb R$, $x \in [a,b]$.
 
-  It is feasible, that $f$ in $x$ has a limit, $x \in A$ and $c = \lim_{\xi\to x} f(\xi) \neq f(x)$.
+  It is possible, that $f$ in $x$ has a limit, $x \in A$ and $c = \lim_{\xi\to x} f(\xi) \neq f(x)$.
+  Compare with Figure~\ref{img:limfuncvalue}.
 \end{remark}
 
-TODO drawing
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/14_special_case_limit_value_not_function_value.pdf}
+    \caption{The limit value must not be necessarily the function value}
+    \label{img:limfuncvalue}
+  \end{center}
+\end{figure}
 
 \begin{definition}
   Now let $A \subseteq \mathbb R$ and $x$ is a accumulation point of $A$.
