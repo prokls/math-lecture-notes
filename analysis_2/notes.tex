@@ -664,7 +664,8 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Therefore, there exists $\delta > 0$ such that $K_{\delta}(x_0) \subseteq f^{-1}(K_{\varepsilon}(f(x_0))) \subseteq f^{-1}(V)$. Hence, $f^{-1}(V)$ is a neighborhood of $x_0$. Then by Theorem~\ref{satz3t}~(b), it follows that $f$ is continuous in $x_0$ (chosen arbitrarily). Hence $f$ is continuous on $X$.
 \end{proof}
 
-\section{Variations of continuity notions}
+\subsection{Variations of continuity notions}
+\subsubsection{Uniform continuity}
 
 \index{Uniformly continuous}
 \begin{definition} % Definition 13
@@ -686,6 +687,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Example: $f: (0, \infty) \to (0, \infty)$ with $f(x) = \frac1x$ is continuous, but not continuously continuous.
 \end{remark}
 
+\subsubsection{Lipschitz continuity}
 \index{Lipschitz continuity}
 \begin{definition} % Definition 14
   $f: X \to Y$ is called \emph{Lipschitz continuous} with \emph{Lipschitz constant} $L \geq 0$ if $\forall x, y \in X: d_Y(f(x), f(y)) \leq L \cdot d_X(x,y)$.
@@ -705,6 +707,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   \item Most often $X \subseteq V$, $Y \subseteq W$. $V$ and $W$ are normed vector spaces and $d(x, y) = \norm{x - y}$
 \end{itemize}
 
+\subsection{Banach Fixed Point Theorem}
 \index{Contraction}
 \begin{definition} % Definition 15
   A Lipschitz continuous map $f: X \to X$ with Lipschitz constant $L < 1$ is called \emph{contraction on $X$}. Compare with Figure~\ref{img:contraction}
@@ -808,6 +811,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{proof}
 
 \section{Compactness}
+\subsection{Definition}
 
 \index{Compactness}
 \begin{definition} % Definition 16
@@ -828,6 +832,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Then it holds $\forall n \geq N: d(x_n, \hat{x}) \leq d(x_n, x_{n_k}) + d(x_{n_k}, \hat{x}) < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon$. The first summand $\frac\varepsilon2$ results from the Cauchy sequence property, the second summand $\frac\varepsilon2$ results by convergence of $(x_{n_k})$. Hence $(x_n)_{n\in\mathbb N}$ is convergent with limit $\hat{x}$.
 \end{proof}
 
+\subsection{Boundedness}
 \index{Boundedness}
 \begin{definition} % Definition 17
   A metric space $X$ is called \emph{bounded} if there exists $M \geq 0$, such that $d(x,y) \leq M \forall x,y \in X$.
@@ -871,6 +876,8 @@ Again: do not remember \enquote{compactness} not as closed and bounded, as this 
 
 In the last proof, we have shown: If a sequence $(x_n)_{n \in \mathbb N}$ with $x_n \in X$ and $d(x_n, x_m) \geq 1$ (or $\geq \varepsilon$) $\forall n \neq m \implies X$ is not compact.
 
+\subsection{Total boundedness}
+
 \index{Total boundedness}
 \begin{definition}
   $X$ is called totally bounded, if for every $\varepsilon > 0$, finitely many points $X_1^\varepsilon$, $X_2^\varepsilon$, \dots, $X_{N(\varepsilon)}^\varepsilon$ such that $X \subseteq \bigcup_{i=1}^{N(\varepsilon)} K_{\varepsilon}(X_i^\varepsilon)$.
@@ -882,6 +889,7 @@ In the last proof, we have shown: If a sequence $(x_n)_{n \in \mathbb N}$ with $
   Let $X$ be totally bounded, then there does not exist some sequence $(x_n)_{n \in \mathbb N}$ with $d(x_n, x_m) \geq \varepsilon \forall n \neq m$. It holds, that $X$ is compact if and only if $X$ is totally bounded and complete.
 \end{remark}
 
+\subsection{Compactness, continuity and openness}
 \begin{theorem} % Satz 6
   \label{satz6}
   Let $f: X \to Y$ be continuous. Let $X$ be compact. Then image $f(X) \subseteq Y$ is also compact.
@@ -1178,7 +1186,7 @@ Regarding the equivalence of norms:
       \end{claim}
       \begin{proof}
         Show that,
-        \[ \card{\nu(x) - \nu(y)} = \card{\norm{x} - \norm{y}} \underbrace{\leq}_{\text{inversed triangle ineq.}} \norm{x - y} \underbrace{\leq}_{\text{because of (1)}} M \norm{x - y} \]
+        \[ \card{\nu(x) - \nu(y)} = \card{\norm{x} - \norm{y}} \underbrace{\leq}_{\text{reversed triangle ineq.}} \norm{x - y} \underbrace{\leq}_{\text{because of (1)}} M \norm{x - y} \]
         Hence $\nu$ is Lipschitz continuous.
       \end{proof}
 
@@ -1197,6 +1205,7 @@ Regarding the equivalence of norms:
 \end{proof}
 
 \section{Integration calculus}
+\subsection{Partitions and refinements}
 
 \index{Partition of an interval}
 \index{Step function}
@@ -1356,6 +1365,8 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   \end{enumerate}
 \end{proof}
 
+\subsection{Characteristic functions}
+
 \index{Characteristic function}
 \index{Indicator function}
 \begin{definition} % Definition 3
@@ -1408,7 +1419,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   of open intervals or one-pointed sets.
 \end{remark}
 
-\subsection{Regulated functions}
+\subsection{Limit points}
 
 \index{Limit point}
 \begin{definition} % Definition 4
@@ -1437,18 +1448,23 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   \end{center}
 \end{figure}
 
-\begin{definition}
+\begin{definition} % Definition 5
   Now let $A \subseteq \mathbb R$ and $x$ is a accumulation point of $A$.
   Let $f: A \to \mathbb R$ be given. We say $f$ has a right-sided limit $c$ in $x$
-  with $c = \lim_{\xi \to x^+} f(\xi) = c$ if $\forall \varepsilon > 0 \exists \delta > 0: \forall \xi \in A, \xi > x$
-  \[ \land  \card{\xi - x} = \xi - x < \delta \implies \card{f(\xi) - c} < \varepsilon \]
+  with $c = \lim_{\xi \to x^+} f(\xi) = c$ if
+  \[ \forall \varepsilon > 0 \exists \delta > 0: \forall \xi \in A, \xi > x: \card{\xi - x} = \xi - x < \delta \implies \card{f(\xi) - c} < \varepsilon \]
 
-  The left-sided limit follows analogously.
-  \[ c = \lim_{\xi \to x^-} f(\xi) \]
-
+  Compare with Figure~\ref{img:def5}.
+  The left-sided limit follows analogously (with $\xi < x$).
   \[ c = \lim_{\xi \to x^+} f(\xi) \qquad d = \lim_{\xi \to x^-} f(\xi) \]
 
-  TODO drawing
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/14b_def5.pdf}
+      \caption{Left-sided and right-sided limit}
+      \label{img:def5}
+    \end{center}
+  \end{figure}
 \end{definition}
 
 \begin{lemma}[Sequence criterion for limits of functions] % Lemma 5
@@ -1460,6 +1476,10 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   \[ c = \lim_{\xi\to x^{+}} f(\xi) \iff \forall (\xi_n)_{n\in\mathbb N}: \xi \in A \qquad \xi_n > x \text{ with } \lim_{n\to\infty} \xi_n = x \text{ it holds that } \lim_{n\to\infty} f(\xi_n) = c \]
 \end{lemma}
 
+\begin{proof}
+  See Analysis 1 lecture notes.
+\end{proof}
+
 \begin{remark}
   Attention! We, therefore, use two different definitions of limits.
 \end{remark}
@@ -1469,13 +1489,11 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   Let $f: A \subseteq X \to \mathbb R$. Let $x$ be an accumulation point of $A$.
   Let $X$ be a metric space. Then it holds that
   $f$ has a limit in $x$ if and only if
-  \[ \forall \varepsilon > 0 \exists \delta > 0: \forall \xi, \eta \in A: \xi \neq x_i: \eta \neq x: \]
+  \[ \forall \varepsilon > 0 \exists \delta > 0: \forall \xi, \eta \in A: \xi \neq x_i: \eta \neq x \]
   with $d(\xi, x) < \delta$ and $d(\eta, x) < \delta$ it holds that $\card{f(\xi) - f(\eta)} < \varepsilon$.
   Analogously for one-sided limits with $A \subseteq \mathbb R$.
-  Additionally, we need the constraint that $\xi > X$ and $\eta > x$ for $\lim_{\xi \to x^+} f(\xi)$ or equivalently,
-  $\xi < x$ and $\eta < x$ for $\lim_{\xi \to x^-} f(\xi)$.
-
-  TODO normalize and visualize equivalent statements for left-sided and right-sided limit (using Ring's notes)
+  Additionally, we need the constraint that $\xi > x$ and $\eta > x$ for $\lim_{\xi \to x^+} f(\xi)$.
+  Or equivalently, $\xi < x$ and $\eta < x$ for $\lim_{\xi \to x^-} f(\xi)$.
 \end{lemma}
 
 \begin{proof}
@@ -1524,6 +1542,8 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       $\lim_{n\to\infty} f(\xi_n) = c$. So $\lim_{\xi\to\infty} f(\xi) = c$ because of Lemma~\ref{lemma5}. QED.
   \end{description}
 \end{proof}
+
+\subsection{Regulated functions}
 
 \index{Regulated function}
 \begin{definition}[Regulated function] % Definition 6
@@ -1582,6 +1602,8 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   Then $f \in \mathcal R[a,b]$. The proof will be done in the practicals.
 \end{example}
 
+\subsection{Bounded functions on bounded sets}
+
 \begin{definition}[Boundedness] % Definition 7
   Let $X \neq \emptyset$ be a set.
   $f: X \to \mathbb K$ with $\mathbb K = \mathbb R$ or $\mathbb K = \mathbb C$.
@@ -1620,120 +1642,133 @@ if and only if $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \impli
 Hence, $f_n \to f$ in $(\mathcal B(X), \norm{\cdot}_{\infty}) \iff \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \card{f_n(x) - f(x)} \leq \varepsilon \forall x \in X$.
 We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 
-\begin{theorem}[Approximation theorem for regulated function]
+\begin{theorem}[Approximation theorem for regulated function] % Satz 1
+  \label{approxthmreg}
   Let $f: [a, b] \to \mathbb R$. Then it holds that $f \in \mathcal R[a,b] \iff \forall \varepsilon > 0$ there exists some step function $\varphi \in \tau[a,b]$ such that $\card{\varphi(x) - f(x)} < \varepsilon \forall x \in [a,b]$ ($\norm{\varphi - f}_{\infty} < \varepsilon$).
 
   Especially $\varepsilon_n = \frac1n$ and $\varphi_n$ as above.
   Then it holds that $\norm{\varphi_n - f}_{\infty} < \frac1n$, hence $f = \lim_{n\to\infty} \varphi_n$ uniformly on $[a,b]$.
 \end{theorem}
 
-\begin{proof}
-  Direction $\Rightarrow$. Let $f \in \mathcal R[a,b]$.
+\begin{proof}\hfill{}
+  \begin{description}
+    \item[Direction $\implies$.] 
+      Let $f \in \mathcal R[a,b]$.
 
-  Proof by contradiction. We negate our hypothesis:
-  \begin{align}
-    \exists \varepsilon > 0: \forall \varphi \in \tau[a,b] \exists x \in [a,b]: \card{\varphi(x) - f(x)} \geq \varepsilon
-    \label{neghypo}
-  \end{align}
-  Assume \eqref{neghypo} holds for $f \in [a,b]$.
-  We construct nested intervals $[a_n, b_n]$ with $[a_{n+1}, b_{n+1}] \subseteq [a_n, b_n]$
-  and $b_{n+1} - a_{n+1} = \frac12 (b_n - a_n)$ and \eqref{neghypo} holds on $[a_n, b_n] \forall n \in \mathbb N$.
-  Hence $\forall \varphi \in \tau[a_n, b_n] \exists x \in [a_n, b_n]$ such that $\card{\varphi(x) - f(x)} \geq \varepsilon$.
-  This is what we want to show.
+      Proof by contradiction. We negate our hypothesis:
+      \begin{align}
+        \exists \varepsilon > 0: \forall \varphi \in \tau[a,b] \exists x \in [a,b]: \card{\varphi(x) - f(x)} \geq \varepsilon
+        \label{neghypo}
+      \end{align}
+      Assume \eqref{neghypo} holds for $f \in [a,b]$.
+      We construct nested intervals $[a_n, b_n]$ with $[a_{n+1}, b_{n+1}] \subseteq [a_n, b_n]$
+      and $b_{n+1} - a_{n+1} = \frac12 (b_n - a_n)$ and \eqref{neghypo} holds on $[a_n, b_n] \forall n \in \mathbb N$.
+      Hence $\forall \varphi \in \tau[a_n, b_n] \exists x \in [a_n, b_n]$ such that $\card{\varphi(x) - f(x)} \geq \varepsilon$.
+      This is what we want to show.
 
-  Let $a_0 = a$ and $b_0 = b$. Then \eqref{neghypo} holds on $[a_0, b_0]$ by assumption.
-  $n \to n+1$: Construction of $[a_{n+1}, b_{n+1}]$. Let $m_n = \frac12(a_n + b_n)$.
-  We need to prove: \eqref{neghypo} holds either on $[a_n, m_n]$ or on $[m_n, b_n]$.
+      Let $a_0 = a$ and $b_0 = b$. Then \eqref{neghypo} holds on $[a_0, b_0]$ by assumption.
+      $n \to n+1$: Construction of $[a_{n+1}, b_{n+1}]$. Let $m_n = \frac12(a_n + b_n)$.
 
-  Because if the opposite of \eqref{neghypo} holds on $[a_n, m_n]$ as well as $[m_n, b_n]$,
-  then there exists $\varphi_1^n \in \tau[a_n, m_n]$ with $\card{\varphi_n^1(x) - f(x)} < \varepsilon \forall x \in [a_n, m_n]$
-  and if the opposite of \eqref{neghypo} holds on $[m_n, b_n]$:
-  \[ \exists \varphi_n^2 \in \tau[m_n, b_n]: \card{\varphi_n^2(x) - f(x)} < \varepsilon \forall x \in [m_n, b_n] \]
-  Let
-  \[
-    \varphi^n(x) = \begin{cases}
-      \varphi_n^1(x) & \text{ if } x \in [a_n, m_n] \\
-      \varphi_n^2(x) & \text{ if } x \in (m_n, b_n]
-    \end{cases}
-  \]
-  Then $\varphi^n$ is piecewise constant, hence $\varphi^n \in \tau[a_n, b_n]$ and it holds that
-  \[
-    \card{\varphi^n(x) - f(x)} = \begin{cases}
-      \underbrace{\card{\varphi_1^n(x) - f(x)}}_{< \varepsilon}  & \text{ for } x \in [a_n, m_n] \\
-      \underbrace{\card{\varphi_2^n(x) - f(x)}}_{< \varepsilon}  & \text{ for } x \in [m_n, b_n]
-    \end{cases} < \varepsilon
-  \]
-  This contradicts with \eqref{neghypo} on $[a_n, b_n]$.
+      \begin{claim}
+        \eqref{neghypo} holds either on $[a_n, m_n]$ or on $[m_n, b_n]$.
+      \end{claim}
 
-  Hence: \eqref{neghypo} holds on $[a_n, m_n]$ or on $[m_n, b_n]$.
+      \begin{proof}
+        Because if the opposite of \eqref{neghypo} holds on $[a_n, m_n]$ as well as $[m_n, b_n]$,
+        then there exists $\varphi_1^n \in \tau[a_n, m_n]$ with $\card{\varphi_n^1(x) - f(x)} < \varepsilon \forall x \in [a_n, m_n]$
+        and if the opposite of \eqref{neghypo} holds on $[m_n, b_n]$:
+        \[ \exists \varphi_n^2 \in \tau[m_n, b_n]: \card{\varphi_n^2(x) - f(x)} < \varepsilon \forall x \in [m_n, b_n] \]
+        \[
+          \varphi^n(x) \coloneqq \begin{cases}
+            \varphi_n^1(x) & \text{ if } x \in [a_n, m_n] \\
+            \varphi_n^2(x) & \text{ if } x \in (m_n, b_n]
+          \end{cases}
+        \]
+        Then $\varphi^n$ is piecewise constant, hence $\varphi^n \in \tau[a_n, b_n]$ and it holds that
+        \[
+          \card{\varphi^n(x) - f(x)} = \begin{cases}
+            \underbrace{\card{\varphi_1^n(x) - f(x)}}_{< \varepsilon}  & \text{ for } x \in [a_n, m_n] \\
+            \underbrace{\card{\varphi_2^n(x) - f(x)}}_{< \varepsilon}  & \text{ for } x \in [m_n, b_n]
+          \end{cases}
+        \]
+        Therefore, $\card{\varphi^n(x) - f(x)} < \varepsilon$, which contradicts with \eqref{neghypo} on $[a_n, b_n]$.
+        We conclude: \eqref{neghypo} holds on $[a_n, m_n]$ or on $[m_n, b_n]$.
+      \end{proof}
 
-  Choose $[a_{n+1}, b_{n+1}]$ as one of the subintervals in which \eqref{neghypo} holds.
+      Now, choose $[a_{n+1}, b_{n+1}]$ as one of the subintervals in which \eqref{neghypo} holds.
+      Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$).
+
+      \begin{description}
+        \item[Case $\mathbf{x \in (a,b)}$] 
+          Let $x \in (a, b)$. Let $\varepsilon$ as above such that \eqref{neghypo} holds on every interval $[a_n, b_n]$.
+          Let $c_+ = \lim_{\xi \to x^+} f(\xi)$ and $c_- = \lim_{\xi \to x^-} f(\xi)$ (feasible, because $f \in \mathcal R[a,b]$).
+
+          By the limit property, $\exists \delta > 0: \card{\xi - x} < \delta$ and $\xi < x$, then $\card{f(\xi) - c_-} < \varepsilon$
+          and $\card{\xi - x} < \delta$ and $x < \delta$ then $\card{f(\xi) - c_+} < \varepsilon$.
+
+          Additionally, choose $\delta$ sufficiently small enough such that $(x - \delta, x + \delta) \subseteq [a, b]$.
+          \[
+            \hat\varphi(\xi) \coloneqq \begin{cases}
+              0 & \text{ for } \xi \in [a,b] \setminus (x - \delta, x + \delta) \\
+              c_- & \text{ for } \xi \in (x - \delta, x) \\
+              c_+ & \text{ for } \xi \in (x, x + \delta) \\
+              f(x) & \text{ for } \xi = x
+            \end{cases}
+          \]
+
+          \begin{figure}[t]
+            \begin{center}
+              \includegraphics{img/16_construction.pdf}
+              \caption{Construction of $\hat\varphi(\xi)$}
+              \label{img:hatvarphi}
+            \end{center}
+          \end{figure}
+
+          Compare with Figure~\ref{img:hatvarphi}.
+          $\hat{\varphi} \in \tau[a,b]$ and it holds that
+          \[
+            \forall \xi \in (x - \delta, x + \delta):
+            \card{\hat\varphi(\xi) - f(\xi)} = \begin{cases}
+              \underbrace{\card{c_- - f(\xi)}}_{< \varepsilon} & \text{ for } \delta \in (x - \delta, x) \\
+              \underbrace{\card{f(x) - f(x)}}_{= 0} & \text{ for } \xi = x \\
+              \underbrace{\card{c_+ - f(\xi)}}_{< \varepsilon} & \text{ for } \xi \in (x, x + \delta)
+            \end{cases}
+          \]
+          Hence, $\card{\hat\varphi(\xi) - f(\xi)} < \varepsilon$.
+          Now let $N$ be sufficiently large enough such that $[a_N, b_N] \subseteq (x - \delta, x + \delta)$
+          (possible because $([a_n, b_n])_{n \in \mathbb N}$ gives nested intervals tightening on $x$).
+          Then for $[a_N, b_N]$ it holds that:
+          \[ \hat\varphi|_{[a_N, b_N]} \in \tau[a_N, b_N] \]
+          and $\forall \xi \in [a_N, b_N] \subseteq (x - \delta, x + \delta)$ it holds that
+          $\card{\hat{\varphi}(\xi) - f(\xi)} < \varepsilon$. This contradicts with \eqref{neghypo} on $[a_N, b_N]$.
+        \item[Case $\mathbf{x = a}$ and $\mathbf{x = b}$]
+          Is analogous to one-sided limits.
+      \end{description}
+    \item[Direction $\impliedby$.]
+      Let $f = \lim_{n\to\infty} \varphi_n$ be uniform on $[a,b]$.
+
+      \begin{claim}
+        $\forall x \in [a,b)$ there exists a right-sided limit of $f$ in $x$.
+      \end{claim}
+
+      \begin{proof}
+        Let $\varepsilon > 0$ be arbitrary. $N \in \mathbb N$ sufficiently large such that
+        $\card{f(\xi) - \varphi_N(\xi)} < \frac\varepsilon2 \forall \xi \in [a,b]$.
+        $\varphi_N$ is piecewise constant. Choose $\delta > 0$ such that
+        $\varphi_N|_{(x, x+\delta)} = c$.
+        Now let $\xi, \eta \in (x, x+\delta)$ be chosen arbitrarily.
+        Then it holds that
+        \[
+          \card{f(\xi) - f(\eta)} \leq |{f(\xi) - \underbrace{c}_{= \varphi_N(\xi)}}| + |{\underbrace{c}_{= \varphi_N(\eta)} - f(\eta)}|
+          = |{\underbrace{f(\xi) - \varphi_N(\xi)}_{< \frac\varepsilon2}}| + |{\underbrace{\varphi_N(\eta) - f(\eta)}_{< \frac\varepsilon2}}| < \varepsilon
+        \]
+        Therefore $f$ has a right-sided limit in $x$ by the Cauchy criterion.
+        $f$ has left-sided limit in every point.
+      \end{proof}
+      $x \in (a, b]$ follows analogously.
+  \end{description}
 \end{proof}
 
-% TODO: fix structure
-Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$).
-\begin{enumerate}
-  \item Let $x \in (a, b)$. Let $\varepsilon$ as above such that \eqref{neghypo} holds on every interval $[a_n, b_n]$.
-    Let $c_+ = \lim_{\xi \to x^+} f(\xi)$ and $c_- = \lim_{\xi \to x^-} f(\xi)$ (feasible, because $f \in \mathcal R[a,b]$).
-
-    Limes property: $\exists \delta > 0: \card{\xi - x} < \delta$ and $\xi < x$, then $\card{f(\xi) - c_-} < \varepsilon$
-    and $\card{\xi - x} < \delta$ and $x < \delta$ then $\card{f(\xi) - c_+} < \varepsilon$.
-
-    Additionally, choose $\delta$ sufficiently small enough such that
-    $(x - \delta, x + \delta) \subseteq [a, b]$.
-    Let
-    \[
-      \hat\varphi(\xi) = \begin{cases}
-        0 & \text{ for } \xi \in [a,b] \setminus (x - \delta, x + \delta) \\
-        c_- & \text{ for } \xi \in (x - \delta, x) \\
-        c_+ & \text{ for } \xi \in (x, x + \delta) \\
-        f(x) & \text{ for } \xi = x
-      \end{cases}
-    \]
-
-    \begin{figure}[!h]
-      \begin{center}
-        \includegraphics{img/16_construction.pdf} % TODO
-      \end{center}
-    \end{figure}
-
-    $\hat{\varphi} \in \tau[a,b]$ and it holds that
-    \[
-      \forall \xi \in (x - \delta, x + \delta):
-      \card{\hat\varphi(\xi) - f(\xi)} = \begin{cases}
-        \underbrace{\card{c_- - f(\xi)}}_{< \varepsilon} & \text{ for } \delta \in (x - \delta, x) \\
-        \underbrace{\card{f(x) - f(x)}}_{= 0} & \text{ for } \xi = x \\
-        \underbrace{\card{c_+ - f(\xi)}}_{< \varepsilon} & \text{ for } \xi \in (x, x + \delta)
-      \end{cases} < \varepsilon
-    \]
-    Now let $N$ be sufficiently large enough such that $[a_N, b_N] \subseteq (x - \delta, x + \delta)$
-    (feasible because $([a_n, b_n])_{n \in \mathbb N}$ gives nested intervals tightening on $x$).
-    Then it holds on $[a_N, b_N]$ that:
-    \[ \hat\varphi|_{[a_N, b_N]} \in \tau[a_N, b_N] \]
-    and $\forall \xi \in [a_N, b_N] \subseteq (x - \delta, x + \delta)$ it holds that
-    $\card{\hat{\varphi}(\xi) - f(\xi)} < \varepsilon$. This contradicts with \eqref{neghypo} on $[a_N, b_N]$.
-
-    We also need to cover the special cases $x = a$ and $x = b$.
-    But this works analogously with one-sided limits.
-
-    Direction $\Leftarrow$:
-    Let $f = \lim_{n\to\infty} \varphi_n$ uniform on $[a,b]$.
-    Show that $\forall x \in [a,b)$ there exists a right-sided limit of $f$ in $x$.
-
-    Let $\varepsilon > 0$ be arbitrary. $N \in \mathbb N$ sufficiently large such that
-    $\card{f(\xi) - \varphi_N(\xi)} < \frac\varepsilon2 \forall \xi \in [a,b]$.
-    $\varphi_N$ is piecewise constant. Choose $\delta > 0$ such that
-    $\varphi_N|_{(x, x+\delta)} = c$.
-    Now let $\xi, \eta \in (x, x+\delta)$ be chosen arbitrarily.
-    Then it holds that
-    \[
-      \card{f(\xi) - f(\eta)} \leq \card{f(\xi) - \underbrace{c}_{= \varphi_N(\xi)}} + \card{\underbrace{c}_{= \varphi_N(\eta)} - f(\eta)}
-    \] \[
-      = \card{\underbrace{f(\xi) - \varphi_N(\xi)}_{< \frac\varepsilon2}} + \card{\underbrace{\varphi_N(\eta) - f(\eta)}_{< \frac\varepsilon2}} < \varepsilon
-    \]
-    Therefore $f$ has a right-sided limit in $x$ by the Cauchy criterion.
-    $f$ has left-sided limit in every point $x \in (a, b]$ analogously.
-\end{enumerate}
 
 \begin{corollary}
   Every regulated function $f \in \mathcal R[a,b]$ is bounded.
@@ -1749,22 +1784,20 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
   Let $f \in \mathcal R[a,b] \iff f = \sum_{j=0}^\infty \psi_j$ with $\psi_j \in \tau[a,b]$ and the series converges uniformly on $[a,b]$.
 \end{corollary}
 
-\begin{proof}
-  Direction $\impliedby$.
-
-  Let $f = \sum_{j=0}^\infty \psi_j$ with uniform convergence.
-  Let $\varphi_n = \sum_{j=0}^\infty \psi_j \in \tau[a,b]$ and $f = \lim_{n\to\infty} \phi_n$ uniform on $[a,b] \underbrace{\implies}_{\text{Satz~1?!}} f \in \mathcal R[a,b]$. % TODO Satz 1
-
-  Direction $\implies$.
-
-  Let $f \in \mathcal R[a,b]$ and $f = \lim_{n\to\infty} \varphi_n$ with $\varphi_n \in \tau[a,b]$ (by Satz~1?!).
-
-  \begin{align*}
-    \psi_0 &= \varphi_0 \\
-    \psi_j &= \varphi_j - \varphi_{j-1} \qquad \text{ for } j \geq 1 \\
-    \sum_{j=0}^n \psi_j &= \varphi_0 + \sum_{j=1}^n (\varphi_j - \varphi_{j-1}) = \varphi_0 + \sum_{j=1}^n \varphi_j - \sum_{j=0}^{n-1} \varphi_j = \varphi_n
-  \end{align*}
-  converges uniformly to $f$.
+\begin{proof}\hfill{}
+  \begin{description}
+    \item[Direction $\impliedby$.]
+      Let $f = \sum_{j=0}^\infty \psi_j$ with uniform convergence.
+      Let $\varphi_n = \sum_{j=0}^\infty \psi_j \in \tau[a,b]$ and $f = \lim_{n\to\infty} \phi_n$ uniform on $[a,b] \xRightarrow{Theorem~\ref{approxthmreg}} f \in \mathcal R[a,b]$.
+    \item[Direction $\implies$.]
+      Let $f \in \mathcal R[a,b]$ and $f = \lim_{n\to\infty} \varphi_n$ with $\varphi_n \in \tau[a,b]$ (by Theorem~\ref{approxthmreg}).
+      \begin{align*}
+        \psi_0 &= \varphi_0 \\
+        \psi_j &= \varphi_j - \varphi_{j-1} \qquad \text{ for } j \geq 1 \\
+        \sum_{j=0}^n \psi_j &= \varphi_0 + \sum_{j=1}^n (\varphi_j - \varphi_{j-1}) = \varphi_0 + \sum_{j=1}^n \varphi_j - \sum_{j=0}^{n-1} \varphi_j = \varphi_n
+      \end{align*}
+      converges uniformly to $f$.
+  \end{description}
 \end{proof}
 
 \section{Integration of regulated functions}
@@ -1844,117 +1877,113 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
       \[ \card{\int_a^b f \, dx} \leq \int_a^b \card{f} \, dx \]
   \end{description}
 \end{theorem}
-\begin{proof}
-  We prove linearity.
+\begin{proof}\hfill{}
+  \begin{description}
+    \item[Linearity.] 
+      Let $x \in [a,b)$ and $c_+ = \lim_{\xi \to x_+} f(\xi)$ as well as $d_+ = \lim_{\xi \to x_+} g(\xi)$
+      ($f,g \in \mathcal R[a,b]$). Then it holds that
+      \[
+        \lim_{\xi \to x^+} (\lambda f(\xi) + \mu g(\xi))
+          = \lambda \lim_{\xi \to x^+} f(\xi) + \mu \lim_{\xi \to x^+} g(\xi)
+          = \lambda c_+ + \mu d_+
+      \]
+      exists. Analogously for the left side, hence $\lambda f + \mu g \in \mathcal R[a,b]$.
 
-  Let $x \in [a,b)$ and $c_+ = \lim_{\xi \to x_+} f(\xi)$ as well as $d_+ = \lim_{\xi \to x_+} g(\xi)$
-  ($f,g \in \mathcal R[a,b]$). Then it holds that
-  \[
-    \lim_{\xi \to x^+} (\lambda f(\xi) + \mu g(\xi))
-      = \lambda \lim_{\xi \to x^+} f(\xi) + \mu \lim_{\xi \to x^+} g(\xi)
-      = \lambda c_+ + \mu d_+
-  \]
-  exists. Analogously for the left side, hence $\lambda f + \mu g \in \mathcal R[a,b]$.
+      \begin{claim}
+        Let $\varphi_n, \Phi_n \in \tau[a,b]$ with $\varphi_n \to f$ and $\Phi_n \to g$ is uniform on $[a,b]$.
+        Hence $\lambda \varphi_n + \mu \Phi_n \to \lambda f + \mu g$ is continuous on $[a,b]$.
+      \end{claim}
 
-  Let $\varphi_n, \Phi_n \in \tau[a,b]$ with $\varphi_n \to f$ and $\Phi_n \to g$ is uniform on $[a,b]$.
-  Hence $\lambda \varphi_n + \mu \Phi_n \to \lambda f + \mu g$ is continuous on $[a,b]$.
+      \begin{proof}
+        Let $\varepsilon > 0$ be arbitrary,
+        $N$ such that $n \geq N \implies \norm{\varphi_n - f}_{\infty} < \frac{\varepsilon}{2(\card{\lambda} + 1)}$
+        and $M$ such that $n \geq M \implies \norm{\Phi_n - g}_{\infty} < \frac{\varepsilon}{2(\card{\mu} + 1)}$.
 
-  Proof of this:
+        Then it holds that
+        \[
+          \norm{\lambda \varphi_n + \mu \Phi_n - \lambda f - \mu g}_{\infty}
+            \leq \card{\lambda} \norm{\varphi_n - f}_{\infty}
+            + \card{\mu} \norm{\Phi_n - g}_{\infty}
+        \] \[
+            < \frac{\card{\lambda}}{2(\card{\lambda} + 1)} \cdot \varepsilon + \frac{\card{\mu}}{2(\card{\mu} + 1)} \cdot \varepsilon
+            < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon
+        \]
+      \end{proof}
 
-  Let $\varepsilon > 0$ be arbitrary,
-  $N$ such that $n \geq N \implies \norm{\varphi_n - f}_{\infty} < \frac{\varepsilon}{2(\card{\lambda} + 1)}$
-  and $M$ such that $n \geq M \implies \norm{\Phi_n - g}_{\infty} < \frac{\varepsilon}{2(\card{\mu} + 1)}$.
+      We continue:
+      \[
+        \int_a^b (\lambda f + \mu g) \, dx = \lim_{n\to\infty} \int_a^b \left(\lambda \varphi_n + \mu \Phi_n\right) \, dx
+          = \lim_{n\to\infty} \left(\lambda \int_a^b \varphi_n \, dx + \mu \int_a^b \Phi_n \, dx\right)
+      \] \[
+        = \lambda \underbrace{\lim_{n\to\infty} \int_a^b \varphi_n \, dx}_{\text{exists}}
+        + \mu \underbrace{\lim_{n\to\infty} \int_a^b \Phi_n \, dx}_{\text{exists}}
+        = \lambda \int_a^b f \, dx + \mu \int_a^b g \, dx
+      \]
+    \item[Monotonicity.]
+      Show: Let $h \in \mathcal R[a,b]$ with $h \geq 0$ in $[a,b]$.
+      Then it holds that $\int_a^b h \, dx \geq 0$.
 
-  Then it holds that
-  \[
-    \norm{\lambda \varphi_n + \mu \Phi_n - \lambda f - \mu g}_{\infty}
-      \leq \card{\lambda} \norm{\varphi_n - f}_{\infty}
-      + \card{\mu} \norm{\Phi_n - g}_{\infty}
-  \] \[
-      < \frac{\card{\lambda}}{2(\card{\lambda} + 1)} \cdot \varepsilon + \frac{\card{\mu}}{2(\card{\mu} + 1)} \cdot \varepsilon
-      < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon
-  \]
+      \begin{claim}
+        There exists $(\tilde \varphi_n)_{n\in\mathbb N}$ with $\tilde \varphi_n \to h$ uniform on $[a,b]$
+        and $\tilde \varphi_n \geq 0$.
+      \end{claim}
 
-  We continue:
-  \[
-    \int_a^b (\lambda f + \mu g) \, dx = \lim_{n\to\infty} \int_a^b (\lambda \varphi_n + \mu \Phi_n) \, dx
-      = \lim_{n\to\infty} (\lambda \int_a^b \varphi_n \, dx + \mu \int_a^b \Phi_n \, dx)
-  \] \[
-    = \lambda \underbrace{\lim_{n\to\infty} \int_a^b \varphi_n \, dx}_{\text{exists}}
-    + \mu \underbrace{\lim_{n\to\infty} \int_a^b \Phi_n \, dx}_{\text{exists}}
-  \] \[
-    = \lambda \int_a^b f \, dx + \mu \int_a^b g \, dx
-  \]
+      \begin{proof}
+        Let $(\varphi_n)_{n\in\mathbb N}$, $\varphi_n \in \tau[a,b]$ with $\varphi_n \to h$ uniform on $[a,b]$.
+        We define $\tilde\varphi_n$ such that
+        \[ \varphi_n = \sum_{j=1}^{m_n} c_j \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^{m_n} d_j \chi_{\set{x_j}} \]
+        \[ \tilde\varphi_n \coloneqq \sum_{j=1}^{m_n} \underbrace{\tilde c_{j}}_{\geq 0} \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^{m_n} \underbrace{h(x_j)}_{\geq 0} \chi_{\set{x_j}} \]
+        and $\tilde c_j \coloneqq \max{c_j, 0} \geq 0$.
+        So it holds that $\tilde \varphi_n \geq 0$.
 
-  We prove monotonicity.
+        For $x = x_l$ ($l \in \set{0, \dots, m_n}$) it holds that
+        \[
+          \card{\tilde \varphi_n(x_l) - h(x_l)}
+            = \card{\sum_{j=1}^{m_n} \tilde c_j \underbrace{\chi_{(x_{j-1}, x_j)}(x_l)}_{=0 \text{ bc. } x_l \not\in (x_{j-1}, x_j)} + \sum_{j=0}^{m_n} h(x_j) \underbrace{\chi_{\set{x_j}}(x_l)}_{= \delta_{j,l}} - h(x_l)}
+        \] \[
+          = \card{h(x_l) - h(x_l)} = 0 \leq \card{\varphi_n(x_l) - h(x_l)}
+        \]
+        For $x \in (x_{j-1}, x_j)$ it holds that
+        \[
+          \card{\tilde\varphi_n(x) - h(x)}
+            = \card{\sum_{j=1}^{m_n} \tilde c_j \underbrace{\chi_{(x_{j-1}, x_j)}(x)}_{\delta_{l,j}} + \sum_{j=0}^{m_n} h(x) \cdot \underbrace{\chi_{\set{x_j}}(x)}_{=0 \text{ bc. } x \neq x_j} - h(x)}
+        \] \[
+          = \card{\tilde c_l - h(x)}
+          = \begin{cases}
+            \card{c_l - h(x)} & \text{ if } c_l \geq 0 \\
+            \card{h(x)} = h(x) & \text{ if } c_l < 0
+          \end{cases}
+        \] \[
+          \leq \begin{cases}
+            \card{c_l - h(x)} & \text{ if } c_l \geq 0 \\
+            h(x) - c_l & \text{ if } c_l < 0
+          \end{cases}
+        \] \[
+          = \begin{cases}
+            \card{\varphi_n(x) - h(x)} & \text{ if } c_l = \varphi_n(x) \geq 0 \\
+            \card{h(x) - \varphi_n(x)} & \text{ if } c_l = \varphi_n(x) < 0
+          \end{cases}
+        \] \[
+          = \card{\varphi_n(x) - h(x)}
+        \]
+        hence, $\card{\tilde\varphi_n(x) - h(x)} \leq \card{\varphi_n(x) - h(x)}$
+        for $x \in (x_{l-1}, x_l)$ as well as $x = x_i$,
+        hence
+        \[ \norm{\tilde\varphi_n - h}_{\infty} \leq \underbrace{\norm{\varphi_n - h}_{\infty}}_{\to 0 \text{ for } n \to \infty} \]
+        Hence $\norm{\tilde\varphi_n - h}_{\infty} \to 0$ for $n \to \infty$, hence $\tilde\varphi_n$ converges uniformly to $h$.
+        There exists
+        \[ \int_a^b h \, dx = \lim_{n\to\infty} \underbrace{\int_a^b \underbrace{\tilde\varphi_n}_{\geq 0} \, dx}_{\geq 0} \geq 0 \]
+      \end{proof}
 
-  Show: Let $h \in \mathcal R[a,b]$ with $h \geq 0$ in $[a,b]$.
-  Then it holds that $\int_a^b h \, dx \geq 0$.
-
-  We will show that $(\tilde \varphi_n)_{n\in\mathbb N}$ exists with $\tilde \varphi_n \to h$ uniform on $[a,b]$
-  and $\tilde \varphi_n \geq 0$.
-
-  Therefore we prove:
-  Let $(\varphi_n)_{n\in\mathbb N}$, $\varphi_n \in \tau[a,b]$ with $\varphi_n \to h$ uniform on $[a,b]$.
-
-  Define $\tilde\varphi_n$ such that
-  \[ \varphi_n = \sum_{j=1}^{m_n} c_j \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^{m_n} d_j \chi_{\set{x_j}} \]
-  Let
-  \[ \tilde\varphi_n = \sum_{j=1}^{m_n} \underbrace{\tilde c_{j}}_{\geq 0} \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^{m_n} \underbrace{h(x_j)}_{\geq 0} \chi_{\set{x_j}} \]
-  and $\tilde c_j \coloneqq \max{c_j, 0} \geq 0$.
-  So it holds that $\tilde \varphi_n \geq 0$.
-
-  For $x = x_l$ ($l \in \set{0, \dots, m_n}$) it holds that
-  \[
-    \card{\tilde \varphi_n(x_l) - h(x_l)}
-      = \card{\sum_{j=1}^{m_n} \tilde c_j \underbrace{\chi_{(x_{j-1}, x_j)}(x_l)}_{=0 \text{ bc. } x_l \not\in (x_{j-1}, x_j)} + \sum_{j=0}^{m_n} h(x_j) \underbrace{\chi_{\set{x_j}}(x_l)}_{= \delta_{j,l}} - h(x_l)}
-  \] \[
-    = \card{h(x_l) - h(x_l)} = 0 \leq \card{\varphi_n(x_l) - h(x_l)}
-  \]
-  For $x \in (x_{j-1}, x_j)$ it holds that
-  \[
-    \card{\tilde\varphi_n(x) - h(x)}
-      = \card{\sum_{j=1}^{m_n} \tilde c_j \underbrace{\chi_{(x_{j-1}, x_j)}(x)}_{\delta_{l,j}} + \sum_{j=0}^{m_n} h(x) \cdot \underbrace{\chi_{\set{x_j}}(x)}_{=0 \text{ bc. } x \neq x_j} - h(x)}
-  \] \[
-    = \card{\tilde c_l - h(x)}
-    = \begin{cases}
-      \card{c_l - h(x)} & \text{ if } c_l \geq 0 \\
-      \card{h(x)} = h(x) & \text{ if } c_l < 0
-    \end{cases}
-  \] \[
-    \leq \begin{cases}
-      \card{c_l - h(x)} & \text{ if } c_l \geq 0 \\
-      h(x) - c_l & \text{ if } c_l < 0
-    \end{cases}
-  \] \[
-    = \begin{cases}
-      \card{\varphi_n(x) - h(x)} & \text{ if } c_l = \varphi_n(x) \geq 0 \\
-      \card{h(x) - \varphi_n(x)} & \text{ if } c_l = \varphi_n(x) < 0
-    \end{cases}
-  \] \[
-    = \card{\varphi_n(x) - h(x)}
-  \]
-  hence, $\card{\tilde\varphi_n(x) - h(x)} \leq \card{\varphi_n(x) - h(x)}$
-  for $x \in (x_{l-1}, x_l)$ as well as $x = x_i$,
-  hence
-  \[ \norm{\tilde\varphi_n - h}_{\infty} \leq \underbrace{\norm{\varphi_n - h}_{\infty}}_{\to 0 \text{ for } n \to \infty} \]
-  Hence $\norm{\tilde\varphi_n - h}_{\infty} \to 0$ for $n \to \infty$, hence $\tilde\varphi_n$ converges uniformly to $h$.
-  There exists
-  \[ \int_a^b h \, dx = \lim_{n\to\infty} \underbrace{\int_a^b \underbrace{\tilde\varphi_n}_{\geq 0} \, dx}_{\geq 0} \geq 0 \]
-  Monotonicity: Let $f \leq g$ in $[a,b]$, hence $h = g - f \geq 0$ in $[a,b]$
-  \[ \implies 0 \leq \int_a^b h \, dx = \int_a^b g \, dx - \int_a^b f \, dx \]
-  \[ \implies \int_a^b f \, dx \leq \int_a^b g \, dx \]
-
-  And finally, boundedness is left.
-
-  Consider $\card{f} \in \mathbb R[a,b]$. Proving this is left as an exercise.
-  $f \leq \card{f}$ in $[a,b] \implies \int_a^b f \, dx \leq \int_a^b \card{f} \, dx$.
-
-  TODO
-
-  \[ -f \leq \card{f} \text{ in } [a,b] \implies \int_a^b (-f) \, dx = -\int_a^b f \, dx \leq \int_a^b \card{f} \, dx
-    \implies \card{\int_a^b f \, dx} TODO
-  \]
+      To show monotonicity, we let $f \leq g$ in $[a,b]$, hence $h = g - f \geq 0$ in $[a,b]$
+      \[ \implies 0 \leq \int_a^b h \, dx = \int_a^b g \, dx - \int_a^b f \, dx \]
+      \[ \implies \int_a^b f \, dx \leq \int_a^b g \, dx \]
+    \item[Boundedness.]
+      Consider $\card{f}$. Proving $\card{f} \in \mathbb R[a,b]$ is left as an exercise to the reader.
+      \[ f \leq \card{f} \text{ on } [a,b] \xRightarrow{\text{monotonicity}} \int_a^b f \, dx \leq \int_a^b \card{f} \, dx \]
+      \[ -f \leq \card{f} \text{ on } [a,b] \xRightarrow{\text{monotonicity}} \int_a^b (-f) \, dx = -\int_a^b f \, dx \leq \int_a^b \card{f} \, dx \]
+      \[ \implies \card{\int_a^b f \, dx} \leq \int_a^b \card{f} \, dx \]
+  \end{description}
 \end{proof}
 
 \begin{remark}
@@ -2014,10 +2043,8 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
 \begin{proof}
   Show that this statement holds for $\varphi \in \tau[a,b]$.
   Without loss of generality, $\alpha = a, \gamma = b$.
-  \[
-    \gamma = \sum_{j=1}^m c_j \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^m \underbrace{0}_{\text{it does not matter for the integral}} \cdot \chi_{x_j}
-  \]
-  % TODO insert image 18_step.pdf, not sure where the proper place is
+  \[ \gamma = \sum_{j=1}^m c_j \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^m 0 \cdot \chi_{x_j} \]
+  The zero represents that this term is not relevant for the integral in any way.
   \begin{description}
     \item[Case 1] 
       $\beta = x_l$ for some $l \in \set{1, \dots, m-1}$
@@ -2025,19 +2052,29 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
       \[ \int_{\alpha}^\beta \varphi \, dx = \int_{\alpha}^{x_l} \varphi \, dx = \sum_{j=1}^l c_j (x_j - x_{j-1}) \]
       \[ \int_{\beta}^\gamma \varphi \, dx = \int_{x_l}^{\gamma} \varphi \, dx = \sum_{j=l+1}^m c_j (x_j - x_{j-1}) \]
       And now,
-      \[ \sum_{j=l+1}^m c_j (x_j - x_{j-1}) + \sum_{j=1}^l c_j (x_j - x_{j-1}) = \sum_{j=1}^m c_j (x_j - x_{j-1}) \]
+      \[ \sum_{j=1}^l c_j (x_j - x_{j-1}) + \sum_{j=l+1}^m c_j (x_j - x_{j-1}) = \sum_{j=1}^m c_j (x_j - x_{j-1}) \]
     \item[Case 2]
-      $\beta \in (x_{l-1}, x_l)$ for some $l \in \set{1, \ldots, m}$.
-      \[ \int_\beta^\gamma \varphi \,dx = c_l(x_l - \beta)+ \sum_{j=l+1}^m c_j (x_j - x_{j-1}) \]
-      \[ \int_{\alpha}^\beta \varphi \,dx + \int_\beta^\gamma \varphi \,dx = \sum_{j=1}^{l-1} c_j (x_j - x_{j-1}) \]
-      \[ + c_l(\beta - x_{l-1}) + c_l (x_l - \beta) + \sum_{j=l+1}^m c_j(x_j - x_{j-1}) \]
-      \[ = \sum_{j=1}^m c_j(x_j - x_{j-1}) = \int_{\alpha}^\gamma \varphi \, dx \]
-      TODO verify previous lines
-      Let $\varphi_n \in \tau[\alpha,\beta]$ with $\varphi_n \to f$ uniform on $[\alpha, \beta] \implies \varphi_n|_{[\alpha,\beta]} \to f|_{[\alpha,\beta]}$ uniform on $[\alpha,\beta]$ and also $\varphi_n|_{[\beta,\gamma]} \to f|_{[\beta,\gamma]}$ uniform on $[\beta,\gamma]$.
-      \[ \int_{\alpha}^\gamma f \, dx = \lim_{n\to\infty} \int_{\alpha}^\gamma \varphi_n \, dx = \lim_{n\to\infty} (\int_{\alpha}^\beta \varphi_n \, dx + \int_{\beta}^\gamma \varphi_n \, dx) \]
+      $\beta \in (x_{l-1}, x_l)$ for some $l \in \set{1, \ldots, m}$. Compare with Figure~\ref{img:step18}.
+      \begin{figure}[t]
+        \begin{center}
+          \includegraphics{img/18_step.pdf}
+          \caption{Setting for $\beta \in (x_{l-1}, x_l)$}
+          \label{img:step18}
+        \end{center}
+      \end{figure}
+      \[ \int_\alpha^\beta \varphi \, dx = \sum_{j=1}^{l-1} c_j (x_j - x_{j-1}) + c_l \cdot (\beta - x_{l-1}) \]
+      \[ \int_\beta^\gamma \varphi \, dx = c_l(x_l - \beta)+ \sum_{j=l+1}^m c_j (x_j - x_{j-1}) \]
+      Now we consider the addition of these two expressions:
       \[
-        = \underbrace{\lim_{n\to\infty} \int_{\alpha}^\beta \varphi_n \, dx}_{\text{exists because } \varphi_n|_{[\alpha,\beta]} \to f|_{[\alpha,\beta]} \text{uniform}} + \lim_{n\to\infty} \int_{\beta}^\gamma \varphi_n \, dx
+        \int_{\alpha}^\beta \varphi \,dx + \int_\beta^\gamma \varphi \,dx
       \] \[
+        = \sum_{j=1}^{l-1} c_j (x_j - x_{j-1}) + \underbrace{c_l(\beta - x_{l-1}) + c_l (x_l - \beta)}_{= c_l (x_l - x_{l-1})} + \sum_{j=l+1}^m c_j(x_j - x_{j-1})
+      \]
+      \[ = \sum_{j=1}^m c_j(x_j - x_{j-1}) = \int_{\alpha}^\gamma \varphi \, dx \]
+      Let $\varphi_n \in \tau[\alpha,\beta]$ with $\varphi_n \to f$ uniform on $[\alpha, \beta] \implies \varphi_n|_{[\alpha,\beta]} \to f|_{[\alpha,\beta]}$ uniform on $[\alpha,\beta]$ and also $\varphi_n|_{[\beta,\gamma]} \to f|_{[\beta,\gamma]}$ uniform on $[\beta,\gamma]$.
+      \[ \int_{\alpha}^\gamma f \, dx = \lim_{n\to\infty} \int_{\alpha}^\gamma \varphi_n \, dx = \lim_{n\to\infty} \left(\int_{\alpha}^\beta \varphi_n \, dx + \int_{\beta}^\gamma \varphi_n \, dx\right) \]
+      \[
+        = \underbrace{\lim_{n\to\infty} \int_{\alpha}^\beta \varphi_n \, dx}_{\substack{\text{exists because } \\ \varphi_n|_{[\alpha,\beta]} \to f|_{[\alpha,\beta]} \text{uniform}}} + \lim_{n\to\infty} \int_{\beta}^\gamma \varphi_n \, dx
         = \int_{\alpha}^\beta f \, dx + \int_{\beta}^\gamma f \, dx
       \]
   \end{description}
@@ -2206,19 +2243,23 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
   pronounced the same way from measure theory.
 \end{remark}
 \begin{proof}
-  Let $x_1, x_2 \in [a,b]$, wlog. $x_1 < x_2$.
+  Let $x_1, x_2 \in [a,b]$, without loss of generality: $x_1 < x_2$.
   Let $\varepsilon > 0$ be arbitrary. We define
   \[ F_{\varepsilon}(x) = \card{f(x) - f(x_1)} - (L + \varepsilon)(x - x_1) \]
   for $x \in [x_1, b]$.
 
   Let $\varepsilon > 0$ be arbitrary.
-  We prove: $F_{\varepsilon}(x) \leq 0 \forall x \in [x_1, b]$. In particular: $F_{\varepsilon}(x_2) \leq 0$.
-  Hence,
+  We prove: $F_{\varepsilon}(x) \leq 0 \forall x \in [x_1, b]$.
+  In particular: $F_{\varepsilon}(x_2) \leq 0$. Hence,
   \[ \card{f(x_2) - f(x_1)} \leq (L + \varepsilon)\underbrace{(x_2 - x_1)}_{\card{x_2 - x_1}} \]
 
   We prove by contradiction:
   Assume there exists $\varepsilon > 0$ and $x_{\varepsilon} > x_1$
-  such that $F_{\varepsilon}(x_{\varepsilon}) > 0$.
+  such that
+  \begin{align}
+    F_{\varepsilon}(x_{\varepsilon}) = \eta > 0
+    \label{hash}
+  \end{align}
 
   We recognize:
   Let $A' = [x_1, b] \cap A$ be countable.
@@ -2226,14 +2267,13 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
     \item hence $F_{\varepsilon}(A') \subseteq \mathbb R$ is countable
     \item $F_{\varepsilon}(x_1) = 0$, $F_{\varepsilon}(x_{\varepsilon}) > 0 \implies x_{\varepsilon} > x_1$
     \item $F_{\varepsilon}$ is continuous on $[x_1, b]$.
-      It holds that $0 \in F_{\varepsilon}([x_1, x_{\varepsilon}])$ and because $0 = F_{\varepsilon}(x_1)$
-      and $\varepsilon \in F_{\varepsilon}([x_1, x_{\varepsilon}])$ because $\varepsilon = F_{\varepsilon}(x_{\varepsilon})$.
+      It holds that $0 \in F_{\varepsilon}([x_1, x_{\varepsilon}])$ because $0 = F_{\varepsilon}(x_1)$
+      and $\eta \in F_{\varepsilon}([x_1, x_{\varepsilon}])$ because $\eta = F_{\varepsilon}(x_{\varepsilon})$.
 
-      By the Intermediate Value Theorem, it follows that $[0, \varepsilon] \subseteq $ TODO
-      By the Intermediate Value Theorem, it follows that $\underbrace{[0, \eta]}_{\text{uncountable}} \subseteq F_{\varepsilon}([x_1, x_{\varepsilon}])$.
-      $F_{\varepsilon}(A')$ is countable, hence there exists $\gamma \in (0, \eta]$ such that $\gamma = F_{\varepsilon}(y)$ and $\gamma \not\in A'$ ($\gamma > 0$) \footnote{remember this as reference (*)}.
+      By the Intermediate Value Theorem, it follows that $[0, \eta] \subseteq F_{\varepsilon}([x_1, x_{\varepsilon}])$ where $[0, \eta]$ is uncountable.
+      $F_{\varepsilon}(A')$ is countable, hence there exists $\gamma \in (0, \eta]$ such that $\gamma = F_{\varepsilon}(y)$ and $\gamma \not\in A'$ ($\gamma > 0$); compare with inequality~\eqref{hash}.
       Hence, $y \not\in A'$. So $f$ in $y$ is differentiable.
-      Let $B \coloneqq F_{\varepsilon}^{-1}(\set{\gamma}) \cap \left([x_1, x_{\varepsilon}] \setminus A'\right)$.
+      Let $B \coloneqq F_{\varepsilon}^{-1}(\set{\gamma}) \cap \left([x_1, x_{\varepsilon}] \setminus A'\right)$, where we can skip $A'$.
       Then $B \neq \emptyset$.
 
       $B \subseteq [x_1, x_{\varepsilon}]$ is therefore bounded, $B \neq 0$.
@@ -2254,7 +2294,7 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
         \varphi(y) &= \frac{F_{\varepsilon}(y) - F_{\varepsilon}(x)}{y - x} \\
           &\underbrace{=}_{\substack{\text{definition of} \\ F_{\varepsilon}}}
           \frac{\card{f(y) - f(x_1)} - \card{f(x) - f(x_1)}}{y - x} - \frac{(L + \varepsilon)(y - x_1 - x + x_1)}{y - x} \\
-          &\underbrace{\leq}_{\text{inversed triangle ineq.}} \frac{f(y) - f(x)}{y - x} - (L + \varepsilon)
+          &\underbrace{\leq}_{\text{reversed triangle ineq.}} \frac{f(y) - f(x)}{y - x} - (L + \varepsilon)
       \end{align*}
       Because $F_{\varepsilon}(y) > \gamma = F_{\varepsilon}(x)$ it holds that $\varphi(y) > 0$ for $y > x$.
       So,
@@ -2262,7 +2302,7 @@ Let $X \in \bigcap_{n \in \mathbb N} [a_n, b_n]$ (by completeness of $\mathbb R$
       \[ \card{f'(x)} = \lim_{y \to x_+} \card{\frac{f(y) - f(x)}{y - x}} \geq L + \varepsilon \]
       This contradicts with the boundedness of the derivative by $L$ and $f$ is in $x \not\in A$ differentiable.
 
-      So, equations~\ref{ftdi} do not hold. Therefore $\forall x_1, x_2$ with $x_1 < x_2$ in $[a,b]$ and $\forall \varepsilon > 0$,
+      So, inequality~\eqref{hash} does not hold. Therefore $\forall x_1, x_2$ with $x_1 < x_2$ in $[a,b]$ and $\forall \varepsilon > 0$,
       \[ \card{f(x_2) - f(x_1)} \leq (L + \varepsilon)\card{x_2 - x_1} \]
       \[ \implies \card{f(x_2) - f(x_1)} \leq L \card{x_2 - x_1} \]
   \end{enumerate}
@@ -2585,20 +2625,19 @@ Usually they are composites of basic functions. Some of these are given in Table
 
   Proof of this: Let $\varepsilon > 0$ be arbitrary. Then there exists $\delta > 0$ such that
   $\forall \xi \in (x, x + \delta)$: $\card{f(\xi) - f_+(x)} < \frac\varepsilon2$.
-  Now let $z \in (x, x + \delta)$ be arbitrary chosen. For $z$ there exists $\xi \in (z, x + \delta)$.
+  Now let $z \in (x, x + \delta)$ be arbitrary chosen. For $z$ there exists $\xi \in (z, x + \delta)$ because $f_+(z)$ exists.
+  Compare with Figure~\ref{img:xz}.
 
   \begin{figure}[t]
     \begin{center}
       \includegraphics{img/20_x_z.pdf}
-      \caption{$x$ and $z$}
+      \caption{$\xi$ must be sufficiently close enough to $z$ such that $\card{f(\xi) - f_+(z)} \leq \frac\varepsilon2$.}
       \label{img:xz}
     \end{center}
   \end{figure}
 
-  $\xi$ sufficiently close enough to $z$ such that $\card{f(\xi) - f_+(z)} \leq \frac\varepsilon2$ because $f_+(z)$ exists.
-
   \[ \card{f_+(z) - f_+(x)} \leq \card{f_+(z) - f(\xi)} + \card{f(\xi) - f_+(x)} < \frac\varepsilon2 + \frac\varepsilon2 \]
-  TODO some content missing here
+  so $f_+(x) = \lim_{z \to x_+} f_+(z)$.
 
   It remains to show: $f_+$ has left-sided limits.
   Let $x \in (a,b]$ be arbitrary and $f_-(x) = \lim_{\xi \to x_-} f(\xi)$. We show: $f_-(x) = \lim_{\xi \to x_-} f_+(x)$ (again: the plus is important).
@@ -2664,7 +2703,14 @@ Standard examples will follow:
   Let $s > 1$.
   \[ \int_1^\infty x^{-s} \, dx = \lim_{\beta \to \infty} \int_1^\beta x^{-s} \, dx = \left.\lim_{\beta \to \infty} \left(\frac{1}{-s + 1} x^{-s+1}\right) \right|_1^\beta \]
   \[ = \frac1{1 - s} \cdot \underbrace{\lim_{\beta \to \infty} \frac{1}{\beta^{\underbrace{s-1}_{> 0}}}}_{= 0} - \frac{1}{1 - s} \cdot 1 = \frac{1}{s-1} \]
-  TODO drawing
+  Compare with Figure~\ref{img:xs}.
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/21b_1_by_xs.pdf}
+      \caption{The function $\frac{1}{x^s}$ for $s > 1$}
+      \label{img:xs}
+    \end{center}
+  \end{figure}
 \end{example}
 
 \begin{example}
@@ -2675,7 +2721,14 @@ Standard examples will follow:
   \] \[
     = \frac1{1 - s} - \frac1{1 - s} \cdot \underbrace{\lim_{\alpha \to 0} \alpha^{\overbrace{1 - s}^{> 0}}}_{= 0} = \frac1{1 - s}
   \]
-  TODO drawing
+  Compare with Figure~\ref{img:xs1}.
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/21b_1_by_xs.pdf}
+      \caption{The function ${x^s}$ for $s < 1$}
+      \label{img:xs1}
+    \end{center}
+  \end{figure}
 
   For $s = 1$, neither $\int_0^1 \frac1x \, dx$ nor $\int_1^\infty \frac1x \, dx$ exists.
 \end{example}
@@ -2762,9 +2815,18 @@ Standard examples will follow:
 
 \dateref{2018/04/26}
 
-TODO I missed the first 15 minutes
+Euler's $\Gamma$-function exists for all $x > 0$:
+\[ \int_0^1 t^{x-1} e^{-t} \,dt \]
+for $0 < x \leq 1$:
+\[ t^{x-1} \cdot \underbrace{e^{-t}}_{\leq 1} \leq t^{x-1} \text{ and } \underbrace{\int_0^1 t^{\overbrace{x-1}^{\in (-1,0]}} \, dt}_{\text{exists}} \]
+also exists $\int_0^1 t^{x-1} e^{-t} \, dt$ because of the direct comparison criterion.
+For $x \geq 1$, $t^{x-1} e^{-t}$ is continuous on $[0,1]$, hence $\int_0^1 t^{x-1} e^{-t} \, dt$ exists.
 
-Proof of this:
+\begin{claim}
+  Let $x > 0$ be fixed. $\exists c > 0$ such that
+  \[ t^{x-1} e^{-t} \leq c \cdot e^{-\frac t2} \forall t \in [0,\infty) \]
+\end{claim}
+
 \begin{proof}
   \[ \lim_{t\to\infty} \underbrace{t^{x-1}}_{\text{polynomially in } t} \cdot \underbrace{e^{-t}}_{\text{exponentially } \to 0} = 0 \]
   Also there exists $L > 1$, such that $\forall x > L$ it holds that $t^{x-1} e^{-t/2} < 1$ on $[1,L]$ (which is a compact interval) continuous.
@@ -3574,6 +3636,8 @@ Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
   \item $\forall \varphi, \psi \in \mathcal L(V, W)$ it holds that $\norm{\varphi + \psi} \leq \norm{\varphi} + \norm{\psi}$.
 \end{enumerate}
 
+\subsection{Frobenius and matrix norm}
+
 \index{Frobenius norm}
 \index{Matrix norm}
 \begin{example}
@@ -3582,8 +3646,10 @@ Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
   \[ A \in \mathbb R^{n \times m} \qquad A = (a_{ij})_{\substack{i=1,\dots,n \\ j=1,\dots,m}} \]
   \[ \norm{A}_F = \left(\sum_{i=1}^n \sum_{j=1}^m \card{a_{ij}}^2\right)^{\frac12} \qquad \text{\enquote{Forbenius norm}} \]
   It basically works by appending the next column to the previous one. Hence, this gives a column vector. We square every entries, sum it up and take its square root (a common norm procedure).
-  A norm on $\mathbb R^{n \times m}$ is called \emph{matrix norm} ($\mathbb C^{n \times m}$).
+  A norm on $\mathbb R^{n \times m}$ (a matrix) is called \emph{matrix norm} ($\mathbb C^{n \times m}$).
 \end{example}
+
+\subsection{Operator norm and bounded linear operators}
 
 \index{Operator norm}
 \begin{definition} % Definition 1
@@ -3715,6 +3781,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   for which the boundedness criterion holds, it follows that $\norm{BA} \leq \norm B \norm A$.
 \end{proof}
 
+\subsection{Landau notation}
 % TODO on the date 2018/05/17, I might have mixed up big-o and small-o notation. Review required
 \begin{definition}[Landau $\mathbb O$ symbols] % Definition 2
   Let $h, g: D \subseteq \mathbb R^n \to \mathbb R$, $D$ is open, $a \in D$.
@@ -3733,6 +3800,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \end{enumerate}
 \end{definition}
 
+\subsection{Multidimensional derivative of a function}
 \begin{definition}[Definition of the derivative of a function]
   \[ f: D \subseteq \mathbb R^m \to \mathbb R^n \qquad D \text{ is open}, x_0 \in D \]
   \[ f(x) = \begin{bmatrix} f_1(x) \\ f_2(x) \\ \vdots \\ f_n(x) \end{bmatrix} \in \mathbb R^n \]
@@ -3801,6 +3869,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   Therefore, $Aw = Bw \forall w \in \mathbb R^m$, hence $A = B$.
 \end{proof}
 
+\subsection{Frech\'et derivative}
 \index{Frech\'et derivative}
 \begin{definition}[Part 2 of Definition~\ref{defp}] % Definition 3
   If $f$ is differentiable in $x_0$, then we call the uniquely determined linear map $A$ the \enquote{Frech\'et derivative} of $f$ in $x_0$
@@ -3871,6 +3940,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \[ (k + ax)' = a \]
 \end{proof}
 
+\subsection{Chain rule}
 \begin{theorem}[Chain rule in multiple dimensions]
   Let $D \subseteq \mathbb R^l$ be open. Let $E \subseteq \mathbb R^m$ be open.
   Let $f: D \to \mathbb R^m$ such that $f(D) \subseteq E$ and $g: E \to \mathbb R^n$.
@@ -3935,6 +4005,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   hence, $I + II < \varepsilon$ for $\norm{x - x_0} < \delta$.
 \end{proof}
 
+\subsection{Differentiability on $D$}
 \index{Differentiable on $D$}
 \begin{definition}
   Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ be differentiable in every point $x \in D$.
@@ -4028,6 +4099,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   we also write $f(x_1, x_2, \dots, x_m)$.
 \end{remark}
 
+\subsection{Partial derivative and Jacobi matrix}
 \index{Partial derivative}
 \begin{definition} % Definition 6
   Let $f: D \to \mathbb R^n$, $x \in D$ as above. $f$ is differentiable in $x$. Then we let
@@ -4172,6 +4244,7 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   \end{align*}
 \end{example}
 
+\subsection{Total differentiability, nabla operator and gradients}
 \index{Totally differentiable}
 \index{Total differential}
 \index{Nabla operator}
