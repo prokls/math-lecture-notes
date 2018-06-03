@@ -3339,8 +3339,8 @@ To finish our proof, we need a result we missed in the section about Integrals.
 \end{definition}
 Brook Taylor (1685--1731)
 
-\begin{lemma}
-  The premise is the same like in Definition~\ref{def3}
+\begin{lemma} % Lemma 3
+  The premise is the same like in Definition~\ref{def3}.
   The Taylor polynomial of $T_f^n(x; x_0)$ is the only polynomial of degree $\neq n$ which satisfies
   \[ (T_f^n)^{(k)}(x_0) = f^{(k)}(x_0) \qquad \text{ for k = 0, \dots, n} \]
 \end{lemma}
@@ -3466,12 +3466,12 @@ Brook Taylor (1685--1731)
   \end{description}
 \end{proof}
 
-Any extreme value satisfies its derivative is zero. But not every point with derivative zero is an extreme value.
+Any extreme value satisfies that its derivative is zero. But not every point with derivative zero is an extreme value.
 We now consider conditions to select extreme values from all value satisfying derivative zero.
 
 \begin{corollary}[Sufficient conditions for existence of extreme values]
   Let $I$ be an open interval. Let $x_0 \in I$ and $f \in \mathcal C^{n+1}(I)$. Assume
-  \[ f^{(1)}(x_0) = f^{(2)}(x_0) = \dots = f^{(n)}(x_0) = 0 \] % TODO I think he gave some examples here - content missing?!
+  \[ f^{(1)}(x_0) = f^{(2)}(x_0) = \dots = f^{(n)}(x_0) = 0 \]
   and $f^{(n+1)}(x_0) \neq 0$. Then $f$ in $x_0$ has
   \begin{enumerate}
     \item a strict local maximum if $n$ is even and $f^{(n+1)}(x_0) < 0$
@@ -3565,11 +3565,11 @@ Compare with Figure~\ref{img:tay}.
   It holds for $x > 0$,
   \[ f^{(n)}(x) = \frac{P(x)}{Q(x)} \cdot e^{-\frac1x} \]
   where $P, Q$ are polynomials.
-  So not every infinitely often differentiable function must not equate with its Taylor series. % TODO: double negation? wrong or confusing.
+  So the function value (of an infinitely often differentiable function) must not equate with its Taylor series value.
 \end{example}
 
 \begin{proof}
-  Proof by complete induction oer $n$.
+  Proof by complete induction over $n$.
 
   \begin{description}
     \item[Case $n=0$] immediate with $P = Q = 1$.
