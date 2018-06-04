@@ -77,6 +77,7 @@
 \newcommand{\mtn}{(\mu\times\nu)} % mu times nu
 
 \DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\detm}{det}
 \DeclareMathOperator{\perm}{perm}
 \DeclareMathOperator{\sign}{sign}
@@ -2718,8 +2719,8 @@ in regards of basis $b_1, \dots, b_n$.
 \begin{proof}
   $C$ is invertible, hence
   \[
-    \operatorname{rank}(A) =
-    \operatorname{rank} \begin{bmatrix}
+    \rank(A) =
+    \rank \begin{bmatrix}
        +1 &        &       &    &        &    &   &        & \\
           & \ddots &       &    &        &    &   &        & \\
           &        &    +1 &    &        &    &   &        & \\
@@ -2890,7 +2891,7 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
     \end{bmatrix}
   \] \[
     \det(C^*) \det(A) \det(C) = \begin{cases}
-      0 & \text{ if } \operatorname{rank}(A) < n \\
+      0 & \text{ if } \rank(A) < n \\
       (-1)^{\text{number of } -1}
     \end{cases}
   \]
@@ -6272,6 +6273,7 @@ By invariance, $\Phi_B^B(A)$ has block diagonal form.
 \[ \implies \left. (\lambda_i I - A)^n \right|_{\mathcal L(B_i)} = 0 \implies \text{ nilpotent} \]
 
 \begin{theorem} % Satz 11.15
+  \label{thm:1115}
   Let $\mathbb K$ be algebraically closed (hence, every other matrix has eigenvalue)
   and let $\lambda_1, \dots, \lambda_k$ all eigenvalues of a matrix $A \in \mathbb K^{n\times n}$.
   \[ \implies \mathbb K^{n} = \ker(\lambda_1 I - A)^n \oplus \dots \oplus \ker(\lambda_k I - A)^n \]
@@ -6326,6 +6328,7 @@ Goal: Structure of nilpotent matrices:
 
 \index{Jordan's normal form}
 \begin{theorem} % Satz 11.18
+  \label{thm:jnf}
   \emph{Jordan's normal form} is a nilpotent matrix.
   Let $\dim{V} = n$. $f: V \to V$ is nilpotent of index $p$ ($f^p = 0$).
   $d = \dim\ker{f}$.
@@ -6534,7 +6537,284 @@ Goal: Structure of nilpotent matrices:
     \end{bmatrix}
     \text{ is the Jordan norm form of } A
   \]
- \end{example}
+\end{example}
+
+\dateref{2018/06/04}
+
+\[ A \text{ nilpotent } \implies A^k = 0 \]
+$\exists$ basis $B$ such that 
+\[ B^{-1}AB = \begin{bmatrix} 0 & 1 & & & \\ & 0 & 1 & & \\ & & \ddots & \ddots & \\ & & & 0 & 1 \end{bmatrix} \]
+In general:
+Decomposition in main spaces:
+\[ U_i = \ker(\lambda_i I - A)^n \qquad V = \oplus_{i=1}^l U_i \] % TODO oplus operator typography?
+\[ (\lambda_i I - A)|_{U_i} \text{ is nilpotent} \]
+$\leadsto$ basis $B_i$ such that
+\[ (\lambda_i I - A)|_{U_i} = \begin{bmatrix}
+  0 & 1 & & & & \\
+  & 0 & \ddots & & & \\
+  & & 0 & 0 & & \\
+  & & & 0 & 1 & \\
+  & & & & \ddots & \ddots \\
+\end{bmatrix} \]
+\[
+  A|_{U_i} \sim
+  \begin{bmatrix}
+    \lambda_i & 0 & & & & \\
+    & \lambda_i & 1 & & & \\
+    & & \ddots & \ddots & & \\
+    & & & \ddots & 1 & \\
+    & & & & \lambda_i & 1
+  \end{bmatrix}
+\]
+
+\index{Jordan block}
+\begin{definition} % Definition 11.20
+  A matrix of form $J_k(\lambda) = \begin{bmatrix}
+    \lambda & 1 & & & & \\
+    & \lambda & 0 & & & \\
+    & & \lambda & 1 & & \\
+    & & & \lambda & 1 & \\
+    & & & & \ddots & \ddots
+  \end{bmatrix} \in \mathbb K^{n+m}$
+  is called \emph{Jordan block} of length $k$ to eigenvalue $\lambda$.
+\end{definition}
+
+\begin{remark}
+  \begin{enumerate}
+    \item $\chi_{J_k(\lambda)}(x) = (x - \lambda)^k$
+    \item $J_k(\lambda) - \lambda \cdot I$ is nilpotent with index $k$.
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem} % Satz 11.22
+  Let $\mathbb K$ be an algebraically closed field (hence, every polynomial has roots).
+  Then every matrix $A \in \mathbb K^{n+m}$ is similar to a matrix of Jordan normal form.
+  \[
+    \implies \exists B \in \operatorname{GL}(\mathbb K, n): B^{-1} AB =
+    \begin{bmatrix}
+      J_1 & & & \\
+        & J_2 & & \\
+        & & \ddots & \\
+        & & & J_1
+    \end{bmatrix}
+  \]
+  where every $J_i$ is a Jordan block to eigenvalue of $A$.
+\end{theorem}
+
+\begin{proof}
+  Let $\lambda_1, \dots, \lambda_m$ be the different eigenvalues of $A$. Let $U_i$ be the main spaces. % TODO Hauptraum cannot be srsly main space, right?
+  \[ U_i = \ker(\lambda_i I - A)^n \]
+  \[ V = U_1 \oplus \dots \oplus U_m \]
+  By Theorem~\ref{thm:1115} and the field is algebraically closed,
+  \[ \implies U_i \text{ are invariant } \land (\lambda_i I - A)|_{U_i} \text{ is nilpotent} \]
+  By Theorem~\ref{thm:jnf}, $\exists$ basis $B_i$ of $U_i$,
+  \[
+    \Phi_{B_i}^{B_i}\left((\lambda_i I - A)|_{U_i}\right) = \begin{bmatrix}
+      N_{n_{i_1}} & & & \\
+      & N_{n_{i_2}} & & \\
+      & & \ddots & \\
+      & & & N_{{n_i}_{d_i}}
+    \end{bmatrix}
+  \]
+  with
+  \[ N_k = \begin{bmatrix} 0 & 1 & & \\ & \ddots & \ddots & \\ & & \ddots & 1 \\ & & & 0 \end{bmatrix} = J_k(0) \]
+  where $d_i$ is the geometric multiplicity of eigenvalue $\lambda_i = \dim{\ker(\lambda_i I - A)}$.
+  \[ B = B_1 \cup B_2 \cup \dots \cup B_n \]
+  \[
+    \implies \Phi_B^B(A) = B^{-1} AB = \begin{bmatrix}
+      J_{n_{1} 1}(\lambda_1) & & & & & & & \\
+      & J_{n_{1} 2}(\lambda_1) & & & & & & \\
+      & & \ddots & & & & & \\
+      & & & J_{n_{1} d_1}(\lambda_1) & & & & \\
+      & & & & \ddots & & & \\
+      & & & & & J_{n_n 1}(\lambda_n) & & \\
+      & & & & & & \ddots & \\
+      & & & & & & & J_{n_n d_n}(\lambda_n)
+    \end{bmatrix}
+  \]
+  where columns of $n_1$ give $U_1$ and columns of $n_n$ give $U_n$.
+\end{proof}
+
+\begin{theorem} % Satz 10.23
+  Let $B^{-1} AB = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \in \mathbb K^{n + m}$ be a Jordan normal form with $J_i = J_{k_i}(\lambda_i)$.
+  \begin{enumerate}
+    \item $\sum_{i=1}^q k_i = n$
+    \item $\operatorname{spec}(A) = \set{\lambda_i}$, potentially with repetitions.
+      \[ \forall \lambda \in \operatorname{spec}(A): d(\lambda) = \#\set{i: \lambda_i = \lambda} \]
+      \[ k(\lambda) = \sum_{\lambda_i = \lambda} k_i \]
+      Geometric multiplicity of $\lambda$ equals the number of corresponding Jordan blocks.
+      Diagonal multiplicity of $\lambda = \sum$ of size of corresponding Jordan blocks. % TODO diagonal multiplicity
+    \item The smallest exponent $r$ such that
+      \[ \ker((\lambda I - A)^r) = \ker((\lambda I - A)^{r+1}) \]
+      is the largest length of a corresponding Jordan block.
+      \[ \min\set{r: \ker((\lambda I - A)^r) = \ker(C, \dots)^{r+1}} = \max\set{k_i: \lambda_i = \lambda} \]
+      The reason is given in an example:
+      \begin{example}
+        \[
+          A = \begin{bmatrix}
+            J_{k_1}(\lambda) & \\
+            & J_{k_2}(\lambda)
+          \end{bmatrix}
+          \qquad
+          A - \lambda I = \begin{bmatrix}
+            J_{k_1}(0) & \\
+            & J_{k_2}(0)
+          \end{bmatrix}
+        \] \[
+          (A - \lambda I)^r = \begin{bmatrix}
+            J_{k_1}(0)^r & \\
+            & J_{k_2}(0)^r
+          \end{bmatrix}
+          \overset!= 0
+        \] \[
+          \implies J_{k_1}(0)^r = 0 \land J_{k_2}(0)^r = 0
+        \] \[
+          \implies r \geq k_1 \land r \geq r_k \implies r = \max\set{k_1, k_2}
+        \]
+      \end{example}
+    \item $\#\set{i: \lambda_i = \lambda \land k_i \geq k + 1} = \rank(\lambda I - A)^k - \rank(\lambda I - A)^{k+1}$
+    \item The Jordan blocks are uniquely determined (except for the order)
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Immediate.
+    \item For every Jordan block, there exists exactly one eigenvector.
+      \[ \left(\rank(J_k(\lambda) - \lambda I_k)\right) = k = 1 \]
+      \[ \chi_{J_{k_i(\lambda_i)}}(x) = (x - \lambda)^k \]
+      \[ \implies \chi_A(x) = \prod_{i=1}^q \chi_{J_{k_i}(\lambda_i)}(x) = \prod_{i=1}^q (x - \lambda_i)^{k_i} \]
+    \item Let $A = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix}$.
+      \[ (\lambda I - A)^k = \begin{bmatrix} (\lambda - J_1)^k & & \\ & \ddots & \\ & & (\lambda - J_q)^k \end{bmatrix} \]
+      If $\lambda \neq \lambda_i$, then $\lambda - J_k(\lambda_i)$ is regular (triangular matrix with all entries on the main diagonal $\neq 0$).
+      If $\lambda = \lambda_i$, then $\lambda - J_{k_i}(\lambda_i)$ is nilpotent.
+      \[
+        \rank((\lambda - J_{k_i}(\lambda_i))^k) = \begin{cases}
+          k_i - k & k_i > k \\
+          0 & \text{ else}
+        \end{cases}
+      \]
+    \item
+      \[ \rank(\lambda_i - J_{k_i}(\lambda_i))^k - \rank(\lambda_i - J_{k_i}(\lambda_i))^{k+1} = \begin{cases} 1 & k_i \geq k+1 \\ 0 & k_i \leq k \end{cases} \]
+      \[
+        \rank(\lambda - J_{k_i}(\lambda_i))^k = \begin{cases}
+          k_i & \text{ if } \lambda \neq \lambda_i \\
+          k_i - k & \text{ if } \lambda = \lambda_i \text{ and } k_i \geq k \\
+          0 & \text{ if } \lambda = \lambda_i \land k_i < k
+        \end{cases}
+      \]
+      \begin{align*}
+        \rank(\lambda - A)^k &= \sum_{\lambda \neq \lambda_j} k_j + \sum_{\lambda = \lambda_i} \begin{cases} k_i - k & \text{ if } k_i \geq k \\ 0 & \text{ if } k_i < k \end{cases} \\
+        \rank(\lambda - A)^{k+1} &= \sum_{\lambda \neq \lambda_j} k_j + \sum_{\lambda = \lambda_i} \begin{cases} k_i - (k+1) & \text{ if } k_i \geq k \\ 0 & \text{ else} \end{cases}
+      \end{align*}
+      \begin{align*}
+        \rank(\lambda - A)^k - \rank(\lambda - A)^{k+1}
+          &= \overbrace{0}^{\substack{\text{first} \\ \text{sum}}} + \sum_{\lambda = \lambda_i} (k_i - k) - (k_i - (k+1)) \\
+          &= \sum_{\lambda = \lambda_i} 1 \text{ if } k_i > k+1 \\
+          &= \set{i: k_i > k + 1}
+      \end{align*}
+    \item Left as an exercise to the reader.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma} % Lemma 11.24
+  Let $A \in \mathbb K^{n + n}$ matrix.
+  \[ \Psi_A: \substack{\mathbb K[x] \to \mathbb K^{n + n} \\ p(x) \mapsto p(A)} \]
+  \[ a_0 + a_1 x + \dots + a_k x^k \mapsto a_0 \cdot I + a_1 A + \dots + a_k A^k \]
+  \begin{enumerate}
+    \item $p\left(\begin{bmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_n \end{bmatrix}\right)
+      = \begin{bmatrix} p(\lambda_1) & & \\ & \ddots & \\ & & p(\lambda_n) \end{bmatrix}$
+    \item $p\left(\begin{bmatrix} A_1 & & \\ & \ddots & \\ & & A_n \end{bmatrix}\right) = \begin{bmatrix} p(A_1) & & \\ & \ddots & \\ & & p(A_n) \end{bmatrix}$
+    \item $A = T^{-1} BT \implies p(A) = T^{-1} p(B) T$
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Because of linearity, it suffices to show that this holds for basis polynomials $x^k$.
+  \begin{enumerate}
+    \item Immediate.
+    \item $\begin{bmatrix} A_1 & & \\ & \ddots & \\ & & A_m \end{bmatrix}^k = \begin{bmatrix} A_1^k & & \\ & \ddots & \\ & & A_m^k \end{bmatrix}$
+    \item
+      \begin{align*}
+        A^k &= (T^{-1} BT)^k \\
+            &= (T^{-1} BT)(T^{-1} BT) \dots (T^{-1} BT) \\
+            &= T^{-1} B^k T
+      \end{align*}
+      $\implies p(A)$ can be reduced to $p(\text{JNF})$.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma} % Lemma 11.25
+  For some Jordan block $J_k(\lambda)$ it holds that
+  \[
+    p(J_k(\lambda))_{i,j} = \begin{cases}
+      \frac{p^{(j - i)}(\lambda)}{(j - i)} & j \geq i \\
+      0 & j < i \text{ (below the diagonal)}
+    \end{cases}
+  \]
+\end{lemma}
+
+\begin{proof}
+  \[ (A + B)^M = \sum_{k=0}^M {M \choose k} A^k B^{M - k} \] % TODO: Chris' notes show an Attention flag here, I cannot read it
+  \begin{align*}
+    (\lambda I + N)^M
+      &= \sum_{k=0}^M {M \choose k} \lambda^{M-k} \cdot I \cdot N^k \\
+      &= \begin{bmatrix} \lambda^M & {n \choose 1} \lambda^{n-1} & \\ & \ddots & \\ & \lambda^m & \end{bmatrix} & k=0 \implies \diag(\lambda^M), N^1 = I \\
+      &= \sum_{k=0}^n \frac{n (n-1)(n-2) \dots (n-k+1)}{k!} \cdot \lambda^{n-k} \cdot N^k \\
+      &= \sum \frac{(\lambda^M)^{(k)}}{k!}
+  \end{align*}
+\end{proof}
+
+\begin{example}[Application]
+  \begin{enumerate}
+    \item Fibonacci $\to$ Tribonacci: $T_n = T_{n-1} + T_{n-2} + T_{n-3}$ (see practicals)
+    \item Discrete dynamic systems: Predator-prey equations:
+      \[ F_n \coloneqq \text{ number of foxes} \qquad H_n \coloneqq \text{ number of rabbits} \]
+      When is $F_n$ and $H_n$ stationary?
+      \[ F_{n+1} = p \cdot F_n + q \cdot H_n \]
+      \[ H_{n+1} = -t \cdot F_n + q \cdot H_n \]
+      \[ \to \begin{pmatrix} F_{n+1} \\ H_{n+1} \end{pmatrix} = \begin{bmatrix} p & q \\ -t & g \end{bmatrix} \cdot \begin{pmatrix} F_n \\ H_n \end{pmatrix} \]
+      When it is balanced? This depends on the matrix \dots
+      \[
+        \begin{bmatrix} p & q \\ -t & g \end{bmatrix} \sim \begin{bmatrix} \lambda_1 & 1v.0 \\ & \lambda_2 \end{bmatrix}^n % TODO verify
+        \xrightarrow{n \to \infty} \begin{cases}
+          0 & \card{\lambda_1}, \card{\lambda_2} < 1 \\
+          \infty & \card{\lambda_1}, \card{\lambda_2} > 1 \\
+          \text{balance} & \text{ if } \card{\lambda_1} = 1 \\
+          \text{dynamic balance} & \text{ if } \card{\lambda_1} = \card{\lambda_2} = 1
+        \end{cases}
+      \]
+  \end{enumerate}
+  \[ \vec x = A \cdot \vec x \]
+  \[ \frac{d}{dx} = A \cdot x \rightarrow \text{ solution } x = e^{A \cdot t} \cdot x_0 \]
+\end{example}
+
+\begin{theorem}[Matrix exponential function] % 11.27
+  In general: $A$ is diagonalizable.
+  \[ \implies A = T^{-1} \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} T \]
+  \[ \to f(A) = T^{-1} \begin{bmatrix} f(\lambda_1) & & \\ & \ddots & \\ & & f(\lambda_n) \end{bmatrix} T \]
+  If not diagonalizable: Jordan norm form.
+  \[ \leadsto f(J_k(\lambda)) = \text{ ? } \]
+  \begin{itemize}
+    \item For polynomials, immediate.
+    \item Otherwise, only works for analytical functions. Hence,
+      \[ f(x) = \text{ Taylor series } = \sum_{k=0}^\infty a_k (x - \lambda)^k \]
+      \[ f(J_k(\lambda)) = \sum_{k=0}^\infty a_k (\underbrace{J_k(\lambda) - \lambda}_{\text{nilpotent}})^k \]
+      nilpotent $\implies \text{ series escapes} \implies \text{convergent}$.
+  \end{itemize}
+
+  \[ f(x) = e^x \implies e^A = \sum_{k=0}^\infty \frac{A^k}{k!} \]
+  \[ \text{JNF} \implies A = B \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_n \end{bmatrix} B^{-1} \]
+  We have to determine $e^{J_i}$, because $e^A = B \cdot \begin{bmatrix} e^{J_1} & & \\ & \ddots & \\ & & e^{J_k} \end{bmatrix} B^{-1}$.
+  \begin{align*}
+    J &= \lambda \cdot I + N \\
+    \to e^{J} &= e^{\lambda I + N} \\
+      &= e^{\lambda I} \cdot e^N & \text{ because } \lambda I \text{ and } N \text{ commute} \\
+      &= e^{\lambda} \cdot \sum_{k=0}^\infty \frac{N^k}{k!} \\
+      &= e^{\lambda} \cdot \sum_{k=0}^{M-1} \frac{N^k}{k!} & \text{ if $N$ is nilpotent} \\
+      &= e^{\lambda} \cdot \begin{bmatrix} 1 & \frac12 & \dots & \\ & \ddots & \ddots & \\ & & \frac12 & \\ & & 1 & \end{bmatrix}
+  \end{align*}
+\end{theorem}
 
 \printindex
 \end{document}

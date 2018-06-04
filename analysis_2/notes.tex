@@ -3274,7 +3274,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
       It remains to show that $Q(x_0) \neq 0$. $P'(x) = 1\cdot Q(x_0) + (x - x_0) \cdot Q'(x_0)$.
       We insert $x = x_0 \implies 0 \neq P'(x_0) = Q(x_0) + (x_0 - x_0) \cdot Q'(x)$.
       Thus is holds that $Q(x_0) = P'(x_0) \neq 0$.
-    \item[Induction step]
+    \item[Induction step] $k \to k+1$ \hfill{}
       \begin{claim}[Auxiliary claim]
         Let $P(x) = (x - x_0) \cdot \tilde P(x)$.
         Let $P, \tilde P$ be polynomials. Then it holds $\forall j \in \mathbb N$ that
@@ -3337,6 +3337,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
   $T_f^n(x; x_0)$ is a polynomial in $x$ with $\operatorname{degree}(T_f^n) \leq n$.
   $T_f^n(x; x_0)$ is called \emph{Taylor polynomial of $f$ of order $n$ in $x_0$}.
 \end{definition}
+
 Brook Taylor (1685--1731)
 
 \begin{lemma} % Lemma 3
@@ -3618,7 +3619,7 @@ Compare with Figure~\ref{img:tay}.
 Revision: Expansion on a different point ($\xi_0$ instead of $x_0$):
 
 \[ f(z) = \sum_{k=0}^\infty a_k (z - x_0)^k = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!} (z - x_0)^k \]
-with $a_k = \frac{f^{(k)}(x_0)}{k!}$. $f(z) = \sum_{k=0}^\infty \hat a_k(z - \xi_0)^k$ TODO incomplete.
+with $a_k = \frac{f^{(k)}(x_0)}{k!}$. $f(z) = \sum_{k=0}^\infty \tilde a_k(z - \xi_0)^k$ with $\tilde a_k = \frac{f^{(k)}(\xi_0)}{k!}$.
 Compare with Figure~\ref{img:expan}.
 
 \section{Multidimensional differential calculus} % Chapter 3
@@ -4215,8 +4216,8 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   \emph{Rationale:} Let $f$ be differentiable in $x_0$. Let $A = \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix}$ be the derivative of $f$.
   Let $a_k$ be the rows of $A$. $f$ is differentiable in $x_0$, so
   \[ \frac{\norm{f(x) - f(x_0) - A(x - x_0)}_{\infty}}{\norm{x - x_0}} \xrightarrow{x \to x_0} 0 \]
-  \[ \iff \frac{\card{f_n(x) - f_k(x) - a_k(x - x_0)}}{\norm{x - x_0}} \xrightarrow{x \to x_0} 0 \] % TODO criterion for k missing
-  where $a_k$ is a row vector and $x-x_0$ is a column vector.
+  \[ \iff \frac{\card{f_n(x) - f_k(x) - a_k(x - x_0)}}{\norm{x - x_0}} \xrightarrow{x \to x_0} 0 \]
+  where $a_k$ is a row vector and $x-x_0$ is a column vector and $k \in \set{1, \dots, n}$.
   \[ \iff f_k \text{ is differentiable in } x_0 \]
 \end{remark}
 
@@ -4314,11 +4315,16 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
 \end{theorem}
 
 \begin{proof}
-  Proof idea: We come closer to $x_0$ (starting from $x_0 \in D$) along lines parallel to the coordinate system axes.
+  Proof idea: We approximate $x_0$ (starting from $x_0 \in D$) along lines parallel to the coordinate system axes. Compare with Figure~\ref{img:x0xcoord}.
 
-  % TODO: image 34_axes.svg
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/34_axes.pdf}
+      \caption{$x_0$ approximates $x$ along lines parallel to the coordinate system axes}
+      \label{img:x0xcoord}
+    \end{center}
+  \end{figure}
 
-  Let
   \[
     x_0 \coloneqq \begin{bmatrix} x_1^0 \\ \vdots \\ x_m^0 \end{bmatrix} \qquad
     x \coloneqq \begin{bmatrix} x_1 \\ \vdots \\ x_m \end{bmatrix} \qquad
