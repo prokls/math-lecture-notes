@@ -4406,5 +4406,191 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   Therefore, $\partial_1 f$ is not continuous in $0$.
 \end{example}
 
+\dateref{2018/06/05}
+
+\subsection{Optimality criteria for multi-dimensional functions}
+
+Necessary (but not sufficient) optimality criteria:
+\begin{definition} % Definition 7
+  Let $D \subseteq \mathbb R^n$, $f: D \to \mathbb R$.
+  We say that $f$ in $x_0 \in D$ has a local maximum, if some neighborhood $U$ of $x_0$ exists such that
+  \[ \forall x \in D \cap U: f(x) \leq f(x_0) \]
+  Or equivalently for strict maxima:
+  \[ \forall x \in (D \cap U) \setminus \set{x_0}: f(x) < f(x_0) \]
+  Analogously for a minimum with $f(x) \geq f(x_0)$ and strict minima $f(x) > f(x_0)$.
+\end{definition}
+
+\begin{lemma} % Lemma 8
+  \label{l8}
+  Let $f: D \to \mathbb R$ be given. Let $D \subseteq \mathbb R^n$ be open.
+  Let $x_0 \in D$ be a local maximum or a local minimum and let $f$ in $x_0$ be differentiable.
+  Then it holds that $Df(x_0) = [0, \dots, 0]$ or $\nabla f(x_0) = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}$.
+\end{lemma}
+
+\begin{proof}
+  We consider one-dimensional $l_{e_k,x_0}: (-\varepsilon, \varepsilon) \to D$ with $l_{e_k, x_0}(t) \mapsto x_0 + t \cdot e_k$
+  and $l_{e_k, x_0}(0) \mapsto x_0$. $f$ has a maximum in $x_0$ (without loss of generality) $\implies f \circ l_{e_k,x_0}$ (differentiable in $t = 0$) is a local maximum in $t = 0$. This is necessary for the optimality of $t = 0$ for $f \circ l_{e_k,x_0}$ that $(f \circ l_{e_k,x_0})'(0) = 0 \implies Df(x_0) \cdot e_k = \partial_k f(x_0) = 0 \implies Df(x_0) = [0, \dots, 0]$.
+\end{proof}
+
+\begin{remark}
+  By Lemma~\ref{l8} it follows immediately that $x_0$ is optimal.
+  \[ \implies \underbrace{Df(x_0)}_{= 0} \cdot v = df(x_0; v) = 0 \qquad \forall v \in \mathbb R^n \]
+\end{remark}
+
+\index{Diffeomorphism}
+\begin{definition} % Definition 8
+  Let $U, V \subseteq \mathbb R^n$ be open.
+  We call $f: U \to V$ a \emph{diffeomorphism} if
+  \begin{enumerate}
+    \item $f: U \to V$ is bijective
+    \item $f$ is continuously differentiable on $U$
+    \item $f^{-1}: V \to U$ is continuously differentiable on $V$
+  \end{enumerate}
+  Let $f: U \to V$, $x_0 \in U$ and $y_0 = f(x_0) \in V$.
+  We say: $f$ is a local diffeomorphism in $x_0$ if open neighborhoods $x_0 \in U' \subset U$ and $y_0 \in V' \subseteq V$ such that $f: U' \to V'$ is a diffeomorphism.
+\end{definition}
+
+\begin{lemma} % Lemma 9
+  \label{l9}
+  Let $g: D \subseteq \mathbb R^n \to \mathbb R^n$ and $D$ is open.
+  $g$ is continuously differentiable on $D$.
+  Furthermore let $g: D \to g(D)$ bijective and $Dg(x)$ is regular for all $x \in D$.
+  Then $g(D) \to D$ is continuously differentiable with
+  \[ D g^{-1}(y) = Dg^{-1}\left(g(x)\right) = [Dg(x)]^{-1} \]
+\end{lemma}
+
+\begin{proof}
+  Will be provided later on.
+\end{proof}
+
+\begin{theorem}[local inversion theorem, theorem of inverse maps]
+  Let $D \subseteq \mathbb R^n$ be open. Let $f: D \to \mathbb R^n$ be continuously differentiable.
+  Furthermore let $Df(x_0)$ regular for $x_0 \in D$. Then $f$ is a local diffeomorphism in $x_0$.
+  Furthermore it holds that:
+  \[ Df^{-1}(f(x_0)) = [Df(x_0)]^{-1} \]
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    \tilde f(\xi) &= f(\xi + x_0) - f(x_0) \\
+    \tilde f: D - x_0 &= \set{\xi = x - x_0: x \in D} \to \mathbb R^n \\
+    \tilde f(0) &= f(x_0) - f(x_0) = 0 \\
+    D\tilde f(0) &= Df(x_0) \text{ is regular}
+  \end{align*}
+  \begin{claim}
+    $f$ is a local diffeomorphism $\iff \tilde f$ is a local diffeomorphism.
+  \end{claim}
+  
+  \begin{proof}
+    \begin{description}
+      \item[Direction $\impliedby$]
+	    Let $\tilde f$ be a local diffeomorphism.
+	    \[ \tilde f(\xi) = \eta \iff \underbrace{f(\xi + x_0)}_{= x} = \underbrace{\eta + f(x_0)}_{y} \iff f(x) = y \]
+	    and $\xi = \tilde f^{-1}(\eta)$. Also,
+	    \[ x = \xi + x_0 = \tilde f^{-1}(y - f(x_0)) + x_0 \]
+	    Thus, $f$ is invertible and
+	    \[ f^{-1}(y) = \tilde f^{-1}(y - f(x_0)) + x_0 \]
+	    hence $f^{-1}$ is continuously differentiable, hence $f$ is a local diffeomorphism.
+	  \item[Direction $\implies$] Analogous.
+    \end{description}
+  \end{proof}
+  \[ F(x) = {\underbrace{[Df(x_0)]}_{\in \mathbb R^{n \times n}}}^{-1} \tilde f(x) \]
+  \[ v \mapsto [Df(x_0)]^{-1} \cdot v \text{ linear } \implies \text{ diffeomorphism} \]
+  $[Df(x_0)]^{-1} \cdot \tilde f$ is a local diffeomorphism $\iff \tilde f$ is a local diffeomorphism.
+  \[ DF(0) = [Df(x_0)]^{-1} \cdot \underbrace{D \tilde f(0)}_{Df(x_0)} = E \]
+  Thus, it suffices to show that $F$ is a local diffeomorphism where $F(0) = 0$ and $Df(0) = I$ (the unit matrix).
+  
+  Now the interesting part of the proof begins:
+  Let $y \in \mathbb R^n$ arbitrary. We define
+  \[ \varphi(x) = y + x - F(x) \]
+  It holds that $y = F(x) \iff y + x - F(x) = x$, hence $\varphi_Y(x) = x$, hence $x$ is a fixed point of $\varphi_Y$.
+  
+  $F$ is continuously differentiable with $DF(0) = I$. Thus for every $\varepsilon > 0 \exists \delta > 0$ such that
+  \[ \norm{x - 0} \leq \delta \implies \norm{DF(x) - DF(0)} = \norm{DF(x) - I} \leq \varepsilon \]
+  Choose $r > 0$ such that $\norm{x} \leq 2r \implies \norm{DF(x) - I} \leq \frac12$.
+  Additionally let $r$ be sufficiently small such that
+  \[ \overline{K_{2r}(0)} \subseteq \tilde D = D - x_0 \]
+  Recall that $\tilde D$ is the domain of $F$.
+  Let $x_1, x_2 \in \overline{K_{2r}(0)}$ and let
+  \[ l_{x_1,x_2}: \substack{t \mapsto (1 - t) x_1 + t x_2 \\ [0, 1] \to \overline{K_{2r}(0)}} \]
+  
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/35_x1x2.pdf}
+      \caption{TODO put notes here that should be in the image (see Ring notes)}
+      \label{img:x1x2}
+    \end{center}
+  \end{figure}
+  
+  Compare with Figure~\ref{img:x1x2}.
+  \[ l_{x_1 x_2}(0) = x_1 \qquad l_{x_1 x_2}(1) = x_2 \]
+  \begin{align*}
+	\norm{\varphi_y(x_2) - \varphi_y(x_1)}
+	  &= \norm{\varphi_y \circ l_{x_1 x_2}(1) - \varphi_y \circ l_{x_1 x_2}(0)} \\
+	  &= \norm{\int_0^1 \frac{d}{dt} [\varphi_Y \circ l_{x_1 x_2}(t)] \, dt} \\
+	  &= \norm{\int_0^1 D\varphi_Y(l_{x_1 x_2}(t)) \cdot \underbrace{\left(x_2 - x_1\right)}_{\substack{\text{inner derivative} \\ l_{x_1 x_2}(t)} \, dt}} \\
+	  &\leq \int_0^1 \norm{D\varphi_Y(l_{x_1 x_2}(t))} \cdot \norm{(x_2 - x_1)} \, dt \\ % TODO underbraces missing
+	  &\leq (*)
+  \end{align*}
+  \[ D \varphi_Y(x) = I - DF(x) \]
+  hence $\forall x \in \overline{K_{2r}(0)}$ it holds that $\norm{D\varphi_Y(x)} = \norm{I - DF(x)} \leq \frac12$.
+
+  \[ (*) \leq \frac12 \norm{x_2 - x_1} \underbrace{\int_0^1 1 \cdot dt}_{= 1} = \frac12 \norm{x_2 - x_1} \]
+  Hence $\forall x_1, x_2 \in \overline{K_{2r}(0)}$ it holds that
+  \[ \norm{\varphi_Y(x_2) - \varphi_Y(x_1)} \leq \frac12 \norm{x_2 - x_2} \]
+  Therefore $\varphi_Y$ is a contraction with constant $\nu = \frac12$.
+
+  $K_{2r}(0) \subseteq \mathbb R^n$ is a complete, metric space. It remains to show: $\varphi_Y: \overline{K_{2r}(0)} \to \overline{K_{2r}(0)}$.
+  This only holds if $y$ is sufficiently small.
+  
+  Let $y \in K_r(0)$ and $x \in \overline{K_{2r}(0)}$.
+  \[ \norm{\varphi_Y(x)} = \norm{\varphi_Y(x) - \varphi_Y(0) + \varphi_Y(0)} \leq \norm{\varphi_Y(x) - \varphi_Y(0)} + \norm{\varphi_Y(0)} \underbrace{\leq}_{\text{contraction}} \frac12 \underbrace{\norm{x - 0}}_{\leq 2r} + \underbrace{\norm{y}}_{< r} < 2r \]
+  So, for $y \in K_r(0)$ and $x \in \overline{K_{2r}(0)}$, $\varphi_Y(x) \in K_{2r}(0)$.
+  By Banach Fixed Point Theorem, there exists a uniquely determined $x$ such that
+  \[ x = \varphi_Y(x) \iff y = F(x) \]
+  
+  Let $U = F^{-1}(K_r(0)) \cap K_{2r}(0)$ where $F^{-1}(K_r(0))$ is open, because $F$ is continuous.
+  Hence, $U$ is open and $0 \in U$. Therefore $U$ is an open neighborhood of $0$.
+  
+  We show: $DF(x)$ is invertible for all $x \in U$.
+  
+  Let $v \in \ker(DF(x)) \iff \norm v = \norm{DF(x) \cdot v - v}$ where $DF(x) \cdot v = 0$.
+  \[ = \norm{(DF(x) - I) \cdot v} \leq \underbrace{\norm{DF(x) - I}}_{\leq \frac12} \cdot \norm v \leq \frac12 \norm v \]
+  \[ \implies \frac12 \norm v \leq 0 \implies \norm v \leq 0 \implies v = 0 \]
+  Hence $\ker(DF(x)) = \set{0}$, so $DF(x)$ is regular.
+  \[ \forall x \in U = F^{-1}(K_r(0)) \cap K_{2r}(0): y = F(x) \in K_r(0) \]
+  On the opposite, $\forall y \in K_r(0)$ there exists some uniquely determined $x \in K_{2r}(0) \cap F^{-1}(K_r(0))$ with $y = F(x)$.
+  So $F: U \to K_r(0)$ is bijective and continuously differentiable. Furthermore, $DF(x)$ is regular $\forall x \in U$.
+  By Lemma~\ref{l9}, $F$ is a local diffeomorphism in $x = 0$.
+  Thus, $f$ is a local diffeomorphism in $x_0$.
+  
+  So the central idea of this proof was to rewrite $F$ such that we can apply Banach's Fixed Point Theorem.
+\end{proof}
+
+\begin{theorem}[Implicit function theorem] % Satz 4
+  Let $U \subseteq \mathbb R^{n + m} = \mathbb R^n \times \mathbb R^m$
+  \[ f: U \to \mathbb R^m \]
+  is continuously differentiable.
+
+  Notation: $\vectwo xy \in U; x \in \mathbb R^n, y \in \mathbb R^m$
+  \[ f(\vectwo xy) = f(x, y) \]
+  
+  For $(x_0, y_0) \in U$ it holds that $f(x_0, y_0) = 0$.
+  What about
+  \[
+    Df(x_0, y_0) = \begin{bmatrix}
+      \partial_{x_1} f_1 & \dots & \partial_{x_n} f_1 & \partial_{y_1} f_1 & \dots & \partial_{y_m} f_1 \\
+      \vdots & & & & & \vdots \\
+      \partial_{x_1} f_m & \dots & \partial_{x_n} f_m & \partial_{y_1} f_m & \dots & \partial_{y_m} f_m
+	\end{bmatrix}
+  \]
+  where the left half is given by $D_x f(x_0, y_0) \in \mathbb R^{m \times n}$ and the right half is given by $D_y f(x_0, y_0) \in \mathbb R^{m \times m}$.
+  
+  Assumption: Let $D_y f(x_0, y_0)$ be regular.
+  
+  Then there exists some neighborhood $D$ of $x_0$ in $\mathbb R^n$ and a function $g: D \to E$.
+  $E$ is a neighborhood of $y_0$ in $\mathbb R^m$ such that $D \times E \subseteq U$ and $f(x,y) = 0 \iff y = g(x)$ for $(x, y) \in D \times E$.
+  Hence, $f(x, g(x)) = 0 \forall x \in D$.
+\end{theorem}
+
 \printindex
 \end{document}

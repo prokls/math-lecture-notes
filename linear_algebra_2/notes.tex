@@ -6755,7 +6755,8 @@ $\leadsto$ basis $B_i$ such that
 \end{lemma}
 
 \begin{proof}
-  \[ (A + B)^M = \sum_{k=0}^M {M \choose k} A^k B^{M - k} \] % TODO: Chris' notes show an Attention flag here, I cannot read it
+  \[ (A + B)^M = \sum_{k=0}^M {M \choose k} A^k B^{M - k} \]
+  In general, $(A + B)^2 = AA + AB + BA + BB$, but here $A = I$ and therefore $AB = BA$.
   \begin{align*}
     (\lambda I + N)^M
       &= \sum_{k=0}^M {M \choose k} \lambda^{M-k} \cdot I \cdot N^k \\
