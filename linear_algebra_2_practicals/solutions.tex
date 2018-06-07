@@ -2070,4 +2070,237 @@ The three properties:
 \[ \implies B = \begin{pmatrix} \vdots v_1 \vdots & \dots & \vdots v_n \vdots \end{pmatrix} \]
 \[ B^{-1} = B^* \]
 \[ M_k = B\begin{pmatrix} 0 & & & & 0 \\ & \ddots & & & \\ & & 1 & & \\ & & & \ddots & \\ 0 & & & & 0 \end{pmatrix} \cdot B^{-1} = v_k \cdot v_k^* = M_k \]
+
+
+\dateref{2018/06/06}
+
+\section{Exercise 52}
+\begin{ex}
+  Let $A \in \mathbb K^{n \times n}$. Show equivalence of the following statements:
+  \begin{enumerate}
+    \item $\rank(A) = 1$
+    \item $0$ is an eigenvalue of geometric multiplicity $n-1$
+    \item There are vectors $x, y \in \mathbb K^n$ with $x, y \neq 0$ such that $A = xy^T$
+  \end{enumerate}
+\end{ex}
+
+Trivial for $n = 1$. Let $n > 1$.
+
+Let $A \in \mathbb K^{n \times n}$.
+\begin{enumerate}
+  \item[$1 \to 2.$]
+    \[ \rank(A) = 1 \iff \text{rowrank}(A) = 1 \implies A = \begin{bmatrix} a_1 & \dots & a_n \\ \lambda_1 a_1 & \dots & \lambda_n a_n \\ \vdots & \ddots & \vdots \\ \lambda_n a_1 & \dots & \lambda_n a_n \end{bmatrix} \]
+    \[ \det(0 \cdot I - A) = 0 = \det(-A) = 0 \]
+    \[ d(0) = \dim\ker(0 \cdot I - A) = \dim\ker(-A) \]
+    \[ \dim\im(A) = \rank(A) = 1 \]
+    \[ \underbrace{\dim(A)}_{= n} = 1 + d(0) \]
+  \item[$1 \iff 3.$]
+    \[
+      A
+      = \begin{bmatrix} \lambda_1 a_1 & \dots & \lambda_n a_n \\ \vdots & \ddots & \vdots \\ \lambda_n a_1 & \dots & \lambda_n a_n \end{bmatrix}
+      = \begin{bmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{bmatrix} [a_1, \dots, a_n]
+      = \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix}^T
+    \]
+  \item[$2 \to 1.$]
+    $0 \in \operatorname{spec}(A)$. $d(0) = n - 1 = \dim\ker(A - 0 \cdot I) = \dim\ker(A)$.
+    \[ \dim(A) = \dim\im(A) + \dim\ker(A) = \rank(A) + n - 1 \]
+    \[ n = \rank(A) + n - 1 \implies \rank(A) = 1 \]
+\end{enumerate}
+
+\section{Exercise 53}
+\begin{ex}
+  \begin{enumerate}
+    \item Let $f: V \to V$ be a diagonalizable linear map and $W \subseteq V$ an invariant subspace. Show that $f|_W: W \to W$ is diagonalizable as well.
+    \item Let $A, B \in \mathbb K^{n \times n}$ be diagonalizable matrices. Show that $AB = BA$ holds iff there exists a basis whose entries are eigenvectors of $A$ and $B$ simultaneously.
+  \end{enumerate}
+  Hint: Show that the eigenspaces of $A$ and $B$ are invariant.
+\end{ex}
+
+\subsection{Exercise 53a}
+
+Diagonalizable $\iff \exists$ basis $B$ of $V$ of eigenvectors $V$ of $f$.
+\[ V = \oplus \gamma_{\lambda_i} \]
+Let $n$ be the number of eigenvalues.
+\[ \forall v \in V: \exists! v_i \in \gamma_{\lambda_i}: v = \sum_{i=1}^n v_i \]
+\[ \forall w \in W: \exists! v_i \in \gamma_{\lambda_i}: w = \sum_{i=1}^n w_i \implies \exists! B = \set{b_1, \dots, b_m}: b_i \in \gamma_{\lambda_{j_i}} \]
+
+Recall that
+\[ V \cap W = W = \oplus \underbrace{(\gamma_{\lambda_i} \cap W)}_{\neq 0 \text{ thus gives a vector of the basis}} \]
+
+\subsection{Exercise 53b}
+Let $C$ be the basis of eigenvectors of $A$ and $B$.
+
+Direction $\impliedby$.
+\[ \forall c \in C: ABc = A \lambda^B_C c = \lambda_C^A \lambda_C^B c = B \lambda_C^A C = BA c \implies AB = BA \]
+
+Direction $\implies$.
+Let $x \in \gamma_\lambda^A$ and let $AB = BA$.
+\[ BA x = B \lambda x = \lambda Bx = ABx \implies Bx \in \gamma_{\lambda}^A \]
+
+By (1), $B|_{\ker(\lambda - A)}$ diagonal $\forall \lambda \in \operatorname{spec}(A)$.
+\[ \implies \exists b'_1, \dots, b'_n \eqqcolon B \text{ for } \ker(\lambda_i - A) \implies B = \bigcup_i B^i \text{ basis of } V \]
+\[ V = \oplus \ker(\lambda_i - A) \]
+
+\section{Exercise 54}
+\begin{ex}
+  Let $A \in \mathbb K^{n \times n}$ be a matrix. For a given vector $v \in \mathbb K^n$ consider the sequence $v, Av, A^2 v, \dots$.
+  \[ m \coloneqq \min\setdef{k}{\exists c_0, c_1, \dots, c_{k-1}: A^k v = c_0 v + c_1 Av + \dots + c_{k-1} A^{k-1} v} \]
+  Show:
+  \begin{enumerate}
+    \item $v, Av, A^2 v, \dots, A^{m-1} v$ are linear independent.
+    \item $U_v = \mathcal L\set{v, Av, \dots, A^{m-1} v}$ is the smallest $A$-invariant subspace containing $v$.
+    \item Let $A^m v = \sum_{i=0}^{m-1} c_i A^i v$. Determine the matrix representation of restriction $C = \Phi_B^B(f_A|_{U_v})$ in regards of basis $B = (v, Av, A^2 v, \dots, A^{m-1} v)$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 54a}
+\[ c_0 v + c_1 Av + \dots + c_{m-1} A^{m-1} v = 0 \implies c_i = 0 \forall i = 0, \dots, n-1 \]
+\[ k = \max\set{i: c_i \neq 0} \implies k \leq m - 1  \]
+It holds that $c_0 v + c_1 Av + \dots + c_{k+1} A^{k-1} v = -c_k A^k v \implies m \leq k$.
+
+$m \leq k$ contradicts with $k \leq m-1$.
+
+\subsection{Exercise 54b}
+\[ \forall w \in U_v: Aw \in U_v \]
+Assume $\exists W: v \in W, W$ invariant.
+\[ B = \text{ basis of } W \]
+\[ \implies B = \set{v, b_2, \dots, b_m} = \set{v, Av, \dots} \]
+
+\subsection{Exercise 54c}
+\[ B = \set{w, Av, \dots, A^{m-1} v} \]
+\[ A^n v = \sum_{i=0}^{n-1} c_i A^i v \]
+\[ \Phi_B^B(f|_{U_v}) \]
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{ccccc}
+      b_1 & b_2 & \dots & b_{n-1} & b_{n-2} \\
+    \hline
+      b_1 & 0 & 0 & \ddots & c_0 \\
+      b_2 & 1 & 0 & \ddots & c_1 \\
+      \vdots & \vdots & & & \vdots \\
+      b_n & 0 & 0 & \ddots & c_n
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\section{Exercise 55}
+\begin{ex}
+  \begin{enumerate}
+    \item Let $A \in \mathbb C^{n \times n}$ and $p(x), q(x) \in \mathbb C[x]$ polynomials with $p(A) q(A) = 0$ and $\operatorname{gcd}(p(x), q(x)) = 1$. Show that $\im{q(A)} = \ker{p(A)}$.
+    \item Let $A$ be an idempotent matrix ($A^2 = A$). Show that $A$ is diagonalizable.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Exercise 55a}
+
+\[ A \in \mathbb C^{n \times n} \qquad p(x) q(x) \in \mathcal C[x] \qquad p(A) q(A) = 0 \qquad \operatorname{gcd}(p,q) = 1 \]
+\begin{enumerate}
+  \item $\forall v \in V: p(A) q(A) v = 0 \implies \im(q(A)) \subseteq \ker(p(A))$
+  \item By exercise 46, $\operatorname{gcd}(p,q) = 1 \iff \exists a, b \in \mathbb C[x]: p(x) a(x) + q(x) b(x) = 1$
+    \[ \implies \forall v \in V: p(A) a(A) v + q(A) b(A) v = v \implies V = \im{p(A)} + \im{q(A)} \]
+    \[ \implies \dim\im{p(A)} + \dim\im{q(A)} \geq n \qquad n = \dim(V) \]
+    \[ \dim{\im{p(A)}} + \dim{\ker{p(A)}} = n \]
+    \[ \implies \dim\im{q(A)} \geq \dim\ker{p(A)} \iff \im(q(A)) \subseteq \ker(p(A)) \]
+\end{enumerate}
+
+\subsection{Exercise 55b}
+\[ \implies \lambda_i = \set{0, 1} \]
+\[ A^2 v = A \lambda_i v_i = \lambda_i^2 v_i = \lambda_i v_i \]
+
+\section{Exercise 56}
+\begin{ex}
+  Determine all invariant subspaces of matrices (over $\mathbb C$)
+  \[
+    (a) \quad A = \begin{bmatrix} 1 & & & \\ & -1 & & \\ & & 1 & \\ & & & 0 \end{bmatrix} \qquad
+    (b) \quad B = \begin{bmatrix} 1 & & \\ & 1 & 1 \\ & & 1 \end{bmatrix}
+  \]
+\end{ex}
+
+\[ \chi_A(\lambda) = (\lambda + 1) (\lambda - 1)^2 \lambda \]
+
+Consider $\lambda = 0$.
+\[ \ker(A) = \begin{pmatrix} -1 & & & 0 \\ & 1 & & \\ & & -1 & \\ & 0 & & 0 \end{pmatrix} \implies v_1 = \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} \qquad U_3 = \mathcal L\set{\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}} \]
+
+Consider $\lambda = 1$.
+\[ v_2 = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \qquad a_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} \implies \mathcal L\set{\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}} = U_4 \]
+
+Consider $\lambda = -1$.
+\[ v_4 = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} \qquad \mathcal L\set{\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}} = U_5 \]
+\[ \im(A) = \set{\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}} = U_6 \]
+
+Is this set complete?
+Difficult to prove.
+
+
+Alternative approach (a constructive approach):
+\[ W \subseteq \mathbb C^4, \text{ invariant in regards of } A \]
+$W$ is of structure on the left side.
+
+\[ v = \begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix} \]
+$\mathcal L(v)$ is invariant.
+
+\[ \begin{pmatrix} a \\ b \\ c \\ d \end{pmatrix} \in W \]
+\[
+  \begin{pmatrix} 0 \\ 0 \\ 0 \\ d \end{pmatrix}
+  = \begin{pmatrix} a \\ b \\ c \\ d \end{pmatrix} - \begin{pmatrix} a \\ b \\ c \\ 0 \end{pmatrix} \in W
+\]
+\[ A \begin{pmatrix} a \\ b \\ c \\ d \end{pmatrix} = \begin{pmatrix} a \\ -b \\ c \\ 0 \end{pmatrix} \]
+\[ A^2 \begin{pmatrix} a \\ b \\ c \\ d \end{pmatrix} = \begin{pmatrix} a \\ -b \\ c \\ 0 \end{pmatrix} \]
+
+If $d = 0 \implies \underbrace{W}_{= W^{-1}} \subset \mathbb C^3 \times \set{0}$.
+If $d \neq 0 \implies e_k \in W \implies W = W^{-1} \oplus \mathcal L(e_4)$ with $W^{-1} \subseteq \mathbb C^3$.
+
+\[ \begin{pmatrix} a \\ b \\ c \\ 0 \end{pmatrix} \in W^{-1} \]
+\[ A \begin{pmatrix} a \\ b \\ c \\ 0 \end{pmatrix} = \begin{pmatrix} a \\ -b \\ c \\ 0 \end{pmatrix} \in W^{-1} \]
+\[ \begin{pmatrix} a \\ b \\ c \\ 0 \end{pmatrix} - \begin{pmatrix} a \\ -b \\ c \\ 0 \end{pmatrix} \in W^{(-1)} \]
+\[ b = 0 \implies W^{-1} \in \mathcal L(e_1, e_3) \]
+\[ b \neq 0 \implies e_2 \in W^{-1} \subseteq W \]
+\[ W = W^{-2} \oplus \mathcal L(e_2, e_4) \]
+
+\[ \underbrace{\begin{pmatrix} a \\ b \\ c \\ 0 \end{pmatrix} - \begin{pmatrix} a \\ -b \\ c \\ 0 \end{pmatrix}}_{\begin{pmatrix} 0 \\ b \\ 0 \\ 0 \end{pmatrix}} \in W^{(-1)}  \]
+\[ A \begin{pmatrix} a \\ b \\ c \\ 0 \end{pmatrix} = \begin{pmatrix} a \\ -b \\ c \\ 0 \end{pmatrix} \in W^{-1} \]
+\[ A \begin{pmatrix} a \\ 0 \\ c \\ 0 \end{pmatrix} = \begin{pmatrix} a \\ 0 \\ c \\ 0 \end{pmatrix} \]
+
+
+\section{Exercise 57}
+\begin{ex}
+  We call $J_k(\lambda)$ the Jordan block of length $k$ of eigenvalue $\lambda$, hence
+  \[ J_k(\lambda) = \begin{bmatrix} \lambda & 1 & & & \\ & \lambda & 1 & & \\ & & \ddots & \ddots & \\ & & & \lambda & 1 \\ & & & & \lambda \end{bmatrix} \]
+  Given a block diagonal matrix with the following Jordan blocks $J_k(\lambda)$:
+  \[
+    A = \begin{bmatrix}
+      J_2(0) & & & & & & & & \\
+      & J_3(0) & & & & & & & \\
+      & & J_3(0) & & & & & & \\
+      & & & J_1(1) & & & & & \\
+      & & & & J_1(1) & & & & \\
+      & & & & & J_2(1) & & & \\
+      & & & & & & J_3(1) & & \\
+      & & & & & & & J_5(1) &
+    \end{bmatrix}
+  \]
+  Determine $\dim\ker(\lambda I - A)^k$ for $\lambda \in \set{0,1}$ and $0 \leq k \leq 20$ and bases of all eigenspaces and main spaces.
+\end{ex}
+
+$(e_1, e_3, e_6)$.
+
+Let $k = 2$. $(e_1, e_2, e_3, e_4, e_6, e_7)$.
+
+\begin{tabular}{ccc}
+  k \textbackslash \lambda & 0 & 1 \\
+}
+\hline
+  1 & 3 & 5 \\
+  2 & 6 & 8 \\
+  3 & 8 & 10 \\
+  4 & 8 & 11 \\
+  5 & 8 & 12 \\
+  6 & 8 & 12 \\
+  \vdots & \vdots & \vdots
+\end{tabular}
+
+\[ \dim\ker(\lambda \mathbf 1 - A)^2 \]
+\[ (e_9 e_{10} e_{11} e_{13} e_{16}) + (e_{12} e_{14} e_{12}) + (e_{15} e_{18}) + (e_{19}) \]
+
 \end{document}

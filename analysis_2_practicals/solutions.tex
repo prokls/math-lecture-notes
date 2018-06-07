@@ -1357,6 +1357,85 @@ Find a function that is differentiable infinitely often, is even and odd and $f(
 
 \[ k(x) = \begin{cases} e^{-\frac1x} & x > 0 \\ 0 & x \leq 0 \end{cases} \]
 
-\section{Sheet 8, Exercise 4}
+\section{Sheet 9, Exercise 3}
+\subsection{Sheet 9, Exercise 3a}
+\[ n \in \mathbb N, t \in \mathbb R: \frac{1}{1 + t^2} = \frac{(-t^2)^{n+1}}{1 + t^2} + \sum_{k=0}^n (-t^2)^k \]
+Let $z \coloneqq -t^2$ and we are done (the domains of $-t^2$ and $z$ also match).
+
+\subsection{Sheet 9, Exercise 3b}
+We already know:
+\[ \frac{d}{dx} \arctan(x) = \frac{1}{1 + x^2} \]
+By the fundamental theorem of differential and integration calculus, variant 1:
+\[ \implies \int_0^x \left(\frac{d}{dt} \arctan(x)\right) \, dt = \arctan(x) \]
+\begin{align*}
+  \arctan(x) &= \int_0^x \left[\frac{(-t^2)^{n+1}}{1 + t^2} + \sum_{k=0}^n (-t^2)^k\right] \\
+    &= \int_0^x \frac{(-t^2)^{n+1}}{1 + t^2} \, dt + \sum_{k=0}^n \int_0^x (-t^2)^k \, dt \\
+    &= \int_0^x \frac{(-t^2)^{n+1}}{1 + t^2} \, dt + \sum_{k=0}^n (-1)^k \frac{x^{2k+1}}{2k + 1}
+\end{align*}
+
+\subsection{Sheet 9, Exercise 3c}
+\[ \forall x \in [-1, 1]: \arctan(x) = \sum_{k=0}^\infty \frac{(-1)^k x^{2k+1}}{2k + 1} \]
+Show that $\lim_{n\to\infty} \int_0^x \frac{(-t^2)^{n+1}}{1 + t^2} \, dt = 0$.
+\[ \card{\int_0^x \frac{(-t^2)^{n+1}}{1 + t^2} \, dt} \leq \card{\int_0^x (-t^2)^{n+1} \, dt} = \card{\int_0^x \card{-t^2}^{n+1} \, dt} \]
+\[ = \card{\int_0^x t^{2n+2} \, dt} = \card{\left.\frac{t^{2n+3}}{2n+3} \right|_0^x} = \frac{\card{x}^{2n + 3}}{2n + 3} \leq \frac{1}{2n+3} \xrightarrow{n \to \infty} 0 \]
+
+\subsection{Sheet 9, Exercise 3d}
+\[ 1 - \frac13 + \frac15 - \dots = \sum_{k=0}^\infty \frac{(-1)^k \cdot 1^{2k+1}}{2k + 1} = \arctan(x) \]
+
+\section{Sheet 9, Exercise 4}
+\subsection{Sheet 9, Exercise 4a}
+\[ P(z) = \sum_{k=0}^\infty a_k (z - z_0)^k \qquad Q(z) = \sum_{k=0}^\infty a_k (f(z) - z_0)^k \]
+\[ f: \substack{\mathbb C \to \mathbb C \\ \hat z \mapsto \overline z} \]
+
+Show that $P(z)$ converges $\iff Q(\hat z)$ converges.
+
+\begin{align*}
+  P(z) &= \sum_{k=0}^\infty a_k(z - z_0)^k = \lim_{n\to\infty} \sum_{k=0}^n a_k(\overline z - z_0)^k = \lim_{n\to\infty} \sum_{k=0}^\infty a_k (f(\hat z) - z_0)^k \\
+    &= \sum_{k=0}^\infty a_k (f(\hat z) - z_0)^k = Q(\hat z)
+\end{align*}
+
+\subsection{Sheet 9, Exercise 4b}
+\[ P(z) = \sum_{k=0}^\infty z^k  \qquad Q(z) = \sum_{k=0}^\infty (-1)^k (z^2)^k = \sum_{k=0}^\infty (-z^2)^k \]
+with $P(z) = \frac{1}{1 - z}$.
+\[ f(z) = -z^2 \]
+\[ \card{z} < 1 \iff \card{z^2} < 1 \iff \card{-z^2} < 1 \]
+
+\subsection{Sheet 9, Exercise 4c}
+Determine the root function of $Q(z)$ with $z \in \mathbb R$.
+\[ \int Q(z) \, dz = \sum_{k=0}^\infty \frac{(-1)^k z^{2k+1}}{2k - 1} + C \]
+
+These are all root functions. But are these all root functions? Yes.
+There is some $C$ such that this integral becomes $\arctan$, specifically $C = 0$.
+\[ \sum_{k=0}^\infty \frac{(-1)^k z^{2k+1}}{2k+1} = \arctan(z) \qquad \forall z \in (-1, 1) \]
+
+\section{Sheet 9, Exercise 2}
+\subsection{Sheet 9, Exercise 2a}
+\[ f: \mathbb R \setminus \set{-1, 2} \to \mathbb R \]
+\[ f(x) = \frac{x + 3}{x^2 - x - 2} \]
+\[ \frac{-\frac23}{x + 1} + \frac{\frac53}{x - 2} \]
+\[ f^{(n)}(x) = \frac{\frac23 n! \cdot (-1)^n}{(x + 1)^{n+1}} + \frac{\frac53 n! (-1)}{(x - 2)^{n + 1}} \]
+\[ T_f^n(x; 0) = \sum_{k=0}^n \frac{-\frac23 k! (-1)^k + \frac53 k! (-1)^k}{(-2)^{k+1}}{k!} \cdot x^k \]
+
+\subsection{Sheet 9, Exercise 2b}
+\[ T_f^2(x; 0) = -\frac32 + \frac x4 - \frac78 x^2 \]
+$\xi \in (0, x)$.
+\[ R_3 = \card{\frac{f^3(\xi)}{3!} x^3} = \card{\frac{\frac{4}{(\xi + 1)^4} - \frac{10}{(\xi - 2)^4}}{6} x^3} = \frac{\frac{5}{(\xi - 2)^4} - \frac{2}{(\xi + 1)^4}}{3} x^3 \]
+\[ \frac{5}{(1 - 2)^4} - \frac{2}{(1 + 1)^4} = \frac{\frac{39}8}{3} \]
+\[ \card{\frac{16}{375} - \frac{32}{3}} = \frac{10.624}{1000} \]
+
+\subsection{Sheet 9, Exercise 2c}
+\[ T_f(x, 0) = f(x) \forall x \in [0, 1) \]
+\[ T_f^n(x; 0) - f(x) = R^{n+1}_f(x; 0) \]
+\[ R^{n+1} = \frac{f^{(n+1)}(\xi)}{(n+1)!} x^{n+1} = \frac{-\frac23}{(\xi + 1)^{n+2}} + \frac{\frac53}{(\xi - 2)^{n+2}} \card{x}^{n+1} = 0 \]
+
+\subsection{Sheet 9, Exercise 2d}
+Not so easy.
+
+\subsection{Sheet 9, Exercise 2e}
+If convergence radius $>1$, then function is continuous and series is continuous in all points (smaller the radius). Contradicts with $f(-1)$ is excluded from the set. But another approach works better: Continuous functions on compact sets are bounded.
+
+Cauchy-Hadamard:
+\[ \leadsto \sqrt[n]{\card{-\frac53 \cdot \frac{(-1)(-1)^n}{2^{n+1}} + \frac23}}^{-1} \leq \sqrt[n]{\frac23} \underbrace{\sqrt[n]{1 + \frac{5}{2^{n+2}}}}_{\leq \sqrt[n]{3}} \]
+
 
 \end{document}

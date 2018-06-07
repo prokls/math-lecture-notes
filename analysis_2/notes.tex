@@ -67,6 +67,7 @@
 \newcommand{\fall}{\;\forall\,}
 \newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
 \newcommand{\vectwo}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\bectwo}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
 \makeatletter
 \newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
 \makeatother
@@ -1493,7 +1494,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   with $d(\xi, x) < \delta$ and $d(\eta, x) < \delta$ it holds that $\card{f(\xi) - f(\eta)} < \varepsilon$.
   Analogously for one-sided limits with $A \subseteq \mathbb R$.
   Additionally, we need the constraint that $\xi > x$ and $\eta > x$ for $\lim_{\xi \to x^+} f(\xi)$.
-  Or equivalently, $\xi < x$ and $\eta < x$ for $\lim_{\xi \to x^-} f(\xi)$.
+  And accordingly, $\xi < x$ and $\eta < x$ for $\lim_{\xi \to x^-} f(\xi)$.
 \end{lemma}
 
 \begin{proof}
@@ -2681,7 +2682,7 @@ Usually they are composites of basic functions. Some of these are given in Table
   $f$ has at most countable many discontinuity points. By Satz~\ref{satz7countable},
   \[
     \int_a^b \card{f - f_+} \, dx = 0
-    \quad \text{ or equivalently } \quad
+    \quad \text{ and accordingly } \quad
     \int_a^b f \, dx = \int_a^b f_+ \, dx
   \]
 \end{proof}
@@ -2927,7 +2928,7 @@ Some important inequalities in integration theory follow.
   Hence $(y - \delta, y + \delta) \subseteq (y_1, y_2) \forall \eta \in (y - \delta, y + \delta)$ it holds that
   \[ f^{-1}(\eta) < f^{-1}(y + \delta) < f^{-1}(y_2) = x_2 = x + \hat\varepsilon \]
   \[ f^{-1}(\eta) < f^{-1}(y - \delta) < f^{-1}(y_1) = x_1 = x - \hat\varepsilon \]
-  So $f^{-1}(\eta) \in (x - \hat{\varepsilon}, x + \hat{\varepsilon})$, or equivalently
+  So $f^{-1}(\eta) \in (x - \hat{\varepsilon}, x + \hat{\varepsilon})$, and accordingly
   \[ \card{\eta - y} < \delta \implies \card{f^{-1}(\eta) - \underbrace{f^{-1}(y)}_{=x}} < c \leq \frac{\varepsilon}{2} < \varepsilon \]
   So $f^{-1}$ is continuous in $y$ and $f^{-1}$ is continuous in $y_0$ analogously.
 \end{proof}
@@ -2957,10 +2958,10 @@ So
 \begin{description}
   \item[Case 1] $a = f^{-1}(b)$
     \[ \implies I = \underbrace{\int_a^a f(x) \, dx}_{=0} + b \cdot a \]
-  \item[Case 2] $b < f(a)$, or equivalently $f^{-1}(b) < a$
+  \item[Case 2] $b < f(a)$, and accordingly $f^{-1}(b) < a$
     \[ \implies \int_{f^{-1}(b)}^a \underbrace{f(x)}_{f(f^{-1}(b)) \text{ for } x > f^{-1}(b)} \, dx > \overbrace{b}^{\text{minimal value}} \cdot \underbrace{(a - f^{-1}(b))}_{\text{length of integration interval}}  \]
     Therefore $I > b(a - f^{-1}(b)) + b \cdot f^{-1}(b) = ab$.
-  \item[Case 3] $b > f(a)$, or equivalently $f^{-1}(b) > a$
+  \item[Case 3] $b > f(a)$, and accordingly $f^{-1}(b) > a$
     \[ \int_{f^{-1}(b)}^a f(x) \, dx = \int_a^{f^{-1}(b)} \underbrace{(-f(x))}_{\substack{\text{monotonically decreasing} \\ > -f(f^{-1}(b)) \forall x \in [a,f^{-1}(b))}} \, dx > -f(f^{-1}(b)) \cdot (f^{-1}(b) - a) \]
     \[ = -b(f^{-1}(b) - a) \]
     \[ I > -b (f^{-1}(b) - a) + b \cdot f^{-1}(b) = ab \]
@@ -3492,7 +3493,7 @@ We now consider conditions to select extreme values from all value satisfying de
       \[ \frac{f^{(n+1)}(\xi)}{(n+1)!} (x - x_0)^{n+1} = R_f^{n+1}(x; x_0) = f(x) - \sum_{k=0}^n \frac{1}{k!} f^{(k)}(x_0) (x - x_0)^k = f(x) - f(x_0) \]
       for $k = 1, \dots, n$. So,
       \[ f(x) - f(x_0) = \frac{\overbrace{f^{(n+1)}(\xi)}^{< 0}}{\underbrace{(n+1)!}_{> 0}} \underbrace{(x - x_0)^{\overbrace{n+1}^{\text{even}}}}_{> 0 \text{ for } x \neq x_0} \]
-      hence $f(x) - f(x_0) < 0$, or equivalently
+      hence $f(x) - f(x_0) < 0$, and accordingly
       \[ f(x) < f(x_0) \qquad \forall x \in (x_0 - \varepsilon, x_0 + \varepsilon), x \neq x_0 \]
       So $f$ is a strict local maximum.
     \item[Case b] Analogously.
@@ -3512,7 +3513,7 @@ We now consider conditions to select extreme values from all value satisfying de
 \begin{theorem}[Qualitative Taylor equation]
   Let $f \in \mathcal C^n(I)$, $x, x_0 \in I$. Then there exists some function $r \in \mathcal C(I)$ with $r(x_0) = 0$ such that
   \[ f(x) = T_f^n(x; x_0) + (x - x_0)^n \cdot r(x) \]
-  or equivalently,
+  and accordingly,
   \[ R_f^{n+1}(x; x_0) = (x - x_0)^n \cdot r(x) \]
 \end{theorem}
 
@@ -3700,7 +3701,7 @@ $\mathcal L_b(V, W) \neq \emptyset$.
       So, $\norm{\varphi(x)}_W \leq \tilde m \norm{x}_V$. Thus $\tilde m$ satisfies the boundedness criterion and $\norm{\varphi} \leq \tilde m$.
 
       On the opposite: Let $m$ such that the boundedness criterion is satisfied $\implies \norm{\varphi(x)}_W \leq m \cdot \norm{x}_V \forall x \in V, x \neq 0$
-      or equivalently, $\frac{\norm{\varphi(x)}}{\norm{x}_V} \leq m$.
+      and accordingly, $\frac{\norm{\varphi(x)}}{\norm{x}_V} \leq m$.
       Hence, $m$ is upper bound of $\set{\frac{\norm{\varphi(x)}}{\norm{x}_V} : X \neq 0}$, hence $m \geq \tilde m = \sup\set{\cdot}$.
       Hence, $m \geq \tilde m = \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0}$.
       The statement above also holds for the infimum of $m-s$, hence $\norm{\varphi} \geq \tilde m$,
@@ -3717,7 +3718,7 @@ $\mathcal L_b(V, W) \neq \emptyset$.
     \item Show that $\norm{\varphi}$ is a norm.
 
       \[ \norm\varphi = 0 \iff \forall x \in V: \norm{\varphi(x)}_W \leq 0 \cdot \norm{x}_W \]
-      hence $\varphi(x) = 0 \forall x \in V$ or equivalently, $\varphi = 0$ in $\mathcal L(V, W)$.
+      hence $\varphi(x) = 0 \forall x \in V$ and accordingly, $\varphi = 0$ in $\mathcal L(V, W)$.
       \[ \norm{\lambda \varphi} = \sup\set{\norm{\lambda \varphi(x)}_W: \norm{x}_V = 1} = \sup\set{\card{\lambda} \norm{\varphi(x)}_W: \norm{x}_V = 1} \]
       \[ = \card{\lambda} \sup\set{\norm{\varphi(x)}_W: \norm{x}_V = 1} = \card{\lambda} \norm{\varphi} \]
       Triangle inequality:
@@ -3752,7 +3753,7 @@ $\mathcal L_b(V, W) \neq \emptyset$.
   \end{align*}
   Hence the boundedness criterion is satisfied.
   $A$ is bounded in regards of $\norm{\cdot}_\infty$ in the preimage and image space.
-  By the norm equivalence theorem, it follows that $A$ is bounded in regards of arbitrary norms on $\mathbb R^m$, or equivalently $\mathbb R^n$.
+  By the norm equivalence theorem, it follows that $A$ is bounded in regards of arbitrary norms on $\mathbb R^m$, and accordingly $\mathbb R^n$.
 \end{remark}
 
 \dateref{2018/05/17}
@@ -3835,7 +3836,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \[ \norm{f(x) - f(x_0) - A(x - x_0)}_{\mathbb R^n} = o(\norm{x - x_0}_{\mathbb R^m}) \]
   We call this condition \emph{differentiability condition}.
   $A$ is a linear approximation of $f$ in $x_0$.
-  Because of norm equivalence on $\mathbb R^n$, or equivalently $\mathbb R^m$,
+  Because of norm equivalence on $\mathbb R^n$, and accordingly $\mathbb R^m$,
   it is irrelevant which norm $\norm{\cdot}_{\mathbb R^n}$ and $\norm{\cdot}_{\mathbb R^m}$ is chosen.
 \end{definition}
 
@@ -4415,7 +4416,7 @@ Necessary (but not sufficient) optimality criteria:
   Let $D \subseteq \mathbb R^n$, $f: D \to \mathbb R$.
   We say that $f$ in $x_0 \in D$ has a local maximum, if some neighborhood $U$ of $x_0$ exists such that
   \[ \forall x \in D \cap U: f(x) \leq f(x_0) \]
-  Or equivalently for strict maxima:
+  and accordingly for strict maxima:
   \[ \forall x \in (D \cap U) \setminus \set{x_0}: f(x) < f(x_0) \]
   Analogously for a minimum with $f(x) \geq f(x_0)$ and strict minima $f(x) > f(x_0)$.
 \end{definition}
@@ -4437,6 +4438,7 @@ Necessary (but not sufficient) optimality criteria:
   \[ \implies \underbrace{Df(x_0)}_{= 0} \cdot v = df(x_0; v) = 0 \qquad \forall v \in \mathbb R^n \]
 \end{remark}
 
+\subsection{Diffeomorphism}
 \index{Diffeomorphism}
 \begin{definition} % Definition 8
   Let $U, V \subseteq \mathbb R^n$ be open.
@@ -4454,16 +4456,19 @@ Necessary (but not sufficient) optimality criteria:
   \label{l9}
   Let $g: D \subseteq \mathbb R^n \to \mathbb R^n$ and $D$ is open.
   $g$ is continuously differentiable on $D$.
-  Furthermore let $g: D \to g(D)$ bijective and $Dg(x)$ is regular for all $x \in D$.
+  Furthermore let $g: D \to g(D)$ be bijective, $g^{-1}: g(D) \to D$ and $Dg(x)$ is regular for all $x \in D$.
   Then $g(D) \to D$ is continuously differentiable with
   \[ D g^{-1}(y) = Dg^{-1}\left(g(x)\right) = [Dg(x)]^{-1} \]
 \end{lemma}
 
 \begin{proof}
-  Will be provided later on.
+  Will be provided later on (page~\pageref{proof:f9}).
 \end{proof}
 
-\begin{theorem}[local inversion theorem, theorem of inverse maps]
+\subsection{Local inversion theorem}
+\index{Local Inversion Theorem}
+\begin{theorem}[Local Inversion Theorem, Theorem of Inverse Maps]
+  \label{thm:lit}
   Let $D \subseteq \mathbb R^n$ be open. Let $f: D \to \mathbb R^n$ be continuously differentiable.
   Furthermore let $Df(x_0)$ regular for $x_0 \in D$. Then $f$ is a local diffeomorphism in $x_0$.
   Furthermore it holds that:
@@ -4516,7 +4521,7 @@ Necessary (but not sufficient) optimality criteria:
   \begin{figure}[t]
     \begin{center}
       \includegraphics{img/35_x1x2.pdf}
-      \caption{TODO put notes here that should be in the image (see Ring notes)}
+      \caption{We consider a sphere with radius $2r$. The blue line denotes $l_{x_1, x_2}(t)$. $l_{x_1, x_2}(t) \in \overline{K_{2r}(0)}$ because $\overline{K_{2r}(0)}$ is convex}
       \label{img:x1x2}
     \end{center}
   \end{figure}
@@ -4550,6 +4555,18 @@ Necessary (but not sufficient) optimality criteria:
   
   Let $U = F^{-1}(K_r(0)) \cap K_{2r}(0)$ where $F^{-1}(K_r(0))$ is open, because $F$ is continuous.
   Hence, $U$ is open and $0 \in U$. Therefore $U$ is an open neighborhood of $0$.
+
+  Show: $F^{-1}: F(U) \to U$ is continuous~\footnote{This proof was added on 2018/06/07 as we initially forgot this condition}:
+  Let $x_1 = F^{-1}(y_1), x_2 = F^{-1}(y_2); y_1, y_2 \in F(U)$.
+  \[ \varphi_0(x) = x + 0 - F(x) = x - F(x) \]
+  \begin{align*}
+    x_2 - x_1 &= \underbrace{x_2 - F(x_2)}_{\varphi_0(x_2)} + F(x_2) \underbrace{- x_1 + F(x_1)}_{- \varphi_0(x_1)} - F(x_1) \\
+      &= \varphi_0(x_2) - \varphi_0(x_1) + F(x_2) - F(x_1) \\
+    \norm{x_2 - x_1} &\leq \norm{\varphi_0(x_2) - \varphi_0(x_1)} + \norm{F(x_2) - F(x_1)} \\
+      &\underbrace{\leq}_{\substack{\varphi_0 \text{ is} \\ \text{a contraction}}} \frac12 \norm{x_2 - x_1} + \norm{F(x_2) - F(x_1)}
+  \end{align*}
+  \[ \norm{F^{-1}(y_2) - F^{-1}(y_1)} \leq 2 \norm{y_2 - y_1} \]
+  hence $F^{-1}$ is Lipschitz continuous on $F(U)$, so also continuous.
   
   We show: $DF(x)$ is invertible for all $x \in U$.
   
@@ -4566,22 +4583,23 @@ Necessary (but not sufficient) optimality criteria:
   So the central idea of this proof was to rewrite $F$ such that we can apply Banach's Fixed Point Theorem.
 \end{proof}
 
+\subsection{Implicit functions}
+\index{Implicit function}
 \begin{theorem}[Implicit function theorem] % Satz 4
   Let $U \subseteq \mathbb R^{n + m} = \mathbb R^n \times \mathbb R^m$
-  \[ f: U \to \mathbb R^m \]
-  is continuously differentiable.
+  $f: U \to \mathbb R^m$ is continuously differentiable.
 
   Notation: $\vectwo xy \in U; x \in \mathbb R^n, y \in \mathbb R^m$
-  \[ f(\vectwo xy) = f(x, y) \]
+  \[ f\left(\vectwo xy\right) = f(x, y) \]
   
   For $(x_0, y_0) \in U$ it holds that $f(x_0, y_0) = 0$.
   What about
   \[
     Df(x_0, y_0) = \begin{bmatrix}
       \partial_{x_1} f_1 & \dots & \partial_{x_n} f_1 & \partial_{y_1} f_1 & \dots & \partial_{y_m} f_1 \\
-      \vdots & & & & & \vdots \\
+      \vdots & & \vdots & \vdots & & \vdots \\
       \partial_{x_1} f_m & \dots & \partial_{x_n} f_m & \partial_{y_1} f_m & \dots & \partial_{y_m} f_m
-	\end{bmatrix}
+    \end{bmatrix}
   \]
   where the left half is given by $D_x f(x_0, y_0) \in \mathbb R^{m \times n}$ and the right half is given by $D_y f(x_0, y_0) \in \mathbb R^{m \times m}$.
   
@@ -4590,6 +4608,168 @@ Necessary (but not sufficient) optimality criteria:
   Then there exists some neighborhood $D$ of $x_0$ in $\mathbb R^n$ and a function $g: D \to E$.
   $E$ is a neighborhood of $y_0$ in $\mathbb R^m$ such that $D \times E \subseteq U$ and $f(x,y) = 0 \iff y = g(x)$ for $(x, y) \in D \times E$.
   Hence, $f(x, g(x)) = 0 \forall x \in D$.
+\end{theorem}
+
+\dateref{2018/06/07}
+
+\begin{remark}
+  So it holds: $g(x_0) = y_0$.
+\end{remark}
+
+\begin{proof}
+  \label{proof:ift}
+  \[ F: U \subset \mathbb R^{n + m} \to \mathbb R^{n + m} \]
+  \[
+    F\left(\begin{bmatrix} x \\ y \end{bmatrix}\right)
+    = \begin{bmatrix} x \quad (\in \mathbb R^{n}) \\ f(x,y)  \quad (\in \mathbb R^m)\end{bmatrix} \in \mathbb R^{n + m}
+  \] \[
+    DF\left(\begin{bmatrix} x_0 \\ y_0 \end{bmatrix}\right) = \begin{bmatrix}
+      I & 0 \\
+      D_x f(x_0, y_0) & D_y f(x_0, y_0)
+    \end{bmatrix}
+    \in \mathbb R^{(n + m) \times (n + m)}
+  \]
+  is the Jacobi matrix of $f$.
+  \[ \det\left(DF(\vectwo{x_0}{y_0})\right) = \underbrace{\det(I)}_{= 1} \cdot \underbrace{\det(D_yf(x_0, y_0))}_{\neq 0} \neq 0 \]
+  so $DF(\vectwo{x_0}{y_0})$ is regular. By the local inversion theorem (Theorem~\ref{thm:lit}), $F$ is a local Diffeomorphism.
+  Thus, $\exists V: \vectwo{x_0}{y_0} \in V \subseteq D$ such that $F: V \to F(V)$ is a diffeomorphism.
+  $V$ is open, hence $\exists r, r' > 0$ such that
+  \[ (x_0, y_0) \in K_r(x_0) \times K_{r'}(y_0) \subseteq V \]
+  here $\mathbb R^{n + m}$ is identified as $\mathbb R^n \times \mathbb R^m$.
+  \[ F^{-1}: F(V) \to V \qquad F^{-1}(\begin{bmatrix} \xi \\ \eta \end{bmatrix}) = \text{?} \]
+  \[ F\vectwo xy = \begin{bmatrix} \xi \\ \eta \end{bmatrix} \iff \begin{bmatrix} x \\ y \end{bmatrix} = F^{-1}(\begin{bmatrix} \xi \\ \eta \end{bmatrix}) \]
+  \[ F\vectwo xy = \vectwo{x}{f(x,y)} \]
+  hence $x = \xi$ and $F^{-1}(\begin{bmatrix} \xi \\ \eta \end{bmatrix}) = \begin{bmatrix} \xi \\ G(\xi, \eta) \end{bmatrix}$.
+  Define $g(x) \coloneqq G(x, 0)$. $g: K_r(x_0) \to \mathbb R^m$.
+  \[ \begin{bmatrix} x \\ 0 \end{bmatrix} = F\left(F^{-1}\left(\begin{bmatrix} x \\ 0 \end{bmatrix}\right)\right) = F\left(\begin{bmatrix} x \\ G(x, 0) \end{bmatrix}\right) = F\left(\begin{bmatrix} x \\ g(x) \end{bmatrix}\right) = \begin{bmatrix} x \\ f(x, g(x)) \end{bmatrix} \]
+  \[ \implies f(x, g(x)) = 0 \forall x \in K_r(x_0) \]
+  Uniqueness: Let $(x, y) \in K_r(x_0) \times K_{r'}(y_0) \subset V$ and $f(x, y) = 0$.
+  Hence
+  \[ F(\begin{bmatrix} x \\ y \end{bmatrix}) = \begin{bmatrix} x \\ f(x, y) \end{bmatrix} = \begin{bmatrix} x \\ 0 \end{bmatrix} \]
+  \[ \implies \begin{bmatrix} xy \end{bmatrix} = F^{-1}(F(\begin{bmatrix} x \\ y \end{bmatrix})) = F^{-1}(\begin{bmatrix} x \\ 0 \end{bmatrix}) = \begin{bmatrix} x \\ G(x,0) \end{bmatrix} = \begin{bmatrix} x \\ g(x) \end{bmatrix} \]
+  \[ \implies y = g(x) \]
+\end{proof}
+
+\begin{example}
+  \[ f(x, y) = x^2 y - x^3 y^2 - 2 \]
+  \[ f(-1, 1) = 1 + 1 - 2 = 0 \]
+  Hence $(x_0, y_0) = (-1, 1)$ is root of $F$.
+  \[ Df(x, y) = \left[\underbrace{2xy - 3x^2 y^2}_{D_x f}, \underbrace{x^2 - 2x^3 y}_{D_y f}\right] \]
+  \[ D_y f(\begin{bmatrix} -1 \\ 1 \end{bmatrix}) = 3 \neq 0 \]
+  hence $f(x, y)$ is in neighborhood of $(-1, 1)$ resolvable by $y$.
+  \[ x^2 y - x^3 y^2 - 2 = 0 \]
+  \[ x^3 y^2 - x^2 y + 2 = 0 \]
+  \[ y = \frac{x^2 \pm \sqrt{x^4 - 8x^3}}{2x^3} = \frac{x^2 (1 \pm \sqrt{1 - \frac{8}{x}})}{2x^3} = \frac{1}{2x} \left(1 \pm \sqrt{1 - \frac8x}\right) \]
+  It has to holds that $g(-1) = 1$, thus
+  \[ \frac1{-2} \left(1 + \sqrt{1 - \frac{8}{-1}}\right) = -\frac12 (1 + 3) = -2 \]
+  This is apparently wrong, thus we consider the second result for $y$:
+  \[ \frac1{-2} \left(1 - \sqrt{1 - \frac{8}{-1}}\right) = -\frac12 (1 - 3) = -1 \]
+  So $g(x) = \frac1{2x} \cdot \left(1 - \sqrt{1 - \frac8x}\right)$ is the desired function.
+  $D_x f(-1, 1) = -2 - 3 = -5$, hence $f(x, y) = -x^3 y^2 + x^2 y - 2$ is also uniquely resolvable by $x$ in a neighborhood of $(-1, 1)$.
+\end{example}
+
+\begin{proof}[Proof of Lemma~\ref{l9}]
+  \label{proof:f9}
+  Let choose $x_0 \in D$ and show that $g^{-1}$ is differentiable in $y_0 = g(x_0)$.
+  We use the same construction as in Proof~\ref{proof:ift} (Implicit function theorem proof).
+  Without loss of generality: $x_0 = 0; g(x_0) = y_0 = 0$ and $Dg(0) = I$.
+  Let $v \in \mathbb R^n$ be sufficiently small such that $w = g^{-1}(v)$ is defined.
+
+  By differentiability of $g$,
+  \[ g(w) = \underbrace{Dg(0)}_{I} \cdot w + \underbrace{R(w)}_{o(\norm{w})} = w + R(w) \]
+  \[ g^{-1}(v) = w = g(w) - R(w) = g(g^{-1}(v)) - R(g^{-1}(v)) = v + R^{*}(v) \]
+  with $R^{*}(v) = -R(g^{-1}(v))$. Show that $R^*(v) = o(\norm{v})$.
+  \begin{align}
+    g^{-1}(v) &= v + R^{*}(v)  \label{h}
+  \end{align}
+
+  By differentiability of $g$,
+  \[ \exists r > 0: \norm{R(w)} \leq \frac12 \norm{w} \]
+  for all $\norm{w} \leq r$ (because $\frac{\norm{R(w)}}{\norm{w}} \to 0$ for $w \to 0$).
+  Continuity of $g^{-1}$ combined with $g^{-1}(0) = 0$
+  \[ \implies \forall \norm{v} < \delta: \norm{g^{-1}(v)} = \norm{g^{-1}(v) - g^{-1}(0)} \leq r \]
+  \[ \implies \norm{R^*(v)} = \norm{R(g^{-1}(v))} \leq \frac12 \norm{g^{-1}(v)} \]
+  for all $v$ with $\norm{v} \leq \delta$.
+
+  By Equation~\eqref{h},
+  \[ \norm{g^{-1}(v)} = \norm{v + R^*(v)} \leq \norm v + \norm{R^*(v)} \leq \norm v + \frac12 \norm{g^{-1}(v)} \]
+  If $\norm v \leq \delta$
+  \[ \norm{g^{-1}(v)} \leq 2 \norm v \qquad \forall \norm v \leq \delta \]
+  So,
+  \[ \frac{\norm{R^*(v)}}{\norm{v}} \leq 2 \frac{\norm{R(g^{-1}(v))}}{\norm{g^{-1}(v)}} = 2 \frac{\norm{R(w)}}{\norm{w}} \]
+  \[ v \to 0 \implies w = g^{-1}(v) \to 0 \]
+  because $g^{-1}$ is continuous, hence
+  \[ v \to 0: \lim_{v \to 0} \frac{\norm{R(g^{-1}(v))}}{\norm{g^{-1}(v)}} = \lim_{w \to 0} \frac{R(w)}{\norm{w}} = 0 \]
+  because $R = o(\norm{w})$. Thus, $R^*(v) = o(\norm v)$, so $g^{-1}$ is differentiable in $y_0 = 0$.
+
+  We know that $g^{-1}$ is differentiable in every point $y \in g(D)$.
+  \[ \underbrace{y}_{= \operatorname{id}(y)} = g(g^{-1}(y)) \forall y \in E = g(D) \]
+  We derive both sides of the equation and apply the chain rule:
+  \[ D\operatorname{id}(y) = I = Dg(g^{-1}(y)) \cdot Dg^{-1}(y) \]
+  \[ \implies Dg^{-1}(y) = [\underbrace{Dg(\underbrace{g^{-1}(y)}_{\text{continuous}} )}_{\text{continuous}}]^{-1} \]
+  Is the inverse also continuous (does the inverse depend continuously on the coefficients? Yes, you can see it by considering Cramer's Rule which provides a formula with a sum)? So the inverse is a continuous operation on $\operatorname{GL}(n)$.
+  Therefore $Dg^{-1}(y)$ depends continuously on $y$ and $Dg^{-1}(y) = [Dg(x)]^{-1}$ with $x = g^{-1}(y)$ and accordingly, $y = g(x)$.
+\end{proof}
+
+\subsection{Higher partial derivatives and multi-dimensional Taylor Theorem}
+
+\index{Order of a partial derivative}
+\begin{remark}[Concept idea]
+  Let $D \subseteq \mathbb R^n$ be open. Let $f: D \to \mathbb  R$ be continuously differentiable.
+  Hence $\partial_{x_i} f(x) \in \mathbb R$ and $\partial_{x_i} f: D \to \mathbb R$ is continuous.
+  If $\partial_{x_i} f$ is also (continuously) differentiable, then its partial derivatives can be determined.
+  In this case, we define
+  \[ \partial_{X_j, X_i} f \coloneqq \partial_{X_j} [\partial_{X_i} f] \]
+  Continuation for further higher derivatives:
+  \[ \partial_{X_{i_k}, X_{i_{k-1}}, \dots, X_{i_1}} f = \partial_{X_{i_k}} (\partial_{X_{i_{k-1}} \dots X_{i_1}} f) \]
+  The index $k$ in $\partial_{X_{i_k} X_{i_{k-1}} \dots X_{i_1}}$ is the \emph{order of the partial derivative}.
+\end{remark}
+
+\begin{example}
+  \begin{align*}
+    f(x, y) &= x^2 y - x^3 y^2 - 2 \\
+    \partial_X f &= 2xy - 3x^2 y^2 \\
+    \partial_Y f &= x^2 - 2x^3 y \\
+    \partial_{YX} f &= 2x - 6x^2y \\
+    \partial_{XY} f &= 2x - 6x^2y = \partial_{YX} \\
+    \partial_{XX} f &= 2y - 6xy^2 \\
+    \partial_{YY} f &= -2x^3 \\
+    \partial_{XXX} f &= -6y^2 \\
+    \partial_{YYY} f &= 0 \\
+    \partial_{XYX} f &= 2 - 12xy \\
+    \partial_{XXY} f &= 2 - 12xy = \partial_{XYX} \\
+    \partial_{YXY} f &= -6x^2 \\
+    \partial_{XYY} f &= -6x^2 = \partial_{YXY} \\
+  \end{align*}
+  It seems that the derivative is independent of the order of the variables.
+\end{example}
+
+\index{Hessian matrix}
+\begin{definition}[Hesse matrix]
+  Specifically for second derivatives:
+  \[
+    D^2 f(x) = \begin{bmatrix}
+      \partial_{X_1,X_1} f & \partial_{X_2,X_1} f & \dots & \partial_{X_n,X_1} f \\
+      \partial_{X_1,X_2} f & \partial_{X_2,X_2} f & \dots & \partial_{X_n,X_2} f \\
+      \vdots & \vdots & \ddots & \vdots \\
+      \partial_{X_1,X_n} f & \partial_{X_2,X_n} f & \dots & \partial_{X_n,X_n} f
+    \end{bmatrix}
+  \]
+  is called \emph{Hessian matrix}. Named after Otto Hesse (1811--1874).
+\end{definition}
+
+\begin{definition}
+  Let $f: D \to \mathbb R$ and let all partial derivatives of $f$ up to order $k \in \mathbb N$ exist and be continuous functions in $x \in D$.
+  Then $f$ is called \emph{$k$-times continuously differentiable} and
+  \[ \mathcal C^k(D) \coloneqq \set{f: D \to \mathbb R: f \text{ is $k$-times continuously differentiable}} \]
+  $\mathcal C^k(D)$ is a vector space.
+\end{definition}
+
+\begin{theorem}[Symmetry of second derivatives, Schwarz' theorem, Clairaut's theorem, Young's theorem]
+  Hermann Amadeus Schwarz (1843--1921).
+
+  Let $f \in \mathcal C^2(D)$. Let $D \subseteq \mathbb R^n$ be open. Then it holds that
+  \[ \partial_{X_i X_j} f = \partial_{X_j X_i} f \text{ on } D \]
 \end{theorem}
 
 \printindex

@@ -5720,7 +5720,7 @@ where $T$ is basis of eigen vectors.
 
 Camille Jordan (1838--1922): Jordan curvature.
 
-\section{The Jordan normal form}
+\section{Jordan Normal Form (JNF)}
 
 Causs-Wilhelm-Jordan (1842--1899)
 
@@ -6816,6 +6816,236 @@ $\leadsto$ basis $B_i$ such that
       &= e^{\lambda} \cdot \begin{bmatrix} 1 & \frac12 & \dots & \\ & \ddots & \ddots & \\ & & \frac12 & \\ & & 1 & \end{bmatrix}
   \end{align*}
 \end{theorem}
+
+\dateref{2018/06/06}
+
+\begin{example} % Beispiel 11.28
+  \[ e^A \begin{cases} \frac{dx}{dt} = Ax \leadsto x(t) = e^{A \cdot t} x_0 \\ x(0) = x_0 \end{cases} \]
+  for $t \to \infty: e^{At} x_0$
+  Asymptotically, depends on the eigenvalue.
+  \[ A = B^{-1} \underbrace{J}_{JNF} B \qquad e^{At} = B^{-1} e^{Jt} B = B^{-1} \begin{bmatrix} e^{J_it} & & & \\ & e^{J_2 t} & & \\ & & \ddots & \\ & & & e^{J_k t} \end{bmatrix} \cdot B \]
+  \[ J = \begin{bmatrix} J_1 & & & \\ & J_2 & & \\ & & \ddots & \\ & & & J_k \end{bmatrix} \text{ Jordan blocks} \]
+  \[ J_k = \begin{bmatrix} \lambda & 1 & & & \\ & \ddots & \ddots & & \\ & & \ddots & \ddots & \\ & & & \ddots & 1 \\ & & & & \lambda \end{bmatrix} \]
+  \[ e^{J_k t} = e^{\lambda t} \cdot \left(e^{\overbrace{\begin{bmatrix} 0 & 1 & & \\ & \ddots & \ddots & \\ & & \ddots & 1 \\ & & & 0 \end{bmatrix}}^{\text{polynomial}} t}\right) \]
+
+  \[ e^{\lambda t} = e^{(\xi + i \eta) \beta} \xrightarrow{t \to \infty} \begin{cases} \infty & \text{ if } \xi > 0 \\ 0 & \text{ if } \xi < 0 \end{cases} \]
+  \[ e^{(\xi + i \eta) \beta} = e^{\xi t} \cdot e^{i \eta t} \]
+  with $\card{e^{i \eta t}} = 1$ and $\xi = \Re{\lambda}$.
+  $\to$ if $\Re{\lambda} < 0 \forall \text{ eigenvalue } \lambda_i$.
+  \[ e^{At} x_0 \xrightarrow{t \to \infty} 0 \]
+  for arbitrary $x_0$.
+  If $\Re{\lambda_i} > 0 \forall \text{ eigenvalue}$ $\implies e^{At} x_0 \xrightarrow{t \to \infty} \infty$.
+
+  If $\Re{\lambda_i} < 0$ for some specific $\lambda_i$ and $\Re{\lambda_i} > 0$ for other $\lambda_i$.
+  Asymptotically depends on the initial value $x_0$.
+\end{example}
+
+\begin{example}[Pendulum]
+  \[ m \cdot l \cdot \dot{\dot{\varphi}} = -m \cdot g \cdot \sin{\varphi} \approx -g \cdot \varphi \]
+  \[ l \cdot \ddot{\ddot{\varphi}} = -g \cdot \varphi = -\omega^2 \cdot \varphi \]
+  \[ \psi = \frac{\dot{\varphi}}{\omega} \qquad \dot{\varphi} = \omega \cdot \psi \]
+  \[ \dot{\psi} = \frac{\dot{\dot{\varphi}}}{\omega} = -\frac{\omega^2 \cdot \varphi}{\omega} = -\omega \cdot \varphi \]
+  \[ \frac{d}{dt} \vectwo{\varphi}{\psi} = \vectwo{\omega \psi}{-\omega \varphi} = \begin{bmatrix} 0 & \omega \\ -\omega & 0 \end{bmatrix} \vectwo{\varphi}{\psi} \]
+  \[ \begin{pmatrix} \varphi(t) \\ \psi(t) \end{pmatrix} = e^{\begin{bmatrix} 0 & \omega \\ -\omega & 0 \end{bmatrix} t} \begin{bmatrix} \varphi_0 \\ \psi_0 \end{bmatrix} \]
+  Eigenvalue: $\lambda^2 + \omega^2 = 0$, $\omega = \pm i\omega$.
+  \[ \varphi(t) \sim \Re(c \cdot e^{i \omega t} \sim a \cos{\omega t} + b \cdot \sin{\omega t}) \]
+  \[ \omega = \sqrt{\frac{g}{l}} \]
+\end{example}
+
+\begin{example}
+  \[ \frac{\partial T(x,t)}{\partial t} = \triangle T(x, t) \]
+  \[ \triangle T(x, t) = \frac{\partial^2}{\partial x^2} T(x, t) \]
+  \[ \triangle = \sum \frac{\partial^2}{\partial x_i^2} \qquad \text{ Laplace operator} \]
+  \[ T(x, t) = e^{t \triangle} T(x, 0) \]
+\end{example}
+
+\begin{example}[Schr\"odinger's equation]
+  \[ -\frac{\hbar}{i} \frac{\partial \psi}{\partial t} = H\psi \leadsto \psi(t) = e^{-\frac i{\hbar} \triangle t} \psi_0 \]
+  Hamilton:
+  \[ H = \triangle + V(x) \]
+\end{example}
+
+\index{Minimal polynomial}
+\index{Annihilator}
+\begin{definition}[Theorem and definition] % Satz und Definition 11.29
+  Let $A \in \mathbb K^{N \times N}$.
+  \begin{enumerate}
+    \item $\exists p(x) \in \mathbb K[x]: p(A) = 0$
+    \item $\exists$ a unique polynomial $m_A(x) \in \mathbb K[x]$ with minimal degree and leading coefficients $1$.
+      $m_A(x)$ is called \emph{minimal polynomial of $A$}.
+    \item $\operatorname{Ann}(A) = \setdef{p(x) \in \mathbb K[x]}{p(A) = 0}$ is called \emph{annihilator of $A$}
+      and it holds that $p(x) \in \operatorname{Ann}(A) \iff m_A(x) | p(x)$
+    \item $m_A(\lambda) = 0 \forall \lambda \in \operatorname{spec}(A)$
+  \end{enumerate}
+\end{definition}
+
+\begin{proof}
+  \begin{enumerate}
+    \item[1.] $A^0, A^1, A^2, A^3, \dots \in \mathbb K^{N \times N}$.
+      Infinitely many elements of a finite dimensional vector space are linear dependent.
+      \[ \implies \exists n \exists a_0, a_1, \dots, a_n: a_0 A^0 + \underbrace{a A}_{= p(A)} + \dots + a_n A^n = 0 \]
+      \[ p(x) = a_0 + a_1 x + \dots + a_n x^n \]
+    \item[2. + 3.]
+      Let $n$ be minimal such that $A^0, \dots, A^n$ are linear dependent ($\implies n \leq N^2$) and $a_0 I + a_1 A + \dots + a_n A^n = 0$ with $a_n \neq 0$ (this will be shown in the practicals).
+      \[ \implies m_A(x) = \frac{a_0}{a_n} + \frac{a_1}{a_n} + \dots + \frac{a_{n-1}}{a_n} x^{n-1} + x^n \]
+      is the unique minimal polynomial.
+
+      Assume $p(x) \in \mathbb K[x]$ with $p(A) = 0 \implies \operatorname{degree}(p(x)) \geq n$.
+
+      By the division algorithm: $\exists q(x) \in \mathbb K[x] \exists r(x) \in \mathbb K[x]$ with $\deg(r(x)) < \deg(m_A(x))$ and $p(x) = q(x) m_A(x) + r(x)$. Insert $A$:
+      \begin{align*}
+        p(A) &= q(A) \cdot m_A(A) + r(A) \\
+        0 &= 0 + r(A) \\
+        & \implies r(A) = 0 \\
+        \deg(r(x)) < n & \overset{\text{minimality $n$}}\implies r(x) \equiv 0 \\
+        \implies p(x) &= q(x) \cdot m_A(x) \\
+          & \implies m_A(x) | p(x) \implies (c)
+      \end{align*}
+      Especially, if $\deg(p(x)) = n = \deg(m_A(x)) \implies \deg(q(x)) = 0 \implies p(x) = c \cdot m_A(x)$.
+    \item[4.] Will be shown in the practicals.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Cayley-Hamilton Theorem] % Satz 11.30
+  \[ \chi_A(A) = 0 \qquad (\iff \chi_A(x) \in \operatorname{Ann}(A)) \]
+\end{theorem}
+
+\begin{corollary} % Korollar 11.31
+  \[ m_A(x) | \chi_A(x) \]
+  and therefore the roots of $m_A(x)$ are the eigenvalues of $A$.
+\end{corollary}
+
+\begin{proof}
+  Three different proofs will be given:
+  \begin{enumerate}
+    \item $\chi_A(x) = \det(xI - A)$ and $\chi_A(A) = \det(AI - A) = 0$ (incorrect, used among physicists)
+    \item Using Jordan's normal form (if $\mathbb K$ is algebraically closed\footnote{And therefore the third proof is required.}):
+      \[ A = B \cdot J \cdot B^{-1} \]
+      \[ \chi_A(A) = B \cdot \chi_A(J) \cdot B^{-1} \]
+      \[ J = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \leadsto \chi_A(J) = \begin{bmatrix} \chi_A(J_1) & & \\ & \ddots & \\ & & \chi_A(J_q) \end{bmatrix} \]
+      \[ J_i = \begin{bmatrix} \lambda_k & 1 & & \\ & \ddots & \ddots & \\ & & \ddots & 1 \\ & & & \lambda_{n_i} \end{bmatrix}  \]
+      We know that $\sum_{i, \lambda_i = \lambda} n_i = k(\lambda)$ algebraic multiplicity of eigenvalue $\lambda$. $\chi_A(J_i)$.
+      \[ \chi_A(x) = \prod_j (\lambda - \lambda_j)^{kj} \]
+      \[ \chi_A(J_i) = \prod_{j \neq i} (J_i - \lambda_j I)^{kj} \cdot \underbrace{\left(J_i - \lambda_i I\right)^{ki}}_{\substack{\begin{bmatrix} 0 & 1 & & \\ & \ddots & \ddots & \\ & & \ddots & 1 \\ & & & 0 \end{bmatrix}^{k_i} = 0 \\ n_i \leq k_i}} \]
+      $\chi_A(j) = 0$ for all Jordan blocks of $A$.
+      \[ \chi_A(A) = B \begin{bmatrix} \chi_A(J_i) & & \\ & \ddots & \\ & & \chi_A(J_q) \end{bmatrix} B^{-1} = 0 \]
+    \item \index{Complementary matrix} Complementary matrix:
+      \[ A \cdot \widehat{A} = \det(A) \cdot I \]
+      \[ \widehat{A}_{ij} = -(-1)^{i+j} \det(A_{ji}) \]
+      where $A_{ji}$ denotes removing the $j$-th row and $i$-th column.
+      \[ \widehat{xI - A} \in \mathbb K[x]^{n \times n} = [b_{ij}(x)]_{i,j=1,\dots,n} \]
+      \[ b_{ij}(x) = (-1)^{i+j} \det(xI - A)_{ji} \in \mathbb K[x] \text{ with degree } \leq n-1 \]
+      \[ b_{ij}(x) = \sum_{k=0}^{n-1} b_{ijk} x^k \]
+      \begin{align*}
+        \widehat{xI - A} &= \left[\sum_{k=0}^{n-1} b_{ijk} x^k\right]_{i,j=1,\dots,n} \\
+          &= \sum_{k=0}^{n-1} [b_{ijk}]_{i,j=1,\dots,n} \cdot x^k \\
+          &= \sum_{k=0}^{n-1} B_k \cdot x^k
+      \end{align*}
+
+      \begin{example}
+        \[ A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \]
+        \begin{align*}
+          \widehat{xI - A}
+            &= \widehat{\begin{bmatrix} x-a & -b \\ -c & x-d \end{bmatrix}} \\
+            &= \begin{bmatrix} x-d & b \\ c & x-a \end{bmatrix} \in \mathbb K[x]^{2 \times 2} \qquad \text{ matrix with polynomial entries} \\
+            &= \underbrace{\begin{bmatrix} -d & b \\ c & -a \end{bmatrix}}_{B_0} + \underbrace{\begin{bmatrix} 1 & \\ & 1 \end{bmatrix}}_{B_1 x} x \in \mathbb K^{2 \times 2}[x] \\
+          (xI - A)\widehat{(xI - A)}
+            &= \det(xI - A) \cdot I \\
+            &= \chi_A(x) \cdot I
+        \end{align*}
+        Let $\chi_A(x) = c_0 + c_1 x + \dots + c_{n-1} x^{n-1} + x^n$.
+        \[ \implies (xI - A) (B_0 + B_1 x + B_2 x^2 + \dots + B_{n-1} x^{n-1}) = (c_0 + c_1 x + \dots + c_{n-1} x^{n-1} + x^n) I \]
+        \[ -AB_0 + (B_0 - AB_1) x + (B_1 - AB_2) x^2 + \dots + (B_{n-2} - AB_{n-1}) x^{n-1} + B_{n-1} x^n = c_0 I + c_1 I x + \dots + I \cdot x^n \]
+        We apply coefficient comparison (multiply with $A^k$ from left):
+        \begin{align*}
+          c_0 \cdot I &= -AB_0   & c_0 I = -AB_0 \\
+          c_1 \cdot I &= B_0 - AB_0   & + c_1 A = AB_0 - A^2 B_1 \\
+          c_2 \cdot I &= B_1 - AB_2   & + c_2 A^2 = A^2 B_1 - A^3 B_2\\
+          \vdots &= \vdots \\
+          c_{n-1} \cdot I &= B_{n-2} - AB_{n-1}  & + c_{n-1} A^{n-1} = A^{n-1} B_{n-2} - A^n B_{n-1} \\
+          I &= B_{n-1}  & + A^n = A^n B_{n-1}
+        \end{align*}
+        \[ \chi_A(A) = \sum_{k=0}^{n-1} c_k A^k + A^n = -AB_0 + \sum_{k=1}^{n-1} (A^k B_{k-1} - A^{k+1} B_k) + A^k B_{n-1} = 0 \]
+        Thus this proof has proven it for every zero-divisor-free field.
+      \end{example}
+  \end{enumerate}
+\end{proof}
+
+\begin{corollary}[Corollary for second proof]\hfill{}
+  \begin{enumerate}
+    \item The minimal polynomial has the structure $m_A(x) = \prod (\lambda - \lambda_i)^{m_i}$ where $m_i$ is the smallest exponent for $\ker(\lambda_i - A)^m = \ker(\lambda_i - A)^{m+1}$, hence this equals the largest length of a Jordan block for eigenvalue $\lambda_i$.
+    \item $A$ is diagonalizable $\iff$ all $m_i = 1 \iff m_A(x) = \prod_{i=1}^k (\lambda - \lambda_i) \iff m_A(x)$ has only simple roots.
+  \end{enumerate}
+\end{corollary}
+
+\begin{example}[Application]
+  Let $A \in \mathbb K^{2\times 2}$. We consider $A \in \mathbb C^{2 \times 2}$.
+  \[ e^{\alpha I + A} = e^{\alpha} \cdot e^A \]
+  Without loss of generality: $\operatorname{Tr}(A) = 0$. Otherwise consider $\o{A} = A - \frac{\operatorname{Tr}(A)}{2} \cdot I$.
+  \[ \implies \operatorname{Tr}(\o{A}) = \operatorname{Tr}(A) - \frac{\operatorname{Tr}(A)}{2} \cdot \operatorname{Tr}(I) = 0 \]
+  \[ e^A = e^{\frac{\operatorname{Tr}(A)}{2}} \cdot e^A \]
+  Without loss of generality: $A = \begin{bmatrix} a & b \\ c & -a \end{bmatrix}$.
+  \begin{align*}
+    \chi_A(A) &= (X - a)(X + a) - bc \\
+      &= x^2 - a^2 - bc \\
+      &= x^2 - \delta
+  \end{align*}
+  \[ \delta = a^2 + bc = -\det(A) \]
+  \[ e^A = \sum_{n=0}^\infty \frac{A^n}{n!} \]
+  Cayley-Hamilton Theorem:
+  \[ \chi_A(A) = 0 \]
+  \[ A^2 - \delta I = 0 \implies A^2 = \delta I, A^3 = \delta A, A^4 = (A^2)^2 = \delta^2 \cdot I \]
+
+  \[ A^{2n} = \delta^n \cdot I \]
+  \[ A^{2n+1} = \delta^n \cdot A \]
+  \begin{align*}
+    e^A = \sum_{n=0}^\infty \frac{A^n}{n!}
+        &= \sum_{k=0}^\infty \frac{A^{2k}}{2k!} + \sum_{k=0}^\infty \frac{A^{2k+1}}{(2k+1)!} \\
+        &= \sum_{k=0}^\infty \frac{\delta^k}{2k!} I + \sum_{k=0}^\infty \frac{\delta^k}{(2k+1)!} \cdot A
+        &= \dots % TODO
+  \end{align*}
+
+  \begin{align*}
+    Ax &= \lambda x \\
+    A^2x &= \lambda^2 x \\
+    A^kx &= \lambda^k x
+  \end{align*}
+  \[ p(A) \cdot x = p(\lambda) \cdot x \]
+  if $\lambda \in \operatorname{spec}(A)$, then $p(\lambda) \in \operatorname{spec}(p(A))$.
+\end{example}
+
+\begin{theorem}[Spectrum mapping theorem] % Spektralabbildungssatz  11.34
+  For $A \in \mathbb K^{n\times n}$ and $\mathbb K$ be algebraically closed and $p(x) \in \mathbb K[x]$
+  is $\operatorname{spec}(p(A)) = p(\operatorname{spec}(A)) = \setdef{p(\lambda)}{\lambda \in \operatorname{spec}(A)}$.
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[$\mathbf{\supseteq}$]
+      \[ \forall \lambda \in \operatorname{spec}(A): p(\lambda) \in \operatorname{spec}(p(A)) \]
+    \item[$\mathbf{\subseteq}$]
+      \[ \forall \mu \in \operatorname{spec}(p(A)): \exists \lambda \in \operatorname{spec}(A): p(\lambda) = \mu \]
+  \end{description}
+\end{proof}
+
+\begin{example} % Beispiel 11.35
+  If $\mathbb K$ is not algebraically closed, then $\subseteq$ does not hold!
+  For example, consider $A = \begin{bmatrix} & 1 \\ -1 & \end{bmatrix} \in \mathbb R^{2 \times 2}$.
+  \[ \operatorname{spec}(A) = \set{\pm i} \implies \operatorname{spec}_{\mathbb R}(A) = \emptyset \]
+  \[ p(x) = x^2 \implies A^2 = -I \]
+  has eigenvalue $\set{-1}$ but there exists no $\lambda \in \operatorname{spec}_{\mathbb R}(A)$ such that $\lambda^2 = -1$.
+\end{example}
+
+Let $\mu \in \operatorname{spec}(p(A))$.
+\[ q(x) = p(x) - \mu = (x - \mu_1) \dots (x - \mu_m) \]
+where $\mu_i$ are the roots of $q(x)$.
+\[ \implies q(A) = p(A) - \mu I \text{ is not invertible} \]
+\[ q(A) = (A - \mu_i I)(A - \mu_2 I) \dots (A - \mu_m I) \text{ not invertible} \]
+\[ \implies \exists i: (A - \mu_i I) \text{ not invertible} \]
+\[ \implies \mu_i \in \operatorname{spec}(A) \]
+\[ \implies q(\mu_i) = 0 \]
+\[ q(\mu_i) = p(\mu_i) - \mu \]
+\[ \implies \mu = p(\mu_i) \text{ and } \mu_i \in \operatorname{spec}(A) \]
 
 \printindex
 \end{document}
