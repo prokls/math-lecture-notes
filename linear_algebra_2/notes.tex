@@ -7047,5 +7047,282 @@ where $\mu_i$ are the roots of $q(x)$.
 \[ q(\mu_i) = p(\mu_i) - \mu \]
 \[ \implies \mu = p(\mu_i) \text{ and } \mu_i \in \operatorname{spec}(A) \]
 
+\dateref{2018/06/11}
+
+\index{Inner product}
+\begin{definition}[Revision: Inner product] % 12.1
+  \[ \angel{x,y} \text{ sesquilinear} \]
+  where the first argument is linear and the second argument is antilinear.
+  \begin{align*}
+    \angel{\lambda x + \mu y, z} &= \lambda \angel{x,z} + \mu yz \\
+    \angel{x,y} &= \overline{\angel{y, x}} \\
+    \angel{y,y} &= \geq 0 \\
+    \angel{x,x} &= 0 \iff x = 0
+  \end{align*}
+\end{definition}
+
+Adjoing map: $f: V \to W$ where $B$ is the basis of $V$ and $C$ is the basis of $W$.
+\[ \angel{f(x),y} = \angel{x,f^*(y)} \]
+$f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
+\[ \Phi_C^B(f) \text{ is its matrix representation} \]
+\[ \Phi_B^C(f^*) = \Phi_C^B(f)^* \]
+\[ (A^*)_{ij} = \overline{a_{ji}} \]
+
+\index{Normal linear map}
+\index{Normal matrix}
+\begin{definition} % 12.2
+  A linear map $f: V \to V$ (and accordingly a matrix $A$) is called \emph{normal} if
+  \[ f \circ f^* = f^* \circ f \qquad A A^* = A^* A \]
+  Special case: $A = A^*$ is self-adjoint.
+
+  A real-valued self-adjoint matrix is called \emph{symmetrical}: $A = A^T$.
+\end{definition}
+
+\begin{example} % Beispiel 12.3
+  Unitary matrices are normal: $U^* U = I \implies U U^* = I$.
+  $A, B$ normal $\implies A \cdot B$.
+  \[ (AB)^* \cdot AB \overset?= AB (AB)^* = ABB^*A^* \]
+  \[ = (AB)^* \cdot AB = B^* A^* \cdot  AB \text{ only if } AB = BA \]
+\end{example}
+
+\begin{example}
+  $A + B$ is normal if and only if $AB = -BA$.
+  \[ A,B \text{ self-adjoint } \implies A+B \text{ self-adjoint} \]
+  \[ (A + B)^* = A^* + B^* = A + B \]
+\end{example}
+
+\begin{lemma} % 12.4
+  $A \in \mathbb C^{n \times n}$ is normal.
+  \begin{enumerate}
+    \item $\ker{A} = \ker{A^*}$
+    \item $\ker{A} = \ker{A^2}$
+  \end{enumerate}
+\end{lemma}
+
+\begin{corollary} % 12.5
+  \label{cor125}
+  $A \in \mathbb C^{n \times n}$ is normal. (So $\lambda I + A$ is normal)
+  \begin{enumerate}
+    \item $\ker(\lambda I - A) = \ker(\overline{\lambda} I - A^*)$
+    \item $\ker(\lambda I - A)^2 = \ker(\lambda I - A)$
+  \end{enumerate}
+  \[ \implies \text{ main spaces } = \text{ eigen spaces} \]
+  \[ \implies \text{ diagonalizable} \]
+\end{corollary}
+
+\begin{proof}
+  \begin{enumerate}
+    \item
+      \begin{align*}
+        x \in \ker{A} &\iff Ax = 0 \\
+          &\iff \norm{Ax}^2 = 0 \\
+          &\iff \angel{Ax, Ax} = 0 \\
+          &\iff \angel{x, A^* Ax} = 0 \\
+          &\iff \angel{x, AA^* x} = 0 \\
+          &\iff \angel{A^* x, A^* x} = 0 \\
+          &\iff \norm{A^* x}^2 = 0 \\
+          &\iff \norm{A^* x} = 0 \\
+          &\iff A^* x = 0 \\
+          &\iff x \in \ker{A^*} \\
+      \end{align*}
+    \item $\ker{A} \subseteq \ker{A^2}$ immediate (Fitting)
+      \begin{align*}
+        \text{Let } x \in \ker{A^2}
+          &\implies A^2 x = 0 \\
+          &\implies Ax \in \ker{A} \\
+          &\implies Ax \in \ker{A^*} \\
+          &\implies A^* Ax = 0 \\
+          &\implies \angel{A^* Ax, x} = 0 \\
+          &\implies \angel{Ax, Ax} = 0 \\
+          &\implies \norm{Ax}^2 = 0 \\
+          &\implies Ax = 0 \\
+          &\implies x \in \ker{A} \\
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma} % Lemma 12.6
+  Let $A$ be normal.
+  \[ \lambda \neq \mu \in \operatorname{spec}{A} \implies \ker(\lambda I - A) \bot \ker(\mu I - A) \]
+\end{lemma}
+
+\begin{proof}
+  Let $Ax = \lambda x$ and $Ay = \mu y$
+  \[ \xRightarrow{Corollary~\ref{cor125}} A^* y = \overline{\mu} y \]
+
+  \begin{align*}
+    \angel{Ax,y} &= \angel{\lambda x, y} = \lambda \angel{x,y} \\
+    \angel{Ax,y} &= \angel{x, A^* y} = \angel{x, \overline{\mu} y} = \mu \angel{x,y} \\
+    \implies \lambda \angel{x,y} &= \mu \angel{x,y} \\
+    \implies \underbrace{(\lambda - \mu)}_{\neq 0} \angel{x,y} &= 0 \implies \angel{x,y} = 0
+  \end{align*}
+\end{proof}
+
+\begin{remark}[Summary]
+  Let $A$ be normal. Then main spaces are eigen spaces.
+  So they are diagonalizable. Then there exists some basis of eigenvectors.
+  Eigenspaces are always orthogonal, so there exists an orthogonal basis of eigenvectors.
+\end{remark}
+
+\begin{theorem} % Satz 12.7
+  For $A \in \mathbb C^{n \times n}$, the following statements are equivalent:
+  \begin{enumerate}
+    \item $A$ is normal.
+    \item $\exists$ orthonormalbasis of eigenvectors
+    \item $\exists$ unitary matrix $U$ such that $U^* AU = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix}$,
+      hence $A$ is unitarily diagonalizable.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[$1. \to 2.$]
+      $A$ is diagonalizable, so there exists a basis of eigenvectors and accordingly, $V = \mathbb C^n$ is the orthogonal sum of eigenspaces.
+      Construct an orthonormal basis in every eigenspace (Gram-Schmidt process).
+      Thus, the union of these bases gives an orthonormal basis of $V$.
+    \item[$2. \to 3.$]
+      Let $B$ be an orthonormal basis of eigenvectors.
+      \[ \implies U = \begin{pmatrix} b_1 & \dots & b_n \\ \vdots & & \vdots \end{pmatrix} \implies AU = U \cdot \Lambda \]
+      \[ U^{-1} = U^* \implies AU = U \Lambda \]
+      where $\Lambda = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix}$.
+    \item[$3. \to 1.$]
+      \[ U^* AU = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \]
+      \[ \implies A = U \begin{pmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{pmatrix} U^* \]
+      \[ A^* = U \begin{bmatrix} \overline{\lambda}_1 & & \\ & \ddots & \\ & & \overline{\lambda}_n \end{bmatrix} U^* \]
+
+      \begin{align*}
+        A A^* &= U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \cdot \underbrace{U^* \cdot U}_{I} \begin{bmatrix} \overline{\lambda}_1 & & \\ & \ddots & \\ & & \overline{\lambda}_n \end{bmatrix} U^* \\
+          &= U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \begin{bmatrix} \overline\lambda_1 & & \\ & \ddots & \\ & & \overline\lambda_n \end{bmatrix} U^* \\
+          &= U \begin{bmatrix} \lambda_1 \overline\lambda_1 & & \\ & \ddots & \\ & & \lambda_n \overline\lambda_n \end{bmatrix} \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} U^* \\
+          &= U \begin{bmatrix} \overline\lambda_1 & & \\ & \ddots & \\ & & \overline\lambda_n \end{bmatrix} U^* \cdot U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} U^* \\
+          &= A^* A
+      \end{align*}
+  \end{description}
+\end{proof}
+
+\begin{remark}
+  Issai Schur (1875--1941)
+\end{remark}
+
+\begin{theorem}[Schur's decomposition] % Satz 12.8
+  Let $A \in \mathbb C^{n \times n}$.
+  \begin{enumerate}
+    \item $\implies \exists U \in \mathcal U(n): U^* AU = R$ is an upper triangular matrix.
+      \[ U^* AU = \begin{bmatrix} \lambda_1 & & * \\ & \ddots & \\ 0 & & \lambda_n \end{bmatrix} \qquad \lambda_i = \text{ eigenvalue of } A \]
+      is called \emph{Schur decomposition}, \emph{Schur normal form} or \emph{QR decomposition}.
+    \item If $A \in \mathbb R^{n \times n}$ and $\chi_A(\lambda)$ decomposes into linear factors.
+      \[ \implies U \text{ has real-valued entries, thus } U \in \mathcal O(n) \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Proof by induction over $n$.
+  \begin{description}
+    \item[Induction base $n=1$] immediate.
+    \item[Induction step]
+      Let $\lambda \in \operatorname{spec}(A)$. Let $u$ be an eigenvector with $\norm{u} = 1$.
+      \[ Au = \lambda u \]
+      Extend $u$ to an orthonormal basis of $\mathbb C^n$
+      \[ (u, w_1, \dots, w_{n-1}) \]
+      \[ U_1 = \begin{bmatrix} u & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} \]
+      \[ W = \begin{bmatrix} w_1 & \dots & w_{n-1} \\ \vdots &  & \vdots \end{bmatrix} \in \mathbb C^{n \times (n-1)} \]
+      \[ U_1^* = \begin{bmatrix} u^* & \dots & \dots \\ & & \\ & W^* & \\ & & \end{bmatrix} \text{ where } W^* \in \mathbb C^{(n-1) \times n} \]
+      \[ U_1^* AU_1 = \begin{bmatrix} u^* & \dots & \dots \\ & & \\ & W^* & \\ & & \end{bmatrix} A \begin{bmatrix} u & & & \\ \vdots & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} \]
+      \[ = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} \lambda u & & & \\ \vdots & & AW & \\ \vdots & & & \end{bmatrix} \text{ where } AW \in \mathbb C^{n \times (n-1)} = \begin{bmatrix} \lambda & u^* AW \\ 0 & \\ \vdots & [W^* AW] \\ 0 & \end{bmatrix} \text{ where } W^* AW \in \mathbb C^{(n - 1) \times (n-1)} \]
+      \[ I = U^* U = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} u & & & \\ \vdots & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} = \begin{bmatrix} 1 & u^* W \\ 0 & \\ \vdots & W^* w \\ 0 & \end{bmatrix} \]
+      By induction hypothesis, there exists $U_2 \in \mathcal U(n-1)$ TODO
+  \end{description}
+\end{proof}
+
+\begin{corollary}
+  A matrix is normal $\iff$ Schur normal form = diagonal matrix.
+  \[ U^* AU = R \implies A = URU^* \]
+  \[ A^* = UR^* U^* \]
+  \[ A^* A = AA^* \iff R^* R = RR^* \iff R \text{ is diagonal matrix} \]
+  The proof is left to the reader as an exercise.
+\end{corollary}
+
+\begin{theorem} % Satz 12.9
+  Let $A \in \mathbb C^{n \times n}, A = A^* \implies \operatorname{spec}(A) \subseteq \mathbb R$.
+
+  Compare with $z \in \mathbb C: z \in \mathbb R \iff z = \overline{z}$.
+\end{theorem}
+
+\begin{proof}
+  $A$ is normal.
+  \begin{align*}
+    \ker(\lambda I - A) &= \ker(\lambda I - A)^* \\
+      &= \ker(\overline{\lambda} I - A^*) \\
+      &= \ker(\overline{\lambda} I - A)
+  \end{align*}
+  hence if $x \neq 0$ and $Ax = \lambda x \implies Ax = \overline{\lambda} x \implies \lambda = \overline\lambda$.
+\end{proof}
+
+\begin{remark}
+  Matrix is real-valued $\implies$ eigenvalues are real-valued.
+\end{remark}
+
+\begin{corollary}
+  If $A \in \mathbb R^{n \times n}$ is symmetrical.
+  \[ \implies \exists Q \in \mathcal O(n): Q^T AQ = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \text{ with } \lambda_i \in \mathbb R \]
+\end{corollary}
+
+\begin{remark}[Revision]
+  A matrix is called positive definite, if $A = A^*$ and $\angel{Ax,x} > 0 \forall x \neq 0$.
+  Let $x$ be an eigenvector. $Ax = \lambda x$ and $\angel{Ax,x} = \lambda \angel{x,x} = \lambda \cdot \norm{x}^2 > 0$
+\end{remark}
+
+\begin{theorem} % Satz 12.11
+  Let $A \in \mathbb C^{n \times n}$ self-adjoint.
+  \begin{enumerate}
+    \item $A > 0 \iff \operatorname{spec}(A) \subseteq ]0,\infty[$, hence eigenvalues are $> 0$.
+    \item $A \geq 0 \iff \operatorname{spec}(A) \subseteq ]0, \infty[$, hence eigenvalues $\geq 0$.
+    \item Analogously for negatively (semi)definite.
+    \item $A$ is indefinite $\iff \exists$ at least one positive and one negative eigenvalue.
+      \[ \operatorname{spec}(A) \:\cap\: (-\infty,0) \neq \emptyset \operatorname{ and } \operatorname{spec}(A) \cap (0,\infty) \neq \emptyset \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Direction $\implies$.
+      \[ A > 0 \implies A \text{ is self-adjoint } \implies \operatorname{spec}(A) \subseteq \mathbb R \]
+      \[ \text{ and } Ax = \lambda x \implies \lambda > 0 \quad (\text{self-adjoint}) \]
+      Direction $\impliedby$.
+      $A$ is self-adjoint, $\operatorname{spec}(A) \subseteq (0, \infty)$.
+      Show that $\angel{Ax, x} > 0 \forall x \neq 0$.
+
+      $A$ is self-adjoint $\implies$ there exists an orthonormal basis of eigenvectors $(u_1, \dots, u_n)$.
+      Let $x \in \mathbb C^n \setminus \set{0} \implies x = \sum_{i=1}^n \alpha_i u_i$ and $A \cdot u_i = \lambda_i \cdot u_i$.
+      \begin{align*}
+        \implies \angel{Ax,x} &= \angel{A \sum_{i=1}^n \alpha_i u_i, \sum_{j=1}^n \alpha_j u_j} \\
+          &= \angel{\sum_{i=1}^n \alpha_i \lambda_i u_i, \sum_{j=1}^n \alpha_j u_j} \\
+          &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \lambda_i \overline{\alpha_j} \underbrace{\angel{u_i,u_j}}_{\delta_{ij}} \\
+          &= \sum_{i=1}^n \card{\alpha_i}^2 \lambda_i > 0 \text{ (if all $\lambda_i > 0$)} \\
+          &= \sum_{i=1}^n \card{\alpha_i}^2 \lambda_i \geq 0 \text{ (if all $\lambda_i \geq 0$)}
+      \end{align*}
+      This proves (1.) and (2.)
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}[Application: Taylor expansion]
+  \begin{align*}
+    f(x) &= f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!} (x - x_0)^2 - \dots \\
+    f(x,y) &= f(x_0, y_0) + \frac{\partial f}{\partial x} (x_0, y_0)(x - x_0) + \frac{\partial f}{\partial y} (x_0, y_0)(y - y_0) + \frac12 \frac{\partial^2 f}{\partial x^2} (x_0 y_0)(x - x_0)^2 + \frac12 \frac{\partial^2 f}{\partial y^2} (x_0, y_0) (y - y_0)^2 \\
+      &+ \left(\frac{\partial^2 f}{\partial x \partial y} (x_0, y_0) + \frac{\partial^2 f}{\partial y \partial x} (x_0, y_0)\right) (x - x_0) (y - y_0)
+  \end{align*}
+  Gradient:
+  \[ \nabla f = \begin{pmatrix} \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y} \end{pmatrix} \]
+  \[ H_f(x_0, y_0) = \begin{bmatrix}
+      \frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
+      \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+    \end{bmatrix} \qquad \text{\enquote{Hesse matrix}}
+  \] \[
+    f(x, y) = f(x_0, y_0) + (\nabla f)^T \cdot \underbrace{\begin{pmatrix} x - x_0 \\ y - y_0 \end{pmatrix}}_{\vec{\triangle x}}
+    + \frac12 (\vec{\triangle x})^T H_f \vec{\triangle x} + \mathcal O((\triangle x)^2)
+  \]
+  $H_f^T = H_f$ has real eigenvalues. Extrema are found if $\nabla f = 0$.
+  Minimum at $(x_0, y_0) \iff H_f(x_0, y_0) > 0$. Maximum at $(x_0, y_0)$ if $H_f(x_0, y_0) < 0$.
+\end{remark}
 \printindex
 \end{document}
