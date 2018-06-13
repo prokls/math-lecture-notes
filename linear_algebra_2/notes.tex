@@ -5071,6 +5071,8 @@ Find vector $v \in V$ such that $f(v) = \lambda \cdot v$.
 
 In 1925 in quantum mechanisms, it was discovered that the spectrum of light is given as a linear map (spectrum in the mathematical sense).
 
+\subsection{Eigenspace}
+
 \index{Eigenspace}
 \begin{lemma}
   For $\lambda \in \mathbb K$, $f \in \operatorname{End}(V)$.
@@ -5225,6 +5227,8 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
   \end{align*}
 \end{remark}
 
+\subsection{Characteristic polynomial}
+
 \index{Characteristic polynomial}
 \begin{theorem}[Theorem and definition] \hfill{} % Satz & Definition 10.10
   \begin{enumerate}
@@ -5277,6 +5281,8 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
   \]
   Thus, the existence of eigenvalues depends on the field.
 \end{example}
+
+\subsection{Symmetrical minor}
 
 \index{Symmetrical minors}
 \begin{theorem} % Satz 10.12
@@ -5382,6 +5388,8 @@ Eigen vector: $e_1, \dots, e_n$.
   Does a basis change exist, hence $T \in \operatorname{GL}(n)$, such that $T^{-1} AT = \begin{pmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 &  & \lambda_n \end{pmatrix}$?
   Then the eigenvalues are necessarily on the diagonal.
 \end{remark}
+
+\subsection{Diagonalizable matrix}
 
 \index{Diagonalizable matrix}
 \begin{definition} % Definition 10.14
@@ -5507,6 +5515,8 @@ Eigen vector: $e_1, \dots, e_n$.
   Leondaro Pisano (1170--1250) wrote his book \enquote{Liber Abbaci} (1202) to introduce the Arabic numbers (and zero) in Europe.
   He also introduced the Fibonacci sequence using the growth of a rabbit population.
 \end{remark}
+
+\subsection{Fibonacci sequence and golden ratio}
 
 \begin{remark}[Fibonacci sequence]
   \[ F_0 = F_1 = 1 \]
@@ -5638,6 +5648,8 @@ Eigen vector: $e_1, \dots, e_n$.
   $A$ is nilpotent, hence a square matrix $M$ such that $M^k = 0$ for any $k \in \mathbb N_{\geq1}$.
 \end{example}
 
+\subsection{Multiplicities of eigenvalues}
+
 \index{Geometrical multiplicity of an eigenvalue}
 \begin{definition} % Definition 10.21
   Let $\lambda$ be the eigenvalue of a matrix $A$ $\implies \chi_A(\lambda) = 0$.
@@ -5732,6 +5744,8 @@ Nilpotent matrix:
   = \begin{bmatrix} 0 & 0 & * \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
   = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
 \]
+
+\subsection{Invariant subspaces}
 
 \index{Invariant subspace}
 \begin{definition} % Definition 11
@@ -5845,6 +5859,8 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
   \[ \chi_f(x) = \prod_{i=1}^k \chi_{f|_{U_i}}(x) \]
 \end{corollary}
 
+\section{Fitting lemma}
+
 \begin{lemma}[Fitting lemma]
   Hans Fitting (1906--1938).
 
@@ -5953,6 +5969,8 @@ Fitting Lemma:
   \[ \ker(\lambda I - A) = \mathcal L\left(\vecthree 100\right) \]
   TODO
 \end{example}
+
+\subsection{Main space}
 
 \index{Main space}
 \begin{definition} % Definition 11.10
@@ -6286,6 +6304,8 @@ By invariance, $\Phi_B^B(A)$ has block diagonal form.
   $\implies W$ is trivial ($W = \set{0}$).
 \end{proof}
 
+\subsection{Nilpotent matrix}
+
 \index{Nilpotent matrix}
 \begin{theorem}
   A matrix/linear map $f: V \to V$ is called \emph{nilpotent}, if $\exists k \in \mathbb N: f^k = 0$.
@@ -6325,6 +6345,8 @@ Goal: Structure of nilpotent matrices:
   \[ \implies \sum_{i=1}^r \mu_j w_j = 0 \xRightarrow{w_j \text{ linear indep.}} \text{ all } \mu_j = 0 \]
   \[ \implies \sum_{i=1}^p \mu_i u_i = 0 \xRightarrow{u_i \text{ linear indep.}} \text{ all } \lambda_i = 0 \]
 \end{proof}
+
+\subsection{Jordan's normal form}
 
 \index{Jordan's normal form}
 \begin{theorem} % Satz 11.18
@@ -6567,6 +6589,8 @@ $\leadsto$ basis $B_i$ such that
   \end{bmatrix}
 \]
 
+\subsection{Jordan block}
+
 \index{Jordan block}
 \begin{definition} % Definition 11.20
   A matrix of form $J_k(\lambda) = \begin{bmatrix}
@@ -6595,7 +6619,7 @@ $\leadsto$ basis $B_i$ such that
       J_1 & & & \\
         & J_2 & & \\
         & & \ddots & \\
-        & & & J_1
+        & & & J_n
     \end{bmatrix}
   \]
   where every $J_i$ is a Jordan block to eigenvalue of $A$.
@@ -6790,6 +6814,8 @@ $\leadsto$ basis $B_i$ such that
   \[ \frac{d}{dx} = A \cdot x \rightarrow \text{ solution } x = e^{A \cdot t} \cdot x_0 \]
 \end{example}
 
+\subsection{Matrix exponentiation}
+
 \begin{theorem}[Matrix exponential function] % 11.27
   In general: $A$ is diagonalizable.
   \[ \implies A = T^{-1} \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} T \]
@@ -6865,6 +6891,8 @@ $\leadsto$ basis $B_i$ such that
   \[ H = \triangle + V(x) \]
 \end{example}
 
+\subsection{Minimal polynomial and annihilator}
+
 \index{Minimal polynomial}
 \index{Annihilator}
 \begin{definition}[Theorem and definition] % Satz und Definition 11.29
@@ -6905,6 +6933,8 @@ $\leadsto$ basis $B_i$ such that
     \item[4.] Will be shown in the practicals.
   \end{enumerate}
 \end{proof}
+
+\subsection{Cayley-Hamilton Theorem}
 
 \begin{theorem}[Cayley-Hamilton Theorem] % Satz 11.30
   \[ \chi_A(A) = 0 \qquad (\iff \chi_A(x) \in \operatorname{Ann}(A)) \]
@@ -6971,7 +7001,7 @@ $\leadsto$ basis $B_i$ such that
   \end{enumerate}
 \end{proof}
 
-\begin{corollary}[Corollary for second proof]\hfill{}
+\begin{corollary}[Corollary for second proof]\hfill{} % 11.32
   \begin{enumerate}
     \item The minimal polynomial has the structure $m_A(x) = \prod (\lambda - \lambda_i)^{m_i}$ where $m_i$ is the smallest exponent for $\ker(\lambda_i - A)^m = \ker(\lambda_i - A)^{m+1}$, hence this equals the largest length of a Jordan block for eigenvalue $\lambda_i$.
     \item $A$ is diagonalizable $\iff$ all $m_i = 1 \iff m_A(x) = \prod_{i=1}^k (\lambda - \lambda_i) \iff m_A(x)$ has only simple roots.
@@ -6981,8 +7011,8 @@ $\leadsto$ basis $B_i$ such that
 \begin{example}[Application]
   Let $A \in \mathbb K^{2\times 2}$. We consider $A \in \mathbb C^{2 \times 2}$.
   \[ e^{\alpha I + A} = e^{\alpha} \cdot e^A \]
-  Without loss of generality: $\operatorname{Tr}(A) = 0$. Otherwise consider $\o{A} = A - \frac{\operatorname{Tr}(A)}{2} \cdot I$.
-  \[ \implies \operatorname{Tr}(\o{A}) = \operatorname{Tr}(A) - \frac{\operatorname{Tr}(A)}{2} \cdot \operatorname{Tr}(I) = 0 \]
+  Without loss of generality: $\operatorname{Tr}(A) = 0$. Otherwise consider $\mathring{A} = A - \frac{\operatorname{Tr}(A)}{2} \cdot I$.
+  \[ \implies \operatorname{Tr}(\mathring{A}) = \operatorname{Tr}(A) - \frac{\operatorname{Tr}(A)}{2} \cdot \operatorname{Tr}(I) = 0 \]
   \[ e^A = e^{\frac{\operatorname{Tr}(A)}{2}} \cdot e^A \]
   Without loss of generality: $A = \begin{bmatrix} a & b \\ c & -a \end{bmatrix}$.
   \begin{align*}
@@ -7013,6 +7043,8 @@ $\leadsto$ basis $B_i$ such that
   \[ p(A) \cdot x = p(\lambda) \cdot x \]
   if $\lambda \in \operatorname{spec}(A)$, then $p(\lambda) \in \operatorname{spec}(p(A))$.
 \end{example}
+
+\subsection{Spectrum mapping theorem}
 
 \begin{theorem}[Spectrum mapping theorem] % Spektralabbildungssatz  11.34
   For $A \in \mathbb K^{n\times n}$ and $\mathbb K$ be algebraically closed and $p(x) \in \mathbb K[x]$
@@ -7048,6 +7080,8 @@ where $\mu_i$ are the roots of $q(x)$.
 \[ \implies \mu = p(\mu_i) \text{ and } \mu_i \in \operatorname{spec}(A) \]
 
 \dateref{2018/06/11}
+
+\section{Normal matrices}
 
 \index{Inner product}
 \begin{definition}[Revision: Inner product] % 12.1
@@ -7204,6 +7238,8 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   Issai Schur (1875--1941)
 \end{remark}
 
+\subsection{Schur's decomposition, QR decomposition}
+
 \begin{theorem}[Schur's decomposition] % Satz 12.8
   Let $A \in \mathbb C^{n \times n}$.
   \begin{enumerate}
@@ -7324,5 +7360,262 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   $H_f^T = H_f$ has real eigenvalues. Extrema are found if $\nabla f = 0$.
   Minimum at $(x_0, y_0) \iff H_f(x_0, y_0) > 0$. Maximum at $(x_0, y_0)$ if $H_f(x_0, y_0) < 0$.
 \end{remark}
+
+\dateref{2018/06/13}
+
+\[ A = A^* \]
+\[ \mathbb K = \mathbb R: A = A^T \qquad \text{Taylor series} \]
+
+
+\begin{example}[Bicycling]
+  Consider the wheel when bicycling. It has radius $r$, $\omega$ is the angle. $\vec v$ is the tangent.
+
+  Angular momentum:
+  \[ \vec L = m \cdot \vec r \times \vec v \]
+  is maintained.
+  \[ \card{\vec L} = m \cdot r \cdot v = m \cdot r^2 \cdot v \]
+  $\omega = \dot\varpi$ is angular speed. $v = r \cdot \omega$.
+
+  \[ \vec a \times (\vec b \times \vec c) = (\vec a^t \cdot \vec c) \cdot \vec b - (\vec a^t \cdot \vec b) \cdot \vec c \]
+  \begin{align*}
+    \vec v &= \vec w \times \vec r \\
+    \vec L &= m \cdot \vec r \times \vec v \\
+      &= m \cdot \vec r \times (\vec \omega \times \vec v) \\
+      &= m \cdot \norm{\vec r}^2 \times \vec \omega - (\vec r^t \cdot \vec \omega) \cdot \vec r \\
+      &= m \cdot \left(\norm{\vec r}^2 I - \vec{r} \vec{r}^t\right) \cdot \vec{\omega} \\
+      &= \underbrace{H}_{\text{inertia tensor}} \cdot \vec \omega
+  \end{align*}
+  \[ H = r^2 I - \vec r \cdot \vec r^t \]
+  $\implies$ at least 3 main axes.
+\end{example}
+
+\subsection{Application: Conic section}
+
+\begin{example}[Conic section] % 12.13
+  Radius: $r = z$ \\
+  Cone: $\set{(x, y, z) \middle| x^2 + y^2 = z^2}$.
+
+  Plane: $E = \set{u + \xi v + \mu w \middle| \xi, \mu \in \mathbb R}$.
+  Without loss of generality $v \bot w$. $\norm v = \norm w = 1$.
+  \[ u = \begin{pmatrix} u_1 \\ u_2 \\ u_3 \end{pmatrix} \qquad v = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} \qquad w = \begin{pmatrix} w_1 \\ w_2 \\ w_3 \end{pmatrix} \]
+
+  Intersection:
+  \[ x^2 = (u_1 + \xi v_1 + \eta w_1)^2 + y^2 = (u_2 + \xi v_2 + \eta w_2)^2 = z^2 = (u_3 + \xi v_3 + \eta w_3)^2 \]
+  $\implies$ quadratic equation.
+
+  \[ a \xi^2 + 2b \xi \eta + c\eta^2 + d\xi + e\eta = f \]
+  \[
+    \begin{pmatrix} \xi & \eta \end{pmatrix}
+    \begin{pmatrix} a & b \\ b & c \end{pmatrix}
+    \begin{pmatrix} \xi \\ \eta \end{pmatrix}
+    + \begin{pmatrix} d & e \end{pmatrix}
+    \begin{pmatrix} \xi \\ \eta \end{pmatrix}
+    = f
+  \]
+  Which curve?
+
+  \begin{description}
+    \item[Step 1: Move the center to the origin] 
+      Hence, apply translation such that $d = e = 0$.
+      Let $\begin{pmatrix} x_0 \\ y_0 \end{pmatrix}$ be the center.
+      By translation, let $\xi = x_0 + x$ and $\eta = y_0 + y$.
+      Choose $x_0, y_0$ such that $d$ and $e$ are different.
+
+      \[ a (x + x_0)^2 + 2b (x + x_0) (y + y_0) + c (y + y_0)^2 + d (x + x_0)^2 + e (y + y_0) + f = 0 \]
+      \[ ax^2 + 2ax_0 x + ax_0^2 + 2bxy + 2by_0 x + 2bx_0 y + 2bx_0y_0 + xy^2 + 2cy_0 y + cy_0^2 + dx + dx_0 + ey + ey_0 - f = 0 \]
+      \[ ax^2 + 2bxy + cy^2 + (2ax_0 + 2by_0 + d)x + (2bx_0 + 2cy_0 + e) y + ax_0^2 + 2bx_0 y_0 + cy_0^2 + dx_0 + ey_0 - f = 0 \]
+      $x_0, y_0$ such that
+      \[ 2ax_0 + 2by_0 = -d \qquad 2bx_0 + 2cy_0 = -e \]
+      \[ \begin{bmatrix} a & b \\ b & c \end{bmatrix} \begin{pmatrix} x_0 \\ y_0 \end{pmatrix} = \begin{pmatrix} -\frac d2 \\ -\frac e2 \end{pmatrix} \]
+      is solvable?
+
+      \begin{description}
+        \item[Case 1: determinant is zero]
+          \[ \begin{vmatrix} a & b \\ c & d \end{vmatrix} = 0 \]
+          Existence of such a solution is not guaranteed.
+          So, $0$ is an eigenvalue.
+          There exists an orthogonal matrix $Q$ (rotation/reflection).
+          \[ Q^t \begin{pmatrix} a & b \\ b & c \end{pmatrix} Q = \begin{bmatrix} \lambda_1 & \\ & 0 \end{bmatrix} \]
+          Rotation of planes:
+          \[ \begin{pmatrix} x \\ y \end{pmatrix} = Q^t \begin{pmatrix} \xi \\ \eta \end{pmatrix} \quad \implies \begin{pmatrix} \xi \\ \eta \end{pmatrix} = Q \begin{pmatrix} x \\ y \end{pmatrix} \]
+          \[ \begin{pmatrix} \tilde d \\ \tilde e \end{pmatrix} = Q^t \cdot \begin{pmatrix} d \\ e \end{pmatrix} \]
+
+          \[ \begin{pmatrix} x & y \end{pmatrix} Q^t AQ \begin{pmatrix} x \\ y \end{pmatrix} + \underbrace{\begin{pmatrix} d & e \end{pmatrix} Q}_{\begin{pmatrix} \tilde d \\ \tilde e \end{pmatrix}} \begin{pmatrix} x \\ y \end{pmatrix} = f \]
+          \[ \lambda_1 x^2 + \tilde d x + \tilde e y = f \]
+
+          If $\tilde e = 0$:
+          \[ \lambda_1 x^2 + \tilde x = f \text{ and } y \text{ arbitrary} \]
+          \[ x = \frac{-\tilde d \pm \sqrt{\tilde d^2 + 4 \lambda_1 f}}{2\lambda_1} \]
+          if $\tilde d^2 + 4 \lambda_1 f < 0$, no solution.
+          $1$ or $2$ lines.
+
+          If $\tilde e \neq 0$:
+          \[ y = \frac{f - \tilde dx - \lambda_1 x^2}{\tilde e} \]
+          is a parabola.
+
+        \item[Case 2: determinant is non-zero]
+          \[ \begin{vmatrix} a & b \\ b & c \end{vmatrix} \neq 0 \]
+          $\leadsto$ equation by translation.
+          \[ ax^2 + 2bxy + cy^2 = g \]
+          \[ \begin{pmatrix} x & y \end{pmatrix} \begin{pmatrix} a & b \\ b & c \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = g \]
+          $\leadsto Q$ orthogonal such that 
+          \[ Q^T \begin{pmatrix} a & b \\ b & c \end{pmatrix} Q = \begin{bmatrix} \lambda_1 & \\ & \lambda_2 \end{bmatrix} \text{ with } \lambda_1, \lambda_2 \neq 0 \]
+          \[ \begin{pmatrix} \tilde x \\ \tilde y \end{pmatrix} = Q^t \begin{pmatrix} x \\ y \end{pmatrix} \]
+          \[ \begin{pmatrix} x \\ y \end{pmatrix} = Q \begin{pmatrix} \tilde x \\ \tilde y \end{pmatrix} \]
+
+          \[ \begin{pmatrix} \tilde x & \tilde y \end{pmatrix} Q^t \begin{pmatrix} a & b \\ b & c \end{pmatrix} Q \begin{pmatrix} \tilde x \\ \tilde y \end{pmatrix} = g \]
+          \[ \lambda_1 \tilde x^2 + \lambda_2 \tilde y^2 = g \]
+        \item[Case 2a: $g = 0$]
+          \[ \tilde y^2 = -\frac{\lambda_{1}}{\lambda_2} \tilde x^2 \]
+          if $\sign{\lambda_1} = \sign{\lambda_2} \implies \tilde x = \tilde y = 0$.
+          If $\sign{\lambda_1} \neq \sign{\lambda_2} \leadsto \tilde y = \pm \frac{\lambda_1}{\lambda_2} \tilde x$.
+
+
+
+          \[ \frac{\lambda_1}{g} \tilde x^2 + \frac{\lambda_2}{g} \tilde y^2 = 1 \]
+
+      \end{description}
+  \end{description}
+
+  \textbf{Classification:}
+  $A > 0$ or $A < 0$ gives an ellipsis, point or the empty set.
+  If $A \geq 0$ or $A \leq 0$, a parabola or line or the empty set is given.
+  If $A$ is indefinite, a hyperbola is given.
+\end{example}
+
+\begin{example} % 12.14
+  Analogously: Quadri(ckle)?? in $\mathbb R^3$.
+  A three-dimensional conic section.
+  % TODO image like https://en.wikipedia.org/wiki/Hyperbola#/media/File:Hyperbol_Paraboloid.pov.png ??
+\end{example}
+
+\begin{theorem}
+   Let $A \geq 0$. Then $\exists! B \geq 0: B^2 = A$.
+   \[ B \coloneqq A^{\frac12} \]
+\end{theorem}
+
+\begin{proof}
+  We prove the existence of $B$.
+
+  $A$ is self-adjoint, so there exists a unitary matrix $U$ such that $U^* AU = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$
+  with all $\lambda_i \geq 0$.
+  \[ A = U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} U^* \]
+  \[ B = U \begin{bmatrix} +\sqrt{\lambda_1} & & \\ & \ddots & \\ & & +\sqrt{\lambda_n} \end{bmatrix} U^* \]
+  $M \geq 0 \implies C^* MC' \geq 0$.
+  $B$ satisfies the condition $B^2 = A$ with $B \geq 0$.
+
+  Conditionless $B \geq 0$: $\leadsto 2^{\rank(A)}$ different solutions.
+
+  We prove uniqueness of $B$.
+
+  Let $B \geq 0$ and $B^2 = a$.
+  Let $u_1, \dots, u_n$ be orthonormal basis of eigenvectors for eigenvalues $\mu_1, \dots, \mu_n$ of $B$ with $\lambda_i \geq 0$.
+  \[ \implies Bu_i = \mu_i u \qquad \mu_i \geq 0 \]
+  \[ Au_i = B^2 u_i = \mu_i^2 u_i \implies \mu_i^2 = \lambda_i \implies \mu_i = +\sqrt{\lambda_i} \]
+  \[
+    \implies U^* BU = \begin{bmatrix} \mu_1 & & \\ & \ddots & \\ & & \mu_n \end{bmatrix}
+    \land    U^* AU = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix}
+  \]
+\end{proof}
+
+\begin{remark}[Another solution]
+  Find $B$ such that $B^* B = A$. There are infinitely many solutions.
+\end{remark}
+
+\subsection{Cholesky decomposition}
+
+\begin{remark}
+  Andr\'e-Louis Cholesky (1875--1918) descending from the Cholewski (Polish) family
+\end{remark}
+
+\begin{theorem}[Cholesky decomposition] % Satz 12.17
+  Let $A > 0 \iff \exists C \in \mathbb C^{n \times n}$ (lower triangular matrix) such that $A = C \cdot C^*$.
+  Compare with LU decomposition.
+\end{theorem}
+
+\begin{remark}[Algorithm]
+  Determine the matrix $C$ or abort if $A$ is not positive definite.
+\end{remark}
+
+\begin{remark}[Schur complement]
+  \[ M = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \]
+  \[ \implies M/D \coloneqq A - BD^{-1} C \]
+  is the Schur complement of block $D$ in $M$ where $M$ is a $(p + q) \times (p + q)$ matrix and $M/D$ is a $p\times p$ matrix.
+\end{remark}
+
+\begin{lemma}
+  Let $A \in \mathbb C^{n \times n}$. $A > 0$, $b \in \mathbb C^n$, $\gamma > 0$.
+  \[ \det\left[\begin{array}{c|c}A & B \\ \hline b^* & \gamma \end{array}\right] = \det A \cdot (\gamma - b^* A^{-1} b)  \]
+  \[
+    \begin{vmatrix} A & b \\ b^* & \gamma \end{vmatrix}
+    = \begin{vmatrix} I & 0 \\ -b^* A^{-1} & 1 \end{bmatrix} \cdot \begin{vmatrix} A & b \\ b^* & \gamma \end{vmatrix}
+    = \begin{vmatrix} A & b \\ -\underbrace{b^* A^{-1} A + b^*}_{=0} & -b^* A^{-1} b + \gamma \end{vmatrix}
+    = \det{A} \cdot (-b^* A^{-1} b + \gamma)
+  \]
+\end{lemma}
+
+\begin{proof}[Proof by Cholesky]
+  By complete induction:
+  \begin{description}
+    \item[Case $n = 1$]
+      \[ [a_{11}] > 0 \]
+      \[ \implies a_{11} > 0 \]
+      \[ C = [ e^{i\theta} \sqrt{a_{11}}] \text{ is unique} \]
+      \[ C^* = [e^{-i\theta} \sqrt{a_n}] \]
+    \item[Case $k \to k+1$]
+      \[ A_{k+1} = \begin{bmatrix} A_k & b \\ b^* & \gamma \end{bmatrix} \qquad A_k \in \mathbb C^{n \times n}, A_k > 0 \]
+      By induction hypothesis:
+      $\exists C_k: A_k = C_k C_k^*$.
+
+      \[ \text{Find } C_{k+1} = \begin{bmatrix} &  & & 0 \\ & C_k & & \vdots \\ & & & 0 \\ & C^* & & \alpha \end{pmatrix} \text{ such that } C_{k+1} C_{k+1}^* = A_{k+1}, \alpha > 0 \]
+      \[ C_{k+1} C_{k+1}^* = \begin{bmatrix} &  & & 0 \\ & C_k & & \vdots \\ & & & 0 \\ & C^* & & \alpha \end{pmatrix} \begin{bmatrix} &  & & c \\ & C_k^* & & \\ & & & \\ 0 & \dots & 0 & \alpha \end{bmatrix} = \left\[\begin{array}{c|c} C_k C_k^* & C_k \cdot c \\ C^* C_k^* & C^* C + \alpha^2 \end{array}\right\]  \overset!= \begin{bmatrix} A_k & b \\ b^* & \gamma \end{bmatrix} \]
+      Requirement: $C_k c\dot c = b$. $c^* c + \alpha^2 = \gamma$.
+      Choose $c = C_k^{-1} b$.
+      \begin{align*}
+        \alpha^2 &= \gamma - c^* c
+          &= \gamma - b^* {C_k^*}^{-1} {C_k}^{-1} b \\
+          &= \gamma - b^* A^{-1} b \\
+          &= \frac{\det{A_{k+1}}}{\det{A_k}} \\
+          &> 0
+      \end{align*}
+      \[ A_k = C_k C^*_k \qquad A_k^{-1} = {C_k^*}^{-1} C_k^{-1} \]
+      \[ \implies \alpha = \sqrt{\gamma - b^* A^{-1} b} = \sqrt{\frac{\det{A_{k+1}}}{\det{A_k}}} \]
+  \end{description}
+\end{proof}
+
+\begin{remark}[Application in practice]
+  Find $C$ such that $C \cdot C^* = A$.
+  $c_{ij} = 0$ if $j > i$.
+  $c_{ii} > 0$.
+
+  \begin{align*}
+    a_{ij} &= \sum_{k=1}^n c_{ik} (c^*)_{kj} \\
+      &= \sum_{k=1}^n c_{ik} \overline{c_{jk}} \\
+      &= \sum_{k=1}^{\min(i,j)} c_{ik} \overline{c_{jk}}
+  \end{align*}
+
+  The algorithm fills up columns from top to bottom and the columns are fill from left to right.
+
+  \begin{description}
+    \item[1st column] 
+      \begin{align*}
+        a_{11} &= c_{11} \cdot \overline{c_{11}} = c_{11}^2 \implies c_{11} = \sqrt{a_{11}} \\
+        a_{21} &= c_{21} \cdot \overline{c_{11}} = c_{21} \cdot c_{11} \implies c_{21} = \frac{a_{21}}{c_{11}} \\
+        a_{31} &= \sum_{k=1}^{\min(3,1)} c_{3k} \overline{c_{jk}} = c_{31} c_{11} \implies c_{31} = \frac{a_{31}}{c_4} \\
+        c_{n1} &= \frac{a_{n1}}{c_{11}} = \frac{a_{n1}}{\sqrt{a_{11}}}
+      \end{align*}
+      \[ c_{11} = \sqrt{a_{11}} \qquad c_{21} = \frac{a_{21}}{\sqrt{a_{11}}} \quad \dots \quad c_{n1} = \frac{a_{n1}}{\sqrt{a_{11}}} \]
+    \item[Induction]
+      Assume columns $1, \dots, j-1$ are determined, i.e. $c_{ik}$ is known for $k = 1, \dots, j-1$ and $i = 1, \dots, n$.
+      \[ a_{ji} = \sum_{k=1}^j c_{jk} \overline{c_{jk}} = \sum_{k=1}^{j-1} \card{c_{jk}}^2 + c_{jj}^2 \]
+      \[ \implies c_{jj} = \sqrt{a_{jj} - \sum_{k=1}^{j-1} \card{c_{jk}}^2} \]
+      for $i > j$:
+      \[ a_{ij} = \sum_{k=1}^j  c_{ik} \overline{c_{jk}} = \sum_{k=1}^{j-1} c_{ik} \overline{c_{jk}} + c_{ij} c_{jj} \]
+      \[ c_{ij} = \frac{a_{ij} - \sum_{k=1}^{j-1} c_{ik} \overline{c_{jk}}}{c_{jj}} \]
+      where $c_{jj}$ was already determined and the values of the enumerator are already known.
+  \end{description}
+\end{remark}
+
+
 \printindex
 \end{document}

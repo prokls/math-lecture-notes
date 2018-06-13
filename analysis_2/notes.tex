@@ -4765,12 +4765,202 @@ Necessary (but not sufficient) optimality criteria:
   $\mathcal C^k(D)$ is a vector space.
 \end{definition}
 
-\begin{theorem}[Symmetry of second derivatives, Schwarz' theorem, Clairaut's theorem, Young's theorem]
-  Hermann Amadeus Schwarz (1843--1921).
+\begin{remark}
+  Hermann Amadeus Schwarz (1843--1921)
+\end{remark}
 
+\index{Symmetry of second derivatives}
+\index{Schwarz' theorem}
+\index{Clairaut's theorem}
+\index{Young's theorem}
+\begin{theorem}[Symmetry of second derivatives, Schwarz' theorem, Clairaut's theorem, Young's theorem]
   Let $f \in \mathcal C^2(D)$. Let $D \subseteq \mathbb R^n$ be open. Then it holds that
   \[ \partial_{X_i X_j} f = \partial_{X_j X_i} f \text{ on } D \]
 \end{theorem}
 
+\dateref{2018/06/12}
+
+% TODO: check in this proof that order \partial_{x_j x_i} is always correct
+\begin{proof}
+  Let $x_0 \in D$, $\overline{K_r(x_0)} \subseteq D$, $h, k \in \mathbb R$, $\card{h}, \card{k} \leq \frac r2$.
+  So $x_0 + h e_i \in \overline{K_{\frac r2}(x_0)}$ and $x_0 + ke_j \in \overline{K_{\frac r2(x_0)}}$ and also
+  $x_0 + he_i + ke_j \in \overline{K_r(x_0)}$, because
+  \[ \norm{x_0 + he_i + ke_j - x_0} \leq \card{h} \norm{e_i} + \card{k} \norm{e_j} = \card{h} + \card{k} \leq \frac r2 + \frac r2 = r \]
+  \[ F: \left[-\frac r2, -\frac r2\right] \times \left[-\frac r2, \frac r2\right] \to \mathbb R \]
+  \[ F(h, k) \coloneqq f(x_0 + he_i + ke_j) - f(x_0 + he_i) - f(x_0 + ke_j) + f(x_0) \]
+  \[ \varphi: \left[-\frac r2, \frac r2\right] \to \mathbb R \]
+  \[ \varphi(\lambda) \coloneqq f(x_0 + \lambda e_i + ke_j) - f(x_0 + \lambda e_i) \]
+  \[ \implies \varphi(0) = f(x_0 + ke_j) - f(x_0) \]
+  \[ \varphi(h) = f(x_0 + he_j + ke_j) - f(x_0 + he_i) \]
+  Therefore, $F(h, k) = \varphi(h) - \varphi(0)$.
+  $\varphi$ is continuously differentiable (because $f \in \mathcal C^2$).
+  By the Mean Value Theorem of differential calculus:
+  \[ F(h, k) = \varphi(h) - \varphi(0) = \varphi'(\lambda) \cdot h \]
+  with an appropriate $\lambda \in (-h, h)$ and accordingly $\card{\lambda} < \card{h}$.
+  \[ \varphi'(\lambda) \cdot h = [Df(x_0 + \lambda e_i + ke_j) - Df(x_0 + \lambda e_i)] e_1 \]
+  \[ Df \cdot e_i = \partial_{x_i} f \]
+  and also 
+  \[ \varphi'(\lambda) \cdot h = h \cdot [\partial_{x_i} f(x_0 + \lambda e_i + k \cdot e_j) - \partial_{x_i} f (x_0 + \lambda e_i)] \]
+  \[ \partial_{x_i} f \text{ is continuously differentiable} \]
+  \[ \psi(\mu) = \partial_{x_i} f(x_0 + \lambda e_i + \mu e_j) \text{ is continuously differentiable} \]
+  So we apply the Mean Value Theorem:
+  \[ F(h,k) = \varphi'(\lambda) \cdot h = h [\psi(k) - \psi(0)] \]
+  \[ h \cdot k \psi'(\mu) \text{ with appropriate } \mu \in \left[-\frac r2, \frac r2\right] \]
+  \[ \psi'(\mu) = \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) \]
+  \[ \implies \exists (\lambda, \mu) \in \left[-\card{h}, \card{h}\right] \times \left[-\card{k}, \card{k}\right] \]
+  such that
+  \[ F(h, k) = h \cdot k \partial_{x_i x_j} f(x_0 + \lambda e_i + \mu e_j) \]
+  Analogously,
+  \[ \tilde \varphi(\eta) = f(x_0 + he_i + \eta e_j) - f(x_0 + \eta e_j) \]
+  \[ \text{like above: } F(h,k) = \tilde \varphi(k) - \tilde \varphi(0) = k\tilde \varphi'(\eta) \]
+  with appropriate $\eta \in \left[-\card{k}, \card{k}\right]$.
+  \[ k \tilde \varphi'(\eta) = k \left[\partial_{x_j} f(x_0 + he_i + \eta e_j) - \partial_{x_j} f(x_0 + \eta e_j)\right] \]
+  \[ \tilde \psi(\xi) = \partial_{x_j} f(x_0 + \xi e_i + \eta e_j) \text{ and Mean Value Theorem} \]
+  \[ \implies F(h, k) = k \cdot h \cdot \partial_{x_i x_j} f(x_0 + \xi e_i + \eta e_j) \]
+
+  \begin{align*}
+    hk \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) &= kh \partial_{x_i x_j} f(x_0 + \xi e_i + \mu e_j) \\
+    \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) &= \partial_{x_i x_j} f(x_0 + \xi e_i + \mu e_j) \\
+    \implies \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) &= \partial_{x_j x_i} f(x_0 + \xi e_i + \eta e_j)
+  \end{align*}
+  with $\card{\lambda}, \card{\xi} < \card{h}$ and $\card{\mu}, \card{\eta} < \card{k}$.
+  $h \to 0, k \to 0 \implies \lambda \to 0, \mu \to 0, \xi \to 0, \eta \to 0$.
+  \[ f \in \mathcal C^2 \implies \partial_{x_j x_i} f \text{ and } \partial_{x_j x_i} f \text{ are continuous} \]
+  \[
+    \implies \partial_{x_i x_j} f(x_0) = \lambda_{\lambda, \mu \to 0} \partial_{x_i x_j} f(x_0 + \lambda e_i + \mu e_j)
+    = \lim_{\xi,\eta \to 0} \partial_{x_j x_i} f(x_0 + \xi e_i + \eta e_j) = \partial_{x_j x_i} f(x_0)
+  \]
+  Counter example:
+  \[
+    f(x_1, x_2) = \begin{cases}
+      \frac{x_1 x_2 (x_1^2 - x_2^2)}{x_1^2 + x_2^2} & \text{ for } (x_1, x_2) \neq (0, 0) \\
+      0 & \text{ for } (x_1, x_2) = 0
+    \end{cases}
+  \]
+  here it holds that $\partial_{x_1 x_2} f(0, 0) \neq \partial_{x_2 x_1} f(0, 0)$.
+\end{proof}
+
+\begin{theorem}[Generalization of Schwarz' Theorem]
+  Let $f \in \mathcal C^k(D)$, $D \subseteq \mathbb R^n$ open and $x_0 \in D$.
+  Let $(i_1, i_2, \dots, i_k) \in \underbrace{\set{1,2, \dots, n}^k}_{M_n} = M_n^k$.
+  Furthermore let $(i_1', i_2', \dots, i_k')$ be a rearrangement of $(i_1, i_2, \dots, i_k)$.
+  Then it holds that
+  \[ \partial{x_{i_1} x_{i_2} \dots x_{i_k}} f(x_0) = \partial_{x_{i'_1} x_{i'_2} \dots x_{i'_k}} f(x_0) \]
+\end{theorem}
+
+\begin{proof}
+  Proof by complete induction.
+  \index{Multiindex notation}
+  \begin{definition}[Multiindex notation] % Definiition 9
+    Let $I \in \mathbb N^n$, $I = (\alpha_1, \alpha_2, \dots, \alpha_n)$.
+    $\alpha_i \geq 0$. We call $I$ a multiindex $k = \card{I} = \sum_{i=1}^n \alpha_i$ is the \emph{order of $I$}.
+    \[ \partial_{\underbrace{x_i x_i \dots x_i}_{\alpha \text{ times}}} \eqqcolon \partial_{x_i}^\alpha \]
+    is called \emph{$\alpha$-times partial derivative to variable $x_i$}.
+    By convention,
+    \[ \partial_{x_i}^0 = f \]
+
+    We let
+    \[ \partial_I f = \partial_{x_1}^{\alpha_1} \partial_{x_2}^{\alpha_2} \dots \partial_{x_n}^{\alpha_n} f \]
+    Furthermore, we use
+    \[ \partial_{i_1, i_2, \dots, i_k} \text{ for } \partial_{x_{i_1} x_{i_2} \dots x_{i_k}} \]
+    hence
+    \[ \underbrace{\partial_{1312}}_{\text{no parentheses}} f = \partial_{x_1 x_3 x_1 x_2} f = \underbrace{\partial_{(2, 1, 1)}}_{\substack{\text{multiindex} \\ \text{with parentheses}}} f \]
+    Furthermore we let $I! = \alpha_1! \alpha_2! \dots \alpha_n! = \prod_{i=1}^n \alpha_i!$
+    and for $v \in \mathbb R^n: v = [v_1, v_2, \dots, v_n]^T$ we write
+    \[ v^I = \alpha_1^{\alpha_1} v_2^{\alpha_2} \dots v_n^{\alpha_n} = \prod_{i=1}^n v_i^{\alpha_i} \]
+  \end{definition}
+
+  The proof is left as an exercise to the reader.
+\end{proof}
+
+\index{Taylor's theorem in the multidimensional case}
+\begin{theorem}[Multidimensional Taylor's theorem]
+  Let $f: D \to \mathbb R$, $D$ is open, $x_0 \in D$ and $f \in \mathcal C^{k+1}(D)$.
+  Let $r > 0$ such that $K_r(x_0) \subseteq D$ and $v \in \mathbb R^n$ with $\norm{v} \leq r$
+  (hence, $x_0 + v \in \overline{K_r(x_0)}$ and therefore also the connecting line
+  $[x_0, x_0 + v] = \set{x_0 + tv: t \in [0, 1]} \subseteq \overline{K_r(x_0)} \subseteq D$).
+  Then there exists $\vartheta \in (0,1)$ such that
+  \begin{align*}
+    f(x_0 + v) &= \underbrace{f(x_0) + \sum_{j=1}^k \frac1{j!} \sum_{i_1, i_2, \dots, i_j=1}^{n} \partial_{i_1 i_2 \dots i_j} f(x_0) \cdot v_{i_1} \cdot v_{i_2} \cdots v_{i_j}}_{T_f^k(x_0 + v; x_0)} \\
+      &+ \underbrace{\frac{1}{(k+1)!} \sum_{i_1 i_2 \dots i_{k+1} = 1}^n \partial_{i_1 i_2 \dots i_{k+1}} f(x_0 + \vartheta v) v_{i_1} v_{i_2} \dots v_{i_{k+1}}}_{R_f^{k+1}(x_0 + v; x_0)}
+  \end{align*}
+  where $T_f^k(x_0 + v; x_0)$ is the Taylor polynomial of $k$-th order and $R_f^{k+1}(x_0 + v; x_0)$ is the remainder term.
+  But in this notation some terms occur multiple times. For example, $\partial_{1121} = \partial_{2111}$. Alternatively,
+  \[ f(x_0 + v) = f(x_0) + \sum_{j=1}^k \sum_{\card{I} = j} \frac{1}{I!} \partial_I f(x_0) \cdot v^I + \sum_{\card{I} = k+1} \frac{1}{I!} \partial_I f(x_0 + \vartheta v) \cdot v^I  \]
+\end{theorem}
+
+\begin{proof}
+  Consider $\varphi: [0,1] \to \mathbb R$.
+  \[ \varphi(t) = f(x_0 + tv) = f \circ l_{x_0,v}(t) \]
+  \[ f \in \mathcal C^{(k+1)}(D) \implies \varphi \in \mathcal C^{(k+1)}([0,1]) \]
+  \begin{claim}
+    \[ \varphi^{(j)}(t) = \sum_{i_1,i_2,\dots,i_j=1}^n \partial_{i_1 i_2 \dots i_j} f(x_0 + tv) \]
+  \end{claim}
+  \begin{proof}
+    Proof by induction over $j$.
+    \begin{description}
+      \item[Induction base $j = 0$]
+        \[ \varphi(t) = f \circ l_{x_0,v}(t) \]
+        \[ \varphi'(t) \underbrace{=}_{\text{chain rule}} Df(x_0 + \underbrace{t}_{\substack{\text{Jacobi matrix} \\ \text{row vector}}}v) \cdot v = [\partial_1 f(x_0 + tv), \partial_2 f(x_0 + tv), \dots, \partial_n f(x_0 + tv)]\begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix} \]
+        \[ = \sum_{i_1=1}^n \partial_{i_1} f(x_0 + tv) \cdot v_{i_1} \]
+      \item[Induction step $j-1 \mapsto j$]
+        \[ \varphi^{(j)}(t) = (\varphi^{(j-1)})'(t) \underbrace{=}_{\text{induction hypothesis}} \frac{d}{dt} \left[\sum_{i_1,i_2,\dots,i_{j-1}=1}^n \underbrace{\partial_{i_1,\dots,i_{j-1}} f(x_0 + tv)}_{\partial_{i_1,\dots,i_{j-1}} f \circ l_{x_0,v}(t)} v_{i_1} \cdot \dots \cdot v_{i_{j-1}} \right] \]
+        \[ = \sum_{i_1,\dots,i_j = 1}^n \partial_{i_1, \dots, i_j} f(x_0 + tv) v_{i_1} \dots v_{ij} \]
+    \end{description}
+  \end{proof}
+  Taylor's Theorem for $\varphi(1)$ in the 1-dimensional case:
+  \[ \varphi(1) = \varphi(0) + \sum_{j=1}^n \frac{1}{j!} \varphi^{(j)}(0) \cdot 1^j + \frac{1}{(k+1)!} \varphi (\vartheta) \cdot 1 \]
+  with $\vartheta \in (0,1)$.
+  Insertion:
+  \[ f(x_0 + v) = f(x_0) + \sum_{j=1}^n \frac{1}{j!} \sum_{i_1,\dots,i_j=1}^n \partial_{i_1,\dots,i_j} f(x_0) v_{i_1} \dots v_{i_j} \]
+  \[ + \frac{1}{(k+1)!} \sum_{i_1 \dots i_{k+1}=1}^n \partial_{i_1 \dots i_{k+1}} f(x_0 + \vartheta v) \cdot v_{i_1} v_{i_2} \dots v_{i_{k+1}} \]
+
+  Alternative notation with multiindices:
+  \[ \partial_{i_1 i_2 \dots i_j} f(x_0) = \partial_{i'_1 i'_2 \dots i'_j} f(x_0) \]
+  if $i_1 i_2 \dots i_j$ and $i_1' i_2' \dots i_j'$ only distinguish by the order of indices.
+  How many ways are there to put indices in order?
+
+  Let $I = (\alpha_1, \alpha_2, \dots, \alpha_n)$ be a multiindex
+  \[ \partial_I = \partial_{(\alpha_1,\alpha_2,\dots,\alpha_n)} = \partial_{\underbrace{11\dots 1}_{\alpha_1-\text{times}}} \overbrace{2 \dots 2}^{\alpha_2-\text{times}} \underbrace{3 3 \dots 3}_{\alpha_3-\text{times}} \dots \overbrace{n n \dots n}^{\alpha_n-\text{times}} \]
+  How many ways are there to distribute
+  \[ \underbrace{\underbrace{1 1 \dots 1}_{\alpha_1} \overbrace{2 2 \dots 2}^{\alpha_2} \underbrace{3 3 \dots 3}_{\alpha_3} \dots \overbrace{n n \dots n}^{\alpha_n}}_{j} \]
+  is different order?
+  There are ${j \choose \alpha_1}$ different ways to distribute one.
+  There are ${j-\alpha_1 \choose \alpha_2}$ different ways to distribute two.
+  There are ${j-\alpha_1-\alpha_2 \choose \alpha_3}$ different ways to distribute three.
+  And so one. There ${j-\alpha_1-\alpha_2-\dots-\alpha_{n-1} \choose \alpha_n}$ different ways to distribute $n$.
+  \begin{align}
+    \begin{bmatrix} j \\ \alpha_1 \end{bmatrix} \begin{bmatrix} j-\alpha_1 \\ \alpha_2 \end{bmatrix} \begin{bmatrix} j-(\alpha_1 + \alpha_2) \\ \alpha_3 \end{bmatrix} \dots \begin{bmatrix} j-(\alpha_1 + \dots + \alpha_{n-1}) \\ \alpha_n \end{bmatrix} \label{arr}
+  \end{align}
+  are different arrangements of the index list.
+  \[ \underbrace{1 1 \dots 1}_{\alpha_1} \overbrace{2 \dots 2}^{\alpha_2} \dots \underbrace{n n \dots n}_{\alpha_n} \]
+  \[
+    \eqref{arr} =
+      \frac{j!}{\alpha_1!(j-\alpha_1)!}
+      \frac{(j-\alpha_1)!}{\alpha_2! (j - (\alpha_1 + \alpha_2))!}
+      \frac{(j-(\alpha_1 + \alpha_2))!}{\alpha_3! (j - (\alpha_1 + \alpha_2 + \alpha_3))!}
+      \dots
+      \frac{(j - (\alpha_1 + \dots, \alpha_{n-1}))!}{\alpha_n! \underbrace{(j - \underbrace{(\alpha_1 + \dots + \alpha_n)}_{=j})!}_{= 0! = 1}}
+      = \frac{j!}{\alpha_1! \alpha_2! \dots \alpha_n!}
+  \]
+
+  We merge equal partial derivative
+  \begin{align*}
+    f(x_0 + v) &= f(x_0) + \sum_{j=1}^k \frac{1}{j!} \sum_{\card{I}=j}  \frac{j!}{I!} \cdot \partial_I f(x_0) \cdot v^I \\
+      &+ \sum_{\card{I} = k+1} \frac{1}{(k+1)!} \cdot \frac{(k+1)!}{I!} \cdot \partial_I f(x_0 + \vartheta v) v^I
+  \end{align*}
+\end{proof}
+
+\begin{example}
+  \[ f: \mathbb R^2 \to \mathbb R \text{ arbitrarily often differentiable} \]
+  \begin{align*}
+    f(x_0 + v) &= f(x_0) + \partial_1 f(x_0) \cdot v_1 + \partial_2 f(x_0) v_2 \\
+      &+ \frac1{2!} \partial_{11} f(x_0) v_1 v_1 + \frac{1}{2!} \partial_{12} f(x_0) v_1 v_2 \\
+      &+ \frac{1}{2!} \partial_{21} f(x_0) v_2 v_1 + \frac{1}{2!} \partial_{22} f(x_0) v_2 v_2 \\
+      & TODO
+\end{example}
+
+
 \printindex
 \end{document}
+ 

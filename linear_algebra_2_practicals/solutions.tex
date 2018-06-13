@@ -2092,7 +2092,7 @@ Let $A \in \mathbb K^{n \times n}$.
     \[ \rank(A) = 1 \iff \text{rowrank}(A) = 1 \implies A = \begin{bmatrix} a_1 & \dots & a_n \\ \lambda_1 a_1 & \dots & \lambda_n a_n \\ \vdots & \ddots & \vdots \\ \lambda_n a_1 & \dots & \lambda_n a_n \end{bmatrix} \]
     \[ \det(0 \cdot I - A) = 0 = \det(-A) = 0 \]
     \[ d(0) = \dim\ker(0 \cdot I - A) = \dim\ker(-A) \]
-    \[ \dim\im(A) = \rank(A) = 1 \]
+    \[ \dim\image(A) = \rank(A) = 1 \]
     \[ \underbrace{\dim(A)}_{= n} = 1 + d(0) \]
   \item[$1 \iff 3.$]
     \[
@@ -2103,7 +2103,7 @@ Let $A \in \mathbb K^{n \times n}$.
     \]
   \item[$2 \to 1.$]
     $0 \in \operatorname{spec}(A)$. $d(0) = n - 1 = \dim\ker(A - 0 \cdot I) = \dim\ker(A)$.
-    \[ \dim(A) = \dim\im(A) + \dim\ker(A) = \rank(A) + n - 1 \]
+    \[ \dim(A) = \dim\image(A) + \dim\ker(A) = \rank(A) + n - 1 \]
     \[ n = \rank(A) + n - 1 \implies \rank(A) = 1 \]
 \end{enumerate}
 
@@ -2174,12 +2174,12 @@ Assume $\exists W: v \in W, W$ invariant.
 \begin{table}
   \begin{center}
     \begin{tabular}{ccccc}
-      b_1 & b_2 & \dots & b_{n-1} & b_{n-2} \\
+      $b_1$ & $b_2$ & \dots & $b_{n-1}$ & $b_{n-2}$ \\
     \hline
-      b_1 & 0 & 0 & \ddots & c_0 \\
-      b_2 & 1 & 0 & \ddots & c_1 \\
-      \vdots & \vdots & & & \vdots \\
-      b_n & 0 & 0 & \ddots & c_n
+      $b_1$ & $0$ & $0$ & $\ddots$ & $c_0$ \\
+      $b_2$ & $1$ & $0$ & $\ddots$ & $c_1$ \\
+      $\vdots$ & $\vdots$ & & & $\vdots$ \\
+      $b_n$ & $0$ & $0$ & $\ddots$ & $c_n$
     \end{tabular}
   \end{center}
 \end{table}
@@ -2187,7 +2187,7 @@ Assume $\exists W: v \in W, W$ invariant.
 \section{Exercise 55}
 \begin{ex}
   \begin{enumerate}
-    \item Let $A \in \mathbb C^{n \times n}$ and $p(x), q(x) \in \mathbb C[x]$ polynomials with $p(A) q(A) = 0$ and $\operatorname{gcd}(p(x), q(x)) = 1$. Show that $\im{q(A)} = \ker{p(A)}$.
+    \item Let $A \in \mathbb C^{n \times n}$ and $p(x), q(x) \in \mathbb C[x]$ polynomials with $p(A) q(A) = 0$ and $\operatorname{gcd}(p(x), q(x)) = 1$. Show that $\image{q(A)} = \ker{p(A)}$.
     \item Let $A$ be an idempotent matrix ($A^2 = A$). Show that $A$ is diagonalizable.
   \end{enumerate}
 \end{ex}
@@ -2196,12 +2196,12 @@ Assume $\exists W: v \in W, W$ invariant.
 
 \[ A \in \mathbb C^{n \times n} \qquad p(x) q(x) \in \mathcal C[x] \qquad p(A) q(A) = 0 \qquad \operatorname{gcd}(p,q) = 1 \]
 \begin{enumerate}
-  \item $\forall v \in V: p(A) q(A) v = 0 \implies \im(q(A)) \subseteq \ker(p(A))$
+  \item $\forall v \in V: p(A) q(A) v = 0 \implies \image(q(A)) \subseteq \ker(p(A))$
   \item By exercise 46, $\operatorname{gcd}(p,q) = 1 \iff \exists a, b \in \mathbb C[x]: p(x) a(x) + q(x) b(x) = 1$
-    \[ \implies \forall v \in V: p(A) a(A) v + q(A) b(A) v = v \implies V = \im{p(A)} + \im{q(A)} \]
-    \[ \implies \dim\im{p(A)} + \dim\im{q(A)} \geq n \qquad n = \dim(V) \]
-    \[ \dim{\im{p(A)}} + \dim{\ker{p(A)}} = n \]
-    \[ \implies \dim\im{q(A)} \geq \dim\ker{p(A)} \iff \im(q(A)) \subseteq \ker(p(A)) \]
+    \[ \implies \forall v \in V: p(A) a(A) v + q(A) b(A) v = v \implies V = \image{p(A)} + \image{q(A)} \]
+    \[ \implies \dim\image{p(A)} + \dim\image{q(A)} \geq n \qquad n = \dim(V) \]
+    \[ \dim{\image{p(A)}} + \dim{\ker{p(A)}} = n \]
+    \[ \implies \dim\image{q(A)} \geq \dim\ker{p(A)} \iff \image(q(A)) \subseteq \ker(p(A)) \]
 \end{enumerate}
 
 \subsection{Exercise 55b}
@@ -2227,7 +2227,7 @@ Consider $\lambda = 1$.
 
 Consider $\lambda = -1$.
 \[ v_4 = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} \qquad \mathcal L\set{\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}} = U_5 \]
-\[ \im(A) = \set{\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}} = U_6 \]
+\[ \image(A) = \set{\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}} = U_6 \]
 
 Is this set complete?
 Difficult to prove.
@@ -2288,8 +2288,7 @@ $(e_1, e_3, e_6)$.
 Let $k = 2$. $(e_1, e_2, e_3, e_4, e_6, e_7)$.
 
 \begin{tabular}{ccc}
-  k \textbackslash \lambda & 0 & 1 \\
-}
+  k \textbackslash $\lambda$ & 0 & 1 \\
 \hline
   1 & 3 & 5 \\
   2 & 6 & 8 \\
@@ -2302,5 +2301,109 @@ Let $k = 2$. $(e_1, e_2, e_3, e_4, e_6, e_7)$.
 
 \[ \dim\ker(\lambda \mathbf 1 - A)^2 \]
 \[ (e_9 e_{10} e_{11} e_{13} e_{16}) + (e_{12} e_{14} e_{12}) + (e_{15} e_{18}) + (e_{19}) \]
+
+\section{Exercise 58}
+\begin{ex}
+  For a matrix $A \in \mathbb C^{20 \times 20}$ the following kernel dimensions are known:
+  \begin{tabular}{c|ccccccc}
+    $k$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+  \hline
+    $\ker(A - 2I)^k$ & 1 & 2 & 3 & 4 & 5 & 6 & 6 \\
+    $\ker(A - I)^k$  & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    $\ker(A)^k$      & 3 & 4 & 5 & 6 & 7 & 7 & 7 \\
+    $\ker(A + I)^k$  & 3 & 6 & 6 & 6 & 6 & 6 & 6 \\
+    $\ker(A + 2I)^k$ & 0 & 1 & 1 & 1 & 1 & 1 & 1
+  \end{tabular}
+  \begin{enumerate}
+    \item Two numbers in this table are wrong. Find and fix them.
+    \item Determine a Jordan normal form and the minimal polynomial of $A$.
+  \end{enumerate}
+\end{ex}
+
+\[ \lambda = -1 \qquad k = 7 \qquad \text{ not 7, but 6} \]
+\[ \lambda = -2 \qquad k = 1 \qquad \text{ not 0, but 1} \]
+
+\[ J = \operatorname{diag}(J_6(2), J_5(0), J_1(0), J_2(-1), J_2(-1), J_2(-1), J_1(-2)) \]
+\[ a_S(\lambda) = 2a_J - a_{J-1} - a_{J+1} \]
+\[ (\lambda - 2)^6 \lambda^5 (\lambda + 1)^2 (\lambda + 2) \]
+
+\[
+  \begin{pmatrix}
+    0 & 0 & 0 & 0 \\
+    2 & 2 & 2 & 0 \\
+    1 & 1 & 1 & 0 \\
+    4 & 3 & 2 & 1
+  \end{pmatrix}
+\]
+
+\section{Exercise 61}
+\begin{ex}
+  Determine and interpret the evaluation of the exponential function of the cross product:
+  \[ e^{\vec \varphi x}] \vec v = \vec v + \vec \varphi \times \vec v + \frac1{2!} \vec\varphi \times (\vec \varphi \times \vec v) + \frac1{3!} \vec\varphi \times (\vec \varphi (\vec \varphi \times \vec v)) + \dots \]
+  where $\vec\varphi \coloneqq (q, 0, 0)^T$. Hint: matrix representation of linear map $\vec\varphi \times: \vec x \mapsto \vec \varphi \times \vec x$.
+\end{ex}
+
+\[
+  \vec\varphi = \begin{pmatrix} \varphi \\ 0 \\ 0 \end{pmatrix} \qquad
+  \vec v = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} \qquad
+  \varphi
+\]
+\[ = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} \]
+
+\[ \left(\sum_{k=0}^\infty \frac{A^k}{k!}\right) \cdot \vec v = \sum \]
+
+\section{Exercise 59}
+\begin{ex}
+  The matrix $A$ has the characteristic polynomial
+  \[
+    A = \begin{bmatrix}
+      -5 & -1 & -5 & -7 & -7 & -4 \\
+      1 & -3 & 0 & -1 & -1 & 0 \\
+      7 & 5 & 8 & 12 & 12 & 6 \\
+      3 & -3 & 2 & 2 & 1 & 1 \\
+      -8 & 6 & -6 & -6 & -5 & -4 \\
+      7 & -10 & 4 & 1 & 1 & 3
+    \end{bmatrix}
+  \]
+  \begin{enumerate}
+    \item Determine for every main space $\ker(\lambda_i - A)^{r_i}$ a basis ($u_1^{(i)}, u_2^{(i)}, \dots, u_{n_i}^{(i)}$) in such a way that every ($u_1^{(i)}, u_2^{(i)}, \dots, u_{m_{i,k}}^{(i)}$) is a basis of $\operatorname{ker}(\lambda_i - A)^k$.
+    \item Determine a Jordan normal form $J$ and the minimal polynomial of $A$ and a regular matrix $B$ such that $B^{-1}AB = J$.
+  \end{enumerate}
+\end{ex}
+
+\[ \chi_A = (x - 1)^3 (x + 1)^3 \]
+\[ \ker(A - 1) = \set{x_1 \begin{pmatrix} 1 \\ 0 \\ -1 \\ 1 \\ 0 \\ -2 \end{pmatrix} + x_3 \begin{pmatrix} 0 \\ 0 \\ 0 \\-1 \\ 1 \\ 0 \end{pmatrix}, x_1, x_3 \in \mathbb R} \]
+\[ \ker(A + 1) = \set{x_4 \cdot \begin{pmatrix} 1 \\ 1 \\ -2 \\ 1 \\ -2 \\ 3 \end{pmatrix}, x_4 \in \mathbb R} \]
+\[ \dim\ker(A - 1) = 2 \qquad \dim\ker(A + 1) = 1 \]
+\[
+  J = \begin{pmatrix}
+    1 &   &   &    &    & \\
+      & 1 & 1 &    &    & \\
+      &   & 1 &    &    & \\
+      &   &   & -1 & 1  & \\
+      &   &   &    & -1 & 1 \\
+      &   &   &    &    & 1
+  \end{pmatrix}
+\] \[
+  B: B^{-1} AB = J
+\] \[ \implies AB = BJ \]
+\[ B = (b_1, b_2, \dots, b_6) \]
+where $b_i$ are column vectors.
+\[ AB = \begin{pmatrix} b_1 & b_2 & b_2+b_3 & -b_4 & b_4-b_5 & b_5-b_6 \end{pmatrix}  \]
+
+\[ (A - 1) b_1 = 0 \qquad (A + 1) b_4 = 0 \]
+\[ (A - 1) b_2 = 0 \qquad (A + 1) b_5 = b_4 \]
+\[ (A - 1) b_3 = b_2 \qquad (A + 1) b_0 = b_5 \]
+
+\[
+  B = \begin{pmatrix}
+    0 & 1 & -1 & 1 & 1 & -1 \\
+    0 & 0 & 0 & 1 & 0 & 0 \\
+    0 & -1 & 0 & -2 & -1 & 2 \\
+    -1 & -1 & -1 & 1 & 0 & 0 \\
+    1 & 2 & 0 & -2 & 0 & -1 \\
+    0 & -2 & 3 & 3& 0 & 0
+  \end{pmatrix}
+\]
 
 \end{document}
