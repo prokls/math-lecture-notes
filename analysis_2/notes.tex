@@ -2950,7 +2950,7 @@ Consider
 \]
 So
 \[
-  I = \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy = \int_{f^{-1}(b)}^0 f(x) \, dx + b \cdot f^{-1}(b)
+  I \coloneqq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy = \int_{f^{-1}(b)}^0 f(x) \, dx + b \cdot f^{-1}(b)
 \] \[
   = \int_{f^{-1}(b)}^a f(x) \, dx + b \cdot f^{-1}(b)
 \]
@@ -3788,7 +3788,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \begin{definition}[Landau $\mathbb O$ symbols] % Definition 2
   Let $h, g: D \subseteq \mathbb R^n \to \mathbb R$, $D$ is open, $a \in D$.
   \begin{enumerate}
-    \item We denote $h = \mathcal O(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist gro\"s $\mathcal O$ von $g$}) iff
+    \item We denote $h = \mathcal O(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist groß $\mathcal O$ von $g$}) iff
       $\exists U \subseteq D$ environment of $a$ in $D$ and $\exists r: U \to \mathbb R$ with $r$ bounded such that $h(x) = r(x) \cdot g(x) \forall x \in U$.
       Thus,
       \[ \card{\frac{h(x)}{g(x)}} = \card{r(x)} \leq M \qquad \forall x \in U \]
@@ -3806,11 +3806,11 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \begin{definition}[Definition of the derivative of a function]
   \[ f: D \subseteq \mathbb R^m \to \mathbb R^n \qquad D \text{ is open}, x_0 \in D \]
   \[ f(x) = \begin{bmatrix} f_1(x) \\ f_2(x) \\ \vdots \\ f_n(x) \end{bmatrix} \in \mathbb R^n \]
-  \[ f_i(x) = f_i(\begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_m \end{bmatrix}) = f_i(x_1, x_2, \dots, x_m) \in \mathbb R \]
+  \[ f_i(x) = f_i\left(\begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_m \end{bmatrix}\right) = f_i(x_1, x_2, \dots, x_m) \in \mathbb R \]
 \end{definition}
 
 \begin{remark}
-  First trial to define of a the derivative:
+  First trial to define the derivative:
   \[ f'(x_0) \coloneqq \lim_{x\to x_0} \frac{\overbrace{f(x) - f(x_0)}^{\in \mathbb R^n}}{\underbrace{x - x_0}_{\in \mathbb Rm}} \]
   Does not work because of incompatibility of dimensions (and we cannot divide vectors).
 \end{remark}
@@ -3864,7 +3864,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \[ \norm{\alpha w} = \card{\alpha} \norm{w} < \frac{r}{\norm{w}} \cdot \norm{w} = r \]
   Let $v = \alpha w$. Then it holds that
   \[ \norm{(A - B) v} = \card{\alpha} \norm{(A - B) w} \leq \hat r(x) \norm{\alpha w} = \card{\alpha} \hat r(x) \cdot \norm{w} \]
-  \[ \implies \norm{(A - B) w} \leq \underbrace{\hat r(x)}_{\to 0 \text{ for } x \to x_0} \cdot \underbrace{\norm w}_{\text{constant}} \]
+  \[ \implies \norm{(A - B) w} \leq \underbrace{\hat r(x)}_{\xrightarrow{\text{for } x \to x_0} 0} \cdot \underbrace{\norm w}_{\text{constant}} \]
   \[ \implies (A - B) w = 0 \]
   This contradicts with our assumption.
 
@@ -3909,7 +3909,8 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \end{lemma}
 
 \begin{proof}
-  Let $F \coloneqq \norm{(f + g)(x) - (f + g)(x_0) - \underbrace{[Df(x_0) + Dg(x_0)]}_{D(f + g)(x_0)}(x - x_0)]}$.
+  Let $F \coloneqq \norm{(f + g)(x) - (f + g)(x_0) - [Df(x_0) + Dg(x_0)](x - x_0)]}$
+  with $[Df(x_0) + Dg(x_0)] = D(f + g)(x_0)$.
   Show that $F = o(\norm{x - x_0})$.
   \begin{align*}
     F &\leq \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} + \norm{g(x) - g(x_0) - Dg(x_0)(x - x_0)} \\
@@ -3982,7 +3983,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \[ \frac{\varepsilon}{2} \cdot \frac{1}{\norm{Dg(y_0)} + 1} < \frac22 = 1 \]
   so it also holds that
   \[ \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < 1 \cdot \norm{x - x_0} \]
-  By the reverse triange inequality,
+  By the reverse triangle inequality,
   \[ \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} \geq \norm{f(x) - f(x_0)} - \norm{Df(x_0) (x - x_0)} \]
   \[ \geq \norm{f(x) - f(x_0)} - \norm{Df(x_0)} \cdot \norm{x - x_0} \]
   \[ \implies \frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}} \leq \norm{Df(x_0)} + 1 \]
@@ -3998,11 +3999,11 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \[ \norm{g(y) - g(y_0) - Dg(y_0) \cdot (y - y_0)} < \frac{\varepsilon}{2 \left(\norm{Df(x_0) + 1}\right)} \norm{y - y_0} \]
   Because $f$ is continuous in $x_0$, there exists $\delta_2 > 0$ such that $x \in D$ and $\norm{x - x_0} < \delta_2 \implies \norm{f(x) - f(x_0)} < \delta_g$.
   Now let $\delta = \min(\delta_1, \delta_2) > 0$. Then it holds that
-  \[ I = \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot (f(x) - f(x_0))} \]
+  \[ I \coloneqq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot (f(x) - f(x_0))} \]
   Let $y = f(x), y_0 = f(x_0)$.
   Because $\norm{f(x) - f(x_0)} < \delta_g$ gives $\norm{x - x_0} < \delta_2$
   \[ \implies I < \frac{\varepsilon}{2 \left(\norm{Df(x_0)} + 1\right)} \underbrace{\frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}}}_{< \norm{Df(x_0)} + 1} < \frac\varepsilon2 \]
-  \[ II = \norm{Dg(y_0)} \frac{1}{\norm{x - x_0}} \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} \]
+  \[ II \coloneqq \norm{Dg(y_0)} \frac{1}{\norm{x - x_0}} \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} \]
   \[ < \norm{Dg(y_0)} \cdot \frac{\varepsilon}{2} \cdot \frac{1}{\norm{Dg(y_0)} + 1} < \frac\varepsilon2 \]
   hence, $I + II < \varepsilon$ for $\norm{x - x_0} < \delta$.
 \end{proof}
@@ -4309,7 +4310,7 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   This theorem establishes the relation of differentiability and partial derivatives.
 
   Let $f: D \to \mathbb R$, $D \subseteq \mathbb R^m$ is open.
-  Assume $\forall x \in D$ exist all partial derivatives $\partial_i f(x)$ for $j = 1, \dots, m$
+  Assume all partial derivatives $\partial_i f(x)$ exist $\forall x \in D$ for $j = 1, \dots, m$
   and the functions $x \mapsto \partial_j f(x)$ on $D \to \mathbb R$ are continuous for $j = 1, \dots, m$.
   Then $f$ is differentiable in every point $x_0 \in D$ with $Df(x_0) = [\partial_1 f(x_0), \dots, \partial_m f(x_0)]$.
   Then $f$ is also continuously differentiable.
@@ -4533,7 +4534,7 @@ Necessary (but not sufficient) optimality criteria:
 	  &= \norm{\varphi_y \circ l_{x_1 x_2}(1) - \varphi_y \circ l_{x_1 x_2}(0)} \\
 	  &= \norm{\int_0^1 \frac{d}{dt} [\varphi_Y \circ l_{x_1 x_2}(t)] \, dt} \\
 	  &= \norm{\int_0^1 D\varphi_Y(l_{x_1 x_2}(t)) \cdot \underbrace{\left(x_2 - x_1\right)}_{\substack{\text{inner derivative} \\ l_{x_1 x_2}(t)} \, dt}} \\
-	  &\leq \int_0^1 \norm{D\varphi_Y(l_{x_1 x_2}(t))} \cdot \norm{(x_2 - x_1)} \, dt \\ % TODO underbraces missing
+	  &\leq \int_0^1 \norm{D\varphi_Y(\underbrace{l_{x_1 x_2}(t)}_{\in \overline{K_{2r}(0)}})} \cdot \underbrace{\norm{(x_2 - x_1)}}_{\text{constant}} \, dt \\
 	  &\leq (*)
   \end{align*}
   \[ D \varphi_Y(x) = I - DF(x) \]
@@ -4758,6 +4759,7 @@ Necessary (but not sufficient) optimality criteria:
   is called \emph{Hessian matrix}. Named after Otto Hesse (1811--1874).
 \end{definition}
 
+\index{$k$-times continuously differentiable}
 \begin{definition}
   Let $f: D \to \mathbb R$ and let all partial derivatives of $f$ up to order $k \in \mathbb N$ exist and be continuous functions in $x \in D$.
   Then $f$ is called \emph{$k$-times continuously differentiable} and
@@ -4773,7 +4775,7 @@ Necessary (but not sufficient) optimality criteria:
 \index{Schwarz' theorem}
 \index{Clairaut's theorem}
 \index{Young's theorem}
-\begin{theorem}[Symmetry of second derivatives, Schwarz' theorem, Clairaut's theorem, Young's theorem]
+\begin{theorem}[Symmetry of second derivatives, Schwarz' theorem, Clairaut's theorem, Young's theorem] % Satz 5
   Let $f \in \mathcal C^2(D)$. Let $D \subseteq \mathbb R^n$ be open. Then it holds that
   \[ \partial_{X_i X_j} f = \partial_{X_j X_i} f \text{ on } D \]
 \end{theorem}
@@ -4851,7 +4853,7 @@ Necessary (but not sufficient) optimality criteria:
 \begin{proof}
   Proof by complete induction.
   \index{Multiindex notation}
-  \begin{definition}[Multiindex notation] % Definiition 9
+  \begin{definition}[Multiindex notation] % Definition 9
     Let $I \in \mathbb N^n$, $I = (\alpha_1, \alpha_2, \dots, \alpha_n)$.
     $\alpha_i \geq 0$. We call $I$ a multiindex $k = \card{I} = \sum_{i=1}^n \alpha_i$ is the \emph{order of $I$}.
     \[ \partial_{\underbrace{x_i x_i \dots x_i}_{\alpha \text{ times}}} \eqqcolon \partial_{x_i}^\alpha \]
@@ -4874,7 +4876,8 @@ Necessary (but not sufficient) optimality criteria:
 \end{proof}
 
 \index{Taylor's theorem in the multidimensional case}
-\begin{theorem}[Multidimensional Taylor's theorem]
+\begin{theorem}[Multidimensional Taylor's theorem] % Satz 6
+  \label{multiTaylor}
   Let $f: D \to \mathbb R$, $D$ is open, $x_0 \in D$ and $f \in \mathcal C^{k+1}(D)$.
   Let $r > 0$ such that $K_r(x_0) \subseteq D$ and $v \in \mathbb R^n$ with $\norm{v} \leq r$
   (hence, $x_0 + v \in \overline{K_r(x_0)}$ and therefore also the connecting line
@@ -4957,9 +4960,209 @@ Necessary (but not sufficient) optimality criteria:
     f(x_0 + v) &= f(x_0) + \partial_1 f(x_0) \cdot v_1 + \partial_2 f(x_0) v_2 \\
       &+ \frac1{2!} \partial_{11} f(x_0) v_1 v_1 + \frac{1}{2!} \partial_{12} f(x_0) v_1 v_2 \\
       &+ \frac{1}{2!} \partial_{21} f(x_0) v_2 v_1 + \frac{1}{2!} \partial_{22} f(x_0) v_2 v_2 \\
-      & TODO
+      &+ \frac{1}{3!} \partial_{111} f(x_0) v_1 v_1 v_1 + \frac{1}{3!} \partial_{211} f(x_0) v_2 v_1 v_1 + \\
+      &+ \frac{1}{3!} \partial_{121} f(x_0) v_1 v_2 v_1 + \frac{1}{3!} \partial_{112} f(x_0) v_1 v_1 v_2 + \\
+      &+ \frac{1}{3!} \partial_{122} f(x_0) v_1 v_2 v_2 + \frac{1}{3!} \partial_{212} f(x_0) v_2 v_1 v_2 + \\
+      &+ \frac{1}{3!} \partial_{221} f(x_0) v_2 v_2 v_1 + \frac{1}{3!} \partial_{222} f(x_0) v_2 v_2 v_2 + R \\
+      &= f(x_0) + \partial_{(1,0)} f(x_0) \cdot v_1^1 v_2^0 + \partial_{(0,1)} f(x_0) v_1^0 v_2^1 \\
+      &+ \frac{1}{2! 0!} \partial_{(2,0)} f(x_0) v_1^2 v_2^0 + \frac{1}{1! 1!} \partial_{(1,1)} f(x_0) v_1^1 v_2^1 \\
+      &+ \frac{1}{0! 2!} \partial_{(0,2)} f(x_0) v_1^0 v_2^2 + \frac{1}{3! 0!} \partial_{(3,0)} f(x_0) v_1^3 v_2^0 \\
+      &+ \frac{1}{2! 1!} \partial_{(2,1)} f(x_0) v_1^2 v_2^1 + \frac{1}{1! 2!} \partial_{(1,2)} f(x_0) v_1^1 v_2^2 \\
+      &+ \frac{1}{0! 3!} \partial_{(0,3)} f(x_0) v_1^0 v_2^3 + R
+  \end{align*}
 \end{example}
 
+\dateref{2018/06/14}
+
+\begin{theorem}[Qualitative Taylor Theorem] % Satz 7
+  Let $f \in \mathcal C^k(D)$, $D \subseteq \mathbb R^n$ open, $x_0 \in D$.
+  Let $r > 0$ such that $K_r(x_0) \subseteq D$ and $\norm{v} < r$, hence $x_0 + v \in K_r(x_0) \subseteq D$.
+  Then it holds that
+  \[ f(x) = \sum_{j=0}^k \sum_{\card{I} = j} \frac{1}{I!} \partial_I f(x_0) v^I + o(\norm{v})^k \]
+
+  Pay attention to $\mathcal C^k(D)$, $j=0$ and $o(\norm{v})^k$.
+\end{theorem}
+
+\begin{proof}
+  Use the $1$-norm $\norm{v}_1 = \sum_{i=1}^n \card{v_i}$ for the proof. By the equivalence of norms in $\mathbb R^n$, it holds for every norm in $\mathbb R^n$.
+  \begin{align*}
+    \norm{v}_1^k &= \left(\sum_{k=1}^n \card{v_i}\right)^k \underbrace{=}_{\text{Theorem~\ref{multiTaylor}}}
+                    \sum_{\card{I} = k} \frac{k!}{I!} \card{v^I}
+  \end{align*}
+  for every multiindex $I$ of order $k$ it holds that $\frac{1}{I!} \card{v^I} \leq \frac{1}{k!} \norm{v}_1^k$.
+  By Theorem~\ref{multiTaylor},
+  \begin{align*}
+    f(x) &= \sum_{j=0}^{k-1} \sum_{\card{I}=j} \frac{1}{I!} \partial_I f(x_0) v^I {\color{gray} + \sum_{\card{I} = k} \frac{1}{I!} \partial_I f(x_0) v^I} \\
+         &+ \sum_{\card{I} = k} \frac{1}{I!} \partial_I f(x_0 + \vartheta v) \cdot V^I {\color{gray} - \sum_{\card{I} = k} \frac{1}{I!} \partial_I f(x_0) v^I} \\
+         &= \sum_{j=0}^k \sum_{\card{I}=j} \frac{1}{I!} \partial_I f(x_0) v^I \\
+         & \underbrace{\sum_{\card{I}=k} \frac{1}{I!} (\partial_I f(x_0 + \vartheta v) - \partial_I f(x_0)) \cdot v^I}_{\text{to show: } = o(\norm{v}_1^k)} \\
+         & \card{\sum_{\card{I} = k} \card{\frac{1}{I!} v^I \cdot (\partial_I f(x_0 + \vartheta v) - \partial_I f(x_0))}} \\
+         & \leq \sum_{\card{I} = k} \underbrace{\card{\frac{1}{I!} v^I}}_{\leq \frac{1}{k!} \norm{v}_1^k} \cdot \norm{\partial_I f(x_0 + \vartheta v) - \partial_I f(x_0)} \\
+         & \leq \underbrace{\frac{1}{k!} \sum_{\card{I} = k} \card{\partial_I f(x_0 + \vartheta v) - \partial_I f(x_0)}}_{\xrightarrow{v \to 0} 0} \norm{v}_1^k
+  \end{align*}
+  is immediate, because $f \in \mathcal C^k(D)$, hence $\partial_I f(x_0 + \vartheta v) \to \partial_I f(x_0)$ for $v \to 0$.
+\end{proof}
+
+Reminder:
+\[
+  D_2 f(x_0) = \begin{bmatrix}
+    \partial_{11} f(x_0) & \partial_{12} f(x_0) & \dots & \partial_{1n} f(x_0) \\
+    \partial_{21} f(x_0) & \partial_{22} f(x_0) & \dots & \vdots \\
+    \vdots & \ddots & \ddots & \vdots \\
+    \partial_{n1} f(x_0) & \partial_{n2} f(x_0) & \dots & \partial_{nn} f(x_0) \\
+  \end{bmatrix}
+\]
+$f \in \mathcal C^2(D) \implies D_2 f(x_0)$ is symmetrical.
+Let $v \in \mathbb R^n$, then
+\[ v^t D_2 f(x_0) v = \sum_{i=1}^n v_i \sum_{j=1}^n \partial_{ij} f(x_0) \cdot v_j = \sum_{i,j=1}^n \partial_{ij} f(x_0) v_i v_j \]
+hence, the Taylor expansion of $f$ up to the second degree is
+\[ f(x) = f(x_0) + \sum_{i=1}^n \partial_i f(x_0) v_i + \frac12 \sum_{i,j=1}^n \partial_{ij} f(x_0) v_i v_j + o(\norm{v}^2) \]
+\[ = f(x_0) + Df(x_0) \cdot v + \frac12 v^t D_2 f(x_0) v + o(\norm{v}^2) \]
+
+\begin{theorem}[Sufficient optimality criteria] % Satz 8
+  Let $D \subseteq \mathbb R^n$ be open. Let $f \in \mathcal C^2(D), x_0 \in D$
+  such that $Df(x_0) = 0$ ($\nabla f(x_0) = 0$) (hence $x_0$ is a critical point of $f$).
+  \begin{enumerate}
+    \item Let $D_2 f(x_0)$ be positive definite. Then $f$ has a strict local minimum in $x_0$.
+    \item Let $D_2 f(x_0)$ be negative definite. Then $f$ has a strict local maximum in $x_0$.
+    \item Let $D_2 f(x_0)$ be indefinite. Then $f$ in $x_0$ has no local extremum.
+  \end{enumerate}
+\end{theorem}
+
+\begin{remark}[Reminder]
+  Let $M \in \mathbb R^{n \times n}$ and $M$ be symmetrical. $M$ is called positive definite if $\forall \lambda \in \mathbb R$ eigenvalue of $M$ it holds that $\lambda > 0 \iff \forall v \in \mathbb R^n \setminus \set{0}: v^t M v > 0$ indefinite:
+  \[ \exists \lambda \text{ eigenvalue of } A, \lambda > 0 \]
+  \[ \exists \mu \text{ eigenvalue of } A, \mu < 0 \]
+  For corresponding eigenvectors $v$ (and accordingly $w$) it holds that
+  \[ v^t M v = v^t \lambda v = \lambda \norm{v}^2 > 0 \]
+  \[ w^t M w = w^t \mu w = \underbrace{\mu}_{< 0} \norm{w}^2 < 0 \]
+\end{remark}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Taylor expansion of 2nd degree with $Df(x_0) = 0$: $f(x) - f(x_0) = \frac12 (x - x_0)^t D_2 f(x_0) (x - x_0) + g(x - x_0) \cdot \norm{x - x_0}^2$ where $g(x - x_0) \cdot \norm{x - x_0}^2$ represents $o(\norm{x - x_0}^2)$ with $\lim_{v \to 0} g(v) = 0$.
+      \[ S^{k-1} = \set{v \in \mathbb R^n: \norm{v} = 1} \]
+      is the $n-1$ dimensional unit sphere in $\mathbb R^n$.
+      $S^{n-1}$ is bounded, closed and therefore compact. $\forall v \in S^{n-1}$ it holds that $v \neq 0 \implies v^t D_2 f(x_0) v > 0$ by positive definiteness.
+      Let $m = \min\set{\frac12 v^t D_2 f(x_0) v: v \in S^{n-1}}$ where $\frac12 v^t D_2 f(x_0)$ is continuous, has therefore a minimum and this minimum is necessarily positive. So $m > 0$.
+      Choose $\delta > 0$ such that $\norm{v} < \delta \implies \card{g(v)} < \frac{m}{2}$ (feasible because $\lim_{v\to0} g(v) = 0$).
+      For $x \neq x_0$,
+      \begin{align*}
+        f(x) - f(x_0) &= \underbrace{\left(\frac12 \frac{(x - x_0)^t}{\norm{x - x_0}} D_2 f(x_0) \frac{(x - x_0)}{\norm{x - x_0}}\right)}_{\geq m} \cdot \norm{x - x_0}^2 + g(x - x_0) \cdot \norm{x - x_0}^2 \\
+          &\geq m \cdot \norm{x - x_0}^2 - \underbrace{\card{g(x - x_0)}}_{\leq \frac m2} \norm{x - x_0}^2 \\
+          &\geq \frac m2 \norm{x - x_0}^2 > 0
+      \end{align*}
+      For all $x \in D$ with $\norm{x - x_0} < \delta$, $x_0$ is a strict local minimum of $f$.
+    \item Follows analogously.
+    \item Let $D_2 f(x_0)$ be indefinite. Let $\lambda > 0$ be the eigenvalue of $D_2 f(x_0)$ with eigenvector $v \neq 0$ and $\mu < 0$ is negative eigenvalue of $D_2 f(x_0)$ with eigenvector $w \neq 0$.
+      \[ \varphi(t) = f(x_0 + tv) \qquad t \in (-r, r) \]
+      \[ \varphi'(t) = Df(x_0 + tv) \cdot v = \sum_{i=1}^n \partial_i f(x_0 + tv) \cdot v_i \]
+      \[ \varphi'(0) = 0 \]
+      \begin{align*}
+        \varphi''(t) &= \frac{d}{dt} \left(\sum_{i=1}^n \partial_i f(x_0 + tv) \cdot v_i\right) \\
+            &= \sum_{i=1}^n \sum_{j=1}^n \partial_{ij} f(x_0 + tv) \cdot v_i v_j \\
+            &= v^t D_2 f(x_0 + tv) \cdot v \\
+            &\implies \varphi''(0) = v^t D_2 f(x_0) v = \lambda \norm{v}^2 > 0
+      \end{align*}
+      By some previous result establishing the necessary optimality criteria, $\varphi''(0) > 0 \implies$ $t=0$ is a strict local minimum of $\varphi$.
+      Analogously $\psi(t) = f(x_0 + tw)$
+      \[
+        \left.\begin{array}{c}
+          \psi'(0) = 0 \\
+          \psi''(0) = \mu \norm{w}^2 < 0
+        \end{array}\right\}
+        \implies \text{$t = 0$ is strict local maximum for $\psi$}
+      \]
+
+      \begin{figure}[t]
+        \begin{center}
+          \includegraphics{img/36_dir.pdf}
+          \caption{$v$ and $w$}
+          \label{img:vandw}
+        \end{center}
+      \end{figure}
+
+      Let $\varepsilon > 0$ be sufficiently small such that $\varphi(t) > \varphi(0) \forall \card{t} < \varepsilon, t \neq 0$.
+      and $\psi(t) < \psi(0) \forall \card{t} < \varepsilon$ with $t \neq 0$.
+      Then $f(x_0 + tv) = \varphi(t) > \varphi(0) = f(x_0)$ and $x_0 + tv = x$
+      \[ \text{and } \norm{x - x_0} = \norm{tv} = \card{t} \cdot \norm{v} = \card{t} \cdot 1 < \varepsilon \]
+      \[ \text{and } f(\underbrace{x_0 + tw}_{y}) = \psi(t) < \psi(0) = f(x_0) \]
+      \[ \norm{y - x_0} = \norm{tw} = \card{t} \norm{w} = \card{t} \cdot 1 < \varepsilon \]
+      Thus, $x_0$ is not a local extreme value.
+      Compare with Figure~\ref{img:vandw}.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}[Sufficient optimality conditions for the scalar case]
+  \[ f''(x_0) > 0 \lor f''(x_0) < 0 \]
+  \[ f''(x_0) = 0 \implies \text{ no conclusion} \]
+  $f''(x_0) = 0$ gives a saddle point.
+
+  In the 2-dimensional case, we have
+  \[ D_2 f(x_0) \text{ symmetrical, positive definite} \]
+  \[ Df(x_0) = 0 \]
+  % TODO image local minimum
+
+  \[ D_2 f(x_0) \text{ indefinite} \]
+  \[ D f(x_0) = 0 \]
+  $\rightarrow$ no extreme value.
+
+  % TODO image saddle point
+\end{remark}
+
+\section{Differential geometry of curves}
+
+We consider:
+\begin{enumerate}
+  \item Maps $\gamma: I \subseteq \mathbb R \to \mathbb R^n$
+    % TODO image 37_map.pdf
+  \item geometric properties of $\Gamma = \gamma(I)$.
+\end{enumerate}
+
+\index{Parameterized curvature}
+\index{Curvature}
+\index{Regular curvature parameterization}
+\begin{definition} % Definition 1
+  Let $I \subseteq \mathbb R$ be an interval.
+  Let $\gamma: I \to \mathbb R^n$ be a continuous (or differentiable or smooth) function.
+  Then $\gamma$ is a continuous (or differentiable or smooth) function curvature parameterization.
+  Colloquially, we are used to call $\gamma$ a \emph{parameterized curvature} (in German: \foreignlanguage{german}{$\gamma$ is eine parametrisierte Kurve}).
+
+  $\gamma(t) \in \mathbb R^n$ is a curvature point.
+  $t$ is the curvature parameter.
+  \[ \Gamma = \gamma(I) = \set{\gamma(t): t \in I} \subseteq \mathbb R^n \]
+  is called trace of the curvature parameterization.
+  \[ \gamma(t) = \begin{bmatrix} \gamma_1(t) \\ \gamma_2(t) \\ \vdots \\ \gamma_n(t) \end{bmatrix} \]
+  If $\gamma$ is differentiable, then
+  \[ D\gamma(t)
+        = \begin{bmatrix} \partial_t \gamma_1(t) \\ \partial_t \gamma_2(t) \\ \vdots \partial_t \gamma_m(t) \end{bmatrix}
+        = \begin{bmatrix} \gamma'_1(t) \\ \gamma'_2(t) \\ \vdots \\ \gamma'_n(t) \end{bmatrix} \eqqcolon \gamma'(t)
+  \]
+  $\gamma'(t)$ is the derivative vector. Often we also use the notation $\dot{\gamma}(t)$.
+
+  Let $\gamma: I \to \mathbb R^n$ be differentiable.
+  $\gamma$ is called \emph{regular curvature parameterization} if $\gamma'(t) \neq 0 \forall t \in I$.
+\end{definition}
+
+\index{Unit tangential vector}
+\index{Tangent of a curvature}
+\begin{definition} % Definition 2
+  Let $\gamma: I \to \mathbb R^n$ be a regular curvature parameterization.
+  Let $T_\gamma(t) = \frac{\gamma'(t)}{\norm{\gamma'(t)}_2}$.
+  $T_\gamma(t)$ is called \emph{unit tangential vector} of $\gamma$ in point $x = \gamma(t)$.
+  \[ \tau(\gamma, x) = \set{x + \tau \cdot T_{\gamma}(t): \tau \in \mathbb R} \]
+  is a line in $\mathbb R^n$ with directional vector $T_\gamma(t)$ through $x = \gamma(t)$.
+  $\tau(\gamma, x)$ is called \emph{tangent} on $\Gamma$ in point $x$.
+
+  % TODO image: 38_tangent.pdf
+
+  Motivation:
+  \begin{align*}
+    \gamma(t + \tau) &= \gamma(t) + \gamma'(t) \cdot \tau + o(\tau) \\
+      &= \underbrace{x + \frac{\tau}{\norm{\gamma'(t)}} \cdot T_{\gamma}(t)}_{\in \tau(\gamma, x)} + o(\tau)
+  \end{align*}
+  A tangent is the best linear approximation of the curvature.
+\end{definition}
 
 \printindex
 \end{document}
