@@ -1437,5 +1437,128 @@ If convergence radius $>1$, then function is continuous and series is continuous
 Cauchy-Hadamard:
 \[ \leadsto \sqrt[n]{\card{-\frac53 \cdot \frac{(-1)(-1)^n}{2^{n+1}} + \frac23}}^{-1} \leq \sqrt[n]{\frac23} \underbrace{\sqrt[n]{1 + \frac{5}{2^{n+2}}}}_{\leq \sqrt[n]{3}} \]
 
+\section{Sheet 10, Exercise 2}
+\begin{ex}
+  Show that the following functions are differentiable and determine the corresponding Jacobi matrix.
+  \begin{enumerate}
+    \item $f: \mathbb R \to \mathbb R^4, f(x) \coloneqq \begin{pmatrix} 3x^2 \\ \sin(3x) \\ 42 \\ \cos(x^2) \end{pmatrix}$
+    \item $g: \mathbb R^3 \to \mathbb R^2, g(x) \coloneqq \begin{pmatrix} 4x^2 y^3 \\ xye^z + e^x y \end{pmatrix}$
+    \item $h: (0, \infty) \times \mathbb R^2 \to \mathbb R, h(x, y, z) \coloneqq \sin(zx) \ln(x + y^2)$
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 10, Exercise 2a}
+\[ f'(x) = \begin{pmatrix} 6x \\ \cos(3x) \cdot 3 \\ -\sin(x^2) \cdot 2x \end{pmatrix} \]
+
+\subsection{Sheet 10, Exercise 2b}
+\[ g'(x, y, z) = \begin{pmatrix} 8xy^3 & 12 x^2 y^2 & 0 \\ ye^z + e^xy & xe^z + e^x & xye^z \end{pmatrix} \]
+
+\subsection{Sheet 10, Exercise 2c}
+\[ h'(x, y, z) = \begin{pmatrix} \cos(zx) \cdot z \cdot \ln(x + y^2) + \frac{\sin(zx)}{x + y^2} \\ \frac{\sin(zx) \cdot 2y}{x + y^2} \\ \cos(zx) \cdot x \cdot \ln(x + y^2) \end{pmatrix} \]
+
+\subsection{Remark on differentiability}
+Continuous partial differentiability implies total differentiability implies continuity.
+Continuous partial differentiability implies total differentiability implies partial differentiability.
+
+\section{Sheet 10, Exercise 3}
+\begin{ex}
+  Consider the function $f: \mathbb R^2 \to \mathbb R$ defined by
+  \[ f(x, y) \coloneqq \begin{cases} \frac{xy^3}{x^2 + y^2} & \text{ if } (x, y) \neq (0, 0) \\ 0 & \text{ if } (x, y) = (0, 0) \end{cases} \]
+  Show that,
+  \begin{enumerate}
+    \item $f$ is continuous and continuously partially differentiable.
+    \item $f$ is two times partially differentiable and $\partial_x \partial_y f(0, 0) \neq \partial_y \partial_x f(0, 0)$.
+    \item $f \in \mathcal C^2(\mathbb R^2 \setminus \set{0})$.
+    \item Computationally: One of the second partial derivatives of $f$ is non-continuous in $(0, 0)$.
+    \item The statement of (d) without calculations.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 10, Exercise 3a}
+\[ \frac{\partial f}{\partial x} (0, 0) = \lim_{x \to 0} \frac{\overbrace{f(x, 0)}^{0} - \overbrace{f(0, 0)}^{0}}{x} = \lim_{x \to 0} = 0 \]
+\[ \frac{\partial f}{\partial x} (0, 0) = \lim_{y \to 0} \frac{\overbrace{f(0, y)}^{0} - \overbrace{f(0, 0)}^{0}}{y} = \lim_{y \to 0} 0 = 0 \]
+Let $(x, y) \neq (0, 0)$.
+\[ \frac{\partial f}{\partial x} (x, y) = \frac{y^3 (x^2 + y^2) - 2x (xy^3)}{(x^2 + y^2)^2} \]
+\[ \frac{\partial f}{\partial y} \frac{3xy^2 (x^2 + y^2) - 2y (xy^3)}{(x^2 + y^2)^2} \]
+
+The partial derivatives exist everywhere except $(0, 0)$.
+\[ \lim_{(x,y) \to (0,0)} \frac{y^3 (x^2 + y^2) - 2x (xy^3)}{(x^2 + y^2)^2} = \lim_{(x,y)\to(0, 0)} \frac{x^2 y^3 + y^5 - 2x^2 y^3}{x^4 + 2x^2 y^2 + y^4} \]
+
+Continuity follows from total differentiability.
+
+\subsection{Sheet 10, Exercise 3b}
+It is not obvious that this fraction is two times differentiable. $\frac1{x}$ is not differentiable on 
+\[ (x, y) \neq (0, 0) \qquad \frac{\partial f^2}{\partial x \partial y} = \frac{-3x^4 y^2 + 6x^2 y^4 + y^6}{(x^2 + y^2)^3} = \frac{\partial f^2}{\partial y \partial x} \]
+The Schwarz' Theorem requires that $f \in \mathcal C^2$.
+
+Either we only determine one partial derivative and copy it for the second derivative.
+Or we compute both of them, but then they need to equate and we can use this for verification.
+
+\[ \lim_{y \to 0} \frac{-3x^4 y^2 + 6x^2 y^4 + y^6}{(x^2 + y^2)^3} \]
+Continuous function, because $x \neq 0$ and $y \neq 0$.
+
+\[ \partial x \partial y f(0, 0) = \lim_{h \to 0} \frac{1}{h} (\partial x f(h, 0) - \partial x f(0, 0)) = \lim_{h\to 0} \frac{1}{h} \left(\frac{-3 h^4 \cdot 0^2 + 6 h^2 \cdot 0^4 + 0^4}{(h^2 + 0^2)^3}\right) = \lim_{h\to0} \frac1h 0 = 0 \]
+\[ \partial y \partial x f(0, 0) = \lim_{h \to 0} \frac1h (\partial x f(0, h) - \partial x f(0, 0)) = \lim_{h\to 0} \frac1h \cdot \frac{h^5}{h^4} = 1 \]
+
+\subsection{Sheet 10, Exercise 3c}
+We prove it using polar coordinates.
+\[ 1 = \sin(\varphi_n^2) + \cos(\varphi_n^2) \]
+\[ x_n = r_n \cos(\varphi_n) \qquad y_n = r_n \sin(\varphi_n) \]
+\[ (x_n, y_n) \to \vec 0 \iff (r_n \cos(\varphi_n), r_n \sin(\varphi_n)) \to \vec 0 \iff r_n \to 0 \]
+
+Let $\set{(x_n, y_n)}$ be a sequence with limit $\vec 0$.
+Show: $\lim_{n\to\infty} \frac{\partial f}{\partial x} (x_n, y_n) = \frac{\partial f}{\partial x} f(0, 0) = 0$.
+
+\[ \frac{\partial f}{\partial x} (x_n, y_n) = \frac{r_n^5 \sin(\varphi_n^5) - r_n^2 \cos(\varphi_n^2) r_n^3 \sin(\varphi_n^3)}{(rn^2 \cos(\varphi_n^2) + r_n^2 \sin(\varphi_n^2))^2} \]
+\[ = \underbrace{r_n}_{\to 0} \underbrace{(\sin(\varphi_n^5) - \cos(\varphi_n^2) \sin(\varphi_n^3))}_{\text{bounded}} \to 0 \]
+
+\[ \card{\frac{y^3 (x^2 + y^2) - 2x (xy^3)}{(x^2 + y^2)^2}} \]
+
+\subsection{Sheet 10, Exercise 3d}
+\[ \partial x \partial y f(x, y) = \frac{-3x^4 y^2 + 6x^2 y^4 + y^6}{(x^2 + y^2)^3} \]
+
+Let $\set{(X_h, X_h)}$ be a sequence of $(X_n, X_n) \to \vec 0$ for $n \to \infty$.
+
+Show that: $\lim_{x_n \to 0} \partial_{xy} f(x_n, x_n) = \partial_{xy} f(0, 0) = 0$.
+
+\subsection{Sheet 10, Exercise 3e}
+We know $f \in \mathcal C^2(\mathbb C \setminus \set{0})$ and $\partial_{xy} f(0, 0) \neq \partial yx f(0, 0)$.
+
+
+We use the inverse ($p \implies q$ also gives $\not q \implies \not p$) of the Schwarz' Theorem: Because symmetry of derivatives ($f \not\in \mathcal C^2(\mathbb R^2)$) is not given, the two-times partial derivative is non continuous in $(0, 0)$.
+
+Why is the point of non-continuity $(0, 0)$? Well, we showed continuity for $\mathbb R \setminus \set{\vec 0}$, so $(0, 0)$ remains.
+
+\[ \exists (x, y) \in \mathbb R: \partial x \partial y f(x, y) \neq \partial y \partial x f(x, y) \]
+
+\section{Sheet 10, Exercise 4}
+\begin{ex}
+  Let $f, g: \mathbb R^2 \to \mathbb R$ be given by
+  \[ f(x, y) \coloneqq \sqrt{\card{xy}} \qquad g(x, y) \coloneqq \card{x} + \card{y} \]
+  \begin{enumerate}
+    \item Determine the level sets $\setdef{(x, y)^T \in \mathbb R^2}{f(x, y) = c}$ and accordingly $\setdef{(x, y)^T \in \mathbb R^2}{g(x, y) = c}$ for $c \in \mathbb R$.
+    \item Determine the gradients $\nabla f$ and $\nabla g$, assuming they exist.
+  \end{enumerate}
+\end{ex}
+
+\section{Sheet 10, Exercise 4a}
+\[ y = \pm (c - \card{x}) \]
+Consider $c = 0$.
+\[ \card{x} + \card{y} = 0 \iff x = 0 \land y = 0 \]
+Consider $c < 0$.
+\[ \Gamma_0 = \emptyset \]
+Consider $c > 0$.
+\[ \card{x} + \card{y} = c \]
+
+\[ \Gamma = \angel{(x, y) \in \mathbb R^2 \middle| \card{x} + \card{y} = c} \]
+
+\section{Sheet 10, Exercise 4b}
+
+The gradients do not exist on $\mathbb R^2$. But the gradients exist if $x \neq 0 \lor y \neq 0$.
+\[ \nabla g(x, y) = \begin{bmatrix} \frac{\partial g}{\partial x} \\ \frac{\partial g}{\partial y} \end{bmatrix} \]
+\[ \frac{\partial g}{\partial x} = \begin{cases} 1 & \text{ if } x > 0 \\ -1 & \text{ if } x < 0 \end{cases} \]
+The gradients exist if $x \neq 0 \land y \neq 0$:
+\[ \frac{\partial g}{\partial x}(0, y) = \frac{d}{dx} \card{x} \]
+\[ f(x) = \card{x} \qquad \frac{df}{dx}(0) \]
 
 \end{document}
