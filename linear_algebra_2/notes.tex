@@ -5393,7 +5393,7 @@ Eigen vector: $e_1, \dots, e_n$.
 
 \index{Diagonalizable matrix}
 \begin{definition} % Definition 10.14
-  $A$ is called \emph{diagonalizabl} if $\exists T \in \operatorname{GL}(n)$ such that $T^{-1} \cdot AT$ is a diagonal matrix,
+  $A$ is called \emph{diagonalizable} if $\exists T \in \operatorname{GL}(n)$ such that $T^{-1} \cdot AT$ is a diagonal matrix,
   i.e. $A$ is \emph{similar} to a diagonal matrix.
 \end{definition}
 
@@ -5631,7 +5631,7 @@ Eigen vector: $e_1, \dots, e_n$.
 \end{proof}
 
 \begin{corollary} % Folderung 10.19
-  An $n\times n$ matrix with $n$ different Eigenvalues is diagonalizable.
+  An $n\times n$ matrix with $n$ different eigenvalues is diagonalizable.
 
   Hence, for every eigenvalue there exists some eigenvector. They are linear independent and $n$ elements.
   Hence they define a basis.
@@ -5964,7 +5964,7 @@ Fitting Lemma:
 
 \begin{example}
   \[A = \begin{bmatrix} \lambda & 1 &  \\ & \lambda & 1 \\ & & \lambda \end{bmatrix} \]
-  Eigenvalue: $\lambda$
+  eigenvalue: $\lambda$
   \[ \lambda I - A = \begin{bmatrix} 0 & -1 & \\ & 0 & -1 \\ & & 0 \end{bmatrix} \]
   \[ \ker(\lambda I - A) = \mathcal L\left(\vecthree 100\right) \]
   TODO
@@ -6873,7 +6873,7 @@ $\leadsto$ basis $B_i$ such that
   \[ \dot{\psi} = \frac{\dot{\dot{\varphi}}}{\omega} = -\frac{\omega^2 \cdot \varphi}{\omega} = -\omega \cdot \varphi \]
   \[ \frac{d}{dt} \vectwo{\varphi}{\psi} = \vectwo{\omega \psi}{-\omega \varphi} = \begin{bmatrix} 0 & \omega \\ -\omega & 0 \end{bmatrix} \vectwo{\varphi}{\psi} \]
   \[ \begin{pmatrix} \varphi(t) \\ \psi(t) \end{pmatrix} = e^{\begin{bmatrix} 0 & \omega \\ -\omega & 0 \end{bmatrix} t} \begin{bmatrix} \varphi_0 \\ \psi_0 \end{bmatrix} \]
-  Eigenvalue: $\lambda^2 + \omega^2 = 0$, $\omega = \pm i\omega$.
+  eigenvalue: $\lambda^2 + \omega^2 = 0$, $\omega = \pm i\omega$.
   \[ \varphi(t) \sim \Re(c \cdot e^{i \omega t} \sim a \cos{\omega t} + b \cdot \sin{\omega t}) \]
   \[ \omega = \sqrt{\frac{g}{l}} \]
 \end{example}
@@ -7081,7 +7081,7 @@ where $\mu_i$ are the roots of $q(x)$.
 
 \dateref{2018/06/11}
 
-\section{Normal matrices}
+\section{Normal matrices} % Chapter 7
 
 \index{Inner product}
 \begin{definition}[Revision: Inner product] % 12.1
@@ -7528,6 +7528,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   Andr\'e-Louis Cholesky (1875--1918) descending from the Cholewski (Polish) family
 \end{remark}
 
+\index{Cholesky decomposition}
 \begin{theorem}[Cholesky decomposition] % Satz 12.17
   Let $A > 0 \iff \exists C \in \mathbb C^{n \times n}$ (lower triangular matrix) such that $A = C \cdot C^*$.
   Compare with LU decomposition.
@@ -7537,6 +7538,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   Determine the matrix $C$ or abort if $A$ is not positive definite.
 \end{remark}
 
+\index{Schur complement}
 \begin{remark}[Schur complement]
   \[ M = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \]
   \[ \implies M/D \coloneqq A - BD^{-1} C \]
@@ -7548,7 +7550,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   \[ \det\left[\begin{array}{c|c}A & B \\ \hline b^* & \gamma \end{array}\right] = \det A \cdot (\gamma - b^* A^{-1} b)  \]
   \[
     \begin{vmatrix} A & b \\ b^* & \gamma \end{vmatrix}
-    = \begin{vmatrix} I & 0 \\ -b^* A^{-1} & 1 \end{bmatrix} \cdot \begin{vmatrix} A & b \\ b^* & \gamma \end{vmatrix}
+    = \begin{vmatrix} I & 0 \\ -b^* A^{-1} & 1 \end{vmatrix} \cdot \begin{vmatrix} A & b \\ b^* & \gamma \end{vmatrix}
     = \begin{vmatrix} A & b \\ -\underbrace{b^* A^{-1} A + b^*}_{=0} & -b^* A^{-1} b + \gamma \end{vmatrix}
     = \det{A} \cdot (-b^* A^{-1} b + \gamma)
   \]
@@ -7567,8 +7569,8 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
       By induction hypothesis:
       $\exists C_k: A_k = C_k C_k^*$.
 
-      \[ \text{Find } C_{k+1} = \begin{bmatrix} &  & & 0 \\ & C_k & & \vdots \\ & & & 0 \\ & C^* & & \alpha \end{pmatrix} \text{ such that } C_{k+1} C_{k+1}^* = A_{k+1}, \alpha > 0 \]
-      \[ C_{k+1} C_{k+1}^* = \begin{bmatrix} &  & & 0 \\ & C_k & & \vdots \\ & & & 0 \\ & C^* & & \alpha \end{pmatrix} \begin{bmatrix} &  & & c \\ & C_k^* & & \\ & & & \\ 0 & \dots & 0 & \alpha \end{bmatrix} = \left\[\begin{array}{c|c} C_k C_k^* & C_k \cdot c \\ C^* C_k^* & C^* C + \alpha^2 \end{array}\right\]  \overset!= \begin{bmatrix} A_k & b \\ b^* & \gamma \end{bmatrix} \]
+      \[ \text{Find } C_{k+1} = \begin{pmatrix} &  & & 0 \\ & C_k & & \vdots \\ & & & 0 \\ & C^* & & \alpha \end{pmatrix} \text{ such that } C_{k+1} C_{k+1}^* = A_{k+1}, \alpha > 0 \]
+      \[ C_{k+1} C_{k+1}^* = \begin{bmatrix} &  & & 0 \\ & C_k & & \vdots \\ & & & 0 \\ & C^* & & \alpha \end{bmatrix} \begin{bmatrix} &  & & c \\ & C_k^* & & \\ & & & \\ 0 & \dots & 0 & \alpha \end{bmatrix} = \left[\begin{array}{c|c} C_k C_k^* & C_k \cdot c \\ C^* C_k^* & C^* C + \alpha^2 \end{array}\right]  \overset!= \begin{bmatrix} A_k & b \\ b^* & \gamma \end{bmatrix} \]
       Requirement: $C_k c\dot c = b$. $c^* c + \alpha^2 = \gamma$.
       Choose $c = C_k^{-1} b$.
       \begin{align*}
@@ -7615,6 +7617,280 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
       where $c_{jj}$ was already determined and the values of the enumerator are already known.
   \end{description}
 \end{remark}
+
+\dateref{2018/06/18}
+
+Cholesky decomposition:
+\begin{enumerate}
+  \item Given $A > 0$
+  \item Find $C$ such that $A = CC^*$. Recursively:
+    \[ c_{ij} = \sqrt{a_{ii} - \sum_{k=1}^{i-1} \card{c_{ik}}^2} \]
+    \[ c_{ij} = \frac{1}{c_{jj}} (a_{ij - \sum_{k=1}^{j-1} c_{ik} \overline{c_{jk}}}) \]
+\end{enumerate}
+
+\begin{example} % Beispiel 12.20
+  \[
+    A = \begin{bmatrix} 4 & 12 & -16 \\ 12 & 37 & -43 \\ -16 & -43 & 98 \end{bmatrix}
+    \overset!= \begin{bmatrix} c_{11} & & \\ c_{21} & c_{22} & \\ c_{31} & c_{32} & c_{33} \end{bmatrix} \cdot \begin{bmatrix} c_{11} & \overline{c_{21}} & \overline{c_{31}} \\ 0 & c_{22} & \overline{c_{32}} \\ 0 & 0 & c_{33} \end{bmatrix}
+  \] \[
+    = \begin{bmatrix} c_{11}^2 & c_{11} \overline{c_{21}} & c_{11} \overline{c_{31}} \\
+    c_{21} c_{11} & \card{c_{21}}^2 + c_{22}^2 & \\
+    c_{31} c_{11} & c_{31} \overline{c_{21}} + c_{32} c_{22} & \card{c_{31}}^2 + \card{c_{32}}^2 + c_{33}^2 \end{bmatrix}
+  \]
+  with
+  \begin{align*}
+    c_{11} &= \sqrt4 = 2 \\
+    12 &= c_{11} \cdot \overline{c_{21}} \implies c_{21} = \frac{12}{c_{11}} = 6 \\
+    -16 &= c_{11} \overline{c_{31}} \implies c_{31} = -\frac{16}{c_{11}} = -8 \\
+    \card{c_{21}}^2 &= 37 \\
+    c_{22} &= \sqrt{37 - 6^2} = 1 \\
+    c_{31} \overline{c_{21}} + c_{32} c_{22} &= -43 \\
+    c_{32} &= \frac{-43 - c_{31} \overline{c_21}}{c_{22}} = \frac{-43 + 8 \cdot 6}{1} = 5 \\
+    \card{c_{31}}^2 + \card{c_{32}}^2 + c_{33}^2 &= 98 \implies c_{33} = \sqrt{98 - (-8)^2 - 5^2} = 3
+  \end{align*}
+  If some root of a negative number needs to be taken, the matrix was not positive definite.
+\end{example}
+
+\begin{remark} % Bemerkung 12.21
+  If $A \in \mathbb R^{n \times n}$, then
+  \begin{enumerate}
+    \item also $C \in \mathbb R^{n \times n}$.
+    \item $C$ is uniquely determined.
+    \item Cholesky decomposition is an $LU$ decomposition
+  \end{enumerate}
+\end{remark}
+
+\begin{corollary} % Korollar 12.22
+  If $A > 0$, then $\det{A} \leq a_{11} a_{22} \dots a_{nn}$.
+\end{corollary}
+
+\begin{proof}
+  $A = CC^*$ is a Cholesky decomposition.
+  \[ c_{ii} = \sqrt{a_{ii} - \sum_{k=1}^{j-1} \card{c_{jk}}^2} \leq \sqrt{a_{ii}} \]
+\end{proof}
+
+\begin{remark}
+  We apply the product law.
+  \begin{align*}
+    \det(A) &= \det(C C^*) \\
+      &= \det(C) \cdot \det(C^*) \\
+      &= \card{\det(C)}^2 \\
+      &= \card{\prod_{i=1}^n c_{ii}}^2 = \prod c_{ii}^2 \leq \prod a_{ii}
+  \end{align*}
+\end{remark}
+
+\begin{remark}
+  J. S. Hadamard (1865--1963)
+\end{remark}
+
+\index{Hadamard's inequality}
+\begin{corollary}[Hadamard's inequality] % Korollar 12.23
+  Let $A \in \mathbb C^{n \times n}$ with column vectors $a_1, \dots, a_n$.
+  \[ \card{\det{A}} \leq \prod_{i=1}^n \norm{a_{i}} \]
+  \begin{align*}
+    \norm{a_i} &= \sqrt{\angel{a_i, a_i}} = \sqrt{a_i^* \cdot a_i} = \text{ Euclidean norm}
+  \end{align*}
+\end{corollary}
+
+\begin{proof}
+  \begin{description}
+    \item[Case 1: $A$ is singular]
+      trivial ($\det(A) = 0$)
+    \item[Case 2: $A$ is regular]
+      \[ \implies B = A^* A \text{ is regular } \implies \text{ positive definite} \]
+  \end{description}
+  \begin{align*}
+    \det{B} &\leq \prod_{i=1}^n b_{ii}
+            &= \det(A^* A) = \card{\det{A}}^2 \\
+    b_{ii}  &= \text{ i-th row of $A^*$ } \times \text{ i-th colum of $A$ } \\
+            &= a_i^* \cdot a_i = \norm{a_i}^2
+    \implies \card{\det{A}}^2 &\leq \prod_{i=1}^n \norm{a_i}^2
+  \end{align*}
+\end{proof}
+
+In this chapter: $AA^* = A^* A$. \\
+There exists an orthonormal basis of eigenvectors:
+\begin{align*}
+  Ax_i &= \lambda_i x_i \\
+  \angel{x_i, x_j} &= \delta_{ij} \\
+  x \in \mathbb C^n \leadsto x &= \sum \alpha_i x_i \qquad \alpha_i = \angel{x, x_i} \\
+  Ax &= \sum \alpha_i Ax_i = \sum \alpha_i \lambda_i x_i \\
+    &= \sum \lambda_i \angel{x, x_i} x_i \\
+  \implies A &= \sum_{i=1}^n \lambda \angel{\cdot, x_i} x_i
+\end{align*}
+where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \mathbb C^n \to \mathbb C$ with $x \mapsto \angel{x, x_i}$.
+
+\begin{remark}
+  Let $z \in \mathbb C$.
+  \[ z = r \cdot e^{i \theta} \]
+  \begin{align*}
+    r &= \card{z} = \sqrt{z \overline{z}} \\
+    e^{i \theta} &= \frac{z}{\card{z}}
+  \end{align*}
+\end{remark}
+
+\index{Polar decomposition}
+\begin{theorem}[Polar decomposition] % Satz 12.24
+  Let $A \in \mathbb C^{n \times n}$.
+  \[ \card{A} \coloneqq (A^* A)^{\frac12} \qquad (\text{unique, positive semidefinite root}) \]
+  Then $\exists U \in \mathcal U(n)$ such that $A = U \cdot \card{A}$.
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[Case 1: $A$ is regular]
+      $A A^*$ is positive definite.
+      \[ \leadsto A^* A = V \begin{bmatrix} \lambda_1 & &  \\ & \ddots & \\ & & \lambda_n \end{bmatrix} V^* \qquad \lambda_i > 0 \]
+      \[ \card{A} \coloneqq (A^* A)^{\frac12} = V \begin{bmatrix} \sqrt{\lambda_1} & &  \\ & \ddots & \\ & & \sqrt{\lambda_n} \end{bmatrix} V^* \]
+      \[ U = A \cdot \card{A}^{-1} \text{ is unitary} \]
+      \[ U = A \cdot (A^* A)^{-\frac12} \]
+      \[ U^* U = (A(A^* A)^{-\frac12})^* (A (A^* A)^{-\frac12}) = ((A^* A)^{-\frac12} \cdot A^*) (A (A^* A)^{-\frac12}) = (A^* A)^{-\frac12} (A^* A) (A^* A)^{-\frac12} \]
+      \[ = V \begin{bmatrix} \lambda_1^{-\frac12} & & \\ & \ddots & \\ & & \lambda_n^{-\frac12} \end{bmatrix} V^* V \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} V^* V \begin{bmatrix} \lambda_1^{-\frac12} & & \\ & \ddots & \\ & & \lambda_n^{-\frac12} \end{bmatrix} V^* = V \begin{bmatrix} 1 & & \\ & \ddots & \\ & & 1 \end{bmatrix} V^* = I \]
+      \[ U \cdot \card{A} = A \cdot \card{A}^{-1} \cdot \card{A} = A \]
+    \item[Case 2: $A$ is singular]
+      Let $A^* A \geq 0$ and some $\lambda_i = 0$.
+      By basis exchange, $A = V \operatorname{diag}(\lambda_1, \dots, \lambda_k, 0, \dots, 0) V^*$.
+      \[ \card{A} = V \operatorname{diag}(\lambda_1^{\frac12}, \dots, \lambda_k^{\frac12}, 0, \dots, 0) V^* \]
+      \[ \card{A} = \begin{bmatrix} P & \\ & 0 \end{bmatrix} \qquad U = V \begin{bmatrix} P^{-1} & \\ & 0 \end{bmatrix} \simeq \begin{bmatrix} \tilde U & \\ & I \end{bmatrix} \]
+      \[ \implies A = U \card{A} \]
+  \end{description}
+\end{proof}
+
+\subsection{Singular value decomposition}
+
+\index{Singular value decomposition}
+\begin{remark}[Singular value decomposition]
+  \[ A \in \mathbb C^{n \times n} \qquad A = U (A^* A)^{\frac12} \qquad U \text{ unitary} \]
+  \[ (A^* A)^{\frac12} \geq 0 \text{ with eigenvalue } s_i \geq 0 \text{ called singular values of } A \]
+  \[ (A^* A)^{\frac12} = \sum s_i \angel{\cdot, x_i} x_i \text{ where } x_i \text{ is an orthonormal basis} \]
+  \begin{align*}
+    A &= U \cdot (A^* A)^{\frac12} \\
+      &= \sum_{i=1}^n s_i \angel{\cdot, x_i} \overbrace{U_{x_i}}^{\eqqcolon y_i} \\
+      &= \sum_{i=1}^n s_i \angel{\cdot, x_i} y_i \\
+    y_i &= U x_i \text{ is also an orthonormal basis} \\
+    A \cdot y_i &= s_i \cdot x_i \to \text{ numerically stable} \\
+    A^{-1} &= \sum s^{-1}_i \angel{\cdot, y_i} x_i
+  \end{align*}
+\end{remark}
+
+\begin{remark}
+  Singular value decomposition is numerically stable and therefore very desirable.
+
+  It furthermore has a very important application in medicine: CT scans.
+  Inside the CT tube, X-rays are sent from all directions to all directions.
+  You can only determine how much the 
+
+  \[ \int_{\gamma} f(x(t), y(t)) \,dt = Rf(\psi, \Theta) \]
+  Is linear: $R(f_1 + f_2) = Rh + Rf_2$.
+  Radon transformation. $\lambda_i \to 0$.
+
+  You need to invert the integral. The SVD is the only numerically stable method to achieve it. Other methods will trigger numerical errors that will amplify and therefore give wrong images.
+\end{remark}
+
+\section{Eigenvalue estimates} % Chapter 8
+
+\index{Numerical range}
+\begin{definition} % Definition 13.1
+  Let $A \in \mathbb C^{n \times n}$.
+  \[ W(A) = \setdef{\angel{Ax, x}}{\norm{x} = 1} \subseteq \mathbb C \]
+  is called \emph{numerical range of $A$}.
+  \[ w(A) = \sup\setdef{\card{z}}{z \in W(A)} \]
+  is called \emph{numerical radius of $A$}.
+\end{definition}
+
+\begin{lemma}
+  \[ \operatorname{spec}(A) \subseteq W(A) \]
+\end{lemma}
+\begin{proof}
+  $\lambda \in \operatorname{spec}(A)$, eigenvector $x$ such that $Ax = \lambda x$, $\norm{x} = 1$.
+  \[ \implies \angel{Ax, x} = \angel{\lambda x, x} = \lambda \in W(A) \]
+\end{proof}
+
+\begin{theorem}[Theorem by Toeplitz-Hausdorff]
+  $W(A)$ is convex.
+\end{theorem}
+\begin{remark}
+  The following implications are left as an exercise to the reader:
+  $A$ is normal $\implies W(A) = \underbrace{\text{convex } \operatorname{spec}(A)}_{\text{convex hull}} = \setdef{\sum_{i=1}^n \alpha_i \underbrace{\lambda_i}_{\text{eigenvalue}}}{0 \leq \alpha_i \leq 1, \sum \alpha_i = 1} =$ convex set that contains $\operatorname{spec}(A)$.
+\end{remark}
+
+\begin{remark}
+  J. W. Strutt (1842--1919) aka 3. Lord Rayleigh
+\end{remark}
+
+\begin{remark}
+  W. Ritz (1878--1909), discovered the element Argon ($\rightarrow$ Nobel prize)
+\end{remark}
+
+\begin{theorem}[Rayleigh--Ritz Theorem] % Satz 13.4
+  \label{rrthm}
+  Let $A \in \mathbb C^{n \times n}$ be self-adjoint $\implies W(A)$.
+  $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$.
+  Then
+  \[ \lambda_1 = \min_{x \neq 0}\underbrace{\frac{\angel{Ax, x}}{\angel{x, x}}}_{\text{Rayleigh quotient}} = \min\setdef{\angel{Ax, x}}{\norm{x} = 1} = \min{W(A)} \]
+  \[ \vdots \]
+  \[ \lambda_n = \max_{x \neq 0}\frac{\angel{Ax, x}}{\angel{x, x}} = \max\setdef{\angel{Ax, x}}{\norm{x} = 1} = \max{W(A)} \]
+  where
+  \[ A = A^* \implies \angel{Ax, x} = \angel{x, Ax} = \overline{Ax, x} \]
+\end{theorem}
+
+\begin{proof}
+  $\lambda_1, \lambda_n \in W(A)$ because $\operatorname{spec}(A) \subseteq W(A)$.
+  \[ \implies \min{W(A)} \leq \lambda_1 \qquad \max{W(A)} \geq \lambda_n \]
+  Show that $\forall x: \lambda_1 \leq \frac{\angel{Ax, x}}{\angel{x, x}} \leq \lambda_n$.
+
+  Let $u_1, \dots, u_n$ be an orthonormal basis of eigenvectors.
+  Let $x \in \mathbb C^n$, $\norm{x} = 1$. $x = \sum_{i=1}^n \alpha_i x_i \implies \norm{x}^2 = \sum_{1}^n \card{\alpha_i}^2 = 1$.
+  \begin{align*}
+    \angel{Ax, x} &= \angel{A \sum \alpha_i x_i, \sum \alpha_j x_j} \\
+      &= \angel{\sum \alpha_i \lambda_i x_i, \sum \alpha_j x_j} \\
+      &= \sum_{i} \sum_{i} \lambda_i \alpha_i \overline{\alpha}_j \angel{x_i, x_j} \\
+      &= \sum_{i} \lambda_i \card{\alpha_i}^2
+      &\leq \max(\lambda_i) \sum \card{\alpha_i}^2 = \max{\lambda_i} \\
+      & &\geq \min(\lambda_i) \sum \card{\alpha_i}^2 = \min{\lambda_i}
+  \end{align*}
+\end{proof}
+
+\begin{remark} % 13.5
+  How can we obtain the other eigenvalues?
+
+  For $x \in \mathcal L(u_2, \dots, u_n)$, $\angel{Ax, x} \geq \lambda_2 \norm{x}^2$. \\
+  For $x \in \mathcal L(u_1, \dots, u_{n-1}) = \setdef{x}{\angel{x, u_n} = 0} = \set{u_n}^\bot$, $\angel{Ax, x} \leq \lambda_{n-1}$.
+\end{remark}
+
+\begin{remark}
+  Richard Courant (1888--1972) \\
+  E. Fischer (1875--1954) \\
+  H. Weyl (1885--1955)
+
+  All of them worked in G\"ottingen, Germany.
+\end{remark}
+
+\begin{theorem}[Courant--Fischer--Weyl min--max principle] % 13.6
+  Let $A \in \mathbb C^{n \times n}$ be self-adjoint.
+  \[ \lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n \]
+  Then it holds that
+  \begin{enumerate}
+    \item $\lambda_k = \max_{\substack{W \subseteq V \\ \dim{W} = k - 1}} \min_{x \in W^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}}$. Special case $k = 1$: $W = \set{0} \to \lambda_1 = \min_x \frac{\angel{Ax, x}}{\angel{x, x}}$.
+    \item $\lambda_{n+1 - k} = \min_{\substack{W \subseteq V \\ \dim{W} = k-1}} \max_{x \in W^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}}$. Special case $k = 1: \lambda_n = \max_x \frac{\angel{Ax, x}}{\angel{x, x}}$.
+  \end{enumerate}
+  This theorem is more generic than the Rayleigh--Ritz Theorem.
+\end{theorem}
+
+\begin{proof}
+  For $W \subseteq V$.
+  Let $m_A(W) = \min\setdef{\frac{\angel{Ax, x}}{\angel{x, x}}}{x \in W^\bot \setminus \set{0}}$.
+  For vectors $m_A(w_1, \dots, w_k) = m_A(\mathcal L(w_1, \dots, w_k))$.
+  For some orthonormal basis $u_1, \dots, u_n$ of eigenvectors,
+  \[ \lambda_k = m_A(u_1, \dots, u_{k-1}) \overset{\text{see proof of Theorem~\ref{rrthm}}}{=} = \min \setdef{\frac{\angel{Ax, x}}{\angel{x, x}}}{x \in \underbrace{\mathcal L(u_k, \dots, u_n)}_{\set{u_1, \dots, u_{k-1}}^\bot}} \]
+  \[ \implies \lambda_k \leq \max_{\substack{W \subseteq V \\ \dim{W} = k - 1}} m_A(W) \]
+  Show that: $\forall W \subseteq V$ with $\dim(W) = k-1$, $m_A(w) \leq \lambda_k$.
+  \[ \dim{W^{\bot}} = n - k + 1 \implies W^\bot \cap \mathcal L(u_1, \dots, u_k) \neq \set{0} \]
+  \[ v = \sum_{i=1}^k \alpha_i u_i \in W^\bot \cap \mathcal L(u_1, \dots, u_k) \text{ with } \norm{v} = 1 \]
+
+  \[ \angel{Av, v} = \sum_{i=1}^k \card{\alpha_i}^2 \cdot \lambda_i \leq \lambda_k \underbrace{\sum \card{\alpha_i}^2}_{=1} = \lambda_k \]
+  \[ m_A(w) = \min_{x \in W^\bot} \angel{Ax, x} \leq \angel{Av, v} = \lambda_k \]
+\end{proof}
 
 
 \printindex

@@ -5163,6 +5163,215 @@ We consider:
   A tangent is the best linear approximation of the curvature.
 \end{definition}
 
+\dateref{2018/06/19}
+
+\index{Reparameterization}
+\begin{definition} % Definition 3
+  Let $\gamma: I \to \mathbb R^n$ be a continuous or differentiable or smooth curvature parameterization.
+  Furthermore let $\sigma: J \to I$ with $J \subseteq \mathbb R$ as interval.
+
+  Let $\sigma$ be a
+  \begin{itemize}
+    \item homeomorphim (continuous curvature)
+    \item diffeomorphism (differentiable curvature)
+    \item $\mathcal C^\infty$-diffeomorphism (smooth curvature)
+  \end{itemize}
+  Then we call $\tilde \gamma: J \to \mathbb R^n$ with $\tilde \gamma = \gamma \circ \sigma$ a \emph{reparameterization} of $\gamma$.
+  Compare with Figure~\ref{img:reparam}.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/40_reparameterization.pdf} % TODO finish image
+      \caption{Reparameterization}
+      \label{img:reparam}
+    \end{center}
+  \end{figure}
+
+  On the opposite, let $\gamma$, $\tilde \gamma$ be a curvature parameterization. Then $\tilde\gamma$ is called reparameterization of $\gamma$ if $\sigma$ exists as above such that $\tilde \gamma = \gamma \circ \sigma$.
+\end{definition}
+
+\index{Homeomorphism}
+\index{$\mathcal C^{\infty}$-Homeomorphism}
+\begin{definition}[Discussion of terminology]
+  Let $X, Y$ be topological spaces. $f: X \to Y$ is called \emph{homeomorphism}
+  if $f$ is continuous and bijective and furthermore $f^{-1}: Y \to X$ is also continuous.
+
+  Equivalently, for $\mathcal C^\infty$-diffeomorphism, $f$ is smooth and $f^{-1}$ is smooth.
+\end{definition}
+
+$\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly monotonically increasing or strictly monotonically decreasing.
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/41_orientation_preserving.pdf}
+    \caption{Orientation}
+    \label{img:orient}
+  \end{center}
+\end{figure}
+
+\index{Orientation preserving reparameterization}
+\index{Orientation reversing reparameterization}
+\index{Parameter exchange}
+\begin{definition}
+  If $\sigma$ is strictly monotonically increasing, we call a reparameterization \emph{orientation preserving}.
+  If $\sigma$ is strictly monotonically decreasing, we call a reparameterization \emph{orientation reversing}.
+  Compare with Figure~\ref{img:orient}.
+
+  ($\sigma$ is a diffeomorphism, $\sigma' > 0$ and accordingly $\sigma' < 0$ defines the orientation. $\sigma$ is called \emph{parameter exchange})
+\end{definition}
+
+\begin{claim}
+  Let $G = \set{\gamma: \gamma \text{ is a regular curvature parameterization}}$.
+  We define a relation $\sim_{r}$ on $G$. $\gamma \sim_r \tilde\gamma \iff \tilde\gamma$ is a reparameterization of $\gamma$.
+  Then $\sim_r$ is an equivalence relation.
+\end{claim}
+\begin{proof}
+  \begin{description}
+    \item[Reflexivity]
+      $\gamma \sim_r \gamma$ with $\sigma: I \to I$, $\sigma = \operatorname{id}$. 
+    \item[Symmetry]
+      Let $\tilde\gamma \sim_r \gamma$, hence $\tilde\gamma = \gamma \circ \sigma \implies \tilde\gamma \circ \sigma^{-1} = \gamma \implies \gamma \sim_r \tilde\gamma$.
+    \item[Transitivity]
+      Let $\tilde{\tilde\gamma} \sim_r \tilde\gamma$ and $\tilde\gamma \sim_r \gamma$, hence $\tilde{\tilde\gamma} = \tilde\gamma \circ \rho$.
+      $\tilde\gamma = \gamma \circ \sigma \implies \tilde{\tilde\gamma} = \gamma \circ \sigma \circ \rho \implies \tilde{\tilde\gamma} \sim_r \gamma$ with $\sigma \circ \rho$ as diffeomorphism.
+  \end{description}
+\end{proof}
+
+\index{Geometrical size}
+\index{Geometrical property}
+\begin{definition}
+  % TODO translation "Gr\"osse" \to "size" ??
+  Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ in regards of $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_n}$ but not on a specific representative $\gamma$ is called \emph{geometrical size} or \emph{geometrical property}.
+\end{definition}
+
+\index{Closed curvature}
+\begin{example}
+  $[\gamma]_{\sim_r}$ is called \emph{closed curvature} if $\gamma(a) = \gamma(b)$ with $\gamma: [a,b] \to \mathbb R^n$.
+  Later, we will show: arc length is a geometrical property.
+
+  Because $\gamma(t) = \tilde{\gamma}(\sigma(\tau))$ with $\tau = \sigma^{-1}(t)$, parameterizations have the same trace $\Gamma = \gamma(I) = \tilde\gamma(J)$. Sometimes we call $[\gamma]_{\sim_r}$ a curvature in $\mathbb R^n$.
+\end{example}
+
+\begin{example}
+  Let $I = [0,2\pi]$. $\gamma(t) \coloneqq \begin{bmatrix} \cos(t) \\ \sin(t) \end{bmatrix}$. $\gamma: I \to \mathbb R^2$.
+  It holds $\gamma(0) = \gamma(2\pi)$, hence $\gamma$ is closed.
+
+  % TODO image
+
+  \[ \sigma: [-2\pi, 0] \to [0, 2\pi] \]
+  \[ \sigma(t) = -t \]
+  \[ \hat\gamma(t) = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} \text{ with } t \in [0,2\pi] \]
+  % TODO image
+  \[ \gamma \circ \sigma(t) = \begin{bmatrix} \cos(-t) \\ \sin(-t) \end{bmatrix} = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} = \tilde\gamma(t) \]
+  with $\tilde\gamma(t): [-2\pi, 0] \to \mathbb R^2$ is periodical with period $2\pi$.
+  Hence, $\tilde\gamma(t - 2\pi) = \tilde\gamma(t) \forall t \in \mathbb R$.
+  \[ \hat\gamma(t) \coloneqq \tilde\gamma(t - 2\pi) \qquad \hat\gamma: [0, 2\pi] \]
+  \[ \hat{\gamma}(t) = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} \qquad \hat{\gamma}(t) = \gamma(\underbrace{-t + 2\pi}_{\sigma(t)}) \]
+  with $\sigma'(t) = -1$. Hence reparameterization is orientation reversing.
+\end{example}
+
+\begin{example}
+  Let $\gamma: \mathbb R \to \mathbb R^2$.
+  \[ \gamma(t) = \begin{bmatrix} t^2 - 1 \\ t^3 - t \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 2t \\ 3t^2 - 1 \end{bmatrix} \]
+  \[ \gamma'(t) = 0 \implies 2t = 0 \text{ hence } t = 0 \]
+  % TODO image
+  Then $3t^2 - 1 = -1 \neq 0$ follows.
+  So the parameterization is \emph{regular}. It holds that $\gamma(1) = \vectwo 00$ and $\gamma(-1) = \vectwo 00$.
+  $\vectwo 00$ lies on the trace of the curvature for 2 different parameter values.
+  $x = 0$ is a double point of the curvature.
+  \[ \gamma'(-1) = \begin{bmatrix} -2 \\ 2 \end{bmatrix} \qquad T_{\gamma}(-1) = \frac1{\sqrt{2}} \begin{bmatrix} -1 \\ 1 \end{bmatrix} \]
+  \[ \gamma'(1) = \begin{bmatrix} 2 \\ 2 \end{bmatrix} \qquad T_{\gamma}(1) = \frac1{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \]
+  For parameter values $t = -1$ and $t = 1$, tangents exist. But in $x = 0 = \gamma(1) = \gamma(-1)$, no tangent exists.
+\end{example}
+
+\begin{example}
+  Let $\gamma: \mathbb R \to \mathbb R^2$.
+  \[ \gamma(t) = \begin{bmatrix} t^2 \\ t^3 \end{bmatrix} \qquad \text{\enquote{Neil's parabola}} \]
+  \[ \gamma(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 2t \\ 3t^2 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \]
+  Curvature parameterization is not regular.
+  For $t = 0$, no tangent exists.
+\end{example}
+
+\begin{example}
+  \[ \gamma(t) = \begin{bmatrix} t^3 \\ t^3 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 3t^2 \\ 3t^2 \end{bmatrix} \]
+  with $\gamma'(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$ is non-regular. $\Gamma: \gamma(\mathbb R)$. % TODO image
+  $\Gamma$ is smooth has a \enquote{geometrical} tangent everywhere.
+\end{example}
+
+Let $\sigma$ be an orientation preservering parameter exchange.
+\[ \tilde\sigma = \gamma \circ \sigma \qquad \gamma(t) = \tilde\gamma(\tau) \]
+with $t = \sigma(\tau)$ and $\tau = \sigma^{-1}(t)$. Let $\gamma$ be regular.
+
+\[ T_{\gamma}(t) = \frac{\gamma'(t)}{\norm{\gamma'(t)}} \]
+\[ \tilde\gamma'(t) = (\gamma \circ \sigma)'(\tau) = \gamma'(\sigma(\tau)) \cdot (\sigma)'(\tau) = \gamma'(t) \cdot \underbrace{\sigma'(\tau)}_{> 0} \]
+\[ \implies \norm{\tilde\gamma'(\tau)}_2 = \norm{\gamma'(t) \cdot \sigma'(\tau)}_2 = \sigma'(\tau) \norm{\gamma'(t)}_2 \]
+\[ T_{\tilde\gamma}(\tau) = \frac{\tilde\gamma'(\tau)}{\norm{\gamma'(\tau)}_2} = \frac{\gamma'(t) \cdot \sigma'(\tau)}{\norm{\gamma'(t)} \sigma'(\tau)} = T_{\gamma}(t) \]
+Let $\sigma$ be orientation reversing.
+\[ \gamma'(\tau) < 0 \qquad \card{\gamma'(\tau)} = -\sigma'(\tau) \]
+like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\tilde\gamma'(\tau)}_2 = \card{\sigma'(\tau)} \cdot \norm{\gamma'(t)}_2 = -\sigma'(\tau) \norm{\gamma'(t)}_2$.
+\[ T_{\tilde\gamma}(\tau) = -T_{\gamma}(t) \]
+
+% TODO image
+
+\section{Arc length of parameterized curvatures}
+\index{Rectifiable curvature}
+\index{Arc length of a curvature}
+\begin{definition} % Definition 4
+  Let $I = [a,b]$ be compact. $\gamma: I \to \mathbb R^n$ is a continuous curvature.
+  \[ Z = (t_0 = a < t_1 < t_2 < \dots < t_N = b) \]
+  a partition of interval $[a,b]$. Let 
+  \[ S_\gamma(z) = \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}_2 \]
+  be the length of the polygonial line through points $(x_k)_{k=0}^N$ with $x_k = \gamma(t_k)$.
+
+  \pic{img/46_polygonial_line.pdf}{Polygonial line}
+
+  If $S_{\gamma} < \infty$, then $\gamma$ is called \emph{rectifiable}
+  and $S_{\gamma}$ is the \emph{arc length of the curvature}.
+\end{definition}
+
+\begin{remark}
+  Let $\tilde\gamma$ be a reparameterization of $\gamma$.
+  Let $t = \sigma(\tau)$ be a parameter exchange and $\sigma: [\alpha, \beta] \to [a,b]$.
+  $t_k = \sigma(\tau_k)$ with $k = 0, \dots, N$.
+  If $\sigma$ is orientation preservering, then $\tilde Z = \set{\tau_0 = \alpha < \tau_1 < \dots < \tau_N = \beta}$ is a partition of $[\alpha, \beta]$.
+  If $\sigma$ is orientation reversing, then $\tilde Z = \set{\alpha = \tau_N < \tau_{N-1} < \dots < \tau_0 = \beta}$ is a partition.
+  In every case, it holds that
+  \[ S_{\gamma}(Z) = S_{\tilde\gamma}(\tilde Z) \]
+  because $x_k = \gamma(t_k) = \tilde\gamma(\tau_k)$ and accordingly $x_k = \gamma(t_k) = \tilde\gamma(\tau_{N-k})$.
+  So $S_\gamma$ is a geometrical size.
+\end{remark}
+
+\begin{lemma} % Lemma 1
+  Let $\gamma: [a, b] \to \mathbb R^n$ be Lipschitz continuous, hence $\exists L \geq 0$ such that $\norm{\gamma(s) - \gamma(t)}_2 \leq L \card{s - t} \forall s, t \in [a,b]$. Then $\gamma$ is rectifiable.
+\end{lemma}
+
+\begin{proof}
+  Let $Z$ be a partition of $[a,b]$. $Z = (t_k)_{k=0}^N$. Then
+  \[ S_{\gamma}(Z) = \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}_2 \underbrace{\leq}_{\substack{\text{by Lipschitz} \\ \text{continuity}}} \sum_{k=1}^N L \underbrace{\card{t_k - t_{k-1}}}_{\substack{= t_k - t_{k-1} \\ \text{ because } t_k > t_{k-1}}} \]
+  \[ = \sum_{k=1}^N L(t_k - t_{k-1}) = L(t_N - t_0) = L(b - a) < \infty \]
+  hence $\sup\set{S_{\gamma}(z): z \text{ partition}} \leq L(b - a) < \infty$.
+\end{proof}
+
+\begin{lemma} % Lemma 2
+  Let $\alpha: [a,b] \to \mathbb R^n$. $\alpha(t) = \left[\alpha_1(t), \alpha_2(t), \dots, \alpha_n(t)\right]^T$.
+  $\alpha_n \in \mathcal R[a,b]$ for $k = 1, \dots, n$.
+  \[ \int_a^b \alpha(t) \, dt = \left[\int_a^b \alpha_1 \, dt, \int_a^b \alpha_2 \, dt, \dots, \int_a^b \alpha_n \, dt\right]^T \]
+  \[ \text{Then } \norm{\int_a^b \alpha \, dt}_2 \leq \int_a^b \norm{\alpha(t)}_2 \, dt \]
+\end{lemma}
+
+\begin{proof}
+  Approximation by step functions: Let $\varphi: [a,b] \to \mathbb R^n$.
+  $\gamma(t) = \left[\varphi_1(t), \dots, \varphi_n(t)\right]^T$.
+  $\gamma_i \in \tau[a,b]$. Without loss of generality all $\varphi_i$ are step functions in regards of the same partition $Z = (t_k)_{k=0}^N$\footnote{If not, take the union of two non-equal-sized intervals and apply the lemma to a refinement of this new interval again. Therefore without loss of generality.}.
+  \[ \varphi_i(t) = C_i^k \text{ for } t \in (t_{k-1}, t_k) \]
+  \[ \int_a^b \varphi_i \, dt = \sum_{k=1}^N c_i^k (t_k - t_{k-1}) \]
+  $\varphi_i$ should approximate $\alpha_i$ uniformly, hence for $\varepsilon > 0$ arbitrarily chosen, choose $\varphi_i$ such that
+  \[ \card{\varphi_i(t) - \alpha_i(t)} < \frac{\varepsilon}{2 \sqrt n (b - a)} \qquad \forall t \in [a,b] \]
+  For step function $\varphi$,
+  \[ \norm{\int_a^b \varphi \, dt}_2 = \norm{\sum_{k=1}^N (t_k - t_{k-1}) \left[c_1^k, c_2^k, \dots, c_n^k\right]^T} \]
+  By the triangle inequality in $\mathbb R^n$,
+  \[ \leq \sum_{k=1}^n (t_k - t_{k-1}) \cdot \underbrace{\norm{\left[c_1^k, \dots, c_n^k\right]^T}_2}_{\norm{\varphi(t)}_2 \text{ for } t \in (t_{k-1}, t_k)} = \int_a^b \norm{\varphi} \, dt \]
+\end{proof}
 
 \printindex
 \end{document}
