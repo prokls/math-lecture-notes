@@ -7867,6 +7867,7 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
 \end{remark}
 
 \begin{theorem}[Courant--Fischer--Weyl min--max principle] % 13.6
+  \label{cfw-mm}
   Let $A \in \mathbb C^{n \times n}$ be self-adjoint.
   \[ \lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n \]
   Then it holds that
@@ -7891,6 +7892,259 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
   \[ \angel{Av, v} = \sum_{i=1}^k \card{\alpha_i}^2 \cdot \lambda_i \leq \lambda_k \underbrace{\sum \card{\alpha_i}^2}_{=1} = \lambda_k \]
   \[ m_A(w) = \min_{x \in W^\bot} \angel{Ax, x} \leq \angel{Av, v} = \lambda_k \]
 \end{proof}
+
+\dateref{2018/06/20}
+
+The Rayleigh-Ritz coefficient gives us $\lambda_1 = \min_{\angel{x,x} = 1} \angel{Ax, x} = \min{W(A)}$ and $\lambda_n = \max_{\angel{x,x} = 1} \angel{Ax, x}$ with $A = A^*$ and $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$. $x = \sum \alpha_i u_i$ with $\sum \card{\alpha_i}^2 = 1$ is an orthonormal basis $u_1, \dots, u_n$ of eigenvectors. $\angel{Ax, x} = \sum_1^n \lambda_i \card{\alpha_i}^2$. For $x \in \mathcal L(u_2, \dots, u_n) \to \geq \lambda_2$.
+
+This is used by the Courant--Fischer--Weyl min--max principle.
+
+\begin{enumerate}
+  \item First statement:
+    \[ \lambda_k = \max_{\substack{W \leq V \\ \dim{W} = k-1}} \min_{\substack{x \in W^\bot \\ \angel{x, x} = 1}} \angel{Ax, x} \]
+  \item Second statement:
+    \[ \lambda_{n+1-k} = \min_{\substack{W \leq V \\ \dim{W} = k-1}} \max_{\substack{x \in W^\bot \\ \angel{x,x} = 1}} \angel{Ax, x} \]
+\end{enumerate}
+
+\begin{proof}[Proof of Theorem~\ref{cfw-mm} continued]
+  The second statement follows from the first:
+  $-A$ has eigenvalues: $-\lambda_n \leq -\lambda_{n-1} \leq \dots \leq -\lambda_{2} \leq -\lambda_1$.
+
+  We apply the first statement on $-A$.
+  \begin{align*}
+    \underbrace{\lambda_k(-A)}_{-\lambda_{n+1-k}} &= \max_{\substack{W \subseteq V \\ \dim{W} = k-1}} \min_{\substack{x \in W^\bot \\ \angel{x, x} = 1}} \angel{-Ax, x} \\
+      &= \max_{\substack{W\subseteq V \\ \dim{W} = k-1}} \left(- \max_{\substack{x \in W^\bot \\ \angel{x, x} = 1}} \angel{Ax, x}\right) \\
+      &= -\min_{\substack{W \subseteq V \\ \dim{W} = k-1}} \max_{\substack{x \in W^\bot \\ \angel{x, x} = 1}} \angel{Ax, x}
+  \end{align*}
+\end{proof}
+
+\begin{corollary}[Nesting Theorem (dt. \foreignlanguage{german}{Schachtelungssatz von Cauchy})] % Korollar 13.7
+  Let $A \in \mathbb C^{n \times n}$, $A = A^*$. $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$.
+  Let $B = [a_{ij}]_{i,j=1,\dots,n-1}$. Thus, the last row and column was removed. The dimension is reduced by 1.
+  $B = B^*$.
+  Eigenvalues: $\mu_1 \leq \mu_2 \leq \dots \leq \mu_{n-1}$.
+  Then it holds that $\lambda_1 \leq \mu_1 \leq \lambda_2 \leq \mu_2 \leq \lambda_3 \leq \dots \leq \lambda_{n-1} \leq \mu_{n-1} \leq \lambda_n$.
+  In general: If $P$ is an orthogonal projection on a subspace of dimension $n-1$.
+
+  For example,
+  \[ P = \begin{bmatrix} 1 & & & \\ & \ddots & & \\ & 1 & & \\ & & & 0 \end{bmatrix} \]
+  then the eigenvalues (except for eigenvalue $0$) of $PAP$ are nested like above.
+\end{corollary}
+
+\begin{proof}
+  \[
+    A = \begin{bmatrix}
+      [B] & b \\
+      b^* & \gamma
+    \end{bmatrix}
+  \]
+  Let $w_1, \dots, w_{n-1} \in \mathbb C^{n-1}$ be an orthonormal basis of eigenvectors of $B$.
+  \[ Bw_i = \mu_i w_i \qquad u_i = \vectwo{w_i}{0} \in \mathbb C^n \qquad u_n = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \end{pmatrix} \]
+  $\leadsto u_1, \dots, u_{n-1}, u_n$ is an orthonormal basis of $\mathbb C^n$. Attention! There is no eigenvector of $A$.
+  \[ W_k = \mathcal L(u_1, \dots, u_{k-1}, u_n) \]
+  \[
+    \text{By Theorem~\ref{cfw-mm} } \implies
+    \lambda_{k+1} = \max_{\substack{W \subseteq \mathbb C^n \\ \dim{W} = k}} \min_{x \in W^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}} \geq \min_{x \in W_k^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}}
+  \]
+  \[ x \in W_k^\bot \iff \angel{x, u_i} = 0 \qquad i = 1, \dots, k-1 \land \angel{x, u_n} = x_n = 0 \]
+  \[ \iff x = \begin{bmatrix} y \\ 0 \end{bmatrix}, y \in \set{w_1, \dots, w_{k-1}}^\bot \underbrace{=}_{w_1, \dots, w_{n-1} \text{ is ONB of } \mathbb C^{n-1}} \mathcal L(w_k, \dots, w_{n-1}) \subseteq \mathbb C^{n-1} \]
+  \[ y = \sum_{i=k}^{n-1} \alpha_i w_i \]
+  \[
+    \frac{\angel{Ax, x}}{\angel{x, x}}
+    = \frac{\angel{\begin{bmatrix} B & b \\ b^* & \gamma \end{bmatrix} \begin{bmatrix} y \\ 0 \end{bmatrix}, \begin{bmatrix} y \\ 0 \end{bmatrix}}}{\angel{\begin{bmatrix} y \\ 0 \end{bmatrix},\begin{bmatrix} y \\ 0 \end{bmatrix}}}
+    = \frac{\angel{\begin{bmatrix} B & y \\ b^* & -y \end{bmatrix}, \begin{bmatrix} y \\ 0 \end{bmatrix}}}{\angel{y, y}}
+    = \frac{\angel{By, y}}{\angel{y, y}}
+  \] \[
+    = \frac{\angel{B \sum_{i=k}^{n-1} \alpha_i w_i, \sum_{j=k}^{n-1} \alpha_j w_j}}{\sum_{j=1}^{n-1} TODO}
+    = \frac{\sum_{i=k}^{n-1} \mu_i \card{\alpha_i}^2}{\sum TODO} \geq \mu_k
+  \]
+  Inversion:
+  $-A$ has eigenvalues $-\lambda_n \leq -\lambda_{n-1} \leq \dots \leq -\lambda_2 \leq -\lambda_1$.
+  $-B$ has eigenvalues $-\mu_{n-1} \leq -\mu_{n-2} \leq \dots \leq -\mu_2 \leq -\mu_1$.
+
+  We apply step 1 on $-A$ and $-B$:
+  \[ \lambda_{k+1} (-A) \geq \lambda_k (-B) \]
+  \[ -\lambda_{n-k} \geq -\mu_{n-k} \]
+  \[ \implies \lambda_{n-k} \leq \mu_{n-k} \quad \forall k = 1, \dots, n-1 \]
+  \[ \implies \lambda_k \leq \mu_k \quad \forall k \forall k = 1, \dots, n-1 \]
+\end{proof}
+
+\begin{corollary} % Korollar 13.8
+  \label{col138}
+  $A, B$ are self-adjoint $\in \mathbb C^{n \times n}$.
+  \[ \lambda_{k}(A) + \lambda_1(B) \leq \lambda_k(A + B) \leq \lambda_k(A) + \lambda_n(B) \]
+\end{corollary}
+\begin{proof}
+  \[ \lambda_1(B) \leq \frac{\angel{Bx, x}}{\angel{x, x}} \leq \lambda_n(B) \]
+  because of Theorem~\ref{rrthm}.
+  \[ \lambda_k(A + B) = \max_{\dim{W}=k-1} \min_{x \in W^\bot \setminus \set{0}} \frac{\angel{(A + B)x, x}}{\angel{x, x}} \]
+  \[ \frac{\angel{Ax, x}}{\angel{x, x}} + \lambda_n(B) \leq \frac{\angel{(A + B)x, x}}{\angel{x, x}} \leq \frac{\angel{Ax, x}}{\angel{x, x}} + \lambda_n(B) \]
+  This goes on and on $\leadsto \lambda_k(A) + \lambda_l(B)$.
+  \[ \leq \lambda_l(A) + \lambda_n(B) \]
+\end{proof}
+
+\begin{corollary} % Folgerung 13.9
+  If $B \geq 0$, $A = A^*$, then $\lambda_k(A) \leq \lambda_k(A + B) \forall k$.
+\end{corollary}
+
+\begin{remark}
+  Sem\"en Aranovi\v{c} Ger\v{s}gorin (1901--1933)
+\end{remark}
+
+\subsection{Ger\v{s}gorin theorem}
+
+\index{Ger\v{s}gorin disc}
+\index{Ger\v{s}gorin Theorem}
+\begin{theorem}[Ger\v{s}gorin Theorem] % 13.10
+  Let $A \in \mathbb C^{n \times n}$.
+  \[ r_i = \sum_{\substack{j=1 \\ j\neq i}}^n \card{a_{ij}} \]
+
+  \[
+    \begin{bmatrix}
+      \card{a_{11}} & \card{a_{12}} & \dots  & \card{a_{1n}} \\
+      \card{a_{21}} & \card{a_{22}} & \dots  & \card{a_{2n}} \\
+      \vdots        &               & \ddots & \vdots \\
+      \card{a_{n1}} & \card{a_{n2}} & \dots  & \card{a_{nn}}
+    \end{bmatrix}
+  \]
+  we remove the diagonal elements. The rows become:
+  \[
+    \begin{bmatrix}
+      \sum_{j\neq 1} \card{a_{1j}} \\
+      \sum_{j\neq 2} \card{a_{2j}} \\
+      \vdots \\
+      \sum_{j\neq n} \card{a_{nj}}
+    \end{bmatrix}
+  \]
+  \[ \operatorname{spec}(A) \subseteq \bigcup_{k=1}^n \setdef{z \in \mathbb C}{\card{z - a_{ii}} \leq r_{i}} \]
+  This yields the so-called \emph{Gershgorin discs}.
+\end{theorem}
+
+\begin{proof}
+  Show that $\forall \lambda \in \operatorname{spec}(A) \exists i$ such that $\card{\lambda - a_{ii}} \leq r_i$
+  Let $x$ be an eigenvector: $Ax = \lambda x$.
+  Without loss of generality: $\max_i \card{x_i} = 1$.
+  Hence $\forall j: \card{x_j} \leq 1$ and $\exists i: \card{x_i} = 1$.
+  \[ \underbrace{(Ax)_i}_{\sum_j a_{ij} x_j} = \lambda \cdot x_i \text{ because it is an eigenvector} \]
+  \[ \implies \sum_{\substack{j = 1 \\ j \neq i}}^n a_{ij} x_j = \lambda x_i - a_{ii} x_i \]
+  \[ \implies \underbrace{\card{\lambda x_i - a_{ii} x_i}}_{= \card{\lambda - a_{ii}} \cdot \card{x_i}} = \card{\sum_{j \neq i} a_{ij} x_j} \]
+  \[ \card{\lambda - a_{ii}} \cdot \underbrace{\card{x_i}}_{=1} \leq \sum_{j \neq i} \card{a_{ij}} \underbrace{\card{x_j}}_{\leq 1} \]
+  \[ \card{\lambda - a_{ii}} \leq \sum_{j \neq i} \card{a_{ij}} = r_i \]
+\end{proof}
+
+\begin{remark} % Bemerkung 13.11
+  For dimension greater $5$, it becomes infeasible to determine the characteristic polynomial to retrieve the eigenvalues.
+
+  In theory:
+  \begin{enumerate}
+    \item $\chi_A(x) = \det(x \cdot I - A)$ (difficult if precision is necessary)
+    \item find roots (cumbersome or infeasible)
+    \item find eigenvectors (numerically unstable)
+  \end{enumerate}
+
+  In practice, we apply an iterative approach:
+  \begin{description}
+    \item[Given] A
+    \item[Find] $x$ such that $Ax = \lambda x$, $A^2 x = \lambda Ax$, $A^3 x = \lambda A^2 x \leadsto A^\infty x = \lambda A^\infty x$ then $A^\infty x$ is eigenvector. As mathematicians we need to ask ourselves, whether $A^\infty x$ converges? The answer is no, not always. We need to fix $x$ to converge to infinity, not $0$.
+
+    Choose initial vector $x_0$ with $\norm{x_0} = 1$.
+    \[ w_{k+1} = Ax_k \qquad x_{k+1} = \frac{w_{k+1}}{\norm{w_{k+1}}} \qquad \implies \forall n: \norm{x_n} = 1 \]
+    Thus we bounded all the points lie inside the unit sphere.
+    By the Heine-Borel Theorem, a sequence in a bounded and closed (thus compact) space has a convergent subsequence.
+
+    \begin{claim}
+      $x_n$ converges assuming $\card{\lambda_1} > \card{\lambda_2} \geq \dots \geq \card{\lambda_n}$ and $A$ diagonalizable.
+    \end{claim}
+    Let $v_1, \dots, v_n$ be a basis of eigenvectors.
+    \[ x_0 = \alpha_0 v_1 + \dots + \alpha_n v_n \]
+    \[ x_k = \frac{A^k x_0}{\norm{A^k x_0}} \]
+    converges towards $v_1$.
+    \[ A^k v_i = \lambda_i^k v_i \]
+    \begin{align*}
+      A^k x_0 &= \alpha_1 A^k v_1 + \dots + A^k v_n \\
+          &= \alpha_1 \lambda_1^k v_1 + \alpha_2 \lambda_2^k v_2 + \dots + \alpha_n \lambda_n^k v_n \\
+      x_k &= \frac{A^k x_0}{\norm{A^k x_0}} = \frac{\alpha_1 \lambda_1^k v_1 + \alpha_2 \lambda_2^k v_2 + \dots + \alpha_n \lambda_n^k v_k}{\norm{\alpha_1 \lambda_1^k v_1 + \alpha_2 \lambda_2^k v_2 + \dots + \alpha_n \lambda_n^k v_n}} \\
+          &= \frac{\lambda_1 \cdot \lambda_1^k}{\card{\alpha_1 \cdot \lambda_1^k}} \cdot
+            \frac{v_1 + \frac{\alpha_2}{\alpha_1} \left(\frac{\lambda_2}{\lambda_1}\right)^k v_2 + \dots + \frac{\alpha_n}{\alpha_1} \left(\frac{\lambda_n}{\lambda_1}\right)^k v_n}{\norm{v_1 + \frac{\alpha_2}{\alpha_1} \left(\frac{\lambda_2}{\lambda_1}\right)^k v_2 + \dots + \frac{\alpha_n}{\alpha_1} \left(\frac{\lambda_n}{\lambda_n}\right)^k v_n}} \\
+          &\overset{k \to \infty}\approx \frac{\alpha_1 \lambda_1^k}{\card{\lambda_1^k}} \cdot v_1
+    \end{align*}
+  \end{description}
+
+  \[ \card{\lambda_i} > \card{\lambda_i} \forall i \geq 2 \]
+  \[ \to \frac{\card{\lambda_i}}{\card{\lambda_1}} < 1 \]
+  The smaller $\frac{\card{\lambda_2}}{\card{\lambda_1}}$ is, the faster it converges.
+  \[ \left(\frac{\card{\lambda_i}}{\card{\lambda_i}}\right)^k \xrightarrow{k \to \infty} 0 \]
+
+  \index{Spectral gap}
+  $\card{\lambda_1} - \card{\lambda_2}$ is called \emph{spectral gap}.
+  % TODO verify last part
+\end{remark}
+
+\section{Matrix norms}
+\index{Matrix norm}
+\[ \norm{x} = \sqrt{\angel{x, x}} \]
+
+Norm on a vector space is a map $\norm{\cdot}: V \to [0, \infty[$:
+\begin{enumerate}
+  \item $\norm{v} = 0 \iff v = 0$
+  \item $\norm{\lambda v} = \card{\lambda} \cdot \norm{v}$
+  \item $\norm{v + w} \leq \norm{v} + \norm{w}$
+\end{enumerate}
+
+\index{Compatible norms}
+\begin{definition} % Definition 14.1
+  Let $V, W$ be vector spaces with norms $\norm{\cdot}_V$ and $\norm{\cdot}_W$.
+  A norm on $\operatorname{Hom}(V, W)$ is \emph{compatible} with $\norm{\cdot}_V$ and $\norm{\cdot}_W$ if
+  \[ \forall v \in V \forall f \in \operatorname{Hom}(V, W): \norm{f(v)}_W \leq \norm{f} \cdot \norm{v}_V \]
+
+  \[ \implies \norm{f(x) - f(g)}_W = \norm{f(x - y)}_W \leq \norm{f} \cdot \norm{x - y}_V \]
+  Hence $f$ is Lipschitz continuous with constant $\leq \norm{f}$.
+  Specifically, we define the Lipschitz constant uniquely with
+  \[ \inf\set{C \middle| \norm{f(v)}_W \leq C \cdot \norm{v}_W \forall v \in V} \]
+\end{definition}
+
+\begin{example}
+  In $\mathbb C^{n \times n}$. Scalar product $\angel{A, B} = \operatorname{Tr}(B^* A)$.
+  Frobenius Hilbert-Schmidt:
+  \[ \norm{A}_F = \sqrt{\operatorname{Tr}(A^* A)} = \left(\sum_{ij} \card{a_{ij}}^2\right)^{\frac12} \]
+  is compatible with Euclidean norm on $\mathbb C^n$.
+
+  Let $x \in \mathbb C^n$.
+  \begin{align*}
+    \norm{Ax}_2^2 &= \sum_{i=1}^n \card{(Ax)_i}^2 \\
+      &= \sum_{i=1}^n \card{\sum_j a_{ij} x_j}^2 \\
+    \text{(CBS inequality, Theorem~\ref{thm:cbs})} &\leq \sum_{i=1}^n \sum_j \card{a_{ij}}^2 - \sum_k \card{x_k}^2 \\
+      &= \norm{A}_F^2 : \norm{x}_2^2
+  \end{align*}
+\end{example}
+
+\index{Induced norm}
+\begin{lemma} % Lemma 14.3
+  Let $V, W$ be normed vectorspaces. $f \in \operatorname{Hom}(V, W)$.
+  Then $\norm{f}_{V, W}$ defines a compatible norm and is called \emph{induced norm}.
+  \[ \norm{f}_{V,W} = \inf\setdef{C}{\norm{f(v)}_W \leq C \cdot \norm{v}_V \forall v \in V} \]
+  And specifically,
+  \begin{align*}
+    \norm{f}_{V,W} &= \sup\setdef{\frac{\norm{f(v)}_W}{\norm{v}}}{v \in V \setminus \set{0}} \\
+      &= \sup\setdef{\norm{f(v)}_W}{v \in V, \norm{v} = 1} \\
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+    \item \[ \sup_{v \neq 0} \frac{\norm{f(v)}_W}{\norm{v}_V} = \sup_{\norm{v}_V = 1} \norm{f(v)}_W \text{ is immediate} \]
+    \item Let $M_f = \inf\setdef{C}{\norm{f(v)}_W \leq \norm{v}_V \forall v \in V}$. Show that $M_f = \sup_{v \neq 0} \frac{\norm{f(v)}_W}{\norm{v}_V}$.
+  \end{enumerate}
+
+  Let $C \geq M_f$.
+  \[ \implies \norm{f(v)}_W \leq C \cdot \norm{v}_V \forall v \in V \]
+  \[ \implies \frac{\norm{f(v)}_W}{\norm{v}_V} \leq C \forall v \neq 0 \]
+  \[ \implies \sup_{v \neq 0} \frac{\norm{f(v)}}{\norm{v}_V} \leq C \]
+  holds for $\forall C \geq M_f$
+  \[ \implies \sup{\frac{\norm{f(v)}}{\norm{v}}} w \leq M_f \]
+\end{proof}
+
+
 
 
 \printindex
