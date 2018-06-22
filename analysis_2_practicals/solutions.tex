@@ -1552,7 +1552,7 @@ Consider $c > 0$.
 
 \[ \Gamma = \angel{(x, y) \in \mathbb R^2 \middle| \card{x} + \card{y} = c} \]
 
-\section{Sheet 10, Exercise 4b}
+\section{Sheet 11, Exercise 4b}
 
 The gradients do not exist on $\mathbb R^2$. But the gradients exist if $x \neq 0 \lor y \neq 0$.
 \[ \nabla g(x, y) = \begin{bmatrix} \frac{\partial g}{\partial x} \\ \frac{\partial g}{\partial y} \end{bmatrix} \]
@@ -1560,5 +1560,168 @@ The gradients do not exist on $\mathbb R^2$. But the gradients exist if $x \neq 
 The gradients exist if $x \neq 0 \land y \neq 0$:
 \[ \frac{\partial g}{\partial x}(0, y) = \frac{d}{dx} \card{x} \]
 \[ f(x) = \card{x} \qquad \frac{df}{dx}(0) \]
+
+\section{Sheet 11, Exercise 1}
+\begin{ex}
+  Let $D \subset \mathbb R^n$ be open and $v: D \to \mathbb R^n$.
+  A partial differentiable function $f: D \to \mathbb R$ is called antiderivative of $v$ on $D$,
+  if $\forall x \in D: \nabla f(x) = v(x)$.
+  \begin{enumerate}
+    \item Show that $v: D \to \mathbb R^3$ with $v(x, y, z) \coloneqq (xy, yz, xz)^T$
+      has no antiderivative on an open set $D \subset \mathbb R^3$.
+    \item Give an antiderivative of $v: \mathbb R^3 \to \mathbb R^3$ with $v(x, y, z) \coloneqq (yz, xz, xy)^T$.
+    \item Investigate whether an antiderivative exists for
+      \[ v: \mathbb R^2 \to \mathbb R^2 \quad v(x, y) \coloneqq e^x \begin{pmatrix} y \sin{y} - x \cos{y} \\ x \sin{y} + y \cos{y} \end{pmatrix} \]
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 11, Exercise 1a}
+
+\[ v(x, y, z) = \begin{pmatrix} xy \\ yy \\ xz \end{pmatrix} \]
+\[ \partial_{xx} = y \qquad \partial_{yx} = x \qquad \partial_{yy} = z \qquad \partial_{xy} = 0 \]
+The Jacobi matrix is not symmetric.
+
+\subsection{Sheet 11, Exercise 1b}
+
+\[ v(x, y, z) = \begin{pmatrix} yz \\ xz \\ xy \end{pmatrix} \]
+\[ f(x) = xyz + c \]
+
+\subsection{Sheet 11, Exercise 1c}
+
+\[ v(x, y) = \begin{pmatrix} y \sin(y) - x \cos(y) \\ x \sin(y) + y \cos(y) \end{pmatrix} \]
+\[ f = \int e^x (y \sin(y) - x \cos(y)) \, dx = e^x (y \sin(x) - x \cos(y) + \cos(y)) + c(y) \]
+\[ e^x (y \cos(y) + \sin(y) + x \sin(y) - \sin(y)) + c'(y) \]
+
+\section{Sheet 11, Exercise 2}
+\begin{ex}
+  Let $f: \mathbb R^3 \to \mathbb R^2$ be given over
+  \[
+    f(x_1, x_2, x_3) \coloneqq \begin{pmatrix}
+      4x_1^2 + x_2^2 + x_3^2 - 5 \\
+      x_1 x_3 - 1
+    \end{pmatrix}
+  \]
+  \begin{enumerate}
+    \item Determine the Jacobian matrix of $f$.
+    \item Determine at which points $(x_1, x_2, x_3) \in \mathbb R^3$ the requirements of the Implicit Function Theorem for $f$ are given.
+    \item Find an open set $D \subset \mathbb R$ and a function $g: D \to \mathbb R^2$ such that $f(g_1(x_3), g_2(x_3), x_3) = (0, 0)^T$ for $x_3 \in D$ is true (solve for $(x_1, x_2)$).
+    \item Determine the derivative
+  \end{enumerate}
+\end{ex}
+
+\[ f: \mathbb R^3 \to \mathbb R^2 \]
+\[ f\begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} 4x^2_1 + x_2^2 + x_3^2 - 5 \\ x_1 x_3 - 1 \end{pmatrix} \]
+
+\subsection{Sheet 11, Exercise 2a}
+\[ Df(x) = \begin{bmatrix} 8x_1 & 2x_2 & 2x_3 \\ x_3 & 0 & x_1 \end{bmatrix} \]
+to apply the Implicit Function Theorem, we can actually choose any square submatrix. Not necessarily the right-most one.
+
+\subsection{Sheet 11, Exercise 2b}
+By $(x_1, x_2)$ it must hold, that:
+\[
+  f\begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
+  \quad\land\quad
+  \begin{vmatrix} 8x_1 & 2x_2 \\ x_3 & 0 \end{vmatrix} \neq 0 \qquad (*)
+\]
+\[ (*) \iff -2x_2 x_3 \neq 0 \iff x_2 \neq 0 \land x_3 \neq 0 \]
+\[ x_1 x_3 = 1 \implies x_1 \neq 0 \iff x_1 = \frac1{x_3}  \]
+\[ 4 \begin{pmatrix} \frac1{x_3} \end{pmatrix}^2 + x_2^2 + x_3^2 - 5 = 0 \]
+\[ x_2^2 = -\frac{4}{x_3^2} - x_3^2 + 5 \]
+\[ x_2 = \pm \sqrt{-\frac{4}{x_3^2} - x_3^2 + 5} \]
+\[ \frac{4}{x_3^2} + x_3^2 \leq 5 \]
+\[ 1 \leq x_3 \leq 2 \lor -2 \leq x_3 \leq -1 \]
+
+In which points are the requirements of the Implicit Function Theorem satisfied?
+
+For $x_3 \in (1,2)$ or $x_3 \in (-1, -2)$:
+\[ \begin{pmatrix} \frac{1}{x_3} \\ \pm \sqrt{-\frac{4}{x_3^2} - x_3^2 + 5} \\ x_3 \end{pmatrix} \]
+
+\subsection{Sheet 11, Exercise 2c}
+\[ g: (1,2) \to \mathbb R^2 \qquad x_3 \mapsto \begin{pmatrix} \frac{1}{x_3} \\ \sqrt{-\frac{4}{x_3^2} - x_3^2 + 5} \end{pmatrix} \]
+
+\subsection{Sheet 11, Exercise 2d}
+\[
+  Dg(x_3) = \begin{pmatrix}
+    -\frac{1}{x_3^2} \\
+    -\frac{x_3^4 + 4}{x_3^3 \sqrt{5 - \frac{4}{x_3^2} - x_3^2}}
+  \end{pmatrix}
+\]
+
+Remark:
+The Implicit Function Theorem actually includes a theorem giving the derivative without explicit evaluation of $g$:
+\[ F(x, g(x)) = 0 \forall x \in D \implies \frac{d}{dx} F(x, g(x)) = 0 \forall x \in D \]
+Also: $g$ is continuously differentiable.
+
+\section{Sheet 11, Exercise 3}
+\begin{ex}
+  Determine the Taylor polynomial of order $n$ for the following functions:
+  \begin{enumerate}
+    \item $f: \mathbb R^3 \to \mathbb R, \: f(x, y, z) \coloneqq 2 + y - xz - 2x^2y - 4xyz^2, n=3$.
+    \item $g: \mathbb R^2 \to \mathbb R, \: g(x, y) \coloneqq \frac{\exp(x + y)}{\exp(x) + \exp(y)}, n = 2$.
+  \end{enumerate}
+\end{ex}
+
+It was meant to be evaluated for $(0, 0)$.
+
+\[ T_{(0,0)}^2(x, y) = g(0, 0) + \frac{dg}{dx} (0, 0) (x - 0) + \frac{dg}{dy} (0,0) \cdot y + \frac12 \left(\frac{dg}{dxx} (x - 0)^2 + \frac{2dg}{dxy} (y - 0)(x - 0) + \frac{dg}{dyy} (y - 0)^2\right) \]
+
+\[ g(x, y) = \frac{e^{x + y}}{e^x + e^y} \qquad n = 2 \]
+\[ = \frac12 + \frac14 x + \frac14 y + \frac12 \cdot \left(\frac14 xy\right) \]
+
+\[ T_{(0,0,0)}^3(x, y, z) = f(0, 0, 0) + \nabla f(0, 0, 0)^T \begin{pmatrix} x \\ y \\ z \end{pmatrix} + \frac12 (x, y, z) \nabla^2 f(0, 0, 0) \begin{pmatrix} x \\ y \\ z \end{pmatrix} \]
+\[ + \frac16 (f_{xxx} + f_{yyy} + f_{zzz} + 3_{xxy} + 3_{xxz} + 3_{yyx} + 3_{yyz} + 3_{zzx} + 3_{zzy} + 3_{xyz}) \]
+
+Actually, we don't need to partial derivatives.
+Well, the function is given as a polynomial. We want to determine the Taylor expansion of a polynomial, which is a polynomial itself. Thus, we actually retrieve the same polynomial (the representation might be different).
+\[ T^4 (x, y, z; 0) = f(x, y, z) = 2 + y - xz - 2x^2 y - 4xyz^2 \]
+$\implies$ $-4xyz^2$ is the only expression of degree $4$. Thus $2 + y - xz - 2x^2 y$ is $T^3(x, y, z; 0)$.
+Does this also work for $\neq (0, 0, 0)$? Yes.
+
+\section{Sheet 11, Exercise 4}
+\begin{ex}
+  We consider the function $f: \mathbb R^{n+1} \to \mathbb R$ given by
+  \[ f(x, b_0, \dots, b_{n-1}) = \sum_{j=0}^{n-1} b_j x^j + x^n \]
+  Show the following claim:
+  If the polynomial $a_0 + \dots + a_{n-1} x^{n-1} + x^n$ has $n$ different roots,
+  then there exists some $\delta > 0$ such that for $b_j \in B_{\delta}(a_j)$ with $j = 0, \dots, n-1$
+  also polynomial $b_0 + \dots + b_{n-1} x^{n-1} + x^n$ has $n$ different roots.
+  \begin{enumerate}
+    \item Determine the Jacobian matrix $J_f(\xi_i, a_0, \dots, a_{n-1})$ for one of the $n$ roots $\xi_i$, $i = 1,\dots,n$.
+    \item Verify that the requirements of the Implicit Function Theorem are satisfied and apply the theorem on each of the $n$ roots.
+    \item Choose the neighborhoods $V_i$ resulting from (b) in root $\xi_0$ such that those are disjoint. Construct the desired neighborhoods of all $a_j$
+  \end{enumerate}
+\end{ex}
+
+By cruising Kruse himself.
+
+\subsection{Sheet 11, Exercise 4a}
+\[ J_f(x, b_0, \dots, b_{n-1}) = \left[p'(x), 1, x, x^2, \dots, x^{n-1}\right] \in \mathbb R^{1 \times (n+1)} \]
+\[ p: \mathbb R \to \mathbb R \qquad p(x) \coloneqq \sum_{j=0}^{n-1} b_j x^j + x^n \]
+
+Gradient is a row vector. Jacobian matrix is a column vector.
+
+\subsection{Sheet 11, Exercise 4b}
+Requirement 1.
+\[ \left[J_f(\xi_i, a_0, \dots, a_{n-1}\right]_{1,1} = p'(\xi_i) \neq 0 \text{ satisfied} \]
+
+Requirement 2.
+If all roots are different (all of them are simple roots), the roots of the derivative cannot be the same (for each of them). This follows by Rolle's Theorem. If you have two zeros, there is one point \emph{in between} with derivative zero.
+\[ f(\xi_1, a_j, \dots, a_{n-1}) = 0 \text{ satisfied} \]
+\[ \implies \forall i \exists g_i: \underbrace{U_i}_{R^n} \to \underbrace{V_i}_{\mathbb R} \text{ with } \underbrace{f(g(b_0, \dots, b_{n-1}), b_0, \dots, b_{n-1}) = 0 \forall (b_0, \dots, b_{n-1}) \in U_i}_{(*)} \]
+where $V_i$ is a neighborhood of $\xi_i$.
+We apply it $n$ times. We get $n$ roots.
+
+\subsection{Sheet 11, Exercise 4c}
+
+Without loss of generality: $\bigcap_{i=1}^n V_i = \emptyset$ by miniaturization.
+Miniaturize $U_i$ by $U_i = g_i^{-1}(V_i)$ with $U_i$ being still open (because $V_i$ is open) $(**)$.
+Because $g_i \in \mathbb C^{1}$ by the Implicit Function Theorem
+
+\[ \exists \delta > 0: B_{\delta}(a_0, \dots, a_{n-1}) \subset U_i \forall i \]
+Let $(b_0, \dots, b_{n-1}) \in B_{\delta}(a_0, \dots, a_{n-1})$. $(*) \implies f(g(b_0, \dots, b_{n-1}), b_0, \dots, b_{n-1}) = 0 \forall i$.
+\[ (b_0, \dots, b_{n-1}) \in B_{\delta}(a_0, \dots, a_{n-1}) \subset U_i \forall i \]
+\[ g_i(U_i) = V_i \]
+
+
 
 \end{document}

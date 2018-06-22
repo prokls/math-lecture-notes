@@ -3570,8 +3570,8 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
 \begin{definition}
   Assume $U \dot+ U^\bot = V$.
   Then the projection maps
-  \[ \pi_U: V \to V \qquad \pi_U: V \to V \]
-  such that $\pi_U(x) \in U$ and $\pi_U(x) \in U^\bot$ and $x = \pi_U(x) + \pi_{U^\bot}(x)$ are orthogonality projections.
+  \[ \pi_U: V \to V \qquad \pi_U: V \to V \]  % TODO: equivalent?!
+  such that $\pi_U(x) \in U$ and $\pi_U(x) \in U^\bot$ and $x = \pi_U(x) + \pi_{U^\bot}(x)$ are orthogonal projections.
 \end{definition}
 
 \begin{remark}
@@ -3896,14 +3896,18 @@ Take $1, x, x^2, \ldots$ and apply Gram schmidt process to retrieve the Chebyshe
 
 \subsection{Riesz representation theorem}
 
-Frigyes Riesz (1880--1956)
+\begin{remark}
+  Frigyes Riesz (1880--1956)
+\end{remark}
 
-Let $(V, \ip{\cdot}{\cdot})$ be a vector space with scalar product $\dim{V} < \infty$.
+\begin{theorem}
+  Let $(V, \ip{\cdot}{\cdot})$ be a vector space with scalar product $\dim{V} < \infty$.
 
-$V^*$ is the dual space $= \operatorname{Hom}(V, \mathbb K) = $ space of linear functionals.
-For fixed $y \in V$ the map $T_y(x) = \ip{x}{y}$ is linear in $x$, hence $T_y \in V^*$.
+  $V^*$ is the dual space $= \operatorname{Hom}(V, \mathbb K) = $ space of linear functionals.
+  For fixed $y \in V$ the map $T_y(x) = \ip{x}{y}$ is linear in $x$, hence $T_y \in V^*$.
 
-Then the map $V \to V^*$ with $y \mapsto Ty: V \to \mathbb K$ with $x \mapsto \ip xy$ is an antilinear isomorphism (antiisomorphism).
+  Then the map $V \to V^*$ with $y \mapsto Ty: V \to \mathbb K$ with $x \mapsto \ip xy$ is an antilinear isomorphism (antiisomorphism).
+\end{theorem}
 
 This is trivial in $\mathbb R$, but in $\mathbb C$ is much more complex (pun intended).
 
@@ -3989,6 +3993,7 @@ Hence,
   $T: W \to V \implies T^*: V \to W$.
 \end{remark}
 
+\subsection{Adjoint maps}
 \index{Adjoint map}
 \begin{definition}[Theorem and definition] % 8.63
   \label{def863}
@@ -4082,6 +4087,7 @@ For $f \in \operatorname{Hom}(V, W)$, the map $x \mapsto \ip{f(x)}{y} \in \opera
 is an antilinear \emph{involution}.
 \[ f^{**} = f \]
 
+\subsection{The linear adjoint map is the complex transpose}
 \begin{theorem} % 8.65
   Let $B \subseteq V, C \subseteq W$ be orthonormal bases. $f \in \operatorname{Hom}(V, W)$.
   \[ \Phi_B^C(f^*) = \Phi_C^B(f)^* = \overline{\Phi_C^B(f)^T} \]
@@ -4154,6 +4160,7 @@ is an antilinear \emph{involution}.
   $U \subseteq U^{\bot\bot}$ and $\dim{U} = \dim{U}^{\bot\bot} \implies U = U^{\bot\bot}$.
 \end{remark}
 
+\subsection{Unitary transformations and self-adjoint matrices}
 \index{Self-adjoint map}
 \index{Unitary transformation}
 \index{Linear isometry}
@@ -4220,6 +4227,7 @@ is an antilinear \emph{involution}.
   \end{enumerate}
 \end{proof}
 
+\subsection{Unitary matrices and orthogonal matrices}
 \index{Unitary matrix}
 \index{Orthogonal matrix}
 \index{Isometry}
