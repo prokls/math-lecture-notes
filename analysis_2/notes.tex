@@ -16,6 +16,7 @@
 \usepackage{pxfonts}
 \usepackage{wasysym}
 \usepackage{framed}
+\usepackage{mdframed}
 \usepackage{xcolor}
 \usepackage{makeidx}
 \usepackage{csquotes}
@@ -62,7 +63,11 @@
 \newcommand{\card}[1]{\left|#1\right|}
 \newcommand{\given}[1]{\textbf{Given.} #1\par}
 \newcommand{\find}[1]{\textbf{Find.} #1\par}
-\newcommand{\dateref}[1]{\paragraph{\textit{This lecture took place on #1.}}}
+\newcommand{\dateref}[1]{%
+  \begin{mdframed}[backgroundcolor=gray!10,innerbottommargin=0pt,innertopmargin=0pt]
+    \paragraph{\textit{$\downarrow$ This lecture took place on #1.}}%
+  \end{mdframed}%
+}
 \newcommand{\exist}{\;\exists\,}
 \newcommand{\fall}{\;\forall\,}
 \newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
@@ -5118,19 +5123,19 @@ We consider:
   \item geometric properties of $\Gamma = \gamma(I)$.
 \end{enumerate}
 
-\index{Parameterized curvature}
+\index{Parameterized curve}
 \index{Curvature}
-\index{Regular curvature parameterization}
+\index{Regular curve parameterization}
 \begin{definition} % Definition 1
   Let $I \subseteq \mathbb R$ be an interval.
   Let $\gamma: I \to \mathbb R^n$ be a continuous (or differentiable or smooth) function.
-  Then $\gamma$ is a continuous (or differentiable or smooth) function curvature parameterization.
-  Colloquially, we are used to call $\gamma$ a \emph{parameterized curvature} (in German: \foreignlanguage{german}{$\gamma$ is eine parametrisierte Kurve}).
+  Then $\gamma$ is a continuous (or differentiable or smooth) function curve parameterization.
+  Colloquially, we are used to call $\gamma$ a \emph{parameterized curve} (in German: \foreignlanguage{german}{$\gamma$ is eine parametrisierte Kurve}).
 
-  $\gamma(t) \in \mathbb R^n$ is a curvature point.
-  $t$ is the curvature parameter.
+  $\gamma(t) \in \mathbb R^n$ is a curve point.
+  $t$ is the curve parameter.
   \[ \Gamma = \gamma(I) = \set{\gamma(t): t \in I} \subseteq \mathbb R^n \]
-  is called trace of the curvature parameterization.
+  is called trace of the curve parameterization.
   \[ \gamma(t) = \begin{bmatrix} \gamma_1(t) \\ \gamma_2(t) \\ \vdots \\ \gamma_n(t) \end{bmatrix} \]
   If $\gamma$ is differentiable, then
   \[ D\gamma(t)
@@ -5140,13 +5145,13 @@ We consider:
   $\gamma'(t)$ is the derivative vector. Often we also use the notation $\dot{\gamma}(t)$.
 
   Let $\gamma: I \to \mathbb R^n$ be differentiable.
-  $\gamma$ is called \emph{regular curvature parameterization} if $\gamma'(t) \neq 0 \forall t \in I$.
+  $\gamma$ is called \emph{regular curve parameterization} if $\gamma'(t) \neq 0 \forall t \in I$.
 \end{definition}
 
 \index{Unit tangential vector}
-\index{Tangent of a curvature}
+\index{Tangent of a curve}
 \begin{definition} % Definition 2
-  Let $\gamma: I \to \mathbb R^n$ be a regular curvature parameterization.
+  Let $\gamma: I \to \mathbb R^n$ be a regular curve parameterization.
   Let $T_\gamma(t) = \frac{\gamma'(t)}{\norm{\gamma'(t)}_2}$.
   $T_\gamma(t)$ is called \emph{unit tangential vector} of $\gamma$ in point $x = \gamma(t)$.
   \[ \tau(\gamma, x) = \set{x + \tau \cdot T_{\gamma}(t): \tau \in \mathbb R} \]
@@ -5160,21 +5165,21 @@ We consider:
     \gamma(t + \tau) &= \gamma(t) + \gamma'(t) \cdot \tau + o(\tau) \\
       &= \underbrace{x + \frac{\tau}{\norm{\gamma'(t)}} \cdot T_{\gamma}(t)}_{\in \tau(\gamma, x)} + o(\tau)
   \end{align*}
-  A tangent is the best linear approximation of the curvature.
+  A tangent is the best linear approximation of the curve.
 \end{definition}
 
 \dateref{2018/06/19}
 
 \index{Reparameterization}
 \begin{definition} % Definition 3
-  Let $\gamma: I \to \mathbb R^n$ be a continuous or differentiable or smooth curvature parameterization.
+  Let $\gamma: I \to \mathbb R^n$ be a continuous or differentiable or smooth curve parameterization.
   Furthermore let $\sigma: J \to I$ with $J \subseteq \mathbb R$ as interval.
 
   Let $\sigma$ be a
   \begin{itemize}
-    \item homeomorphim (continuous curvature)
-    \item diffeomorphism (differentiable curvature)
-    \item $\mathcal C^\infty$-diffeomorphism (smooth curvature)
+    \item homeomorphim (continuous curve)
+    \item diffeomorphism (differentiable curve)
+    \item $\mathcal C^\infty$-diffeomorphism (smooth curve)
   \end{itemize}
   Then we call $\tilde \gamma: J \to \mathbb R^n$ with $\tilde \gamma = \gamma \circ \sigma$ a \emph{reparameterization} of $\gamma$.
   Compare with Figure~\ref{img:reparam}.
@@ -5187,7 +5192,7 @@ We consider:
     \end{center}
   \end{figure}
 
-  On the opposite, let $\gamma$, $\tilde \gamma$ be a curvature parameterization. Then $\tilde\gamma$ is called reparameterization of $\gamma$ if $\sigma$ exists as above such that $\tilde \gamma = \gamma \circ \sigma$.
+  On the opposite, let $\gamma$, $\tilde \gamma$ be a curve parameterization. Then $\tilde\gamma$ is called reparameterization of $\gamma$ if $\sigma$ exists as above such that $\tilde \gamma = \gamma \circ \sigma$.
 \end{definition}
 
 \index{Homeomorphism}
@@ -5221,7 +5226,7 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
 \end{definition}
 
 \begin{claim}
-  Let $G = \set{\gamma: \gamma \text{ is a regular curvature parameterization}}$.
+  Let $G = \set{\gamma: \gamma \text{ is a regular curve parameterization}}$.
   We define a relation $\sim_{r}$ on $G$. $\gamma \sim_r \tilde\gamma \iff \tilde\gamma$ is a reparameterization of $\gamma$.
   Then $\sim_r$ is an equivalence relation.
 \end{claim}
@@ -5244,12 +5249,12 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
   Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ in regards of $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_n}$ but not on a specific representative $\gamma$ is called \emph{geometrical size} or \emph{geometrical property}.
 \end{definition}
 
-\index{Closed curvature}
+\index{Closed curve}
 \begin{example}
-  $[\gamma]_{\sim_r}$ is called \emph{closed curvature} if $\gamma(a) = \gamma(b)$ with $\gamma: [a,b] \to \mathbb R^n$.
+  $[\gamma]_{\sim_r}$ is called \emph{closed curve} if $\gamma(a) = \gamma(b)$ with $\gamma: [a,b] \to \mathbb R^n$.
   Later, we will show: arc length is a geometrical property.
 
-  Because $\gamma(t) = \tilde{\gamma}(\sigma(\tau))$ with $\tau = \sigma^{-1}(t)$, parameterizations have the same trace $\Gamma = \gamma(I) = \tilde\gamma(J)$. Sometimes we call $[\gamma]_{\sim_r}$ a curvature in $\mathbb R^n$.
+  Because $\gamma(t) = \tilde{\gamma}(\sigma(\tau))$ with $\tau = \sigma^{-1}(t)$, parameterizations have the same trace $\Gamma = \gamma(I) = \tilde\gamma(J)$. Sometimes we call $[\gamma]_{\sim_r}$ a curve in $\mathbb R^n$.
 \end{example}
 
 \begin{example}
@@ -5277,8 +5282,8 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
   % TODO image
   Then $3t^2 - 1 = -1 \neq 0$ follows.
   So the parameterization is \emph{regular}. It holds that $\gamma(1) = \vectwo 00$ and $\gamma(-1) = \vectwo 00$.
-  $\vectwo 00$ lies on the trace of the curvature for 2 different parameter values.
-  $x = 0$ is a double point of the curvature.
+  $\vectwo 00$ lies on the trace of the curve for 2 different parameter values.
+  $x = 0$ is a double point of the curve.
   \[ \gamma'(-1) = \begin{bmatrix} -2 \\ 2 \end{bmatrix} \qquad T_{\gamma}(-1) = \frac1{\sqrt{2}} \begin{bmatrix} -1 \\ 1 \end{bmatrix} \]
   \[ \gamma'(1) = \begin{bmatrix} 2 \\ 2 \end{bmatrix} \qquad T_{\gamma}(1) = \frac1{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \]
   For parameter values $t = -1$ and $t = 1$, tangents exist. But in $x = 0 = \gamma(1) = \gamma(-1)$, no tangent exists.
@@ -5313,11 +5318,11 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
 
 % TODO image
 
-\section{Arc length of parameterized curvatures}
-\index{Rectifiable curvature}
-\index{Arc length of a curvature}
+\section{Arc length of parameterized curves}
+\index{Rectifiable curve}
+\index{Arc length of a curve}
 \begin{definition} % Definition 4
-  Let $I = [a,b]$ be compact. $\gamma: I \to \mathbb R^n$ is a continuous curvature.
+  Let $I = [a,b]$ be compact. $\gamma: I \to \mathbb R^n$ is a continuous curve.
   \[ Z = (t_0 = a < t_1 < t_2 < \dots < t_N = b) \]
   a partition of interval $[a,b]$. Let 
   \[ S_\gamma(z) = \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}_2 \]
@@ -5326,7 +5331,7 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
   \pic{img/46_polygonial_line.pdf}{Polygonial line}
 
   If $S_{\gamma} < \infty$, then $\gamma$ is called \emph{rectifiable}
-  and $S_{\gamma}$ is the \emph{arc length of the curvature}.
+  and $S_{\gamma}$ is the \emph{arc length of the curve}.
 \end{definition}
 
 \begin{remark}
@@ -5406,7 +5411,7 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
 \end{proof}
 
 \begin{theorem} % Satz 1
-  Let $\gamma: [a,b] \to \mathbb R^n$ be a continuous curvature parameterization.
+  Let $\gamma: [a,b] \to \mathbb R^n$ be a continuous curve parameterization.
   $\gamma(t) = [\gamma_1(t), \dots, \gamma_n(t)]^T$ and let $\gamma_k$ be a antiderivative of regulated function $\alpha_k = \gamma'_k(t)$.
   Then $\gamma$ is rectifiable and:
   \[ S_\gamma = \int_a^b \norm{\gamma'(t)}_2 \, dt \]
@@ -5460,7 +5465,7 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
 \begin{remark}
   Another rationale for the independence of parameterization:
 
-  Let $\gamma: I \to \mathbb R^n$ be a regular $\mathcal C^1$-curvature parameterization.
+  Let $\gamma: I \to \mathbb R^n$ be a regular $\mathcal C^1$-curve parameterization.
   Let $\sigma: J \to I$ be a parameter exchange (diffeomorphism).
   $\tilde\gamma(\tau) = \gamma \circ \sigma(\tau)$.
 
@@ -5486,7 +5491,7 @@ For $\tilde t < t$, $l(\tilde t) = \int_{t}^{\tilde t} \norm{\gamma'(\tau)}_2 \,
 
 \index{Arc length parameter}
 \begin{definition}
-  We call $s = l(t) = \int_{t_0}^t \norm{\gamma'(\tau)}_2 \, d\tau$ the arc length parameter of the curvature parameterization $\gamma$.
+  We call $s = l(t) = \int_{t_0}^t \norm{\gamma'(\tau)}_2 \, d\tau$ the arc length parameter of the curve parameterization $\gamma$.
 \end{definition}
 
 Let $\gamma$ be regular. Then (by the Fundamental Theorem) $l$ is continuously differentiable and
@@ -5545,28 +5550,229 @@ Determine the arc length for $\tilde\gamma$:
 
 \begin{remark}
   The reparameterization by the arc length often do not yield algebraically simpler expression.
-  But it provides the property, that the curvature is traversed with uniform speed.
+  But it provides the property, that the curve is traversed with uniform speed.
 \end{remark}
 
-\index{Parameterization by a curvature's arc length}
+\index{Parameterization by a curve's arc length}
 \begin{definition} % Definition 5
-  Let $\gamma: I \to \mathbb R^n$ be a regular curvature.
+  Let $\gamma: I \to \mathbb R^n$ be a regular curve.
   We call $\gamma$ \emph{parameterized by its arc length}, if $\norm{\gamma'(t)}_2 = 1 \forall t \in I$.
 \end{definition}
 
 \begin{remark}
   Let $\gamma$ be parameterized by an arc length.
   Then it holds that $s = l(t) = \int_{t_0}^t \underbrace{\norm{\gamma'(\tau)}_2}_{=1} \, d\tau = t - t_0$, and accordingly $t = s + t_0$.
-  Hence, curvature parameter and arc length parameter differ only by constant $t_0$. For $t_0 = 0$, $s = t$.
+  Hence, curve parameter and arc length parameter differ only by constant $t_0$. For $t_0 = 0$, $s = t$.
 \end{remark}
 
-Let $\gamma$ be regular and a $\mathcal C^2$ curvature and $\norm{\gamma'(t)}_2 = 1 \forall t \in I$, hence $\gamma$ is parameterized by the arc length.
+Let $\gamma$ be regular and a $\mathcal C^2$ curve and $\norm{\gamma'(t)}_2 = 1 \forall t \in I$, hence $\gamma$ is parameterized by the arc length.
 
 Consider $1 = \norm{\gamma'(t)}_2^2 = \left(\gamma'(t)\right)^T \cdot \gamma'(t)$. If we derive by $t$,
 \[ 0 = \gamma''(t)^T \cdot \gamma'(t) + \gamma'(t)^T \cdot \gamma''(t) = 2 \angel{\gamma'(t), \gamma''(t)} \]
 Hence $\gamma''(t)$ is orthogonal to $\gamma'(t)$
 
 % TODO image 49_orthogonal.pdf
+
+\dateref{2018/06/26}
+
+\subsection{Curvature, torsion, Frenet's formulas}
+
+Let $\gamma: I \to \mathbb R^3, \gamma \in \mathbb C^3(I, \mathbb R^3), \norm{\gamma'(s)} = 1$.
+Hence $\gamma$ is parameterized by the arc length.
+\[ \gamma'(s) = T_\gamma(s) = T_\gamma(s) \]
+and $\angel{\gamma'(s), \gamma''(s)} = 0$, hence $\gamma''(s) \bot \Gamma(s)$
+
+\index{Curvature of a curve in a point}
+\begin{definition} % Definition 6
+  Let $\gamma$ be like above. We call $\kappa(s) = \norm{\gamma''(s)}_2 = \norm{T'(s)}_2$ \emph{the curvature of $\gamma$ in $x = \gamma(s)$}.
+  If $\kappa(s) \neq 0$, hence $\gamma''(s) \neq 0$, then we let
+  \[ N = N(s) = \frac{\gamma''(s)}{\norm{\gamma''(s)}_2} \]
+  We call $N$ the \emph{main orthogonal vector of $\gamma$ in $x = \gamma(s)$}.
+\end{definition}
+
+\begin{remark}
+  \[ N \bot T \]
+  Compare with Figure~\ref{img:orthoTN}.
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/50_orthogonal.pdf}
+      \caption{Orthogonal $T$ and $N$}
+      \label{img:orthoTN}
+    \end{center}
+  \end{figure}
+  $\kappa(T)$ is the scalar rate of change in direction of $T$.
+
+  Because $s = l(t)$ is a geometrical size, the reparameterization by the arc length is independent of the original parameterization.
+  Hence $\kappa, N$ are geometrical sizes. By the definition, it follows that
+  \[ T'(s) = \kappa(s) \cdot N(s) \]
+  \index{First Frenet formula}
+  We call this equation the \emph{first Frenet formula}.
+\end{remark}
+
+\index{Osculating plane}
+\index{Circle of curvature}
+\begin{definition} % Definition 7
+  Let $\gamma$ be parameterized by the arc length.
+  $\kappa(s) \neq 0$, hence $N$ is defined. We call $\varepsilon_X = \set{x + \xi T + \eta N: \xi, \eta \in \mathbb R}$
+  the \emph{osculating plane} of $\gamma$ in $x$. Compare with Figure~\ref{img:oscplane}.
+
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/51_osculating_plane.pdf}
+      \caption{The osculating plane $\varepsilon_X$}
+      \label{img:oscplane}
+    \end{center}
+  \end{figure}
+
+  $m = m(s) = x + \frac{1}{\kappa} \cdot N$ is called curvature center of $\gamma$ in $x = \gamma(s)$.
+  \[ K_X(\sigma) = m + \frac{1}{\kappa} (\sin{\kappa \sigma \cdot T} - \cos{\kappa \sigma \cdot N}) \]
+  is called \emph{circle of curvature of $\gamma$ in $x = \gamma(s)$}.
+\end{definition}
+
+\begin{remark}
+  \[ m = x + \frac{1}{\kappa} \cdot N \in \varepsilon_X \]
+  $m$ is in the osculating plane $K_x(\sigma) \in \varepsilon_x \forall \sigma \in \mathbb R$.
+  Compare with Figure~\ref{img:ccurvature}.
+  In the osculating plane, the red vertical line is given by $\frac{1}{\kappa} \cdot \sin{\kappa\sigma}$
+  and the horizontal orange line is given by $\frac{1}{\kappa} \cos{\kappa\sigma}$.
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/52_curvature_circle.pdf}
+      \caption{Circle of curvature with radius $\frac{1}{\kappa}$, center $m$ and $x \in K_x$ for $\sigma = 0$}
+      \label{img:ccurvature}
+    \end{center}
+  \end{figure}
+\end{remark}
+
+\begin{align*}
+  \tilde\gamma(\sigma) &= \gamma(s + \sigma) \\
+  \tilde\gamma(0) &= \gamma(s) = x \\
+  \norm{\tilde\gamma'(\sigma)} &= \norm{\gamma'(s + \sigma)} = 1
+\end{align*}
+Hence $\tilde\gamma$ is also parameterized by the arc length.
+\begin{align*}
+  \tilde\gamma(0) &= {\color{blue} x} \\
+  K_x(0) &= m + \frac{1}{\kappa}((\underbrace{\sin{\kappa \cdot 0}}_{= 0}) T - (\underbrace{\cos{\kappa \cdot 0}}_{=1}) \cdot N) \\
+    &= x + \frac{1}{\kappa} N - \frac{1}{\kappa} N = {\color{blue} x} \\
+  \tilde\gamma'(0) &= \gamma'(s) = {\color{green} T} \\
+  K_x'(\sigma) &= \frac{1}{\kappa} \left[(\kappa \cos{\kappa \sigma} \cdot T + (\kappa \cdot \sin{\kappa\sigma}) \cdot N\right] \\
+  K_x'(0) &= \frac{1}{\kappa} \cdot \kappa \cdot T = {\color{green} T} \\
+  \tilde\gamma''(0) &= \gamma''(s) = T'(s) = {\color{red} \kappa \cdot N} \\
+  K_x''(\sigma) &= -(\kappa\cdot \sin{\kappa\sigma}) \cdot T + (\kappa \cdot \cos{\kappa\sigma}) N \\
+  K_x''(0) &= {\color{red} \kappa \cdot N}
+\end{align*}
+$\tilde\gamma$ and $K_x$ correspond in the derivatives up to the second degree for $\sigma = 0$.
+Taylor expansion of 2nd degree for $\tilde\gamma - K_x$:
+\[ \norm{\tilde\gamma(\sigma) - K_x(\sigma)} = o(\sigma^2) \]
+Hence $K_x$ approximates $\tilde\gamma$ in $x$ up second degree precisely.
+Compare with Figure~\ref{img:btnkx}.
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/53_taylor.pdf}
+    \caption{Setting of $B$, $T$ and $N$ with circle of curvature $K_x$}
+    \label{img:btnkx}
+  \end{center}
+\end{figure}
+
+\index{Binormal vector}
+We let $B = T \times N$ be the normal vector to the osculating plane $\varepsilon_x$.
+$B = T \times N$ is called \emph{binormal vector} of $\gamma$ in $x = \gamma(s)$.
+Consider $N^T(s) \cdot N(s) = 1$. Derive it.
+\[ \implies N'^T \cdot N + N^T \cdot N' = 2 \angel{N'(s), N(s)} = 0 \]
+hence $N'(s) \bot N(s)$ hence \fbox{$N' = \alpha T + \beta B$}.
+\[ \angel{T, N} = 0 \xRightarrow{\text{derive}} \angel{T', N} + \angel{T, N'} = 0 \]
+$T' = \kappa \cdot N$. $\angel{\kappa \cdot N, N} + \angel{T, N'} = 0$.
+\fbox{$\angel{T, N'} = -\kappa$}.
+Derive $B = T \times N$.
+\[ B' = (T \times N)' = T' \times N + T \times N' = \kappa(\underbrace{N \times N}_{0}) + T \times N' = T \times N' \]
+Hence $B' \bot T$ and $B' \bot N'$. $\implies$ \fbox{$B' = \tilde\alpha N + \tilde\beta B$}.
+$\angel{T, N} = 0 \implies \angel{T', N} + \angel{T, N'} = 0$, so \fbox{$\angel{N', T} = -\angel{T', N}$}.
+
+Because $T$ and $N$ are orthonormal, it holds that $\alpha = \angel{T, N'} = -\kappa$ and $\beta = \angel{B, N'}$.
+So it holds that $N' = -\kappa T + \angel{B, N'} \cdot B$.
+\begin{align*}
+  B' &= \tilde\alpha \cdot N + \tilde\beta \cdot B \\
+  \tilde\alpha &= \angel{N, B'} \\
+  \tilde\beta &= \angel{B, B'}
+\end{align*}
+because $\angel{B, B} = 1 \implies \angel{B, B'} = 0$.
+Hence it holds that
+\[ B' = \angel{N, B'} \cdot N \]
+We let $\tau = \tau(s) = \angel{N, B'}$.
+\index{Third Frenet formula}
+So it holds that $B' = \tau \cdot N$, which we call \emph{third Frenet formula}.
+$\angel{B, N} = 0 \implies \angel{B, N'} + \angel{B', N} = 0$,
+hence $\beta = \angel{B, N'} = -\angel{B', N} = -\tau$.
+\index{Second Frenet formula}
+We call $N' = -\kappa T - \tau B$ \emph{the second Frenet formula}.
+
+Summary: Let $\gamma$ be parameterized by the arc length.
+Then it holds that ($\gamma \in \mathbb C^3$)
+
+\begin{mdframed}
+  \begin{align*}
+    T' &= \phantom{-\kappa T} \kappa N \\
+    N' &= -\kappa T \phantom{\tau N} - \tau B \\
+    B' &= \phantom{-\kappa T} \tau N
+  \end{align*}
+  are called Frenet's formulas.
+
+  \[ \begin{bmatrix} T \\ N \\ B \end{bmatrix}' = \begin{bmatrix} 0 & \kappa I & 0 \\ -\kappa I & 0 & -\tau I \\ 0 & \tau I & 0 \end{bmatrix} \begin{bmatrix} T \\ N \\ B \end{bmatrix} \]
+  $[T(s), N(s), B(s)]$ define for every $s$ an orthonormal basis in $\mathbb R^3$.
+  The \enquote{accompanying triple} of the curve (dt. \foreignlanguage{german}{das begleitende Dreibein der Kurve}).
+\end{mdframed}
+
+$B' = \tau \cdot N$. Compare with Figure~\ref{img:ntb}.
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/54_curve_triple.pdf}
+    \caption{Curve triple $B$, $T$, $N$ and $B'$}
+    \label{img:ntb}
+  \end{center}
+\end{figure}
+$B'$ is the rate of change of the normal vector of the osculating plane $\varepsilon_x$.
+$\tau$ is the oriented rate of change of the normal vector of the osculating plane.
+\index{Torsion of a curve}
+$\tau(s)$ is called \emph{torsion} of a curve in $x = \gamma(s)$.
+
+\begin{example}[Determination of the curvature of an arbitrary parameterized curve $\gamma(t)$]
+  Let $\tilde\gamma(s) = \gamma(t(s))$.
+
+  Prerequisite: $\alpha: I \to \mathbb R^3$ is differentiable.
+  $\alpha(t) \neq 0 \forall t \in I$.
+  \begin{align*}
+    \frac{d}{dt} \left[\norm{\alpha(t)}\right] &= \frac{d}{dt} \left[\left(\sum_{i=1}^3 \alpha_i^2(t)\right)^{\frac12}\right]
+      = \frac12 \left(\sum_{i=1}^3 \alpha_i^2\right)^{-\frac12} \left(2 \cdot \sum_{i=1}^3 \alpha_i \cdot \alpha_i'\right)
+      = \frac{\angel{\alpha(t), \alpha'(t)}}{\norm{\alpha(t)}} \\
+    s(t) &= \int_{t_0}^t \norm{\gamma'(\tau)} \, d\tau \\
+    s'(t) &= \norm{\gamma'(t)} \\
+    t'(s) &= \frac{1}{\norm{\gamma'(t(s))}} \\
+    \Gamma(s) &= \frac{\gamma'(t(s))}{\norm{\gamma'(t(s))}} \\
+    \frac{d}{ds} \Gamma(s) &= \frac{1}{\norm{\gamma'(t(s))}} \cdot \gamma''(t(s)) \cdot \underbrace{t'(s)}_{= \frac{1}{\norm{\gamma'(t(s))}}}
+      - \frac{1}{\norm{\gamma'(t(s))}^2} \cdot \frac{\angel{\gamma'(t(s)), \gamma''(t(s))}}{\norm{\gamma'(t(s))}} \cdot \underbrace{t'(s)}_{= \frac{1}{\norm{\gamma'(t(s))}}} \gamma'(t(s)) \\
+      &= \frac{1}{\norm{\gamma'(t(s))}^2} \cdot \gamma''(t(s)) - \frac{\angel{\gamma'(t(s)), \gamma''(t(s))}}{\norm{\gamma'(t(s))}^4} \cdot \gamma'(t(s))
+  \end{align*}
+  Omit $t(s)$.
+  \begin{align*}
+    \kappa^2(s) &= \norm{T'(s)}^2 = \angel{
+                    \frac{1}{\norm{\gamma'}^2} \gamma'' - \frac{\angel{\gamma', \gamma''}}{\norm{\gamma'}^4} \gamma',
+                    \frac{1}{\norm{\gamma'}^2} \gamma'' - \frac{\angel{\gamma', \gamma''}}{\norm{\gamma'}^4} \gamma'
+                   } \\
+                &= \frac{\norm{\gamma''}^2}{\norm{\gamma'}^4} - 2 \cdot \frac{\angel{\gamma', \gamma''}^2}{\norm{\gamma'}^6} + \frac{\angel{\gamma', \gamma''}^2 \cdot \norm{\gamma'}^2}{\norm{\gamma'}^8} \\
+                &= \frac{1}{\norm{\gamma'}^6} \left(\norm{\gamma''}^2 \cdot \norm{\gamma'}^2 - \angel{\gamma', \gamma''}^2\right) \\
+  \end{align*}
+  \begin{mdframed}
+    \[ \implies \kappa(t) = \frac{1}{\norm{\gamma'}^3} \left(\norm{\gamma''}^2 \norm{\gamma'}^2 - \angel{\gamma', \gamma''}^2\right)^{\frac12} \]
+  \end{mdframed}
+\end{example}
+
+Left as an exercise to the reader:
+\[ \norm{\gamma''}^2 \cdot \norm{\gamma'} - \angel{\gamma', \gamma''}^2 = \left(\norm{\gamma''}^2 \cdot \norm{\gamma'}^2 - \norm{\gamma''} \cdot \norm{\gamma'} \cdot \cos^2(\alpha)\right) \]
+\[ = \norm{\gamma''}^2 \cdot \norm{\gamma'}^2 \cdot \sin^2(\alpha) = \norm{\gamma' \times \gamma''}^2 \]
+\begin{mdframed}
+  \[ \implies \kappa(t) = \frac{\norm{\gamma' \times \gamma''}}{\norm{\gamma'}^3} \]
+\end{mdframed}
 
 
 \printindex

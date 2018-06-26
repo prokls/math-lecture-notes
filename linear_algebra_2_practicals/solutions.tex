@@ -1898,6 +1898,18 @@ Evaluation:
 \subsection{Exercise 46a}
 $\operatorname{gcd}(p(x), q(x)) = 1 \iff \exists a(x), b(x): a(x) p(x) + b(x) q(x) = 1$.
 
+\textbf{Personal notes:}
+\begin{align*}
+  a(x) \cdot p(x) + b(x) \cdot q(x) &= 1 \\
+  1 \cdot gcd(p(x), q(x)) &= d(x) \qquad \deg(d(x)) > 1 \\
+  a(x) \cdot d(x) \cdot p_1(x) + b(x) \cdot d(x) \cdot q_1(x) &= 1 \\
+  d(x) \cdot \left[a(x) \cdot p_1(x) + b(x) \cdot q_1(x)\right] &= 1 \\
+  a(x) \cdot p_1(x) + b(x) \cdot q_1(x) &= \frac1{d(x)}
+\end{align*}
+$1$ has a lower polynomial degree than $d(x)$. Thus $\frac1{d(x)}$ represents a hyperbola.
+As $x \to \infty$, a polynomial goes to infinity or minus infinity. A hyperbola goes to zero.
+Thus, $\frac1{d(x)}$ cannot be a polynomial unless $d(x) = 1$.
+
 \subsection{Exercise 46b}
 \[ \deg(\operatorname{gcd}(p(x), q(x))) \geq 1 \iff \exists A(x), B(x) \]
 s.t. $\deg(A(x)) < n = \deg(q(x))$ and $\deg(B(x)) < m = \deg(p(x))$
@@ -1926,10 +1938,21 @@ $\implies \exists$ factor/irreducible polynomial.
 \[ \deg(B) < m \]
 $p(x)$ does not divide $B(x)$. Thus, $\exists i \in \set{1, \dots, m}: p_i | q(x)$.
 
+\textbf{Personal notes:}
+\enquote{nichtverschwindend} = \enquote{nicht konstant}
+\[ \deg(p) = m \qquad \deg(g) = n \]
+\[ \gcd(p(x), g(x)) \neq 1 \iff \exists A(x), B(x): A(x) p(x) + B(x) q(x) = 0 \iff \exists A(x), B(x): \frac{A(x)}{B(x)} = -\frac{g(x)}{p(x)} \]
+
+Direction $\implies$:
+\[ \gcd(p(x), g(x)) = d(x) \qquad \deg{d} \geq 1 \]
+\[ p(x) = d(x) \cdot p_1(x) \qquad g(x) = d(x) \cdot g_1(x) \]
+\[ \implies \frac{g(x)}{p(x)} = \frac{d(x)}{d(x)} \cdot \frac{g_1(x)}{p_1(x)} = -\left(-\frac{g_1(x)}{p_1(x)}\right) \]
+\[ \implies \frac{g(x)}{p(x)} = -\frac{A(x)}{B(x)} \]
+
 \subsection{Exercise 46c}
 
 \[ L: \mathbb R^{n + m} \to \mathbb R \]
-\[ \begin{pmatrix} a_n \\ a_{n-1} \\ a_{n-2} \\ \vdots \\ a_0 \\ b_m \\ b_{m-1} \\ \vdots \\ b_0 \end{pmatrix} \mapsto p(x) ({a_n x^n + a_{n-1} x^{n-1} + \dots + a_0}^{\eqqcolon A(x)}) + q(x) (\overbrace{b_m x^m + b_{m-1} x^{m-1} + \dots + b_0}^{\eqqcolon B(x)}) \to \mathbb R^{n + m} \]
+\[ \begin{pmatrix} a_n \\ a_{n-1} \\ a_{n-2} \\ \vdots \\ a_0 \\ b_m \\ b_{m-1} \\ \vdots \\ b_0 \end{pmatrix} \mapsto p(x) \overbrace{(a_n x^n + a_{n-1} x^{n-1} + \dots + a_0^{0})}^{\eqqcolon A(x)} + q(x) (\overbrace{b_m x^m + b_{m-1} x^{m-1} + \dots + b_0}^{\eqqcolon B(x)}) \to \mathbb R^{n + m} \]
 $\angle(\vec v) = R(q, p) \cdot \vec v$
 
 \section*{Exercise 47}
@@ -2575,5 +2598,195 @@ Insert: $25y_2^2 + \xi D y_1 + \xi 0 = 0$.
 Translation is not a linear map. Thus, it is described in vector multiplication, not as a matrix.
 
 (rotation matrix $\implies$ determinant is one)
+
+\section{Exercise 71}
+\[ \ker{A} \cap \ker{B} = \set{0} \qquad AB = BA \]
+
+\subsection{Exercise 71a}
+\[ \ker{A^2} \cap \ker{B} = \set{0} \]
+Let $x \in \ker{A^2} \cap \ker{B}: A^2 x = 0 \implies Ax \in \ker{A}$.
+$Bx = 0$. $BAx = ABx = 0 \implies Ax \in \ker{B}$.
+
+Thus, $Ax \in \ker{A} \cap \ker{B} = \set{0} \implies Ax = 0 \implies x \in \ker{A}$. By assumption $x \in \ker{B}$. Thus, $x \in \ker{A} \cap \ker{B} = \set{0} \implies x = 0$.
+
+\subsection{Exercise 71b}
+\[ \ker{A^2} \cap \ker{B^2} \overset!= 0 \]
+\[ A' = B \qquad B' = A^2 \]
+\[ \ker{A'} \cap \ker{B'} = \set{0} \]
+\[ A' B' = B' A' \]
+
+\[ BA^2 = BAA = ABA = AAB = A^2 B \]
+
+We apply (a) to $A'$ and $B'$:
+\[ \underbrace{\ker(A')^2 \cap \ker(B')}_{= \ker{B^2} \cap \ker{A^2}} = \set{0} \]
+
+\subsection{Exercise 71c}
+Inductive:
+\[ A^{(2^k)} \cdot B^{(2^k)} = B^{(2^k)} \cdot A^{2^k} \]
+Induction hypothesis: $\ker{A^{2^k}} \cap \ker{B^{2^k}} = \set{0}$.
+
+We apply (b) to $A^{2^k}$ and $B^{2^k}$.
+\[ \ker(A^{2^k})^2 \cap \ker(B^{2^k})^2 = \set{0} \]
+
+Recall that $(A^{2^k})^2 = A^{2^k} \cdot A^{2^k} = A^{2^k} + A^{2^k} = A^{2 \cdo 2^k} = A^{2^{k+1}}$.
+
+\subsection{Exercise 71d}
+\[ \ker{A^r} \cap \ker{B^s} = \set{0} \]
+choose $k$ such that $2^k \geq \max(r, s)$.
+
+\[ \ker{A^r} \leq \ker{A^{2^k}} \land \ker{B^s} \leq \ker{B^{2^k}} \implies \ker{A^r} \cap \ker{B^s} \subseteq \ker{A^{2^k}} \cap \ker{B^{2^k}} = \set{0} \]
+
+Main spaces $\lambda - A$ and $\mu - A$
+\begin{enumerate}
+  \item commute
+  \item $\ker(\lambda - A) \cap \ker(\mu - A) = \set{0}$
+\end{enumerate}
+\[ \implies \ker(\lambda - A)^r \cap \ker(\mu - A)^s = \set{0} \]
+
+\subsection{Exercise 72}
+\begin{enumerate}
+  \item Determine eigenvalues.
+  \item Determine eigenvectors.
+  \item Determine eigenspaces and \emph{main} spaces.
+
+    For eigenvalue $8$, we get:
+    \[ \mathcal L\left(\begin{pmatrix} 1 \\ 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}\right)  = \ker(8 - A)^k \qquad \forall k \]
+    Eigenspace = main space, thus no further computations are required.
+    \[
+      B = \begin{bmatrix}
+        1 & \dots \\
+        0 & \dots \\
+        0 & \dots \\
+        1 & \dots \\
+        0 & \dots \\
+      \end{bmatrix}
+      \qquad
+      J = \begin{bmatrix}
+        8 & \dots \\
+        \vdots & \ddots
+      \end{bmatrix}
+    \]
+
+    For eigenvalue $0$, we get:
+    \[ \ker{A} = \mathcal L\left(\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \\ 2 \end{pmatrix}\right) \]
+    \[ \ker{A^2} = \mathcal L \left(\begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \\ 2 \end{pmatrix}, \begin{pmatrix} 3 \\ 2 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} -1 \\ 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}\right) \eqqcolon \set{u_1, u_2, u_3, u_4} \]
+    $\dim = 4 \implies$ this is the main space.
+
+    \[ v_1^{(2)} - v_3 = \begin{pmatrix} 3 \\ 2 \\ 0 \\ 0 \\ 0 \end{pmatrix} \in \ker{A^2} \]
+    \[ \implies A \cdot u_3 \in \ker{A} \]
+    are linear independent. $A u_4 \in \ker{A}$.
+    \[
+      A = \begin{pmatrix}
+        4 & -2 & -4 & 4 & -2 \\
+        0 & 0 & 0 & 0 & 0 \\
+        2 & 1 & -2 & -2 & -1 \\
+        4 & -6 & -4 & 4 & -2 \\
+        -4 & 6 & 4 & 4 & 2
+      \end{pmatrix}
+    \]
+    \[ v_1^{(1)} = A v_1^{(2)} = \begin{pmatrix} 8 \\ 0 \\ 8 \\ 0 \\ 0 \end{pmatrix} = 8 u_1 \]
+    \[ v_2^{(1)} = A v_2^{(2)} = A \cdot \begin{pmatrix} -1 \\ 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ -4 \\ 0 \\ 8 \end{pmatrix} = 4 \cdot u_2 - 4 \cdot u_1 \]
+    \[ \mathcal L(u_1, u_2) = \mathcal L(v_1^{(1)}, v_2^{(1)}) \]
+
+    \[ v_1^{(1)} \quad v_2^{(1)} \quad | \quad v_1^{(2)} \quad v_2^{(2)} \]
+    \[ \text{order: } v_1^{(1)} \to v_1^{(2)} \to v_2^{(1)} \to v_2^{(2)} \]
+
+    \[
+      B = \begin{bmatrix}
+        1 & 8 & 3 & 0 & -1 \\
+        0 & 0 & 2 & 0 & 0 \\
+        0 & 8 & 0 & -4 & 0 \\
+        1 & 0 & 0 & 0 & 1 \\
+        0 & 0 & 0 & 8 & 0 \\
+      \end{bmatrix}
+      \qquad
+      J = \begin{bmatrix}
+        8 &   &   &   & \\
+          & 0 & 1 &   & \\
+          &   & 0 &   & \\
+          &   &   & 0 & 1 \\
+          &   &   &   & 0
+      \end{bmatrix}
+    \]
+    where the second column is $v_1^{(1)}$, the third column is $v_1^{(2)}$, the third column is $v_2^{(1)}$ and the fourth column is $v_2^{(2)}$.
+\end{enumerate}
+
+\[ (A - \lambda I) v_i^{(k)} = v_i^{(k-1)} \implies A \cdot v_i^{(k)} = \lambda v_i^{(k)} + v_i^{(k-1)} \]
+
+\section{Exercise 73}
+\subsection{Exercise 73a}
+\[ \operatorname{JNF}(A) = \operatorname{JNF}(A^T) \]
+Eigenvalues of $A$ and $A^T$ are the same.
+\[ \dim\ker(\lambda - A) = \dim\ker(\lambda - A^T) \]
+\[ n-\text{rank}(\lambda - A)^k = n-\text{rank}(\lambda - A^T)^k \]
+with $\dim\ker(\lambda - A) = n-\text{rank}(\lambda - A)^k$ and $\dim\ker(\lambda - A^T) = n-\text{rank}(\lambda - A^T)^k$.
+
+This defines the size of the blocks uniquely.
+
+\subsection{Exercise 73b}
+\[ A = TJT^{-1} \qquad A^T = (T^t)^{-t} \cdot J^t \cdot T^t \]
+\[ J^t = \begin{bmatrix}
+    -2 &    &    &    & \\
+    1  & -2 &    &    & \\
+       &    & -2 &    & \\
+       &    &  1 & -2 & \\
+       &    &    &  1 & -2
+  \end{bmatrix}
+\]
+Find $V$ such that
+\[ V^{-1} J^T V = J \]
+\[
+  \begin{bmatrix} & 1 \\ 1 & \end{bmatrix}
+  \begin{bmatrix} -2 &   \\ 1 & -2 \end{bmatrix}
+  \begin{bmatrix} & 1 \\ 1 & \end{bmatrix}
+  = \begin{bmatrix} -2 & 1 \\ 0 & -2 \end{bmatrix}
+\]
+
+\[
+  \begin{bmatrix} & & 1 \\ & 1 & \\ 1 & & \end{bmatrix}
+  \begin{bmatrix} -2 & & \\ 1 & -2 & \\ & 1 & -2 \end{bmatrix}
+  \begin{bmatrix} & & 1 \\ & 1 & \\ 1 & & \end{bmatrix}
+  =
+  \begin{bmatrix} 0 & 1 & -2 \\ 1 & -2 & 0 \\ -2 & 0 & 0 \end{bmatrix}
+  \begin{bmatrix} & & 1 \\ & 1 & \\ 1 & & \end{bmatrix}
+  =
+  \begin{bmatrix} -2 & 1 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & -2 \end{bmatrix}
+\] \[
+  VJ^TV = J \implies J^T = VJV
+\] \[
+  A^T = (T^T)^1 J^T T^T = (T^T)^{-1} VJVT^t = UJU^{-1}
+\] \[
+  U = (T^t)^{-1} V
+\]
+
+\section{Exercise 74}
+
+Given $x_1, \dots, x_n \in \mathbb C$ and $y_1, \dots, y_n \in \mathbb C$.
+Then there exists $g(x) \in \mathbb C[x]_n$ such that $p(x_i) = y_i$.
+
+Direction $\impliedby$.
+
+Immediate. $A^* = p(A) \implies AA^* = Ap(A) = (x p(x))(A) = (p(x)x)(A) = p(A) A = A^* A$.
+
+Direction $\implies$.
+
+\[ AA^* = A^* A \implies A = U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} U^* \]
+\[ A^* = U \begin{bmatrix} \overline{\lambda}_1 & & \\ & \ddots & \\ & & \overline{\lambda}_n \end{bmatrix} U^* \]
+\[ p(A) = U \cdot \begin{bmatrix} p(\lambda_1) & & \\ & \ddots & \\ & & p(\lambda_n) \end{bmatrix} \cdot U^* \]
+
+$p(x)$ is polynomial of degree $\leq n$ such that $p(\lambda_i) = \overline{\lambda_i} \implies p(A) = A^*$.
+
+\section{Exercise 75}
+
+$A$ is normal $\implies \exists$ ONB: $u_1, \dots, u_n$ of eigenvectors.
+
+$x \in \mathbb C^n$ with $\norm{x} = 1$.
+\[ x = \sum_1^n \alpha_i u_i \]
+\[ \norm{x}^2 = \sum \card{\alpha_i}^2 = 1 \]
+\[ \beta_i = \card{\alpha_i}^2 \implies W(A) = \set{\sum \lambda_i \beta_i}{\sum \beta_i = 1} \]
+
+\[ \angel{Ax, x} = \angel{A \sum \alpha_i u_i, \sum \alpha_j u_j} = \angel{\sum \alpha_i \lambda_i u_i, \sum \alpha_j u_j} = \sum_{i,j\gamma} \alpha_i \lambda_i \overline\alpha_j \underbrace{\angel{u_i, u_j}}_{\delta_{ij}} = \sum \card{\alpha_i}^2 \lambda_i \]
+
+
 
 \end{document}

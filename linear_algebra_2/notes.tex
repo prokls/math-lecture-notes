@@ -11,6 +11,7 @@
 \usepackage{amssymb}
 \usepackage{enumitem}
 \usepackage{amsthm}
+\usepackage{mdframed}
 \usepackage{pxfonts}
 \usepackage{wasysym}
 \usepackage{framed}
@@ -62,7 +63,11 @@
 \newcommand{\card}[1]{\left|#1\right|}
 \newcommand{\given}[1]{\textbf{Given.} #1\par}
 \newcommand{\find}[1]{\textbf{Find.} #1\par}
-\newcommand{\dateref}[1]{\paragraph{\textit{This lecture took place on #1.}}}
+\newcommand{\dateref}[1]{%
+  \begin{mdframed}[backgroundcolor=gray!10,innerbottommargin=0pt,innertopmargin=0pt]
+    \paragraph{\textit{$\downarrow$ This lecture took place on #1.}}%
+  \end{mdframed}%
+}
 \newcommand{\exist}{\;\exists\,}
 \newcommand{\fall}{\;\forall\,}
 \newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
@@ -3780,13 +3785,14 @@ Hence, $\forall i \in \set{1, \ldots, m}$:
 
 \subsection{Gram-Schmidt process}
 
-Given: $U = \mathcal L(v_1, \ldots, v_m)$ \\
-Find: orthonormal basis of $U$.
+Given: finite, linear independent vectors $v_1, \dots, v_m$ \\
+Find: orthonormal basis of $(v_1, \dots, v_m)$.
 
 \index{Gram-Schmidt process}
 \begin{theorem}[Gram–Schmidt process for orthogonalization] % 8.57
   Let $(v_1, \ldots, v_m) \subseteq V$ be linear independent.
-  Then $\exists u_1, \ldots, u_m$ is orthonormal basis of $\mathcal L(v_1, \ldots, v_m)$, specifically inductive
+  Let $U \coloneqq \mathcal L(v_1, \ldots, v_m)$.
+  Then $\exists u_1, \ldots, u_m$ as orthonormal basis of $U$, specifically inductive
   \[ u_1 = \frac{v_1}{\norm{v_1}} \]
   and for $k = 2, \ldots, m$:
   \[ \tilde u_k = v_k - \sum_{j=1}^{k-1} \ip{v_k}{u_j} \cdot u_j \]
@@ -3882,8 +3888,8 @@ Given: $v_1, \ldots, v_m$
   Solution: $\pi_U(x^3) \qquad U = \mathcal L(1, x, x^2)$
   \begin{align*}
     \pi_U(x^3) &= u_1 \ip{x^3}{u_1} + u_2 \ip{x^3}{u_2} + u_3 \ip{x^3}{u_3} \\
-      &= 1 \cdot \int_0^1  t^3 \cdot 1 \, dt + \sqrt{12} (x - \frac12) \int_0^1 t^3 \sqrt{12} (t - \frac12) \, dt \\
-      &+ \sqrt{180} (x^2 - x + \frac16) \int_0^1 t^3 \sqrt{180} (t^2 - t + \frac16) \, dt
+      &= 1 \cdot \int_0^1  t^3 \cdot 1 \, dt + \sqrt{12} \left(x - \frac12\right) \int_0^1 t^3 \sqrt{12} \left(t - \frac12\right) \, dt \\
+      &+ \sqrt{180} \left(x^2 - x + \frac16\right) \int_0^1 t^3 \sqrt{180} \left(t^2 - t + \frac16\right) \, dt
   \end{align*}
 \end{example}
 
@@ -3891,8 +3897,10 @@ Given: $v_1, \ldots, v_m$
 Consider $\ip fg \coloneqq \int_{-1}^1 \sqrt{1 - t^2} f(t) \overline{g(t)} \, dt$.
 Take $1, x, x^2, \ldots$ and apply Gram schmidt process to retrieve the Chebyshev polynomials.
 
-\[ \int_0^1 f(t) g(t) \, dt \qquad \text{ Laguerre} \]
-\[ \frac1{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{t^2}{2}}  f(t) g(t) \, dt \qquad \text{ Hermite polynomials} \]
+\begin{align*}
+  \int_0^1 f(t) g(t) \, dt &\qquad \text{ Laguerre polynomials} \\
+  \frac1{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{t^2}{2}}  f(t) g(t) \, dt &\qquad \text{ Hermite polynomials}
+\end{align*}
 
 \subsection{Riesz representation theorem}
 
@@ -3903,19 +3911,18 @@ Take $1, x, x^2, \ldots$ and apply Gram schmidt process to retrieve the Chebyshe
 \begin{theorem}
   Let $(V, \ip{\cdot}{\cdot})$ be a vector space with scalar product $\dim{V} < \infty$.
 
-  $V^*$ is the dual space $= \operatorname{Hom}(V, \mathbb K) = $ space of linear functionals.
-  For fixed $y \in V$ the map $T_y(x) = \ip{x}{y}$ is linear in $x$, hence $T_y \in V^*$.
+  $V^*$ is the dual space, namely $\operatorname{Hom}(V, \mathbb K)$ which is the space of linear functionals.
+  For some fixed $y \in V$, the map $T_y(x) = \ip{x}{y}$ is linear in $x$ (and therefore $T_y \in V^*$).
 
-  Then the map $V \to V^*$ with $y \mapsto Ty: V \to \mathbb K$ with $x \mapsto \ip xy$ is an antilinear isomorphism (antiisomorphism).
+  Then the map $V \to V^*$ defined by $Ty: V \to \mathbb K$ is an antilinear isomorphism (antiisomorphism).
 \end{theorem}
 
-This is trivial in $\mathbb R$, but in $\mathbb C$ is much more complex (pun intended).
+This is trivial in $\mathbb R$, but in $\mathbb C$ it is much more complex (pun intended).
 
 Hence,
 \begin{enumerate}
   \item For every $y$ it holds that $Ty \in V^*$
-  \item For every linear functional $f \in V^*$
-    \[ \exists! y \in V: f = T_y \]
+  \item For every linear functional $f \in V^*: \exists! y \in V: f = T_y$
   \item Let $y \mapsto Ty$ is an antilinear map.
     \[ T_{\lambda y_1 + \mu y_2} = \overline{\lambda} Ty_1 + \overline{\mu} Ty_2 \]
 \end{enumerate}
@@ -3954,20 +3961,20 @@ Hence,
   
   Given: $f \in V^*$.
   Find: $y$ such that $f = Ty$.
-  \[ \text{Hence, } \forall x \in V: f(x) = \ip xy \underbrace{\iff}_{\text{by \foreignlanguage{german}{Fortsetzungssatz}}} f(u_i) = \ip{u_i}{y} \]
+  \[ \text{Hence, } \forall x \in V: f(x) = \ip xy \underbrace{\iff}_{\text{by \foreignlanguage{german}{Fortsetzungssatz}}} f(u_i) = \ip{u_i}{y} \] % TODO Fortsetzungssatz
   Let $y = \sum_{j=1}^n \overline{f(u_j)} \cdot u_j$.
   \[ \implies \ip{u_i}{y} = \ip{u_1}{\sum_{j=1}^n \overline{f(u_j)} u_j} = \sum_{j=1}^n f(u_j) \underbrace{\ip{u_i}{u_j}}_{\delta_{ij}} = f(u_i) \]
   Hence, $y$ satisfies the condition.
 \end{proof}
 
 \begin{remark}
-  The Riesz representation theorem also holds in infinite dimensions in the case of Hilbert spaces.
+  The Riesz representation theorem also holds in infinite dimensions (thus, in Hilbert spaces, a generalization of Euclidean spaces).
   In those spaces, there exists some Hilbert base:
   \[ (u_i)_{i \in I}: x = \sum_{i \in I} \ip x{u_i} \cdot u_i \forall x \]
   So every $x$ has such a representation and in infinite dimensions, this representation is a series.
 \end{remark}
 
-\begin{corollary} % Folgerungen 8.62
+\begin{corollary}\hfill{} % Folgerungen 8.62
   \begin{enumerate}
     \item $v = 0 \iff \forall w \in V: \ip vw = 0$
     \item $\norm{v} = \sup\setdef{\card{\ip vw}}{\norm{w} \leq 1}$
@@ -3975,7 +3982,7 @@ Hence,
   Equivalently in the dual space:
   \begin{enumerate}
     \item $v = 0 \iff \forall f \in V^*: f(v) = 0$
-    \item $\norm{v} = \sup\setdef{\card{f(v)}}{f \in V^* \quad \norm{f} \leq 1}$
+    \item $\norm{v} = \sup\setdef{\card{f(v)}}{f \in V^*, \norm{f} \leq 1}$
   \end{enumerate}
   holds in general in a normed space.
 \end{corollary}
@@ -4305,7 +4312,7 @@ What do isometries of $\mathbb R^n$ or $\mathbb C^n$ look like?
   \begin{align*}
     d(x,y) &\geq 0 \\
     d(x,y) = 0 &\iff x = y \\
-    d(x,y) \leq d(x,z) + d(z,y)
+    d(x,y) &\leq d(x,z) + d(z,y)
   \end{align*}
   is a map $f: M_1 \to M_2$ such that
   \[ d_2(f(x), f(y)) = d_1(x, y) \]
@@ -4316,8 +4323,8 @@ What do isometries of $\mathbb R^n$ or $\mathbb C^n$ look like?
 
 \begin{example}[Translation]
   \[ x_0 \in V \qquad T_{x_0}: V \to V \qquad x \mapsto x + x_0 \]
-  is isometry, but is not unitary because non-linear\footnote{$0$ is not mapped to $0$, but $x_0$}
-  \[ \norm{T_{x_0}(x) - T_{x_0}(y)} = \norm{x + x_0 - (y + x_0)} = \norm{x - y} \]
+  Translation $T_{x_0}$ is an isometry because $\norm{T_{x_0}(x) - T_{x_0}(y)} = \norm{x + x_0 - (y + x_0)} = \norm{x - y}$.
+  But translation is not unitary because of non-linearity: $T_{x_0}(0) = 0 + x_0 \neq 0$.
 \end{example}
 
 Other examples in $\mathbb R^n$:
@@ -4502,7 +4509,7 @@ William Rowan Hamilton (1805--1865).
   He failed.
   On 1843/10/16, he invented the quaternions next to a bridge.
   It works on four dimensions, but it is non-commutative.
-  It is a screw field (\foreignlanguage{german}{Schiefk\"orper}).
+  It is a screw field (dt.~\foreignlanguage{german}{Schiefk\"orper}).
   \[ ij = k \qquad jk = i \qquad ki = j \qquad ji = -k \qquad kj = -i \qquad ik = -j \]
   anti-commutative.
   \[ i^2 = j^2 = k^2 = -1 \]
@@ -4574,7 +4581,9 @@ William Rowan Hamilton (1805--1865).
   \end{enumerate}
 \end{example}
 
-O. Perron (1880/05/07--1975)
+\begin{remark}
+  Oskar Perron (1880/05/07--1975)
+\end{remark}
 
 \index{Cauchy product}
 \begin{definition} % Definition 9.4
@@ -4633,7 +4642,7 @@ O. Perron (1880/05/07--1975)
   \[ \deg(0) \coloneqq -\infty \]
 \end{definition}
 
-\begin{lemma}[Will be done in the practicals] % Lemma 9.7
+\begin{lemma}[Will be done in the practicals]\hfill{} % Lemma 9.7
   \begin{enumerate}
     \item $\deg(p(x) \cdot q(x)) = \deg(p(x)) + \deg(q(x))$
     \item $\mathbb K[x]$ is zero-divisor-free,
@@ -4691,7 +4700,7 @@ O. Perron (1880/05/07--1975)
   \[ \sum_{k=0}^n c_k x^k \mapsto \sum_{k=0}^n c_k a^k \]
   of the unique algebra homomorphism of $\mathbb K[x] \to \mathcal A$ with the property $\psi_a(x) = a$.
   We say, $\mathbb K[x]$ is a \emph{free, associative algebra over $\mathbb K$}.
-  Every algebra homomorphism $\mathbb K[x] \to \mathcal A$ has the structure.
+  Every algebra homomorphism $\mathbb K[x] \to \mathcal A$ has this structure.
 \end{theorem}
 
 \dateref{2018/05/09}
@@ -4747,15 +4756,12 @@ $a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \math
 \end{definition}
 
 \begin{remark}
-  $p(x) = C_0$ is no root except $c_0 = 0$.
-
-  $p(x) = c_0 + c_1 x$ is the only root, $\xi = -\frac{c_0}{c_1}$.
-
-  \[ p(x) = c_0 + c_1 x + c_2 x^2 \]
-  has two roots over $\mathbb C$.
-
-  \[ p(x) = c_0 + c_1 x + c_2 x^2 + c_3 x^3 \]
-  has three roots.
+  \begin{enumerate}
+    \item $p(x) = c_0 \text{ is a root } \iff c_0 = 0$
+    \item $p(x) = c_0 + c_1 x$ is the only root, $\xi = -\frac{c_0}{c_1}$.
+    \item $p(x) = c_0 + c_1 x + c_2 x^2$ has two roots over $\mathbb C$
+    \item $p(x) = c_0 + c_1 x + c_2 x^2 + c_3 x^3$ has three roots
+  \end{enumerate}
 
   To find roots, formulas up to fourth degree exist.
   For degree $\geq 5$, there is no equation.
@@ -4903,9 +4909,8 @@ Gerolamo Cardano (1501--1576)
 \end{example}
 
 \begin{definition} % 9.19
-  $q(x)$ \emph{divides} $p(x)$ is the remainder is zero.
-
-  There exists $s(x)$ such that $p(x) = s(x) \cdot q(x)$.
+  $q(x)$ \emph{divides} $p(x) \iff $ the remainder is zero
+  $\iff$ there exists $s(x)$ such that $p(x) = s(x) \cdot q(x)$.
 \end{definition}
 
 \begin{theorem} % Satz 9.20
@@ -8152,8 +8157,228 @@ Norm on a vector space is a map $\norm{\cdot}: V \to [0, \infty[$:
   \[ \implies \sup{\frac{\norm{f(v)}}{\norm{v}}} w \leq M_f \]
 \end{proof}
 
+\dateref{2018/06/25}
 
+Matrix norms:
 
+A norm on $\mathbb K^{m \times n}$ (with $\mathbb K = \mathbb C$ or $\mathbb R$) is \emph{compatible} with norms on $\mathbb K^n$ and $\mathbb K^m$ if
+\[
+  \underbrace{\norm{Ax}_m}_{\substack{\text{vector norm} \\ \text{on } \mathbb K^m}}
+  \leq
+  \underbrace{\norm{A}_{m \times n}}_{\text{matrix norm}} \cdot \underbrace{\norm{x}_n}_{\substack{\text{vector space} \\ \text{on } \mathbb K^n}}
+\]
+\[ \norm{A}_F = \operatorname{Tr}(A^* A)^{\frac12} = \left(\sum \card{a_{ij}}^2\right)^{\frac12} \]
+is compatible with the Euclidean norm.
+
+Optimal norm on $\mathbb K^{m \times n}$.
+\[ \norm A = \inf\setdef{C > 0}{\forall x \in \mathbb K^n: \norm{A \cdot x}_m \leq C \cdot \norm{x}_n} \coloneqq \sup_{\substack{x \\ \norm{x}_n \leq 1} \norm{Ax}_m} \]
+\[ f: V \to W \qquad \norm{f} = \sup_{\substack{x \in V \\ \norm{x}_V \leq 1}} \norm{f(x)}_W \]
+
+Exercise for the practicals:
+\[ \underbrace{V}_{\norm{\cdot}_V} \xrightarrow f \underbrace{W}_{\norm{\cdot}_W} \xrightarrow g \underbrace{Z}_{\norm{\cdot}} \]
+
+\begin{example} % Beispiel 14.4
+  \begin{enumerate}
+    \item The Frobeniusnorm $\norm{A}_F = \operatorname{Tr}(A^* A)^{\frac12}$ is not optimal.
+      \[ \operatorname{id}: \mathbb C^n \to \mathbb C^n \]
+      \[ \norm{\operatorname{id}}_{2 \to 2} = \sup_{\substack{\norm{x} \leq 1 \\ 2}} \norm{x}_2 = 1 \]
+      \[ \operatorname{id}_F = \norm{I}_F = \operatorname{Tr}(I^2)^{\frac12} = \sqrt n \]
+    \item The norm induced by the Euclidean norm
+      \begin{align*}
+        \norm{A}_{2 \to 2} &= \sup\setdef{\norm{Ax}_2}{\norm{x}_2 \leq 1} \\
+          &= \sup_{x \neq 0} \frac{\norm{Ax}_2}{\norm{x}_2} = \sup_{x \neq 0} \frac{\angel{Ax, Ax}^{\frac12}}{\angel{x,x}^{\frac12}} \\
+          &= \sup_{x \neq 0} \frac{\angel{A^* Ax, x}^{\frac12}}{\angel{x,x}^{\frac12}} = \sqrt{\sup_{x \neq 0} \frac{\angel{A^* Ax, x}}{\angel{x,x}}} \\
+          &= \sqrt{\text{largest eigenvalue of } A^* A} = \sqrt{\text{largest singular value of } A}
+      \end{align*}
+    \item
+      $\norm{A}_{\infty\to\infty}$ on $\mathbb K^n: \norm{x}_{\infty} = \max \card{x_i}$ and $\norm{x}_1 = \sum \card{x_i}$.
+      \[ \norm{x}_p = \left(\sum_{i=1}^n \card{x_i}^p\right)^{\frac1p} \xrightarrow{p \to \infty} \max \card{x_i} \qquad (1 \leq p \leq \infty) \]
+      This convergence is left to the reader as an exercise.
+      \[ \norm{A}_{\infty\to\infty} = \sup\setdef{\norm{Ax}_{\infty}}{\norm{x}_\infty \leq 1} \]
+      \begin{align*}
+        \norm{Ax}_{\infty} &= \max_i \card{(Ax) i} = \max_i \card{\sum_{j=1}^n a_{ij} x_j} \\
+          &\leq \max_i \sum_{j=1}^n \card{a_{ij}} \underbrace{\card{x_j}}_{\leq \max_j \card{x_j}}
+           \leq \underbrace{\max_j \card{x_j}}_{= \norm{x}_{\infty}} \max_i \sum_{j=1}^n \card{a_{ij}} \\
+          &\implies \forall x \in \mathbb K^n: \norm{Ax}_{\infty} \leq \max_i \sum_j \card{a_{ij}} \cdot \norm{x}_{\infty} \\
+          &\implies \norm{A}_{\infty\to\infty} \leq \max_i \sum_j \card{a_{ij}}
+      \end{align*}
+      \begin{claim}
+        $\norm{A}_{\infty\to\infty} = \max_i \sum_j \card{a_{ij}}$
+      \end{claim}
+      \begin{proof}
+        Find vector $\tilde x$ such that $\norm{A\tilde x}_{\infty} = \max_i \sum_j \card{a_{ij}} \cdot \norm{\tilde x}_{\infty}$. Choose $i_0$ such that $\sum_i \card{a_{ij}} = \max!$.
+        \[ \tilde x_j = \begin{cases} \frac{\card{a_{i_0 j}}}{a_{i_0 j}} & a_{i_0 j} \neq 0 \\ 0 & \text{else} \end{cases} \]
+        $\tilde x_j$ are not all zero, $\card{\tilde x_j} \in \set{0,1} \forall j$.
+        \begin{align*}
+          (A \cdot \tilde x)_{i_0} &= \sum_j a_{i_0 j} \tilde x_j = \sum_j a_{i_0 j} a_{i_0 j} \frac{\card{a_{i_0 j}}}{a_{i_0 j}} = \sum_j \card{a_{i_0 j}} = \max_i \sum \card{a_{ij}} \\
+            &\implies \norm{A \tilde x}_{\infty} \geq \card{(A \tilde x)_{i_0}} = \max_i \sum \card{a_{ij}} \cdot \underbrace{\norm{\tilde x}_{\infty}}_{=1} \\
+            &\implies \norm{A}_{\infty\to\infty} \geq \max_i \sum_j \card{a_{ij}} \\
+            &\implies \norm{A}_{\infty\to\infty} = \max_i \sum_j \card{a_{ij}} = \max\setdef{\norm{z_i}_1}{z_i \text{ row of } A}
+        \end{align*}
+      \end{proof}
+    \item $\norm{A}_{1 \to 1} = \max_j \sum_i \card{a_{ij}}$.
+      The proof is left as an exercise to the reader.
+  \end{enumerate}
+\end{example}
+
+\[ Ax = \lambda x \implies \norm{Ax} = \card{\lambda} \cdot \norm{x} \]
+\[ \implies \sup_{x \neq 0} \frac{\norm{Ax}}{\norm{x}} \geq \card{\lambda} \]
+
+\index{Spectral radius}
+\begin{definition} % Definition 14.5
+  \[ \rho(A) \coloneqq \max \setdef{\card{\lambda}}{\lambda \in \operatorname{spec}(A)} \]
+  is called \emph{spectral radius} of $A$.
+\end{definition}
+
+\begin{remark}
+  Why is it called radius? Consider the complex plane. This value is the radius of the smallest circle with center $0$ that contains all eigenvalues.
+\end{remark}
+
+\begin{lemma} % Lemma 14.6
+  \begin{enumerate}
+    \item For every compatible matrix norm: $\norm{A} \geq \rho(A)$
+    \item $\rho(A)$ is not a matrix norm (for some nilpotent matrix, $\rho(A) = 0$ but $A \neq 0$, hence it cannot be a norm)
+    \item $\forall A \in \mathbb C^{n \times n} \: \forall \varepsilon > 0 \:\exists \text{ norm on } \mathbb C^n: \text{the induced matrix norm satisfies } \norm{A} \leq \rho(A) + \varepsilon$
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Proof of point 3.
+
+  \[ \exists \text{ regular } T \in \mathbb C^{n \times n}: T^{-1} AT = J = \begin{bmatrix} \lambda_1 & \eta_k & & & 0 \\ & \ddots & \eta_{23} & & \\ & & \ddots & \ddots & \\ & & & \ddots & \eta_{n-1,n} \\ 0 & & & & \lambda_n \end{bmatrix} \qquad \eta_{ij} \in \set{0,1} \]
+  \[ D_{\varepsilon} = \operatorname{diag}(1, \varepsilon, \varepsilon^2, \dots, \varepsilon^{n-1}) \]
+  \[
+    D_{\varepsilon}^{-1} J D_{\varepsilon}
+      = \operatorname{diag}(1, \frac1\varepsilon, \frac1{\varepsilon^2}, \dots, \frac{1}{\varepsilon^{n-1}})
+      \begin{bmatrix} \lambda_1 & \eta_{12} & & \\ & \lambda_2 & \eta_{23} & \\ & & \ddots & \\ & & \lambda_{n-1} & \eta_{n-1,n} \\ & & & \eta_{n} \end{bmatrix}
+      \operatorname{diag}(1, \varepsilon, \varepsilon^2, \dots, \varepsilon^{n-1})
+  \] \[
+      = \begin{bmatrix}
+        \lambda_1 & \eta_{12} \varepsilon & & & & \\
+          & \frac{\lambda_2}{\varepsilon} \varepsilon \frac{\eta_{23}}{\varepsilon} \varepsilon^2  & & & & \\
+          & & \frac{\varepsilon_{3}}{\varepsilon^2} \varepsilon^2 \frac{\eta_{34}}{\varepsilon^2} \varepsilon^3 & & & \\
+          & & & \ddots & & \\
+          & & & & \ddots & \eta_{n-1} \varepsilon \\
+          & & & & & \lambda_n
+      \end{bmatrix}
+  \]
+  % TODO not sure this is part of the proof or not
+  Define a norm on $\mathbb C^n$.
+  \[ \norm{x}_{\varepsilon} = \norm{D_{\varepsilon}^{-1} T^{-1} x}_{\infty} \]
+  \begin{enumerate}
+    \item $\norm{x}_{\varepsilon} \geq 0$ is immediate. \\
+      $\norm{x}_{\varepsilon} = 0 \implies D_{\varepsilon}^{-1} T^{-1} x = 0 \implies x = 0$
+    \item $\norm{\lambda x}_{\varepsilon} = \norm{D_{\varepsilon}^{-1} T^{-1} \lambda x} = \card{\lambda} \cdot \norm{x}_{\varepsilon}$
+    \item $\norm{x + y}_{\varepsilon} = \norm{D_{\varepsilon}^{-1} T^{-1} (x + y)}_{\varepsilon} \leq \norm{D_{\varepsilon}^{-1} T^{-1} x}_{\infty} + \norm{D^{-1}_{\varepsilon} T^{-1} y}_{\infty} = \norm{x}_{\varepsilon} + \norm{y}_{\varepsilon}$
+  \end{enumerate}
+  \[ \norm{A}_{\varepsilon\to\varepsilon} = \sup_{x \neq 0} \frac{\norm{Ax}_{\varepsilon}}{\norm{x}_{\varepsilon}} \]
+  \[ x = \underbrace{TD_{\varepsilon}}_{\text{regular}} y = \sup_{y \neq 0} \frac{\norm{AT D_{\varepsilon} y}_{\varepsilon}}{\norm{TD_{\varepsilon} y}_{\varepsilon}} = \sup_{y \neq 0} \frac{\norm{D_{\varepsilon}^{-1} T^{-1} \left(ATD_{\varepsilon} y\right)}_{\infty}}{\norm{D_{\varepsilon}^{-1} T^{-1} \left(TD_{\varepsilon} y\right)}_{\infty}} = \sup_{y \neq 0} \frac{\norm{J_{\varepsilon} \cdot y}_{\infty}} = \sup_{y \neq 0} \frac{\norm{J_{\varepsilon} y}_{\infty}}{\norm{y}_{\infty}} \]
+  \[ \leq \norm{J_{\varepsilon}}_{\infty \to \infty} = \max_i \sum_j \card{(J_{\varepsilon})_{ij}} \leq \underbrace{\max \card{\lambda_i} + \varepsilon}_{= \rho(A) + \varepsilon} \]
+\end{proof}
+
+\begin{remark}
+  Israel Gelfand (1913--2009)
+\end{remark}
+
+\begin{remark} % Bemerkung 14.7
+  \[ \rho(A) \leq \norm{A} \]
+  \[ \rho(A^2) = \rho(A)^2 \qquad \rho(A^3) = \rho(A)^3 \]
+  \[ \operatorname{spec}(A^2) = \setdef{\lambda^2}{\lambda \in \operatorname{spec}(A)} \]
+  \[ \max(\card{\lambda_i}^2) = \left(\max\card{\lambda_i}\right)^2 \]
+
+  \[ \rho(A^2) \leq \norm{A}^2 \quad (\leq \norm{A})^2 \]
+  \[ \rho(A^3) \leq \norm{A}^3 \qquad \underbrace{\rho(A^k)}_{\rho(A)^k} \leq \norm{A^k} \]
+  \[ \implies \rho(A) \leq \norm{A^k}^{\frac1k} \forall k \]
+  Geldfand showed:
+  \[ \lim_{k\to\infty} \norm{A^k}^{\frac1k} = \rho(A) \]
+\end{remark}
+
+\index{Spectral norm}
+\begin{lemma} % Lemma 14.8
+  \begin{enumerate}
+    \item $\norm{A}_{2\to2} = \rho(A^* A)^{\frac12}$ is the \emph{spectral norm}
+    \item If $A$ is normal, then $\norm{A}_{2\to2} = \rho(A)$
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Already shown
+    \item $\operatorname{spec}(A^* A) = \setdef{\card{\lambda}^2}{\lambda \in \operatorname{spec}(A)}$ is left to be proved by the reader. Then $= \setdef{\overline\lambda \cdot \lambda}{\lambda \in \operatorname{spec}(A)} \implies \rho(A^* A) = \rho(A)^2$
+  \end{enumerate}
+\end{proof}
+
+\index{Hilbert space}
+\begin{remark} % Bemerkung 14.9
+  Let $V$ be a vector space with dimension $\infty$ with a norm.
+  For example, $l^2 = \setdef{(x_n) \in \mathbb R^\infty}{\sum_1^\infty \card{x_n}^2 < \infty}$
+  with norm $\norm{(x_n)} = \left(\sum_1^\infty \card{x_n}^2\right)^{\frac12}$ is a \emph{Hilbert space}.
+  \[ l^\infty = \setdef{(x_n)}{\sup\card{x_n} < \infty} \qquad \norm{(x_n)}_{\infty} = \sup\card{x_n} \]
+\end{remark}
+
+\begin{example}
+  \[ V = C^{\infty}[0,1] \]
+  \[ \frac d{dx}: f \mapsto f' \text{ is linear} \]
+  $\norm{\frac{d}{dx}} = \infty$ it does not matter which norm on $C^{\infty}[0,1]$ is defined.
+  \[ \rho(\frac d{dx}) = \infty \qquad f' = \lambda f \qquad f(x) = e^{\lambda x} \in C^\infty \implies \operatorname{spec}(\frac{d}{dx}) = \mathbb C \]
+\end{example}
+
+\begin{remark}
+  Carl Neumann (1832--1925)
+\end{remark}
+
+\begin{corollary} % 14.10
+  \label{cor1410}
+  For compatible norms, if $\norm{A} < 1$ then $I - A$ is invertible and $(I - A)^{-1} = \frac{1}{I - A} = \sum_{n=0}^\infty A^n$ and $\norm{(I - A)^{-1}} \leq \frac{1}{1 - \norm{A}}$
+
+  \begin{enumerate}
+    \item $\rho(A) \leq \norm{A} < 1 \implies 1 \not\in \operatorname{spec}(A) \implies I - A$ invertible
+    \item Neumann series: $\frac{1}{1 - x} = \sum_{n=0}^\infty x^n$ with $\card{x} < 1$
+  \end{enumerate}
+\end{corollary}
+
+\begin{remark}
+  \[ y' = \lambda y \qquad \int y' = \lambda \cdot \int y \implies \int y = \frac1{\lambda} \cdot y \]
+  Every differentiation can be converted into integration. An integration is bounded ($\lambda$ becomes $\frac1{\lambda}$).
+\end{remark}
+
+\begin{proof}
+  $\rho(A) < 1 \implies I - A$ invertible.
+  \begin{claim}
+    \[ \sum_{n=0}^\infty A^n \text{ converges} \]
+  \end{claim}
+  \begin{align*}
+    \sum{\sum_{n=1}^{N+m} A^n - \sum_{n=1}^N A^n}
+      &= \norm{\sum_{n=N+1}^{N+m} A^n} \leq \sum_{n=N+1}^{N+m} \norm{A^n} \leq \sum_{n=N+1}^{N+m} \norm{A}^n \leq \sum_{n=N+1}^\infty \norm{A}^n \\
+      &\leq \frac{\norm{A}^{N+1}}{1 - \norm{A}} \xrightarrow{N \to \infty} 0
+  \end{align*}
+  Thus, the sequence of partial sums is Cauchy and therefore convergent.
+  \[ (I - A) \sum_{n=0}^\infty A^n = \sum_{n=0}^\infty A^n - \underbrace{\sum_{n=0}^\infty A^{n+1}}_{= \sum_{n=1}^\infty A^n} = A^0 = I \]
+\end{proof}
+
+\[ Ax = \tilde b = b + \text{ error} \]
+\[ tilde x = A^{-1} \tilde b \qquad x = A^{-1} b \qquad \tilde x - x = A^{-1} (\tilde b - b) \implies \norm{\tilde x - x} \leq \norm{A^{-1}} \cdot \norm{\tilde b - b} \]
+\[ \norm{\tilde x - x} \overset{\text{?}}\leq C \cdot \norm{\tilde b - b} \]
+
+\begin{corollary} % Korollar 14.11
+  Let $A$ be invertible and $B$ be arbitrary with $\norm{B} < \norm{A^{-1}}^{-1}$.
+  $\implies A + B$ is invertible and
+  \[ \norm{(A + B)^{-1}} \leq \frac{\norm{A^{-1}}}{1 - \norm{A^{-1} \cdot \norm{B}}} \]
+
+  \[ \norm{A} \sim \max\card{\lambda_i} \]
+  \[ \norm{A^{-1}} \sim \max\frac{1}{\card{\lambda_i}} = \frac{1}{\min\card{\lambda_i}} \]
+  \[ \norm{A^{-1}}^{-1} = \min\card{\lambda_i} \]
+  Compare with $A = I$ as special case (this was covered in Corollary~\ref{cor1410}).
+  \[ \norm{B} < 1 \qquad \norm{(I + B)^{-1}} \leq \frac{1}{1 - \norm{B}} \]
+
+  \[ A + B = A \cdot (I + A^{-1} B) \]
+  \[ (A + B)^{-1} = (I + A^{-1} B)^{-1} \cdot A^{-1} \]
+  $I + A^{-1} B$ is invertible because $\norm{A^{-1} B} \leq \norm{A^{-1}} \cdot \norm{B} < 1$.
+  \[ \implies \norm{(A + B)^{-1}} \leq \norm{(I + A^{-1} B)^{-1}} \cdot \norm{A^{-1}} \leq \frac{1}{1 - \norm{A^{-1} B}} \norm{A^{-1}} \leq \frac{1}{1 - \norm{A^{-1}} \norm{B}} \cdot \norm{A^{-1}} \]
+
+  \[ x < y \qquad 1 - x > 1 - y \]
+  \[ \frac{1}{1 - x} < \frac{1}{1 - y} \]
+\end{corollary}
 
 \printindex
 \end{document}
