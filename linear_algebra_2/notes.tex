@@ -1734,15 +1734,17 @@ The norm is given by
   \[ \angel{a,a} = \norm{a}^2 \]
 \end{theorem}
 
-Recall that
-\[ \cos{0} = 1 \qquad \cos{\frac\pi2} = 0 \qquad \cos{\pi} = -1 \qquad \cos{\frac32 \pi} = 0 \]
-\[ \sin{0} = 0 \qquad \sin{\frac\pi2} = 1 \qquad \sin{\pi} = 0 \qquad \sin{\frac32 \pi} = -1 \]
+\begin{remark}
+  Recall that
+  \[ \cos{0} = 1 \qquad \cos{\frac\pi2} = 0 \qquad \cos{\pi} = -1 \qquad \cos{\frac32 \pi} = 0 \]
+  \[ \sin{0} = 0 \qquad \sin{\frac\pi2} = 1 \qquad \sin{\pi} = 0 \qquad \sin{\frac32 \pi} = -1 \]
 
-\[ \sin\theta = \cos(\theta - \frac\pi2) \]
-\[ \cos(\pi - \theta) = -\cos(\theta) \]
-\[ \sin(-\theta) = \cos(\theta) \]
-\[ \sin(\pi - \theta) = \sin(\theta) \]
-\[ \sin(-\theta) = -\sin(\theta) \]
+  \[ \sin\theta = \cos(\theta - \frac\pi2) \]
+  \[ \cos(\pi - \theta) = -\cos(\theta) \]
+  \[ \sin(-\theta) = \cos(\theta) \]
+  \[ \sin(\pi - \theta) = \sin(\theta) \]
+  \[ \sin(-\theta) = -\sin(\theta) \]
+\end{remark}
 
 \begin{theorem} % Satz 8.2
   \begin{enumerate}
@@ -2760,13 +2762,13 @@ in regards of basis $b_1, \dots, b_n$.
   It suffices to show that $r \leq \tilde r$.
   We know $r+s = \tilde r + \tilde s$.
 
-  $C$ is an invertible matrix, hence a basis change.
+  $C$ is an invertible matrix, hence a change of basis.
   In this new basis $B' = \set{b_1, \dots, b_n}$, it holds that
   \[ x^* A x = \overline{x^T} A x = \overline{\Phi_B(x)^T} \cdot D \cdot \Phi_B(x) \]
 
   \[ A = (C^*)^{-1} D C^{-1} \]
   \[ \overline{x^T} A x = \overline{x^T} (C^*)^{-1} D \underbrace{C^{-1} x}_{\overline{C}^{-1} x} \]
-  Equivalently, $\tilde C$ is a basis change to basis $\tilde B$
+  Equivalently, $\tilde C$ is a change of basis to basis $\tilde B$
   such that $x^* Ax = \Phi_{\tilde B}(x)^* \tilde D \tilde\Phi_{\tilde B}(x)$.
   For $x \in \mathcal L(\set{b_1, \dots, b_r}) \setminus \set{0}$,
   \[ \Phi_B(x) = \begin{pmatrix} \xi_1 \\ \vdots \\ \xi_r \\ 0 \\ \vdots \\ 0 \end{pmatrix} \]
@@ -4521,7 +4523,7 @@ William Rowan Hamilton (1805--1865).
 \[ \mathcal{SU}(2) = \setdef{a_0 + i a_1 + j a_2 + k a_3}{\sum a_i^2 = 1} \]
 \[ \mathcal{SO}(2) \eqsim \setdef{\cos \varphi + i \sin\varphi}{q \in [0,2\pi]} \]
 
-\section{Polynomials and algebras}
+\section{Polynomials and algebras} % Chapter 9
 
 \index{Algebra}
 \begin{definition} % definition 9.1
@@ -5056,7 +5058,7 @@ An application: Find all multiple roots (i.e. roots with multiplicity greater 1)
 \[ p'(x) = s'(x) \cdot (x - \xi)^k + s(x) \cdot k \cdot (x - \xi)^{k-1} = (s'(x) (x - \xi) + s(x) \cdot k) (x - \xi)^{k-1} \]
 \[ \implies (x - \xi)^{k-1} | \operatorname{gcd}(p(x), p'(x)) \]
 
-\section{Eigenvectors and eigenvalues}
+\section{Eigenvectors and eigenvalues} % Kapitel 10
 
 Given $f: V \to V$. Find a basis of $V$ such that $\Phi_B^B(f)$ has the simplest possible representation.
 Hence,
@@ -5089,15 +5091,14 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
 \index{Eigenspace}
 \begin{lemma}
   For $\lambda \in \mathbb K$, $f \in \operatorname{End}(V)$.
-  \[ \eta_{\lambda} = \set{v}{f(v) = \lambda \cdot v} \]
+  \[ \eta_{\lambda} = \setdef{v}{f(v) = \lambda \cdot v} \]
   is a subspace and is called eigenspace of $f$ for eigenvalue $\lambda$.
 \end{lemma}
 \begin{proof}
-  \begin{align*}
-    f(v) = \lambda \cdot v \iff f(v) - \lambda \cdot v &= 0 \\
-    (f - \lambda \cdot \operatorname{id}) (v) &= 0 \\
-    \iff v \in \underbrace{\operatorname{ker}(f - \lambda \cdot \operatorname{id})}_{\text{subspace}} &
-  \end{align*}
+  \[  f(v) = \lambda \cdot v \iff f(v) - \lambda \cdot v = 0
+      \iff (f - \lambda \cdot \operatorname{id}) (v) = 0
+      \iff v \in \underbrace{\operatorname{ker}(f - \lambda \cdot \operatorname{id})}_{\text{subspace}}
+  \]
 \end{proof}
 
 \begin{example} % Beispiel 10.3
@@ -5140,7 +5141,7 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
       \[ y(x) = \sin(\omega x) \]
       \[ \omega a = k \cdot \pi \implies y(0) = y(a) = \pi \]
       \[ \omega = \frac{k \cdot \pi}{a} \]
-      Eigen values of $H = P^2 + Q$ and $PQ - QP = \frac{\hbar}{i} I$. Heisenberg: Quantum mechanics is not commutative (impulses are matrices, not values).
+      Eigenvalues of $H = P^2 + Q$ and $PQ - QP = \frac{\hbar}{i} I$. Heisenberg: Quantum mechanics is not commutative (impulses are matrices, not values).
   \end{enumerate}
 \end{example}
 
@@ -5221,18 +5222,19 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
   \[ \operatorname{spec}(T^{-1} AT) = \operatorname{spec}(A) \]
 
   \begin{proof}[Direct proof]
+    Let $x$ be an eigenvector of $A$.
     \begin{align*}
-      Ax &= \lambda x \\
-      A \cdot T \cdot T^{-1} x &= \lambda \cdot x \\
-      \implies T^{-1} AT \cdot T^{-1} x &= \lambda T^{-1} x \\
-        &\text{ if } x \text{ is eigenvector of } A \\
-      \implies y = T^{-1} x &\text{ eigenvector of } T^{-1} AT
+      Ax = \lambda x &\iff A \cdot I \cdot x = \lambda x \iff A \cdot T \cdot T^{-1} \cdot x = \lambda x \\
+                     &\iff T^{-1} \cdot A \cdot T \cdot T^{-1} \cdot x = T^{-1} \cdot \lambda x = \lambda \cdot T^{-1} \cdot x \\
+                     &\iff y \coloneqq T^{-1} x \text{ is eigenvector of } T^{-1} AT \\
+                     &\iff T^{-1} AT y = \lambda y \\
+                     &\iff \lambda \text{ is eigenvalue of } T^{-1} AT
     \end{align*}
   \end{proof}
 \end{corollary}
 
 \begin{remark}
-  $\lambda$ is eigen value of $A$.
+  $\lambda$ is eigenvalue of $A$.
   \begin{align*}
     &\iff \ker(\lambda \cdot I - A) \neq \set{0} \\
     &\iff \rank(\lambda \cdot I - A) < n \\
@@ -5302,7 +5304,7 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
   Let $A \in \mathbb K^{n \times n}$.
   \[ \implies \chi_A(x) = \det(x \cdot I - A) \text{ is polynomial of degree } n \]
   specifically, $\chi_A(x) = \sum_{k=0}^n (-1)^{n-k} c_k(A) \cdot x^k$ with $c_k(A) = \sum_{\substack{j \in \set{1, \dots, n} \\ |j| = n - k}} \det(A_{jj})$
-  with $A_{jj} = (a_{ij})_{\substack{i \in J \\ j \in J}}$ called \emph{symmetrical minors}.
+  with $A_{jj} = (a_{ij})_{\substack{i \in J \\ j \in J}}$ are called \emph{symmetrical minors}.
 
   What are values of $c_i$?
   \begin{align*}
@@ -5388,17 +5390,18 @@ Characteristic polynomial: $= \sum_{k=0}^n (-1)^{n-k} c_k x^k$
   \begin{align*}
     \chi_{T^{-1}AT}(x) &= \det(xI - T^{-1}AT) \\
       &= \det(x T^{-1} T - T^{-1} AT) \\
-      &= \det(T^{-1}(xI - A) \cdot T) \\
+      &= \det(T^{-1} (x \cdot I) T - T^{-1} (A) T) \\
+      &= \det(T^{-1}(x \cdot I - A) \cdot T) \\
       &= \det(T^{-1}) \cdot \det(xI - A) \cdot \det(T) \\
       &= \frac{1}{\det{T}} \cdot \chi_A(x) \cdot \det{T} = \chi_A(x)
   \end{align*}
 \end{proof}
 
 \[ A = \begin{pmatrix} a_{11} & & 0 \\ & \ddots & \\ 0 & & a_{nn} \end{pmatrix} \leadsto \operatorname{spec}(A) = \set{a_{11}, \dots, a_{nn}} \]
-Eigen vector: $e_1, \dots, e_n$.
+Eigenvector: $e_1, \dots, e_n$.
 
 \begin{remark}[Question]
-  Does a basis change exist, hence $T \in \operatorname{GL}(n)$, such that $T^{-1} AT = \begin{pmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 &  & \lambda_n \end{pmatrix}$?
+  Does a change of basis exist, hence $T \in \operatorname{GL}(n)$, such that $T^{-1} AT = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$?
   Then the eigenvalues are necessarily on the diagonal.
 \end{remark}
 
@@ -5412,13 +5415,16 @@ Eigen vector: $e_1, \dots, e_n$.
 
 \begin{remark}[Recall]\hfill{}
   \begin{description}
+    {\leftskip=15pt
     \item[Equivalence] $A = PBQ$ with invertible $P,Q \iff \rank(A) = \rank(B)$.
     \item[Congruence]
       $A = A^*, B = B^*$.
       \[ \exists \text{ regular } C: A = C^* BC \]
-      index
+      $\leadsto$ index and Sylvester's law of inertia.
     \item[Similarity] $A = TBT^{-1}$ with regular $T$. This is related to eigenvalues.
     \item[Later on] $\exists T$ such that $T^* = T^{-1}$ unitary. $T^{*} T = I$.
+
+    }
   \end{description}
 \end{remark}
 
@@ -5446,8 +5452,8 @@ Eigen vector: $e_1, \dots, e_n$.
 
 \begin{example} % Beispiel 10.16
   \[ A = \begin{bmatrix} 1 & 2 & 4 \\ 4 & -3 & -8 \\ -2 & 2 & 5 \end{bmatrix} \]
-  \[
-    \chi_A(\lambda) = \det(\lambda I - A) = \begin{vmatrix}
+  \begin{align*}
+    \chi_A(\lambda) &= \det(\lambda I - A) = \begin{vmatrix}
       \lambda+1 & -2 & -4 \\
       -4 & \lambda+3 & 8 \\
       2 & -2 & \lambda-5
@@ -5456,14 +5462,11 @@ Eigen vector: $e_1, \dots, e_n$.
       \lambda-1 & -2 & -4 \\
       \lambda-1 & \lambda+3 & 8 \\
       0 & -2 & \lambda-5
-    \end{vmatrix}
-  \] \[
-    = (\lambda - 1) \begin{vmatrix} 1 & -2 & -4 \\ 1 & \lambda+3 & 8 \\ 0 & -2 & \lambda-5 \end{vmatrix}
-  \] \[
-    = (\lambda - 1) \begin{vmatrix} 1 & -2 & -4 \\ 0 & \lambda+5 & 12 \\ 0 & -2 & \lambda-5 \end{vmatrix}
-  \] \[
-    = (\lambda-1)(\lambda^2 - 25 + 24) = (\lambda - 1)(\lambda^2 - 1) = (\lambda-1)^2 (\lambda + 1)
-  \]
+    \end{vmatrix} \\
+    &= (\lambda - 1) \begin{vmatrix} 1 & -2 & -4 \\ 1 & \lambda+3 & 8 \\ 0 & -2 & \lambda-5 \end{vmatrix}
+    = (\lambda - 1) \begin{vmatrix} 1 & -2 & -4 \\ 0 & \lambda+5 & 12 \\ 0 & -2 & \lambda-5 \end{vmatrix} \\
+    &= (\lambda-1)(\lambda^2 - 25 + 24) = (\lambda - 1)(\lambda^2 - 1) = (\lambda-1)^2 (\lambda + 1)
+  \end{align*}
   Eigenvalue $(\lambda-1)$ has multiplicity $2$.
 
   Eigenvector: $\ker(\lambda \cdot I - A)$ \\
@@ -5517,8 +5520,9 @@ Eigen vector: $e_1, \dots, e_n$.
 \begin{example}[Application]
   \begin{align*}
     A &= B^{-1} \cdot \underbrace{\begin{bmatrix} \Lambda_1 & & \\ & \ddots & \\ & & \Lambda_n \end{bmatrix}}_{\Lambda} \cdot B \\
-    A^2 &= B^{-1} \Lambda B \cdot B^{-1} \Lambda B = B^{-1} \Lambda B \\
+    A^2 &= B^{-1} \Lambda B \cdot B^{-1} \Lambda B = B^{-1} \Lambda^2 B \\
     A^3 &= B^{-1} \Lambda^3 B \\
+        & \vdots \\
     A^k &= B^{-1} \Lambda^k B
   \end{align*}
   \[ e^A = \sum_{k=0}^\infty \frac{A^k}{k!} = \sum_{k=0}^\infty \frac{B^{-1} \Lambda^k B}{k!} = B^{-1} \sum_{k=0}^\infty \frac{\Lambda^k}{k!} B = B^{-1} \begin{bmatrix} e^{\lambda_1} & & \\ & \ddots & \\ & & e^{\lambda_n} \end{bmatrix} \]
@@ -5551,16 +5555,15 @@ Eigen vector: $e_1, \dots, e_n$.
   \[ F_n = F_n \]
   \begin{align*}
     \vectwo{F_{n+1}}{F_n}
-      &= \vectwo{F_n + F_{n-1}}{F_n} \\
-      &= \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} F_n \\ F_{n-1} \end{bmatrix} \\
-      &= \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^2 \begin{bmatrix} F_{n-1} \\ F_{n-2} \end{bmatrix} \\
-      &= \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^3 \begin{bmatrix} F_{n-2} \\ F_{n-3} \end{bmatrix} \\
-      &= \vdots \\
-      &= \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^n \begin{bmatrix} F_1 \\ F_0 \end{bmatrix} \\
-      &= \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^n \vectwo11
+      = \vectwo{F_n + F_{n-1}}{F_n}
+      &= \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} F_n \\ F_{n-1} \end{bmatrix} 
+      = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^2 \begin{bmatrix} F_{n-1} \\ F_{n-2} \end{bmatrix} 
+      = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^3 \begin{bmatrix} F_{n-2} \\ F_{n-3} \end{bmatrix} \\
+      &= \dots
+      = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^n \begin{bmatrix} F_1 \\ F_0 \end{bmatrix}
+      = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^n \vectwo11
   \end{align*}
-
-  diagonalizable $\begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}$.
+  and where $\begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}$ is diagonalizable.
   \[
     \chi_A(\lambda) = \begin{vmatrix}
       \lambda-1 & -1 \\
@@ -5600,8 +5603,7 @@ Eigen vector: $e_1, \dots, e_n$.
   \[ F_n = \frac1{\sqrt5} \left[\left(\frac{1 + \sqrt5}{2}\right)^{n+1} - \left(\frac{1 - \sqrt5}{2}\right)^{n+1}\right] \]
 
   \index{Golden ratio}
-  \[ \frac{F_{n+1}}{F_n} = \frac{\left(\frac{1 + \sqrt5}{2}\right)^{n+2} - \left(\frac{1 - \sqrt5}{2}\right)^{n+1}}{\left(\frac{1 + \sqrt5}{2}\right)^{n+1} - \left(\frac{1 - \sqrt5}{2}\right)^{n+1}} \]
-  \[ \xrightarrow{n\to\infty} \frac{1 + \sqrt5}{2} \]
+  \[ \frac{F_{n+1}}{F_n} = \frac{\left(\frac{1 + \sqrt5}{2}\right)^{n+2} - \left(\frac{1 - \sqrt5}{2}\right)^{n+1}}{\left(\frac{1 + \sqrt5}{2}\right)^{n+1} - \left(\frac{1 - \sqrt5}{2}\right)^{n+1}} \xrightarrow{n\to\infty} \frac{1 + \sqrt5}{2} \]
   is the \emph{Golden ratio}. This is the ratio:
   \[ \frac{a}{a+b} = \frac ba \]
   \[ \frac{F_n}{F_{n-1}} = \frac{1}{1 + \frac{1}{1 + \frac{1}{\dots}}} \]
@@ -5663,11 +5665,11 @@ Eigen vector: $e_1, \dots, e_n$.
 
 \subsection{Multiplicities of eigenvalues}
 
-\index{Geometrical multiplicity of an eigenvalue}
+\index{Geometric multiplicity of an eigenvalue}
 \begin{definition} % Definition 10.21
   Let $\lambda$ be the eigenvalue of a matrix $A$ $\implies \chi_A(\lambda) = 0$.
   \[ d(\lambda) = \dim\ker(\lambda I - A) > 0 \]
-  is called \emph{geometrical multiplicity of the eigenvalue}.
+  is called \emph{geometric multiplicity of the eigenvalue}.
 
   $k(\lambda)$ is the multiplicity of $\lambda$ as root of $\chi_A(\lambda)$
   and is called \emph{algebraic multiplicity of the eigenvalue}.
@@ -5702,7 +5704,7 @@ Eigen vector: $e_1, \dots, e_n$.
 \begin{theorem} % Satz 10.23
   For every eigenvalue, it holds that
   \[ d(\lambda) \leq k(\lambda) \]
-  Hence, the geometrical multiplicity is smaller than the algebraic multiplicity.
+  Hence, the geometric multiplicity is smaller than the algebraic multiplicity.
 \end{theorem}
 
 \begin{proof}
@@ -5726,16 +5728,17 @@ Eigen vector: $e_1, \dots, e_n$.
 
 \dateref{2018/05/23}
 
-Revision:
-$A$ is diagonalizable iff $\exists T$:
-\[ T^{-1} AT = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \]
-where $T$ is basis of eigen vectors.
-\[ \iff d(\lambda) = \text{ geometrical multiplicity } = \dim{\eta_{\lambda}} \]
-\[ \overset!= k(\lambda) = \text{ algebraic multiplicity} \]
+\begin{remark}[Revision]
+  $A$ is diagonalizable iff $\exists T$:
+  \[ T^{-1} AT = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \]
+  where $T$ is basis of eigenvectors.
+  \[ \iff d(\lambda) = \text{ geometric multiplicity } = \dim{\eta_{\lambda}} \]
+  \[ \overset!= k(\lambda) = \text{ algebraic multiplicity} \]
+\end{remark}
 
 \begin{example}
   \[ A = \begin{bmatrix} \lambda & 1 & 0 \\ 0 & \lambda & 1 \\ 0 & 0 & \lambda \end{bmatrix} \]
-  Eigen values:
+  Eigenvalues:
   \[ \chi_A(x) = \begin{vmatrix} x - \lambda & -1 & 0 \\ 0 & x - \lambda & -1 \\ 0 & 0 & x - \lambda \end{vmatrix} = (x - \lambda)^3 \]
   The only eigenvalue: $\lambda$.
   $k(\lambda) = 3$.
@@ -5743,18 +5746,27 @@ where $T$ is basis of eigen vectors.
   \[ d(\lambda) = \dim\ker{\eta_{\lambda}} = 1 \implies \text{ not diagonalizable} \]
 \end{example}
 
-Camille Jordan (1838--1922): Jordan curvature.
+\begin{remark}
+  Camille Jordan (1838--1922): Jordan curve theorem.
+\end{remark}
 
-\section{Jordan Normal Form (JNF)}
+\section{Jordan Normal Form (JNF)} % Kapitel 11
 
-Causs-Wilhelm-Jordan (1842--1899)
+\begin{remark}
+  Causs-Wilhelm-Jordan (1842--1899)
+\end{remark}
 
-Pasend Jordan Algebra: $A * B = A \cdot B + B \cdot A$
+%% I think "Pasend Jordan" should mean "Pascual Jordan"
+%% but the equation is still not correct for Jordan Algebras
+%% https://en.wikipedia.org/wiki/Jordan_algebra
+%Pasend Jordan Algebra: $A * B = A \cdot B + B \cdot A$
 
 Nilpotent matrix:
 \[
   \begin{bmatrix} 0 & * & * \\ 0 & 0 & * \\ 0 & 0 & 0 \end{bmatrix}^2
   = \begin{bmatrix} 0 & 0 & * \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
+  \qquad
+  \begin{bmatrix} 0 & 0 & * \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}^2
   = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
 \]
 
@@ -5764,7 +5776,7 @@ Nilpotent matrix:
 \begin{definition} % Definition 11
   Let $f: V \to V$ (or matrix $A \in \mathbb K^{n\times n}$) be linear.
   A subspace $U \subseteq V$ is called \emph{invariant} under $f$, if $f(U) \subseteq U$.
-  \[ Ax \in U \forall x \in U \]
+  \[ \iff Ax \in U \qquad \forall x \in U \]
 \end{definition}
 
 \begin{example} % Beispiel 11.2
@@ -5797,18 +5809,27 @@ Numerically unstable:
   Let $A \in \mathbb K^{n\times n}, V = \mathbb K^n$.
   \begin{enumerate}
     \item If $U \subseteq V$ is invariant and $p(x) \in \mathbb K[x]$, then $U$ is invariant under $p(A)$.
-      \[ p(x) \coloneqq \sum_{k=0}^n a_k x^k \]
-      \[ p(A) = \sum_{k=0}^n a_k A^k \]
-      \[ \psi_A: \substack{\mathbb K[x] \to \mathbb K^{n\times n} \\ x \mapsto A} \]
-    \item $U_1, \dots, U_k$ is an invariant subspace.
-      \[ \implies \substack{U_1 \cap \dots \cap U_k \\ U_1 + \dots + U_k} \text{ are invariant} \]
-    \item Let $x \in U \implies Ax U$. $A^2 \cdot x = A \cdot (Ax) \in U$ with $Ax \in U$. This goes on inductively. Thus $A^k x \in U$. $\implies \sum a_k A^k x \in U$ because it is a linear combination of elements of $U$ where $U$ is the subspace with $A^k x \in U$.
-    \item Let $x \in \bigcap_{i=1}^k u_i \implies Ax \in U_i \forall i \implies Ax \in \bigcap_{i=1}^k U_i$.
-      Let $x \in U_1 + \dots + U_k \implies x = u_1 + u_2 + \dots + u_k \text{ for } u_i \in U_i$.
-      \[ \implies Ax = \underbrace{Au_1}_{\in U_1} + \underbrace{Au_2}_{\in U_2} + \dots + \underbrace{Au_k}_{U_k} \in U_1 + \dots + U_k \]
-      \[ \implies U_1 + \dots + U_k \text{ is invariant} \]
+      \[
+        p(x) \coloneqq \sum_{k=0}^n a_k x^k 
+        \qquad p(A) = \sum_{k=0}^n a_k A^k
+        \qquad \psi_A: \substack{\mathbb K[x] \to \mathbb K^{n\times n} \\ x \mapsto A}
+      \]
+    \item $U_1, \dots, U_k$ are invariant subspaces.
+      \[ \implies \substack{U_1 \cap \dots \cap U_k \\ U_1 + \dots + U_k} \text{ are invariant in regards of } A \]
   \end{enumerate}
 \end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Let $x \in U$.
+      \[ \implies Ax \in U \qquad A^2 \cdot x = A \cdot \underbrace{(Ax)}_{\in U} \in U \quad \dots \quad A^k x \in U \implies \sum a_k A^k x \in U \]
+      because it is a linear combination of elements of $U$ where $U$ is the subspace with $A^k x \in U$.
+    \item Let $x \in \bigcap_{i=1}^k U_i$. $\implies \forall i: x \in U_i \implies \forall i: Ax \in U_i \implies Ax \in \bigcap_{i=1}^k U_i$.
+      Let $x \in U_1 + \dots + U_k \implies x = u_1 + u_2 + \dots + u_k \text{ for } u_i \in U_i$.
+      \[ \implies Ax = (\underbrace{Au_1}_{\in U_1} + \underbrace{Au_2}_{\in U_2} + \dots + \underbrace{Au_k}_{\in U_k}) \in U_1 + \dots + U_k \]
+      \[ \implies U_1 + \dots + U_k \text{ is invariant} \]
+  \end{enumerate}
+\end{proof}
 
 \begin{lemma} % Lemma 11.4
   Let $f: V \to V$ and $U \subseteq V$ is an invariant subspace.
@@ -5829,22 +5850,20 @@ Numerically unstable:
   \]
 \end{theorem}
 
-\begin{proof}[Proof of Theorem~\ref{s113}]
-  \begin{enumerate}
-    \item[4.] In the first $m$ columns, we have the images of $b_i$ (basis of $U$)
-      \[ U \text{ invariant } \implies f(b_i) \in U \]
-      \[ \implies \text{ coordinates in regards of } b'_1 \dots b'_n \text{ are } 0 \]
-      \[
-        \begin{bmatrix}
-          f(b_1) & \dots  & f(b_m) & f(b_1') & \dots  & f(b_m') \\
-                 & \ddots &        & 0       &        & 0 \\
-                 &        &        & 0       &        & 0 \\
-          0      & \dots  & 0      & \ddots  &        & \\
-          0      & \dots  & 0      &         & \ddots & \\
-          0      & \dots  & 0      &         &        & \ddots \\
-        \end{bmatrix}
-      \]
-  \end{enumerate}
+\begin{proof}[Proof of Theorem~\ref{s113}]\hfill{}
+  In the first $m$ columns, we have the images of $b_i$ (basis of $U$)
+  \[ U \text{ invariant } \implies f(b_i) \in U \]
+  \[ \implies \text{ coordinates in regards of } b'_1 \dots b'_n \text{ are } 0 \]
+  \[
+    \begin{bmatrix}
+      f(b_1) & \dots  & f(b_m) & f(b_1') & \dots  & f(b_m') \\
+             & \ddots &        & 0       &        & 0 \\
+             &        &        & 0       &        & 0 \\
+      0      & \dots  & 0      & \ddots  &        & \\
+      0      & \dots  & 0      &         & \ddots & \\
+      0      & \dots  & 0      &         &        & \ddots \\
+    \end{bmatrix}
+  \]
 \end{proof}
 
 In the last $n$ columns, we can find the images of $b_j'$.
@@ -5860,10 +5879,10 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
     \hline
       0 & \Phi_{B_2}^{B_2}(f|_{U_2}) & 0 & 0 \\
       0 & \vdots & \ddots & 0 \\
-      1 &   &  & \Phi_{B_k}^{B_k}(f|_{U_k})
+      0 &   &  & \Phi_{B_k}^{B_k}(f|_{U_k})
     \end{array}\right]
   \]
-  Hence, if $V$ can be decomposed into a direct sum of invariant subspaces, then $A$ be transformed into block diagonal form.
+  Hence, if $V$ can be decomposed into a direct sum of invariant subspaces, then $A$ can be transformed into block diagonal form.
   ($A$ is diagonalizable $\iff V$ can be decomposed into direct sum of one-dimensional subspaces)
 \end{corollary}
 
@@ -5872,15 +5891,17 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
   \[ \chi_f(x) = \prod_{i=1}^k \chi_{f|_{U_i}}(x) \]
 \end{corollary}
 
-\section{Fitting lemma}
+\subsection{Fitting lemma}
+
+\begin{remark}
+  Hans Fitting (1906--1938)
+\end{remark}
 
 \begin{lemma}[Fitting lemma]
-  Hans Fitting (1906--1938).
-
   Let $\dim{V} = n, f \in \operatorname{End}(V)$.
   \begin{enumerate}
-    \item $\set{0} \subseteq \ker{f} \subseteq \ker{f^2} \subseteq \ker{f^3}$
-      \[ \im{f} \supseteq \im{f^2} \supseteq \im{f^3} \supseteq \dots \]
+    \item $\set{0} \subseteq \ker{f} \subseteq \ker{f^2} \subseteq \ker{f^3} \subseteq \dots$ \\
+          $\im{f} \supseteq \im{f^2} \supseteq \im{f^3} \supseteq \dots$
     \item $\exists m \leq n: \ker{f^m} = \ker{f^{m+1}}$
     \item The following statements are equivalent:
       \begin{enumerate}
@@ -5965,35 +5986,54 @@ Fitting Lemma:
 \[ \ker{A^r} \cap \im{A^r} = \set{0} \]
 
 \begin{example} % Beispiel 11.9
-  \[ A = \begin{bmatrix} 0 & 1 & \\ & 0 & 1 \\ & &  0 \end{bmatrix} \]
-  \[ \ker{A} = \mathcal L\vecthree 100 \qquad \im{A} = \mathcal L\left(\vecthree 100, \vecthree 010\right) \]
-  \[ A^2 = \begin{bmatrix} 0 & 0 & 1 \\ & 0 & 0 \\ & &  0 \end{bmatrix} \]
-  \[ \ker{A^2} = \mathcal L\left(\vecthree 100, \vecthree 010\right)\qquad \im{A^2} = \mathcal L\left(\vecthree 100\right) \]
-  \[ A^3 = \begin{bmatrix} 0 & 0 & 0 \\ & 0 & 0 \\ & &  0 \end{bmatrix} \]
-  \[ \ker{A^3} = \mathbb K^3 \qquad \im{A^3} = \set{0} \]
+  \[ A = \begin{bmatrix} 0 & 1 & \\ & 0 & 1 \\ & &  0 \end{bmatrix}
+     \qquad \ker{A} = \mathcal L\vecthree 100
+     \qquad \im{A} = \mathcal L\left(\vecthree 100, \vecthree 010\right) \]
+  \[ A^2 = \begin{bmatrix} 0 & 0 & 1 \\ & 0 & 0 \\ & &  0 \end{bmatrix}
+     \qquad \ker{A^2} = \mathcal L\left(\vecthree 100, \vecthree 010\right)
+     \qquad \im{A^2} = \mathcal L\left(\vecthree 100\right) \]
+  \[ A^3 = \begin{bmatrix} 0 & 0 & 0 \\ & 0 & 0 \\ & &  0 \end{bmatrix}
+     \qquad \ker{A^3} = \mathbb K^3
+     \qquad \im{A^3} = \set{0} \]
 
-  \[ x \in \ker{A^k} \implies A \cdot x \in \ker{A^{k-1}} \]
+  \begin{mdframed}
+    \[ x \in \ker{A^k} \implies A \cdot x \in \ker{A^{k-1}} \]
+  \end{mdframed}
 \end{example}
 
 \begin{example}
-  \[A = \begin{bmatrix} \lambda & 1 &  \\ & \lambda & 1 \\ & & \lambda \end{bmatrix} \]
-  eigenvalue: $\lambda$
-  \[ \lambda I - A = \begin{bmatrix} 0 & -1 & \\ & 0 & -1 \\ & & 0 \end{bmatrix} \]
-  \[ \ker(\lambda I - A) = \mathcal L\left(\vecthree 100\right) \]
-  TODO
+  \[
+    A = \begin{bmatrix} \lambda & 1 &  \\ & \lambda & 1 \\ & & \lambda \end{bmatrix}
+    \qquad \text{ eigenvalue: } \lambda
+    \qquad \lambda I - A = \begin{bmatrix} 0 & -1 & \\ & 0 & -1 \\ & & 0 \end{bmatrix}
+  \]
+  \[
+    \ker(\lambda I - A) = \mathcal L\left(\vecthree 100\right)
+    \qquad \ker((\lambda I - A)^2) = \mathcal L\left(\vecthree 100, \vecthree 010\right)
+  \]
+  \begin{align*}
+    x \in \ker((\lambda I - A)^2)
+      &\implies (\lambda I - A) x \in \ker(\lambda I - A) \\
+      &\implies Ax = \lambda x + b \qquad b \in \ker(\lambda I - A)
+  \end{align*}
 \end{example}
 
 \subsection{Main space}
 
 \index{Main space}
+\index{Generalized eigenvectors}
 \begin{definition} % Definition 11.10
   Let $A \in \mathbb K^{n\times n}$, $\lambda \in \operatorname{spec}(A)$.
   Then $\ker(\lambda I - A)^n$ is called \emph{main space} (dt. \foreignlanguage{german}{Hauptraum})
-  TODO
+  of $A$ for eigenvalue $\lambda$. The elements are called \emph{generalized eigenvectors}.
+
+  Actually, $\ker(\lambda I - A)^n = \ker(\lambda I - A)^r$ and a generalized eigenvector satisfies
+  \[ A \cdot x = \lambda \cdot x + y \qquad y \in \ker(\lambda I - A)^{r-1} \]
+  with $r$ as first index such that $\ker(\lambda I - A)^r = \ker(\lambda I - A)^{r+1}$.
 \end{definition}
 
 Fitting:
-\[ \mathbb K^n = \ker(\lambda I - A)^r \oplus \im{\lambda I - A}^r \]
+\[ \mathbb K^n = \ker(\lambda I - A)^r \oplus \im(\lambda I - A)^r \]
 Next step: decomposition for \emph{different} eigenvalues.
 
 \begin{lemma} % Lemma 11.11
@@ -6016,6 +6056,7 @@ Next step: decomposition for \emph{different} eigenvalues.
 \end{remark}
 
 \begin{example} % Example 11.12
+  % TODO better visualization for block square matrices?
   \[
     A = \begin{bmatrix}
       1 & 1 &   &   &   &   &   & \\
@@ -6033,7 +6074,7 @@ Next step: decomposition for \emph{different} eigenvalues.
 
   Consider $\lambda = 1$.
   \[
-    \ker\left[ I - A \right] =
+    \ker\left( I - A \right) =
     \ker\begin{bmatrix}
       0 & -1 &   &    &    &    &    & \\
         & 0  &   &    &    &    &    & \\
@@ -6045,9 +6086,9 @@ Next step: decomposition for \emph{different} eigenvalues.
         &    &   &    &    &    & -1 & 1
     \end{bmatrix}
   \]
-  \[ \ker(I - A) = \mathcal L(e_1, e_2) \]
+  \[ \ker(I - A) = \mathcal L(e_1, e_2) \qquad \text{ the two zero columns} \]
   \[
-    (I - A)^2 = \ker\begin{bmatrix}
+    \ker(I - A)^2 = \ker\begin{bmatrix}
       0 & 0  &   &    &    &    &    & \\
       0 & 0  &   &    &    &    &    & \\
         &    & 0 &    &    &    &    & \\
@@ -6057,12 +6098,12 @@ Next step: decomposition for \emph{different} eigenvalues.
         &    &   &    &    &    & 1  & 1 \\ %  )^2
         &    &   &    &    &    & -1 & 1    %  )   is regular
     \end{bmatrix}
-    % TODO visualize block matrix squares
   \]
   \[ \ker(I - A)^2 = \mathcal L(e_1, e_2, e_3) \]
   \[ \im(I - A)^2 = \mathcal L(e_4, e_5, e_6, e_7, e_8) \]
+  Consider $\lambda = 2$.
   \[
-    (2I - A) = \ker\begin{bmatrix}
+    \ker(2I - A) = \ker\begin{bmatrix}
       1 & -1 &   &    &    &    &    & \\
         & 1  &   &    &    &    &    & \\
         &    & 1 &    &    &    &    & \\
@@ -6072,11 +6113,10 @@ Next step: decomposition for \emph{different} eigenvalues.
         &    &   &    &    &    & 2  & 1 \\
         &    &   &    &    &    & -1 & 2
     \end{bmatrix}
-    % TODO visualize block matrix squares
   \] \[
     \ker(2I - A) = \mathcal L(e_{4})
   \] \[
-    (2I - A)^2 = \ker\begin{bmatrix}
+    \ker(2I - A)^2 = \ker\begin{bmatrix}
       1 & 1  &   &    &    &    &     \\   % }^2
         & 1  &   &    &    &    &     \\   % }   is regular
         &    & 1 &    &    &    &     \\
@@ -6088,50 +6128,37 @@ Next step: decomposition for \emph{different} eigenvalues.
   \] \[
     \ker(2I - A)^2 = \mathcal L(e_4, e_5)
   \] \[
-    (2I - A)^3 = \ker\begin{bmatrix}
-      [\text{regular}  &   &    &    &    &     \\
-            & 1 &    &    &    &     \\
-            &   & 0  & 0  & 1  &     \\
-            &   &    & 0  & 0  &     \\
-            &   &    &    & 0  &     \\
-            &   &    &    &    & [\text{regular}]
-    \end{bmatrix}
-  \] \[
     \ker(2I - A)^3 = \mathcal L(e_4, e_5, e_6)
   \] \[
-    \im(2I - A)^3 = \mathcal L(e_1, e_2, e_3, e_7, e_8)
+    \ker(2I - A)^3 = \mathcal L(e_1, e_2, e_3, e_7, e_8)
   \] \[
-    (2I - A) = \begin{bmatrix}
-      1 & -1 &   &   &    &    &    & \\
-        & 1  &   &   &    &    &    & \\
-        &    & 1 &   &    &    &    & \\
-        &    &   & 0 & -1 &    &    & \\
-        &    &   &   & 0  & -1 &    & \\
-        &    &   &   &    & 0  &    & \\
-        &    &   &   &    &    & 2  & 1 \\
-        &    &   &   &    &    & -1 & 2
-    \end{bmatrix}
-  \] \[
-    \ker(2I - A) = \mathcal L(e_4)
-  \] \[
-    \bigcap{i=1}^2 \im(\lambda_i I - A)^{r_i} = \mathcal L(e_7, e_8)
-  \] \[
-    (I - A)^2 (2I - A)^3 = \begin{bmatrix}
+    \bigcap_{i=1}^2 \im(\lambda_i I - A)^{r_i} = \mathcal L(e_1, e_2, e_3, e_7, e_8) \cap \mathcal L(e_4, e_5, e_6, e_7, e_8) = \mathcal L(e_7, e_8)
+  \]
+  \begin{align*}
+    (I - A)^2 \cdot (2I - A)^3 &= \begin{bmatrix}
       0 & 0 &   & & \\
       0 & 0 &   & & \\
         &   & 0 & & \\
         &   &   & [\text{regular } 3 \times 3] & \\
         &   &   &       & [\text{regular } 2 \times 2]
-    \end{bmatrix} \cdot \begin{bmatrix}
-      [\text{regular } 2 \times 2] &
+    \end{bmatrix} \\ &\cdot \begin{bmatrix}
+      [\text{regular } 2 \times 2] & & & & & \\
         & 1 &   &   &   & \\
         &   & 0 & 0 & 0 & \\
         &   & 0 & 0 & 0 & \\
         &   & 0 & 0 & 0 & \\
         &   &   &   &   & [\text{regular } 2 \times 2]
+    \end{bmatrix} \\ &= \begin{bmatrix}
+      0 & 0 &   &   &   &   & \\
+      0 & 0 &   &   &   &   & \\
+        &   & 0 &   &   &   & \\
+        &   &   & 0 & 0 & 0 & \\
+        &   &   & 0 & 0 & 0 & \\
+        &   &   & 0 & 0 & 0 & \\
+        &   &   &   &   &   & [\text{regular } 2\times 2]
     \end{bmatrix}
-  \] \[
-    \ker(I-A)^2 (2I - A) \text{TODO}
+  \end{align*} \[
+    \ker{(I - A)^2 \cdot (2I - A)^3} = \mathcal L(e_1, \dots, e_6) = \left(\bigcap (\lambda_i I - A)^{r_i}\right)^c
   \]
 \end{example}
 
@@ -6320,11 +6347,11 @@ By invariance, $\Phi_B^B(A)$ has block diagonal form.
 \subsection{Nilpotent matrix}
 
 \index{Nilpotent matrix}
+\index{Index of a nilpotent matrix}
 \begin{theorem}
   A matrix/linear map $f: V \to V$ is called \emph{nilpotent}, if $\exists k \in \mathbb N: f^k = 0$.
-  The smallest $k$ is called \emph{index} of nilpotency of $f$.
+  The smallest $k$ is called \emph{index} of $f$.
 \end{theorem}
-
 \[ (\lambda_i I - A)|_{i\text{-th main space}} \text{ is nilpotent} \]
 Goal: Structure of nilpotent matrices:
 \[
@@ -6442,8 +6469,7 @@ Goal: Structure of nilpotent matrices:
     \end{bmatrix}
   \]
   \[
-    B = V_1^{(1)} v_n^{(2)} \dots v_1^{(p)} v_2^{(i)} v_{2}^{(2)} \dots v_2^{(p)}
-    TODO
+    B = V_1^{(1)} v_n^{(2)} \dots v_1^{(p)} v_2^{(2)} v_{2}^{(2)} \dots v_2^{(p)} \dots v_k^{(1)} v_k^{(2)} \dots v_k^{(p-1)} \dots v_{M_i}
   \]
   \[ B = v_1^{(i)} \dots v_1^{(p)} v_2^{(i)} \dots v_2^{(n_2)} v_3^{(1)} \dots v_3^{(n_3)} \dots v_d^{(1)} \dots v_d^{(n_d)} \]
   \[ n_3 \leq n_2 \leq n_1 \]
@@ -7103,12 +7129,11 @@ where $\mu_i$ are the roots of $q(x)$.
   \begin{align*}
     \angel{\lambda x + \mu y, z} &= \lambda \angel{x,z} + \mu yz \\
     \angel{x,y} &= \overline{\angel{y, x}} \\
-    \angel{y,y} &= \geq 0 \\
-    \angel{x,x} &= 0 \iff x = 0
+    \angel{x,x} &\geq 0 \text{ or equivalently, } \angel{x,x} = 0 \iff x = 0
   \end{align*}
 \end{definition}
 
-Adjoing map: $f: V \to W$ where $B$ is the basis of $V$ and $C$ is the basis of $W$.
+Adjoint map: $f: V \to W$ where $B$ is the basis of $V$ and $C$ is the basis of $W$.
 \[ \angel{f(x),y} = \angel{x,f^*(y)} \]
 $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
 \[ \Phi_C^B(f) \text{ is its matrix representation} \]
@@ -7153,7 +7178,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
     \item $\ker(\lambda I - A) = \ker(\overline{\lambda} I - A^*)$
     \item $\ker(\lambda I - A)^2 = \ker(\lambda I - A)$
   \end{enumerate}
-  \[ \implies \text{ main spaces } = \text{ eigen spaces} \]
+  \[ \implies \text{ main spaces } = \text{ eigenspaces} \]
   \[ \implies \text{ diagonalizable} \]
 \end{corollary}
 
@@ -7206,7 +7231,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
 \end{proof}
 
 \begin{remark}[Summary]
-  Let $A$ be normal. Then main spaces are eigen spaces.
+  Let $A$ be normal. Then main spaces are eigenspaces.
   So they are diagonalizable. Then there exists some basis of eigenvectors.
   Eigenspaces are always orthogonal, so there exists an orthogonal basis of eigenvectors.
 \end{remark}
@@ -7216,7 +7241,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   \begin{enumerate}
     \item $A$ is normal.
     \item $\exists$ orthonormalbasis of eigenvectors
-    \item $\exists$ unitary matrix $U$ such that $U^* AU = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix}$,
+    \item $\exists$ unitary matrix $U$ such that $U^* AU = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$,
       hence $A$ is unitarily diagonalizable.
   \end{enumerate}
 \end{theorem}
@@ -7762,7 +7787,7 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
       \[ U \cdot \card{A} = A \cdot \card{A}^{-1} \cdot \card{A} = A \]
     \item[Case 2: $A$ is singular]
       Let $A^* A \geq 0$ and some $\lambda_i = 0$.
-      By basis exchange, $A = V \operatorname{diag}(\lambda_1, \dots, \lambda_k, 0, \dots, 0) V^*$.
+      By change of basis, $A = V \operatorname{diag}(\lambda_1, \dots, \lambda_k, 0, \dots, 0) V^*$.
       \[ \card{A} = V \operatorname{diag}(\lambda_1^{\frac12}, \dots, \lambda_k^{\frac12}, 0, \dots, 0) V^* \]
       \[ \card{A} = \begin{bmatrix} P & \\ & 0 \end{bmatrix} \qquad U = V \begin{bmatrix} P^{-1} & \\ & 0 \end{bmatrix} \simeq \begin{bmatrix} \tilde U & \\ & I \end{bmatrix} \]
       \[ \implies A = U \card{A} \]
