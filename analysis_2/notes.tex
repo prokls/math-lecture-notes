@@ -5774,6 +5774,119 @@ Left as an exercise to the reader:
   \[ \implies \kappa(t) = \frac{\norm{\gamma' \times \gamma''}}{\norm{\gamma'}^3} \]
 \end{mdframed}
 
+\dateref{2018/06/28}
+
+\begin{example}[helical curve]
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/55_helical_curve.pdf}
+      \caption{Helical curve with pitch $h$}
+      \label{img:helical}
+    \end{center}
+  \end{figure}
+  Let $\gamma(t)$ be a helical curve (compare with Figure~\ref{img:helical}).
+  \[ \gamma(t) = \begin{bmatrix} \cos{t} \\ \sin{t} \\ t \end{bmatrix} \]
+  The pitch (dt. \foreignlanguage{german}{Gangh\"ohe}) is given by $h$:
+  \[ \gamma'(t) = \begin{bmatrix} -\sin(t) \\ \cos(t) \\ h \end{bmatrix} \]
+  \[ \norm{\gamma'(t)} = \sqrt{1 + h^2} = A \]
+  \[ s(t) = \int_0^t \norm{\gamma'(\tau)} \, d\tau = \sqrt{1 + h^2} \cdot t = A \cdot t \]
+  \[ t(s) = \frac{1}{A} \cdot s \]
+  Reparameterization by arc length:
+  \[
+    \tilde\gamma(s) = \begin{bmatrix}
+      \cos{\frac{s}{a}} \\
+      \sin{\frac{s}{a}} \\
+      h \cdot \frac{s}{a}
+    \end{bmatrix}
+  \] \[
+    T(s) = \tilde\gamma'(s) = \frac1{A} \cdot \begin{bmatrix} -\sin{\frac{s}{a}} \\ \cos{\frac{s}{a}} \\ h \end{bmatrix}
+  \] \[
+    T'(s) = \underbrace{\frac{1}{A^2}}_{\norm{T'(s)} = \kappa(s)} \underbrace{\begin{bmatrix} -\cos{\frac{s}{a}} \\ -\sin{\frac{s}{a}} \\ 0 \end{bmatrix}}_{N(s)}
+  \] \[
+    \norm{-\cos{\frac{s}{a}} \\ -\sin{\frac{s}{a}} \\ 0} = 1
+  \] \[
+    \implies \kappa = \frac{1}{1 + h^2} \qquad \text{ \dots{} constant}
+  \] \begin{align*}
+    B &= T \times N = \frac{1}{A} \cdot \begin{bmatrix} -\sin\frac{s}{a} \\ \cos\frac{s}{a} \\ h \end{bmatrix} \times \begin{bmatrix} - \cos\frac{s}{a} \\ -\sin \frac sa \\ 0 \end{bmatrix} \\
+      &= \frac1A \begin{bmatrix} h \cdot \sin\frac sa \\ -h \cos \frac sa \\ 1 \end{bmatrix} \\
+    B' &= \frac{h}{A^2} \begin{bmatrix} \cos\frac sA \\ \sin\frac sA \\ 0 \end{bmatrix} = -\frac{h}{A^2} \cdot N
+  \end{align*}
+  3rd Frenet's formula: $B' = \tau \cdot N$.
+  \[ \implies \tau = -\frac h{A^2} = -\frac{h}{1 + h^2} \]
+
+  % TODO image
+\end{example}
+
+\subsection{Curvatures of plane curves}
+Let $\gamma: I \to \mathbb R^2$.
+\[ \norm{\gamma'(s)} = 1 \]
+Then it holds that
+\[
+  \gamma'(s) = \begin{bmatrix}
+    \cos{v(s)} \\
+    \sin{v(s)}
+  \end{bmatrix} \in S^1
+  = \setdef{x \in \mathbb R^2}{\norm{x}_2 = 1}
+\]
+$\vartheta(s)$ is the continuously differentiable angle parameter.
+\[ T(s) = \gamma'(s) = \begin{bmatrix} \cos{\vartheta(s)} \\ \sin{\vartheta(s)} \end{bmatrix} \]
+\[ T'(s) = \vartheta'(s) \begin{bmatrix} -\sin{\vartheta(s)} \\ \cos\vartheta(s) \end{bmatrix} \coloneqq \vartheta'(s) \cdot N(s) \]
+\[ N(s) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot \begin{bmatrix} \cos{\vartheta} \\ \sin{\vartheta} \end{bmatrix} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot T(s) \]
+% TODO: image
+\index{signed curvature}
+is the \emph{signed curvature}. It can have positive or negative sign.
+% TODO image
+The curvature changes the sign on change of the traversing direction.
+\[ T' = \kappa \cdot N \]
+\[ N(s) = \begin{bmatrix} -\sin{\vartheta(s)} \\ \cos{\vartheta(s)} \end{bmatrix} \]
+\[ N'(s) = \vartheta'(s) \begin{bmatrix} -\cos\vartheta(s) \\ -\sin\vartheta(s) \end{bmatrix} = -\kappa T \]
+2 Frenet formulas:
+\[ T' = \kappa N \qquad N' = -\kappa T \]
+
+Determination of $\kappa$ in case of arbitrary parameterization:
+\begin{align*}
+  \gamma(t) &= \begin{bmatrix} x(t) \\ y(t) \end{bmatrix} \\
+  T(t) &= \frac{1}{\sqrt{{x'}^2 + {y'}^2}} \begin{bmatrix} x' \\ y' \end{bmatrix} \\
+  s(t) &\text{ \dots arc position with } \\
+  t(s) &\text{ \dots change of parameter to arc length} \\
+  t'(s) &= \frac{dt}{ds} = \frac{1}{(x'^2 + y'^2)^{\frac12}} \\
+  \frac{d}{ds} \left[T(t(s))\right] &= \underbrace{\frac{d}{dt} T(t)}_{T'(t)} \cdot \frac{dt}{ds} \\
+  T'(t) &= \frac{1}{(x'^2 + y'^2)^{\frac12}} \begin{bmatrix} x'' \\ y'' \end{bmatrix} - \frac{1}{(x'^2 + y'^2)^{\frac32}} (x' x'' + y' y'') \begin{bmatrix} x' \\ y' \end{bmatrix} \\
+    &= \frac{y'' x' - x'' \cdot y'}{(x'^2 + y'^2)^{\frac32}} \cdot \begin{bmatrix} -y' \\ x' \end{bmatrix} \\
+  \frac{d}{ds} \left[T(s)\right] &= \frac{y'' \cdot x' - x'' y'}{(x'^2 + y'^2)^{\frac32}} \cdot \underbrace{\frac{1}{(x'^2 + y'^2)} \cdot \begin{bmatrix} -y' \\ x' \end{bmatrix}}_{N} \\
+  T' &= \underbrace{\frac{y'' x' - x'' y'}{(x'^2 + y'^2)^{\frac32}}}_{= \kappa} \cdot N
+\end{align*}
+
+\begin{mdframed}
+  \[ \kappa = \frac{y'' x' - x'' y'}{(x'^2 + y'^2)^{\frac32}} \]
+\end{mdframed}
+
+Let $\gamma: I \to \mathbb R^2$, $\gamma$ is parameterized by the arc length.
+$\mu(s)$ is center of the circle of curvature of $\gamma$ by change of parameter $s$.
+
+% TODO image
+
+\index{evolute}
+$s \mapsto \mu(s)$ is called \emph{evolute} of $\gamma$. Is a curve in the plane.
+\[ \mu(s) = \gamma(s) + \frac{1}{\kappa(s)} \cdot N(s) \]
+\[ \mu'(s) = \gamma'(s) + \frac{1}{\kappa(s)} \cdot N'(s) - \frac{\kappa'(s)}{\kappa(s)^2} \cdot N(s) = T(s) + \frac{1}{\kappa} \left(-\kappa T\right) - \frac{\kappa'}{\kappa^2} N = -\frac{\kappa'}{\kappa^2} \cdot N \]
+Hence, if $\kappa \neq 0$, then $N(s)$ is a tangential vector of $\mu$ in $\mu(s)$.
+The normal lines at the curve corresponds to the tangent at the evolute.
+
+% TODO image
+
+\index{Envelope}
+The normal lines to $\gamma$ give a family of lines such that every line is a tangent at $\mu$.
+$\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignlanguage{german}{Einh\"ullende der Schar der Normalen an $\gamma$}).
+
+\begin{example}
+  \[ \gamma(t) = \begin{bmatrix} t \\ t^2 \end{bmatrix} \qquad \text{\dots parabola} \]
+  \[ \gamma'(t) = \begin{bmatrix} 1 \\ 2t \end{bmatrix} \]
+  \[ T(t) = \frac{1}{\sqrt{1 + 4t^2}} \begin{bmatrix} 1 \\ 2t \end{bmatrix} \qquad N(t) = \frac{1}{\sqrt{1 + 4t^2}} \begin{bmatrix} -2t \\ 1 \end{bmatrix} \]
+  \[ \kappa(t) = \frac{2}{(1 + 4t^2)^{\frac32}} \]
+  \[ \mu(t) = \gamma(t) + \frac{1}{\kappa(t)} \cdot N(t) = \begin{bmatrix} t \\ t^2 \end{bmatrix} + \frac{(1 + 4t^2)^{\frac32}}{2} \frac{1}{(1 + 4t^2)^{\frac12}} \begin{bmatrix} -2t \\ 1 \end{bmatrix} = \begin{bmatrix} -4t^3 \\ \frac12 + 3t^2 \end{bmatrix} = \underbrace{\frac12 \begin{bmatrix} 0 \\ 1 \end{bmatrix} + \begin{bmatrix} -4t^3 \\ 3t^2 \end{bmatrix}}_{\text{Neil's parabola}} \]
+  \[ \mu'(t) = 0 \text{ for } t = 0 \qquad (\kappa' = 0 \text{ hence } \kappa \text{ has maximum}) \]
+\end{example}
 
 \printindex
 \end{document}
