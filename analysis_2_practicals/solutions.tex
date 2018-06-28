@@ -1722,6 +1722,143 @@ Let $(b_0, \dots, b_{n-1}) \in B_{\delta}(a_0, \dots, a_{n-1})$. $(*) \implies f
 \[ (b_0, \dots, b_{n-1}) \in B_{\delta}(a_0, \dots, a_{n-1}) \subset U_i \forall i \]
 \[ g_i(U_i) = V_i \]
 
+\dateref{2018/06/28}
+
+\section{Sheet 12, Exercise 1}
+\begin{ex}
+  Let $a > \frac12 + e^{-2}$, $D \coloneqq (0, \infty) \times \mathbb R$, $G \coloneqq \set{(x, y)^T \in D: x + a = 1}$ and
+  \[ f: (0, \infty) \times \mathbb R \to \mathbb R, \qquad f(x,y) \coloneqq \ln(x + a) y^2 e^y + (x - a)^2. \]
+  \begin{enumerate}
+    \item Argue that $f$ is two times partially differentiable and compute $\nabla f$ and $\nabla^2 f$.
+    \item Show that $f$ on $D \setminus G$ has exactly two stationary points and that those are a strictly local minimum and a saddle point respectively. \\
+      \emph{Hint:} Show that $x + a > 1$ for the stationary point with $y = -2$.
+    \item Show that $(a, 0)^T$ is not a global minimum of $f$ on $D$ if $a < 1$.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 12, Exercise 1a}
+\[
+  \nabla f = \begin{bmatrix}
+    \frac{1}{x + a} \cdot 1 \cdot y^2 \cdot e^y + 2 (x - a) \\
+    \ln(x + a) (2y + y^2) \cdot e^y
+  \end{bmatrix}
+\] \[
+  \nabla^2 f = \begin{bmatrix}
+    -\frac{1}{(x + a)^2} \cdot y^2 \cdot e^y + 2  & \frac{1}{(x + a)} \cdot (2y + y^2) \cdot e^y \\
+    \frac{1}{(x + a)} \cdot (2y + y^2) \cdot e^y  & \ln(x + a) (2 + 4y + y^2) \cdot e^y
+  \end{bmatrix}
+\]
+
+\subsection{Sheet 12, Exercise 1b}
+\[ \frac{1}{x + a} \cdot y^2 e^y + 2 (x - a) = 0 \]
+This equation is more helpful to retrieve stationary points:
+\[ \ln(x + a) \cdot (2y + y^2) \cdot e^y = 0 \]
+
+Consider $x = a \land y = 0$.
+\[
+  \nabla^2 f(x, y) =
+  \begin{bmatrix}
+    2 & 0 \\
+    0 & 2 \cdot \ln(2a)
+  \end{bmatrix} \qquad \text{ positive definite}
+\] \[
+  \implies \text{strict local minimum}
+\]
+It is symmetric. So it is positive definite iff all eigenvalue are positive.
+
+Consider $y = -2$.
+\[ \frac{1}{x + a} \cdot 4 \cdot \frac{1}{e^2} + 2 (x - a) \overset!= 0 \]
+\[ \frac{4}{(x + a) e^2} + 2 (x - a) \overset!= 0 \]
+\[ \frac{4}{e^2} + 2 \cdot (x^2 - a^2) \overset!= 0 \]
+\[ x = \sqrt{a^2 - \frac{2}{e^2}} \]
+
+Show that: $x + a \overset!> 1$.
+
+\[ \sqrt{a^2 - 2e^{-2}} + a \]
+\[ a^2 > \frac14 + e^{-4} + e^{-2} \]
+\[ \sqrt{\frac14 - e^{-2} + e^{-4}} + a > 1 \]
+\[ \frac12 - e^{-2} + a > 1 \]
+
+By $x + a > 1$, $x = \sqrt{a^2  - \frac{2}{e^2}}$ and $y = -2$ is in $D \setminus G$.
+
+\[
+  \nabla^2 f \begin{pmatrix} \sqrt{a^2 - 2e^{-2}} \\ -2 \end{pmatrix}
+  = \begin{bmatrix}
+    \underbrace{2 - \frac{4e^{-2}}{(x + a)^2}}_{>0} & 0 \\
+    0 & \underbrace{\underbrace{\ln(\underbrace{x + a}_{>1})}_{>0} \cdot e^{-2} \cdot (-2)}_{<0}
+  \end{bmatrix}
+\]
+So indefinite Hesse matrix, so it is a saddle point.
+
+\subsection{Sheet 12, Exercise 1c}
+\[ f(a, 0) = 0 \]
+
+\section{Sheet 12, Exercise 2}
+\begin{ex}
+  Let $A \in \mathbb R^{m \times n}$ and $b \in \mathbb R^{m}$. We consider the least square problem
+  \[ \min_{x \in \mathbb R^n} \norm{Ax - b}_2^2 \]
+  \begin{enumerate}
+    \item Show that $g: \mathbb R^n \to \mathbb R$, $g(x_1, \dots, x_n) \coloneqq \sum_{j=1}^n x_j^2$ is arbitrari often continuously partially differentiable and determine $\nabla g$ and $\nabla g$.
+    \item Use the chain rule to prove that
+      \[ f: \mathbb R^n \to \mathbb R, \qquad f(x_1, \dots, x_n) \coloneqq \norm{Ax - b}_2^2 \]
+      is arbitrarily often differentable and determine $\nabla f$ and $\nabla^2 f$. Verify that your result has the proper dimensions. For example, $\nabla^2 f(x) \in \mathbb R^{n \times n}$.
+    \item Prove that every local minimum $x^* \in \mathbb R^n$ of $f$ necessarily satisfies the normal system $A^T Ax^* = A^T b$.
+    \item Show:
+      \begin{itemize}
+        \item Every $x^* \in \mathbb R^n$ with $A^T A x^* = A^T b$ is a global minimum of $f$
+        \item If $A^T A$ is positive definite, so $f$ has at most one global minimum $x^*$.
+      \end{itemize}
+      \emph{Hint:} Taylor expansion of $f$ in $x^*$.
+    \item Show that $f$ can have several local or global minima.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Sheet 12, Exercise 2a}
+
+\[ \nabla g(x) = 2x = (2 I) x \]
+\[ \nabla^2 g(x) = 2I \]
+
+\subsection{Sheet 12, Exercise 2b}
+\[ \norm{Ax - b}_2^2 = g(\underbrace{Ax - b}_{\eqqcolon h(x)}) \]
+
+\begin{align*}
+  Df(x) &= Dg(h(x)) \cdot Dh(x) \\
+    &= 2h(x)^T \cdot A \\
+    &= 2(Ax - b)^T \cdot A \\
+    &= 2(x^T A^T - b^T) \cdot A
+\end{align*}
+\[ \nabla f(x) = 2 \cdot \left(A^A x - A^T b\right) \]
+
+\subsection{Sheet 12, Exercise 2c}
+
+\[ D f(x^*) = [0, 0, \dots, 0] \]
+\begin{align*}
+  0 &= 2 (A^T Ax^* - A^T b) \\
+  0 &= A^T Ax^* - A^T b \\
+  A^T Ax^* &= A^T b
+\end{align*}
+
+\subsection{Sheet 12, Exercise 2d}
+
+\[ f(x) = f(x^*) + \underbrace{\nabla f(x^*)^T}_{=0 \text{ because } A^T Ax^* = A^T b} (x - x^*) + \frac12 (x - x^*)^T \nabla^2 f(\xi) (x - x^*) \]
+with $\xi = x^* + \Theta(x - x^*)$ with $0 < \Theta < 1$.
+\[ = f(x^*) + \underbrace{(x - x^*)^T A^T A (x - x^*)}_{\norm{A(x - x^*)}_2^2 \geq 0} \]
+
+1: $\geq f(x^*) \forall x \in \mathbb R^n$ \\
+2: $> f(x^*) \forall x \in \mathbb R^n \setminus \set{x^*}$
+
+\subsection{Sheet 12, Exercise 2e}
+Choose $n = m = 1$, $A = 0 = b$.
+Then $f$ is the zero function in $\mathbb R$.
+
+$A^T A$ is also positive semidefinite.
+
+\section{Sheet 12, Exercise 4}
+\subsection{Sheet 12, Exercise 4a}
+A rolled up snake around $(0, 0)$ with opposite directions for $c=1$ and $c=-1$ each.
+
+\subsection{Sheet 12, Exercise 4b}
+\[ S_\gamma = \int_a^b \norm{\gamma'(t)}_2 \, dt = \sqrt{1 + c^2} \cdot \int_a^b e^{ct} \, dt = \sqrt{1 + c^2} \cdot \left.\frac{e^{ct}}{c}\right|_a^b = \frac{\sqrt{1 + c^2}}{c} (e^{bc} - e^{ac})\]
 
 
 \end{document}
