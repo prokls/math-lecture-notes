@@ -1822,12 +1822,14 @@ So indefinite Hesse matrix, so it is a saddle point.
 \[ \norm{Ax - b}_2^2 = g(\underbrace{Ax - b}_{\eqqcolon h(x)}) \]
 
 \begin{align*}
+  Dh(x) &= A \\
   Df(x) &= Dg(h(x)) \cdot Dh(x) \\
     &= 2h(x)^T \cdot A \\
     &= 2(Ax - b)^T \cdot A \\
-    &= 2(x^T A^T - b^T) \cdot A
+    &= 2(x^T A^T - b^T) \cdot A \\
+  \nabla f(x) &= 2 \cdot \left(A^T A x - A^T b\right) \\
+  \nabla f^2(x) &= 2A^T A
 \end{align*}
-\[ \nabla f(x) = 2 \cdot \left(A^A x - A^T b\right) \]
 
 \subsection{Sheet 12, Exercise 2c}
 
@@ -1840,7 +1842,7 @@ So indefinite Hesse matrix, so it is a saddle point.
 
 \subsection{Sheet 12, Exercise 2d}
 
-\[ f(x) = f(x^*) + \underbrace{\nabla f(x^*)^T}_{=0 \text{ because } A^T Ax^* = A^T b} (x - x^*) + \frac12 (x - x^*)^T \nabla^2 f(\xi) (x - x^*) \]
+\[ f(x) = f(x^*) + \underbrace{\nabla f(x^*)^T}_{=0 \text{ because } A^T Ax^* = A^T b} (x - x^*) + \frac12 (x - x^*)^T \underbrace{\nabla^2 f(\xi)}_{2A^TA} (x - x^*) \]
 with $\xi = x^* + \Theta(x - x^*)$ with $0 < \Theta < 1$.
 \[ = f(x^*) + \underbrace{(x - x^*)^T A^T A (x - x^*)}_{\norm{A(x - x^*)}_2^2 \geq 0} \]
 

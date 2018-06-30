@@ -8405,5 +8405,176 @@ Exercise for the practicals:
   \[ \frac{1}{1 - x} < \frac{1}{1 - y} \]
 \end{corollary}
 
+\dateref{2018/06/30}
+
+\[ \norm{A} < 1 \implies I-A \text{ invertible} \]
+\[ (I - A)^{-1} = \sum_{n=0}^\infty A^n \]
+\[ \lim\sup \norm{A^n}^{\frac1n} = g(A) < 1 \]
+$\sum a_n$ converges absolutely if $\lim\sup{\card{a_n}^{\frac1n}} < 1$. So it holds.
+
+$A_0$ is invertible, $\norm{A} < \norm{A_0^{-1}}^{-1}$.
+\[ A_0 + A \text{ invertible} \]
+\[ \norm{(A_0 + A)^{-1}} \leq \frac{\norm{A_0^{-1}}}{1 - \norm{A_0^{-1}} \cdot \norm{A}} < 1 \]
+
+\begin{remark}[Sensitivity of linear equation systems] % 14.12
+  \label{rem:sens}
+  Instead of $Ax = b$, we consider $\tilde A \tilde x = \tilde b$
+  with $\norm{A - \tilde A}$ and $\norm{b - \tilde b}$ as \enquote{small} values.
+  Does this imply $\norm{x - \tilde x}$ is small?
+
+  Let $A$ be a regular matrix and $\norm{\cdot}$ is a compatible matrix norm.
+  Let $x$ be the unique solution of $Ax = b$.
+  Let $\tilde x$ be the unique solution of $A \tilde x = \tilde b$.
+  \[ \implies \tilde b = b + \underbrace{\triangle b}_{\text{error}} \]
+  \[ \triangle x = \tilde x - b = \text{error in the solution} \]
+  The relative error is interesting.
+  The error relative to the solution is given by:
+  \[ \frac{\norm{\triangle x}}{x} \leq \underbrace{\norm{\triangle}}_{\substack{\text{largest} \\ \text{singular value}}} \cdot \underbrace{\norm{A^{-1}}}_{\substack{\text{reciprocal of} \\ \text{smallest} \\ \text{singular value}}} \cdot \frac{\norm{\triangle b}}{\norm{b}} \]
+\end{remark}
+
+\index{Condition number of a matrix}
+\begin{definition} % Definition 14.13
+  \[ \kappa(A) \coloneqq \norm{A} \cdot \norm{A^{-1}} \geq 1 \]
+  is called \emph{condition number of $A$}.
+  If $\kappa(A)$ is large, then the problem is badly conditioned.
+\end{definition}
+
+\begin{example} % 6.14
+  For diagonal matrices:
+  \[ \Lambda = \operatorname{diag}(\lambda_1, \lambda_2, \dots, \lambda_n) \]
+  \[ \norm{\Lambda}_{2 \to 2} = \max\card{\lambda_i} \]
+  \[ \norm{\Lambda^{-1}}_{2 \to 2} = \frac{1}{\min\card{\lambda_i}} \]
+  \[ \implies \kappa(A) = \frac{\max\card{\lambda_i}}{\min\card{\lambda_i}} \]
+\end{example}
+
+\begin{proof}[Proof of Remark~\ref{rem:sens}]
+  \[ Ax = b \qquad A \tilde x = \tilde b \]
+  \begin{align*}
+    A (x + \triangle b) &= b + \triangle b \\
+    \iff Ax + A \triangle x &= b + \triangle b \\
+    \iff A \triangle x &= \triangle b \\
+    \implies \triangle x &= A^{-1} \triangle b \\
+    \implies \norm{\triangle x} &\leq \norm{A^{-1}} \cdot \norm{\triangle b}
+  \end{align*}
+  \[ \norm{b} = \norm{Ax} \leq \norm{A} \cdot \norm{x} \]
+  \[ \implies \frac{1}{\norm{x}} \leq \frac{\norm{A}}{\norm{b}} \]
+  \[ \implies \frac{\norm{\triangle x}}{\norm{x}} = \norm{A^{-1}} \cdot \norm{\triangle b} \cdot \frac{\norm{A}}{\norm{b}} \]
+\end{proof}
+
+\begin{remark}[General case] % 6.15
+  \[ \tilde A = A + \triangle A \qquad Ax = b \]
+  \[ \tilde b = b + \triangle b \qquad \tilde A \tilde x = \tilde b \]
+  \[ \triangle \tilde x = \tilde x + x \]
+
+  Requirement:
+  \[ \norm{\triangle A} < \norm{A^{-1}}^{-1} \text{ such that } \tilde A \text{ invertible} \]
+  \[ \implies \frac{\norm{\triangle A}}{\norm{A}} \leq \frac{1}{\norm{A} \cdot \norm{A^{-1}}} = \frac{1}{\kappa(A)} \]
+  Then this modified system becomes solvable.
+
+  All these times, we use the inequality:
+  \[ \norm{A \cdot B} \leq \norm{A} \cdot \norm{B} \]
+  \[ \norm{A \cdot x} \leq \norm{A} \cdot \norm{x} \]
+
+  \[ (A + \triangle A)(x + \triangle x) = b + \triangle b \]
+  \begin{align}
+    \iff (I + A^{-1} \triangle A) (x + \triangle x) &= x + A^{-1} \triangle b \label{eq:one} \\
+    \iff x + \triangle x + A^{-1} \triangle Ax + A^{-1} \triangle A \triangle x &= x + A^{-1} \triangle b \nonumber \\
+    \iff \triangle x &= A^{-1} \triangle b - A^{-1} \triangle A (x + \triangle x) \nonumber
+  \end{align}
+  \[ \norm{\triangle x} \leq \underbrace{\norm{A^{-1}} \cdot \norm{\triangle b}}_{\text{Eq.~\eqref{eq:two}}} + \underbrace{\norm{A^{-1}} \cdot \norm{\triangle A} \cdot \norm{x + \triangle x}}_{\text{Eq.~\eqref{eq:three}}} \]
+
+  \begin{align}
+    \norm{A^{-1}} \cdot \norm{\triangle b} &= \frac{\norm{A^{-1}} \cdot \norm{b} \cdot \norm{\triangle b}}{\norm{b}} \label{eq:two} \\
+      &\leq \frac{\norm{A^{-1}} \cdot \norm{Ax} \cdot \norm{\triangle b}}{\norm{b}} \nonumber \\
+      &\leq \norm{A^{-1}} \cdot \norm{A} \cdot \norm{x} \cdot \frac{\norm{\triangle b}}{\norm{b}} \nonumber \\
+      &\leq \kappa(A) \cdot \norm{x} \cdot \frac{\norm{\triangle b}}{\norm{b}} \nonumber
+  \end{align}
+
+  \begin{align}
+    \norm{x + \triangle x} &\overset{\eqref{eq:one}}{=} \norm{(1 + A^{-1} \triangle A)^{-1} \cdot (x + A^{-1} \triangle b)} \label{eq:three} \\
+      &\leq \norm{(1 + A^{-1} \triangle A)^{-1}} \cdot \left(\norm{x} + \norm{A^{-1}} \cdot \norm{\triangle b}\right) \nonumber \\
+      &\leq \frac{1}{1 - \norm{A^{-1} \triangle A}} \cdot \norm{x} \cdot \left(1 + \norm{x} \cdot \norm{A^{-1}} \cdot \norm{b} \cdot \frac{\norm{\triangle b}}{\norm{b}}\right) \nonumber \\
+      &\leq \frac{1}{1 - \norm{A^{-1}} \cdot \norm{A} \cdot \frac{\norm{\triangle A}}{\norm{A}}} \cdot \norm{x} \cdot \left(1 + \kappa(A) \cdot \frac{\norm{\triangle b}}{\norm{b}}\right) \nonumber \\
+      &\leq \frac{1}{1 - \kappa(A) \cdot \frac{\norm{\triangle A}}{\norm{A}}} \cdot \norm{x} \cdot \left(1 + \kappa(A) \cdot \frac{\norm{\triangle b}}{\norm{b}}\right) \nonumber \\
+      &\leq \kappa(A) \cdot \frac{\norm{\triangle b}}{\norm{b}} \cdot \norm{x} + \frac{1}{1 - \kappa(A) \cdot \frac{\norm{\triangle A}}{\norm{A}}} \left(1 + \kappa(A) \cdot \frac{\norm{\triangle b}}{\norm{b}}\right) \cdot \norm{x}
+  \end{align}
+  \[ \iff \frac{\norm{\triangle x}}{\norm{x}} \leq \kappa(A) \cdot \frac{\norm{\triangle b}}{\norm{b}} + \frac{1 + \kappa(A) \cdot \frac{\norm{\triangle b}}{\norm{b}}}{1 - \kappa(A) \cdot \frac{\norm{\triangle A}}{\norm{A}}} \]
+\end{remark}
+
+\begin{remark}[Sensitivity of eigenvalues] % 6.16
+  Let $A \in \mathbb C^{n \times n}$, diagonalizable.
+  \[ \to B^{-1} AB = \operatorname{diag}(\lambda_1, \dots, \lambda_n) \]
+  \[ \tilde A = A + \triangle A \]
+  \[ \lambda \in \operatorname{spec}(\tilde A) \implies \exists j: \card{\lambda - \lambda_j} \leq \norm{B} \cdot \norm{B^{-1}} \cdot \norm{\triangle A} \]
+  ($\norm{\cdot} = \norm{\cdot}_{2 \to 2}$ or $\norm{\cdot}_{\infty\to\infty}$)
+\end{remark}
+
+\begin{lemma}[Special case]
+  \[ A \text{ normal} \implies B \text{ unitary} \implies \text{ isometric} \qquad \norm{u_x} = \norm{x} \forall x \]
+  \[ \implies \norm{B} = 1, \norm{B^{-1}} = 1 \]
+\end{lemma}
+\begin{proof}
+  \begin{enumerate}
+    \item If $\lambda \in \operatorname{spec}(A)$, then nothing to show.
+    \item If $\lambda \not\in \operatorname{spec}(A)$, then $A - \lambda I$ is regular, $\tilde A - \lambda I$ is non-regular.
+  \end{enumerate}
+  \begin{align*}
+    \underbrace{\tilde A - \lambda I}_{\text{not invertible}}
+      &= (A - \triangle A) - \lambda I \\
+      &= (A - \lambda I)(A - \lambda I)^{-1} \cdot (A - \lambda I + \triangle A) \\
+      &= (A - \lambda I)(I + (A - \lambda I)^{-1} \triangle A) \\
+      &\implies I + (A - \lambda I)^{-1} \cdot \triangle A \text{ is \emph{not} invertible} \\
+      &\xRightarrow{\text{Neumann negated}} \norm{(A - \lambda I)^{-1} \cdot \triangle A} \geq 1
+  \end{align*}
+  \begin{align*}
+    1 &\leq \norm{(A - \lambda I)^{-1} \triangle A} \\
+      &= \norm{(B \Lambda B^{-1} \cdot \lambda BB^{-1})^{-1} \cdot \triangle A} \\
+      &= \norm{\left(B \left(\Lambda - \lambda I\right) B^{-1}\right)^{-1} \cdot \triangle A} \\
+      &= \norm{(B (\Lambda - \lambda I^{-1}) B^{-1}) \triangle A} \\
+      &\leq \norm{B} \cdot \norm{(\Lambda - \lambda I)^{-1}} \cdot \norm{B^{-1}} \cdot \norm{\triangle A} \\
+      &= \norm{B} \cdot \norm{B^{-1}} \cdot \frac{1}{\min\card{\lambda_i - \lambda}} \cdot \norm{\triangle A} \\
+      &\implies \min\card{\lambda_i - \lambda} \leq \kappa(B) \cdot \norm{\triangle A}
+  \end{align*}
+
+  Recall that,
+  \begin{align*}
+    (\Lambda - \lambda I)^{-1}
+      &= \begin{bmatrix} \lambda_1 - \lambda & & \\ & \ddots & \\ & & \lambda_n - \lambda \end{bmatrix}^{-1} \\
+      &= \begin{bmatrix} \frac{1}{\lambda_1 - \lambda} & & \\ & \ddots & \\ & & \frac{1}{\lambda_n - \lambda} \end{bmatrix} \\
+    \norm{(\Lambda - \lambda I)^{-1}} &= \max\card{\frac{1}{\lambda_i - \lambda}} = \frac{1}{\min\card{\lambda_i - \lambda}}
+  \end{align*}
+\end{proof}
+
+\section{Non-negative matrices}
+
+\index{Non-negative matrix}
+\begin{definition} % 15.1
+  $A \in \mathbb K^{n \times n}$ is called \emph{non-negative}
+  if $a_{ij} \geq 0 \forall i,j$. We denote $A \geq 0$.
+  Do not mix this up with positive definiteness!
+\end{definition}
+
+\index{Row-stochastic matrix}
+\begin{example}[Markov chains]
+  \[ a_{ij} = W_s k \]
+  Manhattan: $a_{ij} = W_s k$ that you can reach node $j$ from node $i$.
+  \[ a_{ij} \geq 0 \forall i,j \]
+  For fixed $i$: $\sum_j a_{ij} = 1$.
+
+  Matrix $A$ is called \emph{row-stochastic}.
+
+  \index{Strongly connected graph}
+  $A$ has eigenvector:
+  \[ A \cdot \begin{bmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} \]
+  \[ \implies 1 \text{ is eigenvalue}, \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix} \eqqcolon \Gamma \text{ is eigenvalue of } 1 \]
+  A directed graph is called \emph{strongly connected} if you can reach every node from each other.
+\end{example}
+
+\begin{theorem}[Perron-Frobenius theorem]
+  If the graph is strongly connected, then eigenvalue $1$ has geometric and algebraic multiplicity $1$,
+  all the other eigenvalues satisfy $\card{\lambda} < 1$.
+  \[ A_v^n \to_{n \to \infty} \mathbf 1 \forall v \]
+\end{theorem}
+
 \printindex
 \end{document}
