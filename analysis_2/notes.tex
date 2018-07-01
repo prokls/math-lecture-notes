@@ -4786,24 +4786,23 @@ Necessary (but not sufficient) optimality criteria:
 
 \dateref{2018/06/12}
 
-% TODO: check in this proof that order \partial_{x_j x_i} is always correct
 \begin{proof}
-  Let $x_0 \in D$, $\overline{K_r(x_0)} \subseteq D$, $h, k \in \mathbb R$, $\card{h}, \card{k} \leq \frac r2$.
+  Let $x_0 \in D$ and $\overline{K_r(x_0)} \subseteq D$. Let $h, k \in \mathbb R$ and $\card{h}, \card{k} \leq \frac r2$.
   So $x_0 + h e_i \in \overline{K_{\frac r2}(x_0)}$ and $x_0 + ke_j \in \overline{K_{\frac r2(x_0)}}$ and also
   $x_0 + he_i + ke_j \in \overline{K_r(x_0)}$, because
   \[ \norm{x_0 + he_i + ke_j - x_0} \leq \card{h} \norm{e_i} + \card{k} \norm{e_j} = \card{h} + \card{k} \leq \frac r2 + \frac r2 = r \]
   \[ F: \left[-\frac r2, -\frac r2\right] \times \left[-\frac r2, \frac r2\right] \to \mathbb R \]
   \[ F(h, k) \coloneqq f(x_0 + he_i + ke_j) - f(x_0 + he_i) - f(x_0 + ke_j) + f(x_0) \]
-  \[ \varphi: \left[-\frac r2, \frac r2\right] \to \mathbb R \]
+  \[ \varphi: \left[-\frac r2, \frac r2\right] \to \mathbb R \qquad \text{$k$ fixed}  \]
   \[ \varphi(\lambda) \coloneqq f(x_0 + \lambda e_i + ke_j) - f(x_0 + \lambda e_i) \]
   \[ \implies \varphi(0) = f(x_0 + ke_j) - f(x_0) \]
-  \[ \varphi(h) = f(x_0 + he_j + ke_j) - f(x_0 + he_i) \]
+  \[ \varphi(h) = f(x_0 + he_i + ke_j) - f(x_0 + he_i) \]
   Therefore, $F(h, k) = \varphi(h) - \varphi(0)$.
   $\varphi$ is continuously differentiable (because $f \in \mathcal C^2$).
   By the Mean Value Theorem of differential calculus:
   \[ F(h, k) = \varphi(h) - \varphi(0) = \varphi'(\lambda) \cdot h \]
   with an appropriate $\lambda \in (-h, h)$ and accordingly $\card{\lambda} < \card{h}$.
-  \[ \varphi'(\lambda) \cdot h = [Df(x_0 + \lambda e_i + ke_j) - Df(x_0 + \lambda e_i)] e_1 \]
+  \[ \varphi'(\lambda) \cdot h = h \cdot [Df(x_0 + \lambda e_i + ke_j) - Df(x_0 + \lambda e_i)] e_i \]
   \[ Df \cdot e_i = \partial_{x_i} f \]
   and also 
   \[ \varphi'(\lambda) \cdot h = h \cdot [\partial_{x_i} f(x_0 + \lambda e_i + k \cdot e_j) - \partial_{x_i} f (x_0 + \lambda e_i)] \]
@@ -4811,30 +4810,30 @@ Necessary (but not sufficient) optimality criteria:
   \[ \psi(\mu) = \partial_{x_i} f(x_0 + \lambda e_i + \mu e_j) \text{ is continuously differentiable} \]
   So we apply the Mean Value Theorem:
   \[ F(h,k) = \varphi'(\lambda) \cdot h = h [\psi(k) - \psi(0)] \]
-  \[ h \cdot k \psi'(\mu) \text{ with appropriate } \mu \in \left[-\frac r2, \frac r2\right] \]
+  \[ h \cdot k \cdot \psi'(\mu) \text{ with appropriate } \mu \in \left[-\card{k}, \card{k}\right] \]
   \[ \psi'(\mu) = \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) \]
-  \[ \implies \exists (\lambda, \mu) \in \left[-\card{h}, \card{h}\right] \times \left[-\card{k}, \card{k}\right] \]
-  such that
-  \[ F(h, k) = h \cdot k \partial_{x_i x_j} f(x_0 + \lambda e_i + \mu e_j) \]
+  \[ \implies \exists (\lambda, \mu) \in \left[-\card{h}, \card{h}\right] \times \left[-\card{k}, \card{k}\right] \text{ such that} \]
+  \[ {\color{blue} F(h, k)} = h \cdot k \cdot \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) \]
   Analogously,
   \[ \tilde \varphi(\eta) = f(x_0 + he_i + \eta e_j) - f(x_0 + \eta e_j) \]
   \[ \text{like above: } F(h,k) = \tilde \varphi(k) - \tilde \varphi(0) = k\tilde \varphi'(\eta) \]
   with appropriate $\eta \in \left[-\card{k}, \card{k}\right]$.
   \[ k \tilde \varphi'(\eta) = k \left[\partial_{x_j} f(x_0 + he_i + \eta e_j) - \partial_{x_j} f(x_0 + \eta e_j)\right] \]
   \[ \tilde \psi(\xi) = \partial_{x_j} f(x_0 + \xi e_i + \eta e_j) \text{ and Mean Value Theorem} \]
-  \[ \implies F(h, k) = k \cdot h \cdot \partial_{x_i x_j} f(x_0 + \xi e_i + \eta e_j) \]
+  \[ \implies {\color{red} F(h, k)} = k \cdot h \cdot \partial_{x_i x_j} f(x_0 + \xi e_i + \eta e_j) \]
+  with $(\xi, \eta) \in [-\card{h}, \card{h}] \times [-\card{k}, \card{k}]$.
 
+  Because ${\color{blue} F(h, k)} = {\color{red} F(h, k)}$,
   \begin{align*}
-    hk \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) &= kh \partial_{x_i x_j} f(x_0 + \xi e_i + \mu e_j) \\
-    \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) &= \partial_{x_i x_j} f(x_0 + \xi e_i + \mu e_j) \\
-    \implies \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) &= \partial_{x_j x_i} f(x_0 + \xi e_i + \eta e_j)
+    hk \cdot \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j) &= kh \cdot \partial_{x_i x_j} f(x_0 + \xi e_i + \mu e_j) \\
+    \implies \partial_{x_i x_j} f(x_0 + \lambda e_i + \mu e_j) &= \partial_{x_j x_i} f(x_0 + \xi e_i + \eta e_j)
   \end{align*}
-  with $\card{\lambda}, \card{\xi} < \card{h}$ and $\card{\mu}, \card{\eta} < \card{k}$.
+  with $\card{\lambda} < \card{h}, \card{\xi} < \card{h}$ and $\card{\mu} < \card{k}, \card{\eta} < \card{k}$.
   $h \to 0, k \to 0 \implies \lambda \to 0, \mu \to 0, \xi \to 0, \eta \to 0$.
-  \[ f \in \mathcal C^2 \implies \partial_{x_j x_i} f \text{ and } \partial_{x_j x_i} f \text{ are continuous} \]
+  \[ f \in \mathcal C^2 \implies \partial_{x_i x_j} f \text{ and } \partial_{x_j x_i} f \text{ are continuous} \]
   \[
-    \implies \partial_{x_i x_j} f(x_0) = \lambda_{\lambda, \mu \to 0} \partial_{x_i x_j} f(x_0 + \lambda e_i + \mu e_j)
-    = \lim_{\xi,\eta \to 0} \partial_{x_j x_i} f(x_0 + \xi e_i + \eta e_j) = \partial_{x_j x_i} f(x_0)
+    \implies \partial_{x_j x_i} f(x_0) = \lim_{\lambda, \mu \to 0} \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j)
+    = \lim_{\xi,\eta \to 0} \partial_{x_i x_j} f(x_0 + \xi e_i + \eta e_j) = \partial_{x_i x_j} f(x_0)
   \]
   Counter example:
   \[
@@ -5105,21 +5104,33 @@ hence, the Taylor expansion of $f$ up to the second degree is
   In the 2-dimensional case, we have
   \[ D_2 f(x_0) \text{ symmetrical, positive definite} \]
   \[ Df(x_0) = 0 \]
-  % TODO image local minimum
+  Compare with Figure~\ref{img:sad}~(a).
 
   \[ D_2 f(x_0) \text{ indefinite} \]
   \[ D f(x_0) = 0 \]
-  $\rightarrow$ no extreme value.
+  $\rightarrow$ no extreme value. Compare with Figure~\ref{img:sad}~(b).
 
-  % TODO image saddle point
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/36b_objects.pdf}
+      \caption{(a) local minimum and (b) saddle point}
+      \label{img:sad}
+    \end{center}
+  \end{figure}
 \end{remark}
 
 \section{Differential geometry of curves}
 
 We consider:
 \begin{enumerate}
-  \item Maps $\gamma: I \subseteq \mathbb R \to \mathbb R^n$
-    % TODO image 37_map.pdf
+  \item Maps $\gamma: I \subseteq \mathbb R \to \mathbb R^n$ (Figure~\ref{img:maps-diffgeo})
+    \begin{figure}[t]
+      \begin{center}
+        \includegraphics{img/37_map.pdf}
+        \caption{Maps in differential geometry}
+        \label{img:maps-diffgeo}
+      \end{center}
+    \end{figure}
   \item geometric properties of $\Gamma = \gamma(I)$.
 \end{enumerate}
 
@@ -5157,8 +5168,15 @@ We consider:
   \[ \tau(\gamma, x) = \set{x + \tau \cdot T_{\gamma}(t): \tau \in \mathbb R} \]
   is a line in $\mathbb R^n$ with directional vector $T_\gamma(t)$ through $x = \gamma(t)$.
   $\tau(\gamma, x)$ is called \emph{tangent} on $\Gamma$ in point $x$.
+  Compare with Figure~\ref{img:tangent}.
 
-  % TODO image: 38_tangent.pdf
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/38_tangent.pdf}
+      \caption{$\tau(\gamma, x)$ is called \emph{tangent} on $\Gamma$ in point $x$}
+      \label{img:tangent}
+    \end{center}
+  \end{figure}
 
   Motivation:
   \begin{align*}
@@ -5186,7 +5204,7 @@ We consider:
 
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/40_reparameterization.pdf} % TODO finish image
+      \includegraphics{img/40_reparameterization.pdf}
       \caption{Reparameterization}
       \label{img:reparam}
     \end{center}
@@ -5242,11 +5260,9 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
   \end{description}
 \end{proof}
 
-\index{Geometrical size}
-\index{Geometrical property}
+\index{Geometrical quantity}
 \begin{definition}
-  % TODO translation "Gr\"osse" \to "size" ??
-  Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ in regards of $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_n}$ but not on a specific representative $\gamma$ is called \emph{geometrical size} or \emph{geometrical property}.
+  Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ in regards of $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_n}$ but not on a specific representative $\gamma$ is called \emph{geometrical quantity}.
 \end{definition}
 
 \index{Closed curve}
@@ -5258,15 +5274,30 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
 \end{example}
 
 \begin{example}
+  \label{exx}
   Let $I = [0,2\pi]$. $\gamma(t) \coloneqq \begin{bmatrix} \cos(t) \\ \sin(t) \end{bmatrix}$. $\gamma: I \to \mathbb R^2$.
-  It holds $\gamma(0) = \gamma(2\pi)$, hence $\gamma$ is closed.
+  It holds $\gamma(0) = \gamma(2\pi)$, hence $\gamma$ is closed. Compare with Figure~\ref{img:ex1}.
 
-  % TODO image
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/52a_ex.pdf}
+      \caption{Example~\ref{exx}}
+      \label{img:ex1}
+    \end{center}
+  \end{figure}
 
   \[ \sigma: [-2\pi, 0] \to [0, 2\pi] \]
   \[ \sigma(t) = -t \]
   \[ \hat\gamma(t) = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} \text{ with } t \in [0,2\pi] \]
-  % TODO image
+  
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/52b_ex.pdf}
+      \caption{Example~\ref{exx}}
+      \label{img:ex1b}
+    \end{center}
+  \end{figure}
+
   \[ \gamma \circ \sigma(t) = \begin{bmatrix} \cos(-t) \\ \sin(-t) \end{bmatrix} = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} = \tilde\gamma(t) \]
   with $\tilde\gamma(t): [-2\pi, 0] \to \mathbb R^2$ is periodical with period $2\pi$.
   Hence, $\tilde\gamma(t - 2\pi) = \tilde\gamma(t) \forall t \in \mathbb R$.
@@ -5276,10 +5307,18 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
 \end{example}
 
 \begin{example}
+  \label{ex:ex}
   Let $\gamma: \mathbb R \to \mathbb R^2$.
   \[ \gamma(t) = \begin{bmatrix} t^2 - 1 \\ t^3 - t \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 2t \\ 3t^2 - 1 \end{bmatrix} \]
   \[ \gamma'(t) = 0 \implies 2t = 0 \text{ hence } t = 0 \]
-  % TODO image
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/53a_example.pdf}
+      \caption{Example~\ref{ex:ex}}
+      \label{img:examp}
+    \end{center}
+  \end{figure}
+  Compare with Figure~\ref{img:examp}.
   Then $3t^2 - 1 = -1 \neq 0$ follows.
   So the parameterization is \emph{regular}. It holds that $\gamma(1) = \vectwo 00$ and $\gamma(-1) = \vectwo 00$.
   $\vectwo 00$ lies on the trace of the curve for 2 different parameter values.
@@ -5290,16 +5329,33 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
 \end{example}
 
 \begin{example}
+  \label{ex:e}
   Let $\gamma: \mathbb R \to \mathbb R^2$.
   \[ \gamma(t) = \begin{bmatrix} t^2 \\ t^3 \end{bmatrix} \qquad \text{\enquote{Neil's parabola}} \]
   \[ \gamma(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 2t \\ 3t^2 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \]
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/53b_example.pdf}
+      \caption{Example~\ref{ex:e}}
+      \label{img:example}
+    \end{center}
+  \end{figure}
+  Compare with Figure~\ref{img:example}.
   Curvature parameterization is not regular.
   For $t = 0$, no tangent exists.
 \end{example}
 
 \begin{example}
   \[ \gamma(t) = \begin{bmatrix} t^3 \\ t^3 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 3t^2 \\ 3t^2 \end{bmatrix} \]
-  with $\gamma'(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$ is non-regular. $\Gamma: \gamma(\mathbb R)$. % TODO image
+  with $\gamma'(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$ is non-regular.
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics{img/54a_gamma.pdf}
+      \caption{$\Gamma: \gamma(\mathbb R)$}
+      \label{img:Gamma}
+    \end{center}
+  \end{figure}
+  Compare with Figure~\ref{img:Gamma}.
   $\Gamma$ is smooth has a \enquote{geometrical} tangent everywhere.
 \end{example}
 
@@ -5315,8 +5371,15 @@ Let $\sigma$ be orientation reversing.
 \[ \gamma'(\tau) < 0 \qquad \card{\gamma'(\tau)} = -\sigma'(\tau) \]
 like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\tilde\gamma'(\tau)}_2 = \card{\sigma'(\tau)} \cdot \norm{\gamma'(t)}_2 = -\sigma'(\tau) \norm{\gamma'(t)}_2$.
 \[ T_{\tilde\gamma}(\tau) = -T_{\gamma}(t) \]
+Compare with Figure~\ref{img:ori}.
 
-% TODO image
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/45b_orientation.pdf}
+    \caption{$T_{\tilde\gamma}(\tau) = -T_{\gamma}(t)$}
+    \label{img:ori}
+  \end{center}
+\end{figure}
 
 \section{Arc length of parameterized curves}
 \index{Rectifiable curve}
@@ -5343,7 +5406,7 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
   In every case, it holds that
   \[ S_{\gamma}(Z) = S_{\tilde\gamma}(\tilde Z) \]
   because $x_k = \gamma(t_k) = \tilde\gamma(\tau_k)$ and accordingly $x_k = \gamma(t_k) = \tilde\gamma(\tau_{N-k})$.
-  So $S_\gamma$ is a geometrical size.
+  So $S_\gamma$ is a geometrical quantity.
 \end{remark}
 
 \begin{lemma} % Lemma 1
@@ -5358,7 +5421,7 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
 \end{proof}
 
 \begin{lemma} % Lemma 2
-  \label{lemma2}
+  \label{lemma-2}
   Let $\alpha: [a,b] \to \mathbb R^n$. $\alpha(t) = \left[\alpha_1(t), \alpha_2(t), \dots, \alpha_n(t)\right]^T$.
   $\alpha_n \in \mathcal R[a,b]$ for $k = 1, \dots, n$.
   \[ \int_a^b \alpha(t) \, dt = \left[\int_a^b \alpha_1 \, dt, \int_a^b \alpha_2 \, dt, \dots, \int_a^b \alpha_n \, dt\right]^T \]
@@ -5423,7 +5486,7 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
     S_\gamma(z)
       &= \sum_{i=1}^N \norm{\gamma(t_i) - \gamma(t_{i-1})}_2 \\
       &\underbrace{=}_{\substack{\text{fundamental} \\ \text{theorem}}} \sum_{i=1}^N \norm{\int_{t_{i-1}}^{t_i} \gamma'(t) \, dt}_2 \\
-      &\underbrace{\leq}_{\text{Lemma~\ref{lemma2}}} \sum_{i=1}^N \int_{t_{i-1}}^{t_i} \norm{\gamma'(t)}_2 \, dt \\
+      &\underbrace{\leq}_{\text{Lemma~\ref{lemma-2}}} \sum_{i=1}^N \int_{t_{i-1}}^{t_i} \norm{\gamma'(t)}_2 \, dt \\
       &= \int_{t_0}^{t_N} \norm{\gamma'(t)}_2 \, dt \\
       &= \int_a^b \norm{\gamma'(t)}_2 \, dt
   \end{align*}
@@ -5459,7 +5522,7 @@ like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\ti
 \end{proof}
 
 \begin{remark}
-  By definition of $S_\gamma$, the arc length is a geometrical size.
+  By definition of $S_\gamma$, the arc length is a geometrical quantity.
 \end{remark}
 
 \begin{remark}
@@ -5569,13 +5632,19 @@ Let $\gamma$ be regular and a $\mathcal C^2$ curve and $\norm{\gamma'(t)}_2 = 1 
 
 Consider $1 = \norm{\gamma'(t)}_2^2 = \left(\gamma'(t)\right)^T \cdot \gamma'(t)$. If we derive by $t$,
 \[ 0 = \gamma''(t)^T \cdot \gamma'(t) + \gamma'(t)^T \cdot \gamma''(t) = 2 \angel{\gamma'(t), \gamma''(t)} \]
-Hence $\gamma''(t)$ is orthogonal to $\gamma'(t)$
+Hence $\gamma''(t)$ is orthogonal to $\gamma'(t)$. Compare with Figure~\ref{img:orthott}.
 
-% TODO image 49_orthogonal.pdf
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/49_orthogonal.pdf}
+    \caption{Orthogonal $\gamma'(t)$ and $\gamma''(t)$}
+    \label{img:orthott}
+  \end{center}
+\end{figure}
 
 \dateref{2018/06/26}
 
-\subsection{Curvature, torsion, Frenet's formulas}
+\subsection{Curvature, Torsion, Frenet's formulas}
 
 Let $\gamma: I \to \mathbb R^3, \gamma \in \mathbb C^3(I, \mathbb R^3), \norm{\gamma'(s)} = 1$.
 Hence $\gamma$ is parameterized by the arc length.
@@ -5602,8 +5671,8 @@ and $\angel{\gamma'(s), \gamma''(s)} = 0$, hence $\gamma''(s) \bot \Gamma(s)$
   \end{figure}
   $\kappa(T)$ is the scalar rate of change in direction of $T$.
 
-  Because $s = l(t)$ is a geometrical size, the reparameterization by the arc length is independent of the original parameterization.
-  Hence $\kappa, N$ are geometrical sizes. By the definition, it follows that
+  Because $s = l(t)$ is a geometrical quantity, the reparameterization by the arc length is independent of the original parameterization.
+  Hence $\kappa, N$ are geometrical quantities. By the definition, it follows that
   \[ T'(s) = \kappa(s) \cdot N(s) \]
   \index{First Frenet formula}
   We call this equation the \emph{first Frenet formula}.
@@ -5839,10 +5908,19 @@ $\vartheta(s)$ is the continuously differentiable angle parameter.
 \[ T(s) = \gamma'(s) = \begin{bmatrix} \cos{\vartheta(s)} \\ \sin{\vartheta(s)} \end{bmatrix} \]
 \[ T'(s) = \vartheta'(s) \begin{bmatrix} -\sin{\vartheta(s)} \\ \cos\vartheta(s) \end{bmatrix} \coloneqq \vartheta'(s) \cdot N(s) \]
 \[ N(s) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot \begin{bmatrix} \cos{\vartheta} \\ \sin{\vartheta} \end{bmatrix} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot T(s) \]
-% TODO: image
-\index{signed curvature}
-is the \emph{signed curvature}. It can have positive or negative sign.
-% TODO image
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/56_signed_curvature.pdf}
+    \caption{
+      \index{signed curvature}
+      We call $\kappa(s) = \vartheta'(s)$, thus $T' = \kappa \cdot N$, the \emph{signed curvature}. It can have positive or negative sign.
+    }
+    \label{img:signed-curvature}
+  \end{center}
+\end{figure}
+
+Compare with Figure~\ref{img:signed-curvature}.
 The curvature changes the sign on change of the traversing direction.
 \[ T' = \kappa \cdot N \]
 \[ N(s) = \begin{bmatrix} -\sin{\vartheta(s)} \\ \cos{\vartheta(s)} \end{bmatrix} \]
@@ -5871,16 +5949,28 @@ Determination of $\kappa$ in case of arbitrary parameterization:
 Let $\gamma: I \to \mathbb R^2$, $\gamma$ is parameterized by the arc length.
 $\mu(s)$ is center of the circle of curvature of $\gamma$ by change of parameter $s$.
 
-% TODO image
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/57_evolute.pdf}
+    \caption{Evolute}
+    \label{img:evolute}
+  \end{center}
+\end{figure}
 
-\index{evolute}
-$s \mapsto \mu(s)$ is called \emph{evolute} of $\gamma$. Is a curve in the plane.
+\index{Evolute}
+$s \mapsto \mu(s)$ is called \emph{evolute} of $\gamma$, a curve in the plane.
 \[ \mu(s) = \gamma(s) + \frac{1}{\kappa(s)} \cdot N(s) \]
 \[ \mu'(s) = \gamma'(s) + \frac{1}{\kappa(s)} \cdot N'(s) - \frac{\kappa'(s)}{\kappa(s)^2} \cdot N(s) = T(s) + \frac{1}{\kappa} \left(-\kappa T\right) - \frac{\kappa'}{\kappa^2} N = -\frac{\kappa'}{\kappa^2} \cdot N \]
 Hence, if $\kappa \neq 0$, then $N(s)$ is a tangential vector of $\mu$ in $\mu(s)$.
 The normal lines at the curve corresponds to the tangent at the evolute.
 
-% TODO image
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/58_family_of_normal_lines.pdf}
+    \caption{The family of normal lines yield a curve $\mu(t)$}
+    \label{img:normallines}
+  \end{center}
+\end{figure}
 
 \index{Envelope}
 The normal lines to $\gamma$ give a family of lines such that every line is a tangent at $\mu$.
