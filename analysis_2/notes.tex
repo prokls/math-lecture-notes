@@ -184,10 +184,15 @@
 \end{theorem}
 \begin{proof}
   \[ 0 \leq \angel{x - \lambda y, x - \lambda y} = \norm{x}^2 - 2\lambda \angel{x, y} + \lambda^2 \norm{y}^2 \qquad \forall \lambda \in \mathbb R \]
-  Let $\lambda = \frac{\angel{x, y}}{\norm{y}^2}$. Then,
-  \[ 0 \leq \norm{x}^2 - 2 \frac{\card{\angel{x, y}}^2}{\norm{y}^2} + \frac{\card{\angel{x, y}}^2}{\norm{y}^4} \cdot \norm{y}^2 \]
-  \[ \implies 0 \leq \norm{x}^2 - \frac{\card{\angel{x, y}}^2}{\norm{y}^2} \]
-  \[ \implies \card{\angel{x, y}}^2 \leq \norm{x}^2 \cdot \norm{y}^2 \]
+  \[
+    \lambda \coloneqq \frac{\angel{x, y}}{\norm{y}^2}
+    \implies 0 \leq \norm{x}^2 - 2 \frac{\card{\angel{x, y}}^2}{\norm{y}^2} + \frac{\card{\angel{x, y}}^2}{\norm{y}^4} \cdot \norm{y}^2
+  \]
+  \[
+    \iff 0 \leq \norm{x}^2 - \frac{\card{\angel{x, y}}^2}{\norm{y}^2}
+    \iff \frac{\card{\angel{x, y}}^2}{\norm{y}^2} \leq \norm{x}^2
+    \iff \card{\angel{x, y}}^2 \leq \norm{x}^2 \cdot \norm{y}^2
+  \]
 \end{proof}
 
 \subsection{Euclidean norm}
@@ -196,16 +201,19 @@
 \index{Norm}
 \index{Normed vector space}
 \begin{definition}
-  $\norm{x} = \sqrt{\sum_{i=1}^n x_i^2}$ is called \emph{Euclidean norm} (length) of vector $x \in \mathbb R^n$. $\norm{x} = \angel{x, x}^{\frac12}$
+  $\norm{x} = \sqrt{\sum_{i=1}^n x_i^2}$ is called \emph{Euclidean norm} (length) of vector $x \in \mathbb R^n$. $\norm{x} = \angel{x, x}^{\frac12}$.
   It holds that
   \begin{enumerate}
     \item $\norm{\lambda x} = \card{\lambda} \norm{x} \forall x \in \mathbb R^n, \lambda \in \mathbb R$
     \item $\norm{x} = 0 \iff x = 0$ in $\mathbb R^n$
     \item $\norm{x + y} \leq \norm{x} + \norm{y}$
   \end{enumerate}
-
-  In general: Let $V$ be a vector space over $\mathbb R$. A map $\norm\cdot$, which assigns every vector $x$ a non-negative real number satisfying the properties above,
-  is called \emph{norm on $V$}. Then $(V, \norm\cdot)$ is called a \emph{normed vector space}.
+  In general:
+    Let $V$ be a vector space over $\mathbb R$.
+    A map $\norm\cdot$,
+      which assigns every vector $x$ a non-negative real number satisfying the properties above,
+      is called \emph{norm on $V$}.
+    Then $(V, \norm\cdot)$ is called a \emph{normed vector space}.
 \end{definition}
 
 Let $X \subseteq \mathbb R^n$ ($V$ is a normed vector space), then $d(x, y) = \norm{x - y}$ is a metric on $X$.
@@ -216,16 +224,16 @@ Let $X \subseteq \mathbb R^n$ ($V$ is a normed vector space), then $d(x, y) = \n
 \subsection{Metric space}
 
 \begin{example}[metric space]
-  Metric space, distance is not a norm.
+  Distance is not a norm.
   Consider an area in $\mathbb R^3$.
 
   $d(x,y)$ is the shortest path, connecting $x$ and $y$ in $X$.
-  See Figure~\ref{img:example-r3}
+  See Figure~\ref{img:example-r3}.
 
   \begin{figure}
     \begin{center}
       \includegraphics{img/01_example.pdf}
-      \caption{Example in $\mathbb R^3$. The red line illustrates the shortest path}
+      \caption{Example in $\mathbb R^3$. The red line illustrates the shortest path, which is not necessarily \enquote{straight}.}
       \label{img:example-r3}
     \end{center}
   \end{figure}
@@ -253,19 +261,18 @@ $(X, d)$ is a metric space.
 \index{Open sphere}
 \begin{definition}
   Let $x \in X$, $r \geq 0$.
-  \[ K_r(x) = \setdef{z \in X}{d(x, z) < r} \]
-  Is an \emph{open sphere} with radius $r$ and center $x$.
+  $K_r(x)$ is an \emph{open sphere} with radius $r$ at center $x$.
+  \[ K_r(x) \coloneqq \setdef{z \in X}{d(x, z) < r} \]
 \end{definition}
 
-\begin{definition}
-  \[ \overline{K_r(x)} = \setdef{z \in X}{d(x, z) \leq r} \]
-  Closed sphere with center $x$ and radius $r$.
+\begin{definition} $\overline{K_r(x)}$ is a closed sphere with center $x$ and radius $r$.
+  \[ \overline{K_r(x)} \coloneqq \setdef{z \in X}{d(x, z) \leq r} \]
 \end{definition}
 
 \index{Convergence}
 \index{Cauchy sequence}
 \begin{definition}[Sequences in $X$]
-  Let $(x_n)_{n\in\mathbb N}$ be a sequence in $X$ (hence, $x_n \in X \forall n \in \mathbb N$)
+  Let $(x_n)_{n\in\mathbb N}$ be a sequence in $X$ (hence, $\forall n \in \mathbb N: x_n \in X$)
   \begin{enumerate}
     \item $(x_n)_{n\in\mathbb N}$ is called \emph{convergent} and limit $x \in X$ if
       \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies d(x_n, x) < \varepsilon \]
@@ -273,8 +280,11 @@ $(X, d)$ is a metric space.
     \item $(x_n)_{n\in\mathbb N}$ is a Cauchy sequence if
       \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n, m \geq N \implies d(x_n, x_m) < \varepsilon \]
   \end{enumerate}
-  Every convergent sequence is also a Cauchy sequence.
 \end{definition}
+
+\begin{claim}
+  Every convergent sequence is also a Cauchy sequence.
+\end{claim}
 
 \begin{proof}
   Let $(x_n)_{n\in\mathbb N}$ be convergent with limit $x$. Let $\varepsilon > 0$ be arbitrary.
@@ -330,7 +340,7 @@ e.g. $\norm{x}_1$ in $\mathbb R^2$
 \begin{figure}[!ht]
   \begin{center}
     \includegraphics{img/02_1norm.pdf}
-    \caption{Visualizing $\norm{x}_1$}
+    \caption{Visualizing $\norm{x}_1$, the Manhattan norm. You can think of walking the distance along the x-axis combined with the distance along the y-axis.}
     \label{img:1norm}
   \end{center}
 \end{figure}
@@ -412,12 +422,14 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{proof}
 
 \begin{lemma}
-  It holds that $\forall B \subseteq X: \overline{B} = \overline{\overline{B}}$,
-  hence $\overline{B}$ itself is closed.
+  $\forall B \subseteq X: \overline{B} = \overline{\overline{B}}$.
+  So $\overline{B}$ is closed in itself.
 \end{lemma}
 \begin{proof}
-  Show that $x \in \overline{B}$. Let $x \in \overline{\overline{B}}$.
-  \[ \iff \forall \varepsilon > 0: K_{\varepsilon}(x) \cap \overline{B} \neq \emptyset \]
+  Show that $x \in \overline{B}$.
+
+  Let $x \in \overline{\overline{B}}$
+  $\iff \forall \varepsilon > 0: K_{\varepsilon}(x) \cap \overline{B} \neq \emptyset$.
   Therefore let $\varepsilon > 0$ be arbitrary and $x \in \overline{\overline{B}}$.
 
   Show that $K_{\varepsilon}(x) \cap B \neq \emptyset$.
@@ -525,13 +537,13 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
 
 \begin{lemma}
-  Let $U \subseteq X$ be arbitrary. Then $\mathring{U} \subseteq X$ be an open set in $X$.
+  Let $U \subseteq X$ be arbitrary. Then $\mathring{U} \subseteq X$ is an open set in $X$.
 \end{lemma}
 \begin{proof}
   Let $x \in \mathring{U}$, hence $x$ is an inner point of $U$.
   Show that $x$ is an inner point of $\mathring{U}$, also $\exists r > 0: K_r(x) \subseteq \mathring{U}$.
 
-  Because $x \in \mathring U$, $r > 0 exists$: $K_r(x) \subseteq U$.
+  Because $x \in \mathring U$, $r > 0$ exists: $K_r(x) \subseteq U$.
   Claim: Every point $y \in K_r(x)$ is also an inner point of $U$.
   Obvious (previous example), because $r' > 0$ exists such that
   $K_{r'}(y) \subseteq K_r(x) \subseteq U$ so $y \in \mathring U$ and $K_r(x) \subseteq \mathring U$.
@@ -643,7 +655,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
 \index{Continuity on a set}
 \begin{definition} % Definition 12
-  Let $f: X \to Y$ is called continuous on $X$, if $f$ is continuous in every point $x_0 \in X$.
+  Let $f: X \to Y$ be called continuous on $X$, if $f$ is continuous in every point $x_0 \in X$.
 \end{definition}
 
 \begin{theorem} % Satz 4
@@ -756,20 +768,18 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   \end{claim}
 
   \begin{align*}
-    d(x_n, x_{n+k}) &\leq d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{n+k-1}, x_{n+k}) \\
-  \intertext{by triangle inequality}
-      &= d(x_n, x_{n+1}) + d(f(x_n), f(x_{n+1})) + d(f(x_{n+1}), f(x_n + 2)) + \dots + d(f(x_{n+k-2}), f(x_{n+k-1})) \\
+    d(x_n, x_{n+k}) &\leq d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{n+k-1}, x_{n+k}) \qquad \text{by triangle inequality} \\
+      &= d(x_n, x_{n+1}) + d(f(x_n), f(x_{n+1})) + d(f(x_{n+1}), f(x_{n + 2})) + \dots + d(f(x_{n+k-2}), f(x_{n+k-1})) \\
       &\leq d(x_n, x_{n+1}) + L\left(d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{n+k-2}, x_{n+k-1})\right) \\
   \intertext{this inequality is given by contraction}
       &= d(x_n, x_{n+1}) (1 + L) + L \left(d(f(x_n), f(x_{n+1})) + \dots + d(f(x_{n+k-3}), f(x_{n+k-2}))\right) \\
       &\leq d(x_n, x_{n+1}) (1 + L) + L^2 \left[d(x_n, x_{n+1} + \dots + d(x_{n + k - 3}, x_{n+k-2})\right] \\
       &\leq \dots \leq d(x_n, x_{n+1}) (1 + L + L^2 + \dots + L^{k-1}) \\
-      &= d(f(x_{n-1}, f(x_n)) \left(\sum_{j=0}^{k-1} L^j\right) \leq L d(x_{n-1}, x_n) \cdot \left(\sum_{j=0}^{k-1} L^j\right) \\
+      &= d(f(x_{n-1}), f(x_n)) \left(\sum_{j=0}^{k-1} L^j\right) \leq L d(x_{n-1}, x_n) \cdot \left(\sum_{j=0}^{k-1} L^j\right) \\
       &\leq L^n d(x_0, x_1) \cdot \underbrace{\left(\sum_{j=1}^{k-1} L^j\right)}_{\leq \sum_{j=0}^\infty L^j = \frac{1}{1 - L}} \\
       &\leq \frac{L^n}{1 - L} d(x_0, x_1) \\
-    d(x_n, x_{n+k}) &\leq \frac{L^n}{1 - L} d(x_0, x_1) \forall n \in \mathbb N \forall k \in \mathbb N_0
+    d(x_n, x_{n+k}) &\leq \frac{L^n}{1 - L} d(x_0, x_1) \quad \forall n \in \mathbb N \forall k \in \mathbb N_0 \text{ with } 0 \leq L < 1
   \end{align*}
-  with $0 \leq L < 1$.
   \[ \frac{L^n}{\underbrace{1 - L}_{> 0}} d(x_0, x_1) < \varepsilon \impliedby \]
   \[ L^n < \frac{\varepsilon}{d(x_0, x_1) + 1} (1 - L) \qquad (L > 0) \]
   \[ \iff n \underbrace{\ln{L}}_{<0} < \ln \frac{\varepsilon}{d(x_0, x_1) + 1} (1 - L) \]
@@ -2886,7 +2896,7 @@ Some important inequalities in integration theory follow.
   Let $f: [0, \infty) \to [0,\infty)$ be continuous differentiable, strictly monotonically increasing with $f(0) = 0$ and $f$ is unbounded.
   Then $f: [0, \infty) \to [0,\infty)$ bijective and $f^{-1}: [0,\infty) \to [0,\infty)$ is strictly monotonically increasing and continuous.
   Let $a, b \geq 0$ be given. Then it holds that
-  \[ ab \leq \int_0^\alpha f(x) \, dx + \int_0^b f^{-1}(y) \, dy \]
+  \[ ab \leq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy \]
   Equality is given if and only if, $b = f(a)$ or $a = f^{-1}(b)$.
   Compare with Figure~\ref{img:young}.
 \end{theorem}
@@ -3232,7 +3242,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 \end{remark}
 
 \begin{remark}[New topic]
-  Let $f \in \mathcal C^n(I)$ and $x_0 \in I$. Find an appropriate polynomial $T$ which approximated $f$ in an environment of $x_0$ in the \enquote{best} way.
+  Let $f \in \mathcal C^n(I)$ and $x_0 \in I$. Find an appropriate polynomial $T$ which approximated $f$ in a neighborhood of $x_0$ in the \enquote{best} way.
 \end{remark}
 
 \begin{definition} % Definition 2
@@ -3794,11 +3804,11 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   Let $h, g: D \subseteq \mathbb R^n \to \mathbb R$, $D$ is open, $a \in D$.
   \begin{enumerate}
     \item We denote $h = \mathcal O(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist groß $\mathcal O$ von $g$}) iff
-      $\exists U \subseteq D$ environment of $a$ in $D$ and $\exists r: U \to \mathbb R$ with $r$ bounded such that $h(x) = r(x) \cdot g(x) \forall x \in U$.
+      $\exists U \subseteq D$ neighborhood of $a$ in $D$ and $\exists r: U \to \mathbb R$ with $r$ bounded such that $h(x) = r(x) \cdot g(x) \forall x \in U$.
       Thus,
       \[ \card{\frac{h(x)}{g(x)}} = \card{r(x)} \leq M \qquad \forall x \in U \]
       ($g(x) = 0$ iff $h(x) = 0$)
-    \item We denote $h = o(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist klein $o$ von $g$}) iff $\exists U \subseteq D$, with $U$ being the environment of $a$, and $r: U \to \mathbb R$ such that $\lim_{x\to a} r(x) = 0$
+    \item We denote $h = o(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist klein $o$ von $g$}) iff $\exists U \subseteq D$, with $U$ being the neighborhood of $a$, and $r: U \to \mathbb R$ such that $\lim_{x\to a} r(x) = 0$
     and $h(x) = r(x) \cdot g(x) \forall x \in U$. In that sense,
       \[ \lim_{x \to a} \frac{h(x)}{g(x)} = 0 \]
       Most often,
@@ -3968,15 +3978,19 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   (The dimensions match.)
 \end{theorem}
 \begin{proof}
-  Let $\varepsilon > 0$ be arbitrary, but $\varepsilon < 2$.
+  $(g \circ f)(x)$ is differentiable in $x_0$ iff
+  \[ \lim_{x \to x_0} \frac{\norm{g(f(x_0)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} = 0 \]
+  according to Frech\'et differentiability. This is equivalent to 
+  \[ \frac{\norm{g(f(x_0)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} < \varepsilon \]
+  for any bounded $\varepsilon$.
+  Let $0 < \varepsilon < 2$.
   Show that
   \[ \frac1{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(y_0) \cdot Df(x_0) (x - x_0)} < \varepsilon \]
-  for sufficiently small $\norm{x - x_0}$ ($x \neq x_0$).
-
+  for sufficiently small $\norm{x - x_0}$ with $x \neq x_0$.
   \begin{align*}
     &\frac1{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(y_0) \cdot Df(x_0) (x - x_0)} \\
-    &= \frac1{\norm{x - x_0}} \| g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot (f(x) - f(x_0)) \\
-    &+ Dg(f(x_0)) (f(x) - f(x_0)) - Dg(f(x_0)) Df(x_0) (x - x_0) \| \\
+    &= \frac1{\norm{x - x_0}} \| g(f(x)) - g(f(x_0)) {\color{blue} -} Dg(f(x_0)) \cdot (f(x) - f(x_0)) \\
+    &{\color{blue} +} Dg(f(x_0)) (f(x) - f(x_0)) - Dg(f(x_0)) Df(x_0) (x - x_0) \| \\
   \intertext{recognize that we have a common factor $Dg(f(x_0))$}
     &\leq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0))(f(x) - f(x_0))} \\
     &+ \frac{1}{\norm{x - x_0}} \norm{Dg(y_0)} \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} \\
@@ -4157,7 +4171,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \end{remark}
 
 \begin{example}
-  Consider $f: \mathbb R^3 \to \mathbb R^2$ wit
+  Consider $f: \mathbb R^3 \to \mathbb R^2$ with
   \[
     f(x_1, x_2, x_3) = \begin{bmatrix}
       x_1 x_3^2 + \sin(x_1 x_3) \\
@@ -5381,7 +5395,7 @@ Compare with Figure~\ref{img:ori}.
   \end{center}
 \end{figure}
 
-\section{Arc length of parameterized curves}
+\subsection{Arc length of parameterized curves}
 \index{Rectifiable curve}
 \index{Arc length of a curve}
 \begin{definition} % Definition 4
