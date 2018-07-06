@@ -302,8 +302,8 @@ $\mathbb R$ is complete. $\mathbb R^n$ is also complete. $\mathbb Q \subseteq \m
 
 \index{Accumulation point}
 \begin{definition}
-  Let $(x_n)_{n\in\mathbb N}$ be a sequence of $X$ is called \enquote{accumulation point} (\foreignlanguage{german}{dt. H\"aufungspunkt}) of the sequence.
-  $\forall \varepsilon > 0$, it holds that $K_{\varepsilon}(x)$ contains infinitely many sequence elements.
+  Let $(x_n)_{n\in\mathbb N}$ be a sequence of $X$. $x$ is called \enquote{accumulation point} (\foreignlanguage{german}{dt. H\"aufungspunkt}) of the sequence if
+  $\forall \varepsilon > 0: K_{\varepsilon}(x)$ contains infinitely many sequence elements.
 \end{definition}
 
 \dateref{2018/03/08}
@@ -370,7 +370,7 @@ The concepts \enquote{subsequence}, \enquote{final element of a sequence}, \enqu
 %\subsection{Sets in metric spaces}
 \subsection{Contact point}
 
-Let $B \subseteq X$, $X$ is a metric space. Then $B$ with $d$ is a metric space itself.
+Let $B \subseteq X$ and $X$ is a metric space. Then $B$ with $d$ is a metric space itself.
 
 \index{Contact point}
 \begin{definition}
@@ -460,7 +460,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{proof}
 
 \begin{definition} % definition 8
-  Let $x \in X$ is called accumulation point of set $B \subseteq X$ if $\forall \varepsilon > 0: (K_{\varepsilon}(x) \setminus \set{x}) \cap B \neq \emptyset$.
+  Let $x \in X$ be called accumulation point of set $B \subseteq X$ if $\forall \varepsilon > 0: (K_{\varepsilon}(x) \setminus \set{x}) \cap B \neq \emptyset$.
 \end{definition}
 
 \begin{remark}
@@ -471,7 +471,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{remark}
 
 \begin{lemma}
-  Let $x \in X$ is accumulation point on $B \iff$ every sphere $K_{\varepsilon}(x)$ contains infinitely many points of $B$.
+  Let $x \in X$ be accumulation point on $B \iff$ every sphere $K_{\varepsilon}(x)$ contains infinitely many points of $B$.
 \end{lemma}
 \begin{proof}
   Direction $\Leftarrow$ is trivial.
@@ -540,7 +540,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Let $U \subseteq X$ be arbitrary. Then $\mathring{U} \subseteq X$ is an open set in $X$.
 \end{lemma}
 \begin{proof}
-  Let $x \in \mathring{U}$, hence $x$ is an inner point of $U$.
+  Let $x \in \mathring{U}$. Hence $x$ is an inner point of $U$.
   Show that $x$ is an inner point of $\mathring{U}$, also $\exists r > 0: K_r(x) \subseteq \mathring{U}$.
 
   Because $x \in \mathring U$, $r > 0$ exists: $K_r(x) \subseteq U$.
@@ -937,7 +937,7 @@ Be aware, that this proof is a common exam question and students often begin wit
 
 \begin{theorem} % Satz 8
   \label{satz8}
-  Let $f: X \to Y$ is continuous on $X$ and $X$ is compact. Then $f$ is uniformly continuous on $X$.
+  Let $f: X \to Y$ be continuous on $X$ and $X$ is compact. Then $f$ is uniformly continuous on $X$.
 \end{theorem}
 
 \begin{proof}[Indirect proof]
@@ -1062,7 +1062,7 @@ does \emph{not} hold in general.
   $K$ is compact in $\Omega \implies K$ is compact in $V$
 \end{remark}
 
-Let $(x_n)_{n \in \mathbb N}$ is a sequence in $K$.
+Let $(x_n)_{n \in \mathbb N}$ be a sequence in $K$.
 Compactness $\implies \exists (x_{n_k})_{k \in \mathbb N}: x_{n_k} \to \hat{x}$ for $k \to \infty$ and $K \subseteq \Omega \subseteq V$.
 
 Then $(x_n)_{n \in \mathbb N}$ also has a convergent subsequence in $V$.
@@ -1209,7 +1209,7 @@ Regarding the equivalence of norms:
       We consider $S_{\infty}^{k-1} = \set{x \in \mathbb R^k}{\norm{x}_{\infty} = 1} = \operatorname{boundary}(K_1^\infty(0)$.
       $S_{\infty}^{k-1}$ is bounded.
 
-      Let $(x_n)_{n \in \mathbb N}$ is a sequence in $S_{\infty}^{k-1}$ with $x = \lim_{n\to\infty} x_n$. Because $n(x) = \norm{x}_{\infty}$ is continuous, it holds that
+      Let $(x_n)_{n \in \mathbb N}$ be a sequence in $S_{\infty}^{k-1}$ with $x = \lim_{n\to\infty} x_n$. Because $n(x) = \norm{x}_{\infty}$ is continuous, it holds that
       \[ \lim_{n\to\infty} \underbrace{\norm{x_n}_{\infty}}_{=1} = \underbrace{\norm{x}}_{=1} \]
       Hence $x \in S_{\infty}^{k-1}$. Hence, $S_{\infty}^{k-1}$ is closed in $(\mathbb R^k, \norm{\cdot}_{\infty})$.
       Hence $S_{\infty}^{k-1}$ is compact in $(\mathbb R^k, \norm{\cdot}_{\infty})$, $\nu: S_{\infty}^{k-1} \to [0, \infty)$, with $S_{\infty}^{k-1}$ compact, is continuous.
@@ -2347,7 +2347,7 @@ By reference~(*), $\gamma \in [0, \eta)$ (uncountable) and $\gamma \not\in f(A)$
 it holds that $u \not\in A$, hence $f$ is differentiable in $u$.
 
 \begin{proof}[Proof of Theorem~\ref{satz5}]
-  Let $f \in \mathcal R[a,b]$, $\phi$ is an antiderivative of $f$,
+  Let $f \in \mathcal R[a,b]$ and let $\phi$ be an antiderivative of $f$,
   hence $\phi_+' = f_+$, $\phi_-' = f_-$. Let $\alpha \in [a,b]$ be arbitrary.
   By the Theorem variant 1, $F(x) = \int_{\alpha}^x f \, d\xi$ is also an antiderivative of $f$.
   By Lemma~\ref{lemma10}, $\exists K \in \mathbb R: F(x) = \int_{\alpha}^x f \, d\xi = \phi(x) + K$.
@@ -2822,7 +2822,7 @@ Standard examples will follow:
 \begin{definition} % Definition 11
   Let $x > 0$.
   We call $\Gamma$ \emph{Euler's Gamma function}.
-  \[ \Gamma(x) \coloneqq \int_0^\infty t^{x - 1} e^{-t} \, dx \]
+  \[ \Gamma(x) \coloneqq \int_0^\infty t^{x - 1} e^{-t} \, dt \]
 \end{definition}
 
 \begin{remark}
@@ -3218,7 +3218,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 \subsection{Higher derivatives and Taylor's Theorem}
 
 \begin{definition} % Definition 1
-  Let $f: I \to \mathbb R$, $I \subseteq \mathbb R$ is an interval.
+  Let $f: I \to \mathbb R$. $I \subseteq \mathbb R$ is an interval.
   We define inductively:
   \[ f^{(0)}(x) = f(x) \]
   Assume $f^{(n-1)}$ is defined continuously on $I$ and differentiable in $x \in I$.
@@ -3500,7 +3500,7 @@ We now consider conditions to select extreme values from all value satisfying de
 \begin{proof}
   \begin{description}
     \item[Case a]
-      Let $f^{(n+1)}(x_0) < 0$ and $f^{(n+1)}$ is continuous,
+      Let $f^{(n+1)}(x_0) < 0$ and $f^{(n+1)}$ be continuous,
       then $\exists \varepsilon > 0$ such that $(x_0 - \varepsilon, x_0 + \varepsilon) \subseteq I$ ($I$ is open)
       and $f^{(n+1)}(\xi) < 0 \forall \xi \in (x_0 - \varepsilon, x_0 + \varepsilon)$.
       Now let $x \in (x_0 - \varepsilon, x_0 + \varepsilon)$.
@@ -3801,7 +3801,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \subsection{Landau notation}
 % TODO on the date 2018/05/17, I might have mixed up big-o and small-o notation. Review required
 \begin{definition}[Landau $\mathbb O$ symbols] % Definition 2
-  Let $h, g: D \subseteq \mathbb R^n \to \mathbb R$, $D$ is open, $a \in D$.
+  Let $h, g: D \subseteq \mathbb R^n \to \mathbb R$ and $D$ is open, $a \in D$.
   \begin{enumerate}
     \item We denote $h = \mathcal O(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist groß $\mathcal O$ von $g$}) iff
       $\exists U \subseteq D$ neighborhood of $a$ in $D$ and $\exists r: U \to \mathbb R$ with $r$ bounded such that $h(x) = r(x) \cdot g(x) \forall x \in U$.
@@ -3811,9 +3811,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
     \item We denote $h = o(g)$ in $a$ (German pronunciation: \foreignlanguage{german}{h ist klein $o$ von $g$}) iff $\exists U \subseteq D$, with $U$ being the neighborhood of $a$, and $r: U \to \mathbb R$ such that $\lim_{x\to a} r(x) = 0$
     and $h(x) = r(x) \cdot g(x) \forall x \in U$. In that sense,
       \[ \lim_{x \to a} \frac{h(x)}{g(x)} = 0 \]
-      Most often,
-      \[ \mathcal O(\underbrace{\norm{x - x_0}^n}_{g(x)}) \]
-      is used and $a = x_0$.
+      Most often, $\mathcal O(\underbrace{\norm{x - x_0}^n}_{g(x)})$ will be used (in this context of differentiability here) with $a = x_0$.
   \end{enumerate}
 \end{definition}
 
@@ -3826,7 +3824,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 
 \begin{remark}
   First trial to define the derivative:
-  \[ f'(x_0) \coloneqq \lim_{x\to x_0} \frac{\overbrace{f(x) - f(x_0)}^{\in \mathbb R^n}}{\underbrace{x - x_0}_{\in \mathbb Rm}} \]
+  \[ f'(x_0) \coloneqq \lim_{x\to x_0} \frac{\overbrace{f(x) - f(x_0)}^{\in \mathbb R^n}}{\underbrace{x - x_0}_{\in \mathbb R^m}} \]
   Does not work because of incompatibility of dimensions (and we cannot divide vectors).
 \end{remark}
 
@@ -3937,7 +3935,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 
 \begin{lemma} % Lemma 6
   Let $C: D \to \mathbb R^n$. $c(x) = k \in \mathbb R^n$ is constant.
-  Then $c$ be differentiable in every point $x_0 \in D$ and it holds that $D C(x_0) = 0 \in \mathbb R^{n\times m}$.
+  Then $c$ is differentiable in every point $x_0 \in D$ and it holds that $D C(x_0) = 0 \in \mathbb R^{n\times m}$.
   Let $A: \mathbb R^m \to \mathbb R^n$ be linear. Then $A$ is differentiable in every point $x_0 \in \mathbb R^m$ and it holds that $DA(x_0) = A$.
 
   Let $f(x) = k + Ax: \mathbb R^m \to \mathbb R^n$ be linear affine, then $f$ is differentiable in every point $x_0 \in \mathbb R^m$ with $Df(x_0) = A$.
@@ -4328,7 +4326,7 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   \label{thm:rel2}
   This theorem establishes the relation of differentiability and partial derivatives.
 
-  Let $f: D \to \mathbb R$, $D \subseteq \mathbb R^m$ is open.
+  Let $f: D \to \mathbb R$, $D \subseteq \mathbb R^m$ be open.
   Assume all partial derivatives $\partial_i f(x)$ exist $\forall x \in D$ for $j = 1, \dots, m$
   and the functions $x \mapsto \partial_j f(x)$ on $D \to \mathbb R$ are continuous for $j = 1, \dots, m$.
   Then $f$ is differentiable in every point $x_0 \in D$ with $Df(x_0) = [\partial_1 f(x_0), \dots, \partial_m f(x_0)]$.
@@ -4490,7 +4488,7 @@ Necessary (but not sufficient) optimality criteria:
 \begin{theorem}[Local Inversion Theorem, Theorem of Inverse Maps]
   \label{thm:lit}
   Let $D \subseteq \mathbb R^n$ be open. Let $f: D \to \mathbb R^n$ be continuously differentiable.
-  Furthermore let $Df(x_0)$ regular for $x_0 \in D$. Then $f$ is a local diffeomorphism in $x_0$.
+  Furthermore let $Df(x_0)$ be regular for $x_0 \in D$. Then $f$ is a local diffeomorphism in $x_0$.
   Furthermore it holds that:
   \[ Df^{-1}(f(x_0)) = [Df(x_0)]^{-1} \]
 \end{theorem}
@@ -4689,7 +4687,7 @@ Necessary (but not sufficient) optimality criteria:
 
 \begin{proof}[Proof of Lemma~\ref{l9}]
   \label{proof:f9}
-  Let choose $x_0 \in D$ and show that $g^{-1}$ is differentiable in $y_0 = g(x_0)$.
+  Choose $x_0 \in D$ and show that $g^{-1}$ is differentiable in $y_0 = g(x_0)$.
   We use the same construction as in Proof~\ref{proof:ift} (Implicit function theorem proof).
   Without loss of generality: $x_0 = 0; g(x_0) = y_0 = 0$ and $Dg(0) = I$.
   Let $v \in \mathbb R^n$ be sufficiently small such that $w = g^{-1}(v)$ is defined.
@@ -4849,7 +4847,7 @@ Necessary (but not sufficient) optimality criteria:
     \implies \partial_{x_j x_i} f(x_0) = \lim_{\lambda, \mu \to 0} \partial_{x_j x_i} f(x_0 + \lambda e_i + \mu e_j)
     = \lim_{\xi,\eta \to 0} \partial_{x_i x_j} f(x_0 + \xi e_i + \eta e_j) = \partial_{x_i x_j} f(x_0)
   \]
-  Counter example:
+  Counterexample:
   \[
     f(x_1, x_2) = \begin{cases}
       \frac{x_1 x_2 (x_1^2 - x_2^2)}{x_1^2 + x_2^2} & \text{ for } (x_1, x_2) \neq (0, 0) \\
@@ -4895,7 +4893,7 @@ Necessary (but not sufficient) optimality criteria:
 \index{Taylor's theorem in the multidimensional case}
 \begin{theorem}[Multidimensional Taylor's theorem] % Satz 6
   \label{multiTaylor}
-  Let $f: D \to \mathbb R$, $D$ is open, $x_0 \in D$ and $f \in \mathcal C^{k+1}(D)$.
+  Let $f: D \to \mathbb R$. $D$ is open. Let $x_0 \in D$ and $f \in \mathcal C^{k+1}(D)$.
   Let $r > 0$ such that $K_r(x_0) \subseteq D$ and $v \in \mathbb R^n$ with $\norm{v} \leq r$
   (hence, $x_0 + v \in \overline{K_r(x_0)}$ and therefore also the connecting line
   $[x_0, x_0 + v] = \set{x_0 + tv: t \in [0, 1]} \subseteq \overline{K_r(x_0)} \subseteq D$).
@@ -5575,7 +5573,7 @@ Let $\gamma$ be regular. Then (by the Fundamental Theorem) $l$ is continuously d
 \[ l'(t) = \frac{d}{dt} \left[\int_{t_0}^t \norm{\gamma'(\tau)}_2 \, d\tau\right] = \norm{\gamma'(t)}_2 > 0 \]
 Hence, $l$ is strictly monotonically increasing.
 
-Let $I = [a,b]$, $t_0 \in I$ and $I$ is compact. Then $l: I \to J = l(J)$ is strictly monotonically increasing and continously differentiable. $J = [\alpha, \beta] = [l(a), l(b)]$. $l^{-1}: J \to I$ is also continuous. $l^{-1}$ is also continuously differentiable with
+Let $I = [a,b]$. $t_0 \in I$ and $I$ is compact. Then $l: I \to J = l(J)$ is strictly monotonically increasing and continously differentiable. $J = [\alpha, \beta] = [l(a), l(b)]$. $l^{-1}: J \to I$ is also continuous. $l^{-1}$ is also continuously differentiable with
 \[ (l^{-1})'(s) = \frac{1}{l'(l^{-1}(s))} = \frac{1}{\norm{\gamma'(t)}_2} > 0 \]
 with $t = l^{-1}(s)$ and accordingly $s = l(t)$. $l^{-1}$ is strictly monotonically increasing and continously differentiable.
 
@@ -5586,7 +5584,7 @@ Let $\tilde\gamma$ be the reparameterization of $\gamma$ by the arc length. Then
 \begin{align*}
   \tilde\gamma'(s) &= \frac d{ds} [\gamma(l^{-1}(s))]
     = \gamma' (l^{-1}(s)) (l^{-1})'(s)
-    = \gamma' (t) \cdot \frac{1}{\norm{\gamma'(t)}_2} = T_{\gamma}(t
+    = \gamma' (t) \cdot \frac{1}{\norm{\gamma'(t)}_2} = T_{\gamma}(t)
 \end{align*}
 So, $\norm{\tilde\gamma(s)}_2 = 1$. $\tilde\gamma'(s) = T_{\tilde\gamma}(s)$.
 
@@ -5960,7 +5958,7 @@ Determination of $\kappa$ in case of arbitrary parameterization:
   \[ \kappa = \frac{y'' x' - x'' y'}{(x'^2 + y'^2)^{\frac32}} \]
 \end{mdframed}
 
-Let $\gamma: I \to \mathbb R^2$, $\gamma$ is parameterized by the arc length.
+Let $\gamma: I \to \mathbb R^2$ and $\gamma$ is parameterized by the arc length.
 $\mu(s)$ is center of the circle of curvature of $\gamma$ by change of parameter $s$.
 
 \begin{figure}[t]
