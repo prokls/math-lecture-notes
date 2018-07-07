@@ -167,7 +167,7 @@
       &= \angel{x+y, x+y} \\
       &= \angel{x,x} + \angel{x,y} + \angel{y,x} + \angel{y,y} \\
       &= \norm{x}^2 + 2\angel{x,y} + \norm{y}^2 \\
-      &\leq \norm{x}^2 + 2 \norm{x} \norm{y} + \norm{y}^2  & [\text{see Cauchy-Schwarz inequality}] \\
+      &\leq \norm{x}^2 + 2 \norm{x} \norm{y} + \norm{y}^2  & [\text{by Cauchy-Schwarz ineq.}] \\
       &= (\norm{x} + \norm{y})^2 \\
     \norm{x - y}^2
       &= \angel{x - y, x - y} \\
@@ -766,10 +766,9 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   \begin{claim}
     $(x_n)_{n \in \mathbb N}$ is a Cauchy sequence in $X$.
   \end{claim}
-
   \begin{align*}
-    d(x_n, x_{n+k}) &\leq d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{n+k-1}, x_{n+k}) \qquad \text{by triangle inequality} \\
-      &= d(x_n, x_{n+1}) + d(f(x_n), f(x_{n+1})) + d(f(x_{n+1}), f(x_{n + 2})) + \dots + d(f(x_{n+k-2}), f(x_{n+k-1})) \\
+    d(x_n, x_{n+k}) &\leq d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{n+k-1}, x_{n+k}) \qquad \text{by triangle ineq.} \\
+      &= d(x_n, x_{n+1}) + d(f(x_n), f(x_{n+1})) + \dots + d(f(x_{n+k-2}), f(x_{n+k-1})) \\
       &\leq d(x_n, x_{n+1}) + L\left(d(x_n, x_{n+1}) + d(x_{n+1}, x_{n+2}) + \dots + d(x_{n+k-2}, x_{n+k-1})\right) \\
   \intertext{this inequality is given by contraction}
       &= d(x_n, x_{n+1}) (1 + L) + L \left(d(f(x_n), f(x_{n+1})) + \dots + d(f(x_{n+k-3}), f(x_{n+k-2}))\right) \\
@@ -884,11 +883,16 @@ Then $A$ with metric $d(x,y) = \card{x - y}$ is complete as metric space.
 
 If $A$ is additionally bounded, then $A$ is compact (see course Analysis 1, Bolzano-Weierstrass).
 
-Attention! Let $V$ be an infinite-dimensional, complete, normed vector space.
-For example, $V = \mathcal C([a,b], \mathbb R) = \setdef{f: [a,b] \to \mathbb R}{f \text{ is continuous in } [a,b]}$ with norm $\norm{f}_{\infty} = \max\set{\card{f(x)}: x \in [a,b]}$ and metric $\norm{f - g}_{\infty} = \max\set{\card{f(x) - g(x)}: x \in [a,b]}$. $\mathcal C([a,b], \mathbb R)$ is a complete, normed vector space.
+\emph{Attention!} Let $V$ be an infinite-dimensional, complete, normed vector space.
+\begin{itemize}
+  \item For example, $V = \mathcal C([a,b], \mathbb R) = \setdef{f: [a,b] \to \mathbb R}{f \text{ is continuous in } [a,b]}$
+  \item with norm $\norm{f}_{\infty} = \max\set{\card{f(x)}: x \in [a,b]}$
+  \item and metric $\norm{f - g}_{\infty} = \max\set{\card{f(x) - g(x)}: x \in [a,b]}$
+\end{itemize}
+$\mathcal C([a,b], \mathbb R)$ is a complete, normed vector space.
 It holds that $\overline{K_1(0)}$ is not compact in $\mathcal C([a,b], \mathbb R)$ (i.e. $V$, for every infinite-dimensional vector space).
 
-Again: do not remember \enquote{compactness} not as closed and bounded, as this only holds in the finite-dimensional case.
+\emph{Again:} do not remember \enquote{compactness} as closed and bounded, because this definition only holds in the finite-dimensional case.
 
 In the last proof, we have shown: If a sequence $(x_n)_{n \in \mathbb N}$ with $x_n \in X$ and $d(x_n, x_m) \geq 1$ (or $\geq \varepsilon$) $\forall n \neq m \implies X$ is not compact.
 
@@ -1192,7 +1196,10 @@ Regarding the equivalence of norms:
       \[ x = \begin{bmatrix} x^1 \\ \vdots \\ x^k \end{bmatrix} = \sum_{j=1}^k x^j e_j \]
       Furthermore let $M' = \max\set{\norm{e_j}: j = 1, \dots, k}$ with $\norm{e_j} \neq 0$ and $M' > 0$.
       Then it holds that
-      \[ \norm{x} = \norm{\sum_{j=1}^k x^j e_j} \leq \sum_{j=1}^k \norm{x^j e_j} = \sum_{j=1}^k \card{x^j} \norm{e_j} \leq M' \sum_{j=1}^k \underbrace{\card{x_j}}_{\leq \norm{x}_\infty} \leq \underbrace{M' \cdot k}_{M} \norm{x}_{\infty} = M \norm{x}_\infty \]
+      \begin{align*}
+        \norm{x} &= \norm{\sum_{j=1}^k x^j e_j} \leq \sum_{j=1}^k \norm{x^j e_j} = \sum_{j=1}^k \card{x^j} \norm{e_j} \\
+                 &\leq M' \sum_{j=1}^k \underbrace{\card{x_j}}_{\leq \norm{x}_\infty} \leq \underbrace{M' \cdot k}_{M} \norm{x}_{\infty} = M \norm{x}_\infty
+      \end{align*}
     \item
       We consider $\nu: \mathbb R^k \to [0, \infty)$.
       $\nu(x) = \norm{x}$ as map on $(\mathbb R^k, \norm{\cdot}_{\infty})$.
@@ -1353,11 +1360,12 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       Let $f,g \in \tau[a,b]$. Let $(\xi_i)_{i=0}^m$ be a partition such that
       $f|_{(\xi_{i-1},\xi_i)} = c_i$ and $g|_{(\xi_{i-1},\xi_i)} = d_i$.
       Then
-      \[
-        \int_a^b (\alpha f + \beta g) \, dx = \sum_{i=1}^m (\alpha c_i + \beta d_i) \delta \xi_i
-        = \alpha \sum_{i=1}^m c_i \delta \xi_i + \beta \sum_{i=1}^m d_i \delta \xi_i
-        = \alpha \int_a^b f \, dx + \beta \int_a^b g \, dx
-      \]
+      \begin{align*}
+        \int_a^b (\alpha f + \beta g) \, dx
+          &= \sum_{i=1}^m (\alpha c_i + \beta d_i) \delta \xi_i \\
+          &= \alpha \sum_{i=1}^m c_i \delta \xi_i + \beta \sum_{i=1}^m d_i \delta \xi_i
+          = \alpha \int_a^b f \, dx + \beta \int_a^b g \, dx
+      \end{align*}
       Furthermore,
       \[ (\alpha f + \beta g)|_{(\xi_{i-1},\xi_i)} = \alpha c_i + \beta d_i = \text{ const.} \]
       Thus,
@@ -1487,9 +1495,15 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   \label{lemma5}
   Let $f: A \subseteq X \to \mathbb R$ be given. $x$ is an accumulation point of $A$.
   Then it holds that
-  \[ \lim_{\xi \to x} f(\xi) = c \iff \forall (\xi_n)_{n\in\mathbb N}: \xi_n \in A, \xi_n \neq x \text{ and } \lim_{n\to\infty} \xi_n = x \text{ it holds that } \lim_{n\to\infty} f(\xi_n) = c \]
+  \begin{align*}
+    \lim_{\xi \to x} f(\xi) = c \iff &\forall (\xi_n)_{n\in\mathbb N}: \xi_n \in A, \xi_n \neq x \text{ and } \\
+                                     &\lim_{n\to\infty} \xi_n = x \text{ it holds that } \lim_{n\to\infty} f(\xi_n) = c
+  \end{align*}
   For one-sided limits $A \subseteq \mathbb R$ it holds that
-  \[ c = \lim_{\xi\to x^{+}} f(\xi) \iff \forall (\xi_n)_{n\in\mathbb N}: \xi \in A \qquad \xi_n > x \text{ with } \lim_{n\to\infty} \xi_n = x \text{ it holds that } \lim_{n\to\infty} f(\xi_n) = c \]
+  \begin{align*}
+    c = \lim_{\xi\to x^{+}} f(\xi) \iff &\forall (\xi_n)_{n\in\mathbb N}: \xi \in A: \xi_n > x \text{ with } \\
+                                        &\lim_{n\to\infty} \xi_n = x \text{ it holds that } \lim_{n\to\infty} f(\xi_n) = c
+  \end{align*}
 \end{lemma}
 
 \begin{proof}
@@ -1774,10 +1788,11 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
         $\varphi_N|_{(x, x+\delta)} = c$.
         Now let $\xi, \eta \in (x, x+\delta)$ be chosen arbitrarily.
         Then it holds that
-        \[
-          \card{f(\xi) - f(\eta)} \leq |{f(\xi) - \underbrace{c}_{= \varphi_N(\xi)}}| + |{\underbrace{c}_{= \varphi_N(\eta)} - f(\eta)}|
-          = |{\underbrace{f(\xi) - \varphi_N(\xi)}_{< \frac\varepsilon2}}| + |{\underbrace{\varphi_N(\eta) - f(\eta)}_{< \frac\varepsilon2}}| < \varepsilon
-        \]
+        \begin{align*}
+          \card{f(\xi) - f(\eta)} &\leq |{f(\xi) - \underbrace{c}_{= \varphi_N(\xi)}}| + |{\underbrace{c}_{= \varphi_N(\eta)} - f(\eta)}| \\
+            &= |{\underbrace{f(\xi) - \varphi_N(\xi)}_{< \frac\varepsilon2}}| + |{\underbrace{\varphi_N(\eta) - f(\eta)}_{< \frac\varepsilon2}}|
+            < \varepsilon
+        \end{align*}
         Therefore $f$ has a right-sided limit in $x$ by the Cauchy criterion.
         $f$ has left-sided limit in every point.
       \end{proof}
@@ -2384,7 +2399,8 @@ it holds that $u \not\in A$, hence $f$ is differentiable in $u$.
     \begin{tabular}{c|c|c}
       $f$ & $F$ & remark \\
     \hline
-      $x^\alpha$ & $\frac{x^{\alpha+1}}{\alpha + 1} + c$ & $\alpha \in \mathbb R \setminus \set{-1}$; restrict $x$ such that $x^\alpha$ and $x^{\alpha+1}$ are defined \\
+      $x^\alpha$ & $\frac{x^{\alpha+1}}{\alpha + 1} + c$ & $\alpha \in \mathbb R \setminus \set{-1}$; restrict $x$ \\
+        & & such that $x^\alpha$ and $x^{\alpha+1}$ are defined \\
       $x^{-1}$ & $\ln{x} + c$ ($x > 0$) & \\
       $\left(\frac1{-x}\right) \cdot (-1) = x^{-1}$ & $\ln{-x} + c$ ($x < 0$) & \\
       $e^x$ & $e^x$ & \\
@@ -2949,20 +2965,18 @@ Some important inequalities in integration theory follow.
 \end{proof}
 
 Consider
-\[
-  \int_0^b f^{-1}(y) \, dy = \begin{vmatrix}
-    y &= f(x) \\
-    dy &= f'(x) \, dx \\
-    y = 0 &\implies x = f^{-1}(0) = 0 \\
-    y = b &\implies x = f^{-1}(b)
-  \end{vmatrix}
-  = \int_0^{f^{-1}(b)} \underbrace{f^{-1}(f(x))}_{=x} \cdot f'(x) \, dx = \int_0^{f^{-1}(b)} x \cdot f'(x) \, dx
-\] \[
-  \underbrace{=}_{\text{integration by parts}}
-  \left. x \cdot f(x) \right|_0^{f^{-1}(b)} - 0 \int_0^{f^{-1}(b)} 1 \cdot f(x) \, dx
-\] \[
-  = f^{-1}(b) \cdot b - \int_0^{f^{-1}(b)} f(x) \, dx
-\]
+\begin{align*}
+  \int_0^b f^{-1}(y) \, dy
+    &= \begin{vmatrix}
+      y &= f(x) \\
+      dy &= f'(x) \, dx \\
+      y = 0 &\implies x = f^{-1}(0) = 0 \\
+      y = b &\implies x = f^{-1}(b)
+    \end{vmatrix} \\
+    &= \int_0^{f^{-1}(b)} \underbrace{f^{-1}(f(x))}_{=x} \cdot f'(x) \, dx = \int_0^{f^{-1}(b)} x \cdot f'(x) \, dx \\
+    &\underbrace{=}_{\text{integration by parts}} \left. x \cdot f(x) \right|_0^{f^{-1}(b)} - 0 \int_0^{f^{-1}(b)} 1 \cdot f(x) \, dx \\
+    &= f^{-1}(b) \cdot b - \int_0^{f^{-1}(b)} f(x) \, dx
+\end{align*}
 So
 \[
   I \coloneqq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy = \int_{f^{-1}(b)}^0 f(x) \, dx + b \cdot f^{-1}(b)
@@ -3431,7 +3445,8 @@ Brook Taylor (1685--1731)
         R_f^n(x; x_0) &= f(x) - T_f^{n-1}(x; x_0) \\
           &\underbrace{=}_{\text{ind. hypothesis}} \frac{1}{(n-1)!} \int_{x_0}^x (x - t)^{n-1} f^{(n)}(t) \, dt \\
           &= \begin{vmatrix} u' = (x - t)^{n-1} & v = f^{(n)}(t) \\ u = -\frac1n (x - t)^n & v' = f^{(n+1)}(t) \end{vmatrix} \\
-          &= \left.\frac{1}{(n-1)!} \underbrace{\left[-\frac1n (x - t)^n \cdot f^{(n)}(t)\right]}_{= \frac1{n!} (x - x_0)^n \cdot f^{(n)}(x_0)} \right|_{t = x_0}^{x} + \underbrace{\frac{1}{(n-1)!} \int \frac1n (x - t)^n \cdot f^{(n+1)}(t) \, dt}_{= \frac1{n!} \int_{x_0}^x (x - t)^n \cdot f^{(n+1)}(t) \, dt}
+          &= \left.\frac{1}{(n-1)!} \underbrace{\left[-\frac1n (x - t)^n \cdot f^{(n)}(t)\right]}_{= \frac1{n!} (x - x_0)^n \cdot f^{(n)}(x_0)} \right|_{t = x_0}^{x} \\
+          &+ \underbrace{\frac{1}{(n-1)!} \int \frac1n (x - t)^n \cdot f^{(n+1)}(t) \, dt}_{= \frac1{n!} \int_{x_0}^x (x - t)^n \cdot f^{(n+1)}(t) \, dt}
       \end{align*}
       So,
       \[ f(x) \underbrace{- T_f^{n-1}(x; x_0) - \frac{1}{n!} f^{(n)}(x_0)(x - x_0)^n}_{- T_f^n(x; x_0)} \]
@@ -4566,7 +4581,10 @@ Necessary (but not sufficient) optimality criteria:
   This only holds if $y$ is sufficiently small.
   
   Let $y \in K_r(0)$ and $x \in \overline{K_{2r}(0)}$.
-  \[ \norm{\varphi_Y(x)} = \norm{\varphi_Y(x) - \varphi_Y(0) + \varphi_Y(0)} \leq \norm{\varphi_Y(x) - \varphi_Y(0)} + \norm{\varphi_Y(0)} \underbrace{\leq}_{\text{contraction}} \frac12 \underbrace{\norm{x - 0}}_{\leq 2r} + \underbrace{\norm{y}}_{< r} < 2r \]
+  \begin{align*}
+    \norm{\varphi_Y(x)} &= \norm{\varphi_Y(x) - \varphi_Y(0) + \varphi_Y(0)} \leq \norm{\varphi_Y(x) - \varphi_Y(0)} + \norm{\varphi_Y(0)} \\
+                        &\underbrace{\leq}_{\text{contraction}} \frac12 \underbrace{\norm{x - 0}}_{\leq 2r} + \underbrace{\norm{y}}_{< r} < 2r
+  \end{align*}
   So, for $y \in K_r(0)$ and $x \in \overline{K_{2r}(0)}$, $\varphi_Y(x) \in K_{2r}(0)$.
   By Banach Fixed Point Theorem, there exists a uniquely determined $x$ such that
   \[ x = \varphi_Y(x) \iff y = F(x) \]
@@ -4918,12 +4936,19 @@ Necessary (but not sufficient) optimality criteria:
     Proof by induction over $j$.
     \begin{description}
       \item[Induction base $j = 0$]
-        \[ \varphi(t) = f \circ l_{x_0,v}(t) \]
-        \[ \varphi'(t) \underbrace{=}_{\text{chain rule}} Df(x_0 + \underbrace{t}_{\substack{\text{Jacobi matrix} \\ \text{row vector}}}v) \cdot v = [\partial_1 f(x_0 + tv), \partial_2 f(x_0 + tv), \dots, \partial_n f(x_0 + tv)]\begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix} \]
-        \[ = \sum_{i_1=1}^n \partial_{i_1} f(x_0 + tv) \cdot v_{i_1} \]
+        \begin{align*}
+          \varphi(t) &= f \circ l_{x_0,v}(t) \\
+          \varphi'(t) &\underbrace{=}_{\substack{\text{chain} \\ \text{rule}}} Df(x_0 + \underbrace{t}_{\substack{\text{Jacobi matrix} \\ \text{row vector}}}v) \cdot v \\
+            &= [\partial_1 f(x_0 + tv), \partial_2 f(x_0 + tv), \dots, \partial_n f(x_0 + tv)]\begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix} \\
+            &= \sum_{i_1=1}^n \partial_{i_1} f(x_0 + tv) \cdot v_{i_1}
+        \end{align*}
       \item[Induction step $j-1 \mapsto j$]
-        \[ \varphi^{(j)}(t) = (\varphi^{(j-1)})'(t) \underbrace{=}_{\text{induction hypothesis}} \frac{d}{dt} \left[\sum_{i_1,i_2,\dots,i_{j-1}=1}^n \underbrace{\partial_{i_1,\dots,i_{j-1}} f(x_0 + tv)}_{\partial_{i_1,\dots,i_{j-1}} f \circ l_{x_0,v}(t)} v_{i_1} \cdot \dots \cdot v_{i_{j-1}} \right] \]
-        \[ = \sum_{i_1,\dots,i_j = 1}^n \partial_{i_1, \dots, i_j} f(x_0 + tv) v_{i_1} \dots v_{ij} \]
+        \begin{align*}
+          \varphi^{(j)}(t)
+            &= (\varphi^{(j-1)})'(t) \\
+            &\underbrace{=}_{\substack{\text{induction} \\ \text{hypothesis}}} \frac{d}{dt} \left[\sum_{i_1,i_2,\dots,i_{j-1}=1}^n \underbrace{\partial_{i_1,\dots,i_{j-1}} f(x_0 + tv)}_{\partial_{i_1,\dots,i_{j-1}} f \circ l_{x_0,v}(t)} v_{i_1} \cdot \dots \cdot v_{i_{j-1}} \right] \\
+            &= \sum_{i_1,\dots,i_j = 1}^n \partial_{i_1, \dots, i_j} f(x_0 + tv) v_{i_1} \dots v_{ij}
+        \end{align*}
     \end{description}
   \end{proof}
   Taylor's Theorem for $\varphi(1)$ in the 1-dimensional case:
@@ -4946,21 +4971,21 @@ Necessary (but not sufficient) optimality criteria:
   There are ${j \choose \alpha_1}$ different ways to distribute one.
   There are ${j-\alpha_1 \choose \alpha_2}$ different ways to distribute two.
   There are ${j-\alpha_1-\alpha_2 \choose \alpha_3}$ different ways to distribute three.
-  And so one. There ${j-\alpha_1-\alpha_2-\dots-\alpha_{n-1} \choose \alpha_n}$ different ways to distribute $n$.
+  And so on. There ${j-\alpha_1-\alpha_2-\dots-\alpha_{n-1} \choose \alpha_n}$ different ways to distribute $n$.
   \begin{align}
     \begin{bmatrix} j \\ \alpha_1 \end{bmatrix} \begin{bmatrix} j-\alpha_1 \\ \alpha_2 \end{bmatrix} \begin{bmatrix} j-(\alpha_1 + \alpha_2) \\ \alpha_3 \end{bmatrix} \dots \begin{bmatrix} j-(\alpha_1 + \dots + \alpha_{n-1}) \\ \alpha_n \end{bmatrix} \label{arr}
   \end{align}
   are different arrangements of the index list.
   \[ \underbrace{1 1 \dots 1}_{\alpha_1} \overbrace{2 \dots 2}^{\alpha_2} \dots \underbrace{n n \dots n}_{\alpha_n} \]
-  \[
-    \eqref{arr} =
+  \begin{align*}
+    \eqref{arr} &=
       \frac{j!}{\alpha_1!(j-\alpha_1)!}
       \frac{(j-\alpha_1)!}{\alpha_2! (j - (\alpha_1 + \alpha_2))!}
-      \frac{(j-(\alpha_1 + \alpha_2))!}{\alpha_3! (j - (\alpha_1 + \alpha_2 + \alpha_3))!}
-      \dots
-      \frac{(j - (\alpha_1 + \dots, \alpha_{n-1}))!}{\alpha_n! \underbrace{(j - \underbrace{(\alpha_1 + \dots + \alpha_n)}_{=j})!}_{= 0! = 1}}
-      = \frac{j!}{\alpha_1! \alpha_2! \dots \alpha_n!}
-  \]
+      \frac{(j-(\alpha_1 + \alpha_2))!}{\alpha_3! (j - (\alpha_1 + \alpha_2 + \alpha_3))!} \\
+      &\dots
+      \frac{(j - (\alpha_1 + \dots, \alpha_{n-1}))!}{\alpha_n! \underbrace{(j - \underbrace{(\alpha_1 + \dots + \alpha_n)}_{=j})!}_{= 0! = 1}} \\
+      &= \frac{j!}{\alpha_1! \alpha_2! \dots \alpha_n!}
+  \end{align*}
 
   We merge equal partial derivative
   \begin{align*}
@@ -5469,11 +5494,11 @@ Compare with Figure~\ref{img:ori}.
   \begin{align*}
     \norm{\int_a^b (\alpha - \varphi) \, dt}_2
       &= \norm{\begin{bmatrix} \int_a^b (\alpha_1 - \varphi_1) \, dt \\ \vdots \\ \int_a^b (\alpha_n - \varphi_n) \, dt \end{bmatrix}}_2
-      = \norm{\begin{bmatrix} \card{\int_a^b (\alpha_1 - \varphi_1) \, dt} \\ \vdots \\ \card{\int_a^b (\alpha_n - \varphi_n)} \, dt \end{bmatrix}}_2
-      = \norm{\begin{bmatrix} \int_a^b \card{\alpha_1 - \varphi_1} \, dt \\ \vdots \\ \int_a^b \card{\alpha_n - \varphi_n} \, dt \end{bmatrix}}_2 \\
-      &\leq \norm{\begin{bmatrix} \int_a^b \frac{\varepsilon}{2\sqrt n (b - a)} \, dt \\ \vdots \\ \int_a^b \frac{\varepsilon}{2 \sqrt n (b - a)} \end{bmatrix}}_2
-      = \norm{\begin{bmatrix} \frac{\varepsilon}{2 \sqrt n} \\ \vdots \\ \frac{\varepsilon}{2 \sqrt n} \end{bmatrix}}_2
-      = \sqrt{\sum_{k=1}^n \frac{\varepsilon^2}{4n}} = \frac\varepsilon2
+      = \norm{\begin{bmatrix} \card{\int_a^b (\alpha_1 - \varphi_1) \, dt} \\ \vdots \\ \card{\int_a^b (\alpha_n - \varphi_n)} \, dt \end{bmatrix}}_2 \\
+      &= \norm{\begin{bmatrix} \int_a^b \card{\alpha_1 - \varphi_1} \, dt \\ \vdots \\ \int_a^b \card{\alpha_n - \varphi_n} \, dt \end{bmatrix}}_2
+      \leq \norm{\begin{bmatrix} \int_a^b \frac{\varepsilon}{2\sqrt n (b - a)} \, dt \\ \vdots \\ \int_a^b \frac{\varepsilon}{2 \sqrt n (b - a)} \end{bmatrix}}_2
+      = \norm{\begin{bmatrix} \frac{\varepsilon}{2 \sqrt n} \\ \vdots \\ \frac{\varepsilon}{2 \sqrt n} \end{bmatrix}}_2 \\
+      &= \sqrt{\sum_{k=1}^n \frac{\varepsilon^2}{4n}} = \frac\varepsilon2
   \end{align*}
   Hence, $\norm{\int_a^b \alpha \, dt} = \norm{\int_a^b (\alpha - \varphi) \, dt + \int_a^b \varphi \, dt}_2 \leq \norm{\int_a^b (\alpha - \varphi) \, dt}_2 + \norm{\int_a^b \varphi \, dt} \leq \frac{\varepsilon}{2} + \int_a^b \norm{\varphi}_2 \, dt$ because $\varphi \in \tau[a,b]$.
   \begin{align*}
@@ -5695,7 +5720,7 @@ and $\angel{\gamma'(s), \gamma''(s)} = 0$, hence $\gamma''(s) \bot \Gamma(s)$
 \begin{definition} % Definition 7
   Let $\gamma$ be parameterized by the arc length.
   $\kappa(s) \neq 0$, hence $N$ is defined. We call $\varepsilon_X = \set{x + \xi T + \eta N: \xi, \eta \in \mathbb R}$
-  the \emph{osculating plane} of $\gamma$ in $x$. Compare with Figure~\ref{img:oscplane}.
+  the \emph{osculating plane} of $\gamma$ in $x$ (dt. \foreignlanguage{german}{Schmiegebene}). Compare with Figure~\ref{img:oscplane}.
 
   \begin{figure}[t]
     \begin{center}
@@ -5830,8 +5855,8 @@ $\tau(s)$ is called \emph{torsion} of a curve in $x = \gamma(s)$.
     s'(t) &= \norm{\gamma'(t)} \\
     t'(s) &= \frac{1}{\norm{\gamma'(t(s))}} \\
     \Gamma(s) &= \frac{\gamma'(t(s))}{\norm{\gamma'(t(s))}} \\
-    \frac{d}{ds} \Gamma(s) &= \frac{1}{\norm{\gamma'(t(s))}} \cdot \gamma''(t(s)) \cdot \underbrace{t'(s)}_{= \frac{1}{\norm{\gamma'(t(s))}}}
-      - \frac{1}{\norm{\gamma'(t(s))}^2} \cdot \frac{\angel{\gamma'(t(s)), \gamma''(t(s))}}{\norm{\gamma'(t(s))}} \cdot \underbrace{t'(s)}_{= \frac{1}{\norm{\gamma'(t(s))}}} \gamma'(t(s)) \\
+    \frac{d}{ds} \Gamma(s) &= \frac{1}{\norm{\gamma'(t(s))}} \cdot \gamma''(t(s)) \cdot \underbrace{t'(s)}_{= \frac{1}{\norm{\gamma'(t(s))}}} \\
+      &- \frac{1}{\norm{\gamma'(t(s))}^2} \cdot \frac{\angel{\gamma'(t(s)), \gamma''(t(s))}}{\norm{\gamma'(t(s))}} \cdot \underbrace{t'(s)}_{= \frac{1}{\norm{\gamma'(t(s))}}} \gamma'(t(s)) \\
       &= \frac{1}{\norm{\gamma'(t(s))}^2} \cdot \gamma''(t(s)) - \frac{\angel{\gamma'(t(s)), \gamma''(t(s))}}{\norm{\gamma'(t(s))}^4} \cdot \gamma'(t(s))
   \end{align*}
   Omit $t(s)$.
@@ -5996,6 +6021,16 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
   \[ \mu(t) = \gamma(t) + \frac{1}{\kappa(t)} \cdot N(t) = \begin{bmatrix} t \\ t^2 \end{bmatrix} + \frac{(1 + 4t^2)^{\frac32}}{2} \frac{1}{(1 + 4t^2)^{\frac12}} \begin{bmatrix} -2t \\ 1 \end{bmatrix} = \begin{bmatrix} -4t^3 \\ \frac12 + 3t^2 \end{bmatrix} = \underbrace{\frac12 \begin{bmatrix} 0 \\ 1 \end{bmatrix} + \begin{bmatrix} -4t^3 \\ 3t^2 \end{bmatrix}}_{\text{Neil's parabola}} \]
   \[ \mu'(t) = 0 \text{ for } t = 0 \qquad (\kappa' = 0 \text{ hence } \kappa \text{ has maximum}) \]
 \end{example}
+
+\section*{Exam questions 2018/07/06}
+
+\begin{enumerate}
+  \item Let $f: X \to Y$ be continuous. Let $X$ be compact. Prove that $f(X)$ is compact.
+  \item Give and prove H\"older's inequality.
+  \item Prove: If $f$ is analytical in $x_0$, then $f = T_f(x, x_0)$.
+  \item $f: D \subseteq \mathbb R^m \to \mathbb R^n$ is differentiable in $x_0$ with $Df(x_0)$. Show that $\forall v \in \mathbb R^m \setminus \set{0}: df(x_0, v) = Df(x_0) \cdot v$
+  \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$. Define its curvature, circle of curvature, osculating plane and main normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
+\end{enumerate}
 
 \printindex
 \end{document}
