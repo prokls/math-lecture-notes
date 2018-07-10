@@ -158,7 +158,7 @@
   \[ \angel{x, y} = \sum_{i=1}^n x_i y_i \]
   \[ \norm{x} = \angel{x,x}^{\frac12} = \sqrt{\sum_{i=1}^n x_i^2} \]
   \[ \norm{x} = \sqrt{x_1^2 + x_2^2} \]
-  It holds that $\norm{x+y} \leq \norm{x} + \norm{y}$ [triangle inequality].
+  The triangle inequality holds: $\norm{x+y} \leq \norm{x} + \norm{y}$.
 \end{claim}
 
 \begin{proof}
@@ -202,7 +202,7 @@
 \index{Normed vector space}
 \begin{definition}
   $\norm{x} = \sqrt{\sum_{i=1}^n x_i^2}$ is called \emph{Euclidean norm} (length) of vector $x \in \mathbb R^n$. $\norm{x} = \angel{x, x}^{\frac12}$.
-  It holds that
+  It satisfies:
   \begin{enumerate}
     \item $\norm{\lambda x} = \card{\lambda} \norm{x} \forall x \in \mathbb R^n, \lambda \in \mathbb R$
     \item $\norm{x} = 0 \iff x = 0$ in $\mathbb R^n$
@@ -289,7 +289,7 @@ $(X, d)$ is a metric space.
 \begin{proof}
   Let $(x_n)_{n\in\mathbb N}$ be convergent with limit $x$. Let $\varepsilon > 0$ be arbitrary.
   Because $(x_n)_{n\in\mathbb N}$ is convergent, there exists $N \in \mathbb N$ such that $n \geq N \implies d(x_n, x) < \frac{\varepsilon}{2}$.
-  Now let $n,m \geq N$. Then it holds that
+  Now let $n,m \geq N$. Then,
   \[ d(x_n, x_m) \leq \underbrace{d(x_n, x)}_{< \frac{\varepsilon}2} + \underbrace{d(x, x_m)}_{< \frac\varepsilon2} < \varepsilon \]
 \end{proof}
 
@@ -489,7 +489,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Inductive: $x_n \neq x_{n-1} \neq x_{n-2} \neq \dots \neq x_1$.
   Now consider arbitrary $\varepsilon > 0$ and $N$ large enough such that $\frac1N < \varepsilon$.
 
-  Then it holds that $\forall n \geq N: 0 < d(x_n, x) < \frac1n \leq \frac1N < \varepsilon$.
+  Then $\forall n \geq N: 0 < d(x_n, x) < \frac1n \leq \frac1N < \varepsilon$.
   So $K_{\varepsilon}(x) \cap B$ contains infinitely many points $x_N, x_{N+1}, x_{N+2}, \dots$.
 \end{proof}
 
@@ -497,7 +497,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \begin{definition} % definition 9
   Let $U \subseteq X$ and $x \in U$.
   We say $x$ is an \emph{inner point of $U$} if $\exists r > 0: K_r(x) \subseteq U$.
-  We let $\mathring{U} = \setdef{x \in U}{x \text{ is inner point of } U}$ and call it \emph{interior of $U$} (\foreignlanguage{german}{offenen Kern von $U$} or \foreignlanguage{german}{das Innere von $U$}).
+  We let $\mathring{U} = \setdef{x \in U}{x \text{ is inner point of } U}$ and call it \emph{interior of $U$} (dt. \foreignlanguage{german}{offenen Kern von $U$} or \foreignlanguage{german}{das Innere von $U$}).
   $O \subseteq X$ is called \emph{open} (open set), if every point $x \in O$ is also an inner point of $O$.
   Hence $\mathring{O} = O$. Compare with image~\ref{img:inner}.
 \end{definition}
@@ -524,7 +524,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
   Let $z \in K_{r'}(y)$, hence $d(z, y) < r'$. Then,
   \[ d(z, x) \leq \underbrace{d(x, y)}_{< r'} + \underbrace{d(y, z)}_{= s} < r' + s = r \]
-  So it holds that $z \in K_r(x)$ and therefore $K_{r'}(y) \subseteq K_r(x)$.
+  So $z \in K_r(x)$ and therefore $K_{r'}(y) \subseteq K_r(x)$.
 \end{proof}
 
 \begin{figure}[t]
@@ -564,7 +564,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
   Direction $\Leftarrow$.
   So $x$ is contact point of $A$.
-  Because $A$ is closed, it holds that $x \in A$.
+  Because $A$ is closed, $x \in A$.
   This contradicts with $x \in O = A^C$. Thus $O$ is open.
 
   Direction $\Rightarrow$.
@@ -579,7 +579,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
 \begin{theorem}
   \label{satz2}
-  Let $X$ be a metric space. Then it holds that
+  Let $X$ be a metric space. Then,
   \begin{itemize}
   	\item
   	  If $O_i \subseteq X$ is open in $X$ $\forall i \in I$.
@@ -644,7 +644,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Then the following statements are equivalent:
   \begin{enumerate}
     \item $f$ is continuous in $x_0$
-    \item For every neighborhood $V$ of $y_0 = f(x_0)$ it holds that $f^{-1}(V)$ is a neighborhood of $x_0$
+    \item For every neighborhood $V$ of $y_0 = f(x_0)$ it is given that $f^{-1}(V)$ is a neighborhood of $x_0$
     \item For every sequence $(x_n)_{n \in \mathbb N}$ with $\lim_{n\to\infty} f(x_n) = f(x_0)$
   \end{enumerate}
 \end{theorem}
@@ -677,7 +677,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Direction $\Leftarrow$.
 
   Let the preimages of open sets be open and $x_0 \in X$ and $y_0 = f(x_0)$.
-  Let $V$ be a neighborhood of $y_0 = f(x_0)$, hence $\exists \varepsilon > 0: K_{\varepsilon}(f(x_0)) \subseteq V$. Because $K_{\varepsilon}(f(x_0))$ is an open set, it holds that $f^{-1}(K_{\varepsilon}(f(x_0))) \in x_0$ is open in $X$.
+  Let $V$ be a neighborhood of $y_0 = f(x_0)$, hence $\exists \varepsilon > 0: K_{\varepsilon}(f(x_0)) \subseteq V$. Because $K_{\varepsilon}(f(x_0))$ is an open set, $f^{-1}(K_{\varepsilon}(f(x_0))) \in x_0$ is open in $X$.
 
   Therefore, there exists $\delta > 0$ such that $K_{\delta}(x_0) \subseteq f^{-1}(K_{\varepsilon}(f(x_0))) \subseteq f^{-1}(V)$. Hence, $f^{-1}(V)$ is a neighborhood of $x_0$. Then by Theorem~\ref{satz3t}~(b), it follows that $f$ is continuous in $x_0$ (chosen arbitrarily). Hence $f$ is continuous on $X$.
 \end{proof}
@@ -717,7 +717,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Every Lipschitz continuous function is uniformly continuous.
 \end{theorem}
 \begin{proof}
-  For $\varepsilon > 0$, choose $\delta = \frac{\varepsilon}{L+1}$. Then it holds that
+  For $\varepsilon > 0$, choose $\delta = \frac{\varepsilon}{L+1}$. Then
   $d_X(x,y) < \delta = \frac{\varepsilon}{L+1} \implies d_Y(f(x), f(y)) \leq L \cdot d_X(x,y) < \frac{L}{L+1} \cdot \varepsilon < \varepsilon$.
 \end{proof}
 
@@ -743,7 +743,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \begin{theorem}[Banach fixed-point theorem] % Satz 5
   Let $f: X \to X$ be a contraction and $X$ be complete.
   Then there exists a uniquely defined $\hat{x} \in X$ such that $\hat{x} = f(\hat{x})$. $\hat{x}$ is called fixed point on $f$.
-  Furthermore it holds that $x_0 \in X$ is arbitrary and $x_n = f(x_{n-1})$ for all $n \geq 1$. Compare with Figure~\ref{img:banachfixed}.
+  Furthermore $x_0 \in X$ is arbitrary and $x_n = f(x_{n-1})$ for all $n \geq 1$. Compare with Figure~\ref{img:banachfixed}.
   \[ \lim_{n \to \infty} x_n = \hat{x} \]
 \end{theorem}
 
@@ -790,7 +790,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
   It remains to prove uniqueness:
 
-  Let $\tilde{x} = f(\tilde{x})$. Then it holds that $d(\hat{x}, \tilde{x}) = d(f(\hat{x}), f(\tilde{x})) \leq L d(\hat{x}, \tilde{x})$ with $L < 1$.
+  Let $\tilde{x} = f(\tilde{x})$. Then $d(\hat{x}, \tilde{x}) = d(f(\hat{x}), f(\tilde{x})) \leq L d(\hat{x}, \tilde{x})$ with $L < 1$.
   If $d(\hat{x}, \tilde{x}) > 0$, then $1 \leq L$. This is a contradiction.
   Hence $d(\hat{x}, \tilde{x}) = 0$ must hold, hence $\hat{x} = \tilde{x}$.
 \end{proof}
@@ -819,7 +819,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Then $(x_n)_{n \in \mathbb N}$ is also a Cauchy sequence in $X$.
   Because $X$ is complete, there exists $\hat{x} = \lim_{n\to\infty} x_n$.
   Therefore $\hat{x}$ is a contact point of $A$.
-  Because $A$ is closed, it holds that $\hat{x} \in A$.
+  Because $A$ is closed, $\hat{x} \in A$.
 
   Therefore every Cauchy sequence in $A$ has a limit point in $A$,
   hence $A$ is complete.
@@ -854,7 +854,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{definition}
 It holds for arbitrary $x \in X$ that $\forall y \in X: y \in K_M(x)$.
 So, $X \subseteq K_M(x)$.
-On the contrary, let $X \subseteq \overline{K_M(x)}$ and let $y \in X$ and $z \in X$ be arbitrary. Then it holds that $d(y, z) \leq d(y, x) + d(x, z) \leq M + M = 2M$. Hence, $X$ is bounded.
+On the contrary, let $X \subseteq \overline{K_M(x)}$ and let $y \in X$ and $z \in X$ be arbitrary. Then $d(y, z) \leq d(y, x) + d(x, z) \leq M + M = 2M$. Hence, $X$ is bounded.
 
 So, $X$ is bounded $\iff \exists x \in X \land M \geq 0: X \subseteq \overline{K_M(x)}$.
 
@@ -869,16 +869,16 @@ So, $X$ is bounded $\iff \exists x \in X \land M \geq 0: X \subseteq \overline{K
 
   We use the following auxiliary result: Let $B = \bigcup_{j=1}^n K_1(z_j)$ for arbitrary $n \in \mathbb N$ and arbitrary $z_j \in X$. Then $B$ is bounded. This result will be part of the practicals.
 
-  We construct $(x_n)_{n\in\mathbb N}$ inductively. Choose arbitrary $x_0 \in X$. Assume $(x_1, \dots, x_{n-1})$ are already found. Then it holds that
+  We construct $(x_n)_{n\in\mathbb N}$ inductively. Choose arbitrary $x_0 \in X$. Assume $(x_1, \dots, x_{n-1})$ are already found. Then,
   \[ \underbrace{X}_{\text{unbounded}} \not\subseteq \underbrace{\bigcup_{j=1}^{n-1} K_1(x_j)}_{\text{bounded}} \]
   hence $\exists x_n \in X \setminus \bigcup_{j=1}^{n-1} K_1(x_j)$.
-  Because $x_n \not\in K_1(x_j)$ for $j = 0, \dots, n-1$ it holds that $d(x_n, x_j) \geq 1 \forall j < n$. We get $(x_n)_{n \in \mathbb N}$ with $d(x_n, x_m) \geq 1 \forall n \in \mathbb N \forall m < n$, hence $m \neq n$. Because $d(x_n, x_m) \geq 1$, i.e. $(x_n)_{n \in \mathbb N}$ does not contain any Cauchy sequence as subsequence, $(x_n)_{n \in \mathbb N}$ does not have a convergent subsequence. Therefore $X$ is not compact.
+  Because $x_n \not\in K_1(x_j)$ for $j = 0, \dots, n-1$ it is given that $d(x_n, x_j) \geq 1 \forall j < n$. We get $(x_n)_{n \in \mathbb N}$ with $d(x_n, x_m) \geq 1 \forall n \in \mathbb N \forall m < n$, hence $m \neq n$. Because $d(x_n, x_m) \geq 1$, i.e. $(x_n)_{n \in \mathbb N}$ does not contain any Cauchy sequence as subsequence, $(x_n)_{n \in \mathbb N}$ does not have a convergent subsequence. Therefore $X$ is not compact.
 \end{proof}
 
 \dateref{2018/03/15}
 
 Every compact metric space is bounded. Every compact metric space is complete.
-In $\mathbb C$ ($\mathbb R^n$) it holds that $A \subseteq \mathbb C$ is closed.
+In $\mathbb C$ ($\mathbb R^n$), any $A \subseteq \mathbb C$ is closed.
 Then $A$ with metric $d(x,y) = \card{x - y}$ is complete as metric space.
 
 If $A$ is additionally bounded, then $A$ is compact (see course Analysis 1, Bolzano-Weierstrass).
@@ -890,7 +890,7 @@ If $A$ is additionally bounded, then $A$ is compact (see course Analysis 1, Bolz
   \item and metric $\norm{f - g}_{\infty} = \max\set{\card{f(x) - g(x)}: x \in [a,b]}$
 \end{itemize}
 $\mathcal C([a,b], \mathbb R)$ is a complete, normed vector space.
-It holds that $\overline{K_1(0)}$ is not compact in $\mathcal C([a,b], \mathbb R)$ (i.e. $V$, for every infinite-dimensional vector space).
+So, $\overline{K_1(0)}$ is not compact in $\mathcal C([a,b], \mathbb R)$ (i.e. $V$, for every infinite-dimensional vector space).
 
 \emph{Again:} do not remember \enquote{compactness} as closed and bounded, because this definition only holds in the finite-dimensional case.
 
@@ -920,7 +920,7 @@ Be aware, that this proof is a common exam question and students often begin wit
 \begin{proof}
   Let $(y_n)_{n \in \mathbb N}$ be an arbitrary sequence in $f(X)$. Show that $(y_n)_{n\in\mathbb N}$ has a convergent subsequence.
   Because $y_n \in f(X)$, there exists at least one $x_n$ with $y_n = f(x_n)$.
-  Then $(x_n)_{n \in \mathbb N}$ is a sequence in $X$, $X$ is compact, hence there exists a subsequence $(x_{n_k})_{k \in \mathbb N}$ with $\lim_{k\to\infty} x_{n_k} = \hat{x} \in X$. Because $f$ is continuous, it holds that $\lim_{k\to\infty} f(x_{n_k}) = \lim_{k\to\infty} y_{n_k} = f(\hat{x}) \eqqcolon \hat{y}$.
+  Then $(x_n)_{n \in \mathbb N}$ is a sequence in $X$, $X$ is compact, hence there exists a subsequence $(x_{n_k})_{k \in \mathbb N}$ with $\lim_{k\to\infty} x_{n_k} = \hat{x} \in X$. Because $f$ is continuous, $\lim_{k\to\infty} f(x_{n_k}) = \lim_{k\to\infty} y_{n_k} = f(\hat{x}) \eqqcolon \hat{y}$.
   So $(y_n)_{n\in\mathbb N}$ has a convergent subsequence. Hence $f(X) \subseteq Y$ is compact.
 \end{proof}
 
@@ -934,7 +934,7 @@ Be aware, that this proof is a common exam question and students often begin wit
 
 \begin{proof}
   $f(X) \subseteq \mathbb R$ is compact (Theorem~\ref{satz6}), hence $f(X)$ is bounded and complete, hence closed in $\mathbb R$.
-  There exists $\xi \in \mathbb R$ with $\xi = \sup{f(X)}$, because $f(X)$ is complete and $\xi$ is a contact point of $f(X)$, it holds that $\xi \in f(X)$, hence $\exists \overline{x} \in X: \xi = f(\overline{x})$. Furthermore, $\xi$ is an upper bound of $f(X) \to f(x) \leq \xi = f(\overline{x}) \forall x \in X$.
+  There exists $\xi \in \mathbb R$ with $\xi = \sup{f(X)}$, because $f(X)$ is complete and $\xi$ is a contact point of $f(X)$, so $\xi \in f(X)$, hence $\exists \overline{x} \in X: \xi = f(\overline{x})$. Furthermore, $\xi$ is an upper bound of $f(X) \to f(x) \leq \xi = f(\overline{x}) \forall x \in X$.
 
   For $\underline{x}$, it works the same way.
 \end{proof}
@@ -968,12 +968,12 @@ Be aware, that this proof is a common exam question and students often begin wit
       \item $d_X(\tilde{x}_l, \hat{x}) < \frac{\varepsilon'}{3}$
       \item $d_X(\tilde{y}_l, \hat{y}) < \frac{\varepsilon'}{3}$
     \end{itemize}
-    Therefore it holds that
+    Therefore
     \[
       d_X(\hat x, \hat y) \leq d_X(\hat x, \tilde x_l) + d_X(\tilde x_l, \tilde y_l) + d_X(\tilde y_l, \hat y)
       < \frac{\varepsilon'}{3} + \frac1l + \frac{\varepsilon'}{3} < \varepsilon'
     \]
-    Therefore it holds that $d_X(\hat{x}, \hat{y}) = 0$, hence $\hat{x} = \hat{y}$.
+    Therefore $d_X(\hat{x}, \hat{y}) = 0$, hence $\hat{x} = \hat{y}$.
   \end{proof}
   Because $f$ is continuous and $\tilde{x_l} \to \hat{x}$ and $\tilde{y}_l \to \hat{x}$, there exists $l \in \mathbb N$ such that
   \[ d_Y(f(\tilde x_l), f(\hat{x})) < \frac\varepsilon2 \]
@@ -1008,7 +1008,7 @@ obvious: $K_r^\Omega(x) = \Omega \cap K_r^V(x)$.
 \begin{lemma} % Lemma 10
   Let $O' \subseteq \Omega \subseteq V$.
 
-  Then it holds that $O'$ is open in $\Omega \iff$ there exists $O \subseteq V$ is open in $V$ such that $O' = O \cap \Omega$.
+  Then $O'$ is open in $\Omega \iff$ there exists $O \subseteq V$ is open in $V$ such that $O' = O \cap \Omega$.
 \end{lemma}
 
 \begin{proof}
@@ -1016,7 +1016,7 @@ obvious: $K_r^\Omega(x) = \Omega \cap K_r^V(x)$.
     \item[$\Rightarrow$]
       Let $O' \subseteq \Omega$ be open in $\Omega$ and $x \in O'$ be arbitrary.
       Then there exists $r(x) > 0: x \in K_{r(x)}^\Omega(x) = K_{r(x)}^V(x) \cap \Omega \subseteq O'$.
-      Then it holds that
+      Then
       \[
         O' = \bigcup_{x \in O'} = \set{x} \subseteq \bigcup_{x \in O'} K_{r(x)}^\Omega(x)
         = \left(\bigcup_{x \in O'} (K_{r(x)}^V(x)\right) \cap \Omega)
@@ -1102,7 +1102,7 @@ Then $(x_n)_{n \in \mathbb N}$ also has a convergent subsequence in $V$.
 
 Addendum:
 \begin{itemize}
-  \item Let $(x_n)_{n \in \mathbb N}$ be in $(X, d)$, then it holds that
+  \item Let $(x_n)_{n \in \mathbb N}$ be in $(X, d)$, then
     \[ \underbrace{x = \lim_{n\to\infty} x_n}_{\text{in } X} \iff \underbrace{\lim_{n\to\infty} d(x_n, x) = 0}_{\text{in } \mathbb R} \]
     \[ (\iff \lim_{n\to\infty} \norm{x_n - x} = 0 \text{ in normed vector spaces } V) \]
   \item Reversed triangle inequality: Let $V$ be a normed vector space. Let $x, y \in V$.
@@ -1111,8 +1111,7 @@ Addendum:
     \[ \norm{x} - \norm{y} \leq \norm{x - y} \]
     By exchanging $x$ and $y$,
     \[ \norm{y} - \norm{x} \leq \norm{x - y} \]
-    Hence, it holds that
-    \[ \card{\norm x - \norm y} \leq \norm{x - y} \]
+    \[ \implies \card{\norm x - \norm y} \leq \norm{x - y} \]
   \item Define the map $n: V \to [0, \infty)$ on $(V, \norm{\cdot})$ with $n(x) = \norm{x}$.
     Then $n$ is continuous on $V$ because
     \[ \card{n(x_1) - n(x_2)} = \card{\norm{x_1} - \norm{x_2}} \leq \norm{x_1 - x_2} \]
@@ -1122,7 +1121,7 @@ Addendum:
 Regarding the equivalence of norms:
 
 \begin{lemma} % Lemma 11
-  Let $\norm{\cdot}_1$ and $\norm{\cdot}_2$ be equivalent norms on $V$. Then it holds that
+  Let $\norm{\cdot}_1$ and $\norm{\cdot}_2$ be equivalent norms on $V$. Then,
   \begin{enumerate}
     \item $\lim_{n\to\infty} \norm{x_n - x}_1 = 0 \iff \lim_{n\to\infty} \norm{x_n - x}_2 = 0$,
       hence $(x_n)_{n\in\mathbb N}$ is convergent with limit $x$ in regards of $\norm{\cdot}_1$
@@ -1137,15 +1136,15 @@ Regarding the equivalence of norms:
   Let $\norm{\cdot}_1$ and $\norm{\cdot}_2$ are equivalent, hence $\exists m, M > 0: m \norm{x}_1 \leq \norm{x}_2 \leq M \norm{x}_1 \forall x \in V$.
   \begin{enumerate}
     \item Let $\varepsilon > 0$ and $\lim_{n\to\infty} \norm{x_n - x}_1 = 0$.
-      Choose $N \in \mathbb N$ such that $n \geq N \implies \norm{x_n - x}_1 < \frac{\varepsilon}{M}$. For those $n$ it holds that
+      Choose $N \in \mathbb N$ such that $n \geq N \implies \norm{x_n - x}_1 < \frac{\varepsilon}{M}$. For those $n$,
       \[ \norm{x_n - x}_2 \leq M \norm{x_n - x}_1 < \frac{\varepsilon}{M} \cdot M = \varepsilon \]
       Hence, $\lim_{n\to\infty} \norm{x_n - x}_2 = 0$.
-    \item $K_r^2(x) = \setdef{y \in V}{\norm{y - x}_2 < r}$. For $y \in K_r^2(x)$ it holds that
+    \item $K_r^2(x) = \setdef{y \in V}{\norm{y - x}_2 < r}$. For $y \in K_r^2(x)$,
       \[ m \norm{y - x}_1 \leq \norm{y - x}_2 < r \]
       hence,
       \[ \norm{y - x}_1 < \frac rm \implies y \in K_{\frac rm}^1(x) \]
       hence $K_r^2(x) \subseteq K_{\frac rm}^1(x)$.
-      Let $y \in K_{\frac rM}^1(x)$. Then it holds that,
+      Let $y \in K_{\frac rM}^1(x)$. Then,
       \[ \norm{y - x}_2 \leq M \norm{y - x}_1 < M \cdot \frac rM = r \]
       hence $y \in K_r^2(x)$. $\implies K_{\frac rM}^1(x) \subseteq K_r^2(x)$.
       Now let $O$ be open in regards of $\norm{\cdot}_2$, hence
@@ -1162,7 +1161,7 @@ Regarding the equivalence of norms:
   Let $(x_n)_{n\in\mathbb N}$ be a sequence in $\mathbb R^k$
   \[ \norm{x}_{\infty} = \max\setdef{\card{x^i}}{i = 1, \dots, n} \]
   \[ x = \begin{bmatrix} x^1 \\ x^2 \\ \vdots \\ x^k \end{bmatrix} \]
-  It holds that $\lim_{n\to\infty} \norm{x_n - x}_{\infty} = 0 \iff \lim_{n\to\infty} \card{x_n^i - x^i} = 0$ for all $i \in \set{1, \dots, k}$.
+  Then $\lim_{n\to\infty} \norm{x_n - x}_{\infty} = 0 \iff \lim_{n\to\infty} \card{x_n^i - x^i} = 0$ for all $i \in \set{1, \dots, k}$.
 \end{remark}
 
 \begin{theorem}[Bolzano-Weierstrass theorem in $\mathbb R^k$]
@@ -1177,11 +1176,11 @@ Regarding the equivalence of norms:
   \[ \lim_{l_1 \to \infty} x_{n_{l_1}}^1 = x^1 \]
   Consider $(x_{n_{l_1}}^2)_{l_1 \in \mathbb N}$, a subsequence of a bounded sequence, hence bounded itself.
   By the Bolzano-Weierstrass theorem in $\mathbb R$, there exists a convergent subsequence $(x_{n_{{l_1}_{l_2}}}^2)_{l_2 \in \mathbb N}$ with $\lim_{l_2 \to \infty} x_{n_{{l_1}_{l_2}}}^2 = x^2$.
-  Consider $x_{n_{{l_1}_{l_2}}}^1$ as subsequence of $x_{n_{l_1}}^1$ is already convergent, hence $\lim_{l_2 \to \infty} x_{n_{{l_1}_{l_2}}}^1 = x^1$. Furthermore, up to index $i$, it holds that:
+  Consider $x_{n_{{l_1}_{l_2}}}^1$ as subsequence of $x_{n_{l_1}}^1$ is already convergent, hence $\lim_{l_2 \to \infty} x_{n_{{l_1}_{l_2}}}^1 = x^1$. Furthermore, for indices up to $i$:
   \[ \lim_{l_k \to \infty} x_{n_{{{{l_1}_{l_2}}_{\ldots}}_{l_k}}} = x^i \qquad \text{ for } i = 1, \dots, k \]
   Hence, with $\tilde{x_{l_k}} = x_{n_{{{{l_1}_{l_2}}_{\ldots}}_{l_k}}}$ gives a subsequence of $x_n$, converging by each coordinate. Thus,
   \[ \lim_{l_k \to \infty} \norm{\tilde{x}_{l_k} - x}_{\infty} = 0 \]
-  Because $\tilde{x}_{l_n} \in K$ and $K$ be closed, it holds that $x \in K$.
+  Because $\tilde{x}_{l_n} \in K$ and $K$ is closed, $x \in K$.
   Hence $K$ is compact.
 \end{proof}
 
@@ -1195,7 +1194,7 @@ Regarding the equivalence of norms:
     \item Let $(e_1, e_2, \dots, e_k)$ be the canonical basis in $\mathbb R^k$.
       \[ x = \begin{bmatrix} x^1 \\ \vdots \\ x^k \end{bmatrix} = \sum_{j=1}^k x^j e_j \]
       Furthermore let $M' = \max\set{\norm{e_j}: j = 1, \dots, k}$ with $\norm{e_j} \neq 0$ and $M' > 0$.
-      Then it holds that
+      Then
       \begin{align*}
         \norm{x} &= \norm{\sum_{j=1}^k x^j e_j} \leq \sum_{j=1}^k \norm{x^j e_j} = \sum_{j=1}^k \card{x^j} \norm{e_j} \\
                  &\leq M' \sum_{j=1}^k \underbrace{\card{x_j}}_{\leq \norm{x}_\infty} \leq \underbrace{M' \cdot k}_{M} \norm{x}_{\infty} = M \norm{x}_\infty
@@ -1216,12 +1215,12 @@ Regarding the equivalence of norms:
       We consider $S_{\infty}^{k-1} = \set{x \in \mathbb R^k}{\norm{x}_{\infty} = 1} = \operatorname{boundary}(K_1^\infty(0)$.
       $S_{\infty}^{k-1}$ is bounded.
 
-      Let $(x_n)_{n \in \mathbb N}$ be a sequence in $S_{\infty}^{k-1}$ with $x = \lim_{n\to\infty} x_n$. Because $n(x) = \norm{x}_{\infty}$ is continuous, it holds that
+      Let $(x_n)_{n \in \mathbb N}$ be a sequence in $S_{\infty}^{k-1}$ with $x = \lim_{n\to\infty} x_n$. Because $n(x) = \norm{x}_{\infty}$ is continuous,
       \[ \lim_{n\to\infty} \underbrace{\norm{x_n}_{\infty}}_{=1} = \underbrace{\norm{x}}_{=1} \]
       Hence $x \in S_{\infty}^{k-1}$. Hence, $S_{\infty}^{k-1}$ is closed in $(\mathbb R^k, \norm{\cdot}_{\infty})$.
       Hence $S_{\infty}^{k-1}$ is compact in $(\mathbb R^k, \norm{\cdot}_{\infty})$, $\nu: S_{\infty}^{k-1} \to [0, \infty)$, with $S_{\infty}^{k-1}$ compact, is continuous.
       Has a minimum $n$ on $S_{\infty}^{k-1}$. Thus there exists $\overline{x} \in S_{\infty}^{k-1}: \underbrace{m}_{> 0} = \norm{\underbrace{\overline{x}}_{\neq 0}} \leq \norm{x} \forall x \in S_{\infty}^{-1}$.
-      Let $x \in \mathbb R^k$ be arbitrary with $x \neq 0$. Then it holds that $\frac{x}{\norm{x}_{\infty}} \in S_{\infty}^{k-1}$ and it holds that
+      Let $x \in \mathbb R^k$ be arbitrary with $x \neq 0$. Then, $\frac{x}{\norm{x}_{\infty}} \in S_{\infty}^{k-1}$ and
       \[ m \leq \norm{\frac{x}{\norm{x}_{\infty}}} = \frac{1}{\norm{x_{\infty}}} \norm{x} \implies m \norm{x}_{\infty} \leq \norm{x} \]
       Inequality also holds true for $x = 0$.
   \end{enumerate}
@@ -1288,7 +1287,7 @@ Regarding the equivalence of norms:
     \end{center}
   \end{figure}
 
-  Then it holds that $(\xi_{i-1}, \xi_i) \subseteq \underbrace{(\xi_{i_{j-1}})}_{= (x_{j-1}, x_j)}, \xi_{i_j})$ and $\varphi|_{(\xi_{i-1}, \xi_j)} = c_j = \text{const}$. So $\varphi$ is a subsequence in regards of $(\xi_i)_{i=0}^m$.
+  Then $(\xi_{i-1}, \xi_i) \subseteq \underbrace{(\xi_{i_{j-1}})}_{= (x_{j-1}, x_j)}, \xi_{i_j})$ and $\varphi|_{(\xi_{i-1}, \xi_j)} = c_j = \text{const}$. So $\varphi$ is a subsequence in regards of $(\xi_i)_{i=0}^m$.
 \end{proof}
 
 \begin{definition}
@@ -1372,7 +1371,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       \[ \alpha f + \beta g \in \tau[a,b] \]
     \item
       Let $h \in \tau[a,b]$ and $h(x) \geq 0 \forall x \in [a,b]$,
-      then it holds that $v_i = h|_{(\xi_{i-1}, \xi_i)} \geq 0$ and
+      then $v_i = h|_{(\xi_{i-1}, \xi_i)} \geq 0$ and
       \[ \int_a^b h \, dx = \sum_{i=1}^m \underbrace{h_i}_{\geq 0} \underbrace{\triangle \xi_i}_{\geq 0} \geq 0 \]
       Now let $f, g \in \tau[a,b]$; $f \leq g$. Then $h = g - f \in \tau[a,b]$ (membership because of (1.)) and $h \geq 0$.
       Therefore,
@@ -1435,7 +1434,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   On the opposite, $f \in \tau[a,b]$, hence
   \[ f|_{(x_{j-1},x_j)} \underbrace{=}_{j=1,\dots,n} c_j \text{ and } f(x_j) \underbrace{=}_{j=0,\dots,n} d_j \]
   \[ f = \sum_{j=1}^n c_j \chi_{(x_{j-1},x_j)} + \sum_{j=0}^n d_j \chi_{\set{x_j}} = (*) \]
-  for $x \in (x_{j-1}, x_j)$ it holds that $\xi_{(x_{j-1},x_j)}(x) = 1$.
+  for $x \in (x_{j-1}, x_j)$, $\xi_{(x_{j-1},x_j)}(x) = 1$.
   \[ \chi_{(x_{l-1},x_l)}(x) = 0 \text{ for } l \neq j \]
   \[ \chi_{\set{x_l}}(x) = 0 \text{ for } l = 0, \dots, n \]
   i.e. $\sum_{j=1}^n c_l \chi_{(x_{l-1},x_l)}(x) + \sum_{l=0}^n d_j \chi_{\set{x_l}}(x) = c_j \cdot 1 + 0 = c_j$
@@ -1494,12 +1493,12 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 \begin{lemma}[Sequence criterion for limits of functions] % Lemma 5
   \label{lemma5}
   Let $f: A \subseteq X \to \mathbb R$ be given. $x$ is an accumulation point of $A$.
-  Then it holds that
+  Then
   \begin{align*}
     \lim_{\xi \to x} f(\xi) = c \iff &\forall (\xi_n)_{n\in\mathbb N}: \xi_n \in A, \xi_n \neq x \text{ and } \\
                                      &\lim_{n\to\infty} \xi_n = x \text{ it holds that } \lim_{n\to\infty} f(\xi_n) = c
   \end{align*}
-  For one-sided limits $A \subseteq \mathbb R$ it holds that
+  For one-sided limits $A \subseteq \mathbb R$,
   \begin{align*}
     c = \lim_{\xi\to x^{+}} f(\xi) \iff &\forall (\xi_n)_{n\in\mathbb N}: \xi \in A: \xi_n > x \text{ with } \\
                                         &\lim_{n\to\infty} \xi_n = x \text{ it holds that } \lim_{n\to\infty} f(\xi_n) = c
@@ -1517,8 +1516,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 \begin{lemma}[Cauchy criterion of limits of functions] % Lemma 6
   \label{cauchy-crit}
   Let $f: A \subseteq X \to \mathbb R$. Let $x$ be an accumulation point of $A$.
-  Let $X$ be a metric space. Then it holds that
-  $f$ has a limit in $x$ if and only if
+  Let $X$ be a metric space. Then $f$ has a limit in $x$ if and only if
   \[ \forall \varepsilon > 0 \exists \delta > 0: \forall \xi, \eta \in A: \xi \neq x_i: \eta \neq x \]
   with $d(\xi, x) < \delta$ and $d(\eta, x) < \delta$ it holds that $\card{f(\xi) - f(\eta)} < \varepsilon$.
   Analogously for one-sided limits with $A \subseteq \mathbb R$.
@@ -1545,8 +1543,8 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       We prove (1.)
 
       Let $(\xi_n)_{n\in\mathbb N}$ be as above. Let $\varepsilon > 0$ be arbitrary.
-      and $N_{\varepsilon}$ large enough such that $\forall n \in N_{\varepsilon}$ it holds that
-      $d(\xi_n, x) < \delta$ ($\delta$ chosen appropriately to $\varepsilon$ according to the Cauchy criterion).
+      and $N_{\varepsilon}$ large enough such that $\forall n \in N_{\varepsilon}: d(\xi_n, x) < \delta$
+      ($\delta$ chosen appropriately to $\varepsilon$ according to the Cauchy criterion).
 
       By the Cauchy criterion, $\card{f(\xi_n) - f(\xi_m)} < \varepsilon$ for all $m,n \geq N_{\varepsilon}$.
       Therefore $(f(\xi_n))_{n\in\mathbb N}$ is a Cauchy sequence in $\mathbb R$.
@@ -1565,7 +1563,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 
       \dateref{2018/04/10}
 
-      Then it holds that
+      Then
       \[ \card{c - c'} \leq \underbrace{\card{c - f(\xi_n)}}_{< \frac\varepsilon3} + \underbrace{\card{f(\xi_n) - f(\xi'_n)}}_{< \frac\varepsilon3} + \underbrace{\card{f(\xi'_n) - c'}}_{< \frac\varepsilon3} \qquad \forall \varepsilon > 0 \]
       Hence, $c = c'$.
       We have shown that $\exists c \in \mathbb R: \forall (\xi_n)_{n \in \mathbb N}$ with $\lim_{n\to\infty} \xi_n = x$ it holds that
@@ -1647,7 +1645,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   \[ (\lambda \cdot f)(x) = \lambda \cdot f(x) \]
   $f + g \in \mathcal B(X)$ and $\lambda f \in \mathcal B(X)$.
   Let $\card{f(x)} \leq m \forall x \in X$ and $\card{g(x)} \leq m' \forall x \in X$.
-  Then it holds that
+  Then
   \[ \card{(f + g)(x)} = \card{f(x) + g(x)} \leq \card{f(x)} + \card{g(x)} \leq m + m' \]
 \end{definition}
 
@@ -1674,10 +1672,10 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 
 \begin{theorem}[Approximation theorem for regulated function] % Satz 1
   \label{approxthmreg}
-  Let $f: [a, b] \to \mathbb R$. Then it holds that $f \in \mathcal R[a,b] \iff \forall \varepsilon > 0$ there exists some step function $\varphi \in \tau[a,b]$ such that $\card{\varphi(x) - f(x)} < \varepsilon \forall x \in [a,b]$ ($\norm{\varphi - f}_{\infty} < \varepsilon$).
+  Let $f: [a, b] \to \mathbb R$. Then $f \in \mathcal R[a,b] \iff \forall \varepsilon > 0$ there exists some step function $\varphi \in \tau[a,b]$ such that $\card{\varphi(x) - f(x)} < \varepsilon \forall x \in [a,b]$ ($\norm{\varphi - f}_{\infty} < \varepsilon$).
 
   Especially $\varepsilon_n = \frac1n$ and $\varphi_n$ as above.
-  Then it holds that $\norm{\varphi_n - f}_{\infty} < \frac1n$, hence $f = \lim_{n\to\infty} \varphi_n$ uniformly on $[a,b]$.
+  Then $\norm{\varphi_n - f}_{\infty} < \frac1n$, hence $f = \lim_{n\to\infty} \varphi_n$ uniformly on $[a,b]$.
 \end{theorem}
 
 \begin{proof}\hfill{}
@@ -1714,7 +1712,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
             \varphi_n^2(x) & \text{ if } x \in (m_n, b_n]
           \end{cases}
         \]
-        Then $\varphi^n$ is piecewise constant, hence $\varphi^n \in \tau[a_n, b_n]$ and it holds that
+        Then $\varphi^n$ is piecewise constant, hence $\varphi^n \in \tau[a_n, b_n]$ and
         \[
           \card{\varphi^n(x) - f(x)} = \begin{cases}
             \underbrace{\card{\varphi_1^n(x) - f(x)}}_{< \varepsilon}  & \text{ for } x \in [a_n, m_n] \\
@@ -1755,7 +1753,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
           \end{figure}
 
           Compare with Figure~\ref{img:hatvarphi}.
-          $\hat{\varphi} \in \tau[a,b]$ and it holds that
+          $\hat{\varphi} \in \tau[a,b]$ and
           \[
             \forall \xi \in (x - \delta, x + \delta):
             \card{\hat\varphi(\xi) - f(\xi)} = \begin{cases}
@@ -1767,10 +1765,10 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
           Hence, $\card{\hat\varphi(\xi) - f(\xi)} < \varepsilon$.
           Now let $N$ be sufficiently large enough such that $[a_N, b_N] \subseteq (x - \delta, x + \delta)$
           (possible because $([a_n, b_n])_{n \in \mathbb N}$ gives nested intervals tightening on $x$).
-          Then for $[a_N, b_N]$ it holds that:
+          Then for $[a_N, b_N]$:
           \[ \hat\varphi|_{[a_N, b_N]} \in \tau[a_N, b_N] \]
-          and $\forall \xi \in [a_N, b_N] \subseteq (x - \delta, x + \delta)$ it holds that
-          $\card{\hat{\varphi}(\xi) - f(\xi)} < \varepsilon$. This contradicts with \eqref{neghypo} on $[a_N, b_N]$.
+          and $\forall \xi \in [a_N, b_N] \subseteq (x - \delta, x + \delta): \card{\hat{\varphi}(\xi) - f(\xi)} < \varepsilon$.
+          This contradicts with \eqref{neghypo} on $[a_N, b_N]$.
         \item[Case $\mathbf{x = a}$ and $\mathbf{x = b}$]
           Is analogous to one-sided limits.
       \end{description}
@@ -1787,7 +1785,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
         $\varphi_N$ is piecewise constant. Choose $\delta > 0$ such that
         $\varphi_N|_{(x, x+\delta)} = c$.
         Now let $\xi, \eta \in (x, x+\delta)$ be chosen arbitrarily.
-        Then it holds that
+        Then
         \begin{align*}
           \card{f(\xi) - f(\eta)} &\leq |{f(\xi) - \underbrace{c}_{= \varphi_N(\xi)}}| + |{\underbrace{c}_{= \varphi_N(\eta)} - f(\eta)}| \\
             &= |{\underbrace{f(\xi) - \varphi_N(\xi)}_{< \frac\varepsilon2}}| + |{\underbrace{\varphi_N(\eta) - f(\eta)}_{< \frac\varepsilon2}}|
@@ -1806,7 +1804,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Let $\varphi \in \tau[a,b]$ with $\norm{f - \varphi}_{\infty} < 1$.
   $\varphi$ is bounded, hence $\exists m \in [0, \infty)$:
   $\card{\varphi(x)} \leq m \forall x \in [a,b]$.
-  Then it holds that $\card{f(x)} \leq \card{f(x) - \varphi(x)} + \card{\varphi(x)} < 1 + m \forall x \in [a,b]$,
+  Then $\card{f(x)} \leq \card{f(x) - \varphi(x)} + \card{\varphi(x)} < 1 + m \forall x \in [a,b]$,
   hence $f \in \mathcal B[a,b]$.
   \[ \mathcal R[a,b] \subseteq \mathcal B[a,b] \]
 \end{corollary}
@@ -1891,12 +1889,12 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Because of part~1 of the proof:
   \[ m_n = \int_a^b \mu_n \, dx \text{ converges with limit } m \]
   $(i_n)_{n\in\mathbb N}$ as well as $(j_n)_{n \in \mathbb N}$ are subsequences of $(m_n)_{n \in \mathbb N}$.
-  Hence it holds that $i = \lim_{n\to\infty} i_n = m = \lim_{n\to\infty} j_n = j$.
+  Hence $i = \lim_{n\to\infty} i_n = m = \lim_{n\to\infty} j_n = j$.
 \end{proof}
 
 \begin{theorem}[Elementary properties of an integral]
   Let $f, g \in \mathcal R[a,b]$, $\lambda, \mu \in \mathbb R$.
-  Then it holds that
+  Then
   \begin{description}
     \item[Linearity]
       \[ \lambda f + \mu g \in \mathcal R[a,b] \text{ and } \int_a^b (\lambda f + \mu g) \, dx = \lambda \int_a^b f \, dx + \mu \int_a^b g \, dx \]
@@ -1912,7 +1910,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   \begin{description}
     \item[Linearity.] 
       Let $x \in [a,b)$ and $c_+ = \lim_{\xi \to x_+} f(\xi)$ as well as $d_+ = \lim_{\xi \to x_+} g(\xi)$
-      ($f,g \in \mathcal R[a,b]$). Then it holds that
+      ($f,g \in \mathcal R[a,b]$). Then
       \[
         \lim_{\xi \to x^+} (\lambda f(\xi) + \mu g(\xi))
           = \lambda \lim_{\xi \to x^+} f(\xi) + \mu \lim_{\xi \to x^+} g(\xi)
@@ -1930,7 +1928,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
         $N$ such that $n \geq N \implies \norm{\varphi_n - f}_{\infty} < \frac{\varepsilon}{2(\card{\lambda} + 1)}$
         and $M$ such that $n \geq M \implies \norm{\Phi_n - g}_{\infty} < \frac{\varepsilon}{2(\card{\mu} + 1)}$.
 
-        Then it holds that
+        Then
         \[
           \norm{\lambda \varphi_n + \mu \Phi_n - \lambda f - \mu g}_{\infty}
             \leq \card{\lambda} \norm{\varphi_n - f}_{\infty}
@@ -1952,7 +1950,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
       \]
     \item[Monotonicity.]
       Show: Let $h \in \mathcal R[a,b]$ with $h \geq 0$ in $[a,b]$.
-      Then it holds that $\int_a^b h \, dx \geq 0$.
+      Then $\int_a^b h \, dx \geq 0$.
 
       \begin{claim}
         There exists $(\tilde \varphi_n)_{n\in\mathbb N}$ with $\tilde \varphi_n \to h$ uniform on $[a,b]$
@@ -1965,16 +1963,16 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
         \[ \varphi_n = \sum_{j=1}^{m_n} c_j \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^{m_n} d_j \chi_{\set{x_j}} \]
         \[ \tilde\varphi_n \coloneqq \sum_{j=1}^{m_n} \underbrace{\tilde c_{j}}_{\geq 0} \chi_{(x_{j-1}, x_j)} + \sum_{j=0}^{m_n} \underbrace{h(x_j)}_{\geq 0} \chi_{\set{x_j}} \]
         and $\tilde c_j \coloneqq \max{c_j, 0} \geq 0$.
-        So it holds that $\tilde \varphi_n \geq 0$.
+        So $\tilde \varphi_n \geq 0$.
 
-        For $x = x_l$ ($l \in \set{0, \dots, m_n}$) it holds that
+        For $x = x_l$ ($l \in \set{0, \dots, m_n}$)
         \[
           \card{\tilde \varphi_n(x_l) - h(x_l)}
             = \card{\sum_{j=1}^{m_n} \tilde c_j \underbrace{\chi_{(x_{j-1}, x_j)}(x_l)}_{=0 \text{ bc. } x_l \not\in (x_{j-1}, x_j)} + \sum_{j=0}^{m_n} h(x_j) \underbrace{\chi_{\set{x_j}}(x_l)}_{= \delta_{j,l}} - h(x_l)}
         \] \[
           = \card{h(x_l) - h(x_l)} = 0 \leq \card{\varphi_n(x_l) - h(x_l)}
         \]
-        For $x \in (x_{j-1}, x_j)$ it holds that
+        For $x \in (x_{j-1}, x_j)$
         \[
           \card{\tilde\varphi_n(x) - h(x)}
             = \card{\sum_{j=1}^{m_n} \tilde c_j \underbrace{\chi_{(x_{j-1}, x_j)}(x)}_{\delta_{l,j}} + \sum_{j=0}^{m_n} h(x) \cdot \underbrace{\chi_{\set{x_j}}(x)}_{=0 \text{ bc. } x \neq x_j} - h(x)}
@@ -2040,7 +2038,6 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Let $m = \min\set{f(z): z \in [a,b]}$ (exists because $f$ is continuous and $[a,b]$ is compact).
   \[ M = \max\set{f(z): z \in [a,b]} \]
   \[ f([a,b]) = [m, M] \text{ (by the mean value theorem)} \]
-  It holds that
   \[ m \cdot \underbrace{p(x)}_{\geq 0} \leq f(x) \cdot p(x) \leq M \cdot p(x) \]
   By monotonicity,
   \[ m \int_a^b p(x) \, dx \leq \int_a^b fp \, dx \leq M \int_a^b p \, dx \]
@@ -2058,8 +2055,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Then
   \[ f|_{[\alpha,\beta]} \in \mathcal R[\alpha,\beta], f|_{\beta,\gamma} \in \mathcal R[\beta,\gamma] \]
   \[ f|_{[\alpha,\gamma]} \in \mathcal R[\alpha,\gamma] \text{ (immediate over onesided limit)} \]
-  and it holds that
-  \[ \int_{\alpha}^\gamma f\, dx = \int_{\alpha}^\beta f \, dx + \int_\beta^\gamma f \, dx \]
+  \[ \text{and } \int_{\alpha}^\gamma f\, dx = \int_{\alpha}^\beta f \, dx + \int_\beta^\gamma f \, dx \]
   Compare with Figure~\ref{img:posneg}.
 \end{lemma}
 
@@ -2114,14 +2110,14 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 \begin{remark}[Notation]
   Let $\alpha < \beta$, $\alpha, \beta \in [a,b]$ and $f \in \mathcal R[a,b]$. We let
   \[ \int_{\beta}^\alpha f \, dx \coloneqq -\int_{\alpha}^\beta f \, dx \]
-  By this convention, it holds that
+  By this convention,
   \[ \int_{\alpha}^\alpha f \, dx = -\int_{\alpha}^\alpha f \, dx \implies \int_{\alpha}^\alpha f \, dx = 0 \]
 \end{remark}
 
 \begin{lemma} % Lemma 8
   \label{lemma8}
   Let $f \in \mathcal R[a,b]$ and $\alpha,\beta,\gamma \in [a,b]$ (without particular order).
-  Then it holds that
+  Then
   \[ \int_{\alpha}^\gamma f \, dx = \int_{\alpha}^\beta f \, dx + \int_{\beta}^\gamma f \, dx \]
 \end{lemma}
 
@@ -2155,7 +2151,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Now we show: $f$ is continuous in every point $x \in [a,b]: x \not\in A$.
   Let $\varepsilon > 0$ be arbitrary. Choose $N \in \mathbb N$ sufficiently large such that $\norm{\varphi_N - f}_{\infty} < \frac\varepsilon2$. Because $x \in A$, there exists $j \in \set{1, \ldots, m_N}$ such that $x \in (x_{j-1}^N, X_j^N)$ is open.
   Choose $\delta > 0$ such that $(x - \delta, x + \delta) \subset (x_{j-1}^N, x_j^n)$, hence $\forall \xi \in (x - \delta, x + \delta)$ it holds that $\varphi_N(\xi) = c_j^N$. \\
-  Now consider $\xi \in (x - \delta, x + \delta)$, hence $\card{\xi - x} < \delta$. Then it holds that
+  Now consider $\xi \in (x - \delta, x + \delta)$, hence $\card{\xi - x} < \delta$. Then
   \[ \card{f(\xi) - f(x)} = \card{f(\xi) - \underbrace{\varphi_N(x)}_{c_j^N = \varphi_N(\xi)} + \varphi_N(x) - f(x)} \]
   \[ \leq \underbrace{\card{f(\xi) - \varphi_N(\xi)}}_{\leq \norm{f - \varphi_N}_{\infty}} + \underbrace{\card{\varphi_N(x) - f(x)}}_{\leq \norm{\varphi_N - f}_{\infty}} < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon \]
   Hence $f$ is continuous in $x$.
@@ -2188,14 +2184,14 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 \end{definition}
 
 \begin{remark}
-  If $g$ in $x$ has a one-sided derivative, then it holds that
+  If $g$ in $x$ has a one-sided derivative, then
   \[ \lim_{\xi \to x_\pm} (g(\xi) - g(x)) = 0 \]
   Hence $g$ is continuous in $x$.
 \end{remark}
 
 \begin{remark}
   $g: [a,b] \to \mathbb R$ is differentiable in point $x \in (a,b)$ with derivative $g'(x)$
-  $\iff g$ has a left- and right-sided derivative in $x$ and it holds that $g'_-(x) = g'_+(x)$ ($= g'(x)$).
+  $\iff g$ has a left- and right-sided derivative in $x$ and $g'_-(x) = g'_+(x)$ ($= g'(x)$).
 \end{remark}
 
 \begin{theorem}[Fundamental theorem of differential/integration calculus, variation 1] % Satz 4
@@ -2205,7 +2201,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Let $f \in \mathcal R[a,b]$, $\alpha \in [a,b]$ and we define
   \[ F(x) = \int_{\alpha}^x f \, d\xi \]
   Then $F$ is right-sided differentiable in every point $x \in [a,b)$ and in every $x \in (a,b]$ left-sided differentiable.
-  Furthermore it holds that
+  Furthermore
   \begin{align}
     \label{ftdi}
     F'_+(x) &= f_+(x) \forall x \in [a,b) \\
@@ -2228,7 +2224,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 \end{definition}
 
 \begin{proof}[Proof of the Theorem~\ref{ftofic}]
-  Let $x_1, x_2 \in [a,b]$ be arbitrary. Let $F$ be defined as above. Then it holds that
+  Let $x_1, x_2 \in [a,b]$ be arbitrary. Let $F$ be defined as above. Then
   \[ \card{F(x_2) - F(x_1)} = \card{\int_\alpha^{x_2} f \, d\xi - \int_\alpha^{x_1} f \, d\xi} \]
   \[ = \card{\int_\alpha^{x_2} f \, d\xi + \int_{x_1}^\alpha f \, d\xi} = \card{\int_{x_1}^{x_2} f \, d\xi} \]
   \[ \leq \int_{x_1}^{x_2} \card{f} \, d\xi \leq \int_{x_1}^{x_2} \underbrace{\norm{f}_{\infty}}_{\text{const independent of } \xi} \, d\xi  = \norm{f}_{\infty} \cdot \card{x_2 - x_1} \]
@@ -2236,7 +2232,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 
   One-sided derivatives: Let $x \in [a,b)$ and $\varepsilon > 0$ be arbitrary.
   Choose $\delta > 0$ such that $\forall \xi \in [x, x+\delta)$ it holds that $\card{f(\xi) - f_+(x)} < \varepsilon$.
-  For $\xi \in (x, x+\delta)$ it holds that
+  For $\xi \in (x, x+\delta)$,
   \[ \card{\frac{F(\xi) - F(x)}{\xi - x} - f_+(x)} = \frac1{\card{\xi - x}} \card{\underbrace{\int_x^\xi f \, dy}_{F(\xi) - F(x)} - \underbrace{f_+(x)(\xi - x)}_{\int_x^\xi \underbrace{f_+(x)}_{\text{const.}} \, dy}} \]
   \[ = \frac{1}{\card{\xi - x}} \card{\int_x^\xi (f - f_+(x)) \, dy} \leq \frac{1}{\card{\xi - x}} \int_x^\xi \underbrace{\card{f(y) - f_+(x)}}_{< \varepsilon} \, dy \]
   \[ y \in (x, \xi) \subseteq (x, x+\delta) \]
@@ -2248,14 +2244,14 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 \begin{theorem}[Fundamental theorem of differential/integration calculus, variation 2] % Satz 5
   \label{satz5}
   Let $f \in \mathcal R[a,b]$ and $\phi$ is an arbitrary antiderviative of $f$ according to Definition~\ref{def10}.
-  For $\alpha, \beta \in [a,b]$ arbitrary, it holds that
+  For $\alpha, \beta \in [a,b]$ arbitrary,
   \[ \int_\alpha^\beta f \, dx = \phi(\beta) - \phi(\alpha) \]
 \end{theorem}
 
 \begin{remark}
   Let $f$ be continuous and $\phi$ be an antiderivative of $f$.
   Hence, $\Phi'(x) = f(x) \forall x \in [a,b]$.
-  Then it holds that
+  Then
   \[ \int_{\alpha}^{\beta} \Phi' \, dx = \Phi(\beta) - \Phi(\alpha) \]
   \enquote{Integral of a derivative of $\Phi$ gives $\Phi(\beta) - \Phi(\alpha)$}.
 \end{remark}
@@ -2310,13 +2306,13 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
       $B \subseteq [x_1, x_{\varepsilon}]$ is therefore bounded, $B \neq 0$.
       Hence, $B$ has a supremum. Let $x = \sup{B}$.
       Choose $(y_n)_{n \in \mathbb N}$ with $y_n \in B$ and $y_n \to x$ for $n \to \infty$.
-      Because $F_{\varepsilon}$ is continuous, it holds that
+      Because $F_{\varepsilon}$ is continuous,
       \[ \lim_{n\to\infty} \underbrace{F_{\varepsilon}(y_n)}_{\gamma} = F_{\varepsilon}(x) \]
       hence $F_{\varepsilon}(x) = \gamma$. This implies $x \not\in A$.
 
       Furthermore it holds for $w \in (x, x_\varepsilon]$ that $F_{\varepsilon}(w) > \gamma$.
       Because assume the opposite ($F_{\varepsilon}(w) \leq \gamma$ for $w > x$).
-      Furthermore it holds that $F_{\varepsilon}(x_{\varepsilon}) = \eta \geq \gamma$.
+      Furthermore, $F_{\varepsilon}(x_{\varepsilon}) = \eta \geq \gamma$.
       Because of the Intermediate Value Theorem, $\exists y \geq w$ with $F_{\varepsilon}(y) = \gamma$.
       This contradicts with the supremum property of $x$.
 
@@ -2327,7 +2323,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
           \frac{\card{f(y) - f(x_1)} - \card{f(x) - f(x_1)}}{y - x} - \frac{(L + \varepsilon)(y - x_1 - x + x_1)}{y - x} \\
           &\underbrace{\leq}_{\text{reversed triangle ineq.}} \frac{f(y) - f(x)}{y - x} - (L + \varepsilon)
       \end{align*}
-      Because $F_{\varepsilon}(y) > \gamma = F_{\varepsilon}(x)$ it holds that $\varphi(y) > 0$ for $y > x$.
+      Because $F_{\varepsilon}(y) > \gamma = F_{\varepsilon}(x)$, $\varphi(y) > 0$ for $y > x$.
       So,
       \[ \frac{\card{f(y) - f(x)}}{y - x} \geq L + \varepsilon \]
       \[ \card{f'(x)} = \lim_{y \to x_+} \card{\frac{f(y) - f(x)}{y - x}} \geq L + \varepsilon \]
@@ -2346,7 +2342,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 \end{corollary}
 
 \begin{proof}
-  Let $h = f - g$. Then it holds that
+  Let $h = f - g$. Then
   \[ h'(x) = f'(x) - g'(x) = 0 \forall x \in [a,b] \setminus A \]
   By Lemma~\ref{lemma10} with $L = 0$, it follows that
   \[ \card{h(x_1) - f(x_2)} \leq 0 \cdot \card{x_1 - x_2} = 0 \]
@@ -2375,7 +2371,7 @@ it holds that $u \not\in A$, hence $f$ is differentiable in $u$.
 \begin{remark}[Remark for the previous corollary]
   $F$, $\phi$ are differentiable on all points $x$ for which $f$ is continuous
   (all of them except for countable many).
-  For those $x$, it holds that $F'(x) = \varphi'(x) = f(x)$.
+  For those $x$, $F'(x) = \varphi'(x) = f(x)$.
 \end{remark}
 
 \index{Indefinite integral}
@@ -2424,7 +2420,7 @@ Usually they are composites of basic functions. Some of these are given in Table
 
 \begin{remark}
   Let $F, G: [a,b] \to \mathbb R$ in $x \in [a,b)$ right-sided differentiable.
-  Then also $F \cdot G$ in $x$ is right-sided differentiable and it holds that
+  Then also $F \cdot G$ in $x$ is right-sided differentiable and
   \[ (F \cdot G)'_+(x) = F'_+(x) \cdot G(x) + F(x) \cdot G'_+(x) \]
   hence the product law holds.
 
@@ -2445,7 +2441,7 @@ Usually they are composites of basic functions. Some of these are given in Table
     (F \cdot G)'_+ = F'_+ \cdot G + F \cdot G'_+
     = f_+ \cdot G + F \cdot g_+ = f_+ G_+ + F_+ \cdot g_+
   \]
-  Hence, it holds that
+  Hence,
   \[
     \int_a^b (F g + f G) \, dx
     = \underbrace{F(b) \cdot G(b) - F(a) G(a)}_{\eqqcolon \left.F \cdot G\right|_a^b}
@@ -2525,7 +2521,7 @@ Usually they are composites of basic functions. Some of these are given in Table
   John Wallis (1616--1703), result from 1655
 
   Let $w_n = \prod_{k=1}^n \frac{(2k)^2}{(2k - 1)(2k + 1)} = \frac{2\cdot 2}{1 \cdot 3} \cdot \frac{4 \cdot 4}{3 \cdot 5} \ldots$.
-  Then it holds that $\lim_{n\to\infty} w_n = \frac\pi2$.
+  Then $\lim_{n\to\infty} w_n = \frac\pi2$.
 \end{theorem}
 \begin{proof}
   \[
@@ -2588,14 +2584,14 @@ Usually they are composites of basic functions. Some of these are given in Table
     = -\int_1^0 \sqrt{u} \, du = \int_0^1 \sqrt{u} \, du
   \]
 
-  In general: we set $h(u) = g(x)$, then it holds that $h'(u) \, du = g'(x) \, dx$.
+  In general: we set $h(u) = g(x)$, then $h'(u) \, du = g'(x) \, dx$.
 \end{example}
 
 \begin{theorem} % Satz 7
   \label{satz7countable}
   Let $f, \tilde f \in \mathcal R[a,b]$ and $A \subseteq [a,b]$ countable.
   Furthermore $f(x) = \tilde f(x) \forall x \in [a,b] \setminus A$.
-  Then it holds that
+  Then
   \[ \int_a^b \card{f - \tilde f} \, dx = 0 \]
   Then it follows especially that
   \[ \int_a^b f \, dx = \int_a^b \tilde f \, dx \]
@@ -2605,7 +2601,7 @@ Usually they are composites of basic functions. Some of these are given in Table
 
 \begin{proof}
   Show: $r \in \mathcal R[a,b], r \geq 0$. $\int_a^b r \, dx = 0$
-  and $r(x) = 0$ for $x \in [a,b] \setminus A$. Then it holds that $\int_a^b r \, dx = 0$.
+  and $r(x) = 0$ for $x \in [a,b] \setminus A$. Then $\int_a^b r \, dx = 0$.
   Let $r$ be as above. First, we show: $r_+(x) = \lim_{\xi\to x_+} r(\xi) = 0 \forall x \in [a,b)$
   and also $r_-(x) = 0 \forall x \in (a,b]$.
 
@@ -2630,10 +2626,10 @@ Usually they are composites of basic functions. Some of these are given in Table
   \[ A_{\frac1n} = \set{w_1^n, \dots, w_{m_n}^n} \]
   finite. Let $\varphi_n = \sum_{k=1}^{m_n} r(w_k^n) \cdot \chi_{\set{w_k^n}} \in \tau[a,b]$.
 
-  For $x = w^n_k \in A_{\frac1n}$ it holds that
+  For $x = w^n_k \in A_{\frac1n}$
   \[ \varphi_n(w_k^n) = \sum_{k=1}^{m_n} r(w_k^n) \cdot \underbrace{\chi_{\set{w_k^n}} (w_j^n)}_{\delta_{jk}} = r(w_j^n) \]
   so $\card{\varphi_n(x) - r(x)} = 0 \forall x \in A_{\frac1n}$.
-  Let $x \in [a,b] \setminus A_{\frac1n}$. Then it holds $0 \leq r(x) < \frac1n$ and for $x \not\in A_{\frac1n}$ it holds that $\varphi(x) = 0$.
+  Let $x \in [a,b] \setminus A_{\frac1n}$. Then it holds $0 \leq r(x) < \frac1n$ and for $x \not\in A_{\frac1n}$, $\varphi(x) = 0$.
   Therefore,
   \[ \card{r(x) - \varphi(x)} = r(x) < \frac1n \]
   hence $\norm{r - \varphi_n}_{\infty} < \frac1n$. This means that $\varphi_n \to r$ uniformly on $[a,b]$.
@@ -2648,7 +2644,7 @@ Usually they are composites of basic functions. Some of these are given in Table
 \end{proof}
 
 \begin{lemma} % Lemma 11
-  Let $f \in \mathcal R[a,b]$. Then it holds that $f_+ \in \mathcal R[a,b]$ and also $f_- \in \mathcal R[a,b]$.
+  Let $f \in \mathcal R[a,b]$. Then $f_+ \in \mathcal R[a,b]$ and also $f_- \in \mathcal R[a,b]$.
 \end{lemma}
 \begin{proof}
   Only for $f_+$: First, we show: Let $x \in [a,b)$.
@@ -2674,7 +2670,7 @@ Usually they are composites of basic functions. Some of these are given in Table
   It remains to show: $f_+$ has left-sided limits.
   Let $x \in (a,b]$ be arbitrary and $f_-(x) = \lim_{\xi \to x_-} f(\xi)$. We show: $f_-(x) = \lim_{\xi \to x_-} f_+(x)$ (again: the plus is important).
 
-  Let $\varepsilon > 0$ be arbitrary. Choose $\delta > 0$ such that $\forall z \in (x - \delta, x)$ it holds that $\card{f(z) - f_-(x)} < \frac\varepsilon2$.
+  Let $\varepsilon > 0$ be arbitrary. Choose $\delta > 0$ such that $\forall z \in (x - \delta, x)$, $\card{f(z) - f_-(x)} < \frac\varepsilon2$.
 
   \begin{figure}[t]
     \begin{center}
@@ -2701,14 +2697,14 @@ Usually they are composites of basic functions. Some of these are given in Table
 \end{remark}
 
 \begin{lemma} % Lemma 12
-  Let $f \in \mathcal R[a,b]$. Then it holds that
+  Let $f \in \mathcal R[a,b]$. Then
   \[ \int_a^b f \, dx = \int_a^b f_+ \, dx = \int_a^b f_- \, dx \]
 \end{lemma}
 
 \begin{proof}
   For $f_+$:
   \[ f, f_+ \in \mathcal R[a,b] \]
-  $\forall x \in [a,b]$ with $f$ is continuous in $x$ it holds that
+  $\forall x \in [a,b]$ with $f$ is continuous in $x$,
   \[ f(x) = \lim_{\xi\to x} f(\xi) = \lim_{\xi\to x_+} f(\xi) = f_+(x) \]
   $f$ has at most countable many discontinuity points. By Satz~\ref{satz7countable},
   \[
@@ -2774,7 +2770,7 @@ Standard examples will follow:
   \label{dctii}
   In German, \enquote{\foreignlanguage{german}{Majorantenkriterium f\"ur uneigentliche Intergale}}.
 
-  Let $f, g$ be regulated functions on $I$ and it holds that
+  Let $f, g$ be regulated functions on $I$ and
   \[ \card{f(x)} \leq g(x) \forall x \in I \]
   Assume $\int_a^b g \, dx$ exists as improper integral. Then also the following improper integrals exist:
   \[ \int_a^b \card{f} \, dx \text{ and } \int_a^b f \, dx \]
@@ -2787,15 +2783,15 @@ Standard examples will follow:
   By Lemma~\ref{cauchy-crit} (Cauchy criterion for existence of limits):
   Let $\varepsilon > 0$ be arbitrary, then there exists a right-sided neighborhood $U$ of $b$
   ($U = (b - \delta, b)$ if $b < \infty$ and $U = (M, \infty)$ if $b = \infty$)
-  with $u,v \in U$, then it holds that $\card{G(v) - G(u)} < \varepsilon$.
+  with $u,v \in U$, then $\card{G(v) - G(u)} < \varepsilon$.
   \[
     \card{G(v) - G(u)} = \card{\int_a^v g \, dx - \int_a^u g \, dx}
       = \card{\int_u^a g \, dx + \int_a^v g \, dx}
       = \card{\int_u^v g \, dx}
   \]
   Let $F(\beta) = \int_a^\beta \card{f} \, dx$.
-  Analogously as for $G$, it holds that $F(v) - F(u) = \int_u^v \card{f} \, dx$.
-  Let $u,v \in U$. Then it holds that
+  Analogously as for $G$, $F(v) - F(u) = \int_u^v \card{f} \, dx$.
+  Let $u,v \in U$. Then
   \[
     \card{F(v) - F(u)} = \card{\int_u^v \card{f} \, dx} \leq \card{\int_u^v g \, dx}
       = \card{G(v) - G(u)} < \varepsilon
@@ -2861,11 +2857,11 @@ For $x \geq 1$, $t^{x-1} e^{-t}$ is continuous on $[0,1]$, hence $\int_0^1 t^{x-
 
 \begin{proof}
   \[ \lim_{t\to\infty} \underbrace{t^{x-1}}_{\text{polynomially in } t} \cdot \underbrace{e^{-t}}_{\text{exponentially } \to 0} = 0 \]
-  Also there exists $L > 1$, such that $\forall x > L$ it holds that $t^{x-1} e^{-t/2} < 1$ on $[1,L]$ (which is a compact interval) continuous.
+  Also there exists $L > 1$, such that $\forall x > L: t^{x-1} e^{-t/2} < 1$ on $[1,L]$ (which is a compact interval) continuous.
   So there exists $M > 0$ such that $t^{x-1} e^{-\frac t2} \leq M \forall t \in [1,L]$.
   Let $c = \max\set{M, 1}$. Therefore it holds on $[1,L]$ and also on $(L,\infty)$.
   \[ t^{x-1} e^{-\frac t2} \leq c \]
-  Multiply with $e^{-\frac t2} > 0$, then it holds that $t^{x-1} \cdot e^{-t} \leq ce^{-\frac t2} \forall t \in [1,\infty)$.
+  Multiply with $e^{-\frac t2} > 0$, then $t^{x-1} \cdot e^{-t} \leq ce^{-\frac t2} \forall t \in [1,\infty)$.
   \[ c \int_1^\infty e^{-\frac t2} \, dt \]
   exists.
   By the direct comparison test, we get $\int_1^\infty t^{x-1} e^{-t} \, dt$ exists.
@@ -2873,7 +2869,7 @@ For $x \geq 1$, $t^{x-1} e^{-t}$ is continuous on $[0,1]$, hence $\int_0^1 t^{x-
 
 \begin{lemma} % Lemma 13
   \label{lemma13}
-  For all $x > 0$ it holds that
+  For all $x > 0$,
   \[ \Gamma(x + 1) = x \cdot \Gamma(x) \qquad \text{ (functional equation of the $\Gamma$-function)} \]
   Especially with $\Gamma(1) = 1$ it holds that $\Gamma(n+1) = n!$ for all $n \in \mathbb N_0$.
 \end{lemma}
@@ -2911,7 +2907,7 @@ Some important inequalities in integration theory follow.
 \begin{theorem}[Young's inequality] % Satz 9
   Let $f: [0, \infty) \to [0,\infty)$ be continuous differentiable, strictly monotonically increasing with $f(0) = 0$ and $f$ is unbounded.
   Then $f: [0, \infty) \to [0,\infty)$ bijective and $f^{-1}: [0,\infty) \to [0,\infty)$ is strictly monotonically increasing and continuous.
-  Let $a, b \geq 0$ be given. Then it holds that
+  Let $a, b \geq 0$ be given. Then
   \[ ab \leq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy \]
   Equality is given if and only if, $b = f(a)$ or $a = f^{-1}(b)$.
   Compare with Figure~\ref{img:young}.
@@ -2928,7 +2924,7 @@ Some important inequalities in integration theory follow.
 \begin{proof}
   Let $f:[0,\infty) \to [0,\infty)$ be as above.
   Let $x_1 \neq x_2$. Without loss of generality $x_1 < x_2$.
-  Then it holds that $f(x_1) < f(x_2) \implies f$ is injective.
+  Then $f(x_1) < f(x_2) \implies f$ is injective.
   Surjectivity: $f(0) = 0$, hence $0 \in f([0,\infty])$.
   Let $\eta > 0$ be arbitrary. Because $f$ is unbounded, there exists $z \in (0,\infty)$ with $f(z) > \eta$.
   $f(0) = 0 < \eta < f(z)$.
@@ -2936,7 +2932,7 @@ Some important inequalities in integration theory follow.
   By the Intermediate Value Theorem ($f$ is continuous), there exists $\xi \in (0,z)$ with $f(\xi) = \eta$.
   So $f$ is surjective.
   \[ f^{-1}: [0,\infty) \to [0,\infty) \]
-  \emph{Monotonicity:} Let $y_1 < y_2$. Then it holds that $x_1 = f^{-1}(y_1) < x_2 = f^{-1}(y_2)$.
+  \emph{Monotonicity:} Let $y_1 < y_2$. Then $x_1 = f^{-1}(y_1) < x_2 = f^{-1}(y_2)$.
   If this would not be true (hence, $x_2 \leq x_1$) then $y_2 = f(x_2) \leq y_1 = f(x_1)$ gives a contradiction.
 
   \emph{Continuity of $f^{-1}$:}
@@ -2956,7 +2952,7 @@ Some important inequalities in integration theory follow.
   \end{figure}
 
   Choose $\delta = \min\set{y - y_1, y_2 - y} > 0$ (compare with Figure~\ref{img:dyyy}).
-  Hence $(y - \delta, y + \delta) \subseteq (y_1, y_2) \forall \eta \in (y - \delta, y + \delta)$ it holds that
+  Hence $(y - \delta, y + \delta) \subseteq (y_1, y_2) \forall \eta \in (y - \delta, y + \delta)$,
   \[ f^{-1}(\eta) < f^{-1}(y + \delta) < f^{-1}(y_2) = x_2 = x + \hat\varepsilon \]
   \[ f^{-1}(\eta) < f^{-1}(y - \delta) < f^{-1}(y_1) = x_1 = x - \hat\varepsilon \]
   So $f^{-1}(\eta) \in (x - \hat{\varepsilon}, x + \hat{\varepsilon})$, and accordingly
@@ -3005,7 +3001,7 @@ So
   \label{lemma14}
   Let $A, B \geq 0$ and $p,q > 1$ such that $\frac1p + \frac1q = 1 \iff p + q = p \cdot q$.
   Then $p$ and $q$ are called \emph{conjugate exponents}.
-  Then it holds that $AB \leq \frac{A^p}{p} + \frac{B^q}{q}$.
+  Then $AB \leq \frac{A^p}{p} + \frac{B^q}{q}$.
 \end{lemma}
 \begin{proof}
   \[ f(x) = x^{p-1} \text{ in Young's inequality} \]
@@ -3038,7 +3034,7 @@ So
   We let $\norm{f_1}_p \coloneqq \left(\int_a^b \card{f_1(x)}^p \, dx\right)^{\frac1p}$ and $\norm{f_2}_q \coloneqq \left(\int_a^b \card{f_2(x)}^q \, dx\right)^{\frac1q}$.
   They are called $L^p$-norm of $f_1$ and $L^q$-norm of $f_2$.
 
-  Then it holds that
+  Then
   \[ \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx < \infty \]
   exists and
   \[ \int_a^b \card{f_1(x) \cdot f_2(x)} \, dx \leq \norm{f_1}_p \cdot \norm{f_2}_q \]
@@ -3095,7 +3091,7 @@ We consider a metric space $X$ and functions $f: X \to \mathbb C$.
 We define a concept of uniform convergence of such sequences:
 \[ f_n: X \to \mathbb C \quad (n \in \mathbb N) \text{ and } f: X \to \mathbb C \]
 We say, $(f_n)_{n \in \mathbb N}$ converges uniformly towards $f$ if $\forall \varepsilon > 0 \forall N \in \mathbb N$
-such that $\forall x \in X$ and $\forall n \geq N$ it holds that
+such that $\forall x \in X$ and $\forall n \geq N$
 \[ \underbrace{\card{f_n(x) - f(x)}}_{\text{absolute value in } \mathbb C} < \varepsilon \]
 \[ \iff \sup\set{\card{f_n(x) - f(x)}: x \in X} < \varepsilon \]
 
@@ -3131,7 +3127,7 @@ such that $\forall x \in X$ and $\forall n \geq N$ it holds that
   Because of uniform convergence $f_n \to f$, there exists $N \in \mathbb N$ such that $\card{f_N(z) - f(z)} < \frac\varepsilon3 \forall z \in X$.
   Let $N$ be fixed. Because $f_N$ is continuous in $x$, there exists $\delta > 0$ such that $d(x, \xi) < \delta \implies \card{f_N(\xi) - f_N(x)} < \frac\varepsilon3$.
 
-  We consider now $\xi \in X$ with $d_X(x, \xi) < \delta$. Then it holds that
+  We consider now $\xi \in X$ with $d_X(x, \xi) < \delta$. Then
   \begin{align*}
     \card{f(x) - f(\xi)}
       &= \card{f(x) - f_N(x) + f_N(x) - f_N(\xi) + f_N(\xi) - f(\xi)} \\
@@ -3180,18 +3176,17 @@ such that $\forall x \in X$ and $\forall n \geq N$ it holds that
 \begin{theorem}
   Let $I \subseteq \mathbb R$ be an interval.
   Let $f_n: I \to \mathbb R$ be continuously differentiable on $I \forall n \in \mathbb N$.
-  It holds that
   \begin{enumerate}
     \item $\exists g: I \to \mathbb R$ such that $f_n' \to g$ uniform on $I$
-    \item $\exists f: I \to \mathbb R$ such that $\forall x \in I$ it holds that $f(x) = \lim_{n\to\infty} f_n(x)$ (\enquote{pointwise convergence}).
+    \item $\exists f: I \to \mathbb R$ such that $\forall x \in I: f(x) = \lim_{n\to\infty} f_n(x)$ (\enquote{pointwise convergence}).
   \end{enumerate}
-  Then it holds that $f$ is continuously differentiable on $I$ and $g = f'$.
+  Then $f$ is continuously differentiable on $I$ and $g = f'$.
 \end{theorem}
 
 \begin{proof}
   $g$ is continuous as uniform limit of continuous $f_n'$ (Theorem~\ref{satz1cont}).
   For $f_n$, the Fundamental Theorem of Differential Calculus can be applied ($f_n'$ is continuous, hence a regulated function).
-  Let $x_0 \in I$. Then it holds that
+  Let $x_0 \in I$. Then
   \[ f_n(x) = f_n(x_0) + \int_{x_0}^x f_n'(\xi) \, d\xi \]
   Convergence for $n \to \infty$:
   \[ f_n(x) \to f(x) \qquad f_n(x_0) \to f(x_0) \]
@@ -3210,7 +3205,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 
 \begin{lemma}
   Let $(f_n)_{n \in \mathbb N}$ be a sequence of regulated functions on $[a,b]$ and
-  $f_n \to f$ uniform on $[a,b]$. Then it holds that
+  $f_n \to f$ uniform on $[a,b]$. Then
   \[ \int_a^b \card{f_n - f} \, dx \to 0 \qquad \text{ for } n \to \infty \qquad \text{ especially } \int_a^b f_n \, dx \to \int_a^b f \, dx \]
 \end{lemma}
 
@@ -3220,7 +3215,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 
   Let $N \in \mathbb N$ large enough such that
   \[ \forall n \geq N \forall x \in [a,b]: \card{f_n(x) - f(x)} < \frac{\varepsilon}{b - a} \]
-  Then it holds that
+  Then
   \[ \int_a^b \card{f_n(x) - f(x)} \, dx < \int_a^b \frac{\varepsilon}{b - a} \, dx = \frac{\varepsilon}{b - a} (b - a) = \varepsilon \]
   Hence,
   \[ \lim_{n\to\infty} \int_a^b \card{f_n(x) - f(x)} \, dx = 0 \]
@@ -3280,7 +3275,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 \begin{lemma} % Lemma 2
   \label{lemma2-2}
   Let $P(x) = \sum_{l=0}^n a_l x^l$ with $a_n \neq 0$.
-  Let $1 \leq k \leq n$. Then it holds that $x_0 \in \mathbb R$ is a $k$-times root of polynomial $P \iff$
+  Let $1 \leq k \leq n$. Then $x_0 \in \mathbb R$ is a $k$-times root of polynomial $P \iff$
   $P^{(j)}(x_0) = 0$ for $j = 0, \ldots, k-1$ and $P^{(k)}(x_0) \neq 0$.
 \end{lemma}
 
@@ -3291,7 +3286,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
     \item[Induction begin]
       Consider $k=1$. Direction $\implies$.
 
-      Let $x_0$ be a simple root of $P$, then it holds that $P(x) = (x - x_0) \cdot Q(x)$ and $Q(x_0) \neq 0$.
+      Let $x_0$ be a simple root of $P$, then $P(x) = (x - x_0) \cdot Q(x)$ and $Q(x_0) \neq 0$.
       Hence, $P(x_0) = (x_0 - x_0) \cdot Q(x_0) = 0$ and $P'(x) = Q(x) + (x - x_0) \cdot Q'(x)$.
       Thus, $P'(x_0) = Q(x_0) + (x_0 - x_0) \cdot Q'(x_0) = Q(x_0) \neq 0$.
 
@@ -3398,11 +3393,11 @@ Brook Taylor (1685--1731)
 
   We need to prove uniqueness: Let $T, \tilde T$ be polynomials with $T^{(k)}(x_0) = \tilde T^{(k)}(x_0) = f^{(k)}(x_0)$ for $k = 0, \dots, n$.
   Assume $T \neq \tilde T$, hence $T - \tilde T \neq 0$ (where $0$ is the zero polynomial).
-  For $P = T - \tilde T$ it holds that
+  For $P = T - \tilde T$,
   \[ P^{(k)}(x_0) = T^{(k)}(x_0) - \tilde T^{(k)}(x_0) = 0 \qquad (\text{for } 0 \leq k \leq n) \]
-  By Lemma~\ref{lemma2-2} it holds that $x_0$ is an $n+1$-times root of $P$. Thus, there exists a polynomial $Q \neq 0$ with $Q(x_0) \neq 0$ such that
+  By Lemma~\ref{lemma2-2}, $x_0$ is an $n+1$-times root of $P$. Thus, there exists a polynomial $Q \neq 0$ with $Q(x_0) \neq 0$ such that
   \[ \underbrace{P(x)}_{\text{degree } \leq n} = \underbrace{(x - x_0)^{(n+1)} \cdot Q(x)}_{\text{degree } \geq n+1} \]
-  This is a contradiction. Hence it holds that $T - \tilde T = 0$.
+  This is a contradiction. Hence, $T - \tilde T = 0$.
 \end{proof}
 
 \index{Approximation error of a Taylor polynomial}
@@ -3425,7 +3420,7 @@ Brook Taylor (1685--1731)
 \index{Integral form of the Taylor remainder}
 \begin{theorem} % Satz 4
   \label{thm4} 
-  Let $f^{(n+1)}(I)$, $x \in I$, $x_0 \in I$. Then it holds that
+  Let $f^{(n+1)}(I)$, $x \in I$, $x_0 \in I$. Then
   \[ R_f^{n+1}(x; x_0) = \frac1{n!} \int_{x_0}^x (x - t)^n f^{(n+1)}(t) \, dt \]
   We call it the \emph{integral form of the remainder term}.
 \end{theorem}
@@ -3578,7 +3573,7 @@ $T_f(x; x_0)$ defines the \emph{Taylor series} on $f$ in $x_0$.
 Power series in $\xi = x - x_0$.
 $T_f$ has a convergence radius,
 \[ \rho(T_f) = \left[\limsup_{k\to\infty} \sqrt[k]{\frac{\card{f^{(k)}(x_0)}}{k!}}\right]^{-1} \]
-If $\rho(T_f) > 0$, then it holds that
+If $\rho(T_f) > 0$, then
 \[ f(x) = T_f(x; x_0) = \sum_{k=0}^\infty \frac{f^{(k)}(x)}{k!} (x - x_0)^k \]
 in $(x_0 - \rho(T_f), x_0 + \rho(T_f))$?
 Compare with Figure~\ref{img:tay}.
@@ -3613,8 +3608,8 @@ Compare with Figure~\ref{img:tay}.
       Immediately, $\lim_{x \to 0^-} f^{(n)}(x) = 0$, hence $f^{(n)}(0) = 0 \forall n \in \mathbb N$.
       $f$ is arbitrarily often continuously differentiable on $\mathbb R$. Thus,
       \[ T_f(x; 0) = \sum_{k=0}^\infty \frac{\overbrace{f^{(k)}(0)}^{=0}}{k!} x^k = 0 \]
-      but $f(x) \neq 0$ on $\mathbb R$. Thus, it holds that $f \neq T_f(x; 0)$.
-      But it holds that $R_f = f - T_f(x; 0) = f$.
+      but $f(x) \neq 0$ on $\mathbb R$. Thus, $f \neq T_f(x; 0)$.
+      But $R_f = f - T_f(x; 0) = f$.
       \[ \card{R_f(x)} \leq c_n \card{x}^n \qquad \forall n \in \mathbb N \]
   \end{description}
 \end{proof}
@@ -3622,18 +3617,18 @@ Compare with Figure~\ref{img:tay}.
 \begin{theorem} % Satz 7
   Let $f(x) = \sum_{k=0}^\infty a_k (x - x_0)^k$ be an analytical\footnote{Reminder: A function is analytical if it is locally given by a convergent power series.} function with convergence radius $\rho(f) > 0$.
   Then $f$ is infinitely often continuously differentiable on $I \coloneqq (x_0 - \rho(f), x_0 + \rho(f))$
-  and it holds that $a_k = \frac{f^{(k)}(x_0)}{k!}$, hence the given power series is the Taylor series of the function.
+  and $a_k = \frac{f^{(k)}(x_0)}{k!}$, hence the given power series is the Taylor series of the function.
 \end{theorem}
 
 \begin{proof}
   See Analysis 1 lecture notes, chapter 8, theorem 1 by G. Lettl.
 
-  $f$ is differentiable on $I = (x_0 - \rho(f), x_0 + \rho(f))$ and it holds that $f'(x) = \sum_{k=0}^\infty k a_k (x - x_0)^{k-1}$.
+  $f$ is differentiable on $I = (x_0 - \rho(f), x_0 + \rho(f))$ and $f'(x) = \sum_{k=0}^\infty k a_k (x - x_0)^{k-1}$.
   Thus, $f'$ is also analytical and the power series of $f'$ converges on $K(x_0) \implies \rho(f') \geq \rho(f)$
   (if you consider the Cauchy-Hadamard Theorem, then $\rho(f') = \rho(f)$).
 
   Induction:
-  $f^{(n)}(x)$ is analytical on $I$ and it holds that
+  $f^{(n)}(x)$ is analytical on $I$ and
   \[ f^{(n)}(x) = \sum_{k=n}^\infty k \cdot (k - 1) \dots (k - n + 1) \cdot a_k \cdot (x - x_0)^{k-n} \]
   We insert: $x = x_0$
   \[ f^{(n)}(x_0) = n \cdot (n - 1) \dots 1 \cdot a_n \implies a_n = \frac{f^{(n)}(x_0)}{n!} \]
@@ -3659,13 +3654,13 @@ Let $V,W$ be vector space over $\mathbb K$ ($\mathbb R, \mathbb C$).
 \[ \underbrace{\mathcal L(V, W)}_{\operatorname{Hom}(V, W)} = \set{\varphi: V \to W: \varphi \text{ is linear}} \]
 $\operatorname{Hom}(V, W)$ has vector space properties.
 $\varphi, \psi \in \mathcal L(V, W), \lambda, \mu \in \mathbb K$.
-Then it holds that $\lambda \varphi + \mu \psi \in \mathcal L(V, W)$.
+Then $\lambda \varphi + \mu \psi \in \mathcal L(V, W)$.
 In general, it is feasible that to define a norm on $\mathcal L(V, W)$.
 Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
 \begin{enumerate}
   \item $\norm{\varphi} = 0 \iff \varphi = 0$ (zero mapping)
-  \item $\forall \lambda \in \mathbb K, \varphi \in \mathcal L(V, W)$ it holds that $\norm{\lambda \varphi} = \card{\lambda} \cdot \norm{\varphi}$.
-  \item $\forall \varphi, \psi \in \mathcal L(V, W)$ it holds that $\norm{\varphi + \psi} \leq \norm{\varphi} + \norm{\psi}$.
+  \item $\forall \lambda \in \mathbb K, \varphi \in \mathcal L(V, W): \norm{\lambda \varphi} = \card{\lambda} \cdot \norm{\varphi}$.
+  \item $\forall \varphi, \psi \in \mathcal L(V, W): \norm{\varphi + \psi} \leq \norm{\varphi} + \norm{\psi}$.
 \end{enumerate}
 
 \subsection{Frobenius and matrix norm}
@@ -3736,12 +3731,12 @@ $\mathcal L_b(V, W) \neq \emptyset$.
       Hence, $m \geq \tilde m = \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0}$.
       The statement above also holds for the infimum of $m-s$, hence $\norm{\varphi} \geq \tilde m$,
       hence $\norm{\varphi} = \tilde m = \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0}$.
-      Because $\set{x \in V: \norm{x} = 1} \subseteq \set{x \in V: x \neq 0}$ it holds that
+      Because $\set{x \in V: \norm{x} = 1} \subseteq \set{x \in V: x \neq 0}$,
       $\sup{\norm{\varphi(x)}_W: \norm{x} = 1} = \sup{\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V} : \norm{x}_V = 1}} \leq \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V} : x \neq 0} = \norm{\varphi}$.
 
       On the opposite: Let $x \neq 0$. Then $\tilde x = \frac{x}{\norm{x}_V}$ defines a \emph{unit vector}.
       \[ \norm{\tilde x}_V = \norm{\frac{x}{\norm{x}_V}} = \frac{1}{\norm{x}_V} \cdot \norm{x}_V = 1 \]
-      and it holds that
+      and
       \[ \frac{\norm{\varphi(x)}_W}{\norm{x}_V} = \frac{1}{\norm{x}_V} \norm{\varphi(x)}_W = \norm{\frac{1}{\norm{x}_V} \varphi(x)}_W \underbrace{=}_{\varphi \text{ is linear}} = \norm{\varphi(\frac{x}{\norm{x}_V})}_W = \norm{\varphi(\tilde x)} \]
       \[ \implies \forall x \neq 0: \frac{\norm{\varphi(x)}_W}{\norm{x}_V} = \norm{\varphi(\tilde x)} \leq \sup\set{\norm{\varphi(z)}_W: \norm{z}_V = 1} \]
       \[ \implies \sup\set{\frac{\norm{\varphi(x)}_W}{\norm{x}_V}: x \neq 0} \leq \sup\set{\norm{\varphi(z)}_W: \norm{z}_V = 1} \]
@@ -3771,7 +3766,7 @@ $\mathcal L_b(V, W) \neq \emptyset$.
   We consider special case $V = \mathbb R^m, W = \mathbb R^n$.
   \[ \norm{\cdot}_V = \norm{\cdot}_\infty \qquad \norm{\cdot}_W = \norm{\cdot}_\infty \]
   Let $A \in \mathbb R^{n\times m}$ ($\mathcal L(\mathbb R^m, \mathbb R^n)$).
-  Then it holds that
+  Then
   \begin{align*}
     \norm{Ax}_\infty
       &= \max\set{\card{(Ax)_i}: i = 1, \dots, n} \\
@@ -3802,7 +3797,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   Let $A: X \to Y$ be linear and bounded. Let $B: Y \to Z$ be linear and bounded.
   Then
   \[ B \cdot A: X \to Z \]
-  is also bounded and it holds that
+  is also bounded and
   \[ \norm{B \cdot A} \leq \norm{B} \cdot \norm{A} \]
 \end{lemma}
 
@@ -3883,14 +3878,14 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \[ \leq \norm{f(x) - f(x_0) - B(x - x_0)} + \norm{f(x) - f(x_0) - A(x - x_0)} \]
   by the differentiability criterion
   \[ r(x) \cdot \norm{x - x_0} + \tilde r(x) \norm{x - x_0} \]
-  with $\lim_{x\to x_0} r(x) = \lim_{x\to x_0} \tilde r(x) = 0$. Hence, for $\hat r(x) = r(x) + \tilde r(x)$ it holds that
+  with $\lim_{x\to x_0} r(x) = \lim_{x\to x_0} \tilde r(x) = 0$. Hence, for $\hat r(x) = r(x) + \tilde r(x)$,
   \[ \norm{(A - B) v} \leq \hat r(x) \norm{x - x_0} = \hat r(x) \norm{v} = \mathcal O(\norm{v}) \text{ in } x_0 \]
   (Thus $\lim_{x\to x_0} \hat r(x) = 0$)
 
   Show: $(A - B)w = 0 \forall w \in \mathbb R^m$. Assume $\exists w \in \mathbb R^m, w \neq 0$ with $(A - B)w \neq \diameter$.
-  For $\card{\alpha} < \frac r{\norm{w}}$ (with $r$ as radius of the sphere) it holds that
+  For $\card{\alpha} < \frac r{\norm{w}}$ (with $r$ as radius of the sphere),
   \[ \norm{\alpha w} = \card{\alpha} \norm{w} < \frac{r}{\norm{w}} \cdot \norm{w} = r \]
-  Let $v = \alpha w$. Then it holds that
+  Let $v = \alpha w$. Then
   \[ \norm{(A - B) v} = \card{\alpha} \norm{(A - B) w} \leq \hat r(x) \norm{\alpha w} = \card{\alpha} \hat r(x) \cdot \norm{w} \]
   \[ \implies \norm{(A - B) w} \leq \underbrace{\hat r(x)}_{\xrightarrow{\text{for } x \to x_0} 0} \cdot \underbrace{\norm w}_{\text{constant}} \]
   \[ \implies (A - B) w = 0 \]
@@ -3912,7 +3907,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \end{lemma}
 
 \begin{proof}
-  Let $x \in D$. Then it holds that
+  Let $x \in D$. Then,
   \begin{align*}
     \norm{f(x) - f(x_0)}_{\mathbb R^n}
       &= \norm{f(x) - f(x_0) - Df(x_0) \cdot (x - x_0) + Df(x_0) (x - x_0)} \\
@@ -3926,7 +3921,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \begin{lemma} % Lemma 5
   \label{lem5}
   Let $f,g: D \subseteq \mathbb R^m \to \mathbb R^n$. Let $f$ and $g$ be differentiable in $x_0 \in D$.
-  Let $\lambda \in \mathbb R$. Then it holds that
+  Let $\lambda \in \mathbb R$. Then,
   \begin{enumerate}
     \item $f + g$ is differentiable in $x_0$ with
       \[ D(f + g)(x_0) = Df(x_0) + Dg(x_0) \]
@@ -3950,8 +3945,8 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 
 \begin{lemma} % Lemma 6
   Let $C: D \to \mathbb R^n$. $c(x) = k \in \mathbb R^n$ is constant.
-  Then $c$ is differentiable in every point $x_0 \in D$ and it holds that $D C(x_0) = 0 \in \mathbb R^{n\times m}$.
-  Let $A: \mathbb R^m \to \mathbb R^n$ be linear. Then $A$ is differentiable in every point $x_0 \in \mathbb R^m$ and it holds that $DA(x_0) = A$.
+  Then $c$ is differentiable in every point $x_0 \in D$ and $D C(x_0) = 0 \in \mathbb R^{n\times m}$.
+  Let $A: \mathbb R^m \to \mathbb R^n$ be linear. Then $A$ is differentiable in every point $x_0 \in \mathbb R^m$ and $DA(x_0) = A$.
 
   Let $f(x) = k + Ax: \mathbb R^m \to \mathbb R^n$ be linear affine, then $f$ is differentiable in every point $x_0 \in \mathbb R^m$ with $Df(x_0) = A$.
 \end{lemma}
@@ -3986,7 +3981,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   \end{figure}
 
   Let $f$ in $x_0$ be differentiable and $g$ in $y_0 = f(x_0)$ is differentiable.
-  Then also $g \circ f: D \to \mathbb R^n$ is differentiable in $x_0$ and it holds that
+  Then also $g \circ f: D \to \mathbb R^n$ is differentiable in $x_0$ and
   \[ \underbrace{D(g \circ f)(x_0)}_{\in \mathbb R^{n \times l}} = \underbrace{Dg(f(x_0))}_{\in \mathbb R^{n \times m}} \underbrace{Df(x_0)}_{\in \mathbb R^{m \times l}} \]
   (The dimensions match.)
 \end{theorem}
@@ -4030,7 +4025,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   it holds that
   \[ \norm{g(y) - g(y_0) - Dg(y_0) \cdot (y - y_0)} < \frac{\varepsilon}{2 \left(\norm{Df(x_0) + 1}\right)} \norm{y - y_0} \]
   Because $f$ is continuous in $x_0$, there exists $\delta_2 > 0$ such that $x \in D$ and $\norm{x - x_0} < \delta_2 \implies \norm{f(x) - f(x_0)} < \delta_g$.
-  Now let $\delta = \min(\delta_1, \delta_2) > 0$. Then it holds that
+  Now let $\delta = \min(\delta_1, \delta_2) > 0$. Then
   \[ I \coloneqq \frac{1}{\norm{x - x_0}} \norm{g(f(x)) - g(f(x_0)) - Dg(f(x_0)) \cdot (f(x) - f(x_0))} \]
   Let $y = f(x), y_0 = f(x_0)$.
   Because $\norm{f(x) - f(x_0)} < \delta_g$ gives $\norm{x - x_0} < \delta_2$
@@ -4095,26 +4090,26 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   with $V$ as linear part of $l_{x_0,v}$.
   \[ l_{x_0, v}(0) = x_0 \]
   \[ f(x_0 + tv) = f \circ l_{x_0,v}(t) \]
-  Therefore it holds that (chain rule)
+  Therefore ($\to$ chain rule)
   \[ D(f \circ l_{x_0,v})(0) = Df(l_{x_0,v}(0)) \cdot Dl_{x_0,v}(0) = Df(x_0) \cdot v \]
-  On the other side, it holds that
+  On the other side,
   \[ 0 = \underbrace{\lim_{t\to 0} \frac{1}{\card{t}} \card{f_{x_0,v}(t) - f_{x_0,v}(0) - Df_{x_0,v}(0) \cdot t}}_{=0} \]
   \[ = \lim_{t\to0} \frac{1}{\card{t}} \card{f(x_0 + tv) - f(x_0) - Df_{x_0,v}(0) \cdot t} \]
   \[ = \lim_{t\to0} \card{\frac{f(x_0 + tv) - f(x_0)}{t} - Df_{x_0,v}(0)} = 0 \]
-  therefore it holds that
+  therefore
   \[ Df_{x_0,v}(0) = \lim_{t\to 0} \frac{f(x_0 + tv) - f(x_0)}{t} = df(x_0;v) \]
 \end{remark}
 
 \begin{lemma} % Lemma 7
   Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ in $x_0 \in D$ (Frech\'et) differentiable with derivative $Df(x_0)$.
-  Then also the directional derivative $df(x_0; v)$ for every direction $v \in \mathbb R^m \setminus \set{0}$ and it holds that
+  Then also the directional derivative $df(x_0; v)$ for every direction $v \in \mathbb R^m \setminus \set{0}$ and
   \[ df(x_0; v) = Df(x_0) \cdot v \]
 \end{lemma}
 
 \begin{remark}
   $v \mapsto df(x_0; v)$ is linear. We can derive the structure of the derivative matrix.
   Let $f$ as above. Let $\mathcal B = \set{e_1, \dots, e_m}$ be the canonical basis in $\mathbb R^m$.
-  Then it holds that: $Df(x_0) \cdot e_j$ is the $j$-th column of $Df(x_0)$ for $j=1,\dots,m$.
+  Then: $Df(x_0) \cdot e_j$ is the $j$-th column of $Df(x_0)$ for $j=1,\dots,m$.
   On the other hand,
   \[ Df(x_0) \cdot e_j = df(x_0; e_j) = \lim_{t\to0} \frac1{t} \left[f(x_0 + te_j) - f(x_0)\right] \]
   \[
@@ -4294,7 +4289,6 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   \]
   $\nabla f(x_0)$ is called \emph{gradient of $f$ in $x_0$}.
   We call $\nabla$ the \emph{nabla operator}. It is also denoted $\operatorname{grad}(f)$ instead of $\nabla f$.
-  It holds that
   \[ df(x_0; v) = df(x_0) \cdot v = \nabla f(x_0)^t \cdot v = \langle \nabla f(x_0), v\rangle_{\mathbb R^m} \]
 \end{remark}
 
@@ -4315,7 +4309,6 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   and $\gamma_s'(t) = \begin{bmatrix} \gamma_1'(t) \\ \gamma_2'(t) \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix} \forall t \in I$.
   $\gamma_s'(t)$ is tangential vector on $\Gamma_s$ in point $x = \gamma_s(t)$.
 
-  It holds that
   \[ \angel{\nabla f(\gamma_s(t)), \gamma'_s(t)} = \angel{\nabla f(x), v} = 0 \]
   \[ f(\underbrace{\gamma_s(t)}_{\in \Gamma_s}) = s \qquad \text{\dots constant} \]
   \[ \implies \frac{d}{dt} [f(\gamma_s(t))] = 0  \]
@@ -4374,7 +4367,7 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   It holds that $\xi_k + (x_{k+1} - x_{k+1}^0) \cdot e_{k+1} = \xi_{k+1}$ for $k = 0, \dots, m-1$.
   Define $\varphi_k: [0,1] \to \mathbb R$.
   \[ \varphi_k(t) = f(\xi_k + t(x_{k+1} - x_{k+1}^0) \cdot e_{k+1}) \]
-  then it holds that $\varphi_k(0) = f(\xi_k); \varphi_k(1) = f(\xi_{k+1})$. $\varphi_k'(t) = $?
+  then $\varphi_k(0) = f(\xi_k); \varphi_k(1) = f(\xi_{k+1})$. $\varphi_k'(t) = $?
   \[ \underbrace{f(\xi_k + t(x_{k+1} - x_{k+1}^0) \cdot e_{k+1})}_{= \varphi_k(t)} = f(x_1, \dots, x_k, x_{k+1}^0 + t(x_{k+1} - x_{k+1}^0), x_{k+2}^0, \dots, x_m^0) \]
   \[ \varphi_k'(t) = \frac{d}{dt} \left[f(x_1, \dots, x_k, \underbrace{x_{k+1}^0 + t(x_{k+1} - x_{k+1}^0)}_{(k+1)-\text{th variable}}, x_{k+2}^0, \dots, x_m^0)\right] \]
   \[ = \partial_{k+1} f(x_1, \dots, x_k, x_{k+1}^0 + t(x_{k+1} - x_{k+1}^0), x_{k+2}^0, \dots, x_m^0) \cdot (x_{k+1} - x_{k+1}^0) \]
@@ -4458,7 +4451,7 @@ Necessary (but not sufficient) optimality criteria:
   \label{l8}
   Let $f: D \to \mathbb R$ be given. Let $D \subseteq \mathbb R^n$ be open.
   Let $x_0 \in D$ be a local maximum or a local minimum and let $f$ in $x_0$ be differentiable.
-  Then it holds that $Df(x_0) = [0, \dots, 0]$ or $\nabla f(x_0) = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}$.
+  Then $Df(x_0) = [0, \dots, 0]$ or $\nabla f(x_0) = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}$.
 \end{lemma}
 
 \begin{proof}
@@ -4504,7 +4497,7 @@ Necessary (but not sufficient) optimality criteria:
   \label{thm:lit}
   Let $D \subseteq \mathbb R^n$ be open. Let $f: D \to \mathbb R^n$ be continuously differentiable.
   Furthermore let $Df(x_0)$ be regular for $x_0 \in D$. Then $f$ is a local diffeomorphism in $x_0$.
-  Furthermore it holds that:
+  Furthermore:
   \[ Df^{-1}(f(x_0)) = [Df(x_0)]^{-1} \]
 \end{theorem}
 \begin{proof}
@@ -4540,7 +4533,7 @@ Necessary (but not sufficient) optimality criteria:
   Now the interesting part of the proof begins:
   Let $y \in \mathbb R^n$ arbitrary. We define
   \[ \varphi(x) = y + x - F(x) \]
-  It holds that $y = F(x) \iff y + x - F(x) = x$, hence $\varphi_Y(x) = x$, hence $x$ is a fixed point of $\varphi_Y$.
+  $y = F(x) \iff y + x - F(x) = x$, hence $\varphi_Y(x) = x$, hence $x$ is a fixed point of $\varphi_Y$.
   
   $F$ is continuously differentiable with $DF(0) = I$. Thus for every $\varepsilon > 0 \exists \delta > 0$ such that
   \[ \norm{x - 0} \leq \delta \implies \norm{DF(x) - DF(0)} = \norm{DF(x) - I} \leq \varepsilon \]
@@ -4570,10 +4563,10 @@ Necessary (but not sufficient) optimality criteria:
 	  &\leq (*)
   \end{align*}
   \[ D \varphi_Y(x) = I - DF(x) \]
-  hence $\forall x \in \overline{K_{2r}(0)}$ it holds that $\norm{D\varphi_Y(x)} = \norm{I - DF(x)} \leq \frac12$.
+  hence $\forall x \in \overline{K_{2r}(0)}$, $\norm{D\varphi_Y(x)} = \norm{I - DF(x)} \leq \frac12$.
 
   \[ (*) \leq \frac12 \norm{x_2 - x_1} \underbrace{\int_0^1 1 \cdot dt}_{= 1} = \frac12 \norm{x_2 - x_1} \]
-  Hence $\forall x_1, x_2 \in \overline{K_{2r}(0)}$ it holds that
+  Hence $\forall x_1, x_2 \in \overline{K_{2r}(0)}$,
   \[ \norm{\varphi_Y(x_2) - \varphi_Y(x_1)} \leq \frac12 \norm{x_2 - x_2} \]
   Therefore $\varphi_Y$ is a contraction with constant $\nu = \frac12$.
 
@@ -4627,7 +4620,7 @@ Necessary (but not sufficient) optimality criteria:
 
   \emph{Notation:} $\vectwo xy \in U; x \in \mathbb R^n, y \in \mathbb R^m$. $f\left(\vectwo xy\right) = f(x, y)$.
   
-  For $(x_0, y_0) \in U$ it holds that $f(x_0, y_0) = 0$.
+  For $(x_0, y_0) \in U$, $f(x_0, y_0) = 0$.
   Let
   \[
     Df(x_0, y_0) = \begin{bmatrix}
@@ -4810,7 +4803,7 @@ Necessary (but not sufficient) optimality criteria:
 \index{Clairaut's theorem}
 \index{Young's theorem}
 \begin{theorem}[Symmetry of second derivatives, Schwarz' theorem, Clairaut's theorem, Young's theorem] % Satz 5
-  Let $f \in \mathcal C^2(D)$. Let $D \subseteq \mathbb R^n$ be open. Then it holds that
+  Let $f \in \mathcal C^2(D)$. Let $D \subseteq \mathbb R^n$ be open. Then,
   \[ \partial_{X_i X_j} f = \partial_{X_j X_i} f \text{ on } D \]
 \end{theorem}
 
@@ -4879,7 +4872,7 @@ Necessary (but not sufficient) optimality criteria:
   Let $f \in \mathcal C^k(D)$, $D \subseteq \mathbb R^n$ open and $x_0 \in D$.
   Let $(i_1, i_2, \dots, i_k) \in \underbrace{\set{1,2, \dots, n}^k}_{M_n} = M_n^k$.
   Furthermore let $(i_1', i_2', \dots, i_k')$ be a rearrangement of $(i_1, i_2, \dots, i_k)$.
-  Then it holds that
+  Then
   \[ \partial{x_{i_1} x_{i_2} \dots x_{i_k}} f(x_0) = \partial_{x_{i'_1} x_{i'_2} \dots x_{i'_k}} f(x_0) \]
 \end{theorem}
 
@@ -5017,7 +5010,7 @@ Necessary (but not sufficient) optimality criteria:
 \begin{theorem}[Qualitative Taylor Theorem] % Satz 7
   Let $f \in \mathcal C^k(D)$, $D \subseteq \mathbb R^n$ open, $x_0 \in D$.
   Let $r > 0$ such that $K_r(x_0) \subseteq D$ and $\norm{v} < r$, hence $x_0 + v \in K_r(x_0) \subseteq D$.
-  Then it holds that
+  Then
   \[ f(x) = \sum_{j=0}^k \sum_{\card{I} = j} \frac{1}{I!} \partial_I f(x_0) v^I + o(\norm{v})^k \]
 
   Pay attention to $\mathcal C^k(D)$, $j=0$ and $o(\norm{v})^k$.
@@ -5029,7 +5022,7 @@ Necessary (but not sufficient) optimality criteria:
     \norm{v}_1^k &= \left(\sum_{k=1}^n \card{v_i}\right)^k \underbrace{=}_{\text{Theorem~\ref{multiTaylor}}}
                     \sum_{\card{I} = k} \frac{k!}{I!} \card{v^I}
   \end{align*}
-  for every multiindex $I$ of order $k$ it holds that $\frac{1}{I!} \card{v^I} \leq \frac{1}{k!} \norm{v}_1^k$.
+  for every multiindex $I$ of order $k$, $\frac{1}{I!} \card{v^I} \leq \frac{1}{k!} \norm{v}_1^k$.
   By Theorem~\ref{multiTaylor},
   \begin{align*}
     f(x) &= \sum_{j=0}^{k-1} \sum_{\card{I}=j} \frac{1}{I!} \partial_I f(x_0) v^I {\color{gray} + \sum_{\card{I} = k} \frac{1}{I!} \partial_I f(x_0) v^I} \\
@@ -5070,10 +5063,10 @@ hence, the Taylor expansion of $f$ up to the second degree is
 \end{theorem}
 
 \begin{remark}[Reminder]
-  Let $M \in \mathbb R^{n \times n}$ and $M$ be symmetrical. $M$ is called positive definite if $\forall \lambda \in \mathbb R$ eigenvalue of $M$ it holds that $\lambda > 0 \iff \forall v \in \mathbb R^n \setminus \set{0}: v^t M v > 0$ indefinite:
+  Let $M \in \mathbb R^{n \times n}$ and $M$ be symmetrical. $M$ is called positive definite if $\forall \lambda \in \mathbb R$ eigenvalue of $M$, $\lambda > 0 \iff \forall v \in \mathbb R^n \setminus \set{0}: v^t M v > 0$ indefinite:
   \[ \exists \lambda \text{ eigenvalue of } A, \lambda > 0 \]
   \[ \exists \mu \text{ eigenvalue of } A, \mu < 0 \]
-  For corresponding eigenvectors $v$ (and accordingly $w$) it holds that
+  For corresponding eigenvectors $v$ (and accordingly $w$),
   \[ v^t M v = v^t \lambda v = \lambda \norm{v}^2 > 0 \]
   \[ w^t M w = w^t \mu w = \underbrace{\mu}_{< 0} \norm{w}^2 < 0 \]
 \end{remark}
@@ -5083,7 +5076,7 @@ hence, the Taylor expansion of $f$ up to the second degree is
     \item Taylor expansion of 2nd degree with $Df(x_0) = 0$: $f(x) - f(x_0) = \frac12 (x - x_0)^t D_2 f(x_0) (x - x_0) + g(x - x_0) \cdot \norm{x - x_0}^2$ where $g(x - x_0) \cdot \norm{x - x_0}^2$ represents $o(\norm{x - x_0}^2)$ with $\lim_{v \to 0} g(v) = 0$.
       \[ S^{k-1} = \set{v \in \mathbb R^n: \norm{v} = 1} \]
       is the $n-1$ dimensional unit sphere in $\mathbb R^n$.
-      $S^{n-1}$ is bounded, closed and therefore compact. $\forall v \in S^{n-1}$ it holds that $v \neq 0 \implies v^t D_2 f(x_0) v > 0$ by positive definiteness.
+      $S^{n-1}$ is bounded, closed and therefore compact. $\forall v \in S^{n-1}: v \neq 0 \implies v^t D_2 f(x_0) v > 0$ by positive definiteness.
       Let $m = \min\set{\frac12 v^t D_2 f(x_0) v: v \in S^{n-1}}$ where $\frac12 v^t D_2 f(x_0)$ is continuous, has therefore a minimum and this minimum is necessarily positive. So $m > 0$.
       Choose $\delta > 0$ such that $\norm{v} < \delta \implies \card{g(v)} < \frac{m}{2}$ (feasible because $\lim_{v\to0} g(v) = 0$).
       For $x \neq x_0$,
@@ -5440,7 +5433,7 @@ Compare with Figure~\ref{img:ori}.
   $t_k = \sigma(\tau_k)$ with $k = 0, \dots, N$.
   If $\sigma$ is orientation preservering, then $\tilde Z = \set{\tau_0 = \alpha < \tau_1 < \dots < \tau_N = \beta}$ is a partition of $[\alpha, \beta]$.
   If $\sigma$ is orientation reversing, then $\tilde Z = \set{\alpha = \tau_N < \tau_{N-1} < \dots < \tau_0 = \beta}$ is a partition.
-  In every case, it holds that
+  In every case,
   \[ S_{\gamma}(Z) = S_{\tilde\gamma}(\tilde Z) \]
   because $x_k = \gamma(t_k) = \tilde\gamma(\tau_k)$ and accordingly $x_k = \gamma(t_k) = \tilde\gamma(\tau_{N-k})$.
   So $S_\gamma$ is a geometrical quantity.
@@ -5534,7 +5527,7 @@ Compare with Figure~\ref{img:ori}.
   \[ \varphi(t) = \begin{bmatrix} c_i^1 \\ c_i^2 \\ \vdots \\ c_i^n \end{bmatrix} \text{ on } (t_{i-1}, t_i) \]
   \[ \implies \norm{\int_{t_{i-1}}^{t_i} \varphi \, dt}_2 = \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_n^i \end{bmatrix} \cdot (t_i - t_{i-1})}_2 = (t_i - t_{i_1}) \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_i^n \end{bmatrix}}_2 \]
   \[ \int_{t_{i-1}}^{t_i} \norm{\varphi} \, dt = \int_{t_{i-1}}^{t_i} \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_i^n \end{bmatrix}}_2 \, dt = (t_i - t_{i-1}) \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_i^n \end{bmatrix}}_2 \]
-  Hence, for $(t_{i-1}, t_i)$ it holds that
+  Hence, for $(t_{i-1}, t_i)$
   \[ \int_{t_{i-1}}^{t_i} \norm{\varphi} \, dt = \norm{\int_{t_{i-1}}^{t_i} \varphi \, dt} \]
 %  \[ \int_a^b \norm{\gamma'(t)}_2 \, dt = \int_a^b \norm{\varphi - (\varphi - \gamma')}_2 \, dt \]
 %  \[ \geq \int_a^b \norm{\varphi}_2 \, dt = \int_a^b \norm{\varphi - \gamma'}_2 \, dt \]
@@ -5609,8 +5602,10 @@ Let $\tilde\gamma$ be the reparameterization of $\gamma$ by the arc length. Then
 \begin{align*}
   \tilde\gamma'(s) &= \frac d{ds} [\gamma(l^{-1}(s))]
     = \gamma' (l^{-1}(s)) (l^{-1})'(s)
+    = \gamma' (t) \cdot \frac{1}{l'(t)}
     = \gamma' (t) \cdot \frac{1}{\norm{\gamma'(t)}_2} = T_{\gamma}(t)
 \end{align*}
+because for derivatives of inverse functions, $(f^{-1})'(x) = \frac{1}{f'(f^{-1}(x))}$.
 So, $\norm{\tilde\gamma(s)}_2 = 1$. $\tilde\gamma'(s) = T_{\tilde\gamma}(s)$.
 
 Determine the arc length for $\tilde\gamma$:
@@ -5661,7 +5656,7 @@ Determine the arc length for $\tilde\gamma$:
 
 \begin{remark}
   Let $\gamma$ be parameterized by an arc length.
-  Then it holds that $s = l(t) = \int_{t_0}^t \underbrace{\norm{\gamma'(\tau)}_2}_{=1} \, d\tau = t - t_0$, and accordingly $t = s + t_0$.
+  Then $s = l(t) = \int_{t_0}^t \underbrace{\norm{\gamma'(\tau)}_2}_{=1} \, d\tau = t - t_0$, and accordingly $t = s + t_0$.
   Hence, curve parameter and arc length parameter differ only by constant $t_0$. For $t_0 = 0$, $s = t$.
 \end{remark}
 
@@ -5795,26 +5790,26 @@ Derive $B = T \times N$.
 Hence $B' \bot T$ and $B' \bot N'$. $\implies$ \fbox{$B' = \tilde\alpha N + \tilde\beta B$}.
 $\angel{T, N} = 0 \implies \angel{T', N} + \angel{T, N'} = 0$, so \fbox{$\angel{N', T} = -\angel{T', N}$}.
 
-Because $T$ and $N$ are orthonormal, it holds that $\alpha = \angel{T, N'} = -\kappa$ and $\beta = \angel{B, N'}$.
-So it holds that $N' = -\kappa T + \angel{B, N'} \cdot B$.
+Because $T$ and $N$ are orthonormal, $\alpha = \angel{T, N'} = -\kappa$ and $\beta = \angel{B, N'}$.
+So, $N' = -\kappa T + \angel{B, N'} \cdot B$.
 \begin{align*}
   B' &= \tilde\alpha \cdot N + \tilde\beta \cdot B \\
   \tilde\alpha &= \angel{N, B'} \\
   \tilde\beta &= \angel{B, B'}
 \end{align*}
 because $\angel{B, B} = 1 \implies \angel{B, B'} = 0$.
-Hence it holds that
+Hence
 \[ B' = \angel{N, B'} \cdot N \]
 We let $\tau = \tau(s) = \angel{N, B'}$.
 \index{Third Frenet formula}
-So it holds that $B' = \tau \cdot N$, which we call \emph{third Frenet formula}.
+So, $B' = \tau \cdot N$, which we call \emph{third Frenet formula}.
 $\angel{B, N} = 0 \implies \angel{B, N'} + \angel{B', N} = 0$,
 hence $\beta = \angel{B, N'} = -\angel{B', N} = -\tau$.
 \index{Second Frenet formula}
 We call $N' = -\kappa T - \tau B$ \emph{the second Frenet formula}.
 
 Summary: Let $\gamma$ be parameterized by the arc length.
-Then it holds that ($\gamma \in \mathbb C^3$)
+Then (with $\gamma \in \mathbb C^3$)
 
 \begin{mdframed}
   \begin{align*}
@@ -5933,7 +5928,7 @@ Left as an exercise to the reader:
 \subsection{Curvatures of plane curves}
 Let $\gamma: I \to \mathbb R^2$.
 \[ \norm{\gamma'(s)} = 1 \]
-Then it holds that
+Then
 \[
   \gamma'(s) = \begin{bmatrix}
     \cos{v(s)} \\
@@ -6025,11 +6020,12 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
 \section*{Exam questions 2018/07/06}
 
 \begin{enumerate}
-  \item Let $f: X \to Y$ be continuous. Let $X$ be compact. Prove that $f(X)$ is compact.
+  \item Let $f: X \to Y$ be continuous. Let $X$ be compact. Prove that $f(X)$ is compact. Give any corollary of this proof.
   \item Give and prove H\"older's inequality.
-  \item Prove: If $f$ is analytical in $x_0$, then $f = T_f(x, x_0)$.
+  \item Prove: If $f = \sum a_k \cdot (z - z_0)^k$ with $\rho > 0$ is analytical in $x_0$, then $f = T_f(x, x_0)$.
+    % Solution: Show: a_k is k-th derivative and $f$ is arbitrary often differentiable in convergence radius
   \item $f: D \subseteq \mathbb R^m \to \mathbb R^n$ is differentiable in $x_0$ with $Df(x_0)$. Show that $\forall v \in \mathbb R^m \setminus \set{0}: df(x_0, v) = Df(x_0) \cdot v$
-  \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$. Define its curvature, circle of curvature, osculating plane and main normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
+  \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$ $\forall t \in I$. Define its curvature, circle of curvature, osculating plane and main normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
 \end{enumerate}
 
 \printindex
