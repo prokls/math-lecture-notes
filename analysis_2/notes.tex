@@ -2248,7 +2248,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   \[ \int_\alpha^\beta f \, dx = \phi(\beta) - \phi(\alpha) \]
 \end{theorem}
 
-\begin{remark}
+\begin{remark} % TODO in this section, I am mixing \Phi and \phi to denote an antiderivative
   Let $f$ be continuous and $\phi$ be an antiderivative of $f$.
   Hence, $\Phi'(x) = f(x) \forall x \in [a,b]$.
   Then
@@ -2920,6 +2920,10 @@ Some important inequalities in integration theory follow.
     \label{img:young}
   \end{center}
 \end{figure}
+
+\begin{remark}
+  The inverse function $f^{-1}$ can be retrieved by considering reflection along $f(x) = x$.
+\end{remark}
 
 \begin{proof}
   Let $f:[0,\infty) \to [0,\infty)$ be as above.
@@ -3682,7 +3686,7 @@ Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
 \begin{definition} % Definition 1
   \label{opdef}
   Let $V, W$ be normed vector spaces over $\mathbb K$. A linear map $\varphi: V \to W$ is called \emph{bounded} if $\exists m \geq 0: \norm{\varphi(x)}_W < m \cdot \norm{x}_V$ (we call this the \emph{boundedness criterion})
-  such that $\norm{\varphi(x)}_W \leq m \cdot \norm{x}_V$ for all $x \in V$.
+  such that $\norm{\varphi(x)}_W \leq m \cdot \norm{x}_V$ for all $x \in V$. % TODO The [almost] same criterion occurs twice in this sentence.
 
   The set $\mathcal L_b(V, W) = \set{\varphi: V \to W: \varphi \text{ is linear and bounded}}$ is a subvectorspace of $\mathcal L(V, W)$. We let
   \[ \norm{\varphi} = \inf\set{m \geq 0: \norm{\varphi(x)}_W \leq m \cdot \norm{x}_V \forall x \in V} \]
@@ -3944,8 +3948,8 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \end{proof}
 
 \begin{lemma} % Lemma 6
-  Let $C: D \to \mathbb R^n$. $c(x) = k \in \mathbb R^n$ is constant.
-  Then $c$ is differentiable in every point $x_0 \in D$ and $D C(x_0) = 0 \in \mathbb R^{n\times m}$.
+  Let $C: D \to \mathbb R^n$. $C(x) = k \in \mathbb R^n$ is constant.
+  Then $C$ is differentiable in every point $x_0 \in D$ and $D C(x_0) = 0 \in \mathbb R^{n\times m}$.
   Let $A: \mathbb R^m \to \mathbb R^n$ be linear. Then $A$ is differentiable in every point $x_0 \in \mathbb R^m$ and $DA(x_0) = A$.
 
   Let $f(x) = k + Ax: \mathbb R^m \to \mathbb R^n$ be linear affine, then $f$ is differentiable in every point $x_0 \in \mathbb R^m$ with $Df(x_0) = A$.
@@ -4102,7 +4106,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 
 \begin{lemma} % Lemma 7
   Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ in $x_0 \in D$ (Frech\'et) differentiable with derivative $Df(x_0)$.
-  Then also the directional derivative $df(x_0; v)$ for every direction $v \in \mathbb R^m \setminus \set{0}$ and
+  Then also the directional derivative $df(x_0; v)$ for every direction $v \in \mathbb R^m \setminus \set{0}$ and % TODO: ... exists?
   \[ df(x_0; v) = Df(x_0) \cdot v \]
 \end{lemma}
 
@@ -4156,7 +4160,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
       df_n(x; e_j) \\
     \end{bmatrix}
     = \begin{bmatrix}
-      \frac{\partial f_1}{\partial x_j}(x)
+      \frac{\partial f_1}{\partial x_j}(x) \\
       \vdots \\
       \frac{\partial f_n}{\partial x_j}(x)
     \end{bmatrix}
@@ -6022,7 +6026,12 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
 \begin{enumerate}
   \item Let $f: X \to Y$ be continuous. Let $X$ be compact. Prove that $f(X)$ is compact. Give any corollary of this proof.
   \item Give and prove H\"older's inequality.
-  \item Prove: If $f = \sum a_k \cdot (z - z_0)^k$ with $\rho > 0$ is analytical in $x_0$, then $f = T_f(x, x_0)$.
+  \item Prove: If $f(x) = \sum_{k=0}^\infty a_k \cdot (x - x_0)^k$ with $\rho_f > 0$ is analytical.
+    Show that,
+    \begin{enumerate}
+      \item $a_k = f^{(k)}(x_0) \cdot \frac{1}{k!}$
+      \item $f$ is arbitrary often continuously differentiable in $(x_0 - \rho_f, x_0 + \rho_f)$
+    \end{enumerate}
     % Solution: Show: a_k is k-th derivative and $f$ is arbitrary often differentiable in convergence radius
   \item $f: D \subseteq \mathbb R^m \to \mathbb R^n$ is differentiable in $x_0$ with $Df(x_0)$. Show that $\forall v \in \mathbb R^m \setminus \set{0}: df(x_0, v) = Df(x_0) \cdot v$
   \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$ $\forall t \in I$. Define its curvature, circle of curvature, osculating plane and main normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
