@@ -1248,28 +1248,29 @@ Regarding the equivalence of norms:
 
   $\varphi$ is called \emph{step function} in $[a,b]$ if there exists a partition such that $\varphi$ is a subsequence.
   \[ \tau[a,b] = \set{\varphi: [a,b] \to \mathbb R: \varphi \text{ is subsequence}} \]
-  \begin{itemize}
-    \item Let $(\xi_i)_{i=0}^m$ be a partition of $[a,b]$ and $(x_j)_{j=0}^n$ is a partition as well.
-      Then we call $(\xi_i)_{i=0}^m$ a \emph{refinement} of $[a,b]$ and $(x_j)_{j=1}^n$ as well.
-      Then $(\xi_i)_{i=0}^n$ is a refinement of $(x_j)_{j=0}^k$ if
-      $\set{x_0, x_1, \dots, x_n} \subseteq \set{\xi_0, \xi_1, \dots, \xi_m}$
 
-      \begin{figure}[h]
-        \begin{center}
-          \includegraphics{img/10_refinement.pdf}
-          \caption{(top) Refinement (middle) function values in points $x_j$ are unrestricted (bottom) step functions on a refinement}
-          \label{img:refine}
-        \end{center}
-      \end{figure}
+  Let $(\xi_i)_{i=0}^m$ be a partition of $[a,b]$ and $(x_j)_{j=0}^n$ is a partition as well.
+  Then we call $(\xi_i)_{i=0}^m$ a \emph{refinement} of $[a,b]$ and $(x_j)_{j=1}^n$ as well.
+  Then $(\xi_i)_{i=0}^n$ is a refinement of $(x_j)_{j=0}^k$ if
+  $\set{x_0, x_1, \dots, x_n} \subseteq \set{\xi_0, \xi_1, \dots, \xi_m}$
 
-      Compare with Figure~\ref{img:refine}.
-      Functions values in boundaries $x_{j-1}$ and $x_j$ do not have any constraints and will be relevant for an integral.
-      A $\varphi$ can be a step function in terms of many, various partitions.
-  \end{itemize}
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics{img/10_refinement.pdf}
+      \caption{(top) Refinement (middle) function values in points $x_j$ are unrestricted (bottom) step functions on a refinement}
+      \label{img:refine}
+    \end{center}
+  \end{figure}
+
+  Compare with Figure~\ref{img:refine}.
+  Functions values in boundaries $x_{j-1}$ and $x_j$ do not have any constraints and will be relevant for an integral.
+  A $\varphi$ can be a step function in terms of many, various partitions.
 \end{definition}
 
 \begin{lemma}
-  Let $\varphi \in \tau[a,b]$ be a step function in terms of partition $(x_j)_{j=0}^n$ and let $(x_i)_{i=0}^n$ be a refinement of $(x_j)_{j=0}^n$ in terms of $(x_i)_{i=0}^m$.
+  Let $\varphi \in \tau[a,b]$ be a step function in terms of partition $(x_j)_{j=0}^n$
+  and let $(\xi_i)_{i=0}^m$ be a refinement of $(x_j)_{j=0}^n$.
+  Then $\varphi$ is also a step function in terms of $(\xi_i)_{i=0}^m$.
 \end{lemma}
 
 \begin{proof}
@@ -1299,12 +1300,12 @@ Regarding the equivalence of norms:
 \dateref{2018/03/22}
 
 Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
-\[ \delta x_j = x_j - x_{j-1} \]
-\[ \int_a^b \varphi \, dx = \sum_{j=1}^n c_j \cdot \delta x_j \]
+\[ \Delta x_j \coloneqq x_j - x_{j-1} \]
+\[ \int_a^b \varphi \, dx = \sum_{j=1}^n c_j \cdot \Delta x_j \]
 
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics{img/12_integral_of_a_step_function.pdf}
+    \includegraphics{img/12_integral_of_a_step_function.pdf} % TODO: too large
     \caption{Integral of a step function as sum of areas of rectangles}
   \end{center}
 \end{figure}
@@ -1319,10 +1320,10 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 \begin{proof}
   There exist indices $i_j$ for $j=0$, $n$ such that $x_j = \xi_{ij}$.
   \[ i_0 = 0 \qquad i_n = m \qquad i_{j-1} < i_j \]
-  \[ \delta x_j = x_j - x_{j-1} = \xi_{i_j} - \xi_{i_{j-1}} = \xi_{i_j} - \xi_{i_{j-1}} = \underbrace{\sum_{i=i_{j-1}+1}^{i_j}}_{\text{telescoping sum}} (\xi_i - \xi_{i-1}) = \sum_{i=i_{j-1}+1}^{i_j} \delta \xi_i \]
+  \[ \Delta x_j = x_j - x_{j-1} = \xi_{i_j} - \xi_{i_{j-1}} = \xi_{i_j} - \xi_{i_{j-1}} = \underbrace{\sum_{i=i_{j-1}+1}^{i_j}}_{\text{telescoping sum}} (\xi_i - \xi_{i-1}) = \sum_{i=i_{j-1}+1}^{i_j} \Delta \xi_i \]
   \[ \varphi|_{x_{j-1},x_j} = c_j \implies \varphi|_{(\xi_{i-1},\xi_i)} = c_j \text{ for } i = i_{j-1}+1, \dots, i_j \]
   \[ \tilde{c_i} = \varphi|_{(\xi_{i-1},\xi_i)} \]
-  \[ \underbrace{\sum_{i=1}^m \tilde{c_i} \delta \xi_i}_{\text{integral of $\varphi$ w.r.t $(\xi_i)_{i=0}^m$}} = \sum_{j=1}^n \sum_{i=i_{j-1}+1}^{i_j} \tilde{c_i} \delta \xi_i = \sum_{j=1}^n c_j \underbrace{\sum_{i=i_{j-1}+1}^{i_j} \delta \xi_i}_{=  x_j} = \sum_{j=1}^n c_j \delta x_j \]
+  \[ \underbrace{\sum_{i=1}^m \tilde{c_i} \Delta \xi_i}_{\text{integral of $\varphi$ w.r.t $(\xi_i)_{i=0}^m$}} = \sum_{j=1}^n \sum_{i=i_{j-1}+1}^{i_j} \tilde{c_i} \Delta \xi_i = \sum_{j=1}^n c_j \underbrace{\sum_{i=i_{j-1}+1}^{i_j} \Delta \xi_i}_{= \Delta x_j} = \sum_{j=1}^n c_j \Delta x_j \]
   This is the integral of $\varphi$ with respect to $(x_j)_{j=0}^n$.
 \end{proof}
 
@@ -1342,6 +1343,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 \end{proof}
 
 \begin{lemma} % Lemma 4
+  \label{lem4}
   Let $f,g$ be step functions on $[a,b]$. $f,g \in \tau[a,b]$.
   \begin{itemize}
     \item
@@ -1383,6 +1385,16 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       \[ \implies \card{\int_a^b f \, dx} \leq \int_a^b \card{f} \, dx \]
       It is left to prove: $\card{f} \in \tau[a,b]$ (i.e. $\card{f}$ is a step function)
 
+      \begin{remark}[Elaboration]
+        \begin{align*}
+           f \leq \card{f} &\implies \int f \, dx \leq \int \card{f} \, dx \\
+           -\card{f} \leq f &\implies \int -\card{f} \, dx \leq \int f \, dx \iff -\int \card{f} \, dx \leq \int f \, dx
+        \end{align*}
+        \[ -\int \card{f} \, dx \leq \underbrace{\int f \, dx}_{\eqqcolon J} \leq \underbrace{\int \card{f} \, dx}_{\eqqcolon I} \]
+        \[ \iff -I \leq J \leq I \iff \card{J} \leq I \]
+        \[ \implies \card{\int f \, dx} \leq \int \card{f} \, dx \]
+      \end{remark}
+
       Let $f|_{(\xi_{i-1}, \xi_i)} = c_i \implies \card{f}|_{(\xi_{i-1}, \xi_i)} = \card{c_i} = $ constant.
       Hence $\card{f} \in \tau[a,b]$.
   \end{enumerate}
@@ -1393,7 +1405,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 \index{Characteristic function}
 \index{Indicator function}
 \begin{definition} % Definition 3
-  Let $a \subseteq \mathbb R^k$. We call $\chi_A: \mathbb R^n \to \mathbb R$ with
+  Let $A \subseteq \mathbb R^k$. We call $\chi_A: \mathbb R^n \to \mathbb R$ with
   \[
     \chi_A(x) = \begin{cases}
       1 & \text{ if } x \in A \\
@@ -1446,13 +1458,15 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 
 \index{Limit point}
 \begin{definition} % Definition 4
-  Let $X$ be a metric space $A \subseteq X$ and $x \in X$ is an accumulating point\footnote{An accumulation point has 3 equivalent definitions (sequence, intersection, infinitely many elements in sphere).} of $A$.
-  Let $f: A \to \mathbb R$. We say, $f$ has limit $c \in \mathbb R$ in $x$ ($\lim_{\xi\to x} f(\xi) = c$) if
-  \[
-    \forall \varepsilon > 0 \exists \delta > 0: \forall \xi \in A, \xi \neq x \text{ and } d(\xi, x) < \delta:
-    \card{f(\xi) - c} < \varepsilon
-  \]
+  Let $X$ be a metric space $A \subseteq X$ and $x \in X$ is an accumulating point\footnote{An accumulation point has 3 equivalent definitions (sequence, intersection, infinitely many elements in sphere).} of $A$. % Accumulation point is defined on a set. Accumulation value is defined for a sequence.
+  Let $f: A \to \mathbb R$. Let $d$ be the metric of $X$. We say, $f$ has limit $c \in \mathbb R$ in $x$ ($\lim_{\xi\to x} f(\xi) = c$) if
+  \[ \forall \varepsilon > 0 \exists \delta > 0 \forall \xi \in A \forall \xi \neq x: d(\xi, x) < \delta \implies \card{f(\xi) - c} < \varepsilon \]
 \end{definition}
+
+\begin{remark}
+  Recognize that $\xi \neq x$ relaxes the precondition.
+  The preconditions look similar to continuity, but fewer $\xi$ need to satisfy a certain criterion.
+\end{remark}
 
 \begin{remark}
   $x \in A$ and $c = f(x) \implies f$ is continuous in $x$.
@@ -1510,15 +1524,23 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 \end{proof}
 
 \begin{remark}
+  Due to condition $\xi_n \neq x$, the function value must not necessarily match the limit point.
+\end{remark}
+
+\begin{remark}
   Attention! We, therefore, use two different definitions of limits.
 \end{remark}
 
 \begin{lemma}[Cauchy criterion of limits of functions] % Lemma 6
   \label{cauchy-crit}
   Let $f: A \subseteq X \to \mathbb R$. Let $x$ be an accumulation point of $A$.
-  Let $X$ be a metric space. Then $f$ has a limit in $x$ if and only if
-  \[ \forall \varepsilon > 0 \exists \delta > 0: \forall \xi, \eta \in A: \xi \neq x_i: \eta \neq x \]
-  with $d(\xi, x) < \delta$ and $d(\eta, x) < \delta$ it holds that $\card{f(\xi) - f(\eta)} < \varepsilon$.
+  Let $X$ be a metric space.
+
+  \emph{$f$ has a limit in $x$} if and only if $\forall \varepsilon > 0 \exists \delta > 0 \forall \xi, \eta \in A$
+  \[
+    (\xi \neq x \land \eta \neq x \land d(\xi, x) < \delta \land d(\eta, x) < \delta)
+    \implies \card{f(\xi) - f(\eta)} < \varepsilon
+  \]
   Analogously for one-sided limits with $A \subseteq \mathbb R$.
   Additionally, we need the constraint that $\xi > x$ and $\eta > x$ for $\lim_{\xi \to x^+} f(\xi)$.
   And accordingly, $\xi < x$ and $\eta < x$ for $\lim_{\xi \to x^-} f(\xi)$.
@@ -1526,14 +1548,14 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 
 \begin{proof}
   \begin{description}
-    \item[$\Leftarrow$] 
+    \item[$\implies$] 
       Let $c = \lim_{\xi\to x} f(\xi)$ and let $\varepsilon > 0$ be chosen arbitrarily.
       Then there exists $\delta > 0$ such that $d(\xi,x) < \delta$ and $\xi \neq x$
       \[ \implies \card{f(\xi) - c} < \frac\varepsilon2 \]
       For $\xi, \eta$: $d(\xi, x) < \delta$ and $d(\eta, x) < \delta$ with $\xi, \eta \neq x$
       is therefore
-      \[ \card{f(\xi) - f(\eta)} = \card{f(\xi) - c + c - f(\eta)} \leq \card{f(\xi) - c} + \card{f(\eta) - c} < \frac\varepsilon2 + \frac\varepsilon = \varepsilon \]
-    \item[$\Rightarrow$]
+      \[ \card{f(\xi) - f(\eta)} = \card{f(\xi) - c + c - f(\eta)} \leq \card{f(\xi) - c} + \card{f(\eta) - c} < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon \]
+    \item[$\impliedby$]
       Assume the Cauchy criterion holds. We show that
       \begin{enumerate}
         \item for every sequence $(\xi_n)_{n\in\mathbb N}$, $\xi_n \in A \setminus \set{x}$ with $\lim_{n\to\infty} \xi_n = x$ it holds that
@@ -1703,7 +1725,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 
       \begin{proof}
         Because if the opposite of \eqref{neghypo} holds on $[a_n, m_n]$ as well as $[m_n, b_n]$,
-        then there exists $\varphi_1^n \in \tau[a_n, m_n]$ with $\card{\varphi_n^1(x) - f(x)} < \varepsilon \forall x \in [a_n, m_n]$
+        then there exists $\varphi_n^1 \in \tau[a_n, m_n]$ with $\card{\varphi_n^1(x) - f(x)} < \varepsilon \forall x \in [a_n, m_n]$
         and if the opposite of \eqref{neghypo} holds on $[m_n, b_n]$:
         \[ \exists \varphi_n^2 \in \tau[m_n, b_n]: \card{\varphi_n^2(x) - f(x)} < \varepsilon \forall x \in [m_n, b_n] \]
         \[
@@ -1801,13 +1823,16 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 
 \begin{corollary}
   Every regulated function $f \in \mathcal R[a,b]$ is bounded.
+\end{corollary}
+
+\begin{proof}[Rationale]
   Let $\varphi \in \tau[a,b]$ with $\norm{f - \varphi}_{\infty} < 1$.
   $\varphi$ is bounded, hence $\exists m \in [0, \infty)$:
   $\card{\varphi(x)} \leq m \forall x \in [a,b]$.
   Then $\card{f(x)} \leq \card{f(x) - \varphi(x)} + \card{\varphi(x)} < 1 + m \forall x \in [a,b]$,
   hence $f \in \mathcal B[a,b]$.
   \[ \mathcal R[a,b] \subseteq \mathcal B[a,b] \]
-\end{corollary}
+\end{proof}
 
 \begin{corollary}
   Let $f \in \mathcal R[a,b] \iff f = \sum_{j=0}^\infty \psi_j$ with $\psi_j \in \tau[a,b]$ and the series converges uniformly on $[a,b]$.
@@ -1817,7 +1842,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   \begin{description}
     \item[Direction $\impliedby$.]
       Let $f = \sum_{j=0}^\infty \psi_j$ with uniform convergence.
-      Let $\varphi_n = \sum_{j=0}^\infty \psi_j \in \tau[a,b]$ and $f = \lim_{n\to\infty} \phi_n$ uniform on $[a,b] \xRightarrow{Theorem~\ref{approxthmreg}} f \in \mathcal R[a,b]$.
+      Let $\varphi_n \coloneqq \sum_{j=0}^n \psi_j \in \tau[a,b]$ and $f = \lim_{n\to\infty} \varphi_n$ uniform on $[a,b] \xRightarrow{Theorem~\ref{approxthmreg}} f \in \mathcal R[a,b]$.
     \item[Direction $\implies$.]
       Let $f \in \mathcal R[a,b]$ and $f = \lim_{n\to\infty} \varphi_n$ with $\varphi_n \in \tau[a,b]$ (by Theorem~\ref{approxthmreg}).
       \begin{align*}
@@ -1834,7 +1859,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 \begin{definition}[Definition with a theorem] % Definition and Saetzchen 8
   Let $f \in \mathcal R[a,b]$ and $\varphi_n \in \tau[a,b]$ with $f = \lim_{n\to\infty} \varphi_n$ is uniform on $[a,b]$.
   We let
-  \[ \int_a^b f \, dx = \lim_{n\to\infty} \int_a^b \varphi_n \, dx \]
+  \[ \int_a^b f(x) \, dx = \lim_{n\to\infty} \int_a^b \varphi_n(x) \, dx \]
   for the integral of $f$ on $[a,b]$.
 
   Theorem: This limit (on the right-hand side) always exists and is independent of the particular choice of the approximating sequence.
@@ -1843,7 +1868,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
 \begin{proof}
   $\varphi_n$ is chosen as above.
   \[ i_n = \int_a^b \varphi_n \, dx \]
-  Show: $i_n$ is cauchy sequence in $\mathbb R$.
+  Show: $i_n$ is Cauchy sequence in $\mathbb R$.
 
   \dateref{2018/04/12}
 
@@ -1861,7 +1886,7 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Integral for subsequence is monotonous:
   \[
     \card{i_n - i_m} = \card{\int_a^b \varphi_n \, dx - \int_a^b \varphi_m \, dx}
-    = \card{\int_a^b (\varphi_n - \varphi_m) \, dx} \leq \int_a^b \card{\varphi_n - \varphi_m} \, dx
+    = \card{\int_a^b (\varphi_n - \varphi_m) \, dx} \underbrace{\leq}_{\text{Lemma~\ref{lem4}}} \int_a^b \card{\varphi_n - \varphi_m} \, dx
   \] \[
     \underbrace{<}_{\text{by monotonicity}}
     \int_a^b \frac{\varepsilon}{b - a} \cdot \chi_{[a,b]} \, dx
@@ -2199,8 +2224,8 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Isaac Barrow (1630--1677), Isaac Newton (1642--1726), Gottfried Wilhelm von Leibniz (1646--1716).
 
   Let $f \in \mathcal R[a,b]$, $\alpha \in [a,b]$ and we define
-  \[ F(x) = \int_{\alpha}^x f \, d\xi \]
-  Then $F$ is right-sided differentiable in every point $x \in [a,b)$ and in every $x \in (a,b]$ left-sided differentiable.
+  \[ F(x) \coloneqq \int_{\alpha}^x f(\xi) \, d\xi \]
+  Then $F$ is right-sided differentiable in every point $x \in [a,b)$ and left-sided differentiable in every $x \in (a,b]$.
   Furthermore
   \begin{align}
     \label{ftdi}
@@ -2781,7 +2806,7 @@ Standard examples will follow:
   Without loss of generality, let $I = [a,b)$.
   Let $G(\beta) = \int_a^\beta g \, dx$. We know that $\lim_{\beta \to b_-} G(\beta)$ exists.
   By Lemma~\ref{cauchy-crit} (Cauchy criterion for existence of limits):
-  Let $\varepsilon > 0$ be arbitrary, then there exists a right-sided neighborhood $U$ of $b$
+  Let $\varepsilon > 0$ be arbitrary, then there exists a left-sided neighborhood $U$ of $b$
   ($U = (b - \delta, b)$ if $b < \infty$ and $U = (M, \infty)$ if $b = \infty$)
   with $u,v \in U$, then $\card{G(v) - G(u)} < \varepsilon$.
   \[
@@ -4814,11 +4839,11 @@ Necessary (but not sufficient) optimality criteria:
 \dateref{2018/06/12}
 
 \begin{proof}
-  Let $x_0 \in D$ and $\overline{K_r(x_0)} \subseteq D$. Let $h, k \in \mathbb R$ and $\card{h}, \card{k} \leq \frac r2$.
-  So $x_0 + h e_i \in \overline{K_{\frac r2}(x_0)}$ and $x_0 + ke_j \in \overline{K_{\frac r2(x_0)}}$ and also
+  Let $x_0 \in D$ and $\overline{K_r(x_0)} \subseteq D$. Let $h, k \in \mathbb R$ with $\card{h} \leq \frac r2$ and $\card{k} \leq \frac r2$.
+  So $x_0 + h e_i \in \overline{K_{\frac r2}(x_0)}$ and $x_0 + ke_j \in \overline{K_{\frac r2}(x_0)}$ and also
   $x_0 + he_i + ke_j \in \overline{K_r(x_0)}$, because
   \[ \norm{x_0 + he_i + ke_j - x_0} \leq \card{h} \norm{e_i} + \card{k} \norm{e_j} = \card{h} + \card{k} \leq \frac r2 + \frac r2 = r \]
-  \[ F: \left[-\frac r2, -\frac r2\right] \times \left[-\frac r2, \frac r2\right] \to \mathbb R \]
+  \[ F: \left[-\frac r2, \frac r2\right] \times \left[-\frac r2, \frac r2\right] \to \mathbb R \]
   \[ F(h, k) \coloneqq f(x_0 + he_i + ke_j) - f(x_0 + he_i) - f(x_0 + ke_j) + f(x_0) \]
   \[ \varphi: \left[-\frac r2, \frac r2\right] \to \mathbb R \qquad \text{$k$ fixed}  \]
   \[ \varphi(\lambda) \coloneqq f(x_0 + \lambda e_i + ke_j) - f(x_0 + \lambda e_i) \]
@@ -4826,10 +4851,10 @@ Necessary (but not sufficient) optimality criteria:
   \[ \varphi(h) = f(x_0 + he_i + ke_j) - f(x_0 + he_i) \]
   Therefore, $F(h, k) = \varphi(h) - \varphi(0)$.
   $\varphi$ is continuously differentiable (because $f \in \mathcal C^2$).
-  By the Mean Value Theorem of differential calculus:
-  \[ F(h, k) = \varphi(h) - \varphi(0) = \varphi'(\lambda) \cdot h \]
-  with an appropriate $\lambda \in (-h, h)$ and accordingly $\card{\lambda} < \card{h}$.
-  \[ \varphi'(\lambda) \cdot h = h \cdot [Df(x_0 + \lambda e_i + ke_j) - Df(x_0 + \lambda e_i)] e_i \]
+  By the Mean Value Theorem of Differential Calculus:
+  \[ \exists \lambda \in (-h, h): F(h, k) = \varphi(h) - \varphi(0) = \int_0^h \varphi'(x) \cdot 1 \, dx = \varphi'(\lambda) \cdot (h - 0) = \varphi'(\lambda) \cdot h \]
+  and accordingly $\card{\lambda} < \card{h}$.
+  \[ \varphi'(\lambda) \cdot h = h \cdot [Df(x_0 + \lambda e_i + ke_j) \cdot e_i - Df(x_0 + \lambda e_i) \cdot e_i] \]
   \[ Df \cdot e_i = \partial_{x_i} f \]
   and also 
   \[ \varphi'(\lambda) \cdot h = h \cdot [\partial_{x_i} f(x_0 + \lambda e_i + k \cdot e_j) - \partial_{x_i} f (x_0 + \lambda e_i)] \]
