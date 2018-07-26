@@ -1917,6 +1917,8 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Hence $i = \lim_{n\to\infty} i_n = m = \lim_{n\to\infty} j_n = j$.
 \end{proof}
 
+\subsection{Elementary properties of an integral}
+
 \begin{theorem}[Elementary properties of an integral]
   Let $f, g \in \mathcal R[a,b]$, $\lambda, \mu \in \mathbb R$.
   Then
@@ -2051,6 +2053,8 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
       We will show in the practicals that ($\mathcal R[a,b], \norm{\cdot}_{\infty}$) is complete.
   \end{enumerate}
 \end{remark}
+
+\subsection{Mean value theorem of integration calculus}
 
 \begin{theorem}[Mean value theorem of integration calculus]
   \label{mvt} \label{satz3}
@@ -2188,6 +2192,8 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Because of Lemma~\ref{lemma9}, it holds that $f_+(x) = f_-(x) = f(x)$ for all $x \in [a,b] \setminus A$ and $A$ is at most countable.
 \end{remark}
 
+\subsection{One-sided derivatives}
+
 \index{Right-sided derivative}
 \index{Left-sided derivative}
 \index{Half-sided derivative}
@@ -2219,7 +2225,9 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   $\iff g$ has a left- and right-sided derivative in $x$ and $g'_-(x) = g'_+(x)$ ($= g'(x)$).
 \end{remark}
 
-\begin{theorem}[Fundamental theorem of differential/integration calculus, variation 1] % Satz 4
+\subsection{Fundamental theorem of differential/integration calculus}
+
+\begin{theorem}[Fundamental theorem of differential/integration calculus, variant 1] % Satz 4
   \label{ftofic}
   Isaac Barrow (1630--1677), Isaac Newton (1642--1726), Gottfried Wilhelm von Leibniz (1646--1716).
 
@@ -2266,12 +2274,16 @@ We say \enquote{$f_n$ converges \emph{uniformly} to $f$ on $X$}.
   Analogously, $F'_-(x) = f_-(x)$ for $x \in (a,b]$.
 \end{proof}
 
-\begin{theorem}[Fundamental theorem of differential/integration calculus, variation 2] % Satz 5
+\begin{theorem}[Fundamental theorem of differential/integration calculus, variant 2] % Satz 5
   \label{satz5}
   Let $f \in \mathcal R[a,b]$ and $\phi$ is an arbitrary antiderviative of $f$ according to Definition~\ref{def10}.
   For $\alpha, \beta \in [a,b]$ arbitrary,
   \[ \int_\alpha^\beta f \, dx = \phi(\beta) - \phi(\alpha) \]
 \end{theorem}
+
+\begin{proof}
+  The proof is given in the next lecture.
+\end{proof}
 
 \begin{remark} % TODO in this section, I am mixing \Phi and \phi to denote an antiderivative
   Let $f$ be continuous and $\phi$ be an antiderivative of $f$.
@@ -3253,7 +3265,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
   \[ \int_a^b f \, dx = \lim_{n\to\infty} \int_a^b f_n \, dx \]
 \end{proof}
 
-\subsection{Higher derivatives and Taylor's Theorem}
+\subsection{Multiple times differentiable}
 
 \begin{definition} % Definition 1
   Let $f: I \to \mathbb R$. $I \subseteq \mathbb R$ is an interval.
@@ -3278,6 +3290,8 @@ To finish our proof, we need a result we missed in the section about Integrals.
   \[ \norm{f}_{\mathcal C^n} = \max\set{\sup{\card{f^{(k)}(x)}: x \in I}: 0 \leq k \leq n} \]
   defines a norm on $\mathcal C^n(I)$ with $\sup{\card{f^{(k)}(x)}: x \in I} = {\norm{f^{(k)}}_{\infty}}$.
 \end{remark}
+
+\subsection{Best polynomial approximation of a function}
 
 \begin{remark}[New topic]
   Let $f \in \mathcal C^n(I)$ and $x_0 \in I$. Find an appropriate polynomial $T$ which approximated $f$ in a neighborhood of $x_0$ in the \enquote{best} way.
@@ -3381,6 +3395,12 @@ To finish our proof, we need a result we missed in the section about Integrals.
 
 \dateref{2018/05/08}
 
+\subsection{Taylor polynomial}
+
+\begin{remark}
+  Brook Taylor (1685--1731)
+\end{remark}
+
 \index{Taylor polynomial of $f$ of order $n$ in $x_0$}
 \begin{definition} % Definition 3
   \label{def3}
@@ -3392,7 +3412,6 @@ To finish our proof, we need a result we missed in the section about Integrals.
   $T_f^n(x; x_0)$ is called \emph{Taylor polynomial of $f$ of order $n$ in $x_0$}.
 \end{definition}
 
-Brook Taylor (1685--1731)
 
 \begin{lemma} % Lemma 3
   The premise is the same like in Definition~\ref{def3}.
@@ -3428,6 +3447,8 @@ Brook Taylor (1685--1731)
   \[ \underbrace{P(x)}_{\text{degree } \leq n} = \underbrace{(x - x_0)^{(n+1)} \cdot Q(x)}_{\text{degree } \geq n+1} \]
   This is a contradiction. Hence, $T - \tilde T = 0$.
 \end{proof}
+
+\subsection{Integral form of the Taylor remainder term}
 
 \index{Approximation error of a Taylor polynomial}
 \index{Remainder of a Taylor polynomial}
@@ -3480,6 +3501,8 @@ Brook Taylor (1685--1731)
   \end{description}
 \end{proof}
 
+\subsection{Lagrange form of the Taylor remainder term}
+
 \index{Lagrange form of the remainder}
 \begin{theorem}[Lagrange form of the remainder term] % Satz 5
   \label{thm5}
@@ -3525,6 +3548,8 @@ Brook Taylor (1685--1731)
 Any extreme value satisfies that its derivative is zero. But not every point with derivative zero is an extreme value.
 We now consider conditions to select extreme values from all value satisfying derivative zero.
 
+\subsection{Sufficient criteria for extreme values}
+
 \begin{corollary}[Sufficient conditions for existence of extreme values]
   Let $I$ be an open interval. Let $x_0 \in I$ and $f \in \mathcal C^{n+1}(I)$. Assume
   \[ f^{(1)}(x_0) = f^{(2)}(x_0) = \dots = f^{(n)}(x_0) = 0 \]
@@ -3562,6 +3587,8 @@ We now consider conditions to select extreme values from all value satisfying de
       Therefore $f(x) - f(x_0)$ changes its sign for $x = x_0$. Hence $f$ has no extreme value in $x = x_0$.
   \end{description}
 \end{proof}
+
+\subsection{Qualitative Taylor equation}
 
 \index{Qualitative Taylor equation}
 \begin{theorem}[Qualitative Taylor equation]
@@ -4480,7 +4507,7 @@ Necessary (but not sufficient) optimality criteria:
   \label{l8}
   Let $f: D \to \mathbb R$ be given. Let $D \subseteq \mathbb R^n$ be open.
   Let $x_0 \in D$ be a local maximum or a local minimum and let $f$ in $x_0$ be differentiable.
-  Then $Df(x_0) = [0, \dots, 0]$ or $\nabla f(x_0) = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}$.
+  Then $Df(x_0) = [0, \dots, 0]$ or $\nabla f(x_0) = \begin{bmatrix} 0 & 0 & \vdots & 0 \end{bmatrix}^T$.
 \end{lemma}
 
 \begin{proof}
@@ -4768,7 +4795,7 @@ Necessary (but not sufficient) optimality criteria:
   Therefore $Dg^{-1}(y)$ depends continuously on $y$ and $Dg^{-1}(y) = [Dg(x)]^{-1}$ with $x = g^{-1}(y)$ and accordingly, $y = g(x)$.
 \end{proof}
 
-\subsection{Higher partial derivatives and multi-dimensional Taylor Theorem}
+\subsection{Partial derivatives and Hessian Matrix}
 
 \index{Order of a partial derivative}
 \begin{remark}[Concept idea]
@@ -4822,6 +4849,8 @@ Necessary (but not sufficient) optimality criteria:
   \[ \mathcal C^k(D) \coloneqq \set{f: D \to \mathbb R: f \text{ is $k$-times continuously differentiable}} \]
   $\mathcal C^k(D)$ is a vector space.
 \end{definition}
+
+\subsection{Schwarz' Theorem}
 
 \begin{remark}
   Hermann Amadeus Schwarz (1843--1921)
@@ -4905,6 +4934,8 @@ Necessary (but not sufficient) optimality criteria:
   \[ \partial{x_{i_1} x_{i_2} \dots x_{i_k}} f(x_0) = \partial_{x_{i'_1} x_{i'_2} \dots x_{i'_k}} f(x_0) \]
 \end{theorem}
 
+\subsection{Multiindex notation}
+
 \begin{proof}
   Proof by complete induction.
   \index{Multiindex notation}
@@ -4957,10 +4988,10 @@ Necessary (but not sufficient) optimality criteria:
   \begin{proof}
     Proof by induction over $j$.
     \begin{description}
-      \item[Induction base $j = 0$]
+      \item[Induction base $j = 1$]
         \begin{align*}
           \varphi(t) &= f \circ l_{x_0,v}(t) \\
-          \varphi'(t) &\underbrace{=}_{\substack{\text{chain} \\ \text{rule}}} Df(x_0 + \underbrace{t}_{\substack{\text{Jacobi matrix} \\ \text{row vector}}}v) \cdot v \\
+          \varphi'(t) &\underbrace{=}_{\substack{\text{chain} \\ \text{rule}}} \underbrace{Df(x_0 + tv)}_{\substack{\text{Jacobi matrix} \\ \text{row vector}}} \cdot v \\
             &= [\partial_1 f(x_0 + tv), \partial_2 f(x_0 + tv), \dots, \partial_n f(x_0 + tv)]\begin{bmatrix} v_1 \\ \vdots \\ v_n \end{bmatrix} \\
             &= \sum_{i_1=1}^n \partial_{i_1} f(x_0 + tv) \cdot v_{i_1}
         \end{align*}
@@ -4977,8 +5008,10 @@ Necessary (but not sufficient) optimality criteria:
   \[ \varphi(1) = \varphi(0) + \sum_{j=1}^n \frac{1}{j!} \varphi^{(j)}(0) \cdot 1^j + \frac{1}{(k+1)!} \varphi (\vartheta) \cdot 1 \]
   with $\vartheta \in (0,1)$.
   Insertion:
-  \[ f(x_0 + v) = f(x_0) + \sum_{j=1}^n \frac{1}{j!} \sum_{i_1,\dots,i_j=1}^n \partial_{i_1,\dots,i_j} f(x_0) v_{i_1} \dots v_{i_j} \]
-  \[ + \frac{1}{(k+1)!} \sum_{i_1 \dots i_{k+1}=1}^n \partial_{i_1 \dots i_{k+1}} f(x_0 + \vartheta v) \cdot v_{i_1} v_{i_2} \dots v_{i_{k+1}} \]
+  \begin{align*}
+    f(x_0 + v) &= f(x_0) + \sum_{j=1}^n \frac{1}{j!} \sum_{i_1,\dots,i_j=1}^n \partial_{i_1,\dots,i_j} f(x_0) v_{i_1} \dots v_{i_j} \\
+               &+ \frac{1}{(k+1)!} \sum_{i_1 \dots i_{k+1}=1}^n \partial_{i_1 \dots i_{k+1}} f(x_0 + \vartheta v) \cdot v_{i_1} v_{i_2} \dots v_{i_{k+1}}
+  \end{align*}
 
   Alternative notation with multiindices:
   \[ \partial_{i_1 i_2 \dots i_j} f(x_0) = \partial_{i'_1 i'_2 \dots i'_j} f(x_0) \]
@@ -4995,7 +5028,7 @@ Necessary (but not sufficient) optimality criteria:
   There are ${j-\alpha_1-\alpha_2 \choose \alpha_3}$ different ways to distribute three.
   And so on. There ${j-\alpha_1-\alpha_2-\dots-\alpha_{n-1} \choose \alpha_n}$ different ways to distribute $n$.
   \begin{align}
-    \begin{bmatrix} j \\ \alpha_1 \end{bmatrix} \begin{bmatrix} j-\alpha_1 \\ \alpha_2 \end{bmatrix} \begin{bmatrix} j-(\alpha_1 + \alpha_2) \\ \alpha_3 \end{bmatrix} \dots \begin{bmatrix} j-(\alpha_1 + \dots + \alpha_{n-1}) \\ \alpha_n \end{bmatrix} \label{arr}
+    \begin{pmatrix} j \\ \alpha_1 \end{pmatrix} \begin{pmatrix} j-\alpha_1 \\ \alpha_2 \end{pmatrix} \begin{pmatrix} j-(\alpha_1 + \alpha_2) \\ \alpha_3 \end{pmatrix} \dots \begin{pmatrix} j-(\alpha_1 + \dots + \alpha_{n-1}) \\ \alpha_n \end{pmatrix} \label{arr}
   \end{align}
   are different arrangements of the index list.
   \[ \underbrace{1 1 \dots 1}_{\alpha_1} \overbrace{2 \dots 2}^{\alpha_2} \dots \underbrace{n n \dots n}_{\alpha_n} \]
@@ -5035,6 +5068,8 @@ Necessary (but not sufficient) optimality criteria:
 \end{example}
 
 \dateref{2018/06/14}
+
+\subsection{Qualitative Taylor Theorem}
 
 \begin{theorem}[Qualitative Taylor Theorem] % Satz 7
   Let $f \in \mathcal C^k(D)$, $D \subseteq \mathbb R^n$ open, $x_0 \in D$.
@@ -5080,6 +5115,8 @@ Let $v \in \mathbb R^n$, then
 hence, the Taylor expansion of $f$ up to the second degree is
 \[ f(x) = f(x_0) + \sum_{i=1}^n \partial_i f(x_0) v_i + \frac12 \sum_{i,j=1}^n \partial_{ij} f(x_0) v_i v_j + o(\norm{v}^2) \]
 \[ = f(x_0) + Df(x_0) \cdot v + \frac12 v^t D_2 f(x_0) v + o(\norm{v}^2) \]
+
+\subsection{Sufficient optimality criteria}
 
 \begin{theorem}[Sufficient optimality criteria] % Satz 8
   Let $D \subseteq \mathbb R^n$ be open. Let $f \in \mathcal C^2(D), x_0 \in D$
@@ -5179,10 +5216,11 @@ hence, the Taylor expansion of $f$ up to the second degree is
 \end{remark}
 
 \section{Differential geometry of curves}
+\subsection{Curves, regular curves and tangential vectors}
 
 We consider:
 \begin{enumerate}
-  \item Maps $\gamma: I \subseteq \mathbb R \to \mathbb R^n$ (Figure~\ref{img:maps-diffgeo})
+  \item Maps $\gamma: I \subseteq \mathbb R \to \mathbb R^n$ (compare with Figure~\ref{img:maps-diffgeo})
     \begin{figure}[t]
       \begin{center}
         \includegraphics{img/37_map.pdf}
@@ -5206,11 +5244,11 @@ We consider:
   $t$ is the curve parameter.
   \[ \Gamma = \gamma(I) = \set{\gamma(t): t \in I} \subseteq \mathbb R^n \]
   is called trace of the curve parameterization.
-  \[ \gamma(t) = \begin{bmatrix} \gamma_1(t) \\ \gamma_2(t) \\ \vdots \\ \gamma_n(t) \end{bmatrix} \]
+  \[ \gamma(t) = \begin{bmatrix} \gamma_1(t) & \gamma_2(t) & \cdots & \gamma_n(t) \end{bmatrix}^T \]
   If $\gamma$ is differentiable, then
   \[ D\gamma(t)
-        = \begin{bmatrix} \partial_t \gamma_1(t) \\ \partial_t \gamma_2(t) \\ \vdots \\ \partial_t \gamma_m(t) \end{bmatrix}
-        = \begin{bmatrix} \gamma'_1(t) \\ \gamma'_2(t) \\ \vdots \\ \gamma'_n(t) \end{bmatrix} \eqqcolon \gamma'(t)
+        = \begin{bmatrix} \partial_t \gamma_1(t) & \partial_t \gamma_2(t) & \cdots & \partial_t \gamma_m(t) \end{bmatrix}^T
+        = \begin{bmatrix} \gamma'_1(t) & \gamma'_2(t) & \cdots & \gamma'_n(t) \end{bmatrix}^T \eqqcolon \gamma'(t)
   \]
   $\gamma'(t)$ is the derivative vector. Often we also use the notation $\dot{\gamma}(t)$.
 
@@ -5218,13 +5256,13 @@ We consider:
   $\gamma$ is called \emph{regular curve parameterization} if $\gamma'(t) \neq 0 \forall t \in I$.
 \end{definition}
 
-\index{Unit tangential vector}
+\index{Tangential unit vector}
 \index{Tangent of a curve}
 \begin{definition} % Definition 2
   Let $\gamma: I \to \mathbb R^n$ be a regular curve parameterization.
-  Let $T_\gamma(t) = \frac{\gamma'(t)}{\norm{\gamma'(t)}_2}$.
-  $T_\gamma(t)$ is called \emph{unit tangential vector} of $\gamma$ in point $x = \gamma(t)$.
-  \[ \tau(\gamma, x) = \set{x + \tau \cdot T_{\gamma}(t): \tau \in \mathbb R} \]
+  Let $T_\gamma(t) \coloneqq \frac{\gamma'(t)}{\norm{\gamma'(t)}_2}$.
+  $T_\gamma(t)$ is called \emph{tangential unit vector} of $\gamma$ in point $x = \gamma(t)$.
+  \[ \tau(\gamma, x) \coloneqq \set{x + \tau \cdot T_{\gamma}(t): \tau \in \mathbb R} \]
   is a line in $\mathbb R^n$ with directional vector $T_\gamma(t)$ through $x = \gamma(t)$.
   $\tau(\gamma, x)$ is called \emph{tangent} on $\Gamma$ in point $x$.
   Compare with Figure~\ref{img:tangent}.
@@ -5247,18 +5285,19 @@ We consider:
 
 \dateref{2018/06/19}
 
-\index{Reparameterization}
+\subsection{Reparameterization of parameterized curves}
+\index{Reparameterization, Homeomorphism and orientation}
 \begin{definition} % Definition 3
   Let $\gamma: I \to \mathbb R^n$ be a continuous or differentiable or smooth curve parameterization.
   Furthermore let $\sigma: J \to I$ with $J \subseteq \mathbb R$ as interval.
 
   Let $\sigma$ be a
   \begin{itemize}
-    \item homeomorphim (continuous curve)
+    \item homeomorphism (continuous curve)
     \item diffeomorphism (differentiable curve)
     \item $\mathcal C^\infty$-diffeomorphism (smooth curve)
   \end{itemize}
-  Then we call $\tilde \gamma: J \to \mathbb R^n$ with $\tilde \gamma = \gamma \circ \sigma$ a \emph{reparameterization} of $\gamma$.
+  Then we call $\tilde \gamma: J \to \mathbb R^n$ with $\tilde \gamma \coloneqq \gamma \circ \sigma$ a \emph{reparameterization} of $\gamma$.
   Compare with Figure~\ref{img:reparam}.
 
   \begin{figure}[t]
@@ -5321,124 +5360,123 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
 
 \index{Geometrical quantity}
 \begin{definition}
-  Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ in regards of $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_n}$ but not on a specific representative $\gamma$ is called \emph{geometrical quantity}.
+  Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ in regards of $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_r}$ but not on a specific representative $\gamma$ is called \emph{geometrical quantity}.
 \end{definition}
 
-\index{Closed curve}
 \begin{example}
-  $[\gamma]_{\sim_r}$ is called \emph{closed curve} if $\gamma(a) = \gamma(b)$ with $\gamma: [a,b] \to \mathbb R^n$.
   Later, we will show: arc length is a geometrical property.
-
-  Because $\gamma(t) = \tilde{\gamma}(\sigma(\tau))$ with $\tau = \sigma^{-1}(t)$, parameterizations have the same trace $\Gamma = \gamma(I) = \tilde\gamma(J)$. Sometimes we call $[\gamma]_{\sim_r}$ a curve in $\mathbb R^n$.
 \end{example}
+
+\index{Closed curve}
+\begin{definition}
+  $[\gamma]_{\sim_r}$ is called \emph{closed curve} if $\gamma(a) = \gamma(b)$ with $\gamma: [a,b] \to \mathbb R^n$.
+\end{definition}
+
+Because $\gamma(t) = \tilde{\gamma}(\sigma(\tau))$ with $\tau = \sigma^{-1}(t)$, parameterizations have the same trace $\Gamma = \gamma(I) = \tilde\gamma(J)$. Sometimes we call $[\gamma]_{\sim_r}$ a curve in $\mathbb R^n$.
 
 \begin{example}
   \label{exx}
-  Let $I = [0,2\pi]$. $\gamma(t) \coloneqq \begin{bmatrix} \cos(t) \\ \sin(t) \end{bmatrix}$. $\gamma: I \to \mathbb R^2$.
+  Let $I = [0,2\pi]$. $\gamma(t) \coloneqq \begin{pmatrix} \cos(t) \\ \sin(t) \end{pmatrix}$. $\gamma: I \to \mathbb R^2$.
   It holds $\gamma(0) = \gamma(2\pi)$, hence $\gamma$ is closed. Compare with Figure~\ref{img:ex1}.
 
-  \begin{figure}[t]
-    \begin{center}
-      \includegraphics{img/52a_ex.pdf}
-      \caption{Example~\ref{exx}}
+  \begin{figure}[p]
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{img/52a_ex.pdf}
+      \captionof{figure}{Example~\ref{exx} defines a curve with $\gamma(t) \coloneqq [\cos(t) \quad \sin(t)]^T$}
       \label{img:ex1}
-    \end{center}
-  \end{figure}
-
-  \[ \sigma: [-2\pi, 0] \to [0, 2\pi] \]
-  \[ \sigma(t) = -t \]
-  \[ \hat\gamma(t) = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} \text{ with } t \in [0,2\pi] \]
-  
-  \begin{figure}[t]
-    \begin{center}
-      \includegraphics{img/52b_ex.pdf}
-      \caption{Example~\ref{exx}}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{img/52b_ex.pdf}
+      \captionof{figure}{Example~\ref{exx} shows the orientation reversion with $\sigma'(t) = -1$}
       \label{img:ex1b}
-    \end{center}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{img/53a_example.pdf}
+      \captionof{figure}{Example~\ref{ex:ex} gives two different tangents at the origin}
+      \label{img:examp}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{img/53b_example.pdf}
+      \captionof{figure}{Plot of Neile's parabola (Example~\ref{ex:e})}
+      \label{img:example}
+    \end{minipage}
   \end{figure}
 
-  \[ \gamma \circ \sigma(t) = \begin{bmatrix} \cos(-t) \\ \sin(-t) \end{bmatrix} = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} = \tilde\gamma(t) \]
-  with $\tilde\gamma(t): [-2\pi, 0] \to \mathbb R^2$ is periodical with period $2\pi$.
+  \[ \sigma: [-2\pi, 0] \to [0, 2\pi] \qquad \sigma: t \mapsto -t \]
+  \[ \hat\gamma(t) = \begin{pmatrix} \cos(t) \\ -\sin(t) \end{pmatrix} \text{ with } t \in [0,2\pi] \]
+  Why?
+  \[ \hat\gamma(t) = \gamma \circ \sigma(t) = \begin{pmatrix} \cos(-t) \\ \sin(-t) \end{pmatrix} = \begin{pmatrix} \cos(t) \\ -\sin(t) \end{pmatrix} = \tilde\gamma(t) \]
+  with $\tilde\gamma: [-2\pi, 0] \to \mathbb R^2$ is periodic with period $2\pi$.
   Hence, $\tilde\gamma(t - 2\pi) = \tilde\gamma(t) \forall t \in \mathbb R$.
   \[ \hat\gamma(t) \coloneqq \tilde\gamma(t - 2\pi) \qquad \hat\gamma: [0, 2\pi] \]
-  \[ \hat{\gamma}(t) = \begin{bmatrix} \cos(t) \\ -\sin(t) \end{bmatrix} \qquad \hat{\gamma}(t) = \gamma(\underbrace{-t + 2\pi}_{\sigma(t)}) \]
-  with $\sigma'(t) = -1$. Hence reparameterization is orientation reversing.
+  \[ \hat{\gamma}(t) = \begin{pmatrix} \cos(t) \\ -\sin(t) \end{pmatrix} \qquad \hat{\gamma}(t) = \gamma(\underbrace{-t + 2\pi}_{\sigma(t)}) \]
+  with $\sigma'(t) = -1$. Hence reparameterization $\hat\gamma$ is orientation reversing.
 \end{example}
 
 \begin{example}
   \label{ex:ex}
-  Let $\gamma: \mathbb R \to \mathbb R^2$.
-  \[ \gamma(t) = \begin{bmatrix} t^2 - 1 \\ t^3 - t \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 2t \\ 3t^2 - 1 \end{bmatrix} \]
-  \[ \gamma'(t) = 0 \implies 2t = 0 \text{ hence } t = 0 \]
-  \begin{figure}[t]
-    \begin{center}
-      \includegraphics{img/53a_example.pdf}
-      \caption{Example~\ref{ex:ex}}
-      \label{img:examp}
-    \end{center}
-  \end{figure}
-  Compare with Figure~\ref{img:examp}.
-  Then $3t^2 - 1 = -1 \neq 0$ follows.
-  So the parameterization is \emph{regular}. It holds that $\gamma(1) = \vectwo 00$ and $\gamma(-1) = \vectwo 00$.
-  $\vectwo 00$ lies on the trace of the curve for 2 different parameter values.
+  Let $\gamma: \mathbb R \to \mathbb R^2$ (see Figure~\ref{img:examp}).
+  \[ \gamma(t) = \begin{pmatrix} t^2 - 1 \\ t^3 - t \end{pmatrix} \qquad \gamma'(t) = \begin{pmatrix} 2t \\ 3t^2 - 1 \end{pmatrix} \]
+  \begin{align*}
+    \gamma'(t) = 0 &\implies 2t = 0 \text{ hence } t = 0 \\
+                   &\implies 3t^2 - 1 = -1 \neq 0
+  \end{align*}
+  As $\gamma'(t) \neq 0$, the parameterization is \emph{regular}. It holds that $\gamma(1) = \begin{pmatrix} 0 & 0 \end{pmatrix}^T$ and $\gamma(-1) = \begin{pmatrix} 0 & 0 \end{pmatrix}^T$.
+  $\begin{pmatrix} 0 & 0 \end{pmatrix}^T$ lies on the trace of the curve for 2 different parameter values.
   $x = 0$ is a double point of the curve.
-  \[ \gamma'(-1) = \begin{bmatrix} -2 \\ 2 \end{bmatrix} \qquad T_{\gamma}(-1) = \frac1{\sqrt{2}} \begin{bmatrix} -1 \\ 1 \end{bmatrix} \]
-  \[ \gamma'(1) = \begin{bmatrix} 2 \\ 2 \end{bmatrix} \qquad T_{\gamma}(1) = \frac1{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \]
-  For parameter values $t = -1$ and $t = 1$, tangents exist. But in $x = 0 = \gamma(1) = \gamma(-1)$, no tangent exists.
+  \[ \gamma'(-1) = \begin{pmatrix} -2 \\ 2 \end{pmatrix} \qquad T_{\gamma}(-1) = \frac1{\sqrt{2}} \begin{pmatrix} -1 \\ 1 \end{pmatrix} \]
+  \[ \gamma'(1) = \begin{pmatrix} 2 \\ 2 \end{pmatrix} \qquad T_{\gamma}(1) = \frac1{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix} \]
+  For parameter values $t = -1$ and $t = 1$, tangents exist. But in $x = 0$, we get ambiguity with $\gamma(1) = \gamma(-1)$. So, no tangent exists.
 \end{example}
 
-\begin{example}
+\begin{example}[Neile's parabola]
   \label{ex:e}
   Let $\gamma: \mathbb R \to \mathbb R^2$.
-  \[ \gamma(t) = \begin{bmatrix} t^2 \\ t^3 \end{bmatrix} \qquad \text{\enquote{Neil's parabola}} \]
-  \[ \gamma(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 2t \\ 3t^2 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \]
-  \begin{figure}[t]
-    \begin{center}
-      \includegraphics{img/53b_example.pdf}
-      \caption{Example~\ref{ex:e}}
-      \label{img:example}
-    \end{center}
-  \end{figure}
+  \[ \gamma(t) = \begin{pmatrix} t^2 \\ t^3 \end{pmatrix} \qquad \gamma'(t) = \begin{pmatrix} 2t \\ 3t^2 \end{pmatrix} \qquad \gamma(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \qquad \gamma'(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \]
   Compare with Figure~\ref{img:example}.
   Curvature parameterization is not regular.
   For $t = 0$, no tangent exists.
 \end{example}
 
 \begin{example}
-  \[ \gamma(t) = \begin{bmatrix} t^3 \\ t^3 \end{bmatrix} \qquad \gamma'(t) = \begin{bmatrix} 3t^2 \\ 3t^2 \end{bmatrix} \]
-  with $\gamma'(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$ is non-regular.
-  \begin{figure}[t]
-    \begin{center}
-      \includegraphics{img/54a_gamma.pdf}
-      \caption{$\Gamma: \gamma(\mathbb R)$}
-      \label{img:Gamma}
-    \end{center}
-  \end{figure}
+  \[ \gamma(t) = \begin{pmatrix} t^3 \\ t^3 \end{pmatrix} \qquad \gamma'(t) = \begin{pmatrix} 3t^2 \\ 3t^2 \end{pmatrix} \qquad \gamma'(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \]
+  $\implies$ non-regular.
   Compare with Figure~\ref{img:Gamma}.
-  $\Gamma$ is smooth has a \enquote{geometrical} tangent everywhere.
+  $\Gamma$ is smooth and has a \enquote{geometrical} tangent everywhere.
+  \begin{figure}[t]
+    \begin{minipage}{0.5\textwidth}
+      \centering
+        \includegraphics[width=.95\linewidth]{img/54a_gamma.pdf}
+        \captionof{figure}{$\Gamma: \gamma(\mathbb R)$}
+        \label{img:Gamma}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+      \centering
+        \includegraphics[width=.95\linewidth]{img/45b_orientation.pdf}
+        \captionof{figure}{$T_{\tilde\gamma}(\tau) = -T_{\gamma}(t)$}
+        \label{img:ori}
+    \end{minipage}
+  \end{figure}
 \end{example}
 
-Let $\sigma$ be an orientation preservering parameter exchange.
-\[ \tilde\sigma = \gamma \circ \sigma \qquad \gamma(t) = \tilde\gamma(\tau) \]
-with $t = \sigma(\tau)$ and $\tau = \sigma^{-1}(t)$. Let $\gamma$ be regular.
-
+Let $\sigma$ be an orientation preservering parameter exchange. Let $\gamma$ be regular.
+\[
+  \tilde\gamma = \gamma \circ \sigma \qquad \gamma(t) = \tilde\gamma(\tau)
+  \qquad \text{ with } t = \sigma(\tau) \text{ and } \tau = \sigma^{-1}(t)
+\]
 \[ T_{\gamma}(t) = \frac{\gamma'(t)}{\norm{\gamma'(t)}} \]
-\[ \tilde\gamma'(t) = (\gamma \circ \sigma)'(\tau) = \gamma'(\sigma(\tau)) \cdot (\sigma)'(\tau) = \gamma'(t) \cdot \underbrace{\sigma'(\tau)}_{> 0} \]
+\[ \tilde\gamma'(t) = (\gamma \circ \sigma)'(\tau) = \gamma'(\sigma(\tau)) \cdot \sigma'(\tau) = \gamma'(t) \cdot \underbrace{\sigma'(\tau)}_{> 0} \]
 \[ \implies \norm{\tilde\gamma'(\tau)}_2 = \norm{\gamma'(t) \cdot \sigma'(\tau)}_2 = \sigma'(\tau) \norm{\gamma'(t)}_2 \]
-\[ T_{\tilde\gamma}(\tau) = \frac{\tilde\gamma'(\tau)}{\norm{\gamma'(\tau)}_2} = \frac{\gamma'(t) \cdot \sigma'(\tau)}{\norm{\gamma'(t)} \sigma'(\tau)} = T_{\gamma}(t) \]
+\[ T_{\tilde\gamma}(\tau) = \frac{\tilde\gamma'(\tau)}{\norm{\gamma'(\tau)}_2} = \frac{\gamma'(t) \cdot \sigma'(\tau)}{\norm{\gamma'(t)} \cdot \sigma'(\tau)} = T_{\gamma}(t) \]
 Let $\sigma$ be orientation reversing.
 \[ \gamma'(\tau) < 0 \qquad \card{\gamma'(\tau)} = -\sigma'(\tau) \]
-like above $\tilde\sigma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\tilde\gamma'(\tau)}_2 = \card{\sigma'(\tau)} \cdot \norm{\gamma'(t)}_2 = -\sigma'(\tau) \norm{\gamma'(t)}_2$.
+like above $\tilde\gamma'(\tau) = \gamma'(t) \cdot \sigma'(\tau)$ and $\norm{\tilde\gamma'(\tau)}_2 = \card{\sigma'(\tau)} \cdot \norm{\gamma'(t)}_2 = -\sigma'(\tau) \norm{\gamma'(t)}_2$.
 \[ T_{\tilde\gamma}(\tau) = -T_{\gamma}(t) \]
 Compare with Figure~\ref{img:ori}.
-
-\begin{figure}[t]
-  \begin{center}
-    \includegraphics{img/45b_orientation.pdf}
-    \caption{$T_{\tilde\gamma}(\tau) = -T_{\gamma}(t)$}
-    \label{img:ori}
-  \end{center}
-\end{figure}
 
 \subsection{Arc length of parameterized curves}
 \index{Rectifiable curve}
@@ -6042,7 +6080,7 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
   \[ \gamma'(t) = \begin{bmatrix} 1 \\ 2t \end{bmatrix} \]
   \[ T(t) = \frac{1}{\sqrt{1 + 4t^2}} \begin{bmatrix} 1 \\ 2t \end{bmatrix} \qquad N(t) = \frac{1}{\sqrt{1 + 4t^2}} \begin{bmatrix} -2t \\ 1 \end{bmatrix} \]
   \[ \kappa(t) = \frac{2}{(1 + 4t^2)^{\frac32}} \]
-  \[ \mu(t) = \gamma(t) + \frac{1}{\kappa(t)} \cdot N(t) = \begin{bmatrix} t \\ t^2 \end{bmatrix} + \frac{(1 + 4t^2)^{\frac32}}{2} \frac{1}{(1 + 4t^2)^{\frac12}} \begin{bmatrix} -2t \\ 1 \end{bmatrix} = \begin{bmatrix} -4t^3 \\ \frac12 + 3t^2 \end{bmatrix} = \underbrace{\frac12 \begin{bmatrix} 0 \\ 1 \end{bmatrix} + \begin{bmatrix} -4t^3 \\ 3t^2 \end{bmatrix}}_{\text{Neil's parabola}} \]
+  \[ \mu(t) = \gamma(t) + \frac{1}{\kappa(t)} \cdot N(t) = \begin{bmatrix} t \\ t^2 \end{bmatrix} + \frac{(1 + 4t^2)^{\frac32}}{2} \frac{1}{(1 + 4t^2)^{\frac12}} \begin{bmatrix} -2t \\ 1 \end{bmatrix} = \begin{bmatrix} -4t^3 \\ \frac12 + 3t^2 \end{bmatrix} = \underbrace{\frac12 \begin{bmatrix} 0 \\ 1 \end{bmatrix} + \begin{bmatrix} -4t^3 \\ 3t^2 \end{bmatrix}}_{\text{Neile's parabola}} \]
   \[ \mu'(t) = 0 \text{ for } t = 0 \qquad (\kappa' = 0 \text{ hence } \kappa \text{ has maximum}) \]
 \end{example}
 
