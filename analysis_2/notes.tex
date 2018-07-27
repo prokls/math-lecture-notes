@@ -3066,7 +3066,7 @@ So
 \index{$L^p$-norm}
 \begin{theorem}[H\"older's inequality] % Satz 10
   Let $I$ be an interval with boundary values $a$ and $b$. $-\infty \leq a < b \leq +\infty$.
-  Let $p$ and $q$ be conjugate exponents. Let $f_1$ and $f_2$ be regulated function on $I$
+  Let $p$ and $q$ be conjugate exponents. Let $f_1$ and $f_2$ be regulated functions on $I$
   such that
   \[ \int_a^b \card{f_1(x)}^p \, dx < \infty \]
   \[ \int_a^b \card{f_2(x)}^q \, dx < \infty \]
@@ -3415,7 +3415,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 
 \begin{lemma} % Lemma 3
   The premise is the same like in Definition~\ref{def3}.
-  The Taylor polynomial of $T_f^n(x; x_0)$ is the only polynomial of degree $\neq n$ which satisfies
+  The Taylor polynomial of $T_f^n(x; x_0)$ is the only polynomial of degree $\leq n$ which satisfies
   \[ (T_f^n)^{(k)}(x_0) = f^{(k)}(x_0) \qquad \text{ for k = 0, \dots, n} \]
 \end{lemma}
 
@@ -3470,7 +3470,7 @@ To finish our proof, we need a result we missed in the section about Integrals.
 \index{Integral form of the Taylor remainder}
 \begin{theorem} % Satz 4
   \label{thm4} 
-  Let $f^{(n+1)}(I)$, $x \in I$, $x_0 \in I$. Then
+  Let $f \in \mathcal C^{(n+1)}$, $x \in I$, $x_0 \in I$. Then
   \[ R_f^{n+1}(x; x_0) = \frac1{n!} \int_{x_0}^x (x - t)^n f^{(n+1)}(t) \, dt \]
   We call it the \emph{integral form of the remainder term}.
 \end{theorem}
@@ -3555,7 +3555,7 @@ We now consider conditions to select extreme values from all value satisfying de
   \[ f^{(1)}(x_0) = f^{(2)}(x_0) = \dots = f^{(n)}(x_0) = 0 \]
   and $f^{(n+1)}(x_0) \neq 0$. Then $f$ in $x_0$ has
   \begin{enumerate}
-    \item a strict local maximum if $n$ is even and $f^{(n+1)}(x_0) < 0$
+    \item a strict local maximum if $n$ is odd and $f^{(n+1)}(x_0) < 0$
     \item a strict local minimum if $n$ is odd and $f^{(n+1)}(x_0) > 0$
     \item no extreme value in $x_0$ if $n$ is even.
   \end{enumerate}
@@ -3737,8 +3737,7 @@ Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
 \index{Operator norm}
 \begin{definition} % Definition 1
   \label{opdef}
-  Let $V, W$ be normed vector spaces over $\mathbb K$. A linear map $\varphi: V \to W$ is called \emph{bounded} if $\exists m \geq 0: \norm{\varphi(x)}_W < m \cdot \norm{x}_V$ (we call this the \emph{boundedness criterion})
-  such that $\norm{\varphi(x)}_W \leq m \cdot \norm{x}_V$ for all $x \in V$. % TODO The [almost] same criterion occurs twice in this sentence.
+  Let $V, W$ be normed vector spaces over $\mathbb K$. A linear map $\varphi: V \to W$ is called \emph{bounded} if $\exists m \geq 0: \norm{\varphi(x)}_W \leq m \cdot \norm{x}_V$ for all $x \in V$ (we call this the \emph{boundedness criterion}).
 
   The set $\mathcal L_b(V, W) = \set{\varphi: V \to W: \varphi \text{ is linear and bounded}}$ is a subvectorspace of $\mathcal L(V, W)$. We let
   \[ \norm{\varphi} = \inf\set{m \geq 0: \norm{\varphi(x)}_W \leq m \cdot \norm{x}_V \forall x \in V} \]
@@ -3910,7 +3909,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \begin{definition} % Definition 3
   \label{defp}
   Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$, $D$ is open and $x_0 \in D$.
-  We say, \enquote{f is differentiable in $x_0$} (specifically, \enquote{Frech\'et differentiable})
+  We say, \enquote{f is differentiable in $x_0$} (specifically, \enquote{Fr\'echet differentiable})
   if there exists $A \in \mathbb R^{n \times m}$ such that
   \[ \norm{f(x) - f(x_0) - A(x - x_0)}_{\mathbb R^n} = o(\norm{x - x_0}_{\mathbb R^m}) \]
   We call this condition \emph{differentiability condition}.
@@ -3950,10 +3949,10 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   Therefore, $Aw = Bw \forall w \in \mathbb R^m$, hence $A = B$.
 \end{proof}
 
-\subsection{Frech\'et derivative}
-\index{Frech\'et derivative}
+\subsection{Fr\'echet derivative}
+\index{Fr\'echet derivative}
 \begin{definition}[Part 2 of Definition~\ref{defp}] % Definition 3
-  If $f$ is differentiable in $x_0$, then we call the uniquely determined linear map $A$ the \enquote{Frech\'et derivative} of $f$ in $x_0$
+  If $f$ is differentiable in $x_0$, then we call the uniquely determined linear map $A$ the \enquote{Fr\'echet derivative} of $f$ in $x_0$
   and denote $A = Df(x_0)$. An alternative notations are $f'(x_0)$ and $D_{x_0}f$.
 \end{definition}
 
@@ -4044,7 +4043,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \begin{proof}
   $(g \circ f)(x)$ is differentiable in $x_0$ iff
   \[ \lim_{x \to x_0} \frac{\norm{g(f(x_0)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} = 0 \]
-  according to Frech\'et differentiability. This is equivalent to 
+  according to Fr\'echet differentiability. This is equivalent to 
   \[ \frac{\norm{g(f(x_0)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} < \varepsilon \]
   for any bounded $\varepsilon$.
   Let $0 < \varepsilon < 2$.
@@ -4122,7 +4121,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
   Compare with Figure~\ref{img:set5}.
 
   \index{Directional derivative}
-  We define $df(x_0; v) = \lim_{t \to 0} \frac1{t} (f(x_0 + tv) - f(x_0))$ if this limit exists. $df(x_0, v)$ is called \emph{directional derivative} of $f$ in $x_0$ in direction $v$. It is also called \emph{Gateaux derivative of $f$ in $x_0$ in direction $v$}.
+  We define $df(x_0; v) = \lim_{t \to 0} \frac1{t} (f(x_0 + tv) - f(x_0))$ if this limit exists. $df(x_0, v)$ is called \emph{directional derivative} of $f$ in $x_0$ in direction $v$. It is also called \emph{G\^ateaux derivative of $f$ in $x_0$ in direction $v$}.
 \end{definition}
 
 \begin{figure}[t]
@@ -4157,7 +4156,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \end{remark}
 
 \begin{lemma} % Lemma 7
-  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ in $x_0 \in D$ (Frech\'et) differentiable with derivative $Df(x_0)$.
+  Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ in $x_0 \in D$ (Fr\'echet) differentiable with derivative $Df(x_0)$.
   Then also the directional derivative $df(x_0; v)$ for every direction $v \in \mathbb R^m \setminus \set{0}$ and % TODO: ... exists?
   \[ df(x_0; v) = Df(x_0) \cdot v \]
 \end{lemma}
@@ -4273,7 +4272,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \end{example}
 
 \begin{remark}
-  Existence of partial derivatives of $f$ does not suffice to ensure Frech\'et-differentiability.
+  Existence of partial derivatives of $f$ does not suffice to ensure Fr\'echet-differentiability.
 \end{remark}
 
 \dateref{2018/05/29}
@@ -4332,13 +4331,13 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
 
 \subsection{Total differentiability, nabla operator and gradients}
 \index{Totally differentiable}
-\index{Total differential}
+\index{Total derivative}
 \index{Nabla operator}
 \index{Gradient of a function}
 \begin{remark}
   Notation: $f: D \subseteq \mathbb R^m \to \mathbb R$.
   Often, we denote $df(x_0)$ ($\in \mathbb R^{1 \times m}$, row vector) instead of $Df(x_0)$
-  and we call $df(x_0)$ the \emph{total differential of $f$}. We let
+  and we call $df(x_0)$ the \emph{total derivative of $f$}. We let
   \[
     \nabla f(x_0) = df(x_0)^t = \left[Df(x_0)\right]^t
     = \begin{bmatrix} \partial_1 f(x_0) \\ \partial_2 f(x_0) \\ \vdots \\ \partial_n f(x_0) \end{bmatrix}
@@ -4507,7 +4506,7 @@ Necessary (but not sufficient) optimality criteria:
   \label{l8}
   Let $f: D \to \mathbb R$ be given. Let $D \subseteq \mathbb R^n$ be open.
   Let $x_0 \in D$ be a local maximum or a local minimum and let $f$ in $x_0$ be differentiable.
-  Then $Df(x_0) = [0, \dots, 0]$ or $\nabla f(x_0) = \begin{bmatrix} 0 & 0 & \vdots & 0 \end{bmatrix}^T$.
+  Then $Df(x_0) = [0, \cdots, 0]$ or $\nabla f(x_0) = \begin{bmatrix} 0 & 0 & \cdots & 0 \end{bmatrix}^T$.
 \end{lemma}
 
 \begin{proof}
