@@ -5128,9 +5128,11 @@ hence, the Taylor expansion of $f$ up to the second degree is
 \end{theorem}
 
 \begin{remark}[Reminder]
-  Let $M \in \mathbb R^{n \times n}$ and $M$ be symmetrical. $M$ is called positive definite if $\forall \lambda \in \mathbb R$ eigenvalue of $M$, $\lambda > 0 \iff \forall v \in \mathbb R^n \setminus \set{0}: v^t M v > 0$ indefinite:
-  \[ \exists \lambda \text{ eigenvalue of } A, \lambda > 0 \]
-  \[ \exists \mu \text{ eigenvalue of } A, \mu < 0 \]
+  Let $M \in \mathbb R^{n \times n}$ and $M$ be symmetrical. $M$ is called positive definite if $\forall \lambda \in \mathbb R$ eigenvalue of $M$: $\lambda > 0 \iff \forall v \in \mathbb R^n \setminus \set{0}: v^t M v > 0$
+  \begin{align*}
+    \text{M is called indefinite if} \quad & \exists \lambda \text{ eigenvalue of } A: \lambda > 0 \land \\
+    &\exists \mu \text{ eigenvalue of } A: \mu < 0
+  \end{align*}
   For corresponding eigenvectors $v$ (and accordingly $w$),
   \[ v^t M v = v^t \lambda v = \lambda \norm{v}^2 > 0 \]
   \[ w^t M w = w^t \mu w = \underbrace{\mu}_{< 0} \norm{w}^2 < 0 \]
@@ -5255,12 +5257,12 @@ We consider:
   $\gamma$ is called \emph{regular curve parameterization} if $\gamma'(t) \neq 0 \forall t \in I$.
 \end{definition}
 
-\index{Tangential unit vector}
+\index{Unit tangent vector}
 \index{Tangent of a curve}
 \begin{definition} % Definition 2
   Let $\gamma: I \to \mathbb R^n$ be a regular curve parameterization.
   Let $T_\gamma(t) \coloneqq \frac{\gamma'(t)}{\norm{\gamma'(t)}_2}$.
-  $T_\gamma(t)$ is called \emph{tangential unit vector} of $\gamma$ in point $x = \gamma(t)$.
+  $T_\gamma(t)$ is called \emph{unit tangent vector} of $\gamma$ in point $x = \gamma(t)$.
   \[ \tau(\gamma, x) \coloneqq \set{x + \tau \cdot T_{\gamma}(t): \tau \in \mathbb R} \]
   is a line in $\mathbb R^n$ with directional vector $T_\gamma(t)$ through $x = \gamma(t)$.
   $\tau(\gamma, x)$ is called \emph{tangent} on $\Gamma$ in point $x$.
@@ -5481,11 +5483,12 @@ Compare with Figure~\ref{img:ori}.
 \index{Rectifiable curve}
 \index{Arc length of a curve}
 \begin{definition} % Definition 4
-  Let $I = [a,b]$ be compact. $\gamma: I \to \mathbb R^n$ is a continuous curve.
-  \[ Z = (t_0 = a < t_1 < t_2 < \dots < t_N = b) \]
-  a partition of interval $[a,b]$. Let 
-  \[ S_\gamma(z) = \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}_2 \]
-  be the length of the polygonial line through points $(x_k)_{k=0}^N$ with $x_k = \gamma(t_k)$.
+  Let $I = [a,b]$ be a compact interval. Let $\gamma: I \to \mathbb R^n$ be a continuous curve.
+  We define a partition $Z$ of interval $[a,b]$:
+  \[ Z \coloneqq (a = t_0 < t_1 < t_2 < \dots < t_N = b) \]
+  \[ S_\gamma(Z) \coloneqq \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}_2 \]
+  $S_\gamma(Z)$ is the length of the polygonial line through points $(x_k)_{k=0}^N$ with $x_k = \gamma(t_k)$.
+  We let $S_\gamma = \sup\set{S_\gamma(Z): Z \text{ is partition of } [a,b]}$.
 
   \pic{img/46_polygonial_line.pdf}{Polygonial line}
 
@@ -5497,7 +5500,7 @@ Compare with Figure~\ref{img:ori}.
   Let $\tilde\gamma$ be a reparameterization of $\gamma$.
   Let $t = \sigma(\tau)$ be a parameter exchange and $\sigma: [\alpha, \beta] \to [a,b]$.
   $t_k = \sigma(\tau_k)$ with $k = 0, \dots, N$.
-  If $\sigma$ is orientation preservering, then $\tilde Z = \set{\tau_0 = \alpha < \tau_1 < \dots < \tau_N = \beta}$ is a partition of $[\alpha, \beta]$.
+  If $\sigma$ is orientation preservering, then $\tilde Z = \set{\alpha = \tau_0 < \tau_1 < \dots < \tau_N = \beta}$ is a partition of $[\alpha, \beta]$.
   If $\sigma$ is orientation reversing, then $\tilde Z = \set{\alpha = \tau_N < \tau_{N-1} < \dots < \tau_0 = \beta}$ is a partition.
   In every case,
   \[ S_{\gamma}(Z) = S_{\tilde\gamma}(\tilde Z) \]
@@ -5511,9 +5514,11 @@ Compare with Figure~\ref{img:ori}.
 
 \begin{proof}
   Let $Z$ be a partition of $[a,b]$. $Z = (t_k)_{k=0}^N$. Then
-  \[ S_{\gamma}(Z) = \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}_2 \underbrace{\leq}_{\substack{\text{by Lipschitz} \\ \text{continuity}}} \sum_{k=1}^N L \underbrace{\card{t_k - t_{k-1}}}_{\substack{= t_k - t_{k-1} \\ \text{ because } t_k > t_{k-1}}} \]
-  \[ = \sum_{k=1}^N L(t_k - t_{k-1}) = L(t_N - t_0) = L(b - a) < \infty \]
-  hence $\sup\set{S_{\gamma}(z): z \text{ partition}} \leq L(b - a) < \infty$.
+  \begin{align*}
+    S_{\gamma}(Z) &= \sum_{k=1}^N \norm{\gamma(t_k) - \gamma(t_{k-1})}_2 \underbrace{\leq}_{\substack{\text{by Lipschitz} \\ \text{continuity}}} \sum_{k=1}^N L \underbrace{\card{t_k - t_{k-1}}}_{\substack{= t_k - t_{k-1} \\ \text{ because } t_k > t_{k-1}}} \\
+                  &= \sum_{k=1}^N L(t_k - t_{k-1}) = L(t_N - t_0) = L(b - a) < \infty \\
+                  &\implies \sup\set{S_{\gamma}(Z): Z \text{ partition of } [a,b]} \leq L(b - a) < \infty
+  \end{align*}
 \end{proof}
 
 \begin{lemma} % Lemma 2
@@ -5533,45 +5538,44 @@ Compare with Figure~\ref{img:ori}.
   $\varphi_i$ should approximate $\alpha_i$ uniformly, hence for $\varepsilon > 0$ arbitrarily chosen, choose $\varphi_i$ such that
   \[ \card{\varphi_i(t) - \alpha_i(t)} < \frac{\varepsilon}{2 \sqrt n (b - a)} \qquad \forall t \in [a,b] \]
   For step function $\varphi$,
-  \[ \norm{\int_a^b \varphi \, dt}_2 = \norm{\sum_{k=1}^N (t_k - t_{k-1}) \left[c_1^k, c_2^k, \dots, c_n^k\right]^T} \]
+  \[ \norm{\int_a^b \varphi(t) \, dt}_2 = \norm{\sum_{k=1}^N (t_k - t_{k-1}) \left[c_1^k, c_2^k, \dots, c_n^k\right]^T} \]
   By the triangle inequality in $\mathbb R^n$,
-  \[ \leq \sum_{k=1}^n (t_k - t_{k-1}) \cdot \underbrace{\norm{\left[c_1^k, \dots, c_n^k\right]^T}_2}_{\norm{\varphi(t)}_2 \text{ for } t \in (t_{k-1}, t_k)} = \int_a^b \norm{\varphi} \, dt \]
-\end{proof}
+  \[ \leq \sum_{k=1}^n (t_k - t_{k-1}) \cdot \underbrace{\norm{\left[c_1^k, \dots, c_n^k\right]^T}_2}_{\norm{\varphi(t)}_2 \text{ for } t \in (t_{k-1}, t_k)} = \int_a^b \norm{\varphi(t)} \, dt \]
 
-\dateref{2018/06/21}
+  \dateref{2018/06/21}
 
-\begin{proof}[continued]
   Let $\alpha$ as in the lemma statement.
   Let $\varepsilon > 0$ be arbitrary and $\varphi_k \in \tau[a,b]$ such that $\card{\alpha_k(t) - \varphi_k(t)} < \frac{\varepsilon}{2 \sqrt{n} (b - a)} \forall t \in [a,b] \forall k = 1, \dots, n$. Hence,
   \begin{align*}
-    \int_a^b \norm{\alpha - \varphi}_2 \, dt &= \int_a^b \sqrt{\sum_{k=1}^n \card{\alpha_k(t) - \varphi_k(t)}^2 \, dt}     & \varphi \coloneqq [\varphi_1, \dots, \varphi_n]^n \\
-        &\leq \int_a^b \sqrt{\underbrace{\sum_{k=1}^n \frac{\varepsilon^2}{4n (b - a)^2}}_{= \frac{\varepsilon^2}{4 (b - a)^2}}} \, dt
-        = \int_a^b \frac{\varepsilon}{2 (b - a)} \, dt
+    \int_a^b \norm{\alpha - \varphi}_2 \, dt &= \int_a^b \sqrt{\sum_{k=1}^n \card{\alpha_k(t) - \varphi_k(t)}^2 \, dt}
+          & \varphi \coloneqq [\varphi_1, \dots, \varphi_n]^n \\
+        &\leq \int_a^b \sqrt{\underbrace{\sum_{k=1}^n \frac{\varepsilon^2}{4n (b - a)^2}}_{= \frac{\varepsilon^2}{4 (b - a)^2}}} \, dt \\
+        &= \int_a^b \frac{\varepsilon}{2 (b - a)} \, dt = (b - a) \cdot \frac{\varepsilon}{2 (b - a)} = \frac{\varepsilon}{2}
   \end{align*}
-  \[ (b - a) \cdot \frac{\varepsilon}{2 (b - a)} = \frac{\varepsilon}{2} \]
   Also,
   \begin{align*}
     \norm{\int_a^b (\alpha - \varphi) \, dt}_2
       &= \norm{\begin{bmatrix} \int_a^b (\alpha_1 - \varphi_1) \, dt \\ \vdots \\ \int_a^b (\alpha_n - \varphi_n) \, dt \end{bmatrix}}_2
       = \norm{\begin{bmatrix} \card{\int_a^b (\alpha_1 - \varphi_1) \, dt} \\ \vdots \\ \card{\int_a^b (\alpha_n - \varphi_n)} \, dt \end{bmatrix}}_2 \\
       &= \norm{\begin{bmatrix} \int_a^b \card{\alpha_1 - \varphi_1} \, dt \\ \vdots \\ \int_a^b \card{\alpha_n - \varphi_n} \, dt \end{bmatrix}}_2
-      \leq \norm{\begin{bmatrix} \int_a^b \frac{\varepsilon}{2\sqrt n (b - a)} \, dt \\ \vdots \\ \int_a^b \frac{\varepsilon}{2 \sqrt n (b - a)} \end{bmatrix}}_2
+      \leq \norm{\begin{bmatrix} \int_a^b \frac{\varepsilon}{2\sqrt n (b - a)} \, dt \\ \vdots \\ \int_a^b \frac{\varepsilon}{2 \sqrt n (b - a)} \, dt \end{bmatrix}}_2
       = \norm{\begin{bmatrix} \frac{\varepsilon}{2 \sqrt n} \\ \vdots \\ \frac{\varepsilon}{2 \sqrt n} \end{bmatrix}}_2 \\
       &= \sqrt{\sum_{k=1}^n \frac{\varepsilon^2}{4n}} = \frac\varepsilon2
   \end{align*}
   Hence, $\norm{\int_a^b \alpha \, dt} = \norm{\int_a^b (\alpha - \varphi) \, dt + \int_a^b \varphi \, dt}_2 \leq \norm{\int_a^b (\alpha - \varphi) \, dt}_2 + \norm{\int_a^b \varphi \, dt} \leq \frac{\varepsilon}{2} + \int_a^b \norm{\varphi}_2 \, dt$ because $\varphi \in \tau[a,b]$.
   \begin{align*}
+    \norm{\int_a^b \alpha \, dt}
       &\leq \frac{\varepsilon}{2} + \int_a^b \norm{\varphi - \alpha + \alpha}_2 \, dt \\
-      &\leq \frac{\varepsilon}{2} + \underbrace{\int_a^b \norm{\varphi - \alpha}_2 \, dt}_{\leq \frac\varepsilon2} + \int_a^b \norm{\alpha}_2 \, dt \\
-      &\leq \varepsilon + \int_a^b \norm{\alpha}_2 \, dt \\
-    \implies \: & \norm{\int_a^b \alpha \, dt}_2 \leq \varepsilon + \int_a^b \norm{\alpha}_2 \, dt \forall \varepsilon > 0 \\
-    \implies \: & \norm{\int_a^b \alpha \, dt}_2 \leq \int_a^b \norm{\alpha} \, dt
+      &\leq \frac{\varepsilon}{2} + \int_a^b \norm{\varphi - \alpha}_2 \, dt + \int_a^b \norm{\alpha}_2 \, dt \\
+      &\leq \frac\varepsilon2 + \frac\varepsilon2 + \int_a^b \norm{\alpha}_2 \, dt \\
+    \implies \: \norm{\int_a^b \alpha \, dt}_2 &\leq \varepsilon + \int_a^b \norm{\alpha}_2 \, dt \quad \forall \varepsilon > 0 \\
+    \implies \: \norm{\int_a^b \alpha \, dt}_2 &\leq \int_a^b \norm{\alpha} \, dt
   \end{align*}
 \end{proof}
 
 \begin{theorem} % Satz 1
   Let $\gamma: [a,b] \to \mathbb R^n$ be a continuous curve parameterization.
-  $\gamma(t) = [\gamma_1(t), \dots, \gamma_n(t)]^T$ and let $\gamma_k$ be a antiderivative of regulated function $\alpha_k = \gamma'_k(t)$.
+  $\gamma(t) = [\gamma_1(t), \dots, \gamma_n(t)]^T$ and let $\gamma_k$ be an antiderivative of regulated function $\alpha_k = \gamma'_k(t)$.
   Then $\gamma$ is rectifiable and:
   \[ S_\gamma = \int_a^b \norm{\gamma'(t)}_2 \, dt \]
 \end{theorem}
@@ -5580,17 +5584,17 @@ Compare with Figure~\ref{img:ori}.
   Let $z = (t_i)_{i=0}^N$ be a partition of $[a,b]$.
   \begin{align*}
     S_\gamma(z)
-      &= \sum_{i=1}^N \norm{\gamma(t_i) - \gamma(t_{i-1})}_2 \\
-      &\underbrace{=}_{\substack{\text{fundamental} \\ \text{theorem}}} \sum_{i=1}^N \norm{\int_{t_{i-1}}^{t_i} \gamma'(t) \, dt}_2 \\
-      &\underbrace{\leq}_{\text{Lemma~\ref{lemma-2}}} \sum_{i=1}^N \int_{t_{i-1}}^{t_i} \norm{\gamma'(t)}_2 \, dt \\
-      &= \int_{t_0}^{t_N} \norm{\gamma'(t)}_2 \, dt \\
-      &= \int_a^b \norm{\gamma'(t)}_2 \, dt
+      &= \sum_{i=1}^N \norm{\gamma(t_i) - \gamma(t_{i-1})}_2
+      \underbrace{=}_{\substack{\text{fundamental} \\ \text{theorem}}} \sum_{i=1}^N \norm{\int_{t_{i-1}}^{t_i} \gamma'(t) \, dt}_2 \\
+      &\underbrace{\leq}_{\text{Lemma~\ref{lemma-2}}} \sum_{i=1}^N \int_{t_{i-1}}^{t_i} \norm{\gamma'(t)}_2 \, dt
+      = \int_{t_0}^{t_N} \norm{\gamma'(t)}_2 \, dt
+      = \int_a^b \norm{\gamma'(t)}_2 \, dt
   \end{align*}
-  So, $S_{\gamma}(z) \leq \int_a^b \norm{\gamma'(t)}_2 \, dt \forall z$ partitions.
+  So, $S_{\gamma}(Z) \leq \int_a^b \norm{\gamma'(t)}_2 \, dt \forall \text{ partitions } Z$.
   Therefore, $S_{\gamma} \leq \int_a^b \norm{\gamma'(t)}_2 \, dt$ and $\gamma$ is rectifiable.
 
   Show: $\forall \varepsilon > 0$, $S_\gamma \geq \int_a^b \norm{\gamma'(t)}_2 \, dt - \varepsilon$. $\gamma'$ is a regulated function. Choose $\varphi = [\varphi_1, \dots, \varphi_n]^T$ with $\varphi_k \in \tau[a,b]$ with $\norm{\varphi(t) - \gamma'(t)} \leq \frac{\varepsilon}{2(b - a)} \forall t \in [a,b]$.
-  \[ \varphi(t) = \begin{bmatrix} c_i^1 \\ c_i^2 \\ \vdots \\ c_i^n \end{bmatrix} \text{ on } (t_{i-1}, t_i) \]
+  \[ \varphi(t) = \begin{bmatrix} c_i^1 & c_i^2 & \dots & c_i^n \end{bmatrix}^T \text{ on } (t_{i-1}, t_i) \]
   \[ \implies \norm{\int_{t_{i-1}}^{t_i} \varphi \, dt}_2 = \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_n^i \end{bmatrix} \cdot (t_i - t_{i-1})}_2 = (t_i - t_{i_1}) \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_i^n \end{bmatrix}}_2 \]
   \[ \int_{t_{i-1}}^{t_i} \norm{\varphi} \, dt = \int_{t_{i-1}}^{t_i} \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_i^n \end{bmatrix}}_2 \, dt = (t_i - t_{i-1}) \norm{\begin{bmatrix} c_i^1 \\ \vdots \\ c_i^n \end{bmatrix}}_2 \]
   Hence, for $(t_{i-1}, t_i)$
@@ -5602,15 +5606,15 @@ Compare with Figure~\ref{img:ori}.
   \[ = \norm{\int_{t_{i-1}}^{t_i} \left[\varphi(t) - (\varphi(t) - \gamma'(t))\right] \, dt}_2
        \geq \norm{\int_{t_{i-1}}^{t_i} \varphi(t) \, dt}_2 - \norm{\int_{t_{i-1}}^{t_i} (\varphi - \gamma') \, dt}_2 \]
   Because $\norm{\int_{t_{i-1}}^{t_i} \varphi(t) \, dt}_2 = \int_{t_{i-1}}^{t_n} \norm{\gamma}_2 \, dt$,
-  \[ \geq \int_{t_{i-1}}^{t_i} \norm{\varphi}_2 \, dt - \int_{t_{i-1}}^{t_i} \underbrace{\norm{\varphi - \gamma'}_2}_{\leq \frac{\varepsilon}{2 (b - a)}} \, dt \]
-  \[ \geq \int_{t_{i-1}}^{t_i} \norm{\varphi}_2 \, dt - \frac{\varepsilon (t_i - t_{i-1})}{2 (b - a)} \]
+  \[ \geq \int_{t_{i-1}}^{t_i} \norm{\varphi}_2 \, dt - \int_{t_{i-1}}^{t_i} \underbrace{\norm{\varphi - \gamma'}_2}_{\leq \frac{\varepsilon}{2 (b - a)}} \, dt
+     \geq \int_{t_{i-1}}^{t_i} \norm{\varphi}_2 \, dt - \frac{\varepsilon (t_i - t_{i-1})}{2 (b - a)} \]
   \begin{align*}
-    S_\gamma(z) &= \sum_{i=1}^N \norm{\int_{t_{i-1}}^{t_i} \gamma'(t) \, dt} \\
-                &\geq \sum_{i=1}^n \int_{t_{i-1}}^{t_i} \norm{\varphi}_2 \, dt - \frac{\varepsilon}{2(b - a)} (t_i - t_{i-1}) \\
-                &= \int_a^b \norm{\varphi}_2 \, dt - \frac{\varepsilon}{2} \\
-                &= \int_a^b \norm{\gamma' - (\gamma' - \varphi)}_2 \, dt - \frac\varepsilon2 \\
-                &\geq \int_a^b \norm{\gamma'} \, dt - \int_a^b \norm{\underbrace{\gamma' - \varphi}_{\leq \frac\varepsilon{2 (b - a)}}}_2 \, dt - \frac\varepsilon2 \\
-                &\geq \int_a^b \norm{\gamma'(t)}_2 \, dt - \frac\varepsilon{2(b - a)} \cdot (b - a) - \frac\varepsilon2 \\
+    S_\gamma(z) &= \sum_{i=1}^N \norm{\int_{t_{i-1}}^{t_i} \gamma'(t) \, dt}
+                \geq \sum_{i=1}^n \int_{t_{i-1}}^{t_i} \norm{\varphi}_2 \, dt - \frac{\varepsilon}{2(b - a)} (t_i - t_{i-1}) \\
+                &= \int_a^b \norm{\varphi}_2 \, dt - \frac{\varepsilon}{2}
+                = \int_a^b \norm{\gamma' - (\gamma' - \varphi)}_2 \, dt - \frac\varepsilon2 \\
+                &\geq \int_a^b \norm{\gamma'} \, dt - \int_a^b \norm{\underbrace{\gamma' - \varphi}_{\leq \frac\varepsilon{2 (b - a)}}}_2 \, dt - \frac\varepsilon2
+                \geq \int_a^b \norm{\gamma'(t)}_2 \, dt - \frac\varepsilon{2(b - a)} \cdot (b - a) - \frac\varepsilon2 \\
                 &= \int_a^b \norm{\gamma'(t)}_2 \, dt - \varepsilon
   \end{align*}
   \[ \implies S_\gamma \geq S_\gamma(z) \geq \int_a^b \norm{\gamma'(t)}_2  \, dt - \varepsilon \qquad \forall \varepsilon > 0 \]
@@ -5625,7 +5629,7 @@ Compare with Figure~\ref{img:ori}.
   Another rationale for the independence of parameterization:
 
   Let $\gamma: I \to \mathbb R^n$ be a regular $\mathcal C^1$-curve parameterization.
-  Let $\sigma: J \to I$ be a parameter exchange (diffeomorphism).
+  Let $\sigma: J \to I$ be a diffeomorphism and parameter exchange.
   $\tilde\gamma(\tau) = \gamma \circ \sigma(\tau)$.
 
   $\sigma$ is orientation preserving. $J = [\alpha, \beta], I = [a,b] \implies \sigma(\alpha) = a, \sigma(\beta) = b$.
@@ -5691,21 +5695,25 @@ Determine the arc length for $\tilde\gamma$:
   \[ \gamma'(t) = \begin{bmatrix} 1 - \cos(t) \\ \sin(t) \end{bmatrix} \]
   \begin{align*}
     s &= \int_0^t \norm{\gamma'(\tau)}_2 \, d\tau = \int_0^t \sqrt{(1 - \cos\tau)^2 + \sin^2 \tau} \, d\tau \\
-      &= \int_0^t \sqrt{1 - 2 \cos \tau + 1} \, d\tau = \int_0^t \sqrt2 \sqrt{1 - \cos2 \frac{\tau}{2}} \, d\tau \\
-      &= \sqrt{2} \int_0^t \sqrt{\underbrace{1 - \cos^2{\frac\tau2}}_{= \sin^2{\frac\tau2}} + \sin^2{\frac\tau2}} \, d\tau \\
-      &= \sqrt{2} \int_0^t \sqrt{2} \sqrt{\sin^2{\frac\tau2}} \, d\tau \\
+      &= \int_0^t \sqrt{1 - 2 \cos \tau + 1} \, d\tau = \int_0^t \sqrt2 \sqrt{1 - \cos\left(2 \frac{\tau}{2}\right)} \, d\tau \\
+    \intertext{$\cos(\frac\tau2 + \frac\tau2) = \cos(\frac\tau2)\cos(\frac\tau2) - \sin(\frac\tau2)\sin(\frac\tau2)$}
+      &= \sqrt{2} \int_0^t \sqrt{\underbrace{1 - \cos^2{\frac\tau2}}_{= \sin^2{\frac\tau2}} + \sin^2{\frac\tau2}} \, d\tau
+      = \sqrt{2} \int_0^t \sqrt{2} \sqrt{\sin^2{\frac\tau2}} \, d\tau \\
     \intertext{
       $t \in [0, 2\pi] \implies \frac\tau2 \in [0, \pi] \implies \sin\frac\tau2 \geq 0$.
       $\sqrt{\sin^2(\frac\tau2)} = \sin(\frac\tau2)$
     }
-      &= 2 \int_0^t \sin{\frac\tau2} \, d\tau = 2 \left[2 - \cos \frac{t}{2} + 2 \cos 0\right] \\
-      &= 4 (1 - \cos\frac t2) = s \\
-    l(t) &= 4 (1 - \cos\frac t2) \\
+      &= 2 \int_0^t \sin{\frac\tau2} \, d\tau = \begin{vmatrix} \text{Integration by substitution} \\ f(x) = \sin(x) \\ \varphi(x) = 2x \\ \varphi'(x) = 2 \end{vmatrix} = 2 \int_0^{\frac t2} \sin(x) \cdot 2 \, dx \\
+      &= -4 \cos(x) |_0^{\frac t2} = 4 \left(1 - \cos\frac t2\right) = s \\
+    l(t) &= 4 \left(1 - \cos\frac t2\right) \\
     l^{-1}(s) &= \text{ ?} \\
     1 - \cos\frac t2 &= \frac s4 \\
     \cos\frac t2 &= 1 - \frac s4 = \frac14 (4 - s) \in [-1, +1] \\
     t &= 2 \arccos\left(\frac14 (4 - s)\right) \\
-    \tilde \gamma(s) &= \begin{bmatrix} 2 \arccos(\frac14 (4 - s)) - \sin(2 \arccos(\frac14 (4 - s))) \\ 1 - \cos(2 \arccos(\frac14(4 - s))) \end{bmatrix}
+    \tilde \gamma(s) &= \begin{bmatrix}
+      2 \arccos\left(\frac14 (4 - s)\right) - \sin\left(2 \arccos\left(\frac14 (4 - s)\right)\right) \\
+      1 - \cos\left(2 \arccos\left(\frac14(4 - s)\right)\right)
+    \end{bmatrix}
   \end{align*}
 \end{example}
 
@@ -5722,7 +5730,7 @@ Determine the arc length for $\tilde\gamma$:
 
 \begin{remark}
   Let $\gamma$ be parameterized by an arc length.
-  Then $s = l(t) = \int_{t_0}^t \underbrace{\norm{\gamma'(\tau)}_2}_{=1} \, d\tau = t - t_0$, and accordingly $t = s + t_0$.
+  Then $s = l(t) = \int_{t_0}^t \norm{\gamma'(\tau)}_2 \, d\tau = \int_{t_0}^t 1 \, d\tau = t - t_0$, and accordingly $t = s + t_0$.
   Hence, curve parameter and arc length parameter differ only by constant $t_0$. For $t_0 = 0$, $s = t$.
 \end{remark}
 
@@ -5754,7 +5762,7 @@ and $\angel{\gamma'(s), \gamma''(s)} = 0$, hence $\gamma''(s) \bot \Gamma(s)$
   Let $\gamma$ be like above. We call $\kappa(s) = \norm{\gamma''(s)}_2 = \norm{T'(s)}_2$ \emph{the curvature of $\gamma$ in $x = \gamma(s)$}.
   If $\kappa(s) \neq 0$, hence $\gamma''(s) \neq 0$, then we let
   \[ N = N(s) = \frac{\gamma''(s)}{\norm{\gamma''(s)}_2} \]
-  We call $N$ the \emph{main orthogonal vector of $\gamma$ in $x = \gamma(s)$}.
+  We call $N$ the \emph{principal orthogonal vector of $\gamma$ in $x = \gamma(s)$}.
 \end{definition}
 
 \begin{remark}
@@ -6007,7 +6015,7 @@ $\vartheta(s)$ is the continuously differentiable angle parameter.
 \[ T'(s) = \vartheta'(s) \begin{bmatrix} -\sin{\vartheta(s)} \\ \cos\vartheta(s) \end{bmatrix} \coloneqq \vartheta'(s) \cdot N(s) \]
 \[ N(s) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot \begin{bmatrix} \cos{\vartheta} \\ \sin{\vartheta} \end{bmatrix} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \cdot T(s) \]
 
-\begin{figure}[t]
+\begin{figure}[p]
   \begin{center}
     \includegraphics{img/56_signed_curvature.pdf}
     \caption{
@@ -6047,7 +6055,7 @@ Determination of $\kappa$ in case of arbitrary parameterization:
 Let $\gamma: I \to \mathbb R^2$ and $\gamma$ is parameterized by the arc length.
 $\mu(s)$ is center of the circle of curvature of $\gamma$ by change of parameter $s$.
 
-\begin{figure}[t]
+\begin{figure}[p]
   \begin{center}
     \includegraphics{img/57_evolute.pdf}
     \caption{Evolute}
@@ -6096,7 +6104,7 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
     \end{enumerate}
     % Solution: Show: a_k is k-th derivative and $f$ is arbitrary often differentiable in convergence radius
   \item $f: D \subseteq \mathbb R^m \to \mathbb R^n$ is differentiable in $x_0$ with $Df(x_0)$. Show that $\forall v \in \mathbb R^m \setminus \set{0}: df(x_0, v) = Df(x_0) \cdot v$
-  \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$ $\forall t \in I$. Define its curvature, circle of curvature, osculating plane and main normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
+  \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$ $\forall t \in I$. Define its curvature, circle of curvature, osculating plane and principal normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
 \end{enumerate}
 
 \printindex
