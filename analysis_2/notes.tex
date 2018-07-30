@@ -2942,7 +2942,7 @@ Some important inequalities in integration theory follow.
 
 \index{Young's inequality}
 \begin{theorem}[Young's inequality] % Satz 9
-  Let $f: [0, \infty) \to [0,\infty)$ be continuous differentiable, strictly monotonically increasing with $f(0) = 0$ and $f$ is unbounded.
+  Let $f: [0, \infty) \to [0,\infty)$ be continuously differentiable, strictly monotonically increasing with $f(0) = 0$ and $f$ is unbounded.
   Then $f: [0, \infty) \to [0,\infty)$ bijective and $f^{-1}: [0,\infty) \to [0,\infty)$ is strictly monotonically increasing and continuous.
   Let $a, b \geq 0$ be given. Then
   \[ ab \leq \int_0^a f(x) \, dx + \int_0^b f^{-1}(y) \, dy \]
@@ -4042,9 +4042,9 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 \end{theorem}
 \begin{proof}
   $(g \circ f)(x)$ is differentiable in $x_0$ iff
-  \[ \lim_{x \to x_0} \frac{\norm{g(f(x_0)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} = 0 \]
+  \[ \lim_{x \to x_0} \frac{\norm{g(f(x)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} = 0 \]
   according to Fr\'echet differentiability. This is equivalent to 
-  \[ \frac{\norm{g(f(x_0)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} < \varepsilon \]
+  \[ \frac{\norm{g(f(x)) - g(f(x_0)) - D g(f(x_0)) \cdot Df(x_0) \cdot (x - x_0)}}{\norm{x - x_0}} < \varepsilon \]
   for any bounded $\varepsilon$.
   Let $0 < \varepsilon < 2$.
   Show that
@@ -4059,13 +4059,18 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
     &+ \frac{1}{\norm{x - x_0}} \norm{Dg(y_0)} \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} \\
     &\eqqcolon (I) + (II)
   \end{align*}
+  \begin{remark}
+    $f$ is differentiable iff $\lim_{x \to x_0} \frac{\norm{f(x) - f(x_0) - Df(x_0)(x - x_0)}}{\norm{x - x_0}} = 0 $
+    \[ \iff \forall \varepsilon > 0 \exists \delta > 0: \norm{x - x_0} < \delta \implies \norm{f(x) - f(x_0) - Df(x_0)(x - x_0)} < \varepsilon \]
+    Thus, differentiability can also be characterized using $\varepsilon$-$\delta$.
+  \end{remark}
   Choose $\delta_1 > 0$ such that $\norm{x - x_0} < \delta_1 \implies$
   \[ \frac{1}{\norm{x - x_0}} \cdot \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < \frac{\varepsilon}2 \frac{1}{\norm{Dg(y_0)} + 1} \]
   is feasible, because $f$ is differentiable in $x_0$.
   \[ \frac{\varepsilon}{2} \cdot \frac{1}{\norm{Dg(y_0)} + 1} < \frac22 = 1 \]
   so it also holds that
   \[ \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} < 1 \cdot \norm{x - x_0} \]
-  By the reverse triangle inequality,
+  By the reverse triangle inequality, $\norm{x - y} \geq \norm{x} - \norm{y}$,
   \[ \norm{f(x) - f(x_0) - Df(x_0) (x - x_0)} \geq \norm{f(x) - f(x_0)} - \norm{Df(x_0) (x - x_0)} \]
   \[ \geq \norm{f(x) - f(x_0)} - \norm{Df(x_0)} \cdot \norm{x - x_0} \]
   \[ \implies \frac{\norm{f(x) - f(x_0)}}{\norm{x - x_0}} \leq \norm{Df(x_0)} + 1 \]
@@ -6091,7 +6096,9 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
   \[ \mu'(t) = 0 \text{ for } t = 0 \qquad (\kappa' = 0 \text{ hence } \kappa \text{ has maximum}) \]
 \end{example}
 
-\section*{Exam questions 2018/07/06}
+\section*{Study hints by students}
+
+\subsection*{Exam questions 2018/07/06}
 
 \begin{enumerate}
   \item Let $f: X \to Y$ be continuous. Let $X$ be compact. Prove that $f(X)$ is compact. Give any corollary of this proof.
@@ -6105,6 +6112,31 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
     % Solution: Show: a_k is k-th derivative and $f$ is arbitrary often differentiable in convergence radius
   \item $f: D \subseteq \mathbb R^m \to \mathbb R^n$ is differentiable in $x_0$ with $Df(x_0)$. Show that $\forall v \in \mathbb R^m \setminus \set{0}: df(x_0, v) = Df(x_0) \cdot v$
   \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$ $\forall t \in I$. Define its curvature, circle of curvature, osculating plane and principal normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
+\end{enumerate}
+
+\subsection*{List of 10 major theorems}
+
+\begin{enumerate}
+  \item Norm equivalence in $\mathbb R^n$
+  \item Banach Fixed Point Theorem
+  \item Mean Value Theorem of Integration Calculus
+  \item Young's inequality
+  \item H\"older's inequality
+  \item Multidimensional Taylor Theorem
+  \item Chain rule in multidimensional calculus
+  \item Local Inversion Theorem
+  \item Implicit Function Theorem
+  \item Schwarz' Theorem
+\end{enumerate}
+
+\subsection*{Sample exam by student}
+
+\begin{enumerate}
+  \item Give and prove the Implicit Function Theorem
+  \item Give at least two equivalent statements about regulated functions. Prove at least one of them.
+  \item Prove the Cauchy criterion for limits of functions
+  \item Let $A \subseteq X$ be closed. Show that equivalence with the following statement: $A^C = O \subseteq X$ open in $X$.
+    Which corollary can be made regarding intersection and union of open sets?
 \end{enumerate}
 
 \printindex
