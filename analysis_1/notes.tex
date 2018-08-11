@@ -14,6 +14,7 @@
 \usepackage{mathtools}
 \usepackage{mdframed}
 \usepackage{stmaryrd}
+\usepackage{textcomp}
 \usepackage[normalem]{ulem}
 \usepackage{wasysym}
 
@@ -35,7 +36,7 @@
 \newcommand\abs[1]{\left|#1\right|}
 \newcommand\seq[1]{{\left(#1\right)}_{n \in \mathbb N}}
 \newcommand\card[1]{\left|\,#1\,\right|}
-\newcommand\meta[3]{\hrule{} This #1 took place on #2 with lecturer #3.\par}
+\newcommand\meta[3]{\begin{mdframed}[skipbelow=0pt,skipabove=0pt,innermargin=1pt,innerleftmargin=1pt,innerrightmargin=1pt]\begin{center}\small{\textdownarrow{} This #1 took place on #2 with lecturer #3}\end{center}\end{mdframed}}
 \newcommand\done{\hspace{10pt}\checkmark}
 \newcommand\norm[1]{\left\|#1\right\|}
 
@@ -846,21 +847,17 @@ Example:
           \[
             (a + b)^{n+1} = (a + b)^n \cdot (a + b)
             = \left(\sum_{k=0}^n \binom nk a^k b^{n-k}\right) (a + b)
-          \] \[
-            = \sum_{k=0}^n \binom nk a^{k+1} b^{n-k} + \sum_{k=0}^n \binom nk a^k b^{n-k+1}
-          \] \[
-            = \underbrace{\sum_{k=0}^{n-1} \binom nk a^{k+1} b^{n-k}}_{\substack{\text{index shift} \\ k+1=j, k=j-1 \\ k=0 \implies j=1 \\ k=n-1 \implies j=n}} +
-              \underbrace{\binom nn a^{n+1} \cdot b^0}_{= a^{n+1}}
-          \] \[
-            + \sum_{k=1}^n \binom nk a^k b^{n+1-k} +
-              \binom n0 a^0 b^{n+1}
-          \] \[
-            = \sum_{j=1}^n \binom{n}{j-1} a^j b^{n-(j-1)}
-            + \sum_{k=1}^n \binom nk a^k b^{n+1-k}
-          \] \[
-            + \binom{n+1}{n+1} a^{n+1}
-            + \binom{n+1}{0} b^{n+1}
           \]
+          \begin{align*}
+            &= \underbrace{\sum_{k=0}^n \binom nk a^{k+1} b^{n-k}}_{\text{(I)}} + \underbrace{\sum_{k=0}^n \binom nk a^k b^{n-k+1}}_{\text{(II)}} \\
+            &= \underbrace{\sum_{k=0}^{n-1} \binom nk a^{k+1} b^{n-k}}_{\substack{\text{index shift} \\ k+1=j, k=j-1 \\ k=0 \implies j=1 \\ k=n-1 \implies j=n}} +
+              \underbrace{\binom nn a^{n+1} \cdot b^0}_{= a^{n+1}} & \text{(I)} \\
+            &+ \sum_{k=1}^n \binom nk a^k b^{n+1-k} + \binom n0 a^0 b^{n+1} & \text{(II)} \\
+            &= \sum_{j=1}^n \binom{n}{j-1} a^j b^{n-(j-1)}
+             + \sum_{k=1}^n \binom nk a^k b^{n+1-k} \\
+            &+ \binom{n+1}{n+1} a^{n+1}
+             + \binom{n+1}{0} b^{n+1}
+          \end{align*}
           Renaming $j$ to $k$. Then it holds that:
           \[
             = \sum_{k=1}^n \underbrace{\left[\binom{n}{k-1} + \binom nk\right]}_{\binom{n+1}{k} \text{ by recursive definition}} a^k b^{n+1-k}
