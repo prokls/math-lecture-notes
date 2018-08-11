@@ -879,8 +879,8 @@ Example:
   \item[Induction base] $n = 0, n = 1$ follows immediately
   \item[Induction step]
     \[ (a + b)^n = \underbrace{(a + b)(a + b)(a + b)(a + b)\dots(a + b)}_{n \text{ times}} \]
-    When multiplying the products $a^n b^{n-k}$ are created ($0 \leq k \leq n$).
-    $a^n b^{n-k}$ are created iff $a$ is the factor resulting from $k$ parenthesis groups and
+    When multiplying, the products $a^n b^{n-k}$ are created ($0 \leq k \leq n$).
+    $a^n b^{n-k}$ are created iff $a$ is the factor resulting from $k$ parentheses groups and
     $b$ originates from the remaining $(n-k)$ groups.
     There are exactly $\binom{n}{k}$ possibilities to select from $n$ groups.
     $a^k b^{n-k}$ occurs $\binom nk$ times.
@@ -1552,7 +1552,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
   Let $x > \frac1\varepsilon \in \mathbb R$.
   Archimedean property: $\exists N \in \mathbb N: N > x$.
 
-  For $n \geq \mathbb N$ it holds that $n > x > 0 \implies \frac1n < \frac1x = \varepsilon$.
+  For $n \geq N$ it holds that $n > x > 0 \implies \frac1n < \frac1x = \varepsilon$.
 \end{proof}
 
 \begin{cor}
@@ -1581,20 +1581,17 @@ $\mathbb Q$ is dense in $\mathbb R$.
 \end{theorem}
 
 \begin{proof}
-  Let $s = \abs{q} \geq 0$. Consider $q > 0$. Then
-  \begin{align*}
-    q^n &= 0 \\
-    \abs{q^n} &= 0 \\
-    \abs{q}^n &< \varepsilon \forall \varepsilon > 0 \forall n \in \mathbb N
-  \end{align*}
-
-  Let $q \neq 0$, then $0 < s < 1$. Let $p = \frac1s \implies p > 1$.
-  Choose arbitrary $\varepsilon > 0$ and $x = \frac1\varepsilon$.
-  Because of the Completeness axiom
-  \[ \exists N \in \mathbb N: n \geq N \implies p^n > X \]
-  So it holds that
-  \[ \frac1{p^n} = S^n < \frac1x = \varepsilon \forall n \geq N \]
-  \[ \implies \left(\abs{q}\right)^n = \abs{q^n} \]
+  Let $s = \abs{q} \geq 0$.
+  \begin{description}
+    \item[Case $\mathbf{q > 0}$] Then,
+      \[ q^n = 0,   \qquad   \abs{q^n} = 0,   \qquad    \abs{q}^n < \varepsilon \quad \forall \varepsilon > 0\, \forall n \in \mathbb N \]
+    \item[Case $\mathbf{q \neq 0}$] Then $0 < s < 1$. Let $p = \frac1s \implies p > 1$.
+      Choose arbitrary $\varepsilon > 0$ and $x = \frac1\varepsilon$.
+      Because of the Completeness axiom
+      \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies p^n > x \]
+      So,
+      \[ \forall n \geq N: \frac1{p^n} = S^n < \frac1x = \varepsilon  \implies \left(\abs{q}\right)^n = \abs{q^n} \]
+  \end{description}
 \end{proof}
 
 \begin{theorem}
@@ -1602,7 +1599,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
   Then there exists a distinct $y \in \mathbb R$ with $y \geq 0$
   such that
   \[ y^k = x \]
-  We denote $y = \sqrt[k]{x}$ and conclude there exists $k$-th root numbers.
+  We denote $y = \sqrt[k]{x}$ and conclude there exists some $k$-th root numbers.
 \end{theorem}
 
 \begin{proof}
@@ -1623,15 +1620,18 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
 \begin{theorem}
   We prove:
-  \[ 0 \leq y_1 < y_2 \Rightarrow y_1^k \leq y_2^k \]
+  \[ \forall k \in \mathbb N_{\geq 0}: 0 \leq y_1 < y_2 \implies y_1^k \leq y_2^k \]
 \end{theorem}
 \begin{proof}
-  A short proof by a student:
   \begin{description}
     \item[$\mathbf{k = 2}$]
-      \[ y^{k+1} = y^k \cdot y < y_2^k x < y_2^k y_2 = y^{k+1} \]
+      \[ y_1^2 = y_1 \cdot y_1 < y_1 \cdot y_2 < y_2 \cdot y_2 = y_2^2 \]
     \item[$\mathbf{k \rightarrow k + 1}$]
-      \[ y_1^2 < y_2^2 \]
+      \[
+        y_1^k \leq y_2^k
+        \implies y_1^k \cdot y_1 \leq y_2^k \cdot y_1 < y_2^k \cdot y_2
+        \implies y_1^{k+1} \leq y_2^{k+1}
+      \]
   \end{description}
 \end{proof}
 
@@ -1711,7 +1711,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
       It holds that
       \[
           a_n \leq a_{n+1} < b_{n+1} \leq b_n \text{ because } I_{n+1} \subseteq I_n
-          \Rightarrow a_n^b \leq a_{n+1}^k < b_{n+1}^k \leq b_n^k
+          \Rightarrow a_n^k \leq a_{n+1}^k < b_{n+1}^k \leq b_n^k
       \]
 
       Length of $I_n$:
@@ -1788,7 +1788,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
   There exists at most one supremum for $A$. Let $s_1$ and $s_2$ be two suprema,
   then $s_1 \neq s_2$. So wlog. $\sigma_1 < \sigma_2$. This invalidates the supremum
-  property of $s_2 \Rightarrow s_1$ is not a supremum of $A$ \lightning.
+  property of $s_2 \implies s_1$ is not a supremum of $A$ \lightning.
 
   Analogously an \emph{infimum of $A$} is the greatest lower bound of $A$.
   Let $A$ be bounded below. $t \in \mathbb R$ is called \emph{infimum of $A$}
@@ -1796,7 +1796,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
   \begin{enumerate}
     \item $\forall a \in A: t \leq a$ (t is a lower bound of $A$)
     \item $\forall x > t$ so $x$ is no lower bound of $A$
-      \[ \Leftrightarrow \exists a \in A: a < x \]
+      \[ \Longleftrightarrow \exists a \in A: a < x \]
   \end{enumerate}
   We denote $t = \inf{A}$.
 \end{defi}
@@ -2214,16 +2214,16 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
   \[ \Re(z) = \frac12 (z + \overline z) \]
 \end{theorem}
 
-\begin{theorem}
-  \[ \frac12(z + \overline{z}) = \frac12(a + ib + a - ib) = \frac12 (2a) = a \checkmark \]
-\end{theorem}
+\begin{proof}
+  \[ \frac12(z + \overline{z}) = \frac12(a + ib + a - ib) = \frac12 (2a) = a \]
+\end{proof}
 
 \begin{theorem}
   \[ \Im(z) = \frac{1}{2i} (z - \overline{z}) \]
 \end{theorem}
 
 \begin{proof}
-  \[ \frac{1}{2i} (a + ib - (a - ib)) = \frac{1}{2i} (2ib) = b \checkmark \]
+  \[ \frac{1}{2i} (a + ib - (a - ib)) = \frac{1}{2i} (2ib) = b \]
 \end{proof}
 
 \begin{theorem}
@@ -2237,7 +2237,7 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \end{proof}
 
 \begin{theorem}
-  \[ z \in i \mathbb R = \set{ib : b \in \mathbb R} \Leftrightarrow z = -\overline{z} \]
+  \[ z \in (i \mathbb R) = \set{ib : b \in \mathbb R} \Leftrightarrow z = -\overline{z} \]
   Proof follows analogously.
 \end{theorem}
 
@@ -4629,7 +4629,13 @@ TODO
   Every limit point is also a contact point.
 \end{defi}
 
-% TODO: image illustration_of_a_limit_touching_point.svg
+\begin{figure}
+  \begin{center}
+    \includegraphics{img/illustration_of_a_limit_contact_point.pdf}
+    \caption{Illustration of a limit point and contact point}
+    \label{img:lim_contact_pt}
+  \end{center}
+\end{figure}
 % TODO: second image missing
 
 \begin{lemma}

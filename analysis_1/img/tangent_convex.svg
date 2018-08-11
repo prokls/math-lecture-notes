@@ -14,10 +14,40 @@
    viewBox="0 0 300 300"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="tangent_conex.svg">
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="tangent_convex.svg">
   <defs
-     id="defs4" />
+     id="defs4">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker1137"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(0.6) rotate(180) translate(0,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path1135" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path880"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,15 +55,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.81"
-     inkscape:cx="150"
-     inkscape:cy="150"
+     inkscape:zoom="0.63993164"
+     inkscape:cx="597.27429"
+     inkscape:cy="-92.710406"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-width="1920"
+     inkscape:window-height="1031"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1" />
@@ -45,7 +75,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,71 +85,81 @@
      id="layer1"
      transform="translate(0,-752.36216)">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 46.40884,821.42293 0,198.89507"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker1137)"
+       d="M 46.40884,1021.8298 V 822.93477"
        id="path4133"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
        d="m 19.337017,1003.7434 254.696133,0"
        id="path4135"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 251.9337,817.00304 0,202.76246"
+       d="m 251.9337,840.20746 0,179.55804"
        id="path4137"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 45.856354,913.68813 251.38122,850.7047"
+       d="M 45.856354,953.68813 251.38122,890.7047"
        id="path4139"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 149.17127,857.33454 0,146.40886"
+       d="m 149.17127,899.87598 0,103.86742"
        id="path4141"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4143"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:'Gentium Basic', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:'Gentium Plus';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'Gentium Plus';font-stretch:normal;font-variant:normal;"
        transform="translate(0,752.36216)"><flowRegion
-         id="flowRegion4145"><rect
+         id="flowRegion4145"
+         style="-inkscape-font-specification:'Gentium Plus';font-family:'Gentium Plus';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"><rect
            id="rect4147"
            width="50.828728"
            height="24.861879"
            x="129.83426"
-           y="257.45856" /></flowRegion><flowPara
-         id="flowPara4149">x<flowSpan
-   style="font-size:65%;baseline-shift:sub"
+           y="257.45856"
+           style="-inkscape-font-specification:'Gentium Plus';font-family:'Gentium Plus';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;" /></flowRegion><flowPara
+         id="flowPara4149"
+         style="font-size:16px;line-height:1.25;-inkscape-font-specification:'Gentium Plus';font-family:'Gentium Plus';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">x<flowSpan
+   style="font-size:64.99999762%;baseline-shift:sub;-inkscape-font-specification:'Gentium Plus';font-family:'Gentium Plus';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
    id="flowSpan4151">0</flowSpan></flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4153"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:'Gentium Basic', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(0,752.36216)"><flowRegion
-         id="flowRegion4155"><rect
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0.01%;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       transform="translate(0,792.36216)"><flowRegion
+         id="flowRegion4155"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';"><rect
            id="rect4157"
            width="41.988949"
            height="43.646408"
            x="256.90607"
-           y="113.81216" /></flowRegion><flowPara
-         id="flowPara4159">t</flowPara></flowRoot>    <path
+           y="113.81216"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';" /></flowRegion><flowPara
+         id="flowPara4159"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';">t</flowPara></flowRoot>    <path
        style="fill:none;fill-rule:evenodd;stroke:#960000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 45.303867,860.64945 c 0,0 46.840025,38.43891 103.402553,21.42575 56.56253,-17.01317 103.22728,-63.4147 103.22728,-63.4147"
+       d="m 45.303867,900.64945 c 0,0 46.840025,38.43891 103.402553,21.42575 56.56253,-17.01317 103.22728,-63.4147 103.22728,-63.4147"
        id="path4161"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="czc" />
     <flowRoot
-       transform="translate(-27.028315,681.36566)"
+       transform="translate(-27.028315,721.36566)"
        xml:space="preserve"
        id="flowRoot4153-8"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:'Gentium Basic', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#960000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"><flowRegion
-         id="flowRegion4155-7"><rect
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0.01%;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';letter-spacing:0px;word-spacing:0px;fill:#960000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"><flowRegion
+         id="flowRegion4155-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';"><rect
            id="rect4157-1"
            width="41.988949"
            height="43.646408"
            x="256.90607"
            y="113.81216"
-           style="fill:#960000;fill-opacity:1;" /></flowRegion><flowPara
-         id="flowPara4159-2">f</flowPara></flowRoot>  </g>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';fill:#960000;fill-opacity:1;" /></flowRegion><flowPara
+         id="flowPara4159-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Gentium Plus';-inkscape-font-specification:'Gentium Plus';">f</flowPara></flowRoot>  </g>
 </svg>
