@@ -405,12 +405,13 @@ Let $z = \frac{x}{y}$ and illustrate the inequality geometrically.
 
 \[ \frac{x}{y} + \frac{y}{x} > 2 \Rightarrow z + z^{-1} > 2 \]
 
-\begin{figure}[!ht]
-  \begin{center}
-    \includegraphics[width=200pt]{img/9b.png}
-    \caption{Plot for $z + z^{-1} > 2$ (Exercise 9b)}
-  \end{center}
-\end{figure}
+% TODO: find this image
+%\begin{figure}[!ht]
+%  \begin{center}
+%    \includegraphics[width=200pt]{img/9b.png}
+%    \caption{Plot for $z + z^{-1} > 2$ (Exercise 9b)}
+%  \end{center}
+%\end{figure}
 
 \section{Reminder}
 
@@ -1539,10 +1540,11 @@ Or generally:
 \[ c_n = \sqrt{4n^2+2n+3} \]
 
 \begin{align*}
-  c_n &= \sqrt{4n^2+2n+3} \cdot \frac{\sqrt{4n^2 + 2n + 3}}{\sqrt{4n^2 + 2n + 3} + 2n} \\
-      &= \dots \\
-      &= \frac{2 + \frac3n}{\sqrt{4 + \frac2n + \frac3{n^2}} + 2} \\
-      &= \frac24 \\
+  c_n &= \left(\sqrt{4n^2+2n+3} - 2n\right) \cdot \frac{\sqrt{4n^2 + 2n + 3} + 2n}{\sqrt{4n^2 + 2n + 3} + 2n} \\
+      &= \frac{4n^2 + 2b + 3 - 4n^2}{\sqrt{4n^2 + 2n + 3} + 2n} \\
+      &= \frac{n \left(2 + \frac3n\right)}{n \left(\sqrt{4 + \frac2n + \frac3{n^2}} + 2\right)} \\
+      &= \frac{2 + \frac3n}{\sqrt{4 + \frac2n + \frac3{n^2}} + 2} \text{ with } \frac3n \to 0, \frac2n \to 0, \frac3{n^2} \to 0 \\
+      &= \frac2{2 + 2} \\
       &= \frac12
 \end{align*}
 
@@ -1942,12 +1944,13 @@ but not sequences which are only bounded above.
 Given a limes superior $s$. So $\forall \varepsilon > 0: \abs{a_n - a} < \varepsilon$
 for infinitely many indices.
 
-\begin{figure}[!h]
-  \begin{center}
-    \includegraphics{img/ex52_epsilon.pdf}
-    \caption{Illustration of the $\varepsilon$ environment}
-  \end{center}
-\end{figure}
+% TODO: find this image
+%\begin{figure}[!h]
+%  \begin{center}
+%    \includegraphics{img/ex52_epsilon.pdf}
+%    \caption{Illustration of the $\varepsilon$ environment}
+%  \end{center}
+%\end{figure}
 %
 \begin{enumerate}
   \item If $s$ is a limit point, it has infinitely many sequence numbers within its $\varepsilon$-environment.
