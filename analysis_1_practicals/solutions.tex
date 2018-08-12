@@ -48,7 +48,7 @@
 \section{Exercise 1}
 \begin{ex}
   Let $p$, $q$ and $r$ be statements. Prove the distributive law using the truth table:
-  \[ p \land (q \lor r) \Leftrightarrow (p \land q) \lor (p \land r) \]
+  \[ p \land (q \lor r) \Longleftrightarrow (p \land q) \lor (p \land r) \]
 \end{ex}
 
 \begin{table}[!h]
@@ -84,15 +84,15 @@ Two boolean statements are equivalent iff their truthtable is equivalent.
 
 \begin{itemize}
   \item \enquote{Under the assumption, that $p$ or $q$ holds, we conclude that $r$ cannot be true.}
-    \[ (p \lor q) \rightarrow \neg r \]
+    \[ (p \lor q) \implies \neg r \]
     Negation: $(p \lor q) \land r$
   \item \enquote{It's a requirement for $r$, that $p$ and $q$ hold.}
-    \[ r \rightarrow (p \land q) \]
+    \[ r \implies (p \land q) \]
     Negation: $r \land (\neg p \lor \neg q)$
   \item \enquote{$p$ or $q$ holds, but $p$ and $q$ exclude each other}
     \[ (p \lor q) \land \neg (p \land q) \]
-    \[ \Leftrightarrow (p \dot\lor q) \Leftrightarrow (p \oplus q) \]
-    Negation: $p \leftrightarrow q$
+    \[ \ (p \dot\lor q) \Longleftrightarrow (p \oplus q) \]
+    Negation: $p \ q$
 \end{itemize}
 
 \section{Exercise 3}
@@ -123,18 +123,18 @@ We formalize:
 
 As far as all three conditions need to be satisfied, we conjoint them:
 \[
-    \left[\neg M \rightarrow (P \land R)\right] \land
-    \left[P \rightarrow (\neg M \land \neg R)\right] \land
-    \left[\neg P \rightarrow \neg R\right]
+    \left[\neg M \implies (P \land R)\right] \land
+    \left[P \implies (\neg M \land \neg R)\right] \land
+    \left[\neg P \implies \neg R\right]
 \]
 
-We apply $(a \rightarrow b) \Leftrightarrow (\neg a \lor b)$ to all three statements:
+We apply $(a \implies b) \ (\neg a \lor b)$ to all three statements:
 \[
     \left[\neg(\neg M) \lor (P \land R)\right] \land
     \left[\neg P \lor (\neg M \land \neg R)\right] \land
     \left[\neg(\neg P) \lor \neg R\right]
 \]
-\dots and $\neg(\neg A) \Leftrightarrow A$:
+\dots and $\neg(\neg A) \ A$:
 \[
     \left[M \lor (P \land R)\right] \land
     \left[\neg P \lor (\neg M \land \neg R)\right] \land
@@ -183,13 +183,13 @@ So,
 
 \begin{enumerate}
   \item \enquote{For all elements $x$ of the set $X$ for which $p(x)$ holds, also $q(x)$ or $r(x)$ holds.}
-    \[ \forall x \in X: p(x) \rightarrow q(x) \lor r(x) \]
+    \[ \forall x \in X: p(x) \implies q(x) \lor r(x) \]
     \[ \text{negation: }  \exists x \in X: p(x) \land (\neg q(x) \land \neg r(x)) \]
   \item \enquote{For all $x$ in $X$, there is one $y$ in $Y$ such that $s(x,y)$ holds.}
     \[ \forall x \in X \exists y \in Y: s(x, y) \]
     \[ \text{negation: }  \exists x \in X \forall y \in Y: \neg s(x, y) \]
   \item \enquote{If $p(x)$ is not wrong for all $x$ in $X$, then $q(y)$ is true for at least one $y$ in $Y$.}
-    \[ (\exists x \in X: p(x)) \rightarrow (\exists y \in X: q(y)) \]
+    \[ (\exists x \in X: p(x)) \implies (\exists y \in X: q(y)) \]
     \[ \text{negation: }  (\exists x \in X: p(x)) \land (\forall y \in X: \neg q(y)) \]
 \end{enumerate}
 
@@ -197,7 +197,7 @@ So,
 \section{Exercise 5}
 \begin{ex}
   Prove in three ways (direct, indirect, by contradiction):
-  \[ \forall x \in \mathbb R: x^3 + 2x > 0 \Rightarrow x > 0 \]
+  \[ \forall x \in \mathbb R: x^3 + 2x > 0 \implies x > 0 \]
 \end{ex}
 
 Consider $\phi$ to be given and $\varphi$ to be our conclusion.
@@ -205,10 +205,10 @@ Then the three ways of proving work as follows:
 \begin{description}
   \item[Direct proof] $\phi \implies \varphi$
   \item[Indirect proof] $\neg\varphi \implies \neg\phi$ \\
-    Because $\varphi \lor \neg\phi \Leftrightarrow \neg\phi \lor \varphi \Leftrightarrow \phi \rightarrow \varphi$.
+    Because $\varphi \lor \neg\phi \ \neg\phi \lor \varphi \Longleftrightarrow \phi \implies \varphi$.
   \item[Proof by contradiction] $(\neg (\phi \implies \varphi) \implies \bot) \implies (\phi \implies \varphi)$ \\
-    Because $((\phi \rightarrow \varphi) \lor \bot) \rightarrow (\phi \rightarrow \varphi)
-    \Leftrightarrow (\phi \rightarrow \varphi) \rightarrow (\phi \rightarrow \varphi)$.
+    Because $((\phi \implies \varphi) \lor \bot) \implies (\phi \implies \varphi)
+    \ (\phi \implies \varphi) \implies (\phi \implies \varphi)$.
 \end{description}
 
 \begin{description}
@@ -239,10 +239,10 @@ Then the three ways of proving work as follows:
   \item[Proof by contradiction]
     Assume $x (x^2 + 2) > 0 \implies x \leq 0$.
     \[ \forall x \in \mathbb R: x \cdot \underbrace{(x^2 + 2)}_{\geq 2} > 0 \implies x \leq 0 \]
-    \[ \forall x \in \mathbb R: \underbrace{x}_{\Rightarrow \geq 0} \cdot \underbrace{(x^2 + 2)}_{\geq 2} > 0 \implies x \leq 0 \]
+    \[ \forall x \in \mathbb R: \underbrace{x}_{\implies \geq 0} \cdot \underbrace{(x^2 + 2)}_{\geq 2} > 0 \implies x \leq 0 \]
     \[ \forall x \in \mathbb R: x > 0 \implies x \leq 0 \]
     \[ \text{\lightning} \]
-    \[ \Rightarrow \forall x \in \mathbb R: x \cdot (x^2 + 2) > 0 \implies x > 0 \]
+    \[ \implies \forall x \in \mathbb R: x \cdot (x^2 + 2) > 0 \implies x > 0 \]
 \end{description}
 
 \section{Exercise 6}
@@ -250,20 +250,20 @@ Then the three ways of proving work as follows:
 \begin{ex}
   Let $p$, $q$ and $r$ be statements. Show that
   \begin{itemize}
-    \item $(p \rightarrow q) \iff \neg (p \land \neg q)$  \hspace{30pt} \enquote{proof by contradiction}
-    \item $\left[p \rightarrow (q \lor r)\right] \iff \left[(p \land \neg q) \rightarrow r\right]$
+    \item $(p \implies q) \iff \neg (p \land \neg q)$  \hspace{30pt} \enquote{proof by contradiction}
+    \item $\left[p \implies (q \lor r)\right] \iff \left[(p \land \neg q) \implies r\right]$
   \end{itemize}
 \end{ex}
 
 \subsection{Exercise 6a}
 
-\[ (p \rightarrow q) \iff \neg (p \land \neg q) \]
+\[ (p \implies q) \iff \neg (p \land \neg q) \]
 \[ (\neg p \lor q) \iff (\neg p \lor q) \]
 
 \subsection{Exercise 6b}
 
 \begin{align*}
-  \left(p \rightarrow (q \lor r)\right) &\iff \left((p \land \neg q) \rightarrow r\right) \\
+  \left(p \implies (q \lor r)\right) &\iff \left((p \land \neg q) \implies r\right) \\
   \neg p \lor (q \lor r) &\iff \neg (p \land \neg q) \lor r \\
   (\neg p \lor q) \lor r &\iff (\neg p \lor q) \lor r
 \end{align*}
@@ -300,23 +300,23 @@ $\neg a$ analogously means not contained. Same for $b$ and $c$. Then:
 \end{align*}
 
 \subsection{Exercise 7c}
-\[ B \subseteq A \Rightarrow B = A \setminus (A \setminus B) \]
+\[ B \subseteq A \implies B = A \setminus (A \setminus B) \]
 %
 \begin{align*}
-  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
-          x \in B \leftrightarrow x \in A \land \neg (x \in A \land x \not\in B)))
+  \forall x \in X: (x \in B \implies x \in A) &\implies \left[
+          x \in B \ x \in A \land \neg (x \in A \land x \not\in B)))
       \right] \\
-  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
-          x \in B \leftrightarrow x \in A \land (\underbrace{x \not\in A}_{\bot} \lor x \in B)))
+  \forall x \in X: (x \in B \implies x \in A) &\implies \left[
+          x \in B \ x \in A \land (\underbrace{x \not\in A}_{\bot} \lor x \in B)))
       \right] \\
-  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
-          x \in B \leftrightarrow x \in A \land x \in B
+  \forall x \in X: (x \in B \implies x \in A) &\implies \left[
+          x \in B \ x \in A \land x \in B
       \right] \\
-  \forall x \in X: (x \in B \rightarrow x \in A) &\implies \left[
-          (x \in B \rightarrow x \in A \land \underbrace{x \in B}_{\top}) \land
-          \underbrace{(x \in A \land x \in B \rightarrow x \in B)}_{\top}
+  \forall x \in X: (x \in B \implies x \in A) &\implies \left[
+          (x \in B \implies x \in A \land \underbrace{x \in B}_{\top}) \land
+          \underbrace{(x \in A \land x \in B \implies x \in B)}_{\top}
       \right] \\
-  \forall x \in X: (x \in B \rightarrow x \in A) &\implies (x \in B \rightarrow x \in A)
+  \forall x \in X: (x \in B \implies x \in A) &\implies (x \in B \implies x \in A)
 \end{align*}
 
 
@@ -331,7 +331,7 @@ $\neg a$ analogously means not contained. Same for $b$ and $c$. Then:
  \begin{center}
   \begin{tabular}{rclcl}
    \hline\hline
-    $\downarrow \ S \qquad \text{op} \rightarrow$
+    $\downarrow \ S \qquad \text{op} \implies$
         & \multicolumn{2}{l}{$x \in S$} & \multicolumn{2}{l}{$X \subseteq S$} \\
    \hline
     $\set{\set{X}, X}$
@@ -370,7 +370,7 @@ Prove in three ways the following statement:
   x - y &\neq 0 \\
   (x - y)^2 &\neq 0 \\
   (x - y)^2 &> 0 \\
-  x^2 - 2xy + y^2 &> 0    & x,y \in \mathbb{R}_{>0} \Rightarrow xy > 0 \\
+  x^2 - 2xy + y^2 &> 0    & x,y \in \mathbb{R}_{>0} \implies xy > 0 \\
   \frac{x^2}{xy} - \frac{2xy}{xy} + \frac{y^2}{xy} &> 0 \\
   \frac{x}{y} - 2 + \frac yx &> 0 \\
   \frac xy + \frac yx &> 2
@@ -378,7 +378,7 @@ Prove in three ways the following statement:
 
 \paragraph{indirect proof}
 \begin{align*}
-  \forall x \in (0, \infty) \forall y \in (0, \infty): &\frac xy + \frac yx \leq 2 \Rightarrow x = y \\
+  \forall x \in (0, \infty) \forall y \in (0, \infty): &\frac xy + \frac yx \leq 2 \implies x = y \\
    \frac{x^2}{xy} + \frac{y^2}{xy} &\leq 2 \\
    x^2 + y^2 &\leq 2xy \\
    x^2 - 2xy + y^2 &\leq 0 \\
@@ -389,7 +389,7 @@ Prove in three ways the following statement:
 \end{align*}
 
 \paragraph{proof by contradiction}
-\[ \forall x \in (0, \infty) \forall y \in (0, \infty): x \neq y \Rightarrow \frac xy + \frac yx \leq 2 \]
+\[ \forall x \in (0, \infty) \forall y \in (0, \infty): x \neq y \implies \frac xy + \frac yx \leq 2 \]
 \begin{align*}
   x - y &\neq 0 \\
   x^2 - 2xy + y^2 &\neq 0 \\
@@ -403,7 +403,7 @@ Prove in three ways the following statement:
 %
 Let $z = \frac{x}{y}$ and illustrate the inequality geometrically.
 
-\[ \frac{x}{y} + \frac{y}{x} > 2 \Rightarrow z + z^{-1} > 2 \]
+\[ \frac{x}{y} + \frac{y}{x} > 2 \implies z + z^{-1} > 2 \]
 
 % TODO: find this image
 %\begin{figure}[!ht]
@@ -423,31 +423,31 @@ and the \emph{empty product} $\prod_{k=m}^n a_k$ has value $1$.
   \begin{itemize}
     \item Provide a concise definition of \enquote{n is an even number}
           and \enquote{n is an odd number} using the existence quantifier.
-    \item Prove $\forall n \in \mathbb Z: n \text{ is even} \Leftrightarrow n^2 \text{ is even}$ \\
+    \item Prove $\forall n \in \mathbb Z: n \text{ is even} \ n^2 \text{ is even}$ \\
           \textbf{Hint:} Prove $\Leftarrow$ using an indirect proof.
   \end{itemize}
 \end{ex}
 
 \subsection{Exercise 10a}
 \begin{align*}
-  n \text{ is even} &\Rightarrow \exists a \in \mathbb Z: n = 2a \\
-  n \text{ is odd} &\Rightarrow \exists a \in \mathbb Z: n = 2a + 1
+  n \text{ is even} &\implies \exists a \in \mathbb Z: n = 2a \\
+  n \text{ is odd} &\implies \exists a \in \mathbb Z: n = 2a + 1
 \end{align*}
 
 \subsection{Exercise 10b}
 \[
     \forall n \in \mathbb Z \exists a_1 \in \mathbb Z \exists a_2 \in \mathbb Z:
-    n = 2a_1 \Leftrightarrow n^2 = 2a_2
+    n = 2a_1 \ n^2 = 2a_2
 \]
 
 \begin{description}
-  \item[Direction $\Rightarrow$] \hfill{} \\
-    \[ n = 2a_1 \Rightarrow n^2 = 4a_1^2 \]
+  \item[Direction $\implies$] \hfill{} \\
+    \[ n = 2a_1 \implies n^2 = 4a_1^2 \]
     Let $a_1 = \sqrt{\frac{a_2}{2}}$.
-    \[ n^2 = 4\left(\sqrt{\frac{a_2}{2}}\right)^2 \Rightarrow n^2 = 2a_2 \]
+    \[ n^2 = 4\left(\sqrt{\frac{a_2}{2}}\right)^2 \implies n^2 = 2a_2 \]
     Such an $a_2$ always exists. Proof finished.
-  \item[Direction $\Leftarrow$] \hfill{} \\
-    \[ n^2 \neq 2a_2 \Rightarrow n \neq 2a_1 \]
+  \item[Direction $\impliedby$] \hfill{} \\
+    \[ n^2 \neq 2a_2 \implies n \neq 2a_1 \]
     Taking the square root preserves the parity of the value\footnote{
     Because an even number times an even number yields an even number.
     An odd number times an odd number yields an odd number.}.
@@ -466,26 +466,26 @@ and the \emph{empty product} $\prod_{k=m}^n a_k$ has value $1$.
   \end{enumerate}
   \[
       \forall x \in \mathbb R \forall y \in \mathbb R:
-      xy \not\in \mathbb Q \Rightarrow x \not\in \mathbb Q \lor y \not\in \mathbb Q
+      xy \not\in \mathbb Q \implies x \not\in \mathbb Q \lor y \not\in \mathbb Q
   \]
 \end{ex}
 
 \subsection{Exercise 11.1}
-\[ \forall x \in \mathbb R \forall y \in \mathbb R: x \in \mathbb Q \land y \in \mathbb Q \Rightarrow xy \in \mathbb Q \]
+\[ \forall x \in \mathbb R \forall y \in \mathbb R: x \in \mathbb Q \land y \in \mathbb Q \implies xy \in \mathbb Q \]
 \[ \forall x \in \mathbb R \forall y \in \mathbb R \exists p_0, p_1 \in \mathbb R \exists q_0, q_1 \in \mathbb R \setminus \set{0}: \]
 \[
     \left(x = \frac{p_0}{q_0}\right) \land \left(y = \frac{p_1}{q_1}\right)
-    \Rightarrow \left(\exists p_2 \in \mathbb R \exists q_2 \in \mathbb R \setminus \set{0}: xy = \frac{p_2}{q_2} \right)
+    \implies \left(\exists p_2 \in \mathbb R \exists q_2 \in \mathbb R \setminus \set{0}: xy = \frac{p_2}{q_2} \right)
 \] \[
     xy = \frac{\overbrace{p_0 p_1}^{\in \mathbb R}}{\underbrace{q_0 q_1}_{\in \mathbb R \setminus \set{0}}}
-    \Rightarrow xy = \frac{p_2}{q_2} \text{ for } p_2 = p_0 \cdot p_1 \text{ and } q_2 = q_0 \cdot q_1
+    \implies xy = \frac{p_2}{q_2} \text{ for } p_2 = p_0 \cdot p_1 \text{ and } q_2 = q_0 \cdot q_1
 \]
 
 \subsection{Exercise 11.2}
-\[ (p \Rightarrow (q \lor r)) \Leftrightarrow ((p \land \neg q) \Rightarrow r) \]
+\[ (p \implies (q \lor r)) \ ((p \land \neg q) \implies r) \]
 \[
-    (xy \not\in \mathbb Q \Rightarrow \left(x \not\in \mathbb Q \lor y \not\in \mathbb Q\right)) \Leftrightarrow
-    ((xy \not\in \mathbb Q \land x \in \mathbb Q) \Rightarrow y \not\in \mathbb Q)
+    (xy \not\in \mathbb Q \implies \left(x \not\in \mathbb Q \lor y \not\in \mathbb Q\right)) \
+    ((xy \not\in \mathbb Q \land x \in \mathbb Q) \implies y \not\in \mathbb Q)
 \]
 
 \[
@@ -493,7 +493,7 @@ and the \emph{empty product} $\prod_{k=m}^n a_k$ has value $1$.
       \substack{
       \left(\not\exists p_2 \in \mathbb R \not\exists q_2 \in \mathbb R \setminus \set{0}: xy = \frac{p_2}{q_2}\right) \land \\
       \left(\exists p_0 \in \mathbb R \exists q_0 \in \mathbb R \setminus \set{0}: x = \frac{p_0}{q_0}\right)}
-    \right) \Rightarrow \left(\not\exists p_1 \in \mathbb R \not\exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right)
+    \right) \implies \left(\not\exists p_1 \in \mathbb R \not\exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right)
 \]
 
 Recognize $p_2 = p_0 \cdot p_1$ and $q_2 = q_0 \cdot q_1$.
@@ -502,7 +502,7 @@ Therefore the conjunction yields the $y \not\in \mathbb Q$ because $x \in \mathb
 
 \[
     \forall x \in \mathbb R \forall y \in \mathbb R:
-    \left(\not\exists p_1 \in \mathbb R \exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right) \Rightarrow
+    \left(\not\exists p_1 \in \mathbb R \exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right) \implies
     \left(\not\exists p_1 \in \mathbb R \exists q_1 \in \mathbb R \setminus \set{0}: y = \frac{p_1}{q_1}\right)
 \]
 
@@ -517,7 +517,7 @@ This statement is true. The proof is complete.
 \begin{description}
   \item[Induction base] $n = 1$
     \[ \prod_{k=2}^1 \dots = 1 = \frac11 \qquad\checkmark \]
-  \item[Induction step] $n \rightarrow n + 1$
+  \item[Induction step] $n \implies n + 1$
     \begin{align*}
       \prod_{k=2}^{n+1} \left(1 - \frac{1}{k}\right) &= \frac{1}{n+1} \\
       \prod_{k=2}^{n} \left(1 - \frac{1}{k}\right) \left(1 - \frac{1}{n+1}\right) &= \frac{1}{n+1} \\
@@ -536,7 +536,7 @@ So this is the multiplication equivalent of telescoping sums.
 \section{Exercise 19}
 
 \begin{ex}
-  $X$ and $Y$ are non-empty sets and $f: X \rightarrow Y$ is a mapping.
+  $X$ and $Y$ are non-empty sets and $f: X \to Y$ is a mapping.
   Furthermore let $A \subseteq X$ and $B \subseteq Y$.
   \begin{enumerate}
     \item Prove that $A \subseteq f^{-1}(f(A))$ and $B \supseteq f(f^{-1}(B))$
@@ -549,10 +549,10 @@ So this is the multiplication equivalent of telescoping sums.
 
 %A function is invertible iff it is injective:
 %\[ \forall y \in Y \not\exists x_1, x_2 \in X: f(x_1) = f(x_2) = y \]
-%\[ \forall y \in Y \forall x_1, x_2 \in X: x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2) \]
+%\[ \forall y \in Y \forall x_1, x_2 \in X: x_1 \neq x_2 \implies f(x_1) \neq f(x_2) \]
 
 Show that,
-\[ a \in A \Rightarrow a \in f^{-1}(f(A)) \]
+\[ a \in A \implies a \in f^{-1}(f(A)) \]
 
 So we take $a$ and map it to the codomain:
 \[ f(a) \in f(A) \]
@@ -576,8 +576,8 @@ We need the definition that,
 
 \[ y' \in f(f^{-1}(B)) \]
 Does $y' \in B$ hold? Yes, because \dots
-\[ y' \in f\left(f^{-1}(B)\right) \Rightarrow \exists x' \in f^{-1}(B) \]
-\[ \Rightarrow y' \in B \]
+\[ y' \in f\left(f^{-1}(B)\right) \implies \exists x' \in f^{-1}(B) \]
+\[ \implies y' \in B \]
 
 \subsection{Exercise 19.2}
 
@@ -586,7 +586,7 @@ Show that,
 
 We use a surjective, but not injective function.
 
-\[ f: \set{1,2} \rightarrow \set{a} \]
+\[ f: \set{1,2} \implies \set{a} \]
 \[ 1 \mapsto a \]
 \[ 2 \mapsto a \]
 
@@ -601,7 +601,7 @@ Show that,
 
 We use an injective, but not surjective function.
 
-\[ f: \set{1} \rightarrow \set{a, b} \]
+\[ f: \set{1} \implies \set{a, b} \]
 \[ 1 \mapsto a \]
 
 \begin{align*}
@@ -638,7 +638,7 @@ We use an injective, but not surjective function.
 \section{Exercise 21}
 
 \begin{ex}
-  $X$ and $Y$ are nonempty sets and $f: X \rightarrow Y$ is a mapping.
+  $X$ and $Y$ are nonempty sets and $f: X \to Y$ is a mapping.
   \begin{itemize}
     \item[a)]
       Show that the following holds: For all $A, B \subseteq X$
@@ -681,18 +681,18 @@ Let $C = A \cap B$. Case distinction:
 \end{description}
 
 So,
-\[ C \neq \emptyset \Rightarrow f(A \cap B) = f(A) \cap f(B) \]
+\[ C \neq \emptyset \implies f(A \cap B) = f(A) \cap f(B) \]
 
 But if $C = 0$, we get zero values on the left-hand side and zero to $\card{A} + \card{B}$ values on the right-hand side.
 So,
-\[ C = \emptyset \Rightarrow f(A \cap B) \subseteq f(A) \cap f(B) \]
+\[ C = \emptyset \implies f(A \cap B) \subseteq f(A) \cap f(B) \]
 
 \subsection{Exercise 21b}
 
 We prove $3$ with $1$:
 
 Let $C = A \cap B$. $f$ is injective, meaning
-\[ \forall x_1, x_2 \in X: x_1 \neq x_2 \Rightarrow f(x_1) \cap f(x_2) \]
+\[ \forall x_1, x_2 \in X: x_1 \neq x_2 \implies f(x_1) \cap f(x_2) \]
 
 Case distinction:
 \begin{description}
@@ -851,7 +851,7 @@ This argument explains why $k!$ in the denominator is omitted for variations w/o
   \begin{enumerate}[(a)]
     \item $-(-a) = a$.
     \item $(-a)(-b) = ab$.
-    \item $a + b = a + c \Rightarrow b = c$.
+    \item $a + b = a + c \implies b = c$.
     \item From $a \neq 0$ and $ab = ac$ follows $b = c$.
     \item Is $a \neq 0$, then there is exactly one $x \in K$ with $ax + b = c$.
   \end{enumerate}
@@ -873,12 +873,12 @@ The field axioms are defined as follows:
 \subsection{Exercise 25.a}
 
 \begin{align*}
-                  A4 &\Rightarrow \forall a \in K \exists -a: a + (-a) = 0 \\
-  \text{equivalence} &\Rightarrow a + (-a) - (-a) = 0 - (-a) \\
-                  A1 &\Rightarrow a + (-a) - (-a) = -(-a) + 0 \\
-                  A3 &\Rightarrow a + (-a) - (-a) = -(-a) \\
-                  A4 &\Rightarrow a + 0 = -(-a) \\
-                  A3 &\Rightarrow a = -(-a)
+                  A4 &\implies \forall a \in K \exists -a: a + (-a) = 0 \\
+  \text{equivalence} &\implies a + (-a) - (-a) = 0 - (-a) \\
+                  A1 &\implies a + (-a) - (-a) = -(-a) + 0 \\
+                  A3 &\implies a + (-a) - (-a) = -(-a) \\
+                  A4 &\implies a + 0 = -(-a) \\
+                  A3 &\implies a = -(-a)
 \end{align*}
 
 \subsection{Exercise 25.b}
@@ -890,52 +890,52 @@ We have proven in the lecture: \textbf{M5}: $-a = (-1) \cdot a$
 First, we show \textbf{M7}
 \begin{align*}
      &= a \cdot (-a) \\
-  M5 &\Rightarrow a \cdot (-1) \cdot a \\
-  M1 &\Rightarrow (-1) \cdot a \cdot a \\
-     &\Rightarrow - (a \cdot a) \\
+  M5 &\implies a \cdot (-1) \cdot a \\
+  M1 &\implies (-1) \cdot a \cdot a \\
+     &\implies - (a \cdot a) \\
 \end{align*}
 
 Secondly, we show (actually we have already shown that in the lecture) \textbf{M6}
 \begin{align*}
-                        D &\Rightarrow \forall a,b,c \in K: a \cdot (b + c) = a \cdot b + a \cdot c \\
+                        D &\implies \forall a,b,c \in K: a \cdot (b + c) = a \cdot b + a \cdot c \\
                           & [\text{we choose } \quad a \coloneqq a, \quad b \coloneqq a, \quad c \coloneqq (-a)] \\
-                          &\Rightarrow a \cdot (a + (-a)) = a \cdot a + a \cdot (-a) \\
-                       A3 &\Rightarrow a \cdot 0 = a \cdot a + a \cdot (-a) \\
-  \text{previous theorem} &\Rightarrow a \cdot 0 = a \cdot a + (- (a \cdot a)) \\
-                       A4 &\Rightarrow a \cdot 0 = 0
+                          &\implies a \cdot (a + (-a)) = a \cdot a + a \cdot (-a) \\
+                       A3 &\implies a \cdot 0 = a \cdot a + a \cdot (-a) \\
+  \text{previous theorem} &\implies a \cdot 0 = a \cdot a + (- (a \cdot a)) \\
+                       A4 &\implies a \cdot 0 = 0
 \end{align*}
 
 Finally, we show
 \begin{align*}
-  \text{previous theorem} &\Rightarrow (-a) \cdot 0 = 0 \\
-                       A4 &\Rightarrow (-a) \cdot (b + (-b)) = 0 \\
-                        D &\Rightarrow (-a) \cdot b + (-a) (-b) = 0 \\
-       \text{equivalence} &\Rightarrow ab + (-a) b + (-a) (-b) = ab + 0 \\
-                       M1 &\Rightarrow ab + (-a) b + (-a) (-b) = 0 + ab \\
-                       A3 &\Rightarrow ab + (-a) b + (-a) (-b) = ab \\
-                       M6 &\Rightarrow ab - a b + (-a) (-b) = ab \\
-                       A4 &\Rightarrow 0 + (-a) (-b) = ab \\
-                       A3 &\Rightarrow (-a) (-b) = ab
+  \text{previous theorem} &\implies (-a) \cdot 0 = 0 \\
+                       A4 &\implies (-a) \cdot (b + (-b)) = 0 \\
+                        D &\implies (-a) \cdot b + (-a) (-b) = 0 \\
+       \text{equivalence} &\implies ab + (-a) b + (-a) (-b) = ab + 0 \\
+                       M1 &\implies ab + (-a) b + (-a) (-b) = 0 + ab \\
+                       A3 &\implies ab + (-a) b + (-a) (-b) = ab \\
+                       M6 &\implies ab - a b + (-a) (-b) = ab \\
+                       A4 &\implies 0 + (-a) (-b) = ab \\
+                       A3 &\implies (-a) (-b) = ab
 \end{align*}
 
 \subsection{Exercise 25.c}
 
 \begin{align*}
                      & a + b = a + c \\
-  \text{equivalence} &\Rightarrow a + b + (-a) = a + c + (-a) \\
-                  A1 &\Rightarrow (a + (-a)) + b = (a + (-a)) + c \\
-                  A4 &\Rightarrow 0 + b = 0 + c \\
-                  A3 &\Rightarrow b = c
+  \text{equivalence} &\implies a + b + (-a) = a + c + (-a) \\
+                  A1 &\implies (a + (-a)) + b = (a + (-a)) + c \\
+                  A4 &\implies 0 + b = 0 + c \\
+                  A3 &\implies b = c
 \end{align*}
 
 \subsection{Exercise 25.d}
 
 \begin{align*}
                      & a \neq 0 \land ab = ac \\
-  \text{equivalence} &\Rightarrow aba^{-1} = aca^{-1} \\
-                  M1 &\Rightarrow aa^{-1}b = aa^{-1}c \\
-                  M4 &\Rightarrow 1b = 1c \\
-                  M3 &\Rightarrow b = c
+  \text{equivalence} &\implies aba^{-1} = aca^{-1} \\
+                  M1 &\implies aa^{-1}b = aa^{-1}c \\
+                  M4 &\implies 1b = 1c \\
+                  M3 &\implies b = c
 \end{align*}
 
 \subsection{Exercise 25.e}
@@ -946,10 +946,10 @@ Assume $x_1, x_2 \in K$ with $x_1 \neq x_2$ then $\exists r \in K$:
 \[ ax_1 = ax_2 \]
 
 \begin{align*}
-                     &\Rightarrow ax_1 = ax_2 \\
-  \text{equivalence} &\Rightarrow a^{-1} ax_1 = a^{-1} ax_2 \\
-                  M4 &\Rightarrow 1x_1 = 1x_2 \\
-                  M3 &\Rightarrow x_1 = x_2
+                     &\implies ax_1 = ax_2 \\
+  \text{equivalence} &\implies a^{-1} ax_1 = a^{-1} ax_2 \\
+                  M4 &\implies 1x_1 = 1x_2 \\
+                  M3 &\implies x_1 = x_2
 \end{align*}
 
 This is a contradiction to our assumption $x_1 \neq x_2$.
@@ -1032,25 +1032,25 @@ First we need to cover some fundamentals,
     \item[IB: $n = 0$]
       \begin{align*}
         \forall x \in \mathbb{R} \setminus \set{0}: x + \frac1x \in \mathbb{Z} & \\
-        &\Rightarrow x = 1: 1 + \frac11 \in \mathbb Z \\
-        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: x^0 + \frac1{x^0} \in \mathbb Z \\
-        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: n = 0: x^n + \frac1{x^n} \in \mathbb Z \\
+        &\implies x = 1: 1 + \frac11 \in \mathbb Z \\
+        &\implies \forall x \in \mathbb{R} \setminus \set{0}: x^0 + \frac1{x^0} \in \mathbb Z \\
+        &\implies \forall x \in \mathbb{R} \setminus \set{0}: n = 0: x^n + \frac1{x^n} \in \mathbb Z \\
       \end{align*}
     \item[IB: $n = 1$]
       \begin{align*}
         \forall x \in \mathbb{R} \setminus \set{0}: x + \frac1x \in \mathbb{Z} & \\
-        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: x^1 + \frac1{x^1} \in \mathbb Z \\
-        &\Rightarrow \forall x \in \mathbb{R} \setminus \set{0}: n = 1: x^n + \frac1{x^n} \in \mathbb Z \\
+        &\implies \forall x \in \mathbb{R} \setminus \set{0}: x^1 + \frac1{x^1} \in \mathbb Z \\
+        &\implies \forall x \in \mathbb{R} \setminus \set{0}: n = 1: x^n + \frac1{x^n} \in \mathbb Z \\
       \end{align*}
-    \item[IS: $n \rightarrow n + 1$]
+    \item[IS: $n \implies n + 1$]
       Okay, how does the induction step for an implication look like?
       \begin{align*}
-        \left((a \rightarrow b) \rightarrow (a \rightarrow d)\right)
+        \left((a \implies b) \implies (a \implies d)\right)
           &= \neg (\neg a \lor b) \lor (\neg a \lor d) \\
           &= (a \land \neg b) \lor \neg a \lor d \\
           &= ((a \lor \neg a) \land (\neg a \lor \neg b)) \lor d \\
           &= (\neg a \lor \neg b) \lor d \\
-          &= (a \land b) \rightarrow d
+          &= (a \land b) \implies d
       \end{align*}
       Therefore we can assume
       \[ \left(x + \frac1x \in \mathbb Z\right) \land \left(x^n + \frac1{x^n} \in \mathbb Z\right) \]
@@ -1081,38 +1081,38 @@ First we need to cover some fundamentals,
 \section{Exercise 28}
 \begin{ex}
   Let $K$ be an ordered field and $a, b \in K_+$. Show:
-  \[ a < b \Rightarrow a^2 < b^2 \]
-  Especially the mapping $f: K_+ \cup \set{0} \rightarrow K_+ \cup \set{0},
+  \[ a < b \implies a^2 < b^2 \]
+  Especially the mapping $f: K_+ \cup \set{0} \implies K_+ \cup \set{0},
   a \mapsto a^2$ is injective.
 \end{ex}
 
 We already know,
 \begin{description}
-  \item[\textbf{U1}] $\forall a, b \in K: a < b \Leftrightarrow b > a$
+  \item[\textbf{U1}] $\forall a, b \in K: a < b \ b > a$
   \item[\textbf{U2}] $\forall a \in K: a^2 = a\cdot a$
-  \item[\textbf{U3}] $\forall c \in K_+: a > b \Rightarrow ac > bc$
+  \item[\textbf{U3}] $\forall c \in K_+: a > b \implies ac > bc$
   \item[\textbf{M1}] $\forall a, b \in K: a \cdot b = b \cdot a$
 \end{description}
 
 \begin{proof}
   \begin{align*}
     a < b: \hspace{10pt}
-      & U1 \Rightarrow b > a \\
-      & U1 \Rightarrow b\cdot a > a\cdot a & \text{[yes, $a$ originates from $K_+$]} \\
-      & U2 \Rightarrow b\cdot a > a^2 \\
+      & U1 \implies b > a \\
+      & U1 \implies b\cdot a > a\cdot a & \text{[yes, $a$ originates from $K_+$]} \\
+      & U2 \implies b\cdot a > a^2 \\
     b > a: \hspace{10pt}
-      & U1 \Rightarrow b\cdot b > a\cdot b & \text{[yes, $b$ originates from $K_+$]} \\
-      & U2 \Rightarrow b^2 > a\cdot b \\
-      & M1 \Rightarrow b^2 > b\cdot a \\
+      & U1 \implies b\cdot b > a\cdot b & \text{[yes, $b$ originates from $K_+$]} \\
+      & U2 \implies b^2 > a\cdot b \\
+      & M1 \implies b^2 > b\cdot a \\
     b^2 > b\cdot a \land b\cdot a > a^2: \hspace{10pt}
-      & U3 \Rightarrow b^2 > a^2 \\
-      & U1 \Rightarrow a^2 < b^2
+      & U3 \implies b^2 > a^2 \\
+      & U1 \implies a^2 < b^2
   \end{align*}
-  \[ \Rightarrow \forall a, b \in K_+: a < b \Rightarrow a^2 < b^2 \]
+  \[ \implies \forall a, b \in K_+: a < b \implies a^2 < b^2 \]
 \end{proof}
 
 Injectivity:
-\[ \forall a_1, a_2 \in K_+ \cup \set{0}: a_1 \neq a_2 \Rightarrow a_1^2 \neq a_2^2 \]
+\[ \forall a_1, a_2 \in K_+ \cup \set{0}: a_1 \neq a_2 \implies a_1^2 \neq a_2^2 \]
 
 \begin{proof}
   First we consider $a = 0$. In this case, $a = 0$ and $a^2 = a \cdot a = 0 \cdot 0 = 0$
@@ -1120,31 +1120,31 @@ Injectivity:
   So for $a = 0$, there is only one $a$ for which the square is zero, which is $0$.
 
   We can proceed in $K_+$. Proof by contradiction:
-  \[ \exists a_1, a_2 \in K_+: a_1 \neq a_2 \Rightarrow a_1^2 = a_2^2 \]
+  \[ \exists a_1, a_2 \in K_+: a_1 \neq a_2 \implies a_1^2 = a_2^2 \]
 
   \[
-    a_1 \neq a_2 \Leftrightarrow a_1 < a_2 \dot\lor a_1 > a_2
+    a_1 \neq a_2 \ a_1 < a_2 \dot\lor a_1 > a_2
   \]
   because $a_1$ and $a_2$ are elements of an ordered field.
 
   \begin{description}
     \item[Case 1: $a_1 < a_2$]
-      \[ a_1 < a_2 \Rightarrow a_1^2 < a_2^2 \]
+      \[ a_1 < a_2 \implies a_1^2 < a_2^2 \]
     \item[Case 2: $a_1 > a_2$]
-      \[ a_1 > a_2 \Rightarrow a_1^2 > a_2^2 \]
+      \[ a_1 > a_2 \implies a_1^2 > a_2^2 \]
   \end{description}
 
   Therefore either $a_1^2 < a_2^2$ or $a_1^2 > a_2^2$. So
   \[ a_1^2 \neq a_2^2 \]
-  This contradicts and therefore $\not\exists a_1, a_2 \in K_+: a_1 \neq a_2 \Rightarrow a_1^2 = a_2^2$
+  This contradicts and therefore $\not\exists a_1, a_2 \in K_+: a_1 \neq a_2 \implies a_1^2 = a_2^2$
   or because we covered $a = 0$,
-  \[ \not\exists a_1, a_2 \in K_+ \cup \set{0}: a_1 \neq a_2 \Rightarrow a_1^2 = a_2^2 \]
+  \[ \not\exists a_1, a_2 \in K_+ \cup \set{0}: a_1 \neq a_2 \implies a_1^2 = a_2^2 \]
 \end{proof}
 
 \section{Exercise 29}
 \begin{ex}
   Let $K$ be an ordered field and $a,b \in K$. Show:
-  \[ \abs{a + b} = \abs{a} + \abs{b} \Leftrightarrow ab \geq 0 \]
+  \[ \abs{a + b} = \abs{a} + \abs{b} \ ab \geq 0 \]
 \end{ex}
 
 Triangular inequality:
@@ -1166,28 +1166,28 @@ Absolute values are defined with,
       \begin{align*}
         \abs{a + b} &\leq \abs{a} + \abs{b} \\
         \abs{a + 0} &\leq \abs{a} + \abs{0} \\
-        A3 \Rightarrow \abs{a} &\leq \abs{a} + 0 \\
-        A3 \Rightarrow \abs{a} &= \abs{a} \\
+        A3 \implies \abs{a} &\leq \abs{a} + 0 \\
+        A3 \implies \abs{a} &= \abs{a} \\
       \end{align*}
     \item[$a > 0, b = 0$]
       \begin{align*}
         \abs{a + b} &\leq \abs{a} + \abs{b} \\
         \abs{a + 0} &\leq \abs{a} + \abs{0} \\
-        A3 \Rightarrow \abs{a} &\leq \abs{a} + 0 \\
-        A3 \Rightarrow \abs{a} &= \abs{a} \\
+        A3 \implies \abs{a} &\leq \abs{a} + 0 \\
+        A3 \implies \abs{a} &= \abs{a} \\
       \end{align*}
     \item[$a = 0, b > 0$]
       \begin{align*}
         \abs{a + b} &\leq \abs{a} + \abs{b} \\
         \abs{0 + b} &\leq \abs{0} + \abs{b} \\
-        A3 \Rightarrow \abs{b} &\leq 0 + \abs{b} \\
-        A3 \Rightarrow \abs{b} &= \abs{b} \\
+        A3 \implies \abs{b} &\leq 0 + \abs{b} \\
+        A3 \implies \abs{b} &= \abs{b} \\
       \end{align*}
     \item[$a > 0, b > 0$]
       \begin{align*}
         \underbrace{\abs{a + b}}_{\in K_+} &\leq \underbrace{\abs{a}}_{\in K_+} + \underbrace{\abs{b}}_{\in K_+} \\
         (a + b) &\leq (a) + (b) \\
-        A2 \Rightarrow a + b &\leq a + b \\
+        A2 \implies a + b &\leq a + b \\
         a + b &= a + b \\
       \end{align*}
   \end{description}
@@ -1198,7 +1198,7 @@ Absolute values are defined with,
 \[ [a_n, b_n], [c_n, d_n], a_n \leq \alpha \leq b_n, c_n \leq \gamma \leq d_n \]
 \[ \forall \varepsilon > 0 \exists N(\varepsilon): \abs{a_n - b_n} < \varepsilon \forall n \geq N(\varepsilon) \]
 \[
-    \left[\frac{1}{b_n}, \frac{1}{a_n}\right] \rightarrow \frac{1}{b_n} \leq \frac{1}{b_{n+1}} \leq \frac{1}{\alpha} \leq \frac{1}{a_{n+1}} \leq \frac{1}{a_n}
+    \left[\frac{1}{b_n}, \frac{1}{a_n}\right] \implies \frac{1}{b_n} \leq \frac{1}{b_{n+1}} \leq \frac{1}{\alpha} \leq \frac{1}{a_{n+1}} \leq \frac{1}{a_n}
 \] \[
   \card{\frac{1}{b_n} - \frac{1}{a_n}}
   = \frac{a_n - b_n}{a_n b_n}
@@ -1218,37 +1218,37 @@ Important: our approximation $a_n \geq a_1 > 0$ and $b_n \geq \alpha$ is indepen
 \section{Exercise 34}
 
 \begin{ex}
-  Let $f: X \rightarrow Y$ be a mapping. Prove that:
+  Let $f: X \to Y$ be a mapping. Prove that:
   \begin{enumerate}
-    \item If a mapping $g: Y \rightarrow X$ with $g \circ f = \text{id}_X$ exists, $f$ is injective.
-    \item If a mapping $h: Y \rightarrow X$ with $f \circ h = \text{id}_Y$ exists, $f$ is surjective.
+    \item If a mapping $g: Y \implies X$ with $g \circ f = \text{id}_X$ exists, $f$ is injective.
+    \item If a mapping $h: Y \implies X$ with $f \circ h = \text{id}_Y$ exists, $f$ is surjective.
   \end{enumerate}
   \textbf{Remark.} $\text{id}_X$ is the identity function over the set $X$.
-    The identity function is always defined as $f: X \rightarrow X$ with $x \mapsto x$.
+    The identity function is always defined as $f: X \to X$ with $x \mapsto x$.
 \end{ex}
 
 \subsection{Exercise 34.1}
 %
-So given that $g: Y \rightarrow X$ exists with $g \circ f = \text{id}_X$,
+So given that $g: Y \implies X$ exists with $g \circ f = \text{id}_X$,
 let $x \in X$.
-\[ x \in X \Rightarrow f(x) \in Y \Rightarrow g(f(x)) = x \Leftrightarrow \text{id}_X(x) = x \]
+\[ x \in X \implies f(x) \in Y \implies g(f(x)) = x \ \text{id}_X(x) = x \]
 
 To show injectivity, we need to show for all $x_1, x_2 \in X$:
-\[ f(x_1) = f(x_2) \Rightarrow x_1 = x_2 \]
+\[ f(x_1) = f(x_2) \implies x_1 = x_2 \]
 
 Consider two arbitrary values $x_1, x_2 \in X$.
 \[ f(x_1) = f(x_2) \]
-\[ \Rightarrow g(f(x_1)) = g(f(x_2)) \]
-\[ \Rightarrow x_1 = x_2 \]
+\[ \implies g(f(x_1)) = g(f(x_2)) \]
+\[ \implies x_1 = x_2 \]
 
 As far as $x_1$ and $x_2$ are two arbitrary elements of $X$, this holds for any pair of elements of $X$.
 We have directly proven injectivity of $f$.
 
 \subsection{Exercise 34.2}
 %
-Given that $h: Y \rightarrow X$ exists with $f \circ h = \text{id}_Y$,
+Given that $h: Y \implies X$ exists with $f \circ h = \text{id}_Y$,
 let $y \in Y$.
-\[ y \in Y \Rightarrow h(y) \in X \Rightarrow f(h(y)) \in Y \Leftrightarrow \text{id}_Y(y) = y \]
+\[ y \in Y \implies h(y) \in X \implies f(h(y)) \in Y \ \text{id}_Y(y) = y \]
 
 To show surjectivity, we need to show for all $y_1, y_2 \in Y$:
 \[ \forall y \in Y \exists x \in X: f(x) = y \]
@@ -1257,10 +1257,10 @@ Consider an arbitrary value $y \in Y$. Because of the existence of the identity 
 \[ f(h(y)) = y \]
 We define $h(y)$ as an intermediate value with a different name:
 \[ x \coloneqq h(y) \]
-\[ \Rightarrow \exists x \in X: f(x) = y \]
+\[ \implies \exists x \in X: f(x) = y \]
 
 We have show that for any arbitrary value $y \in Y$. So it holds for any value of $Y$:
-\[ \Rightarrow \forall y \in Y \exists x \in X: f(x) = y \]
+\[ \implies \forall y \in Y \exists x \in X: f(x) = y \]
 
 We have directly proven surjectivity of $f$.
 
@@ -1323,15 +1323,15 @@ Assumption: $\min{a} = 0$
 
 \[ 0 \not\in A \]
 \[ \frac{1}{2^N} + \frac{1}{N} < 2\varepsilon \]
-\[ \forall \varepsilon > 0 \exists N \in \mathbb N_+: (m \geq N \Rightarrow \card{\frac{1}{2^m} - 0} < \varepsilon) \]
+\[ \forall \varepsilon > 0 \exists N \in \mathbb N_+: (m \geq N \implies \card{\frac{1}{2^m} - 0} < \varepsilon) \]
 \[ \frac{1}{2^N} < \varepsilon \]
-\[ n \geq N \Rightarrow \card{\frac1n - 0} < \varepsilon \]
+\[ n \geq N \implies \card{\frac1n - 0} < \varepsilon \]
 
 Assume $\exists s > 0$ is our lower bound.
 \[ \exists m: \frac{1}{2^m} < \frac{s}{2} = \varepsilon \]
 \[ \varepsilon = \frac{s}{2}: \exists N: \frac{1}{N} < \frac{S}{2} \]
-\[ \rightarrow \underbrace{\frac{1}{sm} + \frac{1}{N}}_{\in A} < s \]
-\[ \Rightarrow \inf{A} = 0 \]
+\[ \implies \underbrace{\frac{1}{sm} + \frac{1}{N}}_{\in A} < s \]
+\[ \implies \inf{A} = 0 \]
 
 Remark: When starting this exercise, always estimate whether a maximum/minimum exists.
 If so, you can save time to prove supremum/infimum.
@@ -1347,7 +1347,7 @@ Therefore $\max{A}$ is when $m,n$ is as small as possible:
 
 $\min(B) = 0$ because $0 \leq \frac{x}{1 + x} \forall x \geq 0 \land \left.\frac{x}{1+x} \right|_{x = 0} = 0$.
 
-\[ \frac{x}{1+x} < 1 \Leftrightarrow x < 1 + x \Leftrightarrow 0 < 1 \forall x \geq 0 \]
+\[ \frac{x}{1+x} < 1 \ x < 1 + x \Longleftrightarrow 0 < 1 \forall x \geq 0 \]
 
 Is $1$ an upper bound and $1 \not\in B$?
 
@@ -1356,13 +1356,13 @@ Assume $\exists s < 1$:
 \[ x \leq s(1 + x) \]
 \[ x(1-s) \leq 0 \]
 \[ 1 - s > 0 \]
-\[ \Rightarrow \sup(B) = 1 \land \not\exists \max(B) \]
+\[ \implies \sup(B) = 1 \land \not\exists \max(B) \]
 
 \section{Exercise 37}
 
 \[ I = [a, b) = \setdef{x \in \mathbb R}{a \leq x < b} \]
-\[ a = \min{[a,b)} \Rightarrow a \text{ is } \inf([a, b)) \]
-\[ a \in [a,b): \forall x \in [a,b): a \leq x \Rightarrow \min(I) = a \Rightarrow \inf(I) = a \]
+\[ a = \min{[a,b)} \implies a \text{ is } \inf([a, b)) \]
+\[ a \in [a,b): \forall x \in [a,b): a \leq x \implies \min(I) = a \implies \inf(I) = a \]
 
 $b$ is upper bound:
 \[ b \not\in [a,b) \text{ by definition } \forall x \in [a,b): b > x \]
@@ -1383,14 +1383,14 @@ Without loss of generality, $\inf{A} \leq \inf{B}$:
 
 Let $a \in A$ and $b \in B$ arbitrary.
 This implies that $a \geq \inf{A}$ and $b \geq \inf{B} \geq \inf{A}$.
-\[ \Rightarrow \forall x \in (A \cup B): x \geq \inf{A} \]
+\[ \implies \forall x \in (A \cup B): x \geq \inf{A} \]
 
-\[ \Rightarrow \inf(A) \geq \inf(A \cup B) \]
+\[ \implies \inf(A) \geq \inf(A \cup B) \]
 
 Because extending a set $A$ with additional elements,
 the infimum cannot be increased, but only decreased.
 
-\[ \Rightarrow \inf(A) \leq \inf(A \cup B) \]
+\[ \implies \inf(A) \leq \inf(A \cup B) \]
 
 \begin{align*}
   x \in A: & \inf\set{\inf{A}, \inf{B}} \leq \inf(A) \leq x \\
@@ -1398,9 +1398,9 @@ the infimum cannot be increased, but only decreased.
 \end{align*}
 \[ \forall x \in A \cup B: \underbrace{\min\set{\inf{A}, \inf{B}}}_{\text{lower bound}} \leq x \]
 
-\[ \Rightarrow \inf(A \cup B) \leq \min\set{\inf(A), \inf(B)} \]
+\[ \implies \inf(A \cup B) \leq \min\set{\inf(A), \inf(B)} \]
 
-\[ \Rightarrow \inf(A) = \inf(A \cup B) \]
+\[ \implies \inf(A) = \inf(A \cup B) \]
 
 \section{Exercise 39}
 \subsection{Exercise 39a}
@@ -1445,11 +1445,11 @@ the infimum cannot be increased, but only decreased.
     = \frac{\abs{1}}{\abs{a + bi}}
     = \frac{1}{\sqrt{a^2 + b^2}}
 \] \[
-    \Rightarrow \frac{1}{\sqrt{a^2 + b^2}} < 2
+    \implies \frac{1}{\sqrt{a^2 + b^2}} < 2
 \] \[
-    \Rightarrow \frac12 < \sqrt{a^2 + b^2}
+    \implies \frac12 < \sqrt{a^2 + b^2}
 \] \[
-    \Rightarrow \frac14 < a^2 + b^2
+    \implies \frac14 < a^2 + b^2
 \]
 
 Illustrated we draw a circle originating in $(0, 0)$ with radius $\frac12$.
@@ -1480,22 +1480,22 @@ it holds that
 \[ x = \sup(a_n) \]
 
 Let $y \in A$.
-\[ \exists n \in \mathbb N: y \in A_n \Rightarrow y < a_n \leq x \]
-\[ \Rightarrow y \in A: y < x \]
+\[ \exists n \in \mathbb N: y \in A_n \implies y < a_n \leq x \]
+\[ \implies y \in A: y < x \]
 Therefore $x$ is an upper bound. Is it the only upper bound?
 
 Assume another upper bound $x'$ exists.
 \[ x' < x = \lim){n\to\infty} a_n \]
-\[ \Rightarrow \exists N \in \mathbb N: x' < a_n \qquad \forall n \geq M \]
+\[ \implies \exists N \in \mathbb N: x' < a_n \qquad \forall n \geq M \]
 \[ \varepsilon = \frac{x - x'}{2} \]
-\[ \Rightarrow \exists y \in A_{n+1} \]
+\[ \implies \exists y \in A_{n+1} \]
 \[ y > x' \]
 This is a contradiction and therefore $x$ is the distinct upper bound.
 
 The proof for the infimum works analogously.
 
 It only remains to show that $x \not\in A$.
-\[ \forall a_n \neq x \Rightarrow \exists a_{n+k}: a_n < a_{n+k} \]
+\[ \forall a_n \neq x \implies \exists a_{n+k}: a_n < a_{n+k} \]
 
 \section{Exercise 42}
 Give the limes for the following sequences:
@@ -1600,7 +1600,7 @@ Or better we write:
 \[ \exists \underbrace{\varepsilon}_{=\frac{q+1}{2} - a} > 0: q + \varepsilon < 1 \]
 
 If $n$ is sufficiently large:
-\[ \card{\frac{a_{n+1}}{a_n} - q} < \varepsilon \Rightarrow \frac{a_{n+1}}{a_n} \in (q - \varepsilon, q + \varepsilon) \]
+\[ \card{\frac{a_{n+1}}{a_n} - q} < \varepsilon \implies \frac{a_{n+1}}{a_n} \in (q - \varepsilon, q + \varepsilon) \]
 \begin{align*}
   0 \leq a_{n+1} &\leq (q + \varepsilon) a_n \\
   0 \leq a_{n+2} &\leq (q + \varepsilon)^2 a_n \\
@@ -1609,7 +1609,7 @@ If $n$ is sufficiently large:
 \end{align*}
 
 By induction it holds that
-\[ 0 \leq a_{n+k} \leq {\underbrace{(q + \varepsilon)}_{\tilde{q} < 1}}^k a_1 \to_{k\rightarrow\infty} 0 \]
+\[ 0 \leq a_{n+k} \leq {\underbrace{(q + \varepsilon)}_{\tilde{q} < 1}}^k a_1 \to_{k\implies\infty} 0 \]
 
 This follows from the squeeze theorem.
 
@@ -1665,19 +1665,20 @@ Due to the squeeze theorem, it holds that $\lim_{n\to\infty} \sqrt[n]{a^n + b^n 
 \begin{ex}
   Let $a_0 \in (0, 1)$ and a sequence $(a_n)_{n\in\mathbb N}$ is recursively defined with
   \[ a_{n+1} = 1 - \sqrt{1 - a_n} \text{ for } n \geq 0 \]
+  Prove that $(a_n)_{n \in \mathbb N}$ converges and determine its limit.
 \end{ex}
 
 \begin{description}
   \item[Induction base]
-    \[ a_1 = 1 - \sqrt{1 - a_0} \Rightarrow 0 < a_1 < 1 \qquad a_1 \in (0, 1) \]
+    \[ a_1 = 1 - \sqrt{1 - a_0} \implies 0 < a_1 < 1 \qquad a_1 \in (0, 1) \]
   \item[Induction step]
     Let $a_n \in (0, 1)$.
-    \[ 0 < a_n < 1 \Rightarrow -1 < -a_n < 0 \Rightarrow 0 < \sqrt{1 - a} < 1 \]
+    \[ 0 < a_n < 1 \implies -1 < -a_n < 0 \implies 0 < \sqrt{1 - a} < 1 \]
     \[ 0 < \underbrace{1 - \sqrt{1 - a_n}}_{a_{n+1}} < 1 \]
     So $a_{n+1} < a_n$.
-    \[ 1 - \sqrt{1 - a_n} < a_n \Leftrightarrow (1 - a_n)^2 < 1 - a_n \]
-    \[ \Rightarrow 1 - a_n < \sqrt{1 - a_n} \]
-    \[ \Rightarrow x^2 < x \Leftrightarrow x \in (0, 1) \]
+    \[ 1 - \sqrt{1 - a_n} < a_n \ (1 - a_n)^2 < 1 - a_n \]
+    \[ \implies 1 - a_n < \sqrt{1 - a_n} \]
+    \[ \implies x^2 < x \ x \in (0, 1) \]
 
     \[ a_{n+1} - 1 - \sqrt{1 - a_n} \]
     \[ a = 1 - \sqrt{1 - a} \]
@@ -1732,14 +1733,14 @@ We show that $\exists a \in \mathbb R: \lim_{n\to\infty} a_n = \lim_{n\to\infty}
 
 \subsection{Exercise 47.b}
 \[ (a_n)_{n \in \mathbb N} = (-1)^n \]
-\[ \Rightarrow \lim_{n\to\infty} S_n = \lim_{n\to\infty} \frac{\sum_{k=0}^n (-1)^n}{n+1} = 0 \]
+\[ \implies \lim_{n\to\infty} S_n = \lim_{n\to\infty} \frac{\sum_{k=0}^n (-1)^n}{n+1} = 0 \]
 
 \section{Exercise 48}
 \begin{ex}
   Let $M \subseteq \mathbb R$ be a bounded above set and $s \in \mathbb R$.
   Prove that:
   \[
-      s = \sup(M) \Leftrightarrow
+      s = \sup(M) \
       \left\{\begin{array}{ll}
         \forall x \in M: s \geq x & \text{and} \\
         \exists (x_n)_{n \in \mathbb N}, x_n \in M: \lim_{n\to\infty} x_n = s &
@@ -1748,23 +1749,23 @@ We show that $\exists a \in \mathbb R: \lim_{n\to\infty} a_n = \lim_{n\to\infty}
 \end{ex}
 \[
   \exists (x_n)_{n \in \mathbb N}, x_n \in M: \lim_{n\to\infty} x_n = s
-  \Leftrightarrow \varepsilon > 0 \exists N \in \mathbb N: \abs{x_n - s} < \varepsilon
+  \ \varepsilon > 0 \exists N \in \mathbb N: \abs{x_n - s} < \varepsilon
 \]
-We prove the first direction $\Leftarrow$.
+We prove the first direction $\impliedby$.
 
 Let $s$ be an upper bound of $M$.
 Let $(x_n)_{n \in \mathbb N}$ in $M$ with $\lim_{n\to\infty} x_n = s$.
-\[ \Rightarrow \forall t < s \exists N \in \mathbb N: n \geq N(s - x_n) \leq \abs{s-x_n} < \frac{\varepsilon}{2} \]
-\[ \Rightarrow t < x_n \]
+\[ \implies \forall t < s \exists N \in \mathbb N: n \geq N(s - x_n) \leq \abs{s-x_n} < \frac{\varepsilon}{2} \]
+\[ \implies t < x_n \]
 
-We prove the second direction $\Rightarrow$.
+We prove the second direction $\implies$.
 
 Therefore
 \[ s - \frac1n \text{ is not an upper bound of } M \]
-\[ \Rightarrow \exists x_n \in M: s - \frac1n < x_n \]
+\[ \implies \exists x_n \in M: s - \frac1n < x_n \]
 \[ \exists x_n \in M: s - \frac1n < x_n \]
 \[ s - \frac1n \leq x_n < s \]
-\[ s \leq x_n < s \Rightarrow (x_n)_{n\in\mathbb N} \to s \]
+\[ s \leq x_n < s \implies (x_n)_{n\in\mathbb N} \to s \]
 
 
 \section{Exercise 49}
@@ -1786,13 +1787,13 @@ Therefore
   \item[Case 1: $a > 0$]
     \[ \abs{a_n - a} < \frac{a}{2} \]
     \[ \abs{a_n} > \frac{\abs{a}}{2} \]
-    $\Rightarrow$ the product is always positive:
+    $\implies$ the product is always positive:
     \[ \underbrace{\left(\sqrt[k]{a_n} - \sqrt[k]{a}\right) \left(\sum_{i=0}^{k-1} \sqrt[k]{a_n}^{k-1-j} \cdot \sqrt[k]{a}\right)}_{b_n \geq b > 0} \]
     Done.
   \item[Case 2]
-    \[ \sqrt[k]{a_n} < \varepsilon \Leftrightarrow a_n < \varepsilon^k = \tilde\varepsilon \]
+    \[ \sqrt[k]{a_n} < \varepsilon \ a_n < \varepsilon^k = \tilde\varepsilon \]
     \[ \forall \tilde\varepsilon > 0 \exists N \in \mathbb N: n \geq N: \abs{a_n - 0} < \tilde\varepsilon \]
-    \[ \Rightarrow \sqrt[r]{a_n} \]
+    \[ \implies \sqrt[r]{a_n} \]
 \end{description}
 
 \subsection{Shorter valid solution}
@@ -1828,7 +1829,7 @@ Let $q \in [0, 1)$.
 \begin{align*}
   \forall n \geq 1: \abs{x_{n+2} - x_{n+1}} &\leq q \abs{x_{n+1} - x_n} \\
   \forall n \geq 1: q \abs{x_{n+1} - x_n} &\leq q^2 \abs{x_n - x_{n-1}} \\
-  \Rightarrow \forall n \geq 1: \abs{x_{n+2} - x_{n+1}} &\leq q^2 \abs{x_n - x_{n-1}}
+  \implies \forall n \geq 1: \abs{x_{n+2} - x_{n+1}} &\leq q^2 \abs{x_n - x_{n-1}}
 \end{align*}
 We make a more general claim:
 
@@ -1838,7 +1839,7 @@ We make a more general claim:
 \begin{description}
   \item[Induction base: $k = 0$]
     \[ \abs{x_{n+1} - x_n} \leq q^1 \abs{x_n - x_{n-1}} \qquad \checkmark \]
-  \item[Induction step: $k \rightarrow k + 1$]
+  \item[Induction step: $k \implies k + 1$]
     \begin{align*}
       \abs{x_{n+k+2} - x_{n+k+1}} &\leq q^{k+2} \cdot \abs{x_n - x_{n-1}} \\
       \text{we know: } \abs{x_{n+k+2} - x_{n+k+1}} &\leq q \cdot \abs{x_{n+k+1} - x_{n+k}} \\
@@ -1939,7 +1940,7 @@ We shortly point out that a limes superior must not necessarily exist,
 because bounded sequences in $\mathbb C$ have a limit point,
 but not sequences which are only bounded above.
 
-\subsection{Proof direction $\Leftarrow$}
+\subsection{Proof direction $\impliedby$}
 
 Given a limes superior $s$. So $\forall \varepsilon > 0: \abs{a_n - a} < \varepsilon$
 for infinitely many indices.
@@ -1956,7 +1957,7 @@ for infinitely many indices.
   \item If $s$ is a limit point, it has infinitely many sequence numbers within its $\varepsilon$-environment.
     \[
       \forall \varepsilon > 0: \abs{a_n - s} < \varepsilon
-      \qquad\Rightarrow\qquad
+      \qquad\implies\qquad
       \card{\setdef{n \in \mathbb N}{a_n > s - \varepsilon}} = \infty
     \]
   \item
@@ -1971,15 +1972,15 @@ for infinitely many indices.
     with our assumption that $s$ is the supremum of all limit points.
 \end{enumerate}
 
-\subsection{Proof direction $\Rightarrow$}
+\subsection{Proof direction $\implies$}
 
 From the first property it holds that
-$\card{\setdef{n \in \mathbb N}{a_n > S - \varepsilon}} = \infty \Rightarrow s - a_n < \varepsilon$
+$\card{\setdef{n \in \mathbb N}{a_n > S - \varepsilon}} = \infty \implies s - a_n < \varepsilon$
 for infinitely many sequence numbers.
 
 From the second property it holds that
-$\card{\setdef{n \in \mathbb N}{a_n > s + \varepsilon}} < \infty \Rightarrow a_n > s + \varepsilon$.
-From that it follows that $s - a_n > \varepsilon \Rightarrow a_n - s < \varepsilon$.
+$\card{\setdef{n \in \mathbb N}{a_n > s + \varepsilon}} < \infty \implies a_n > s + \varepsilon$.
+From that it follows that $s - a_n > \varepsilon \implies a_n - s < \varepsilon$.
 So $a_n - s > \varepsilon$ for infinitely many sequence numbers.
 So $a_n - s < \varepsilon$ for infinitely many sequence numbers.
 
@@ -2037,8 +2038,8 @@ Every constant sequence has a limit point. So the set of limit points is given w
 \[ L = \set{-2, 0, 2} \]
 \[
   \begin{array}{rclcccccc}
-    \sup(L) & = & \max(L) & = & 2  & \Rightarrow & \limsup_{n\to\infty}(a_n) = 2 \\
-    \inf(L) & = & \min(L) & = & -2 & \Rightarrow & \liminf_{n\to\infty}(a_n) = -2
+    \sup(L) & = & \max(L) & = & 2  & \implies & \limsup_{n\to\infty}(a_n) = 2 \\
+    \inf(L) & = & \min(L) & = & -2 & \implies & \liminf_{n\to\infty}(a_n) = -2
   \end{array}
 \]
 
@@ -2092,7 +2093,7 @@ But this solution is wrong.
 \[
   \sum_{n=1}^\infty \frac{1}{4n}
   \xRightarrow{\text{direct comparison crit.}} \sum_{n=10}^\infty \frac{n-5}{n^2+1} \text{ div. }
-  \Rightarrow \sum_{n=0}^\infty \frac{n-5}{n^2+1} \text{ diverges}
+  \implies \sum_{n=0}^\infty \frac{n-5}{n^2+1} \text{ diverges}
 \]
 
 \subsection{Exercise 55.b}
@@ -2197,8 +2198,8 @@ The series $\sum_{n=0}^\infty \abs{\frac{a_n}{a_n + 1}}$ converges if
 
     We show $\abs{\frac{a_n}{a_n + 1}} \leq \abs{a_n}$.
     \[ \frac{\abs{a_n}}{\abs{a_n + 1}} \leq \abs{a_n} \]
-    \[ \Rightarrow \abs{a_n} \leq \abs{a_n} \abs{a_n + 1} \]
-    \[ \Rightarrow 1 \leq \abs{a_n + 1} \]
+    \[ \implies \abs{a_n} \leq \abs{a_n} \abs{a_n + 1} \]
+    \[ \implies 1 \leq \abs{a_n + 1} \]
 
   \item This holds by precondition.
 \end{enumerate}
@@ -2214,8 +2215,8 @@ The series $\sum_{n=0}^\infty \abs{\frac{a_n}{a_n + 1}}$ converges if
 
 \subsection{Exercise 60.a}
 wlog $\abs{a_n} \leq \abs{b_n} \leq \abs{a_n \cdot b_n} \leq \abs{a_n^2}$.
-\[ \Rightarrow \abs{a_n^2} \leq \abs{a_n b_n} \leq \abs{b_n^2} \]
-\[ \Rightarrow \sum_{n=0}^\infty \abs{a_n b_n} \]
+\[ \implies \abs{a_n^2} \leq \abs{a_n b_n} \leq \abs{b_n^2} \]
+\[ \implies \sum_{n=0}^\infty \abs{a_n b_n} \]
 is absolute convergent.
 
 \subsection{Exercise 60.b}
@@ -2234,7 +2235,7 @@ is absolute convergent.
 
 \section{Exercise 62}
 \begin{ex}
-  We consider the function $f: \mathbb C \setminus \set{0} \rightarrow \mathbb C$, $x \mapsto \frac1x$.
+  We consider the function $f: \mathbb C \setminus \set{0} \implies \mathbb C$, $x \mapsto \frac1x$.
   Determine for appropriate subsets of $\mathbb C \setminus \set{0}$, representations of $f$ as power series of structure
   \[
     \frac1x = \sum_{n=0}^\infty a_n (x - 1)^n
@@ -2248,27 +2249,27 @@ is absolute convergent.
 
 \section{Exercise 63}
 \begin{ex}
-  Let $f: \mathbb R \rightarrow \mathbb R$ defined by $f(x) = x^3 - 2x^2 + x + 1$.
+  Let $f: \mathbb R \implies \mathbb R$ defined by $f(x) = x^3 - 2x^2 + x + 1$.
   Show, with the help of its $\varepsilon-\delta$-definition of continuity,
   that $f$ is continuous at $-1$.
 \end{ex}
 
 \section{Exercise 64}
 \begin{ex}
-  Let $D \subseteq \mathbb R$, and $f, g: D \rightarrow \mathbb R$ in $x_0 \in D$
+  Let $D \subseteq \mathbb R$, and $f, g: D \implies \mathbb R$ in $x_0 \in D$
   are continuous functions and it holds that $f(x_0) = g(x_0)$.
-  Show: Let $h: D \rightarrow \mathbb R$ be a function, such that for all $x \in D$
+  Show: Let $h: D \implies \mathbb R$ be a function, such that for all $x \in D$
   \[ f(x) \leq h(x) \leq g(x). \]
   Prove that $h$ is continuous in $x_0$.
 \end{ex}
 
 \section{Exercise 65}
 \begin{ex}
-  Let $D \subseteq \mathbb C$, and $f, g: D \rightarrow \mathbb C$ are continuous in $z_0 \in D$.
+  Let $D \subseteq \mathbb C$, and $f, g: D \implies \mathbb C$ are continuous in $z_0 \in D$.
   Show, with the use of the $\varepsilon-\delta$-definition of continuity, that also the function
   \[
     fg : \begin{cases}
-      D &\rightarrow \mathbb C, \\
+      D &\implies \mathbb C, \\
       z &\mapsto f(z) g(z)
     \end{cases}
   \]
@@ -2354,7 +2355,7 @@ Counterexample:
     \abs{-1} & \text{if } x \leq 0 \\
     \abs{1} & \text{if } x > 0
   \end{cases}
-  \Rightarrow \abs{f}(x) = 1
+  \implies \abs{f}(x) = 1
 \]
 Is continuous. But
 \[
@@ -2403,12 +2404,12 @@ $f: D \subseteq \mathbb C \to \mathbb C$ is uniformly continuous iff
 \[
   \forall \varepsilon > 0 \exists \delta > 0:
   \forall z_0, z_1 \in D \text{ with } \abs{z_1 - z_0} < \delta
-  \Rightarrow \abs{f(z_1) - f(z_0)} < \varepsilon
+  \implies \abs{f(z_1) - f(z_0)} < \varepsilon
 \]
 $f: D \subseteq \mathbb C \to \mathbb C$ is continuous iff
 \[
   \forall \varepsilon > 0 \exists \delta > 0: \forall x \in D
-  \land \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon
+  \land \abs{x - x_0} < \delta \implies \abs{f(x) - f(x_0)} < \varepsilon
 \]
 
 It is not uniformly continuous because \dots \\
@@ -2442,11 +2443,11 @@ Choose
 \end{itemize}
 
 Because $f$ is continuous, the intermediate value theorem applies. So,
-\[ \exists x_0 \in [0,1]: f(x_0) = 0 \Rightarrow \exists \text{ solution} \]
+\[ \exists x_0 \in [0,1]: f(x_0) = 0 \implies \exists \text{ solution} \]
 
 Assume, there exists some $x_0, \tilde{x}_0$ with $x_0 \neq \tilde{x}_0$.
 Then it holds that
-\[ f(x_0) = 0 = f(\tilde{x}_0) \Rightarrow \exists \xi \in (x_0, \tilde{x}_0): f'(\xi) = 0 \]
+\[ f(x_0) = 0 = f(\tilde{x}_0) \implies \exists \xi \in (x_0, \tilde{x}_0): f'(\xi) = 0 \]
 but
 \[ f'(x) = \underbrace{7\underbrace{x^6}_{>0} + 1}_{\geq 1} \geq 1 \]
 This contradicts with our assumption that a solution to $f'(\xi) = 0$ exists (Rolle's Theorem).
@@ -2480,7 +2481,7 @@ by the Intermediate Value Theorem it holds that
 \end{ex}
 
 \subsection{$f$ is continuous}
-\[ \forall \varepsilon > 0 \exists \delta > 0 \forall x \in \mathbb Q: \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon \]
+\[ \forall \varepsilon > 0 \exists \delta > 0 \forall x \in \mathbb Q: \abs{x - x_0} < \delta \implies \abs{f(x) - f(x_0)} < \varepsilon \]
 Let $\varepsilon > 0$. Choose $\delta \coloneqq \min\set{1, \frac{\varepsilon}{1 + 2x_0}}$.
 
 Consider
@@ -2501,7 +2502,7 @@ Consider
 \[ x^2 = 2 \]
 \[ x = \pm \sqrt{2} \not\in \mathbb Q \]
 
-\[ \Rightarrow f(x) \neq 0 \quad \forall x \in \mathbb Q \]
+\[ \implies f(x) \neq 0 \quad \forall x \in \mathbb Q \]
 Hence, the intermediate value theorem only holds for compact fields.
 
 \subsection{Using the sequence theorem}
