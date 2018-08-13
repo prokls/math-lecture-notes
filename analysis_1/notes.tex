@@ -36,7 +36,7 @@
 \newcommand\abs[1]{\left|#1\right|}
 \newcommand\seq[1]{{\left(#1\right)}_{n \in \mathbb N}}
 \newcommand\card[1]{\left|\,#1\,\right|}
-\newcommand\meta[3]{\begin{mdframed}[skipbelow=0pt,skipabove=0pt,innermargin=1pt,innerleftmargin=1pt,innerrightmargin=1pt]\begin{center}\small{\textdownarrow{} This #1 took place on #2 with lecturer #3}\end{center}\end{mdframed}}
+\newcommand\meta[3]{\begin{mdframed}[skipbelow=4pt,skipabove=4pt,innermargin=1pt,innerleftmargin=1pt,innerrightmargin=1pt]\begin{center}\small{\textdownarrow{} This #1 took place on #2 with lecturer #3}\end{center}\end{mdframed}}
 \newcommand\done{\hspace{10pt}\checkmark}
 \newcommand\norm[1]{\left\|#1\right\|}
 
@@ -2429,7 +2429,7 @@ $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equ
 \index[German]{\foreignlanguage{ngerman}{Streng monoton fallend}}
 \begin{ex}
   $(a_n)_{n \in \mathbb N}$ with $a_n = \frac{n}{n+1}$ is bounded below by $0$
-  and bounded above by $1$: $n \leq n+1 \Rightarrow n \frac{1}{n+1} < \frac{n+1}{n+1} = 1 \checkmark$.
+  and bounded above by $1$: $n \leq n+1 \implies n \frac{1}{n+1} \leq \frac{n+1}{n+1} = 1 \checkmark$.
 \end{ex}
 
 \subsection{Monotonicity}
@@ -2504,14 +2504,14 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \begin{proof}
   Assume $a$ and $b$ are limes of $(a_n)_{n \in \mathbb N}$. Then we prove:
   \[ \forall \varepsilon > 0: \abs{a - b} < \varepsilon \]
-  \[ \Rightarrow a = b \]
+  \[ \implies a = b \]
   Let $\varepsilon > 0$ arbitrary:
   Because $a = \lim_{n \to \infty} a_n$ there exists
-  \[ N_1 \in \mathbb N: \left[n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}2\right] \]
+  \[ N_1 \in \mathbb N: \left[n \geq N_1 \implies \abs{a_n - a} < \frac{\varepsilon}2\right] \]
   Because $b = \lim_{n \to \infty} b_n$ there exists
-  \[ N_1 \in \mathbb N: \left[n \geq N_1 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}2\right] \]
-  Let $N = \max(N_1, N_2)$, hence $N \geq N_1 \land N \geq N \geq N_2$.
-  \[ \Rightarrow \abs{a_N - a} < \frac{\varepsilon}{2} \land \abs{a_N - b} < \frac{\varepsilon}{2} \]
+  \[ N_1 \in \mathbb N: \left[n \geq N_1 \implies \abs{b_n - b} < \frac{\varepsilon}2\right] \]
+  Let $N = \max(N_1, N_2)$, hence $N \geq N_1 \land N \geq N_2$.
+  \[ \implies \abs{a_N - a} < \frac{\varepsilon}{2} \land \abs{a_N - b} < \frac{\varepsilon}{2} \]
   \[ \abs{a - b} = |a \underbrace{- a_N + a_N}_0 - b| \leq \underbrace{\abs{a - a_N}}_{< \frac{\varepsilon}2} + \underbrace{\abs{a_N - b}}_{< \frac{\varepsilon}2} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \]
 \end{proof}
 
@@ -2538,8 +2538,8 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \end{rem}
 
 \begin{proof}[\textbf{Proof of sequence 1}]
-  Let $0 \leq x_n < x_2$.
-  \[ \Rightarrow 0 \leq x_1^p < x_2^p \Rightarrow \sqrt[q]{x_1^p} < \sqrt[q]{x_2^p} \]
+  Let $0 \leq x_1 < x_2$.
+  \[ \implies 0 \leq x_1^p < x_2^p \implies \sqrt[q]{x_1^p} < \sqrt[q]{x_2^p} \]
   Therefore $f(x) = x^s$ is strictly monotonically increasing for $x \in (0, \infty)$.
   Let $\varepsilon > 0$ arbitrary and $N > \frac1{\varepsilon^{\frac1s}} = \varepsilon^{\frac1s} = \varepsilon^{-\frac qp}$.
   Then it holds that $n \geq N$:
@@ -2598,13 +2598,13 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
       = 1 + \underbrace{nx_n}_{> 0} + \underbrace{\binom n2 x_n^2}_{> 0} + \underbrace{\binom n3 x_n^3}_{>0} + \underbrace{\dots + x_n^n}_{> 0}
       > 1 + \binom n2 x_n^2
   \]
-  All expressions we remove are positive (but we don't remove all positive expressions).
+  All expressions we remove are positive (but we don't remove \emph{all} positive expressions).
   \[ x_n^2 < \frac{n-1}{\binom n2} = \frac{n-1}{\frac{n(n-1)}{2 \cdot 1}} = \frac2n \]
   \[ x_n < \sqrt{\frac2n} \]
   Choose $N > \frac2{\varepsilon^2}$. Then it holds for $n \geq N$ that
   \[ x_n < \sqrt{\frac2n} < \sqrt{\frac2N} < \sqrt{\frac2{\frac2{\varepsilon^2}}} = \varepsilon \]
 
-  Consider $\sqrt{\frac2n} < \varepsilon$ hence $\frac2n < \varepsilon^2$ hence $n > \frac2{\varepsilon^2}$.
+  Thus $\sqrt{\frac2n} < \varepsilon$, hence $\frac2n < \varepsilon^2$, hence $n > \frac2{\varepsilon^2}$.
 \end{proof}
 
 \begin{proof}[\textbf{Proof of sequence 5}]
@@ -2769,7 +2769,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \subsection{Further laws for sequences}
 %
 \begin{theorem}
-  Let $\seq{a_n}$ and $\seq{b_n}$ be convergent in $\mathbb R$ with limes $a$ (i.e. $b$)
+  Let $\seq{a_n}$ and $\seq{b_n}$ be convergent in $\mathbb R$ with limes $a$ and $b$ respectively
   and it must hold that $\forall n \in \mathbb N: a_n \leq b_n$. Then also $a \leq b$.
 \end{theorem}
 
@@ -2781,7 +2781,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
   \begin{figure}[!h]
     \begin{center}
       \includegraphics[width=0.3\textwidth]{img/limes.pdf}
-      \caption{the sequences $a_n$, $b_n$ and limes $a$, $b$ and $\varepsilon$ in relation}
+      \caption{One possible relationship of the sequences $a_n$, $b_n$ and limes $a$, $b$ and $\varepsilon$}
     \end{center}
   \end{figure}
 
@@ -2823,7 +2823,7 @@ they are obivously convergent?
 
 \begin{proof}
   Let $\varepsilon > 0$ be arbitrary.
-  Consider $N$ such that,
+  Consider $N$ sufficiently large such that,
   \begin{itemize}
     \item $N \geq M$
     \item $n \geq N \Rightarrow \abs{A_n - A} < \varepsilon$
@@ -2843,7 +2843,7 @@ they are obivously convergent?
 \end{proof}
 
 \begin{ex}
-  Let $s \in \mathbb Q_+$. Then it holds that
+  Let $s \in \mathbb Q_+$. Show that,
   \[ \lim_{n \to \infty} \left(\sqrt[n]{n^s}\right) = 1 \]
   We apply the squeeze theorem:
   \[ n^2 \geq 1 \forall n \in \mathbb N \]
@@ -2864,8 +2864,8 @@ they are obivously convergent?
 \begin{rem}
   Let $A \subseteq \mathbb R$ be bounded above. Then it holds that
   \[
-      S = \sup{A}
-      \Leftrightarrow
+      s = \sup{A}
+      \Longleftrightarrow
           s \text{ is upper bound of } A \land
           \forall \varepsilon > 0 \exists a \in A: a > s - \varepsilon
   \]
@@ -2890,7 +2890,7 @@ they are obivously convergent?
 
 \begin{theorem}
   \label{monotonic-in-R}
-  Let $(a_n)_{n \in \mathbb N}$ be a bounded monotonic sequence.
+  Let $(a_n)_{n \in \mathbb N}$ be a bounded monotonical sequence.
   Then $\seq{a_n}$ has a limes $a$ with
   \begin{itemize}
     \item $a = \sup\set{a_n: n \in \mathbb N}$ if $\seq{a_n}$ is monotonically increasing.
@@ -2982,7 +2982,7 @@ Both are convergent.
 \index[German]{\foreignlanguage{ngerman}{Häufungspunkt}}
 \begin{defi}
   Let $\seq{a_n}$ be a complex sequence.
-  The complex value $a$ is called \emph{limit point} (german \enquote{\foreignlanguage{ngerman}{Häufungspunkt}})
+  The complex value $a$ is called \emph{limit point} (dt. \enquote{\foreignlanguage{ngerman}{Häufungspunkt}})
   of $\seq{a}$ if $\forall \varepsilon > 0: \abs{a_n - a} < \varepsilon$ for infinitely many indices $n \in \mathbb N$.
   Hence infinitely many values of the sequence lie within a circle with center $a$ and radius $\varepsilon$.
 \end{defi}
@@ -3869,7 +3869,9 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
       &+
         \underbrace{\frac1{8^\alpha} + \ldots + \underbrace{\frac{1}{15^\alpha}}_{< \frac1{8^\alpha}}}_{2^3 \text{ terms}}
         + \ldots +
-        \underbrace{\frac{1}{\left(2^{k-1}\right)^\alpha} + \ldots + \underbrace{\frac{1}{\left(2^k - 1\right)^\alpha}}_{< \frac1{\left(2^{k-1}\right)^\alpha}}}_{2^{k-1} \text{ terms}} \\
+        \underbrace{\frac{1}{\left(2^{k-1}\right)^\alpha} + \ldots + \underbrace{\frac{1}{\left(2^k - 1\right)^\alpha}}_{< \frac1{\left(2^{k-1}\right)^\alpha}}}_{2^{k-1} \text{ terms}}
+    \end{align*}
+    \begin{align*}
       &< 1 + 2 \frac{1}{2^\alpha} + 4 \frac{1}{4^\alpha} + 8 \frac{1}{8^\alpha} + \dots + 2^{k-1} \frac{1}{\left(2^{k-1}\right)^\alpha} \\
       &= 1 + \frac{1}{2^{\alpha-1}} + \frac{1}{4^{\alpha-1}} + \frac{1}{8^{\alpha-1}} + \dots + \frac{1}{\left(2^{n-1}\right)^{\alpha-1}} \\
       &= 1 + \frac{1}{2^{\alpha-1}} + \left(\frac{1}{2^{\alpha-1}}\right)^2 + \left(\frac{1}{3^{\alpha-1}}\right)^3 + \dots \\
@@ -7004,7 +7006,7 @@ We desire an exponential function satisfying:
   So,
   \[
     = \lim_{n\to\infty} \left(1 + \frac{\zeta_n}{n}\right)
-    \underset{\substack{\text{fundamental} \\ \text{theorem}}}{=} = \sum_{k=0}^\infty
+    \underset{\substack{\text{fundamental} \\ \text{theorem}}}{=} \sum_{k=0}^\infty
     \frac{(z + w)^k}{k!} = \exp(z + w)
   \]
 
