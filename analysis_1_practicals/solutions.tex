@@ -6,6 +6,7 @@
 \usepackage{csquotes}
 \usepackage{enumerate}
 \usepackage[T1]{fontenc}
+\usepackage[pdfborder={0 0 0}]{hyperref}
 \usepackage[margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[cal=boondoxo]{mathalfa}
@@ -2545,6 +2546,38 @@ This is a composition of continuous functions.
   \lim_{x\to\infty} \sqrt{x - \sqrt{x}} - \sqrt{x}
     = \frac{-1}{\sqrt{1 - \lim_{x\to\infty} \frac{1}{\sqrt{x}}} + 1} = \frac{-1}{2}
 \]
+
+\subsection{Exercise 76.e}
+
+\href{https://math.stackexchange.com/a/1755387/38726}{We know}:
+\[ f(x) = a^x \land a > 0 \implies f'(x) = a^x \ln(a) \]
+\[ f(x) = x^x \land x > 0 \implies x^x (1 + \ln(x)) \]
+
+\begin{align*}
+  \frac{dz}{dx} &= \frac{dz}{dy} \cdot \frac{dy}{dx} \\
+    &= \frac{d \, a^y}{dy} \cdot \frac{d\, x^x}{dx} \\
+    &= a^y \ln(a) \cdot x^x (1 + \ln(x)) \\
+    &= x^x \cdot a^{x^x} \cdot \ln(a) \cdot (1 + \ln(x))
+\end{align*}
+
+\subsection{Exercise 76.f}
+
+\href{https://math.stackexchange.com/a/1755387/38726}{We know}:
+\[ f(x) = a^x \land a > 0 \implies f'(x) = a^x \ln(a) \]
+
+\begin{align*}
+  \frac{dz}{dx} &= \frac{dz}{dy} \cdot \frac{dy}{dx} \\
+  \frac{d}{dx} \ln\left(x^{a^x}\right)
+    &= \frac{d}{dy} \ln(y) \cdot \frac{d}{dx} \left(x^{a^x}\right) \\
+    &= \frac1y \cdot \frac{d}{dx} \left(x^{a^x}\right) \\
+  \left[\frac{d}{dx} a^x \cdot \ln(x)\right] \cdot y
+    &= \frac{d}{dx} \left(x^{a^x}\right) \\
+  \frac{d}{dx} \left(x^{a^x}\right)
+    &= \left[\frac{d}{dx} a^x \cdot \ln(x)\right] \cdot x^{a^x} \\
+    &= \left[a^x \ln(a) \cdot \ln(x) + a^x \cdot \frac1x\right] \cdot x^{a^x} \\
+    &= a^x x^{a^x} \cdot \left[\ln(a) \cdot \ln(x) \cdot x \cdot \frac1x + \frac1x\right] \\
+    &= a^x x^{a^x-1} \cdot \left[\ln(a) \cdot \ln(x) \cdot x + 1\right]
+\end{align*}
 
 \section{Supporting sessions}
 
