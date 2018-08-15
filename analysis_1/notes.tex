@@ -96,18 +96,18 @@
   \item propositional logic (and/or/implication/equivalence operation)
   \begin{itemize}
     \item $p \implies q$: \enquote{p implies q} (\enquote{notwendig}), \enquote{q requires p} (\enquote{hinreichend})
-    \item Indirect proof: $(\neg q \implies \neg p) \Leftrightarrow (p \implies q)$
+    \item Indirect proof: $(\neg q \implies \neg p) \iff (p \implies q)$
     \item Proof by contradiction: claim $p$, claim $\neg q$, show that $p \land \neg q$ is not possible
-    \item commutative law: $a \land b \Leftrightarrow b \land a$
+    \item commutative law: $a \land b \iff b \land a$
     \item associative law: $a \land (b \land c) = (a \land b) \land c$
     \item distributive law: $(a \land b) \lor c = (a \lor c) \land (b \lor c)$
-    \item DeMorgan's law: $\neg (a \land b) \Leftrightarrow (\neg a) \lor (\neg b)$
+    \item DeMorgan's law: $\neg (a \land b) \iff (\neg a) \lor (\neg b)$
   \end{itemize}
   \item First-order logic
   \begin{itemize}
     \item $\forall x \in \mathbb{N}: x \in \mathbb{R}$
     \item $\forall x \in M: P(x)$
-    \item $\neg \left[(\forall x \in M) P(x)\right] \Leftrightarrow \exists x \in M: \neg P(x)$
+    \item $\neg \left[(\forall x \in M) P(x)\right] \iff \exists x \in M: \neg P(x)$
   \end{itemize}
   \item Peano's axioms: rationale for induction proofs
 \end{itemize}
@@ -154,13 +154,13 @@ Boolean Laws:
   \left((A \implies B) \land (B \implies C)\right) &\implies (A \implies C)
 \end{align}
 
-\[ A \lor B \Leftrightarrow \neg (\neg A) \lor \neg (\neg B) \Leftrightarrow \neg (\neg A \land \neg B) \]
-\[ \neg(A \lor B) \Leftrightarrow \neg(\neg (\neg A) \lor (\neg B)) \]
+\[ A \lor B \iff \neg (\neg A) \lor \neg (\neg B) \iff \neg (\neg A \land \neg B) \]
+\[ \neg(A \lor B) \iff \neg(\neg (\neg A) \lor (\neg B)) \]
 
 Distributive laws:
 \begin{itemize}
-  \item $(A \lor B) \land C \Leftrightarrow (A \land C) \lor (A \land C)$
-  \item $(A \land B) \lor C \Leftrightarrow (A \lor C) \land (B \lor C)$
+  \item $(A \lor B) \land C \iff (A \land C) \lor (A \land C)$
+  \item $(A \land B) \lor C \iff (A \lor C) \land (B \lor C)$
 \end{itemize}
 
 \subsection{Tautologies}
@@ -176,34 +176,34 @@ Examples of tautologies:
 \begin{description}
   \item[\enquote{Law of excluded middle}] $A \lor \neg A$
   \item[equivalences with itself are always tautologies] $A \leftrightarrow \neg (\neg A)$
-  \item[implication of itself] $A \rightarrow A$
+  \item[implication of itself] $A \to A$
 \end{description}
 
 \index[English]{Chain inference}
 \index[German]{\foreignlanguage{ngerman}{Schlusskette} (chain inference)}
 Tautology with multiple statements:
 \begin{description}
-  \item[implication with or and not] $(A \rightarrow B) \leftrightarrow (\neg A \lor B)$
-  \item[proof by contradiction] $\left[(A \rightarrow B) \land (A \rightarrow \neg B)\right] \rightarrow \neg A$
-  \item[chain inference] $\left[(A \rightarrow B) \land (B \rightarrow C)\right] \rightarrow (A \rightarrow C)$
+  \item[implication with or and not] $(A \to B) \leftrightarrow (\neg A \lor B)$
+  \item[proof by contradiction] $\left[(A \to B) \land (A \to \neg B)\right] \to \neg A$
+  \item[chain inference] $\left[(A \to B) \land (B \to C)\right] \to (A \to C)$
 \end{description}
 
 
 \meta{lecture}{14th of Oct 2015}{Wolfgang Ring}
 
 \begin{proof}
-  We prove, $\left[(A \rightarrow B) \land (A \rightarrow \neg B)\right] \rightarrow \neg A$.
+  We prove, $\left[(A \to B) \land (A \to \neg B)\right] \to \neg A$.
 
   \begin{align*}
-    (A \rightarrow B) \land (A \rightarrow \neg B) &\iff (\neg A \lor B) \land (\neg A \lor \neg B) \\
+    (A \to B) \land (A \to \neg B) &\iff (\neg A \lor B) \land (\neg A \lor \neg B) \\
       &\iff \underbrace{(B \land \neg B)}_{\bot} \lor \neg A \\
       &\iff \neg A
   \end{align*}
 \end{proof}
 
 \begin{proof}[special case $A = B$]
-  \[ (A \rightarrow A) \land (A \rightarrow \neg A) \rightarrow \neg A \]
-  \[ (A \rightarrow \neg A) \rightarrow \neg A \]
+  \[ (A \to A) \land (A \to \neg A) \to \neg A \]
+  \[ (A \to \neg A) \to \neg A \]
 \end{proof}
 
 \subsection{Negation of a tautology}
@@ -215,16 +215,16 @@ Tautology with multiple statements:
 \end{itemize}
 
 \begin{proof}
-  \[ (A \lor B) \rightarrow C \Leftrightarrow \neg (A \lor B) \lor C \Leftrightarrow (\neg A \land \neg B) \lor C \]
-  \[ \iff (\neg A \lor C) \land (\neg B \lor C) \Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \]
+  \[ (A \lor B) \to C \iff \neg (A \lor B) \lor C \iff (\neg A \land \neg B) \lor C \]
+  \[ \iff (\neg A \lor C) \land (\neg B \lor C) \iff (A \to C) \land (B \to C) \]
 \end{proof}
 
 Laws:
 \begin{align*}
-  (A \lor B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \land (B \rightarrow C) \\
-  (A \land B) \rightarrow C &\Leftrightarrow (A \rightarrow C) \lor (B \rightarrow C) \\
-  A \rightarrow (B \land C) &\Leftrightarrow (A \rightarrow B) \land (A \rightarrow C) \\
-  A \rightarrow (B \lor C) &\Leftrightarrow (A \rightarrow B) \lor (A \rightarrow C)
+  (A \lor B) \to C &\iff (A \to C) \land (B \to C) \\
+  (A \land B) \to C &\iff (A \to C) \lor (B \to C) \\
+  A \to (B \land C) &\iff (A \to B) \land (A \to C) \\
+  A \to (B \lor C) &\iff (A \to B) \lor (A \to C)
 \end{align*}
 
 \begin{proof}[Example proof by contradiction: Number of prime numbers]
@@ -311,7 +311,7 @@ Counterexample:
 \[ M = \mathbb{R} \hspace{10pt} P(x) := ( x > 0 ) \hspace{10pt} \]
 
 A statement $B$ is stronger than $C$ if $B$ implies at least the same propositions that $C$ imply.
-\enquote{$B$ is stronger than $C$} means \enquote{$\setdef{D}{C \rightarrow D} \subsetneq \setdef{D}{B \rightarrow D}$}.
+\enquote{$B$ is stronger than $C$} means \enquote{$\setdef{D}{C \to D} \subsetneq \setdef{D}{B \to D}$}.
 In that sense the stronger statement covers more cases.
 
 \subsection{Composition of several quantifiers}
@@ -373,7 +373,7 @@ Set operations:
   \begin{description}
     \item[Induction base $\mathbf{n = 1}$] \hfill{} \\
       \[ P(1): 1 = \frac{1 (1+1)}{2} \quad\checkmark \]
-    \item[Induction step $\mathbf{n \rightarrow n + 1}$] \hfill{} \\
+    \item[Induction step $\mathbf{n \to n + 1}$] \hfill{} \\
       Assume $P(n)$ is true.
       So $(1 + 2 + \dots + n) = \frac{n (n+1)}{2}$.
       \[ \left[(1 + 2 + \dots + n) + (n + 1)\right] = \frac{n(n+1)}{2} + (n+1) = (n+1) \left(\frac n2 + 1\right) \]
@@ -382,7 +382,7 @@ Set operations:
 
   So, it simply holds that:
   \[ s = 1 + 2 + 3 + \dots + n \]
-  \[ 2 \cdot s = \underbrace{n}_{\text{number of items}} \cdot \underbrace{(n + 1)}_{\text{sum}} \Rightarrow s = \frac{n \cdot (n + 1)}{2} \]
+  \[ 2 \cdot s = \underbrace{n}_{\text{number of items}} \cdot \underbrace{(n + 1)}_{\text{sum}} \implies s = \frac{n \cdot (n + 1)}{2} \]
 \end{proof}
 
 \begin{figure}[!h]
@@ -460,7 +460,7 @@ Set operations:
 \index[German]{\foreignlanguage{ngerman}{Zielmenge}}
 \begin{defi}
   Let $A$ and $B$ be sets.
-  A \emph{mapping} $f$ from $A$ to $B$ (denoted $f: A \rightarrow B$) is an assignment,
+  A \emph{mapping} $f$ from $A$ to $B$ (denoted $f: A \to B$) is an assignment,
   such that for every $x \in A$ one $y \in B$ is assigned. We denote the corresponding
   $y \in B$ for some $x \in A$ with $y = f(x)$.
   $A$ is called \emph{domain}, $B$ is called \emph{co-domain}.
@@ -473,7 +473,7 @@ Set operations:
     \item $\forall x \in A \land (y_1, y_2 \in B): \left[(x_1,y_1) \in f \land (x_1, y_2) \in f\right] \implies y_1 = y_2$
   \end{itemize}
   Notation:
-  \[ (x, y) \in f \Leftrightarrow y = f(x) \]
+  \[ (x, y) \in f \iff y = f(x) \]
   \[ \setdef{(x, f(x)) \in f}{x \in A} \eqqcolon \text{graph of f} \]
 \end{defi}
 
@@ -488,14 +488,14 @@ Set operations:
 \index[English]{Preimage}
 \index[German]{\foreignlanguage{ngerman}{Urbildmenge}}
 \begin{defi}
-  Let $f: A \rightarrow B$ be a mapping.
+  Let $f: A \to B$ be a mapping.
   \begin{itemize}
     \item
       The mapping $f$ is called \emph{surjective},
       if $\forall y \in B: \exists x \in A: y = f(x)$.
     \item
       The mapping $f$ is called \emph{injective}, if
-      \[ \forall x_1, x_2 \in A: (f(x_1) = f(x_2) \Rightarrow x_1 = x_2). \]
+      \[ \forall x_1, x_2 \in A: (f(x_1) = f(x_2) \implies x_1 = x_2). \]
     \item
       Let $B' \subseteq B$. We call $f^{-1}(B') = \setdef{x \in A}{f(x) \in B'}$ the \emph{preimage of $f$}.
 
@@ -506,7 +506,7 @@ Set operations:
 
       Special case: $A' = A$, then $f(A) \subseteq B$ is the image of $A$ under $f$.
 
-      Let $f: A \rightarrow B$ be a mapping. We define $\tilde f: A \rightarrow f(A) \subseteq B$ with
+      Let $f: A \to B$ be a mapping. We define $\tilde f: A \to f(A) \subseteq B$ with
       $\tilde f(x) = f(x)$ for all $x \in A$. The mapping $\tilde f$ is surjective, i.e. $\forall y \in f(A)$ there exists one $x \in A$ such that $y = f(x)$.
     \item
       A mapping is called \emph{bijective}
@@ -529,7 +529,7 @@ Set operations:
     \item[Induction base $\mathbf{n = 2}$]
       \[ (1 + x)^2 = 1 + 2x + x^2 > 1 + 2x \quad\checkmark \]
       because $x^2 > 0$ for $x \neq 0$.
-    \item[Induction step $\mathbf{n \rightarrow n+1}$] \hfill{} \\
+    \item[Induction step $\mathbf{n \to n+1}$] \hfill{} \\
       Assume $(1+x)^2 > 1 + n$, then $x > -1$ and $x \neq 0$.
       \[ (1 + x)^{n+1} = (1 + x)^n \cdot \underbrace{(1 + x)}_{>0} \underbrace{>}_{\text{by ind. hypo.}} (1+nx) \cdot (1 + x) \]
       \[ = (1 + nx + x + nx^2) = (1 + (n+1)\cdot x + \underbrace{nx^2}_{>0}) > 1 + (n + 1) \cdot x \]
@@ -550,10 +550,10 @@ Set operations:
 Back to sets and functions (notes are missing, but the topics we covered are):
 \begin{itemize}
   \item injective, surjective, bijective function
-  \item composition of functions: Let $f: X \rightarrow Y$ and $g: Y \rightarrow Z$. $g \circ f: X \rightarrow Z$ is defined as $g(f(x))$ (\enquote{g after f}).
+  \item composition of functions: Let $f: X \to Y$ and $g: Y \to Z$. $g \circ f: X \to Z$ is defined as $g(f(x))$ (\enquote{g after f}).
   \item Let $f$ and $g$ be mappings. If $f$ and $g$ are injective, $f \circ g$ is injective. If $f$ and $g$ are surjective, $f \circ g$ is surjective. If $f$ and $g$ are bijective, $f \circ g$ is bijective.
   \item Identity function, $f \circ \operatorname{id} = \operatorname{id} \circ f = f$
-  \item properties of an inverse function, $f \circ f^{-1}: X \rightarrow X$, $f^{-1} \circ f: X \rightarrow X$
+  \item properties of an inverse function, $f \circ f^{-1}: X \to X$, $f^{-1} \circ f: X \to X$
 \end{itemize}
 
 \section{About sums of integers}
@@ -605,9 +605,9 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
   \begin{description}
     \item[Induction base]
       $n=1$:
-        $M_1 = \set{1}, S_1 = \set{(1)} \Rightarrow \card{S_1} = 1 = 1! \done$
+        $M_1 = \set{1}, S_1 = \set{(1)} \implies \card{S_1} = 1 = 1! \done$
     \item[Induction step]
-      $n\rightarrow n+1$:
+      $n\to n+1$:
         \[
           S_{n+1} = \set{(a_1, a_2, \ldots, a_n) :
               a_i \in M_{n+1} \forall i \in M_{n+1},
@@ -624,7 +624,7 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
           Claim: For every $l \in M_{n+1}$ it holds that $\card{W_l} = \card{S_n} = n!$.
         \end{theorem}
         \begin{proof}
-          We build a bijective map $\phi_l: W_l \rightarrow S_n$.
+          We build a bijective map $\phi_l: W_l \to S_n$.
           \[
               W_l = \set{(a_1, a_2, \ldots, a_{l-1}, n+1, a_{l+1}, \ldots, a_{n+1}}
           \]\[
@@ -645,7 +645,7 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
           \] \[
                   = \phi_l((a_1, \ldots, a_{l-1}, n+1, a_{l+1}, \dots, a_{n+1}))
           \] \[
-               \Rightarrow
+               \implies
                (a_1, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1}) =
                (a_1, \ldots, a_{l-1}, a_{l+1}, \ldots, a_{n+1})
           \]
@@ -661,12 +661,12 @@ Example: $\set{(1,2,3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)}$
 \index[German]{\foreignlanguage{ngerman}{symmetrische Gruppe}}
 
 \begin{rem}
-  Let $f: M_n \rightarrow M_n$. $f$ is represented as
-  \[  (1, 2, 3, 4, \ldots, n-1, n) \rightarrow (f(1), f(2), f(3), f(4), \ldots, f(n-1), f(n))  \]
+  Let $f: M_n \to M_n$. $f$ is represented as
+  \[  (1, 2, 3, 4, \ldots, n-1, n) \to (f(1), f(2), f(3), f(4), \ldots, f(n-1), f(n))  \]
   where $(a, b, c, \ldots)$ denotes a permutation.
   Therefore $(f(1), f(2), \ldots, f(n)) \in S_n$. Analogously every $(a_1, \ldots, a_n) \in S_n$
-  defined by $f(k) = a_k$ for $k=1,\ldots,n$ is a bijective mapping $f: M_n \rightarrow M_n$.
-  Therefore we set $S_n = \set{f: M_n \rightarrow M_n: f \text{ is bijective}}$.
+  defined by $f(k) = a_k$ for $k=1,\ldots,n$ is a bijective mapping $f: M_n \to M_n$.
+  Therefore we set $S_n = \set{f: M_n \to M_n: f \text{ is bijective}}$.
   $S_n$ is called \emph{symmetric group of $n$ elements}.
 \end{rem}
 
@@ -741,7 +741,7 @@ A recursive definition is given by Pascal's Rule:
         T_n^0        &= \set{\emptyset} \\
         \card{T_n^0} &= 1 = \binom n0
       \end{align*}
-    \item[Induction step] $k\rightarrow k+1$
+    \item[Induction step] $k\to k+1$
       \begin{align*}
         T_n^k &= \underbrace{\set{\set{a_1, \ldots, a_k}: a_i \in M_n, (i = 1, \ldots, k), a_i \neq a_j \text{ for } i \neq j}}_{A_1} \\
               &\cup \underbrace{\set{\set{a_1, \ldots, a_{k-1}} \cup [n] \in M_{n-1}}}_{A_2} \\
@@ -807,14 +807,14 @@ Example:
         S_{n+1}^k &\coloneqq \set{(a_1, \ldots, a_{l-1}, n+1, a_{l+1}, \ldots, a_{k-1}): (a_1, \ldots, a_{\hat{l}}, \ldots, a_k) \in T_n^k}
       \end{align*}
 
-      Union is disjoint $\Rightarrow \card{T_{n+1}^k} = \card{R_{n+1}^k} + \card{S_{n+1}^k}$
+      Union is disjoint $\implies \card{T_{n+1}^k} = \card{R_{n+1}^k} + \card{S_{n+1}^k}$
 
       \[ R_{n+1}^k = \set{A \subseteq M_n: \card{A} = k} = T_n^k \]
       \[ \card{R_{n+1}^k} = \card{T_n^k} = \binom{n}{k} \]
       by induction hypothesis.
       \[ S_{n+1}^k = \set{A \subseteq M_{n+1}: A = A' \cup \set{n+1}: A' \subseteq M_n: \card{A'} = k - 1} \]
       We prove $\card{S_{n+1}^k} = \card{T_n^{k-1}}$.
-      \[ f: S_{n+1}^k \rightarrow T_n^{k-1} \]
+      \[ f: S_{n+1}^k \to T_n^{k-1} \]
       \[ f(A) = f(A' \cup \set{n+1}) = A' \]
 
       $f$ is bijective.
@@ -823,7 +823,7 @@ Example:
 
       $B = B' \cup \set{n+1} \in S_{n+1}^k$. $A', B' \in T_n^{k-1}$.
 
-      \[ f(A) = f(B) \Rightarrow A' = B' \Rightarrow A' \cup \set{n+1} = B' \cup \set{n+1} \Rightarrow A = B \]
+      \[ f(A) = f(B) \implies A' = B' \implies A' \cup \set{n+1} = B' \cup \set{n+1} \implies A = B \]
       \[ \card{S_{n+1}^k} = \card{T_n^{k-1}} \stackrel{\text{ind. hypo.}}{=} \binom{n}{k-1} \]
       Therefore $\card{T_{n+1}^k} = \binom nn = \binom n{k-1} = \binom{n+1}{k}$.
       The last equality follows from the recursive definition of binomial coefficients.
@@ -843,7 +843,7 @@ Example:
       \begin{description}
         \item[Induction step] $n=0$: $(a + b)^0 = 1$
           \[ \sum_{k=0}^0 \binom{0}{k} a^k b^{0-k} = \binom{0}{0} a^0 b^0 = 1 \]
-        \item[Induction step] $n \rightarrow n + 1$
+        \item[Induction step] $n \to n + 1$
           \[
             (a + b)^{n+1} = (a + b)^n \cdot (a + b)
             = \left(\sum_{k=0}^n \binom nk a^k b^{n-k}\right) (a + b)
@@ -934,7 +934,7 @@ We consider two fundamental arithmetic operators and determine fundamental prope
   In every field it holds that
   \begin{itemize}
     \item the inverse element of $a$ is unique ($\tilde a$ is unique).
-      Let $-a$ be the inverse element of $a$ and $a + b = 0 \Rightarrow b = -a$
+      Let $-a$ be the inverse element of $a$ and $a + b = 0 \implies b = -a$
       \begin{proof}
         Let $\tilde a$ be the inverse of $a$. Let $\tilde b$ the inverse of $a$.
         Show $\tilde a = \tilde b$.
@@ -974,8 +974,8 @@ $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
 
   Therefore for every $z \in \mathbb{Z}$ exists some $\tilde z$ such that $z + \tilde z = 0$.
   \begin{itemize}
-    \item $z \in \mathbb{Z}_+ \Rightarrow \tilde z = -z$
-    \item $z = 0 \Rightarrow \tilde z = 0$
+    \item $z \in \mathbb{Z}_+ \implies \tilde z = -z$
+    \item $z = 0 \implies \tilde z = 0$
     \item $z = -n$ for $n \in \mathbb{N}_+$
     \item $\tilde z = n$
   \end{itemize}
@@ -1007,7 +1007,7 @@ $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
 
 \begin{defi}
   \[ \mathbb{Q} = \set{\frac mn: m,n \in \mathbb{Z}, n \neq 0} \]
-  where $\frac mn = \frac{m'}{n'} \Leftrightarrow m \cdot n' = n \cdot m'$.
+  where $\frac mn = \frac{m'}{n'} \iff m \cdot n' = n \cdot m'$.
   $\mathbb{Q}$ is called the set of rational numbers.
 
   We define
@@ -1016,9 +1016,9 @@ $n-m = k \in \mathbb{N}$ is defined in such a way that $n = m + k$.
 
   Show that
   \[ \frac mn = \frac{m'}{n'} \text{ and } \frac kl = \frac{k'}{l'} \]
-  \[ \Rightarrow \frac{ml + nk}{nl} = \frac{m'l' + n'k'}{n'l'} \]
-  \[ \Rightarrow (ml + nk)(n' l') = (m' l' + n' k') \]
-  \[ \Leftrightarrow mn' \cdot ll' + nn' \cdot kl = m'n \cdot ll' + nn' \cdot k' l \]
+  \[ \implies \frac{ml + nk}{nl} = \frac{m'l' + n'k'}{n'l'} \]
+  \[ \implies (ml + nk)(n' l') = (m' l' + n' k') \]
+  \[ \iff mn' \cdot ll' + nn' \cdot kl = m'n \cdot ll' + nn' \cdot k' l \]
   Analogously for $\frac mn \cdot \frac kl$.
 
   \textbf{A1}--\textbf{A4}, \textbf{M1}--\textbf{M4} and \textbf{D} hold for $\mathbb{Q}$.
@@ -1060,7 +1060,7 @@ Literature:
   with $0 \not\in K_+, 0 \not\in K_-$. It holds that
   \begin{itemize}
     \item $\forall a \in K$ it holds that either $a \in K_-$ or $a = 0$ or $a \in K_+$ \\
-          $a \in K_+ \Leftrightarrow -a \in K_-$
+          $a \in K_+ \iff -a \in K_-$
     \item $\forall a, b \in K_+$: $a + b \in K_+ \land a \cdot b \in K_+$
   \end{itemize}
   If those properties are satisfied, such a field is called an \emph{ordered field}.
@@ -1068,16 +1068,16 @@ Literature:
   and $a < 0$ for $a \in K_-$ correspondingly (namely \enquote{negative numbers}).
 
   For arbitrary $a, b \in K$ we define
-  \[ a > b \Leftrightarrow a - b > 0 \]
-  It holds that $a > b \Leftrightarrow b < a$.
-  \[ a \geq b \Leftrightarrow a > b \lor a = b \]
+  \[ a > b \iff a - b > 0 \]
+  It holds that $a > b \iff b < a$.
+  \[ a \geq b \iff a > b \lor a = b \]
 \end{defi}
 
 \begin{lemma}
   Let $K$ be an ordered field. Then it holds that
   \begin{enumerate}
-    \item $a \in K_+ \land b \in K_- \Rightarrow a \cdot b \in K_-$ \\
-          $a \in K_- \land b \in K_- \Rightarrow a \cdot b \in K_+$
+    \item $a \in K_+ \land b \in K_- \implies a \cdot b \in K_-$ \\
+          $a \in K_- \land b \in K_- \implies a \cdot b \in K_+$
     \item $\forall a, b \in K$ one of the following relations hold:
           \[ a > b \;\lor\; a = b \;\lor\; a < b \]
           Therefore $<$ defines a total order on $K$.
@@ -1117,7 +1117,7 @@ Literature:
           = a^{-1} b^{-1} b - a^{-1} b^{-1} a
           = -a^{-1} \cdot b^{-1}
           = \frac1a \cdot \frac1b
-          \Rightarrow a^{-1} < b^{-1}
+          \implies a^{-1} < b^{-1}
       \]
     \item $a < b$ therefore $a - b < 0 \implies a + c - c - b < 0 \implies (a + c) - (b + c) < 0$
       \[ \iff a + c < b + c \]
@@ -1149,7 +1149,7 @@ Literature:
   $\mathbb{Q}_+ \cap \mathbb{Q}_- = \emptyset$.
 
   \[
-    q \neq 0 \Rightarrow q = \begin{cases}
+    q \neq 0 \implies q = \begin{cases}
       \frac mn & m,n \in \mathbb{N}_+ \\
       \frac {-m}n & m,n \in \mathbb{N}_+ \\
       \frac m{-n} & m,n \in \mathbb{N}_+ \\
@@ -1166,12 +1166,12 @@ Literature:
   We want to show that $\mathbb{Q}_+ \cap \mathbb{Q}_- = \emptyset$.
   Let $q \in \mathbb{Q}_+ \cap \mathbb{Q}_-$.
   \[ q = \frac mn = -\frac{m'}{n'} \qquad m,n,m',n' \in \mathbb{N}_+ \]
-  \[ \Rightarrow n \cdot n' = (-m') n \]
-  \[ \Rightarrow \underbrace{\underbrace{mn'}_{\in \mathbb{N}_+} + \underbrace{m' n}_{\in \mathbb{N}_+}}_{\in \mathbb{N}_+} = 0 \qquad\text{\Lightning} \]
+  \[ \implies n \cdot n' = (-m') n \]
+  \[ \implies \underbrace{\underbrace{mn'}_{\in \mathbb{N}_+} + \underbrace{m' n}_{\in \mathbb{N}_+}}_{\in \mathbb{N}_+} = 0 \qquad\text{\Lightning} \]
 
   Furthermore $p \in \mathbb{Q}_+ \land q \in \mathbb{Q}_+$
-  \[ \Rightarrow p + q \in \mathbb{Q}_+ \land pq \in \mathbb{Q}_+ \]
-  \[ \Rightarrow p = \frac kl \qquad q = \frac mn \qquad k,l,m,n \in \mathbb{N}_+ \]
+  \[ \implies p + q \in \mathbb{Q}_+ \land pq \in \mathbb{Q}_+ \]
+  \[ \implies p = \frac kl \qquad q = \frac mn \qquad k,l,m,n \in \mathbb{N}_+ \]
   \[ p + q = \frac{\overbrace{kn + ml}^{\in \mathbb{N}_+}}{nm} \in \mathbb{Q}_+ \]
   \[ pq = \frac{k}{l} \cdot \frac mn = \frac{\overbrace{km}^{\in \mathbb{N}_+}}{\underbrace{ln}_{\in \mathbb{N}_+}} \in \mathbb{Q}_+ \]
 \end{rem}
@@ -1229,7 +1229,7 @@ Literature:
 \subsection{Laws for absolute values}
 %
 \begin{theorem}
-  Let $y \geq 0$. Then it holds that $\abs{x} \leq y \Leftrightarrow -y \leq x \land x \leq y$
+  Let $y \geq 0$. Then it holds that $\abs{x} \leq y \iff -y \leq x \land x \leq y$
 \end{theorem}
 \begin{proof}
   First direction $\implies$:
@@ -1259,17 +1259,17 @@ Literature:
 \end{proof}
 
 \begin{theorem}
-  \[ \abs{x} = 0 \Leftrightarrow x = 0 \]
+  \[ \abs{x} = 0 \iff x = 0 \]
   \[ \forall a \in K: \abs{a} = \abs{-a} \]
-  \[ \forall \varepsilon > 0: \abs{x - y} \leq \varepsilon \Leftrightarrow x = y \]
+  \[ \forall \varepsilon > 0: \abs{x - y} \leq \varepsilon \iff x = y \]
 \end{theorem}
 
 \begin{proof}
   \begin{description}
-    \item[First direction $\Rightarrow$]
+    \item[First direction $\implies$]
       Without loss of generality: $x \geq y$.
 
-      \[ x \neq y \Rightarrow \exists \varepsilon > 0: \abs{x - y} > \varepsilon \]
+      \[ x \neq y \implies \exists \varepsilon > 0: \abs{x - y} > \varepsilon \]
 
       Let $x \neq y$. Because $x \geq y$ holds, so does $x > y$. Therefore $x - y > 0$.
       We define $\varepsilon = \frac{x-y}{2} < x - y$
@@ -1280,13 +1280,13 @@ Literature:
       Therefore it holds that $\varepsilon: \abs{x-y} = x - y > \frac12(x - y) = \varepsilon > 0$.
 
     \item[Second direction $\impliedby$]
-      $x = y \Rightarrow \abs{x-y} = 0 \leq \varepsilon \forall \varepsilon > 0$
+      $x = y \implies \abs{x-y} = 0 \leq \varepsilon \forall \varepsilon > 0$
   \end{description}
 \end{proof}
 
-\index[English]{Inversed triangle inequality}
+\index[English]{Reversed triangle inequality}
 \index[German]{\foreignlanguage{ngerman}{Umgekehrte Dreiecksungleichung}}
-\begin{theorem}[Inversed triangle inequality]
+\begin{theorem}[Reversed triangle inequality]
   Let $a, b \in K$. Then it holds that
   \[ \abs{\abs{a} - \abs{b}} \leq \abs{a - b} \]
 \end{theorem}
@@ -1295,9 +1295,9 @@ Literature:
   Show that $-\abs{a - b} \leq \abs{a} - \abs{b} \leq \abs{a - b}$.
   \begin{description}
     \item[First inequality]
-      \[ \abs{b} = \abs{b - a + a} \leq \abs{b - a} + \abs{a} \Rightarrow -\abs{a - b} \leq \abs{a} - \abs{b} \]
+      \[ \abs{b} = \abs{b - a + a} \leq \abs{b - a} + \abs{a} \implies -\abs{a - b} \leq \abs{a} - \abs{b} \]
     \item[Second inequality]
-      \[ \abs{a} = \abs{a - b + b} \leq \abs{a - b} + \abs{b} \Rightarrow \abs{a} - \abs{b} \leq \abs{a - b} \]
+      \[ \abs{a} = \abs{a - b + b} \leq \abs{a - b} + \abs{b} \implies \abs{a} - \abs{b} \leq \abs{a - b} \]
   \end{description}
 \end{proof}
 
@@ -1331,26 +1331,26 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
   Let $C = \setdef{k \in \mathbb N}{\forall n \in A: k < n}$.
   $C$ is the set of all lower bounds of $A$ with operator $<$.
-  We show: $0 \in C$ and $\forall k \in C \Rightarrow k + 1 \in C$.
+  We show: $0 \in C$ and $\forall k \in C \implies k + 1 \in C$.
 
   \begin{description}
     \item[Induction base]
       Assume $0 \not\in C$, hence for $k = 0$ it holds that
       \[ \exists n \in A \subset \mathbb N: n \leq 0 \]
-      $\Rightarrow n \geq 0$ anyways and hence $n = 0$ and $0 \in A$.
-      $\Rightarrow 0 = \min{A}$ and $A$ has a minimum.
+      $\implies n \geq 0$ anyways and hence $n = 0$ and $0 \in A$.
+      $\implies 0 = \min{A}$ and $A$ has a minimum.
 
       This is a contradiction. So $0 \not \in C$ does not hold.
       So $0 \in C$.
     \item[Induction step]
       Let $k \in C$, hence $\forall n \in A: k < n$.
-      \[ \Rightarrow \forall n \in A: k + 1 \leq n \]
+      \[ \implies \forall n \in A: k + 1 \leq n \]
       Even $<$ holds. Assume $\exists n \in A: k + 1 = n$ and
       $\forall n' \in A: k + 1 \leq n'$.
-      \[ \Rightarrow k + 1 \in A \land k + 1 \text{ is lower bound of } A \]
+      \[ \implies k + 1 \in A \land k + 1 \text{ is lower bound of } A \]
       Therefore $k + 1 = \min{A}$.
       This is a contradiction to the assumption that $\min{A}$ does not exist.
-      Therefore $\forall n \in A: k + 1 < n \Rightarrow k + 1 \in C$.
+      Therefore $\forall n \in A: k + 1 < n \implies k + 1 \in C$.
 
       Due to the properties of induction: $\forall k \in \mathbb N: k \in C$
       equivalently means $C = \mathbb N$.
@@ -1459,6 +1459,8 @@ $\mathbb Q$ is dense in $\mathbb R$.
 \end{theorem}
 
 \begin{proof}
+  We will prove $\sqrt{2}$ to be irrational as an counterexample.
+
   We define a mapping from $\mathbb N_+$ to $\mathbb N$:
   Let $n \in \mathbb N_+$ then we know that $n$ can be represented distinctly
   as product of prime numbers. Let $\operatorname{Z}(n)$ be the number of twos
@@ -1500,16 +1502,16 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
       \[ \forall n \in \mathbb N: -n \in \mathbb Z \]
       \[ \forall n \in \mathbb N_+: n^{-1} \in \mathbb R \]
-      \[ \Rightarrow \mathbb Z \subseteq \mathbb R \]
+      \[ \implies \mathbb Z \subseteq \mathbb R \]
 
       Therefore $\forall m \in \mathbb N: m \cdot \frac1n = \frac mn \in \mathbb R
-      \Rightarrow \mathbb Q \subseteq \mathbb R$.
+      \implies \mathbb Q \subseteq \mathbb R$.
 
       \begin{defi}
-        Let $I_0, I_1, \dots, I_z$. $(I_n)_{n \in \mathbb N}$ is a sequence of closed intervals with
+        Let $I_0, I_1, \dots$. $(I_n)_{n \in \mathbb N}$ is a sequence of closed intervals with
         \begin{enumerate}
           \item $\forall n \in \mathbb N: I_{n+1} \subseteq I_n$
-          \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \Rightarrow \abs{I_n} < \varepsilon$
+          \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \abs{I_n} < \varepsilon$
         \end{enumerate}
       \end{defi}
 
@@ -1530,7 +1532,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
         % Without loss of generality: $\alpha \leq \beta$.
         % Then it holds that $\abs{\beta - \alpha} = \beta - \alpha \leq \beta
         % + (-\alpha) \leq b + (-\alpha) = b - a = \abs{I}$.
-        % \[ a \leq \alpha \Rightarrow -a \geq -\alpha \]
+        % \[ a \leq \alpha \implies -a \geq -\alpha \]
         Consider arbitrary small $\varepsilon > 0$ and $N \in \mathbb N$ sufficiently large,
         such that $\abs{I_n} < \varepsilon \:\forall n > N$. Because $x,y \in I_n \implies
         \abs{x - y} < \varepsilon \implies x = y$.\footnote{
@@ -1567,8 +1569,8 @@ $\mathbb Q$ is dense in $\mathbb R$.
   Then it holds for $n \geq N:$
   \[
     \frac{x-1}{\underbrace{p-1}_{>0}}
-    \Leftrightarrow x - 1 < n\cdot(p-1)
-    \Leftrightarrow x < 1 + n(p-1) < p^n
+    \iff x - 1 < n\cdot(p-1)
+    \iff x < 1 + n(p-1) < p^n
   \]
 \end{proof}
 
@@ -1626,7 +1628,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
   \begin{description}
     \item[$\mathbf{k = 2}$]
       \[ y_1^2 = y_1 \cdot y_1 < y_1 \cdot y_2 < y_2 \cdot y_2 = y_2^2 \]
-    \item[$\mathbf{k \rightarrow k + 1}$]
+    \item[$\mathbf{k \to k + 1}$]
       \[
         y_1^k \leq y_2^k
         \implies y_1^k \cdot y_1 \leq y_2^k \cdot y_1 < y_2^k \cdot y_2
@@ -1637,29 +1639,28 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
 \begin{theorem}
   Let $a, b \in K$ and $k \in \mathbb N$.
-  Then it holds that
+  Then,
   \[ a^k - b^k = (a - b)\left(\sum_{j=0}^{k-1} a^{k-1-j} b^j\right) \]
-  \[ a^2 - b^2 = (a - b)(a + b) \]
-  \[ a^3 - b^3 = (a - b)(a^2 + ab + b^2) \]
 \end{theorem}
 
+Examples:
+  \[ a^2 - b^2 = (a - b)(a + b) \]
+  \[ a^3 - b^3 = (a - b)(a^2 + ab + b^2) \]
+
 \begin{proof}
-  \[
+  \begin{align*}
     (a - b)\left(\sum_{j=0}^{k-1} a^{k-j-1} b^j\right)
-    = \sum_{j=0}^{j-1} a^{k-j} b^j - \sum_{j=0}^{k-1} a^{k-j-1} b^{j+1}
-  \] \[
-    = a^k + \sum_{j=1}^{k-1} a^{k-j} b^j - \underbrace{b^{k-1}}_{j=k-1} - \sum_{j=0}^{k-2} a^{k-j-1} b^{j+1}
-  \] \[
-    = a^k - b^k + \sum_{j=1}^{k-1} a^{k-j} b^j - \sum_{l=1}^{k-1} a^{k-l} b^l
-  \] \[
-    = a^k
-  \]
+      &= \sum_{j=0}^{j-1} a^{k-j} b^j - \sum_{j=0}^{k-1} a^{k-j-1} b^{j+1} \\
+      &= a^k + \sum_{j=1}^{k-1} a^{k-j} b^j - \underbrace{b^{k-1}}_{j=k-1} - \sum_{j=0}^{k-2} a^{k-j-1} b^{j+1} \\
+      &= a^k - b^k + \sum_{j=1}^{k-1} a^{k-j} b^j - \sum_{l=1}^{k-1} a^{k-l} b^l \\
+      &= a^k - b^k
+  \end{align*}
 \end{proof}
 
 \begin{theorem}
   Let $y_2 > y_1$ then
   \[ y_2^k - y_1^k = \underbrace{(y_2 - y_1)}_{> 0} \underbrace{\left(\sum_{j=0}^{k-1} y_2^{k-j-1} y_1^j\right)}_{> 0} \]
-  \[ \Rightarrow y_2^k - y_1^k > 0 \]
+  \[ \implies y_2^k - y_1^k > 0 \]
 \end{theorem}
 
 \begin{proof}
@@ -1683,7 +1684,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
   Define $m_n = \frac12 (a_n + b_n)$
   \begin{description}
     \item[Case 1]
-      \[ m_n^k \geq x \Rightarrow \text{ let } a_{n+1} = a_n, b_{n+1} = m \]
+      \[ m_n^k \geq x \implies \text{ let } a_{n+1} = a_n, b_{n+1} = m \]
       \[ I_{n+1} = [a_n, m_n] \subseteq [a_n, b_n] = I_n \]
       \[ \abs{I_{n+1}} = m_n - a_n = \frac12 a_n + \frac12 b_n - a_n \]
       \[ \frac12 (b_n - a_n) = \frac12 \abs{I_n} \]
@@ -1696,7 +1697,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
       $I_n$ is set of nested intervals.
       Let $\varepsilon > 0$ be arbitrary. Then
-      \[ \exists N \in \mathbb N: n \geq N \Rightarrow \left(\frac12\right)^n < \frac{\varepsilon}{1 + x} \]
+      \[ \exists N \in \mathbb N: n \geq N \implies \left(\frac12\right)^n < \frac{\varepsilon}{1 + x} \]
 
       For those $n \geq N$ it holds that
       \[
@@ -1711,12 +1712,12 @@ $\mathbb Q$ is dense in $\mathbb R$.
       It holds that
       \[
           a_n \leq a_{n+1} < b_{n+1} \leq b_n \text{ because } I_{n+1} \subseteq I_n
-          \Rightarrow a_n^k \leq a_{n+1}^k < b_{n+1}^k \leq b_n^k
+          \implies a_n^k \leq a_{n+1}^k < b_{n+1}^k \leq b_n^k
       \]
 
       Length of $I_n$:
       \[ I_n = b_n^k - a_n^k = (b_n - a_n) \sum_{j=0}^{k-1} a_n^{k-1-j} b_n^j \]
-      Because $I_n \leq I_0 \Rightarrow a_n < b_0 \Rightarrow b_n \leq b_0$,
+      Because $I_n \leq I_0 \implies a_n < b_0 \implies b_n \leq b_0$,
       \[ < (b_n - b_0) \sum_{j=0}^{k-1} b_0^{k-1-j} b_0^{j} \]
       \[ = (b_n - a_n) k b_0^k = (b_n - a_n) k (1 + x)^k \]
 
@@ -1729,14 +1730,14 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
       $\exists z \in \mathbb R$ with $z \in \lfloor a_n^k, b_n^k\rfloor: \forall n \in \mathbb N$
       and $z$ is unique. By construction of $I_n$ it holds that $a_n^k \leq x \leq b_n^k$
-      \[ \Rightarrow x \in I_n \forall n \in \mathbb N \Rightarrow x = z \in \bigcap_{n \in \mathbb N} I_n. \]
+      \[ \implies x \in I_n \forall n \in \mathbb N \implies x = z \in \bigcap_{n \in \mathbb N} I_n. \]
 
-      On the opposite side it holds that $y \in I_n$ (hence $a_n \leq y \leq b_n \Rightarrow a_n^k \leq y^k \leq b_n^k$).
-      So $y^k \in I_n \forall n \in \mathbb N \Rightarrow y^k = z = x$.
+      On the opposite side it holds that $y \in I_n$ (hence $a_n \leq y \leq b_n \implies a_n^k \leq y^k \leq b_n^k$).
+      So $y^k \in I_n \forall n \in \mathbb N \implies y^k = z = x$.
       So we have found some $y^k$ which is $x$. But is $y \geq 0$ with $y^k = x$ unique?
 
       Let $y_1 \neq y_2$ with $y_1^k = y_2^k = x$ and without loss of generality,
-      \[ 0 \leq y_1 < y_2 \Rightarrow y_1^k < y_2^k \quad\lightning \]
+      \[ 0 \leq y_1 < y_2 \implies y_1^k < y_2^k \quad\lightning \]
       So, $y$ is unique.
   \end{description}
 \end{proof}
@@ -1796,7 +1797,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
   \begin{enumerate}
     \item $\forall a \in A: t \leq a$ (t is a lower bound of $A$)
     \item $\forall x > t$ so $x$ is no lower bound of $A$
-      \[ \Longleftrightarrow \exists a \in A: a < x \]
+      \[ \iff \exists a \in A: a < x \]
   \end{enumerate}
   We denote $t = \inf{A}$.
 \end{defi}
@@ -1816,7 +1817,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
 \begin{theorem}
   Let $A \subseteq R$ and $u$ be the maximum of $A$. Then it holds that
-  $u = \sup{A}$. If $l = \min{A} \Rightarrow l = \inf{A}$.
+  $u = \sup{A}$. If $l = \min{A} \implies l = \inf{A}$.
 \end{theorem}
 
 \begin{proof}
@@ -1835,7 +1836,7 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
   $0 = \inf{A}$, because $0$ is a lower bound of $A$ ($\frac1n > 0 \forall n \in \mathbb N_+$).
   Let $\varepsilon > 0$, then $\exists N \in \mathbb N: n \geq N
-  \Rightarrow \frac1n \leq \varepsilon$. Therefore $\varepsilon$ is not a lower bound of $A$.
+  \implies \frac1n \leq \varepsilon$. Therefore $\varepsilon$ is not a lower bound of $A$.
 
   So $A$ does not have a minimum, because otherwise $l = \max{A} = \inf{A} = 0$.
 \end{ex}
@@ -1846,19 +1847,19 @@ $\mathbb Q$ is dense in $\mathbb R$.
 \end{theorem}
 
 \begin{proof}
-  We construct nested intervals $(I_n){{n \in \mathbb N}}$ such that
-  for $s \in \bigcap_{n \in \mathbb N} I_n$ gilt $s = \sup{A}$.
-  We construct $I_{n+1}$ inductively using $I_n$
+  We construct nested intervals $(I_n)_{n \in \mathbb N}$ such that
+  for $s \in \bigcap_{n \in \mathbb N} I_n$ we have $s = \sup{A}$.
+  We construct $I_{n+1}$ inductively using $I_n$.
 
   \begin{description}
     \item[Case $\mathbf{n = 0}$] \hfill{} \\
-      Because $A \neq 0$, we select $a_0 \in A$.
+      Because $A \neq \emptyset$, we select $a_0 \in A$.
       Because $A$ is bounded above, $\exists b_0 \in \mathbb R$
       such that $b_0$ is an upper bound of $A$.
       We define $I_0 = [a_0, b_0]$.
-    \item[Case $\mathbf{n \rightarrow n + 1}$] \hfill{} \\
+    \item[Case $\mathbf{n \to n + 1}$] \hfill{} \\
       Let $a_0 = b_0$, then it holds that $b_0$ is upper bound and $b_0 \in A$.
-      We call that terminating condition.
+      We call that termination condition.
       Therefore $b_0 = \max{A} = \sup{A}$ and the supremum was found.
       Instead of $n$ we use $n + 1$.
       Let $I_0 = [a_n, b_n]$ with $a_n \neq b_n$ and $a_n \in A$,
@@ -1872,11 +1873,11 @@ $\mathbb Q$ is dense in $\mathbb R$.
         \item[Case $\mathbf{m_n}$ is an upper bound of $\mathbf{A}$]
           Then we set $a_{n+1} = a_n \in A$ and
           $b_{n+1} = m_n$ is an upper bound of $A$.
-          \[ \abs{I_{n+1}} = b_{n+1} + a_{n+1} = \frac12 (b_n + a_n) - a_n \]
+          \[ \abs{I_{n+1}} = b_{n+1} - a_{n+1} = \frac12 (b_n + a_n) - a_n \]
           \[
-            = \frac12 b_1 - \frac12 a_n = \frac12 \abs{I_n}
-            \leq \left(\frac12\right)^n \abs{I_0}
-            = \left(\frac12\right)^{n+1} \abs{I_n}
+            = \frac12 b_n - \frac12 a_n = \frac12 \abs{I_n}
+            \leq \frac12 \left(\frac12\right)^n \abs{I_0}
+            = \left(\frac12\right)^{n+1} \abs{I_0}
             \qquad \checkmark
           \]
         \item[Case $\mathbf{m_n}$ is not an upper bound of $\mathbf{A}$]
@@ -1891,41 +1892,39 @@ $\mathbb Q$ is dense in $\mathbb R$.
               Let $a_{n+1} = x \in A$ and $b_{n + 1} = b_n$ is an upper bound
               and
               \[
-                  I_{n + 1} = b_{n+1} - a_{n+1} - b_n - x
-                  < b_n - m_n - b_n - \frac12 (b_n + a_n) + \frac12 (b_n - a_n)
+                  \abs{I_{n + 1}} = b_{n+1} - a_{n+1} = b_n - x
+                  < b_n - m_n = b_n - \frac12 a_n - \frac12 b_n
               \] \[
+                  = \frac12 b_n - \frac12 a_n
                   = \frac12 \abs{I_n} \leq \left(\frac12\right)^{n+1} \abs{I_0}
               \]
               We have found supremum $s = \sup{A}$.
           \end{description}
-          If in any case the terminating condition holds, then we have found
+          If in any case the termination condition holds, then we have found
           the supremum.
 
-          The remaining case is $\forall n \in \mathbb: a_n < b_n, a_n \in A, b_n$
+          Now we show that we can create arbitrary small intervals with $I_n$.
+          So we know, $\forall n \in \mathbb N: a_n < b_n, a_n \in A, b_n$
           is upper bound of $A$.
           \[ \abs{I_n} = b_n - a_n \leq \left(\frac12\right)^n \abs{I_0} \]
-          Consider $\varepsilon > 0$ and $N$ such that $n \geq N \Rightarrow
-          \left(\frac12\right)^n < \frac{\varepsilon}{\abs{I_n}}$.
+          Consider $\varepsilon > 0$ and $N$ such that $n \geq N \implies
+          \left(\frac12\right)^n < \frac{\varepsilon}{\abs{I_0}}$.
           For those $n$ it holds that
           \[ \abs{I_n} \leq \left(\frac12\right)^n \abs{I_0} < \frac{\varepsilon}{\abs{I_0}} \abs{I_0} = \varepsilon \]
           Therefore $(I_n)_{n \in \mathbb N}$ are nested intervals.
       \end{description}
   \end{description}
-\end{proof}
 
-What remains for completeness:
-  $s \in \mathbb R, s \in I_n: \forall n \in N$.
-  We need to show that $s = \sup{A}$.
+  We know:
+  $s \in \mathbb R$ and $\forall n \in \mathbb N: s \in I_n$.
+  It remains to show that $s = \sup{A}$.
 
-\meta{lecture}{12th of November 2015}{Wolfgang Ring}
+  \meta{lecture}{12th of November 2015}{Wolfgang Ring}
 
-\begin{theorem}
-  Completeness of $\mathbb{R}$:
+  By completeness of $\mathbb{R}$:
   \[ \exists s \in \mathbb R: s \in I_n \forall n \in \mathbb N \]
-\end{theorem}
 
-\begin{proof}[\textbf{Proof} cont]
-  Every set with an upper bound has a supremum.
+  We show: Every set with an upper bound has a supremum.
 
   We construct $(I_n)_{n \in \mathbb N}$ with $I_n = [a_n, b_n]$ and $I_{n+1} \subseteq I_n$.
   $\forall n \in \mathbb N: a_n \in A$, $b_n$ is the upper bound of $A$.
@@ -1934,7 +1933,7 @@ What remains for completeness:
   \begin{figure}[!h]
     \begin{center}
       \includegraphics{img/proof_interval.pdf}
-      \caption[width=200pt]{Relation of $a_n$ and $b_n$ and $J_{n+1}$}
+      \caption[width=200pt]{Possible relationship between $a_n$, $b_n$ and $J_{n+1}$ with $J_{n+1} \coloneqq I_n \setminus I_{n+1}$}
     \end{center}
   \end{figure}
 
@@ -1952,19 +1951,20 @@ What remains for completeness:
     \item
       Claim: $s$ is $\sup{A}$.
 
-      We need to show (by contradiction):
-      $S$ is upper bound of $A$. Assume $a \in A$ and $a > s$.
-      Let $\varepsilon = a - s > 0$ and choose $N$ sufficiently large such that
-      \[ \abs{I_n} < \varepsilon = a - s \]
-      Then it holds that
-      \[
-          b_N
-          = \underbrace{b_n - a_n}_{\varepsilon} \not|
-          \underbrace{a_N}_{< s} < s + \varepsilon
-          = a
-      \]
-      \[ \Rightarrow b_N < a \in A \qquad\lightning \]
-      Because $b_n$ is an upper bound.
+      \begin{proof}[Proof by contradiction]
+        $s$ is upper bound of $A$. Assume $a \in A$ and $a > s$.
+        Let $\varepsilon = a - s > 0$ and choose $N$ sufficiently large such that
+        \[ \abs{I_n} < \varepsilon = a - s \]
+        Then it holds that
+        \[
+            b_N
+            = \underbrace{b_n - a_n}_{\varepsilon} \not|
+            \underbrace{a_N}_{< s} < s + \varepsilon
+            = a
+        \]
+        \[ \implies b_N < a \in A \qquad\text\lightning \]
+        Because $b_n$ is an upper bound.
+      \end{proof}
 
     \item
       $\forall \sigma < s$ it holds that $\sigma$ is not an upper bound of $A$.
@@ -1973,7 +1973,7 @@ What remains for completeness:
       \begin{align*}
         a_N &= a_N - b_N + b_N \\
             &> -\varepsilon + s \\
-            &= -s + \sigma + s = \sigma \qquad \checkmark
+            &= -s + \sigma + s = \sigma \qquad \mathbf\checkmark
       \end{align*}
       Therefore it holds that $s$ is smallest upper bound of $A$ and therefore
       supremum.
@@ -1986,11 +1986,11 @@ What remains for completeness:
 \end{theorem}
 
 \begin{theorem}
-  Remember that $M$ has the same cardinality like $A$ if $\varphi: M \rightarrow A$.
+  Remember that $M$ has the same cardinality like $A$ if $\varphi: M \to A$.
   $\varphi$ is bijective, $M$ is called countably infinite
   if $M$ has the same cardinality like $\mathbb N$.
 
-  Let $\varphi: \mathbb N \rightarrow M$ be bijective therefore
+  Let $\varphi: \mathbb N \to M$ be bijective therefore
   $M = \set{\varphi(1), \varphi(2), \varphi(3), \ldots} = \setdef{\varphi(n)}{n \in \mathbb N}$
   and $\varphi(i) \neq \varphi(j)$ for $i \neq j$.
 
@@ -2023,7 +2023,7 @@ What remains for completeness:
   %    \caption{
   %      A complete enumeration of $\mathbb Q^+$ (diagonalization argument)
   %      The enumeration goes as follows:
-  %      $1 \rightarrow 0, 2 \rightarrow 1, \frac12 \rightarrow 2, \frac13 \rightarrow 3$
+  %      $1 \to 0, 2 \to 1, \frac12 \to 2, \frac13 \to 3$
   %      and $\frac22$ is skipped, because it occurs already as $\frac22$.
   %      We traverse the whole matrix diagonally.
   %    }
@@ -2050,7 +2050,7 @@ What remains for completeness:
 \index[English]{uncountability}
 \index[English]{\begin{otherlanguage}{ngerman}überabzählbar\end{otherlanguage}}
 \begin{theorem}
-  There is no bijective relation $\varphi: \mathbb N \rightarrow \mathbb R$.
+  There is no bijective relation $\varphi: \mathbb N \to \mathbb R$.
   Therefore we call $\mathbb R$ \emph{uncountable}.
 \end{theorem}
 
@@ -2071,9 +2071,9 @@ What remains for completeness:
         \end{center}
       \end{figure}
 
-    \item[Case $\mathbf{n \rightarrow n + 1}$]
+    \item[Case $\mathbf{n \to n + 1}$]
       Assume $I_{0} \dots I_n$ were already defined with $x_k \notin I_k$ for $0 \leq k \leq n$.
-      \[ I_{k+1} \leq I_k \text{ for } k = 0, \dots, n-1 \]
+      \[ I_{k+1} \subseteq I_k \text{ for } k = 0, \dots, n-1 \]
       \[ \abs{I_k} = \left(\frac13\right)^k \]
 
       \begin{figure}[!t]
@@ -2095,10 +2095,10 @@ What remains for completeness:
       $I_{n+1} < I_n$.
       \[ \abs{I_{n+1}} = \frac13 I_{n} = \left(\frac13\right)^{n+1} \]
       For $\varepsilon > 0$ it holds that there exists some $N \in \mathbb N$
-      such that $n \geq N \Rightarrow \abs{I_1} = \left(\frac13\right)^n < \varepsilon$.
+      such that $n \geq N \implies \abs{I_n} = \left(\frac13\right)^n < \varepsilon$.
       Therefore nested intervals $I_n$ are given.
 
-      Let $x \in \mathbb R$ such that $\forall n \in \mathbb N: X \in I_n$
+      Let $x \in \mathbb R$ such that $\forall n \in \mathbb N: x \in I_n$
       (because of completeness law). Then it holds that $\forall x_n: x \neq x_n$.
       $x \in I_n$ and $x_n \not\in I_n$.
       Therefore $x \in \set{x_0, x_1, x_2, \ldots} = \mathbb R$.
@@ -2112,7 +2112,7 @@ What remains for completeness:
 We introduce a new arithmetic unit denoted $i$, which extends the field $\mathbb R$.
 Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
 \begin{align}
-  \forall a, b \in \mathbb R: a + bi = 0 &\Leftrightarrow a = 0 \land b = 0 \\
+  \forall a, b \in \mathbb R: a + bi = 0 &\iff a = 0 \land b = 0 \\
   i^2 &= -1 \\
   \text{associativity,} & \text{ commutativity etc holds}
 \end{align}
@@ -2125,16 +2125,17 @@ Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
   Arithmetic operations are well-defined for $i$. Associativity and commutativity holds.
   It holds that
   \begin{itemize}
-    \item $a + ib = 0$ with $a,b \in \mathbb R \Leftrightarrow a = 0 \land b = 0$
+    \item $a + ib = 0$ with $a,b \in \mathbb R \iff a = 0 \land b = 0$
     \item $i^2 = -1$ i.e. $i^2 + 1 = 0$.
     \item Arithmetic operations still hold.
   \end{itemize}
 
   By the first law,
   \[
-    a + ib = a' + ib' \Leftrightarrow (a - a') + i(b - b') = 0
-    \Leftrightarrow a - a' = 0 \land b - b' = 0 \text{ therefore }
-    a = a' \land b = b'
+    a + ib = a' + ib' \iff (a - a') + i(b - b') = 0
+  \] \[
+    \iff a - a' = 0 \land b - b' = 0
+    \implies a = a' \land b = b'
   \]
 
   By the second law, $i$ is the solution of the quadratic equation $i^2 + 1 = 0$.
@@ -2155,7 +2156,7 @@ Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
       \[ 1 = 1 + 0 \cdot i \]
       \[ (a + i \cdot b) (1 + i \cdot 0) = (a + (i)^2 \cdot 0) + i (b + 0) = a + ib \]
     \item \textbf{M4} holds: Let $z \in \mathbb C \setminus \set{0}$.
-      Let $z = a + ib$ and $\neg(a = 0 \land b = 0) \Leftrightarrow a^2 + b^2 > 0$.
+      Let $z = a + ib$ and $\neg(a = 0 \land b = 0) \iff a^2 + b^2 > 0$.
   \end{itemize}
 
   We define
@@ -2227,17 +2228,17 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \end{proof}
 
 \begin{theorem}
-  \[ z \in \mathbb R \Leftrightarrow z = \overline{z} \]
+  \[ z \in \mathbb R \iff z = \overline{z} \]
 \end{theorem}
 \begin{proof}
-  \[ z = a \in \mathbb R \Rightarrow \overline{z} = a = z \]
+  \[ z = a \in \mathbb R \implies \overline{z} = a = z \]
   On the opposite, let $z = \overline{z}$ therefore
-  \[ a = ib = a - ib \Rightarrow 2ib = 0 \Rightarrow b = 0 \]
+  \[ a = ib = a - ib \implies 2ib = 0 \implies b = 0 \]
   Therefore $z = a \in \mathbb R$.
 \end{proof}
 
 \begin{theorem}
-  \[ z \in (i \mathbb R) = \set{ib : b \in \mathbb R} \Leftrightarrow z = -\overline{z} \]
+  \[ z \in (i \mathbb R) = \set{ib : b \in \mathbb R} \iff z = -\overline{z} \]
   Proof follows analogously.
 \end{theorem}
 
@@ -2284,13 +2285,13 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \end{proof}
 
 \begin{theorem}
-  \[ z = 0 \Leftrightarrow \abs{z} = 0 \in \mathbb R \]
+  \[ z = 0 \iff \abs{z} = 0 \in \mathbb R \]
 \end{theorem}
 
 \begin{proof}
-  \[ z = 0 = 0 + i 0 \Rightarrow \abs{z} = \sqrt{0^2 + 0^2} = 0 \]
-  Let $\abs{z} = \sqrt{a^2 + b^2} = 0 \Rightarrow a^2 + b^2 = 0$.
-  \[ \Rightarrow a = 0 \land b = 0 \]
+  \[ z = 0 = 0 + i 0 \implies \abs{z} = \sqrt{0^2 + 0^2} = 0 \]
+  Let $\abs{z} = \sqrt{a^2 + b^2} = 0 \implies a^2 + b^2 = 0$.
+  \[ \implies a = 0 \land b = 0 \]
 \end{proof}
 
 \begin{theorem}
@@ -2311,7 +2312,7 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 
 \begin{proof}
   Indirect proof: Let $\sqrt[k]{y_1} \geq \sqrt[k]{y_2} \geq 0$.
-  \[ \Rightarrow \left(\sqrt[k]{y_1}\right)^k \geq \left(\sqrt[k]{y_2}\right)^k \]
+  \[ \implies \left(\sqrt[k]{y_1}\right)^k \geq \left(\sqrt[k]{y_2}\right)^k \]
   therefore $y_1 \geq y_2$. This is the negation of our assumption.
 \end{proof}
 
@@ -2385,10 +2386,10 @@ $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equ
 \index[English]{Sequences}
 \index[German]{\foreignlanguage{ngerman}{Folge}}
 \begin{defi}
-  Let $a$ be a mapping $\mathbb N \rightarrow \mathbb R$ is called \emph{sequence} of real numbers.
+  Let $a$ be a mapping $\mathbb N \to \mathbb R$ is called \emph{sequence} of real numbers.
   \[ \forall n \in \mathbb N: a(n) \in \mathbb R \]
   We denote $a_n \coloneqq a(n)$.
-  Instead of $a: \mathbb N \rightarrow \mathbb C$ we write $(a_n)_{n \in \mathbb N} = (a_0, a_1, \ldots)$.
+  Instead of $a: \mathbb N \to \mathbb C$ we write $(a_n)_{n \in \mathbb N} = (a_0, a_1, \ldots)$.
 
   Analogously for the complex numbers $\mathbb C$ and general sets $X$.
 \end{defi}
@@ -2473,24 +2474,24 @@ $\forall n \in \mathbb N$ there exist exactly $n$ different solutions of the equ
 \end{defi}
 
 \begin{rem}
-  Sometimes we consider mappings $a: \mathbb N_+ \rightarrow \mathbb C$, which we also call sequences:
+  Sometimes we consider mappings $a: \mathbb N_+ \to \mathbb C$, which we also call sequences:
   \[ a \leftrightarrow (a_1, a_2, \ldots) \]
 \end{rem}
 
 \begin{ex}
   \[ a_n = \frac1n \]
   We know:
-  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \frac1n < \varepsilon \]
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \frac1n < \varepsilon \]
   Therefore
   \[ \lim_{n \to \infty} \frac1n = 0 \]
 \end{ex}
 
 Let $q \in \mathbb C$, $\abs{q} < 1$.
 
-We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \abs{q^n - 0} < \varepsilon$.
+We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \abs{q^n - 0} < \varepsilon$.
 \[ \lim_{n\to\infty} q^n = 0 \]
 
-\meta{lecture}{19th of November 2015}{Wolfgang Ring}
+\meta{lecture}{20th of November 2015}{Wolfgang Ring}
 
 \begin{rem}
   Consider $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies \abs{a_n - a} < \varepsilon\right]$
@@ -2518,7 +2519,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \begin{theorem}[Well-known convergent sequences.] \hfill{}
   \begin{enumerate}
     \item
-      Let $s = \frac pq \in \mathbb Q_+$ and $n \in \mathbb N_+$. Consider $\left(\frac 1{n^2}\right)_{n \in \mathbb N}$.
+      Let $s = \frac pq \in \mathbb Q_+$ and $n \in \mathbb N_+$. Consider $\left(\frac 1{n^s}\right)_{n \in \mathbb N}$.
       \[ n^s = n^{\frac pq} \coloneqq \sqrt[q]{n^p} \]
       It holds that
       \[ \lim_{n \to \infty} \frac{1}{n^s} = 0 \]
@@ -2565,7 +2566,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
       \[ a > 1 \implies \sqrt[n]{a} > \sqrt[n]{1} = 1 \implies \sqrt[n]{a} - 1 > 0 \]
       It holds that $x_n + 1 = \sqrt[n]{q}$, i.e. $(x_n + 1)^n = a$.
       \[ a = (\underbrace{x_1}_{> 0} + 1)^n \underbrace{>}_{\text{Bernoulli}} 1 + n \cdot x_n \]
-      \[ \Rightarrow x_n < \frac{a - 1}{n} \]
+      \[ \implies x_n < \frac{a - 1}{n} \]
       \[ N > \frac{a - 1}{\varepsilon} \xRightarrow{\text{for } x \geq N} \abs{\sqrt[n]{a} - 1} = x_n \]
       \[ < \frac{a - 1}{n} \leq \frac{a - 1}{N} < \frac{a - 1}{\frac{a - 1}{2}} = \varepsilon \]
     \item[Case $\mathbf{a = 1}$]
@@ -2573,9 +2574,9 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
       \[ \left(\sqrt[n]{a}\right)_{n \in \mathbb N} = (1, 1, 1, 1, \dots) \]
       has the limit $1$.
     \item[Case $\mathbf{0 < a < 1}$]
-      Let $0 < a < 1 \Rightarrow 0 < \sqrt[n]{q} < \sqrt[n]{1} = 1$.
+      Let $0 < a < 1 \implies 0 < \sqrt[n]{q} < \sqrt[n]{1} = 1$.
       \[ x_n = 1 - \sqrt[n]{a} > 0 \]
-      Show that $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \Rightarrow x_n < \varepsilon\right]$.
+      Show that $\forall \varepsilon > 0 \exists N \in \mathbb N: \left[n \geq N \implies x_n < \varepsilon\right]$.
       \[
           x_n
           = 1 - \sqrt[n]{a} = \sqrt[n]{a} \left(\frac{1}{\sqrt[n]{a}} - 1\right)
@@ -2583,8 +2584,8 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
       \]
       with $a' = \frac1a > 1$.
       From case $a > 1$ we already know
-      \[ \exists N \in \mathbb N: \left[n \geq N \Rightarrow \abs{\sqrt[n]{a'} - 1} = \sqrt[n]{a'} - 1 < \varepsilon\right] \]
-      \[ \Rightarrow x_n < \varepsilon \]
+      \[ \exists N \in \mathbb N: \left[n \geq N \implies \abs{\sqrt[n]{a'} - 1} = \sqrt[n]{a'} - 1 < \varepsilon\right] \]
+      \[ \implies x_n < \varepsilon \]
   \end{description}
 \end{proof}
 
@@ -2709,7 +2710,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \subsection{Laws for convergent complex sequences}
 %
 \begin{theorem}
-  Let $(a_n)_{n \in \mathbb N}$ be convergent with limes $a$, $(a_n \rightarrow a)$. Then it holds that
+  Let $(a_n)_{n \in \mathbb N}$ be convergent with limes $a$, $(a_n \to a)$. Then it holds that
   \begin{itemize}
     \item $\left(\Re(a_n)\right)_{n \in \mathbb N}$ is convergent.
       \[ \lim_{n \to \infty} \left(\Re(a_n)\right) = \Re(a) \]
@@ -2727,25 +2728,28 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 \end{theorem}
 
 \begin{proof}
-  Let $\varepsilon > 0$. Consider $N$ such that $n \geq N \Rightarrow \abs{a_n - a} < \varepsilon$.
-  \[ \underbrace{\abs{a_n - a}}_{(\alpha_n - \alpha) + (\beta_n - \beta)i} = \sqrt{(\alpha_n - \alpha)^2 + (\beta_n - \beta)^2} \]
+  Let $\varepsilon > 0$. Choose $N$ such that $n \geq N \implies \abs{a_n - a} < \varepsilon$.
+  \[
+    \underbrace{\abs{a_n - a}}_{(\alpha_n - \alpha) + (\beta_n - \beta)i}
+    = \sqrt{(\alpha_n - \alpha)^2 + (\beta_n - \beta)^2}
+    \geq \begin{cases}
+      \sqrt{(\alpha_n - \alpha)^2} = \abs{\alpha_n - \alpha} \\
+      \sqrt{(\beta_n - \beta)^2} = \abs{\beta_n - \beta}
+    \end{cases}
+  \]
+  hence $(\alpha_n) = (\Re(a_n))_{n\in\mathbb N}$ is convergent, $(\beta_n) = (\Im(a_n))_{n \in \mathbb N}$ is convergent.
 
-  TODO
-
-  Therefore $(\alpha_n) = \seq{\Re(a_n)}$ is convergent.
-  $(\beta_n) = \seq{\Im(a_n)}$ is convergent.
-
-  Let $\varepsilon > 0$. Consider $N$ such that $n \geq N \Rightarrow \abs{a_n - a} < \varepsilon$.
+  Let $\varepsilon > 0$. Choose $N$ such that $n \geq N \implies \abs{a_n - a} < \varepsilon$.
   \[
       \abs{\abs{a_n} - \abs{a}}
       \underbrace{\leq}_{\text{inverse triangular inequality}}
       \abs{a_n - a} < \varepsilon \text{ for } n \geq N
   \]
-  Now we need to show $\alpha_n \rightarrow \alpha$ and $\beta_n \rightarrow \beta$
-  \[ \Rightarrow a_n \rightarrow a \]
+  Now we need to show $\alpha_n \to \alpha$ and $\beta_n \to \beta$
+  \[ \implies a_n \to a \]
   Let $\varepsilon > 0$ be arbitrary.
   Because $\seq{\alpha_n}$ be convergent, there exists $N_1 \in \mathbb N$:
-  \[ n \geq N_1 \Rightarrow \abs{\alpha_1 - \alpha} < \frac{\varepsilon}{\sqrt{2}} \]
+  \[ n \geq N_1 \implies \abs{\alpha_1 - \alpha} < \frac{\varepsilon}{\sqrt{2}} \]
   $\seq{\beta_n}$ is convergent. So,
   \[ \exists N_2 \in \mathbb N: n \geq N_2 \]
   \[ \abs{\beta_n - \beta} < \frac{\varepsilon}{\sqrt{2}} \]
@@ -2760,10 +2764,10 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
   \]
 
   Let $a_n = \alpha_n + i \beta_n$ is convergent with limes $\alpha + i \beta$ which is $a$.
-  \[ \Rightarrow \lim_{n \to \infty} \alpha_n = \alpha \land \lim_{n \to \infty} \beta_n = \beta \]
-  \[ \Rightarrow \lim_{n \to \infty} (-\beta_n) = -\beta \qquad\text{\enquote{multiplication rule}} \]
-  \[ \Rightarrow (\overline{a_n})_{n \in \mathbb N} = (\underbrace{\alpha_n}_{\text{convergent}} - \underbrace{i \beta_n}_{\text{convergent}})_{n \in \mathbb N} \]
-  \[ \Rightarrow \lim_{n \to \infty} \overline{a_n} = \alpha - i \beta = \overline{a} \]
+  \[ \implies \lim_{n \to \infty} \alpha_n = \alpha \land \lim_{n \to \infty} \beta_n = \beta \]
+  \[ \implies \lim_{n \to \infty} (-\beta_n) = -\beta \qquad\text{\enquote{multiplication rule}} \]
+  \[ \implies (\overline{a_n})_{n \in \mathbb N} = (\underbrace{\alpha_n}_{\text{convergent}} - \underbrace{i \beta_n}_{\text{convergent}})_{n \in \mathbb N} \]
+  \[ \implies \lim_{n \to \infty} \overline{a_n} = \alpha - i \beta = \overline{a} \]
 \end{proof}
 
 \subsection{Further laws for sequences}
@@ -2775,8 +2779,8 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
 
 \begin{proof}
   Consider $a - b = \varepsilon > 0$.
-  \[ \exists N_1 \in \mathbb N: n \geq N_1 \Rightarrow \abs{a_n - a} < \frac{\varepsilon}{2} \]
-  \[ \exists N_2 \in \mathbb N: n \geq N_2 \Rightarrow \abs{b_n - b} < \frac{\varepsilon}{2} \]
+  \[ \exists N_1 \in \mathbb N: n \geq N_1 \implies \abs{a_n - a} < \frac{\varepsilon}{2} \]
+  \[ \exists N_2 \in \mathbb N: n \geq N_2 \implies \abs{b_n - b} < \frac{\varepsilon}{2} \]
 
   \begin{figure}[!h]
     \begin{center}
@@ -2801,7 +2805,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \rightarrow \
   \]
 
   Attention:
-  \[ a_n < b_n \not\Rightarrow a < b \]
+  \[ a_n < b_n \not\implies a < b \]
 
   Example: $a_n = 0$, $b_n = \frac1n$.
 \end{proof}
@@ -2826,8 +2830,8 @@ they are obivously convergent?
   Consider $N$ sufficiently large such that,
   \begin{itemize}
     \item $N \geq M$
-    \item $n \geq N \Rightarrow \abs{A_n - A} < \varepsilon$
-    \item $n \geq N \Rightarrow \abs{B_n - A} < \varepsilon$
+    \item $n \geq N \implies \abs{A_n - A} < \varepsilon$
+    \item $n \geq N \implies \abs{B_n - A} < \varepsilon$
   \end{itemize}
   Then it holds that for $n \geq N$:
   \[
@@ -2836,7 +2840,7 @@ they are obivously convergent?
       a_n - A \leq B_n - A \leq \abs{B_n - A} < \varepsilon
     \end{array}\right\} \text{ = 1}
   \] \[
-    \Rightarrow \abs{a_n - A} < \varepsilon
+    \implies \abs{a_n - A} < \varepsilon
   \] \[
     \lim_{n \to \infty} a_N = A
   \]
@@ -2847,7 +2851,7 @@ they are obivously convergent?
   \[ \lim_{n \to \infty} \left(\sqrt[n]{n^s}\right) = 1 \]
   We apply the squeeze theorem:
   \[ n^2 \geq 1 \forall n \in \mathbb N \]
-  \[ \Rightarrow \sqrt[n]{n^s} \geq 1 \]
+  \[ \implies \sqrt[n]{n^s} \geq 1 \]
 
   Let $k \in \mathbb N_+$. Then it holds that
   \[ \lim_{n \to \infty} \sqrt[n]{n^k} = \lim_{n \to \infty} \underbrace{\sqrt[n]{n} \sqrt[n]{n} \dots \sqrt[n]{n}}_{k \text { times}} \]
@@ -2856,8 +2860,8 @@ they are obivously convergent?
   For the last two lines we actually need to read them from right to left.
 
   Let $s = \frac pq$.
-  \[ \Rightarrow n^s = n^{\frac pq} \leq q \cdot \left(n \frac{p}{q}\right)^q = n^p \]
-  \[ q \geq 1 \Rightarrow \sqrt[n]{n^s}  \leq \underbrace{\sqrt[n]{n^p}}_{\text{convergent with limes }1} \qquad p \in \mathbb N \]
+  \[ \implies n^s = n^{\frac pq} \leq q \cdot \left(n \frac{p}{q}\right)^q = n^p \]
+  \[ q \geq 1 \implies \sqrt[n]{n^s}  \leq \underbrace{\sqrt[n]{n^p}}_{\text{convergent with limes }1} \qquad p \in \mathbb N \]
   Then it holds that $\lim_{n \to \infty} \sqrt[n]{n^s} = 1$ with the squeezing theorem.
 \end{ex}
 
@@ -2865,7 +2869,7 @@ they are obivously convergent?
   Let $A \subseteq \mathbb R$ be bounded above. Then it holds that
   \[
       s = \sup{A}
-      \Longleftrightarrow
+      \iff
           s \text{ is upper bound of } A \land
           \forall \varepsilon > 0 \exists a \in A: a > s - \varepsilon
   \]
@@ -2885,7 +2889,7 @@ they are obivously convergent?
 
 \begin{rem}
   Analogously:
-  \[ \sigma = \inf{A} \Leftrightarrow \sigma \text{ is lower bound} \land \forall \varepsilon > 0 \exists a \in A: a < \sigma + \varepsilon \]
+  \[ \sigma = \inf{A} \iff \sigma \text{ is lower bound} \land \forall \varepsilon > 0 \exists a \in A: a < \sigma + \varepsilon \]
 \end{rem}
 
 \begin{theorem}
@@ -2902,14 +2906,14 @@ they are obivously convergent?
   Let $\seq{a_n}$ be monotonically increasing. Let $a = \sup\set{a_n: n \in \mathbb N}$.
   Let $\varepsilon > 0$ be arbitrary. Because $a$ is a supremum, there exists $a_N \in \set{a_n: n \in \mathbb N}$
   such that $a_N > a - \varepsilon$.
-  \[ \Rightarrow \underbrace{a - a_N}_{\geq 0} < \varepsilon \]
+  \[ \implies \underbrace{a - a_N}_{\geq 0} < \varepsilon \]
   because $a$ is an upper bound. Therefore
   \[ \abs{a - a_N} < \varepsilon \]
   Let $n \geq N$ then it holds that
   \[ \abs{a - a_n} \underbrace{=}_{a \text{ is upper bound}} a - a_n \leq a - a_N \]
   because $a_N \leq a_n$ is increasing:
   \[ a - a_N < \varepsilon \]
-  Therefore $\lim_{n \rightarrow \infty} a_n = a$.
+  Therefore $\lim_{n \to \infty} a_n = a$.
 \end{proof}
 
 \meta{lecture}{25th of November 2015}{Wolfgang Ring}
@@ -2943,8 +2947,8 @@ Both are convergent.
 \begin{enumerate}
   \item Show that,
     \[
-        \alpha_{n+1} < \alpha_n \Leftrightarrow
-        \frac{\alpha_{n+1}}{\alpha_n} < 1 \Leftrightarrow
+        \alpha_{n+1} < \alpha_n \iff
+        \frac{\alpha_{n+1}}{\alpha_n} < 1 \iff
         \frac{(\alpha_{n+1})^2}{(\alpha_n)^2} < 1
     \] \[
         \left(\frac{\alpha_{n+1}}{\alpha_n}\right)^2 = \left(
@@ -2965,14 +2969,14 @@ Both are convergent.
         = \frac{(4n^2 + 8n + 4) (n+1)}{(4n^2+2n+1) (n+2)}
     \] \[
         = \frac{4n^3+12n^2+12n+4}{4n^3 + 12n^2 + 9n + 2}
-        > 1 \Rightarrow \beta_{n+1} > \beta_n \Rightarrow \beta_n \text{ is monotonically increasing}
+        > 1 \implies \beta_{n+1} > \beta_n \implies \beta_n \text{ is monotonically increasing}
     \]
 
     Let $p = \lim_{n\to\infty} a_n$ and $p' = \lim_{n\to\infty} b_n$.
 
     \[ \beta_n = \frac{p_n}{\sqrt{n}} \cdot \frac{\sqrt{n}}{\sqrt{n+1}} = \alpha_n \cdot \sqrt{\frac{n}{n+1}} \]
     \[ \lim_{n\to\infty} \beta_n = \lim_{n\to\infty} \alpha_n \sqrt{\frac{n}{n+1}} = \lim_{n\to\infty} \alpha_n \cdot \underbrace{\lim_{n\to\infty} \sqrt{\frac{n}{n+1}}}_{=1} \]
-    \[ \Rightarrow \lim_{n\to\infty} \beta_n = \lim_{n\to\infty} a_n \Rightarrow p = p' \]
+    \[ \implies \lim_{n\to\infty} \beta_n = \lim_{n\to\infty} a_n \implies p = p' \]
     It holds that $p = \lim_{n\to\infty} \frac{p_n}{\sqrt{n}} = \sqrt{n}$.
 \end{enumerate}
 
@@ -3005,14 +3009,14 @@ Both are convergent.
 
 \begin{proof}
   Let $\seq{a_n}$ be convergent. Let
-  \[ \varepsilon > 0 \exists N \in \mathbb N: n \geq N \Rightarrow \abs{a_n - a} \]
+  \[ \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \abs{a_n - a} \]
   Therefore $\forall n \in \set{N, N+1, N+2, \dots}$ it holds that $\abs{a_n - a} < \varepsilon$.
   Assume $a' \in \mathbb C$ is another limit point with $a \neq a'$.
   Let
   \[ \varepsilon = \frac{\abs{a - a'}}{2} > 0 \]
   Let $N \in \mathbb N$ such that $\forall n \geq N: \abs{a_n - a} < \varepsilon$.
   \[
-    \Rightarrow n \in \mathbb N: \abs{a' - a_n}
+    \implies n \in \mathbb N: \abs{a' - a_n}
       = \abs{a' - a + a - a_n}
       = \abs{a' - a - (a_n - a)} \geq \abs{a' - a} - \abs{a_n - a}
   \] \[
@@ -3038,12 +3042,12 @@ The lecture on 26th of November 2015 got cancelled.
   \[ B'(a, r) = \setdef{z \in \mathbb C}{\abs{z - a} \leq r} \]
 \end{defi}
 
-Let $a$ be a limit point of $\seq{a_n} \Leftrightarrow \forall \varepsilon > 0$.
+Let $a$ be a limit point of $\seq{a_n} \iff \forall \varepsilon > 0$.
 $B(a, \varepsilon)$ contains infinitely many sequence values.
 
 \begin{ex}
   \[ a_n = \frac12 \left[1 + (-1)^n \left(\frac{1-n}{n}\right)\right] \qquad n \geq 1 \]
-  \[ \Rightarrow a_1 = \frac12 \quad a_2 = \frac14 \quad a_3 = \frac56 \]
+  \[ \implies a_1 = \frac12 \quad a_2 = \frac14 \quad a_3 = \frac56 \]
   \[ a_4 = \frac18 \quad a_5 = \frac{9}{10} \quad a_6 = \frac{1}{12} \quad a_7 = \frac{13}{14} \]
   \begin{quote}
     \foreignlanguage{ngerman}{\enquote{$\frac56$? Ah, passt ma eh bessa.} (Wolfgang Ring)}
@@ -3073,7 +3077,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
         &= \frac{1}{4k+2} \\
         &< \varepsilon
     \end{align*}
-    \[ \text{ if } 4k+2 > \frac1\varepsilon \Rightarrow \underbrace{k}_{\substack{\text{infinitely many} \\ \text{indices}}} > \frac14 \left(\frac1\varepsilon - 2\right) \]
+    \[ \text{ if } 4k+2 > \frac1\varepsilon \implies \underbrace{k}_{\substack{\text{infinitely many} \\ \text{indices}}} > \frac14 \left(\frac1\varepsilon - 2\right) \]
   \end{proof}
 \end{ex}
 
@@ -3096,7 +3100,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   \[ \left(\underbrace{1}_{n_0}, \underbrace{\frac13}_{n_1}, \underbrace{\frac14}_{n_2}, \underbrace{\frac16}_{n_3}, \dots\right) \]
   Let $n: \mathbb N \to \mathbb N$ be strictly monotonically increasing.
   Therefore
-  \[ \forall k \in \mathbb N: n (k+1) > n(k) \Rightarrow n_{k+1} > n_k \]
+  \[ \forall k \in \mathbb N: n (k+1) > n(k) \implies n_{k+1} > n_k \]
   We call $\seq{n_k}$ an \emph{index subsequence} and $\left(a_{n_k}\right)_{k \in \mathbb N}$ is called subsequence of $\seq{a_n}$.
 \end{defi}
 
@@ -3118,7 +3122,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 
   Proof of limes: $\lim_{k\to\infty} a_{n_k} = a$.
   Let $\varepsilon > 0$. Because $\seq{a_n}$ is convergent, it holds that
-  $\exists N \in \mathbb N: n \geq N \Rightarrow \abs{a_n - a} < \varepsilon$.
+  $\exists N \in \mathbb N: n \geq N \implies \abs{a_n - a} < \varepsilon$.
   Let $k \geq N$. This holds because $n_k \geq k \geq N: \abs{a_{n_k} - a} < \varepsilon$.
   Therefore $\left(a_{n_k}\right)_{k \in \mathbb N}$ has limes $a$.
 \end{proof}
@@ -3129,16 +3133,16 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   $\left(a_{n_k}\right)_{k \in \mathbb N}$ with $\lim_{k \to \infty} a_{n_k} = a$.
 \end{lemma}
 \begin{proof}
-  We first prove direction $\Leftarrow$.
+  We first prove direction $\impliedby$.
 
   Assume $\left(a_{n_k}\right)_{k \in \mathbb N}$ is a convergent subsequence
   of $\seq{a_n}$ with limes $a$.
   Let $\varepsilon > 0$.
-  \[ \exists N \in \mathbb N: k \geq N \Rightarrow \abs{a_{n_k} - a} < \varepsilon \]
+  \[ \exists N \in \mathbb N: k \geq N \implies \abs{a_{n_k} - a} < \varepsilon \]
   Therefore $B(a, \varepsilon)$ has infinitely many sequence elements of $\left(a_{n_k}\right)_{k\in\mathbb N}$
   and therefore also infinitely many sequence elements of $\seq{a_n}$.
 
-  We prove direction $\Rightarrow$.
+  We prove direction $\implies$.
 
   We build a convergent subsequence. Consider $k \in \mathbb N$ with $k \geq 1$.
   \[ \varepsilon_k = \frac1k \]
@@ -3254,7 +3258,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 \index[English]{Metric space}
 \index[German]{\foreignlanguage{ngerman}{Metrischer Raum}}
 \begin{defi}[Metric space]
-  Let $X$ be a set. We call $d: X \times X \rightarrow \mathbb R$ a \emph{distance function} (or \emph{metric}) on $X$ if,
+  Let $X$ be a set. We call $d: X \times X \to \mathbb R$ a \emph{distance function} (or \emph{metric}) on $X$ if,
   \begin{itemize}
     \item $\forall x \in X: d(x, x) = 0$
     \item $\forall x,y \in X: d(x, y) = d(y, x)$ (symmetry)
@@ -3296,12 +3300,12 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 \begin{defi}
   Let $\seq{a_n}$ be a sequence in $\mathbb C$.
   We call $\seq{a_n}$ a \emph{Cauchy sequence} (fundamental sequence) if
-  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \land m \geq N \Rightarrow \abs{a_n - a_m} < \varepsilon \]
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \land m \geq N \implies \abs{a_n - a_m} < \varepsilon \]
 \end{defi}
 \begin{defi}[Cauchy sequence in a metric space]
   Let $\seq{a_n}$ be a sequence in $X$.
   We call $\seq{a_n}$ a \emph{Cauchy sequence} (fundamental sequence) if
-  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \land m \geq N \Rightarrow d(a_n, a_m) < \varepsilon \]
+  \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \land m \geq N \implies d(a_n, a_m) < \varepsilon \]
 \end{defi}
 
 \begin{lemma}
@@ -3311,7 +3315,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   Let $\seq{a_n}$ be convergent with limes $a$.
   Let $\varepsilon > 0$ be arbitrary.
 
-  Convergence implies that $\exists N \in \mathbb N: n \geq N \Rightarrow \abs{a_n - a} < \frac\varepsilon2$.
+  Convergence implies that $\exists N \in \mathbb N: n \geq N \implies \abs{a_n - a} < \frac\varepsilon2$.
   For $m,n \geq N$ it holds that
   \[
       \abs{a_n - a_m}
@@ -3357,7 +3361,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   of $\seq{a_n}$ exists. Let $\varepsilon > 0$ be arbitrary.
   \begin{enumerate}
     \item We choose $N \leq \mathbb N$ sufficiently large such that
-      \[ n,m \geq N \Rightarrow \abs{a_n - a_m} < \frac\varepsilon2 \]
+      \[ n,m \geq N \implies \abs{a_n - a_m} < \frac\varepsilon2 \]
     \item Because $B(a, \frac\varepsilon2)$ contains infinitely many sequence elements ($a$ is limit point),
       $K \geq N$ exists with $\abs{a - a_K} < \frac{\varepsilon}{2}$.
   \end{enumerate}
@@ -3371,7 +3375,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 
   We have proven that if $\seq{a_n}$ has a limit point, this limit point is also its limes.
 
-  We concluded: nested intervals $\Rightarrow$ compactness / Bolzano-Weierstrass theorem $\Rightarrow$ completeness.
+  We concluded: nested intervals $\implies$ compactness / Bolzano-Weierstrass theorem $\implies$ completeness.
 
   Actually nested intervals are equivalent to completeness.
 \end{proof}
@@ -3388,7 +3392,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 
   Show that this property: Let $\varepsilon > 0$. Because $\seq{z_n}$ is a Cauchy sequence,
   it holds that
-  \[ \exists N \in \mathbb N: n,m \geq N \Rightarrow \abs{z_n - z_m} < \varepsilon \]
+  \[ \exists N \in \mathbb N: n,m \geq N \implies \abs{z_n - z_m} < \varepsilon \]
   Because $\abs{a_n - a_m} \leq \abs{z_n - z_m}$ and $\abs{b_n - b_m} \leq \abs{z_n - z_m}$ hold,
   it follows that for $n,m \geq N: \abs{a_n - a_m} < \varepsilon \land \abs{b_n - b_m} < \varepsilon$.
   Therefore $\seq{a_n}$ and $\seq{b_n}$ are Cauchy sequences.
@@ -3396,7 +3400,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   Because $\mathbb R$ is complete, it follows that $\exists a \in \mathbb R$ such that
   \[ a = \lim_{n\to\infty} a_n \text{ and } \exists b \in \mathbb R \]
   with $b = \lim_{n\to\infty} b_n$. Because $\lim_{n\to\infty} z_n = z = a + ib$,
-  \[ \Leftrightarrow a = \lim_{n\to\infty} a_n \land b = \lim_{n\to\infty} b_n \]
+  \[ \iff a = \lim_{n\to\infty} a_n \land b = \lim_{n\to\infty} b_n \]
 \end{proof}
 
 \begin{ex}
@@ -3416,7 +3420,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   \begin{description}
     \item[Induction base: $n = 0$]
       \[ a_0 = 2 > 0 \land 2 \in \mathbb Q \quad \checkmark \]
-    \item[Induction step: $n \rightarrow n + 1$]
+    \item[Induction step: $n \to n + 1$]
       Let $a_n > 0$ and $a_n \in \mathbb Q$.
       \[ a_{n+1} = \frac12 \left(\underbrace{a_n}_{>0} + \underbrace{\frac2{a_n}}_{>0}\right) > 0 \]
       and $a_{n+1} \in \mathbb Q$.
@@ -3426,7 +3430,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   \begin{description}
     \item[Induction base: $n = 0$]
       \[ a_0 = 2 \qquad a_0^2 = 4 > 2 \quad \checkmark \]
-    \item[Induction step: $n \rightarrow n+1$]
+    \item[Induction step: $n \to n+1$]
       It holds that $a_n^2 - 2 > 0$.
       \[
           a_{n+1}^2 - 2
@@ -3439,8 +3443,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   \end{description}
 
   Furthermore it holds that $a_{n+1} < a_n$.
-  \[ 2a_{n+1} = a_n + \frac2{a_n} \Rightarrow 2 (a_{n+1} - a_n) = -a_n + \frac2{a_n} = \frac{\overbrace{2 - a_n^2}^{<0}}{a_n} < 0 \]
-  \[ \Rightarrow a_{n+1} - a_n < 0 \Rightarrow a_{n+1} < a_n \]
+  \[ 2a_{n+1} = a_n + \frac2{a_n} \implies 2 (a_{n+1} - a_n) = -a_n + \frac2{a_n} = \frac{\overbrace{2 - a_n^2}^{<0}}{a_n} < 0 \]
+  \[ \implies a_{n+1} - a_n < 0 \implies a_{n+1} < a_n \]
 
   Therefore the sequence $\seq{a_n}$ is strictly monotonically decreasing and is bound by below.
   Therefore some $a \in \mathbb R$ exists with $a = \lim_{n\to\infty} a_n$.
@@ -3456,8 +3460,8 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   \[ a = \lim_{n\to\infty} a_{n+1} = \lim_{n\to\infty} \frac12 \left(a_n + \frac{2}{a_n}\right) \]
   \[ = \frac12 \lim_{n\to\infty} a_n + \frac12 \frac{2}{\lim_{n\to\infty} a_n} = \frac12 a + \frac1a \]
 
-  \[ a = \frac12 a + \frac1a \Rightarrow \frac12 a = \frac1a \]
-  \[ a^2 = 2 \Rightarrow a = +\sqrt{2} \not\in \mathbb Q \]
+  \[ a = \frac12 a + \frac1a \implies \frac12 a = \frac1a \]
+  \[ a^2 = 2 \implies a = +\sqrt{2} \not\in \mathbb Q \]
 
   Therefore $\seq{a_n}$ is \emph{not} convergent in $\mathbb Q$.
   We found a convergent Cauchy sequence whose limes is not in $\mathbb Q$ which
@@ -3472,18 +3476,18 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
     \item
       We state $\seq{a_n}$ \emph{tends to infinity} with limes $+\infty$:
       \[ \lim_{n\to\infty} a_n = +\infty \]
-      \[ \text{if } \forall M > 0 \exists N \in \mathbb N: n \geq N \Rightarrow a_n > M \]
+      \[ \text{if } \forall M > 0 \exists N \in \mathbb N: n \geq N \implies a_n > M \]
     \item
       We state $\seq{a_n}$ \emph{tends to negative infinity} with limes $-\infty$:
       \[ \lim_{n\to\infty} a_n = -\infty \]
-      \[ \forall M > 0 \exists N \in \mathbb N: n \geq N \Rightarrow a_n < -M \]
+      \[ \forall M > 0 \exists N \in \mathbb N: n \geq N \implies a_n < -M \]
   \end{itemize}
 \end{defi}
 \begin{ex}
   \[ a_n = \frac{n^2 + 2}{n+1} \]
   has limes $+\infty$.
   The proof is given in the practicals. We show that \dots
-  \[ \frac{n^2 + 2}{n + 1} > M \Leftrightarrow \dots \]
+  \[ \frac{n^2 + 2}{n + 1} > M \iff \dots \]
 \end{ex}
 
 \index[English]{Limes superior}
@@ -3526,18 +3530,18 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 \begin{proof}
   Show that $S^*$ itself is a limit point of the sequence.
   Let $\varepsilon > 0$: Choose $\xi \in H$ such that
-  \[ \xi > S^* - \frac\varepsilon2 \Rightarrow S^* - \xi = \abs{S^* - \xi} < \frac\varepsilon2 \]
+  \[ \xi > S^* - \frac\varepsilon2 \implies S^* - \xi = \abs{S^* - \xi} < \frac\varepsilon2 \]
   Because $\xi$ is a limit point of the sequence, in $(\xi - \frac\varepsilon2, \xi + \frac\varepsilon2)$
   there are infinitely many sequence elements.
 
-  Let $x \in (\xi - \frac\varepsilon2, \xi + \frac\varepsilon2) \Leftrightarrow \abs{x - \xi} < \frac\varepsilon2$.
+  Let $x \in (\xi - \frac\varepsilon2, \xi + \frac\varepsilon2) \iff \abs{x - \xi} < \frac\varepsilon2$.
   Then it holds that
   \[
       \abs{x - S^*}
       = \abs{x - \xi + \xi - S^*}
       \leq \underbrace{\abs{x - \xi}}_{< \frac\varepsilon2} + \underbrace{\abs{\xi - S^*}}_{= S^* - \xi < \frac\varepsilon2}
   \] \[
-      \Rightarrow x \in (S^* - \varepsilon, S^* + \varepsilon)
+      \implies x \in (S^* - \varepsilon, S^* + \varepsilon)
   \]
   Followingly,
   \[
@@ -3550,7 +3554,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 
 \begin{rem}
   The analogous statement holds for the limes inferior.
-  \[ S^* = \limsup_{n\to\infty} a_n \Leftrightarrow \]
+  \[ S^* = \limsup_{n\to\infty} a_n \iff \]
   \begin{enumerate}
     \item $S^* \in H$, therefore $S^*$ is limit point of $\seq{a_n}$.
     \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: a_n < S^* + \varepsilon$
@@ -3563,13 +3567,13 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
     \item The first property holds immediately.
     \item
       We use an indirect proof.
-      \[ \Rightarrow \exists \varepsilon > 0: \forall N \in \mathbb N: \exists n \geq N: a_n \geq S^* + \varepsilon \]
+      \[ \implies \exists \varepsilon > 0: \forall N \in \mathbb N: \exists n \geq N: a_n \geq S^* + \varepsilon \]
       Therefore infinitely many sequence elements $a_n$ exist with $a_n \geq S^* + \varepsilon$.
       We sort the sequence elements in a subsequence $\left(a_{n_k}\right)_{k \in \mathbb N}$.
       It holds that
       \[ S^* + \varepsilon \leq a_{n_k} \leq M \]
       $\left(a_{n_k}\right)_{k \in \mathbb N}$ is bounded and has a limit point $S$
-      with $S^* + \varepsilon < S \Rightarrow S > S^*$.
+      with $S^* + \varepsilon < S \implies S > S^*$.
       $S$ is also a limit point of the original sequence $\seq{a_n}$ with $S > S^* = \max{H}$.
       This is a contradiction.
   \end{enumerate}
@@ -3579,7 +3583,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 \meta{lecture}{9th of December 2015}{Wolfgang Ring}
 \begin{theorem}[Repetition of the theorem]
   Let $\seq{a_n}$ be bounded above and let $\seq{a_n}$ has a limit point.
-  Then it holds that $S^* = \limsup_{n\to\infty} a_n \Leftrightarrow$
+  Then it holds that $S^* = \limsup_{n\to\infty} a_n \iff$
   \begin{enumerate}
     \item $S^*$ is limit point of $\seq{a_n}$.
     \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: a_n < S^* + \varepsilon$
@@ -3587,7 +3591,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   Therefore above $S^* + \varepsilon$ there are only finitely many sequence elements.
 \end{theorem}
 \begin{proof}
-  We prove the first direction $\Rightarrow$.
+  We prove the first direction $\implies$.
 
   Let $S^* = \limsup_{n\to\infty} a_n$. Let $\varepsilon > 0$ be arbitrary.
   The first property follows immediately.
@@ -3618,25 +3622,25 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
     This is a contradiction.
   \end{proof}
 
-  We prove the second direction $\Leftarrow$.
+  We prove the second direction $\impliedby$.
 
   Assume properties 1 and 2 hold. It remains to show that $S^*$ is the largest limit point.
   Assume $S > S^*$. We need to show that $S$ cannot be a limit point.
 
   \[
     \varepsilon = \frac{S - S^*}{2} > 0
-    \Rightarrow 2\varepsilon = S - S^*
-    \Rightarrow S^* + \varepsilon = S - \varepsilon
+    \implies 2\varepsilon = S - S^*
+    \implies S^* + \varepsilon = S - \varepsilon
   \]
   Because the second property holds, there exists some $N \in \mathbb N$ such that
-  $\forall n \geq N \Rightarrow a_n < S^* + \varepsilon$. Therefore only finitely many
+  $\forall n \geq N \implies a_n < S^* + \varepsilon$. Therefore only finitely many
   sequence elements are larger than $S^* + \varepsilon = S - \varepsilon$.
   Therefore at most finitely many sequence elements $(S - \varepsilon, S + \varepsilon)$.
   Followingly $S$ is not a limit point.
 \end{proof}
 
 \begin{theorem}[Analogous result for limes inferior]
-  \[ S_* = \liminf_{n\to\infty} a_n \Leftrightarrow \]
+  \[ S_* = \liminf_{n\to\infty} a_n \iff \]
   \begin{enumerate}
     \item $S_*$ is limit point of $\seq{a_n}$.
     \item $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N: a_n > S_* - \varepsilon$
@@ -3665,7 +3669,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   \]
 \end{theorem}
 \begin{proof}
-  \[ A_{k+1} \subseteq A_k \Rightarrow \sup{A_{k+1}} \leq \sup{A_{k}} \Rightarrow S_{k+1} \leq S_k \]
+  \[ A_{k+1} \subseteq A_k \implies \sup{A_{k+1}} \leq \sup{A_{k}} \implies S_{k+1} \leq S_k \]
   $\left(S_k\right)_{k\in\mathbb N}$ is bounded below. Choose
   $\xi \in H$ and $\xi$ is limit point of $\seq{a_n}$.
   Then $\xi - 1$ is a lower bound for $\left(S_k\right)_{k\in\mathbb N}$ because infinitely many sequence elements
@@ -3673,7 +3677,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   Therefore,
   \[
     \forall k \in \mathbb N: \exists n \geq k: a_n > \xi - 1
-    \quad\Rightarrow S_k = \sup{A_k} > \xi - 1
+    \quad\implies S_k = \sup{A_k} > \xi - 1
     \quad\checkmark
   \]
   We know that $\left(S_k\right)_{k\in\mathbb N}$ is convergent. Let $S^* = \lim_{n\to\infty} S_k$.
@@ -3684,10 +3688,10 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   are in $(S^* - \varepsilon, S^* + \varepsilon)$.
 
   Because $\lim_{k\to\infty} S_k = S^*$ there exists some
-  \[ N \in \mathbb N: k \geq N \Rightarrow \underbrace{\abs{S_k - S^*}}_{-S^*} < \frac\varepsilon2. \]
+  \[ N \in \mathbb N: k \geq N \implies \underbrace{\abs{S_k - S^*}}_{-S^*} < \frac\varepsilon2. \]
   We build a subsequence of $\seq{a_n}$ inductively, which is entirely inside $(S^* - \varepsilon, S^* + \varepsilon)$.
   Because $S_N = \sup\set{a_N, a_{N+1}, a_{N+2}, \dots}$ exists, there exists $a_j \geq S_N - \frac\varepsilon2$ with $j \geq N$.
-  \[ \Rightarrow \underbrace{S_N - a_j}_{=\abs{S_N - a_j}} \leq \frac\varepsilon2 \]
+  \[ \implies \underbrace{S_N - a_j}_{=\abs{S_N - a_j}} \leq \frac\varepsilon2 \]
   \begin{description}
     \item[$k = 0$]
       Choose $n_0 = j \geq N$ ($j$ from above), therefore it holds that
@@ -3710,7 +3714,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
       \[ \leq \abs{S^* - S_{n_k + 1}} + \abs{S_{n_k + 1} - a_{j}} < \frac\varepsilon2 + \frac\varepsilon21 = \varepsilon \]
       Therefore we have found a subsequence $\left(a_n\right)_{n\in\mathbb N}$ such that
       \[ \forall k \in \mathbb N: a_{n_k} \in (S^* - \varepsilon, S^* + \varepsilon) \]
-      $\Rightarrow S^*$ is limit point of the sequence.
+      $\implies S^*$ is limit point of the sequence.
 
       We show that $S^*$ is the largest limit point.
       Let $S < S^*$. We show that $S$ is not a limit point.
@@ -3787,7 +3791,7 @@ The analogous result for the limes inferior also holds and is given in the pract
     = \frac{1}{\abs{1 - q}} \cdot \abs{1 - q^{n+1}}
     \geq \frac{1}{\abs{1 - q}} \left(\abs{q^{n+1}} - 1\right)
   \]
-  This is the inversed triangle inequality.
+  This is the reversed triangle inequality.
   \[ = \frac{1}{\abs{1 - q}} \left(\underbrace{\abs{q}^{n+1}}_{\to\infty} - 1\right) \]
   Hence $\seq{S_n}$ is unbounded and therefore not convergent.
 \end{proof}
@@ -3834,10 +3838,10 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       Let $\seq{s_n}$ be convergent in $\mathbb R$, then it holds that
       $\seq{s_n}$ is also bounded.
-    \item[$\Leftarrow$]
+    \item[$\impliedby$]
       $\seq{s_n}$ is bounded.
       \begin{align*}
         s_n - s_{n-1} &= (a_0 + \ldots + a_{n-1} + a_n) - \\
@@ -3858,7 +3862,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
 \begin{description}
   \item[Case 1: $\mathbf{\alpha > 1}$]
     We know: Map $f(x) = x^\alpha$ is montonically increasing.
-    \[ x < y \Rightarrow x^\alpha < y^\alpha \]
+    \[ x < y \implies x^\alpha < y^\alpha \]
     Let $S_{\alpha,n} = \sum_{k=1}^n \frac{1}{k^\alpha}$ be the $n$-th partial sum.
     $n = 2^k - 1$.
     \begin{align*}
@@ -3896,7 +3900,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
 \begin{rem}
   $\alpha \in \mathbb Q_+$ can be replaced by $\alpha \in \mathbb R_+$.
   It is even possible to choose $\alpha \in \mathbb C$.
-  Then we can define $\zeta: M \subseteq \mathbb C \rightarrow \mathbb C$
+  Then we can define $\zeta: M \subseteq \mathbb C \to \mathbb C$
   with $\xi(z) = \sum_{k=1}^\infty \frac{1}{k^z}$.
   This is Riemann's Zeta function.
 \end{rem}
@@ -3947,9 +3951,9 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
         \[ S_{2m+1} \leq S_{2n+1} \underbrace{\leq}_{\alpha < 1} S_{2n} \]
     \end{description}
     So $\seq{S_{2n}}$ is monotonically decreasing and bounded by below (for example by $S_1$).
-    Therefore $S_{2n} \rightarrow S^*$ for $n \rightarrow \infty$ ($S_{2n+1}$) is monotonically increasing
+    Therefore $S_{2n} \to S^*$ for $n \to \infty$ ($S_{2n+1}$) is monotonically increasing
     and bounded by above by $S_*$:
-    \[ S_{2n+1} \rightarrow S_* \text{ for } n \to \infty \]
+    \[ S_{2n+1} \to S_* \text{ for } n \to \infty \]
     It holds that $S_* \leq S^*$ because $S_{2n+1} \leq S_{2n}$.
   \end{proof}
 
@@ -3962,7 +3966,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
   \[ a_{2N} < \varepsilon \]
   So $\forall \varepsilon > 0$, it holds that
   \[ S^* - S_* = \card{S^* - S_*} < \varepsilon \]
-  \[ \Rightarrow S^* = S_* = S \]
+  \[ \implies S^* = S_* = S \]
   So it holds that,
   \[ \lim_{n\to\infty} S_n = S^* = S_* = S \]
   and the series converges.
@@ -3984,7 +3988,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
 \begin{rem}
   Therefore
   \[ \forall \varepsilon > 0 \exists N \in \mathbb N: \forall n,m > N \]
-  \[ \Rightarrow \abs{S_n - S_m} < \varepsilon \]
+  \[ \implies \abs{S_n - S_m} < \varepsilon \]
   Therefore without loss of generality, $n \geq m$.
   \[ S_n - S_m = \sum_{k=0}^n a_k - \sum_{k=0}^m a_k = \sum_{k=m+1}^n a_k \]
   Hence $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq m \geq N$.
@@ -3995,7 +3999,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
   \[ \abs{\sum_{k=0}^l a_{n+k}} < \varepsilon \]
 \end{rem}
 \begin{proof}[Proof by $\seq{S_n}$ being convergent]
-  \[ \seq{S_n} \Leftrightarrow \text{ Cauchy sequence} \]
+  \[ \seq{S_n} \iff \text{ Cauchy sequence} \]
 
   \begin{lemma}
     If $\sum_{k=0}^{\infty} a_n$ is convergent in $\mathbb C$, then $\seq{a_n}$ is a zero sequence.
@@ -4035,7 +4039,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
     \geq \abs{\sum_{k=m+1}^n a_k}
     < \varepsilon
   \]
-  $\Rightarrow$ $\sum_{k=0}^\infty a_k$ is convergent according to Cauchy criterion.
+  $\implies$ $\sum_{k=0}^\infty a_k$ is convergent according to Cauchy criterion.
 \end{proof}
 %
 \subsection{Direct comparison test}
@@ -4051,7 +4055,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
       (dt. \foreignlanguage{ngerman}{Majorantenkriterium})
       Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
       Let $\sum_{k=0}^\infty b_k$ be absolute convergent and $\exists N \in \mathbb N: k \geq N
-      \Rightarrow \abs{a_k} \leq \abs{b_k}$.
+      \implies \abs{a_k} \leq \abs{b_k}$.
 
       Then $\sum_{k=0}^\infty a_k$ is absolute convergent.
       $\sum_{k=0}^\infty b_k$ is called \emph{majorant} of $\sum_{k=0}^\infty a_k$.
@@ -4060,7 +4064,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
       (dt. \foreignlanguage{ngerman}{Minorantenkriterium})
       Let $\sum_{k=0}^\infty a_k$ and $\sum_{k=0}^\infty b_k$ be complex series.
       Let $\sum_{k=0}^\infty a_k$ be divergent.
-      Assume $\exists N \in \mathbb N: k \geq N \Rightarrow \abs{a_k} \leq \abs{b_k}$.
+      Assume $\exists N \in \mathbb N: k \geq N \implies \abs{a_k} \leq \abs{b_k}$.
       Then also $\sum_{k=0}^\infty b_k$ is divergent.
       $\sum_{k=0}^\infty a_k$ is \emph{minorant} of $\sum_{k=0}^\infty b_k$.
   \end{enumerate}
@@ -4081,7 +4085,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
     \item
       Let $\sum_{k=0}^\infty a_k$ be divergent. Then also $\sum_{k=0}^\infty \abs{a_k}$ is divergent.
       Otherwise $\sum_{k=0}^\infty a_k$ is absolute convergent and therefore convergent.
-      \[ \Rightarrow \sigma_n = \sum_{k=0}^n \abs{a_k} \]
+      \[ \implies \sigma_n = \sum_{k=0}^n \abs{a_k} \]
       $\seq{\sigma_n}$ is unbounded. Because
       \begin{align*}
         \sum_{k=0}^n \abs{b_k}
@@ -4125,7 +4129,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
   \begin{enumerate}
     \item
       Assume the second statement of the ratio test holds. Therefore $\forall n \geq N$
-      it holds that $\sqrt[n]{\abs{a_n}} \leq q \Leftrightarrow \abs{a_n} \leq q^n$.
+      it holds that $\sqrt[n]{\abs{a_n}} \leq q \iff \abs{a_n} \leq q^n$.
       $\abs{a_n} \leq q^n$.
       Due to the direct comparison test, $\sum_{k=0}^\infty q^k \checkmark$.
 
@@ -4142,7 +4146,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
           Because
           \[
             \frac{\abs{a_{N+k+1}}}{\abs{a_{N+k}}} \leq q
-            \Rightarrow \abs{a_{N+K-1}} \leq q \abs{a_{N+k}}
+            \implies \abs{a_{N+K-1}} \leq q \abs{a_{N+k}}
             \leq q \cdot \abs{a_N} \cdot q^k
             = \abs{a_N} q^{k+1}
             \qquad \checkmark
@@ -4158,7 +4162,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
       \[ \sum_{k=0}^\infty b_k = 0 + 0 + 0 + \dots + 0 + \abs{a_N} \cdot q^0 + \abs{a_N} \cdot q^1 + \abs{a_N} q^2 + \ldots \]
       \[ = \abs{a_N} \sum_{j=0}^\infty q_j \text{ is absolute convergent} \]
       $\sum_{k=0}^\infty b_k$ is an absolute convergent majorant for $\sum_{k=0}^\infty a_k$.
-      \[ \Rightarrow \sum_{k=0}^\infty a_k \text{ is convergent} \]
+      \[ \implies \sum_{k=0}^\infty a_k \text{ is convergent} \]
     \item
       Assume the second statement (square root test) holds: $\sqrt[n]{\abs{a_n}} \geq q$
       or equivalently $\underbrace{\abs{a_n}}_{\text{unbounded}} \geq \underbrace{q^n}_{\text{unbounded}}$.
@@ -4166,7 +4170,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
       Therefore $\sum_{k=1}^\infty a_k$ is divergent.
 
       Assume the first statement holds.
-      \[ \Rightarrow \abs{a_{N+k}} \geq \abs{a_N} \cdot q^k \]
+      \[ \implies \abs{a_{N+k}} \geq \abs{a_N} \cdot q^k \]
       Because $\abs{a_N} \cdot q^k$ is unbounded, $\abs{a_{N+k}}$ is unbounded.
       $\left(a_k\right)_{k\in\mathbb N}$ are not zero sequences.
   \end{enumerate}
@@ -4175,7 +4179,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
 \begin{rem}
   Assume $\frac{\abs{a_{n+1}}}{\abs{a_n}}$ is bounded and $q = \limsup_{n\to\infty}\left(\frac{\abs{a_{n+1}}}{a_n}\right) < 1$.
   Let $2 \varepsilon = 1 - q > 0$.
-  \[ \Rightarrow \exists N \in \mathbb N: n \geq N: \frac{\abs{a_{n+1}}}{\abs{a_n}} < q + \varepsilon \]
+  \[ \implies \exists N \in \mathbb N: n \geq N: \frac{\abs{a_{n+1}}}{\abs{a_n}} < q + \varepsilon \]
   \[ = q + \frac12 \left(1 - q\right) = \frac12 (1 + q) = 1 - \varepsilon < 1 \]
   Due to the ratio test, the series $\sum_{k=0}^\infty a_k$ is absolute convergent.
 \end{rem}
@@ -4215,18 +4219,18 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
   Let $q = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} < 1$.
   \[ 2 \varepsilon = 1 - q > 0 \]
   Then there exists some $N \in \mathbb N: n \geq N$
-  \[ \Rightarrow \sqrt[n]{\abs{a_n}} \leq q + \varepsilon = 1 - \varepsilon < 1 \]
+  \[ \implies \sqrt[n]{\abs{a_n}} \leq q + \varepsilon = 1 - \varepsilon < 1 \]
   Is absolute convergent according to the square root theorem.
 
   We also need to show divergence: Let $q > 1$ be limit point of $\sqrt[n]{\abs{a_n}}$.
   So there exists some subsequence $\left(\sqrt[n_k]{\abs{a_{n_k}}}\right)_{k \in \mathbb N}$
-  with $\lim_{n\to\infty} \sqrt[n_k]{\abs{a_{n_k}}} = q > 1 \Rightarrow \varepsilon = \frac12 \left(q - 1\right)
+  with $\lim_{n\to\infty} \sqrt[n_k]{\abs{a_{n_k}}} = q > 1 \implies \varepsilon = \frac12 \left(q - 1\right)
   > 0$.
   \[ \sqrt[n_k]{\abs{a_{n_k}}} > q - \varepsilon \qquad \forall k \geq K \]
-  \[ \Rightarrow \abs{a_{n_k}} > (q - \varepsilon)^{n_k} = (1 + \varepsilon)^{n_k} > 1 \]
-  \[ \Rightarrow \left(\abs{a_{n_k}}\right)_{k\in\mathbb N} \text{ is not a zero sequence} \]
-  \[ \Rightarrow \seq{\abs{a_n}} \text{ is also not a zero sequence} \]
-  \[ \Rightarrow \sum_{k=0}^\infty a_k \text{ is divergent} \]
+  \[ \implies \abs{a_{n_k}} > (q - \varepsilon)^{n_k} = (1 + \varepsilon)^{n_k} > 1 \]
+  \[ \implies \left(\abs{a_{n_k}}\right)_{k\in\mathbb N} \text{ is not a zero sequence} \]
+  \[ \implies \seq{\abs{a_n}} \text{ is also not a zero sequence} \]
+  \[ \implies \sum_{k=0}^\infty a_k \text{ is divergent} \]
 \end{proof}
 
 \begin{ex}[Binomial series]
@@ -4274,32 +4278,33 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
 \begin{defi}
   A power series (in one variable) is an infinite series of the form
   \[ f(x) = \sum_{n=0}^\infty a_n (x - c)^n \]
-  So we have one free variable. Coefficients of the series contain a variable.
+  So we have one free variable $c$ as part of the coefficients of the series.
 
   \begin{itemize}
     \item In $\sum_{k=1}^\infty \frac{1}{k^2}$ all summands are fixed.
-    \item However $\sum_{k=0}^\infty z^k = \frac{1}{1 - z}$ with $\abs{z} < 1$
-      is variable with the variable $z$.
+    \item $\sum_{k=0}^\infty z^k = \frac{1}{1 - z}$ with $\abs{z} < 1$
+      has one variable $z$.
   \end{itemize}
 \end{defi}
 \begin{ex}
   % TODO: verify
-  \[ f: B(0,1) \rightarrow \mathbb C \]
+  \[ f: B(0,1) \to \mathbb C \]
+  \[ \underbrace{f(z) = \sum_{n=0}^\infty z^k}_{\sum_{k=0}^\infty {s \choose k} z^k} = \frac{1}{1 - z} \]
   \[ B_S(z) = \sum_{k=0}^\infty {s \choose k} z^k \]
 
   Mapping:
-  \[ B_S: B(0,1) \rightarrow \mathbb C \]
-  \[ \varepsilon(z) = \sum_{k=0}^\infty \frac{}{k!} \] % TODO: incomplete
-  \[ \varepsilon: \mathbb C \rightarrow \mathbb C \]
+  \[ B_S: B(0,1) \to \mathbb C \]
+  \[ \varepsilon(z) = \sum_{k=0}^\infty \frac{z^k}{k!} \]
+  \[ \varepsilon: \mathbb C \to \mathbb C \]
 
-  Let $z \in \mathbb C$ arbitrary.
+  How about convergence? Let $z \in \mathbb C$ arbitrary.
   \[
     \frac{\abs{a_{k+1}}}{\abs{a_k}}
     = \frac{\abs{\frac{z^{k+1}}{(k+1)!}}}{\abs{\frac{z^k}{k!}}}
     = \abs{\frac{z}{k+1}}
-    \to 0
+    \xrightarrow{k \to \infty} 0
   \]
-  $\Rightarrow \varepsilon(z)$ is convergent for all $z \in \mathbb C$.
+  $\implies \varepsilon(z)$ is convergent for all $z \in \mathbb C$.
   \[ \varepsilon: \mathbb C \to \mathbb C \]
 \end{ex}
 \begin{cor}
@@ -4428,7 +4433,7 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
       Therefore for $\abs{z} < \frac1{L}$, $P$ is convergent.
       For $\abs{z} > \frac{1}{L}$, $P$ is divergent.
 
-      \[ \Rightarrow \rho(P) = \frac{1}{L} \]
+      \[ \implies \rho(P) = \frac{1}{L} \]
     \item Ratio test: Assume $q = \lim_{k\to\infty} \abs{\frac{a_{k+1}}{a_k}}$ exists.
       The ratio test for $P(z) = \sum_{k=0}^\infty \sum_{k=0}^\infty a_k z^k$ gives us
       \[
@@ -4436,8 +4441,8 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
         = \abs{z} \lim_{k\to\infty} \abs{\frac{a_{k+1}}{a_k}}
         = \abs{z} \cdot q
       \]
-      Therefore $P$ is convergent, if $\abs{z} \cdot q < 1 \Leftrightarrow \abs{z} < \abs{z} < \frac1{q}$.
-      And $P$ is divergent, if $\abs{z} \cdot q > 1 \Leftrightarrow \abs{z} > \frac1{q}$.
+      Therefore $P$ is convergent, if $\abs{z} \cdot q < 1 \iff \abs{z} < \abs{z} < \frac1{q}$.
+      And $P$ is divergent, if $\abs{z} \cdot q > 1 \iff \abs{z} > \frac1{q}$.
   \end{enumerate}
 \end{proof}
 
@@ -4486,7 +4491,7 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
 \index{Complex function}
 \index{\foreignlanguage{ngerman}{Reele Funktion}}
 Recall: Let $D \subseteq \mathbb C$ (or $\subseteq \mathbb R$).
-A mapping $f: D \Rightarrow \mathbb C$ (or $f: D \rightarrow \mathbb R$)
+A mapping $f: D \implies \mathbb C$ (or $f: D \to \mathbb R$)
 is a function. Depending on the domain, we call the function \emph{complex}
 or \emph{real}.
 
@@ -4510,7 +4515,7 @@ in $\mathbb R$.
     \item
       $O \subseteq \mathbb C$ if called \emph{open set} if $\forall z \in O$:
       $O$ is surrounding of $z$.
-      \[ \Leftrightarrow \forall z \in O: \exists r = r(z): B(z, r) \subseteq O \]
+      \[ \iff \forall z \in O: \exists r = r(z): B(z, r) \subseteq O \]
     \item
       $A \subseteq \mathbb C$ is called \emph{closed set}, if $\mathbb C \setminus A$
       is an open set.
@@ -4551,7 +4556,7 @@ in $\mathbb R$.
       Then it holds that $B(z, r) = \set{\zeta \in \mathbb C: \abs{\zeta - z} < r}
       \subseteq \set{\zeta \in \mathbb C: \abs{\zeta - z} < r_k} = B(z, r_k) \subseteq O_k$ because $r \leq r_k$.
 
-      So $\forall k \in \set{1, \dots, n}: B(z, r) \subseteq O_k$. Otherwise $B(z, r) \subseteq \bigcap_{k=1}^n O_k \Rightarrow \bigcap_{k=1}^n O_k$ is open.
+      So $\forall k \in \set{1, \dots, n}: B(z, r) \subseteq O_k$. Otherwise $B(z, r) \subseteq \bigcap_{k=1}^n O_k \implies \bigcap_{k=1}^n O_k$ is open.
     \item
       Let $O = \emptyset$. Then it holds that $\forall z \in \emptyset: B(z, 1) \subseteq \emptyset$.
       So $\emptyset$ is open.
@@ -4573,12 +4578,12 @@ in $\mathbb R$.
 \end{proof}
 
 \begin{theorem}
-  $A \subseteq \mathbb C$ is closed $\Leftrightarrow$ $\forall \seq{a_n}$ with $a_n \in A$ and $\seq{a_n}$
+  $A \subseteq \mathbb C$ is closed $\iff$ $\forall \seq{a_n}$ with $a_n \in A$ and $\seq{a_n}$
   is convergent with limes $a \in \mathbb C$, then $a \in A$.
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       Let $A$ be closed ($\mathbb C \setminus A$ is open) and $\seq{a_n}$ is a convergent sequence with $\lim_{n\to\infty} a_n = a$.
       Show that $a \in A$.
 
@@ -4588,10 +4593,10 @@ in $\mathbb R$.
       And $B(a, r) \cap A = \emptyset$ so it holds that $\forall n \in \mathbb N: a_n \not\in B(a, r)$ with $a_n \in A$.
       So it holds that $\forall n \in \mathbb N: \abs{a_n - a} \geq r > 0$. This is contradiction to the assumption
       that $a_n$ converges to $a$ for $n \to \infty$.
-    \item[$\Leftarrow$]
+    \item[$\impliedby$]
       Assume the limes of every convergent sequence with sequence elements in $A$,
       is again in $A$. We show that for $z \not\in A$ ($z \in \mathbb C \setminus A$)
-      there exists $\varepsilon > 0: B(z, \varepsilon) \cap A = \emptyset \Leftrightarrow B(z, \varepsilon) \subseteq \mathbb C \setminus A$.
+      there exists $\varepsilon > 0: B(z, \varepsilon) \cap A = \emptyset \iff B(z, \varepsilon) \subseteq \mathbb C \setminus A$.
 
       We prove the existence of such an $\varepsilon$ by contradiction:
       So we assume such a $\varepsilon$ does not exist:
@@ -4601,7 +4606,7 @@ in $\mathbb R$.
       \[ B(z, \frac1n) \cap A \neq \emptyset \text{ therefore } \exists a_n \in A \cap B(z, \frac1n) \]
       therefore $a_n \in A \land \abs{a_n - z} < \frac1n$.
       So this constructed sequence $\seq{a_n}$ satisfies:
-      \[ a_n \in A: \abs{a_n - z} < \frac1n \Rightarrow \lim_{n\to\infty} a_n = z \]
+      \[ a_n \in A: \abs{a_n - z} < \frac1n \implies \lim_{n\to\infty} a_n = z \]
       By hypothesis, it holds that $z \in A$, but this is a contradiction to $z \in \mathbb C \setminus A$.
       So it is shown that $\mathbb C \setminus A$ is an open set. So $A$ is closed.
   \end{description}
@@ -4609,27 +4614,33 @@ in $\mathbb R$.
 
 \meta{lecture}{17th of December 2015}{Wolfgang Ring}
 
-% TODO: image topology.svg
-
-TODO
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics{img/topology.pdf}
+    \caption{Contact point $z$ in $o$ and accumulation point $z$ in $A$}
+    \label{img:cont-accu}
+  \end{center}
+\end{figure}
 
 \index{Contact point}
 \index{\foreignlanguage{ngerman}{Berührungspunkt}}
-\index{Limit point}
+\index{Accumulation point}
 \index{\foreignlanguage{ngerman}{Häufungspunkt}}
-% TODO: normalize:
-% Häufungswert - topic sequences
-% Häufungspunkt - topic topology
 \begin{defi}
   Let $M \subseteq \mathbb C$ ($\mathbb R$).
   A point $z \in \mathbb C$ ($\mathbb R$) is called \emph{contact point}
   of a set $M$, if $\forall r > 0: B(z, r) \cap M \neq \emptyset$.
-  A point $z \in \mathbb C$ ($\mathbb R$) is called \emph{limit point}
+  A point $z \in \mathbb C$ ($\mathbb R$) is called \emph{accumulation point}
   of a set $M$ if $\forall r > 0$ it holds that $B(z, r)$ contains a point
   $w \in M$ with $w \neq z$.
 
   Every limit point is also a contact point.
 \end{defi}
+
+\begin{rem}
+  An accumulation value exists in the context of sequences.
+  An accumulation point exists in the context of open sets and topologies.
+\end{rem}
 
 \begin{figure}
   \begin{center}
@@ -4646,7 +4657,7 @@ TODO
   \begin{enumerate}
     \item $z \in \mathbb C$ is a contact point of $M$
       if and only if $\exists (z_n)_{n \in \mathbb N}: z_n \in M$ and $\lim_{n\to\infty} z_n = z$.
-    \item $z \in \mathbb C$ is a limit point of $M$
+    \item $z \in \mathbb C$ is an accumulation point of $M$
       if and only if $\exists (z_n)_{n \in \mathbb N}: z_n \in M$ with $z_n \neq z \forall n \in \mathbb N$
       and $\lim_{n\to\infty} z_n = z$.
   \end{enumerate}
@@ -4655,19 +4666,20 @@ TODO
 \end{lemma}
 \begin{proof}
   \begin{itemize}
-    \item[$\Rightarrow$]
-      Let $z$ be a contact point of $M$. Choose $r_n = \frac1n$, due to contact point property
+    \item[$\implies$]
+      Let $z$ be a contact point of $M$. Choose $r_n = \frac1n$, due to contact point property,
       there exists sequence $z_n \in M$ to $r_n$ with $z_n \in B(z, \frac1n)$ hence $\abs{z_n - z} < \frac1n$.
       Then it holds $\lim_{n\to\infty} z_n = z$, then for $\varepsilon > 0$ arbitrary let $N$ be arbitrary large,
-      such that $\frac1N < \varepsilon$. Then it holds that for $n \geq N$:
+      such that $\frac1N < \varepsilon$. Then for $n \geq N$:
       \[ \abs{z_n - z} < \frac1n \leq \frac1N < \varepsilon \]
-      This approach is general enough to hold true for contact \emph{and} limit points.
-    \item[$\Leftarrow$] Assume $\exists \seq{z_n}$ with limes $z$. $z_n \in M$.
+      Equivalently, the accumulation point property, $z_n \in B(z, \frac1n) \setminus \set{z}$ and $z_n \neq z$
+      allows the same proof for accumulation points.
+    \item[$\impliedby$] Assume $\exists \seq{z_n}$ with limes $z$. $z_n \in M$.
       Choose $r > 0$ arbitrary. Due to convergenze of $\seq{z_n}$ there exists some
       $N \in \mathbb N: n \geq N$ such that $\abs{z_n - z} < r$.
-      \[ \Rightarrow z_n \in M \land z_n \in B(z, r) \Rightarrow z \text{ is contact point of $M$} \]
+      \[ \implies z_n \in M \land z_n \in B(z, r) \implies z \text{ is contact point of $M$} \]
       Also,
-      \[ \Rightarrow z_n (\neq z) \in M \land z_n \in B(z, r) \Rightarrow z \text{ is limit point of $M$} \]
+      \[ \implies z_n (\neq z) \in M \land z_n \in B(z, r) \implies z \text{ is limit point of $M$} \]
   \end{itemize}
 \end{proof}
 
@@ -4677,20 +4689,20 @@ TODO
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[Direction $\Rightarrow$]
+    \item[Direction $\implies$]
       Let $A$ be closed and $z$ is a contact point of $A$.
       Due to Lemma~\ref{characterization-limit-contact-points} there exists $\seq{z_n}$
       with $z_n \in A$ and $\lim_{n\to\infty} z_n = z$.
       By the Lemma before the last, it holds that $z \in A$.
-    \item[Direction $\Leftarrow$]
+    \item[Direction $\impliedby$]
       Assume for all contact points $z$ of $A$ it holds that $z \in A$.
       By the Lemma before the last: Let $\seq{z_n}$ be a convergent sequence with
       $z_n \in A$ and $\lim_{n\to\infty} z_n = z$.
 
       Show that $z \in A$.
 
-      This follows immediately because by the previous Lemma, it holds that
-      $z = \lim_{n\to\infty} z_n$ is a contact point TODO
+      This follows immediately. By the previous Lemma,
+      $z = \lim_{n\to\infty} z_n$ is a contact point of $A$
       and by assumption $z \in A$.
   \end{description}
 \end{proof}
@@ -4705,7 +4717,7 @@ TODO
   We define $\overline{M} = \set{z \in \mathbb C: z \text{ is contact point of } M}$.
   $\overline{M}$ is called \emph{closed hull}.
   It holds that $M \subseteq \overline{M}$ and $M$ is closed
-  $\Leftrightarrow M = \overline{M}$.
+  $\iff M = \overline{M}$.
 \end{defi}
 
 \index{Compactness}
@@ -4726,14 +4738,14 @@ TODO
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[Direction $\Leftarrow$]
+    \item[Direction $\impliedby$]
       Let $K$ be bounded and closed and let $\seq{z_n}$ be a sequence of elements
       in $K$. Then $\seq{z_n}$ is a bounded sequence. Due to the Bolzano-Weierstrass
       Theorem for sequences, there exists some convergent subsequence
       $\left(z_{n_l}\right)_{l \in \mathbb N}$ with $\lim_{l\to\infty} z_{n_l} = z$
       where $z_{n_l} \in K$. Followingly $z$ is contact point in $K$.
       Because $K$ is closed, it holds that $z \in K$.
-    \item[Direction $\Rightarrow$]
+    \item[Direction $\implies$]
       Let $K$ be compact. Assume $K$ is not bounded.
       Therefore for $m = 1, 2, \dots, 5$, there exists $z_m \in K$ with $\abs{z_m} > m$.
       $\left(z_m\right)_{m\in\mathbb N}$ has certainly no convergent subsequence, because
@@ -4755,7 +4767,7 @@ TODO
 \index[English]{Continuous functions}
 \index[German]{\foreignlanguage{ngerman}{Stetigkeit}}
 \begin{defi}
-  Let $D \subseteq \mathbb C$ ($D \subseteq \mathbb R$) and $f: D \rightarrow \mathbb C$
+  Let $D \subseteq \mathbb C$ ($D \subseteq \mathbb R$) and $f: D \to \mathbb C$
   be a function. We say \enquote{$f$ is continous} (dt. \foreignlanguage{ngerman}{\enquote{stetig}}) iff
   \[
     \forall \varepsilon > 0 \exists \delta > 0
@@ -4766,39 +4778,54 @@ TODO
   if the difference of the arguments is sufficiently small.
 \end{defi}
 
-% TODO: image continuity_illustrated.svg
-% caption: continuity is a local property
+\begin{figure}[p]
+  \begin{center}
+    \includegraphics{img/continuity_illustrated.pdf}
+    \caption{Illustration of continuity as a local property}
+  \end{center}
+%\end{figure}
+%\begin{figure}[p]
+  \begin{center}
+    \includegraphics{img/strange_D.pdf}
+    \caption{\enquote{Strange} $D$}
+    \label{img:strD}
+  \end{center}
+\end{figure}
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/non-continous_function.pdf}
+    \caption{Example of a non-continuous function: function with a jump discontinuity}
+    \label{img:noncontf}
+  \end{center}
+\end{figure}
 
 \begin{ex}
   \begin{enumerate}
     \item $D$ is \enquote{strange}.
-      % TODO: image strange_D.svg
       Specifying the codomain and discussion of continuity in regards of this codomain is very important!
-    \item A non-continous function
-      % TODO: image non-continous_function.svg
-      % caption: a non-continuous function with a jump discontinuity
-      $f$ has a non-continuity in $z_0$.
+      Compare with Figure~\ref{img:strD}.
+    \item A non-continous function $f$ has a discontinuity in $z_0$. Compare with Figure~\ref{img:noncontf}.
       So $\varepsilon$ cannot be arbitrary small.
     \item
-      $f: \mathbb C \rightarrow \mathbb C$. $f(z) = z^2$.
+      $f: \mathbb C \to \mathbb C$. $f(z) = z^2$.
       Let $z_0 \in \mathbb C$ arbitrary. Then $f$ is continuous in $z_0$.
   \end{enumerate}
 \end{ex}
 %
-\begin{ex}
+\begin{proof}
   Let $\varepsilon > 0$ be arbitrary. Find $\delta > 0$ such that
-  \[ \abs{z - z_0} < \delta \Rightarrow \abs{f(z) - f(z_0)} = \abs{z^2 - z_0^2} < \varepsilon. \]
-  Define $\delta = \min\left(1, \frac{\varepsilon}{1 + 2\abs{z_0}}\right)$.
-  For $\abs{z - z_0} < \delta$ it holds that
+  \[ \abs{z - z_0} < \delta \implies \abs{f(z) - f(z_0)} = \abs{z^2 - z_0^2} < \varepsilon \]
+  Let $\delta \coloneqq \min\left(1, \frac{\varepsilon}{1 + 2\abs{z_0}}\right) < \varepsilon$.
+  For $\abs{z - z_0} < \delta$,
   \begin{align*}
     \abs{f(z) - f(z_0)} = \abs{z^2 - z_0^2}
     &= \abs{(z - z_0) (z + z_0)} \\
     &= \abs{z - z_0} \cdot \abs{z + z_0} \\
     &= |\, z \underbrace{- z_0 + z_0}_{=0} + z_0\,| \cdot \abs{z - z_0} \\
-    &\leq (\underbrace{\abs{z - z_0}}_{<1} + 2 \abs{z_0}) \underbrace{(z - z_0)}_{\varepsilon} \\
-    &= \left(1 + 2 \abs{z_0}\right) TODO
+    &\leq (\underbrace{\abs{z - z_0}}_{<1} + 2 \abs{z_0}) \underbrace{(z - z_0)}_{\frac{\varepsilon}{1 + 2\abs{z_0}}} \\
+    &= \left(1 + 2 \abs{z_0}\right) \frac{\varepsilon}{1 + 2\abs{z_0}} = \varepsilon
   \end{align*}
-\end{ex}
+\end{proof}
 %
 \begin{ex}
   Let $D = [0, \infty) \subseteq \mathbb R$.
@@ -4833,7 +4860,7 @@ TODO
   \]
   Analogously:
   \[ \abs{x_0} = \abs{x_0 - x + x} \leq \underbrace{\abs{x_0 - x}}_{a} + \underbrace{\abs{x}}_{b} \]
-  \[ \Rightarrow \sqrt[k]{\abs{x_0}} - \sqrt[k]{\abs x} \leq \sqrt[k]{\abs{x - x_0}} \]
+  \[ \implies \sqrt[k]{\abs{x_0}} - \sqrt[k]{\abs x} \leq \sqrt[k]{\abs{x - x_0}} \]
   \[ \abs{\underbrace{\sqrt[k]{\abs x}}_{f(x)} - \underbrace{\sqrt[k]{\abs{x_0}}}_{f(x_0)}} \leq \sqrt[k]{\abs{x - x_0}} \]
   Let $\varepsilon > 0$ arbitrary. Let $\delta \coloneqq \varepsilon^k$.
   For $\abs{x - x_0} < \delta = \varepsilon^k$ it holds that
@@ -4842,28 +4869,28 @@ TODO
 \end{ex}
 
 \begin{theorem}[Sequence criterion for continuity]
-  Let $f: D \subset \mathbb C \Rightarrow \mathbb C$ ($D \subseteq \mathbb R$).
+  Let $f: D \subset \mathbb C \implies \mathbb C$ ($D \subseteq \mathbb R$).
   Then it holds that $f$ is continuous in $z_0 \in D$ if and only if
   for every convergent sequence $\seq{w_n}$ with $w_n \in D \forall n \in \mathbb N$
   and $\lim_{n\to\infty} w_n = z_0$ it holds that $\seq{f(w_n)}$ is convergent
   and $\lim_{n\to\infty} f(w_n) = f(z_0)$.
 
   In a different way, this theorem states:
-  \[ w_n \to_{n\to\infty} z_0 \Rightarrow f(w_0) \to_{n\to\infty} f(z_0) \]
+  \[ w_n \to_{n\to\infty} z_0 \implies f(w_0) \to_{n\to\infty} f(z_0) \]
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[Direction $\Rightarrow$]
+    \item[Direction $\implies$]
       Let $f$ be continuous in $z_0$ and $\seq{w_n}$ with $w_n \in D$ with $\lim_{n\to\infty} w_n = z_0$.
       Show that $f(w_n) \to_{n\to\infty} f(z_0)$.
 
       Let $\varepsilon > 0$ arbitrary. Because $f$ is continuous, there exists some $\delta > 0$
-      such that $\abs{z - z_0} < \delta \Rightarrow \abs{f(z) - f(z_0)} < \varepsilon$ ($z \in D$).
+      such that $\abs{z - z_0} < \delta \implies \abs{f(z) - f(z_0)} < \varepsilon$ ($z \in D$).
       So $\seq{w_n}$ converges to $z_0$.
-      So there exists $N \in \mathbb N: n \geq N \Rightarrow \abs{w_n - z_0} < \delta$.
+      So there exists $N \in \mathbb N: n \geq N \implies \abs{w_n - z_0} < \delta$.
       For those indices it holds that: $\abs{f(w_n) - f(z_0)} < \varepsilon$.
       Hence $\lim_{n\to\infty} f(w_n) = f(z_0)$.
-    \item[Direction $\Leftarrow$]
+    \item[Direction $\impliedby$]
       Proof by contradiction: For every sequence $\seq{w_n}$ with $w_n \in D$ and $w_n \to z_0$
       it holds that: $f(w_n) \to f(z_0)$ for $n \to \infty$.
       Assume $f$ is not continuous in $z_0$.
@@ -4882,21 +4909,21 @@ TODO
 \end{proof}
 
 \begin{defi}
-  Let $f: D \rightarrow \mathbb C$ ($D \subseteq \mathbb C$ or $D \subseteq \mathbb R$).
+  Let $f: D \to \mathbb C$ ($D \subseteq \mathbb C$ or $D \subseteq \mathbb R$).
   We call $f$ \enquote{\emph{continuous on $D$}} if $f$ is continuous in every point $z \in D$.
 \end{defi}
 
 \subsection{Laws for continuous functions}
 %
 \begin{theorem}
-  Let $f: D \rightarrow \mathbb C$ and $g: D \rightarrow \mathbb C$ be functions
+  Let $f: D \to \mathbb C$ and $g: D \to \mathbb C$ be functions
   and $f$ and $g$ are continuous in $z_0 \in D$. Then it holds that
   \begin{enumerate}
     \item $(f + g): D \to \mathbb C$ and $(f + g)(z) = f(z) + g(z)$. \\
       So the sum function $(f + g)$ is continuous in $z_0$.
-    \item $(f \cdot g): D \rightarrow \mathbb C$ and $(f \cdot g)(z) = f(z) \cdot g(z)$. \\
+    \item $(f \cdot g): D \to \mathbb C$ and $(f \cdot g)(z) = f(z) \cdot g(z)$. \\
       The product function is continuous in $z_0$.
-    \item Let $g(z) \neq 0 \forall z \in D$. Then $\left(\frac{f}{g}\right): D \rightarrow \mathbb C$
+    \item Let $g(z) \neq 0 \forall z \in D$. Then $\left(\frac{f}{g}\right): D \to \mathbb C$
       with $\left(\frac fg\right)(z) = \frac{f(z)}{g(z)}$. \\
       The quotient function $\left(\frac fg\right)$ is continuous in $z_0$.
   \end{enumerate}
@@ -4918,7 +4945,7 @@ TODO
     \item $k: \mathbb C \to \mathbb C$, $k(z) = c \in \mathbb C$ is a constant function.
       $k$ is continuous in $\mathbb C$.
     \item The function $f(z) = z$ is continuous in $\mathbb C$, because we can choose $\delta = \varepsilon$.
-      \[ \abs{z - z_0} < \varepsilon \Rightarrow \abs{f(z) - f(z_0)} = \abs{z - z_0} < \varepsilon \]
+      \[ \abs{z - z_0} < \varepsilon \implies \abs{f(z) - f(z_0)} = \abs{z - z_0} < \varepsilon \]
     \item The functions $p_n(z) = z^n$ for $n = 0,1,2,\ldots$ are continuous in $\mathbb C$ as products of continuous functions.
     \item All polynomials $P(z) = \sum_{k=0}^n a_k z^k$ with $a_k \in \mathbb C$ are continuous in $\mathbb C$.
     \item Let $D = B(0, \rho(P))$ with $\rho(P)$ is convergence radius of the power series
@@ -4948,7 +4975,7 @@ TODO
 
 We know $w_k(x) = \sqrt[k]{x}$ is continuous in $[0,\infty)$.
 \[ P_l(x) = x^l \text{ is continuous in } \mathbb C \]
-\[ \Rightarrow P_l \circ w_k \text{ is continuous in } [0,\infty) \]
+\[ \implies P_l \circ w_k \text{ is continuous in } [0,\infty) \]
 $p_0 \circ w_k (x) = p_l(\sqrt[k]{x}) = \left(\sqrt[k]{x}\right)^l = x^{\frac lk}$ is continuous.
 
 \begin{itemize}
@@ -4961,9 +4988,14 @@ $p_0 \circ w_k (x) = p_l(\sqrt[k]{x}) = \left(\sqrt[k]{x}\right)^l = x^{\frac lk
   \item $\Re: \mathbb C \to \mathbb C$ and $\Im: \mathbb C \to \mathbb C$ are continuous in $\mathbb C$.
     Because $\abs{\Re(z) - \Re(z_0)} \leq \abs{z - z_0} \qquad \checkmark$.
   \item
-    Let $f, g: D \to \mathbb R$. Then $\max(f, g): D \rightarrow \mathbb R$
+    Let $f, g: D \to \mathbb R$. Then $\max(f, g): D \to \mathbb R$
     ($\max(f, g))(z) = \max\set{f(z), g(z)}$ is continuous in $D$.
-    % TODO: image max_of_continuous_functions.svg
+    \begin{figure}[t]
+      \begin{center}
+        \includegraphics{img/max_of_continuous_functions.pdf}
+        \caption{Maximum of two continuous functions}
+      \end{center}
+    \end{figure}
     because $\max{f(z), g(z)} = \frac12 \left(\abs{f(z) - g(z)} + f(z) + f(z)\right)$.
 \end{itemize}
 
@@ -4981,7 +5013,7 @@ $p_0 \circ w_k (x) = p_l(\sqrt[k]{x}) = \left(\sqrt[k]{x}\right)^l = x^{\frac lk
 $f$ is continuous in $x_0$ if and only if
 \[
   \forall \varepsilon > 0 \exists \delta > 0:
-  [x \in D \land \abs{x - x_0} < \delta \Rightarrow \abs{f(x) - f(x_0)} < \varepsilon]
+  [x \in D \land \abs{x - x_0} < \delta \implies \abs{f(x) - f(x_0)} < \varepsilon]
 \]
 
 Reminder:
@@ -5009,7 +5041,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 \end{figure}
 
 \begin{theorem}
-  Let $D \subseteq \mathbb C$ and $f: D \rightarrow \mathbb C$.
+  Let $D \subseteq \mathbb C$ and $f: D \to \mathbb C$.
   Let $z_0 \in D$. Then $f$ is continuous in $z_0$
   if and only if for every neighborhood $U$ of $y_0 = f(z_0)$
   it holds that $V = f^{-1}(u)$ is an neighborhood of $z_0 \in D$
@@ -5018,29 +5050,29 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 
 \begin{proof}
   \begin{description}
-    \item[$\Rightarrow$] \hfill{} \\
+    \item[$\implies$] \hfill{} \\
       Let $f$ be continuous in $z_0$ and let $U$ be an neighborhood
       of $y_0 = f(z_0)$, hence $\exists \varepsilon > 0: B(y_0, \varepsilon)
       \subseteq U$ with $y_0 = f(z_0)$. Because $f$ is continuous in $z_0$,
       it holds that
       \[
         \exists \delta > 0:
-        \abs{z - z_0} < \delta \land z \in D \Rightarrow
+        \abs{z - z_0} < \delta \land z \in D \implies
         \underbrace{\abs{f(z) - f(z_0)} < \varepsilon}_{f(z) \in \underbrace{B(f(z_0), \varepsilon)}_{B(y_0, \varepsilon \subseteq U)}}.
       \]
 
       This requires:
       \[
-        \abs{z - z_0} < \delta \land z \in D \Leftrightarrow z \in B(z_0, \delta) \land z \in D
+        \abs{z - z_0} < \delta \land z \in D \iff z \in B(z_0, \delta) \land z \in D
       \]
-      \[ \Rightarrow z \in B(z_0, \delta) \cap D \]
+      \[ \implies z \in B(z_0, \delta) \cap D \]
       Therefore we can redefine continuity as:
-      \[ z \in B(z_0, \delta) \cap D \Rightarrow f(z) \in B(y_0, \varepsilon) \]
+      \[ z \in B(z_0, \delta) \cap D \implies f(z) \in B(y_0, \varepsilon) \]
       So it holds that
-      \[ \forall z \in B(z_0, \delta) \cap D \Rightarrow z \in f^{-1}(B(y_0, \varepsilon)) \subseteq f^{-1}(U) \]
+      \[ \forall z \in B(z_0, \delta) \cap D \implies z \in f^{-1}(B(y_0, \varepsilon)) \subseteq f^{-1}(U) \]
       So it holds that $B(z_0, \delta) \cap D \subseteq f^{-1}(U)$.
 
-    \item[$\Leftarrow$] \hfill{} \\
+    \item[$\impliedby$] \hfill{} \\
       Let the preimage of every neighborhood in $y_0$ be an neighborhood of $z_0$ in $D$.
       Let $\varepsilon > 0$ arbitrary. Then it holds that $B(y_0, \varepsilon)$ is an neighborhood of $y_0$.
       By assumption it holds that $V = f^{-1}(B(y_0, \varepsilon))$ is an neighborhood of $z_0$ in $D$,
@@ -5049,7 +5081,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
       Therefore for $z \in B(z_0, \delta) \cap D$ it holds that $f(z) \in B(y_0, \varepsilon)$.
 
       In other words:
-      \[ \abs{z - z_0} < \delta \land z \in D \Rightarrow |f(z) - \underbrace{f(z_0)}_{= y_0}| < \varepsilon \]
+      \[ \abs{z - z_0} < \delta \land z \in D \implies |f(z) - \underbrace{f(z_0)}_{= y_0}| < \varepsilon \]
       So $f$ is continuous in $z_0$.
   \end{description}
   This notion of continuity is the most general one accepted by the mathematical community.
@@ -5059,13 +5091,13 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 \subsection{Variants of continuity}
 %
 \begin{defi}
-  Let $f: D \subseteq \mathbb C \rightarrow \mathbb C$ be a function $f$
+  Let $f: D \subseteq \mathbb C \to \mathbb C$ be a function $f$
   called uniformly continuous in $D$ if
   \[
     \forall \varepsilon > 0 \exists \delta > 0:
     \left[
       \forall z_0, z_1 \in D \text{ with } \abs{z_1 - z_0} < \delta
-      \Rightarrow \abs{f(z_1) - f(z_0)} < \varepsilon
+      \implies \abs{f(z_1) - f(z_0)} < \varepsilon
     \right]
   \]
   Recognize that $\delta$ only depends on $\varepsilon$,
@@ -5073,10 +5105,10 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 
   Reminder: $f$ is continuous in $D$
   \[
-    \Leftrightarrow \forall z_0 \in D \forall \varepsilon > 0 \exists \delta > 0:
+    \iff \forall z_0 \in D \forall \varepsilon > 0 \exists \delta > 0:
     \left[
       \forall z_1 \in D \land \abs{z_1 - z_0} < \delta
-      \Rightarrow \abs{f(z_1) - f(z_0)} < \varepsilon
+      \implies \abs{f(z_1) - f(z_0)} < \varepsilon
     \right]
   \]
   Recognize that $\delta$ depends on $z_0$ and $\varepsilon$
@@ -5093,7 +5125,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
     \forall \varepsilon > 0 \exists \delta > 0:
     \left[
       \forall x_0, x_1 \in D \text{ with } \abs{x_0 - x_1} < \delta
-      \Rightarrow \abs{\frac1{x_0} - \frac1{x_1}} < \varepsilon
+      \implies \abs{\frac1{x_0} - \frac1{x_1}} < \varepsilon
     \right]
   \]
   The negation is given with:
@@ -5160,7 +5192,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 \end{cor}
 %
 \begin{theorem}
-  Let $K \subseteq \mathbb C$ be compact. Let $f: K \rightarrow \mathbb C$ be continuous
+  Let $K \subseteq \mathbb C$ be compact. Let $f: K \to \mathbb C$ be continuous
   in $K$. Then $f(K) = \set{y = f(z): z \in K} \subset \mathbb C$ is compact in $\mathbb C$.
 \end{theorem}
 \begin{proof}
@@ -5180,7 +5212,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 \index[English]{global maximum}
 \index[German]{\foreignlanguage{ngerman}{Globales Maximum}}
 \begin{defi}
-  Let $f: D \rightarrow \mathbb R$ and $D \subseteq \mathbb C$. A point $z_{\text{max}} \in D$
+  Let $f: D \to \mathbb R$ and $D \subseteq \mathbb C$. A point $z_{\text{max}} \in D$
   is called global maximum of $f$ if $f(z_{\text{max}}) \geq f(z) \quad\forall z \in D$.
 \end{defi}
 
@@ -5192,7 +5224,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
 \end{figure}
 
 \begin{defi}
-  Let $f: K \rightarrow \mathbb R$ ($K \subseteq \mathbb C$) is continuous in $K$
+  Let $f: K \to \mathbb R$ ($K \subseteq \mathbb C$) is continuous in $K$
   and $K$ is compact in $\mathbb C$. Then $f$ has a global maximum and a global
   minimum.
 \end{defi}
@@ -5258,51 +5290,57 @@ Continuity and compactness implies existence of a maximum and minimum.
 \end{theorem}
 \begin{proof}
   Let $a_0 \in [a, b]$ such that $f(a_0) = m_*$ and $b_0 \in [a, b]$ such that $f(b_0) = m^*$.
-  Without loss of generality: $a_0 = b_0$.
-  If $a_0 > b_0$ it holds that $\max\set{f(x): x \in [a,b]} = f(b_0) = f(a_0) = \min\set{f(x): x \in [a, b]}$.
-  If $\max = \min$, then $f$ is constant, hence $f(x) = m_* = m^* \quad\forall x \in [a, b]$.
-  \[ m_* = \eta \leq m^* \Rightarrow \eta = m_* = m^* \land f(x) = \eta \quad\forall x \in [a,b] \]
-  Consider $a_0 \leq b_0$. We know, $f(a_0) = m_* \leq \eta \leq m^* = f(b_0)$.
-  We use nested intervals:
-
-  Assume $I_n = [a_n, b_n]$ for $n \in \mathbb N$ was already found with the property $f(a_n) \leq \eta \leq f(b_n)$.
-  Let $m_n = \frac12 (a_n + b_n)$ be the midpoint of $I_n$.
+  
+  Without loss of generality: $a_0 \leq b_0$.
   \begin{description}
-    \item[Case $f(m_n) \geq \eta$]
-      If $f(m_n) \geq \eta$ we set $b_{n+1} > m_n \land a_{n+1} > a_n$ (compare Figure~\ref{img:am_bm})
-      \begin{figure}[!h]
-        \begin{center}
-          \includegraphics{img/am_bm.pdf}
-          \caption{Interval $I_{n+1}$}
-          \label{img:am_bm}
-        \end{center}
-      \end{figure}
-      and it holds that $f(a_{n+1}) = f(a_n) \leq \eta$ and $f(b_{n+1}) = f(m_n) \geq \eta$.
-      Furthermore $\abs{I_{n+1}} = \frac12 \abs{I_n}$.
-    \item[Case $f(m_n) < \eta$]
-      Let $a_{n+1} = m_n$ and $b_{n + 1} = b_n$.
-      \[ I_{n+1} = [a_{n+1}, b_{n+1}] \]
-      \[ f(a_{n+1}) = f(m_n) < \eta \]
-      \[ f(b_{n+1}) = f(b_n) \geq \eta \]
-      \[ \abs{I_{n+1}} = \frac12 \abs{I_n} \]
-  \end{description}
-  Nested interval $\seq{I_n}$ has the property:
-  \[ I_{n+1} \leq I_n \qquad \abs{I_n} = \left(\frac12\right)^n \cdot \abs{I_0} = \left(\frac12\right)^n \cdot (b_0 - a_0) \]
-  and $f(a_n) \leq \eta \leq f(b_n)$. $\seq{I_n}$ is are nested intervals.
-  Let $\xi \in \bigcap_{n\in\mathbb N} I_n$ and it holds that $\abs{\xi - a_n} \leq \abs{b_n - a_n} = \underbrace{\left(\frac12\right)^n \cdot (b_0 - a_0)}_{\to 0 \text{ for } n \to \infty}$.
-  Therefore $\lim_{n\to\infty} a_n = \xi$ and
-  \[
-    \abs{b_n - \xi} \leq \abs{b_n - a_n}
-    = \underbrace{\left(\frac12\right)^n (b_0 - a_0)}_{\to 0 \text{ for } n \to \infty}.
-  \]
-  So $\lim_{n\to\infty} b_n = \xi$.
+    \item[Case $\mathbf{a_0 = b_0}$:]
+      Then $\max\set{f(x): x \in [a,b]} = f(b_0) = f(a_0) = \min\set{f(x): x \in [a, b]}$.
+      So $f$ is constant, hence $f(x) = m_* = m^* \quad\forall x \in [a, b]$ and we're done.
+      \[ m_* \leq \eta \leq m^* \implies m_* = \eta = m^* \implies f(x) = \eta \quad\forall x \in [a,b] \]
+    \item[Case $\mathbf{a_0 < b_0}$:]
+      We know, $f(a_0) = m_* \leq \eta \leq m^* = f(b_0)$.
+      We use nested intervals:
 
-  Because $f$ is continuous on $[a, b]$, it holds that
-  \[ \eta \leq f(b_n) \quad\forall n \in \mathbb N \Rightarrow \eta \leq \lim_{n\to\infty} f(b_n) \]
-  \[ \text{continuity } \Rightarrow \lim_{n\to\infty} f(b_n) = f(\xi) \]
-  So,
-  \[ \eta \leq \lim_{n\to\infty} f(b_n) = f(\xi) = \lim_{n\to\infty} f(a_n) \leq \eta. \]
-  Therefore $\eta = f(\xi)$.
+      Assume $I_n = [a_n, b_n]$ for $n \in \mathbb N$ was already found with the property $f(a_n) \leq \eta \leq f(b_n)$.
+      Let $m_n = \frac12 (a_n + b_n)$ be the midpoint of $I_n$.
+      \begin{description}
+        \item[Case $\mathbf{f(m_n) \geq \eta}$:]
+          Let $b_{n+1} = m_n$ and $a_{n+1} = a_n$ (compare Figure~\ref{img:am_bm}).
+          Then $f(a_{n+1}) = f(a_n) \leq \eta$ and $f(b_{n+1}) = f(m_n) \geq \eta$.
+          Furthermore $\abs{I_{n+1}} = \frac12 \abs{I_n}$.
+          \begin{figure}[!h]
+            \begin{center}
+              \includegraphics{img/am_bm.pdf}
+              \caption{Interval $I_{n+1}$}
+              \label{img:am_bm}
+            \end{center}
+          \end{figure}
+        \item[Case $\mathbf{f(m_n) < \eta}$:]
+          Let $a_{n+1} = m_n$ and $b_{n + 1} = b_n$.
+          \[ I_{n+1} = [a_{n+1}, b_{n+1}] \]
+          \[ f(a_{n+1}) = f(m_n) < \eta \]
+          \[ f(b_{n+1}) = f(b_n) \geq \eta \]
+          \[ \abs{I_{n+1}} = \frac12 \abs{I_n} \]
+      \end{description}
+      $\seq{I_n}$ satisfy properties:
+      \[ I_{n+1} \subseteq I_n \qquad \abs{I_n} = \left(\frac12\right)^n \cdot \abs{I_0} = \left(\frac12\right)^n \cdot (b_0 - a_0) \]
+      and $f(a_n) \leq \eta \leq f(b_n)$. So, $\seq{I_n}$ are nested intervals.
+      Let $\xi \in \bigcap_{n\in\mathbb N} I_n$ and it holds that $\abs{\xi - a_n} \leq \abs{b_n - a_n} = \left(\frac12\right)^n \cdot (b_0 - a_0) \xrightarrow{n \to \infty} 0$.
+      Therefore $\lim_{n\to\infty} a_n = \xi$ and
+      \[
+        \abs{b_n - \xi} \leq \abs{b_n - a_n}
+        = \left(\frac12\right)^n (b_0 - a_0) \xrightarrow{n \to \infty} 0.
+      \]
+      So $\lim_{n\to\infty} b_n = \xi$.
+
+      Because $f$ is continuous on $[a, b]$, it holds that
+      \[ \eta \leq f(b_n) \quad\forall n \in \mathbb N \implies \eta \leq \lim_{n\to\infty} f(b_n) \]
+      \[ \text{continuity } \implies \lim_{n\to\infty} f(b_n) = f(\xi) \]
+      \[ \text{continuity } \implies f(\xi) = \lim_{n\to\infty} \underbrace{f(a_n)}_{\leq \eta} \]
+      So,
+      \[ \eta \leq \lim_{n\to\infty} f(b_n) = f(\xi) = \lim_{n\to\infty} f(a_n) \leq \eta. \]
+      Therefore $\eta = f(\xi)$.
+  \end{description}
 \end{proof}
 \index[English]{Bisection method}
 \index[German]{Bisektionsverfahren}
@@ -5366,7 +5404,7 @@ Continuity and compactness implies existence of a maximum and minimum.
     \item
       $\forall \varepsilon > 0 \exists \delta > 0 \forall \xi \in D:
       \abs{z - \xi} < \delta
-      \Rightarrow |\underbrace{f(\xi)}_{\hat{f}(\xi)} - \underbrace{w}_{\hat{f}(z)}| < \varepsilon$
+      \implies |\underbrace{f(\xi)}_{\hat{f}(\xi)} - \underbrace{w}_{\hat{f}(z)}| < \varepsilon$
       \begin{center}
         \enquote{Continuity of $\hat{f}$}
       \end{center}
@@ -5398,9 +5436,9 @@ Continuity and compactness implies existence of a maximum and minimum.
   \[ f(x) = \frac{(1 + x)^s - 1}{x} \]
   It holds that $\lim_{x \to 0} f(x) = s$.
   \begin{proof}[for $\abs{x} < 1$]
-    \[ (1 + x)^s = \sum_{k = 0}^\infty \binom sk x^k \Rightarrow \frac{(1 + x)^s - 1}{x} \]
+    \[ (1 + x)^s = \sum_{k = 0}^\infty \binom sk x^k \implies \frac{(1 + x)^s - 1}{x} \]
     \[
-      \Rightarrow \frac{(1 + x)^s - 1}{x}
+      \implies \frac{(1 + x)^s - 1}{x}
       = \frac{\sum_{k=1}^\infty \binom sk x^k}{x}
       = \sum_{k=1}^\infty \binom sk \cdot x^{k-1}
     \] \[
@@ -5434,8 +5472,8 @@ $a$ should (at least) cross point $x_0$, ie. $f(x_0)$. Compare with Figure~\ref{
   \end{center}
 \end{figure}
 
-\[ \Rightarrow a(x_0) = k (\underbrace{x_0 - x_0}_{0}) + a \overset!= f(x_0) \Rightarrow d = f(x_0) \]
-\[ \Rightarrow a(x) = k (x - x_0) + f(x_0) \]
+\[ \implies a(x_0) = k (\underbrace{x_0 - x_0}_{0}) + a \overset!= f(x_0) \implies d = f(x_0) \]
+\[ \implies a(x) = k (x - x_0) + f(x_0) \]
 
 How should we select $k$ such that the approximation of $f$ is best possible by selection of $a$.
 We consider the deviation.
@@ -5454,13 +5492,13 @@ $\frac1{x - x_0}$ is unbounded close to $x_0$. $\lim_{x \to x_0} \frac{r(x)}{x -
 $\lim_{x \to x_0} \abs{\frac{r(x)}{x - x_0} - 0} = 0$
 
 \[
-  \Rightarrow \lim_{x \to x_0}
+  \implies \lim_{x \to x_0}
   \abs{\frac{f(x) - f(x_0) - k \cdot (x - x_0)}{x - x_0}}
   = \lim_{x \to x_0} \abs{\frac{f(x) - f(x_0)}{x - x_0} - k}
 \]
 Hence,
 \[
-  \Rightarrow k = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+  \implies k = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
 \]
 with
 \[ \lim_{x \to x_0} \frac{r(x)}{x - x_0} = 0, \]
@@ -5492,7 +5530,7 @@ TODO: missing a few lines
   Therefore,
   \[ \forall \varepsilon > 0 \exists \delta > 0: \forall z \in D \land \abs{z - z_0} < \delta \]
   where $z \neq z_0$.
-  \[ \Rightarrow \abs{g(z) - 0} < \varepsilon \]
+  \[ \implies \abs{g(z) - 0} < \varepsilon \]
   We say that $y$ is \emph{of order $\mathcal{O}(n)$} in point $z_0$,
   if $k \geq 0$ and some $r > 0$ such that
   \[ \abs{g(z)} \leq K \abs{z - z_n}^n \quad\forall z \in D \text{ with } \abs{z - z_0} < r \land z \neq z_0 \]
@@ -5509,7 +5547,7 @@ TODO: missing a few lines
 \end{defi}
 \begin{cor}
   It holds that,
-  $g: \mathcal O(\abs{z - z_0}^n) \Leftrightarrow \exists r > 0$ such that
+  $g: \mathcal O(\abs{z - z_0}^n) \iff \exists r > 0$ such that
   \[ \frac{\abs{g(z)}}{\abs{z - z_0}^n} \]
   is bounded in $B(z_0, z) \setminus \set{z_0}$ and $g = o(\abs{z - z_0}^n)$,
   if $\exists r > 0$ such that $\frac{\abs{g(z)}}{\abs{z - z_0}^n}$ in point
@@ -5614,48 +5652,49 @@ TODO: missing a few lines
     \abs{f(x) - f(x_0) - f'(x_0)(x - x_0)}
     \leq \frac\varepsilon2 \abs{x - x_0}
     \underbrace{<}_{\text{for } x \neq x_0} \varepsilon \abs{x - x_0}
-    \underbrace{\Rightarrow}_{\text{divide by $x - x_0$}} \text{(1)}
+    \underbrace{\implies}_{\text{divide by $x - x_0$}} \text{(1)}
   \]
 \end{theorem}
 
-\subsection{Derivation of common functions}
+\subsection{Derivatives of common functions}
 %
-Let $p_n: \mathbb R \to \mathbb R$, $p_n(x) = x^n$. Let $x_0 \in \mathbb R$ and $x \neq x_0$ and $n \in \mathbb N$.
-Then it holds that
-\begin{align*}
-  \frac{p_n(x) - p_n(x_0)}{x - x_0}
-    &= \frac{x^n - x_0^n}{x - x_0} \\
-    &= \frac{(x - x_0) \cdot \sum_{k=0}^{n - 1} x^k x_0^{n-1-k}}{x - x_0} \\
-    &= \sum_{k=0}^{n-1} x^k x_0^{n-1-k} \\
-    &\to_{x \to x_0} \sum_{k=0}^{n-1} x_0^k x_0^{n-1-k} \\
-    &= \sum_{k=0}^{n-1} x_0^{n-1} \\
-    &= n x_0^{n-1}
-\end{align*}
-Therefore $p_n$ is differentiable in $x_0$ and $p_n'(x_0) = n x_0^{n-1}$.
-\[ (x^n)' = nx^{n-1} \qquad \forall n \in \mathbb N \]
-
-\index[English]{Exponential function}
-\index[German]{\foreignlanguage{ngerman}{Exponentialfunktion}}
 \begin{enumerate}
+  \item
+    Let $p_n: \mathbb R \to \mathbb R$, $p_n(x) = x^n$. Let $x_0 \in \mathbb R$ and $x \neq x_0$ and $n \in \mathbb N$.
+    Then,
+    \begin{align*}
+      \frac{p_n(x) - p_n(x_0)}{x - x_0}
+        &= \frac{x^n - x_0^n}{x - x_0}
+         = \frac{(x - x_0) \cdot \sum_{k=0}^{n - 1} x^k x_0^{n-1-k}}{x - x_0} \\
+        &= \sum_{k=0}^{n-1} x^k x_0^{n-1-k}
+         \xrightarrow{x \to x_0} \sum_{k=0}^{n-1} x_0^k x_0^{n-1-k} \\
+        &= \sum_{k=0}^{n-1} x_0^{n-1}
+         = n x_0^{n-1}
+    \end{align*}
+    Therefore $p_n$ is differentiable in $x_0$ and $p_n'(x_0) = n x_0^{n-1}$.
+    \[ (x^n)' = nx^{n-1} \qquad \forall n \in \mathbb N \]
+
+  \index[English]{Exponential function}
+  \index[German]{\foreignlanguage{ngerman}{Exponentialfunktion}}
   \item Let $f(x) = a^x$ with $a > 0$. This function is called
     \emph{exponential function} with basis $a$. It holds that:
     \begin{align*}
       \frac{a^x - a^{x_0}}{x - x_0}
-        &= \frac{a^{x_0} \cdot a^{x - x_0} - a^{x_0}}{x - x_0} \\
-        &= a^{x_0} \cdot \frac{a^{x - x_0} - 1}{x - x_0} \\
-        &\to_{x \to x_0} a^{x_0} \cdot \lim_{x \to x_0} \frac{a^{x - x_0} - 1}{x - x_0} \\
-        \abs{
+        &= \frac{a^{x_0} \cdot a^{x - x_0} - a^{x_0}}{x - x_0}
+         = a^{x_0} \cdot \frac{a^{x - x_0} - 1}{x - x_0} \\
+        &\xrightarrow{x \to x_0} a^{x_0} \cdot \lim_{x \to x_0} \frac{a^{x - x_0} - 1}{x - x_0}
+         = \abs{
           \begin{array}{c}
             x - x_0 = h \\
-            x \to x_0 \Leftrightarrow h \to 0
+            x \to x_0 \iff h \to 0
           \end{array}
-        } = a^{x_0} \lim_{h \to 0} \underbrace{\frac{a^h - 1}{h}}_{= c \in \mathbb R}
+        } \\
+        &= a^{x_0} \lim_{h \to 0} \underbrace{\frac{a^h - 1}{h}}_{= c \in \mathbb R}
     \end{align*}
-    Therefore $\abs{a^x}' = c \cdot a^k$ with $c = \lim_{h\to 0}$.
-    TODO content missing
+    Therefore $\abs{a^x}' = c \cdot a^k$ with $c = \lim_{h\to 0} \frac{a^k - 1}{h}$.
 
-    In the special case that this constant $h$ is the Eulerian number $e$, it holds that:
-    \[ (e^x)' = e^x \]
+    In the special case that this constant $a$ is the Eulerian number $e$, we have:
+    \[ \lim_{h\to0} \frac{e^k - 1}{h} = 1 \qquad (e^x)' = e^x \]
   \item $\log: (0, \infty) \to \mathbb R$ with $e^{\log{x}} = x \;\forall x > 0$
     or equivalently $\log(e^y) = y \;\forall y \in \mathbb R$.
     \[
@@ -5764,8 +5803,8 @@ Exam date: 4th February 2016 14:00.
 
   Therefore the function $f: [a, b] \to \mathbb R$ can be discussed in term of convergence
   and $f'(a)$ and $f'(b)$ can  be defined (under the assumption that the limes exists)
-  \[ k = \lim_{x \to a} \frac{f(x) - f(a)}{x - a} \Leftrightarrow \forall \seq{\xi}, \min{\xi_n} \geq a, \lim_{n\to\infty} \xi_n = a \]
-  \[ \Rightarrow \lim_{n\to\infty} \frac{f(\xi_n) - f(a)}{\xi_n - a} = k \]
+  \[ k = \lim_{x \to a} \frac{f(x) - f(a)}{x - a} \iff \forall \seq{\xi}, \min{\xi_n} \geq a, \lim_{n\to\infty} \xi_n = a \]
+  \[ \implies \lim_{n\to\infty} \frac{f(\xi_n) - f(a)}{\xi_n - a} = k \]
 
   The derivative in $a$ is \emph{right-sided}.
   The derivative in $b$ is \emph{left-sided}.
@@ -5802,7 +5841,7 @@ Exam date: 4th February 2016 14:00.
     \item Consider $g: [a, b] \to \mathbb R$ with $g(x) = \sqrt{x}$.
       Claim: $g$ is not differentiable in $x = 0$.
       \begin{proof}
-        Let $\seq{\xi}$ and $\xi_n = \frac1n \Rightarrow \lim_{n\to\infty} \xi_n = 0$.
+        Let $\seq{\xi}$ and $\xi_n = \frac1n \implies \lim_{n\to\infty} \xi_n = 0$.
         \[
           \frac{g(\xi_n) - g(0)}{\xi_n - 0}
           = \frac{\sqrt{\frac1n} - \sqrt{0}}{\frac1n - 0}
@@ -5860,13 +5899,13 @@ We actually used that already (for example, when proving the product law for der
 \end{theorem}
 \begin{proof}
   \begin{description}
-    \item[$\Leftarrow$]
+    \item[$\impliedby$]
       Let $x \neq x_0$, $x \in I$ and it holds that $f(x) = f(x_0) + \varphi(x)(x - x_0)$, then
       \[ \varphi(x) = \frac{f(x) - f(x_0)}{x - x_0} \]
       because $\varphi$ is continuous, there exists some limes
       \[ \lim_{x \to x_0} \varphi(x) = \varphi(x_0) \]
       Hence $f$ is differentiable and $f'(x_0)$.
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       Let $f$ be differentiable. Then we define
       \[
         \varphi(x) = \begin{cases}
@@ -5930,7 +5969,7 @@ We actually used that already (for example, when proving the product law for der
   \[ f \circ g: \mathbb R \to \mathbb R \]
   \[ (f \circ g)(x) = (e^x)^2 \]
   \[ (f \circ g)'(x) = \underbrace{f'(g(x))}_{2(y(x)) = 2e^x} \circ \underbrace{g'(x)}_{=e^x} \]
-  \[ \Rightarrow 2 \cdot e^x \cdot e^x = 2e^{2x} \]
+  \[ \implies 2 \cdot e^x \cdot e^x = 2e^{2x} \]
 \end{ex}
 
 \begin{ex}
@@ -6012,10 +6051,10 @@ We actually used that already (for example, when proving the product law for der
   Let $f: I \to \mathbb R$ be a function. $I$ is an interval.
   We call $x_0 \in I$ a \emph{local maximum} of $f$, if $\varepsilon > 0$
   exists such that
-  \[ [x \in I \land \abs{x - x_0} < \varepsilon] \Rightarrow f(x) \leq f(x_0) \]
+  \[ [x \in I \land \abs{x - x_0} < \varepsilon] \implies f(x) \leq f(x_0) \]
   We call $x_0 \in I$ a \emph{local minimum} of $f$, if $\varepsilon > 0$
   exists such that
-  \[ [x \in I \land \abs{x - x_0} < \varepsilon] \Rightarrow f(x) \geq f(x_0) \]
+  \[ [x \in I \land \abs{x - x_0} < \varepsilon] \implies f(x) \geq f(x_0) \]
 \end{defi}
 
 \begin{figure}[!h]
@@ -6095,25 +6134,25 @@ We actually used that already (for example, when proving the product law for der
     f'(x_0)(w - x_0) = f'(x_0)\left(x_0 - \frac\varepsilon2 - x_0\right)
     = -\frac{\varepsilon}{2} f'(x_0) \leq 0
   \] \[
-    f'(x_0) \leq 0 \text{ and } f'(x_0) \geq 0 \Rightarrow f'(x_0) = 0
+    f'(x_0) \leq 0 \text{ and } f'(x_0) \geq 0 \implies f'(x_0) = 0
   \]
 \end{proof}
 
 \meta{lecture}{21st of January 2016}{Wolfgang Ring}
 
-\begin{theorem}[Consideration of optimal points at the borders of $I$]
-  % TODO: verify
+\begin{theorem}[Consideration of optimal points at the margins of $I$]
   Let $I = [a, b]$ and $x_0 = a$ is a local maximum. Then the necessary
   optimality criterion (NOC) yields:
-  \[ \text{NOC:} \qquad f'(a) (x - a) \leq a \qquad x \in [a,b] \]
-  and $x$ is sufficiently close to $a$. Choose $\varepsilon$ small enough
-  such that for $x = a + \varepsilon$ (necessary optimality criterion)
-  \[ \Rightarrow f'(a) (a' - \varepsilon - a') = \varepsilon f'(a) \leq 0 \]
-  \[ \Rightarrow f'(a) \geq 0 \]
+  \[ \text{NOC:} \qquad f'(a) (x - a) \leq 0 \qquad x \in [a,b] \]
+  and $x$ sufficiently close to $a$. Choose $\varepsilon > 0$ small enough
+  such that for $x = a + \varepsilon$ (necessary optimality criterion), we have
+  \[ \implies f'(a) (a - \varepsilon - a) = \underbrace{\varepsilon}_{>0} f'(a) \leq 0
+     \qquad \implies f'(a) \geq 0 \]
 
   Analogously: \\
   $x_0 = a$ is a local minimum. So $f'(a) \geq 0$. \\
-  $x_0 = b$ is a local maximum. So $f'(b) \leq 0$.
+  $x_0 = b$ is a local maximum. So $f'(b) \geq 0$. \\
+  $x_0 = b$ is a local minimum. So $f'(b) \leq 0$.
 \end{theorem}
 
 \fbox{Michel Rolle (1652--1719)}
@@ -6121,8 +6160,7 @@ We actually used that already (for example, when proving the product law for der
 \begin{theorem}[Rolle's theorem]
   Let $I = [a,b]$ and $f: I \to \mathbb R$ is differentiable in $I$. Furthermore
   it holds that $f(a) = f(b)$. Then there exists some $\xi \in [a,b]$ with
-  $f'(\xi) = 0$.
-  % TODO: add Sogan constraint
+  $f'(\xi) = 0$ (even with $\xi \in (a,b)$).
 \end{theorem}
 
 \begin{figure}[!h]
@@ -6139,7 +6177,7 @@ We actually used that already (for example, when proving the product law for der
   \begin{description}
     \item[Case 1: $f$ constant]
       Therefore $f(x) = f(a) = ? \forall x \in [a,b]$
-      \[ \Rightarrow f'(x) = 0 \forall x \in [a,b] \]
+      \[ \implies f'(x) = 0 \forall x \in [a,b] \]
     \item[Case 2: $f$ is non-constant]
       Therefore $\exists x \in (a, b)$ with $f(x) \neq f(a)$.
       Without loss of generality: $f(x) > f(a) = f(b)$.
@@ -6148,7 +6186,7 @@ We actually used that already (for example, when proving the product law for der
       existence of a global maximum tells us:
       \[ \exists \xi \in [a,b]: f(\xi) \geq f(z) \quad\forall z \in [a,b] \]
       \[ f(\xi) \geq f(x) > f(a) = f(b) \]
-      \[ \Rightarrow \xi \neq a \land \xi \neq b \]
+      \[ \implies \xi \neq a \land \xi \neq b \]
       So $\xi$ is an inner point of $[a,b]$, hence $\xi \in (a,b)$.
 
       Analogously the same holds for a minimum:
@@ -6161,10 +6199,9 @@ We actually used that already (for example, when proving the product law for der
 \index[German]{\foreignlanguage{ngerman}{Mittelwertsatz der Differentialrechnung}}
 \begin{theorem}[Mean value theorem]
   Let $I = [a,b]$ be a compact interval with $a<b$ and let $f: I \to \mathbb R$
-  be differentiable in $[a,b]$. Then there exists some $\xi \in [a,b]$ such that
+  be differentiable in $[a,b]$. Then there exists some $\xi \in [a,b]$
+  (even $\xi \in [a,b]$) such that
   \[ \frac{f(b) - f(a)}{b - a} = f'(\xi). \]
-  % TODO: verify
-  (Sogan, $\xi \in [a,b]$)
 
   Equivalently,
   \begin{align*}
@@ -6183,33 +6220,33 @@ We actually used that already (for example, when proving the product law for der
 \begin{proof}
   Let $g(x) = f(x) - s(x)$.
   \[ = f(x) - \underbrace{\left[f(a) + \frac{f(b) - f(a)}{b - a} (x - a)\right]}_{\text{linear, hence differentiable}} \]
-  \[ \Rightarrow g(a) = f(a) - [f(a) - 0] = 0 \]
+  \[ \implies g(a) = f(a) - [f(a) - 0] = 0 \]
   \[ g(b) = f(b) - \left[f(a) + \frac{f(b) - f(a)}{b - a} (b - a)\right] = 0 \]
   By the Rolle's Theorem it follows that
   \[ \exists \xi \in [a,b] \text{ with } g'(\xi) = 0 \]
   \[ g'(x) = f'(x) - \frac{f(b) - f(a)}{b - a} \]
-  \[ g'(\xi) = 0 \Rightarrow f'(\xi) = \frac{f(b) - f(a)}{b - a} \]
+  \[ g'(\xi) = 0 \implies f'(\xi) = \frac{f(b) - f(a)}{b - a} \]
 \end{proof}
 %
 \index[English]{Monotonicity (functions)}
 \index[German]{\foreignlanguage{ngerman}{Monotonie (Funktionen)}}
 \begin{defi}[Monotonicity for functions]
   Let $I$ be an interval, $f: I \to \mathbb R$. Then $f$ is called \emph{monotonically increasing} in $I$ if
-  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) \leq f(x_2) \]
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \implies f(x_1) \leq f(x_2) \]
   $f$ is called \emph{monotonically decreasing} in $I$ if
-  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) \geq f(x_2) \]
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \implies f(x_1) \geq f(x_2) \]
   $f$ is called \emph{strictly monotonically increasing} in $I$
-  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) < f(x_2) \]
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \implies f(x_1) < f(x_2) \]
   $f$ is called \emph{strictly monotonically decreasing} in $I$
-  \[ x_1, x_2 \in I \land x_1 \leq x_2 \Rightarrow f(x_1) > f(x_2) \]
+  \[ x_1, x_2 \in I \land x_1 \leq x_2 \implies f(x_1) > f(x_2) \]
 \end{defi}
 %
 \begin{theorem}
   Let $f: I \to \mathbb R$ be differentiable in $I$ where $I$ is some interval.
   Then
   \begin{itemize}
-    \item $f$ is monotonically increasing in $I$ $\Leftrightarrow f'(x) \geq 0 \quad \forall x \in I$
-    \item $f$ is monotonically decreasing in $I$ $\Leftrightarrow f'(x) \leq 0 \quad \forall x \in I$
+    \item $f$ is monotonically increasing in $I$ $\iff f'(x) \geq 0 \quad \forall x \in I$
+    \item $f$ is monotonically decreasing in $I$ $\iff f'(x) \leq 0 \quad \forall x \in I$
   \end{itemize}
 \end{theorem}
 \begin{proof}
@@ -6217,20 +6254,20 @@ We actually used that already (for example, when proving the product law for der
   It follows analogously for monotonically decreasing functions.
 
   \begin{description}
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       Let $f$ be monotonically increasing and $x_0 \in I$. Let $(w_n)_{n\in\mathbb N}$
       and $w_n \in I$ with $\lim_{n\to\infty} w_n = x_0$, $w_1 \neq x_0 \quad \forall n \in \mathbb N$.
       Then it holds that
       \[ f'(x_0) = \lim_{n\to\infty} \underbrace{\frac{f(w_n) - f(x_0)}{x_n - x_0}}_{S_n} \]
       \begin{itemize}
         \item If $w_n > x_0$, then $f(w_n) \geq f(x_0)$ due to monotonicty.
-          \[ \Rightarrow S_n \neq 0 \]
+          \[ \implies S_n \neq 0 \]
         \item If $w_n < x_0$ (hence $w_n - x_0 < 0$), then $f(w_n) \leq f(x_0)$ hence $f(w_n) - f(x_0) \leq 0$,
           due to monotonicity.
-          \[ \Rightarrow S_n \geq 0 \]
-          \[ \Rightarrow f'(x_0) = \lim_{n\to\infty} S_n \geq 0 \]
+          \[ \implies S_n \geq 0 \]
+          \[ \implies f'(x_0) = \lim_{n\to\infty} S_n \geq 0 \]
       \end{itemize}
-    \item[$\Leftarrow$]
+    \item[$\impliedby$]
       Let $f'(x) \geq 0 \forall x \in I$. Show that $f$ is monotonically increasing.
 
       Proof by contradiction: Assume the opposite. $f$ is not monotonically increasing,
@@ -6238,7 +6275,7 @@ We actually used that already (for example, when proving the product law for der
       $f$ is differentiable in $[x_1, x_2] \subseteq I$. The Intermediate Value Theorem
       tells us that $\exists \xi \in (x_1, x_2)$ with
       \[ f'(\xi) = \frac{\overbrace{f(x_2) - f(x_1)}^{<0}}{\underbrace{x_2 - x_1}_{>0}} \]
-      \[ \Rightarrow f'(\xi) < 0 \]
+      \[ \implies f'(\xi) < 0 \]
       This contradicts with our assumption that $f'(x) \geq 0 \forall x \in I$.
   \end{description}
 \end{proof}
@@ -6258,7 +6295,7 @@ We actually used that already (for example, when proving the product law for der
   $f'(x) = 3x^2$ and therefore $f'(0) = 0$.
 \end{lemma}
 \begin{proof}
-  See the previous proof, part $\Leftarrow$, and use $f(x_1) \geq f(x_2)$
+  See the previous proof, part $\impliedby$, and use $f(x_1) \geq f(x_2)$
   and $f'(\xi) \leq 0$ in contradiction to $f'(x) > 0 \quad \forall x \in I$.
 \end{proof}
 %
@@ -6288,7 +6325,7 @@ We actually used that already (for example, when proving the product law for der
   By Rolle's Theorem it follows that
   \[ \exists \xi \not\in (a, b) \text{ with } F'(\xi) = 0 \]
   \[ F'(x) = f'(x) - \frac{f(b) - f(a)}{g(b) - g(a)} \cdot g'(x) \]
-  \[ F'(\xi) = 0 \Rightarrow \frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)} \]
+  \[ F'(\xi) = 0 \implies \frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)} \]
 \end{proof}
 %
 \index[English]{L'Hôpital's rule}
@@ -6309,7 +6346,7 @@ We actually used that already (for example, when proving the product law for der
   \[ \exists \xi \in [x, x_0] \text{ wlog. } x < x_0: \frac{f(x) - f(x_0)}{g(x) - g(x_0)} = \frac{f'(\xi)}{g'(\xi)} \]
   and for $\abs{x - x_0} < \varepsilon$ it holds that
   \[ \abs{\xi - x_0} < \varepsilon \]
-  \[ \Rightarrow x \to x_0 \Rightarrow \xi \to x_0 \]
+  \[ \implies x \to x_0 \implies \xi \to x_0 \]
 \end{proof}
 \begin{ex}
   \[ \lim_{x\to 0} \frac{e^x - 1}{x} = \lim_{\xi \to 0} \frac{e^\xi}{1} = 1 \]
@@ -6324,7 +6361,7 @@ We actually used that already (for example, when proving the product law for der
       \[ f(x) \leq f(x_0) \land \forall w \in I \text{ with } w \in [x_0, x_0 + \varepsilon): f(w) \leq f(x_0) \]
     \item Assume $f$ is monotonically increasing in $(x_0 - \varepsilon, x_0]$ and $f$ is monotonically decreasing
       in $[x_0, x_0 + \varepsilon)$
-      \[ \Rightarrow \exists x, \tilde{x} \in (x_0 - \varepsilon, x_0]: f(x) \leq f(\tilde{x}) \land \forall w, \tilde{w} \in [x_0, x + \varepsilon) \]
+      \[ \implies \exists x, \tilde{x} \in (x_0 - \varepsilon, x_0]: f(x) \leq f(\tilde{x}) \land \forall w, \tilde{w} \in [x_0, x + \varepsilon) \]
       with $\tilde{w} \leq w$ it holds that $f(\tilde{w}) \geq f(w)$.
       Especially for $\tilde{x} = x_0$ and $\tilde{w} = x_0$ it holds that
       \[ f(x) \leq f(x_0) \land f(x_0) \geq f(w) \]
@@ -6338,7 +6375,7 @@ We actually used that already (for example, when proving the product law for der
   \end{itemize}
 \end{cor}
 
-\meta{lecture}{22nd of Jan 2015}
+\meta{lecture}{22nd of Jan 2015}{Wolfgang Ring}
 
 \begin{theorem}
   Let $(w_n)_{n \in \mathbb N}$ with $w_n \in I$ such that $\lim_{n\to\infty} w_n = x_0$
@@ -6353,7 +6390,7 @@ We actually used that already (for example, when proving the product law for der
   Because $\abs{\xi_n - x_0} < \underbrace{\abs{w_n - x_0}}_{\to 0}$ it holds that
   \[ \lim_{n\to\infty} \xi_n = x_0. \]
   If $\lim_{n\to\infty} \frac{f'(\xi_n)}{g'(\xi_n)} = d$.
-  \[ \Rightarrow \lim_{n\to\infty} \frac{f(w_n) - f(x_0)}{g(w_n) - g(x_0)} = d \]
+  \[ \implies \lim_{n\to\infty} \frac{f(w_n) - f(x_0)}{g(w_n) - g(x_0)} = d \]
 \end{theorem}
 
 \subsection{Sufficient optimality criteria}
@@ -6383,10 +6420,13 @@ We actually used that already (for example, when proving the product law for der
 \end{figure}
 
 \begin{rem}
-  TODO: content missing \\
-  that $f'(x) \geq 0$ and $\forall x \in [x_0, x_0 + \varepsilon)$ hold,
-  that $f'(x) \leq 0$, then $f$ is monotonically increasing to the left of $x_0$
-  and monotonically decreasing to the right, hence $x_0$ is a local maximum.
+  Let $f$ be differentiable in $I$ and $x_0 \in I$.
+  If $\varepsilon > 0$ exists with
+  $\forall x \in (x_0 - \varepsilon, x_0] \cap I: f'(x) \geq 0$
+  and $\forall x \in [x_0, x_0 + \varepsilon): f'(x) \leq 0$,
+  then $f$ is monotonically increasing to the left of $x_0$
+  and monotonically decreasing to the right.
+  So, $x_0$ is a local maximum.
 
   Hence, the point when $f'$ changes its sign, a maximum (or minimum) is given.
 
@@ -6447,102 +6487,101 @@ We actually used that already (for example, when proving the product law for der
 %
 \begin{theorem}
   Let $f: I \to \mathbb R$ be differentiable and $I$ an interval.
-  Then it holds that $f$ is convex in $I$
-  \[ \Leftrightarrow f': I \to \mathbb R \]
-  is monotonically increasing. Analogously for concave and monotonically decreasing.
+  Then it holds that $f$ is convex in $I$ $\iff f': I \to \mathbb R$ is monotonically increasing. \\
+  Analogously for concave and monotonically decreasing.
 \end{theorem}
 %
 \begin{proof}
   \begin{description}
-    \item[$\Leftarrow$]
+    \item[$\impliedby$]
       Let $f': I \to \mathbb R$ be monotonically increasing. Let $a,b \in I$,
-      $a < b$ and let $\lambda \in (0, 1]$.
+      $a < b$ and let $\lambda \in [0, 1]$.
 
-      Let $\lambda = 0$. Then it holds that
+      Hence convexity condition for $\lambda \in \set{0,1}$ is satisfied. Let $\lambda = 0$, then
       \[ f((1 - 0) \cdot a + 0 \cdot b) = f(a) \leq (1 - 0) \cdot f(a) + 0 \cdot f(b) \]
-      Hence convexity condition is satisfied. Analogously it holds for $\lambda = 1$.
+      Analogously for $\lambda = 1$, then
       \[ f((1 - 1) \cdot a + 1 \cdot b) = f(b) = (1 - 1) \cdot f(a) + 1 \cdot f(b) \]
 
       Let $\lambda \in (0,1)$
-      \[
-        (1 - \lambda) f(a) + \lambda f(b) - \underbrace{1}_{((1 - \lambda) + \lambda)}
-        \cdot f((1 - \lambda) \cdot a + \lambda \cdot b)
-      \] \[
-        = (1 - \lambda) f(a) - (1 - \lambda) f((1 - \lambda) a + \lambda b)
-        + \lambda f(b) - \lambda f((1 - \lambda) \cdot a + \lambda b)
-      \] \[
-        = (1 - \lambda) \left(f(a) - f\left((1 - \lambda) a + \lambda b\right)\right)
-        + \lambda \left[f(b) - f((1 - \lambda) a + \lambda b)\right]
-      \]
-      If $x_\lambda = (1 - \lambda) \cdot a + \lambda b$:
-      \[
-        = \lambda [f(b) - f(x_\lambda)] - (1 - \lambda) [f(x_\lambda) - f(a)]
-      \] \[
-        \exists \xi_2 \in (x_\lambda, b) \text{ such that }
-        f(b) - f(x_\lambda) = f'(\xi_2) (b - x_\lambda)
-      \]
+      \begin{align*}
+        &(1 - \lambda) f(a) + \lambda f(b) - \underbrace{1}_{((1 - \lambda) + \lambda)}
+        \cdot f((1 - \lambda) \cdot a + \lambda \cdot b) \\
+        &= (1 - \lambda) f(a) - (1 - \lambda) f((1 - \lambda) a + \lambda b)
+        + \lambda f(b) - \lambda f((1 - \lambda) \cdot a + \lambda b) \\
+        &= (1 - \lambda) \left[f(a) - f\left((1 - \lambda) a + \lambda b\right)\right]
+        + \lambda \left[f(b) - f((1 - \lambda) a + \lambda b)\right] \\
+      \intertext{Let $x_\lambda \coloneqq (1 - \lambda) \cdot a + \lambda b$.}
+        &= \lambda [f(b) - f(x_\lambda)] - (1 - \lambda) [f(x_\lambda) - f(a)] \\
+        &\eqqcolon E
+      \end{align*}
 
-      $\exists \xi_2 \in (x_\lambda, b)$ such that (Intermediate Value Theorem)
-      \[ f(b) - f(x_\lambda) = f'(\xi_2) (b - x_\lambda) \]
+      \hrule{}
+      $\exists \xi_2 \in (x_\lambda, b)$ such that (by the Mean Value Theorem),
+      \begin{align*}
+        f(b) - f(x_\lambda)
+          &= f'(\xi_2) (b - x_\lambda) \\
+          &= f'(\xi_2) (b - (1 - \lambda) a - \lambda b) \\
+          &= f'(\xi_2) (1 - \lambda) (b - a)
+      \end{align*}
 
-      TODO: content missing
-      \[
-        \exists \xi_1 \in (a, x_\lambda) \text{ such that }
-        f(x_\lambda) - f(a) = f'(\xi_\lambda) (x_\lambda - a)
-        TODO
-        f'(\xi_1) \lambda (b - a)
-      \]
+      $\exists \xi_1 \in (a, x_\lambda)$ such that
+      \begin{align*}
+        f(x_\lambda) - f(a)
+          &= f'(\xi_1) (x_\lambda - a) \\
+          &= f'(\xi_1) ((1 - \lambda) \cdot a + \lambda b - a) \\
+          &= f'(\xi_1) \lambda (b - a)
+      \end{align*}
+      \hrule{}
 
-      \[ \lambda (1 - \lambda) (b - a) \cdot f'(\xi_2) - (1 - \lambda) \cdot \lambda (b - a) f'(\xi_1) \]
-      \[ = \underbrace{\lambda (1 - \lambda) (b - a)}_{>0} \underbrace{\left[f'(\xi_2) - f'(\xi_1)\right]}_{\geq 0} \]
-      because $f'$ is monotonically increasing and
-      $\xi_1 < x_\lambda < \xi_2$ holds.
+      \begin{align*}
+        E &= \lambda (1 - \lambda) (b - a) \cdot f'(\xi_2) - (1 - \lambda) \lambda (b - a) f'(\xi_1) \\
+          &= \underbrace{\lambda (1 - \lambda) (b - a)}_{> 0} \underbrace{\left[f'(\xi_2) - f'(\xi_1)\right]}_{\geq 0} \geq 0
+      \end{align*}
+      because $f'$ is monotonically increasing and $\xi_1 < x_\lambda < \xi_2$ holds.
 
-      Therefore it holds that $(1 - \lambda) f(a) + \lambda f(b) \geq f(x_\lambda)$
-    \item[$\Rightarrow$]
+      Therefore, $(1 - \lambda) f(a) + \lambda f(b) \geq f(x_\lambda)$
+    \item[$\implies$]
       Let $f$ be convex and differentiable in $I$. Let $x_1 < x_2$ with $x_1, x_2 \in I$.
-      Show that
-      \[ f'(x_1) \leq f'(x_2) \]
-      Choose $n \in \mathbb N$, $n \geq 2$. Let $w_n = x_n + \frac1n (x_2 - x_1)$ and
+      Show that $f'(x_1) \leq f'(x_2)$.
+      Choose $n \in \mathbb N$ with $n \geq 2$. Let $w_n = x_n + \frac1n (x_2 - x_1)$ and
       $z_n = x_2 - \frac 1n (x_2 - x_1)$.
       \[ \lim_{n\to\infty} w_n = x_1 \text{ and } \lim_{n\to\infty} z_n = x_2 \]
       We consider
       \[ \frac{f(x_2) - f(z_n)}{x_2 - z_n} - \frac{f(w_n) - f(x_1)}{w_n - x_1} \]
       \[
-        = n \cdot \frac{1}{x_2 - x_1} \left( f(x_2) - \underbrace{f(z_n)}_{\leq (1 - \mu) f(x_1) + \mu f(x_2)} \right)
-        - n \cdot \frac{1}{x_2 - x_1} \left( \underbrace{f(w_n)}_{\leq (1 - \lambda) f(x_1) + \lambda f(x_2)} - f(x_1) \right)
-      \] \[
-        z_n = x_2 - \frac 1n (x_2 - x_1) = \frac 1n x_1 + (1 - \frac1n) x_2
-      \] \[
-        w_n = x_1 + \frac 1n (x_2 - x_1) = \left(1 - \frac1n\right) x_1 + \frac 1n x_2
-      \] \[
-        = (1 - \lambda) x_1 + \lambda x_2 \text{ with } \lambda = Todo
-      \] \[
-        z_n = \left(1 - (1 - \frac1n)\right) x_1 + \left(1 - \frac1n\right) x_2
-      \] \[
-        = (1 - \mu) x_1 + \mu x_2 \text{ with } \mu = (1 - \frac 1n)
+        = n \cdot \frac{1}{x_2 - x_1} \left( f(x_2) - f(z_n) \right)
+        - n \cdot \frac{1}{x_2 - x_1} \left( f(w_n) - f(x_1) \right)
+        \eqqcolon E
       \]
-      Convexity: From
+      with $f(z_n) \leq (1 - \mu) f(x_1) + \mu f(x_2)$
+      and $f(w_n) \leq (1 - \lambda) f(x_1) + \lambda f(x_2)$
+      \begin{align*}
+        z_n &= x_2 - \frac 1n (x_2 - x_1) = \frac 1n x_1 + \left(1 - \frac1n\right) x_2 \\
+        w_n &= x_1 + \frac 1n (x_2 - x_1) = \left(1 - \frac1n\right) x_1 + \frac 1n x_2 \\
+            &= (1 - \lambda) x_1 + \lambda x_2 \text{ with } \lambda \coloneqq \frac1n \\
+        z_n &= \left(1 - (1 - \frac1n)\right) x_1 + \left(1 - \frac1n\right) x_2 \\
+            &= (1 - \mu) x_1 + \mu x_2 \text{ with } \mu \coloneqq 1 - \frac 1n
+      \end{align*}
+      By convexity,
+      \begin{align*}
+        E &\geq n \cdot \frac{1}{x_2 - x_1} \left[ f(x_2) - \left((1 - \mu) \cdot f(x_1) + \mu f(x_2)\right) \right] \\
+          &   - n \cdot \frac{1}{x_2 - x_1} \left[ (1 - \lambda) f(x_1) + \lambda f(x_2) - f(x_1) \right]
+      \end{align*}
       \[
-        = n \cdot \frac{1}{x_2 - x_1} \left( f(x_2) - \underbrace{f(z_n)}_{\leq (1 - \mu) f(x_1) + \mu f(x_2)} \right)
-        - n \cdot \frac{1}{x_2 - x_1} \left( \underbrace{f(w_n)}_{\leq (1 - \lambda) f(x_1) + \lambda f(x_2)} - f(x_1) \right)
-      \]
-      It follows that
-      \[
-        \geq n \cdot \frac{1}{x_2 - x_1} \cdot \left[ f(x_2) - \left((1 - \mu) \cdot f(x_1) + \mu f(x_2)\right)\right]
-        - n \frac{1}{x_2 - x_1} \left[(1 - \lambda) f(x_1) + \lambda f(x_2) - f(x_1)\right]
-      \] \[
-        = \frac{n}{x_2 - x_1} \left[(1 - \mu) (f(x_2) - f(x_n))\right]
+        = \frac{n}{x_2 - x_1} \left[(1 - \mu) (f(x_2) - f(x_1))\right]
         - \frac{n}{x_2 - x_1} \left[\lambda (f(x_2) - f(x_1))\right]
       \] \[
-        \left[ \lambda = \frac1n \qquad \mu = 1 - \frac1n \right]
+        \left[ \lambda \coloneqq \frac1n \qquad \mu \coloneqq 1 - \frac1n \right]
       \] \[
         = \frac{n}{x_2 - x_1} \frac1n \left(f(x_2) - f(x_1)\right)
         - \frac{n}{x_2 - x_1} \frac1n (f(x_2) - f(x_1)) = 0
       \]
       So
-      \[ \underbrace{\frac{f(x_2) - f(z_n)}{x_2 - z_n}}_{f'(x_2)} \geq \underbrace{\frac{f(w_1) - f(x_1)}{w_n - x_1}}_{f'(x_1)}. \]
-      for $n \to \infty$. So $f'(x_2) \geq f'(x_0)$.
+      \[
+             \underbrace{\frac{f(x_2) - f(z_n)}{x_2 - z_n}}_{\xrightarrow{n \to \infty} f'(x_2)}
+        \geq \underbrace{\frac{f(w_1) - f(x_1)}{w_n - x_1}}_{\xrightarrow{n \to \infty} f'(x_1)}
+      \]
+      So $f'(x_2) \geq f'(x_0)$.
   \end{description}
 \end{proof}
 %
@@ -6581,8 +6620,8 @@ We actually used that already (for example, when proving the product law for der
 \begin{rem}
   We can use the second derivative to check the monotonicity of the first derivative.
   \[ f^{(2)}: I \to \mathbb R, \quad f^{(2)}(x) \geq 0 \quad \forall x \in I \]
-  \[ \Rightarrow f^{(1)} = f' \text{ is monotonical in $I$} \]
-  \[ \Rightarrow f \text{ is convex in $I$} \]
+  \[ \implies f^{(1)} = f' \text{ is monotonical in $I$} \]
+  \[ \implies f \text{ is convex in $I$} \]
 \end{rem}
 \begin{rem}
   Let $f$ be convex in $I$ and differentiable in $x_0$. Then it holds with
@@ -6600,8 +6639,6 @@ We actually used that already (for example, when proving the product law for der
 \end{figure}
 
 \meta{lecture}{27th of January 2016}{Wolfgang Ring}
-
-TODO: something missing here?
 
 \[ P(z) = \sum_{x=0}^\infty a_n z^n \]
 \[ L = \limsup_{k\to\infty} \sqrt[n]{\abs{a_n}} \]
@@ -6628,7 +6665,7 @@ that all functions have the same co-domain.
   \emph{uniformly convergent} with $f$ if
   \[
     \forall \varepsilon > 0 \exists N_\varepsilon \in \mathbb N:
-    \left[n \geq N_\varepsilon \Rightarrow \abs{f_n(z) - f(z)} < \varepsilon \forall z \in D\right]
+    \left[n \geq N_\varepsilon \implies \abs{f_n(z) - f(z)} < \varepsilon \forall z \in D\right]
   \]
 \end{defi}
 
@@ -6639,9 +6676,9 @@ that all functions have the same co-domain.
 \end{lemma}
 \begin{proof}
   \begin{description}
-    \item[$\Rightarrow$]
+    \item[$\implies$]
       Let $f$ be a uniform limes of $\seq{f_n}$. Then $\forall \varepsilon > 0
-      \exists N_\varepsilon: [n \geq N_\varepsilon \Rightarrow \abs{f_n(z) - f(z)} < \varepsilon
+      \exists N_\varepsilon: [n \geq N_\varepsilon \implies \abs{f_n(z) - f(z)} < \varepsilon
       \forall z \in D]$
       \[
         \text{ for } n \geq N_\varepsilon \text{ it holds that }
@@ -6649,11 +6686,11 @@ that all functions have the same co-domain.
       \]
       So it holds that
       \[ \sup\set{\abs{f_n(z) - f(z)}: z \in D} \to_{n\to\infty} 0 \]
-    \item[$\Leftarrow$]
+    \item[$\impliedby$]
       Let $\varepsilon > 0$. Convergence of supremum sequence implies that
       \[
         \exists N_\varepsilon \in \mathbb N:
-        [n \geq N_\varepsilon \Rightarrow \sup{\abs{f_n(z) - f(z)}: z \in D} < \varepsilon]
+        [n \geq N_\varepsilon \implies \sup{\abs{f_n(z) - f(z)}: z \in D} < \varepsilon]
       \]
       for those $n$ and for every $z \in D$ it holds that
       \[ \abs{f_n(z) - f(z)} < \varepsilon \]
@@ -6664,17 +6701,18 @@ that all functions have the same co-domain.
   \[ \| f \|_\infty = \sup\set{\abs{f(z)}: z \in D} \]
   Then it holds that $\seq{f_n}$ converges uniformly towards $f$
   (with $f_n \in B(D)$ and $f \in B(D))$
-  \[ \Leftrightarrow \| f_n - f \|_\infty \to 0 \text{ for } n \to \infty \]
+  \[ \iff \| f_n - f \|_\infty \to 0 \text{ for } n \to \infty \]
 \end{rem}
 \index[English]{Norm}  % TODO: verify translation
 \index[German]{\foreignlanguage{ngerman}{Norm}}
 \begin{rem}
   It can be shown that $B(D)$ is a vector space and $\|\cdot \|_\infty$ is a \emph{norm}
   in $B(D)$, hence
-  \[ \norm{f}_\infty =  \]
-  TODO
-
-  \[ \norm{f+g}_\infty \leq \norm{f}_\infty - \norm{g} = \forall f,g \in B(D), \alpha \in \mathbb C \]
+  \begin{align*}
+    \norm{f}_\infty = 0 &\iff f(z) = 0 \forall z \in D \\
+    \norm{\alpha f}_{\infty} &= \abs{\alpha} \norm{f}_{\infty} \\
+    \norm{f + g}_\infty &\leq \norm{f}_\infty - \norm{g}_\infty \qquad \forall f,g \in B(D), \alpha \in \mathbb C
+  \end{align*}
   $\norm{\cdot}_\infty$ is called \emph{supremum norm} in $D$.
 \end{rem}
 
@@ -6695,21 +6733,20 @@ and for $f \in C(K)$ it holds that
 \[ \norm{f}_\infty = \sup\set{\abs{f(z)}: z \in K} = \max\set{\abs{f(z)}: z \in K} \]
 
 \begin{theorem}
-  Let $(f_n)_{n\in\mathbb N}$ be a sequence of functions in $D$.
-  TODO
-  Assume $f$ TODO
-  $\seq{f_n}$ is uniformly convergent towards $f$ in $D$. Then $f$ is continuous in $D$.
+  Let $(f_n)_{n\in\mathbb N}$ be a sequence of functions in $D$ with all $f_n$ continuous in $D$.
+  Assume $f: D \to \mathbb C$ and $(f_n)_{n \in \mathbb N}$ is uniformly convergent on $f$ in $D$.
+  Then $f$ is continuous in $D$.
 \end{theorem}
 \begin{proof}
   Let $\varepsilon > 0$ be given and $z_0 \in D$.
   Show that $\exists \delta > 0$ such that for all $z \in D$ with
-  \[ \abs{z - z_0} < \delta \Rightarrow \abs{f(z) - f(z_0)} < \varepsilon \]
+  \[ \abs{z - z_0} < \delta \implies \abs{f(z) - f(z_0)} < \varepsilon \]
   \begin{enumerate}
     \item Because $\seq{f_n}$ converges uniformly towards $f$, there exists some
       \[ N \in \mathbb N: \abs{f_N(w) - f(w)} < \frac\varepsilon3 \forall w \in D \]
     \item If $f_N$ is continuous on its own, then
       \[
-        \exists \delta > 0 \text{ such that } z \in D \text{ and } \abs{z - z_0} < \delta \Rightarrow
+        \exists \delta > 0 \text{ such that } z \in D \text{ and } \abs{z - z_0} < \delta \implies
         \abs{f_N(z) - f_N(z_0)} < \frac\varepsilon3
       \]
       Let $z \in D$ and $\abs{z - z_n} < \delta$ (with $\delta$ properties as above).
@@ -6744,7 +6781,7 @@ and for $f \in C(K)$ it holds that
 where $\rho$ is the convergence radius. $\rho = \frac1L$ with
 \[ L = \limsup_{n\to\infty} \sqrt[n]{\abs{a_n}} \]
 
-\begin{lemma}[Remaining term estimation] % TODO: translate Restgliedabschätzung
+\begin{lemma}[Remaining term estimate]
   Let $P(z) = \sum_{n=0}^\infty a_n z^n$ be a power series with convergence radius
   $\rho > 0$ and let
   \[ R_n(z) = \sum_{k=n}^\infty a_k z^k \qquad (k \in \mathbb N) \]
@@ -6761,8 +6798,8 @@ where $\rho$ is the convergence radius. $\rho = \frac1L$ with
     \leq \frac{\abs{z}^n}{r^n} \sum_{k=n}^\infty \abs{a_k} r^k
     \leq \frac{\abs{z}^n}{r^n} \frac{\abs{z}^n}{r^n} \underbrace{\sum_{k=0}^\infty \abs{a_k} r^k}_{= c(r)}
   \]
-  Is $c(r)$, because the series is absolute convergent and so the series hat some value
-  we call $c$. $r \in B(0, \rho)$.
+  Is $c(r)$, because the series is absolute convergent and so the series has some value $c$.
+  $r \in B(0, \rho)$.
 \end{proof}
 
 \begin{theorem}
@@ -6797,7 +6834,7 @@ where $\rho$ is the convergence radius. $\rho = \frac1L$ with
 
 \begin{cor}
   $P_n(z)$ is continuous in $\overline{B(0, r)}$
-  \[ \Rightarrow P: \overline{B(0, r)} \rightarrow \mathbb C \text{ is continuous }  \]
+  \[ \implies P: \overline{B(0, r)} \to \mathbb C \text{ is continuous }  \]
   Let $z \in B(0, \rho)$, hence $\abs{z} < \rho$. Let $r = \frac12 (\abs{z} + \rho)$.
 
   $P$ is continuous in $\overline{B(0,r)}$ and $z \in B(0,r)$. Hence it holds that
@@ -6905,7 +6942,7 @@ with $\lim_{k\to\infty} w_k = w$ it holds that
 \end{rem}
 \begin{proof}[Proof of the fundamental lemma]
   Let $\varepsilon > 0$ arbitrary. We choose $K \in \mathbb N$, such that
-  $n \geq K \Rightarrow \abs{w_k} \leq \abs{w} + 1$
+  $n \geq K \implies \abs{w_k} \leq \abs{w} + 1$
   (this theorem holds because $\abs{w_k} \to_{k\to\infty} \abs{w}$).
   At the same time let $K$ be sufficiently large such that
   \[ \sum_{k=K}^\infty \frac{\left(\abs{w} + 1\right)^k}{k!} < \frac{\varepsilon}{3} \]
@@ -6951,7 +6988,7 @@ with $\lim_{k\to\infty} w_k = w$ it holds that
   \[ \abs{\sum_{k=0}^{K-1} \binom nk \frac{1}{n^k} w_n^k - \sum_{k=0}^{K-1} \frac1{k!} w^k} < \frac{\varepsilon}{3} \]
   So it holds for $n \geq N$:
   \[ \abs{\left(1 + \frac{w_n}{n}\right)^n - \sum_{k=0}^n \frac{w^k}{k!}} < \varepsilon \]
-  \[ \Rightarrow \lim_{n\to\infty} \left(1 + \frac{w_n}{n}\right)^n = \sum_{k=0}^\infty \frac{w^k}{k!} \]
+  \[ \implies \lim_{n\to\infty} \left(1 + \frac{w_n}{n}\right)^n = \sum_{k=0}^\infty \frac{w^k}{k!} \]
 \end{proof}
 
 \begin{defi}[Exponential function]
@@ -6968,7 +7005,7 @@ with $\lim_{k\to\infty} w_k = w$ it holds that
 \[ w_n \to w \in \mathbb C \]
 
 \[
-  \Rightarrow \lim_{n\to\infty} \left(1 + \frac{w_n}{n}\right)^n
+  \implies \lim_{n\to\infty} \left(1 + \frac{w_n}{n}\right)^n
   = \sum_{k=0}^\infty \frac{w^k}{k!}
   \quad \text{Fundamental lemma}
 \] \[
@@ -7087,7 +7124,7 @@ Therefore
 \]
 Let $z \in \mathbb C$, then it holds that $z - z = 0$.
 \[ 1 = \exp(0) = \exp(z + (-z)) = \exp(z) \cdot \exp(-z) \]
-\[ \Rightarrow \forall z \in \mathbb C: \exp(z) \neq 0 \]
+\[ \implies \forall z \in \mathbb C: \exp(z) \neq 0 \]
 and
 \[ \exp(-z) = \frac1{\exp(z)} = \exp(z)^{-1} \]
 
@@ -7147,11 +7184,11 @@ We denote for $z \in \mathbb C$:
     \item
       We already know that $e^x \neq 0 \quad \forall x \in \mathbb R$.
       \[ e^x = e^{\frac x2 + \frac x2} = \underbrace{\left(e^{\frac x2}\right)^2}_{\geq 0 \text{ as square}} \]
-      \[ e^x \neq 0 \Rightarrow e^x > 0 \]
+      \[ e^x \neq 0 \implies e^x > 0 \]
     \item
       So it holds that $\forall x \in \mathbb R: \exp'(x) > 0$
       \[
-        \underbrace{\Rightarrow}_{\substack{\text{monotonic} \\ \text{property}}}
+        \underbrace{\implies}_{\substack{\text{monotonic} \\ \text{property}}}
         \exp \text{ is strictly monotonically increasing}
       \]
     \item
@@ -7161,13 +7198,16 @@ We denote for $z \in \mathbb C$:
 \end{proof}
 \index[English]{Tends towards infinity}
 \index[German]{\foreignlanguage{ngerman}{Uneigentlicher Grenzwert}}
-\begin{defi}[Reminder of tendency towards infinity for functions]
+\begin{defi}[Review of improper limits of functions]
   Let $f: \mathbb R \to \mathbb R$. We say $f$ tends to infinity $a \in \mathbb R$
   for $x$ to infinity if
-  \[ \forall \varepsilon > 0 \exists M \in \mathbb R: x > M \Rightarrow \abs{f(x) - a} < \varepsilon \]
-  \[ \lim_{x \to \infty} f(x) = a \]
-  We say $f$ for $x$ to $\infty$ tends to infinity if
-  TODO
+  \[
+    \forall \varepsilon > 0 \exists M \in \mathbb R: x > M \implies \abs{f(x) - a} < \varepsilon
+    \iff \lim_{x \to \infty} f(x) = a
+  \]
+  We say $f$ for $x$ to $\infty$ tends to (improper) limit $+\infty$
+  if $\forall L > 0 \exists M \in \mathbb R: x > M \implies f(x) > L$,
+  denoted $\lim_{x \to \infty} f(x) = +\infty$.
 \end{defi}
 
 \begin{theorem}[exponential growth]
