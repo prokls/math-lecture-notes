@@ -62,6 +62,9 @@
 \maketitle
 \tableofcontents
 
+\vspace{30pt}
+First possible exam date: 4th February 2016 14:00.
+
 \clearpage
 \section{Propositional logic}
 %
@@ -1305,14 +1308,12 @@ Literature:
 %
 Additional remark from 14th of January 2016.
 
-$\mathbb Q$ is dense in $\mathbb R$.
-
-\begin{theorem}
+\begin{theorem}[$\mathbb Q$ is dense in $\mathbb R$]
   \label{QisdenseinR}
   For all $x \in \mathbb R$ and for every $\varepsilon > 0$ there exists $q \in \mathbb Q$
   with $\abs{x - q} < \varepsilon$.
 
-  \begin{figure}[!h]
+  \begin{figure}[t]
     \begin{center}
       \includegraphics{img/dense_q.pdf}
       \caption{For every $x$ and every $\varepsilon$-neighborhood, some element of the rational numbers exist within this neighborhood}
@@ -1323,25 +1324,24 @@ $\mathbb Q$ is dense in $\mathbb R$.
   Let $A \subseteq \mathbb N$ and $A \neq \emptyset$.
   Then a minimum of $A$ exists.
 \end{lemma}
-\begin{proof}
-  Proof by complete induction.
-
+\begin{proof}[Proof by complete induction]
   We show: Let $A \subseteq \mathbb N$ such that no minimum exists.
   Then it holds that $A = \emptyset$.
 
   Let $C = \setdef{k \in \mathbb N}{\forall n \in A: k < n}$.
   $C$ is the set of all lower bounds of $A$ with operator $<$.
   We show: $0 \in C$ and $\forall k \in C \implies k + 1 \in C$.
-
+%
   \begin{description}
     \item[Induction base]
-      Assume $0 \not\in C$, hence for $k = 0$ it holds that
-      \[ \exists n \in A \subset \mathbb N: n \leq 0 \]
+      Assume $0 \not\in C$, hence for $k = 0$,
+      $\exists n \in A \subset \mathbb N: n \leq 0$
       $\implies n \geq 0$ anyways and hence $n = 0$ and $0 \in A$.
       $\implies 0 = \min{A}$ and $A$ has a minimum.
 
       This is a contradiction. So $0 \not \in C$ does not hold.
       So $0 \in C$.
+
     \item[Induction step]
       Let $k \in C$, hence $\forall n \in A: k < n$.
       \[ \implies \forall n \in A: k + 1 \leq n \]
@@ -1359,6 +1359,8 @@ $\mathbb Q$ is dense in $\mathbb R$.
   \end{description}
 \end{proof}
 
+\index[English]{dense in $\mathbb R$}
+\index[German]{Dicht in $\mathbb R$}
 \begin{proof}[Proof of Theorem~\ref{QisdenseinR}]
   Case distinction:
   \begin{description}
@@ -1384,11 +1386,9 @@ $\mathbb Q$ is dense in $\mathbb R$.
       \[ \forall x \in \mathbb R_+ \forall \varepsilon > 0 \exists q \in \mathbb Q: \abs{x - q} < \varepsilon \]
       \[ \implies \abs{-x - q} < \varepsilon \implies \abs{(-1) (x + q)} < \varepsilon \implies \abs{x - (-q)} < \varepsilon \]
     \item[Case $x = 0$.]
-      Let $q = 0 \in \mathbb Q$.
+      Let $q = 0 \in \mathbb Q$ and we're done.
   \end{description}
 \end{proof}
-\index[English]{dense in $\mathbb R$}
-\index[German]{Dicht in $\mathbb R$}
 \index[English]{Adherent point}
 \index[English]{Contact point}
 \index[German]{Berührungspunkt}
@@ -1424,10 +1424,12 @@ $\mathbb Q$ is dense in $\mathbb R$.
 
 \begin{defi}[Intervals]
   Let $a, b \in K$.
-  \[ (a,b) = \setdef{x \in K}{(x > a) \land (x < b)} \]
-  \[ [a, b) = \setdef{x \in K}{(x \geq a) \land (x < b)} \]
-  \[ (a, b] = \setdef{x \in K}{(x > a) \land (x \leq b)} \]
-  \[ [a, b] = \setdef{x \in K}{(x \geq a) \land (x \leq b)} \]
+  \begin{align*}
+    (a, b) &\coloneqq \setdef{x \in K}{(x > a) \land (x < b)} \\
+    [a, b) &\coloneqq \setdef{x \in K}{(x \geq a) \land (x < b)} \\
+    (a, b] &\coloneqq \setdef{x \in K}{(x > a) \land (x \leq b)} \\
+    [a, b] &\coloneqq \setdef{x \in K}{(x \geq a) \land (x \leq b)}
+  \end{align*}
 \end{defi}
 
 \index[English]{interval length}
@@ -1659,13 +1661,13 @@ Examples:
 
 \begin{theorem}
   Let $y_2 > y_1$ then
-  \[ y_2^k - y_1^k = \underbrace{(y_2 - y_1)}_{> 0} \underbrace{\left(\sum_{j=0}^{k-1} y_2^{k-j-1} y_1^j\right)}_{> 0} \]
-  \[ \implies y_2^k - y_1^k > 0 \]
+  \[ y_2^k - y_1^k = \underbrace{(y_2 - y_1)}_{> 0} \underbrace{\left(\sum_{j=0}^{k-1} y_2^{k-j-1} y_1^j\right)}_{> 0}
+     \implies y_2^k - y_1^k > 0 \]
 \end{theorem}
 
 \begin{proof}
   \[ \forall x \geq 0 \in \mathbb R: \exists y \geq 0 \in \mathbb R: y^k = x \text{ with } k \in \mathbb N_+ \]
-  Special case $x = 0$ and $y = 0$ is the solution.
+  Special case: $x = 0$ and $y = 0$ is the solution.
 
   Let $x > 0$: We construct $y$ with $y \in \bigcap_{k=0}^\infty I_n$
   where $I_n$ are nested intervals.
@@ -2009,7 +2011,7 @@ Examples:
 
 \begin{proof}
   We enumerate the elements of $\mathbb Q^+$.
-
+  %
   %\begin{table}[!h]
   %  \begin{center}
   %    \begin{tabular}{c|cccccccc}
@@ -2040,15 +2042,17 @@ Examples:
       }
     \end{center}
   \end{figure}
-
-  \[ \mathbb Q_+ = \set{q_0, q_1, q_2, \ldots} \]
-  \[ \mathbb Q_- = \set{-q_0, -q_1, -q_2, \ldots} \]
-  \[ \mathbb Q = \set{0, q_0, -q_0, q_1, -q_1, \ldots} \]
+  %
+  \begin{align*}
+    \mathbb Q_+ &= \set{q_0, q_1, q_2, \ldots} \\
+    \mathbb Q_- &= \set{-q_0, -q_1, -q_2, \ldots} \\
+    \mathbb Q &= \set{0, q_0, -q_0, q_1, -q_1, \ldots}
+  \end{align*}
   An enumeration exists. So $\mathbb Q$ is countably infinite.
 \end{proof}
 
 \index[English]{uncountability}
-\index[English]{\begin{otherlanguage}{ngerman}überabzählbar\end{otherlanguage}}
+\index[German]{\begin{otherlanguage}{ngerman}überabzählbar\end{otherlanguage}}
 \begin{theorem}
   There is no bijective relation $\varphi: \mathbb N \to \mathbb R$.
   Therefore we call $\mathbb R$ \emph{uncountable}.
@@ -2114,7 +2118,7 @@ Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
 \begin{align}
   \forall a, b \in \mathbb R: a + bi = 0 &\iff a = 0 \land b = 0 \\
   i^2 &= -1 \\
-  \text{associativity,} & \text{ commutativity etc holds}
+  \text{associativity,} & \text{ commutativity, etc holds}
 \end{align}
 
 \meta{lecture}{13th of November 2015}{Wolfgang Ring}
@@ -2192,43 +2196,47 @@ Elements of $\mathbb C$ are represented as $a + bi$ with $a,b \in \mathbb R$.
   \end{center}
 \end{figure}
 
-We denote
-\begin{align*}
-  a &= \Re(z) \\
-  b &= \Im(z) \\
-  \overline{z} &= a - ib \\
-  \abs{z} &= \sqrt{a^2 + b^2}
-\end{align*}
-
+Let $z = a + ib$. We denote
+\[
+  a \eqqcolon \Re(z) \qquad
+  b \eqqcolon \Im(z) \qquad
+  \overline{z} \coloneqq a - ib \qquad
+  \abs{z} \coloneqq \sqrt{a^2 + b^2}
+\]
+\index[English]{Real part of a complex number}
+\index[German]{\foreignlanguage{ngerman}{Realteil einer komplexen Zahl}}
+\index[English]{Imaginary part of a complex number}
+\index[German]{\foreignlanguage{ngerman}{Imagin\"arteil einer komplexen Zahl}}
+\index[English]{Complex conjugate}
+\index[German]{\foreignlanguage{ngerman}{Komplex Konjugierte}}
+\index[English]{Absolute value of a complex number}
+\index[German]{\foreignlanguage{ngerman}{Betrag einer komplexen Zahl}}
 $a$ is called \emph{real part of $z$}. $b$ is called \emph{imaginary part of $z$}.
 $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 
 \begin{theorem}
-  \[  \overline{(\overline{z})} = z  \]
+  $\overline{(\overline{z})} = z$
 \end{theorem}
-
 \begin{proof}
   \[ \overline{(\overline{z})} = \overline{(a - ib)} = (a - (-ib)) = a + ib  = z \]
 \end{proof}
 
 \begin{theorem}
-  \[ \Re(z) = \frac12 (z + \overline z) \]
+  $\Re(z) = \frac12 (z + \overline z)$
 \end{theorem}
-
 \begin{proof}
   \[ \frac12(z + \overline{z}) = \frac12(a + ib + a - ib) = \frac12 (2a) = a \]
 \end{proof}
 
 \begin{theorem}
-  \[ \Im(z) = \frac{1}{2i} (z - \overline{z}) \]
+  $\Im(z) = \frac{1}{2i} (z - \overline{z})$
 \end{theorem}
-
 \begin{proof}
   \[ \frac{1}{2i} (a + ib - (a - ib)) = \frac{1}{2i} (2ib) = b \]
 \end{proof}
 
 \begin{theorem}
-  \[ z \in \mathbb R \iff z = \overline{z} \]
+  $z \in \mathbb R \iff z = \overline{z}$
 \end{theorem}
 \begin{proof}
   \[ z = a \in \mathbb R \implies \overline{z} = a = z \]
@@ -2245,23 +2253,24 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \begin{theorem}
   It holds that $\abs{z} = \sqrt{z \cdot \overline{z}}$.
 \end{theorem}
-
 \begin{proof}
-  \[ \sqrt{z \cdot \overline{z}} = ((a + ib)(a - ib))^{\frac12} \]
-  \[ = (a^2 - (ib)^2)^{\frac12} = (a^2 - i^2 b^2)^{\frac12} \]
-  \[ = (a^2 + b^2)^{\frac12} = \abs{z} \quad\checkmark \]
+  \begin{align*}
+    \sqrt{z \cdot \overline{z}} &= ((a + ib)(a - ib))^{\frac12} \\
+      &= (a^2 - (ib)^2)^{\frac12} = (a^2 - i^2 b^2)^{\frac12} \\
+      &= (a^2 + b^2)^{\frac12} = \abs{z} \quad\checkmark
+  \end{align*}
 \end{proof}
 
 \begin{theorem}
-  Let $z, w \in \mathbb C$:
-  \[ \overline{(zw)} = \overline z \cdot \overline w \]
+  Let $z, w \in \mathbb C$. Then $\overline{(zw)} = \overline z \cdot \overline w$
 \end{theorem}
-
 \begin{proof}
   \[ z = a + ib \qquad w = c + id \]
-  \[ zw = (ac - bd) + i (bc + ad) \]
-  \[ \overline{zw} = (ac - bd) - i (bc + ad) \]
-  \[ \overline{zw} = a - ib \qquad \overline{w} = c - id \]
+  \begin{align*}
+     zw &= (ac - bd) + i (bc + ad) \\
+     \overline{zw} &= (ac - bd) - i (bc + ad) \\
+    \overline{zw} &= a - ib \qquad \overline{w} = c - id
+  \end{align*}
   \[
       \overline{z} \cdot \overline{w} = (ac - (-b) (-d)) + i (-bc + a(-d))
         = (ac - bd) - i (bc + ad)
@@ -2273,7 +2282,7 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
 \end{cor}
 
 \begin{theorem}
-  \[ \abs{zw} = \abs{z} \cdot \abs{w} \]
+  $\abs{zw} = \abs{z} \cdot \abs{w}$
 \end{theorem}
 \begin{proof}
   \[ \abs{z \cdot w} = (zw) \cdot(\overline{z \cdot w})^{\frac12} \]
@@ -2316,13 +2325,15 @@ $z$ is called complex conjugate. $\abs{z}$ is called absolute value of $z$.
   therefore $y_1 \geq y_2$. This is the negation of our assumption.
 \end{proof}
 
-\begin{proof}[\textbf{Proof} of the triangle inequality]
+\begin{proof}[Proof of the triangle inequality]
   We show that $\abs{z + w}^2 \leq \left(\abs{z} + \abs{w}\right)^2$.
   \begin{align*}
     \abs{z + w}^2
       &= (z + w)(\overline z + \overline w) \\
       &= \underbrace{z \overline z}_{\abs{z}^2} + w \overline z + z \overline w + \underbrace{w \overline w}_{\abs{w}^2} \\
-  2 \Re{(w \overline{z})} &= (w \overline{z} + \underbrace{\overline{(w \cdot \overline z)}}_{\overline w \cdot \overline z = \overline w \cdot z}) \\
+  2 \Re{(w \overline{z})} &= (w \overline{z} + \underbrace{\overline{(w \cdot \overline z)}}_{\overline w \cdot \overline z = \overline w \cdot z})
+  \end{align*}
+  \begin{align*}
     \abs{z + w}^2
       &= \abs{z}^2 + 2\Re{(w \cdot \overline z)} + \abs{w}^2 \\
       &\leq \abs{z}^2 + 2\abs{\Re{(w \cdot \overline z)}} + \abs{w}^2 \\
@@ -2609,35 +2620,32 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \abs
 \end{proof}
 
 \begin{proof}[\textbf{Proof of sequence 5}]
-  \[ \abs{z} > 1 \text{ thus } x = \abs{z} - 1 > 0 \text{ it holds that } \abs{z} = 1 + x \]
+  \[ x \coloneqq \abs{z} - 1 \land \abs{z} > 1 \implies \abs{z} = 1 + x \land x > 0 \]
   We show that for $\varepsilon > 0$ arbitrary, there exists $N \in \mathbb N$:
   \[ n \geq N \implies \abs{\frac{n^k}{z^n} - 0} = \abs{\frac{n^k}{z^n}} = \frac{n^k}{\abs{z}^n} < \varepsilon \]
 
-  Let $\varepsilon > 0$ be given,
-  \begin{itemize}
-    \item
-      For $n > 2k$ it holds that $n - k > n - \frac{n}2 = \frac{n}2$.
-      \[ \abs{z}^n = (1 + x)^n = \sum_{j=0}^n \binom{n}{j} x^j > \underbrace{\binom{n}{k + 1}}_{j=k+1} x^{k+1} \]
-      \[ n > 2k \geq k + 1 \]
-      \[
-          \underbrace{\binom{n}{k + 1}}_{j=k+1} x^{k+1}
-          = \frac{\overbrace{n}^{>\frac{n}2} \overbrace{(n-1)}^{>\frac{n}2} \overbrace{(n-2)}^{>\frac{n}2} \dots \overbrace{(n-k)}^{>\frac{n}2}}{(k+1)!} x^{k+1}
-          > \frac{\frac{n^{k+1}}{2^{n+1}}}{(k+1)!} x^{n+1}
-      \]
-      Therefore $\abs{z}^n > \frac{n^{k+1}}{2^{k+1} (k+1)!} x^{k+1}$.
-      So,
-      \[
-          \frac{n^k}{\abs{z}^n} <
-          \frac{n^k \cdot 2^{k+1} (k+1)!}{n^{k+1} \cdot x^{k+1}} =
-          \underbrace{\frac{2^{k+1} (k+1)!}{x^{n+1}}}_{\substack{= \text{ constant } \land\ >0 \\ \eqqcolon\ M}} \cdot \frac1n
-          = M \cdot \frac1n
-      \] \[
-          \frac{n^k}{\abs{z}^n} < M \cdot \frac1n \text{ for } n > 2k
-      \]
-      Consider $N$ such that $N > \frac{M}{\varepsilon}$ and $N > 2k$.
-      Then it holds that
-      \[ \frac{n^k}{\abs{z}^n} < M \frac1n \leq \frac{M}{N} < \frac{M}{\frac{M}{\varepsilon}} = \varepsilon \]
-  \end{itemize}
+  Let $\varepsilon > 0$ be given.
+  For $n > 2k$ it holds that $n - k > n - \frac{n}2 = \frac{n}2$.
+  \[ \abs{z}^n = (1 + x)^n = \sum_{j=0}^n \binom{n}{j} x^j > \underbrace{\binom{n}{k + 1}}_{j=k+1} x^{k+1} \]
+  \[ n > 2k \geq k + 1 \]
+  \[
+      \underbrace{\binom{n}{k + 1}}_{j=k+1} x^{k+1}
+      = \frac{\overbrace{n}^{>\frac{n}2} \overbrace{(n-1)}^{>\frac{n}2} \overbrace{(n-2)}^{>\frac{n}2} \dots \overbrace{(n-k)}^{>\frac{n}2}}{(k+1)!} x^{k+1}
+      > \frac{\frac{n^{k+1}}{2^{n+1}}}{(k+1)!} x^{n+1}
+  \]
+  Therefore $\abs{z}^n > \frac{n^{k+1}}{2^{k+1} (k+1)!} x^{k+1}$.
+  So,
+  \[
+      \frac{n^k}{\abs{z}^n} <
+      \frac{n^k \cdot 2^{k+1} (k+1)!}{n^{k+1} \cdot x^{k+1}} =
+      \underbrace{\frac{2^{k+1} (k+1)!}{x^{n+1}}}_{\substack{= \text{ constant } \land\ >0 \\ \eqqcolon\ M}} \cdot \frac1n
+      = M \cdot \frac1n
+  \] \[
+      \frac{n^k}{\abs{z}^n} < M \cdot \frac1n \text{ for } n > 2k
+  \]
+  Consider $N$ such that $N > \frac{M}{\varepsilon}$ and $N > 2k$.
+  Then it holds that
+  \[ \frac{n^k}{\abs{z}^n} < M \frac1n \leq \frac{M}{N} < \frac{M}{\frac{M}{\varepsilon}} = \varepsilon \]
 \end{proof}
 
 \begin{lemma}
@@ -2963,15 +2971,14 @@ Both are convergent.
         < 1
     \]
   \item We show,
-    \[
-        \left(\frac{\beta_{n+1}}{\beta_n}\right)^2
-        = \frac{(2n+2)^2 \cdot (n+1)}{(2n+1)^2 \cdot (n+2)}
-        = \frac{(4n^2 + 8n + 4) (n+1)}{(4n^2+2n+1) (n+2)}
-    \] \[
-        = \frac{4n^3+12n^2+12n+4}{4n^3 + 12n^2 + 9n + 2}
-        > 1 \implies \beta_{n+1} > \beta_n \implies \beta_n \text{ is monotonically increasing}
-    \]
-
+    \begin{align*}
+      \left(\frac{\beta_{n+1}}{\beta_n}\right)^2
+        &= \frac{(2n+2)^2 \cdot (n+1)}{(2n+1)^2 \cdot (n+2)}
+        = \frac{(4n^2 + 8n + 4) (n+1)}{(4n^2+2n+1) (n+2)} \\
+        &= \frac{4n^3+12n^2+12n+4}{4n^3 + 12n^2 + 9n + 2}
+        > 1 \\
+        &\implies \beta_{n+1} > \beta_n \implies \beta_n \text{ is monotonically increasing}
+    \end{align*}
     Let $p = \lim_{n\to\infty} a_n$ and $p' = \lim_{n\to\infty} b_n$.
 
     \[ \beta_n = \frac{p_n}{\sqrt{n}} \cdot \frac{\sqrt{n}}{\sqrt{n+1}} = \alpha_n \cdot \sqrt{\frac{n}{n+1}} \]
@@ -3056,7 +3063,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   Estimated limit points: $a = 0, b = 1$.
 
   \begin{proof}
-    Let $\varepsilon > 0$ and $a = 0$. We consider sequence values with even index.
+    Let $\varepsilon > 0$ and $a = 0$. We consider sequence values of even index.
     So for indices it holds that $n = 2k$.
     \begin{align*}
       \abs{a_{2k} - 0}
@@ -3070,12 +3077,11 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
     \begin{align*}
       \abs{a_{2k+1} - 1}
         &= \abs{\frac12 \left[1 + \underbrace{(-1)^{2k+1}}_{=-1} \left[\frac{1 - (2k+1)}{2k+1}\right]\right] - 1} \\
-        &= \abs{\frac12 \left[1 - \frac{-2k}{2k+1}\right] - 1} \\
-        &= \abs{\frac12 \frac{2k+1+2k}{2k+1} - 1} \\
-        &= \abs{\frac{4k+1}{4k+2} - 1} \\
-        &= \abs{\frac{4k+1 - 4k-2}{4k+2}} \\
-        &= \frac{1}{4k+2} \\
-        &< \varepsilon
+        &= \abs{\frac12 \left[1 - \frac{-2k}{2k+1}\right] - 1}
+         = \abs{\frac12 \frac{2k+1+2k}{2k+1} - 1} \\
+        &= \abs{\frac{4k+1}{4k+2} - 1}
+         = \abs{\frac{4k+1 - 4k-2}{4k+2}} \\
+        &= \frac{1}{4k+2} < \varepsilon
     \end{align*}
     \[ \text{ if } 4k+2 > \frac1\varepsilon \implies \underbrace{k}_{\substack{\text{infinitely many} \\ \text{indices}}} > \frac14 \left(\frac1\varepsilon - 2\right) \]
   \end{proof}
@@ -3149,7 +3155,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   We define $n_0 = 0$ and $a_{n_0} = a_0$.
   Assume $a_{n_0}, a_{n_1}, \dots, a_{n_{k-1}}$ are already defined.
 
-  Definition of $a_{n_k}$: In $B(a, \varepsilon_k)$ there are infinitely many sequence elements of $\seq{a_n}$.
+  By definition of $a_{n_k}$, there are infinitely many sequence elements of $\seq{a_n}$ in $B(a, \varepsilon_k)$.
   We consider $n_k > n_{k-1}$ and $a_{n_k} \in B(a, \varepsilon_k)$.
 
   Then it holds that $\lim_{k\to\infty} a_{n_k} = a$.
@@ -4073,8 +4079,7 @@ We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\t
   \begin{enumerate}
     \item
       We need to show that $\sum_{n=0}^\infty \underbrace{\abs{a_k}}_{\geq 0}$ is convergent.
-      It suffices to show that
-      \[ \sum_{k=0}^n \abs{a_k} = \sigma_n \]
+      It suffices to show that $\sum_{k=0}^n \abs{a_k} = \sigma_n$.
       $\seq{\sigma_n}$ is bounded. Let $n \geq N$.
       \begin{align*}
         \sigma_n &= \sum_{n=0}^n \abs{a_k} \\
@@ -4254,15 +4259,15 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
   \[ B_S(z) = \sum_{k=0}^\infty \underbrace{{s \choose k} z^k}_{\coloneqq a_k} \]
   What about convergence? Well,
   \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \frac{\abs{\frac{s \cdot (s-1) \cdot \ldots \cdot (s-(k+1)+1)}{(k+1)!} z^{k+1}}}{\abs{\frac{s(s-1)(s-2)\cdot \ldots\cdot (s-k+1)}{k!} z^k}} \]
-  \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \abs{\frac{(s-k) z}{k+1}} = \abs{\frac{\left(\overbrace{\frac{s}{k}}^{\to 0} - 1\right) \cdot z}{1 + \underbrace{\frac1k}_{\to0}}} \to \abs{z} \]
+  \[ \frac{\abs{a_{k+1}}}{\abs{a_k}} = \abs{\frac{(s-k) z}{k+1}} = \abs{\frac{\left(\frac{s}{k} - 1\right) \cdot z}{1 + \frac1k}} \to \abs{z} \text{ as } \frac sk \to 0 \text{ and } \frac 1k \to 0 \]%
 
   Therefore $B_S(z)$ is convergent for $\abs{z} < 1$ and divergent for $\abs{z} > 1$.
-  So geometrically, it is convergent within a circle of radius $1$ or $i$ (at center $(0,0)$) and divergent outside.
-
+  So geometrically, it is convergent within a circle of radius $1$ or $i$ (at center $(0,0)$) and divergent outside.%
+%
   \[ B_S(z) = \sum_{k=0}^\infty {s \choose k} z^k \]
   We know, for $s \in \mathbb N$:
   \[ B_S(z) = \sum_{k=0}^\infty {n \choose k} z^k = \sum_{k=0}^n {n \choose k} z^k = (1 + z)^n \]
-  Remind that ${n \choose k} = 0$ for $k > n$.
+  Remember that ${n \choose k} = 0$ for $k > n$.
 
   Therefore
   \[ (1 + z)^s \coloneqq \sum_{k=0}^\infty {s \choose k} z^k \]
@@ -4288,14 +4293,12 @@ or $\sqrt[n]{\abs{a_n}} \geq q \quad\forall n \geq N$, then this series is conve
 \end{defi}
 \begin{ex}
   % TODO: verify
-  \[ f: B(0,1) \to \mathbb C \]
-  \[ \underbrace{f(z) = \sum_{n=0}^\infty z^k}_{\sum_{k=0}^\infty {s \choose k} z^k} = \frac{1}{1 - z} \]
-  \[ B_S(z) = \sum_{k=0}^\infty {s \choose k} z^k \]
-
-  Mapping:
-  \[ B_S: B(0,1) \to \mathbb C \]
-  \[ \varepsilon(z) = \sum_{k=0}^\infty \frac{z^k}{k!} \]
-  \[ \varepsilon: \mathbb C \to \mathbb C \]
+  \[ f: B(0,1) \to \mathbb C \qquad
+     \underbrace{f(z) = \sum_{n=0}^\infty z^k}_{\sum_{k=0}^\infty {s \choose k} z^k} = \frac{1}{1 - z} \]
+  \[ B_S: B(0,1) \to \mathbb C \qquad
+     \underbrace{B_S(z)}_{\text{map}} = \sum_{k=0}^\infty {s \choose k} \underbrace{z^k}_{\text{variable}} \]
+  \[ \varepsilon: \mathbb C \to \mathbb C \qquad
+     \varepsilon(z) = \sum_{k=0}^\infty \frac{z^k}{k!} \]
 
   How about convergence? Let $z \in \mathbb C$ arbitrary.
   \[
@@ -4771,8 +4774,8 @@ in $\mathbb R$.
   be a function. We say \enquote{$f$ is continous} (dt. \foreignlanguage{ngerman}{\enquote{stetig}}) iff
   \[
     \forall \varepsilon > 0 \exists \delta > 0
-    \forall z \in D \text{ with } \abs{z - z_0} < \delta:
-    \abs{f(z) - f(z_0)} < \varepsilon
+    \forall z \in D \text{ with } \abs{z - z_0} < \delta
+    \implies \abs{f(z) - f(z_0)} < \varepsilon
   \]
   Intuitively, the difference of function values are arbitrary close to each other
   if the difference of the arguments is sufficiently small.
@@ -4869,24 +4872,24 @@ in $\mathbb R$.
 \end{ex}
 
 \begin{theorem}[Sequence criterion for continuity]
-  Let $f: D \subset \mathbb C \implies \mathbb C$ ($D \subseteq \mathbb R$).
+  Let $f: D \subset \mathbb C \to \mathbb C$ (or $D \subseteq \mathbb R$).
   Then it holds that $f$ is continuous in $z_0 \in D$ if and only if
-  for every convergent sequence $\seq{w_n}$ with $w_n \in D \forall n \in \mathbb N$
+  for \emph{every convergent} sequence $\seq{w_n}$ with $w_n \in D \forall n \in \mathbb N$
   and $\lim_{n\to\infty} w_n = z_0$ it holds that $\seq{f(w_n)}$ is convergent
   and $\lim_{n\to\infty} f(w_n) = f(z_0)$.
 
   In a different way, this theorem states:
-  \[ w_n \to_{n\to\infty} z_0 \implies f(w_0) \to_{n\to\infty} f(z_0) \]
+  \[ w_n \xrightarrow{n\to\infty} z_0 \implies f(w_n) \xrightarrow{n\to\infty} f(z_0) \]
 \end{theorem}
 \begin{proof}
   \begin{description}
     \item[Direction $\implies$]
       Let $f$ be continuous in $z_0$ and $\seq{w_n}$ with $w_n \in D$ with $\lim_{n\to\infty} w_n = z_0$.
-      Show that $f(w_n) \to_{n\to\infty} f(z_0)$.
+      Show that $f(w_n) \xrightarrow{n\to\infty} f(z_0)$.
 
       Let $\varepsilon > 0$ arbitrary. Because $f$ is continuous, there exists some $\delta > 0$
       such that $\abs{z - z_0} < \delta \implies \abs{f(z) - f(z_0)} < \varepsilon$ ($z \in D$).
-      So $\seq{w_n}$ converges to $z_0$.
+      $\seq{w_n}$ converges to $z_0$.
       So there exists $N \in \mathbb N: n \geq N \implies \abs{w_n - z_0} < \delta$.
       For those indices it holds that: $\abs{f(w_n) - f(z_0)} < \varepsilon$.
       Hence $\lim_{n\to\infty} f(w_n) = f(z_0)$.
@@ -5203,7 +5206,7 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
   Let $(z_{n_k})_{k \in \mathbb N}$
   $\lim_{k \to \infty} z_{n_k} = z \in K$.
   Because of the sequence criterion for continuity if holds that
-  \[ \lim_{k \to \infty} y_{n_k} = \lim_{k \to \infty} f(z_{n_k}) = f(z) \in f(k) \]
+  \[ \lim_{k \to \infty} y_{n_k} = \lim_{k \to \infty} f(z_{n_k}) = f(z) \in f(K-1) \]
   with $y = f(k)$.
   So $(y_n)_{n \in \mathbb N}$ has a convergent subsequence with limes $y \in f(K)$.
   Therefore $f(K)$ is compact.
@@ -5509,18 +5512,21 @@ $k$ is uniquely identified with
 
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics{img/radius.pdf}
-    \caption{Derivative}
+    \includegraphics{img/derivative-linear.pdf}
+    \caption{The derivative is a linear approximation}
     \label{img:deriv-radius}
   \end{center}
 \end{figure}
-
-TODO: another figure missing
-
-\[ y = kx + d \]
-\[ d = k \cdot(x_0) - k \cdot x_0 \]
-
-TODO: missing a few lines
+%
+% TODO: another figure missing
+\begin{align*}
+  y &= kx + d \\
+  d &= f(x_0) - k \cdot x_0 \text{ and accordingly } \\
+  y &= k(x - x_0) + f(x_0)
+\end{align*}
+$k$ is defined such that
+\[ \lim_{x \to x_0} \frac{r(x)}{x - x_0} = 0  \qquad r = f(x) - \left(f(x_0) + k(x - x_0)\right) \]
+\[ \implies k = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} \]
 
 \index[English]{Landau symbols}
 \index[German]{\foreignlanguage{ngerman}{Landau Symbole}}
@@ -5777,12 +5783,8 @@ TODO: missing a few lines
   on $(a, b)$.
 \end{defi}
 
-\meta{lecture}{15th of Jan 2015}{Wolfgang Ring}
+\meta{lecture}{15th of Jan 2016}{Wolfgang Ring}
 %
-Exam date: 4th February 2016 14:00.
-
-% TODO: figure tangent_through_two_lines.pdf
-
 \begin{figure}[!h]
   \begin{center}
     \includegraphics{img/slopes.pdf}
@@ -5921,8 +5923,7 @@ We actually used that already (for example, when proving the product law for der
 
 \begin{theorem}
   Let $J, I$ be intervals.
-  \[ f: I \to J \]
-  \[ g: J \to \mathbb R \]
+  \[ f: I \to J  \qquad  g: J \to \mathbb R \]
   $f$ is differentiable in $x_0 \in I$ and let $g$ be differentiable in $y_0 = f(x_0)$.
   Then $g \circ f: I \to \mathbb R$ is differentiable in $x_0$ and it holds that
   \[ (g \circ f)'(x_0) = g'(y_0) \cdot f'(x_0) = g'(f(x_0)) \cdot f'(x_0) \]
@@ -6310,9 +6311,8 @@ We actually used that already (for example, when proving the product law for der
 %
 \begin{proof}
   \[ F(x) = f(x) - \frac{f(b) - f(a)}{g(b) - g(a)} (g(x) - g(a)) \]
-  % TODO: WHAT???
-  It holds that $g(a) \neq g(b)$, because $g(a) = g(b)$.
-  Rolle's Theorem implies that $g'(\xi) = 0$ for some $\xi \in (a,b)$.
+  It holds that $g(a) \neq g(b)$, because $g(a) = g(b) \implies
+  g'(\xi) = 0$ for some $\xi \in (a,b)$ by Rolle's Theorem.
   This is a contradiction to our assumption.
 
   $F$ is well-defined and differentiable in $[a,b]$.
@@ -6375,7 +6375,7 @@ We actually used that already (for example, when proving the product law for der
   \end{itemize}
 \end{cor}
 
-\meta{lecture}{22nd of Jan 2015}{Wolfgang Ring}
+\meta{lecture}{23rd of Jan 2016}{Wolfgang Ring}
 
 \begin{theorem}
   Let $(w_n)_{n \in \mathbb N}$ with $w_n \in I$ such that $\lim_{n\to\infty} w_n = x_0$
@@ -6661,7 +6661,7 @@ that all functions have the same co-domain.
 
 \begin{defi}
   Let $D \subseteq \mathbb C$ and $f_n: D \to \mathbb C$ for $n \in \mathbb N$ and
-  $f: D \to \mathbb C$. We say die function sequence $\seq{f_n}$ is
+  $f: D \to \mathbb C$. We say, a function sequence $\seq{f_n}$ is
   \emph{uniformly convergent} with $f$ if
   \[
     \forall \varepsilon > 0 \exists N_\varepsilon \in \mathbb N:
