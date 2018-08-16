@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{centernot}
 \usepackage{csquotes}
 \usepackage{fancyhdr}
 \usepackage[margin=1in]{geometry}
@@ -1783,7 +1784,7 @@ Examples:
   Assume $s \in \mathbb R$ has the properties
   \begin{enumerate}
     \item $s$ is an upper bound for $A$
-    \item $\forall \sigma \in \mathbb R: \sigma < S$: $\sigma$ is not an upper bound for $A$.
+    \item $\forall \sigma \in \mathbb R: \sigma < s$: $\sigma$ is not an upper bound for $A$.
   \end{enumerate}
   If those properties are satisfied, we call $s$ \emph{supremum of $A$}.
   A supremum $s$ is always the smallest upper bound of $A$.
@@ -2813,7 +2814,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \abs
   \]
 
   Attention:
-  \[ a_n < b_n \not\implies a < b \]
+  \[ a_n < b_n \centernot\implies a < b \]
 
   Example: $a_n = 0$, $b_n = \frac1n$.
 \end{proof}
@@ -2821,7 +2822,7 @@ We know $\forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies \abs
 \subsection{Convergence criteria}
 %
 Are there criteria such that if the sequences have a specific structure,
-they are obivously convergent?
+they are obviously convergent?
 
 \index[German]{\foreignlanguage{ngerman}{Einschließungsregel}}
 \index[English]{Squeeze theorem}
@@ -2830,7 +2831,7 @@ they are obivously convergent?
   Let $\seq{A_n}$ and $\seq{B_n}$ be convergent real sequences with $\lim_{n \to \infty} A_n = \lim_{n \to \infty} B_n = A$.
   Let $\seq{a_n}$ be a sequence and $M \in \mathbb N$ such that
   \[ \forall n \geq M: A_n \leq a_n \leq B_n \]
-  Then it holds that $\seq{a_n}$ is also convergent and $\lim{a_n} = A$.
+  Then $\seq{a_n}$ is also convergent and $\lim{a_n} = A$.
 \end{theorem}
 
 \begin{proof}
@@ -2841,16 +2842,15 @@ they are obivously convergent?
     \item $n \geq N \implies \abs{A_n - A} < \varepsilon$
     \item $n \geq N \implies \abs{B_n - A} < \varepsilon$
   \end{itemize}
-  Then it holds that for $n \geq N$:
+  Then for $n \geq N$:
   \[
     \left.\begin{array}{c}
       A - a_n \leq A - A_n \leq \abs{A - A_n} < \varepsilon \\
       a_n - A \leq B_n - A \leq \abs{B_n - A} < \varepsilon
     \end{array}\right\} \text{ = 1}
   \] \[
-    \implies \abs{a_n - A} < \varepsilon
-  \] \[
-    \lim_{n \to \infty} a_N = A
+    \implies \abs{a_n - A} < \varepsilon \qquad
+    \iff \lim_{n \to \infty} a_n = A
   \]
 \end{proof}
 
@@ -2987,9 +2987,9 @@ Both are convergent.
     It holds that $p = \lim_{n\to\infty} \frac{p_n}{\sqrt{n}} = \sqrt{n}$.
 \end{enumerate}
 
-\subsection{On limit points and subsequences}
+\subsection{On accumulation points and subsequences}
 %
-\index[English]{limit point}
+\index[English]{accumulation value}
 \index[German]{\foreignlanguage{ngerman}{Häufungspunkt}}
 \begin{defi}
   Let $\seq{a_n}$ be a complex sequence.
@@ -3091,7 +3091,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   $\seq{c_n}$ is defined with $c_n = i^n$.
   \[ \seq{c_n} = (1, i, -1, -i, 1, i, -1, -i, 1 \dots) \]
 
-  What are its limit points?
+  What are its accumulation points?
 \end{ex}
 
 \index[English]{Subsequence}
@@ -3135,7 +3135,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 
 \begin{lemma}
   Let $\seq{a_n}$ be a sequence in $\mathbb C$. Then it holds that
-  $a \in \mathbb C$ is limit point if and only if there exists some subsequence
+  $a \in \mathbb C$ is accumulation point if and only if there exists some subsequence
   $\left(a_{n_k}\right)_{k \in \mathbb N}$ with $\lim_{k \to \infty} a_{n_k} = a$.
 \end{lemma}
 \begin{proof}
@@ -3151,7 +3151,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
   We prove direction $\implies$.
 
   We build a convergent subsequence. Consider $k \in \mathbb N$ with $k \geq 1$.
-  \[ \varepsilon_k = \frac1k \]
+  \[ \varepsilon_k \coloneqq \frac1k \]
   We define $n_0 = 0$ and $a_{n_0} = a_0$.
   Assume $a_{n_0}, a_{n_1}, \dots, a_{n_{k-1}}$ are already defined.
 
@@ -3170,7 +3170,7 @@ $B(a, \varepsilon)$ contains infinitely many sequence values.
 \fbox{Bernard Bolzano (1781--1848), Karl Weierstrass (1815--1897)}
 
 \begin{theorem}
-  Every bounded sequence of real numbers has a limit point in $\mathbb R$.
+  Every bounded sequence of real numbers has an accumulation point in $\mathbb R$.
 \end{theorem}
 \begin{proof}
   Let $\seq{a_n}$ be a bounded sequence in $\mathbb R$, hence $\exists M > 0$
@@ -3774,8 +3774,7 @@ The analogous result for the limes inferior also holds and is given in the pract
 \begin{theorem}
   Let $q \in \mathbb C$ with $q \neq 1$.
   Consider $\sum_{k=0}^\infty q^k$ hence $S_n = \sum_{k=0}^{n} q^n$.
-  The limes of this series is given with $\frac{1 - q^{n+1}}{1 - q}$ for $\abs{q} < 0$.
-  % TODO: \abs{q} < 0    makes no sense, bc \abs{q} \geq 0 for all q?!
+  The limes of this series is given with $\frac{1 - q^{n+1}}{1 - q}$ for $\abs{q} < 1$.
 \end{theorem}
 \begin{proof}
   We find a simple equation for $S_n$:
@@ -3831,7 +3830,7 @@ Let $\seq{a_n}$ with $a_n \in \mathbb C$ be convergent with limes $a$.
 Notation: $a_n = \lim_{n\to\infty} a$ \\
 or even shorter: $a_n \to a$ for $n \to \infty$
 
-\[ a_n \to_{n\to\infty} a \]
+\[ a_n \xrightarrow{n\to\infty} a \]
 
 We call $\seq{a_n}$ a zero sequence if $\seq{a_n}$ is convergent with $\lim_{n\to\infty} a_n = 0$.
 
@@ -4934,11 +4933,11 @@ in $\mathbb R$.
 \begin{proof}
   Let $\seq{w_n}$ be an arbitrary sequence with $w_n \in D$
   and $\lim_{n\to\infty} w_n = z_0$. Due to the sequence criterion
-  it holds that $f(w_n) \to_{n\to\infty} f(z_0)$ and $g(w_n) \to_{n\to\infty} g(z_0)$.
+  it holds that $f(w_n) \xrightarrow{n\to\infty} f(z_0)$ and $g(w_n) \xrightarrow{n\to\infty} g(z_0)$.
   The laws for convergent sequences state that,
-  \[ f(w_n) \cdot g(w_n) \to_{n\to\infty} f(z_0) \cdot g(z_0) \]
-  \[ f(w_n) + g(w_n) \to_{n\to\infty} f(z_0) + g(z_0) \]
-  \[ \frac{f(w_n)}{g(w_n)} \to_{n\to\infty} \frac{f(z_0)}{g(z_0)} \]
+  \[ f(w_n) \cdot g(w_n) \xrightarrow{n\to\infty} f(z_0) \cdot g(z_0) \]
+  \[ f(w_n) + g(w_n) \xrightarrow{n\to\infty} f(z_0) + g(z_0) \]
+  \[ \frac{f(w_n)}{g(w_n)} \xrightarrow{n\to\infty} \frac{f(z_0)}{g(z_0)} \]
   Hence $(f + g), (f \cdot g)$ and $\left(\frac fg\right)$ is continuous in $z_0$.
 \end{proof}
 
@@ -5226,11 +5225,11 @@ $U$ is called neighborhood of $z_0$ if $r > 0$ exists such that $B(z_0, r) \subs
   \end{center}
 \end{figure}
 
-\begin{defi}
+\begin{theorem}
   Let $f: K \to \mathbb R$ ($K \subseteq \mathbb C$) is continuous in $K$
   and $K$ is compact in $\mathbb C$. Then $f$ has a global maximum and a global
   minimum.
-\end{defi}
+\end{theorem}
 
 \begin{rem}
   For non-compact definition sets this statement is not generally true.
@@ -5265,8 +5264,6 @@ Using this method to show existence of a value is called
 
 \meta{lecture}{8th of January 2016}{Wolfgang Ring}
 %
-Continuity and compactness implies existence of a maximum and minimum.
-
 \enquote{Direct method of calculus of variations} (dt. \foreignlanguage{ngerman}{\enquote{direkte Methode der Variationsrechnung}}).
 
 \begin{theorem}[Intermediate value theorem for continuous functions]
@@ -6177,7 +6174,7 @@ We actually used that already (for example, when proving the product law for der
 \begin{proof}
   \begin{description}
     \item[Case 1: $f$ constant]
-      Therefore $f(x) = f(a) = ? \forall x \in [a,b]$
+      Therefore $f(x) = f(a) = f(b) = c \forall x \in [a,b]$
       \[ \implies f'(x) = 0 \forall x \in [a,b] \]
     \item[Case 2: $f$ is non-constant]
       Therefore $\exists x \in (a, b)$ with $f(x) \neq f(a)$.
@@ -6201,7 +6198,7 @@ We actually used that already (for example, when proving the product law for der
 \begin{theorem}[Mean value theorem]
   Let $I = [a,b]$ be a compact interval with $a<b$ and let $f: I \to \mathbb R$
   be differentiable in $[a,b]$. Then there exists some $\xi \in [a,b]$
-  (even $\xi \in [a,b]$) such that
+  (even $\xi \in (a,b)$) such that
   \[ \frac{f(b) - f(a)}{b - a} = f'(\xi). \]
 
   Equivalently,
@@ -6219,10 +6216,12 @@ We actually used that already (for example, when proving the product law for der
 \end{figure}
 %
 \begin{proof}
-  Let $g(x) = f(x) - s(x)$.
-  \[ = f(x) - \underbrace{\left[f(a) + \frac{f(b) - f(a)}{b - a} (x - a)\right]}_{\text{linear, hence differentiable}} \]
-  \[ \implies g(a) = f(a) - [f(a) - 0] = 0 \]
-  \[ g(b) = f(b) - \left[f(a) + \frac{f(b) - f(a)}{b - a} (b - a)\right] = 0 \]
+  Let
+  \[ g(x) \coloneqq f(x) - \underbrace{\left[f(a) + \frac{f(b) - f(a)}{b - a} (x - a)\right]}_{\text{linear, hence differentiable}} \]
+  \begin{align*}
+    \implies g(a) &= f(a) - [f(a) - 0] = 0 \\
+             g(b) &= f(b) - \left[f(a) + \frac{f(b) - f(a)}{b - a} (b - a)\right] = 0
+  \end{align*}
   By the Rolle's Theorem it follows that
   \[ \exists \xi \in [a,b] \text{ with } g'(\xi) = 0 \]
   \[ g'(x) = f'(x) - \frac{f(b) - f(a)}{b - a} \]
@@ -6685,7 +6684,7 @@ that all functions have the same co-domain.
         \sup\set{\abs{f_n(z) - f(z)}: z \in D}
       \]
       So it holds that
-      \[ \sup\set{\abs{f_n(z) - f(z)}: z \in D} \to_{n\to\infty} 0 \]
+      \[ \sup\set{\abs{f_n(z) - f(z)}: z \in D} \xrightarrow{n\to\infty} 0 \]
     \item[$\impliedby$]
       Let $\varepsilon > 0$. Convergence of supremum sequence implies that
       \[
@@ -6882,7 +6881,7 @@ We want to achieve the power laws in $f_{\text{ex}}$ as well. We require:
 \begin{cor}
   Assume: $f_{\text{ex}}$ is continuous in $0$.
   Let $z \in \mathbb C$ fixed, $k \in \mathbb N$, then it holds that
-  \[ \frac zk \to_{k\to\infty} 0 \]
+  \[ \frac zk \xrightarrow{k\to\infty} 0 \]
   So it holds that
   \[ f_{\text{ex}}\left(\frac zk\right) \to f_{\text{ex}}(0) = 1 \]
 \end{cor}
@@ -6943,7 +6942,7 @@ with $\lim_{k\to\infty} w_k = w$ it holds that
 \begin{proof}[Proof of the fundamental lemma]
   Let $\varepsilon > 0$ arbitrary. We choose $K \in \mathbb N$, such that
   $n \geq K \implies \abs{w_k} \leq \abs{w} + 1$
-  (this theorem holds because $\abs{w_k} \to_{k\to\infty} \abs{w}$).
+  (this theorem holds because $\abs{w_k} \xrightarrow{k\to\infty} \abs{w}$).
   At the same time let $K$ be sufficiently large such that
   \[ \sum_{k=K}^\infty \frac{\left(\abs{w} + 1\right)^k}{k!} < \frac{\varepsilon}{3} \]
   This is possible, because the series $\sum_{n=0}^\infty \frac{z^n}{n!}$ converges in $\mathbb C$.
@@ -7130,9 +7129,8 @@ and
 
 The exponential function does not have roots (i.e. $x$ such that $f(x) = 0$).
 
-
 So for $\frac nm \in \mathbb Q_-$, $n < 0$, $m > 0$ it holds that
-\[ \exp(\frac nm) = \frac{1}{\underbrace{\exp(-\frac nm)}_{\in \mathbb Q_+}} = \frac{1}{e^{-\frac nm}}
+\[ \exp\left(\frac nm\right) = \frac{1}{\underbrace{\exp\left(-\frac nm\right)}_{\in \mathbb Q_+}} = \frac{1}{e^{-\frac nm}}
 = e^{\frac nm}
 \]
 So it holds that
@@ -7210,10 +7208,10 @@ We denote for $z \in \mathbb C$:
   denoted $\lim_{x \to \infty} f(x) = +\infty$.
 \end{defi}
 
-\begin{theorem}[exponential growth]
+\begin{theorem}[Exponential growth]
   Let $n \in \mathbb N$. Then it holds that
   \begin{itemize}
-    \item $\lim_{n\to\infty} \frac{e^x}{x^n} = +\infty$ \\
+    \item $\lim_{x\to\infty} \frac{e^x}{x^n} = +\infty$ \\
       exp with $x \to \infty$ grows stronger than any $x^n$
     \item $\lim_{x\to-\infty} e^x \cdot x^n = 0$ \\
       exp with $x \to -\infty$ drops stronger towards zero than any $x^n$ grows
