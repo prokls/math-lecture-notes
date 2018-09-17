@@ -32,12 +32,14 @@
 \newtheorem{lemma}{Lemma}  \numberwithin{lemma}{section}
 \newtheorem*{claim}{Claim}%  \numberwithin{claim}{section}
 \newtheorem{remark}{Remark}  \numberwithin{remark}{section}
-\newtheorem*{corollary}{Corollary}%  \numberwithin{corollary}{section}
+\newtheorem{corollary}{Corollary}  \numberwithin{corollary}{section}
 \newtheorem{proposition}{Proposition}  \numberwithin{proposition}{section}
 
 \algnewcommand{\algorithmicgoto}{\textbf{go to}}%
 \algnewcommand{\Goto}[1]{\algorithmicgoto~\ref{#1}}%
 \algrenewcommand{\algorithmiccomment}[1]{\hskip2em$\triangleright$ {\footnotesize #1}}
+
+\setcounter{section}{5}
 
 % definitions
 \newcommand{\drawing}[1]{%
@@ -203,14 +205,14 @@ is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatr
 
 \begin{itemize}
   \item The determinant is linear in every row and every column.
-    For fixed $b, d$, it is
+    For fixed $b$ and $d$, it is
     \[ \vectwo xy \mapsto \det{\begin{pmatrix} x & b \\ y & d \end{pmatrix}} = dx - by \qquad \text{ is linear} \]
     \[ \mathbb K^2 \to \mathbb K \]
     \begin{align*}
       \det{\begin{pmatrix} \lambda x + \mu x' & b \\ \lambda y + \mu y' & d \end{pmatrix}}
-        &= d(\lambda x + \mu x') - b \cdot (\lambda y + \mu y') \\
+        &= d \cdot (\lambda x + \mu x') - b \cdot (\lambda y + \mu y') \\
         &= \lambda (dx - by) + \mu (dx' - by') \\
-        &= \lambda dt \begin{pmatrix} x & b \\ y & d \end{pmatrix} + \mu \begin{pmatrix} x' & b \\  y' & d \end{pmatrix}
+        &= \lambda \det{\begin{pmatrix} x & b \\ y & d \end{pmatrix}} + \mu \det{\begin{pmatrix} x' & b \\  y' & d \end{pmatrix}}
     \end{align*}
     The determinant is bilinear in rows and columns.
     \[ \det(\lambda \nu + \mu \nu', w) = \lambda \det(\nu, w) + \mu \det(\nu', w) \]
@@ -226,9 +228,9 @@ is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatr
 \end{itemize}
 
 \index{Bilinearity}
-\begin{theorem} % section 7.3
-  The properties 1--3 characterize the determinant.
-  If $\varphi: \mathbb K^2 \times \mathbb K^2 \to \mathbb K$.
+\begin{theorem}[properties 1--3 characterize the determinant] % section 7.3
+  If $\varphi: \mathbb K^2 \times \mathbb K^2 \to \mathbb K$ and $\varphi$ satisfies the properties 1--3,
+  $\varphi$ is the determinant.
   \begin{description}
     \item[bilinear\footnote{Bilinear means linear in both components}]
       \[ \varphi(\lambda v + \mu v', w) = \lambda \varphi(v, w) + \mu \varphi(v', w) \]
@@ -254,17 +256,18 @@ is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatr
 \end{proof}
 
 \begin{corollary} % section 7.4
-  \[ \varphi(v, w) = -\varphi(w, v) \forall v, w \]
+  \[ \forall v, w: \varphi(v, w) = -\varphi(w, v) \]
 \end{corollary}
 
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics{img/01_geometric_interpretation_determinant.pdf}
+    \caption{Geometric interpretation of determinants}
+    \label{img:geo_det}
+  \end{center}
+\end{figure}
+
 \begin{corollary}[Geometrical interpretation]
-  \begin{figure}[!h]
-    \begin{center}
-      \includegraphics{img/01_geometric_interpretation_determinant.pdf}
-      \caption{Geometric interpretation of determinants}
-      \label{img:geo_det}
-    \end{center}
-  \end{figure}
   See Figure~\ref{img:geo_det}.
   The determinant $\det(v,w)$ is the area of the spanned parallelogram.
   We denote $F$ as the function returning the area of a geometric object.
@@ -282,7 +285,7 @@ is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatr
 By property~2, if $v=w$, then $F = 0$.
 \index{Linear dependence}
 By property~1,
-\begin{enumerate}
+\begin{enumerate} % 7.5
   \item 
     If $v$ and $w$ are \emph{linear dependent}\footnote{Hence, one vector is a multiple of the other}, then
     \[ \lambda v + \mu w = 0 \qquad (\lambda, \mu) \neq (0, 0) \]
@@ -372,35 +375,43 @@ Hence, if $a_1, \dots, a_{k-1}, a_{k+1}, \dots, a_n$ are fixed, then
 \[ V \to \mathbb K \]
 \[ v \mapsto \triangle (a_1, \dots, a_{k-1}, v, a_{k+1}, \dots, a_n) \text{ linear} \]
 
-
 Furthermore, it satisfies the following property:
-\[ \triangle(a_1, \dots, a_n) = 0 \]
-if $\exists k \neq l: a_k = a_l$.
-If $\triangle \not\equiv 0$, then $\triangle$ is called \emph{non-trivial}.
+\begin{enumerate}
+  \item[3.] $\triangle(a_1, \dots, a_n) = 0$ \\
+    if $\exists k \neq l: a_k = a_l$.
+    If $\triangle \not\equiv 0$, then $\triangle$ is called \emph{non-trivial}.
+\end{enumerate}
 
 \begin{corollary} % section 7.7
-  \[ \triangle(a_1, \dots, a_k + \lambda a_i, \dots, a_n) = \triangle(a_1, \dots, a_k, \dots, a_n) \forall \lambda \in \mathbb K, \forall i \neq k \]
-  \[ \triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) = -\triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n) \]
+  \begin{enumerate}
+    \item[4.]
+      $\triangle(a_1, \dots, a_k + \lambda a_i, \dots, a_n) = \triangle(a_1, \dots, a_k, \dots, a_n) \forall \lambda \in \mathbb K, \forall i \neq k$
+    \item[5.]
+      $\triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) = -\triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n)$
+  \end{enumerate}
 \end{corollary}
 \begin{proof}
-  \begin{align*}
-    \triangle(a_1, \dots, a_k + \lambda a_i, \dots, a_n)
-      &= \triangle (a_1, \dots, a_k, \dots, a_n) + \triangle (a_1, \dots, a_{k-1}, \lambda a_i, a_{k+1}, \dots, a_n) \\
-      &= \triangle (a_1, \dots, a_n) + \lambda \triangle (a_1, \dots, a_{k-1}, a_i, a_{k+1}, \dots, a_n) \\
-      &= 0 \qquad \text{because $a_i$ occurs twice}
-  \end{align*}
+  \begin{enumerate}
+    \item
+      \begin{align*}
+        \triangle(a_1, \dots, a_k + \lambda a_i, \dots, a_n)
+          &= \triangle (a_1, \dots, a_k, \dots, a_n) + \triangle (a_1, \dots, a_{k-1}, \lambda a_i, a_{k+1}, \dots, a_n) \\
+          &= \triangle (a_1, \dots, a_n) + \lambda \triangle (a_1, \dots, a_{k-1}, a_i, a_{k+1}, \dots, a_n) \\
+          &= 0 \qquad \text{because $a_i$ occurs twice}
+      \end{align*}
+    \item
+      \begin{align*}
+        0 &= \triangle(a_1, \dots, a_i + a_j, \dots, a_i + a_j, \dots, a_n) \\
+          &= \triangle(a_1, \dots, a_i, \dots, a_i, \dots, a_n) \\
+          &+ \triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) \\
+          &+ \triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n) \\
+          &+ \triangle(a_1, \dots, a_j, \dots, a_j, \dots, a_n)
+      \end{align*}
+      The first and last term are zero. Multilinearity is given:
+      \[ \lambda(a_1, \dots, \lambda a_k, \dots, a_n) = \lambda \triangle (a_1, \dots, a_n) \]
+      \[ \lambda(a_1, \dots, \lambda a_k + v, \dots, a_n) = \lambda \triangle (a_1, \dots, a_n) + \triangle (a_1, \dots, a_{k-1}, v, a_{k+1}, \dots, a_n) \]
+  \end{enumerate}
 \end{proof}
-
-\begin{align*}
-  0 &= \triangle(a_1, \dots, a_i + a_j, \dots, a_i + a_j, \dots, a_n) \\
-    &= \triangle(a_1, \dots, a_i, \dots, a_i, \dots, a_n) \\
-    &+ \triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) \\
-    &+ \triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n) \\
-    &+ \triangle(a_1, \dots, a_j, \dots, a_j, \dots, a_n)
-\end{align*}
-The first and last term are zero. Multilinearity is given:
-\[ \lambda(a_1, \dots, \lambda a_k, \dots, a_n) = \lambda \triangle (a_1, \dots, a_n) \]
-\[ \lambda(a_1, \dots, \lambda a_k + v, \dots, a_n) = \lambda \triangle (a_1, \dots, a_n) + \triangle (a_1, \dots, a_{k-1}, v, a_{k+1}, \dots, a_n) \]
 
 \dateref{2018/03/07}
 
@@ -418,8 +429,8 @@ $\triangle \not\equiv 0$
 
 Then the fourth property follows:
 \begin{enumerate}
-  \item[4] $\triangle(a_1, \dots, a_{k} + \lambda a_i, \dots, a_n) = \triangle(a_1, \dots, a_n) \forall i \neq k \forall \lambda \in \mathbb K$
-  \item $\triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) = -\triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n)$
+  \item[4.] $\triangle(a_1, \dots, a_{k} + \lambda a_i, \dots, a_n) = \triangle(a_1, \dots, a_n) \forall i \neq k \forall \lambda \in \mathbb K$
+  \item[5.] $\triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) = -\triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n)$
 \end{enumerate}
 
 \begin{example}
@@ -482,13 +493,13 @@ Find transpositions $\tau_1, \dots, \tau_k$ such that $\sigma = \tau_1 \circ \ta
 If $\sigma = \operatorname{id}$, then $k=0$.
 
 If $\sigma \neq \operatorname{id}$,
-\[ k_1 = \min\setdef{i}{\sigma(i) \neq i} \neq \emptyset \]
-\[ \tau_1 = \tau_{k_1 \sigma(k_1)} \]
-\[ \sigma_1 = \tau_i \circ \sigma \]
+\[ k_1 \coloneqq \min\setdef{i}{\sigma(i) \neq i} \neq \emptyset \]
+\[ \tau_1 \coloneqq \tau_{k_1 \sigma(k_1)} \]
+\[ \sigma_1 \coloneqq \tau_i \circ \sigma \]
 if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}$. Then $\sigma = \tau_1^{-1} = \tau_i$.
-\[ k_2 = \min\setdef{i}{\sigma_i(i) \neq i} \]
-\[ \tau_2 = \tau_{k_2 \sigma_1(k_2)} \]
-\[ \sigma_2 = \tau_2 \circ \sigma_1 \]
+\[ k_2 \coloneqq \min\setdef{i}{\sigma_i(i) \neq i} \]
+\[ \tau_2 \coloneqq \tau_{k_2 \sigma_1(k_2)} \]
+\[ \sigma_2 \coloneqq \tau_2 \circ \sigma_1 \]
 
 
 \begin{example}
@@ -544,23 +555,25 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
   \[ f_\pi = 7 \]
 \end{example}
 
-\begin{theorem}
+\begin{theorem} % 7.16
   \[ \sign(\pi) = \prod_{\substack{i,j \\ i < j}} \frac{\pi(j) - \pi(i)}{j-i} \]
-  \begin{itemize}
+  \begin{enumerate}
     \item ${n \choose 2}$ factors
     \item for transposition, $\sign\tau = -1$.
-  \end{itemize}
+  \end{enumerate}
 \end{theorem}
 
 \begin{proof}
   \[ \prod_{i<j} \frac{\pi(j) - \pi(i)}{j-i} = \frac{\prod_{i<j} (\pi(j) - \pi(i))}{\prod_{i<j} (j-i)} \]
-  $\pi$ is bijective in $\set{1, \dots, n}$
-  Hence, every difference $j - i$ occurs exactly one time in the enumerator and the denomiator with sign $\pm 1$
-  depending on whether $(i,j)$ is a malposition or not.
+  $\pi$ is bijective in $\set{1, \dots, n}$.
+  Hence, every difference (the expression $j - i$) occurs exactly one time in the enumerator and the denomiator with sign $\pm 1$
+  depending on whether $(i,j)$ is a malposition or not (statement 1).
+  In other words, the term in the enumerator and denominator cancel out if they are not malpositions.
   \[ \sign(\pi(j) - \pi(i)) = \begin{cases}
     +1 & \pi(j) > \pi(i) \\
     -1 & \pi(j) < \pi(i) \text{ hence malposition}
   \end{cases} \]
+  Consider any transposition, let $k$ be the first index with $k \neq \pi(k)$ and let $l$ be the last index with $l \neq \pi(l)$. $(k, k+1), (k, k+2), \dots, (k, l-1)$ are $(l-1-k+1+1)$ malpositions. $(k+1, l), (k+2, l), \dots, (l-1, l)$ are $(l-1 - k+1 + 1)$ malpositions. The sum gives an even number. Additional, we have malposition $(k, l)$, thus an odd number of malpositions is given. Thus $\sign\tau = -1$ (statement 2). 
 \end{proof}
 
 \begin{example}
@@ -644,7 +657,8 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
           &= \underbrace{\prod_{i<j} \frac{\pi(\sigma(j)) - \pi(\sigma(i))}{\sigma(j) - \sigma(i)}}_{\sign\pi} \cdot \underbrace{\prod_{i<j} \frac{\sigma(j) - \sigma(i)}{j - i}}_{\sign\pi}
       \end{align*}
     \item Homomorphism
-      \[ \sign(\pi^{-1}) = \sign(\pi)^{-1} = \sign(\pi) \]
+      \[ \sign(\pi^{-1} \circ \pi) = 1 \iff \sign(\pi^{-1}) \circ \sign(\pi) = 1 \iff \sign(\pi^{-1}) = \sign(\pi)^{-1} \]
+      %\[ \sign(\pi^{-1}) = \sign(\pi)^{-1} = \sign(\pi) \]
   \end{enumerate}
 \end{proof}
 
@@ -656,7 +670,7 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
 \begin{corollary}
   \begin{enumerate}
     \item If $\pi = \tau_1 \circ \dots \circ \tau_k$ is a product of transpositions, then $\sign(\pi) = (-1)^k$
-    \item $\mathfrak a_n = \setdef{\pi \in \sigma_n}{\sign(\pi) = +1} = \operatorname{ker}(\sign: \sigma_n \to \set{\pm 1})$
+    \item $\mathfrak a_n = \setdef{\pi \in \sigma_n}{\sign(\pi) = +1} = \operatorname{ker}(\set{\sign: \sigma_n \to \set{\pm 1}})$
       is a subgroup of $\sigma_n$, the so-called \emph{alternating group}
       \[ \card{\mathfrak a_n} = \frac{n!}{2} \]
   \end{enumerate}
@@ -690,11 +704,17 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
 \subsection{Leibniz formula for determinants}
 
 \index{Determinant}
-\begin{definition} % 7.20
+\begin{definition}[Definition with theorem] % 7.20
+  \label{thm720}
+  Define the determinant of matrix $A$.
+  \[ \triangle(a_1, \dots, a_n) = \triangle(b_1, \dots, b_n) \cdot \det{A} \]
+  if $a_j = \sum_{i=1}^n a_{ij} b_i$. Hence,
+  \[ \begin{pmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{nj} \end{pmatrix} = \Phi_{B}(a_j) \]
+
   \label{det}
   Let $\dim V = n$. Let $B = (b_1, \dots, b_n)$ be a basis of $V$. $a_1, \dots, a_n \in V$ with coordinates
   \[
-    \psi_B(a_j) = \begin{pmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{nj} \end{pmatrix}
+    \Phi_B(a_j) = \begin{pmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{nj} \end{pmatrix}
     \qquad
     A \coloneqq \begin{bmatrix} a_{11} & \dots & a_{1n} \\ \vdots &  & \vdots \\ a_{n1} & \dots & a_{nn} \end{bmatrix}
   \]
@@ -717,15 +737,15 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
 \end{example}
 
 \begin{proof}
-  \[ a_j = \sum_{i=1}^n a_{ij} b_2 \]
+  \[ a_j = \sum_{i=1}^n a_{ij} b_i \]
   \begin{align*}
     \triangle(a_1, \dots, a_n) &= \triangle\left(\sum_{i_1 = 1}^n a_{i_1,1} b_{i_1}, \sum_{i_2 = 1}^n a_{i_2,2} b_{i_2}, \dots, \sum_{i_n = 1}^n a_{i_n, n} b_{i_n}\right) \\
     \intertext{because it is multilinear}
       &= \sum_{i_1 = 1}^n \sum_{i_2=1}^n \dots \sum_{i_n=1}^n a_{i+1,1} a_{i_2,2} \dots a_{i_n,n} \cdot \triangle(b_{i_1}, b_{i_2}, \dots, b_{i_n})
   \end{align*}
-  where $\triangle = 0$ is two indices equate.
-  \[ \implies i_1,\dots,i_n \text{ are all difference } \in \set{1,\dots,n} \]
-  \[ \implies \text{every occurs exactly once} \]
+  where $\triangle$ is zero if $b_i = b_j$.
+  \[ \implies i_1,\dots,i_n \text{ are all different elements in } \set{1,\dots,n} \]
+  \[ \implies \text{every element occurs exactly once} \]
   \[ i_1,\dots,i_n \text{ is permutation of } 1,\dots,n \]
   \[ \exists \sigma \in \sigma_n: i_1 = \sigma(1), \dots, i_n = \sigma(n) \]
   \begin{align*}
@@ -736,11 +756,10 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
 
 \begin{corollary}
   A determinant form is uniquely defined by the value $\triangle(b_1, \dots, b_n)$ on a basis.
-
-  Especially, $\triangle \not\equiv 0 \iff \triangle(b_1,\dots,b_n) \neq 0$ [for any basis] $\iff \triangle(b_1,\dots,b_n) \neq 0$ [for every basis].
+  Especially, $\triangle(b_1, \dots, b_n) \not\equiv 0 \iff \triangle(b_1,\dots,b_n) \neq 0$ [for any basis] $\iff \triangle(b_1,\dots,b_n) \neq 0$ [for every basis].
 
   Assume $\triangle(b_1,\dots,b_n) = 0$ for any basis.
-  Every other basis can be expressed by $b_1,\dots,b_n$ and the formula gives $\triangle(a_1,\dots,a_n) = 0 \forall a_1,\dots,a_n$.
+  Every other basis can be expressed by $b_1, \dots ,b_n$ and the formula gives $\triangle(a_1, \dots, a_n) = 0 \quad \forall a_1,\dots,a_n$.
 \end{corollary}
 
 \dateref{2018/03/12}
@@ -749,40 +768,53 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
   \[ \triangle \text{ non-trivial } \iff \triangle(b_1, \dots, b_n) \neq 0 \text{ for every basis} \]
 \end{theorem}
 
-\begin{theorem} % 7.20
-  \label{thm720}
-  Define determinant of matrix $A$.
-
-  \[ \triangle(a_1, \dots, a_n) = \triangle(b_1, \dots, b_n) \cdot \det{A} \]
-  if $a_j = \sum_{i=1}^n a_{ij} b_i$.
-  Hence
-  \[ \begin{pmatrix} a_{1j} \\ a_{ij} \\ \vdots \\ a_{nj} \end{pmatrix} = \Phi_{B}(a_j) \]
-\end{theorem}
-
 \begin{theorem} % 7.22
   \label{theorem722}
-  Inverse of Theorem~\ref{thm720}.
+  Inverse of Definition~\ref{det}. %Theorem~\ref{thm720}.
   Given basis $B = (b_1, \dots, b_n)$.
   \[ \triangle(a_1, \dots, a_n) \coloneqq \det\left[\Phi_B(a_1), \dots, \Phi_B(a_n)\right] \]
-  defines a non-trivial determinant form such that $\triangle(b_1, \dots, b_n) = 1$
+  defines a non-trivial determinant form such that $\triangle(b_1, \dots, b_n) = 1$.
+  % Thus the determinant of every basis is $1$.
 \end{theorem}
+
+\begin{example}
+  Let $a_1 = \vectwo46$ and $a_2 = \vectwo{12}{10}$ with $A = (a_1, a_2)$.
+  Let $b_1 = \vectwo20$ and $b_2 = \vectwo02$ with $B = (b_1, b_2)$.
+  So $\Phi_B(A) = \begin{pmatrix} 2 & 6 \\ 0 & 2 \end{pmatrix}$.
+
+  Let $\triangle$ such that
+  \[ \triangle(\vectwo46, \vectwo{12}{10}) \overset!= \det(\Phi_B(A)) = -8 \]
+  where $-8$ is given by Leibniz' formula.
+  \[ \implies \triangle(B) = 1 \]
+  Namely,
+  \[ \triangle(M) = \det(M) \cdot \frac14 \]
+  All determinants distinguish each other by some factor.
+\end{example}
+
+\begin{remark}
+  Let $\vecthree011$, $\vecthree101$ and $\vecthree010$ be some basis $B$.
+  Let $v = \vecthree{7}{3}{-5}$. Then $\Phi_B(v) = \vecthree{-12}{7}{15}$ is the representation of $v$ with basis $B$.
+\end{remark}
 
 \begin{corollary} % Folgerung 7.23
   \label{folgerung723}
-  Let $\triangle$ be a non-trivial determinant form.
+  Let $\triangle$ be a non-trivial determinant form $\triangle(v_1, \dots, v_n) \neq 0 \iff$
   Then $v_1, \dots, v_n$ is linearly independent.
-  \[ \iff \triangle(v_1, \dots, v_n) \neq 0 \]
-
-  Direction $\Rightarrow$: Immediate, because $v_1, \dots, v_n$ is a basis.
-
-  Direction $\Leftarrow$: Assume $v_1, \dots, v_n$ is linearly independent.
-  Without loss of generality, $v_n = \sum_{k=1}^{n-1} \lambda_k v_k$.
-  \begin{align*}
-    \triangle(v_1, \dots, v_n) &= \triangle(v_1, \dots, v_{n-1}, \sum_{k=1}^{n-1} \lambda_n v_k) \\
-      &= \sum_{k=1}^{n-1} \lambda_k \triangle \underbrace{(v_1, \dots, v_{n-1}, v_k)}_{=0 \text{ because $v_k$ occurs twice}} \\
-      &= 0
-  \end{align*}
 \end{corollary}
+\begin{proof}
+  \begin{description}
+    \item[$\Rightarrow$] Immediate, because $v_1, \dots, v_n$ is a basis.
+    \item[$\Leftarrow$]
+      Assume $v_1, \dots, v_n$ is linearly independent.
+      Without loss of generality, $v_n = \sum_{k=1}^{n-1} \lambda_k v_k$.
+      \begin{align*}
+        \triangle(v_1, \dots, v_n)
+          &= \triangle(v_1, \dots, v_{n-1}, \sum_{k=1}^{n-1} \lambda_n v_k) \\
+          &= \sum_{k=1}^{n-1} \lambda_k \triangle \underbrace{(v_1, \dots, v_{n-1}, v_k)}_{=0 \text{ because $v_k$ occurs twice}} \\
+          &= 0
+      \end{align*}
+  \end{description}
+\end{proof}
 
 \begin{remark}[Summary]
   \begin{enumerate}
@@ -798,27 +830,27 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
     \item
       \begin{align*}
         \triangle(a_1, \dots, \lambda a_k, \dots, a_n)
-          &= \sum_{\pi \in \sigma_n} (-1)^{\pi} a_{\pi(1)1} \lambda a_{\pi(k) k} a_{\pi(n) n} \\
+          &= \sum_{\pi \in \sigma_n} (-1)^{\pi} a_{\pi(1)1} \dots \lambda a_{\pi(k) k} \dots a_{\pi(n) n} \\
           &= \lambda \cdot \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots a_{\pi(n) n} \\
           &= \lambda \cdot \triangle(a_1, \dots, a_n)
       \end{align*}
     \item
       \begin{align*}
         \triangle(a_1, \dots, a_k + v, \dots, a_n)
-          &= \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots (a_{\pi(k) k} + v_{\pi(k)}) \cdot a_{\pi(n)} n \\
+          &= \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots (a_{\pi(k) k} + v_{\pi(k)}) \dots a_{\pi(n) n} \\
           &= \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots a_{\pi(k) k} \dots a_{\pi(n) n} \\
-    &+ \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots v_{\pi(k) k} \dots a_{\pi(n) n} \\
+          &+ \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots v_{\pi(k) k} \dots a_{\pi(n) n} \\
           &= \triangle(a_1, \dots, a_k, \dots, a_n) + \triangle(a_1, \dots, v, \dots, a_n)
       \end{align*}
       This proves multilinearity.
     \item
       Let $a_k = a_l$, $a_{ik} = a_{il} \forall i = 1, \dots, n$.
       Without loss of generality, $k < l$.
-      \[ \triangle(a_1, \dots, a_k) = \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots a_{\pi(k) k} \dots a_{\pi(l) l} \dots a_{\pi(n) n} \]
-      \[ \tau \cdot \pi = (\text{reference *}) \]
+      \[ \triangle(a_1, \dots, a_k) = \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots a_{\pi(k) k} \dots a_{\pi(l) l} \dots a_{\pi(n) n} = (\text{\color{red} ref *}) \]
       Let $\tau = \tau_{kl}$, exchange of $k$ and $l$.
       \begin{claim}
         \[ \sigma_n = \underbrace{\mathcal A_n}_{\substack{\text{alternating group} \\ = \setdef{\pi}{\sign(\pi) = +1}}} \cup \underbrace{\mathcal A_{n} \cdot \tau}_{= \setdef{\pi \circ \tau}{\pi \in \mathcal A_n}} \]
+        The set of all permutations is the set of even permutations unified with the set of even permutations with one transposition applied. Thus, one transposition suffices to turn even permutations into odd permutations.
       \end{claim}
       \begin{proof}
         Direction $\Leftarrow$.
@@ -826,12 +858,12 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
         \[ \Rightarrow \pi = (\pi \circ \underbrace{\tau) \circ \tau}_{= \operatorname{id}} \]
         $\sigma = \pi \circ \tau$ has $\sign(\sigma) = \sign(\pi \circ \tau) = \sign(\pi) \cdot \sign(\tau) = (-1) \cdot (-1) = 1$.
         \[ \sigma \in \mathcal A_n \text{ and } \pi = \sigma \circ \tau \]
-        \begin{align*}
-          \text{reference *} &= \sum_{\pi \in \mathcal A_n} \underbrace{(-1)^\pi}_{=+1} a_{\pi(1) 1} \dots a_{\pi(n) n} \\
-            &+ \sum_{\substack{\pi \in \mathcal A_n \tau \\ \pi = \sigma \circ \tau}} \underbrace{(-1)^{\sign(\pi)}}_{= -1} a_{\pi(1) 1} \cdot a_{\pi(n) n} \\
-            &= \sum_{\pi \in \mathcal A_n} a_{\pi(1) 1} \dots a_{\pi(n) n} - \sum_{\sigma \in A_n} \underbrace{a_{\sigma \circ \tau(1) 1} \dots a_{\sigma \circ \tau(k) 2} \dots a_{\sigma \circ \tau(l) l} \dots a_{\sigma \circ \tau(n) n}}_{a_{\sigma(1) 1} \dots \underbrace{a_{\sigma(l) k}}_{=a_{\sigma(l) l}} \dots \underbrace{a_{\sigma(k) l}}_{= a_{\sigma(k) k}} \dots a_{\sigma(n) n}} = 0
-        \end{align*}
       \end{proof}
+      \begin{align*}
+        \text{({\color{red} ref *})} &= \sum_{\pi \in \mathcal A_n} \underbrace{(-1)^\pi}_{=+1} a_{\pi(1) 1} \dots a_{\pi(n) n} \\
+          &+ \sum_{\substack{\pi \in \mathcal A_n \tau \\ \pi = \sigma \circ \tau}} \underbrace{(-1)^{\sign(\pi)}}_{= -1} a_{\pi(1) 1} \cdot a_{\pi(n) n} \\
+          &= \sum_{\pi \in \mathcal A_n} a_{\pi(1) 1} \dots a_{\pi(n) n} - \sum_{\sigma \in A_n} \underbrace{a_{\sigma \circ \tau(1) 1} \dots a_{\sigma \circ \tau(k) 2} \dots a_{\sigma \circ \tau(l) l} \dots a_{\sigma \circ \tau(n) n}}_{a_{\sigma(1) 1} \dots \underbrace{a_{\sigma(l) k}}_{=a_{\sigma(l) l}} \dots \underbrace{a_{\sigma(k) l}}_{= a_{\sigma(k) k}} \dots a_{\sigma(n) n}} = 0
+      \end{align*}
   \end{enumerate}
 \end{proof}
 
@@ -889,21 +921,22 @@ Basis $b_1,\dots,b_n$.
 \end{corollary}
 
 \begin{proof}
-  Let $\triangle_1$, $\triangle_2$ be two determinant forms.
+  Let $\triangle_1$, $\triangle_2$ be two determinant forms. Let $b_1, \dots, b_n$ be a basis.
   \[ \triangle_1 (v_1, \dots, v_n) = \det{A} \cdot \triangle_1(b_1, \dots, b_n) \]
   \[ \triangle_2 (v_1, \dots, v_n) = \det{A} \cdot \triangle_2(b_1, \dots, b_n) \]
-  if $b_1, \dots, b_n$ is basis and
   \[ v_j = \sum_{i=1}^n a_{ij} b_i \]
   \[ \implies \triangle_2(v_1, \dots, v_n) = \frac{\triangle_2(b_1, \dots, b_n)}{\triangle_1(b_1, \dots, b_n)} \cdot \triangle_1(v_1, \dots, v_n) \]
   \[ \implies C_f = \frac{\triangle^f(b_1, \dots, b_n)}{\triangle (b_1, \dots, b_n)} = \det(f) \]
+  % In essence, any two determinants are different by a factor.
 \end{proof}
 
 \subsection{On determinants, invertibility and linear independence}
 
 \begin{corollary} % Folgerung 7.27
+  \label{cor:feqphif}
   $B = (b_1, \dots, b_n)$ is basis of $V$.
-  $\phi_B^B(f)$ is matrix representation of $f$ and $\det(f) = \det\phi_B^B(f)$
-  (LHS by Corollary~\ref{cor726}, RHS by Definition~\ref{det} $\sum_{\pi} (-1)^\pi \dots$)
+  $\phi_B^B(f)$ is matrix representation of linear $f$ and $\det(f) = \det\phi_B^B(f)$
+  (LHS by Corollary~\ref{cor726}, RHS by Definition~\ref{det} $\sum_{\pi} (-1)^\pi \dots$).
 \end{corollary}
 
 \begin{proof}
@@ -922,28 +955,42 @@ Basis $b_1,\dots,b_n$.
   $f: V \to V$ is invertible $\iff \det(f) \neq 0$.
 \end{theorem}
 \begin{proof}
-  Let $\triangle$ be a non-trivial determinant form.
-  \[ B = (b_1, \dots, b_n) \text{ is a basis } \implies \triangle(b_1, \dots, b_n) \neq 0 \]
-  \[ \det(f) = \frac{\triangle(f(b_1), \dots, f(b_n))}{\triangle(b_1, \dots, b_n)} \]
-  $(f(b_1), \dots, f(b_n))$ is basis $\iff f$ is invertible.
+  \begin{description}
+    \item[$\implies$] 
+      Let $\triangle$ be a non-trivial determinant form.
+      \[ B = (b_1, \dots, b_n) \text{ is a basis } \implies \triangle(b_1, \dots, b_n) \neq 0 \]
+      \[ \det(f) = \frac{\triangle(f(b_1), \dots, f(b_n))}{\triangle(b_1, \dots, b_n)} \]
+    \item[$\impliedby$]
+      $\det(f) \neq 0 \implies (f(b_1), \dots, f(b_n))$ is basis $\iff f$ is invertible.
+      If $f$ is invertible, then $(f(b_1), \dots, f(b_n))$ is basis.
+      \[ \implies \triangle (f(b_1), \dots, f(b_n)) \neq 0 \implies \det(f) \neq 0 \]
 
-  If $f$ is invertible, then $(f(b_1), \dots, f(b_n))$ is basis.
-  \[ \implies \triangle (f(b_1), \dots, f(b_n)) \neq 0 \implies \det(f) \neq 0 \]
-
-  If $f$ is not invertible, then
-  \[ \implies f(b_1) \dots f(b_n) \text{ is linear dependent} \]
-  \[ \exists k: f(b_k) = \sum_{i\neq k} \lambda_i f(b_i) \]
-  Without loss of generality: $k = n$
-  \begin{align*}
-    \triangle(f(b_1), \dots, f(b_n)) &= \triangle(f(b_1), \dots, f(b_{n-1}), \sum_{i=1}^{n-1} \lambda_i f(b_i)) \\
-      &= \sum_{i=1}^n \lambda_i \triangle(\underbrace{f(b_1), \dots, f(b_{n-1})}_{=0 \forall i \in \set{1,\dots,n-1}}, f(b_i)) \\
-      &= 0
-  \end{align*}
+      If $f$ is not invertible, then
+      \[ \implies f(b_1) \dots f(b_n) \text{ is linear dependent} \]
+      \[ \exists k: f(b_k) = \sum_{i\neq k} \lambda_i f(b_i) \]
+      Without loss of generality: $k = n$
+      \begin{align*}
+        \triangle(f(b_1), \dots, f(b_n)) &= \triangle(f(b_1), \dots, f(b_{n-1}), \sum_{i=1}^{n-1} \lambda_i f(b_i)) \\
+          &= \sum_{i=1}^n \lambda_i \triangle(\underbrace{f(b_1), \dots, f(b_{n-1})}_{=0 \forall i \in \set{1,\dots,n-1}}, f(b_i)) \\
+          &= 0
+      \end{align*}
+  \end{description}
 \end{proof}
 
 \begin{corollary}
   For a matrix $A \in \mathbb K^{n\times n}$ it holds that $\det{A} \neq 0 \iff$ A has full rank.
 \end{corollary}
+
+\begin{proof}
+  \begin{description}
+    \item[$\implies$]
+      If $A$ is invertible $\ker(A) = \emptyset$, so A has full rank.
+    \item[$\impliedby$] 
+      If $A$ does not have full rank, consider $x \neq 0$ with $x \in \operatorname{ker}(A)$ then $Ax = 0$ and $A(2x) = 0$. Thus it is not injective and therefore not invertible.
+
+      If $A$ has full rank it is surjective (column space spans all $n$ dimensions) and injective ($x \neq y \implies Ax \neq Ay$). Thus invertible.
+  \end{description}
+\end{proof}
 
 \begin{theorem} % 7.29
   $f, g: V \to V$ linear.
@@ -952,29 +999,30 @@ Basis $b_1,\dots,b_n$.
 \end{theorem}
 
 \begin{proof}
-  Case 1: $f$ and $g$ are invertible.
-  \[ \det(f) = \frac{\triangle (f(b_1), \dots, f(b_n))}{\triangle(b_1, \dots, b_n)} \]
-  for arbitrary bases $(b_1, \dots, b_n)$ of $V$.
-  \begin{align*}
-    \det(f \circ g) &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\triangle(b_1, \dots, b_n)} \cdot \frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(g(b_1), \dots, g(b_n))} \\
-      &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\underbrace{\triangle(g(b_1), \dots, g(b_n))}_{0 \neq \det(f)}} \cdot \underbrace{\frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(b_1, \dots, b_n)}}_{\det(g) \neq 0}
-  \end{align*}
-  $g$ invertible
-  \[ \implies g(b_1), \dots, g(b_n) \text{ is basis} \]
+  \begin{description}
+    \item[If $f$ and $g$ are invertible] 
+      \[ \det(f) = \frac{\triangle (f(b_1), \dots, f(b_n))}{\triangle(b_1, \dots, b_n)} \]
+      for arbitrary bases $(b_1, \dots, b_n)$ of $V$.
+      \begin{align*}
+        \det(f \circ g) &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\triangle(b_1, \dots, b_n)} \cdot \frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(g(b_1), \dots, g(b_n))} \\
+          &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\underbrace{\triangle(g(b_1), \dots, g(b_n))}_{\det(f) \neq 0}} \cdot \underbrace{\frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(b_1, \dots, b_n)}}_{\det(g) \neq 0}
+      \end{align*}
+    \item[If $f$ or $g$ is not invertible]
+      \[ f \text{ is not invertible} \implies \det(f) = 0 \]
+      Same for $g$.
+
+      \begin{claim}
+        $f \circ g$ invertible $\iff$ $f$ invertible and $g$ invertible.
+
+        $f \circ g$ invertible $\implies$ $f \circ g$ surjective $\implies f$ surjective $\implies$ ($\dim{V} < \infty$) $f$ is bijective.
+
+        $f \circ g$ invertible $\implies$ $f \circ g$ injective $\implies$ $g$ injective $\implies$ $g$ bijective.
+      \end{claim}
+
+      \[ \implies f \circ g \text{ is not invertible} \]
+      \[ \det(f \circ g) = 0 = \det(f) \cdot \det(g) \]
+  \end{description}
 \end{proof}
-
-\begin{claim}
-  $f \circ g$ invertible $\iff$ $f$ invertible and $g$ invertible.
-
-  $f \circ g$ invertible $\implies$ $f \circ g$ surjective $\implies f$ surjective $\implies$ ($\dim{V} < \infty$) $f$ is bijective.
-
-  $f \circ g$ invertible $\implies$ $f \circ g$ injective $\implies$ $g$ injective $\implies$ $g$ bijective.
-
-  Case 2: $\neg(f \text{ bijective} \land g \text{ bijective}) \implies f \circ g \text{ not bijective}$
-
-  $f$ is not bijective or $g$ is not bijective.
-  \[ \det(f) = 0 \lor \det(g) = 0 \iff \det(f) \circ \det(g) = 0 = \det(f \circ g) \]
-\end{claim}
 
 \begin{corollary} % Korollar 7.30
   \label{cor730}
@@ -989,7 +1037,7 @@ Basis $b_1,\dots,b_n$.
 
 \begin{proof}[Proof of Corollary~\ref{cor730}]
   \begin{enumerate}
-    \item $\det(A \cdot B) = \det(f_A \circ f_B) = \det(f_A) \cdot \det(f_B) = \det(A) \cdot \det(B)$
+    \item $\det(A \cdot B) = \det(f_A \circ f_B) = \det(f_A) \cdot \det(f_B) = \det(A) \cdot \det(B)$ (compare with Corollary~\ref{cor:feqphif})
     \item $A \cdot A^{-1} = I$ and $1 = \det(A \cdot A^{-1}) = \det(A) \cdot \det(A^{-1})$
   \end{enumerate}
   \begin{remark}[From the practicals]
@@ -1015,7 +1063,7 @@ Basis $b_1,\dots,b_n$.
     \det(A \cdot B) = \frac{\triangle(s_1(A \cdot B), \dots, s_n(A \cdot B))}{\triangle (e_1, \dots, e_n)}
       = \triangle\left(\sum_{i_1=1}^n s_{i_1} b_{i_1 1}, \sum_{i_2=1}^n s_{i_2} b_{i_2 2}, \dots, \sum_{i_n=1}^n s_{i_n} b_{i_n n}\right)
   \] \[
-    = \sum_{i_1=1}^n \dots \sum_{i_n=1}^n b_{i_1 1} b_{i_2 2} \dots b_{i_n n} \underbrace{\triangle(s_{i1}, \dots, s_{in}}_{=0}
+    = \sum_{i_1=1}^n \dots \sum_{i_n=1}^n b_{i_1 1} b_{i_2 2} \dots b_{i_n n} \underbrace{\triangle(s_{i1}, \dots, s_{in})}_{=0}
   \]
   if one index occurs twice. It suffices to consider $\sum_{i_1,\dots,i_n}$ such that all $ij$ are difference.
   If all are difference, then all occur exactly once. Hence,
@@ -1026,6 +1074,11 @@ Basis $b_1,\dots,b_n$.
   \end{align*}
 \end{proof}
 
+\begin{proof}[Proof of Corollary~\ref{cor730} (3)]
+  $A$ is invertible $\iff$ $f_A$ is invertible.
+  $\implies \det(A) = 0 \iff \det(f_A) = 0 \iff f_A$ is not bijective $\iff$ $\operatorname{rank}(A) < n$.
+\end{proof}
+
 \begin{proof}[Proof of Corollary~\ref{cor730} (4)]
   \begin{align*}
     \det(A^t) &= \sum_{\pi \in \sigma_n} (-1)^\pi (A^t)_{\pi(1) 1} \dots (A^t)_{\pi(n) n} \\
@@ -1034,10 +1087,9 @@ Basis $b_1,\dots,b_n$.
 
   \begin{remark}
     \[ \sigma_n \to \sigma_n \]
-    \[ \pi \mapsto \pi^{-1} \]
-    is bijective.
-    \[ \text{injective:} \pi^{-1} = \sigma^{-1} \implies \pi = \sigma \]
-    \[ \text{surjective:} \pi = (\pi^{-1})^{-1} \]
+    \[ \pi \mapsto \pi^{-1} \text{ is bijective} \]
+    \[ \text{injective: } \pi^{-1} = \sigma^{-1} \implies \pi = \sigma \]
+    \[ \text{surjective: } \pi = (\pi^{-1})^{-1} \]
   \end{remark}
 
   \[ = \sum_{\pi \in \sigma_n} (-1)^{\pi^{-1}} a_{1 \pi^{-1}(1)} \dots a_{n \pi^{-1}(n)} \]
@@ -1098,7 +1150,7 @@ Basis $b_1,\dots,b_n$.
     \end{array}
   \]
 
-  \emph{Rule by Sarrus} only holds for $n=2$ or $n=3$.
+  \emph{Rule of Sarrus} holds only for $n=2$ or $n=3$.
 \end{example}
 
 \dateref{2018/03/14}
@@ -1308,6 +1360,7 @@ Basis $b_1,\dots,b_n$.
       z_1 & \ldots \\
       \vdots & \\
       z_i & \ldots \\
+      \vdots & \\
       z_j & \ldots \\
       \vdots & \\
       z_n & \ldots
@@ -1331,13 +1384,39 @@ Basis $b_1,\dots,b_n$.
     \end{vmatrix}
     = a_{11} \cdot a_{nn}
   \]
-  (iii) If there are individual square matrices ($A_1, A_2, \dots, A_k$) along the diagonal of a matrix,
+\end{remark}
+\begin{lemma}
+  \begin{enumerate}
+    \item \[
+      \begin{vmatrix}
+        a_{11} & * & * & * & \\
+        0 &    &   &   &   & \\
+        0 &    &   & B &   & \\
+        0 &    &   &   &   &
+      \end{vmatrix}
+      = a_{11} \cdot \det(B)
+    \]
+    \item \[
+      \begin{vmatrix}
+        &   &   &   & 0 \\
+        &   & B &   & 0 \\
+        &   &   &   & 0 \\
+        & * & * & * & a_{nn}
+      \end{vmatrix}
+      = \det(B) \cdot a_{nn}
+    \]
+    \item If there are individual square matrices ($A_1, A_2, \dots, A_k$) along the diagonal of a matrix,
   the determinant of the matrix is the product of the determinant of the submatrices.
   \[ \det(A) = \det(A_1) \cdot \det(A_2) \cdot \ldots \cdot \det(A_k) \]
-\end{remark}
+  \end{enumerate}
+\end{lemma}
 
 \begin{proof}
-  Proof of (ii)
+  We only prove the second property.
+
+  All permutations which do not map index 1 to 1, introduce a factor zero making the product zero.
+  If index 1 is mapped to 1, the product in Leibniz' formula is multiplied with $a_{11}$ in all permutations.
+  We can extract factor $a_{11}$ and get the determinant of $B$ multiplied with $a_{11}$.
   \begin{align*}
     \begin{vmatrix}
              &         &           & 0  \\
@@ -1362,10 +1441,10 @@ Basis $b_1,\dots,b_n$.
   Same idea: If
   \[
     A = \begin{bmatrix}
-      \vdots & 0 & \vdots \\
+      & 0 & \\
       & \vdots & \\
       & 0 & \\
-      & a_{ij} & \\
+      \vdots & a_{ij} & \vdots \\
       & 0 & \\
       & \vdots & \\
       & 0 &
@@ -1374,13 +1453,13 @@ Basis $b_1,\dots,b_n$.
   Exchange the $i$-th row with the last row.
   \[
     = \pm 1 \begin{bmatrix}
-      \vdots & 0 & \vdots \\
-      & \vdots & \\
-      & 0 & \\
-      & 0 &
-      & 0 & \\
-      & \vdots & \\
-      & a_{ij} & \\
+      & 0 \\
+      & \vdots \\
+      & 0 \\
+      \cdots & 0 \\
+      & 0 \\
+      & \vdots \\
+      & a_{ij} \\
     \end{bmatrix}
   \]
 \end{proof}
@@ -1483,11 +1562,11 @@ for fixed $k=1$:
 
 \begin{proof}
   Let $l \in \set{1, \dots, n}$ be fixed.
+  Let $e_k$ be a unit vector.
   For the $l$-th column,
   \[ s_l = \sum_{k=1}^n a_{kl} e_k = \begin{pmatrix} a_{1l} \\ a_{2l} \\ \vdots \\ a_{nl} \end{pmatrix} \]
-  where $e_k$ is a unit vector.
   \begin{align*}
-    \det(A) &= \triangle(s_1, s_2, \dots, s_{l-1}, \sum_{k=1}^n a_{kl, e_k, s_{l+1}, \dots, s_n} \\
+    \det(A) &= \triangle(s_1, s_2, \dots, s_{l-1}, \sum_{k=1}^n a_{kl} \cdot e_k, s_{l+1}, \dots, s_n) \\
             &= \sum_{k=1}^n a_{kl} \triangle(s_1, \dots, s_{l-1}, e_k, s_{l+1}, \dots, s_n) \\
             &= \sum_{k=1}^n a_{kl} \begin{vmatrix}
               a_{11} & a_{12} & \vdots & a_{1,l-1} & 0 & a_{1,l+1} & \dots & a_{1n} \\
@@ -1516,7 +1595,7 @@ for fixed $k=1$:
       Now we can do $l-1$ column exchange to move the one into the first column.
       This gives a cycle $(1, 2, \dots, l)$ and $\sign = (-1)^{l-1}$
     }
-    &= \sum_{k=1}^n a_{kl} (-1)^{k-1} (-1)^l \begin{vmatrix}
+    &= \sum_{k=1}^n a_{kl} (-1)^{k-1} (-1)^{l-1}   \begin{vmatrix}
       1 & a_{k1} & a_{k2} & \dots & a_{k,l-1} & a_{k,l+1} & \dots & a_{k,n} \\
       0 & a_{11} & a_{12} & \dots & a_{1,l-1} & a_{1,l+1} & \dots & a_{1,n} \\
       0 & \vdots & \vdots & \vdots& \vdots    & \vdots    & \vdots& a_{2,n} \\
@@ -1533,18 +1612,21 @@ for fixed $k=1$:
 \end{proof}
 
 \begin{example} % Beispiel 7.38
-  \begin{verbatim}
-+ - + - + -
-- + - + - +
-\end{verbatim}
-  \[ (-1)^{k+l} \]
+  Let $A = (a_{kl})_{\substack{1 \leq k \leq n \\ 1 \leq l \leq n}} = (-1)^{k+l}$.
+  \[
+    A = \begin{pmatrix}
+      +1 & -1 & +1 \\
+      -1 & +1 & -1 \\
+      +1 & -1 & +1
+    \end{pmatrix}
+  \]
 \end{example}
 
 \index{Cofactor}
 \index{Complementary matrix}
 \index{Adjugate matrix}
 \begin{theorem} % Satz 7.39
-  $\hat{a}_{kl} = (-1)^{k+l} \det{A_{lk}}$ is called \emph{cofactor}.
+  $\hat{a}_{kl} \coloneqq (-1)^{k+l} \det{A_{lk}}$ is called \emph{cofactor}.
   \[ \hat{A} = \begin{bmatrix} \hat{a}_{kl} \end{bmatrix}_{k,l=1}^n \]
   is called \emph{complementary matrix} or \emph{adjugate matrix} of $A$.
   \begin{align*}
@@ -1560,28 +1642,30 @@ for fixed $k=1$:
   Show that $\hat{A} \cdot A = I \cdot \det(A)$.
   Let $B = \hat{A} \cdot A$.
   \[ b_{kl} = \sum_{i=1}^n \hat{a}_{ki} \cdot a_{il} = \sum_{i=1}^n (-1)^{k+i} \det{A_{ik}} \cdot a_{il} \]
-  Case 1: $k=l$
-  \begin{align*}
-    b_{ll} &= \sum_{i=1}^n (-1)^{l+i} \det{A_{il}} \cdot a_{il} \\
-           &\underbrace{=}_{\text{Laplace expansion with $l$-th column}} \det{A}
-  \end{align*}
-  Case 2: $k \neq l$ (without loss of generality, $k < l$)
-  \begin{align*}
-    b_{kl} &= \sum_{i=1}^n \det(A_{ik}) (-1)^{k+i} a_{il} \\
-           &= \det\begin{bmatrix}
-             a_{11} & \dots & a_{1l} & \dots & a_{1l} & \dots & a_{1n} \\
-             \vdots &       & \vdots &       & \vdots &       & \vdots \\
-             a_{n1} & \dots & a_{nl} &       & a_{nl} &       & a_{nn}
-           \end{bmatrix} \\
-           &\underbrace{=}_{\text{two equal columns}} 0 \\
-    \intertext{
-      (i.e. matrix $A$ with $k$-th column replaced by $l$-th column)
-      expanded by $k$-th row.
-    }
-    \det{A} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{ik} \\
-    \tilde{A} &= \text{ (matrix $A$ replacing $k$-th column with $l$-th column)} \\
-    \det{\tilde{A}} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{il}
-  \end{align*}
+  \begin{description}
+    \item[Case $\mathbf{k=l}$]
+      \[
+        b_{ll} = \sum_{i=1}^n (-1)^{l+i} \det{A_{il}} \cdot a_{il}
+          \underbrace{=}_{\substack{\text{Laplace expansion} \\ \text{with $l$-th column}}} \det{A}
+      \]
+    \item[Case $\mathbf{k \neq l}$] Without loss of generality: $k < l$.
+      \begin{align*}
+        b_{kl} &= \sum_{i=1}^n \det(A_{ik}) (-1)^{k+i} a_{il} \\
+               &= \det\begin{bmatrix}
+                 a_{11} & \dots & a_{1l} & \dots & a_{1l} & \dots & a_{1n} \\
+                 \vdots &       & \vdots &       & \vdots &       & \vdots \\
+                 a_{n1} & \dots & a_{nl} & \dots & a_{nl} & \dots & a_{nn}
+               \end{bmatrix} \\
+               &\underbrace{=}_{\substack{\text{two equal} \\ \text{columns}}} 0 \\
+        \intertext{
+          (i.e. matrix $A$ with $k$-th column replaced by $l$-th column)
+          expanded by $k$-th row.
+        }
+        \det{A} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{ik} \\
+        \tilde{A} &= \text{ (matrix $A$ replacing $k$-th column with $l$-th column)} \\
+        \det{\tilde{A}} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{il}
+      \end{align*}
+  \end{description}
 \end{proof}
 
 \begin{example}[Small inverse matrices] % Anwendung 7.40
@@ -1726,7 +1810,7 @@ The norm is given by
 \[ \norm{\begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}} = \sqrt{a_1^2 + a_2^2 + a_3^2} \]
 
 \begin{definition}[Scalar product in $\mathbb R^2/\mathbb R^3$]
-  \[ \angel{a, b} = \norm{a} \cdot \norm{b} \cdot \cos{\theta} \]
+  \[ \angel{a, b} \coloneqq \norm{a} \cdot \norm{b} \cdot \cos{\theta} \]
   where $\theta$ is the angle between vector $a$ and $b$.
 \end{definition}
 
@@ -1752,7 +1836,7 @@ The norm is given by
     \item $\angel{a,a} = 0 \iff a = 0$
     \item $\angel{a,b} = 0 \iff a = 0 \lor b = 0 \lor \theta = \frac\pi2 \lor \theta = \frac32 \pi$, hence orthogonal
     \item $\angel{a,b} > 0 \iff$ acute angle
-    \item $\angel{a,b} < 0 \iff$ obtuse angle
+    \item $\angel{a,b} < 0 \iff$ obtuse angle (dt. \foreignlanguage{ngerman}{stumpf})
   \end{enumerate}
 \end{theorem}
 
@@ -1794,12 +1878,12 @@ The norm is given by
 
 \begin{proof}
   \begin{align*}
-    \angel{a}{b} &= \angel{a_1 e_1 + a_2 e_2 + a_3 e_3, b} \\
+    \angel{a,b} &= \angel{a_1 e_1 + a_2 e_2 + a_3 e_3, b} \\
       &= a_1 \angel{e_1, b} + a_2 \angel{e_2, b} + a_3 \angel{e_3, b} \\
       &= a_1 b_1 + a_2 b_2 + a_3 b_3 \\
     \angel{e_i,b} &= \angel{e_i, b_1 e_1 + b_2 e_2 + b_3 e_3} \\
       &= b_1 \angel{e_i, e_1} + b_2 \angel{e_i, e_2} + b_3 \angel{e_i, e_3} \\
-      &= b_1 \delta_{i1} + b_2 \delta_{i2} + b_3 \cdot \delta_{i3} \\
+      &= b_1 \delta_{i1} + b_2 \delta_{i2} + b_3 \cdot \delta_{i3} \qquad \text{ with } \delta \text{ as Kronecker delta} \\
       &= b_i
   \end{align*}
 \end{proof}
@@ -1835,15 +1919,13 @@ Or better: $(\sin{nx})_{n \in \mathbb N} \cup (\cos{nx})_{n \in \mathbb N}$.
   In German, \foreignlanguage{german}{\enquote{Kosinussatz}}.
 
   \[ c^2 = a^2 + b^2 - 2ab \cos{\gamma} \]
-
   \begin{align*}
     \norm{\rh{c}}^2 &= \norm{\rh{b} - \rh{a}}^2 \\
       &= \angel{\rh{b} - \rh{a}, \rh{b} - \rh{a}} \\
-      &= \angel{\rh{b}, \rh{b}} - \angel{\rh{a}, \rh{b}} - \angel{\rh{b} - \rh{a}} + \angel{\rh{a}, \rh{a}} \\
+      &= \angel{\rh{b}, \rh{b}} - \angel{\rh{a}, \rh{b}} - \angel{\rh{b}, \rh{a}} + \angel{\rh{a}, \rh{a}} \\
       &= \norm{b}^2 - 2 \norm{a} \norm{b} \cos\gamma + \norm{a}^2
   \end{align*}
 \end{theorem}
-
 \[ \norm a \cdot \norm b \cdot \sin\theta = \text{ area of the spanned parallelogram} \]
 
 How to find an orthogonal vector?
@@ -1863,8 +1945,8 @@ How to find an orthogonal vector?
   Let $a,b \in \mathbb R^3$ and $a \times b$ is the vector which
   \begin{enumerate}
     \item $\norm{a \times b} = \norm{a} \cdot \norm{b} \cdot \sin{\theta}$ is the area of the spanned parallelogram.
-    \item $a \times b \bot a \text{ and } b$
-      \[ \angel{a \times b, a} = 0 \text{ and } \angel{a \times b, b} = 0 \]
+    \item $a \times b \bot a \text{ and } a \times b \bot b
+      \iff \angel{a \times b, a} = 0 \text{ and } \angel{a \times b, b} = 0$
     \item $(a, b, a \times b)$ is clockwise.
       \[ \text{When does } a \times b = 0 \text{ hold? } a = 0, b = 0, \sin\theta = 0, \text{ hence } \theta = 0 \lor \theta = \pi \]
       \[ \iff a,b \text{ are linear independent} \]
@@ -1881,7 +1963,7 @@ How to find an orthogonal vector?
 
 \begin{proof}
   \begin{itemize}
-    \item Orientation swaps.
+    \item Orientation swaps. Consider the right-hand rule. If you assign $b$ to your index finger, $a$ to your middle finger, you retrieve direction $b \times a$ with the thumb. Now assign $a$ (index finger) and $b$ (middle finger) and you retrieve the opposite direction, namely $- \left(b \times a\right)$.
     \item If $\lambda > 0$, it follows immediate.
       If $\lambda < 0$, lengths stay the same, but orientation swaps.
     \item If $c = 0$, it is trivial. If $c \neq 0$,
@@ -1942,7 +2024,7 @@ How to find an orthogonal vector?
       -\begin{vmatrix} a_1 & b_1 \\ a_3 & b_3 \end{vmatrix} \\
       \begin{vmatrix} a_1 & b_1 \\ a_2 & b_2 \end{vmatrix}
     \end{bmatrix}
-    \underbrace{=}_{\text{by Laplace expansion along the third column\footnote{not an actual equality}}}
+    \underbrace{=}_{\substack{\text{by Laplace expansion along} \\ \text{the third column\footnote{not an actual equality}}}}
     \begin{vmatrix}
       a_1 & b_1 & e_1 \\
       a_2 & b_2 & e_2 \\
@@ -1970,6 +2052,10 @@ How to find an orthogonal vector?
 
   Equivalently, $\begin{vmatrix} a_1 & a_2 \\ b_1 & b_2 \end{vmatrix}$ is the area of the parallelogram.
 \end{theorem}
+
+\begin{proof}
+  Laplace expansion in third column
+\end{proof}
 
 \begin{example} % Anwendung 8.12
   Let planes in $\mathbb R^3$ be given.
@@ -2010,7 +2096,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   if additionally $\angel{x,x} = 0 \iff x = 0$, then $\angel{,}$ is called positive definite.
 \end{definition}
 
-\dateref{2018/04/09. Easter holidays finished.}
+\dateref{2018/04/09. Easter holidays finished}
 
 \begin{lemma} % 8.14
   \begin{enumerate}
@@ -2032,12 +2118,19 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   Is \emph{negative definite}, if $\angel{x, x} < 0$ for all $x \neq 0$.
   Is \emph{indefinite}, if neither positive nor negative semidefinite.
 
-  A positive definite product is called \emph{scalar product}.
-  A positive definite product is in \emph{Hermitian form}, if $\mathbb K = \mathbb C$.
-  A positive definite product is also called \emph{unitary product}, if $\mathbb K = \mathbb C$.
+  A positive definite inner product is called \emph{scalar product}.
+  A positive definite inner product is in \emph{Hermitian form}, if $\mathbb K = \mathbb C$.
+  A positive definite inner product is also called \emph{unitary product}, if $\mathbb K = \mathbb C$.
 
   So quadratic form over $\mathbb R$ and Hermitian form over $\mathbb C$.
 \end{definition}
+
+\begin{remark}
+  For example, the expression $\angel{x, x} > 0$ requires that $x \in \mathbb R$,
+  but we defined the inner product over $\mathbb C$ as well. In Euclidean spaces,
+  $\angel{x, x} \in \mathbb R$ anyhow, but more generally, the condition should
+  require the absolute value: $\card{\angel{x, x}} > 0$.
+\end{remark}
 
 \begin{example} % 8.15
   \begin{itemize}
@@ -2144,12 +2237,12 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   \end{itemize}
 \end{proof}
 
-\subsection{Cauchy-Bunyakovskii-Schwarz inequality}
+\subsection{Cauchy-Bunyakovsky-Schwarz inequality}
 
-\begin{lemma}[Cauchy-Bunyakovskii-Schwarz inequality] % 8.20
+\begin{lemma}[Cauchy-Bunyakovsky-Schwarz inequality] % 8.20
   \label{thm:cbs}
   Cauchy (1789--1857) for $\mathbb R^n$,
-  Bunyakovskii (1804--1889) for $C[a,b]$,
+  Bunyakovsky (1804--1889) for infinite dimensions,
   Schwarz (1843--1921) generically.
 
   \[ \card{\angel{x,y}} \leq \norm{x} \cdot \norm{y} \]
@@ -2173,7 +2266,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   \end{align*}
 \end{proof}
 
-\begin{proof}[Proof of CBS inequality, Lemma~\ref{thm:cbs}]
+\begin{proof}[Proof of CBS inequality, Lemma~\ref{thm:cbs}] \hfill{}
   \begin{description}
     \item[Case 1: $y = 0$] trivial
     \item[Case 2: $y \neq 0$]
@@ -2260,7 +2353,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   The matrix $A^* \coloneqq \overline{A^T}$ ($(A^*)_{ij} = \overline{a_{ji}}$)
   is called \emph{conjugate transpose}.
 
-  $A$ is called \emph{self-adjoint} if $A = A^*$.
+  $A$ is called \emph{self-adjoint} if $A = A^*$ (dt. \foreignlanguage{ngerman}{selbst-adjungiert}).
   $A$ is called \emph{symmetrical} if $A = \overline{A}$ and $\mathbb K = \mathbb R$
   or $A$ is called \emph{Hermitian} if $A = A^*$ and $\mathbb K = \mathbb C$.
 
@@ -2290,8 +2383,8 @@ in regards of basis $b_1, \dots, b_n$.
 \begin{remark}
   $A = A^*$ is called \emph{positive semidefinite} if $A \geq 0$ if $\forall \xi: \xi^T A \overline{\xi} \geq 0$.
 
-  $A = A^*$ is called \emph{positive definite} if $A > 0$ if $\forall \xi \in \mathbb K^n\setminus \set{0}: \xi^T A \overline{\xi} > 0$
-  with $\xi^T A \overline{\xi} = \sum_{i=1} \sum_{j=1} TODO$.
+  $A = A^*$ is called \emph{positive definite} $\iff$ $A > 0 \iff \forall \xi \in \mathbb K^n\setminus \set{0}: \xi^T A \overline{\xi} > 0$
+  with $\xi^T A \overline{\xi} = \sum_{i=1} \sum_{j=1} a_{ij} \xi_i \overline{\xi_j}$.
 \end{remark}
 
 \begin{example}
@@ -2345,28 +2438,15 @@ in regards of basis $b_1, \dots, b_n$.
   $C$ is invertible, hence $C^T$ is invertible.
   \[ (C^T)^{-1} = (C^{-1})^T \qquad (C^{-1})^T \cdot C^T = (C \cdot C^{-1})^T = I^T = I \]
   \[ (\overline{A}^{-1}) = \overline{A^{-1}} \]
-  \[ (AB)^* = \overline{(AB)^T} = \overline{B^T A^T} = \overline{B^T} \overline{A^T} = B^* \cdot A^* \]
+  \[ (AB)^* = \overline{(AB)^T} = \overline{B^T A^T} = \overline{B^T} \cdot \overline{A^T} = B^* \cdot A^* \]
 
   $C^* AC$ is self-adjoint.
   \[ (C^* AC)^* = C^* \cdot A^* \cdot (C^*)^* = C^* \cdot A \cdot C \]
 \end{remark}
 
 \begin{theorem} % Satz 8.24
-  Every Hermitian matrix is congruent to a diagonal matrix of structure:
-  \[
-    \begin{bmatrix}
-      1 &   &        &    &    &        &    &   &        & \\
-        & 1 &        &    &    &        &    &   &        & \\
-        &   & \ddots &    &    &        &    &   &        & \\
-        &   &        & 1  &    &        &    &   &        & \\
-        &   &        &    & -1 &        &    &   &        & \\
-        &   &        &    &    & \ddots &    &   &        & \\
-        &   &        &    &    &        & -1 &   &        & \\
-        &   &        &    &    &        &    & 0 &        & \\
-        &   &        &    &    &        &    &   & \ddots & \\
-        &   &        &    &    &        &    &   &        & 0
-    \end{bmatrix}
-  \]
+  Every Hermitian matrix is congruent to a diagonal matrix $D$ of structure:
+  \[ \operatorname{diag}(D) = (1, 1, \dots, 1, -1, \dots, -1, 0, \dots, 0) \]
 \end{theorem}
 
 \begin{proof}
@@ -2377,7 +2457,7 @@ in regards of basis $b_1, \dots, b_n$.
   Consider $n = 1$.
   \[ A = [a_{11}] \]
   If $a_{11} = 0$ where $a_{11} \in \mathbb R$, we don't have to do anything.
-  If $a_{11} \neq 0$,
+  If $a_{11} \neq 0$ and $a_{11} \in \mathbb R$ (because $A$ is self-adjoint),
   \[ C = \left[\frac{1}{\sqrt{\card{a_{11}}}}\right] \]
   \[ C^* AC = \left[\frac{1}{\sqrt{\card{a_{11}}}} \cdot a_{11} \cdot \frac{1}{\sqrt{\card{a_{11}}}}\right] = \left[\operatorname{sign}(a_{11})\right] \]
 
@@ -2391,6 +2471,12 @@ in regards of basis $b_1, \dots, b_n$.
       \end{bmatrix}
     \]
   \end{example}
+
+  \begin{remark}
+    It seems we need to take the absolute value in the complex numbers:
+    Let $a = 3 + 4i$. $\card{a} = 5$.
+    \[ C^* AC = \left[\frac1{\sqrt{\card{a_{11}}}} \cdot \card{a_{11}} \cdot \frac1{\sqrt{\card{a_{11}}}}\right] = \left[\frac1{\sqrt5} \cdot 5 \cdot \frac1{\sqrt{5}}\right] = [1] \]
+  \end{remark}
 
   Then $n-1 \to n$:
   \begin{description}
@@ -2432,6 +2518,7 @@ in regards of basis $b_1, \dots, b_n$.
           and $T_{(1j)}$ exchanges $j$-th and first column.
         \item[Case 2b]:
           all $a_{jj} = 0$. Choose $i,j$ such that $a_{ij} \neq 0$.
+          Let $E_{ij}$ be a zero matrix with $1$ at row $i$ and column $j$.
           \[ C = I + E_{ij} e^{i\theta} \]
           where $\theta$ such that $a_{ij} = e^{i\theta} \card{a_{ij}}$.
 
@@ -2444,7 +2531,8 @@ in regards of basis $b_1, \dots, b_n$.
                   &   & 1
               \end{bmatrix}
             \] \[
-              C_1^* A C_1 = \begin{bmatrix}
+              C_1^* A C_1
+              = \begin{bmatrix}
                 1 & 0 & 0 \\
                 1 & 1 & 0 \\
                 0 & 0 & 1
@@ -2457,12 +2545,7 @@ in regards of basis $b_1, \dots, b_n$.
                 0 & 1 & 0 \\
                 0 & 0 & 1
               \end{bmatrix}
-            \] \[
-              \begin{bmatrix}
-                0 & 1 & i \\
-                1 & 1 & 1+i \\
-                -i & 1 & 0
-              \end{bmatrix} \cdot \begin{bmatrix}
+              = \begin{bmatrix}
                 0 & 1 & i \\
                 1 & 2 & 1+i \\
                 -i & 1-i & 0
@@ -2507,15 +2590,10 @@ in regards of basis $b_1, \dots, b_n$.
               1 & 0 & 0 \\
               0 & 0 & 1
             \end{bmatrix}
-          \] \[
-            \begin{bmatrix}
-              1 & 2 & i+1 \\
-              0 & 1 & i \\
-              -i & 1-i & 0
-            \end{bmatrix} \cdot \begin{bmatrix}
+            = \begin{bmatrix}
               2 & 1 & 1+i \\
               1 & 0 & i \\
-              1-i & -i & 0
+              1+i & -i & 0
             \end{bmatrix}
           \]
       \end{description}
@@ -2559,17 +2637,17 @@ in regards of basis $b_1, \dots, b_n$.
             0 & \frac12 (-1-i) & -1
           \end{bmatrix} \cdot \begin{bmatrix}
             2 & 0 & 0 \\
-            0 & -\frac12 * \frac{-1+i}{2} \\
+            0 & -\frac12 & \frac{-1+i}{2} \\
             0 & \frac{-1-i}{2} & -1
           \end{bmatrix}
         \]
       \end{example}
       \[
         C^* AC = \begin{bmatrix}
-          a_{11} & 0 & \ldots & 0 \\
-          0      &   &        &   \\
-          \vdots &   &        &   \\
-          0      &   &        & \tilde{A}
+          a_{11} & 0 & \ldots    & 0 \\
+          0      &   &           &   \\
+          \vdots &   & \tilde{A} &   \\
+          0      &   &           & 
         \end{bmatrix}
       \] \[
         \tilde{A} \in \mathbb K^{(n-1) \times (n-1)}
@@ -2672,7 +2750,7 @@ in regards of basis $b_1, \dots, b_n$.
   \end{description}
 \end{proof}
 
-\begin{example} % 8.26
+\begin{remark} % 8.26
   \begin{enumerate}
     \item If $A \geq 0$, $C$ arbitrary $\implies C^* AC \geq 0$.
       \[ \xi^T (C^* AC) \overline{\xi} = \underbrace{(\xi^T C^*)}_{\xi^T \overline{C^T} = \overline{\overline{\xi^T} C^T} = \overline{(C \cdot \overline{\xi})^T} = \overline{\eta^T}} A \underbrace{(C \overline{\xi})}_{\eta}
@@ -2699,7 +2777,7 @@ in regards of basis $b_1, \dots, b_n$.
         \]
       \end{corollary}
   \end{enumerate}
-\end{example}
+\end{remark}
 
 \begin{theorem}[Sylvester's law of inertia]
   J. J. Sylvester (1814--1897)
@@ -3910,7 +3988,7 @@ Take $1, x, x^2, \ldots$ and apply Gram schmidt process to retrieve the Chebyshe
   Frigyes Riesz (1880--1956)
 \end{remark}
 
-\begin{theorem}
+\begin{theorem} % 8.61
   Let $(V, \ip{\cdot}{\cdot})$ be a vector space with scalar product $\dim{V} < \infty$.
 
   $V^*$ is the dual space, namely $\operatorname{Hom}(V, \mathbb K)$ which is the space of linear functionals.
@@ -4009,8 +4087,7 @@ Hence,
   Let $(V, \ip{}{}_V)$ and $(W, \ip{}{}_W)$ be spaces with a scalar product. $\dim{V}, \dim{W} < \infty$.
   \[ T \in \operatorname{Hom}(W, V) \text{ hence, } T: W \to V \text{ linear} \]
   \begin{enumerate}
-    \item For every $v \in V$ is the map
-      \[ w \mapsto \ip{T(w)}{v}_V \qquad \text{ linear} \]
+    \item For every $v \in V$ the map $w \mapsto \ip{T(w)}{v}_V$ is linear.
     \item $\forall v \in V \exists! u \in W \forall w \in W: \ip{T(w)}{v}_V = \ip{w}{u}_W$ and $T^*(v) = u$.
   \end{enumerate}
   Hence,
@@ -4060,18 +4137,18 @@ Hence,
         \ip{Tw}{v} &= \ip{w}{T^*v}
       \end{align*}
       If $V = W$, then $T = T^*$.
-    \item Assume $u = D^*(x)$ exists $\in \mathbb R[x]$ \\
-      \[ \implies M \coloneqq \max_{t \in [0,1]} \card{u(t)} < \infty \]
-      \[ \card{\card{x^n}{D^*(x)}} = \card{\int_0^1 t^n \cdot u(t) \, dt} \leq \int_0^1 t^n \cdot M \, dt = \frac{M}{n+1} \]
-      \[ \implies \frac{n}{n+1} \leq \frac{M}{n+1} \forall n \in \mathbb N \]
-      \[ \implies u(x) \not\in \mathbb R[x] \]
   \end{enumerate}
 \end{proof}
 
+Assume $u = D^*(x)$ exists $\in \mathbb R[x]$ \\
+\[ \implies M \coloneqq \max_{t \in [0,1]} \card{u(t)} < \infty \]
+\[ \card{\card{x^n}{D^*(x)}} = \card{\int_0^1 t^n \cdot u(t) \, dt} \leq \int_0^1 t^n \cdot M \, dt = \frac{M}{n+1} \]
+\[ \implies \frac{n}{n+1} \leq \frac{M}{n+1} \forall n \in \mathbb N \]
+\[ \implies u(x) \not\in \mathbb R[x] \]
+
 \begin{example}[For Definition~\ref{def863}, point~3] % Beispiel 8.64
   If $\dim{V} = \infty$, then not every linear map has an adjoint map!
-  \[ V = \mathbb R[x]_1 \]
-  \[ \ip{f}{g} = \int_0^1 f(t) g'(t) \, dt \]
+  \[ V = \mathbb R[x] \qquad \ip{f}{g} = \int_0^1 f(t) g'(t) \, dt \]
   \[ D: V \to V \qquad p(x) \mapsto p'(x) \]
   Recall: The derivative of a linear combination is the linear combination of derivatives.
   Assume $D$ has an adjoint $D^*$.
@@ -4104,7 +4181,7 @@ is an antilinear \emph{involution}.
 
 \begin{proof}
   \[ A = \Phi_C^B(f) \]
-  Column $s_j(A)$ is the coordinate of $b_j \in B$ in regards of basis $C$.
+  Column $s_j(A)$ are the coordinates of $b_j \in B$ in regards of basis $C$.
   \begin{align*}
     a_{ij} &= \text{ i-th coordinate of } f(b_j) \\
       &= \Phi_C(f(b_j))_i = \ip{f(b_j)}{c_i} \\
@@ -4199,7 +4276,8 @@ is an antilinear \emph{involution}.
 
 \begin{proof}
   \begin{enumerate}
-    \item Immediate: $f(v) = 0 \implies \norm{f(v)} = \norm{v} = 0 \implies v = 0$
+    \item Recognize that $\ip{f(x)}{f(x)} = \ip{x}{x}$ implies $\norm{f(x)}^2 = \norm{x}^2$.
+      Then $f(v) = 0 \implies \norm{f(v)} = \norm{v} = 0 \implies v = 0$
       \[ \ke{f} = \set{0} \]
     \item $f$ unitary $\xRightarrow{(1.)}$ $f$ injective $\implies$ $f$ surjective.
       \begin{align*}
@@ -4232,7 +4310,7 @@ is an antilinear \emph{involution}.
           &\implies S \circ S^* \neq \operatorname{id} \\
           & S \text{ is not invertible}
       \end{align*}
-      This shifting of indices works in a finite number of dimensions, but does not work in infinity (in this case you miss one dimension).
+      This shifting of indices works in a finite number of dimensions, but does not work in infinity (in this case, you miss one dimension).
   \end{enumerate}
 \end{proof}
 
@@ -4260,7 +4338,7 @@ is an antilinear \emph{involution}.
 \begin{proof}
   \begin{description}
     \item[1. $\to$ 2.]
-      \[ \norm{Tx}^2 = \ip{Tx}{Ty} = \ip{x}{T^*Tx} = \ip{x}{Ix} = \norm{x}^2 \]
+      \[ \norm{Tx}^2 = \ip{Tx}{Tx} = \ip{x}{T^*Tx} = \ip{x}{Ix} = \norm{x}^2 \]
     \item[2. $\to$ 3.]
       \begin{align*}
         \norm{T(x+y)}^2 &= \norm{x+y}^2 \\
@@ -4462,7 +4540,7 @@ Linear isometries:
   \begin{align}
     a^2 + c^2 &= 1 \\
     b^2 + d^2 &= 1 \\
-    ab + cd &= 0 \\
+    ab + cd &= 0
   \end{align}
   \[ a = \cos\varphi \qquad c = \sin\varphi \qquad b = \cos\psi \qquad d = \sin\psi \]
   \[ \cos\varphi \cdot \cos\psi + \sin\varphi \cdot \sin\psi = 0 \]
@@ -4526,7 +4604,7 @@ William Rowan Hamilton (1805--1865).
 \section{Polynomials and algebras} % Chapter 9
 
 \index{Algebra}
-\begin{definition} % definition 9.1
+\begin{definition}[Algebra] % definition 9.1
   Let $\mathbb K$ be a field, a $\mathbb K$ algebra, a vector space $\mathcal A$ over $\mathbb K$
   with a multiplication operator $*: \mathcal A \times \mathcal A \to \mathcal A$ with $(a,b) \to a * b$ such that
   \begin{enumerate}
@@ -4615,7 +4693,7 @@ William Rowan Hamilton (1805--1865).
   Remark: $a_k = 0 \forall k > m$ and $b_k = 0 \forall k > n$.
 
   \begin{claim}
-    \[ c_k = 0 \forall k > m + n \]
+    \[ c_k = 0 \qquad \forall k > m + n \]
   \end{claim}
 
   \begin{align*}
@@ -4644,7 +4722,7 @@ William Rowan Hamilton (1805--1865).
   \[ \deg(0) \coloneqq -\infty \]
 \end{definition}
 
-\begin{lemma}[Will be done in the practicals]\hfill{} % Lemma 9.7
+\begin{lemma}\hfill{} % Lemma 9.7
   \begin{enumerate}
     \item $\deg(p(x) \cdot q(x)) = \deg(p(x)) + \deg(q(x))$
     \item $\mathbb K[x]$ is zero-divisor-free,
@@ -4664,10 +4742,14 @@ William Rowan Hamilton (1805--1865).
 
 \begin{remark} % Bemerkung 9.9
   A polynomial and a polynomial function are not the same.
-  If $\card{\mathbb K} < \infty$, for example consider $\mathbb Z_5$.
+  If $\card{\mathbb K} < \infty$, a difference occurs.
+  For example, consider $\mathbb Z_5$:
   \[ \card{\mathbb Z_5^{\mathbb Z_5}} = 5^5 \]
-  \[ \card{K[x]} = \infty \]
+  \[ \card{\mathbb K[x]} = \infty \]
+  where $\mathbb Z_5^{\mathbb Z_5}$ is a set of polynomial functions and $\mathbb K[x]$ is a set of polynomials.
   For example, $\prod_{\alpha \in \mathbb K}(x - \alpha)$ corresponds to the polynomial function $0$.
+  Consider $\mathbb K = \mathbb Z_3$. If $\alpha \in \mathbb Z_3$ and $x \in \mathbb Z_3$, we get $(x - 0)(x - 1)(x - 2)$
+  and choosing any $x \in \mathbb Z_3$ makes at least one factor zero. Thus, the polynomial function $0$ is given.
   Hence the map $\mathbb K[x] \to \mathbb K^{\mathbb K}$ is surjective but not injective.
 
   On finite fields, every function is a polynomial function.
@@ -4715,13 +4797,13 @@ $A$ is an associative algebra with $\mathbf 1_A$.
 $a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \mathcal A$ subalgebra.
 
 \begin{enumerate}
-  \item 
+  \item Show linear and multiplicative property.
     \[ \exists! \Phi_a: \mathbb K[a] \to \mathcal A \text{ algebra homomorphism} \]
     such that $\Phi_a(x) = a$, namely $\Phi_a\left(\sum_{k=0}^n c_k x^k\right) = \sum_{k=0}^n c_k a^k$.
   \item
     Every homomorphism $\Psi: \mathbb K[x] \to \mathcal A$ has this structure.
     \begin{proof}
-      Let $a = \Psi(x) \implies \Psi(x^n) = \Psi(x)^n = a^n$ by homomorphism.
+      Let $a \coloneqq \Psi(x) \implies \Psi(x^n) = \Psi(x)^n = a^n$ by homomorphism.
       \[ \Psi \text{ linear } \implies \Psi\left(\sum_{k=0}^n c_k x^k\right) = \sum_{k=0}^n c_k \Psi(x^k) = \sum_{k=0}^n c_k a^k \]
       $x^0, x^1, \dots$ give a basis of $\mathbb K[x]$.
       Hence $\Psi = \Phi_a$ with $a = \Psi(x)$. On the opposite (1.): Obviously $\Phi_a$ is linear.
@@ -4877,15 +4959,15 @@ Gerolamo Cardano (1501--1576)
       \begin{align*}
         p_1(x) &= p(x) - \frac{a_n}{b_m} \cdot q(x) \cdot x^{n-m} \
       \intertext{cancels the largest term $a_n x^n$ in $p(x)$.}
-          &= \sum_{k=0}^n a_k x^k - \frac{a_n}{a_m} \sum_{k=0}^m b_k x^{k+n-m} \\
-          &= a_n x^n + \sum_{k=0}^{n-1} a_k x^k - \frac{a_n}{a_m} b_m \cdot x^{m+n-m} - \frac{a_n}{b_m} \sum_{k=0}^{m-1} b_k x^{k+n-m} \\
+          &= \sum_{k=0}^n a_k x^k - \frac{a_n}{b_m} \sum_{k=0}^m b_k x^{k+n-m} \\
+          &= a_n x^n + \sum_{k=0}^{n-1} a_k x^k - \frac{a_n}{b_m} b_m \cdot x^{m+n-m} - \frac{a_n}{b_m} \sum_{k=0}^{m-1} b_k x^{k+n-m} \\
       \end{align*}
       what remains is a polynomial of degree $\deg{p_1(x)} \leq n-1$.
       \[ \implies p(x) = \frac{a_n}{b_m} x^{n-m} \cdot q(x) + p_1(x) \]
       By induction hypothesis,
       \[ p_1(x) = s_1(x) \cdot q(x) + r_1(x) \]
       Hence,
-      \[ p(x) = \left(\frac{a_n}{a_m} x^{n-m} + s_1(x)\right) q(x) + r_1(x) \]
+      \[ p(x) = \left(\frac{a_n}{b_m} x^{n-m} + s_1(x)\right) q(x) + r_1(x) \]
   \end{description}
 \end{proof}
 
@@ -4939,6 +5021,9 @@ Gerolamo Cardano (1501--1576)
   \[ \xi_n = a_n \text{ for } k = n-1, \dots, 0 \qquad \xi_k = \lambda \xi_{k+1} + a_k \]
   \[ p(\lambda) = \xi_0 \]
   If $p(x) = s(x) (x - \lambda) + r$, $p(\lambda) = r$.
+
+  Horner's method provides a more convenient method to evaluate a polynomial for given $x$
+  than exponentiation by a high degree.
 \end{theorem}
 
 \begin{example} % Beispiel 9.22
@@ -5065,11 +5150,12 @@ Hence,
 \[ A = \Phi_B^B(f) = \begin{bmatrix} a_{11} &  & 0 \\ & \ddots & \\ 0 &  & a_{nn} \end{bmatrix} \]
 \[ A \cdot e_i = \lambda_i \cdot e_i \]
 Find vector $v \in V$ such that $f(v) = \lambda \cdot v$.
+$0$ can be an eigenvalue, but not an eigenvector. Not every $A$ has $\lambda$ satisfying $\forall v: A \cdot v = \lambda \cdot v$.
 
 \begin{figure}[t]
   \begin{center}
     \includegraphics{img/15_screwing_map.pdf}
-    \caption{How map $f$ transforms a circle}
+    \caption{How map $f$ might transform a circle}
   \end{center}
 \end{figure}
 

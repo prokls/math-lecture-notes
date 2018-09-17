@@ -1562,8 +1562,10 @@ Skew-symmetric.
 \section*{Partial exam, Exercise 4}
 
 \[ A= \set{a_{ij}} \qquad C = \set{(-1)^{i+j}a_{ij}} \]
-\[ \det(A) = \sum_{\sigma \in S_n} \prod_{i=1}^n a_{i \in \sigma(i)} \operatorname{sign}(\sigma) \]
-\[ \det(C) = \sum_{\sigma \in S_n} \underbrace{\prod_{i=1}^n \underbrace{c_{i,\sigma(i)}}_{i-\sigma(i)}}_{\prod_{i=1}^n a_{i,\sigma(i)} (-1)^{\sum i - \sigma(i)}} \operatorname{sign}(\sigma) \]
+\[ \det(A) = \sum_{\sigma \in S_n} \prod_{i=1}^n a_{i, \sigma(i)} \operatorname{sign}(\sigma) \]
+\[ \det(C) = \sum_{\sigma \in S_n} \underbrace{\prod_{i=1}^n \underbrace{c_{i,\sigma(i)}}_{i-\sigma(i)}}_{\prod_{i=1}^n a_{i,\sigma(i)} (-1)^{\sum i + \sigma(i)}} \operatorname{sign}(\sigma) \]
+By bijectivity,
+\[ = \sum_{\sigma \in S_n} \prod_{i=1}^n a_{i,\sigma(i)} (-1)^{2 \sum i} \sign(\sigma) = \sum_{\sigma \in S_n} \prod_{i=1}^n a_{i,\sigma(i)} 1^{\sum i} \sign(\sigma) = \sum_{\sigma \in S_n} \prod_{i=1}^n a_{i,\sigma(i)} \sign(\sigma) = \det(A) \]
 
 \section*{Partial exam, Exercise 5}
 
