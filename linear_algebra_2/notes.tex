@@ -5303,6 +5303,11 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
   \[ \implies \operatorname{spec}(f) = \operatorname{spec}(\Phi_B^B(f)) \]
 \end{remark}
 
+\begin{remark}
+  Recall that any basis exchange can be done using some $T$:
+  \[ \Phi_B^B(A) = T^{-1} A T \]
+\end{remark}
+
 \begin{corollary}
   The spectrum does not depend on the choice of the basis. Hence,
   \[ \operatorname{spec}(T^{-1} AT) = \operatorname{spec}(A) \]
@@ -5382,6 +5387,10 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
   \]
   Thus, the existence of eigenvalues depends on the field.
 \end{example}
+
+\begin{remark}
+  A square matrix $A$ is invertible if and only if $0$ is not an eigenvalue of $A$.
+\end{remark}
 
 \subsection{Symmetrical minor}
 
@@ -5768,24 +5777,33 @@ Eigenvector: $e_1, \dots, e_n$.
   \[ d(\lambda_1) + d(\lambda_2) + \dots + d(\lambda_r) = n \]
 \end{lemma}
 
-\begin{proof}
-  Direction $\implies$.
-
-  There exists a basis of eigenvectors $b_1, \dots, b_n$.
-  \[ V = \eta_{\lambda_1} + \dots + \eta_{\lambda_r} \qquad \eta_{\lambda_i} = \ker(\lambda_i I - A) \]
-  is a direct sum (because eigenvectors for different eigenvalues are linear independent).
-  Let $v_1 \in \eta_{\lambda_1}, \dots, v_r \in \eta_{\lambda_r}$ such that $v_1 + \dots + v_r = 0$.
-  \[ A v_i = \lambda_i v_i \implies v_1, \dots, v_r \text{ are linear independent } \implies \text{ all } v_i = 0 \]
-  \[ \implies n = \dim{V} = \dim(\eta_{\lambda_1}) + \dots + \dim(\eta_{\lambda_r}) = d(\lambda_1) + \dots + d(\lambda_r) \]
-
-  Direction $\impliedby$.
-
-  Let $B_j$ be the basis of $\eta_{\lambda_j}$, hence $\card{B_j} = d(\lambda_j)$.
-  The sum $\eta_{\lambda_1} + \dots + \eta_{\lambda_r}$ is direct.
-  $\implies B_i \cup \dots \cup B_r$ is linear independent.
-  \[ \card{B_1 \cup \dots \cup B_r} = \sum_{j=1}^r d(\lambda_j) \underbrace{=}_{\text{by induction}} \eta \]
-  $B_i \cup \dots \cup B_n$ is basis of $\mathbb K^n$ of eigenvectors.
+\begin{proof} \hfill{}
+  \begin{description}
+    \item[Direction $\implies$:]
+      There exists a basis of eigenvectors $b_1, \dots, b_n$.
+      \[ V = \eta_{\lambda_1} + \dots + \eta_{\lambda_r} \qquad \eta_{\lambda_i} = \ker(\lambda_i I - A) \]
+      is a direct sum (because eigenvectors for different eigenvalues are linear independent).
+      Let $v_1 \in \eta_{\lambda_1}, \dots, v_r \in \eta_{\lambda_r}$ such that $v_1 + \dots + v_r = 0$.
+      \[ A v_i = \lambda_i v_i \implies v_1, \dots, v_r \text{ are linear independent } \implies \text{ all } v_i = 0 \]
+      \[ \implies n = \dim{V} = \dim(\eta_{\lambda_1}) + \dots + \dim(\eta_{\lambda_r}) = d(\lambda_1) + \dots + d(\lambda_r) \]
+    \item[Direction $\impliedby$.]
+      Let $B_j$ be the basis of $\eta_{\lambda_j}$, hence $\card{B_j} = d(\lambda_j)$.
+      The sum $\eta_{\lambda_1} + \dots + \eta_{\lambda_r}$ is direct.
+      $\implies B_i \cup \dots \cup B_r$ is linear independent.
+      \[ \card{B_1 \cup \dots \cup B_r} = \sum_{j=1}^r d(\lambda_j) \underbrace{=}_{\text{by induction}} \eta \]
+      $B_i \cup \dots \cup B_n$ is basis of $\mathbb K^n$ of eigenvectors.
+  \end{description}
 \end{proof}
+
+\begin{remark}
+  Why are there at most $n$ eigenvalues?
+
+  We know the characteristic polynomial has degree $n$.
+
+  For every eigenvalue, we have an algebraic multiplicity. Every algebraic multiplicity is at least 1.
+  If there are more than $n$ eigenvalues, namely $n+1$, the sum of algebraic multiplicities of eigenvalues is at least $n+1$.
+  Thus the degree of the characteristic polynomial (which is the sum of algebraic multiplicities of eigenvalues), is at least $n+1$ which contradicts our previous proof.
+\end{remark}
 
 \begin{theorem} % Satz 10.23
   For every eigenvalue, it holds that
@@ -5950,10 +5968,10 @@ Numerically unstable:
       0      & \dots  & 0      &         &        & \ddots \\
     \end{bmatrix}
   \]
-\end{proof}
 
-In the last $n$ columns, we can find the images of $b_j'$.
-$W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1, \dots, b_m$ are $0$.
+  In the last $n$ columns, we can find the images of $b_j'$.
+  $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1, \dots, b_m$ are $0$.
+\end{proof}
 
 \begin{corollary} % Korollar 11.6
   \label{k116}
@@ -5996,22 +6014,22 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
         \item $\ker{f^m} = \ker{f^{m+k}} \forall k \geq 1$
         \item $\im{f^m} = \im{f^{m+k}} \forall k \geq 1$
         \item $\ker{f^m} \cap \im{f^m} = \set{0}$
-        \item $V = \ker{f^m} + \im{f^m}$
+        \item $V = \ker{f^m} \dot{+} \im{f^m}$
       \end{enumerate}
   \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-  \begin{enumerate}
-    \item Let $k \in \ker{f}. f^2(x) = f(f(x)) = f(0) = 0$.
-      \[ y \in \im{f^2} \implies \exists x: y = f(f(x)) \in \im{f} \]
+  \begin{enumerate} % TODO: beautify
+    \item Let $x \in \ker{f}$. Then $f^2(x) = f(f(x)) = f(0) = 0$. \\
+      Let $y \in \im{f^2}$. Then $\exists x: y = f(f(x))$. Thus $f(x) \in \im{f}$.
     \item If $\set{0} \subsetneq \ker{f} \subsetneq \ker{f^2} \subsetneq \dots \subsetneq \ker(f^m)$
       \[ \implies 0 < \dim{\ker{f}} < \dim{\ker{f^2}} < \dots < \dim{\ker{f^m}} \]
       \[ \implies m \leq n \]
     \item We prove a set of equivalences.
       \begin{itemize}
         \item 
-          We prove (a) $\leftrightarrow$ (b).
+          We prove (a) $\iff$ (b).
           Because of (1.), we know
           \[ \ker(f^m) \subseteq \ker(f^{m+1}) \]
           \[ \implies \ker(f^m) = \ker(f^{m+1}) \iff \dim\ker{f^m} = \dim\ker{f^{m+1}} \]
@@ -6020,10 +6038,10 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
           Because of (1.), $\im{f^m} \supseteq f^{m+1}$
           \[ \iff \im(f^m) = \im(f^{m+1}) \]
         \item
-          The proof of (c) $\leftrightarrow$ (d) follows analogously.
-          The proofs (a) $\leftrightarrow$ (c) and (d) $\leftrightarrow$ (b) are trivial.
+          The proof of (c) $\iff$ (d) follows analogously.
+          The proofs (a) $\iff$ (c) and (d) $\iff$ (b) are trivial.
         \item
-          We prove (a) $\leftrightarrow$ (c):
+          We prove (a) $\iff$ (c):
           \[ 0 \subseteq \ker{f} \subseteq \ker{f^2} \subseteq \ker{f^3} \subseteq \dots \]
           \[ m_0 = \min\setdef{m}{\ker(f^m) = \ker(f^{m+1})} \]
           Claim:
@@ -6033,7 +6051,7 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
           \[ \implies f^k(x) \in \ker{f^{m_0 + 1}} = \ker{f^{m_0}} \implies f^{m_0 + k}(x) = 0 \implies x \in \ker{f^{m_0 + k}} \]
           with $f^k(x) \in \ker{f^{m_0 + 1}} = \ker{f^{m_0}}$ following from the definition of $m_0$.
         \item
-          We prove (b) $\leftrightarrow$ (d).
+          We prove (b) $\iff$ (d).
           Let $m_0 = \min\setdef{m}{\im{f^m} = \im{f^{m+1}}}$.
           Claim: $\im{f^{m_0 + k}} = \im{f^{m_0 + k + 1}} \forall k \geq 0$.
           Direction $\supseteq$ is trivial.
@@ -6042,32 +6060,41 @@ $W$ is invariant $\implies f(b'_j) \in W \implies$ coordinate in regards of $b_1
           \[ \implies \exists x: y = f^{m_0 + k}(x) = f^k(\underbrace{f^{m_0}(x)}_{\in \im{f^{m_0} = \im{f^{m_0 + 1}}}}) \]
           hence $\exists z: f^{m_0}(x) = f^{m_0 + 1}(z)$.
           \[ \implies y = f^k(f^{m_0 + 1}(z)) = f^{m_0 + k + 1}(z) \in \im{f^{m_0 + k + 1}} \]
-        \item We prove ((a) - (d)) $\leftrightarrow$ (e).
+        \item We prove $\set{(a), (b), (c), (d)} \iff$ (e).
           Let $w = \im{f^m}$ is invariant under $f^m$.
           \[ g \coloneqq f^m|_W \in \operatorname{Hom(W, W)} \]
-          \[ \ker{g} \coloneqq \ker{f^m} \cap W = \ker{f} \cap \im{f^m} \]
+          \[ \ker{g} = \ker(f^m) \cap W = \ker{f^m} \cap \im{f^m} \]
           \[ \ker{f^m} \cap \im{f^m} = \set{0} \iff \ker{g} = \set{0} \]
-          \[ \iff g \text{ injective } \iff g \text{ surjective } \iff \im{g} = W \]
+          \[ \iff g \text{ linear} \land g \text{ injective } \land g \text{ surjective } \iff \im{g} = W \]
           \[ \iff f^m(f^m(V)) = f^m(V) \iff f^{2m}(w) = f^m(w) \]
           \[ f^{m+m}(v) = f^m(v) \]
           \[ \im{f^{m+m}} = \im{f^m} \]
-        \item We prove (d) $\leftrightarrow$ (b).
+          This is equivalent to statements 1 and 3, thus rendering our assumption $\ker{f^m} \cap \im{f^m} = \set{0}$ valid.
+        \item We prove (d) $\iff$ (b).
           \[ \im{f^{m+m}} = \im{f^m} \iff \im{f^{m+1}} = \im{f^m} \]
-        \item (f) $\leftrightarrow$ (e) is trivial.
-        \item We prove (e) $\leftrightarrow$ (f).
-          \[ \dim\im{f^m} + \dim\ker{f^m} = n \]
-          \[ \im{f^m} \cap \ker{f^m} = \set{0} \]
-          \[ \implies \im{f^m} + \ker{f^m} = V \]
+        \item (f) $\implies$ (e) is trivial.
+        \item We prove (e) $\impliedby$ (f).
+          \[
+            \left.\begin{array}{c}
+              \dim\im{f^m} + \dim\ker{f^m} = n \\
+              \im{f^m} \cap \ker{f^m} = \set{0}
+            \end{array}\right\}
+            \implies \im{f^m} \dot{+} \ker{f^m} = V
+          \]
           because of dimensionality reasons.
       \end{itemize}
   \end{enumerate}
 \end{proof}
 
+\begin{remark}
+  The intersection of image and kernel of a linear function is only $\set{0}$.
+\end{remark}
+
 \dateref{2018/05/28}
 
 Fitting Lemma:
-\[ \ker{A} \leq \ker{A^2} \leq \ker{A^r} \]
-\[ \im{A} \geq \im{A^2} \geq \dots \geq \im{A^r} = \im{A^{r+1}} \]
+\[ \ker{A} \subseteq \ker{A^2} \subseteq \dots \subseteq \ker{A^r} \]
+\[ \im{A} \supseteq \im{A^2} \supseteq \dots \supseteq \im{A^r} = \im{A^{r+1}} \]
 \[ \ker{A^r} \oplus \im{A^r} = V \]
 \[ \ker{A^r} \cap \im{A^r} = \set{0} \]
 
@@ -6127,7 +6154,7 @@ Next step: decomposition for \emph{different} eigenvalues.
   Let $\lambda_1, \dots, \lambda_k$ be different eigenvalues of $A$ and
   $\ker(\lambda I - A)^{r_i}$ the corresponding main spaces where
   \[ \ker(\lambda_i I - A)^{r_{i-1}} \subsetneq \ker(\lambda_i I - A)^{r_i} = \ker(\lambda_i \cdot I - A)^{r_i + 1} \]
-  \[ \implies \bigcap_{i=1}^k \im(\lambda_i - A)^{r_i} \cap \ker(\lambda_1 I - A)^{r_1} (\lambda_2 I - A)^{r_2} \dots (\lambda_k I - A)^{r_k} = \set{0} \]
+  \[ \implies \bigcap_{i=1}^k \im(\lambda_i - A)^{r_i} \cap \ker((\lambda_1 I - A)^{r_1} (\lambda_2 I - A)^{r_2} \dots (\lambda_k I - A)^{r_k}) = \set{0} \]
 \end{lemma}
 
 \begin{remark}
