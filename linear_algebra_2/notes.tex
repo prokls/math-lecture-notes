@@ -1,22 +1,18 @@
 \documentclass{article}
 %\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
 \usepackage[german,english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage{algpseudocode}
-\usepackage{algorithm}
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{subcaption}
+%\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{enumitem}
 \usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{fontspec}
 \usepackage{mdframed}
 \usepackage{pxfonts}
 \usepackage{wasysym}
 \usepackage{framed}
 \usepackage{xcolor}
-%\usepackage{eufrak}
 \usepackage{makeidx}
 \usepackage{csquotes}
 \usepackage[pdfborder={0 0 0}]{hyperref}
@@ -24,22 +20,23 @@
 \usepackage{titlesec}
 \titleformat{\paragraph}{\normalfont\itshape}{}{}{}
 
-\newtheorem{theorem}{Theorem}  \numberwithin{theorem}{section}
-\newtheorem{problem}{Problem}  \numberwithin{problem}{section}
-\newtheorem{example}{Example}  \numberwithin{example}{section}
-\newtheorem*{hypothesis}{Hypothesis}%  \numberwithin{hypothesis}{section}
-\newtheorem{definition}{Definition}  \numberwithin{definition}{section}
-\newtheorem{lemma}{Lemma}  \numberwithin{lemma}{section}
-\newtheorem*{claim}{Claim}%  \numberwithin{claim}{section}
-\newtheorem{remark}{Remark}  \numberwithin{remark}{section}
-\newtheorem{corollary}{Corollary}  \numberwithin{corollary}{section}
-\newtheorem{proposition}{Proposition}  \numberwithin{proposition}{section}
+\setmainfont{Alegreya}
 
-\algnewcommand{\algorithmicgoto}{\textbf{go to}}%
-\algnewcommand{\Goto}[1]{\algorithmicgoto~\ref{#1}}%
-\algrenewcommand{\algorithmiccomment}[1]{\hskip2em$\triangleright$ {\footnotesize #1}}
+\newcounter{lecref}[section]
+\numberwithin{lecref}{section}
 
-\setcounter{section}{5}
+\newtheorem{theorem}[lecref]{Theorem}  
+\newtheorem{problem}[lecref]{Problem}
+\newtheorem{example}[lecref]{Example}
+\newtheorem*{hypothesis}{Hypothesis}
+\newtheorem{definition}[lecref]{Definition}
+\newtheorem{lemma}[lecref]{Lemma}
+\newtheorem*{claim}{Claim}
+\newtheorem{remark}[lecref]{Remark}
+\newtheorem*{Remark}{Remark}
+\newtheorem{corollary}[lecref]{Corollary}
+\newtheorem{proposition}[lecref]{Proposition}
+\newtheorem*{person}{Person}
 
 % definitions
 \newcommand{\drawing}[1]{%
@@ -80,7 +77,6 @@
 \makeatother
 \newcommand{\rh}[1]{\vec{#1}}
 \newcommand{\sout}[1]{#1} % TODO define a strike-through for math mode
-
 \newcommand{\mtn}{(\mu\times\nu)} % mu times nu
 
 \DeclareMathOperator{\rank}{rank}
@@ -89,7 +85,7 @@
 \DeclareMathOperator{\perm}{perm}
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\degree}{deg}
-\DeclareMathOperator{\im}{image}
+\DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\ke}{kern}
 \DeclareMathOperator{\prop}{probability}
 \DeclareMathOperator{\Hom}{Hom}
@@ -125,15 +121,17 @@
 % settings
 \parindent0pt
 \setlength{\parskip}{0.4\baselineskip}
-%\setcounter{tocdepth}{2}
 
+\setcounter{section}{5}
 \makeindex
 
 \begin{document}
 \maketitle
 \tableofcontents
 
+\section{Preface}
 \dateref{2018/03/05}
+
 \subsection{Lecture}
 
 \begin{itemize}
@@ -143,23 +141,23 @@
   \item Mon, 13:15--14:00, conversatorium (BE01)
 \end{itemize}
 
-\section{Linear algebra 1}
+\subsection{Linear algebra 1}
 
-Gottfried Wilhelm von Leibniz (1646--1716). Results from 1693:
-
+\begin{person}
+  Gottfried Wilhelm von Leibniz (1646--1716)
+\end{person}
+Results from 1693:
 \begin{itemize}
   \item Vector spaces (first definition in 1880)
   \item Matrices and linear maps
 \end{itemize}
-
-From now, it will be more specific (matrices). In general, we discuss \enquote{when is a matrix invertible}?
-
+From now, it will be more specific ($\rightarrow$ matrices).
+In general, we discuss the question \enquote{when is a matrix invertible}?
 \begin{align*}
   ax + by &= e \\
   cx + dy &= f
 \end{align*}
-
-We need to invert the matrix
+We need to invert the matrix.
 
 Assuming $a \neq 0$. We multiply the first row with $\cdot \frac1a \cdot (-c)$.
 \[
@@ -197,35 +195,38 @@ Leibniz was not the first discovering it. The result was found before 1685 by Se
 \subsection{Definition}
 
 \index{Determinant of a matrix}
-\[ \det{\begin{pmatrix} a & b \\ c & d \end{pmatrix}} \eqqcolon ad - bc \eqqcolon \begin{vmatrix} a & b \\ c & d \end{vmatrix} \]
-\index{Determinant of a matrix}
-is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$}.
+\begin{definition} % Definition 7.1
+  \[ \det{\begin{pmatrix} a & b \\ c & d \end{pmatrix}} \eqqcolon ad - bc \eqqcolon \begin{vmatrix} a & b \\ c & d \end{vmatrix} \]
+  is called \emph{determinant of matrix $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$}.
+\end{definition}
 
 \subsection{Properties}
 
-\begin{itemize}
-  \item The determinant is linear in every row and every column.
-    For fixed $b$ and $d$, it is
-    \[ \vectwo xy \mapsto \det{\begin{pmatrix} x & b \\ y & d \end{pmatrix}} = dx - by \qquad \text{ is linear} \]
-    \[ \mathbb K^2 \to \mathbb K \]
-    \begin{align*}
-      \det{\begin{pmatrix} \lambda x + \mu x' & b \\ \lambda y + \mu y' & d \end{pmatrix}}
-        &= d \cdot (\lambda x + \mu x') - b \cdot (\lambda y + \mu y') \\
-        &= \lambda (dx - by) + \mu (dx' - by') \\
-        &= \lambda \det{\begin{pmatrix} x & b \\ y & d \end{pmatrix}} + \mu \det{\begin{pmatrix} x' & b \\  y' & d \end{pmatrix}}
-    \end{align*}
-    The determinant is bilinear in rows and columns.
-    \[ \det(\lambda \nu + \mu \nu', w) = \lambda \det(\nu, w) + \mu \det(\nu', w) \]
-    Let $\nu = \vectwo{a}{c}$.
-    \[ \det(\nu, \lambda w + \mu w') = \lambda \det(\nu, w) + \mu \det(\nu, w') \]
-    Let $w = \vectwo bd$.
-    Follows analogously.
-  \item If two rows are the same, then $\det(M) = 0$.
-    \[ \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ab - ba = 0 \]
-    \[ \det\begin{pmatrix} a & a \\ c & c \end{pmatrix} = ac - ca = 0 \]
-  \item The determinant of the unit matrix is one.
-    \[ \det\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = 1 \]
-\end{itemize}
+\begin{remark} \hfill{}
+  \begin{itemize}
+    \item The determinant is linear in every row and every column.
+      For fixed $b$ and $d$, it is
+      \[ \vectwo xy \mapsto \det{\begin{pmatrix} x & b \\ y & d \end{pmatrix}} = dx - by \qquad \text{ is linear} \]
+      \[ \mathbb K^2 \to \mathbb K \]
+      \begin{align*}
+        \det{\begin{pmatrix} \lambda x + \mu x' & b \\ \lambda y + \mu y' & d \end{pmatrix}}
+          &= d \cdot (\lambda x + \mu x') - b \cdot (\lambda y + \mu y') \\
+          &= \lambda (dx - by) + \mu (dx' - by') \\
+          &= \lambda \det{\begin{pmatrix} x & b \\ y & d \end{pmatrix}} + \mu \det{\begin{pmatrix} x' & b \\  y' & d \end{pmatrix}}
+      \end{align*}
+      The determinant is bilinear in rows and columns.
+      \[ \det(\lambda \nu + \mu \nu', w) = \lambda \det(\nu, w) + \mu \det(\nu', w) \]
+      Let $\nu = \vectwo{a}{c}$.
+      \[ \det(\nu, \lambda w + \mu w') = \lambda \det(\nu, w) + \mu \det(\nu, w') \]
+      Let $w = \vectwo bd$.
+      Follows analogously.
+    \item If two rows are the same, then $\det(M) = 0$.
+      \[ \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ab - ba = 0 \]
+      \[ \det\begin{pmatrix} a & a \\ c & c \end{pmatrix} = ac - ca = 0 \]
+    \item The determinant of the unit matrix is one.
+      \[ \det\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = 1 \]
+  \end{itemize}
+\end{remark}
 
 \index{Bilinearity}
 \begin{theorem}[properties 1--3 characterize the determinant] % section 7.3
@@ -302,7 +303,7 @@ By property~1,
     follows from $F(\lambda v, w) = \lambda \cdot F(v, w)$, because $v = n \cdot (\frac1n v)$:
     \[ F\left(n \left(\frac1n v\right), w\right) = n \cdot F\left(\frac1n v, w\right) \]
   \item
-    \begin{figure}[!h]
+    \begin{figure}[!ht]
       \begin{center}
         \includegraphics{img/02_continuity.pdf}
         \caption{The sign changes if the orientation changes}
@@ -910,6 +911,8 @@ Basis $b_1,\dots,b_n$.
   \end{enumerate}
 \end{proof}
 
+\subsection{About determinants}
+
 \begin{corollary} % Folgerung 7.26
   \label{cor726}
   Let $V = W$, $\triangle: V^n \to \mathbb K$ determinant form.
@@ -929,8 +932,6 @@ Basis $b_1,\dots,b_n$.
   \[ \implies C_f = \frac{\triangle^f(b_1, \dots, b_n)}{\triangle (b_1, \dots, b_n)} = \det(f) \]
   % In essence, any two determinants are different by a factor.
 \end{proof}
-
-\subsection{On determinants, invertibility and linear independence}
 
 \begin{corollary} % Folgerung 7.27
   \label{cor:feqphif}
@@ -1007,7 +1008,7 @@ Basis $b_1,\dots,b_n$.
         \det(f \circ g) &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\triangle(b_1, \dots, b_n)} \cdot \frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(g(b_1), \dots, g(b_n))} \\
           &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\underbrace{\triangle(g(b_1), \dots, g(b_n))}_{\det(f) \neq 0}} \cdot \underbrace{\frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(b_1, \dots, b_n)}}_{\det(g) \neq 0}
       \end{align*}
-    \item[If $f$ or $g$ is not invertible]
+    \item[If $f$ or $g$ are not invertible]
       \[ f \text{ is not invertible} \implies \det(f) = 0 \]
       Same for $g$.
 
@@ -1023,6 +1024,8 @@ Basis $b_1,\dots,b_n$.
       \[ \det(f \circ g) = 0 = \det(f) \cdot \det(g) \]
   \end{description}
 \end{proof}
+
+\subsection{Laws of determinants}
 
 \begin{corollary} % Korollar 7.30
   \label{cor730}
@@ -1480,7 +1483,9 @@ Basis $b_1,\dots,b_n$.
   \]
 \end{definition}
 
-Pierre-Simon Laplace (1749--1827)
+\begin{person}
+  Pierre-Simon Laplace (1749--1827)
+\end{person}
 \begin{definition}[Laplace expansion] % Definition 7.37
   In German, this theorem is called \foreignlanguage{german}{Entwicklungssatz von Laplace}
   
@@ -1721,9 +1726,13 @@ for fixed $k=1$:
   \[ \operatorname{SL}(n, R) = \setdef{A \in R^{n \times n}}{\det{A} = 1} \]
 \end{definition}
 
-\begin{theorem}[Cramer's Rule]
-  Gabriel Cramer (1704--1752)
+\subsection{Cramer's Rule}
 
+\begin{person}
+  Gabriel Cramer (1704--1752)
+\end{person}
+
+\begin{theorem}[Cramer's Rule]
   Show by Cramer in 1750, by McLaurin 1748 for $n \leq 3$.
 
   Let $A$ be a regular matrix with column vectors $a_1, \dots, a_n$.
@@ -1739,9 +1748,13 @@ for fixed $k=1$:
   \[ A = \begin{pmatrix} a_1 & a_2 \\ \vdots & \vdots \end{pmatrix} \]
   \[ Ax = b \qquad a_1 \cdot x + a_2 \cdot x_2 = b \]
   \[ \triangle (a_1, a_2) = A(a_1, a_2) \]
-  where $A$ is the area function.
+  where $A$ is the area function. Compare with Figure~\ref{img:geomn2}.
 
-  TODO drawing parallelogram
+  \begin{figure}[h]
+    \includegraphics{img/02b_geometrical_proof_for_n2.pdf}
+    \caption{Geometrical proof for $n=2$. $\triangle(a_1, a_2)$ is the area of the parallelogram}
+    \label{img:geomn2}
+  \end{figure}
 
   \[ \triangle(b, a_2) = A(b, a_2) = \triangle(x_1 \cdot a_1, a_2) = x_1 \cdot \triangle(a_1, a_2) \]
   \[ \implies x_1 = \frac{\triangle (b, a_2)}{\triangle (a_1, a_2)} \]
@@ -1785,17 +1798,17 @@ for fixed $k=1$:
 
 \section{Inner products}
 
+\subsection{Definition}
+
 \begin{definition} % 8.1
   \[ \mathbb R^3: \norm{\begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}} = \sqrt{a_1^2 + a_2^2 + a_3^2} \]
   By Pythagorem Theorem
 \end{definition}
 
-\begin{proof}[Pythagorem Theorem]
+\begin{proof}[Geometrical proof of the Pythagorem Theorem]
   Claim: $a^2 + b^2 = c^2$
 
-  TODO
-
-  \begin{figure}[!h]
+  \begin{figure}[!ht]
     \begin{center}
       \includegraphics{img/03_pytha.pdf}
       \caption{Proof construction of the Pythagorem Theorem}
@@ -1836,7 +1849,7 @@ The norm is given by
     \item $\angel{a,a} = 0 \iff a = 0$
     \item $\angel{a,b} = 0 \iff a = 0 \lor b = 0 \lor \theta = \frac\pi2 \lor \theta = \frac32 \pi$, hence orthogonal
     \item $\angel{a,b} > 0 \iff$ acute angle
-    \item $\angel{a,b} < 0 \iff$ obtuse angle (dt. \foreignlanguage{ngerman}{stumpf})
+    \item $\angel{a,b} < 0 \iff$ obtuse angle (dt. \foreignlanguage{german}{stumpf})
   \end{enumerate}
 \end{theorem}
 
@@ -1967,7 +1980,7 @@ How to find an orthogonal vector?
     \item If $\lambda > 0$, it follows immediate.
       If $\lambda < 0$, lengths stay the same, but orientation swaps.
     \item If $c = 0$, it is trivial. If $c \neq 0$,
-      \begin{figure}[!h]
+      \begin{figure}[!ht]
         \begin{center}
           \includegraphics{img/04_apbmc_eq_amcpbmc.pdf}
         \end{center}
@@ -2353,7 +2366,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   The matrix $A^* \coloneqq \overline{A^T}$ ($(A^*)_{ij} = \overline{a_{ji}}$)
   is called \emph{conjugate transpose}.
 
-  $A$ is called \emph{self-adjoint} if $A = A^*$ (dt. \foreignlanguage{ngerman}{selbst-adjungiert}).
+  $A$ is called \emph{self-adjoint} if $A = A^*$ (dt. \foreignlanguage{german}{selbst-adjungiert}).
   $A$ is called \emph{symmetrical} if $A = \overline{A}$ and $\mathbb K = \mathbb R$
   or $A$ is called \emph{Hermitian} if $A = A^*$ and $\mathbb K = \mathbb C$.
 
@@ -2779,9 +2792,11 @@ in regards of basis $b_1, \dots, b_n$.
   \end{enumerate}
 \end{remark}
 
-\begin{theorem}[Sylvester's law of inertia]
-  J. J. Sylvester (1814--1897)
+\begin{person}
+  James Joseph Sylvester (1814--1897)
+\end{person}
 
+\begin{theorem}[Sylvester's law of inertia]
   Let $A \in \mathbb C^{n\times n}$ be Hermitian.
   $C \in \operatorname{GL}(n, \mathbb C)$ by the algorithm
   such that
@@ -2947,6 +2962,7 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
 \end{definition}
 
 \begin{corollary} % Folgerungen 8.29
+  \label{cor829}
   \begin{enumerate}
     \item $A > 0 \iff A \hat= I \iff \operatorname{ind}(A) = n$
     \item $A \geq 0 \iff \operatorname{ind}(A) = \sign(A) = \rank(A)$
@@ -3178,6 +3194,10 @@ such that
 
 Back to the scalar product:
 
+\begin{person}
+  David Hilbert (1862--1943)
+\end{person}
+
 \index{Euclidean space}
 \index{Unitary space}
 \begin{definition} % 8.33
@@ -3189,8 +3209,6 @@ Back to the scalar product:
           or \emph{unitary space} ($K = \mathbb C$)
         \item Hilbert space if $\dim = \infty$.
       \end{enumerate}
-
-      David Hilbert (1862--1943)
 
       \[ \norm{v} = \sqrt{\ip vv} \]
       \[ \norm{\lambda v} = \card{\lambda} \cdot \norm{v} \]
@@ -3213,7 +3231,7 @@ Back to the scalar product:
     \item $\norm{v + w}^2 + \norm{v - w}^2 = 2 (\norm{v}^2 + \norm{w}^2)$ (Parallelogram Law)
   \end{enumerate}
 
-  \begin{figure}[!h]
+  \begin{figure}[!ht]
     \begin{center}
       \includegraphics{img/06_geometrical_proof.pdf}
       \caption{Geometrical proof of Theorem~\ref{thm834}}
@@ -3355,7 +3373,7 @@ orthonormal: $\ip{v_i}{v_j} = \delta_{ij}$.
 \end{definition}
 
 Compare with Figure~\ref{orthocomp}
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \begin{center}
     \includegraphics{img/07_orthogonal_complement.pdf}
     \caption{Orthogonal complement}
@@ -3518,7 +3536,7 @@ Find $y \in M$ such that $f(y)$ is minimal.
 Find $y \in M$ such that $d(x_0, y)$ is minimal.
 Compare with Figure~\ref{optprob}.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \begin{center}
     \includegraphics{img/08_generic_optimization_problem.pdf}
     \caption{A generic optimization problem}
@@ -3546,7 +3564,7 @@ Finite elements (in computational mathematics) is the same idea.
     \item[2'.] $\forall y \in U: \ip{x - y_0}{y - y_0} = 0$
   \end{enumerate}
 \end{theorem}
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \begin{center}
     \includegraphics{img/09_optimization_on_a_convex_set.pdf}
     \caption{Optimization on a convex set}
@@ -3677,7 +3695,7 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
   \begin{enumerate}
     \item $\forall x, y \in V: \ip{x}{\pi_{U(y)}} = \ip{\pi_U(x)}{y} = \ip{\pi_U(x)}{\pi_U(y)}$
     \item Compare with Figure~\ref{img:proj}.
-      \begin{figure}[!h]
+      \begin{figure}[!ht]
         \begin{center}
           \includegraphics{img/10_projection.pdf}
           \caption{Projection}
@@ -3699,10 +3717,12 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
   \end{enumerate}
 \end{theorem}
 
+\begin{person}
+  J{\o}rgen Pedison Gram (1850--1916)
+\end{person}
+
 \index{Gram matrix of tuple $v_1, v_2, \ldots, v_m$}
 \begin{definition} % 8.51
-  J{\o}rgen Pedison Gram (1850--1916)
-
   Let $v_1, v_2, \ldots \in V$.
   \[
     \operatorname{Gram}(v_1, \ldots, v_m) = \begin{bmatrix}
@@ -3717,7 +3737,7 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
 
 \begin{remark} % Bemerkung 8.52
   In case $V = \mathbb C^n$.
-  \[ \ip vw = \overline{w}^T \cdot v = \sum_{1}^n \lambda_i \overline{\mu_i} = (\overline \mu_1, \ldots, \overline \mu_n)\begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \]
+  \[ \ip vw = \overline{w}^T \cdot v = \sum_{i=1}^n \lambda_i \overline{\mu_i} = (\overline \mu_1, \ldots, \overline \mu_n)\begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \]
   \[ v = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} \qquad w = \begin{pmatrix} \mu_1 \\ \vdots \\ \mu_n \end{pmatrix} \]
   Hence, if
   \[ v_i = \begin{pmatrix} \beta_{1i} \\ \vdots \\ \beta_{ni} \end{pmatrix} \qquad i = 1, \ldots, m \]
@@ -3853,10 +3873,15 @@ Hence, $\forall i \in \set{1, \ldots, m}$:
       \[ \norm{v}^2 \geq \sum_{i=1}^m \card{\ip{v}{v_i}}^2 \qquad \text{ (Bessel's inequality)} \]
       \[ \norm{v}^2 = \sum_{i=1}^m \card{\ip{v}{u_i}}^2 \iff v \in U \qquad \text{ (Parseval's identity)} \]
       \[ \eta_j = \overline{G}^{-1}\begin{pmatrix} \ip{v}{u_1} \\ \vdots \\ \ip{v}{u_m} \end{pmatrix} \]
-      F. Bessel (1784--1846) \\
-      M. A. Parseval (1755--1836)
   \end{enumerate}
 \end{corollary}
+
+\begin{person}
+  Friedrich Bessel (1784--1846)
+\end{person}
+\begin{person}
+  Marc-Antoine Parseval (1755--1836)
+\end{person}
 
 \begin{proof}
   Gram's matrix = $I$.
@@ -3984,9 +4009,9 @@ Take $1, x, x^2, \ldots$ and apply Gram schmidt process to retrieve the Chebyshe
 
 \subsection{Riesz representation theorem}
 
-\begin{remark}
+\begin{person}
   Frigyes Riesz (1880--1956)
-\end{remark}
+\end{person}
 
 \begin{theorem} % 8.61
   Let $(V, \ip{\cdot}{\cdot})$ be a vector space with scalar product $\dim{V} < \infty$.
@@ -4577,7 +4602,9 @@ Linear isometries:
 
 \subsection{Quaternions}
 
-William Rowan Hamilton (1805--1865).
+\begin{person}
+  William Rowan Hamilton (1805--1865).
+\end{person}
 
 \index{Quaternions}
 \index{Complex numbers}
@@ -4657,13 +4684,16 @@ William Rowan Hamilton (1805--1865).
       $\mathcal A = \mathbb K^{n\times n}$
       \[ A * B = A \cdot B + B \cdot A \]
       is associative. It is an Jordan algebra.
-      Pascual Jordan (1902--1980)\footnote{Different Jordan than in Gauss-Jordan and different than C. Jordan (19th century) about to come}.
   \end{enumerate}
 \end{example}
 
-\begin{remark}
+\begin{person}
+  Pascual Jordan (1902--1980)\footnote{Different Jordan than in Gauss-Jordan and different than C. Jordan (19th century) about to come}.
+\end{person}
+
+\begin{person}
   Oskar Perron (1880/05/07--1975)
-\end{remark}
+\end{person}
 
 \index{Cauchy product}
 \begin{definition} % Definition 9.4
@@ -4677,6 +4707,7 @@ William Rowan Hamilton (1805--1865).
 \index{Polynomial algebra}
 \index{Formal power series algebra}
 \begin{lemma} % Lemma 9.5
+  \label{lemma95}
   \begin{enumerate}
     \item $(P_{\mathbb K}, *)$ is a commutative, associative algebra with one-element $(1, 0, \dots)$.
       The basis is given with $1, x, x^2, \dots$. The algebra is called \emph{polynomial algebra}
@@ -4729,6 +4760,8 @@ William Rowan Hamilton (1805--1865).
       hence $p(x) \cdot q(x) = 0 \implies p(x) = 0 \lor q(x) = 0$
   \end{enumerate}
 \end{lemma}
+
+\subsection{The difference of polynomials and polynomial functions}
 
 \index{Polynomial function}
 \begin{definition} % Definition 9.8
@@ -4851,9 +4884,15 @@ $a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \math
   For degree $\geq 5$, there is no equation.
 \end{remark}
 
-Paolo Ruffini (1765--1822) \\
-Niels Henrik Abel (1802--1829) \\
-Gerolamo Cardano (1501--1576)
+\begin{person}
+  Paolo Ruffini (1765--1822)
+\end{person}
+\begin{person}
+  Niels Henrik Abel (1802--1829)
+\end{person}
+\begin{person}
+  Gerolamo Cardano (1501--1576)
+\end{person}
 
 \begin{remark}
   Cardano was a polymath.
@@ -4866,7 +4905,9 @@ Gerolamo Cardano (1501--1576)
     \item published a solution for roots of cubic polynomials (Ars Magna, 1545)
   \end{enumerate}
 
-  Scipione del Ferro (1465--1526)
+  \begin{person}
+    Scipione del Ferro (1465--1526)
+  \end{person}
 
   \begin{enumerate}
     \item used a solution for roots of cubic polynomials in competitions, kept it secret
@@ -4874,14 +4915,22 @@ Gerolamo Cardano (1501--1576)
     \item lost competitions on cubic polynomials to Antonio Fiore, because Ferro's solution was not generic enough
   \end{enumerate}
 
-  Niccol\`o Fontana Tartaglia (1500--1557)
+  \begin{person}
+    Niccol\`o Fontana Tartaglia (1500--1557)
+  \end{person}
 
   \begin{enumerate}
     \item Cardano cajoled Tartaglia into revealing his solution to the cubic equations by promising not to publish them.
   \end{enumerate}
 
-  Ludovico Ferrari (1522--1565)
+  \begin{person}
+    Ludovico Ferrari (1522--1565)
+  \end{person}
 \end{remark}
+
+\begin{person}
+  Vi\`ete, Francois (1540--1603)
+\end{person}
 
 \index{Method by Cardano/del Ferro}
 \begin{theorem}[Method by Cardano/del Ferro] % 9.16
@@ -4913,7 +4962,7 @@ Gerolamo Cardano (1501--1576)
   \[ u^6 + qu^3 - \frac{p^3}{27} = 0 \]
   \[ u^3 = ? \]
 
-  Equation for degree 2 by Vi\`ete, Francois (1540--1603):
+  Equation for degree 2 by Vi\`ete Francois:
 
   \[ (y - \alpha)(x - \beta) = x^2 - (\alpha + \beta) x + \alpha \beta \]
   \[ x^2 + px + q \]
@@ -5850,15 +5899,15 @@ Eigenvector: $e_1, \dots, e_n$.
   \[ d(\lambda) = \dim\ker{\eta_{\lambda}} = 1 \implies \text{ not diagonalizable} \]
 \end{example}
 
-\begin{remark}
+\begin{person}
   Camille Jordan (1838--1922): Jordan curve theorem.
-\end{remark}
+\end{person}
 
 \section{Jordan Normal Form (JNF)} % Kapitel 11
 
-\begin{remark}
+\begin{person}
   Causs-Wilhelm-Jordan (1842--1899)
-\end{remark}
+\end{person}
 
 %% I think "Pasend Jordan" should mean "Pascual Jordan"
 %% but the equation is still not correct for Jordan Algebras
@@ -5997,9 +6046,9 @@ Numerically unstable:
 
 \subsection{Fitting lemma}
 
-\begin{remark}
+\begin{person}
   Hans Fitting (1906--1938)
-\end{remark}
+\end{person}
 
 \begin{lemma}[Fitting lemma]
   Let $\dim{V} = n, f \in \operatorname{End}(V)$.
@@ -6165,7 +6214,7 @@ Next step: decomposition for \emph{different} eigenvalues.
   \[ = (\lambda_1 I - A)^{r_1} \dots (\lambda_{i-1} I - A)^{r_{i-1}} (\lambda_{i+1} I - A)^{r+1} \dots (\lambda_k I - A)^{r_k} \cdot \underbrace{(\lambda_i \cdot I - A)^{r_i}}_{=0} x = 0 \]
   If one of the factors is zero, the product is zero.
   \[ p(A) \cdot q(A) = q(A) \cdot p(A) \text{ for arbitrary polynomials } p(x) \text{ and } q(x) \]
-  especially: $p_i(x) = (\lambda_i - x)^{r_i}$.
+  especially: $p_i(x) = (\lambda_i - x)^{r_i}$. [I think this can be derived from Lemma~\ref{lemma95}~(1)]
 \end{remark}
 
 \begin{example} % Example 11.12
@@ -6275,6 +6324,11 @@ Next step: decomposition for \emph{different} eigenvalues.
   \]
 \end{example}
 
+\begin{remark}
+  Let $f$ and $g$ be matrices. Let $A$ and $B$ be corresponding linear maps.
+  Then $A \cdot B$ is the matrix corresponding to $f \circ g$.
+\end{remark}
+
 \begin{proof}[Proof of Lemma~\ref{lemma1111}]
   Show: If $x \in \bigcap{i=1}^k \im(\lambda_i I - A)^{r_i}$ and $(\lambda_1 I - A)^{r_1} \dots (\lambda_k I - A)^{r_k} \cdot x = 0$, then $x = 0$.
 
@@ -6302,9 +6356,9 @@ Next step: decomposition for \emph{different} eigenvalues.
 \end{proof}
 
 \begin{lemma} % Lemma 11.13
-  \label{le1113}
-  \begin{enumerate}
-    \item $\forall \lambda \neq \mu \forall k,l \geq 1: \ker(\lambda I - A)^k \cap \ker(\mu I - A)^l = \set{0}$
+  \label{le1113}%
+  \begin{enumerate} \hfill{}
+    \item $\forall \lambda \neq \mu \in \operatorname{spec}(A) \forall k,l \geq 1: \ker(\lambda I - A)^k \cap \ker(\mu I - A)^l = \set{0}$
     \item The sum $\ker(\lambda_i I - A)^{r_1} + \dots + \ker(\lambda_k I - A)^{r_k}$ is direct for arbitrary pairwise different $\lambda_1, \dots, \lambda_k$.
   \end{enumerate}
 \end{lemma}
@@ -6352,29 +6406,29 @@ Next step: decomposition for \emph{different} eigenvalues.
 
 \begin{theorem} % Satz 11.14
   Let $\lambda_1, \dots, \lambda_k$ be pairwise different eigenvalues of $A \in \mathbb K^{n\times n}$.
+  Let $W \coloneqq \bigcap_{i=1}^k \im(\lambda_i I - A)^n$.
   \begin{enumerate}
-    \item \[
-        V = \ker(\lambda_1 I - A)^{n} \oplus \dots \oplus \ker(\lambda_k I - A)^n \oplus \underbrace{\bigcap_{i=1}^k \im(\lambda_i I - A)^n}_{\eqqcolon W}
-      \]
-      Compare with example $(I - A)^2$:
-      \[
-        \begin{bmatrix}
-          0 &   &   &         & \\
-            & 0 &   &         & \\
-            &   & 0 &         & \\
-            &   &   & [\dots] & \\
-            &   &   &         & [\dots]
-        \end{bmatrix}
-      \]
-      $(2I - A)^2$:
-      \[
-        \begin{bmatrix}
-          [\dots] &   &         & \\
-            & 1 &         & \\
-            &   & 0 & \\
-            &   &         & \underbrace{[\dots]}_{W}
-        \end{bmatrix}
-      \]
+    \item $V = \ker(\lambda_1 I - A)^{n} \oplus \dots \oplus \ker(\lambda_k I - A)^n \oplus \bigcap_{i=1}^k \im(\lambda_i I - A)^n$
+%     TODO WTF?
+%      Compare with example $(I - A)^2$:
+%      \[
+%        \begin{bmatrix}
+%          0 &   &   &         & \\
+%            & 0 &   &         & \\
+%            &   & 0 &         & \\
+%            &   &   & [\dots] & \\
+%            &   &   &         & [\dots]
+%        \end{bmatrix}
+%      \]
+%      $(2I - A)^2$:
+%      \[
+%        \begin{bmatrix}
+%          [\dots] &   &         & \\
+%            & 1 &         & \\
+%            &   & 0 & \\
+%            &   &         & \underbrace{[\dots]}_{W}
+%        \end{bmatrix}
+%      \]
     \item $W$ is invariant under $A$ and $\lambda_i \not\in \operatorname{spec}(A|_W) \forall i = 1, \dots, k$
   \end{enumerate}
 \end{theorem}
@@ -6410,8 +6464,9 @@ Next step: decomposition for \emph{different} eigenvalues.
           Show that all $x_i = 0$ and $y = 0$. Thus $\sum_{i=1}^{k+1} x_i + y = 0$.
 
           \[ 0 = \prod_{i=1}^{k+1} (\lambda_i I - A)^n \left(\sum_{i=1}^{k+1} x_i + y\right) = \sum_{i=1}^{k+1} 0 + \prod_{i=1}^{k+1} (\lambda_i I - A)^n \cdot y \]
-          \[ \implies j \in \ker{\prod_{i=1}^{k+1} (\lambda_i I - A)^n \cap \bigcap_{i=1}^{k+1} \im(\lambda_i I - A)^n} \xRightarrow{\norm{\cdot}} y = 0 \]
-          \[ \implies \sum_{i=1}^{k+1} x_i = 0 \xRightarrow{\text{Lemma~\ref{le1113}}} \text{ TODO} \]
+          \[ \implies y \in \ker{\prod_{i=1}^{k+1} (\lambda_i I - A)^n \cap \bigcap_{i=1}^{k+1} \im(\lambda_i I - A)^n} \xRightarrow{\text{Lemma~\ref{lemma1111}}} y = 0 \]
+          \[ \implies \sum_{i=1}^{k+1} x_i = 0 \implies x_i \text{ are linear independent} \]
+          \[ \implies x_i = 0 \forall i \qquad \implies \text{ sum is direct} \]
       \end{description}
     \item
       $W_k$ is invariant, see proof of part (1)
@@ -6446,7 +6501,7 @@ By invariance, $\Phi_B^B(A)$ has block diagonal form.
 \begin{theorem} % Satz 11.15
   \label{thm:1115}
   Let $\mathbb K$ be algebraically closed (hence, every other matrix has eigenvalue)
-  and let $\lambda_1, \dots, \lambda_k$ all eigenvalues of a matrix $A \in \mathbb K^{n\times n}$.
+  and let $\lambda_1, \dots, \lambda_k$ be all eigenvalues of a matrix $A \in \mathbb K^{n\times n}$.
   \[ \implies \mathbb K^{n} = \ker(\lambda_1 I - A)^n \oplus \dots \oplus \ker(\lambda_k I - A)^n \]
 \end{theorem}
 
@@ -6461,10 +6516,10 @@ By invariance, $\Phi_B^B(A)$ has block diagonal form.
 
 \index{Nilpotent matrix}
 \index{Index of a nilpotent matrix}
-\begin{theorem}
+\begin{definition} % Definition 11.16
   A matrix/linear map $f: V \to V$ is called \emph{nilpotent}, if $\exists k \in \mathbb N: f^k = 0$.
   The smallest $k$ is called \emph{index} of $f$.
-\end{theorem}
+\end{definition}
 \[ (\lambda_i I - A)|_{i\text{-th main space}} \text{ is nilpotent} \]
 Goal: Structure of nilpotent matrices:
 \[
@@ -6603,9 +6658,9 @@ Goal: Structure of nilpotent matrices:
     \end{bmatrix}
   \]
   where this matrix goes on with these block matrices in the diagonal from $n_1$ to $n_d$.
- \end{proof}
+\end{proof}
 
- \begin{example}
+\begin{example}
   \[
     A = \begin{bmatrix}
      0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
@@ -6755,7 +6810,7 @@ $\leadsto$ basis $B_i$ such that
   is called \emph{Jordan block} of length $k$ to eigenvalue $\lambda$.
 \end{definition}
 
-\begin{remark}
+\begin{remark} % 11.21
   \begin{enumerate}
     \item $\chi_{J_k(\lambda)}(x) = (x - \lambda)^k$
     \item $J_k(\lambda) - \lambda \cdot I$ is nilpotent with index $k$.
@@ -6811,7 +6866,11 @@ $\leadsto$ basis $B_i$ such that
   where columns of $n_1$ give $U_1$ and columns of $n_n$ give $U_n$.
 \end{proof}
 
-\begin{theorem} % Satz 10.23
+\begin{remark}
+  In essence, this can be proven because $\Phi_B^B$ is linear.
+\end{remark}
+
+\begin{theorem} % Satz 11.23
   Let $B^{-1} AB = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \in \mathbb K^{n + m}$ be a Jordan normal form with $J_i = J_{k_i}(\lambda_i)$.
   \begin{enumerate}
     \item $\sum_{i=1}^q k_i = n$
@@ -6848,7 +6907,7 @@ $\leadsto$ basis $B_i$ such that
           \implies r \geq k_1 \land r \geq r_k \implies r = \max\set{k_1, k_2}
         \]
       \end{example}
-    \item $\#\set{i: \lambda_i = \lambda \land k_i \geq k + 1} = \rank(\lambda I - A)^k - \rank(\lambda I - A)^{k+1}$
+    \item Let $k \in \mathbb N$. $\#\set{i: \lambda_i = \lambda \land k_i \geq k + 1} = \rank(\lambda I - A)^k - \rank(\lambda I - A)^{k+1}$
     \item The Jordan blocks are uniquely determined (except for the order)
   \end{enumerate}
 \end{theorem}
@@ -6889,7 +6948,13 @@ $\leadsto$ basis $B_i$ such that
           &= \sum_{\lambda = \lambda_i} 1 \text{ if } k_i > k+1 \\
           &= \set{i: k_i > k + 1}
       \end{align*}
-    \item Left as an exercise to the reader.
+    \item Given some eigenvalues, is the Jordan normal form unique?
+
+        The number of Jordan blocks is uniquely determined by $d(\lambda)$.
+
+        By the previous item, $\forall k \in \mathbb N_0$ we know the number of Jordan blocks of size $k \geq 1$.
+        This way, $\forall k \in \mathbb N_0$ we can determine the number of Jordan blocks of size $k$.
+        See \href{https://en.wikipedia.org/w/index.php?title=Jordan_normal_form&oldid=819574479#Uniqueness}{Wikipedia}.
   \end{enumerate}
 \end{proof}
 
@@ -6920,11 +6985,17 @@ $\leadsto$ basis $B_i$ such that
   \end{enumerate}
 \end{proof}
 
+\begin{remark}
+  Recognize that a polynomial is a linear combination of basis elements.
+  Some basis element might be non-linear like $x^5$, but this does not invalidate our proof.
+\end{remark}
+
 \begin{lemma} % Lemma 11.25
   For some Jordan block $J_k(\lambda)$ it holds that
   \[
     p(J_k(\lambda))_{i,j} = \begin{cases}
-      \frac{p^{(j - i)}(\lambda)}{(j - i)} & j \geq i \\
+      \frac{p^{(j - i)}(\lambda)}{(j - i)} & j > i \\
+      p(\lambda) & j = i \\
       0 & j < i \text{ (below the diagonal)}
     \end{cases}
   \]
@@ -6936,7 +7007,7 @@ $\leadsto$ basis $B_i$ such that
   \begin{align*}
     (\lambda I + N)^M
       &= \sum_{k=0}^M {M \choose k} \lambda^{M-k} \cdot I \cdot N^k \\
-      &= \begin{bmatrix} \lambda^M & {n \choose 1} \lambda^{n-1} & \\ & \ddots & \\ & \lambda^m & \end{bmatrix} & k=0 \implies \diag(\lambda^M), N^1 = I \\
+      &= \begin{bmatrix} \lambda^M & {n \choose 1} \lambda^{n-1} & \\ & \ddots & \\ & & \lambda^M \end{bmatrix} & k=0 \implies \diag(\lambda^M), N^1 = I \\
       &= \sum_{k=0}^n \frac{n (n-1)(n-2) \dots (n-k+1)}{k!} \cdot \lambda^{n-k} \cdot N^k \\
       &= \sum \frac{(\lambda^M)^{(k)}}{k!}
   \end{align*}
@@ -7067,10 +7138,10 @@ $\leadsto$ basis $B_i$ such that
       \[ p(x) = a_0 + a_1 x + \dots + a_n x^n \]
     \item[2. + 3.]
       Let $n$ be minimal such that $A^0, \dots, A^n$ are linear dependent ($\implies n \leq N^2$) and $a_0 I + a_1 A + \dots + a_n A^n = 0$ with $a_n \neq 0$ (this will be shown in the practicals).
-      \[ \implies m_A(x) = \frac{a_0}{a_n} + \frac{a_1}{a_n} + \dots + \frac{a_{n-1}}{a_n} x^{n-1} + x^n \]
+      \[ \implies m_A(x) = \frac{a_0}{a_n} + \frac{a_1}{a_n} x^1 + \dots + \frac{a_{n-1}}{a_n} x^{n-1} + x^n \]
       is the unique minimal polynomial.
 
-      Assume $p(x) \in \mathbb K[x]$ with $p(A) = 0 \implies \operatorname{degree}(p(x)) \geq n$.
+      Assume $p(x) \in \mathbb K[x]$ with $p(A) = 0 \implies \deg(p(x)) \geq n$.
 
       By the division algorithm: $\exists q(x) \in \mathbb K[x] \exists r(x) \in \mathbb K[x]$ with $\deg(r(x)) < \deg(m_A(x))$ and $p(x) = q(x) m_A(x) + r(x)$. Insert $A$:
       \begin{align*}
@@ -7200,7 +7271,7 @@ $\leadsto$ basis $B_i$ such that
 
 \begin{theorem}[Spectrum mapping theorem] % Spektralabbildungssatz  11.34
   For $A \in \mathbb K^{n\times n}$ and $\mathbb K$ be algebraically closed and $p(x) \in \mathbb K[x]$
-  is $\operatorname{spec}(p(A)) = p(\operatorname{spec}(A)) = \setdef{p(\lambda)}{\lambda \in \operatorname{spec}(A)}$.
+  is $\operatorname{spec}(p(A)) = p(\operatorname{spec}(A)) \eqqcolon \setdef{p(\lambda)}{\lambda \in \operatorname{spec}(A)}$.
 \end{theorem}
 
 \begin{proof}
@@ -7240,7 +7311,7 @@ where $\mu_i$ are the roots of $q(x)$.
   \[ \angel{x,y} \text{ sesquilinear} \]
   where the first argument is linear and the second argument is antilinear.
   \begin{align*}
-    \angel{\lambda x + \mu y, z} &= \lambda \angel{x,z} + \mu yz \\
+    \angel{\lambda x + \mu y, z} &= \lambda \angel{x,z} + \mu \angel{y, z} \\
     \angel{x,y} &= \overline{\angel{y, x}} \\
     \angel{x,x} &\geq 0 \text{ or equivalently, } \angel{x,x} = 0 \iff x = 0
   \end{align*}
@@ -7385,9 +7456,9 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   \end{description}
 \end{proof}
 
-\begin{remark}
+\begin{person}
   Issai Schur (1875--1941)
-\end{remark}
+\end{person}
 
 \subsection{Schur's decomposition, QR decomposition}
 
@@ -7415,9 +7486,39 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
       \[ W = \begin{bmatrix} w_1 & \dots & w_{n-1} \\ \vdots &  & \vdots \end{bmatrix} \in \mathbb C^{n \times (n-1)} \]
       \[ U_1^* = \begin{bmatrix} u^* & \dots & \dots \\ & & \\ & W^* & \\ & & \end{bmatrix} \text{ where } W^* \in \mathbb C^{(n-1) \times n} \]
       \[ U_1^* AU_1 = \begin{bmatrix} u^* & \dots & \dots \\ & & \\ & W^* & \\ & & \end{bmatrix} A \begin{bmatrix} u & & & \\ \vdots & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} \]
-      \[ = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} \lambda u & & & \\ \vdots & & AW & \\ \vdots & & & \end{bmatrix} \text{ where } AW \in \mathbb C^{n \times (n-1)} = \begin{bmatrix} \lambda & u^* AW \\ 0 & \\ \vdots & [W^* AW] \\ 0 & \end{bmatrix} \text{ where } W^* AW \in \mathbb C^{(n - 1) \times (n-1)} \]
+      \[ = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} \lambda u & & & \\ \vdots & & AW & \\ \vdots & & & \end{bmatrix} \text{ where } AW \in \mathbb C^{n \times (n-1)} = \begin{bmatrix} \lambda & u^* AW \\ 0 & \\ \vdots & [W^* AW] \\ 0 & \end{bmatrix} \]
+      \[ \text{ where } W^* AW \in \mathbb C^{(n - 1) \times (n-1)} \]
       \[ I = U^* U = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} u & & & \\ \vdots & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} = \begin{bmatrix} 1 & u^* W \\ 0 & \\ \vdots & W^* w \\ 0 & \end{bmatrix} \]
-      By induction hypothesis, there exists $U_2 \in \mathcal U(n-1)$ TODO
+      By induction hypothesis, there exists unitary $U_2 \in \mathcal U(n-1): U_2^* W^* AW = R_2$.
+      \[
+        U_2^* W^* AW U_2 = 
+        \begin{bmatrix}
+          1 & 0 & \dots & 0 \\
+          0 &    &      & \\
+          \vdots & & U_2^* & \\
+          0 &    &      &
+        \end{bmatrix}
+        \begin{bmatrix}
+          \lambda & & * & \\
+          0 &       &   & \\
+          \vdots &  & W^* AW & \\
+          0 &       &   &
+        \end{bmatrix}
+        \begin{bmatrix}
+          1 & 0 & \dots & 0 \\
+          0 &       &   & \\
+          \vdots &  & U & \\
+          0 &       &   &
+        \end{bmatrix}
+      \] \[
+        = \begin{bmatrix}
+          \lambda & * & *   & * \\
+          0 &         &     & \\
+          \vdots  &   & R_2 & \\
+          0 &         &     &
+        \end{bmatrix}
+      \]
+      is a triangular matrix. For real values, it is trivial.
   \end{description}
 \end{proof}
 
@@ -7495,7 +7596,8 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
 \begin{remark}[Application: Taylor expansion]
   \begin{align*}
     f(x) &= f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!} (x - x_0)^2 - \dots \\
-    f(x,y) &= f(x_0, y_0) + \frac{\partial f}{\partial x} (x_0, y_0)(x - x_0) + \frac{\partial f}{\partial y} (x_0, y_0)(y - y_0) + \frac12 \frac{\partial^2 f}{\partial x^2} (x_0 y_0)(x - x_0)^2 + \frac12 \frac{\partial^2 f}{\partial y^2} (x_0, y_0) (y - y_0)^2 \\
+    f(x,y) &= f(x_0, y_0) + \frac{\partial f}{\partial x} (x_0, y_0)(x - x_0) + \frac{\partial f}{\partial y} (x_0, y_0)(y - y_0) \\
+      &+ \frac12 \frac{\partial^2 f}{\partial x^2} (x_0 y_0)(x - x_0)^2 + \frac12 \frac{\partial^2 f}{\partial y^2} (x_0, y_0) (y - y_0)^2 \\
       &+ \left(\frac{\partial^2 f}{\partial x \partial y} (x_0, y_0) + \frac{\partial^2 f}{\partial y \partial x} (x_0, y_0)\right) (x - x_0) (y - y_0)
   \end{align*}
   Gradient:
@@ -7675,13 +7777,13 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
 
 \subsection{Cholesky decomposition}
 
-\begin{remark}
+\begin{person}
   Andr\'e-Louis Cholesky (1875--1918) descending from the Cholewski (Polish) family
-\end{remark}
+\end{person}
 
 \index{Cholesky decomposition}
 \begin{theorem}[Cholesky decomposition] % Satz 12.17
-  Let $A > 0 \iff \exists C \in \mathbb C^{n \times n}$ (lower triangular matrix) such that $A = C \cdot C^*$.
+  Let $A > 0 \iff \exists C \in \mathbb C^{n \times n}$ (lower triangular matrix) such that $A = C \cdot C^*$ and $C$ has positive diagonal entries.
   Compare with LU decomposition.
 \end{theorem}
 
@@ -7696,7 +7798,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   is the Schur complement of block $D$ in $M$ where $M$ is a $(p + q) \times (p + q)$ matrix and $M/D$ is a $p\times p$ matrix.
 \end{remark}
 
-\begin{lemma}
+\begin{lemma} % 12.18
   Let $A \in \mathbb C^{n \times n}$. $A > 0$, $b \in \mathbb C^n$, $\gamma > 0$.
   \[ \det\left[\begin{array}{c|c}A & B \\ \hline b^* & \gamma \end{array}\right] = \det A \cdot (\gamma - b^* A^{-1} b)  \]
   \[
@@ -7736,11 +7838,10 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   \end{description}
 \end{proof}
 
-\begin{remark}[Application in practice]
+\begin{remark}[Application]
   Find $C$ such that $C \cdot C^* = A$.
   $c_{ij} = 0$ if $j > i$.
   $c_{ii} > 0$.
-
   \begin{align*}
     a_{ij} &= \sum_{k=1}^n c_{ik} (c^*)_{kj} \\
       &= \sum_{k=1}^n c_{ik} \overline{c_{jk}} \\
@@ -7767,6 +7868,11 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
       \[ c_{ij} = \frac{a_{ij} - \sum_{k=1}^{j-1} c_{ik} \overline{c_{jk}}}{c_{jj}} \]
       where $c_{jj}$ was already determined and the values of the enumerator are already known.
   \end{description}
+\end{remark}
+
+\begin{remark}
+  $A > 0 \iff$ congruent to unit matrix $\iff$ $A$ has full rank.
+  See Corollary~\ref{cor829}.
 \end{remark}
 
 \dateref{2018/06/18}
@@ -7830,9 +7936,9 @@ Cholesky decomposition:
   \end{align*}
 \end{remark}
 
-\begin{remark}
+\begin{person}
   J. S. Hadamard (1865--1963)
-\end{remark}
+\end{person}
 
 \index{Hadamard's inequality}
 \begin{corollary}[Hadamard's inequality] % Korollar 12.23
@@ -7898,7 +8004,7 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
       \[ U^* U = (A(A^* A)^{-\frac12})^* (A (A^* A)^{-\frac12}) = ((A^* A)^{-\frac12} \cdot A^*) (A (A^* A)^{-\frac12}) = (A^* A)^{-\frac12} (A^* A) (A^* A)^{-\frac12} \]
       \[ = V \begin{bmatrix} \lambda_1^{-\frac12} & & \\ & \ddots & \\ & & \lambda_n^{-\frac12} \end{bmatrix} V^* V \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} V^* V \begin{bmatrix} \lambda_1^{-\frac12} & & \\ & \ddots & \\ & & \lambda_n^{-\frac12} \end{bmatrix} V^* = V \begin{bmatrix} 1 & & \\ & \ddots & \\ & & 1 \end{bmatrix} V^* = I \]
       \[ U \cdot \card{A} = A \cdot \card{A}^{-1} \cdot \card{A} = A \]
-    \item[Case 2: $A$ is singular]
+    \item[Case 2: $A$ is singular] Incomprehensible.
       Let $A^* A \geq 0$ and some $\lambda_i = 0$.
       By change of basis, $A = V \operatorname{diag}(\lambda_1, \dots, \lambda_k, 0, \dots, 0) V^*$.
       \[ \card{A} = V \operatorname{diag}(\lambda_1^{\frac12}, \dots, \lambda_k^{\frac12}, 0, \dots, 0) V^* \]
@@ -7960,29 +8066,31 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
 \begin{theorem}[Theorem by Toeplitz-Hausdorff]
   $W(A)$ is convex.
 \end{theorem}
-\begin{remark}
+\begin{Remark}
   The following implications are left as an exercise to the reader:
   $A$ is normal $\implies W(A) = \underbrace{\text{convex } \operatorname{spec}(A)}_{\text{convex hull}} = \setdef{\sum_{i=1}^n \alpha_i \underbrace{\lambda_i}_{\text{eigenvalue}}}{0 \leq \alpha_i \leq 1, \sum \alpha_i = 1} =$ convex set that contains $\operatorname{spec}(A)$.
-\end{remark}
+\end{Remark}
 
-\begin{remark}
+\begin{person}
   J. W. Strutt (1842--1919) aka 3. Lord Rayleigh
-\end{remark}
+\end{person}
 
-\begin{remark}
+\begin{person}
   W. Ritz (1878--1909), discovered the element Argon ($\rightarrow$ Nobel prize)
-\end{remark}
+\end{person}
+
+\subsection{Rayleigh--Ritz Theorem}
 
 \begin{theorem}[Rayleigh--Ritz Theorem] % Satz 13.4
   \label{rrthm}
-  Let $A \in \mathbb C^{n \times n}$ be self-adjoint $\implies W(A)$.
+  Let $A \in \mathbb C^{n \times n}$ be self-adjoint.
   $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$.
   Then
   \[ \lambda_1 = \min_{x \neq 0}\underbrace{\frac{\angel{Ax, x}}{\angel{x, x}}}_{\text{Rayleigh quotient}} = \min\setdef{\angel{Ax, x}}{\norm{x} = 1} = \min{W(A)} \]
   \[ \vdots \]
   \[ \lambda_n = \max_{x \neq 0}\frac{\angel{Ax, x}}{\angel{x, x}} = \max\setdef{\angel{Ax, x}}{\norm{x} = 1} = \max{W(A)} \]
   where
-  \[ A = A^* \implies \angel{Ax, x} = \angel{x, Ax} = \overline{Ax, x} \]
+  \[ A = A^* \implies \angel{Ax, x} = \angel{x, Ax} = \overline{\angel{Ax, x}} \]
 \end{theorem}
 
 \begin{proof}
@@ -7991,14 +8099,13 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
   Show that $\forall x: \lambda_1 \leq \frac{\angel{Ax, x}}{\angel{x, x}} \leq \lambda_n$.
 
   Let $u_1, \dots, u_n$ be an orthonormal basis of eigenvectors.
-  Let $x \in \mathbb C^n$, $\norm{x} = 1$. $x = \sum_{i=1}^n \alpha_i x_i \implies \norm{x}^2 = \sum_{1}^n \card{\alpha_i}^2 = 1$.
+  Let $x \in \mathbb C^n$, $\norm{x} = 1$. $x = \sum_{i=1}^n \alpha_i x_i \implies \norm{x}^2 = \sum_{i=1}^n \card{\alpha_i}^2 = 1$.
   \begin{align*}
     \angel{Ax, x} &= \angel{A \sum \alpha_i x_i, \sum \alpha_j x_j} \\
       &= \angel{\sum \alpha_i \lambda_i x_i, \sum \alpha_j x_j} \\
-      &= \sum_{i} \sum_{i} \lambda_i \alpha_i \overline{\alpha}_j \angel{x_i, x_j} \\
-      &= \sum_{i} \lambda_i \card{\alpha_i}^2
-      &\leq \max(\lambda_i) \sum \card{\alpha_i}^2 = \max{\lambda_i} \\
-      & &\geq \min(\lambda_i) \sum \card{\alpha_i}^2 = \min{\lambda_i}
+      &= \sum_{i} \sum_{j} \lambda_i \alpha_i \overline{\alpha}_j \angel{x_i, x_j} \text { with } \angel{x_i, x_j} = \delta_{ij} \\
+      &= \sum_{i} \lambda_i \card{\alpha_i}^2  & \leq \max(\lambda_i) \sum \card{\alpha_i}^2 = \max{\lambda_i} \\
+      &                                        &\geq \min(\lambda_i) \sum \card{\alpha_i}^2 = \min{\lambda_i}
   \end{align*}
 \end{proof}
 
@@ -8009,13 +8116,15 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
   For $x \in \mathcal L(u_1, \dots, u_{n-1}) = \setdef{x}{\angel{x, u_n} = 0} = \set{u_n}^\bot$, $\angel{Ax, x} \leq \lambda_{n-1}$.
 \end{remark}
 
-\begin{remark}
+\begin{person}
   Richard Courant (1888--1972) \\
   E. Fischer (1875--1954) \\
   H. Weyl (1885--1955)
 
   All of them worked in G\"ottingen, Germany.
-\end{remark}
+\end{person}
+
+\subsection{Courant--Fischer--Weyl min--max principle}
 
 \begin{theorem}[Courant--Fischer--Weyl min--max principle] % 13.6
   \label{cfw-mm}
@@ -8023,8 +8132,10 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
   \[ \lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n \]
   Then it holds that
   \begin{enumerate}
-    \item $\lambda_k = \max_{\substack{W \subseteq V \\ \dim{W} = k - 1}} \min_{x \in W^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}}$. Special case $k = 1$: $W = \set{0} \to \lambda_1 = \min_x \frac{\angel{Ax, x}}{\angel{x, x}}$.
-    \item $\lambda_{n+1 - k} = \min_{\substack{W \subseteq V \\ \dim{W} = k-1}} \max_{x \in W^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}}$. Special case $k = 1: \lambda_n = \max_x \frac{\angel{Ax, x}}{\angel{x, x}}$.
+    \item $\lambda_k = \max_{\substack{W \subseteq V \\ \dim{W} = k - 1}} \min_{x \in W^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}}$. \\
+    Special case $k = 1$: $W = \set{0} \to \lambda_i = \min_x \frac{\angel{Ax, x}}{\angel{x, x}}$.
+    \item $\lambda_{n+1 - k} = \min_{\substack{W \subseteq V \\ \dim{W} = k-1}} \max_{x \in W^\bot \setminus \set{0}} \frac{\angel{Ax, x}}{\angel{x, x}}$. \\
+    Special case $k = 1$: $\lambda_n = \max_x \frac{\angel{Ax, x}}{\angel{x, x}}$.
   \end{enumerate}
   This theorem is more generic than the Rayleigh--Ritz Theorem.
 \end{theorem}
@@ -8034,7 +8145,8 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
   Let $m_A(W) = \min\setdef{\frac{\angel{Ax, x}}{\angel{x, x}}}{x \in W^\bot \setminus \set{0}}$.
   For vectors $m_A(w_1, \dots, w_k) = m_A(\mathcal L(w_1, \dots, w_k))$.
   For some orthonormal basis $u_1, \dots, u_n$ of eigenvectors,
-  \[ \lambda_k = m_A(u_1, \dots, u_{k-1}) \overset{\text{see proof of Theorem~\ref{rrthm}}}{=} = \min \setdef{\frac{\angel{Ax, x}}{\angel{x, x}}}{x \in \underbrace{\mathcal L(u_k, \dots, u_n)}_{\set{u_1, \dots, u_{k-1}}^\bot}} \]
+  \[ \lambda_k = m_A(u_1, \dots, u_{k-1}) \overset{\substack{\text{see proof of} \\ \text{Theorem~\ref{rrthm}}}}{=} \min \setdef{\frac{\angel{Ax, x}}{\angel{x, x}}}{x \in \mathcal L(u_k, \dots, u_n)} \]
+  with $\mathcal L(u_k, \dots, u_n) = \set{u_1, \dots, u_{k-1}}^\bot$.
   \[ \implies \lambda_k \leq \max_{\substack{W \subseteq V \\ \dim{W} = k - 1}} m_A(W) \]
   Show that: $\forall W \subseteq V$ with $\dim(W) = k-1$, $m_A(w) \leq \lambda_k$.
   \[ \dim{W^{\bot}} = n - k + 1 \implies W^\bot \cap \mathcal L(u_1, \dots, u_k) \neq \set{0} \]
@@ -8068,6 +8180,8 @@ This is used by the Courant--Fischer--Weyl min--max principle.
       &= -\min_{\substack{W \subseteq V \\ \dim{W} = k-1}} \max_{\substack{x \in W^\bot \\ \angel{x, x} = 1}} \angel{Ax, x}
   \end{align*}
 \end{proof}
+
+\subsection{Nesting Theorem}
 
 \begin{corollary}[Nesting Theorem (dt. \foreignlanguage{german}{Schachtelungssatz von Cauchy})] % Korollar 13.7
   Let $A \in \mathbb C^{n \times n}$, $A = A^*$. $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$.
@@ -8106,8 +8220,8 @@ This is used by the Courant--Fischer--Weyl min--max principle.
     = \frac{\angel{\begin{bmatrix} B & y \\ b^* & -y \end{bmatrix}, \begin{bmatrix} y \\ 0 \end{bmatrix}}}{\angel{y, y}}
     = \frac{\angel{By, y}}{\angel{y, y}}
   \] \[
-    = \frac{\angel{B \sum_{i=k}^{n-1} \alpha_i w_i, \sum_{j=k}^{n-1} \alpha_j w_j}}{\sum_{j=1}^{n-1} TODO}
-    = \frac{\sum_{i=k}^{n-1} \mu_i \card{\alpha_i}^2}{\sum TODO} \geq \mu_k
+    = \frac{\angel{B \sum_{i=k}^{n-1} \alpha_i w_i, \sum_{j=k}^{n-1} \alpha_j w_j}}{\sum_{i=1}^{n-1} \card{\alpha_i}^2}
+    = \frac{\sum_{i=k}^{n-1} \mu_i \card{\alpha_i}^2}{\sum_{i=1}^{n-1} \card{\alpha_i}^2} \geq \mu_k
   \]
   Inversion:
   $-A$ has eigenvalues $-\lambda_n \leq -\lambda_{n-1} \leq \dots \leq -\lambda_2 \leq -\lambda_1$.
@@ -8129,7 +8243,7 @@ This is used by the Courant--Fischer--Weyl min--max principle.
   \[ \lambda_1(B) \leq \frac{\angel{Bx, x}}{\angel{x, x}} \leq \lambda_n(B) \]
   because of Theorem~\ref{rrthm}.
   \[ \lambda_k(A + B) = \max_{\dim{W}=k-1} \min_{x \in W^\bot \setminus \set{0}} \frac{\angel{(A + B)x, x}}{\angel{x, x}} \]
-  \[ \frac{\angel{Ax, x}}{\angel{x, x}} + \lambda_n(B) \leq \frac{\angel{(A + B)x, x}}{\angel{x, x}} \leq \frac{\angel{Ax, x}}{\angel{x, x}} + \lambda_n(B) \]
+  \[ \frac{\angel{Ax, x}}{\angel{x, x}} + \lambda_1(B) \leq \frac{\angel{(A + B)x, x}}{\angel{x, x}} \leq \frac{\angel{Ax, x}}{\angel{x, x}} + \lambda_n(B) \]
   This goes on and on $\leadsto \lambda_k(A) + \lambda_l(B)$.
   \[ \leq \lambda_l(A) + \lambda_n(B) \]
 \end{proof}
@@ -8138,9 +8252,9 @@ This is used by the Courant--Fischer--Weyl min--max principle.
   If $B \geq 0$, $A = A^*$, then $\lambda_k(A) \leq \lambda_k(A + B) \forall k$.
 \end{corollary}
 
-\begin{remark}
+\begin{person}
   Sem\"en Aranovi\v{c} Ger\v{s}gorin (1901--1933)
-\end{remark}
+\end{person}
 
 \subsection{Ger\v{s}gorin theorem}
 
@@ -8247,7 +8361,6 @@ Norm on a vector space is a map $\norm{\cdot}: V \to [0, \infty[$:
   Let $V, W$ be vector spaces with norms $\norm{\cdot}_V$ and $\norm{\cdot}_W$.
   A norm on $\operatorname{Hom}(V, W)$ is \emph{compatible} with $\norm{\cdot}_V$ and $\norm{\cdot}_W$ if
   \[ \forall v \in V \forall f \in \operatorname{Hom}(V, W): \norm{f(v)}_W \leq \norm{f} \cdot \norm{v}_V \]
-
   \[ \implies \norm{f(x) - f(g)}_W = \norm{f(x - y)}_W \leq \norm{f} \cdot \norm{x - y}_V \]
   Hence $f$ is Lipschitz continuous with constant $\leq \norm{f}$.
   Specifically, we define the Lipschitz constant uniquely with
@@ -8414,9 +8527,9 @@ Exercise for the practicals:
   \[ \leq \norm{J_{\varepsilon}}_{\infty \to \infty} = \max_i \sum_j \card{(J_{\varepsilon})_{ij}} \leq \underbrace{\max \card{\lambda_i} + \varepsilon}_{= \rho(A) + \varepsilon} \]
 \end{proof}
 
-\begin{remark}
+\begin{person}
   Israel Gelfand (1913--2009)
-\end{remark}
+\end{person}
 
 \begin{remark} % Bemerkung 14.7
   \[ \rho(A) \leq \norm{A} \]
@@ -8461,9 +8574,9 @@ Exercise for the practicals:
   \[ \rho(\frac d{dx}) = \infty \qquad f' = \lambda f \qquad f(x) = e^{\lambda x} \in C^\infty \implies \operatorname{spec}(\frac{d}{dx}) = \mathbb C \]
 \end{example}
 
-\begin{remark}
+\begin{person}
   Carl Neumann (1832--1925)
-\end{remark}
+\end{person}
 
 \begin{corollary} % 14.10
   \label{cor1410}

@@ -1,4 +1,6 @@
 #!/bin/sh
 
+set -e
+
 makeindex notes
-pdflatex notes
+xelatex -interaction errorstopmode notes
