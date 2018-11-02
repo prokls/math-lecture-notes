@@ -23,6 +23,7 @@
 \setmainfont{Alegreya}
 \setmathfont{cmr10}
 
+
 \newcounter{lecref}[section]
 \numberwithin{lecref}{section}
 
@@ -64,9 +65,14 @@
 % useful control sequences for mathematical notation
 \newcommand{\Abs}[1]{\left|#1\right|}
 \newcommand{\Set}[1]{\left\{#1\right\}}
-\newcommand{\SetDef}[2]{\left\{#1\,|\,#2\right\}}
+\newcommand{\SetDef}[2]{\left\{#1\,\mid\,#2\right\}}
 \newcommand{\IP}[2]{\left\langle#1, #2\right\rangle}
 \newcommand{\Norm}[1]{\left\|{\ifempty{#1}\cdot\else#1\fi}\right\|}
+\newcommand{\Max}[1]{\max{\Set{#1}}}
+\newcommand{\Min}[1]{\min{\Set{#1}}}
+\newcommand{\Sup}[1]{\sup{\Set{#1}}}
+\newcommand{\Powerset}[1]{{\mathbb P}(#1)}
+\newcommand{\IntRange}[2]{#1, \dots\ifempty{#2}\else, #2\fi}
 
 \def\vec2#1#2{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \def\vec3#1#2#3{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}}
@@ -198,9 +204,9 @@ Consider the linear equation system
 The same can be specified in compact notation like $Ax = b$ with $A \in \mathbb R^{n \times n}, b \in \mathbb R^n$.
 
 \index{Cramer's rule}
-\begin{theorem}
+\begin{theorem}[Cramer's Rule]
   Let $A \in \mathbb R^{n \times n}$ with $\det(A) \neq 0$ and $b \in \mathbb R^n$.
-  Then there exists exactly one $x \in \mathbb R^n$ such that $Ax = b$.
+  Then there exists exactly one $x \in \mathbb R^n$ such that $Ax = b$. We can determine $x$ using \enquote{Cramer's Rule}:
   \[
     x_i = \frac{\det(A_i)}{\det(A)} \text{ where }
     A_i = \begin{bmatrix}
@@ -208,7 +214,6 @@ The same can be specified in compact notation like $Ax = b$ with $A \in \mathbb 
       \vdots &       &            &     &           &       & \vdots \\
       a_{n1} & \dots & a_{n,i-1}  & b_n & a_{n,i+1} & \dots & a_{nn}
     \end{bmatrix}
-    \qquad \text{\enquote{Cramer's Rule}}
   \]
 \end{theorem}
 
@@ -531,10 +536,10 @@ where $e_j$ denotes the $j$-th unit vector in $\mathbb R^n$. Row and column exch
   \[ \det(A) = \det(P) \cdot \det(LU) = \sign(\pi_0) \cdot \gamma_{11} \dots \gamma_{nn} \]
 \end{remark}
 
-\dateref{2018/10/09}
-
 \subsection{Cholesky process for symmetric positive definite matrices}
 \label{ch:1-4}
+
+\dateref{2018/10/09}
 In the following, let $A = A^T > 0$ be symmetric positive definite.
 
 \begin{Remark}
@@ -1126,7 +1131,8 @@ For some measurement precision $\delta b$, introduce weights
 We consider the special case of linear (with respect to $x$) modelling functions $\varphi$, hence $\varphi(t_i; x_1, \dots, x_n) = a_1(t) x_1 + \dots + a_n(t) x_n$ where $a_1, \dots, a_n: \mathbb R \to \mathbb R$ are arbitrary functions.
 Furthermore we choose $\Norm{} = \Norm{}_2$.
 We can denote the least square problem as
-\[ \Norm{b - Ax} \to \operatorname{min} \qquad \text{ where } b = \begin{pmatrix} b_1 \\ \vdots \\ b_m \end{pmatrix}, x = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}, A = (a_{ij}) \in \mathbb R^{m \times n} \text{ with } a_{ij} \coloneqq a_j(t_i) \]
+\[ \Norm{b - Ax} \to \operatorname{min} \qquad \text{ where } b = \begin{pmatrix} b_1 \\ \vdots \\ b_m \end{pmatrix}, x = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} \]
+\[ \text{and } A = (a_{ij}) \in \mathbb R^{m \times n} \text{ with } a_{ij} \coloneqq a_j(t_i) \]
 
 \subsection*{Orthogonal equations}
 
