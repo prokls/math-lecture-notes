@@ -5,6 +5,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{centernot}
 \usepackage{fontspec}
 \usepackage{mdframed}
 \usepackage{pxfonts}
@@ -20,7 +21,7 @@
 \titleformat{\paragraph}{\normalfont\itshape}{}{}{}
 
 % okay-ish main typefaces: Alegreya, Junicode, CMU Concrete, Linux Libertine O, Libertinus Serif, URW Palladio L, Bookerly, Andada
-\setmainfont{Alegreya}
+\setmainfont{Alegreya}  % TODO \setminus is broken, \textbackslash{} is used instead
 \setmathfont{cmr10}
 
 
@@ -151,8 +152,10 @@
 % generate index database
 \makeindex
 
+
 \begin{document}
 \newcommand\gen{{\mathcal E}}
+\renewcommand\setminus{\,{\textbackslash{}}\,} % TODO interesting: if we put this before begin{document}, it won't take effect
 
 \maketitle
 \tableofcontents
@@ -1210,6 +1213,165 @@ The Lebesgue integral works for any measure space.
   \[ \implies \limsup \int g_n = \limsup \left(\int 2g - \int \Abs{f_n - f}\right) \]
   \[ = \int 2g + \limsup \left(-\int \Abs{f_n - f}\right) = \int 2g - \liminf \left(\int \Abs{f_n - f}\right) \]
 \end{proof}
+
+\dateref{2018/11/05}
+
+\begin{Remark}[Dominated convergence theorem by Lebesgue]
+  $f_n, f, g: (\chi, \mathcal A, \mu) \to (\mathbb R, \mathcal B_{\overline{\mathbb R}}$.
+  \[ \begin{cases} f_n \to f & \mu \text{ almost everywhere} \\ \Norm{f_n} \leq g & \mu \text{ almost everywhere} \end{cases} g \geq 0, \int_{\chi} g \, d\mu < \infty \]
+  \[ \implies \int {\chi} f \, dx = \lim_{n\to\infty} \int_{\chi} f_n \, d\mu \]
+\end{Remark}
+
+\begin{example}
+  $([0, 1], \mathcal B_{[0,1]}, \lambda)$ with $f_n(x) \to 0$ and $\int_{[0,1]} f_n \, d\lambda = 1 \centernot{\implies} \int_{[0,1]} 0 \, d\mu$.
+  Compare with Figure~\ref{img:exconv}.
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics{img/03_convergence.pdf}
+      \caption{$f_n(x)$}
+      \label{img:exconv}
+    \end{center}
+  \end{figure}
+\end{example}
+
+The theorem of convergence is a generalization of the following theorem (based on Analysis 1 and Analysis 2 courses):
+
+\begin{example}[Monotonic convergence]
+  \[ f(x) = \sum_{n=0}^\infty a_n x^n \qquad a_n \geq 0 \]
+  Convergence raidus: $R < \infty$.
+  \[ x_k \nearrow R \implies f_k(x) \nearrow f(R) \]
+  \[ \chi = \mathbb N_0, \mathcal A = \mathcal P(\mathbb N_0), \mu \]
+  \enquote{counting measure}
+  \[ f_k(n) = a_n x_k^n \]
+
+  \[ f: \mathbb N_0 \to [0, \infty] \]
+  \[ \int_{\mathbb N_0} f \, d\mu = \sum_{n=0}^\infty f(n) \mu(n) \]
+  for $k \to \infty$: $f_k(n) \nearrow f(n) = a_n R^n$.
+  By monontonic convergence, $\int f_k \, d\mu \nearrow \int f \, d\mu$.
+  \[ \sum_{n=0}^\infty a_n x_k^n \nearrow \sum_{n=0}^\infty a_n R^n \]
+\end{example}
+
+\section{Lebesgue and Riemann integral}
+
+$\lambda$ is defined on $(\overline{\mathbb R}, \mathcal B_{\overline{\mathbb R}})$.
+The Lebesgue measure allows null sets. Lebesgue measure is also defined on completion of sigma algebras.
+Lebesgue measure $\mathcal L$ is defined on $\sigma$-algebras of Lebesgue sets.
+
+\begin{Remark}[One characterization of the Axiom of Choice]
+  A non-empty product of non-empty sets is non-empty.
+\end{Remark}
+\begin{Remark}
+  $\mathcal L \setminus \mathcal B \neq \emptyset$ [Axiom of Choice].
+\end{Remark}
+
+\begin{Remark}[Number representation]
+  Basis $q \in \Set{2, 3, \dots}$.
+  \[ x = \sum_{n=1}^\infty \frac{x_n}{q^n} \qquad x_n \in \Set{0,1,\dots,q-1} \]
+  This represents a number $0 . x_1 x_2 x_3 x_4 \dots$.
+
+  Because $0.7\overline{9} = 0.8$, there is some ambiguity between the numbers and their representation (non-bijective, two sums represent the same $x$).
+\end{Remark}
+
+\begin{Remark}[Cantor set]
+  Consider $[0, 1]$. Split the interval into 3 thirds. We remove the middle third as open set.
+  We consider the remaining two intervals and again extract the middle third.
+  We iteratively continue this process to infinity.
+  The remaining set is called Cantor set and is uncountable.
+
+  The Cantor set $\mathcal C$ is the set of numbers in $[0,1]$ with some number representation, with respect to basis $3$, which does not contain some $1$ and has a unique number representation. Unique number representation because
+  \[ \frac23 = 0.2 = 0.1\overline{2} \]
+  \[ \frac13 = 0.1 = 0.0\overline{2} \qquad \frac19 = 0.01 = 0.00\overline{2} \qquad \frac29 = 0.02 = 0.01\overline{2} \]
+\end{Remark}
+
+A linear combination of Borel-measurable functions is Borel-measurable.
+
+\begin{Remark}
+  Riemann integral ($U$ are lower sums, $O$ are upper sums):
+  \[ f: [a,b] \to \mathbb R \text{ bounded} \]
+  \[ Z = \Set{a = x_0 < x_1 < \dots < x_k = b} \qquad \Norm{Z} = \max_{j=1,k} (x_j - x_{j-1}) \]
+  \[ m_j = \inf_{x \in [x_{j-1}, x_j]} f(x) \qquad M_j = \sup_{x \in [x_{j-1}, x_j]} f(x) \]
+
+  \[ U(Z, f) = \sum_{j=1}^k m_j(x_j - x_{j-1}) \]
+  \[ g_Z = \sum_{j=1}^k m_j \mathbf{1}_{(x_{j-1}, x_j]} \text{ are both } \mathcal B\text{-measurable} \]
+  \[ U(Z, f) = \sum_{j=1}^l M_j (x_j - x_{j-1}) \]
+  \[ h_Z = \sum_{j=1}^k M_j \mathbf{1}_{(x_{j-1}, x_j]} \]
+  \[ U(Z, f) = \int_{[a,b]} g_Z \, d\lambda \qquad O(Z, f) = \int_{[a,b]} h_Z \, d\lambda \]
+\end{Remark}
+
+\begin{theorem}
+  $f$ as above (if necessary, not Borel-measurable)
+  \[ C = \Set{x \in [a,b]: f \text{ continuous in } x} \quad D = \SetDef{x \in [a,b]}{f \text{ in } x \text{ is non-continuous}} \]
+  \begin{enumerate}
+    \item Then $C, D \in \mathcal B_{[a,b]}$, $f \cdot \mathbf{1}_C$ is Borel-measurable
+    \item $f$ is Riemann integrable $\iff \lambda(D) = 0$ and
+      \[ \int_a^b f(x) \, dx = \int_{[a,b]} f \cdot \mathbf{1}_C \, d\lambda \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \[ Z_n = \Set{a = x_0^{(n)} < x_1^{(n)} < \dots < x_{k(n)}^{(n)} = b} \]
+  A sequence of decompositions such that
+  \begin{enumerate}
+    \item $Z_{n+1}$ is refinement of $Z_n$
+    \item $\Norm{Z_n} \to 0$
+  \end{enumerate}
+  except for point $a$ (so the intervals are left-sided half-open) (you can also close the first interval of the left side)
+  \[ \inf{f} = m \leq g_{Z_n} \nearrow g \leq f \leq h \swarrow h_{Z_n} \leq M = \sup{f} \]
+  where $g$ and $h$ are Borel-measurable. By the dominated convergence theorem by Lebesgue,
+  \[ U(Z_n, f) = \int_{[a,b]} g_{Z_n} \, d\lambda \nearrow \int_{[a,b]} g \, d\lambda \]
+  \[ O(Z_n, f) = \int h_{Z_n} \, d\lambda \searrow \int_{[a,b]} h \, d\lambda \]
+  $R = \SetDef{x_j^{(n)}}{n \in \mathbb N, j = 1, \dots, k(n)}$ is countable, $\lambda(R) = 0$.
+\end{proof}
+
+\begin{claim}
+  For $x \in [a,b] \setminus R$, $f$ is continuous at $x \iff g(x) = h(x)$.
+\end{claim}
+
+\begin{proof}
+  Let $I_n(x)$ be the interval of $Z_n$ with $x \in I_n(x)$.
+  Recognize that $I_{n+1}(x) \subset I_n(x)$ and $\lambda(I_n(x)) \searrow 0$.
+
+  \begin{align*}
+    f \text{ cont. in } x
+      &\iff \forall \varepsilon > 0 \exists k: f(x) - \varepsilon < f_{I_k(x)} < f(x) + \varepsilon \\
+      &\iff \forall \varepsilon > 0 \forall n \geq k: f(x) - \varepsilon < f_{I_k(x)} < f(x) + \varepsilon \\
+      &\iff \forall \varepsilon > 0 \exists k \forall n \geq k: f(x) - \varepsilon \leq \left. g_{Z_1} \right|_{I_n(x)} \leq \left. h_{Z_n} \right|_{I_n(x)} \leq f(x) + \varepsilon \\
+      &\Rightarrow g(x) = h(x) \qquad [= f(x)]
+  \end{align*}
+  \enquote{$\Rightarrow$} is \enquote{$\iff$} assuming $x \not\in R$,
+  so $[g < h] \subset D \subset [g < h] \cup R$ where $[g < h]$ is the Borel set.
+  \[ D \setminus [g < h] \text{ is at most countable (because $R$ is countable)} \implies D \text{ Borel set}, C \text{ Borel set} \]
+  \[ \lambda(D) = \lambda[g < h] \]
+\end{proof}
+
+\[ f \text{ is R-integrable } \iff \int_{[a,b]} g \, d\lambda = \int_{[a,b]} h \, d\lambda, h \geq g \]
+\[ \iff \lambda[g < h] = 0 \iff \lambda(D) = 0 \]
+in this case (because $g \leq f \leq h$ except in $a$).
+\[ g \cdot \mathbf{1}_C = f \cdot \mathbf{1}_C \]
+where $g$ and $\mathbf{1}_C$ is Borel-measurable and thus $f \cdot \mathbf{1}_C$ is Borel-measurable.
+\[ \int_{[a,b]} f \cdot \mathbf{1}_C \, d\lambda = \int_{[a,b]} g \cdot \mathbf{1}_C \, d\lambda = \int_{[a,b]} g \, d\lambda = \int_a^b f(x) \, dx \]
+\[ g \cdot \mathbf{1}_C = g \qquad \text{ almost everywhere wrt. } \lambda \]
+
+\begin{example}
+  \begin{enumerate}
+    \item $\mathbf{1}_{\mathbb Q}$ is nowhere continuous.
+      \[ \int_0^1 \mathbf{1}_{\mathbb Q}(x) \, dx \text{ does not exist} \]
+      \[ \mathbf{1}_{\mathbb Q} = 0 \qquad \text{ almost everywhere wrt. } \lambda \implies \int_{[0,1]} \mathbf{1}_{\mathbb Q} \, d\lambda = 0 \]
+    \item
+      \[ \int_a^b \frac{\sin{x}}{x} \, dx = \int_{[a,b]} \frac{\sin{x}}{x} \, dx \]
+      \[ \int_{-\infty}^\infty \frac{\sin{x}}{x} \, dx = \pi \qquad \not\exists \int_{\mathbb R} \frac{\sin{x}}{x} \, d\lambda(x) \]
+  \end{enumerate}
+\end{example}
+
+\begin{theorem}[Substitution theorem]
+  Let $\varphi: (\chi, \mathbb A, \mu) \to (\chi', \mathcal A')$ is measurable.
+  \[ \mu_{\varphi}(A') = \mu(\varphi^{-1}(A')) \qquad A' \in \mathcal A' \qquad \text{ pushforward measure} \]
+  \[ f: (\chi', \mathcal A') \to (\overline{\mathbb R}, \mathcal B_{\overline{\mathbb R}}) \text{ measurable} \]
+  Then,
+  \[ \int_{\chi} f \circ \varphi \, d\mu \text{ exists } \iff \int_{\chi'} f \, d\mu_{\varphi} \text{ exists} \]
+  and in this case, they are the same.
+\end{theorem}
 
 \printindex
 
