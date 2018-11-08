@@ -1134,6 +1134,7 @@ We can denote the least square problem as
 \[ \Norm{b - Ax} \to \operatorname{min} \qquad \text{ where } b = \begin{pmatrix} b_1 \\ \vdots \\ b_m \end{pmatrix}, x = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} \]
 \[ \text{and } A = (a_{ij}) \in \mathbb R^{m \times n} \text{ with } a_{ij} \coloneqq a_j(t_i) \]
 
+% TODO why are the following enumerations made with 3 indices?
 \subsection*{Orthogonal equations}
 
 We look for some point $z = Ax$ of the image space $U(A)$ of $A$, that has the smallest distance to some given $b$.
@@ -1604,6 +1605,266 @@ Thus $R$ is a zero polynomial, thus $P = Q$.
 Now consider the map
 \[ \mathcal P_n \to \mathbb R^{n + 1}, p \mapsto (p(t_0), \dots, p(t_n)) \]
 The map is linear and by property $\dim(\mathcal P_n) = n + 1 = \dim(\mathbb R^{n+1})$ with injectivity, surjectivity follows (e.g. by the rank theorem).
+
+\dateref{2018/11/06}
+
+\begin{theorem}
+  \label{theorem:4-1}
+  For $n+1$ supporting points $(Z_i, f_i)$ for $i = 0, \dots, n$ with pairwise different points $t_0, \dots, t_n$,
+  there exists a unique interpolation polynomial $P$ of degree $n$ such that $P(t_i) = f_i \forall i$.
+
+  This unique polynomial $P$ is called \emph{interpolation polynomial of $f$} for points $p_0, \dots, p_n$ with $p = P(f \mid t_0, \dots, t_n)$.
+\end{theorem}
+
+\noproof{theorem:4-1}
+
+To compute $p$, we need a basis of $\mathcal P_n$. If $P$ is given in \emph{coefficient representation} $(a_n t^n + \dots + a_1 t + a_0$) with respect to monomial basis $\Set{1, t, \dots, t^n}$, by $p(t_i) = f_i$ we get the linear equation system
+\[ \underbrace{\left[t_i^j\right]}_{\eqqcolon v_n} \cdot \begin{bmatrix} a_0 \\ \vdots \\ a_n \end{bmatrix} = \begin{bmatrix} f_0 \\ \vdots \\ f_n \end{bmatrix} \qquad A = \begin{bmatrix} 1 & t_0^1 & t_0^2 & \dots \\ 1 & t_1^1 & t_1^2 & \dots \\ \vdots & & & \ddots \end{bmatrix} \]
+\index{Vandermonte matrix}
+$V_n$ is called \emph{Vandermonte matrix} and it holds:
+
+\begin{theorem}
+  \label{theorem:4-2}
+  Let $V_n \in \mathbb R^{n + 1 \times n + 1}$ be Vandermonte's matrix. Then
+  \[ \det(V_n) = \prod_{i=0}^n \prod_{j=i+1}^n (t_j - t_i) \]
+\end{theorem}
+
+\begin{remark}
+  \label{remark:4-3}
+  Obviously: $\det(V_n) \neq 0 \iff t_i \neq t_j \forall i = j$
+\end{remark}
+
+Alternative basis: Consider the Lagrange basis $L_0, \dots, L_n$ where
+these are the uniquely determined interpolation polynomials $L_i \in \mathcal P_n$
+with $L_i(t_j) = \delta_{ij}$.
+
+This leads to an explicit representation:
+\[ L_i(t) = \prod_{\substack{j=0 \\ j \neq i}}^n \frac{t - t_j}{t_i - t_j} \]
+The interpolation polynomial $P$ for arbitrary supporting points $f_0, \dots, f_n$ can be constructed by superposition of polynomials.
+\[ P(t) = \sum_{i=0}^n f_i L_i(t) \]
+Thus,
+\[ P(t_j) = \sum_{i=0}^n f_i \cdot L_i(t_j) = \sum_{i=0}^n f_i \cdot \delta_{ij} = f_j \]
+
+\begin{remark}[Alternative characterization]
+  \label{remark:4-4}
+  The Lagrange polynomials create an orthonormal basis of $\mathcal P_n$ with respect to scalar product $\IP PQ = \sum_{i=0}^n P(t_i) Q(t_i)$. Because $\IP P{L_i} = P(t_i)$,
+  \[ P = \sum_{i=0}^n \IP P{L_i} \cdot L_i = \sum_{i=0}^n P(t_i) \cdot L_i = \sum_{i=0}^n f_i \cdot L_i \]
+\end{remark}
+
+\begin{theorem}
+  \label{theorem:4-5}
+  Let $a \leq t_0 < \dots < t_n \leq b$.
+  Let $L_{i,n}$ be the Lagrange polynomials.
+  Then the absolute conditioning number $\kappa_{\operatorname{abs}}$ of polynomial interpolation
+  $\Phi = P(\cdot \mid t_0, \dots, t_n) \in C[a, b] \to \mathcal P_n$ with respect to supremum norm
+  is the so-called \emph{Lebesgue constant} $\kappa_{\operatorname{abs}} \coloneqq \Lambda_n = \max_{t \in [a,b]} \sum \Abs{L_{i,n}(t)}$ for points $t_0, \dots, t_n$.
+\end{theorem}
+
+\begin{proof}
+  Polynomial interpolation is linear
+  \[ \implies \Phi'(f)(g) = \Phi(g) \]
+  Thus, show: $\Norm{\Phi'} = \Lambda_n$.
+
+  \begin{align*}
+    \forall f \in C[a,b]: \Abs{\varphi(f)(t)} &= \Abs{\sum f(t_i) L_{i,n}(t)} \\
+      &\leq \sum \Abs{f(t_i)} \cdot \Abs{L_{i,n}(t)} \\
+      &\leq \Norm{f}_{\infty} \cdot \max_{t \in [a,b]} \sum \Abs{L_{i,n}(t)} \\
+    \implies \Norm{\Phi}_{\infty} = \kappa_{\operatorname{abs}} &\leq \Lambda_n
+  \end{align*}
+
+  In the other direction: We construct $g \in C[a,b]$:
+  \[ \Abs{\Phi(g(\tau))} = \Norm{g}_{\infty} \cdot \max_{t \in [a,b]} \sum_{i=0}^n \Abs{L_{i,n}(t)} \]
+  Let $\tau$ be the specific point which takes this maximum.
+
+  Let $g \in C[a,b]: \Norm{g}_{\infty} = 1$ and $g(t_i) = \sign(L_{i,n}(\tau))$.
+  $g$ solves the interpolation problem ($t_i, \sign(L_{i,n}(t_i))$).
+  \[ \implies \Abs{\Phi(g)(\tau)}] = \sum \Abs{L_{i,n}(\tau)} = \Norm{g}_{\infty} \cdot \max_{t \in [a,b]} \sum_{i=0}^n \Abs{L_{i,n}(t)} \]
+  \[ \implies \kappa_{\operatorname{abs}} = \Lambda_n \]
+\end{proof}
+
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{c|cc}
+      $n$  & $\Lambda_n$ for equidistant points & $\Lambda_n$ for Chebyshev points \\
+    \hline
+      $5$  & 3.11      & 2.104 \\
+      $10$ & 29.9      & 2.48 \\
+      $15$ & 512.05    & 2.727 \\
+      $20$ & 10986.53  & 2.9
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Chebyshev points:
+\[ t_i = \cos\left(\frac{2i + 1}{2n + 2} \cdot \pi\right) \]
+
+\subsection{Polynomial evaluation by Aitken-Neville}
+
+\textbf{Motivation:} Often we are interested in $P(t)$ for a few $t$ and not in $t$ itself.
+
+\begin{lemma}[Aitken's lemma]
+  \label{lemma:4-6}
+  For the interpolation polynomial $P = P(f \mid t_0, \dots, t_n)$, the following recursion formula holds:
+  \[ P(f \mid t_0, \dots, t_n) = \frac{(t_0 - t) P(f \mid t_1, \dots, t_n) - (t_n - t) P(f \mid t_0, \dots, t_{n-1})}{t_0 - t_n} \]
+\end{lemma}
+
+\begin{proof}
+  Let us denote the function of the right with $\varphi$.
+  $\varphi$ is a polynomial of degree $n$.
+  Thus $\varphi \in \mathcal P_n$. Furthermore,
+  \[ \phi(t_i) = \frac{(t_0 - t_i) \cdot f_i - (t_n - t_i) f_i}{t_0 - t_n} = f_i \forall i \in \Set{1, \dots, n-1} \]
+  For $i = 0$ or $i = n$:
+  \begin{align*}
+    \varphi(t_0) &= -\frac{t_n - t_0}{t_0 - t_n} f(t_0) \\
+    \varphi(t_n) &= \frac{t_0 - t_n}{t_0 - t_n} f(t_n)
+  \end{align*}
+  The interpolation polynomial is unique. Thus we can conclude the claim.
+\end{proof}
+
+Aitken's lemma provides a recursive method for evaluation of $P(f \mid t_0 \dots t_n)$ at point $t$.
+
+\textbf{Notation:} $P(f(t_i)) = f_i$, $P_{i,k} \coloneqq P(f, t_{i-k} \dots t_i)(t), i \geq k$.
+
+\emph{Neville's scheme:}
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{c|ccccc}
+            & $P_{i0}$ & $P_{i1}$ & $P_{i2}$ & \dots & $P_{in}$ \\
+    \hline
+      $t_0$ & $P_{00}$ &          &          &       &          \\
+      $t_1$ & $P_{10}$ & $P_{11}$ &          &       &          \\
+      \vdots &         &          &          &       &          \\
+      $t_n$ & $P_{n0}$ & $P_{n1}$ &  \dots   &       & $P_{nn}$
+    \end{tabular}
+  \end{center}
+\end{table}
+where $P_{i0} = f_i$ and
+\[ P_{ik} = \frac{t - t_{i-k}}{t_i - t_{i-k}} P_{i, k-1} + \frac{t_i - t}{t_i - t_{i-k}} P_{i-1,k-1} = P_{i,k-1} + \frac{t - t_i}{t_i - t_{i-k}} (P_{i,k-1} - P_{i-1,k-1}) \]
+
+How many operations are necessary?
+\begin{description}
+  \item[$k = 1$:]  $6n$
+  \item[$k = 2$:]  $6(n - 1)$
+  \item[$k = n$:]  $6$
+\end{description}
+In total, we get
+\[ 6 \cdot \sum_{i=1}^n i = 6 \frac{n (n - 1)}{2} = \mathcal{O}(n^2) \]
+
+If there is one additional supporting point, the computing time is increased by $\mathcal O(n)$.
+
+\subsection{Hermitian interpolation and Newton basis}
+
+\index{Hermitian interpolation}
+Now we allow, that points repeat, thus $a \leq t_0 \leq \dots \leq t_n \leq b$.
+\[ \triangle \coloneqq \Set{t_i}_{i=0}^n \]
+If the derivatives $f'(t_i), \dots f^{(k)}(t_i)$ are given,
+$t_i$ is expected to occur $k+1$ times.
+\[ d_i \coloneqq \max\SetDef{j}{t_i = t_{i-j}} \]
+For example:
+\begin{center}
+  \begin{tabular}{c|ccccccc}
+    $t_i$ & $t_0$ & $= t_1$ & $< t_2$ & $= t_3$ & $= t_4$ & $< t_5$ & $< t_6$ \\
+    $d_i$ & 0 & 1 & 0 & 1 & 2 & 0 & 0
+  \end{tabular}
+\end{center}
+Once we define $\forall i: \mu_i: C^n[a,b] \to \mathbb R$, $\mu_i(f) = f^{(d_i)}(t_i)$,
+we can define the goal of Hermitian interpolation:
+
+We construct a polynomial $P \in \mathcal P_n$ satisfying $\mu_i(P) = \mu_i(f) \forall i = 0, \dots, n$.
+
+\dateref{2018/11/08}
+
+\begin{Remark}[revision of Hermitian interpolation]
+  $i = 0, \dots, n$ with $\mu_i: C^n([a,b]) \to \mathbb R^n$ with $\mu_i(f) \coloneqq f^{(d_i)}(t_i)$
+
+  The solution $p = P(f(t_0, \dots, t_n)) \in \mathcal P_n$ is called \emph{Hermitian interpolant} of $f$ at $t_0, \dots, t_n$.
+\end{Remark}
+
+\begin{theorem}
+  \label{theorem:4-7}
+  For every function $f \in \mathcal C^n([a,b])$ and every monotonic sequence $a \leq t_0 \leq t_1 \leq \dots \leq t_n \leq b$
+  of (not necessarily different) points there exists exactly one polynomial $P \in \mathcal P_n$ such that $\forall i \in \Set{0, \dots, n}: \mu_i(P) = \mu_i(f)$.
+\end{theorem}
+
+\begin{proof}
+  A map $\mu: \mathcal P_n \to \mathbb R^{n+1}$ with $P \mapsto (\mu_0 P, \dots, \mu_n P)$ is linear and injective.
+  By $\mu(P) = 0$, $P$ has at least $n+1$ roots (with multiplicities); so its the zero polynomial.
+  Because $\dim(\mathcal P_n) = \dim(\mathbb R^{n+1}) = n + 1$, existence follows.
+\end{proof}
+
+\index{Taylor interpolant}
+If all points are pairwise different, we retrieve the Lagrange interpolant
+\[ P(f \mid t_0, \dots, t_n) = \sum_{i=0}^n f(t_i) L_i \]
+However, it $t_0 = t_1 = \dots = t_n$, the interpolant is the aborted Taylor series around $t = t_0$
+\[ P(f \mid t_0, \dots, t_n)(t) = \sum_{j=0}^n \frac{(t - t_0)^j}{j!} f^{(j)}(t_0) \]
+is also called \emph{Taylor interpolant}.
+
+\begin{lemma}
+  \label{lemma:4-8}
+  Assuming $t_i \neq t_j$, the Hermitian interpolation polynomial $P = P(f(t_0, \dots, t_n))$
+  satisfies \[ P = \frac{(t_i - t) P(f \mid t_0, \dots \hat{t}_i, \dots, t_n) - (t_j - t) P(f \mid t_0, \dots, \hat t_j, \dots, t_n)}{t_i - t_j} \]
+  where $\hat t_i$ means that the $i$-th point is skipped.
+\end{lemma}
+
+\begin{proof}
+  We prove the interpolation properties by insertion of the definition.
+
+  If many evaluations of polynomials are required, it is advantageous to determine polynomial $P$ explicitly.
+  Therefore, choose the Newton basis $w_0, \dots, w_n$ of $\mathcal P_n: w_0(t) \coloneqq 1$ and $w_i(t) \coloneqq \prod_{j=0}^{i-1} (t - t_j), j \geq 1$.
+\end{proof}
+
+\begin{definition}
+  \label{definition:4-9}
+  \index{Divided difference}
+  The leading coefficient $a_n$ of the interpolation polynomial $P(f \mid t_0, \dots, t_n) = a_n t^n + a_{n-1} t^{n-1} + \dots + a_0$ of $f$ for points $t_0 \leq t_1 \leq \dots \leq t_n$ is called $n$-th \emph{divided difference} of $f$ at $t_0, \dots, t_n$ and is denoted as $[t_0, \dots, t_n] f \coloneqq a_n$. % TODO divided difference is correct translation?
+\end{definition}
+
+\begin{theorem}
+  \label{theorem:4-10}
+  For every function $f \in \mathcal C^n([a,b])$ and points $t_0, \dots, t_n$, $P \coloneqq \sum_{i=0}^n [t_0, \dots, t_i] f \cdot w_i$ defines the interpolation polynomial $P(f \mid t_0, \dots, t_n)$ of $f$ at $t_0, \dots, t_n$.
+  If $f \in \mathcal C^{n+1}([a,b])$, then $f(t) = P(t) + [t_0, \dots, t_n, t] f \cdot w_{n+1}(t)$.
+\end{theorem}
+
+\begin{proof}
+  Proof by induction over $n$.
+
+  For $n = 0$, we get value $[t_0] f = f(t_0)$ as leading coefficient (at points $t_0$).
+  The constant interpolation polynomial $P$ satisfies $p \coloneqq [t_0] f \cdot w_0 = f(t_0) \cdot 1$.
+  This is shown by the first statement for $n = 0$.
+  To determine $[t_0, t] f$, compute the leading coefficients of the interpolation polynomial at points $t_0$ and $t$.
+  For this polynomial it holds true that
+  \[ P(f \mid t_0, t) = a + a_1 t \eqqcolon  p(t) \]
+  \[ \implies f(t_0) = p(t_0) = a_0 + a_1 t_0 \]
+  \[ f(t) = p(t) = a_0 + a_1 t \]
+  \[ \implies a_1 = [t_0, t]f = \frac{f(t) - f(t_0)}{t - t_0} \]
+  This implies
+  \[ P(t) = [t_0] f \cdot w_0 + [t_0, t] f \cdot w_1(t) = f(t_0) \cdot 1 + \frac{f(t) - f(t_0)}{t - t_0} (t - t_0) = f(t) \]
+  So the statement for case $n = 0$ follows.
+
+  Now let $n > 0$ and 
+  \[ P_{n-1} \coloneqq P(f \mid t_0, \dots, t_{n-1}) = \sum_{i=0}^{n-1} [t_0, \dots, t_i] f \cdot w_i] \]
+  the interpolation polynomial of $f$ at $t_0, \dots, t_{n-1}$.
+  For $P_n = P(f(t_0, \dots, t_n))$, we have
+  \[ P_n(t) = [t_0, \dots, t_n] f \cdot t^n + a_{n-1} t^{n-1} + \dots + a_0 = [t_0, \dots, t_n] f \cdot w_n(t) + Q_{n-1}(t) \]
+  with some polynomial $Q_{n-1} \in \mathcal P_{n-1}$. Because $Q_{n-1} = P_n - [t_0, \dots, t_n] f \cdot w_n$, $Q_{n-1}$ satisfies the interpolation requirements for $t_0, \dots, t_{n-1}$. Therefore
+  \[ Q_{n-1} = P_{n-1} = \sum_{i=0}^{n-1} [t_0, \dots, t_i] f \cdot w_i \]
+
+  This show the first statement.
+  Especially, $P_n + [t_0, \dots, t_n, t] f \cdot w_{n+1}$ interpolates the function $f$ at points $t_0, \dots, t_n, t$.
+  So the second statement follows.
+\end{proof}
+
+The following properties are given:
+
+\begin{theorem}
+  \label{lemma:4-11}
+  Dividing differences $[t_0, \dots, t_n] f$ satisfying (assuming $f \in C^n([a,b])$)
+  \begin{enumerate}
+    \item $[t_0, \dots, t_n] P = 0$ for all $P \in \mathcal P_{n-1}$
+    \item For collapsing points $t_0 = \dots = t_n$, we have $[t_0, \dots, t_n] f = \frac{f^{(n)}}{n!}$
+    \item For $i < j$, we have the recursive formula $[t_i, \dots, t_j] f = \frac{[t_{i+1}, \dots, t_j] f - [t_i, \dots, t_{j-1}] f}{t_j - t_i}$
+  \end{enumerate}
+\end{theorem}
 
 \printindex
 
