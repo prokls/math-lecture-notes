@@ -1373,6 +1373,156 @@ where $g$ and $\mathbf{1}_C$ is Borel-measurable and thus $f \cdot \mathbf{1}_C$
   and in this case, they are the same.
 \end{theorem}
 
-\printindex
+\dateref{2018/11/12}
 
+\begin{proof}
+  \begin{enumerate}
+    \item[1a.] $f = \mathbf{1}_A$, $A' \in \mathcal A' \implies f \circ \varphi = \mathbf{1}_{\varphi^{-1} A'}$
+      \[ \int_{\chi} f\circ \varphi \, d\mu = \mu(\varphi^{-1} A') = \mu_{\varphi}(A') = \int_{\chi'} f \, d\mu_{\varphi} \]
+    \item[1b.] $f = \sum_{k=1}^n c_k \cdot \mathbf{1}_{A'_k}$
+      \[ (c_k \geq 0) \implies f \circ \varphi = \sum_{k=1}^n c_k \cdot \mathbf{1}_{\varphi^{-1} A'_k} \]
+      \[ A'_k = [f = c_k] \implies \text{ statement is correct} \]
+    \item[2.]
+      $f \geq 0$ then $0 \leq f_n \nearrow f$ and $f_n$ is simple.
+      Also $f_n \circ \varphi \nearrow f \circ \varphi$, $f_n \circ \varphi$ is simple.
+      \[ \int_\chi f \circ \varphi \, d\mu = \lim \int_\chi f_n \circ \varphi \, d\mu = \lim \int_{\chi'} f_n \, d\mu_{\varphi} = \int_{\chi'} f \, d\mu_{\varphi} \]
+    \item[3.]
+      \[ f = f^+ - f^- \qquad f \circ \varphi = f^+ \circ \varphi - f^- \circ \varphi \]
+      \[ (f \circ \varphi)^{\pm} = f^{\pm} \circ \varphi \]
+      The remaining parts are obvious.
+  \end{enumerate}
+\end{proof}
+
+\begin{example}
+  \[ \varphi: (\mathbb R, \mathcal B) \to (\mathbb R, \mathcal B) \qquad f: (\mathbb R, \mathcal B) \to (\mathbb R, \mathcal B) \text{ $\lambda$-integrable} \]
+  \[ \lambda_{\varphi}(A) = \lambda(\varphi^{-1}(A)) \]
+  \[ \int_{\mathbb R} (A) = \lambda(\varphi^{-1}(A)) \]
+  \[ \int_{\mathbb R} f(\varphi(x)) \, \underbrace{d\lambda(x)}_{\lambda(dx)} = \int_{\mathbb R} f(t) \, d\lambda_{\varphi}(t) \]
+  by substitution $\varphi(x) = t$.
+\end{example}
+
+\begin{Remark}
+  $\varphi$ is strictly monotonic. $\varphi' \neq 0$, $\varphi(\mathbb R)$.
+  \[ \psi = \varphi^{-1}: \varphi(\mathbb R) \to \mathbb R \qquad \psi' \neq 0 \]
+
+  $x = \psi(t)$
+  Riemann: $dx = \psi'(t) \, dt$
+  \[ \int_{-\infty}^{\infty} f(\varphi(x)) \, dx = \left.\int_c^d f(t)\right|_{\psi'(t)} \]
+
+  \[ \lim \frac{\varphi(x + h) - \varphi(\lambda)}{x} \]
+
+  TODO
+
+
+\end{Remark}
+
+% previously: Sigma algebras and measures
+\section{Construction of measures}
+
+\subsection{Dynkin systems, Uniqueness theorem}
+\index{Dynkin system}
+\index{$\pi$-system}
+\begin{definition}
+  $\mathcal D \subset \mathcal p(\chi)$ is called \emph{Dynkin system} or $\pi$-system, if
+  \begin{enumerate}
+    \item $\chi \in \mathcal D$
+    \item $A \in \mathcal D \implies A^C \in \mathcal D$
+    \item $A_n \in \mathcal D$ ($n \in \mathbb N$) is pairwise disjoint then $\bigcupdot_n A_n \in \mathcal D$
+  \end{enumerate}
+\end{definition}
+$\mathcal D$ is a non-empty family of subsets of $\chi$ that is closed under finite intersections.
+
+Obviously,
+\begin{enumerate}
+  \item Every $\sigma$-algebra is a Dynkin system
+  \item $\varepsilon \subset \mathcal P(\chi)$, $D(\varepsilon)$ is generated $D$-system
+    \[ \implies \varepsilon \subset \mathcal D(\varepsilon) \subset \sigma(\varepsilon) \]
+\end{enumerate}
+
+The intersection of Dynkin systems is a Dynkin system
+
+\begin{lemma}
+  $\mathcal D$ as Dynkin system is a $\sigma$-algebra $\iff$ closed under intersection ($A, B \in \mathcal D \implies A \cap B \in \mathcal D$)
+\end{lemma}
+
+\begin{proof}
+  \begin{description}
+    \item[$\implies$] is immediate
+    \item[$\impliedby$]
+      Let $A_n \in \mathcal D$ ($n \in \mathbb N$)
+      \[ B_1 = A_1 \in \mathcal D, B_2 = A_2 \setminus (B_1 \cap A_2) = \underbrace{A_2}_{\in \mathcal D} \cap \underbrace{(B_1 \cap A_2)^C}_{\in \mathcal D} \in \mathcal D \]
+      \[ B_n = A_n \setminus \underbrace{\left(\underbrace{\bigcupdot_{i=1}^{n-1} B_i}_{\in \mathcal D} \cap \underbrace{A_n}_{\in \mathcal D}\right)}_{\in \mathcal D} \]
+      \[ \bigcup_{n=1}^\infty A_n = \bigcupdot_{n=1}^\infty B_n \in \mathcal D \]
+  \end{description}
+\end{proof}
+
+\begin{lemma}
+  \label{lamme:3-2}
+  Let $\varepsilon \subset \mathcal P(\chi)$ is closed under intersection $\implies \mathcal D(\varepsilon) = \sigma(\varepsilon)$
+\end{lemma}
+
+\begin{proof}[Good set principle]
+  We have to show $\mathcal D(\varepsilon)$ is closed under intersection. Let $D \in \mathcal D(\varepsilon)$.
+  \[ \mathcal D_D \coloneqq \SetDef{A \subset \chi}{A \cap D \subset \mathcal D(\varepsilon)} \text{ is a $\mathcal D$-system?} \]
+  \begin{enumerate}
+    \item Trivial
+    \item $A \in \mathcal D_D$. $A^C \cap D = \dots = \left((A \cap D) \dot\cup D^C\right)^C \in \mathcal D(\varepsilon)$
+    \item Trivial
+  \end{enumerate}
+  Yes, it is. Especially:
+  \[ E \in \underbrace{\varepsilon}_{\subset \mathcal D(\varepsilon)} \qquad A \in \varepsilon \implies A \cap E \in \underbrace{\varepsilon}_{\subset \mathcal D(\varepsilon)} \qquad A \in \mathcal D_E \]
+  \[ \implies \varepsilon \subset \mathcal D_E \implies \mathcal D(\varepsilon) \subset \mathcal D_E \forall E \in \varepsilon \]
+  \[ D \in \mathcal D(\varepsilon) \implies D \in \mathcal D_E \implies E \cap D \in \mathcal D(\varepsilon) \implies E \in \mathcal D_D \forall E \in \varepsilon \]
+  \[ \varepsilon \subset \mathcal D_D, \text{ so } \mathcal D(\varepsilon) \subset \mathcal D_D \implies D' \cap D \in \mathcal D(\varepsilon) \forall D' \in \mathcal D(\varepsilon) \text{ is true } \forall D \in \mathcal D(\varepsilon) \]
+\end{proof}
+
+\begin{theorem}[Uniqueness theorem]
+  $\mathcal A = \sigma(\varepsilon)$, $\varepsilon$ is closed under intersection. $\mu$ and $\nu$ are measure on $\mathcal A$.
+  \begin{enumerate}
+    \item $\left.\mu\right|_{\varepsilon} = \left.\nu\right|_{\varepsilon}$
+    \item $\mu(\chi) = \nu(\chi) < \infty$ or $\varepsilon \ni E_n \nearrow \chi, \mu(E_n) = \nu(E_n) < \infty \forall n$
+  \end{enumerate}
+  Then $\mu = \nu$ on $\mathcal A$.
+\end{theorem}
+
+\begin{proof}
+  Let $E \in \varepsilon$ with $\mu(E) = \nu(E) < \infty$ and
+  $S_E = \SetDef{D \in \mathcal A}{\mu(D \cap E) = \nu(D \cap E)} \subset \mathcal A$
+  \begin{itemize}
+    \item $\varepsilon \in S_E$ (because of closure under intersection)
+    \item $S_E$ is a Dynkin system
+      \begin{enumerate}
+        \item trivial
+        \item $D \in S_E$, $E = (D \cap E) \dot\cup (D^C \cap E)$
+          \begin{align*}
+            \mu(E) = \mu(D \cap E) + \mu(D^C \cap E):
+              &\: \mu(D^C \cap E) = \mu(E) - \mu(D \cap E) \\
+              & \nu(D^C \cap E) = \nu(E) - \nu(D \cap E)
+          \end{align*}
+          \[ \mu(D^C \cap E) = \nu(D^C \cap E), D^C \in S_E \]
+        \item $D_n \in S_E$ pairwise disjoint
+          \[
+            \mu\left(\left(\bigcup_{n=1}^\infty D_n\right) \cap E\right)
+              = \sum_{n=1}^\infty \mu\left(D_n \cap E\right)
+              = \sum_{n=1}^\infty \nu(D_n \cap E)
+          \] \[
+              = \nu\left(\left(\bigcupdot_{n=1}^\infty D_n\right) \cap E\right)
+            \implies \bigcupdot_{n=1}^\infty D_n \in S_E
+          \]
+      \end{enumerate}
+      \[
+        \varepsilon \subset \mathcal A = \mathcal D(\varepsilon) \subset S_E
+      \] \[
+        \mu(A \cap E) = \nu(A \cap E) \forall A \in \mathcal A
+      \]
+      \begin{enumerate}
+        \item $E = \chi$: $\mu = \nu$
+        \item $\mu(A \cap E_n) \nearrow \mu(A \cap \chi)$ \\
+          $\nu(A \cap E_n) \nearrow \nu(A \cap \chi) \forall A \in \mathcal A$
+          \[ \implies \mu = \nu \]
+      \end{enumerate}
+  \end{itemize}
+\end{proof}
+
+\printindex
 \end{document}
