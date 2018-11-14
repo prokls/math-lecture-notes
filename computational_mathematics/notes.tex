@@ -1866,6 +1866,181 @@ The following properties are given:
   \end{enumerate}
 \end{theorem}
 
+\dateref{2018/11/13}
+
+\begin{theorem}[Hermite-Gnocci Formula]
+  \label{theorem:4-12}
+  For the $n$-th dividing difference of an $n$-times differentiable function $f \in \mathcal C^n$, we have
+  \begin{align*}
+    \sum^n &\coloneqq \SetDef{s = (s_0, \dots, s_n) \in \mathbb R^{n+1}}{\sum s_i = 1, s_i \geq 0} \\
+    [t_0, \dots, t_n] f &= \int_{\sum^n} f^{(n)} \left(\sum_{i=0}^n s_i t_i\right) \, ds
+  \end{align*}
+\end{theorem}
+
+No proof is given of this theorem.
+
+\subsubsection{Approximation error}
+
+\begin{theorem}
+  \label{theorem:4-13}
+  If $f \in \mathcal C^{n+1}$, for the interpolation polynomial $P(f(t_0, \dots, t_n))$ and $t_i, t \in [a,b]$ we have:
+  \[ f(t) - P(f \mid t_0, \dots, t_n)(t) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \cdot w_{n+1}(t) \text{ with } \xi = \xi(t) \in (a,b) \]
+\end{theorem}
+
+\begin{proof}
+  Let $t \in [a,b]$. For $t = t_i$, both sides are zero. Thus, we assume $t \neq t_i \forall i$.
+
+  For $\alpha \in \mathbb R$ we define that $g(\tau) \coloneqq f(\tau) - P(f \mid t_0, \dots, t_n)(\tau) - \alpha w_{n+1}(\tau)$.
+  $g$ is $(n+1)$-times continuous differentiable and has roots $t_0, \dots, t_n$. Choose
+  \[ \alpha = \frac{f(t) - P(f \mid t_0, \dots, t_n)(t)}{(t - t_0) \cdot \dots \cdot (t - t_n)} \]
+  Thus, $\alpha$ is a root of $g$. This implies there are $n+2$ roots.
+
+  By Rolle's Theorem, $g'$ has $n+1$ roots and consider this iteratively, we have exactly one root $\xi \in [a,b]$ for $g^{(n+1)}$.
+  For $\xi$, we have:
+  \begin{align*}
+    0 &= g^{(n+1)}(\xi) \\
+      &= f^{(n+1)}(\xi) - \frac{f(t) - P(f \mid t_0, \dots, t_n)(t)}{(t - t_0) \dots (t - t_n)} \cdot (n+1)!
+  \end{align*}
+  Because $P$ is a polynomial of degree $n+1$ and $w_{n+1}$ is a polynomial with leading coefficient $1$.
+
+  If we resolve this by $P(f\mid\dots)(t)$ shows our claim.
+\end{proof}
+
+\begin{remark}
+  \label{remark:4-14}
+  In case of Taylor interpolation $(t_0 = \dots = t_n)$ we have the Lagrange remainder term of the Taylor expansion
+  \[ f(t) - P(f \mid t_0 \dots t_n)(t) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (t - t_0)^{n+1} \]
+\end{remark}
+
+Consider the following class of functions:
+\[ \mathcal F \coloneqq \SetDef{f \in \mathcal C^{n+1}[a,b]}{\sup_{x \in [a,b]} \Abs{f^{(n+1)}(x)} \leq M(n+1)!} \]
+for $M > 0$ constant, the approximation error depends on the choice of point $t$ with respect to $w_{n+1}(t) = (t - t_0) \cdot \dots \cdot (t - t_0)$.
+
+\subsubsection{Numeric differentiation}
+
+Approach:
+\begin{enumerate}
+  \item Choose points $t_0, \dots, t_n$.
+  \item Let $f$ approximate this polynomial $P \in \mathcal P_n$
+  \item Differentiate $P \to P'$
+  \item Can be determined accurately such that the interpolation error can determine the accuracy of the approximation
+\end{enumerate}
+
+Consider $P(f \mid t_i)$ in Newton form:
+\[ P = f(t_0) + [t_0, t_1] f w_1 + \dots + [t_0  \dots t_n] f w_n \]
+
+The approximation error is given by
+\[ r(t) = w_{n+1}(t) \cdot \frac{f^{(n+1)}(\xi(t))}{(n+1)!} \]
+
+If $f \in \mathcal C^{n+2}$, we can differentiate both equation systems.
+\[ t = t_0: P'(t_0) = [t_0, t_1] f + [t_0, t_1, t_2] r \cdot (t_0 - t_2) + \dots + [t_0 \dots t_n] f (t_0 - t_1) \dots (t_0 - t_{n-1}) \]
+\[ r'(t_0) = (t_0 - t_n) \frac{f^{(n+1)}(\xi(t_0))}{(n+1)!} \qquad w_{n+1}^{(k)}(t_0) = 0 \forall k \]
+
+Thus, we get:
+\[ f'(t_0) = P'(t_0) + r'(t_0) \qquad \text{ (analogously for $t_j \neq t_0$)} \]
+If the supporting points are distributed with distance $k > 0$ next to $t_0$, we get the classical differential quotient:
+
+\begin{example}
+  \label{example:4-16}
+  \begin{description}
+    \item[Forward differential quotient] for the first derivative: $t_1 \coloneqq t_0 + k$
+      \begin{align*}
+        f'(t_0) &= P_1'(t_0) + r_1'(t_0) \\
+          &= [t_0, t_1] f + (t_0 - t_1) \cdot \frac12 f^n(\xi) \\
+          &= \frac{f(t_0 + h) - f(t_0)}{h} - \frac{n}2 \cdot f''(\xi)
+      \end{align*}
+      The resulting error is in $\mathcal O(h)$ for $h \to 0$
+    \item[Central differential quotient]
+      $t_0 = t_1 - k$, $t_1$, $t_2 = t_1 + k$.
+
+      The three supporting points define a polynomial of second degree,
+      we can use to determine $f'(t_2)$.
+      \[ \implies f'(t_1) = \underbrace{P'(t_1)}_{\deg = 2} + r_2(t_1) = [t_0, t_1] f + [t_0, t_1, t_2] f \cdot \underbrace{(t_1 - t-0)}_{= h} + (t_1 - t_0)(t_1 - t_2) \cdot \frac16 \cdot f'''(\xi) \]
+      \[ = \frac{f(t_1) \cdot f(t_0)}{h} + \frac1{2n} \left(f(t_2) - 2f(t_2) + f(t_0)\right) \]
+      \[ = \frac{1}{2h} (f(t_1 + h) - f(t_1 - h)) - \frac{h^2}{6} f'''(\xi) \]
+      where
+      \[ [t_0, t_1, t_2] f = \frac{[t_1, t_2] f - [t_0, t_1] f}{t_2 - t_0} = \frac{1}{2h} \left(\frac{f(t_2) - f(t_1)}{h} - \frac{f(t_1) - f(t_0)}{h}\right) \]
+      The error is in $\mathcal O(h^2)$ for $h \to 0$.
+
+      Thus, symmetric differential quotients usually give a better approximation then the one-sided quotient.
+  \end{description}
+\end{example}
+
+\subsubsection{Minmax property of the Chebyshev polynomial}
+
+(see page 214 in the book)
+
+\index{Chebyshev polynomial}
+Our goal is to show that $\max_{t \in [a, b]} \Abs{w_{n+1}(t)}$ is minimized using Chebyshev points.
+We consider the \emph{Chebyshev polynomials}
+\[ T_n = \cos(n \cdot \arccos(x)) \text{ for } x \in [-1, 1) \]
+For $x \in \mathbb R$, we define recursively,
+\[ T_k(x) = 2x \cdot T_{k-1}(x) \cdot T_{k-2}(x) \qquad T_0(x) = 1 \qquad T_1(x) = x \]
+
+\begin{itemize}
+  \item The Chebyshev polynomials have integral coefficients.
+  \item The largest coefficient of $T_n$ is $a_n = 2^{n-1}$
+  \item $T_n$ is even if $n$ is even, otherwise it is odd
+  \item $T_n(1) = 1$, $T_n(-1) = (-1)^n$
+  \item $\Abs{T_n(x)} \leq 1 \forall x \in [-1, 1]$
+  \item $\Abs{T_n(x)}$ takes the value $1$ at the so-called \emph{Chebyshev x-coordinates} \dt{Tschebyscheff Abszissen} $\tilde x_k = \cos(\frac{k\pi}2)$ \index{Chebyshev x-coordinates}
+    \[ \implies \Abs{T_n(x)} = 1 \iff x = \tilde x_k = \cos(\frac{k\pi}2) \text{ for } k = 1, \dots, n \]
+  \item $T_k$ create an orthogonal basis over $[-1, 1]$ to the weight function $w(x) = \frac{1}{\sqrt{1 - x^2}}$
+  \item Global representation:
+    \[ T_k(x) = \frac12 \left((x + \sqrt{x^2 - 1})^k + (x - \sqrt{x^2 - 1})^k\right) \qquad \text{ for } x \in \mathbb R \]
+\end{itemize}
+
+In terms of the approximation error, we look for $q \in \mathcal P_{n+1}$ of degree $n+1$ with leading coefficient $1$ and the smallest supremum norm over some interval $[a,b]$.
+\[ \implies \max_{t \in [a,b]} \Abs{q(t)} \to \min \]
+$\implies$ reduce the problem to interval $[-1, 1]$.
+
+We use the following map:
+\[ x: [a,b] \to [-1, 1] \qquad t \mapsto x(t) = 2 \frac{t - a}{b - a} - 1 \]
+Inverse function:
+\[ t(x) = \frac{1 - x}{2} a + \frac{1 + x}{2} b \]
+
+If $q \in \mathcal P_{n+1}$ with $\deg(q) = n + 1$ and leading coefficient $1$ is the solution of the min-max problem
+\[ \max_{x \in [-1, 1]} \Abs{q(x)} \to \min \]
+then $\hat q(t) = q(t(x))$ is the solution of the original problem with leading coefficient $\frac{2^{n+1}}{(b - a)^{n+1}}$.
+
+\begin{theorem}
+  \label{theorem:4-17}
+  Every polynomial $q_n \in \mathcal P_n$ with leading non-zero coefficient takes up in interval $[-1, 1]$ a value with absolute value $\geq \frac{\Abs{a_n}}{2^{n-1}}$.
+
+  In particular, the Chebyshev polynomials $T_n(x)$ are minimal with respect to maximum norm $\Norm{f}_{\infty} = \max_{x \in [-1, 1]} \Abs{f(x)}$ and the polynomials of degree $n$ with leading coefficient $2^{n-1}$.
+\end{theorem}
+
+\begin{proof}
+  Let $q_n \in \mathcal P_n$ with leading coefficient $a_n = 2^{n-1}$.
+  Remark: $\Abs{q_n(x)} < 1 \forall x \in [-1, 1]$.
+
+  $T_n - q_n$ has degree $\leq n-1$.
+  At the Chebyshev x-coordinates, we have $T_n(\tilde x_{2k}) = 1$ and $q_n(\tilde x_{2k}) < 1$.
+  $T_n(\tilde x_{2k+1}) = -1$ and $q_n(\tilde x_{2k+1}) > -1$.
+
+  $T_n - q_n$ at the $n+1$ Chebyshev x-coordinates is alternatingly positive and negative,
+  thus there are $\geq n$ roots.
+
+  But $\deg \leq n-1 \implies T_n - q_n \equiv 0$ is a contradiction.
+
+  \[ \implies \forall q_n \in \mathcal P_n \text{ with } a_n = 2^{n-1} \]
+  \[ \exists x \in [-1, 1]: \Abs{q_n(x)} \geq 1 \]
+
+  For $q_n \in \mathcal P_n$ with $a_n \neq 0$, the following claim follows:
+  $\tilde q_n = q_n \cdot \frac{2^{n-1}}{a_n}$ is a polynomial with leading coefficient $2^{n-1}$.
+\end{proof}
+
+\begin{remark}
+  \label{remark:4-18}
+  When minimizing the approximation error of the polynomial interpolation, we look for the points $t_0, \dots, t_n \in [a,b]$ that solve the min-max problem $\max_{t \in [a,b]} \Abs{w(t)} = \max{\Abs{(t - t_0) \cdot \dots \cdot (t - t_n)}} \to \min$.
+
+  We look for the normed polynomial $w_n(\cdot) \in \mathcal P_n$ with real roots $t_0, \dots, t_n$: $\max_{t \in [a,b]} \Abs{w(t)} \to \min$.
+
+  $\implies$ for $[a,b]$, this is the $n+1$-th Chebyshev polynomial with roots $t_i = \cos\left(\frac{2i+1}{2n+2} \cdot \pi\right)$ with $i = 0, \dots, n$.
+\end{remark}
+
+\dateref{2018/11/15}
+
 \printindex
 
 \end{document}
