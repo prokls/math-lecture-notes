@@ -101,6 +101,7 @@
 \DeclareMathOperator{\degree}{deg}
 \DeclareMathOperator{\im}{image}
 \DeclareMathOperator{\ke}{kernel}
+\DeclareMathOperator{\spec}{spec}
 \DeclareMathOperator{\prop}{probability}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\argmax}{argmax}
@@ -1795,7 +1796,7 @@ We construct a polynomial $P \in \mathcal P_n$ satisfying $\mu_i(P) = \mu_i(f) \
 \index{Taylor interpolant}
 If all points are pairwise different, we retrieve the Lagrange interpolant
 \[ P(f \mid t_0, \dots, t_n) = \sum_{i=0}^n f(t_i) L_i \]
-However, it $t_0 = t_1 = \dots = t_n$, the interpolant is the aborted Taylor series around $t = t_0$
+However, if $t_0 = t_1 = \dots = t_n$, the interpolant is the aborted Taylor series around $t = t_0$
 \[ P(f \mid t_0, \dots, t_n)(t) = \sum_{j=0}^n \frac{(t - t_0)^j}{j!} f^{(j)}(t_0) \]
 is also called \emph{Taylor interpolant}.
 
@@ -1810,7 +1811,7 @@ is also called \emph{Taylor interpolant}.
   We prove the interpolation properties by insertion of the definition.
 
   If many evaluations of polynomials are required, it is advantageous to determine polynomial $P$ explicitly.
-  Therefore, choose the Newton basis $w_0, \dots, w_n$ of $\mathcal P_n: w_0(t) \coloneqq 1$ and $w_i(t) \coloneqq \prod_{j=0}^{i-1} (t - t_j), j \geq 1$.
+  Therefore, choose the Newton basis $w_0, \dots, w_n$ of $\mathcal P_n: w_0(t) \coloneqq 1$ and $w_i(t) \coloneqq \prod_{j=0}^{i-1} (t - t_j), i \geq 1$.
 \end{proof}
 
 \begin{definition}
@@ -2040,6 +2041,124 @@ then $\hat q(t) = q(t(x))$ is the solution of the original problem with leading 
 \end{remark}
 
 \dateref{2018/11/15}
+
+TODO
+
+\dateref{2018/11/20}
+
+TODO
+
+\dateref{2018/11/22}
+
+\[ s''(t_0) = 0 \qquad s''(t_n) = 0 \]
+
+\begin{theorem}[Gershgorin circle theorem]
+  Let $B \in \mathbb R^{n \times n}$.
+  \[ \sigma(b) = \bigcup_{k=1}^n \SetDef{z \in \mathbb C}{\Abs{z - b_{kk}} \leq \sum_{l \neq k} \Abs{b_{kl}}} \]
+  Applied to $A$, we can conclude that all eigenvalues of $A$ lie in $\mathbb C_{> 0}$.
+  \[ \implies 0 \not\in \spec(A) \iff A \text{ is invertible } \implies \exists!: [c_0, \dots, c_n]^T: Ac = \text{ right-hand side} \]
+\end{theorem}
+
+Thus, the existence of a unique spline function $s$ follows which is realized by piecewise cubic polynomials on $[t_i, t_{i+1}]$.
+
+\index{Natural spline interpolant}
+\begin{Remark}
+  The function $s$ is called \emph{natural spline interpolant} and the marginal conditions, created by minimizing the functional $y[s]$, are called \emph{natural marginal conditions}.
+\end{Remark}
+
+\index{Periodic spline}
+\index{Complete spline}
+Alternatively, instead we can use $s''(t_0) = s''(t_n) = 0$:
+\begin{description}
+  \item[Complete spline]  $s'(t_0) = y_0', s'(t_n) = y_n'$
+  \item[Periodic spline] $s'(t_0) = s'(t_n), s''(t_0) = s''(t_n)$
+\end{description}
+
+\subsection{Spline spaces and $B$-splines}
+
+This is an extended spline concept of arbitrary order $k$.
+
+\begin{definition}
+  \label{definition:4-19}
+  Let $\Delta \coloneqq \Set{t_0, \dots, t_n}$ is a grid of pairwise different points $a = t_0 < t_1 < \dots < t_n = b$.
+  A spline of degree $k-1$ (of order $k$) with respect to $\Delta$ is a function $s \in C^{k-2}([a,b])$, that corresponds with a polynomial $s_i \in \mathcal P_{k-1}$ in every interval $[t_i, t_{i+1}]$ with $i = 0, \dots, n-1$.
+
+  The space of splines of degree $k-1$ with respect to $\Delta$ is denoted with $S_{k, \Delta}$.
+\end{definition}
+
+\begin{Remark}
+  $S_{k,\Delta}$ is a real vector space and it is true that $\mathcal P_{k-1} \subset S_{k,\Delta}$.
+  Furthermore the aborted powers of degree $k-1$
+  \[
+    (t - t_i)_+^{k-1} = \begin{cases}
+      (t - t_i)^{k-1} & \text{ if } t \geq t_i \\
+      0 & \text{ if } t < t_i
+    \end{cases}
+  \]
+  are contained in $S_{k,\Delta}$.
+\end{Remark}
+
+\begin{Theorem}
+  \label{theorem:4-20}
+  The monomials and aborted powers create a basis
+  \[ B \coloneqq \Set{1, t, \dots, t^{k-1}, (t - t_1)_+^{k-1}, \dots, (t - t_{n-1})_+^{k-1}} \]
+  of the spline space $S_{k,\Delta}$. Especially, it holds that
+  \[ \dim(S_{k,\Delta}) = k + n - 1 \]
+\end{Theorem}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics{img/splines.pdf}
+    \caption{Linear combination of aborted powers of order 2}
+    \label{img:splines}
+  \end{center}
+\end{figure}
+
+The basis $B$ is not appropriate to represent a spline $s \in S_{k,\Delta}$, because
+\begin{itemize}
+  \item the support of monomials $t^i$ is entire $\mathbb R$. $\mathbb R \setminus \Set{0}$.
+  \item for points with $t_i \approx t_{i+1}$, the aborted powers are \emph{almost} linear dependent.
+    \[ s(t) = \sum_{i=0}^{k-1} a_i t^i + \sum_{i=1}^{n-1} c_i (t - t_i)_+^{k-1} \]
+\end{itemize}
+
+\index{B-Splines}
+\begin{definition}
+  \label{definition:4-21}
+  Let $\tau_1 \leq \tau_2 \leq \dots \leq \tau_d$ is an arbitrary sequence of points.
+  Then the B-splines $N_{i,k}(t)$ of order $k$ for $k = 1, \dots, d$ and $i = 1, \dots, d-k$
+  are recursively defined by
+  \[
+    N_{i,1}(t) \coloneqq \chi_{[\tau_i,\tau_{i+1}]}(t) = \begin{cases}
+      1 & \text{ if } \tau_i \leq t < \tau_{i+1} \\
+      0 & \text{ else}
+    \end{cases}
+  \] \[
+    N_{i,k}(t) = \frac{t - \tau_i}{\tau_{i+k-1} - \tau_i} N_{i,k-1}(t) + \frac{\tau_{i+k} - t}{\tau_{i+k} - \tau_{i+1}} N_{i+1,k-1(t)}
+  \]
+\end{definition}
+
+\begin{Remark}
+  The characteristic function $\chi$ vanishes for collapsing points.
+  In the recursion, expressions of form $\frac00 \coloneqq 0$ are defined.
+  Thus, B-splines are also given for collapsing points.
+\end{Remark}
+
+\begin{example}[$k=2$]
+  \begin{align*}
+    N_{i,2}(t) &= \frac{t - \tau_i}{\tau_{i+1} - \tau_i} N_{i,1}(t) + \frac{\tau_{i+2} - t}{\tau_{i+2} - \tau_{i+1}} N_{i+1,1}(t) \\
+      &= \frac{t - \tau_i}{\tau_{i+1} - \tau_i} \chi_{[\tau_i,\tau_{i+1})} + \frac{\tau_{i+2} - t}{\tau_{i+2} - \tau_{i+1}} \chi_{[\tau_{i+1},\tau_{i+2})}
+  \end{align*}
+\end{example}
+
+TODO image Hat functions
+
+For the B-splines, as defined above, the following properties hold:
+\index{Local support}
+\begin{enumerate}
+  \item $\operatorname{supp}(N_{i,k}) \subset [\tau_i, \tau_{i+k}]$ (\emph{local support})
+  \item $N_{i,k}(t) \geq 0 \forall t \in \mathbb R$ (non-negative)
+  \item $N_{i,k}$ is a piecewise polynomials of degree $k-1$ with respect to intervals $[\tau_i, \tau_{i+1}]$.
+\end{enumerate}
 
 \printindex
 

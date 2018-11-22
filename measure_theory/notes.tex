@@ -1524,5 +1524,221 @@ The intersection of Dynkin systems is a Dynkin system
   \end{itemize}
 \end{proof}
 
+\dateref{2018/11/19}
+
+\subsection{Outer measure and extension theorem}
+\begin{definition}[Outer measure]
+  \index{Outer measure}
+  $\eta: P(\chi) \to [0, \infty]$ is called \emph{outer measure} if
+  \begin{enumerate}
+    \item $\eta(\emptyset) = 0$
+    \item $\sigma$-additivity
+  \end{enumerate}
+  \[ \implies A \subset \bigcup_{n=1}^\infty A_n \implies \eta(A) \leq \sum_{n=1}^\infty \eta(A_n) \]
+
+  $A \subset \chi$ is called $\eta$-measurable if $\forall C \subset \chi: \eta(C \cap A) + \eta(C \cap A^C) = \eta(C)$.
+
+  Is not a measure.
+\end{definition}
+
+\begin{Remark}
+  Third property: $A \subset B \implies \eta(A) \leq \eta(B)$
+\end{Remark}
+
+\begin{theorem}[Carathéodory]
+  $A_\eta = \SetDef{A \subset \mathcal P(\chi)}{A \text{ measurable}}$ is a $\sigma$-algebra and $\left.\eta\right|_{\mathcal A_{\eta}}$ is a measure, $(\chi, \mathcal A_\eta, \eta)$ is complete.
+\end{theorem}
+
+\begin{proof}
+  \[ \forall C: \eta(C \cap \chi) + \underbrace{\eta(C \cap \emptyset)}_{\sigma(i)} = \eta(C) \implies \chi \in \mathcal A_\eta \]
+  Thus, the first statement follows. For the second property, we have:
+
+  $A$ is measurable, then $A^C$ is measurable.
+  By finite union and additivity:
+  \[ A_1, A_2 \in \mathcal A_\eta \implies \forall C \in \mathcal P(\chi) \]
+
+  \begin{align*}
+    \eta(C) &= \eta(C \cap A_1) + \eta(C \cap A_1^C) \\
+      &= \eta(C \cap A_1) + \eta\left((C \cap A_1^C) \cap A_2\right) + \eta\left((C \cap A_1^C) \cap A_2^C\right) \\
+      &= \eta\left(C \cap (A_1 \cup A_2) \cap A_1\right) + \eta(C \cap (A_1 \cup A_2) \cap A_1^C) + \eta(C \cap (A_1 \cup A_2)^C) \\
+      &\overset{A_1 \text{ measurable}}{=} \eta\left(C \cap (A_1 \cup A_2)\right) + \eta(C \cap (A_1 \cup A_2)^C) \\
+      &\implies A_1 \cup A_2 \text{ measurable}
+  \end{align*}
+  If $A_1 \cap A_2 = \emptyset$
+  \begin{align*}
+    \eta(C \cap (A_1 \cup A_2) \cap A_1) + \mu(C \cap (A_1 \cup A_2) \cap A_1^C)
+      &= \eta(C \cap A_1) + \eta(C \cap A_2)
+  \end{align*}
+  Especially, $C = \chi$, $\eta(A_1 \dotcup A_2) = \eta(A_1) + \eta(A_2)$.
+
+  Also $A_1, A_2 \in \mathcal A_\eta \implies A_1 \cap A_2 = (A_1^C \cup A_2^C)^C \in \mathcal A_\eta$.
+
+  $\sigma$:
+  $A_n \in \mathcal A_\eta$ ($n \in \mathbb N$) with $p_n$ disjoint.
+  $\bigcup_{n=1}^N A_n \in \mathcal A_\eta$. Let $C \subset \chi$.
+  \begin{align*}
+    \eta(C) &= \eta\left(C \cap \bigcup_{n=1}^N A_n\right) + \eta\left(C \cap \left(\bigcup_{n=1}^N A_n\right)^C\right) \\
+      &\geq \underbrace{\sum_{n=1}^N \eta(C \cap A_n)}_{\forall N} + \eta\left(C \cap \left(\bigcup_{n=1}^\infty A_n\right)^C\right) \\
+      &\overset{\text{by $\sigma$-subadd.}}{\geq} \eta\left(C \cap \bigcupdot_{n=1}^\infty A_n\right) + \eta\left(C \cap \left(\bigcup_{n=1}^\infty A_n\right)^C\right) \\
+      &\implies \bigcupdot_{n=1}^\infty A_n \text{measurable}, \eta\left(\bigcupdot_{n=1}^\infty \eta(A_n)\right) + 0
+  \end{align*}
+  We know: $\mathcal A_\eta$ is a Dynkin system and closed under intersection (thus, a $\sigma$-algebra).
+  $\eta$ is $\sigma$-additive on $\mathcal A_\eta$.
+
+  Completeness is obvious.
+\end{proof}
+
+\begin{theorem}[Carathéodory's extension theorem]
+  Let $\varepsilon \subset \mathcal P(\chi)$ be the generator of $\mathcal A$.
+  Let $\mu: \varepsilon \to [0, \infty]$ be a set functions. $A \subset \chi$.
+  \[ \mu^*(A) = \inf\SetDef{\sum_{n=1}^\infty \mu(E_1)}{E_1 \in \varepsilon, A \subset \bigcup_{n=1}^\infty E_1} \]
+  \begin{enumerate}
+    \item $\mu^*$ is an outer measure $\iff \mu^*(\emptyset) = 0$ (especially true, if $\, \emptyset \in \varepsilon$ and $\mu(\emptyset) = 0$)
+    \item If $\mu^*(\emptyset) = 0$, $\varepsilon \subset \mathcal A_{\mu^*} \iff \mu^*(D \cap E) + \mu^*(D \cap E^C) \leq \mu(D) \forall D, E \in \varepsilon$
+    \item If the first two properties are satisfied, then $\left.\mu^*\right|_\varepsilon = \mu$ iff $\mu^*(E) \geq \mu(E) \forall E \in \varepsilon$, so $\mu(E) \leq \sum_{n=1}^\infty \mu(E_n)$ if $E_n \in \varepsilon$ and $E \subset \bigcup_{n=1}^\infty E_n$
+  \end{enumerate}
+\end{theorem}
+
+$\mu^*$ is $\sigma$-subadditive in every case.
+
+$\forall \delta > 0 \exists E_n \in \varepsilon: \sum \mu(E_n) < \delta$ \\
+$E \subset E \cup \bigcup_n E_n$ \\
+$\mu^*(E) \leq \mu(E) + \sum_n \mu(E_n) \leq \mu(E) + \delta$. \\
+Thus, $\mu^*(\emptyset) = 0 \implies \mu^*(E) \leq \mu(E) \forall E \in \varepsilon$
+
+\begin{proof}
+  \begin{enumerate}
+    \item Direction $\implies$ is immediate. \\
+      For direction $\impliedby$, we need to show $\sigma$-subadditivity.
+
+      \[ A, A_n \in \chi, A \subset \bigcup_{n=1}^\infty A_n \]
+      \[ \mu^*(A_n) = \inf\SetDef{\sum_{m=1}^\infty \mu(E_{m,n})}{E_{m,n} \in \varepsilon, A_n \subset \bigcup_{m=1}^\infty E_{m,n}} \]
+      $\delta > 0: \exists E_{m,n} \in \varepsilon: \mu^*(A_n) + \frac{\delta}{2^n} \geq \sum_{m=1}^\infty \mu(E_{m,n}) \geq \mu^*(A_n)$
+      \[ A \subset \bigcup_{n=1}^\infty A_n \subset \bigcup_{n=1}^\infty \bigcup_{m=1}^\infty E_{m,n} \]
+      \begin{align*}
+        \mu^*(A) &\leq \sum_{n=1}^\infty \sum_{m=1}^\infty \mu\left(E_{m,n}\right) \\
+          &\leq \sum_{n=1}^\infty \left(\mu^*(A_n) + \frac{\delta}{2^n}\right) \\
+          &= \sum_{n=1}^\infty \mu^*(A_n) + \delta \forall \delta > 0 \\
+          &\implies \mu^*(A) \leq \sum_{n=1}^\infty \mu^*(A_n)
+      \end{align*}
+    \item Direction $\implies$ is immediate. \\
+      For direction $\impliedby$, let $E \in \varepsilon$. Show that $E$ is measurable with respect to $\mu^*$.
+
+      Let $C \subset \chi$ be arbitrary. $D_n \in \varepsilon$ such that $C \subset \bigcup_{n=1}^\infty D_n$ and $\mu^*(C) + \delta \geq \sum_{n=1}^\infty \mu(D_n) \geq \mu^*(C)$
+      \begin{align*}
+        \mu^*(C) &\leq \mu^*(C \cap E) + \mu^*(C \cap E^C) \\
+          &\leq \sum_{n=1}^\infty \left(\mu^*(D_n \cap E) + \mu^*(D_n \cap E)\right) \\
+          &\overset!\leq \sum_{n=1}^\infty \mu(D_n) \leq \mu^*(C) + \delta \forall \delta > 0
+      \end{align*}
+      So, $\mu^*(C \cap E) + \mu^*(C \cap E^C) = \mu^*(C)$ where $E$ is measurable.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Let $\varepsilon$ be a semiring. $\mu: \varepsilon \to [0, \infty]$.
+  \begin{enumerate}
+    \item $\mu(\emptyset) = 0$
+    \item $\chi \in \varepsilon$ and $\mu(\chi) < \infty$ or $\chi = \bigcup_n E_n$, $E_n \in \varepsilon, \mu(E_n) < \infty$
+    \item $\mu$ is $\sigma$-additive on $\varepsilon \implies$ unique extension on $\sigma(\varepsilon)$
+  \end{enumerate}
+  $\varepsilon$ is a semiring over $\chi$, if
+  \begin{enumerate}
+    \item $\emptyset \in \varepsilon$
+    \item $D, E \in \varepsilon \implies D \cap E \in \varepsilon$
+    \item $D \setminus E = C_1 \dot\cup \dots \dot\cup C_k, C_k \in \varepsilon$
+  \end{enumerate}
+  $\mu: \varepsilon \to [0, \infty]$ is $\sigma$-additive on $\varepsilon$.
+
+  where $\mu(\emptyset) = 0$, $\mu\left(\bigcupdot_n E_n\right) = \sum_n \mu(E_n)$
+  if $\bigcupdot_{n} E_n \in \varepsilon$
+\end{theorem}
+
+\[ X = \bigcup_n E_n \qquad E_n \in \varepsilon \qquad \mu(E_n) < \infty \]
+Thus, the theorem is applicable, so $\mu$ has a unique extension for measure
+to $\mathcal A_{\mu^*} \supset \mathcal A \supset \varepsilon$. $\mathcal A_{\mu^*}$ complete.
+
+\begin{proof}
+  \begin{itemize}
+    \item $\mu$ also finitely additive on $\varepsilon$.
+    \item $D, E \subset \varepsilon$. $E \subset D \implies D \setminus E = C_1 \dot\cup \dots \dot\cup C_k$. $D = E \dot\cup C_1 \dot\cup \dots \dot\cup C_k$
+      \[ \mu(D) = \mu(E) + \sum \mu(C_j) \geq \mu(E) \]
+  \end{itemize}
+  \begin{enumerate}
+    \item Immediate.
+    \item $D, E \in \varepsilon$. $D \cap E \in \varepsilon. D \cap E^C = C_1 \dot\cup \dots \dot\cup C_k$ with $C_j \in \varepsilon$. $D = (D \cap E) \dot\cup C_1 \dot\cup \dots \dot\cup C_k$. $\mu^*(D \cap E) + \mu^*(D \cap E^C) \leq \mu(D \cap E) + \sum_{j=1}^k \mu(C_j) = \mu(D)$.
+    \item $E , E_n \in \varepsilon: E \subset \bigcup_{n=1}^\infty E_n$. $E = \bigcup_{n=1}^\infty \underbrace{(E_n \cap E)}_{\in \varepsilon}$ it suffices to show that $\mu(E) \leq \sum_n \mu(E_n \cap E)$.
+    Without loss of generality, $E = \bigcup_{n=0}^\infty E_n$. $D_1 = E_1$, $D_2 = E_2 \cap E_1^C = C_{2,1} \dot\cup \dots \dot\cup C_{2,k_2}$. $D_n = E_n \cap E^C_{n-1} \cap \dots \cap E_1^C = C_{n,1} \dot\cup C_{n,2} \dot\cup \dots \dot\cup C_{n,k_n}$. $C_{n,j} \in \varepsilon$.
+    \[ E = \bigcup_{n=1}^\infty E_n = \bigcupdot_{n=1}^\infty D_n = \bigcupdot_{n=1}^\infty \bigcupdot_{j=1}^{k_n} C_{n,j} \]
+    \[ \mu(E) = \sum_{n=1}^\infty \underbrace{\sum_{j=1}^{k_n} \mu(C_{n,j})}_{\leq \mu(E_n)} \leq \sum_n \mu(E_n) \]
+  \end{enumerate}
+\end{proof}
+
+\subsection{Regular measures}
+
+\index{Outer regular measure}
+\begin{definition}
+  Let $(\chi, \mathcal A, \mu)$ is a measurable space. Let $\varepsilon$ be a generator of $\mathcal A$.
+  $\mu$ is called \emph{outer regular} with respect to $\varepsilon$,
+  if $\mu = \mu^*$ on $d$ where $\mu^*$ is defined like
+  \[ \mu^*(A) = \inf\SetDef{\sum_{n=1}^\infty \mu(E_1)}{E_1 \in \varepsilon, A \subset \bigcup_{n=1}^\infty E_1} \]
+  \dt{$\mu$ is regulär von außen}
+\end{definition}
+
+\begin{theorem}
+  Let $\varepsilon$ be a generator closed under intersection. Let $\emptyset \in \varepsilon$.
+  Let $\mu$ be a measure on $\mathcal A = \sigma(\varepsilon)$, $\sigma$-finite with respect to $\varepsilon$.
+  \[ \mu^*(A) \coloneqq \inf\SetDef{\sum_{n=1}^\infty \mu(E_1)}{E_1 \in \varepsilon, A \subset \bigcup_{n=1}^\infty E_1} \]
+  Then $\mu = \mu^*$ on $\mathcal A$ ($\mu$ is outer regular) $\iff$
+  \[ \mu(D \cap E^C) = \mu^*(D \cap E^C) \forall D, E \in \varepsilon \]
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item trivial
+    \item
+      $\mu(E) \geq \mu^*(E)$ with $E \in \varepsilon$.
+      By (3), we have $\mu(E) \leq \mu^*(E)$.
+      $\mu(E) = \mu^*(E)$ on $\varepsilon$.
+      $D, E \in \varepsilon: \mu^*(D \cap E) + \mu^*(D \cap E^C) = \mu(D \cap E) + \mu(D \cap E^C) = \mu(D)$.
+      Thus $E \subseteq D$.
+
+      \begin{Remark}
+        \[ D \cap E^C = D \cap (E \cap D)^C \]
+        \[ \mu^*(D \cap E) + \mu^*(D \cap E^C) = \mu(D \cap E) + \mu^*(\underbrace{D}_{\in \varepsilon} \cap (\underbrace{E \cap D}_{\in \varepsilon})^C) \]
+        \[ = \mu(D \cap E) + \mu(D \cap (E \cap D)^C) = \mu(D \cap E) + \mu(D \cap E^C) = \mu(D) \]
+      \end{Remark}
+    \item trivial
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Let $\chi$ be a metric space. $\varepsilon = \Set{\text{open sets}}$.
+  $\mathcal B_{\chi} = \sigma(\varepsilon)$ is a Borel-$\sigma$-algebra.
+  $\mu$ is a $\sigma$-finite measure on $(\chi, \mathcal B_{\chi})$.
+  \begin{align*}
+    \mu(B) &= \inf\SetDef{\mu(O)}{O \supset B \text{ open}} \\
+           &= \sup\SetDef{\mu(A)}{A \subset B \text{ closed}}
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Without loss of generality: $\mu(\chi) < \infty$.
+  \[ B \subset O = \bigcup_{n=1}^\infty E_n \text{ open} \]
+  \[ \mu(B) \leq \mu(O) \leq \sum_{n=1}^\infty \mu(E_n) \]
+  In combination,
+  \[ \mu^*(B) = \inf\SetDef{\mu(O)}{O \supset B} \]
+  $\varepsilon$ is closed under intersection. $\emptyset \in \varepsilon$.
+  $A = E^C$ is closed. Is $E \subset D$ open? $\mu^*(D \cap E^C) = \mu(D \cap E^C)$.
+  $A_n = \SetDef{x}{d(x, A) < \frac1n}$ open, $A_n \searrow A$
+  where $\searrow$ denotes a monotonically decreasing sequence converging from the LHS to the RHS.
+  \[ D \cap E^C = D \cap A \swarrow \underbrace{D \cap A_n}_{\in \varepsilon, \text{ open}} \]
+  \[ \mu(D \cap A_n) \searrow \mu(D \cap A) \]
+  Like above: In $\varepsilon$, we have $\mu = \mu^*$.
+  \[ \underbrace{\mu^*(D \cap A_n)}_{\geq \mu^*(D \cap E^C)} = \underbrace{\mu(D \cap A_n)}_{\to \mu(D \cap E^C)} \]
+  Thus, $\mu^*(D \cap E^C) \leq \mu(D \cap E^C)$.
+  In contrast, we already have $\mu$ on entire $\sigma$-algebra. So $\forall B \in \mathcal B: \mu(B) \leq \mu(O) \forall O \supset B$ open. $\mu(B) \leq \mu^*(B)$ and therefore $\mu^*(D \cap E^C) \leq \mu(D \cap E^C) \leq \mu^*(D \cap E^C)$.
+  So $\mu = \mu^*$.
+\end{proof}
+
 \printindex
 \end{document}
