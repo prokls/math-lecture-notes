@@ -89,7 +89,6 @@
 \newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
 \makeatother
 
-
 \makeatletter
 \def\moverlay{\mathpalette\mov@rlay}
 \def\mov@rlay#1#2{\leavevmode\vtop{%
@@ -1738,6 +1737,186 @@ to $\mathcal A_{\mu^*} \supset \mathcal A \supset \varepsilon$. $\mathcal A_{\mu
   Thus, $\mu^*(D \cap E^C) \leq \mu(D \cap E^C)$.
   In contrast, we already have $\mu$ on entire $\sigma$-algebra. So $\forall B \in \mathcal B: \mu(B) \leq \mu(O) \forall O \supset B$ open. $\mu(B) \leq \mu^*(B)$ and therefore $\mu^*(D \cap E^C) \leq \mu(D \cap E^C) \leq \mu^*(D \cap E^C)$.
   So $\mu = \mu^*$.
+\end{proof}
+
+\subsection{Product measures and Fubini's Theorem}
+
+\dateref{2018/12/03}
+
+Let $(\chi, \mathcal A, \mu)$ and $(Y, \mathcal B, \nu)$ be measure space.
+Let $\mu$ and $\nu$ be $\sigma$-finite.
+$A \otimes B = \sigma(\varepsilon)$. $\varepsilon = \Set{A \times B: A \in \mathcal A, B \in \mathcal B}$.
+$\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
+
+\begin{definition}
+  \label{def:fub}
+  Let $C \in \mathcal A \otimes \mathcal B$. $C_x = \SetDef{y \in Y}{(x, y) \in C}$ with $x \in \chi$.
+  $C^Y = \SetDef{x \in \chi}{(x, y) \in C}$.
+
+  \begin{figure}[!ht]
+    \begin{center}
+      \includegraphics{img/fubini_theorem.pdf}
+      \caption{Setting in Definition~\ref{def:fub}}
+      \label{img:fubini}
+    \end{center}
+  \end{figure}
+
+  \[ f: \chi \times Y \to \overline{\mathbb R} \]
+  \[ f_x: Y \to \overline{\mathbb R} \qquad f_x(y) = f(x, y) \]
+  \[ f^y: \chi \to \overline{\mathbb R} \qquad f^y(x) = f(x, y) \]
+\end{definition}
+
+\begin{theorem}
+  \[ C \in \mathcal A \otimes \mathcal B \implies C_x \in \mathcal B \forall x \in \chi, C^y \in \mathcal A \forall y \in Y \]
+  \[ f \text{ measurable } \implies f_x, f^y \text{ measurable } \forall x \in \chi, y \in Y \]
+\end{theorem}
+
+\begin{proof}
+  \[ \mathcal D = \SetDef{C \in \mathcal A \otimes \mathcal B}{C_x \in \mathcal B \forall x \in \chi} \]
+  \[ \varepsilon \subset \mathcal D (\text{closed under intersection}) \qquad (A \times B)_{x} = \begin{cases} B & x \in A \\ \emptyset & x \not\in A \end{cases} \]
+  \[ (C_x)^C = (C^c)_x \text{ so } C \in \mathcal D \implies C^C \in \mathcal D \]
+  \[ C_1, C_2, \dots \in \mathcal D, \text{ pairwise disjoint } \implies \left(\bigcup_{n}^+ C_n\right)_x = \bigcup_{n}^+ \underbrace{C_{n,x}}_{\in \mathcal B} \in \mathcal B \]
+  \[ \mathcal D \text{ Dynkin } \implies \mathcal D = \mathcal A \otimes \mathcal B \]
+
+  \[ f \geq 0: f_n = \sum_k c_{n,k} \mathbf{1}_{c_{n,k}} \]
+  \[ C_{n,k} \in \mathcal A \otimes \mathcal B \text{ for fixed } n \]
+  pairwise disjoint
+  \[ f_n \nearrow f \qquad f_{n,x} \nearrow f_x \]
+  \[ f_{n,x} = \sum_k c_{n,k} \underbrace{\mathbf{1}_{(C_{n,k})x}}_{\in \mathcal B} \]
+  $\mathcal B$-measurable $\implies f_x$ $\mathcal B$-measurable.
+\end{proof}
+
+\begin{Remark}
+  In general, $f = f^+ - f^-$, $f^{\pm}$ measurable, $f_x = f_x^+ - f_x^-$ ($f_x^+$ and $f_x^-$ are measurable).
+\end{Remark}
+
+\begin{definition}[Definition and theorem]
+  There exists exactly one measure $g$ on $\mathcal A \otimes \mathcal B$ such that $g(A \times B) = \mu(A) \nu(B) \forall A \in \mathcal A, B \in \mathcal B$ and
+  \[ g(C) = \int_\chi \nu(C_x) \, d\mu(x) = \int_Y \nu(C^y) \, d\nu(y) \forall C \in \mathcal A \otimes \mathcal B \]
+\end{definition}
+
+\begin{Remark}
+  This implies that $x \mapsto \nu(C_x)$ is measurable and $y \mapsto \nu(C^y)$ is measurable.
+\end{Remark}
+
+\begin{proof}
+  The uniqueness follows from the uniqueness theorem.
+
+  What about existence? Without loss of generality, $\mu(\chi) < \infty$ and $\nu(Y) < \infty$.
+  \[
+    \mathcal D = \SetDef{C \in \mathcal A \otimes \mathcal B}%
+      {x \mapsto \nu(C_x), y \mapsto \mu(C^y) \text{ measurable }\forall x, y \text{ and G}}
+  \]
+  where $G$ means that the following property (from before) is true:
+  \[ g(C) = \int_\chi \nu(C_x) \, d\mu(x) = \int_Y \nu(C^y) \, d\nu(y) \forall C \in \mathcal A \otimes \mathcal B \]
+
+  \begin{align*}
+    \varepsilon \subset \mathcal D:
+      & \nu((A \times B)_x) = \nu(B) \mathbf{1}_A(x) \\
+      & \mu((A \times B)^y) = \mu(A) \mathbf{1}_B(x)
+  \end{align*}
+
+  \[ \int_{\chi} \nu((A \times B)_x) \, d\mu(x) = \nu(B) \mu(A) \]
+  \[ \int_{Y} \mu((A \times B)^y) \, d\nu(y) = \mu(A) \nu(B) \]
+
+  \[ C \in \mathcal D \qquad \nu\left((C^C)_x\right) = \nu(C_x^C) = \underbrace{\nu(Y)}_{\text{measurable}} - \nu(C_x) \]
+  \[ \mu((C^C)^y) = \underbrace{\mu(\chi) - \mu(C^y)}_{\text{measurable}} \]
+  \begin{align*}
+    \int_\chi \nu((C^C)_x) \, d\mu(x)
+      &= \int_\chi \left(\nu(y) - \nu(C_x)\right) \, d\mu(x) = \mu(\chi) \nu(Y) - \int_\chi \nu(C_x) \, d\mu(x) \\
+      &= \nu(Y) \mu(\chi) - \int_Y \mu(C^y) \, d\nu(y) \\
+      &= \dots \\
+      &\implies C^C \in \mathcal D]
+  \end{align*}
+
+  $C_1 \in \mathcal D$ is pairwise disjoint.
+  \[ \nu\left(\left(\bigcup_n^+ C_n\right)_x\right) = \sum_n \nu(C_{n,x}) \qquad \mu\left(\left(\bigcup_n^+ C_n\right)^y\right) = \sum_n \mu(C_n^y) \]
+  where the elements of both inner parentheses are measurable as function of $x$ and $y$ respectively.
+  \begin{align*}
+    \int \nu\left(\left(\bigcup_n^+ C_1\right)_x\right) \, d\mu(x)
+      &= \sum_n \int_\chi \nu(C_{n,x}) \, d\mu(x) \\
+      &\underbrace{=}_{C_n \in \mathcal D} \sum_n \int_Y \mu(C_n^y) \, d\nu(y) \\
+      &= \int \mu\left(\left(\bigcup_n^+ C_n\right)^y\right) \nu(dy) \\
+      &\implies \bigcup^+ C_n \in \mathcal D, \mathcal D \text{ Dynkin system } \\
+      &\implies \mathcal D = \mathcal A \times \mathcal B
+  \end{align*}
+  Furthermore $\rho(C) \coloneqq \int_\chi \nu(C_x) \, d\mu(x)$ \emph{is} a measure with $\rho(A \times B) = \mu(A) \nu(B)$.
+\end{proof}
+
+\begin{Remark}
+  From now on: $g \longleftrightarrow \mu \otimes \nu$
+\end{Remark}
+
+\begin{theorem}[Fubini-Tonelli Theorem]
+  Let $f: \chi \times Y \to [0, \infty]$ be measurable. Then
+  \[ \int_{\chi \times Y} f \, d\mu \times \nu = \int_\chi \left[\int_Y f_X \, d\nu\right] \, d\mu(x) = \int_Y \left[\int_\chi f^Y \, d\mu \right] \, d\nu(x) \]
+\end{theorem}
+
+Equivalently, we can formulate this theorem as
+\[ \int_X \left[\int_Y f(x, y) \, d\nu(y)\right]\, d\mu(x) = \int_Y \left[\int_\chi f(x,y) \, d\mu(x)\right] \, d\nu(y) \]
+
+\begin{remark}
+  This theorem implies that $x \mapsto \int_Y f_X \, d\nu$ and $y \mapsto \int_\chi f^Y \, d\mu$ are measurable.
+\end{remark}
+
+\begin{proof}
+  \begin{enumerate}
+    \item $f = \mathbf{1}_C$ with $C \in \mathcal A \otimes \mathcal B$ \\
+      corresponds to the previous theorem $\qquad C_k \in \mathcal A \otimes \mathcal B$
+    \item $f = \sum_{k=1}^N c_k \mathbf{1}_{C_k}$ is pairwise disjoint, $c_k \geq 0$ \\
+      follows by linearity of the integral
+
+      \[ \int_Y f_x \, d\nu = \sum_k c_k \nu(C_{k,x}) \]
+      \begin{align*}
+        \int_\chi \left(\int_Y f_X \, d\nu\right) \, d\mu(x)
+          &= \sum_k c_k \int \nu(C_{k,x}) \, d\mu(x) \\
+          &= \sum_k c_k \mu \otimes \nu(C_k) = \int_{\chi \times Y} f \, d\mu \otimes \nu = \text{ vice versa}
+      \end{align*}
+    \item $0 \leq f_n \nearrow f$. $f_n$ is simple. Monotone convergence.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Fubini]
+  \[ f: \chi \times Y \to \mathbb R \text{ measurable} \]
+  Then the following statements are equivalent:
+  \begin{enumerate}
+    \item $\int_{X \otimes Y} \Abs{f} \, d\mu \otimes \nu < \infty$
+    \item $\int_{X} \left[ \int_Y \Abs{f_X} \, d\nu \right] \, d\mu(x) < \infty$
+    \item $\int_{Y} \left[ \int_{X} \Abs{f^Y} \, d\mu \right] \, d\nu(y) < \infty$
+  \end{enumerate}
+  Especially, $\Abs{f}_X = \Abs{f_X}$. Is obvious due to Fubini-Tonelli's theorem.
+\end{theorem}
+
+\begin{proof}
+  and then
+  \begin{align*}
+    \int f \, d\mu \otimes \nu
+      &= \int_\chi \left[ \int_Y \hat{f}(x, y) \, d\nu(y) \right] \, d\mu(x) \\
+      &= \int_Y \left[ \int_\chi \hat{\hat{f}}(x, y) \, d\mu(x) \right] \, d\nu(y) \\
+  \end{align*}
+\end{proof}
+
+\begin{remark}[Reminder]
+  $f$ is integrable iff $\int f^+ < \infty$ and $\int f^- < \infty$
+  and then $\int f = \int f^+ - \int f^-$, $\int \Abs{f} = \int f^+ + \int f^-$.
+  Especially: $\Abs{\int f} \leq \int \Abs{f}$
+\end{remark}
+
+\begin{proof}
+  \[ \int \left[\int f_x^\pm \, d\nu\right] \, d\mu(x) < \infty \implies \int_Y f_x^\pm \, d\nu < \infty \quad \mu \text{ almost everywhere} \]
+  \[ A_0 = \SetDef{x}{\int_Y \Abs{f_X} \, d\nu = \infty} \in \mathcal A \qquad \mu(A_0) = 0 \]
+  \[ B_0 = \SetDef{y}{\int_\chi \Abs{f^Y} \, d\mu = \infty} \in \mathcal B \qquad \nu(B_0) = 0 \]
+  \[ C_0 = \left(A_0 \otimes Y\right) \cup \left(\chi \times B_0\right) \qquad \mu \otimes \nu(C_0) = 0 \]
+  $\mu \otimes \nu(C_0) = 0$
+  \[ f = \hat{\hat{f}} = f \cdot \mathbf{1}_{\chi \times Y: C_0} \]
+  $\mu \otimes \nu$ almost everywhere.
+
+  \begin{align*}
+    \hat{f}_x &= f_x  \qquad \nu\text{ almost everywhere} \\
+    \hat{\hat{f}}^y &= f^y  \qquad \mu\text{ almost everywhere}
+  \end{align*}
+  almost for $f^\pm$.
+  Apply Fubini-Tonelli's Theorem to $\hat{f}^\pm$ and accordingly $\hat{\hat{f}}^\pm$
 \end{proof}
 
 \printindex

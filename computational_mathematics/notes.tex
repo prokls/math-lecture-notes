@@ -33,8 +33,8 @@
     backgroundcolor=gray!10,%
     innertopmargin=0pt]{theorem}{Theorem}[lecref]
 
-%\newtheorem{theorem}[lecref]{Theorem}
-\newtheorem*{Theorem}{Theorem}
+\newtheorem{thm}[lecref]{Theorem}
+\newtheorem*{Thm}{Theorem}
 \newtheorem{example}[lecref]{Example}
 \newtheorem*{Example}{Example}
 \newtheorem{definition}[lecref]{Definition}
@@ -205,7 +205,7 @@ Consider the linear equation system
 The same can be specified in compact notation like $Ax = b$ with $A \in \mathbb R^{n \times n}, b \in \mathbb R^n$.
 
 \index{Cramer's rule}
-\begin{theorem}[Cramer's Rule]
+\begin{thm}[Cramer's Rule]
   Let $A \in \mathbb R^{n \times n}$ with $\det(A) \neq 0$ and $b \in \mathbb R^n$.
   Then there exists exactly one $x \in \mathbb R^n$ such that $Ax = b$. We can determine $x$ using \enquote{Cramer's Rule}:
   \[
@@ -216,7 +216,7 @@ The same can be specified in compact notation like $Ax = b$ with $A \in \mathbb 
       a_{n1} & \dots & a_{n,i-1}  & b_n & a_{n,i+1} & \dots & a_{nn}
     \end{bmatrix}
   \]
-\end{theorem}
+\end{thm}
 
 \begin{Remark}[Problem]
   Computation using $\det(A) = \sum_{\sigma \in S_n} \sign(\sigma) a_{1,\sigma(1)} \dots a_{n,\sigma(n)}$ requires $n \cdot n!$ operations.
@@ -470,11 +470,11 @@ where $e_j$ denotes the $j$-th unit vector in $\mathbb R^n$. Row and column exch
   \end{align*}
 \end{Remark}
 
-\begin{theorem} % Satz 1.4
+\begin{thm} % Satz 1.4
   Let $A \in \mathbb R^{n \times n}$ and $\det(A) \neq 0$. Then there exists some permutation matrix $P \in \mathbb R^{n \times n}$ such that
   \[ PA = LU \]
   with lower and upper triangular matrices $L, U \in \mathbb R^{n \times n}$. Furthermore $P$ can be chosen such that $\Abs{L} \coloneqq \max_{i,j} \Abs{l_{ij}} \leq 1$.
-\end{theorem}
+\end{thm}
 \begin{proof}
   We use Algorithm~\ref{algo2}. Because $\det(A) \neq 0$, $\max_i{\Abs{a_{i1}}} > 0$ and therefore there exists some transposition $\tau_1 \in S_n$ such that for $A^{(1)} = P_{\tau_1} A$,
   \[ \max_i \Abs{a_{i1}^{(i)}} = \Abs{a_{11}^{(1)}} > 0 \]
@@ -552,7 +552,7 @@ In the following, let $A = A^T > 0$ be symmetric positive definite.
 \end{Remark}
 
 \index{Symmetric positive definite matrices}
-\begin{theorem}
+\begin{thm}
   \label{theorem:1-6}
   For every symmetric positive definite matrix $A \in \mathbb R^{n \times n}$ it holds that
   \begin{enumerate}
@@ -561,7 +561,7 @@ In the following, let $A = A^T > 0$ be symmetric positive definite.
     \item $\max_{i,j=1,\dots,m} \Abs{a_{ij}} = \max_{i=1,\dots,n} a_{ii}$
     \item Gaussian elimination without pivot search gives a symmetric positive definite remainder matrix in every step
   \end{enumerate}
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   \label{proof-1-6}
@@ -593,11 +593,11 @@ In the following, let $A = A^T > 0$ be symmetric positive definite.
   \end{enumerate}
 \end{proof}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:1-7}
   For every symmetric positive definite matrix there exists a unique decomposition $A = LDL^T$
   where $L$ is an upper triangular matrix (with $l_{ii} = 1$) and $D$ is a positive diagonal matrix.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   This follows by the construction made in proof~\ref{proof-1-6} for $k=2,\dots,n-1$.
@@ -1040,11 +1040,11 @@ In the following, we will use the following notation for vectors and matrices:
   \[ \implies \varepsilon \Abs{z_k} \leq \varepsilon \Abs{x_k} + \mathcal O(\varepsilon) \]
 \end{proof}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:2-17}
   The floating point implementation of forward substitution to solve a linear equation system $Lx = b$ with some lower triangular matrix $L$ computes the solution $\hat{x}$ such that there exists some lower triangular matrix $\hat L$ with $\hat L \hat x = b$ and $\Abs{L - \hat L} \dotted{\leq} n \varepsilon \Abs{L}$.
   Hence for componentwise relative backwards errors, we have $\eta \leq n \cdot \varepsilon$ and the forward substitution is stable in regards of backwards analysis.
-\end{theorem}
+\end{thm}
 \begin{proof}
   Again, we will use a recursive approach.
   \[ l_{kk} x_k = b_k - \IP{l^{k-1}}{x^{k-1}} \]
@@ -1077,19 +1077,19 @@ In the following, we will use the following notation for vectors and matrices:
   \[ \Abs{A - \hat A} \dotted{\leq} n \Abs{\hat L} \Abs{\hat U} \varepsilon \]
 \end{lemma}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:2-19}
   $A$ has some LU-decomposition. 
   Then Gaussian elimination for linear equation system $Ax = b$ gives a solution $\hat x$ with $\hat A \hat x = b$ for some matrix $\hat A$ with
   \[ \Abs{A - \hat A} \dotted{\leq} 2n \Abs{\hat L} \Abs{\hat U} \varepsilon \]
-\end{theorem}
+\end{thm}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:2-20}
   The Gaussian elimination with column pivot strategy for the linear equation system $Ax = b$ determines some $\hat x$ such that $\hat A \hat x = b$ for some matrix $\hat A$ with
   \[ \frac{\Norm{A - \hat A}_{\infty}}{\Norm{A}_\infty} \dotted{\leq} 2n^3 \rho_n(A) \varepsilon \qquad \text{ where } \rho_n(A) \coloneqq \frac{\alpha_{\operatorname{max}}}{\max_{i,j} \Abs{a_{ij}}} \]
   and where $\alpha_{\operatorname{max}}$ is the largest absolute value of an element that occurs during elimination in the remainder matrices $A^{(1)} = A$ to $A^{(n)} = U$.
-\end{theorem}
+\end{thm}
 
 \[ A = \begin{bmatrix} 1 & 0 & \dots & 0 & 1 \\ -1 & \vdots & \ddots & \vdots & \vdots \\ \vdots & \ddots & \ddots & & \\ -1 & \dots & \dots & -1 & 1 \end{bmatrix} \]
 For matrix $A$ it holds that $\rho_n(A) = 2^{n-1}$.
@@ -1141,14 +1141,14 @@ We can denote the least square problem as
 We look for some point $z = Ax$ of the image space $U(A)$ of $A$, that has the smallest distance to some given $b$.
 $Ax$ is the orthogonal projection of $b$ to the subspace $U(A) = \operatorname{image}(A)$.
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:3-2}
   Let $V$ be a vector space of $\dim{V} < \infty$ with scalar product $\IP{}{}$.
   Let $U \subset V$ be a subspace. Let
   \[ U^\bot = \SetDef{v \in V}{\IP{v}{u} = 0 \forall u \in U} \]
   be the orthogonal complement in $V$. Then for all $v \in V$ with respect to the norm induced by $\Norm{v} = \sqrt{\IP vv}$ such that
   \[ \Norm{v - u} = \min_{\tilde u \in U} \Norm{v - \tilde u} \iff v - u \in U^\bot \]
-\end{theorem}
+\end{thm}
 
 Proof sketch:
 \begin{itemize}
@@ -1174,12 +1174,12 @@ The map $P: V \to U$ with $v \mapsto Pv$ with $Pv = u$ is linear and is called \
 \end{remark}
 
 \index{Orthogonal equations}
-\begin{theorem}
+\begin{thm}
   \label{theorem:3-4}
   The vector $x \in \mathbb R^n$ is a solution of the linear least squares problems $\min{\Norm{b - Ax}} \iff x$ satisfies the so-called orthogonal equations $A^T Ax = A^T b$~\dt{Normalengleichungen}.
 
   Especially, the linear least squares problem is uniquely solvable iff $A$ has full column rank.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   By Theorem~\ref{theorem:3-2}, $V \coloneqq \mathbb R^n$, $U \coloneqq \operatorname{image}(A) = \operatorname{rank}(A)$.
@@ -1261,13 +1261,13 @@ If we assume we transformed a given matrix $A \in \mathbb R^{m \times n}$ with $
   \end{bmatrix} = \begin{bmatrix} U \\ 0 \end{bmatrix}
 \]
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:3-6}
   Let $A \in \mathbb R^{m \times n}$, $m \geq n$, of maximum rank $n, b \in \mathbb R^m$ and $Q \in \mathbb R^{m \times m}$ be an orthogonal matrix with
   \[ Q^T A = \begin{bmatrix} U \\ 0 \end{bmatrix} \text{ and } Q^T b = \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} \]
   where $b_1 \in \mathbb R^n$, $b_2 \in \mathbb R^{m - n}$ and $U \in \mathbb R^{n \times n}$ is an (invertible) upper triangular matrix.
   Then $x = U^{-1} b_1$ is the solution of the linear least squares problems $\min\Norm{b - Ax}_2$.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Because $Q$ is orthogonal, $\forall x \in \mathbb R^n$ it follows that
@@ -1420,14 +1420,14 @@ Are there more decompositions of the matrix?
 
 Recognize that the QR decomposition always exists anyways.
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:3-7}
   Let $A \in \mathbb R^{m \times n}$.
   There $\exists U \in \mathbb R^{m \times m}, V \in \mathbb R^{n \times n}:
   U^T U = I, V^T V = I$ and $A = U \Sigma V^T$ with $\Sigma \in \mathbb R^{n \times n}$
   where $\Sigma = \operatorname{diag}(\sigma_1, \dots, \sigma_p), p = \min(m, n), V = [v_1, \dots, v_n]$
   and $\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_p \geq 0$.
-\end{theorem}
+\end{thm}
 
 \index{Singular values of a matrix}
 \index{Singular vectors of a matrix}
@@ -1518,11 +1518,11 @@ The directions of semi-axes are denotes by $u_i$.
   \]
 \end{proof}
 
-\begin{theorem}[Eckart-Young-Mirsky]
+\begin{thm}[Eckart-Young-Mirsky]
   \label{theorem:3-13}
   If $k < r = \rank(A)$ and $A_k = \sum_{i=1}^k \sigma_i u_i v_i^T$,
   then $\min_{\rank(B) = k} \Norm{A - B}_2 = \Norm{A - A_k}_2 = \sigma_{k+1}$.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Because $U^T A_k V = \diag(\sigma_1, \dots, \sigma_k, 0, \dots, 0)$, $\rank(A_k) = k$. Furthermore,
@@ -1609,13 +1609,13 @@ The map is linear and by property $\dim(\mathcal P_n) = n + 1 = \dim(\mathbb R^{
 
 \dateref{2018/11/06}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:4-1}
   For $n+1$ supporting points $(Z_i, f_i)$ for $i = 0, \dots, n$ with pairwise different points $t_0, \dots, t_n$,
   there exists a unique interpolation polynomial $P$ of degree $n$ such that $P(t_i) = f_i \forall i$.
 
   This unique polynomial $P$ is called \emph{interpolation polynomial of $f$} for points $p_0, \dots, p_n$ with $p = P(f \mid t_0, \dots, t_n)$.
-\end{theorem}
+\end{thm}
 
 \noproof{theorem:4-1}
 
@@ -1624,11 +1624,11 @@ To compute $p$, we need a basis of $\mathcal P_n$. If $P$ is given in \emph{coef
 \index{Vandermonte matrix}
 $V_n$ is called \emph{Vandermonte matrix} and it holds:
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:4-2}
   Let $V_n \in \mathbb R^{n + 1 \times n + 1}$ be Vandermonte's matrix. Then
   \[ \det(V_n) = \prod_{i=0}^n \prod_{j=i+1}^n (t_j - t_i) \]
-\end{theorem}
+\end{thm}
 
 \begin{remark}
   \label{remark:4-3}
@@ -1652,14 +1652,14 @@ Thus,
   \[ P = \sum_{i=0}^n \IP P{L_i} \cdot L_i = \sum_{i=0}^n P(t_i) \cdot L_i = \sum_{i=0}^n f_i \cdot L_i \]
 \end{remark}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:4-5}
   Let $a \leq t_0 < \dots < t_n \leq b$.
   Let $L_{i,n}$ be the Lagrange polynomials.
   Then the absolute conditioning number $\kappa_{\operatorname{abs}}$ of polynomial interpolation
   $\Phi = P(\cdot \mid t_0, \dots, t_n) \in C[a, b] \to \mathcal P_n$ with respect to supremum norm
   is the so-called \emph{Lebesgue constant} $\kappa_{\operatorname{abs}} \coloneqq \Lambda_n = \max_{t \in [a,b]} \sum \Abs{L_{i,n}(t)}$ for points $t_0, \dots, t_n$.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Polynomial interpolation is linear
@@ -1781,11 +1781,11 @@ We construct a polynomial $P \in \mathcal P_n$ satisfying $\mu_i(P) = \mu_i(f) \
   The solution $p = P(f(t_0, \dots, t_n)) \in \mathcal P_n$ is called \emph{Hermitian interpolant} of $f$ at $t_0, \dots, t_n$.
 \end{Remark}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:4-7}
   For every function $f \in \mathcal C^n([a,b])$ and every monotonic sequence $a \leq t_0 \leq t_1 \leq \dots \leq t_n \leq b$
   of (not necessarily different) points there exists exactly one polynomial $P \in \mathcal P_n$ such that $\forall i \in \Set{0, \dots, n}: \mu_i(P) = \mu_i(f)$.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   A map $\mu: \mathcal P_n \to \mathbb R^{n+1}$ with $P \mapsto (\mu_0 P, \dots, \mu_n P)$ is linear and injective.
@@ -1820,11 +1820,11 @@ is also called \emph{Taylor interpolant}.
   The leading coefficient $a_n$ of the interpolation polynomial $P(f \mid t_0, \dots, t_n) = a_n t^n + a_{n-1} t^{n-1} + \dots + a_0$ of $f$ for points $t_0 \leq t_1 \leq \dots \leq t_n$ is called $n$-th \emph{divided difference} of $f$ at $t_0, \dots, t_n$ and is denoted as $[t_0, \dots, t_n] f \coloneqq a_n$. % TODO divided difference is correct translation?
 \end{definition}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:4-10}
   For every function $f \in \mathcal C^n([a,b])$ and points $t_0, \dots, t_n$, $P \coloneqq \sum_{i=0}^n [t_0, \dots, t_i] f \cdot w_i$ defines the interpolation polynomial $P(f \mid t_0, \dots, t_n)$ of $f$ at $t_0, \dots, t_n$.
   If $f \in \mathcal C^{n+1}([a,b])$, then $f(t) = P(t) + [t_0, \dots, t_n, t] f \cdot w_{n+1}(t)$.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Proof by induction over $n$.
@@ -1857,7 +1857,7 @@ is also called \emph{Taylor interpolant}.
 
 The following properties are given:
 
-\begin{theorem}
+\begin{thm}
   \label{lemma:4-11}
   Dividing differences $[t_0, \dots, t_n] f$ satisfying (assuming $f \in C^n([a,b])$)
   \begin{enumerate}
@@ -1865,28 +1865,28 @@ The following properties are given:
     \item For collapsing points $t_0 = \dots = t_n$, we have $[t_0, \dots, t_n] f = \frac{f^{(n)}}{n!}$
     \item For $i < j$, we have the recursive formula $[t_i, \dots, t_j] f = \frac{[t_{i+1}, \dots, t_j] f - [t_i, \dots, t_{j-1}] f}{t_j - t_i}$
   \end{enumerate}
-\end{theorem}
+\end{thm}
 
 \dateref{2018/11/13}
 
-\begin{theorem}[Hermite-Gnocci Formula]
+\begin{thm}[Hermite-Gnocci Formula]
   \label{theorem:4-12}
   For the $n$-th dividing difference of an $n$-times differentiable function $f \in \mathcal C^n$, we have
   \begin{align*}
     \sum^n &\coloneqq \SetDef{s = (s_0, \dots, s_n) \in \mathbb R^{n+1}}{\sum s_i = 1, s_i \geq 0} \\
     [t_0, \dots, t_n] f &= \int_{\sum^n} f^{(n)} \left(\sum_{i=0}^n s_i t_i\right) \, ds
   \end{align*}
-\end{theorem}
+\end{thm}
 
 No proof is given of this theorem.
 
 \subsubsection{Approximation error}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:4-13}
   If $f \in \mathcal C^{n+1}$, for the interpolation polynomial $P(f(t_0, \dots, t_n))$ and $t_i, t \in [a,b]$ we have:
   \[ f(t) - P(f \mid t_0, \dots, t_n)(t) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \cdot w_{n+1}(t) \text{ with } \xi = \xi(t) \in (a,b) \]
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Let $t \in [a,b]$. For $t = t_i$, both sides are zero. Thus, we assume $t \neq t_i \forall i$.
@@ -2004,12 +2004,12 @@ If $q \in \mathcal P_{n+1}$ with $\deg(q) = n + 1$ and leading coefficient $1$ i
 \[ \max_{x \in [-1, 1]} \Abs{q(x)} \to \min \]
 then $\hat q(t) = q(t(x))$ is the solution of the original problem with leading coefficient $\frac{2^{n+1}}{(b - a)^{n+1}}$.
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:4-17}
   Every polynomial $q_n \in \mathcal P_n$ with leading non-zero coefficient takes up in interval $[-1, 1]$ a value with absolute value $\geq \frac{\Abs{a_n}}{2^{n-1}}$.
 
   In particular, the Chebyshev polynomials $T_n(x)$ are minimal with respect to maximum norm $\Norm{f}_{\infty} = \max_{x \in [-1, 1]} \Abs{f(x)}$ and the polynomials of degree $n$ with leading coefficient $2^{n-1}$.
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Let $q_n \in \mathcal P_n$ with leading coefficient $a_n = 2^{n-1}$.
@@ -2052,12 +2052,12 @@ TODO
 
 \[ s''(t_0) = 0 \qquad s''(t_n) = 0 \]
 
-\begin{theorem}[Gershgorin circle theorem]
+\begin{thm}[Gershgorin circle theorem]
   Let $B \in \mathbb R^{n \times n}$.
   \[ \sigma(b) = \bigcup_{k=1}^n \SetDef{z \in \mathbb C}{\Abs{z - b_{kk}} \leq \sum_{l \neq k} \Abs{b_{kl}}} \]
   Applied to $A$, we can conclude that all eigenvalues of $A$ lie in $\mathbb C_{> 0}$.
   \[ \implies 0 \not\in \spec(A) \iff A \text{ is invertible } \implies \exists!: [c_0, \dots, c_n]^T: Ac = \text{ right-hand side} \]
-\end{theorem}
+\end{thm}
 
 Thus, the existence of a unique spline function $s$ follows which is realized by piecewise cubic polynomials on $[t_i, t_{i+1}]$.
 
@@ -2098,13 +2098,13 @@ This is an extended spline concept of arbitrary order $k$.
   are contained in $S_{k,\Delta}$.
 \end{Remark}
 
-\begin{Theorem}
+\begin{Thm}
   \label{theorem:4-20}
   The monomials and aborted powers create a basis
   \[ B \coloneqq \Set{1, t, \dots, t^{k-1}, (t - t_1)_+^{k-1}, \dots, (t - t_{n-1})_+^{k-1}} \]
   of the spline space $S_{k,\Delta}$. Especially, it holds that
   \[ \dim(S_{k,\Delta}) = k + n - 1 \]
-\end{Theorem}
+\end{Thm}
 
 \begin{figure}[ht]
   \begin{center}
@@ -2159,6 +2159,228 @@ For the B-splines, as defined above, the following properties hold:
   \item $N_{i,k}(t) \geq 0 \forall t \in \mathbb R$ (non-negative)
   \item $N_{i,k}$ is a piecewise polynomials of degree $k-1$ with respect to intervals $[\tau_i, \tau_{i+1}]$.
 \end{enumerate}
+
+\dateref{2018/11/27}
+
+TODO
+
+\dateref{2018/11/29}
+
+\begin{lemma}
+  \label{lemma:5-6}
+  The map given by $n$-th divided difference of a function $f \in \mathcal C^1([a, b])$ $g: \mathbb R^{n + 1} \to \mathbb R$ with $g(t_0, \dots, t_n) = [t_0, \dots, t_n] f$ is continuous in its arguments $t_i$. Furthermore there exists some $\xi \in [t_0, t_n]$ for all points $t_0 \leq \dots \leq t_n$ such that
+  \[ [t_0, \dots, t_n] f = \frac{f^{(n)}(\xi)}{n!} \]
+\end{lemma}
+
+\begin{lemma}
+  \label{lemma:5-7}
+  Let $f \in \mathcal C^2([a,b])$. The approximation error of the trapezoidal rule $T = \frac{b - a}{2} (f(a) - f(b))$ with step size $h \coloneqq b - a$ it holds that
+  \[ T - \int_a^b f \, dt = \frac{h^3}{12} f''(\tau) \]
+  for some $\tau \in [a,b]$.
+\end{lemma}
+
+\begin{proof}
+  By Theorem~\ref{theorem:4-10}, we know that
+  \[ f(t) = P(t) + [a, b, t] f \cdot \underbrace{(t - a)}_{\geq 0} \underbrace{(t - b)}_{\geq 0} \]
+  and by Lemma~\ref{lemma:5-6} furthermore
+  \[ [a,b,t] f = \frac{f^k(\xi)}{2} \]
+  for some $\chi \in [a,b]$ depending on $t$.
+  For the square rule (see extended Mean Value Theorem), this means
+  \begin{align*}
+    \int_a^b f \, dt
+      &= \int_a^b P(t) \, dt + \int_a^b [a, b, t] f \cdot \underbrace{(t - a)}_{\geq 0} \underbrace{(t - b)}_{\leq 0} \\
+      &= T + \frac{f''(\tau)}{2} \underbrace{\int_a^b (t - a) (t - b)}_{= -\frac{(b - a)^3}{6} \text{ for some } \tau \in [a,b]}
+  \end{align*}
+  for some $\tau \in [a,b]$. Therefore, in total,
+  \[ T = \int_a^b f \, dt = \frac{h^3}{12} f''(\tau) \]
+\end{proof}
+
+\begin{lemma}[Simpson's rule \dt{Keplersche Fassregel}]
+  \label{lemma:5-8}
+  \[ S = \frac{b - a}{6} (f(a) + 4f\left(\frac{a + b}{2}\right) + f(b)) \]
+  is for polynomials $Q \in \mathcal P_3$ exact. For $f \in \mathcal C^4([a,b])$, the approximation error can be expressed with step size $\frac{b - a}{2}$ as
+  \[ S = \int_a^b f \, dt = \frac{f^{(4)}(\tau)}{90} h^5 \]
+  for some $\tau \in [a,b]$.
+\end{lemma}
+
+\begin{proof}
+  Let $Q \in \mathcal P_3$. By Theorem~\ref{theorem:4-10}, it follows by $P(Q|a, \frac{a+b}{2}, b)$
+  \[ Q(t) = P(t) + \gamma \underbrace{(t - a) \left(t - \frac{a+b}{2}\right)(t - b)}_{w_3(t)} \]
+  with some constant $\gamma = \frac{Q}{} TODO$
+\end{proof}
+
+TODO
+
+\dateref{2018/12/04}
+
+\subsection{Gauss–Christoffel Quadrature Formulas}
+\label{ch:5-3}
+
+Our goal is to compute \enquote{optimal} points $t_i$ and weights $\lambda_i$ such that
+$I(P) = \hat{I}(P)$ for $P \in \mathcal P_N$ with $N \to \max$. Now we consider the general integral of form $I(f) \coloneqq \int_a^b w(t) f(t) \, dt$ with some positive weight functions $w(t) > 0$, $t \in (a,b)$.
+We assume that norms $\Norm{P} = \sqrt{\IP{P}{P}_w} = \left(\int_a^b w(t) P(t) \, dt\right)^{\frac12} < \infty$ are well-defined for all $P \in \mathcal P_k$ and all $k \in \mathbb N$.
+For $a = -\infty$ and $b = \infty$, we require that moments $\mu_k$ are bounded:
+\[ \mu_k \coloneqq \int_{-\infty}^\infty t^k \cdot w(t) \, dt \]
+
+For the condition analysis, use weighted $L^1$-norm
+\[ \Norm{f}_{1,W} = \int_a^b w(t) f(t) \, dt \eqqcolon I(\Abs{f}) \]
+This is the analogous result for Lemma~\ref{lemma:5-1}.
+
+Typical weight functions are:
+\begin{itemize}
+  \item $w(t) = 1$ on $[-1,1]$
+  \item $w(t) = \frac{1}{\sqrt{1 - t^2}}$ on $[-1,1]$
+  \item $w(t) = e^{-t}$ on $[0,\infty)$
+  \item $w(t) = e^{-t^2}$ on $(-\infty, \infty)$
+\end{itemize}
+
+\emph{Construction:}
+For given $n$, construct quadratic formulas of form $\hat{I}_n(f) \coloneqq \sum_{i=0}^n \lambda_{i,n} f(\tau_{i,n})$ with $n+1$ points $\tau_{0,n},\dots,\tau_{n,n}$ and weights $\lambda_{0,n}, \dots, \lambda_{n,n}$ such that $\hat{I}_n(P) = I(P)$ for all $P \in \mathcal P_N$.
+We have $2n + 2$ free parameters for a polynomial with $N+1$ coefficients. We guess $N \leq 2n+1$ (but consider the non-linearity of the problem!). It is possible to prove that $N \leq 2n+1$.
+
+\begin{lemma}
+  \label{lemma:5-10}
+  If $\hat{I}_n$ is exact for all polynomials $P \in \mathcal P_{2n+1}$, then $P_{n+1}$ is defined by \[ P_{n+1} \coloneqq (t - \tau_{0,n}) \dots (t - \tau_{n,n}) \]
+  orthogonal to arbitrary $P_j \in \mathcal P_j$, $j < n + 1$ with respect to the scalar product weighted by $w$.
+\end{lemma}
+
+\begin{proof}
+  For $P_j \in \mathcal P_j$ with $j < n+1$, we have $P_{n+1} P_j \in \mathcal P_{2n+1}$.
+  Thus,
+  \begin{align*}
+    \IP{P_j}{P_{n+1}} &= \int_a^b w(t) P_j(t) P_{n+1}(t) \, dt \\
+      &= \hat{I}_n(P_j P_{n+1}) = \sum_{i=0}^n \lambda_{i,n} P_j(\tau_{i,n}) \underbrace{P_{n+1}(\tau_{i,n})}_{=0} = 0
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  For every weighted scalar product ${\IP fg}_w \coloneqq \int_a^b w(t) f(t) g(t) \, dt$ there exists a uniquely determined orthogonal polynomial $P_k \in \mathcal P_k$ with leading coefficient $1$. They satisfy the so-called \emph{three-term recursion}
+  \[ P_k(t) = (t + a_k) P_{k-1}(t) + b_k P_{k-2}(t) \qquad \text{ for } k = 1,2,\dots \]
+  with the initial values $P_{-1} = 0$, $P_0 = 1$ and the coefficients
+  \begin{align*}
+    a_k &= -\frac{\IP{t P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-1}}{P_{k-1}}_w} \\
+    b_k &= -\frac{\IP{P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-2}}{P_{k-2}}_w}
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  For $k = 0$, there exists a polynomial $p_0 \equiv 1 \in \mathcal P_0$ with leading coefficient $1$.
+  Now let $P_0, \dots, P_{k-1}$ be pairwise orthogonal polynomials $P_j \in \mathcal P_j$ of degree $j$ with leading coefficient $1$. Let $P_k \in \mathcal P_k$ be a normed polynomial of degree $k$. The $P_k - t P_{k-1} \in \mathcal P_{k-1}$ and because $P_0, \dots, P_{k-1}$ define an orthonormal basis of $\mathcal P_{k-1}$, we have
+  \[ P_k - t P_{k-1} = \sum_{j=0}^{k-1} c_j P_j \qquad c_j = \frac{\IP{P_k - t P_{k-1}}{P_j}_w}{\IP{P_j}{P_j}_W} \]
+  By the requirement $\IP{P_k}{P_j}_w = 0 \forall j = 0, \dots, k-1$, we get
+  \[ c_j = -\frac{\IP{t P_{k-1}}{P_j}_w}{\IP{P_j}{P_j}_w} =  \]
+  This implies $c_0 = \dots = c_{k-3} = 0$ (orthogonality of $P_{k-1}$ to $P_j$, $j < k-1$).
+  Furthermore,
+  \begin{align*}
+    c_{k-1} &= -\frac{\IP{t P_{k-1}}{P_{k-1}}_v}{\IP{P_{k-1}}{P_{k-1}}_w} \\
+    c_{k-2} &= -\frac{\IP{P_{k-1}}{t P_{k-2}}_w}{\IP{P_{k-2}}{P_{k-2}}_w}
+            = -\frac{\IP{P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-2}}{P_{k-2}}_w}
+  \end{align*}
+  (because $t P_{k-2} \in \mathcal P_{k-1}$ and $P_0, \dots, P_{k-1}$ orthonormal basis).
+  $P_k$ follows:
+  \[ P_k = (t + C_{k-1}) P_{k-1} + c_{k-2} P_{k-2} = (t + a_k) P_{k-1} + b_k P_{k-2} \]
+\end{proof}
+
+By the two previous results, we conclude that the points must be the roots of the uniquely determined orthogonal polynomial $P_{n+1}$ (for appropriate weight $w$). To integrate polynomials of degree $n$ exactly, we can use the fact that the weights satisfy
+\[ \lambda_{i,n} = \frac{1}{b - a} \int_a^b L_{i,n}(t) \, dt \]
+with Lagrange polynomials $L_{i,n}$.
+
+\begin{lemma}
+  \label{lemma:5-12}
+  Let $\tau_{0,n}, \dots, \tau_{n,n}$ be the roots of the $(n+1)$-th orthogonal polynomial $P_{n+1}$. Then every quadrature formula $\hat{I}_n(f) = \sum_{i=0}^n \lambda_i f(\tau_{i,n})$ satisfies:
+  \[ \hat{I}_n \text{ is exact on } \mathcal P_n \iff \hat{I}_n \text{ exact on } \mathcal P_{2n+1} \]
+\end{lemma}
+
+\begin{proof}
+  Direction $\impliedby$ is immediate. Direction $\implies$:
+
+  Let $\hat{I}_n$ be exact on $\mathcal P_n$ and $P \in \mathcal P_{2n+1}$.
+  Then polynomials $Q, R \in \mathcal P_n$ exist such that $P = QP_{n+1} + R$. Thus, it follows that
+  \[ \int_a^b w \, P = \int_a^b w Q P_{n+1} + \int_a^b R w = 0 + \hat{I}_n(R) \]
+  Additionally, it holds that
+  \[ I(P) = \int_a^b w P = \hat{I}_n(R) \]
+  \[ = \sum_{i=0}^n \lambda_{i,n} R(\tau_{i,n}) = \sum_{i=0}^n \lambda_{i,n}\left(R(\tau_{i,n}) + (P_{n+1} \cdot Q)(\tau_{i,n})\right) = \hat{I}(P) \]
+\end{proof}
+
+\begin{theorem}
+  \label{theorem:5-13}
+  There exists uniquely determined points $\tau_{0,n}, \dots, \tau_{n,n}$ and weights $\lambda_{0,n}, \dots, \lambda_{n,n}$ such that for the quadrature formula
+  \[ \hat{I}_n(f) = \sum_{i=0}^n \lambda_{i,n} \cdot f(\tau_{i,n}) \]
+  it holds that
+  \[ \hat{I}_n(P) = \int_a^b wP \forall P \in \mathcal P_{2n+1} \]
+  The points $\tau_{i,n}$ are the roots of the $(n+1)$-th orthogonal polynomial $P_{n+1}$ (with leading coefficient $1$) with respect to weight function $w$ and the weights are
+  \[ \lambda_{i,n} \coloneqq \frac{1}{b-a} \int_a^b L_{i,n}(t) \, dt \]
+  with Lagrange polynomials $L_{i,n}(\tau_{j,n}) = \delta_{i,j}$. Furthermore it holds that $\lambda_{i,n} > 0$, hence $\hat{I}_n$ is the positive linear form and
+  \[ \lambda_{i,n} = \frac{1}{P_{n+1}'(\tau_{i,n}) P_n(\tau_{i,n})} \IP{P_n}{P_n}_w \]
+\end{theorem}
+
+\begin{proof}
+  Show: positivity / representation of $\lambda_{i,n}$
+
+  Choose $Q \in \mathcal P_{2n+1}$ such that $Q(\tau_{i,n}) = 0$ for $i \neq k$ and $Q(\tau_{k,n}) \neq 0$ for some point $\tau_{k,n}$. Then
+  \[ \int_a^b w Q = \lambda_{k,n} Q(\tau_{k,n}) \]
+  \[ \implies \lambda_{k,n} = \frac{1}{Q(\tau_{k,n})} \int_a^b wQ \]
+  Especially, this holds for
+  \[ Q(t) \coloneqq \left(\frac{P_{n+1}(t)}{(t - \tau_{k,n})}\right)^2 = \left(\prod_{\substack{i = 0 \\ l \neq k}}^n (t - \tau_{i,n})\right)^2 \]
+  It holds that $Q \in \mathcal P_{2n}$ and $Q(\tau_{k,n}) = P_{n+1}'(\tau_{k,n})^2$.
+  Thus we get
+  \[ \lambda_{k,n} = \frac{1}{Q(\tau_{k,n})} \int_a^b wQ = \int_a^b w \left(\frac{P_{n+1}(t)}{P'_{n+1}(\tau_{k,n}) (t - \tau_{k,n})}\right)^2 \, dt > 0 \]
+  and therefore the positivity of the weights. For the representation of the weights, we let
+  \[ Q(t) \coloneqq \frac{P_{n+1}(t)}{t - \tau_{k,n}} P_n(t) \]
+  Furthermore $Q \in \mathcal P_{2n}$ and it follows that
+  \[ \lambda_{k,n} = \frac{1}{P'_{n+1}(\tau_{k,n}) P_n(\tau_{k,n})} \int_a^b w(t) \frac{P_{n+1}(t)}{t - \tau_{k,n}} P_n(t) \, dt \]
+  The leading coefficient of $\frac{P_{n+1}(t)}{t - \tau_{k,n}}$ is $1$, such that
+  \[ \frac{P_{n+1}(t)}{t - \tau_{k,n}} = P_n(t) + Q_{n-1}(t) \text{ for some } Q_{n-1} \in \mathcal P_{n-1} \]
+  Because $Q_{n-1}$ is orthogonal to $P_n$,
+  \[ \lambda_{k,n} = \frac{1}{P'_{n+1}(\tau_{k,n}) P_n(\tau_{k,n})} \IP{P_n}{P_n}_w \]
+\end{proof}
+
+\begin{Remark}
+  The quadrature formulas $\hat{I}_n$ resulting from the theorem are called Gauss-Christoffel formulas of the weight function $w$.
+\end{Remark}
+
+\subsection{Error estimate}
+\begin{theorem}
+  \label{theorem:5-14}
+  The approximation error of the Gauss-Christoffel quadrature can be expressed for every function $f \in \mathcal C^{2n+2}([a,b])$ as
+  \[ \int_a^b w f \, dt - \hat{I}_n(f) = \frac{f^{(2n+2)}(\tau)}{(2n+2)!} \IP{P_{n+1}}{P_{n+1}}_w \text{ for some } \tau \in [a,b] \]
+\end{theorem}
+
+\begin{proof}
+  Let $P \in \mathcal P_{2n+1}$ be the Hermitian interpolant of $f$ at $2n+2$ points $\tau_{0,n}, \tau_{0,n}, \dots, \tau_{n,n} \tau_{n,n}$. Then
+  \[ f(t) = P(t) + [\tau_{0,n}, \tau_{0,n}, \dots, \tau_{n,n}, \tau_{n,n}, t] f \underbrace{(t - \tau_{0,n})^2 \dots (t - \tau_{n,n})^2}_{(P_{n+1}(t))^2 \geq 0} \]
+  Because $\hat{I}_n$ integrates the function $P$ exactly, we get
+  \begin{align*}
+    \int_a^b w f \, dt
+      &= \int_a^b w P \, dt + \frac{f^{(2n+2)}(\tau)}{(2n+2)!} \int_a^b w P_{n+1}^2 \, dt \\
+      &= \sum_{i=0}^n \lambda_{i,n} P(\tau_{i,n}) + \frac{f^{(2n+2)}(\tau)}{(2n+2)!} \IP{P_{n+1}}{P_{n+1}}_w \\
+    \intertext{by Hermitian interpolant}
+      &= \sum_{i=0}^n \lambda_{i,n} f(\tau_{i,n}) + \frac{f^{(2n+2)}(\tau)}{(2n+2)!} \IP{P_{n+1}}{P_{n+1}}_w \\
+      &= \hat{I}_n(f) + \frac{f^{(2n+2)}(\tau)}{(2n+2)!} \IP{P_{n+1}}{P_{n+1}}_w
+  \end{align*}
+\end{proof}
+
+\begin{example}[Gauss-Chebyshev quadrature]
+  For $[-1,1]$, $w(t) = \frac{1}{\sqrt{1 - t^2}}$ and the Chebyshev polynomials $T_k$ it holds that
+  \[
+    \int_{-1}^1 \frac{T_k(t) T_j(t)}{\sqrt{1 - t^2}} \, dt
+    = \begin{cases}
+      \pi & \text{ if } k = j = 0 \\
+      \pi/2 & \text{ if } k = j > 0 \\
+      0 & \text{ if } k \neq j
+    \end{cases}
+  \]
+
+  Thus $P_n(t) = 2^{1-n} T_n(t)$ are the orthogonal polynomials with leading coefficient 1. The roots of $P_{n+1}$ are the Chebyshev points
+  \[ \tau_{i,n} = \cos\left(\frac{2i+1}{2n+2} \pi\right) \quad i = 0,\dots,n \]
+  For $n > 0$, we get the weights
+  \[ \lambda_{i,n} = \frac{1}{2^{-n} T_{k+1}'(\tau_{i,n}) 2^{1-n} T_n(\tau_{i,n})} \int_{-1}^1 \frac{2^{2 - 2n} T_n^2}{\sqrt{1 - t^2}} \, dt = \frac{2\pi/2}{T'_{n+1}(\tau_{i,n}) T_n(\tau_{i,n})} = \frac{\pi}{n+1} \]
+
+  Implies the Gauss-Chebyshev quadrature of form
+  \[ \hat{I}_n(f) = \frac{\pi}{n+1} \sum_{i=0}^n f(\tau_{i,n}) \text{ with } \tau_{i,n} = \cos\left(\frac{2i+1}{2n+2} \pi\right) \]
+  with approximation error
+  \[ \int_{-1}^1 \frac{f(t)}{\sqrt{1 - t^2}} \, dt - \hat{I}_n(f) = \frac{\pi}{2^{2n+1} (2n+2)!} f^{(2n+2)}(\tau) \text{ for } \tau \in [-1,1] \]
+\end{example}
 
 \printindex
 
