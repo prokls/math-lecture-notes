@@ -1817,7 +1817,7 @@ is also called \emph{Taylor interpolant}.
 \begin{definition}
   \label{definition:4-9}
   \index{Divided difference}
-  The leading coefficient $a_n$ of the interpolation polynomial $P(f \mid t_0, \dots, t_n) = a_n t^n + a_{n-1} t^{n-1} + \dots + a_0$ of $f$ for points $t_0 \leq t_1 \leq \dots \leq t_n$ is called $n$-th \emph{divided difference} of $f$ at $t_0, \dots, t_n$ and is denoted as $[t_0, \dots, t_n] f \coloneqq a_n$. % TODO divided difference is correct translation?
+  The leading coefficient $a_n$ of the interpolation polynomial $P(f \mid t_0, \dots, t_n) = a_n t^n + a_{n-1} t^{n-1} + \dots + a_0$ of $f$ for points $t_0 \leq t_1 \leq \dots \leq t_n$ is called $n$-th \emph{divided difference} of $f$ at $t_0, \dots, t_n$ and is denoted as $[t_0, \dots, t_n] f \coloneqq a_n$.
 \end{definition}
 
 \begin{thm}
@@ -2042,7 +2042,106 @@ then $\hat q(t) = q(t(x))$ is the solution of the original problem with leading 
 
 \dateref{2018/11/15}
 
-TODO
+\subsection{Trigonometric interpolation}
+\label{ch:4-2}
+
+\emph{Motivation:} The interpolation of periodic processes (e.g. waves) it is useful to use periodic functions. Thus for this section, we assume $f(x) = f(x \cdot 2\pi)$.
+
+\emph{Idea:} Consider interpolation polynomials on the complex unit circle by variable transformation $z: [0, 2\pi] \to \mathbb C, t \mapsto e^{it}$.
+
+Consider polynomial $P_n$,
+\begin{align*}
+  P_n(z(t)) &= \sum_{k=0}^{n-1} c_k(z(t))^k \\
+    &= \sum_{k=0}^{n-1} c_k \cdot e^{itk} \eqqcolon p(t)
+\end{align*}
+
+\index{Trigonometric polynomial}
+We call $P$ \emph{trigonometric polynomial} and consider the following problem:
+
+Given $t_j = 2\pi \frac jn$ and points $f_j \in \mathbb C: 0 \leq j < n$.
+Find $c_k$ with $0 \leq k < n: \sum_{k=0}^{n-1} c_k \cdot e^{2\pi ik \frac jn} = f_j$ with $j = 0, \dots n-1$.
+
+In matrix representation, we get $M \cdot c \coloneqq \begin{bmatrix} c_0 & \dots & c_{n-1} \end{bmatrix} = \begin{bmatrix} f_0 & \dots & f_{n-1} \end{bmatrix}$ with $M \in \mathbb C^{n\times n}$,
+\[ M = (m_{kj})_{k,j=0}^{n-1} \qquad m_{kj} = e^{2 \pi i k \frac jn} \]
+Pay attention that a different indexing is used here.
+
+The interpolation polynomial has a unique solution if $M$ is invertible and
+\[ M^{-1} = \frac 1n \cdot M^* = \frac 1n \cdot \overline{M}^t \]
+Recognize that $M^*_{kj} = \overline{M}_{jk} = e^{-2\pi ij \frac kn}$.
+
+Now consider the entries $M*M$:
+\begin{align*}
+  (M^* M)_{k,j} &= \sum_{l=0}^{n-1} \overline{M}_{lk} \cdot M_{lj} \\
+    &= \sum_{l=0}^{n-1} e^{-2\pi il \frac kn} \cdot e^{2\pi il \frac jn} \\
+    &= \sum_{l=0}^{n-1} e^{-2\pi il \frac{k - j}{n}} \\
+    &= \begin{cases}
+      \sum_{l=0}^{n-1} 1 & \text{ if } k = j \\
+      \sum_{l=0}^{n-1} \left(e^{-2\pi i \frac{k - j}{n}}\right)^l & \text{ else}
+    \end{cases}
+    &= \frac{1 - e^{-2 \pi i (k-j)}}{1 - e^{-2 \pi i \frac{k-j}{n}}}
+\end{align*}
+which is a geometric sum.
+
+For the enumerator, we have:
+\begin{align*}
+  \exp(-2\pi i (k-j)) &= \exp(-\pi i)^{2(k-j)}
+    &= 1 - ((-1)^2)^{k-j} = 0 \\
+    &\implies M* M = n \cdot I
+\end{align*}
+
+The unique solution of the interpolation problem is given by
+\[ c = \frac1n \cdot M^* \cdot f \qquad \text{or} \qquad c_k = \sum_{j=0}^{n-1} f_j \cdot e^{-2 \pi i \frac{j-k}{n} \frac 1n} \]
+This process is called discrete Fourier Transform (dFT)
+
+The inverse Fourier transform corresponds to the polynomial evaluation $f_i = \sum \dots$.
+
+\paragraph{Fast Fourier transform}
+
+Disadvantage of discrete Fourier transform: The computational requirements $\mathcal O(n^2)$ are quite high. The computation can be sped up with fast Fourier Transform.
+
+In the following we assume that $n$ is even.
+For the unit root $w_n^k \coloneqq \exp(-2 \pi i \frac kn)$, we have $w_{2n}^{2k} = w_n^k = w_{\frac n2}^{\frac k2}$. Decompose the components of the Discrete Fourier Transform in its even and odd parts:
+\begin{align*}
+  n \cdot c_k
+    &= \sum_{j \text{ even}} w_n^{kj} f_j + \sum_{j \text{ odd}} w_n^{kj} f_j \\
+    &= \sum_{l=0}^{\frac n2 - 1} w_n^{k2l} f_{2l} + \sum_{l=0}^{\frac n2 - 1} w_n^{k(2t + 1)} f_{2l + 1} \\
+    &= \sum_{l=0}^{\frac n2 - 1} w_{\frac n2}^{kl} f_{2l} + w_n^k \sum_{l=0}^{\frac n2 - 1} w_{\frac n2}^{kl} f_{2l+1} \\
+    &\eqqcolon \tilde c_k + w_n^k \tilde{\tilde c}_k
+\end{align*}
+For $k \leq \frac n2 - 1$, $\tilde c_k$ give the Discrete Fourier Transform for the $\frac n2$ values $f_0, f_2, \dots f_{n-2}$. $\tilde{\tilde{c}}_k$ give the Discrete Fourier Transform for the $\frac n2$ values $f_1, f_3, \dots, f_{n-1}$.
+
+For those $k$ we can $c_k$ compute by two DFT by length $\frac n2$. The remaining $c_k$ ($k > \frac n2 - 1$) can alse be expressed with $\tilde c_k$ and $\tilde{\tilde{c}}_k$, because for $k \geq \frac n2$, and accordingly $k = \tilde k + \frac n2$, with $0 \leq \tilde k \leq \frac n2 - 1$, we have:
+\[ w_{n}^{2lk} = w_{n}^{2l\tilde k + ln} = w_n^{2l\tilde k} \cdot (\underbrace{w_n^n}_{= 1})^l \]
+\begin{align*}
+  w_n^k &= w_n^{\tilde k + \frac n2} \\
+    &= w_n^{\tilde k} \cdot w_n^{\frac n2} \\
+    &= w_n^{\tilde k} \cdot e^{-\pi i} \\
+    &= -w_n^{\tilde k}
+\end{align*}
+
+So for $k = \tilde k + \frac n2 \geq \frac n2 - 1$:
+\[ nc_k = \tilde c_k - w_n^{\tilde k} \tilde{\tilde{c}}_k \]
+
+If the unit roots are precomputed, the computational effort is given by $A(n)$ for some DFT of length $n$ by $2$ DFTs of length $\frac n2$ and $n$ additions and $\frac n2$ multiplications:
+\[ A(n) = 2A(\frac n2) + \frac 32 n \]
+
+If $\frac n2$ is even again, we can solve the DFT by two recursions. For $n = 2^n$:
+\[ A(n) = 2n \cdot \log_2(n) \]
+
+\begin{algorithm}
+  \emph{Input:} $f_0, \dots, f_{n-1}$, $n = 2^m$
+  \begin{enumerate}
+    \item If $n = 1$: $c_0 = f_0$ end
+    \item $(a_0, \dots, a_{\frac n2}) = \operatorname(f_0, f_2, \dots, f_{n-2})$
+    \item $(b_0, \dots, b_{\frac n2}) = \operatorname(f_1, f_3, \dots, f_{n-1})$
+    \item for $k = 0, \dots, \frac n2 - 1$
+      \begin{enumerate}
+        \item $c_k = a_k + w_n^k b_k$
+        \item $c_{k + \frac n2} = a_k - w_n^k b_k$
+      \end{enumerate}
+  \end{enumerate}
+  \emph{Output:} $c_0, \dots, c_{n-1}$
+\end{algorithm}
 
 \dateref{2018/11/20}
 
@@ -2381,6 +2480,101 @@ with Lagrange polynomials $L_{i,n}$.
   with approximation error
   \[ \int_{-1}^1 \frac{f(t)}{\sqrt{1 - t^2}} \, dt - \hat{I}_n(f) = \frac{\pi}{2^{2n+1} (2n+2)!} f^{(2n+2)}(\tau) \text{ for } \tau \in [-1,1] \]
 \end{example}
+
+\dateref{2018/12/06}
+
+Common orthogonal systems are:
+\begin{enumerate}
+  \item Chebyshev polynomials $T_n$ for $w(t) = \frac{1}{\sqrt{1 - t^2}}$ on $[-1, 1]$
+  \item Laguerre polynomials $L_n$ for $w(t) = w^{-t}$ on $[0, \infty)$
+  \item Hermitian polynomials $H_n$ for $w(t) = e^{-t^2}$ on $(-\infty, \infty)$
+  \item Legendre polynomials $P_n$ for $w(t) = 1$ on $[-1, 1]$
+\end{enumerate}
+
+\paragraph{Computation of roots and weights}
+
+Disadvantages of Gauss-Christoffel quadrature:
+\begin{enumerate}
+  \item coefficients/points depend on the integration interval
+  \item for every $n$ we retrieve different coefficients/points
+\end{enumerate}
+
+The first disadvantage can be fixed by the affine linear transformation
+\[ t = \frac{b - a}{2} x + \frac{a + b}{2} \]
+\[ \implies I(f) = \int_a^b f(t) \, dt = \frac{b - a}{2} \int_{-1}^1 \underbrace{f\left(\frac{b - a}{2} x + \frac{a + b}{2}\right)}_{\tilde f(x)} \, dx \]
+\[ \implies \hat{I}(f) = \frac{b - a}{2} \sum_{i=0}^n \lambda_{i,n} f\left(\frac{b - a}{2} \tau_{i,n} + \frac{a + b}{2}\right) \]
+If we want to approximate an integral $\int_a^b f(t) \, dt$, we can write it as
+\[ \int_a^b \underbrace{\frac{f(t)}{w(t)}}_{\tilde f(t)} \cdot w(t) \, dt \]
+In practice, points $\tau_{i,n}$ and weights $\lambda_{i,n}$ will be determined for the orthogonal polynomials based on the three-term recursion.
+
+By Theorem~\ref{theorem:5-11}, we know that
+\[ P_k(t) = (t - \beta_k) P_{k-1}(t) - \gamma_k^2 P_{k-2}(t) \]
+\[ \text{ with } \qquad \beta_k = \frac{\IP{t P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-1}}{P_{k-1}}_w} \qquad \gamma_k^2 = \frac{\IP{P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-2}}{P_{k-2}}_w} \]
+If the orthogonal polynomials are given by this recursion, we can define the linear equation system $T_p = t p + r$ with
+\[
+  T \coloneqq \begin{bmatrix}
+    \beta_1    & 1       &            &                & \\
+    \gamma_2^2 & \beta_2 & 1          &                & \\
+               & \ddots  & \ddots     & \ddots         & \\
+               &         & \gamma_n^2 & \beta_n        & 1 \\
+               &         &            & \gamma_{n+1}^2 & \beta_{n+1}
+  \end{bmatrix}
+  \qquad p \coloneqq \begin{bmatrix} P_0(t) \\ \vdots \\ P_n(t) \end{bmatrix}
+  \qquad r \coloneqq \begin{bmatrix} 0 \\ \vdots \\ 0 \\ -P_{n+1}(t) \end{bmatrix}
+\]
+Then it holds that $P_{n+1}(t) = 0 \iff T_p = t_p$, so the roots of $P_{n+1}$ are the eigenvalues of $T$ and for every eigenvalue $\tau$, we have a corresponding eigenvector $P(\tau)$.
+
+All roots are real.
+
+\emph{Question:} Can we write it as symmetric eigenvalue problem?
+
+\emph{Trial:} Scaling of eigenvalue problem with some diagonal matrix $D = \diag(d_0, \dots, d_n)$ such that $\hat{T} \hat{p} = t \hat{p}$ with $\hat{p} = Dp$ and $\hat{T} = DTD^{-1}$.
+
+For the orthogonal scaling applied to $A \in \mathbb R^{(n+1) \times (n+1)}$ it is true that $A \mapsto \hat{A} \coloneqq D A D^{-1}$. $\hat{a_{ij}} = \frac{di}{dj} a_{ij}$.
+
+For symmetry of $\hat{T}$ we require that
+\[ \gamma^2_{i+1} \frac{d_i}{d_{i-1}} = \frac{d_{i-1}}{d_{i}} \implies d_i^2 = \frac{d_{i-1}^2}{\gamma_{i+1}^2} \]
+We can achieve this by
+\[ d_0 \coloneqq 1 \qquad d_i = \frac{1}{\gamma_2 \cdots \gamma_{i+1}} \qquad i = 1, \dots, n \]
+This way we retrieve the symmetric tridiagonal matrix:
+\[
+  T \coloneqq \begin{bmatrix}
+    \beta_1    & \gamma_2&            &                & \\
+    \gamma_2   & \beta_2 & \gamma_3   &                & \\
+               & \ddots  & \ddots     & \ddots         & \\
+               &         & \gamma_n   & \beta_n        & \gamma_{n+1} \\
+               &         &            & \gamma_{n+1}   & \beta_{n+1}
+  \end{bmatrix}
+  = \hat{T}^T
+\]
+The integration weights can be determined by the corresponding eigenvalue problem ($\to$ eigenvalues).
+
+\subsection{Adaptive Quadrature}
+\label{ch:5-4}
+\index{Adaptive quadrature}
+
+\begin{figure}[!ht]
+  \begin{center}
+    \includegraphics{img/adaptive_quadrature.pdf}
+    \caption{Motivational example for adaptive quadrature}
+    \label{img:adaptive-quadrature}
+  \end{center}
+\end{figure}
+
+Use a problem-adjusted grid with \emph{adaptive step size} $\delta_j = t_{j+1} \cdot t_j$ with respect to the desired tolerance.
+
+\emph{Idea}: use an \emph{adaptive quadrature} which is based on the a-posteriori estimate of the integration error
+\[ \varepsilon_a^b(f) \coloneqq \hat{I}_a^b(f) - I_a^b(f) \]
+Processes of adaptive quadrature are successive applications of a cycle consisting of steps.
+
+\[
+  \underbrace{\text{solution}}_{\hat{I}_a^b(f)}
+    \implies \underbrace{\text{estimate}}_{\substack{\text{error estimate} \\ \text{by a quadrature} \\ \text{formula of higher order}}}
+    \implies \text{marks}
+    \implies \underbrace{\text{refinement}}_{\text{bijection}}
+\]
+
+
 
 \printindex
 

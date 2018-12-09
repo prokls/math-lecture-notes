@@ -1917,7 +1917,132 @@ Equivalently, we can formulate this theorem as
   \end{align*}
   almost for $f^\pm$.
   Apply Fubini-Tonelli's Theorem to $\hat{f}^\pm$ and accordingly $\hat{\hat{f}}^\pm$
+
+  \begin{Remark}
+    The distinction into $\hat{f}$ and $\hat{\hat{f}}$ was not necessary!
+  \end{Remark}
 \end{proof}
+
+\dateref{2018/12/06}
+
+\begin{Remark}
+  $(\xi_1, \mathcal A_1, \mu_1)$, $(\chi_2, \mathcal A_2, \mu_2), (\chi_3, \mathcal A_3, \mu_3)$ $\sigma$-finite. \\
+  $(\chi_1 \times \chi_2 \times \chi_3, \mathcal A_1 \otimes \mathcal A_2 \otimes \mathcal A_3, \mu_1 \otimes \mu_2 \otimes \mu_3)$ \\
+  Also $(\chi_1 \times \dots \times \chi_n, \mathcal A_1 \otimes \mathcal A_2 \otimes \dots \otimes \mathcal A_n, \mu_1 \otimes \dots \otimes \mu_n)$
+\end{Remark}
+
+\begin{Remark}
+  Construction of a product space is associative.
+  \[ \mu_1(A_1) \mu_2(A_2) \mu_3(A_3) \]
+\end{Remark}
+
+\paragraph{Infinite product measure of probability measures}
+
+$(\chi_n, \mathcal A_n, \mu_n)$ and $\mu_n(\chi_n) = 1$ \\
+$\chi = \chi_1 \times \chi_2 \times \dots = \prod_{n=1}^\infty \chi_n$ \\
+$\varepsilon_n = \SetDef{A_1 \times \dots \times A_n \times \chi_{n+1} \times \chi_{n+2} \times \dots}{A_i \in \mathcal A_i, i = 1, \dots, n} \subset \varepsilon_{n+1}$
+
+\begin{align*}
+  \varepsilon &= \bigcup \varepsilon_n \qquad \mathcal A = \sigma(\bigcup \varepsilon_i) \\
+    &= \mu(A_1 \times A_2 \times \dots \times A_n \times \chi) \\
+    &= \mu_1(A_1) \mu_2(A_2) \dots \mu_n(A_n) \cdot 1 \cdot 1 \cdot 1 \cdot 1 \cdot 1 \\
+  \sigma(\varepsilon_1^n) &= A_1^n = \SetDef{A \times \chi_{n+1} \times \dots}{A \in \mathcal A_1 \otimes \dots \otimes \mathcal A_n}
+\end{align*}
+$\mu_1^n \leadsto \sigma$-additive on $\mathcal A_1^n \subset \mathcal A_1^{n+1}$.
+
+\[ \left.\mu_1^{n+1}\right|_{A_1^n} = \mu_1^n  \qquad \sigma-\text{algebra over } \chi_1^\infty \]
+
+\[ A_1^n \nearrow, \bigcup_{n=2}^\infty \mathcal A_1^n = \mathcal F_1^\infty \]
+
+\[ \emptyset \in \mathcal F, A \in \mathcal F \implies A^C \in \mathcal F \]
+\[ A_1, \dots, A_k \in \mathcal F \implies A_1 \cup \dots \cup A_k \in \mathcal F \]
+\enquote{ring}, $\chi \in \mathcal F \leadsto$ algebra.
+
+$\mu = \mu_1^\infty$ on $\mathcal F$:
+\[ A \in \mathcal F \implies \exists n: A \in \mathcal A_1^n \implies \mu_1^\infty(A) \coloneqq \mu_1^n(A) \text{ is well-defined} \]
+
+$A_1, \dots, A_k \in \mathcal F$ is pairwise disjoint.
+$A_j \in \mathcal A_1^{n_j}$, $n \leq \max_j n_j: A_j \in \mathcal A_1^n$
+\[ \implies \mu_1^\infty (A_1 \cupdot \dots \cupdot A_k) \qquad \infty \leftrightarrow n \]
+\[ = \mu(A_1) + \dots + \mu(A_k) \]
+\[ \sigma(\mathcal F) = \sigma(\varepsilon) = \mathcal A_1^\infty \]
+
+Show: $\mu_1^\infty$ on $\mathcal F$ is $\sigma$-additive.
+
+\begin{lemma}
+  Via practicals: in order to satisfy this, it suffices that $\mu$ at $\emptyset$ is continuous from above.
+
+  Why? $A_n \in \mathcal F$ is pairwise disjoint. $\bigcupdot A_n \in \mathcal F$
+  \[ \implies \sum_n \mu(A_n) = \mu(A) \]
+  \[ B_N = \bigcup_{n=1}^N A_n \nearrow \bigcup_n A_n = A \]
+  \[ \mathcal F \ni A \setminus B_N \searrow \emptyset \implies \dots \]
+\end{lemma}
+
+Show that:
+\[ E_n \in \mathcal F (m \in \mathbb N) \quad E_n \searrow \emptyset \qquad E_{m+1} \subset E_m, \bigcap_m E_m = \emptyset \xRightarrow{\text{?}} \mu(E_m) \to 0 \]
+
+Show: If $E_{m+1} \subset E_m$ and $\mu(E_m) \geq \varepsilon > 0 \forall n$.
+\[ \xRightarrow{\text{?}} \bigcap_m E_m \neq \emptyset \]
+\[ n(m) = \min\Set{n: E_m \in \mathcal A_1^n} \]
+
+\begin{description}
+  \item[Case 1] $(n(m))_{m \in \mathbb N}$ bounded by $N$ \\
+    \[ \implies E_m \in \mathcal A_1^N \qquad \forall m: \mu(E_m) = \underbrace{\mu_1^N(E_m)}_{\sigma-\text{additive}} \]
+    Then $\bigcap E_m \neq \emptyset$.
+  \item[Case 2] $n(m)$ is not bounded \\
+    Without loss of generality, $n(m) \nearrow \infty$ (more than $n(m)$) \\
+    Without loss of generality, $E_m \in \mathcal A_1^m \forall m$
+\end{description}
+
+Now we finished some initial constructions. Now the actual proof starts:
+
+\[ x_1 \in \chi_1: (E_m)_{x_1} \eqqcolon E_m(x_1) = \SetDef{\underline{y} \in \chi_2^\infty}{(x_1, \underline{y}) \in E_m} \in \mathcal A_2^m \subset \mathcal F_2^\infty \]
+\[ \mu_1^m(E_m) = \int_{\chi_1} \underbrace{\mu_2^m (E_m(x_1))}_{\leq 1} \, d\mu(x_1) \]
+
+\[ F_m = \SetDef{x_1 \in \chi_1}{\mu_2^m(E_m(x_1)) \geq \frac\varepsilon2} \in \mathcal A \]
+\[ \varepsilon \leq \mu_1^\infty(E_m) = \mu_1^m(E_m) = \int_{F_m^C} + \int_{F_m}  \leq
+  \frac{\varepsilon}{2} \cdot \underbrace{\mu_1(F_m^C)}_{\leq 1} + \mu_1(F_m) \]
+\[ \mu_1(F_m) \geq \frac\varepsilon2 \qquad E_m(x_1) \searrow  \qquad F_m \searrow \qquad \implies \bigcap_m F_m \neq \emptyset \]
+\[ \exists \xi_1 \in \bigcap_m F_m \subset \chi_1: \mu_2^m(E_m(\xi_1)) \geq \frac\varepsilon2 \qquad \forall m \geq 2 \]
+recursive:
+\[ \exists \xi_2 \in \chi_2: \mu_3^m(E_m(\xi_1, \xi_2)) \geq \frac\varepsilon4 \forall m \geq 3 \]
+\[ \implies \dots \exists (\xi_1, \dots, \xi_n) \in (\chi_1 \times \dots \times \chi_n): \mu_{n+1}^m(E_m(\xi_1, \dots, \xi_n)) \geq \frac{\varepsilon}{2^n} \forall m \geq n+1 \]
+\[ E_m(\xi_1, \dots, \xi_n) = \SetDef{\underline y \in \chi_{n+1}^\infty}{(\xi_1, \dots, \xi_n, \underline y) \in E_m} \implies (\xi_1, \xi_2, \xi_3, \dots) \in \bigcap E_m \neq \emptyset \]
+This is in some way related to compactness in Analysis (but this is an advanced technical detail)
+
+\subsection{Signed measures}
+
+\index{Signed measure}
+\begin{definition}
+  Signed measure on $(\chi, \mathcal A)$.
+  $\nu: \mathcal A \to [-\infty, \infty)$ or $\nu: \mathcal A \to (-\infty, \infty]$
+  $\nu(\emptyset) = 0$ and $\sigma$-additive:
+  \[ \nu\left(\bigcupdot_{n} A_n\right) = \sum_n \nu(A_n) \text{ absolute convergent} \]
+\end{definition}
+
+\begin{example}
+  $\mu_1, \mu_2$ are measures. One of them is finite.
+  $\nu = \mu_1 - \mu_2$.
+
+  \begin{figure}[!ht]
+    \begin{center}
+      \includegraphics{img/signed_measure.pdf}
+      \caption{Signed measure of $f$}
+      \label{img:signed-measure}
+    \end{center}
+  \end{figure}
+
+  \[ \nu(B) = \int_B f \, d\lambda = \int_{B \cap [f \geq 0]} f^+ \, d\lambda - \int_{B \cap [f < 0]} f^- \, d\lambda \]
+\end{example}
+
+\begin{theorem}[Hahn-Jordan]
+  Let $\nu$ be signed.
+  \[ \chi = P \cupdot N \qquad P,N \in \mathcal A \]
+  \[ \nu^+(A) = \nu(A \cap P) \qquad \nu^-(A) = -\nu(A \cap N) \]
+  Non-negative measures are $\nu^+ - \nu^- = \nu$.
+\end{theorem}
+
+
 
 \printindex
 \end{document}
