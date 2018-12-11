@@ -199,17 +199,17 @@ A one-point set is Jordan measurable with measure/content $0$. However, $\mathbb
 Modern measure theory was established by Lebesgue (1901):
 \begin{enumerate}
   \item Union of countable sets ($\sigma$-additivity)
-  \item arbitrary base set $\chi$ instead of $\mathbb R^d$, integration theory for $f: \chi \to \mathbb R$
+  \item arbitrary base set $X$ instead of $\mathbb R^d$, integration theory for $f: X \to \mathbb R$
 \end{enumerate}
 
 \subsection{Definition}
 
 \index{Sigma-algebra}
 Let $(\delta, \rho)$ be the non-empty base set.
-$\mathcal A \subset P(\chi)$. A set system of subsets of $\chi$ is called \emph{sigma-algebra} ($\sigma$-algebra) if
+$\mathcal A \subset P(X)$. A set system of subsets of $X$ is called \emph{sigma-algebra} ($\sigma$-algebra) if
 \begin{enumerate}
-  \item $\chi \in \mathcal A$
-  \item $A \in \mathcal A \implies A^C = \chi \setminus A \in \mathcal A$
+  \item $X \in \mathcal A$
+  \item $A \in \mathcal A \implies A^C = X \setminus A \in \mathcal A$
   \item $A_n \in \mathcal A$ ($n \in \mathbb N$) $\implies \bigcup_{n=1}^\infty A_n \in \mathcal A$
 \end{enumerate}
 
@@ -217,32 +217,32 @@ Properties 1 and 2 implies that $\emptyset \in \mathcal A$.
 
 \index{Measurable space}
 \index{Measure}
-A \emph{measurable space} is given by $(\chi, \mathcal A)$. A \emph{measure} $\mu: \mathcal A \to [0, \infty]$ is defined by
+A \emph{measurable space} is given by $(X, \mathcal A)$. A \emph{measure} $\mu: \mathcal A \to [0, \infty]$ is defined by
 \begin{enumerate}
   \item $\mu(\emptyset) = 0$
   \item If $A_n \in \mathcal A$ ($n \in \mathbb N$), pairwise disjoint, then
     \[ \implies \mu\left(\bigcup_{n=1}^\infty A_n\right) = \sum_{n=1}^\infty \mu(A_n) \]
 \end{enumerate}
 \index{Measure space}
-A \emph{measure space} is given with $(\chi, \mathcal A, \mu)$.
+A \emph{measure space} is given with $(X, \mathcal A, \mu)$.
 
 \begin{Remark}
   \begin{itemize}
-    \item $\mu$ is called probability space if $\mu(\chi) = 1$
-    \item $\mu$ is called finite measure if $\mu(\chi) < \infty$
-    \item $\mu$ is called $\sigma$-finite if $\chi = \bigcup_{n=1}^\infty A_n$ with $A_n \in \mathcal A$ and $\mu(A_n) < \infty$ (e.g. real axes decomposes into intervals of length $1$)
+    \item $\mu$ is called probability space if $\mu(X) = 1$
+    \item $\mu$ is called finite measure if $\mu(X) < \infty$
+    \item $\mu$ is called $\sigma$-finite if $X = \bigcup_{n=1}^\infty A_n$ with $A_n \in \mathcal A$ and $\mu(A_n) < \infty$ (e.g. real axes decomposes into intervals of length $1$)
   \end{itemize}
 \end{Remark}
 
 Examples:
 \begin{enumerate}
-  \item $\chi$ is at most countable, then mostly $\mathcal A = \Powerset{\chi}$.
+  \item $X$ is at most countable, then mostly $\mathcal A = \Powerset{X}$.
     Then it suffices to know, $\mu(\Set{x}) \in [0, \infty)$.
-    Then we denote $\mu(x) = \mu(\Set{x})$ with $x \in \chi$.
+    Then we denote $\mu(x) = \mu(\Set{x})$ with $x \in X$.
     \[ \mu(A) = \sum_{x \in A} \mu(x) \]
-    e.g. $\mu(x) = 1 \forall x \in \chi$ in case of a \emph{counting measure}.
+    e.g. $\mu(x) = 1 \forall x \in X$ in case of a \emph{counting measure}.
     \index{Counting measure}
-  \item If $\chi$ is uncountable, e.g. $\mathbb R^d$, then it is not recommended to use $\Powerset{\chi}$. So what about $A$? Consider for example $\mathbb R^d$. All $[a_1, b_1] \times \dots \times [a_d, b_d]$ should be elements of $\mathcal A$
+  \item If $X$ is uncountable, e.g. $\mathbb R^d$, then it is not recommended to use $\Powerset{X}$. So what about $A$? Consider for example $\mathbb R^d$. All $[a_1, b_1] \times \dots \times [a_d, b_d]$ should be elements of $\mathcal A$
 \end{enumerate}
 
 \subsection{Simple properties of sigma-algebras}
@@ -250,25 +250,26 @@ Examples:
 \begin{enumerate}
   \item $\emptyset \in \mathcal A$
   \item $A_1, \dots, A_n \in \mathcal A \implies \bigcup_{k=1}^n A_k \in \mathcal A$
-  \item $A_n \in \mathcal A$ ($n \in \mathbb N$) or $\IntRange{}{N} \implies \bigcap_{n \in \mathbb N} A_n \in \mathcal A$ (deMorgan) $\bigcap_{n} A_n = \left(\bigcup_n A_n^C\right)^C$
+  \item $A_n \in \mathcal A$ ($n \in \mathbb N$) or $\IntRange{}{N} \implies \bigcap_{n \in \mathbb N} A_n \in \mathcal A$ (deMorgan) \\
+    $\bigcap_{n} A_n = \left(\bigcup_n A_n^C\right)^C$
   \item $A, B \in \mathcal A \implies A \setminus B \in \mathcal A$, $A \triangle B = A \setminus B \lor B \setminus A$
 \end{enumerate}
 
 \index{Generating set}
 \index{Generator}
 \begin{definition}[Generating set]
-  Let $\gen \neq \emptyset$ with $\gen \subset \Powerset{\chi}$ be the \emph{generator} (generating set) of the $\sigma$-algebra. $\sigma(\gen)$ is the smallest $\sigma$-algebra over $\chi$ which contains $\gen$.
+  Let $\gen \neq \emptyset$ with $\gen \subset \Powerset{X}$ be the \emph{generator} (generating set) of the $\sigma$-algebra. $\sigma(\gen)$ is the smallest $\sigma$-algebra over $X$ which contains $\gen$.
   \[
     = \bigcap \Set{
-      \tilde A: \tilde A \text{ is the } \sigma-\text{algebra over } \chi \text{ with } \gen \subset \tilde{\mathcal A}
+      \tilde A: \tilde A \text{ is the } \sigma-\text{algebra over } X \text{ with } \gen \subset \tilde{\mathcal A}
     }
   \]
-  This set is non-empty because $\Powerset{\chi}$ is the $\sigma$-algebra for all $\chi$ and $\gen \subset \Powerset{\chi}$
+  This set is non-empty because $\Powerset{X}$ is the $\sigma$-algebra for all $X$ and $\gen \subset \Powerset{X}$
 \end{definition}
 
 \begin{lemma}
   If $\mathcal A_i$ with $i \in I$ is a family of $\sigma$-algebras,
-  then $\bigcap_{i \in I} \mathcal A_i$ is a $\sigma$-algebra over $\chi$.
+  then $\bigcap_{i \in I} \mathcal A_i$ is a $\sigma$-algebra over $X$.
 \end{lemma}
 
 Immediate:
@@ -278,7 +279,7 @@ Immediate:
 \end{enumerate}
 
 Example:
-\[ \chi = \bigcup_{n \in I} E_n \neq \emptyset \qquad I = \mathbb N \text{ or } \{\IntRange1N\} \]
+\[ X = \bigcup_{n \in I} E_n \neq \emptyset \qquad I = \mathbb N \text{ or } \{\IntRange1N\} \]
 \[ \gen = \SetDef{E_n}{n \in I} \qquad \sigma(\gen) = \SetDef{\bigcup_{n \in J} E_n}{J \subset I} \]
 \begin{enumerate}
   \item Is a $\sigma$-algebra
@@ -286,7 +287,7 @@ Example:
 \end{enumerate}
 
 \begin{Definition}
-  $(\chi, d)$ is a metric space.
+  $(X, d)$ is a metric space.
   Borel-$\sigma$-algebra $\sigma(\mathcal O)$.
   $\mathcal O$ is the set of open sets in a metric space
 \end{Definition}
@@ -311,22 +312,22 @@ If $d=2$,
 
 \index{Trace $\sigma$-algebra}
 \begin{Definition}
-  $(\chi, \mathcal A)$ is a measurable space, $B \in \mathbb A$ is a trace $\sigma$-algebra over $B$. $\SetDef{A \in \mathcal A}{A \subset B}$
+  $(X, \mathcal A)$ is a measurable space, $B \in \mathbb A$ is a trace $\sigma$-algebra over $B$. $\SetDef{A \in \mathcal A}{A \subset B}$
 \end{Definition}
 
 \index{Measurable maps}
 \begin{Definition}
-  $\varphi: (\chi_1, \mathcal A_1) \to (\chi_2, \mathcal A_2)$ is called measurable
+  $\varphi: (X_1, \mathcal A_1) \to (X_2, \mathcal A_2)$ is called measurable
   $\iff \varphi^{-1}(A_2) \in \mathcal A_1 \forall A_2 \in \mathcal A_2$
 \end{Definition}
 
 \begin{Remark}
-  In general $\varphi$ is a map from $\chi_1$ to $\chi_2$.
+  In general $\varphi$ is a map from $X_1$ to $X_2$.
   $\mathcal A_1$ and $\mathcal A_2$ are mentioned to clarify that the map depends on the chosen algebra.
 \end{Remark}
 
 \begin{Remark}
-  $(\chi_1, d_1) \to (\chi_1, d_2)$ on metric spaces is continuous iff $\varphi^{-1}(O_2) \in \mathcal O_1 \forall O_2 \in \mathcal O_2$ where $\mathcal O_1, \mathcal O_2$ are sets of open sets.
+  $(X_1, d_1) \to (X_1, d_2)$ on metric spaces is continuous iff $\varphi^{-1}(O_2) \in \mathcal O_1 \forall O_2 \in \mathcal O_2$ where $\mathcal O_1, \mathcal O_2$ are sets of open sets.
 \end{Remark}
 
 \begin{Remark}
@@ -335,21 +336,21 @@ If $d=2$,
 
 \begin{lemma}
   The composition of measurable maps is measurable.
-  \[ \varphi: (\chi_1, \mathcal A_1) \to (\chi_2, \mathcal A_2) \text{ measurable} \]
-  \[ \psi: (\chi_2, \mathcal A_2) \to (\chi_2, \mathcal A_2) \text{ measurable} \]
-  \[ \implies \psi \circ \varphi: (\chi_1, \mathcal A_1) \to (\chi_3, \mathcal A_3) \text{ measurable} \]
+  \[ \varphi: (X_1, \mathcal A_1) \to (X_2, \mathcal A_2) \text{ measurable} \]
+  \[ \psi: (X_2, \mathcal A_2) \to (X_2, \mathcal A_2) \text{ measurable} \]
+  \[ \implies \psi \circ \varphi: (X_1, \mathcal A_1) \to (X_3, \mathcal A_3) \text{ measurable} \]
 \end{lemma}
 \begin{proof}
   Show that $(\psi \circ \varphi)^{-1} (\mathcal A_3) \in \mathcal A_1$ is trivial.
 \end{proof}
 
 \begin{theorem}
-  Let $\gen_2$ be a generator of $\mathcal A_2$. Then $\varphi: (\chi_1, \mathcal A_1) \to \chi_2$ is measurable in regards of $\mathcal A_2$ iff $\varphi^{-1}(E_2) \in \mathcal A_1 \forall E_2 \in \gen_2$
+  Let $\gen_2$ be a generator of $\mathcal A_2$. Then $\varphi: (X_1, \mathcal A_1) \to X_2$ is measurable in regards of $\mathcal A_2$ iff $\varphi^{-1}(E_2) \in \mathcal A_1 \forall E_2 \in \gen_2$
 \end{theorem}
 \begin{proof}
   \begin{description}
     \item[$\implies$] is immediate
-    \item[$\impliedby$] $\tilde{\mathcal A_2} = \SetDef{A_2 \in \mathcal A_2}{\varphi^{-1}(A_2) \in \mathcal A_1}$ is a $\sigma$-algebra over $\chi_2$. $\gen_2$ is a TM of this $\sigma$ algebra.
+    \item[$\impliedby$] $\tilde{\mathcal A_2} = \SetDef{A_2 \in \mathcal A_2}{\varphi^{-1}(A_2) \in \mathcal A_1}$ is a $\sigma$-algebra over $X_2$. $\gen_2$ is a TM of this $\sigma$ algebra.
     \[ \implies \mathcal A_2 = \sigma(\gen_2) \subset {\tilde{\mathcal A}}_2 \]
   \end{description}
 \end{proof}
@@ -366,7 +367,7 @@ If $d=2$,
 
 \begin{example} \hfill{}
   \[ \mathcal B_{\overline{\mathbb R}} = \SetDef{B, B \cup \Set{-\infty}, B \cup \Set{+\infty}, B \cup \Set{+\infty, -\infty}}{B \in \mathcal B_{\mathbb R}} \]
-  $f_1, \dots, f_n: \mathbb R \to \overline{\mathbb R}$ measurable in $(\chi, \mathcal A)$ and $f = \Max{f_1, \dots, f_n}$
+  $f_1, \dots, f_n: \mathbb R \to \overline{\mathbb R}$ measurable in $(X, \mathcal A)$ and $f = \Max{f_1, \dots, f_n}$
   \[ f: \mathbb R \to \overline{\mathbb R} \qquad x \mapsto \max\Set{f_1(x), \dots, f_n(x)} \]
   \begin{align*}
     f^{-1}([-\infty, b]) &= \SetDef{x}{f(x) \leq b} \\
@@ -395,7 +396,7 @@ If $d=2$,
 \end{example}
 
 \begin{theorem}[Result from the previous example]
-  \[ f_n: (\chi, \mathcal A) \to \overline{\mathbb R} \text{ measurable}, n \in \mathbb N \]
+  \[ f_n: (X, \mathcal A) \to \overline{\mathbb R} \text{ measurable}, n \in \mathbb N \]
   \[ \implies \inf{f_n}, \sup{f_n}, \lim_{n\to\infty} \inf{f_n}, \lim_{n\to\infty} \sup{f_n} \]
   are all measurable.
 \end{theorem}
@@ -405,22 +406,22 @@ If $d=2$,
 \dateref{2018/10/04}
 
 \begin{enumerate}
-  \item Basic set $\chi$ [$\delta, \rho$, \dots]
-  \item $\sigma$-algebra $\mathcal A \subset p(\chi)$
+  \item Basic set $X$ [$\delta, \rho$, \dots]
+  \item $\sigma$-algebra $\mathcal A \subset p(X)$
     \begin{enumerate}
-      \item $\chi \in \mathcal A$
+      \item $X \in \mathcal A$
       \item $A \in \mathcal A \implies \mathcal A^C \in \mathcal A$
       \item $A_n \in \mathcal A$ ($n \in \mathbb N$) $\implies \bigcup_{n=1}^\infty A_n \in \mathcal A$
     \end{enumerate}
-    $(\chi, \mathcal A)$ is a measurable space
+    $(X, \mathcal A)$ is a measurable space
   \item measure $\mu: \mathcal A \to [0, \infty]$
     \begin{enumerate}
       \item $\mu(\emptyset) = 0$
       \item $A_n \in \mathcal A$ ($n \in \mathbb N$), $A_n \cap A_m \neq 0 \forall n \neq m$
         \[ \implies \mu\left(\bigcup_{n=1}^\infty A_n\right) = \sum_{n=1}^\infty \mu(A_n) \qquad \sigma-\text{additivity} \]
-        $(\chi, \mathcal A, \mu)$ is a measure space
+        $(X, \mathcal A, \mu)$ is a measure space
     \end{enumerate}
-  \item ${\mathcal E} \subset p(\chi)$
+  \item ${\mathcal E} \subset p(X)$
     \[ \sigma({\mathcal E}) = \bigcap \Set{\tilde A: \tilde A \sigma-\text{algebra}, {\mathcal E} \subset \tilde{A}} \]
     is the so-called ${\mathcal E}$-generated $\sigma$-algebra.
 \end{enumerate}
@@ -450,12 +451,12 @@ Let $d = 2$, $(a_1, b_1] \times (a_2, b_2] = (-\infty, b_1] \times (-\infty, b_2
 
 \index{Trace $\sigma$-algebra}
 \begin{definition}
-  Let $(\chi, \mathcal A)$ be a measure space. $B \in \mathcal A$.
+  Let $(X, \mathcal A)$ be a measure space. $B \in \mathcal A$.
   trace $\sigma$-algebra over $B$ is defined as $\Set{A \in \mathcal A: A \subset B}$.
 \end{definition}
 
 \begin{Remark}[Revision on continuity]
-  Let $\varphi: (\chi_1, d_1) \to (\chi_2, d_2)$ be a map between metric spaces.
+  Let $\varphi: (X_1, d_1) \to (X_2, d_2)$ be a map between metric spaces.
   Let $\varphi$ be continuous.
 
   On the one hand, we know the $\varepsilon$-$\delta$ definition,
@@ -463,23 +464,23 @@ Let $d = 2$, $(a_1, b_1] \times (a_2, b_2] = (-\infty, b_1] \times (-\infty, b_2
 \end{Remark}
 
 \begin{definition}[Measurable maps]
-  Let $\varphi: (\chi_1, \mathcal A_1) \to (\chi_2, \mathcal A_2)$\footnote{Actually, $\varphi: \chi_1 \to \chi_2$, but we don't want to forget about the associated $\sigma$-algebras}
+  Let $\varphi: (X_1, \mathcal A_1) \to (X_2, \mathcal A_2)$\footnote{Actually, $\varphi: X_1 \to X_2$, but we don't want to forget about the associated $\sigma$-algebras}
   \[ \iff \varphi^{-1}(A_2) \in \mathcal A_1 \forall A_2 \in \mathcal A_2 \]
 \end{definition}
 
 \begin{lemma}
   \label{lem1}
   The composition of measurable maps is measurable.
-  \[ \varphi: (\chi_1, \mathcal A_1) \to (\chi_2, \mathcal A_2) \]
-  \[ \Psi: (\chi_2, \mathcal A_2) \to (\chi_3, \mathcal A_3) \]
+  \[ \varphi: (X_1, \mathcal A_1) \to (X_2, \mathcal A_2) \]
+  \[ \Psi: (X_2, \mathcal A_2) \to (X_3, \mathcal A_3) \]
   with $\varphi$ and $\Psi$ measurable.
-  \[ \implies \Psi \circ \varphi: (\chi_1, \mathcal A_1) \to (\chi_3, \mathcal A_3) \]
+  \[ \implies \Psi \circ \varphi: (X_1, \mathcal A_1) \to (X_3, \mathcal A_3) \]
   is measurable. (trivial to prove)
 \end{lemma}
 
 \begin{theorem}
   Let $\mathcal E_2$ be the generator of some algebra $\mathcal A_2$.
-  Then $\varphi: (\chi_1, \mathcal A_1) \to \chi_2$ in regards of $\mathcal A_2$ is measurable
+  Then $\varphi: (X_1, \mathcal A_1) \to X_2$ in regards of $\mathcal A_2$ is measurable
   if and only if $\varphi^{-1}(E_2) \in \mathcal A_1 \forall E_2 \in \mathcal E_2$.
 \end{theorem}
 \begin{proof}
@@ -487,7 +488,7 @@ Let $d = 2$, $(a_1, b_1] \times (a_2, b_2] = (-\infty, b_1] \times (-\infty, b_2
     \item[$\implies$] trivial
     \item[$\impliedby$]
       $\tilde A_2 \coloneqq \Set{A_2 \in \mathcal A_2: \varphi^{-1}(A_2) \in \mathcal A_1}$
-      is a $\sigma$-algebra over $\chi_2$ (why? left as an exercise).
+      is a $\sigma$-algebra over $X_2$ (why? left as an exercise).
       $\mathcal E_2$ is a subset of this $\sigma$-algebra.
       $\implies \mathcal A_2 = \sigma(\mathcal E_2) \in \tilde A_2 \subset \mathcal A_2$
   \end{description}
@@ -529,7 +530,7 @@ Especially, if $f_n \to f$ pointwise, and all $f_n$ are measurable, then also li
 How to determine measurability? Show that pre-images of generators are in the $\sigma$-algebra.
 
 \begin{theorem}
-  Let $f: (\chi, \mathcal A) \to \overline{\mathbb R}$ be measurable ($n \in \mathbb N$)
+  Let $f: (X, \mathcal A) \to \overline{\mathbb R}$ be measurable ($n \in \mathbb N$)
   \[ \implies \inf{f_n}, \sup{f_n}, \lim{\inf{f_n}}, \limsup{f_n} \]
   are also measurable.
 \end{theorem}
@@ -542,7 +543,7 @@ How to determine measurability? Show that pre-images of generators are in the $\
 A monotonically increasing sequence $(A_n)_{n \in \mathbb N}$ of sets is given by $A_1 \subset A_2 \subset A_3 \subset \dots$.
 
 \begin{theorem}
-  Let $(\chi, \mathcal A, \mu)$.
+  Let $(X, \mathcal A, \mu)$.
   \begin{enumerate}
     \item $A_1, \dots, A_n \in \mathcal A, A_i \cap A_j = 0 \forall i \neq j \implies \mu\left(\bigcupdot_{k+1}^n A_n\right) = \sum_{k=1}^n \mu(A_n)$
     \item $\mu(B) = \mu(A \cap B) + \mu(A^C \cap B)$ for $A, B \in \mathcal A$
@@ -592,7 +593,7 @@ What about $(A_n)$ arbitrary?
 Property 7 can be shown as generalization of $\mu\left(\bigcup_{n=1}^N A_n\right) \leq \sum_{n=1}^N \mu(A_n)$
 
 \begin{Example}[Simplest example]
-  $\chi = \Set{x_n: n \in \mathbb N}$. $\mathcal A = p(\chi)$. Fix $\mu(\Set{x_n})$.
+  $X = \Set{x_n: n \in \mathbb N}$. $\mathcal A = p(X)$. Fix $\mu(\Set{x_n})$.
   \[ \leadsto \mu(A) = \sum_{n: x_n \in A} \mu(x_n) \]
   $\mu(x_n) = 1$ gives a counting measure.
 \end{Example}
@@ -606,12 +607,12 @@ A \emph{stable set by intersection} is given by $E_1, E_2 \in {\mathcal E} \impl
   $\implies \mu = \nu$ on $\mathcal A$.
 \end{theorem}
 
-$\chi \in \mathcal E$ and $\mu(\chi) = \nu(\chi) < \infty$
+$X \in \mathcal E$ and $\mu(X) = \nu(X) < \infty$
 \emph{or}
-$\chi = \bigcup_n E_n$ with $E_n \in \mathcal E$ and $\mu(E_n) = \nu(E_n) < \infty$.
+$X = \bigcup_n E_n$ with $E_n \in \mathcal E$ and $\mu(E_n) = \nu(E_n) < \infty$.
 
 \begin{definition}
-  Let $\mathcal E \subset \mathcal P(\chi)$ be a semiring over $\chi$. If
+  Let $\mathcal E \subset \mathcal P(X)$ be a semiring over $X$. If
   \begin{enumerate}
     \item $\emptyset \in \mathcal E$
     \item $A, B \in \mathcal E \implies A \cap B \in \mathcal E$
@@ -626,7 +627,7 @@ Let $A, B \in \mathcal R \implies \left(A \cap B \in \mathcal E \land A \triangl
   $\mu: \mathcal E$ (semiring) $\to \Set{0, \infty}$ with
   \begin{enumerate}
     \item $\mu(\emptyset) = 0$
-    \item $\left(\chi \in \mathcal E \text{ and } \mu(\chi) < \infty\right)$ or $\left(\chi = \bigcup_{n=1}^\infty E_n, E_n \in \mathcal E, \mu(E_n) < \infty\right)$
+    \item $\left(X \in \mathcal E \text{ and } \mu(X) < \infty\right)$ or $\left(X = \bigcup_{n=1}^\infty E_n, E_n \in \mathcal E, \mu(E_n) < \infty\right)$
     \item $\mu$ is $\sigma$-additive on $\mathcal E$, hence $(A_n)$ is a sequence in $\mathcal E$, pairwise disjoint and $\bigcup_{n=1}^\infty A_n \in \mathcal E$
     \[ \implies \mu\left(\bigcup_{n=1}^\infty A_n\right) = \sum_{n} \mu(A_n) \]
   \end{enumerate}
@@ -635,7 +636,7 @@ Let $A, B \in \mathcal R \implies \left(A \cap B \in \mathcal E \land A \triangl
 
 \subsection{Construction of the Lebesgue measures and similar ones}
 
-Let $\chi = \mathbb R$ or $\chi = \overline{\mathbb R}$.
+Let $X = \mathbb R$ or $X = \overline{\mathbb R}$.
 \[ \mathcal E = \Set{(a, b]: a, b \in \mathbb R, a \leq b} \]
 is semiring.
 
@@ -674,7 +675,7 @@ We show finite additivity of property 3 in three steps:
 \dateref{2018/10/15}
 
 \begin{theorem}
-  Let $\mathcal E$ be semiring over $\chi$ and $\mu: \mathcal E \to [0, \infty]$ on $\mathcal E$ be $\sigma$-additive and $\sigma$-finite.
+  Let $\mathcal E$ be semiring over $X$ and $\mu: \mathcal E \to [0, \infty]$ on $\mathcal E$ be $\sigma$-additive and $\sigma$-finite.
   Then there exists exactly one continuaton for measure on $\sigma(\mathcal E)$.
 \end{theorem}
 
@@ -795,34 +796,34 @@ Thus $\lambda$ is the only measure on $(\mathbb R^d, \mathcal B_{\mathbb R^d})$ 
 \subsection{Sigma-algebra generated by maps}
 
 \begin{definition}
-  $\mathcal A_i$ ($i \in I$) is $\sigma$-algebra over $\chi$.
+  $\mathcal A_i$ ($i \in I$) is $\sigma$-algebra over $X$.
   \[ \bigvee_{i \in I} \mathcal A_i = \sigma\left(\bigcup_{i \in I} \mathcal A_i\right) \]
 \end{definition}
 
 \index{Push-forward measure}
 \begin{definition}[Image $\sigma$-algebra and Push-forward measure]
   Push-forward measures are called \foreignlanguage{german}{Bildmaß}
-  $(\chi, \mathcal A)$ is a measure space. $\varphi: \chi \to \chi'$.
-  \[ \varphi(\mathcal A) = \SetDef{A' \subset \chi'}{\varphi^{-1}(A') \in \mathcal A} \]
+  $(X, \mathcal A)$ is a measure space. $\varphi: X \to X'$.
+  \[ \varphi(\mathcal A) = \SetDef{A' \subset X'}{\varphi^{-1}(A') \in \mathcal A} \]
 \end{definition}
 
-$\varphi(\chi, \mathcal A) \to (\chi', \mathcal A')$ is measurable $\iff \varphi(\mathcal A) \supset \mathcal A'$.
+$\varphi(X, \mathcal A) \to (X', \mathcal A')$ is measurable $\iff \varphi(\mathcal A) \supset \mathcal A'$.
 
-$(\chi, \mathcal A, \mu)$ is a measure space, $\varphi: \chi \to \chi'$.
-$\mu_{\varphi}$ is the push-forward measure on $(\chi', \varphi(\mathcal A))$.
+$(X, \mathcal A, \mu)$ is a measure space, $\varphi: X \to X'$.
+$\mu_{\varphi}$ is the push-forward measure on $(X', \varphi(\mathcal A))$.
 \[ \mu_{\varphi}(A') = \mu(\varphi^{-1}(A')) \]
 
 \begin{definition}[Generated $\sigma$-algebra]
   \begin{enumerate}
-    \item $\chi$, $(\chi', \mathcal A')$ is a measurable space.
-      $\varphi: \chi \to \chi'$
+    \item $X$, $(X', \mathcal A')$ is a measurable space.
+      $\varphi: X \to X'$
       \[ \sigma(\varphi) = \SetDef{\varphi^{-1}(A')}{A' \in \mathcal A'} \]
-      Iff $\varphi: (\chi, \mathcal A) \to (\chi', \mathcal A')$ is measurable,
+      Iff $\varphi: (X, \mathcal A) \to (X', \mathcal A')$ is measurable,
       $\sigma(\varphi) \subset \mathcal A$.
-    \item $\chi, (\chi_i, \mathcal A_i)$, $i \in I$ are measure spaces
-      \[ \psi_i: \chi \to \chi_i \forall i \]
+    \item $X, (X_i, \mathcal A_i)$, $i \in I$ are measure spaces
+      \[ \psi_i: X \to X_i \forall i \]
       The $\sigma$-algebra generated by $\psi_i$ ($i \in I$) is the smallest $\sigma$-algebra that contains such a set.
-      $\bigvee_{i \in I} \sigma(\psi_i)$. Is the smallest $\sigma$-algebra on $\chi$ which are measurable for all $\psi_i$.
+      $\bigvee_{i \in I} \sigma(\psi_i)$. Is the smallest $\sigma$-algebra on $X$ which are measurable for all $\psi_i$.
   \end{enumerate}
 \end{definition}
 
@@ -833,9 +834,9 @@ $\mu_{\varphi}$ is the push-forward measure on $(\chi', \varphi(\mathcal A))$.
 
 \begin{theorem}
   \label{thm-maps}
-  Let $(\chi, \mathcal A)$ be a measure space. Let $(\chi', \mathcal A')$ be another one.
-  Let $(\chi_i, \mathcal A_i)$ be measure spaces with ($i \in I$). % TODO visualize
-  Then we can map from ($\chi, \mathcal A$) to ($\chi', \mathcal A'$) with measurable $\varphi$ and we can map ($\chi', \mathcal A'$) to $(\chi_i, \mathcal A_i)$ with $\psi_i$ such that $\mathcal A' = \sigma(\psi_i: i \in I)$. Then $\varphi$ is measurable iff $\psi_i \circ \varphi$ is measurable $\forall i \in I$.
+  Let $(X, \mathcal A)$ be a measure space. Let $(X', \mathcal A')$ be another one.
+  Let $(X_i, \mathcal A_i)$ be measure spaces with ($i \in I$). % TODO visualize
+  Then we can map from ($X, \mathcal A$) to ($X', \mathcal A'$) with measurable $\varphi$ and we can map ($X', \mathcal A'$) to $(X_i, \mathcal A_i)$ with $\psi_i$ such that $\mathcal A' = \sigma(\psi_i: i \in I)$. Then $\varphi$ is measurable iff $\psi_i \circ \varphi$ is measurable $\forall i \in I$.
 \end{theorem}
 
 \begin{proof}
@@ -851,83 +852,83 @@ $\mu_{\varphi}$ is the push-forward measure on $(\chi', \varphi(\mathcal A))$.
 
 \subsection{Product space}
 
-Let $\chi_n, \mathcal A_n$ and $n = 1, \dots, N$ with $N < \infty$.
-Let $\chi = \prod_{n=1}^N \chi_n$ (\enquote{product $sigma$-algebra})
+Let $X_n, \mathcal A_n$ and $n = 1, \dots, N$ with $N < \infty$.
+Let $X = \prod_{n=1}^N X_n$ (\enquote{product $sigma$-algebra})
 generated by $\mathcal E = \Set{\prod_{n=1}^N A_n \cdot A_n \subset A_n \forall n}$.
 
-Consider $N = 2$. $\chi = \chi_1 \times \chi_2$. $\mathcal E = \SetDef{A_1 \times A_2}{A_n \in \mathcal A_n, n = 1, 2}$.
+Consider $N = 2$. $X = X_1 \times X_2$. $\mathcal E = \SetDef{A_1 \times A_2}{A_n \in \mathcal A_n, n = 1, 2}$.
 Product $\sigma$-algebra: $\mathcal A_1 \otimes \mathcal A_2$.
 
-Commonly, we use the notation $(\chi, \otimes \mathcal A_n) = \otimes(\chi_n, \mathcal A_n)$
+Commonly, we use the notation $(X, \otimes \mathcal A_n) = \otimes(X_n, \mathcal A_n)$
 
 \begin{lemma}
   \[ \oplus_{n=1}^N \mathcal A_n = \sigma\left(\pi_n: n = 1, \dots, N\right) \]
-  where $\pi_n: \chi \to \chi_n$ is the $n$-th projection.
+  where $\pi_n: X \to X_n$ is the $n$-th projection.
 
-  Hint: $\mathcal E_0 = \Set{\prod_{n=1}^N A_n \text{ with } A_n = \chi_n \forall n \text{ expect for one and this } A_n \in \mathcal A_n}$ also generates $\otimes \mathcal A_n$.
+  Hint: $\mathcal E_0 = \Set{\prod_{n=1}^N A_n \text{ with } A_n = X_n \forall n \text{ expect for one and this } A_n \in \mathcal A_n}$ also generates $\otimes \mathcal A_n$.
 \end{lemma}
 
 This lemma holds obviously.
 
 \begin{theorem}
-  $\varphi: (\chi, \mathcal A) \to \otimes_{n=1}^N (\chi_n, \mathcal A_n)$,
+  $\varphi: (X, \mathcal A) \to \otimes_{n=1}^N (X_n, \mathcal A_n)$,
   where $N$ denotes finite or countable,
-  is measurable $\iff \pi_n \circ \varphi: (\chi, \mathcal A) \to (\chi_n, \mathcal A_n)$ is measurable $\forall n$.
+  is measurable $\iff \pi_n \circ \varphi: (X, \mathcal A) \to (X_n, \mathcal A_n)$ is measurable $\forall n$.
   This is a special case of Theorem~\ref{thm-maps}.
 \end{theorem}
 
 \textbf{Prospect:} Product measure.
 
-Let $(\chi_1, \mathcal A_1) \otimes (\chi_2, \mathcal A_2, \mu_2)$.
+Let $(X_1, \mathcal A_1) \otimes (X_2, \mathcal A_2, \mu_2)$.
 How to generate this? Well,
-\[ = (\chi_1 \times \chi_2, \mathcal A_1 \otimes \mathcal A_2, \mu_1 \otimes \mu_2) \]
+\[ = (X_1 \times X_2, \mathcal A_1 \otimes \mathcal A_2, \mu_1 \otimes \mu_2) \]
 on $\mathcal E: \mu_1 \otimes \mu2 (A_1 \times A_2) = \mu_1(A_1) \mu_2(A_2)$ (compare it to the trivial case of the area of a rectangle in $\mathbb R^2$) where $\mathcal E$ is a semiring.
 
 \section{Integration of non-negative functions}
 
-Let $(\chi, \mathcal A, \mu)$ be a measure space.
-Consider $f: (\chi, \mathcal A) \to (\overline{\mathbb R}, \mathcal B)$
-How about $\int_{\chi} f \, d\mu$?
+Let $(X, \mathcal A, \mu)$ be a measure space.
+Consider $f: (X, \mathcal A) \to (\overline{\mathbb R}, \mathcal B)$
+How about $\int_{X} f \, d\mu$?
 
-First of all, $f: (\chi, \mathcal A) \to [0, \infty]$. We know construct the Lebesgue integral:
+First of all, $f: (X, \mathcal A) \to [0, \infty]$. We know construct the Lebesgue integral:
 \begin{description}
   \item[First step] 
     Consider simple functions (like step functions).
     $f$ takes up only finitely many different values.
-    $z_1, \dots, z_n (\geq 0): [f = z_k] \coloneqq \SetDef{x \in \chi}{f(x) = z_k} = f^{-1}(\Set{z_k}) \in \mathcal A$.
+    $z_1, \dots, z_n (\geq 0): [f = z_k] \coloneqq \SetDef{x \in X}{f(x) = z_k} = f^{-1}(\Set{z_k}) \in \mathcal A$.
     We restrict $z_i \geq 0$ to avoid issues like $+\infty + (-\infty)$.
-    \[ \chi = \bigcupdot_{k=1}^n [f = z_k] \]
+    \[ X = \bigcupdot_{k=1}^n [f = z_k] \]
     \begin{definition}
       \[ \int f \, d\mu = \sum_{k=1}^n z_k \mu[f = z_k] \]
       Consider that $z_k \mu [f = z_k]$ might go to infinity.
       We commonly denote $\sum_{z \in \mathbb R} z \mu [f = z]$ in the real-valued case to avoid indices.
     \end{definition}
   \item[Second step]
-    Let $f: (\chi, \mathcal A) \to [0, \infty]$ be measurable.
-    \[ \int_\chi f\, d\mu \coloneqq \Sup{\int_{\chi} s \, d\mu: s \text{ simple}, 0 \leq s \leq f} \]
+    Let $f: (X, \mathcal A) \to [0, \infty]$ be measurable.
+    \[ \int_X f\, d\mu \coloneqq \Sup{\int_{X} s \, d\mu: s \text{ simple}, 0 \leq s \leq f} \]
     So the Riemann integral approximates the area with upper and lower bounds for rectangles.
     For the Lebesgue integral, we split the function into horizontal slices in $\mathbb R$.
     Then we consider the differences of the function values between two consecutive slices.
-    The important point is that this does not require $\mathbb R$, but some $\chi$ and therefore is more generic.
+    The important point is that this does not require $\mathbb R$, but some $X$ and therefore is more generic.
   \item[Third step]
-    Let $f: (\chi, \mathcal A) \to \mathbb R$ and $f = f^+ - f^-$.
+    Let $f: (X, \mathcal A) \to \mathbb R$ and $f = f^+ - f^-$.
     Let $f^+ = \max\{f, 0\}$ and $f^- = -\min\{f, 0\}$. If
-    $\int_\chi f^+ \, d\mu = \int_\chi f^- \, d\mu = \infty: \int_\chi f\, d\mu$ is not defined.
-    Otherwise $\int_\chi f \, d\mu = \int_\chi f^+ \, d\mu - \int_\chi f^- \, d\mu$.
+    $\int_X f^+ \, d\mu = \int_X f^- \, d\mu = \infty: \int_X f\, d\mu$ is not defined.
+    Otherwise $\int_X f \, d\mu = \int_X f^+ \, d\mu - \int_X f^- \, d\mu$.
 \end{description}
 
 Does this definition/construction of the Lebesgue integral satisfy the desired properties of linearity/monotonicity/\dots?
 In the following, we will denote \enquote{simple} functions always as $s$.
 
 \begin{definition}
-  Let $f: (\chi, \mathcal A) \to [0, \infty]$ be measurable.
+  Let $f: (X, \mathcal A) \to [0, \infty]$ be measurable.
   Let $A \in \mathcal A$.
   \[ \int_A f \, d\mu \coloneqq \int \mathbf 1_A f \, d\mu \]
 \end{definition}
 
 \begin{lemma}
-  Let $s: (\chi, \mathcal A) \to [0, \infty]$ be a simple function.
-  Then $\nu_s(A) = \int_A s \, d\mu$ is a measure on $(\chi, \mathcal A)$.
+  Let $s: (X, \mathcal A) \to [0, \infty]$ be a simple function.
+  Then $\nu_s(A) = \int_A s \, d\mu$ is a measure on $(X, \mathcal A)$.
   \[ \nu_s(A) = \sum_{k=1}^n z_k \mu([s = z_k] \cap A) \]
   because $\mathbf 1_A \cdot s = \sum_{k=1}^n z_k \mathbf 1_{[s = z_k]} \mathbf 1_A + 0 \cdot \mathbf 1_{A^C}$.
 
@@ -937,16 +938,16 @@ In the following, we will denote \enquote{simple} functions always as $s$.
 \dateref{2018/10/22}
 
 \begin{definition}
-  Let $(\chi, \mathcal A, \mu)$ be a measure space.
-  $s: (\chi, \mathcal A) \to (\mathbb R, \mathcal B)$ is called \emph{simple}
-  if $s(\chi)$ is finite. \\
+  Let $(X, \mathcal A, \mu)$ be a measure space.
+  $s: (X, \mathcal A) \to (\mathbb R, \mathcal B)$ is called \emph{simple}
+  if $s(X)$ is finite. \\
   $s \geq 0$.
-  \[ \int_\chi s \, d\mu \coloneqq \sum_z z \cdot \mu[s = z] \]
+  \[ \int_X s \, d\mu \coloneqq \sum_z z \cdot \mu[s = z] \]
 \end{definition}
 
 \textbf{Trivial:} If $s = \sum_{j=1}^m c_j \cdot \mathbf 1_{A_j}, A_j \in \mathcal A$
 then $s$ is simple. $A_j$ are not necessarily pairwise disjoint
-and $\int_\chi s \, d\mu = \sum_{j=1}^n c_j \mu(A_j)$.
+and $\int_X s \, d\mu = \sum_{j=1}^n c_j \mu(A_j)$.
 
 \begin{proof}
   $\vec{\varepsilon} \in \Set{-1, 1}^m$ with $A^1 \coloneqq A, A^{-1} \coloneqq A^C$. $\vec{\varepsilon} = (\varepsilon_1, \dots, \varepsilon_m)$. E.g. $A_1 \cap A_2 \cap A_3^C = B_{1,1,-1}$.
@@ -962,13 +963,13 @@ and $\int_\chi s \, d\mu = \sum_{j=1}^n c_j \mu(A_j)$.
 \end{proof}
 
 \begin{corollary}
-  Let $s_1, s_2: \chi \to [0, \infty]$ be simple.
+  Let $s_1, s_2: X \to [0, \infty]$ be simple.
   Then $s = \alpha \cdot s_1 + \beta \cdot s_2$ ($\alpha, \beta \geq 0$) is simple and $\int s \, d\mu = \alpha \cdot \int s_1 \, d\mu + \beta \int s_2 \, d\mu$.
 \end{corollary}
 
 \begin{theorem}[Markov inequality]
   Let $z \in \mathbb R$. Let $f \geq 0$.
-  \[ z \cdot \mu [\underbrace{f \geq z}_{\SetDef{x \in \chi}{f(x) \geq z}}] \leq \int f \, d\mu \]
+  \[ z \cdot \mu [\underbrace{f \geq z}_{\SetDef{x \in X}{f(x) \geq z}}] \leq \int f \, d\mu \]
 \end{theorem}
 \begin{proof}
   \[ s = z \cdot \mathbf{1}_{[f \geq z]} \leq f \]
@@ -985,7 +986,7 @@ and $\int_\chi s \, d\mu = \sum_{j=1}^n c_j \mu(A_j)$.
 
 % Countable unions of countable sets are countable.
 \begin{theorem}
-  \[ \forall f, g: \chi \to [0, \infty] \text{ measurable} \]
+  \[ \forall f, g: X \to [0, \infty] \text{ measurable} \]
   \begin{enumerate}
     \item $f \leq g \text{ almost everywhere } \implies \int f \, d\mu \leq \int g \, d\mu$
     \item $f = g \text{ almost everywhere } \implies \int f \, d\mu = \int g \, d\mu$
@@ -1015,8 +1016,8 @@ and $\int_\chi s \, d\mu = \sum_{j=1}^n c_j \mu(A_j)$.
   \end{enumerate}
 \end{proof}
 
-\begin{theorem}[Levi's theorem about monotonic convergence]
-  If $f_n: (\chi, \mathcal A) \to [0, \infty]$ is measurable and pointwise monotonically increasing ($f_1 \leq f_2 \leq \dots$) and $f = \lim_{n\to\infty} f_n$ then $\int f \, d\mu = \lim_{n\to\infty} \int f_n \, d\mu$
+\begin{theorem}[Levi's theorem about monotone convergence]
+  If $f_n: (X, \mathcal A) \to [0, \infty]$ is measurable and pointwise monotonically increasing ($f_1 \leq f_2 \leq \dots$) and $f = \lim_{n\to\infty} f_n$ then $\int f \, d\mu = \lim_{n\to\infty} \int f_n \, d\mu$
 \end{theorem}
 
 \begin{proof}
@@ -1028,7 +1029,7 @@ and $\int_\chi s \, d\mu = \sum_{j=1}^n c_j \mu(A_j)$.
   $s_{n,\varepsilon} \coloneqq (s - \varepsilon)^+ \mathbf{1}_{[f_n \geq f - \varepsilon]}$ is a simple function. $s - \varepsilon \leq f - \varepsilon \leq f_n$. $s_{n,\varepsilon} \leq f_n$.
   \[ \sum_{z} (z - \varepsilon)^+ \mu\left[s = z, f_n > f - \varepsilon\right] = \int s_{n,\varepsilon} \, d\mu \leq \int f_n \, d\mu \leq \lim \int f_n \, d\mu \]
   \[ s_{n,\varepsilon} = \underbrace{\sum_{z \text{ (values of s)}} (z - \varepsilon)^+ \mathbf{1}_{\left[s - z\right]}}_{(s - \varepsilon)^+} \mathbf{1}_{[f_n > f - \varepsilon]} \]
-  \[ [f_n > f - \varepsilon] \nearrow \chi \qquad [s = z, f_n > f - \varepsilon] \nearrow [s - z] \]
+  \[ [f_n > f - \varepsilon] \nearrow X \qquad [s = z, f_n > f - \varepsilon] \nearrow [s - z] \]
   \[ \implies \sum_z (z - \varepsilon)^+ \mu[s = z] \leq \lim \int f_n \, d\mu \]
   \[ \varepsilon\to0 \implies \sum_z z \mu[s = z] \leq \lim \int f_n \, d\mu \]
   If $z > 0$, such that $\mu[s = z] = +\infty$. $0 < \varepsilon < z$.
@@ -1048,7 +1049,7 @@ and $\int_\chi s \, d\mu = \sum_{j=1}^n c_j \mu(A_j)$.
   This is independent of the representation.
 \end{Remark}
 
-Let $f: (\chi, \mathcal A) \to [0, \infty]$ be measurable. Then we can approximate the integral of $f$ using the integrals of simple functions.
+Let $f: (X, \mathcal A) \to [0, \infty]$ be measurable. Then we can approximate the integral of $f$ using the integrals of simple functions.
 \[ \int f \, d\mu = \sup\SetDef{\int s \, d\mu}{0 \leq s \leq f, \text{ simple}} \]
 
 \begin{Remark}[Properties]
@@ -1063,13 +1064,13 @@ Let $f: (\chi, \mathcal A) \to [0, \infty]$ be measurable. Then we can approxima
 It is obvious if $s$ is simple, then $\int s \, d\mu = \max\SetDef{\int t \, d\mu}{0 \leq t \leq s \text{ simple}}$
 
 \begin{Theorem}[Monotonic convergence]
-  Let $f_n: (\chi, \mathcal A) \to [0, \infty]$ be measurable.
+  Let $f_n: (X, \mathcal A) \to [0, \infty]$ be measurable.
   \[ f_n \leq f_{n+1} \forall n \qquad f = \lim_{n\to\infty} f_n \qquad \implies \int f \, d\mu = \lim_{n\to\infty} \int f_n \, d\mu \]
 \end{Theorem}
 
 \index{Fatou's Lemma}
 \begin{Lemma}[Lemma by Fatou]
-  Let $f_n: (\chi, \mathcal A) \to [0, \infty]$ be measurable.
+  Let $f_n: (X, \mathcal A) \to [0, \infty]$ be measurable.
   \[ \implies \int \left(\lim_{n\to\infty} \inf{f_n}\right) \, d\mu \leq \liminf_{n\to\infty} \int f_n \, d\mu \]
 \end{Lemma}
 
@@ -1080,19 +1081,19 @@ It is obvious if $s$ is simple, then $\int s \, d\mu = \max\SetDef{\int t \, d\m
 \end{proof}
 
 \begin{lemma}
-  Let $f: (\chi, \mathcal A) \to [0, \infty]$ with countable $f(\chi)$.
-  \[ \implies \int f \, d\mu = \sum_{z \in f(\chi)} z \mu[f = z] \]
+  Let $f: (X, \mathcal A) \to [0, \infty]$ with countable $f(X)$.
+  \[ \implies \int f \, d\mu = \sum_{z \in f(X)} z \mu[f = z] \]
 \end{lemma}
 
 \begin{proof}
-  \[ f(\chi) = \SetDef{z_n}{n \in \mathbb N} \]
+  \[ f(X) = \SetDef{z_n}{n \in \mathbb N} \]
   \[ f_n = \sum_{k=1}^n z_k \mathbf{1}_{[f = z_k]} \nearrow f \implies \int f \, d\mu = \lim \int f_n \, d\mu = \lim \sum_{k=1}^n z_k \mu[f = z_k] \]
 \end{proof}
 
 The integral should be linear. We expect this for any integral.
 
 \begin{theorem}
-  Let $f, g: (\chi, \mathcal A) \to [0, \infty]$ be measurable. Let $\alpha \geq 0$.
+  Let $f, g: (X, \mathcal A) \to [0, \infty]$ be measurable. Let $\alpha \geq 0$.
   \begin{enumerate}
     \item $\int (\alpha f) \, d\mu = \alpha \int f \, d\mu$ (trivial to prove)
     \item $\int (f + g) \, d\mu = \int f \, d\mu + \int g \, d\mu$
@@ -1133,7 +1134,7 @@ Thus we partition the image, not the domain.
 \section{Integrable functions}
 
 \begin{definition}
-  Let $f: (\chi, d) \to \overline{\mathbb R}$ is measurable.
+  Let $f: (X, d) \to \overline{\mathbb R}$ is measurable.
   If not $\int f^+ \, d\mu = \int f^- \, d\mu = +\infty$,
   integral exists:
   \[ \int f \, d\mu = \int f^+ \, d\mu - \int f^- \, d\mu \]
@@ -1193,8 +1194,8 @@ The Lebesgue integral works for any measure space.
 \end{example}
 
 \begin{theorem}[Dominated convergence theorem by Lebesgue]
-  Let $f_n: (\chi, \mathcal A) \to \overline{\mathbb R}$ be a sequence of measurable functions.
-  $f_n \to f$ pointwise [almost everywhere wrt. $\mu$]. There exists $g: (\chi, \mathcal A) \to [0, \infty]$ integrable [$\int g \, d\mu < \infty$].
+  Let $f_n: (X, \mathcal A) \to \overline{\mathbb R}$ be a sequence of measurable functions.
+  $f_n \to f$ pointwise [almost everywhere wrt. $\mu$]. There exists $g: (X, \mathcal A) \to [0, \infty]$ integrable [$\int g \, d\mu < \infty$].
   \[ \Abs{f_n} \leq g \text{ almost everywhere wrt. } \mu \forall n \implies \int f \, d\mu = \lim_{n\to\infty} \int f_n \, d\mu \]
 \end{theorem}
 
@@ -1216,9 +1217,9 @@ The Lebesgue integral works for any measure space.
 \dateref{2018/11/05}
 
 \begin{Remark}[Dominated convergence theorem by Lebesgue]
-  $f_n, f, g: (\chi, \mathcal A, \mu) \to (\mathbb R, \mathcal B_{\overline{\mathbb R}}$.
-  \[ \begin{cases} f_n \to f & \mu \text{ almost everywhere} \\ \Norm{f_n} \leq g & \mu \text{ almost everywhere} \end{cases} g \geq 0, \int_{\chi} g \, d\mu < \infty \]
-  \[ \implies \int {\chi} f \, dx = \lim_{n\to\infty} \int_{\chi} f_n \, d\mu \]
+  $f_n, f, g: (X, \mathcal A, \mu) \to (\mathbb R, \mathcal B_{\overline{\mathbb R}}$.
+  \[ \begin{cases} f_n \to f & \mu \text{ almost everywhere} \\ \Norm{f_n} \leq g & \mu \text{ almost everywhere} \end{cases} g \geq 0, \int_{X} g \, d\mu < \infty \]
+  \[ \implies \int {X} f \, dx = \lim_{n\to\infty} \int_{X} f_n \, d\mu \]
 \end{Remark}
 
 \begin{example}
@@ -1240,7 +1241,7 @@ The theorem of convergence is a generalization of the following theorem (based o
   \[ f(x) = \sum_{n=0}^\infty a_n x^n \qquad a_n \geq 0 \]
   Convergence raidus: $R < \infty$.
   \[ x_k \nearrow R \implies f_k(x) \nearrow f(R) \]
-  \[ \chi = \mathbb N_0, \mathcal A = \mathcal P(\mathbb N_0), \mu \]
+  \[ X = \mathbb N_0, \mathcal A = \mathcal P(\mathbb N_0), \mu \]
   \enquote{counting measure}
   \[ f_k(n) = a_n x_k^n \]
 
@@ -1364,11 +1365,11 @@ where $g$ and $\mathbf{1}_C$ is Borel-measurable and thus $f \cdot \mathbf{1}_C$
 \end{example}
 
 \begin{theorem}[Substitution theorem]
-  Let $\varphi: (\chi, \mathbb A, \mu) \to (\chi', \mathcal A')$ is measurable.
+  Let $\varphi: (X, \mathbb A, \mu) \to (X', \mathcal A')$ is measurable.
   \[ \mu_{\varphi}(A') = \mu(\varphi^{-1}(A')) \qquad A' \in \mathcal A' \qquad \text{ pushforward measure} \]
-  \[ f: (\chi', \mathcal A') \to (\overline{\mathbb R}, \mathcal B_{\overline{\mathbb R}}) \text{ measurable} \]
+  \[ f: (X', \mathcal A') \to (\overline{\mathbb R}, \mathcal B_{\overline{\mathbb R}}) \text{ measurable} \]
   Then,
-  \[ \int_{\chi} f \circ \varphi \, d\mu \text{ exists } \iff \int_{\chi'} f \, d\mu_{\varphi} \text{ exists} \]
+  \[ \int_{X} f \circ \varphi \, d\mu \text{ exists } \iff \int_{X'} f \, d\mu_{\varphi} \text{ exists} \]
   and in this case, they are the same.
 \end{theorem}
 
@@ -1377,14 +1378,14 @@ where $g$ and $\mathbf{1}_C$ is Borel-measurable and thus $f \cdot \mathbf{1}_C$
 \begin{proof}
   \begin{enumerate}
     \item[1a.] $f = \mathbf{1}_A$, $A' \in \mathcal A' \implies f \circ \varphi = \mathbf{1}_{\varphi^{-1} A'}$
-      \[ \int_{\chi} f\circ \varphi \, d\mu = \mu(\varphi^{-1} A') = \mu_{\varphi}(A') = \int_{\chi'} f \, d\mu_{\varphi} \]
+      \[ \int_{X} f\circ \varphi \, d\mu = \mu(\varphi^{-1} A') = \mu_{\varphi}(A') = \int_{X'} f \, d\mu_{\varphi} \]
     \item[1b.] $f = \sum_{k=1}^n c_k \cdot \mathbf{1}_{A'_k}$
       \[ (c_k \geq 0) \implies f \circ \varphi = \sum_{k=1}^n c_k \cdot \mathbf{1}_{\varphi^{-1} A'_k} \]
       \[ A'_k = [f = c_k] \implies \text{ statement is correct} \]
     \item[2.]
       $f \geq 0$ then $0 \leq f_n \nearrow f$ and $f_n$ is simple.
       Also $f_n \circ \varphi \nearrow f \circ \varphi$, $f_n \circ \varphi$ is simple.
-      \[ \int_\chi f \circ \varphi \, d\mu = \lim \int_\chi f_n \circ \varphi \, d\mu = \lim \int_{\chi'} f_n \, d\mu_{\varphi} = \int_{\chi'} f \, d\mu_{\varphi} \]
+      \[ \int_X f \circ \varphi \, d\mu = \lim \int_X f_n \circ \varphi \, d\mu = \lim \int_{X'} f_n \, d\mu_{\varphi} = \int_{X'} f \, d\mu_{\varphi} \]
     \item[3.]
       \[ f = f^+ - f^- \qquad f \circ \varphi = f^+ \circ \varphi - f^- \circ \varphi \]
       \[ (f \circ \varphi)^{\pm} = f^{\pm} \circ \varphi \]
@@ -1422,19 +1423,19 @@ where $g$ and $\mathbf{1}_C$ is Borel-measurable and thus $f \cdot \mathbf{1}_C$
 \index{Dynkin system}
 \index{$\pi$-system}
 \begin{definition}
-  $\mathcal D \subset \mathcal p(\chi)$ is called \emph{Dynkin system} or $\pi$-system, if
+  $\mathcal D \subset \mathcal p(X)$ is called \emph{Dynkin system} or $\pi$-system, if
   \begin{enumerate}
-    \item $\chi \in \mathcal D$
+    \item $X \in \mathcal D$
     \item $A \in \mathcal D \implies A^C \in \mathcal D$
     \item $A_n \in \mathcal D$ ($n \in \mathbb N$) is pairwise disjoint then $\bigcupdot_n A_n \in \mathcal D$
   \end{enumerate}
 \end{definition}
-$\mathcal D$ is a non-empty family of subsets of $\chi$ that is closed under finite intersections.
+$\mathcal D$ is a non-empty family of subsets of $X$ that is closed under finite intersections.
 
 Obviously,
 \begin{enumerate}
   \item Every $\sigma$-algebra is a Dynkin system
-  \item $\varepsilon \subset \mathcal P(\chi)$, $D(\varepsilon)$ is generated $D$-system
+  \item $\varepsilon \subset \mathcal P(X)$, $D(\varepsilon)$ is generated $D$-system
     \[ \implies \varepsilon \subset \mathcal D(\varepsilon) \subset \sigma(\varepsilon) \]
 \end{enumerate}
 
@@ -1457,12 +1458,12 @@ The intersection of Dynkin systems is a Dynkin system
 
 \begin{lemma}
   \label{lamme:3-2}
-  Let $\varepsilon \subset \mathcal P(\chi)$ is closed under intersection $\implies \mathcal D(\varepsilon) = \sigma(\varepsilon)$
+  Let $\varepsilon \subset \mathcal P(X)$ is closed under intersection $\implies \mathcal D(\varepsilon) = \sigma(\varepsilon)$
 \end{lemma}
 
 \begin{proof}[Good set principle]
   We have to show $\mathcal D(\varepsilon)$ is closed under intersection. Let $D \in \mathcal D(\varepsilon)$.
-  \[ \mathcal D_D \coloneqq \SetDef{A \subset \chi}{A \cap D \subset \mathcal D(\varepsilon)} \text{ is a $\mathcal D$-system?} \]
+  \[ \mathcal D_D \coloneqq \SetDef{A \subset X}{A \cap D \subset \mathcal D(\varepsilon)} \text{ is a $\mathcal D$-system?} \]
   \begin{enumerate}
     \item Trivial
     \item $A \in \mathcal D_D$. $A^C \cap D = \dots = \left((A \cap D) \dot\cup D^C\right)^C \in \mathcal D(\varepsilon)$
@@ -1479,7 +1480,7 @@ The intersection of Dynkin systems is a Dynkin system
   $\mathcal A = \sigma(\varepsilon)$, $\varepsilon$ is closed under intersection. $\mu$ and $\nu$ are measure on $\mathcal A$.
   \begin{enumerate}
     \item $\left.\mu\right|_{\varepsilon} = \left.\nu\right|_{\varepsilon}$
-    \item $\mu(\chi) = \nu(\chi) < \infty$ or $\varepsilon \ni E_n \nearrow \chi, \mu(E_n) = \nu(E_n) < \infty \forall n$
+    \item $\mu(X) = \nu(X) < \infty$ or $\varepsilon \ni E_n \nearrow X, \mu(E_n) = \nu(E_n) < \infty \forall n$
   \end{enumerate}
   Then $\mu = \nu$ on $\mathcal A$.
 \end{theorem}
@@ -1515,9 +1516,9 @@ The intersection of Dynkin systems is a Dynkin system
         \mu(A \cap E) = \nu(A \cap E) \forall A \in \mathcal A
       \]
       \begin{enumerate}
-        \item $E = \chi$: $\mu = \nu$
-        \item $\mu(A \cap E_n) \nearrow \mu(A \cap \chi)$ \\
-          $\nu(A \cap E_n) \nearrow \nu(A \cap \chi) \forall A \in \mathcal A$
+        \item $E = X$: $\mu = \nu$
+        \item $\mu(A \cap E_n) \nearrow \mu(A \cap X)$ \\
+          $\nu(A \cap E_n) \nearrow \nu(A \cap X) \forall A \in \mathcal A$
           \[ \implies \mu = \nu \]
       \end{enumerate}
   \end{itemize}
@@ -1528,14 +1529,14 @@ The intersection of Dynkin systems is a Dynkin system
 \subsection{Outer measure and extension theorem}
 \begin{definition}[Outer measure]
   \index{Outer measure}
-  $\eta: P(\chi) \to [0, \infty]$ is called \emph{outer measure} if
+  $\eta: P(X) \to [0, \infty]$ is called \emph{outer measure} if
   \begin{enumerate}
     \item $\eta(\emptyset) = 0$
     \item $\sigma$-additivity
   \end{enumerate}
   \[ \implies A \subset \bigcup_{n=1}^\infty A_n \implies \eta(A) \leq \sum_{n=1}^\infty \eta(A_n) \]
 
-  $A \subset \chi$ is called $\eta$-measurable if $\forall C \subset \chi: \eta(C \cap A) + \eta(C \cap A^C) = \eta(C)$.
+  $A \subset X$ is called $\eta$-measurable if $\forall C \subset X: \eta(C \cap A) + \eta(C \cap A^C) = \eta(C)$.
 
   Is not a measure.
 \end{definition}
@@ -1545,16 +1546,16 @@ The intersection of Dynkin systems is a Dynkin system
 \end{Remark}
 
 \begin{theorem}[Carathéodory]
-  $A_\eta = \SetDef{A \subset \mathcal P(\chi)}{A \text{ measurable}}$ is a $\sigma$-algebra and $\left.\eta\right|_{\mathcal A_{\eta}}$ is a measure, $(\chi, \mathcal A_\eta, \eta)$ is complete.
+  $A_\eta = \SetDef{A \subset \mathcal P(X)}{A \text{ measurable}}$ is a $\sigma$-algebra and $\left.\eta\right|_{\mathcal A_{\eta}}$ is a measure, $(X, \mathcal A_\eta, \eta)$ is complete.
 \end{theorem}
 
 \begin{proof}
-  \[ \forall C: \eta(C \cap \chi) + \underbrace{\eta(C \cap \emptyset)}_{\sigma(i)} = \eta(C) \implies \chi \in \mathcal A_\eta \]
+  \[ \forall C: \eta(C \cap X) + \underbrace{\eta(C \cap \emptyset)}_{\sigma(i)} = \eta(C) \implies X \in \mathcal A_\eta \]
   Thus, the first statement follows. For the second property, we have:
 
   $A$ is measurable, then $A^C$ is measurable.
   By finite union and additivity:
-  \[ A_1, A_2 \in \mathcal A_\eta \implies \forall C \in \mathcal P(\chi) \]
+  \[ A_1, A_2 \in \mathcal A_\eta \implies \forall C \in \mathcal P(X) \]
 
   \begin{align*}
     \eta(C) &= \eta(C \cap A_1) + \eta(C \cap A_1^C) \\
@@ -1568,13 +1569,13 @@ The intersection of Dynkin systems is a Dynkin system
     \eta(C \cap (A_1 \cup A_2) \cap A_1) + \mu(C \cap (A_1 \cup A_2) \cap A_1^C)
       &= \eta(C \cap A_1) + \eta(C \cap A_2)
   \end{align*}
-  Especially, $C = \chi$, $\eta(A_1 \dotcup A_2) = \eta(A_1) + \eta(A_2)$.
+  Especially, $C = X$, $\eta(A_1 \dotcup A_2) = \eta(A_1) + \eta(A_2)$.
 
   Also $A_1, A_2 \in \mathcal A_\eta \implies A_1 \cap A_2 = (A_1^C \cup A_2^C)^C \in \mathcal A_\eta$.
 
   $\sigma$:
   $A_n \in \mathcal A_\eta$ ($n \in \mathbb N$) with $p_n$ disjoint.
-  $\bigcup_{n=1}^N A_n \in \mathcal A_\eta$. Let $C \subset \chi$.
+  $\bigcup_{n=1}^N A_n \in \mathcal A_\eta$. Let $C \subset X$.
   \begin{align*}
     \eta(C) &= \eta\left(C \cap \bigcup_{n=1}^N A_n\right) + \eta\left(C \cap \left(\bigcup_{n=1}^N A_n\right)^C\right) \\
       &\geq \underbrace{\sum_{n=1}^N \eta(C \cap A_n)}_{\forall N} + \eta\left(C \cap \left(\bigcup_{n=1}^\infty A_n\right)^C\right) \\
@@ -1588,8 +1589,8 @@ The intersection of Dynkin systems is a Dynkin system
 \end{proof}
 
 \begin{theorem}[Carathéodory's extension theorem]
-  Let $\varepsilon \subset \mathcal P(\chi)$ be the generator of $\mathcal A$.
-  Let $\mu: \varepsilon \to [0, \infty]$ be a set functions. $A \subset \chi$.
+  Let $\varepsilon \subset \mathcal P(X)$ be the generator of $\mathcal A$.
+  Let $\mu: \varepsilon \to [0, \infty]$ be a set functions. $A \subset X$.
   \[ \mu^*(A) = \inf\SetDef{\sum_{n=1}^\infty \mu(E_1)}{E_1 \in \varepsilon, A \subset \bigcup_{n=1}^\infty E_1} \]
   \begin{enumerate}
     \item $\mu^*$ is an outer measure $\iff \mu^*(\emptyset) = 0$ (especially true, if $\, \emptyset \in \varepsilon$ and $\mu(\emptyset) = 0$)
@@ -1610,7 +1611,7 @@ Thus, $\mu^*(\emptyset) = 0 \implies \mu^*(E) \leq \mu(E) \forall E \in \varepsi
     \item Direction $\implies$ is immediate. \\
       For direction $\impliedby$, we need to show $\sigma$-subadditivity.
 
-      \[ A, A_n \in \chi, A \subset \bigcup_{n=1}^\infty A_n \]
+      \[ A, A_n \in X, A \subset \bigcup_{n=1}^\infty A_n \]
       \[ \mu^*(A_n) = \inf\SetDef{\sum_{m=1}^\infty \mu(E_{m,n})}{E_{m,n} \in \varepsilon, A_n \subset \bigcup_{m=1}^\infty E_{m,n}} \]
       $\delta > 0: \exists E_{m,n} \in \varepsilon: \mu^*(A_n) + \frac{\delta}{2^n} \geq \sum_{m=1}^\infty \mu(E_{m,n}) \geq \mu^*(A_n)$
       \[ A \subset \bigcup_{n=1}^\infty A_n \subset \bigcup_{n=1}^\infty \bigcup_{m=1}^\infty E_{m,n} \]
@@ -1623,7 +1624,7 @@ Thus, $\mu^*(\emptyset) = 0 \implies \mu^*(E) \leq \mu(E) \forall E \in \varepsi
     \item Direction $\implies$ is immediate. \\
       For direction $\impliedby$, let $E \in \varepsilon$. Show that $E$ is measurable with respect to $\mu^*$.
 
-      Let $C \subset \chi$ be arbitrary. $D_n \in \varepsilon$ such that $C \subset \bigcup_{n=1}^\infty D_n$ and $\mu^*(C) + \delta \geq \sum_{n=1}^\infty \mu(D_n) \geq \mu^*(C)$
+      Let $C \subset X$ be arbitrary. $D_n \in \varepsilon$ such that $C \subset \bigcup_{n=1}^\infty D_n$ and $\mu^*(C) + \delta \geq \sum_{n=1}^\infty \mu(D_n) \geq \mu^*(C)$
       \begin{align*}
         \mu^*(C) &\leq \mu^*(C \cap E) + \mu^*(C \cap E^C) \\
           &\leq \sum_{n=1}^\infty \left(\mu^*(D_n \cap E) + \mu^*(D_n \cap E)\right) \\
@@ -1637,10 +1638,10 @@ Thus, $\mu^*(\emptyset) = 0 \implies \mu^*(E) \leq \mu(E) \forall E \in \varepsi
   Let $\varepsilon$ be a semiring. $\mu: \varepsilon \to [0, \infty]$.
   \begin{enumerate}
     \item $\mu(\emptyset) = 0$
-    \item $\chi \in \varepsilon$ and $\mu(\chi) < \infty$ or $\chi = \bigcup_n E_n$, $E_n \in \varepsilon, \mu(E_n) < \infty$
+    \item $X \in \varepsilon$ and $\mu(X) < \infty$ or $X = \bigcup_n E_n$, $E_n \in \varepsilon, \mu(E_n) < \infty$
     \item $\mu$ is $\sigma$-additive on $\varepsilon \implies$ unique extension on $\sigma(\varepsilon)$
   \end{enumerate}
-  $\varepsilon$ is a semiring over $\chi$, if
+  $\varepsilon$ is a semiring over $X$, if
   \begin{enumerate}
     \item $\emptyset \in \varepsilon$
     \item $D, E \in \varepsilon \implies D \cap E \in \varepsilon$
@@ -1676,7 +1677,7 @@ to $\mathcal A_{\mu^*} \supset \mathcal A \supset \varepsilon$. $\mathcal A_{\mu
 
 \index{Outer regular measure}
 \begin{definition}
-  Let $(\chi, \mathcal A, \mu)$ is a measurable space. Let $\varepsilon$ be a generator of $\mathcal A$.
+  Let $(X, \mathcal A, \mu)$ is a measurable space. Let $\varepsilon$ be a generator of $\mathcal A$.
   $\mu$ is called \emph{outer regular} with respect to $\varepsilon$,
   if $\mu = \mu^*$ on $d$ where $\mu^*$ is defined like
   \[ \mu^*(A) = \inf\SetDef{\sum_{n=1}^\infty \mu(E_1)}{E_1 \in \varepsilon, A \subset \bigcup_{n=1}^\infty E_1} \]
@@ -1711,9 +1712,9 @@ to $\mathcal A_{\mu^*} \supset \mathcal A \supset \varepsilon$. $\mathcal A_{\mu
 \end{proof}
 
 \begin{theorem}
-  Let $\chi$ be a metric space. $\varepsilon = \Set{\text{open sets}}$.
-  $\mathcal B_{\chi} = \sigma(\varepsilon)$ is a Borel-$\sigma$-algebra.
-  $\mu$ is a $\sigma$-finite measure on $(\chi, \mathcal B_{\chi})$.
+  Let $X$ be a metric space. $\varepsilon = \Set{\text{open sets}}$.
+  $\mathcal B_{X} = \sigma(\varepsilon)$ is a Borel-$\sigma$-algebra.
+  $\mu$ is a $\sigma$-finite measure on $(X, \mathcal B_{X})$.
   \begin{align*}
     \mu(B) &= \inf\SetDef{\mu(O)}{O \supset B \text{ open}} \\
            &= \sup\SetDef{\mu(A)}{A \subset B \text{ closed}}
@@ -1721,7 +1722,7 @@ to $\mathcal A_{\mu^*} \supset \mathcal A \supset \varepsilon$. $\mathcal A_{\mu
 \end{theorem}
 
 \begin{proof}
-  Without loss of generality: $\mu(\chi) < \infty$.
+  Without loss of generality: $\mu(X) < \infty$.
   \[ B \subset O = \bigcup_{n=1}^\infty E_n \text{ open} \]
   \[ \mu(B) \leq \mu(O) \leq \sum_{n=1}^\infty \mu(E_n) \]
   In combination,
@@ -1743,15 +1744,15 @@ to $\mathcal A_{\mu^*} \supset \mathcal A \supset \varepsilon$. $\mathcal A_{\mu
 
 \dateref{2018/12/03}
 
-Let $(\chi, \mathcal A, \mu)$ and $(Y, \mathcal B, \nu)$ be measure space.
+Let $(X, \mathcal A, \mu)$ and $(Y, \mathcal B, \nu)$ be measure space.
 Let $\mu$ and $\nu$ be $\sigma$-finite.
 $A \otimes B = \sigma(\varepsilon)$. $\varepsilon = \Set{A \times B: A \in \mathcal A, B \in \mathcal B}$.
 $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
 
 \begin{definition}
   \label{def:fub}
-  Let $C \in \mathcal A \otimes \mathcal B$. $C_x = \SetDef{y \in Y}{(x, y) \in C}$ with $x \in \chi$.
-  $C^Y = \SetDef{x \in \chi}{(x, y) \in C}$.
+  Let $C \in \mathcal A \otimes \mathcal B$. $C_x = \SetDef{y \in Y}{(x, y) \in C}$ with $x \in X$.
+  $C^Y = \SetDef{x \in X}{(x, y) \in C}$.
 
   \begin{figure}[!ht]
     \begin{center}
@@ -1761,18 +1762,18 @@ $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
     \end{center}
   \end{figure}
 
-  \[ f: \chi \times Y \to \overline{\mathbb R} \]
+  \[ f: X \times Y \to \overline{\mathbb R} \]
   \[ f_x: Y \to \overline{\mathbb R} \qquad f_x(y) = f(x, y) \]
-  \[ f^y: \chi \to \overline{\mathbb R} \qquad f^y(x) = f(x, y) \]
+  \[ f^y: X \to \overline{\mathbb R} \qquad f^y(x) = f(x, y) \]
 \end{definition}
 
 \begin{theorem}
-  \[ C \in \mathcal A \otimes \mathcal B \implies C_x \in \mathcal B \forall x \in \chi, C^y \in \mathcal A \forall y \in Y \]
-  \[ f \text{ measurable } \implies f_x, f^y \text{ measurable } \forall x \in \chi, y \in Y \]
+  \[ C \in \mathcal A \otimes \mathcal B \implies C_x \in \mathcal B \forall x \in X, C^y \in \mathcal A \forall y \in Y \]
+  \[ f \text{ measurable } \implies f_x, f^y \text{ measurable } \forall x \in X, y \in Y \]
 \end{theorem}
 
 \begin{proof}
-  \[ \mathcal D = \SetDef{C \in \mathcal A \otimes \mathcal B}{C_x \in \mathcal B \forall x \in \chi} \]
+  \[ \mathcal D = \SetDef{C \in \mathcal A \otimes \mathcal B}{C_x \in \mathcal B \forall x \in X} \]
   \[ \varepsilon \subset \mathcal D (\text{closed under intersection}) \qquad (A \times B)_{x} = \begin{cases} B & x \in A \\ \emptyset & x \not\in A \end{cases} \]
   \[ (C_x)^C = (C^c)_x \text{ so } C \in \mathcal D \implies C^C \in \mathcal D \]
   \[ C_1, C_2, \dots \in \mathcal D, \text{ pairwise disjoint } \implies \left(\bigcup_{n}^+ C_n\right)_x = \bigcup_{n}^+ \underbrace{C_{n,x}}_{\in \mathcal B} \in \mathcal B \]
@@ -1792,7 +1793,7 @@ $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
 
 \begin{definition}[Definition and theorem]
   There exists exactly one measure $g$ on $\mathcal A \otimes \mathcal B$ such that $g(A \times B) = \mu(A) \nu(B) \forall A \in \mathcal A, B \in \mathcal B$ and
-  \[ g(C) = \int_\chi \nu(C_x) \, d\mu(x) = \int_Y \nu(C^y) \, d\nu(y) \forall C \in \mathcal A \otimes \mathcal B \]
+  \[ g(C) = \int_X \nu(C_x) \, d\mu(x) = \int_Y \nu(C^y) \, d\nu(y) \forall C \in \mathcal A \otimes \mathcal B \]
 \end{definition}
 
 \begin{Remark}
@@ -1802,13 +1803,13 @@ $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
 \begin{proof}
   The uniqueness follows from the uniqueness theorem.
 
-  What about existence? Without loss of generality, $\mu(\chi) < \infty$ and $\nu(Y) < \infty$.
+  What about existence? Without loss of generality, $\mu(X) < \infty$ and $\nu(Y) < \infty$.
   \[
     \mathcal D = \SetDef{C \in \mathcal A \otimes \mathcal B}%
       {x \mapsto \nu(C_x), y \mapsto \mu(C^y) \text{ measurable }\forall x, y \text{ and G}}
   \]
   where $G$ means that the following property (from before) is true:
-  \[ g(C) = \int_\chi \nu(C_x) \, d\mu(x) = \int_Y \nu(C^y) \, d\nu(y) \forall C \in \mathcal A \otimes \mathcal B \]
+  \[ g(C) = \int_X \nu(C_x) \, d\mu(x) = \int_Y \nu(C^y) \, d\nu(y) \forall C \in \mathcal A \otimes \mathcal B \]
 
   \begin{align*}
     \varepsilon \subset \mathcal D:
@@ -1816,15 +1817,15 @@ $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
       & \mu((A \times B)^y) = \mu(A) \mathbf{1}_B(x)
   \end{align*}
 
-  \[ \int_{\chi} \nu((A \times B)_x) \, d\mu(x) = \nu(B) \mu(A) \]
+  \[ \int_{X} \nu((A \times B)_x) \, d\mu(x) = \nu(B) \mu(A) \]
   \[ \int_{Y} \mu((A \times B)^y) \, d\nu(y) = \mu(A) \nu(B) \]
 
   \[ C \in \mathcal D \qquad \nu\left((C^C)_x\right) = \nu(C_x^C) = \underbrace{\nu(Y)}_{\text{measurable}} - \nu(C_x) \]
-  \[ \mu((C^C)^y) = \underbrace{\mu(\chi) - \mu(C^y)}_{\text{measurable}} \]
+  \[ \mu((C^C)^y) = \underbrace{\mu(X) - \mu(C^y)}_{\text{measurable}} \]
   \begin{align*}
-    \int_\chi \nu((C^C)_x) \, d\mu(x)
-      &= \int_\chi \left(\nu(y) - \nu(C_x)\right) \, d\mu(x) = \mu(\chi) \nu(Y) - \int_\chi \nu(C_x) \, d\mu(x) \\
-      &= \nu(Y) \mu(\chi) - \int_Y \mu(C^y) \, d\nu(y) \\
+    \int_X \nu((C^C)_x) \, d\mu(x)
+      &= \int_X \left(\nu(y) - \nu(C_x)\right) \, d\mu(x) = \mu(X) \nu(Y) - \int_X \nu(C_x) \, d\mu(x) \\
+      &= \nu(Y) \mu(X) - \int_Y \mu(C^y) \, d\nu(y) \\
       &= \dots \\
       &\implies C^C \in \mathcal D]
   \end{align*}
@@ -1834,13 +1835,13 @@ $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
   where the elements of both inner parentheses are measurable as function of $x$ and $y$ respectively.
   \begin{align*}
     \int \nu\left(\left(\bigcup_n^+ C_1\right)_x\right) \, d\mu(x)
-      &= \sum_n \int_\chi \nu(C_{n,x}) \, d\mu(x) \\
+      &= \sum_n \int_X \nu(C_{n,x}) \, d\mu(x) \\
       &\underbrace{=}_{C_n \in \mathcal D} \sum_n \int_Y \mu(C_n^y) \, d\nu(y) \\
       &= \int \mu\left(\left(\bigcup_n^+ C_n\right)^y\right) \nu(dy) \\
       &\implies \bigcup^+ C_n \in \mathcal D, \mathcal D \text{ Dynkin system } \\
       &\implies \mathcal D = \mathcal A \times \mathcal B
   \end{align*}
-  Furthermore $\rho(C) \coloneqq \int_\chi \nu(C_x) \, d\mu(x)$ \emph{is} a measure with $\rho(A \times B) = \mu(A) \nu(B)$.
+  Furthermore $\rho(C) \coloneqq \int_X \nu(C_x) \, d\mu(x)$ \emph{is} a measure with $\rho(A \times B) = \mu(A) \nu(B)$.
 \end{proof}
 
 \begin{Remark}
@@ -1848,15 +1849,15 @@ $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
 \end{Remark}
 
 \begin{theorem}[Fubini-Tonelli Theorem]
-  Let $f: \chi \times Y \to [0, \infty]$ be measurable. Then
-  \[ \int_{\chi \times Y} f \, d\mu \times \nu = \int_\chi \left[\int_Y f_X \, d\nu\right] \, d\mu(x) = \int_Y \left[\int_\chi f^Y \, d\mu \right] \, d\nu(x) \]
+  Let $f: X \times Y \to [0, \infty]$ be measurable. Then
+  \[ \int_{X \times Y} f \, d\mu \times \nu = \int_X \left[\int_Y f_X \, d\nu\right] \, d\mu(x) = \int_Y \left[\int_X f^Y \, d\mu \right] \, d\nu(x) \]
 \end{theorem}
 
 Equivalently, we can formulate this theorem as
-\[ \int_X \left[\int_Y f(x, y) \, d\nu(y)\right]\, d\mu(x) = \int_Y \left[\int_\chi f(x,y) \, d\mu(x)\right] \, d\nu(y) \]
+\[ \int_X \left[\int_Y f(x, y) \, d\nu(y)\right]\, d\mu(x) = \int_Y \left[\int_X f(x,y) \, d\mu(x)\right] \, d\nu(y) \]
 
 \begin{remark}
-  This theorem implies that $x \mapsto \int_Y f_X \, d\nu$ and $y \mapsto \int_\chi f^Y \, d\mu$ are measurable.
+  This theorem implies that $x \mapsto \int_Y f_X \, d\nu$ and $y \mapsto \int_X f^Y \, d\mu$ are measurable.
 \end{remark}
 
 \begin{proof}
@@ -1868,16 +1869,16 @@ Equivalently, we can formulate this theorem as
 
       \[ \int_Y f_x \, d\nu = \sum_k c_k \nu(C_{k,x}) \]
       \begin{align*}
-        \int_\chi \left(\int_Y f_X \, d\nu\right) \, d\mu(x)
+        \int_X \left(\int_Y f_X \, d\nu\right) \, d\mu(x)
           &= \sum_k c_k \int \nu(C_{k,x}) \, d\mu(x) \\
-          &= \sum_k c_k \mu \otimes \nu(C_k) = \int_{\chi \times Y} f \, d\mu \otimes \nu = \text{ vice versa}
+          &= \sum_k c_k \mu \otimes \nu(C_k) = \int_{X \times Y} f \, d\mu \otimes \nu = \text{ vice versa}
       \end{align*}
     \item $0 \leq f_n \nearrow f$. $f_n$ is simple. Monotone convergence.
   \end{enumerate}
 \end{proof}
 
 \begin{theorem}[Fubini]
-  \[ f: \chi \times Y \to \mathbb R \text{ measurable} \]
+  \[ f: X \times Y \to \mathbb R \text{ measurable} \]
   Then the following statements are equivalent:
   \begin{enumerate}
     \item $\int_{X \otimes Y} \Abs{f} \, d\mu \otimes \nu < \infty$
@@ -1891,8 +1892,8 @@ Equivalently, we can formulate this theorem as
   and then
   \begin{align*}
     \int f \, d\mu \otimes \nu
-      &= \int_\chi \left[ \int_Y \hat{f}(x, y) \, d\nu(y) \right] \, d\mu(x) \\
-      &= \int_Y \left[ \int_\chi \hat{\hat{f}}(x, y) \, d\mu(x) \right] \, d\nu(y) \\
+      &= \int_X \left[ \int_Y \hat{f}(x, y) \, d\nu(y) \right] \, d\mu(x) \\
+      &= \int_Y \left[ \int_X \hat{\hat{f}}(x, y) \, d\mu(x) \right] \, d\nu(y) \\
   \end{align*}
 \end{proof}
 
@@ -1905,10 +1906,10 @@ Equivalently, we can formulate this theorem as
 \begin{proof}
   \[ \int \left[\int f_x^\pm \, d\nu\right] \, d\mu(x) < \infty \implies \int_Y f_x^\pm \, d\nu < \infty \quad \mu \text{ almost everywhere} \]
   \[ A_0 = \SetDef{x}{\int_Y \Abs{f_X} \, d\nu = \infty} \in \mathcal A \qquad \mu(A_0) = 0 \]
-  \[ B_0 = \SetDef{y}{\int_\chi \Abs{f^Y} \, d\mu = \infty} \in \mathcal B \qquad \nu(B_0) = 0 \]
-  \[ C_0 = \left(A_0 \otimes Y\right) \cup \left(\chi \times B_0\right) \qquad \mu \otimes \nu(C_0) = 0 \]
+  \[ B_0 = \SetDef{y}{\int_X \Abs{f^Y} \, d\mu = \infty} \in \mathcal B \qquad \nu(B_0) = 0 \]
+  \[ C_0 = \left(A_0 \otimes Y\right) \cup \left(X \times B_0\right) \qquad \mu \otimes \nu(C_0) = 0 \]
   $\mu \otimes \nu(C_0) = 0$
-  \[ f = \hat{\hat{f}} = f \cdot \mathbf{1}_{\chi \times Y: C_0} \]
+  \[ f = \hat{\hat{f}} = f \cdot \mathbf{1}_{X \times Y: C_0} \]
   $\mu \otimes \nu$ almost everywhere.
 
   \begin{align*}
@@ -1926,9 +1927,9 @@ Equivalently, we can formulate this theorem as
 \dateref{2018/12/06}
 
 \begin{Remark}
-  $(\xi_1, \mathcal A_1, \mu_1)$, $(\chi_2, \mathcal A_2, \mu_2), (\chi_3, \mathcal A_3, \mu_3)$ $\sigma$-finite. \\
-  $(\chi_1 \times \chi_2 \times \chi_3, \mathcal A_1 \otimes \mathcal A_2 \otimes \mathcal A_3, \mu_1 \otimes \mu_2 \otimes \mu_3)$ \\
-  Also $(\chi_1 \times \dots \times \chi_n, \mathcal A_1 \otimes \mathcal A_2 \otimes \dots \otimes \mathcal A_n, \mu_1 \otimes \dots \otimes \mu_n)$
+  $(\xi_1, \mathcal A_1, \mu_1)$, $(X_2, \mathcal A_2, \mu_2), (X_3, \mathcal A_3, \mu_3)$ $\sigma$-finite. \\
+  $(X_1 \times X_2 \times X_3, \mathcal A_1 \otimes \mathcal A_2 \otimes \mathcal A_3, \mu_1 \otimes \mu_2 \otimes \mu_3)$ \\
+  Also $(X_1 \times \dots \times X_n, \mathcal A_1 \otimes \mathcal A_2 \otimes \dots \otimes \mathcal A_n, \mu_1 \otimes \dots \otimes \mu_n)$
 \end{Remark}
 
 \begin{Remark}
@@ -1938,25 +1939,25 @@ Equivalently, we can formulate this theorem as
 
 \paragraph{Infinite product measure of probability measures}
 
-$(\chi_n, \mathcal A_n, \mu_n)$ and $\mu_n(\chi_n) = 1$ \\
-$\chi = \chi_1 \times \chi_2 \times \dots = \prod_{n=1}^\infty \chi_n$ \\
-$\varepsilon_n = \SetDef{A_1 \times \dots \times A_n \times \chi_{n+1} \times \chi_{n+2} \times \dots}{A_i \in \mathcal A_i, i = 1, \dots, n} \subset \varepsilon_{n+1}$
+$(X_n, \mathcal A_n, \mu_n)$ and $\mu_n(X_n) = 1$ \\
+$X = X_1 \times X_2 \times \dots = \prod_{n=1}^\infty X_n$ \\
+$\varepsilon_n = \SetDef{A_1 \times \dots \times A_n \times X_{n+1} \times X_{n+2} \times \dots}{A_i \in \mathcal A_i, i = 1, \dots, n} \subset \varepsilon_{n+1}$
 
 \begin{align*}
   \varepsilon &= \bigcup \varepsilon_n \qquad \mathcal A = \sigma(\bigcup \varepsilon_i) \\
-    &= \mu(A_1 \times A_2 \times \dots \times A_n \times \chi) \\
+    &= \mu(A_1 \times A_2 \times \dots \times A_n \times X) \\
     &= \mu_1(A_1) \mu_2(A_2) \dots \mu_n(A_n) \cdot 1 \cdot 1 \cdot 1 \cdot 1 \cdot 1 \\
-  \sigma(\varepsilon_1^n) &= A_1^n = \SetDef{A \times \chi_{n+1} \times \dots}{A \in \mathcal A_1 \otimes \dots \otimes \mathcal A_n}
+  \sigma(\varepsilon_1^n) &= A_1^n = \SetDef{A \times X_{n+1} \times \dots}{A \in \mathcal A_1 \otimes \dots \otimes \mathcal A_n}
 \end{align*}
 $\mu_1^n \leadsto \sigma$-additive on $\mathcal A_1^n \subset \mathcal A_1^{n+1}$.
 
-\[ \left.\mu_1^{n+1}\right|_{A_1^n} = \mu_1^n  \qquad \sigma-\text{algebra over } \chi_1^\infty \]
+\[ \left.\mu_1^{n+1}\right|_{A_1^n} = \mu_1^n  \qquad \sigma-\text{algebra over } X_1^\infty \]
 
 \[ A_1^n \nearrow, \bigcup_{n=2}^\infty \mathcal A_1^n = \mathcal F_1^\infty \]
 
 \[ \emptyset \in \mathcal F, A \in \mathcal F \implies A^C \in \mathcal F \]
 \[ A_1, \dots, A_k \in \mathcal F \implies A_1 \cup \dots \cup A_k \in \mathcal F \]
-\enquote{ring}, $\chi \in \mathcal F \leadsto$ algebra.
+\enquote{ring}, $X \in \mathcal F \leadsto$ algebra.
 
 $\mu = \mu_1^\infty$ on $\mathcal F$:
 \[ A \in \mathcal F \implies \exists n: A \in \mathcal A_1^n \implies \mu_1^\infty(A) \coloneqq \mu_1^n(A) \text{ is well-defined} \]
@@ -1996,26 +1997,26 @@ Show: If $E_{m+1} \subset E_m$ and $\mu(E_m) \geq \varepsilon > 0 \forall n$.
 
 Now we finished some initial constructions. Now the actual proof starts:
 
-\[ x_1 \in \chi_1: (E_m)_{x_1} \eqqcolon E_m(x_1) = \SetDef{\underline{y} \in \chi_2^\infty}{(x_1, \underline{y}) \in E_m} \in \mathcal A_2^m \subset \mathcal F_2^\infty \]
-\[ \mu_1^m(E_m) = \int_{\chi_1} \underbrace{\mu_2^m (E_m(x_1))}_{\leq 1} \, d\mu(x_1) \]
+\[ x_1 \in X_1: (E_m)_{x_1} \eqqcolon E_m(x_1) = \SetDef{\underline{y} \in X_2^\infty}{(x_1, \underline{y}) \in E_m} \in \mathcal A_2^m \subset \mathcal F_2^\infty \]
+\[ \mu_1^m(E_m) = \int_{X_1} \underbrace{\mu_2^m (E_m(x_1))}_{\leq 1} \, d\mu(x_1) \]
 
-\[ F_m = \SetDef{x_1 \in \chi_1}{\mu_2^m(E_m(x_1)) \geq \frac\varepsilon2} \in \mathcal A \]
+\[ F_m = \SetDef{x_1 \in X_1}{\mu_2^m(E_m(x_1)) \geq \frac\varepsilon2} \in \mathcal A \]
 \[ \varepsilon \leq \mu_1^\infty(E_m) = \mu_1^m(E_m) = \int_{F_m^C} + \int_{F_m}  \leq
   \frac{\varepsilon}{2} \cdot \underbrace{\mu_1(F_m^C)}_{\leq 1} + \mu_1(F_m) \]
 \[ \mu_1(F_m) \geq \frac\varepsilon2 \qquad E_m(x_1) \searrow  \qquad F_m \searrow \qquad \implies \bigcap_m F_m \neq \emptyset \]
-\[ \exists \xi_1 \in \bigcap_m F_m \subset \chi_1: \mu_2^m(E_m(\xi_1)) \geq \frac\varepsilon2 \qquad \forall m \geq 2 \]
+\[ \exists \xi_1 \in \bigcap_m F_m \subset X_1: \mu_2^m(E_m(\xi_1)) \geq \frac\varepsilon2 \qquad \forall m \geq 2 \]
 recursive:
-\[ \exists \xi_2 \in \chi_2: \mu_3^m(E_m(\xi_1, \xi_2)) \geq \frac\varepsilon4 \forall m \geq 3 \]
-\[ \implies \dots \exists (\xi_1, \dots, \xi_n) \in (\chi_1 \times \dots \times \chi_n): \mu_{n+1}^m(E_m(\xi_1, \dots, \xi_n)) \geq \frac{\varepsilon}{2^n} \forall m \geq n+1 \]
-\[ E_m(\xi_1, \dots, \xi_n) = \SetDef{\underline y \in \chi_{n+1}^\infty}{(\xi_1, \dots, \xi_n, \underline y) \in E_m} \implies (\xi_1, \xi_2, \xi_3, \dots) \in \bigcap E_m \neq \emptyset \]
+\[ \exists \xi_2 \in X_2: \mu_3^m(E_m(\xi_1, \xi_2)) \geq \frac\varepsilon4 \forall m \geq 3 \]
+\[ \implies \dots \exists (\xi_1, \dots, \xi_n) \in (X_1 \times \dots \times X_n): \mu_{n+1}^m(E_m(\xi_1, \dots, \xi_n)) \geq \frac{\varepsilon}{2^n} \forall m \geq n+1 \]
+\[ E_m(\xi_1, \dots, \xi_n) = \SetDef{\underline y \in X_{n+1}^\infty}{(\xi_1, \dots, \xi_n, \underline y) \in E_m} \implies (\xi_1, \xi_2, \xi_3, \dots) \in \bigcap E_m \neq \emptyset \]
 This is in some way related to compactness in Analysis (but this is an advanced technical detail)
 
 \subsection{Signed measures}
 
 \index{Signed measure}
 \begin{definition}
-  Signed measure on $(\chi, \mathcal A)$.
-  $\nu: \mathcal A \to [-\infty, \infty)$ or $\nu: \mathcal A \to (-\infty, \infty]$
+  Signed measure on $(X, \mathcal A)$.
+  $\nu: \mathcal A \to [-\infty, \infty)$ or $\nu: \mathcal A \to (-\infty, \infty]$.
   $\nu(\emptyset) = 0$ and $\sigma$-additive:
   \[ \nu\left(\bigcupdot_{n} A_n\right) = \sum_n \nu(A_n) \text{ absolute convergent} \]
 \end{definition}
@@ -2037,12 +2038,195 @@ This is in some way related to compactness in Analysis (but this is an advanced 
 
 \begin{theorem}[Hahn-Jordan]
   Let $\nu$ be signed.
-  \[ \chi = P \cupdot N \qquad P,N \in \mathcal A \]
+  \[ X = P \cupdot N \qquad P,N \in \mathcal A \]
   \[ \nu^+(A) = \nu(A \cap P) \qquad \nu^-(A) = -\nu(A \cap N) \]
   Non-negative measures are $\nu^+ - \nu^- = \nu$.
 \end{theorem}
 
+\dateref{2018/12/10}
 
+\begin{lemma}
+  Let $A, B \in \mathcal A$, $B \subset A$ and $\Abs{\nu(A)} < \infty \implies \Abs{\nu(B)} < \infty$.
+\end{lemma}
+
+\begin{proof}
+  \begin{center}
+    \begin{tabular}{c|cc}
+      $\nu(A)$  &$= \nu(B)$ &$+ \nu(A \setminus B)$ \\
+    \hline
+      $+\infty$ & $+\infty$ & $+ \infty$ \\
+      $+\infty$ & $+\infty$ & $\in \mathbb R$ \\
+      $-\infty$ & $-\infty$ & $-\infty$ \\
+      $-\infty$ & $-\infty$ & $\in \mathbb R$
+    \end{tabular}
+
+    This shows a contradiction.
+    $+\infty$ and $-\infty$ is not possible by definition of $\nu$.
+  \end{center}
+\end{proof}
+
+\begin{lemma}
+  \[ A_n \nearrow A \implies \nu(A_n) \to \nu(A) \]
+\end{lemma}
+
+\begin{lemma}
+  \[ A_n \searrow A, \Abs{\nu(A_1)} < \infty \implies \nu(A_n) \to \nu(A) \]
+\end{lemma}
+
+\begin{proof}
+  Immediate.
+\end{proof}
+
+\index{Positive signed measure}
+\index{Negative signed measure}
+\index{Zero-set signed measure}
+\begin{definition}
+  Let $\nu$ be a signed measure.
+  \begin{itemize}
+    \item $P \in \mathcal A$ is called positive if $\nu(A) \geq 0 \forall A \in \mathcal A, A \subset P$.
+    \item $N \in \mathcal A$ is called negative if $\nu(A) \leq 0 \forall A \in \mathcal A, A \subset N$.
+    \item $Z$ is a $\nu$-zero set if $\nu(A) = 0 \forall A \in \mathcal A$ with $A \subset Z$.
+  \end{itemize}
+\end{definition}
+
+\begin{Remark}
+  The subset of a positive set is positive.
+\end{Remark}
+
+\begin{lemma}
+  \label{thm:exists-pos-set}
+  Let $\nu: A \to [-\infty, \infty)$ be a signed measure.
+  $A \in \mathcal A \implies \exists P \in \mathcal A, P \subset A$ positive, $\nu(P) \geq \nu(A)$.
+\end{lemma}
+
+\begin{proof}
+  Case distinction of relation of $P$ and $A$.
+  \begin{enumerate}
+    \item $\nu(A) \leq 0: P = \emptyset$. Done.
+    \item $\nu(A) = 0$
+      \begin{claim}
+        $\forall \varepsilon > 0 \exists A_{\varepsilon} \subset A$ with
+        \begin{enumerate}
+          \item $\nu(A_\varepsilon) \geq \nu(A)$
+          \item $\nu(B) > -\varepsilon \forall B \subset A_{\varepsilon}$
+        \end{enumerate}
+      \end{claim}
+      \begin{proof}
+        Proof by contradiction.
+        Assume $\exists \varepsilon > 0: \forall C \subset A$ with $\nu(C) \geq \nu(A): \exists B = B_C \subset C$ with $\nu(B) \leq -\varepsilon$. Inductive construction:
+        \begin{enumerate}
+          \item $C_0 = A \exists B_1 \subset A: \nu(B_1) \leq -\varepsilon$.
+          \item $C_1 = A \setminus B_1: \nu(C_1) + \underbrace{\nu(B_1)}_{\leq -\varepsilon} = \nu(A)$
+          \item $\nu(C_1) > \nu(C_0) = \nu(A): \exists B_2 \subset C_1: \nu(B_2) \leq -\varepsilon$. $C_2 = C_1 \setminus B_2$
+          \item $\nu(C_2) + \underbrace{\nu(B_2)}_{\leq -\varepsilon} = \nu(C_1) \geq \nu(A)$. $\nu(C_2) > \nu(A)$.
+          \item $B_1, B_2, \dots$ is pairwise disjoint. $\bigcupdot_{n} B_n \subset A$.
+            \[ 0 < \nu(A) < \infty \implies \Abs{\nu\left(\bigcupdot_n B_n\right)} < \infty \]
+            \[ \sum_n \underbrace{\nu(B_n)}_{\leq -\varepsilon} = -\infty \]
+            This is a contradiction.
+        \end{enumerate}
+      \end{proof}
+
+      Now let $\varepsilon = \frac1n$. $A_1$ for $\varepsilon = 1$ as above. $A_1 \subset A$ ($0 < \nu(A) < \infty$).
+      $A_2 \subset A_1$ with respect to $A_1$ for $\varepsilon = \frac12$. $\nu(A_2) \geq \nu(A_1) \geq \nu(A)$.
+      $A_3 \subset A_2$ with respect to $A_2$ for $\varepsilon = \frac13$. $\nu(B) > -\frac12 \forall B \subset A_2$.
+      $A_3 \subset A_2$ with respect to $A_2$ for $\varepsilon = \frac13$.
+      $A_n \subset A$, $A_{n+1} \subset A_n$. $\nu(B) > -\frac1{n+1} \forall B \in A_{n+1}$. $\nu(A_{n+1}) \geq \nu(A_n)$.
+
+      $P \coloneqq \bigcap_n A_n$. So $\nu(A_n) \nearrow \nu(P)$. This implies that $\nu(P) \geq \nu(A)$.
+
+      $P$ positive. $B \subset P \implies B \subset A_n$. $\nu(B) \geq -\frac1n \forall n$. Therefore $\geq 0$.
+
+      Analogously for negative sets: If $\nu: \mathcal A \to (-\infty, \infty]$, then $\nu \leftrightarrow -\nu$ and $N \leftrightarrow P$.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Hahn decomposition theorem]
+  Let $\nu$ be a signed measure. Then $X = P \cupdot N$ where $P$ is $\nu$-positive and $N$ is $\nu$-negative. $P, N \in \mathcal A$. Furthermore let $P, N$ be almost everywhere distinct. Hence $X = P' \cupdot N'$.
+  \[ \nu(P' \triangle P) = \nu(N' \triangle N) = 0 \]
+  where the symmetric unions are $\nu$-zero sets.
+\end{theorem}
+
+\begin{proof}
+  Without loss of generality, $\nu: A \to [-\infty, +\infty)$.
+  $\alpha = \sup\SetDef{\nu(A)}{A \in \mathcal A} \geq 0$. $\exists$ sequence $(A_n)$ in $\mathcal A$ such that $\nu(A_n) \nearrow \alpha$. By Theorem~\ref{thm:exists-pos-set}, $\exists P_n \subset A_n$ positive. $\alpha \geq \nu(P_n) \geq \nu(A_n)$. $\nu(P_n) \to \alpha$. $P = \bigcup_{n} P_n \supset P_n$.
+
+  \[ \alpha \geq \nu(P) \geq \lim \nu(P_n) = \alpha \]
+  Why does the second inequality hold? Because $P$ is positive (refer to the practicals, we might do this as an exercise).
+  $P$ is disjoint countable union of positive sets.
+  \[ P_1' = P_1, \qquad P_n' = P_n \setminus \bigcup_{k=2}^{n-1} P_k \]
+  \[ \alpha = \nu(P) = \max\SetDef{\nu(A)}{A \in \mathcal A} < \infty \]
+\end{proof}
+
+\begin{claim}
+  $N = P^C$ is negative.
+\end{claim}
+\begin{Remark}
+  $\exists A \subset N: \nu(A) > 0$
+\end{Remark}
+\begin{proof}
+  \[ \nu(A \cupdot P) = \nu(A) + \alpha > \alpha \]
+  This is a contradiction.
+\end{proof}
+
+\[ \nu^+(A) \coloneqq \nu(A \cap P) \qquad \nu^-(A) \coloneqq -\nu(A \cap N) \]
+is a non-negative measure.
+\[ \nu = \nu^+ - \nu^- \]
+one of them is finite.
+
+\[ \Abs{\nu} \coloneqq \nu^+ + \nu^- \]
+\[ \Abs{\nu}(A) = \nu^+(A) + \nu^-(A) \geq \Abs{\nu(A)} \]
+
+\subsection{Total variation}
+
+\index{Total variation}
+\index{Singular measure}
+\begin{definition}
+  Let $\nu_1, \nu_2$ be signed measures are singular with respect to each other. $\nu_1 \bot \nu_2$, if they are concentrated on two disjoint sets:
+  \[ \chi = A_1 \cupdot A_2, A_i \in \mathcal A: \nu_2(B) = \nu_C(B \cap A_i) \]
+  So $A_2$ is a $\nu_1$-zero set and $A_2$ is a $\nu_2$ is a zero set.
+\end{definition}
+
+\begin{example}[$\nu^+ \bot \nu^-$ on $\mathbb R$]
+  \[ \lambda \bot \text{ counting measure over } \mathbb Z \]
+  \[ \mu(A) = \Abs{A \cap \mathbb Z} \]
+\end{example}
+
+\begin{theorem}[Jordan's decomposition theorem]
+  Every signed measure $\nu$ has a unique decomposition $\nu = \nu^+ - \nu^-$ with $\nu^+ \geq 0, \nu^+ \bot \nu^-$.
+\end{theorem}
+
+\begin{Remark}[Minimality]
+  If $\nu = \nu_1 - \nu_2$ with non-negative measures $\nu_i$ then $\nu^+ \leq \nu_1$, $\nu^- \leq \nu_2$.
+  Is trivial to show.
+\end{Remark}
+
+\section{Theorem of Radon-Nikodym}
+
+Related to Johann Radon: \url{https://en.wikipedia.org/wiki/Radon_transform}
+
+Let $\mu$ be a positive measure on $(X, \mu)$. $\varphi: X \to \mathbb R$ measurable. $\int f \, d\mu$ exists.
+\[ \nu(A) = \int_A f \, d\mu = \int f \cdot \mathbf{1}_A \, d\mu \]
+Signed measure $\nu^+(A) = \int f^{\pm} \cdot \mathbf{1}_A \, d\mu$.
+
+$\mu(A) = 0 \implies A \text{ is a } \nu\text{-zero set}$.
+
+\index{Absolutely continuous signed measure}
+\begin{Definition}
+  $\nu$ (signed measure) is called \emph{absolutely continuous} with respect to $\mu$ ($\nu \ll \mu$)
+  if $\mu(A) = 0 \implies A \text{ is a } \nu\text{-zero set} \forall A \in \mathcal A$.
+\end{Definition}
+
+\index{Radon-Nikodyn density}
+\begin{theorem}
+  Let $\mu$ be $\sigma$-finite measure. Let $\nu$ be a signed measure. $\nu \ll \mu$.
+  \[ \implies \exists f: X \to \overline{\mathbb R} \text{ measurable } \]
+  such that $\int_X f \, d\mu$ exists and $\nu(A) = \int_A f \, d\mu \forall A \in \mathcal A$.
+  $f$ is $\mu$-almost everywhere distinct; i.e. if $\nu(A) = \int_A \tilde f d\mu  \forall A \in \mathcal A$
+  then $\mu\left(\SetDef{x}{\tilde f(x) \neq f(x)}\right) = 0$.
+  $f$ is called \emph{Radon-Nikodyn density} of $\nu$ with respect to $\mu$, $f = \frac{d\nu}{d\mu}$.
+
+  Then $\int g \, d\nu = \int g f \, d\mu$ for \enquote{nice} $g: X \to \mathbb R$.
+\end{theorem}
 
 \printindex
 \end{document}

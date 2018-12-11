@@ -2145,7 +2145,148 @@ If $\frac n2$ is even again, we can solve the DFT by two recursions. For $n = 2^
 
 \dateref{2018/11/20}
 
-TODO
+\emph{Problem setting:}
+$f_j = f(t_j) \in \mathbb R \forall j$. Can we create a pure interpolation polynomial?
+
+We restrict ourself to $n = 2p + 1$ and reenumerate the coefficients of the complex interpolation polynomial from $c_0, \dots, c_{n-1}$ to $c_0, \dots, c_p, c_{-p}, \dots, c_{-1}$. Recognize that
+\[ e^{2\pi i \frac{n-1}{n}} = e^{-2\pi i \frac 1n} \qquad \dots \qquad e^{2\pi i \frac{p +  1}{n}} = e^{-2\pi i \frac pn} \]
+
+Thus, the interpolation polynomial can be written as
+\[ f(t_j) = \sum_{k=-p}^{p} c_k \cdot e^{ik t_j} \]
+Because $f(t_j) \in \mathbb R$ it follows that $f(t_j) = \overline{f(t_j)}$ and thus
+\[ \sum_{k=-p}^{p} c_k \cdot e^{ikt_j} = \sum_{k=-p}^p \overline{c_k} e^{-ikt_j} \implies \overline{c_k} = c_{-k} \text{ for } k = 1, \dots, p \text{ and } c_0 \in \mathbb R \]
+If we write $c_k = c^r_k + i c_k^i$, we get
+\begin{align*}
+  f(t_j) &= c_0 + \sum_{k=1}^p (c_k e^{ikt_j} + \overline{c}_k e^{-ikt_j}) \\
+    &= c_0 + \sum_{k=1}^p \left[(c_k^r + ic_k^i)(\cos(kt_j) + i \cdot \sin(kt_j)) + (c_k^r - ic_k^i)(\cos(kt_j) + i \sin(kt_j))\right] \\
+    &= c_0 + \sum_{k=1}^p (2 c_k^r \cos(kt_j) - 2 c_k^i \sin(kt_j))
+\end{align*}
+Therefore, the unique interpolation polynomial is a linear combination of $\Set{1, \cos(kt), \sin(kt): k = 1: \frac{n-1}2}$ and the coefficients can be computed by complex Fourier transform.
+
+\subsection{Splines}
+\label{ch:4-3}
+
+\emph{Motivation:} For high polynomial degrees, usually high oscillations occur. This is inappropriate for interpolation.
+
+\emph{Idea:} Split up the interval in smaller intervals, solve the problem locally.
+
+\emph{Problem:} In general, only $\mathcal C^0$, but not smooth.
+
+Spline functions satisfy the following three conditions:
+\begin{itemize}
+  \item Piecewise polynomials of highest degree $k$
+  \item $p$-times continuously differentiable on the entire interval
+  \item The curvature is minimized
+\end{itemize}
+In practice, \emph{cubic splines} will occur most often.
+
+Problem setting:
+Let $n+1$ pairwise different points $a = t_0 < t_1 < \dots < t_b = b$ with function values $y_0, \dots, y_n$ be given.
+Find a function $g: [a, b]$ that satisfies:
+\begin{enumerate}
+  \item $s(t_i) = y_i \forall i$
+  \item $s \in \mathcal C^1([a, b])$
+  \item $s \in \mathcal C^k([t_i, t_{i+1}])$ \\
+    For the derivative there exist left- and rightsided limits in the points $t_i$, that must not necessarily correspond.
+  \item $s$ minimizes the functional $J[s] \coloneqq \frac 12 \int_a^b (s'')^2 \, dt$
+\end{enumerate}
+
+\begin{theorem}
+  \label{thm:4-19}
+  \[ \exists! s: s \text{ satisfies the four properties} \]
+\end{theorem}
+
+\begin{proof}
+  First, we assume the existence of $s$ and then we derive necessary optimality conditions that lead to a unique solvable linear equation system.
+
+  Let $s$ be a function that satisfies 1--4, let $s_1$ be a function satisfying 1--3.
+  \[ \implies J[s] \leq J[s_1] \]
+  So we write $s_1(t) = s(t) + \varepsilon k(t)$ with parameter $\varepsilon \in \mathbb R$.
+  Because $\varepsilon^h = s_1 - s$, $h$ satisfies 2 and 3, $h(t_i) = 0 \forall i$.
+
+  Every $h$ that satisfies this condition, is considered \emph{reliable}, because it gives some $s_1$ with condition 1--3.
+
+  Now consider $J[s] \coloneqq J[s_1] = \frac 12 \cdot \int_a^b (s''(t) + \varepsilon h''(t))^2 \, dt$ with reliable $h$.
+
+  Therefore $J(\varepsilon)$ is a quadratic polynomial in $\varepsilon$, that takes up its minimum in $\varepsilon = 0$.
+
+  Thus our necessary optimality condition is $J'(0) = \left.\frac{dJ}{d\varepsilon}\right|_{\varepsilon=0} = 0$ for every reliable function $h$. Furthermore it is true that
+  \[ J'(0) = \int_a^b s''(t) \cdot h''(t) \, dt \]
+  Two times partial integration over the subintervals $(t_i, t_{i+1})$ gives
+  \begin{align*}
+    \int_{t_i}^{t_{i+1}} s''(t) h''(t) \, dt
+      &= \left. s''(t) h'(t) \right|_{t_i}^{t_{i+1}} - \int_{t_i}^{t_{i+1}} s^{(3)}(t) \cdot h'(t) \, dt \\
+      &= \left. s''(t) h'(t) \right|_{t_i}^{t_{i+1}} - \left. s^{(3)}(t) \cdot h(t) \right|_{t_i}^{t_{i+1}} \\
+      &+ \int_{t_i}^{t_{i+1}} s^{(k)}(t) h(t) \, dt
+  \end{align*}
+  with $h(t_i) = 0 \forall i$.
+
+  After summing up all subsums, we get
+  \[ 0 = J'(0) = -s''(t_0^+) h'(t_0) + s''(t_1^-) h'(t_1) + s''(t_2^-) - s''(t_2^+) h'(t_2) + \dots + s''(t_n^-) h'(t_n) + \int_a^b s^{(k)}(t) h(t) \, dt \]
+  We want to achieve that $s^{(k)}(t) = 0 \forall t$. Thus for $\xi: s^{(k)}(\xi) \neq 0$ construct $h: h(\xi) \neq 0$ and $ht \neq 0$
+
+  By $J'(0) = 0$ follows that $s^{(k)}(t) = 0 \forall t \neq t_i \forall i$. In the other case, if $s^{(k)}(\xi) > 0$ for $\xi \in (t_i, t_{i+1})$, we construct some reliable $h$ with $h(x)$ only in some neighborhood of $\xi$.
+  \[
+    h(x) = \begin{cases}
+      \exp\left(\frac{\delta^2}{x^2 - \delta^2}\right) & \Abs{x} < \delta \\
+      0 & \text{otherwise}
+    \end{cases}
+    \qquad \text{shifted by $\xi$}
+  \]
+
+  $g^{(k)}$ is continuos, so also in some neighborhood of $\xi + 0$, so the integral $> 0$. This gives a contradiction.
+  Furthermore it follows that $s''(t_0^+) = s''(t_0^-) = 0$ and $s''(t_i^-) = s''(t_i^+) \forall i = 1, \dots, n-1$.
+  Thus we get $0 = J'(0)$ like above. Otherwise we create an appropriate $h$-function.
+
+  By the first conclusion, we get that $s$ can be represented as polynomial of third degree in every interval $[t_i, t_{i+1}]$. By property 1, 2 and the second conclusion we get
+  \[
+    s_i(t_i) = s_{i-1}(t_i) \forall i = 1, \dots, n-1 \qquad
+    s_i'(t_i) = s_{i-1}'(t_i) \qquad
+    s_i''(t_i) = s_{i-1}''(t_i)
+  \]
+  \[ s_0'(t_0) = s_{n-1}'(t_n) = 0 \]
+  The spline function is a cubic, piecewise polynomial in $C^2([a, b])$.
+
+  It remains to show the uniqueness of $s$.
+
+  In every subinterval there are four freedoms to uniquely set $s_i$.
+  Two conditions result by property $s_i(t_i) = y_i$, $s_i(t_{i+1}) = y_{i+1}$.
+  For the remaining two conditions we define $c_i \coloneqq s'_i(t_i)$.
+
+  We now transform the interval $[t_i, t_{i+1}]$ onto $[0,1)$ using $x \coloneqq \frac{t - t_i}{\tau_i}, \tau_i = t_{i + 1} - t_i$ and therefore $s_i$ on $q_i(x) = s_i(t) = s_i(t_i + \tau_i x)$.
+
+  Also $q_i$ are cubic polynomials and we get $q_i(0) = y_i$, $q^{(1)} = y_{i+1}$, $q_i'(0) = \tau_i c_i$, $q_i'(1) = \tau_i c_{i+1}$. This is a Hermitian interpolation problem with solution
+  \[ q_i(x) = (1 - x')^2 y_i + x^2 y_i t + 1 + x(1 - x) [(1 - x)(2y_i + \tau_i c_i) + x(2y_{i+1} - \tau_i c_{i+1})] \]
+  By this interpolation the continuity of $s$ and $s$ is guaranteed.
+  \[ q_i''(0) = 6(y_{i+1} - y_i) - 2\tau_i (2 c_i + c_{i+1}) \qquad q_i''(1) = -6(y_{i+1} - y_i) + 2\tau_i(c_i + 2 c_{i+1}) \]
+  Because $s''(t) = \frac{g_i''(x)}{\tau_i^2}$, we get the conditions:
+  \begin{align*}
+    \frac{2c_0 + c_1}{\tau_0} &= \frac{3(y_1 - y_0)}{\tau_0^2} \\
+    \frac{c_{n-1} + 2c_n}{\tau_{n-1}} &= \frac{3(y_n - y_{n-1})}{\tau_{n-1}^2} \\
+    \frac{c_{i-1} + 2c_i}{\tau_{i-1}} + \frac{2c_i + c_{i+1}}{\tau_i} &= \frac{3(y_i - y_{i-1})}{\tau_{i-1}^2} + \frac{3(y_{i+1} - y_i)}{\tau_i^2} \forall i \neq 0, \dots, n
+  \end{align*}
+
+  Thus we retrieve a linear equation system:
+  \[
+    \begin{bmatrix}
+      \frac{2}{\tau_0} & \frac{1}{\tau_0}                    & \\
+      \frac{1}{\tau_0} & \frac{2}{\tau_0} + \frac{2}{\tau_1} & \ddots \\
+      0                & \frac{1}{\tau_1}                    & \ddots \\
+                       & 0                                   & \ddots
+    \end{bmatrix}
+  \]
+  We want to show that this linear equation system is invertible.
+  It is strictly diagonal dominant.
+
+  \begin{theorem}[Gershgorin theorem]
+    For $B \in \mathbb R^{n\times n}$, $\spec{B} \subseteq \bigcup_{k=1}^n\SetDef{z \in \mathbb C}{\Abs{z - b_{kk}} \leq \sum_{l \neq k} \Abs{b_{kl}}}$.
+  \end{theorem}
+
+  For some arbitrary row, this circle lies strictly in the positive complex plane.
+  \[ \implies 0 \not\in \spec{A} \iff A \text{ regular } \implies \exists! [c_0, \dots, c_m]^t: A\cdot c = \text{right-hand side} \]
+  Thus, a unique spline function $s_i$ created by piecewise polynomials on $[t_i, t_{i+1}]$ exists.
+
+\end{proof}
 
 \dateref{2018/11/22}
 
@@ -2570,9 +2711,118 @@ Processes of adaptive quadrature are successive applications of a cycle consisti
 \[
   \underbrace{\text{solution}}_{\hat{I}_a^b(f)}
     \implies \underbrace{\text{estimate}}_{\substack{\text{error estimate} \\ \text{by a quadrature} \\ \text{formula of higher order}}}
-    \implies \text{marks}
+    \implies \text{marking}
     \implies \underbrace{\text{refinement}}_{\text{bijection}}
 \]
+
+\dateref{2018/12/11}
+
+\begin{description}
+  \item[Solution] Computation of approximation value $\hat{I}^{(l)}(f)$, $l \in \mathbb N_0$ using a quadratur formula, eg, trapezoidal rule with respect to some given decomposition,
+    \[ \triangle_l \coloneqq \Set{a = t_0^{(l)} < t_1^{(l)} < \dots < t_{n_l}^{(l)} = b} \]
+    of the integration domain $[a, b]$ in its subintervals $\triangle_{l, i} \coloneqq [t_i^{(l)}, t_{i+1}^{(l)}]$ of length $\Abs{\triangle_{l, i}} = t_{i+1}^{(l)} - t_i^{(l)}$ with $0 \leq i \leq n_l - 1$. In the following we consider the quadrature formula as \emph{basis procedure} and $l$ as the step of the refinement process.
+  \item[estimate] consists of estimate of the integration error
+    \[ \varepsilon^{(l)}(f) \coloneqq \hat{I}^{(l)}(f) - I(f) \]
+    based on a posteriori data (with desirably little computational requirements).
+  \item[marking] marks---based on the error estimate---the intervals $\triangle_{l,i}$, that should be refined for some more precise approximation. For $l \geq 1$ and $i \in \Set{0, \dots, m_l-1}$, we call $\triangle_{l,i}$ some interval of step $s(\triangle_{l,i}) = l$, if $\triangle_{l,i}$ is created by bisection of some interval from $\triangle_{l-1}^M$. Otherwise $\triangle_{l,i}$ corresponds to some interval of decomposition $\triangle_{l-1}$ and therefore $s(\triangle_{l,i}) \geq l-1$. We denote the set of intervals marked for refinement with $\triangle_l^M$.
+  \item[refinement] uses some bisection of $\triangle_{l,i} = \begin{bmatrix} t_i^{(l)} & \dots & t_{i+1}^{(l)} \end{bmatrix}$ in two subintervals
+    \[
+      \triangle_{l,i} \coloneqq \begin{bmatrix} t_i^{(l)} & \frac{t_i^{(l)} + t_{i+1}^{(l)}}{2} \end{bmatrix}
+      \triangle_{l,i}^+ \coloneqq \begin{bmatrix} \frac{t_{i+1}^{(l)} + t_{i}^{(l)}}{2} & t_{i+1}^{(l)} \end{bmatrix}
+    \]
+\end{description}
+For the estimate of the integration error $\varepsilon^{(l)}(f)$ look for some simple-to-compute and localizable estimate $\eta_l$ of form $\eta_l = \sum_{i=0}^{n_l-1} \eta_{\triangle_{l,i}}$ where $\eta_{\triangle_{l,i}}$ with $0 \leq i \leq n_l-1$ represents estimates of integration errors $\varepsilon_{\triangle_{l,i}}(f)$ with respect to subintervals $\triangle_{l,i}$. We call estimator $\eta_l$ \emph{reliable}, if the constant $\Gamma > 0$ exists, such that $\Abs{\varepsilon^{(l)}(f)} \leq \Gamma_{\eta_l}$. We call it \emph{efficient} if $\gamma \eta_l \leq \Abs{\varepsilon^{(l)}(f)}$ with some constant $\gamma > 0$.
+
+For some given tolerance we want to abort the adaptive refinement process, if $\eta_{l} \leq$ tolerance. Reliable estimators also guarantee a uniform magnitude for the integration error. Efficient estimators ensure that integration errors are not overestimated too much. In the perfect case, we have $\gamma_l \Gamma \approx 1$.
+
+\emph{Idea:} Construct an estimator by using two quadrature formulas of different order, eg. Simpson's rule $\hat{I}(f)$ for basis processes.
+\centering{trapezoidal rule $\equiv \hat{I}(f)$}
+
+Therefore we assume that
+\[ \Abs{\tilde\varepsilon_{\triangle_{l,i}}^{(l)}(f)} \leq q \Abs{\varepsilon_{\triangle_{l,i}}^{(l)}(f)} \qquad 0 \leq q < 1 \]
+Correspondingly we define
+\[ \eta_{\triangle_{l,i}} \coloneqq \Abs{\hat{I}_{\triangle_{l,i}}^{(l)}(f) - \tilde I_{\triangle_{l,i}}^{(l)}(f)} \]
+as estimator of the local integration error $\varepsilon_{\triangle_{l,i}}^{(l)}(f)$. By the triangle inequality, we get
+\begin{align*}
+  \Abs{\varepsilon_{\triangle_{l,i}}^{(l)}}
+    &= \Abs{\hat I_{\triangle_{l,i}}^{(l)}(f) - I(f)} \\
+    &= \Abs{\hat I_{\triangle_{l,i}}^{(l)}(f) - \tilde I_{\triangle_{l,i}}^{(l)}(f)} + \Abs{\tilde I_{\triangle_{l,i}}^{(l)}(f) - I(f)} \\
+    &\leq \eta_{\triangle_{l,i}} + \Abs{\tilde \varepsilon_{\triangle_{l,i}}^{(l)}(f)} \\
+    &\leq \eta_{\triangle_{l,i}} + q \Abs{\varepsilon_{\triangle_{l,i}}^{(l)}(f)}
+\end{align*}
+At the same time we have,
+\[ \Abs{\varepsilon_{\triangle_{l,i}}^{(l)}(f)} \geq \eta_{\triangle_{l,i}} - \Abs{\tilde\varepsilon_{\triangle_{l,i}}^{(l)}(f)} \]
+Therefore $\eta_{\varepsilon_{l,i}}$ is a reliable ($\Gamma = \frac1{1-q}$) and efficient ($\gamma = \frac1{1 + q}$) estimator at some subinterval $\triangle_{l,i}$. For marking in the adaptive cycle we assume that the local estimators $\eta_{\triangle_{l,i}}$ with constants $\kappa > 1$ and $c > 0$ behave like $\eta_{\triangle_{l,i}} \dot{=} c\Abs{\triangle_{l,i}}^\kappa$. We denote $\triangle_{l-1,j_i}$ and $j_i \in \Set{0, \dots, n_l-1}$ the interval at step $\leq l-1$ which contains $\triangle_{l,i}$. If $\triangle_{l-1,j_i} \in \triangle_{l-1}^M$, we have $\Abs{\triangle_{l-1,j_i}} = 2 \Abs{\triangle_{l,i}}$ and it follows that 
+\[ \eta_{\triangle_{l-1,j_i}} \dot{=} 2^\kappa \eta_{\triangle_{l,i}} \]
+Recognize that
+\[ 2^{-\kappa} \dot{=} \frac{\eta_{\triangle_{l,i}}}{\eta_{\triangle_{l-1,j_i}}} \]
+Because $\Abs{\triangle_{l,i}}^{I} = \frac{\triangle{l,i}}{2}$, we get
+\[ \eta_{\triangle_{l,i}^{\pm}} \dot{=} C 2^{-\kappa} \Abs{\triangle_{l,i}}^\kappa \dot{=} \frac{\eta_{\triangle_{l,i}}^2}{\eta_{\triangle_{l-1,j_i}}} \eqqcolon \overline{\eta}_{\triangle_{l,i}} \]
+
+To process step marking, we use the maximum $m_{\eta_l} \coloneqq \max_{s(\triangle_{l,i})=l} \overline{\eta_{\triangle_{l,i}}}$ of local estimators $\eta_{\triangle_{l,i}}$ with $s(\triangle_{l,i}) = l$. For some given $\theta \in (0,1)$ we mark all subintervals $\triangle_{l,i}$ for refinement for which $\eta_{\triangle_{l,i}} \geq \theta m_{\eta_l}$. As termination condition we compare $\hat I^{(l)}_{[a,b]}(f)$ with $\hat I_{[a,b]}^{(l-1)}(f)$.
+\[ \varepsilon_{\text{rel}}^{(l)} \coloneqq \frac{\Abs{\hat I_{[a,b]}^{(l)}(f) - \hat I_{[a,b]}^{(l-1)}(f)}}{\Abs{\hat I_{[a,b]}^{(l)}(f)}} \leq \text{ tolerance} \]
+
+\begin{algorithm}
+  \begin{enumerate}
+    \item Input: $f, \triangle_0, \theta \in (0,1]$ and tolerance $> 0$
+    \item for $l = 0, 1, \dots$
+      \begin{enumerate}
+        \item Determine $\hat I_{l,i}^{(l)}(f), \hat{I}_{\triangle_{l,i}}^{(l)}(f), \eta_{\triangle_{l,i}}$ and $\hat{I}_{[a,b]}^{(l)}(f)$
+        \item if $l = 1$
+          \begin{enumerate}
+            \item Determine $\varepsilon_{\text{rel}}^{(l)}$
+            \item if $\varepsilon_{\text{rel}}^{(l)} \leq$ tolerance
+              \begin{enumerate}
+                \item Terminate with solution $I_{[a,b]}^{(l)}(f)$
+              \end{enumerate}
+          \end{enumerate}
+        \item for $i = 0, 1, \dots, m_l - 1$
+          \begin{enumerate}
+            \item Determine $\hat{\eta_{\triangle_{l,i}}}$ for $\triangle_{l,i}$
+          \end{enumerate}
+        \item Compute $m_{\eta_{l}}$
+        \item Create $\triangle_{l+1}$ by bisection of all $\triangle_{l,i}$ for which $\eta_{\triangle_{l,i}} \geq \theta_{\eta_l}$
+      \end{enumerate}
+  \end{enumerate}
+\end{algorithm}
+
+\subsection{Multidimensional quadrature}
+
+\emph{Goal:} Overview how to generalize quadrature formulas over domains $D \subset \mathbb R^n$. \\
+\emph{Idea:} Reduce to integration of standard domains
+
+\paragraph{Transformation of integrals}
+
+Reduce from $\int_a^b$ to $\int_c^d$ by expressing a coordinate transformation by some bijective, continously differentiable map $\Psi: [c, d] \to [a, b]$. Variable transformation $x = \Psi(t)$ gives 
+\[ \int_a^b f(x) \, dx = \int_c^d f(\Psi(t)) \Psi'(t) \, dt \]
+For the special case of affine maps $\Psi(t) = \alpha t + \beta$ with $\alpha, \beta \in \mathbb R$, the parameters are distinctly given by $\Psi(c) = a$ and $\Psi(d) = b$.
+
+Thus, intervals are mapped the intervals for $\alpha \neq 0$. Furthermore it holds that $p(x)$ is a polynomial of degree $n$ in $x$, then $p(\Psi(t))$ a polynomial of degree $n$ in $t$.
+
+The accuracy of the quadrature formula is not affected.
+
+In $\mathbb R^n$, we use an analogous approach. We integrate over some domain $B_1$ using some quadrature formula for $B_2$. Affine maps have the form
+\[  \Psi: B_2 \to B_1 \qquad \Psi(t) = At + c: A \in \mathbb R^{n \times n}, c \in \mathbb R^{n} \]
+and are uniquely defined by predefining the transformation of $n+1$ points ($n(n+1)$ equations for $n^2 + n$ parameters in $A$ and $c$). The transformation formula is then given by
+\[ \int_{B_1} f(x) \, dx = \int_{B_2} f(\Psi(t)) \cdot \Abs{\det(\nabla \Psi(t))} \, dt \]
+where $\nabla \Psi(t)$ denotes the Jacobian matrix of $\Psi$. In the affine case, we have $\nabla \Psi(t) = A$
+
+\paragraph{Integration over standard square}
+
+We consider $f: Q \to \mathbb R$ and $Q = [0, 1] \times [0, 1] \subset \mathbb R^2$
+\[ \iint_{Q} f(x, y) d(x, y) = \int_0^1 \int_0^1 f(x, y) \, dx \, dy \]
+The integration boundaries for $x$ depend not on $y$ and we can insert separate quadrature formulas for $x$ and $y$.
+\begin{align*}
+  \int_0^1 \int_0^1 f(x, y) \, dx \, dy
+    &= \int_0^1 F(y) \, dy \\
+    &\approx \sum_{j=0}^n \lambda_j F(y_j) \\
+    &= \sum_{j=0}^n \lambda_j \int_0^1 f(x, y_j) \, dx \\
+    &\approx \sum_{j=0}^n \lambda_j \sum_{k=0}^n \lambda_k f(x_k, y_j) \\
+    &= \sum_{j,k=0}^n \lambda_j \lambda_k \cdot f(x_k, y_j)
+\end{align*}
+with points and weights $(y_j^\kappa, \lambda_j)$, and accordingly $(x_\kappa, \lambda_\kappa)$.
+
+If the quadrature formulas are exactly of degree $m$, then functions of form $x^k y^j$, $0 \leq k, j \leq m$ are integrated accurately. The approximation error can be derived by the error representation of one-dimensional quadrature formulas.
 
 
 
