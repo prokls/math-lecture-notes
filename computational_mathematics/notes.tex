@@ -2402,6 +2402,24 @@ For the B-splines, as defined above, the following properties hold:
 
 \dateref{2018/11/27}
 
+Alternatively we can write B-splines as divided differences for the aborted power $f_t(s) = (s - t)_t^{k-1}$.
+
+\begin{lemma}
+  If $\tau_i < \tau_{i+k}$, then B-spline $N_{i,k}$ satisfies $N_{i,k} = (\tau_{i+k} - \tau_i) \cdot \begin{bmatrix} \tau_i & \dots & \tau_{i+k} \end{bmatrix} (-t)_t^{k-1}$.
+
+  If $\tau_j$ is a point with multiplicity $M$, hence $\tau_j = \tau_{j+M-1}$, then $N_{i,k}$ at point $\tau_j$ is a least $(k-1-n)$ times differentiable. For $M < k-1$. For $N_{i,k}$, it is true that
+  \[ N_{i,k}'(t) = (k-1)\left(\frac{N_{i,k-1}(t)}{\tau_{i+k-1} - \tau_i} - \frac{N_{i+1,k}(t)}{\tau_{i+k} - \tau_{i+1}}\right) \]
+\end{lemma}
+
+\noproof
+
+\emph{Goal:} Characterize $\rho_{k}$ by B-splines\dots
+
+Therefore introduce \emph{extended points sequence} $T = \Set{t_j}_{j=1}^{\alpha+k}$ where the boundary points $a = t_0$ and $b = t_n$ are each counted $k$ times.
+\[ \triangle: a = t_0 < t_1 < \dots < t_n = b \]
+\[ T: \tau_1 = \dots = t_k < t_{k+1} < \dots < \tau_{d+1} = \dots = \tau_{d+k} = b \]
+with $d = n-1+k = \dim(S_{k,0})$.
+
 TODO
 
 \dateref{2018/11/29}
@@ -2823,6 +2841,61 @@ The integration boundaries for $x$ depend not on $y$ and we can insert separate 
 with points and weights $(y_j^\kappa, \lambda_j)$, and accordingly $(x_\kappa, \lambda_\kappa)$.
 
 If the quadrature formulas are exactly of degree $m$, then functions of form $x^k y^j$, $0 \leq k, j \leq m$ are integrated accurately. The approximation error can be derived by the error representation of one-dimensional quadrature formulas.
+
+\dateref{2018/12/13}
+
+\subsection{Integration over default triangle}
+
+We consider $f: T \to \mathbb R, T = \SetDef{(x,y)}{0 \leq x \leq 1, 0 \leq y \leq 1 - x} \subset \mathbb R^2$.
+\[ \iint_T f(x, y) \, d(x,y) = \int_0^1 \int_0^{1\cdot x} f(x, y) \, dy \, dx \]
+Here, integration boundaries are not independent in $x$ and $y$ (and therefore the supporting points).
+Thus consider the quadrature formulas of form
+\[ \sum_{j=0}^n \lambda_j f(x_j, y_j) \approx \iint_T f(x, y) d(x, y)  \]
+We require that polynomials of form $x^k y^j$, $0 \leq k + j \leq m$, are integrated accurately. for $m \geq 2$ e.g. the polynomials $1, x, y, x^2, xy, y^2$ (those create an orthogonalbasis wrt. scalar product $\IP{f}{g} = \iint_T f(x, y) g(x, y) \, d(x, y)$).
+
+So, in $\mathbb R^n$ there exists for all $m$ some quadrature formula of accuracy $m$, that requires only ${m+n \choose n}$ supporting points.
+
+These are not unique.
+
+\begin{table}[t]
+  \begin{center}
+    \begin{tabular}{ccc}
+      $(x_j, x_j)$ & $\lambda_j$ & accurately \\
+    \hline
+      $(\frac 13, \frac 13, \frac 13)$ & $\frac12$ & 1 \\
+      $(0, 0), (1, 0), (0, 1)$ & $\frac 16$ & 1 \\
+      $(\frac12, \frac12), (\frac12, 0), (0, \frac12)$ & $\frac16$ & 2 \\
+      $(\frac16, \frac16), (\frac23, \frac16), (\frac16, \frac23)$ & $\frac16$ & 2
+    \end{tabular}
+    \caption{The first line corresponds to the Gauss quadrature on $T$}
+  \end{center}
+\end{table}
+
+\subsection{Higher dimensions integrals}
+
+\emph{Question:} How do we compute higher dimensional integrals $\int_Q f(x) \, dx$ for, for example, $Q = \prod_{i=1}^{d} [a_i, b_i]$.
+\[ \text{Fubini's Theorem } \implies \int_Q f(x) \, dx = \int_{a_d}^{b_d} \dots \int_{a_1}^{b_1} f(x_1, \dots, x_d) \, dx_1 \dots dx_d \]
+Use one-dimensional quadrature formulas:
+Consider e.g. $Q = [0, 1]^d$ and $f$ arbitrary. For $d=1$ we get by trapeziodal sum the approximation
+\[ \int_0^1 f(x) \, dx \approx \sum_{i=0}^n \lambda_i f\left(\frac in\right) \]
+with $\lambda_0 = \lambda_n = \frac1{2n}$ and $\lambda_i = \underbrace{\frac1m}_{k}$ for $i \neq 0, n$.
+
+In the multidimensional case we analogously get
+\[ \int_a f(x) \, dx = \int_0^1 \dots \int_0^1 f(x_1, \dots, x_d) \, dx_1 \dots dx_d \approx \sum_{j_1=0}^n \dots \sum_{j_d=0}^n \lambda_{j_1} \dots \lambda_{j_d} f\left(\frac{j_1}{m}, \dots, \frac{j_d}{m}\right) \]
+The number of evaluations is $N = (n+1)^d$. For $d = 1$ and $f \in \mathcal C^2([0, 1])$ we know that the integration error behaves like $\mathcal O(\frac1{n^2})$. For $d \geq 2$, this value does not improve (consider the special case $f(x_1, \dots, x_d) = g(x_1)$). The approximation error of the quadrature formula above behaves like $\mathcal O(\frac 1{n^2}) = \mathcal{N^{-\frac 2d}}$.
+
+For large $d$ the error margin decreases. To halve the approximation error, we need to apply $2^{\frac d2}$ more functionevaluations (\emph{curse of dimensionality}).
+
+\subsection{Monte-Carlo integration}
+
+In the following, we denote the Lebesgue measure on $\mathbb R^d$ with $\gamma$.
+For $Q = \prod_{i=1}^d [a_i, b_i]$ we have $\gamma(Q) = \prod_{i=1}^{d} (b_i - a_i)$.
+For some integration domain $B$ with $0 < \gamma(B) < \infty$ we consider the probability space ($B, d(B), \mu$) with Lebesgue-measurable subsets of $B$ and the probability measure $\mu = \frac{\gamma}{\gamma(B)}$. For some function $f \in \mathcal C(B)$ we have
+\[  \]
+
+TODO
+
+
 
 
 

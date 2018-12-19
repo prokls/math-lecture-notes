@@ -483,25 +483,26 @@ Then the fourth property follows:
   Every permutation $\sigma \in \sigma_n$ with $\sigma \neq \operatorname{id}$ can be denoted as product of transpositions.
 \end{remark}
 
+\begin{example}
+  \[ \sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 1 & 3 & 5 & 4 & 7 & 6 & 2 \end{pmatrix} \]
+\end{example}
+
 \begin{proof}
   \[ \sigma = \begin{pmatrix} 1 & 2 & \dots & n \\ \sigma(1) & \sigma(2) & \dots & \sigma(n) \end{pmatrix} \]
-  Example:
-  \[ \sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 1 & 3 & 5 & 4 & 7 & 6 & 2 \end{pmatrix} \]
+
+  Find transpositions $\tau_1, \dots, \tau_k$ such that $\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_k$.
+
+  If $\sigma = \operatorname{id}$, then $k=0$.
+
+  If $\sigma \neq \operatorname{id}$,
+  \[ k_1 \coloneqq \min\setdef{i}{\sigma(i) \neq i} \neq \emptyset \]
+  \[ \tau_1 \coloneqq \tau_{k_1 \sigma(k_1)} \]
+  \[ \sigma_1 \coloneqq \tau_i \circ \sigma \]
+  if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}$. Then $\sigma = \tau_1^{-1} = \tau_i$.
+  \[ k_2 \coloneqq \min\setdef{i}{\sigma_i(i) \neq i} \]
+  \[ \tau_2 \coloneqq \tau_{k_2 \sigma_1(k_2)} \]
+  \[ \sigma_2 \coloneqq \tau_2 \circ \sigma_1 \]
 \end{proof}
-
-Find transpositions $\tau_1, \dots, \tau_k$ such that $\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_k$.
-
-If $\sigma = \operatorname{id}$, then $k=0$.
-
-If $\sigma \neq \operatorname{id}$,
-\[ k_1 \coloneqq \min\setdef{i}{\sigma(i) \neq i} \neq \emptyset \]
-\[ \tau_1 \coloneqq \tau_{k_1 \sigma(k_1)} \]
-\[ \sigma_1 \coloneqq \tau_i \circ \sigma \]
-if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}$. Then $\sigma = \tau_1^{-1} = \tau_i$.
-\[ k_2 \coloneqq \min\setdef{i}{\sigma_i(i) \neq i} \]
-\[ \tau_2 \coloneqq \tau_{k_2 \sigma_1(k_2)} \]
-\[ \sigma_2 \coloneqq \tau_2 \circ \sigma_1 \]
-
 
 \begin{example}
   Let $k_1 = 2$.
@@ -638,12 +639,11 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
 \begin{theorem} % 7.17
   \begin{enumerate}
     \item $\sign(\operatorname{id}) = 1$
-    \item $\sign(\pi \circ \sigma) = \sign(\pi) \circ \sign(\sigma)$ \\
+    \item $\sign(\pi \circ \sigma) = \sign(\pi) \cdot \sign(\sigma)$ \\
       Hence, $\sign\sigma_n \to \set{\pm 1}$ is a homomorphism.
 
       $(\set{+1, -1}, \cdot)$ is a group $\stackrel{\sim}{=} (\mathbb Z_2, +)$
-      \[ +1 \to [0]_2 \]
-      \[ -1 \to [1]_2 \]
+      \[ +1 \to [0]_2 \qquad -1 \to [1]_2 \]
     \item $\sign(\pi^{-1}) = \sign(\pi)$
   \end{enumerate}
 \end{theorem}
@@ -655,10 +655,10 @@ if $\sigma_i = \operatorname{id}$, then $\tau_1 \circ \sigma = \operatorname{id}
       \begin{align*}
         \sign(\pi \circ \sigma) &= \prod_{i<j} \frac{(\pi \circ \sigma(j) - \pi \circ \sigma(i))}{j-i} \prod_{i<j} \frac{\sigma(j) - \sigma(i)}{\sigma(j) - \sigma(i)}
         \intertext{because of bijectivity}
-          &= \underbrace{\prod_{i<j} \frac{\pi(\sigma(j)) - \pi(\sigma(i))}{\sigma(j) - \sigma(i)}}_{\sign\pi} \cdot \underbrace{\prod_{i<j} \frac{\sigma(j) - \sigma(i)}{j - i}}_{\sign\pi}
+          &= \underbrace{\prod_{i<j} \frac{\pi(\sigma(j)) - \pi(\sigma(i))}{\sigma(j) - \sigma(i)}}_{\sign\pi} \cdot \underbrace{\prod_{i<j} \frac{\sigma(j) - \sigma(i)}{j - i}}_{\sign\sigma}
       \end{align*}
     \item Homomorphism
-      \[ \sign(\pi^{-1} \circ \pi) = 1 \iff \sign(\pi^{-1}) \circ \sign(\pi) = 1 \iff \sign(\pi^{-1}) = \sign(\pi)^{-1} \]
+      \[ \sign(\pi^{-1} \circ \pi) = 1 \iff \sign(\pi^{-1}) \cdot \sign(\pi) = 1 \iff \sign(\pi^{-1}) = \sign(\pi)^{-1} \]
       %\[ \sign(\pi^{-1}) = \sign(\pi)^{-1} = \sign(\pi) \]
   \end{enumerate}
 \end{proof}
@@ -919,8 +919,8 @@ Basis $b_1,\dots,b_n$.
   \[ f: V \to V \text{ linear} \]
   \[ \implies \triangle^f \text{ is determinant form} \]
   Because there is (except for one factor) only one determinant form:
-  \[ \exists C_f \in \mathbb K: \triangle^f(v_1, \dots, v_n) = C_f \cdot \triangle(v_1, \dots, v_n) \forall v_1,\dots,v_n \in V \]
-  \[ \det(f) \coloneqq C_f \text{ is called \emph{determinant} on } f \]
+  \[ \exists c_f \in \mathbb K: \triangle^f(v_1, \dots, v_n) = c_f \cdot \triangle(v_1, \dots, v_n) \forall v_1,\dots,v_n \in V \]
+  \[ \det(f) \coloneqq c_f \text{ is called \emph{determinant} on } f \]
 \end{corollary}
 
 \begin{proof}
@@ -929,7 +929,7 @@ Basis $b_1,\dots,b_n$.
   \[ \triangle_2 (v_1, \dots, v_n) = \det{A} \cdot \triangle_2(b_1, \dots, b_n) \]
   \[ v_j = \sum_{i=1}^n a_{ij} b_i \]
   \[ \implies \triangle_2(v_1, \dots, v_n) = \frac{\triangle_2(b_1, \dots, b_n)}{\triangle_1(b_1, \dots, b_n)} \cdot \triangle_1(v_1, \dots, v_n) \]
-  \[ \implies C_f = \frac{\triangle^f(b_1, \dots, b_n)}{\triangle (b_1, \dots, b_n)} = \det(f) \]
+  \[ \implies c_f = \frac{\triangle^f(b_1, \dots, b_n)}{\triangle (b_1, \dots, b_n)} \eqqcolon \det(f) \]
   % In essence, any two determinants are different by a factor.
 \end{proof}
 
@@ -943,8 +943,7 @@ Basis $b_1,\dots,b_n$.
 \begin{proof}
   \[ \det(f) = \frac{\triangle(f(b_1)), \dots, \triangle(f(b_n)))}{\triangle (b_1, \dots, b_n)} \]
   \begin{align*}
-    f(b_j) &= \sum_{i=1}^n \phi_B(f(b_i))_i \cdot b_i \\
-         &= \sum_{i=1}^n \left(\phi_B^B(f)\right)_{ij} b_i
+    f(b_j) &= \sum_{i=1}^n \phi_B(f(b_i))_i \cdot b_i = \sum_{i=1}^n \left(\phi_B^B(f)\right)_{ij} b_i
   \end{align*}
   with $\phi_B^B(f)_{ij} = \phi_B(f(b_j))_i$.
   \begin{align*}
@@ -1110,8 +1109,7 @@ Basis $b_1,\dots,b_n$.
       \prod_{j=1}^n a_{j, \pi^{-1}(j)}
       = \prod_{i=1}^n a_{\pi(i), \pi^{-1}(\pi(i))}
       = \prod_{i=1}^n a_{\pi(i), i}
-    \] \[
-      j = \pi(i)
+      \qquad j \coloneqq \pi(i)
     \]
   \end{remark}
 \end{proof}
@@ -1124,7 +1122,7 @@ Basis $b_1,\dots,b_n$.
   Open problem: for which matrix does $\perm(A) = 0$ hold?
 \end{definition}
 
-\begin{example}[Computation of the determinant]
+\begin{example}[Computation of the determinant] % 7.31
   \[ \dim \leq 3 \]
   \[
     n = 2:
@@ -1487,15 +1485,13 @@ Basis $b_1,\dots,b_n$.
   Pierre-Simon Laplace (1749--1827)
 \end{person}
 \begin{definition}[Laplace expansion] % Definition 7.37
-  In German, this theorem is called \foreignlanguage{german}{Entwicklungssatz von Laplace}
+  In German, this theorem is called \foreignlanguage{german}{Entwicklungssatz von Laplace}.
   
   Let $l$ be fixed.
-  \[ \det(A) = \sum_{k=1}^n a_{kl} (-1)^{k+l} \det(A_{kl}) \]
-  \enquote{Expansion along column $l$}.
+  \[ \det(A) = \sum_{k=1}^n a_{kl} (-1)^{k+l} \det(A_{kl}) \qquad \text{\enquote{Expansion along column $l$}} \]
 
   Let $k$ be fixed.
-  \[ \det(A) = \sum_{l=1}^n a_{kl} (-1)^{k+l} \det(A_{kl}) \]
-  \enquote{Expansion along row $k$}.
+  \[ \det(A) = \sum_{l=1}^n a_{kl} (-1)^{k+l} \det(A_{kl}) \qquad \text{\enquote{Expansion along row $k$}} \]
 \end{definition}
 
 \begin{example} % Beispiel 7.38
@@ -1539,8 +1535,7 @@ Review:
         * &        &       &
       \end{vmatrix}
       = a_{11} \cdot \det{B}
-    \] \[
-      B = A_{11}
+      \qquad B = A_{11}
     \]
     where $A_{kl}$ is the $(n-1) \times (n-1)$ matrix created by removal of the $k$-th row and $l$-th column.
     This is a special case of Laplace expansion.
@@ -1688,8 +1683,10 @@ for fixed $k=1$:
 \end{example}
 
 \begin{remark}[Cayley 1855]
-  \[ A^{-1} = \frac{1}{\nabla} \begin{bmatrix} \partial_a \nabla & \partial_c \nabla \\ \partial_b \nabla & \partial_d \nabla \end{bmatrix} \]
-  \[ \nabla f = \begin{bmatrix} \frac{\partial f}{\partial x_1} \\ \vdots \\ \frac{\partial f}{\partial x_n} \end{bmatrix} \]
+  \[
+    A^{-1} = \frac{1}{\nabla} \begin{bmatrix} \partial_a \nabla & \partial_c \nabla \\ \partial_b \nabla & \partial_d \nabla \end{bmatrix} \qquad
+    \nabla f = \begin{bmatrix} \frac{\partial f}{\partial x_1} \\ \vdots \\ \frac{\partial f}{\partial x_n} \end{bmatrix}
+  \]
 \end{remark}
 
 \begin{example}
@@ -3226,7 +3223,7 @@ Back to the scalar product:
 \begin{theorem} % 8.34
   \label{thm834}
   \begin{enumerate}
-    \item $\norm{v + w}^2 = \norm{v}^2 \norm{w}^2 + 2 \norm v \norm w \cos{\varphi}$ (Law of cosines)
+    \item $\norm{v + w}^2 = \norm{v}^2 + \norm{w}^2 + 2 \norm v \norm w \cos{\varphi}$ (Law of cosines)
     \item if $v \bot w$: $\norm {v + w}^2 = \norm{v}^2 + \norm{w}^2$ (Pythagorean Theorem)
     \item $\norm{v + w}^2 + \norm{v - w}^2 = 2 (\norm{v}^2 + \norm{w}^2)$ (Parallelogram Law)
   \end{enumerate}
@@ -3357,7 +3354,7 @@ orthonormal: $\ip{v_i}{v_j} = \delta_{ij}$.
       \end{align*}
       Compare: $B$ is an arbitrary basis:
       \[ \ip vw = \Phi_B(v)^T \cdot A \cdot \overline{\Phi_B(w)} \]
-      \[ a_{ij} = \ip{b_i, b_j} = \delta_{ij} \]
+      \[ a_{ij} = \ip{b_i}{b_j} = \delta_{ij} \]
       \[ A = I \]
       \[ \to \ip vw = \Phi_B(v)^T \cdot \overline{\Phi_B(w)} \]
   \end{enumerate}
@@ -3369,10 +3366,10 @@ orthonormal: $\ip{v_i}{v_j} = \delta_{ij}$.
   Let $v \in V$, then
   \[ v^\bot = \setdef{w \in V}{\ip vw = 0} \]
   For $M \subseteq V: M^\bot = \setdef{w \in V}{\forall u \in M: \ip uw = 0}$
-  is called \emph{orthogonal complement of $v$} or \emph{orthogonal complement of $M$}
+  is called \emph{orthogonal complement of $v$} or \emph{orthogonal complement of $M$}.
 \end{definition}
 
-Compare with Figure~\ref{orthocomp}
+Compare with Figure~\ref{orthocomp}.
 \begin{figure}[!ht]
   \begin{center}
     \includegraphics{img/07_orthogonal_complement.pdf}
@@ -3673,8 +3670,8 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
 \begin{definition}
   Assume $U \dot+ U^\bot = V$.
   Then the projection maps
-  \[ \pi_U: V \to V \qquad \pi_U: V \to V \]  % TODO: equivalent?!
-  such that $\pi_U(x) \in U$ and $\pi_U(x) \in U^\bot$ and $x = \pi_U(x) + \pi_{U^\bot}(x)$ are orthogonal projections.
+  \[ \pi_U: V \to V \qquad \pi_U^\bot: V \to V \]
+  such that $\pi_U(x) \in U$ and $\pi_{U^\bot}(x) \in U^\bot$ and $x = \pi_U(x) + \pi_{U^\bot}(x)$ are orthogonal projections.
 \end{definition}
 
 \begin{remark}
