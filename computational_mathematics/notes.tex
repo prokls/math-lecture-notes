@@ -258,7 +258,8 @@ Then the existence of a solution is guaranteed and this solution is unique.
   \end{enumerate}
 \end{Remark}
 
-\subsection{Gaussian elimination process} % 1.2
+\subsection{Gaussian elimination process}
+\label{sec:1-2}
 
 \emph{Basic idea:}
 \begin{quote}
@@ -626,7 +627,7 @@ Because all diagonal elements $d_{ii}$ are positive definite, there exists
   \end{itemize}
 \end{algorithm}
 
-\section{Errors and matrix conditioning}
+\section{Error analysis and matrix conditioning}
 
 So far, we use input data $(A, b)$ to retrieve the result $A^{-1} b$.
 
@@ -789,7 +790,7 @@ Distinction between:
   \item $\Abs{\tilde x_i - x_i} \subseteq \delta$ (absolute) or $\Abs{\tilde x_i - x_i} \leq \delta \Abs{x_i}$ (relative), hence componentwise for $i = 1,\dots,n$.
 \end{itemize}
 
-\subsection{Normwise condition analysis}
+\paragraph{Normwise condition analysis}
 
 \index{Linearized error theory}
 Assumption: The input error $\delta$ is sufficiently small, so
@@ -826,7 +827,7 @@ Analogously, \enquote{$g(x) \dotted{\leq} h(x)$ for $x \to x_0$} (componentwise)
   \[ \Norm{A} \coloneqq \sup_{x \neq 0} \frac{\Norm{ax}}{\Norm{x}} = \sup_{\Norm{x} = 1} \Norm{Ax} \text{ for } A \in \mathbb R^{m \times n} \]
 \end{Remark}
 
-\begin{example} % 
+\begin{example}[Condition number addition/subtraction]
   \[ \text{Addition: } \quad f: \mathbb R^2 \to \mathbb R \qquad \begin{pmatrix} a \\ b \end{pmatrix} \mapsto f(a, b) = a + b \]
   with the derivative $f'(a,b) = (1, 1) \in \mathbb R^{1 \times 2}$.
   For the $1$-norm on $\mathbb R^2$ it holds that
@@ -885,7 +886,7 @@ By this it follows that:
   \item $A \in \mathbb R^{n \times n}$ with $A \neq 0$ is singular iff $\kappa(A) = \infty$
 \end{enumerate}
 
-\subsection{Componentwise condition analysis}
+\paragraph{Componentwise condition analysis}
 
 The normwise condition analysis is inappropriate in particular special cases.
 
@@ -920,14 +921,14 @@ It encompasses all rounding errors and approximation errors and return an approx
   \end{center}
 \end{figure}
 
+\paragraph{Stability of the componentwise forward analysis}
+
 \index{Stability indicator}
 \begin{definition}[Forward stability]
   Let $\tilde f$ be the floating point implementation of an algorithm to solve problem $(f, x)$ of relative normwise condition $\kappa_{\operatorname{rel}}$.
   The \emph{stability indicator} of a normwise forward analysis is the smallest number $\sigma \geq 0$, such that for all $\tilde x \in E$ it holds that
   \[ \frac{\Norm{\tilde f(\tilde x) - f(\tilde x)}}{\Norm{f(\tilde x)}} \leq \sigma \kappa_{\operatorname{rel}} \varepsilon \qquad \text{ for } \varepsilon \to 0 \]
 \end{definition}
-
-\subsection{Stability of the componentwise forward analysis}
 
 $\overline{\kappa}_{\operatorname{rel}}$ is the smallest number $\sigma \geq 0$ such that
 \[ \max_i \frac{\Abs{\tilde f_i(\tilde x) - f_i(\tilde x)}}{\Abs{f_i(\tilde x)}} \dotted{\leq} \sigma \cdot \overline{\kappa}_{\operatorname{rel}} \varepsilon \qquad \text{ for } \varepsilon \to 0 \]
@@ -947,6 +948,8 @@ We call algorithm $\tilde f$ \emph{stable} in regards of forward analysis if $\s
 \end{proof}
 
 This approach is rather impractical (determination of the conditioning number of the problem is difficult).
+
+\paragraph{Stability of the componentwise backwards analysis}
 
 \begin{figure}[!ht]
   \begin{center}
@@ -993,7 +996,8 @@ In the other case, we call the algorithm \emph{unstable}.
   Residue $\Norm{b - A\hat{x}}$.
 \end{Remark}
 
-\subsection{Backwards analysis for linear equation systems} % 2.4  TODO wrong numbering
+\subsection{Backwards analysis for linear equation systems}
+\label{sec:2-4}
 
 \textbf{Question:} Is the LU decomposition a backwardsstable algorithm?
 
@@ -1699,7 +1703,7 @@ Thus,
 Chebyshev points:
 \[ t_i = \cos\left(\frac{2i + 1}{2n + 2} \cdot \pi\right) \]
 
-\subsection{Polynomial evaluation by Aitken-Neville}
+\paragraph{Polynomial evaluation by Aitken-Neville}
 
 \textbf{Motivation:} Often we are interested in $P(t)$ for a few $t$ and not in $t$ itself.
 
@@ -1753,7 +1757,7 @@ In total, we get
 
 If there is one additional supporting point, the computing time is increased by $\mathcal O(n)$.
 
-\subsection{Hermitian interpolation and Newton basis}
+\paragraph{Hermitian interpolation and Newton basis}
 
 \index{Hermitian interpolation}
 Now we allow, that points repeat, thus $a \leq t_0 \leq \dots \leq t_n \leq b$.
@@ -1880,7 +1884,7 @@ The following properties are given:
 
 No proof is given of this theorem.
 
-\subsubsection{Approximation error}
+\paragraph{Approximation error}
 
 \begin{thm}
   \label{theorem:4-13}
@@ -1917,15 +1921,15 @@ Consider the following class of functions:
 \[ \mathcal F \coloneqq \SetDef{f \in \mathcal C^{n+1}[a,b]}{\sup_{x \in [a,b]} \Abs{f^{(n+1)}(x)} \leq M(n+1)!} \]
 for $M > 0$ constant, the approximation error depends on the choice of point $t$ with respect to $w_{n+1}(t) = (t - t_0) \cdot \dots \cdot (t - t_0)$.
 
-\subsubsection{Numeric differentiation}
-
-Approach:
-\begin{enumerate}
-  \item Choose points $t_0, \dots, t_n$.
-  \item Let $f$ approximate this polynomial $P \in \mathcal P_n$
-  \item Differentiate $P \to P'$
-  \item Can be determined accurately such that the interpolation error can determine the accuracy of the approximation
-\end{enumerate}
+\begin{remark}[An excursion: Numeric differentiation]
+  Approach:
+  \begin{enumerate}
+    \item Choose points $t_0, \dots, t_n$.
+    \item Let $f$ approximate this polynomial $P \in \mathcal P_n$
+    \item Differentiate $P \to P'$
+    \item Can be determined accurately such that the interpolation error can determine the accuracy of the approximation
+  \end{enumerate}
+\end{remark}
 
 Consider $P(f \mid t_i)$ in Newton form:
 \[ P = f(t_0) + [t_0, t_1] f w_1 + \dots + [t_0  \dots t_n] f w_n \]
@@ -1967,7 +1971,7 @@ If the supporting points are distributed with distance $k > 0$ next to $t_0$, we
   \end{description}
 \end{example}
 
-\subsubsection{Minmax property of the Chebyshev polynomial}
+\paragraph{Minmax property of the Chebyshev polynomial}
 
 (see page 214 in the book)
 
@@ -2191,10 +2195,10 @@ Find a function $g: [a, b]$ that satisfies:
   \item $s$ minimizes the functional $J[s] \coloneqq \frac 12 \int_a^b (s'')^2 \, dt$
 \end{enumerate}
 
-\begin{theorem}
+\begin{thm}
   \label{thm:4-19}
-  \[ \exists! s: s \text{ satisfies the four properties} \]
-\end{theorem}
+  \[ \exists! s: s \text{ satisfies the four previous properties} \]
+\end{thm}
 
 \begin{proof}
   First, we assume the existence of $s$ and then we derive necessary optimality conditions that lead to a unique solvable linear equation system.
@@ -2222,7 +2226,10 @@ Find a function $g: [a, b]$ that satisfies:
   with $h(t_i) = 0 \forall i$.
 
   After summing up all subsums, we get
-  \[ 0 = J'(0) = -s''(t_0^+) h'(t_0) + s''(t_1^-) h'(t_1) + s''(t_2^-) - s''(t_2^+) h'(t_2) + \dots + s''(t_n^-) h'(t_n) + \int_a^b s^{(k)}(t) h(t) \, dt \]
+  \begin{align*}
+    0 = J'(0) &= -s''(t_0^+) h'(t_0) + s''(t_1^-) h'(t_1) + s''(t_2^-) - s''(t_2^+) h'(t_2) + \\
+              &\dots + s''(t_n^-) h'(t_n) + \int_a^b s^{(k)}(t) h(t) \, dt
+  \end{align*}
   We want to achieve that $s^{(k)}(t) = 0 \forall t$. Thus for $\xi: s^{(k)}(\xi) \neq 0$ construct $h: h(\xi) \neq 0$ and $ht \neq 0$
 
   By $J'(0) = 0$ follows that $s^{(k)}(t) = 0 \forall t \neq t_i \forall i$. In the other case, if $s^{(k)}(\xi) > 0$ for $\xi \in (t_i, t_{i+1})$, we construct some reliable $h$ with $h(x)$ only in some neighborhood of $\xi$.
@@ -2278,26 +2285,26 @@ Find a function $g: [a, b]$ that satisfies:
   We want to show that this linear equation system is invertible.
   It is strictly diagonal dominant.
 
-  \begin{theorem}[Gershgorin theorem]
-    For $B \in \mathbb R^{n\times n}$, $\spec{B} \subseteq \bigcup_{k=1}^n\SetDef{z \in \mathbb C}{\Abs{z - b_{kk}} \leq \sum_{l \neq k} \Abs{b_{kl}}}$.
-  \end{theorem}
+  \begin{Thm}[Gershgorin theorem]
+    For $B \in \mathbb R^{n\times n}$,
+    \[ \spec{B} \subseteq \bigcup_{k=1}^n\SetDef{z \in \mathbb C}{\Abs{z - b_{kk}} \leq \sum_{l \neq k} \Abs{b_{kl}}} \]
+  \end{Thm}
 
   For some arbitrary row, this circle lies strictly in the positive complex plane.
   \[ \implies 0 \not\in \spec{A} \iff A \text{ regular } \implies \exists! [c_0, \dots, c_m]^t: A\cdot c = \text{right-hand side} \]
   Thus, a unique spline function $s_i$ created by piecewise polynomials on $[t_i, t_{i+1}]$ exists.
-
 \end{proof}
 
 \dateref{2018/11/22}
 
 \[ s''(t_0) = 0 \qquad s''(t_n) = 0 \]
 
-\begin{thm}[Gershgorin circle theorem]
+\begin{Thm}[Gershgorin circle theorem]
   Let $B \in \mathbb R^{n \times n}$.
   \[ \sigma(b) = \bigcup_{k=1}^n \SetDef{z \in \mathbb C}{\Abs{z - b_{kk}} \leq \sum_{l \neq k} \Abs{b_{kl}}} \]
   Applied to $A$, we can conclude that all eigenvalues of $A$ lie in $\mathbb C_{> 0}$.
   \[ \implies 0 \not\in \spec(A) \iff A \text{ is invertible } \implies \exists!: [c_0, \dots, c_n]^T: Ac = \text{ right-hand side} \]
-\end{thm}
+\end{Thm}
 
 Thus, the existence of a unique spline function $s$ follows which is realized by piecewise cubic polynomials on $[t_i, t_{i+1}]$.
 
@@ -2314,17 +2321,17 @@ Alternatively, instead we can use $s''(t_0) = s''(t_n) = 0$:
   \item[Periodic spline] $s'(t_0) = s'(t_n), s''(t_0) = s''(t_n)$
 \end{description}
 
-\subsection{Spline spaces and $B$-splines}
+\paragraph{Spline spaces and $B$-splines}
 
 This is an extended spline concept of arbitrary order $k$.
 
-\begin{definition}
+\begin{Definition}
   \label{definition:4-19}
   Let $\Delta \coloneqq \Set{t_0, \dots, t_n}$ is a grid of pairwise different points $a = t_0 < t_1 < \dots < t_n = b$.
   A spline of degree $k-1$ (of order $k$) with respect to $\Delta$ is a function $s \in C^{k-2}([a,b])$, that corresponds with a polynomial $s_i \in \mathcal P_{k-1}$ in every interval $[t_i, t_{i+1}]$ with $i = 0, \dots, n-1$.
 
   The space of splines of degree $k-1$ with respect to $\Delta$ is denoted with $S_{k, \Delta}$.
-\end{definition}
+\end{Definition}
 
 \begin{Remark}
   $S_{k,\Delta}$ is a real vector space and it is true that $\mathcal P_{k-1} \subset S_{k,\Delta}$.
@@ -2338,13 +2345,13 @@ This is an extended spline concept of arbitrary order $k$.
   are contained in $S_{k,\Delta}$.
 \end{Remark}
 
-\begin{Thm}
+\begin{thm}
   \label{theorem:4-20}
   The monomials and aborted powers create a basis
   \[ B \coloneqq \Set{1, t, \dots, t^{k-1}, (t - t_1)_+^{k-1}, \dots, (t - t_{n-1})_+^{k-1}} \]
   of the spline space $S_{k,\Delta}$. Especially, it holds that
   \[ \dim(S_{k,\Delta}) = k + n - 1 \]
-\end{Thm}
+\end{thm}
 
 \begin{figure}[ht]
   \begin{center}
@@ -2368,12 +2375,12 @@ The basis $B$ is not appropriate to represent a spline $s \in S_{k,\Delta}$, bec
   Then the B-splines $N_{i,k}(t)$ of order $k$ for $k = 1, \dots, d$ and $i = 1, \dots, d-k$
   are recursively defined by
   \[
-    N_{i,1}(t) \coloneqq \chi_{[\tau_i,\tau_{i+1}]}(t) = \begin{cases}
+    N_{i,1}(t) \coloneqq \chi_{[\tau_i,\tau_{i+1})}(t) = \begin{cases}
       1 & \text{ if } \tau_i \leq t < \tau_{i+1} \\
       0 & \text{ else}
     \end{cases}
   \] \[
-    N_{i,k}(t) = \frac{t - \tau_i}{\tau_{i+k-1} - \tau_i} N_{i,k-1}(t) + \frac{\tau_{i+k} - t}{\tau_{i+k} - \tau_{i+1}} N_{i+1,k-1(t)}
+    N_{i,k}(t) = \frac{t - \tau_i}{\tau_{i+k-1} - \tau_i} N_{i,k-1}(t) + \frac{\tau_{i+k} - t}{\tau_{i+k} - \tau_{i+1}} N_{i+1,k-1}(t)
   \]
 \end{definition}
 
@@ -2390,7 +2397,12 @@ The basis $B$ is not appropriate to represent a spline $s \in S_{k,\Delta}$, bec
   \end{align*}
 \end{example}
 
-TODO image Hat functions
+\begin{figure}[!ht]
+  \begin{center}
+    \includegraphics{img/bsplines.pdf}
+    \caption{B-splines of order $k = 2$ or $k = 1, 2, 3$}
+  \end{center}
+\end{figure}
 
 For the B-splines, as defined above, the following properties hold:
 \index{Local support}
@@ -2405,13 +2417,14 @@ For the B-splines, as defined above, the following properties hold:
 Alternatively we can write B-splines as divided differences for the aborted power $f_t(s) = (s - t)_t^{k-1}$.
 
 \begin{lemma}
+  \label{lemma:b-spline}
   If $\tau_i < \tau_{i+k}$, then B-spline $N_{i,k}$ satisfies $N_{i,k} = (\tau_{i+k} - \tau_i) \cdot \begin{bmatrix} \tau_i & \dots & \tau_{i+k} \end{bmatrix} (-t)_t^{k-1}$.
 
   If $\tau_j$ is a point with multiplicity $M$, hence $\tau_j = \tau_{j+M-1}$, then $N_{i,k}$ at point $\tau_j$ is a least $(k-1-n)$ times differentiable. For $M < k-1$. For $N_{i,k}$, it is true that
   \[ N_{i,k}'(t) = (k-1)\left(\frac{N_{i,k-1}(t)}{\tau_{i+k-1} - \tau_i} - \frac{N_{i+1,k}(t)}{\tau_{i+k} - \tau_{i+1}}\right) \]
 \end{lemma}
 
-\noproof
+\noproof{lemma:b-spline}
 
 \emph{Goal:} Characterize $\rho_{k}$ by B-splines\dots
 
@@ -2420,13 +2433,174 @@ Therefore introduce \emph{extended points sequence} $T = \Set{t_j}_{j=1}^{\alpha
 \[ T: \tau_1 = \dots = t_k < t_{k+1} < \dots < \tau_{d+1} = \dots = \tau_{d+k} = b \]
 with $d = n-1+k = \dim(S_{k,0})$.
 
-TODO
+It can be shown that the $B$-splines $N_{i,k}$, for $i = 1, \dots, k$, corresponding to extended points $T$ create a basis of $S_{k,\delta}$.
+
+\begin{example}
+  \[ t_0 < t_1 < t_2 < t_3 \]
+  \[ \tau_1 = \tau_2 = t_0 \qquad \tau_3 = t_1 \qquad \tau_4 = t_2 \qquad \tau_5 = \tau_6 = t_4 \]
+  \[ N_{1,2} = \frac{\tau_3 - t}{\tau_3 - \tau_2} \cdot X_{[\tau_2, \tau_3]} \]
+
+
+  TODO image splines
+
+  Thus, every spline $s \in S_{k, \delta}$ has a unique representation as linear representation $s = \sum_{i=1}^d \alpha_i N_{i,k}$. $\alpha_i$ is called \emph{De-Boor points} of $s$.
+
+  Special case $k=2$ (interpolation of $f$: $\alpha_i = f(t_{i-1})$.
+\end{example}
+
+
+\section{Computational quadrature}
+\label{sec:5}
+
+\emph{Goal:} Numerical computation (approximation of Riemann integral)
+\[ I(f) \coloneqq I_a^b(f) = \int_a^b f \, dt \]
+with some piecewise continuous function $f$.
+
+Numerical integration is primarily solved for solving the initial value problem $y'(t) = f(t)$, $y(a) = 0$, $t \in [a, b] \implies y(b) = I(f)$.
+
+\subsection{Quadrature formulas}
+\label{sec:5-1}
+
+Assume $b > a$. The definite integral $I_a^b: C[a, b] \to \mathbb R$ with $f \mapsto \int_a^b f \, dt$ is a \emph{positive} linear form, thus
+\begin{enumerate}
+  \item $I$ is linear, $I(\alpha f + \beta g) = \alpha I(f) + \beta I(g)$
+  \item $I$ is positive: $f \geq 0 \implies I(f) \geq 0$
+  \item \emph{additivity:} $I_a^b(f) = I_a^c(f) + I_c^b(f)$
+\end{enumerate}
+
+\emph{Question:} Condition of $I$?
+  We choose the $L^1$-norm:
+  \[ \Abs{f}_1 \coloneqq \int_a^b \Abs{f(t)} \, dt = I_a^b(\Abs{f}) \]
+
+\begin{lemma}
+  \label{lemma:5-1}
+  The absolute and relative condition of quadrature problem ($I, f$),
+  $I(f) = \int_a^b f$ with respect to $L^1$-norm $\Abs{\cdot}_1: \kappa_{\text{abs}} = 1, \kappa_{\text{rel}} = \frac{I(\Abs{f})}{\Abs{I(f)}}$
+\end{lemma}
+
+\begin{proof}
+  We investigate: $\Norm{I(\tilde f) - I(f)} \dot\leq \kappa_{\text{abs}} \cdot \Abs{\tilde f - f}$.
+
+  For every deviation $S_f \in C[a, b]$ we get:
+  \begin{align*}
+    \Norm{I_a^b(f + S_f) - I(f)}_1
+      &= \Norm{I(f + S_f - f)}_1 = \Norm{I(S_f)}_1 = \Abs{\int_a^b S_f} \\
+      &\leq \int_a^b \Abs{S_f} = \Norm{I(\Abs{S_f})} \implies \kappa_{\text{abs}} = 1
+  \end{align*}
+  Especially for positive deviation, we get equality.
+  We investigate:
+  \[ \frac{\Norm{I(\tilde f) - I(f)}}{\Norm{I(f)}} \dot\leq \kappa_{\text{rel}} \frac{\Norm{\tilde f - f}}{\Norm{f}} \]
+  We know:
+  \[ \frac{\Norm{I(\tilde f) - I(f)}}{\Norm{I(f)}} \dot\leq 1 \cdot \frac{\Norm{\tilde f - f}}{\Norm{I(f)}} \cdot \frac{\overbrace{\Abs{f}}^{= I(\Abs{f})}}{\Abs{f}} \implies \kappa_{\text{rel}} = \frac{I(\Abs{f})}{\Abs{I(f)}} \]
+\end{proof}
+
+\begin{Remark}
+  For strongly oscillating functions, relative conditions can become very large.
+\end{Remark}
+
+\emph{Goal:}
+  Numerical quadrature shall be used to create a positive linear form on $C[a, b]$. \[ \hat I: f \mapsto \hat I(f) \]
+  We want to create $\hat I$ und want to approximate $I$ in the best possible way $\implies I(f) \approx \hat I(f)$.
+
+  TODO image Riemann
+
+  $\to$ Riemann sums or trapezoidal sums
+
+\begin{example}[Trapezoidal sums]
+  Decompose $[a, b]$ in $n$ subintervals $[t_{i-1}, t_i]$. $h_i \coloneqq t_i - t_{i-1}$.
+
+  Approximate $\int f$ by the sum of trapezoidal areas $T^{(n)} = \sum_{i=1}^n T^{(i)}$, $T^{(i)} = \frac{h_i}{2} (f(t_{i-1}) + f(t_i))$
+  Thus, $T^{(n)}$ is a positive linear form.
+
+  Now we consider the Riemann lower/upper sum: $R_u^{(n)} \leq T^{(n)} \leq R_0^{(n)}$.
+
+  For $n \to \infty$ and $f$ continuous, $R_u$ and $R_o$ converge, hence $T$ converges as well.
+\end{example}
+
+\index{Quadrature formula}
+\begin{definition}
+  \label{definition:5-3}
+  $\hat I$ is called \emph{quadrature formula} for computation of $I(f)$ if:
+  $\hat I(f) = (b - a) \cdot \sum_{i=0}^{n} \lambda_i f(t_i)$ with points
+  $t_0, \dots, t_n$ and weights $\lambda_0, \dots, \lambda_n: \sum \lambda_i = 1$.
+\end{definition}
+
+Be aware that condition $\sum \lambda_i = 1$ requires that constant functions are integrated accurately.
+
+Furthermore: $\hat I$ is positive iff $\lambda_i \geq 0 \forall i$.
+
+Using $\sum \Abs{\lambda_i} \geq 1$ we can specify how much the positivity property is violated.
+
+\subsection{Newton-Cotes formula}
+\label{sec:5-2}
+
+\emph{Idea:} Approximate $f$ by some piecewise linear function, that is integrated accurately, thus $\hat I(f) = I(\hat f)$.
+
+For $t_0, \dots, t_n$ use the interpolation polynomial $\hat f(t) = P(f \, \mid \, t_0, \dots, t_n) = \sum_{i=0}^n f(t_i) \cdot L_{i,n}(t)$ with Lagrange polynomials $L_{i,n}(t) = \prod_{\substack{j \neq i \\ j=0}} \frac{t - t_j}{t_i - t_j}$.
+
+This gives the quadrature formulas $\hat I(f) = I(P(f \,\mid\, t_0 \dots t_n)) = (b - a) \cdot \sum \lambda_{i,n} f(t_i)$ with $\lambda_{i,n} = \frac{1}{(b-a)} \cdot \int_a^b L_{i,n}(t) \, dt$.
+
+\begin{lemma}
+  \label{lemma:5-4}
+  For $n+1$ pairwise different points $t_0, \dots, t_n$ there is exactly one quadrature formula $\hat I(f) = (b - a) \sum \lambda_i f(t_i)$, that are exact for all $P \in \mathcal P_n$.
+\end{lemma}
+
+\begin{proof}
+  Let $L_{i,n}$ be Lagrange polynomials for points $t_i$. Necessarily,
+  \[ \hat I(L_{i,n}) = I(L_{i,n}) = (b-a) \cdot \sum \lambda_j \underbrace{L_{i,n}(t_j)}_{= \delta_{i,j}} = (b-a) \cdot \lambda_i \cdot L_{i,n}(t_j) \]
+  \[ \implies \lambda_i = \frac{I(L_{i,n})}{b-a} \]
+\end{proof}
+
+For equivalent points $h_i = h = \frac{b-a}{n}$ and $t_i = a + i \cdot n$ we retrieve the \emph{Newton-Cotes formulas}.
+
+The corresponding Newton-Cotes weights are given by
+\[ \lambda_{i,n} = \frac{1}{b - a} \int_a^b \prod_{\substack{j = 0 \\ j \neq i}}^n \frac{t - t_j}{t_i - t_j} = \frac 1n \int_0^n \prod \frac{s - j}{i - j} \, ds \]
+Substitute $s = \frac{t - a}{h}$.  The weights are independent of interval boundaries. They only must be computed once.
+
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{cccc}
+      $n$ & $\lambda_{0,n} \dots \lambda_{n,n}$   & Error & $\tau \in [a,b]$ \\
+    \hline
+      $1$ & $\frac12, \frac12$                    & $\frac{h^3}{12} f''(\tau)$                     & trapezoidal rule \\
+      $2$ & $\frac16, \frac46, \frac16$           & $\frac{h^5}{90} f^{(4)}(\tau)$                 & Simpson rule, \dt{Keplersche Faßregel} \\
+      $3$ & $\frac18, \frac38, \frac38, \frac18$  & $\frac{3 \cdot h^5}{80} \cdot f^{(4)}(\tau)$   & Newton's $\frac38$ rule \\
+      $4$ & $\frac7{90}, \frac{32}{90}, \frac{12}{90}, \frac{32}{90}, \frac{7}{90}$ & $\frac{8 \cdot h^7}{945} \cdot f^{(6)}(\tau)$ & Milne rule
+    \end{tabular}
+    \caption{Newton-Cotes weights $\lambda_{i,n}$ for $n = 1, \dots, 4$}
+  \end{center}
+\end{table}
+
+For orders $1$ to $7$, the weights are positive. For $n = 8$ and higher, negative weights can occur. This is mostly irrelevant in practice.
+
+\begin{lemma}
+  \label{lemma:5-5}
+  For $g, h \in C[a, b]$, $g \geq 0$ or $g \leq 0$, $\forall t \in [a, b]$ we have:
+  \[ \int g \cdot h = h(\tau) \cdot \int g \, dt \]
+  for some $\tau \in [a, b]$.
+\end{lemma}
+
+\begin{proof}
+  Without loss of generality $g \geq 0$
+  \[ \min_{t \in [a,b]} h(t) \cdot \int_a^b g(s) \, ds \leq \int h \cdot g \leq \max h(t) \int g \]
+  \[ F(t) \coloneqq \int h \cdot g \, ds - h(t) \int g \, ds \]
+  \[ F(a) \geq 0, F(b) \leq 0 \]
+  \[ \text{IVT } \implies \exists t: F(t) = 0 \implies \int h \cdot g = h(t) \cdot \int g \]
+\end{proof}
+
+\begin{Lemma}
+  \label{lemma:5-6}
+  Let $f \in \mathcal C^2[a, b]$.
+  For the approximation error the trapezoidal rule $T = \frac{b-a}{2} (f(a) + f(b))$ with $h = b - a$ we have:
+  \[ T = \int f = \frac{h^3}{12} f''(\tau) \]
+  for some $\tau \in [a, b]$.
+\end{Lemma}
 
 \dateref{2018/11/29}
 
 \begin{lemma}
   \label{lemma:5-6}
-  The map given by $n$-th divided difference of a function $f \in \mathcal C^1([a, b])$ $g: \mathbb R^{n + 1} \to \mathbb R$ with $g(t_0, \dots, t_n) = [t_0, \dots, t_n] f$ is continuous in its arguments $t_i$. Furthermore there exists some $\xi \in [t_0, t_n]$ for all points $t_0 \leq \dots \leq t_n$ such that
+  The map, given by $n$-th divided difference of a function $f \in \mathcal C^1([a, b])$, $g: \mathbb R^{n + 1} \to \mathbb R$ with $g(t_0, \dots, t_n) = [t_0, \dots, t_n] f$ is continuous in its arguments $t_i$. Furthermore there exists some $\xi \in [t_0, t_n]$ for all points $t_0 \leq \dots \leq t_n$ such that
   \[ [t_0, \dots, t_n] f = \frac{f^{(n)}(\xi)}{n!} \]
 \end{lemma}
 
@@ -2453,21 +2627,26 @@ TODO
   \[ T = \int_a^b f \, dt = \frac{h^3}{12} f''(\tau) \]
 \end{proof}
 
-\begin{lemma}[Simpson's rule \dt{Keplersche Fassregel}]
+\begin{lemma}[Simpson's rule, \dt{Keplersche Fassregel}]
   \label{lemma:5-8}
   \[ S = \frac{b - a}{6} (f(a) + 4f\left(\frac{a + b}{2}\right) + f(b)) \]
-  is for polynomials $Q \in \mathcal P_3$ exact. For $f \in \mathcal C^4([a,b])$, the approximation error can be expressed with step size $\frac{b - a}{2}$ as
+  is exact for polynomials $Q \in \mathcal P_3$.
+  For $f \in \mathcal C^4([a,b])$, the approximation error can be expressed with step size $\frac{b - a}{2}$ as
   \[ S = \int_a^b f \, dt = \frac{f^{(4)}(\tau)}{90} h^5 \]
   for some $\tau \in [a,b]$.
 \end{lemma}
 
 \begin{proof}
-  Let $Q \in \mathcal P_3$. By Theorem~\ref{theorem:4-10}, it follows by $P(Q|a, \frac{a+b}{2}, b)$
-  \[ Q(t) = P(t) + \gamma \underbrace{(t - a) \left(t - \frac{a+b}{2}\right)(t - b)}_{w_3(t)} \]
-  with some constant $\gamma = \frac{Q}{} TODO$
-\end{proof}
+  Let $Q \in \mathcal P_3$. By Theorem~\ref{theorem:4-10}, it follows by $P(Q \,\mid\, a, \frac{a+b}{2}, b)$
+  \[ Q(t) = P(t) + \gamma \underbrace{\gamma (t - a) \left(t - \frac{a+b}{2}\right) (t - b)}_{w_3(t)} \]
+  with some constant $\gamma = \frac{Q'''(\xi(t))}{6} \in \mathbb R$. For the integral, we have:
+  \[ \int_a^b Q(t) \, dt = \int_a^b P(t) \, dt + \gamma \underbrace{\int_a^b w_3(t) \, dt}_{= 0} \]
+  provides the first statement.
 
-TODO
+  For $f \in \mathcal C^4([a, b])$, we create the Hermite interpolant $Q = P_4(f \,\mid\, a, \frac{a+b}{2}, \frac{a+b}{2}, b)$.
+  By the remainder term formula, we get:
+  \[ f(t) = Q(t) + [a, \frac{a+b}{2}, \frac{a+b}{2}, b, t] f \underbrace{(t - a) \left(t - \frac{a + b}{2}\right)^2 (t - b)}_{= w_4(t)} \]
+\end{proof}
 
 \dateref{2018/12/04}
 
@@ -2479,6 +2658,10 @@ $I(P) = \hat{I}(P)$ for $P \in \mathcal P_N$ with $N \to \max$. Now we consider 
 We assume that norms $\Norm{P} = \sqrt{\IP{P}{P}_w} = \left(\int_a^b w(t) P(t) \, dt\right)^{\frac12} < \infty$ are well-defined for all $P \in \mathcal P_k$ and all $k \in \mathbb N$.
 For $a = -\infty$ and $b = \infty$, we require that moments $\mu_k$ are bounded:
 \[ \mu_k \coloneqq \int_{-\infty}^\infty t^k \cdot w(t) \, dt \]
+
+\begin{remark}
+  TODO There must be number 5.9 somewhere here.
+\end{remark}
 
 For the condition analysis, use weighted $L^1$-norm
 \[ \Norm{f}_{1,W} = \int_a^b w(t) f(t) \, dt \eqqcolon I(\Abs{f}) \]
@@ -2511,22 +2694,23 @@ We have $2n + 2$ free parameters for a polynomial with $N+1$ coefficients. We gu
   \end{align*}
 \end{proof}
 
-\begin{theorem}
+\begin{thm}
+  \label{theorem:5-11}
   For every weighted scalar product ${\IP fg}_w \coloneqq \int_a^b w(t) f(t) g(t) \, dt$ there exists a uniquely determined orthogonal polynomial $P_k \in \mathcal P_k$ with leading coefficient $1$. They satisfy the so-called \emph{three-term recursion}
   \[ P_k(t) = (t + a_k) P_{k-1}(t) + b_k P_{k-2}(t) \qquad \text{ for } k = 1,2,\dots \]
   with the initial values $P_{-1} = 0$, $P_0 = 1$ and the coefficients
-  \begin{align*}
-    a_k &= -\frac{\IP{t P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-1}}{P_{k-1}}_w} \\
-    b_k &= -\frac{\IP{P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-2}}{P_{k-2}}_w}
-  \end{align*}
-\end{theorem}
+  \[
+    a_k = -\frac{\IP{t P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-1}}{P_{k-1}}_w} \qquad
+    b_k = -\frac{\IP{P_{k-1}}{P_{k-1}}_w}{\IP{P_{k-2}}{P_{k-2}}_w}
+  \]
+\end{thm}
 
 \begin{proof}
   For $k = 0$, there exists a polynomial $p_0 \equiv 1 \in \mathcal P_0$ with leading coefficient $1$.
   Now let $P_0, \dots, P_{k-1}$ be pairwise orthogonal polynomials $P_j \in \mathcal P_j$ of degree $j$ with leading coefficient $1$. Let $P_k \in \mathcal P_k$ be a normed polynomial of degree $k$. The $P_k - t P_{k-1} \in \mathcal P_{k-1}$ and because $P_0, \dots, P_{k-1}$ define an orthonormal basis of $\mathcal P_{k-1}$, we have
   \[ P_k - t P_{k-1} = \sum_{j=0}^{k-1} c_j P_j \qquad c_j = \frac{\IP{P_k - t P_{k-1}}{P_j}_w}{\IP{P_j}{P_j}_W} \]
   By the requirement $\IP{P_k}{P_j}_w = 0 \forall j = 0, \dots, k-1$, we get
-  \[ c_j = -\frac{\IP{t P_{k-1}}{P_j}_w}{\IP{P_j}{P_j}_w} =  \]
+  \[ c_j = -\frac{\IP{t P_{k-1}}{P_j}_w}{\IP{P_j}{P_j}_w} = -\frac{\IP{P_{k-1}}{tP_j}}{\IP{P_j}{P_j}} \]
   This implies $c_0 = \dots = c_{k-3} = 0$ (orthogonality of $P_{k-1}$ to $P_j$, $j < k-1$).
   Furthermore,
   \begin{align*}
@@ -2560,7 +2744,7 @@ with Lagrange polynomials $L_{i,n}$.
   \[ = \sum_{i=0}^n \lambda_{i,n} R(\tau_{i,n}) = \sum_{i=0}^n \lambda_{i,n}\left(R(\tau_{i,n}) + (P_{n+1} \cdot Q)(\tau_{i,n})\right) = \hat{I}(P) \]
 \end{proof}
 
-\begin{theorem}
+\begin{thm}
   \label{theorem:5-13}
   There exists uniquely determined points $\tau_{0,n}, \dots, \tau_{n,n}$ and weights $\lambda_{0,n}, \dots, \lambda_{n,n}$ such that for the quadrature formula
   \[ \hat{I}_n(f) = \sum_{i=0}^n \lambda_{i,n} \cdot f(\tau_{i,n}) \]
@@ -2570,7 +2754,7 @@ with Lagrange polynomials $L_{i,n}$.
   \[ \lambda_{i,n} \coloneqq \frac{1}{b-a} \int_a^b L_{i,n}(t) \, dt \]
   with Lagrange polynomials $L_{i,n}(\tau_{j,n}) = \delta_{i,j}$. Furthermore it holds that $\lambda_{i,n} > 0$, hence $\hat{I}_n$ is the positive linear form and
   \[ \lambda_{i,n} = \frac{1}{P_{n+1}'(\tau_{i,n}) P_n(\tau_{i,n})} \IP{P_n}{P_n}_w \]
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Show: positivity / representation of $\lambda_{i,n}$
@@ -2597,12 +2781,12 @@ with Lagrange polynomials $L_{i,n}$.
   The quadrature formulas $\hat{I}_n$ resulting from the theorem are called Gauss-Christoffel formulas of the weight function $w$.
 \end{Remark}
 
-\subsection{Error estimate}
-\begin{theorem}
+\paragraph{Error estimate}
+\begin{thm}
   \label{theorem:5-14}
   The approximation error of the Gauss-Christoffel quadrature can be expressed for every function $f \in \mathcal C^{2n+2}([a,b])$ as
   \[ \int_a^b w f \, dt - \hat{I}_n(f) = \frac{f^{(2n+2)}(\tau)}{(2n+2)!} \IP{P_{n+1}}{P_{n+1}}_w \text{ for some } \tau \in [a,b] \]
-\end{theorem}
+\end{thm}
 
 \begin{proof}
   Let $P \in \mathcal P_{2n+1}$ be the Hermitian interpolant of $f$ at $2n+2$ points $\tau_{0,n}, \tau_{0,n}, \dots, \tau_{n,n} \tau_{n,n}$. Then
@@ -2754,7 +2938,9 @@ For the estimate of the integration error $\varepsilon^{(l)}(f)$ look for some s
 For some given tolerance we want to abort the adaptive refinement process, if $\eta_{l} \leq$ tolerance. Reliable estimators also guarantee a uniform magnitude for the integration error. Efficient estimators ensure that integration errors are not overestimated too much. In the perfect case, we have $\gamma_l \Gamma \approx 1$.
 
 \emph{Idea:} Construct an estimator by using two quadrature formulas of different order, eg. Simpson's rule $\hat{I}(f)$ for basis processes.
-\centering{trapezoidal rule $\equiv \hat{I}(f)$}
+\begin{center}
+  trapezoidal rule $\equiv \hat{I}(f)$
+\end{center}
 
 Therefore we assume that
 \[ \Abs{\tilde\varepsilon_{\triangle_{l,i}}^{(l)}(f)} \leq q \Abs{\varepsilon_{\triangle_{l,i}}^{(l)}(f)} \qquad 0 \leq q < 1 \]
@@ -2844,7 +3030,7 @@ If the quadrature formulas are exactly of degree $m$, then functions of form $x^
 
 \dateref{2018/12/13}
 
-\subsection{Integration over default triangle}
+\paragraph{Integration over default triangle}
 
 We consider $f: T \to \mathbb R, T = \SetDef{(x,y)}{0 \leq x \leq 1, 0 \leq y \leq 1 - x} \subset \mathbb R^2$.
 \[ \iint_T f(x, y) \, d(x,y) = \int_0^1 \int_0^{1\cdot x} f(x, y) \, dy \, dx \]
@@ -2862,7 +3048,7 @@ These are not unique.
     \begin{tabular}{ccc}
       $(x_j, x_j)$ & $\lambda_j$ & accurately \\
     \hline
-      $(\frac 13, \frac 13, \frac 13)$ & $\frac12$ & 1 \\
+      $(\frac 13, \frac 13)$ & $\frac12$ & 1 \\
       $(0, 0), (1, 0), (0, 1)$ & $\frac 16$ & 1 \\
       $(\frac12, \frac12), (\frac12, 0), (0, \frac12)$ & $\frac16$ & 2 \\
       $(\frac16, \frac16), (\frac23, \frac16), (\frac16, \frac23)$ & $\frac16$ & 2
@@ -2871,7 +3057,7 @@ These are not unique.
   \end{center}
 \end{table}
 
-\subsection{Higher dimensions integrals}
+\subsection{Higher dimensional integrals}
 
 \emph{Question:} How do we compute higher dimensional integrals $\int_Q f(x) \, dx$ for, for example, $Q = \prod_{i=1}^{d} [a_i, b_i]$.
 \[ \text{Fubini's Theorem } \implies \int_Q f(x) \, dx = \int_{a_d}^{b_d} \dots \int_{a_1}^{b_1} f(x_1, \dots, x_d) \, dx_1 \dots dx_d \]
@@ -2884,20 +3070,19 @@ In the multidimensional case we analogously get
 \[ \int_a f(x) \, dx = \int_0^1 \dots \int_0^1 f(x_1, \dots, x_d) \, dx_1 \dots dx_d \approx \sum_{j_1=0}^n \dots \sum_{j_d=0}^n \lambda_{j_1} \dots \lambda_{j_d} f\left(\frac{j_1}{m}, \dots, \frac{j_d}{m}\right) \]
 The number of evaluations is $N = (n+1)^d$. For $d = 1$ and $f \in \mathcal C^2([0, 1])$ we know that the integration error behaves like $\mathcal O(\frac1{n^2})$. For $d \geq 2$, this value does not improve (consider the special case $f(x_1, \dots, x_d) = g(x_1)$). The approximation error of the quadrature formula above behaves like $\mathcal O(\frac 1{n^2}) = \mathcal{N^{-\frac 2d}}$.
 
-For large $d$ the error margin decreases. To halve the approximation error, we need to apply $2^{\frac d2}$ more functionevaluations (\emph{curse of dimensionality}).
+For large $d$ the error margin decreases. To halve the approximation error, we need to apply $2^{\frac d2}$ more function evaluations (\emph{curse of dimensionality}).
 
-\subsection{Monte-Carlo integration}
+\begin{Remark}
+  The following paragraph is not relevant for exams.
+\end{Remark}
+
+\paragraph{Monte-Carlo integration}
 
 In the following, we denote the Lebesgue measure on $\mathbb R^d$ with $\gamma$.
-For $Q = \prod_{i=1}^d [a_i, b_i]$ we have $\gamma(Q) = \prod_{i=1}^{d} (b_i - a_i)$.
-For some integration domain $B$ with $0 < \gamma(B) < \infty$ we consider the probability space ($B, d(B), \mu$) with Lebesgue-measurable subsets of $B$ and the probability measure $\mu = \frac{\gamma}{\gamma(B)}$. For some function $f \in \mathcal C(B)$ we have
-\[  \]
-
-TODO
-
-
-
-
+For $Q \coloneqq \prod_{i=1}^d [a_i, b_i]$ we have $\gamma(Q) = \prod_{i=1}^{d} (b_i - a_i)$.
+For some integration domain $B$ with $0 < \gamma(B) < \infty$, we consider the probability space ($B, d(B), \mu$) with Lebesgue-measurable subsets of $B$ and the probability measure $\mu = \frac{\gamma}{\gamma(B)}$. For some function $f \in \mathcal C(B)$ we have
+\[ \int_B f \, d\gamma(x) = \gamma(B) \cdot \int_B f(x) \, d\mu(x) = \gamma(B) \cdot \mathcal E(f(X)) \]
+where $X$ is a uniform random variable distributed among $B$.
 
 \printindex
 

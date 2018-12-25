@@ -679,26 +679,23 @@ Then the fourth property follows:
 
 \begin{corollary} % 7.19
   \label{cor:719}
-  \[ \dim V = n \]
-  \[ \triangle: V^n \to \mathbb K \qquad \text{ determinant form} \]
+  \[ \dim V = n \qquad \triangle: V^n \to \mathbb K \qquad \text{ determinant form} \]
   then it holds that $\forall \sigma \in \sigma_n: \triangle(a_{\sigma(1)}, \dots, a_{\sigma(n)}) = \sign(a) \cdot \triangle(a_1, \dots, a_n)$
 \end{corollary}
 
 \begin{proof}
-  If $\sigma = \tau$ is a transposition, the fourth property:
-  \[ \triangle(a_{\tau(1)}, \dots, a_{\tau(n)}) = -\triangle(a_1, \dots, a_n) \]
-  and $\sign(\tau) = -1$.
+  If $\sigma = \tau$ is a transposition, by the fourth property we have:
+  \[ \triangle(a_{\tau(1)}, \dots, a_{\tau(n)}) = -\triangle(a_1, \dots, a_n) \implies \sign(\tau) = -1 \]
 
-  The general case: $\sigma = \tau_1 \circ \dots \circ \tau_k$ and $\sigma = \tau_1 \circ \sigma_1$.
-
+  The general case: $\sigma = \tau_1 \circ \dots \circ \tau_k$ and let $\sigma = \tau_1 \circ \sigma_1$ and $\sigma_1 = \tau_2 \circ \sigma_2$.
   \begin{align*}
     \triangle(a_{\sigma(1)}, \dots, a_{\sigma(n)}) &= \triangle(a_{\tau_1(\sigma_1(1))}, \dots, a_{\tau_1(\sigma_1(n))}) \\
-      &= -\triangle(a_{\sigma_1(1), \dots, a_{\sigma_1(n)}}) \\
-    \intertext{$\sigma_1 = \tau_2 \circ \sigma_2$}
-      &= \text{ and so on and so forth} \\
-      &= (-1)^2 \triangle(a_{\sigma_2(1)}, \dots, a_{\sigma_2(n)}) \\
+      &= -\triangle(a_{\sigma_1(1)}, \dots, a_{\sigma_1(n)}) & \text{[one transposition applied]} \\
+      &= (-1) \triangle(a_{\sigma_1(1)}, \dots, a_{\sigma_1(n)}) \\
+      &= (-1)^2 \triangle(a_{\sigma_2(1)}, \dots, a_{\sigma_2(n)}) & \text{[two transpositions applied]} \\
+      &= \dots \\
       &= (-1)^k \triangle (a_1, \dots, a_n) \\
-      &= \sign\sigma \triangle(a_1, \dots, a_n)
+      &= \sign(\sigma) \triangle(a_1, \dots, a_n)
   \end{align*}
 \end{proof}
 
@@ -742,7 +739,7 @@ Then the fourth property follows:
   \begin{align*}
     \triangle(a_1, \dots, a_n) &= \triangle\left(\sum_{i_1 = 1}^n a_{i_1,1} b_{i_1}, \sum_{i_2 = 1}^n a_{i_2,2} b_{i_2}, \dots, \sum_{i_n = 1}^n a_{i_n, n} b_{i_n}\right) \\
     \intertext{because it is multilinear}
-      &= \sum_{i_1 = 1}^n \sum_{i_2=1}^n \dots \sum_{i_n=1}^n a_{i+1,1} a_{i_2,2} \dots a_{i_n,n} \cdot \triangle(b_{i_1}, b_{i_2}, \dots, b_{i_n})
+      &= \sum_{i_1 = 1}^n \sum_{i_2=1}^n \dots \sum_{i_n=1}^n a_{i_1,1} a_{i_2,2} \dots a_{i_n,n} \cdot \triangle(b_{i_1}, b_{i_2}, \dots, b_{i_n})
   \end{align*}
   where $\triangle$ is zero if $b_i = b_j$.
   \[ \implies i_1,\dots,i_n \text{ are all different elements in } \set{1,\dots,n} \]
@@ -750,8 +747,8 @@ Then the fourth property follows:
   \[ i_1,\dots,i_n \text{ is permutation of } 1,\dots,n \]
   \[ \exists \sigma \in \sigma_n: i_1 = \sigma(1), \dots, i_n = \sigma(n) \]
   \begin{align*}
-    &= \sum_{\sigma \in \sigma_n} a_{\sigma(1) 1} a_{\sigma(2) 2} \dots a_{\sigma(n) n} \underbrace{\triangle(b_{\sigma(1)} \dots b_{\sigma(n)})}_{\sign\sigma \triangle(b_1, \dots, b_n) \text{ because of Corollary~\ref{cor:719}}} \\
-    &= \sum_{\pi \in \sigma_n} a_{1 \pi(1)} \dots a_{n \pi(n)} \cdot \sign(\pi) \triangle(b_1, \dots, b_n)
+    &= \sum_{\sigma \in \sigma_n} a_{\sigma(1) 1} a_{\sigma(2) 2} \dots a_{\sigma(n) n} \underbrace{\triangle(b_{\sigma(1)} \dots b_{\sigma(n)})}_{\sign\sigma \cdot \triangle(b_1, \dots, b_n) \text{ because of Corollary~\ref{cor:719}}} \\
+    &= \sum_{\pi \in \sigma_n} a_{\pi(1) 1} \dots a_{\pi(n) n} \cdot \sign(\pi) \triangle(b_1, \dots, b_n)
   \end{align*}
 \end{proof}
 
@@ -862,8 +859,12 @@ Then the fourth property follows:
       \end{proof}
       \begin{align*}
         \text{({\color{red} ref *})} &= \sum_{\pi \in \mathcal A_n} \underbrace{(-1)^\pi}_{=+1} a_{\pi(1) 1} \dots a_{\pi(n) n} \\
-          &+ \sum_{\substack{\pi \in \mathcal A_n \tau \\ \pi = \sigma \circ \tau}} \underbrace{(-1)^{\sign(\pi)}}_{= -1} a_{\pi(1) 1} \cdot a_{\pi(n) n} \\
-          &= \sum_{\pi \in \mathcal A_n} a_{\pi(1) 1} \dots a_{\pi(n) n} - \sum_{\sigma \in A_n} \underbrace{a_{\sigma \circ \tau(1) 1} \dots a_{\sigma \circ \tau(k) 2} \dots a_{\sigma \circ \tau(l) l} \dots a_{\sigma \circ \tau(n) n}}_{a_{\sigma(1) 1} \dots \underbrace{a_{\sigma(l) k}}_{=a_{\sigma(l) l}} \dots \underbrace{a_{\sigma(k) l}}_{= a_{\sigma(k) k}} \dots a_{\sigma(n) n}} = 0
+          &+ \sum_{\substack{\pi \in \mathcal A_n \tau \\ \pi = \sigma \circ \tau}} \underbrace{(-1)^{\sign(\pi)}}_{= -1} a_{\pi(1) 1} \dots a_{\pi(n) n} \\
+          &= \sum_{\pi \in \mathcal A_n} a_{\pi(1) 1} \dots a_{\pi(n) n} - \sum_{\sigma \in A_n} \underbrace{
+            a_{\sigma \circ \tau(1) 1} \dots a_{\sigma \circ \tau(k) 2} \dots a_{\sigma \circ \tau(l) l} \dots a_{\sigma \circ \tau(n) n}
+          }_{
+            a_{\sigma(1) 1} \dots \underbrace{a_{\sigma(l) k}}_{=a_{\sigma(l) l}} \dots \underbrace{a_{\sigma(k) l}}_{= a_{\sigma(k) k}} \dots a_{\sigma(n) n}
+          } = 0
       \end{align*}
   \end{enumerate}
 \end{proof}
@@ -873,7 +874,7 @@ This previous part, beginning with the reference from 2018/03/12, was actually a
 \[ \triangle(a_1, \dots, a_n) \]
 Determinant form $\iff$
 \begin{description}
-  \item[multilinear] $\triangle(a_1, \dots, \lambda a_k + \mu a_k', \dots, a_n) = \lambda \triangle(a_1, \dots, a_k, \dots, a_n) + \mu \triangle(a_1, \dots, a_k, \dots, a_n)$
+  \item[multilinear] $\triangle(a_1, \dots, \lambda a_k + \mu a_k', \dots, a_n) = \lambda \triangle(a_1, \dots, a_k, \dots, a_n) + \mu \triangle(a_1, \dots, a_k', \dots, a_n)$
   \item[anti-symmetrical] $\triangle(a_1, \dots, a_k, \dots, a_l, \dots, a_n) = -\triangle(a_1, \dots, a_l, \dots, a_k, \dots, a_n)$
 \end{description}
 
@@ -899,16 +900,14 @@ Basis $b_1,\dots,b_n$.
 \end{lemma}
 
 \begin{proof}
-  \begin{enumerate}
-    \item Multilinear
-      \begin{align*}
-        &\triangle^f (v_1, \dots, \lambda v_k + \mu v_k', \dots, v_n) \\
-        &= \triangle (f(v_1), \dots, f(\lambda v_k + \mu v_k'), \dots, f(v_n)) \\
-        &= \triangle(f(k), \dots, \lambda f(v_k) + \mu f(v_k'), \dots, f(v_k)) \\
-        &= \lambda \triangle (f(v_1), \dots, f(v_k), \dots, f(v_n)) + \mu \triangle(f(v_1), \dots, f(v_k'), \dots, f(v_n)) \\
-        &= \lambda \triangle^f(v_1, \dots, v_k, \dots, v_n) + \mu \triangle^f (v_1, \dots, v_k', \dots, v_n)
-      \end{align*}
-  \end{enumerate}
+  We only need to prove multilinearity.
+  \begin{align*}
+    &\triangle^f (v_1, \dots, \lambda v_k + \mu v_k', \dots, v_n) \\
+    &= \triangle (f(v_1), \dots, f(\lambda v_k + \mu v_k'), \dots, f(v_n)) \\
+    &= \triangle(f(k), \dots, \lambda f(v_k) + \mu f(v_k'), \dots, f(v_k)) \\
+    &= \lambda \triangle (f(v_1), \dots, f(v_k), \dots, f(v_n)) + \mu \triangle(f(v_1), \dots, f(v_k'), \dots, f(v_n)) \\
+    &= \lambda \triangle^f(v_1, \dots, v_k, \dots, v_n) + \mu \triangle^f (v_1, \dots, v_k', \dots, v_n)
+  \end{align*}
 \end{proof}
 
 \subsection{About determinants}
@@ -987,9 +986,11 @@ Basis $b_1,\dots,b_n$.
       If $A$ is invertible $\ker(A) = \emptyset$, so A has full rank.
     \item[$\impliedby$] 
       If $A$ does not have full rank, consider $x \neq 0$ with $x \in \operatorname{ker}(A)$ then $Ax = 0$ and $A(2x) = 0$. Thus it is not injective and therefore not invertible.
-
-      If $A$ has full rank it is surjective (column space spans all $n$ dimensions) and injective ($x \neq y \implies Ax \neq Ay$). Thus invertible.
   \end{description}
+
+  \begin{remark}
+    If $A$ has full rank it is surjective (column space spans all $n$ dimensions) and injective ($x \neq y \implies Ax \neq Ay$). Thus invertible.
+  \end{remark}
 \end{proof}
 
 \begin{theorem} % 7.29
@@ -2243,7 +2244,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   \begin{itemize}
     \item $\norm{x} \geq 0, \norm{x} = 0 \iff \angel{x,x} = 0 \iff x = 0$
     \item $\norm{\lambda x} = \sqrt{\angel{\lambda x, \lambda x}} = \sqrt{\lambda \cdot \overline{\lambda} \cdot \angel{x,x}} = \sqrt{\lambda^2 \cdot \angel{x,x}} = \card{\lambda} \cdot \sqrt{\angel{x,x}}$
-    \item Triangle inequality
+    \item Triangle inequality. We will prove this after proving the CBS inequality.
   \end{itemize}
 \end{proof}
 
@@ -2352,7 +2353,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
   It suffices to show that $\operatorname{ker}{A} = \set{0}$.
 
   Assume: $A \cdot \xi = 0 \implies \xi^T \cdot A \cdot \xi = 0$.
-  Let $x = \sum_{i=1}^n \xi_i b_i \implies \angel{x,x} = 0 \implies x = 0 \implies \xi = \Phi_B(x) = 0$
+  Let $x = \sum_{i=1}^n \xi_i b_i$. $\angel{x,x} = 0 \implies x = 0 \implies \xi = \Phi_B(x) = 0$
 \end{proof}
 
 \index{Conjugate transpose}
@@ -3690,7 +3691,7 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
 \begin{theorem} % 8.50
   Let $V = U \dot+ U^{\bot}$.
   \begin{enumerate}
-    \item $\forall x, y \in V: \ip{x}{\pi_{U(y)}} = \ip{\pi_U(x)}{y} = \ip{\pi_U(x)}{\pi_U(y)}$
+    \item $\forall x, y \in V: \ip{x}{\pi_{U}(y)} = \ip{\pi_U(x)}{y} = \ip{\pi_U(x)}{\pi_U(y)}$
     \item Compare with Figure~\ref{img:proj}.
       \begin{figure}[!ht]
         \begin{center}
@@ -3699,7 +3700,7 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
           \label{img:proj}
         \end{center}
       \end{figure}
-        \[ \norm{\pi_{u}(x)} \leq \norm{x} \land \norm{\pi_U(x)} = \norm{x} \iff x \in U \]
+        \[ \norm{\pi_U(x)} \leq \norm{x} \land \norm{\pi_U(x)} = \norm{x} \iff x \in U \]
         Proof:
         \begin{enumerate}
           \item
@@ -3765,13 +3766,13 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
     \item
       Direction $\implies$.
       $\xi \in \ker{G} \implies G \xi = 0 \implies \xi^T \cdot G \cdot \xi = 0$
-      \[ \xi^T \cdot G \cdot \xi = \xi^T \cdot G \cdot \overline{\xi} \underbrace{=}_{(1)} \norm{\sum_{i=1}^m \overline{\xi_i} v_i}^2 \]
+      \[ \xi^T \cdot G \cdot \xi = \xi^T \cdot G \cdot \overline{\overline{\xi}} \underbrace{=}_{(1)} \norm{\sum_{i=1}^m \overline{\xi_i} v_i}^2 \]
       Direction $\impliedby$. If $\norm{\sum_1^m \xi_i v_i} = 0$
       \[ (G \cdot \xi)_i = \sum_{j=1}^n \ip{v_i}{v_j} \xi_j = \sum_{j=1}^n \ip{v_i}{\overline{\xi_j} v_j} = \ip{v_i}{\underbrace{\sum_{j=1}^n \overline{\xi_j}}_{=0} v_j} = 0 \]
       \[ \implies G \cdot \xi = 0 \]
     \item $G$ is positive definite
       \begin{align*}
-        &\iff \forall \xi \neq 0: \xi^T \cdot G \cdot \xi > 0 \\
+        &\iff \forall \xi \neq 0: \xi^T \cdot G \cdot \overline \xi > 0 \\
         &\iff \forall \xi \neq 0: \norm{\sum_1^m \xi_i \cdot v_i}^2 > 0 \\
         &\iff \forall \xi \neq 0: \sum_{i=1}^m \xi_i v_i \neq 0 \\
         &\iff (v_1, \ldots, v_m) \text{ is linear independent} \\
@@ -3787,7 +3788,7 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
   \[ G = \operatorname{Gram}(u_1, \ldots, u_m) = \left[\ip{u_i}{u_j}\right]_{i,j=1,\ldots,m} \]
   Then the projection $\pi_U(x) = \sum_{j=1}^m \eta_j u_j$ where
   \[ \eta = \overline{G}^{-1} \cdot \begin{pmatrix} \ip{x}{u_1} \\ \vdots \\ \ip{x}{u_m} \end{pmatrix} \]
-  If $u_1, \ldots, u_m$ would be an orthonormal basis, then
+  Additionally, if $u_1, \ldots, u_m$ would be an orthonormal basis, then
   \[ \begin{pmatrix} \ip{x}{u_1} \\ \vdots \\ \ip{x}{u_m} \end{pmatrix} \]
   would be the coordinate of $x$.
 \end{theorem}
@@ -3806,19 +3807,28 @@ Show that $x - u \in U^{\bot} = \mathcal L(u_1, \ldots, u_m)^\bot = \set{u_1, \l
 Hence, show that $x - u \bot u_i \forall i \in \set{1, \ldots, m}$.
 
 \begin{align*}
-  \ip{u_i}{u} &= \ip{u_i}{\sum_{j=1}^m \eta_j u_j} \\
-    &= \sum_{j=1}^m \ip{u_i}{u_j} \cdot \overline{\eta_j} \\
-    &= \sum_{j=1}^m g_{ij} \overline{\eta_j} \\
+  \ip{u_i}{u} &= \ip{u_i}{\sum_{j=1}^m \eta_j u_j}
+    = \sum_{j=1}^m \ip{u_i}{u_j} \cdot \overline{\eta_j}
+    = \sum_{j=1}^m g_{ij} \overline{\eta_j} \\
     &= (G \overline{\eta})_i
-    &= \ip{u_i}{x}
+    = \ip{u_i}{x}
 \end{align*}
 because
-\begin{align*}
-  \overline G \cdot \eta &= \begin{pmatrix} \ip{x}{u_1} \\ \vdots \\ \ip{x}{u_m} \end{pmatrix} \\
-  G \cdot \overline \eta &= \begin{pmatrix} \ip{x}{u_1} \\ \vdots \\ \overline{\ip{x}{u_m}} \end{pmatrix} = \begin{pmatrix} \ip{u_1}{x} \\ \vdots \\ \ip{u_m}{x} \end{pmatrix}
-\end{align*}
+\[
+  \overline G \cdot \eta = \begin{pmatrix} \ip{x}{u_1} \\ \vdots \\ \ip{x}{u_m} \end{pmatrix}  \qquad
+  G \cdot \overline \eta = \begin{pmatrix}
+    \overline{\ip{x}{u_1}} \\
+    \vdots \\
+    \overline{\ip{x}{u_m}}
+  \end{pmatrix} =
+  \begin{pmatrix}
+    \ip{u_1}{x} \\
+    \vdots \\ 
+    \ip{u_m}{x}
+  \end{pmatrix}
+\]
 Hence, $\forall i \in \set{1, \ldots, m}$:
-\[ \ip{u_i}{u} = \ip{u_1}{x} \implies \forall i \in \set{1, \ldots, m}: \ip{u_i}{x - u} = 0 \implies x - u \in \set{u_1, \ldots, u_m}^\bot \]
+\[ \ip{u_i}{u} = \ip{u_i}{x} \implies \forall i \in \set{1, \ldots, m}: \ip{u_i}{x - u} = 0 \implies x - u \in \set{u_1, \ldots, u_m}^\bot \]
 
 \begin{example} % Beispiel 8.55
   \label{ex855}
