@@ -1054,8 +1054,8 @@ Basis $b_1,\dots,b_n$.
 
 \begin{proof}[Direct proof of Corollary~\ref{cor730} (1)]
   \[ A = \begin{bmatrix} s_1 & \dots & s_n \\ \vdots &  & \vdots \end{bmatrix} \]
-  $s_1$ are column vectors of $A$.
-  Let $\triangle$ be the uniquely defined determinant form by $\triangle(e_1, \dots, e_n) = 1$.
+  $s_i$ are column vectors of $A$.
+  Let $\triangle$ be uniquely defined det. form by $\triangle(e_1, \dots, e_n) = 1$.
   \[
     A \cdot B
     = \begin{bmatrix} s_1 & \dots & s_n \\ \vdots &  & \vdots \end{bmatrix} \cdot \begin{bmatrix} b_{11} & b_{12} & \dots & b_{1n} \\ \vdots & & & \vdots \\ b_{n1} & & & b_{nn} \end{bmatrix}
@@ -1066,14 +1066,14 @@ Basis $b_1,\dots,b_n$.
     \det(A \cdot B) = \frac{\triangle(s_1(A \cdot B), \dots, s_n(A \cdot B))}{\triangle (e_1, \dots, e_n)}
       = \triangle\left(\sum_{i_1=1}^n s_{i_1} b_{i_1 1}, \sum_{i_2=1}^n s_{i_2} b_{i_2 2}, \dots, \sum_{i_n=1}^n s_{i_n} b_{i_n n}\right)
   \] \[
-    = \sum_{i_1=1}^n \dots \sum_{i_n=1}^n b_{i_1 1} b_{i_2 2} \dots b_{i_n n} \underbrace{\triangle(s_{i1}, \dots, s_{in})}_{=0}
+    = \sum_{i_1=1}^n \dots \sum_{i_n=1}^n b_{i_1 1} b_{i_2 2} \dots b_{i_n n} \underbrace{\triangle(s_{i_1}, \dots, s_{i_n})}_{=0}
   \]
-  if one index occurs twice. It suffices to consider $\sum_{i_1,\dots,i_n}$ such that all $ij$ are difference.
-  If all are difference, then all occur exactly once. Hence,
+  if one index occurs twice. It suffices to consider $\sum_{i_1,\dots,i_n}$ such that all $ij$ are different.
+  If all are different, then all occur exactly once. Hence,
   $i_1,\dots,i_n$ is permutation of $1, \dots, n$.
   \begin{align*}
     &= \sum_{\pi \in \sigma_n} b_{\pi(1) 1} \dots b_{\pi(n) n} \triangle(s_{\pi(1)} \dots s_{\pi(n)}) \\
-    &= \sum_{\pi \in \sigma_n} \underbrace{(-1)^\pi b_{\pi(1) 1} \dots b_{\pi(n) n}}_{\det{B}} \underbrace{\triangle(s_1, \dots, s_n)}_{= \det(A)} = \det(B) \cdot \det(A)
+    &= \sum_{\pi \in \sigma_n} \underbrace{(-1)^\pi b_{\pi(1) 1} \dots b_{\pi(n) n}}_{= \det(B)} \underbrace{\triangle(s_1, \dots, s_n)}_{= \det(A)} = \det(B) \cdot \det(A)
   \end{align*}
 \end{proof}
 
@@ -1133,17 +1133,16 @@ Basis $b_1,\dots,b_n$.
     \begin{vmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_23 \\ a_{31} & a_{32} & a_{33} \end{vmatrix}
     = \sum_{\sigma \in \sigma_n} (-1)^\pi a_{\pi(1)1} a_{\pi(2)2} a_{\pi(3)3}
   \]
-  TODO drawing cayley graph
+  
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics{img/02a_cayley_graph.pdf}
+      \caption{Cayley graph (right) and permutation factors in Sarrus' Rule (left) in the 3D case}
+      \label{img:cayley}
+    \end{center}
+  \end{figure}
 
   By the Cayley-Graph of group $\sigma_3$ we can see that $\sigma_3 = \angel{(\underline{12}), (\underline{\underline{23}})} = -1$.
-  \[ = a_{11} a_{22} a_{33} + a_{21} a_{32} a_{13} + a_{31} a_{12} a_{23} \]
-
-  TODO drawing tic tac toe
-
-  \[ -a_{21} a_{12} a_{33} - a_{11} a_{32} a_{23} - a_{31} a_{22} a_{13} \]
-
-  TODO drawing tic tac toe
-
   \[
     \begin{array}{ccc|cc}
       a_{11} & a_{12} & a_{13} & a_{11} & a_{12} \\
@@ -1427,7 +1426,7 @@ Basis $b_1,\dots,b_n$.
       a_{n,1} & \ldots & a_{n,n-1} & a_{n,n}
     \end{vmatrix}
     &= \sum_{\pi \in \sigma_n} (-1)^{\pi} a_{\pi(1) 1} \dots a_{\pi(n) n} \\
-    &= \sum_{\pi' in \sigma_{n-1}} (-1)^{\pi'} a_{\pi'(1) 1} \dots a_{\pi'(n-1) n-1} \cdot a_{nn} \\
+    &= \sum_{\pi' \in \sigma_{n-1}} (-1)^{\pi'} a_{\pi'(1) 1} \dots a_{\pi'(n-1) n-1} \cdot a_{nn} \\
     &= \det(B) \cdot a_{nn}
   \end{align*}
   \[ \setdef{\pi \in \sigma_n}{\pi(n) = n} \]
@@ -3214,7 +3213,7 @@ Back to the scalar product:
     \item An element $v \in V$ is called \emph{normed} if $\norm{v} = 1$
       (if not, then $\frac{v}{\norm{v}}$ is normed)
     \item
-      Let $v, w \in V \setminus \set{0}$. Then the angle spanned between $v$ and $w$ is the angled $\varphi \in [0, \phi]$
+      Let $v, w \in V \setminus \set{0}$. Then the angle spanned between $v$ and $w$ is the angled $\varphi \in [0, \pi]$
       such that $\cos{\varphi} = \frac{\Re{\ip vw}}{\norm{v} \norm{w}}$
     \item Two vectors $v, w \in V$ are orthogonal ($v \bot w$)
       if $\ip vw = 0$ (hence $\varphi = \frac\pi2$)
@@ -4639,7 +4638,7 @@ Linear isometries:
 
 \index{Algebra}
 \begin{definition}[Algebra] % definition 9.1
-  Let $\mathbb K$ be a field, a $\mathbb K$ algebra, a vector space $\mathcal A$ over $\mathbb K$
+  Let $\mathbb K$ be a field, a $\mathbb K$ algebra is a vector space $\mathcal A$ over $\mathbb K$
   with a multiplication operator $*: \mathcal A \times \mathcal A \to \mathcal A$ with $(a,b) \to a * b$ such that
   \begin{enumerate}
     \item $a * (b + c) = a * b + a * c$ (distributive law, $a, b, c \in \mathcal A$)
@@ -4706,9 +4705,8 @@ Linear isometries:
 \begin{definition} % Definition 9.4
   \[ \mathbb K^\infty = \setdef{(a_0, a_1, a_2, \dots)}{a_i \in \mathbb K} \]
   \[ P_{\mathbb K} = \setdef{(a_0, a_1, \dots, a_n, 0, \dots)}{n \in \mathbb N, a_i \in \mathbb K} \]
-  Cauchy product:
-  \[ (a_n)_{n \geq 0} * (b_n)_{n \geq 0} = (c_n)_{n \geq 0} \]
-  \[ c_n = \sum_{k=0}^n a_k b_{n-k} \]
+  We define $*$ as the Cauchy product:
+  \[ (a_n)_{n \geq 0} * (b_n)_{n \geq 0} = (c_n)_{n \geq 0} \qquad c_n = \sum_{k=0}^n a_k b_{n-k} \]
 \end{definition}
 
 \index{Polynomial algebra}
@@ -4726,29 +4724,33 @@ Linear isometries:
 \end{lemma}
 
 \begin{proof}
-  Show that $\forall a,b \in P_{\mathbb K}: a * b \in P_{\mathbb K}$, hence only finitely many $c_n$ are $\neq 0$.
+  We show algebra properties:
+  \begin{enumerate}
+    \item 
+      Show that $\forall a,b \in P_{\mathbb K}: a * b \in P_{\mathbb K}$, hence only finitely many $c_n$ are $\neq 0$.
 
-  Remark: $a_k = 0 \forall k > m$ and $b_k = 0 \forall k > n$.
+      Remark: $a_k = 0 \forall k > m$ and $b_k = 0 \forall k > n$.
+      \begin{claim}
+        \[ c_k = 0 \qquad \forall k > m + n \]
+      \end{claim}%
+      \begin{align*}
+        c_k &= \sum_{l=0}^k a_l b_{k-l} \\
+            &= \sum_{l=0}^{m-1} a_l b_{k-l} \qquad \text{equality if $l > m \implies a_l = 0$} \\
+            &= 0
+      \end{align*}
+      \[ k > m + n, l < m \implies -l > -m \implies k - l \underbrace{>}_{\implies b_{k-l} = 0} m + n - m = n \]
+    \item
+      About the Cauchy product:
+      \[ c_n = \sum_{k=0}^n a_k b_{n-k} = \sum_{k'=0}^n a_{n-k'} b_{k'} = (b * a)_n \qquad (k' = n - k) \]
 
-  \begin{claim}
-    \[ c_k = 0 \qquad \forall k > m + n \]
-  \end{claim}
-
-  \begin{align*}
-    c_k &= \sum_{l=0}^k a_l b_{k-l} \\
-      &= \sum_{l=0}^{m-1} a_l b_{k-l} \qquad \text{equality if $l > m \implies a_l = 0$} \\
-      &= 0
-  \end{align*}
-  \[ k > m + n, l < m \implies -l > -m \implies k - l \underbrace{>}_{\implies b_{k-l} = 0} m + n - m = n \]
-  About the Cauchy product:
-  \[ c_n = \sum_{k=0}^n a_k b_{n-k} = \sum_{k'=0}^n a_{n-k'} b_{k'} = (b * a)_n \qquad (k' = n - k) \]
-
-  Law of distributivity:
-  \begin{align*}
-    [(a + b) * c]_n &= \sum_{k=0}^n (a + b)_k \cdot c_{n-k} \\
-      &= \sum_{l=0}^n (a_k c_{n-k}) + (b_k c_{n-k}) \\
-      &= (a * c)_n + (b * c)_n
-  \end{align*}
+    \item
+      Law of distributivity:
+      \begin{align*}
+        [(a + b) * c]_n &= \sum_{k=0}^n (a + b)_k \cdot c_{n-k} \\
+          &= \sum_{l=0}^n (a_k c_{n-k}) + (b_k c_{n-k}) \\
+          &= (a * c)_n + (b * c)_n
+      \end{align*}
+  \end{enumerate}
 \end{proof}
 
 \index{Basis of a polynomial}
@@ -4822,7 +4824,7 @@ Linear isometries:
   Then for every $a \in \mathcal A$ the map
   \[ \psi_a: \mathbb K[x] \to \mathcal A \]
   \[ \sum_{k=0}^n c_k x^k \mapsto \sum_{k=0}^n c_k a^k \]
-  of the unique algebra homomorphism of $\mathbb K[x] \to \mathcal A$ with the property $\psi_a(x) = a$.
+  is the unique algebra homomorphism of $\mathbb K[x] \to \mathcal A$ with the property $\psi_a(x) = a$.
   We say, $\mathbb K[x]$ is a \emph{free, associative algebra over $\mathbb K$}.
   Every algebra homomorphism $\mathbb K[x] \to \mathcal A$ has this structure.
 \end{theorem}
@@ -4832,8 +4834,8 @@ Linear isometries:
 We consider algebras as vector spaces with associative multiplication. For example, matrices and polynomials.
 An algebra homomorphism is linear and multiplicative.
 \[ \Phi(a + b)= \Phi(a) * \Phi(b) \]
-$A$ is an associative algebra with $\mathbf 1_A$.
-\[ l: \substack{\mathbb K \to \mathcal A \\ \alpha \to \alpha \cdot \mathbf 1_{\mathcal A}} \]
+$A$ is an associative algebra with $\mathbf 1_{\mathcal A}$.
+\[ l: \begin{array}{cc} \mathbb K \to \mathcal A \\ \alpha \to \alpha \cdot \mathbf 1_{\mathcal A} \end{array} \]
 $a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \mathcal A$ subalgebra.
 
 \begin{enumerate}
@@ -4903,24 +4905,24 @@ $a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \math
 
 \begin{remark}
   Cardano was a polymath.
-  \begin{enumerate}
+  \begin{itemize}
     \item founder of probability theory
     \item \emph{Liber de ludo aleae}: important book on probability
     \item Cardan joint (dt. \foreignlanguage{german}{Kardanische Welle})
     \item Gimbal (dt. \foreignlanguage{german}{Kardanische Aufh\"angung})
     \item used $\sqrt{-1}$ as a valid expression for the first time
     \item published a solution for roots of cubic polynomials (Ars Magna, 1545)
-  \end{enumerate}
+  \end{itemize}
 
   \begin{person}
     Scipione del Ferro (1465--1526)
   \end{person}
 
-  \begin{enumerate}
+  \begin{itemize}
     \item used a solution for roots of cubic polynomials in competitions, kept it secret
     \item came up with the same solution like Tartaglia
     \item lost competitions on cubic polynomials to Antonio Fiore, because Ferro's solution was not generic enough
-  \end{enumerate}
+  \end{itemize}
 
   \begin{person}
     Niccol\`o Fontana Tartaglia (1500--1557)
@@ -5033,17 +5035,22 @@ $a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \math
     q(x) &= x^2 - 3x + 1 \\
   \end{align*}
   \[
-    \begin{vmatrix}
-      3x^5 &- x^4 &+ 2x^3 &+ x^2 &+ 1 &: x^2 &- 3x &+ 1 &= 3x^2 + 8x^2 + 23x + 62 \\
+    \small
+    \begin{array}{rrrrrrl}
+      3x^5 &- x^4 &+ 2x^3 &+ x^2 & &+ 1 &: x^2 - 3x + 1 = 3x^2 + 8x^2 + 23x + 62 \\
       -3x^5 & +9x^4 & -3x^3 \\
-      0 & 8x^4 & -x^3 & +x^2 & +1 \\
+      \cline{1-3}
+      0 & 8x^4 & -x^3 & +x^2 & & +1 \\
         & 8x^4 & -24x^3 & +8x^2 \\
-        & 0 & 23x^3 & -7x^2 & +1 \\
+      \cline{2-6}
+        & 0 & 23x^3 & -7x^2 & & +1 \\
         &   & 23x^3 & -69x^2 & +23x \\
+      \cline{3-6}
         &   & 0     & 62x^2 & -23x & +1 \\
         &   &       & 62x^2 & -186x & +62 \\
-        &   &       &       & 163x & -61
-    \end{vmatrix}
+      \cline{4-6}
+        &   &       & 0     & 163x & -61
+    \end{array}
   \]
   Hence, $s(x) = 3x^3 + 8x^2 + 23x + 62$ and $r(x) = 163x - 61$.
 \end{example}
@@ -5055,16 +5062,14 @@ $a \in \mathcal A \implies \mathcal L(a^0, a^1, a^2, a^3, \dots) \subseteq \math
 
 \begin{theorem} % Satz 9.20
   \begin{enumerate}
-    \item If $p(x) = s(x) \cdot (x - \xi) + r$
-      \[ q(x) = x - \xi \qquad \implies p(\xi) = r \]
-    \item $\xi$ is root of $p(x) \implies x - \xi$ divides $p(x)$
+    \item If $p(x) = s(x) \cdot (x - \xi) + r$, then $q(x) = x - \xi$ with $p(\xi) = r$.
+    \item $\xi$ is root of $p(x) \iff x - \xi$ divides $p(x)$
   \end{enumerate}
 \end{theorem}
 
 \begin{theorem}[Ruffini-Horner's method]
   Given $p(x) \in \mathbb K[x]$, $\lambda \in \mathbb K$. \\
   Find $p(\lambda)$.
-
   \begin{align*}
     p(x) &= a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 \\
       &= a_n \lambda^n + a_{n-1} \lambda^{n-1} + \ldots + a_1 \lambda + a_0 \\
@@ -5314,7 +5319,7 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
 
 \begin{example} % Beispiel 10.6
   For $\dim = \infty$, this must not hold.
-  \[ S: \substack{\mathbb K^\infty \to \mathbb K^\infty \\ (x_1, x_2, \dots) \mapsto (x_2, x_3, \dots)} \]
+  \[ S: \begin{array}{c} \mathbb K^\infty \to \mathbb K^\infty \\ (x_1, x_2, \dots) \mapsto (x_2, x_3, \dots) \end{array} \]
   \[ S(1, 0, \dots) = (0, 0, \dots) \]
   \[ \implies (1, 0, \dots) \text{ is eigenvector for eigenvalue } 0 \]
   hence, element of $\ker(S)$.
@@ -5342,7 +5347,7 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
 \end{example}
 
 \begin{remark}
-  The theory of eigenvalues in infinite-dimensional spaces is more complex then the finite-dimensional case.
+  The theory of eigenvalues in infinite-dimensional spaces is more complex than the finite-dimensional case.
 \end{remark}
 
 \begin{definition} % Definition 10.7
@@ -5395,7 +5400,7 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
 \begin{theorem}[Theorem and definition] \hfill{} % Satz & Definition 10.10
   \begin{enumerate}
     \item $\chi_A(\lambda) \coloneqq \det(\lambda \cdot I - A)$ is a polynomial function and is called \emph{characteristic polynomial of $A$}.
-    \item $\lambda$ is eigenvector $\iff \chi_A(\lambda) = 0$
+    \item $\lambda$ is eigenvalue $\iff \chi_A(\lambda) = 0$
   \end{enumerate}
 \end{theorem}
 
@@ -5452,22 +5457,20 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
 
 \index{Symmetrical minors}
 \begin{theorem} % Satz 10.12
-  Let $A \in \mathbb K^{n \times n}$.
-  \[ \implies \chi_A(x) = \det(x \cdot I - A) \text{ is polynomial of degree } n \]
-  specifically, $\chi_A(x) = \sum_{k=0}^n (-1)^{n-k} c_k(A) \cdot x^k$ with $c_k(A) = \sum_{\substack{j \in \set{1, \dots, n} \\ |j| = n - k}} \det(A_{jj})$
-  with $A_{jj} = (a_{ij})_{\substack{i \in J \\ j \in J}}$ are called \emph{symmetrical minors}.
+  Let $A \in \mathbb K^{n \times n}$. Then $\chi_A(x) = \det(x \cdot I - A) \text{ is polynomial of degree } n$.
+  Specifically, $\chi_A(x) = \sum_{k=0}^n (-1)^{n-k} c_k(A) \cdot x^k$ with $c_k(A) \coloneqq \sum_{\substack{J \subseteq \set{1, \dots, n} \\ |J| = n - k}} \det(A_{JJ})$
+  with $A_{JJ} \coloneqq (a_{ij})_{\substack{i \in J \\ j \in J}}$ are called \emph{symmetrical minors}.
 
-  What are values of $c_i$?
-  \begin{align*}
-    c_0 &= \det(A) \\
-    C_n &= 1 \\
-    C_{n-1} &= \sum a_{ii} = \operatorname{Tr}(A)
-  \end{align*}
+  What are special values of $c_i$?
+  \[
+    c_0 = \det(A) \qquad
+    c_n = 1 \qquad
+    c_{n-1} = \sum a_{ii} = \operatorname{Tr}(A)
+  \]
 \end{theorem}
 
 \begin{proof}
   The proof is given using the Leibniz formula for determinants.
-
   \begin{align*}
     \det(x \cdot I - A) &= \sum_{\pi \in \sigma_n} (-1)^\pi \prod_{i=1}^n \underbrace{(x \cdot I - A)_{\pi(i),i}}_{x \cdot \delta_{\pi(i),i} - a_{\pi(i),i}} \\
       &= (x - a_{11})(x - a_{22}) \dots (x - a_{nn}) +
@@ -5478,7 +5481,7 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
         }_{\text{for at least 2 $i$, $\delta_{\pi(i),i} = 0$}} \\
       &= \text{ expression of degree } n + \text{ expression of degree } n -2
   \end{align*}
-  Hence $x^n$ stays the same. Hence the degree of $\chi_A(x)$ is $n$.
+  Hence $\det(x \cdot I - A)$ retains as expression of polynomial degree $n$. Hence the degree of $\chi_A(x)$ is $n$.
   \begin{align*}
     \det{\prod_{i=1}^n (x \delta_{\pi(i),i} - a_{\pi(i),i})} &= \#\setdef{i}{\pi(i) = i} \\
       &= \#\operatorname{fixedpoints}(\pi)
@@ -5568,10 +5571,8 @@ Eigenvector: $e_1, \dots, e_n$.
   \begin{description}
     {\leftskip=15pt
     \item[Equivalence] $A = PBQ$ with invertible $P,Q \iff \rank(A) = \rank(B)$.
-    \item[Congruence]
-      $A = A^*, B = B^*$.
-      \[ \exists \text{ regular } C: A = C^* BC \]
-      $\leadsto$ index and Sylvester's law of inertia.
+    \item[Congruence] $\exists \text{ regular } C: A = C^* BC$ \\
+      For $A = A^*, B = B^*$, $\leadsto$ index and Sylvester's law of inertia.
     \item[Similarity] $A = TBT^{-1}$ with regular $T$. This is related to eigenvalues.
     \item[Later on] $\exists T$ such that $T^* = T^{-1}$ unitary. $T^{*} T = I$.
 
@@ -5765,7 +5766,7 @@ Eigenvector: $e_1, \dots, e_n$.
 \end{theorem}
 
 \begin{proof}
-  Let $\lambda_1, \dots, \lambda_s$ be different eigenvalues. Let $v_1, \dots, v_r$ be the respective eigenvectors.
+  Let $\lambda_1, \dots, \lambda_r$ be different eigenvalues. Let $v_1, \dots, v_r$ be their respective eigenvectors.
 
   Induction over $r$.
   \begin{description}
@@ -5777,12 +5778,12 @@ Eigenvector: $e_1, \dots, e_n$.
       \[ \alpha_1 \lambda_1 v_1 + \dots + \alpha_r \lambda_r v_r = 0 \]
   \end{description}
 
-  \begin{align*}
-    (1) & \alpha_1 v_1 + \alpha_2 v_2 + \dots & \alpha_r v_r &= 0 \\
-    (2) & \lambda_1 \alpha_1 v_1 + \lambda_2 \alpha_2 v_2 + \dots & \lambda_r \alpha_r v_r &= 0 \\
+  \[ \begin{array}{rrl}
+    (1): & \sum_{i=1}^{r} \alpha_i v_i &= 0 \\
+    (2): & \sum_{i=1}^{r} \lambda_i \alpha_i v_i &= 0 \\
     \hline
-    (2) - \lambda_r (1) & (\lambda_1 - \lambda_r) \alpha_1 v_1 + (\lambda_2 - \lambda_r) \alpha_2 v_2 + \dots + (\lambda_{r-1} - \lambda_r) \alpha_{r-1} v_{r-1} + (\lambda_r - \lambda_r) \alpha_r v_r &= \\
-  \end{align*}
+    (2) - \lambda_r (1) \implies & \sum_{i=1}^{r} (\lambda_i - \lambda_r) \alpha_i v_i &= 0
+  \end{array} \]
   By induction hypothesis: $v_1, \dots, v_{r-1}$ are linear independent.
   \begin{align*}
     \implies (\lambda_1 - \lambda_r) \alpha_1 &= 0 \\
@@ -5790,13 +5791,12 @@ Eigenvector: $e_1, \dots, e_n$.
     \vdots & \\
     (\lambda_{r-1} - \lambda_r) \alpha_{r-1} &= 0
   \end{align*}
-  By hypothesis: $\lambda_i - \lambda_r \neq 0 \forall i < r$
-
+  As all eigenvalues are different, $\lambda_i - \lambda_r \neq 0 \forall i < r$.
   \[ \implies \alpha_1 = \alpha_2 = \dots = \alpha_{r-1} = 0 \]
   \[ (1) \implies \alpha_r \cdot v_r = 0 \implies \alpha_r = 0 \text{ because } v_r \neq 0 \]
 \end{proof}
 
-\begin{corollary} % Folderung 10.19
+\begin{corollary} % Folgerung 10.19
   An $n\times n$ matrix with $n$ different eigenvalues is diagonalizable.
 
   Hence, for every eigenvalue there exists some eigenvector. They are linear independent and $n$ elements.
@@ -5829,7 +5829,7 @@ Eigenvector: $e_1, \dots, e_n$.
 \end{definition}
 
 \begin{lemma} % Lemma 10.22
-  A matrix is diagonalizable if and only if for different eigenvalues $\lambda_1, \dots, \lambda_r$ it holds that
+  A matrix is diagonalizable iff for different eigenvalues $\lambda_1, \dots, \lambda_r$ it holds that
   \[ d(\lambda_1) + d(\lambda_2) + \dots + d(\lambda_r) = n \]
 \end{lemma}
 
@@ -5975,7 +5975,7 @@ Numerically unstable:
         \qquad \psi_A: \substack{\mathbb K[x] \to \mathbb K^{n\times n} \\ x \mapsto A}
       \]
     \item $U_1, \dots, U_k$ are invariant subspaces.
-      \[ \implies \substack{U_1 \cap \dots \cap U_k \\ U_1 + \dots + U_k} \text{ are invariant in regards of } A \]
+      \[  \implies U_1 \cap \dots \cap U_k, U_1 + \dots + U_k \text{ are invariant in regards of } A \]
   \end{enumerate}
 \end{theorem}
 
@@ -6507,7 +6507,7 @@ By invariance, $\Phi_B^B(A)$ has block diagonal form.
 
 \begin{theorem} % Satz 11.15
   \label{thm:1115}
-  Let $\mathbb K$ be algebraically closed (hence, every other matrix has eigenvalue)
+  Let $\mathbb K$ be algebraically closed (hence, every matrix has eigenvalues)
   and let $\lambda_1, \dots, \lambda_k$ be all eigenvalues of a matrix $A \in \mathbb K^{n\times n}$.
   \[ \implies \mathbb K^{n} = \ker(\lambda_1 I - A)^n \oplus \dots \oplus \ker(\lambda_k I - A)^n \]
 \end{theorem}
@@ -8384,7 +8384,7 @@ Norm on a vector space is a map $\norm{\cdot}: V \to [0, \infty[$:
   \begin{align*}
     \norm{Ax}_2^2 &= \sum_{i=1}^n \card{(Ax)_i}^2 \\
       &= \sum_{i=1}^n \card{\sum_j a_{ij} x_j}^2 \\
-    \text{(CBS inequality, Theorem~\ref{thm:cbs})} &\leq \sum_{i=1}^n \sum_j \card{a_{ij}}^2 - \sum_k \card{x_k}^2 \\
+    \text{(CBS inequality, Theorem~\ref{thm:cbs})} &\leq \sum_{i=1}^n \sum_j \card{a_{ij}}^2 \cdot \sum_k \card{x_k}^2 \\
       &= \norm{A}_F^2 : \norm{x}_2^2
   \end{align*}
 \end{example}

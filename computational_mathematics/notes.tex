@@ -3084,6 +3084,62 @@ For some integration domain $B$ with $0 < \gamma(B) < \infty$, we consider the p
 \[ \int_B f \, d\gamma(x) = \gamma(B) \cdot \int_B f(x) \, d\mu(x) = \gamma(B) \cdot \mathcal E(f(X)) \]
 where $X$ is a uniform random variable distributed among $B$.
 
+\dateref{2018/01/08}
+
+TODO
+
+\dateref{2018/01/10}
+
+\paragraph{Newton's method}
+
+Let $f \in \mathcal C^1, f^1(x^{(k)})$ computable. Then we create $x^{(k+1)}$ as root of linearization of $f$ in $x^{(k)}$. By the tangent equation
+\[ t(x) = f(x^{(k)}) + (x - x^{(k)})f'(x^{(k)}) \]
+and the requirement $t(x^{(k+1)}) = 0$ we retrieve the iteration rule:
+\[ x^{(k+1)} = x^{(k)} - \frac{f(x^{(k)})}{f'^(x^{(k)})} \qquad k = 0, 1, 2, \dots \]
+The Newton's method is part of the class of fixed point iterations with the function
+\[ F(x) \coloneqq x - \frac{f(x)}{f'(x)} \]
+and for the fixed point $s = F(s)$ we have $f(s) = 0$.
+
+\begin{theorem}
+  \label{theorem:6-2}
+  Let $f \in \mathcal C^2([a, b])$ with $a < s < b$ and $f'(s) \neq 0$, hence, $s$ is a simple root of $f$.
+  Then there exists some interval $I = [s - \delta, s + \delta]$, $\delta > 0$ for which $F: I \to I$, $F(x) = x - \frac{f(x)}{f'(x)}$ is a contracting map. For every initial value $x^{(0)} \in I$, the sequence of the Newton's method is at least quadratically convergent.
+\end{theorem}
+
+\begin{proof}
+  We show that $\Abs{F'(x)} < 1$ in some neighborhood $U_\delta(s)$. For $F'$ we get
+  \[ F'(x) = 1 - \frac{f'(x)^2 - f(x) \cdot f''(x)}{f'(x)^2} = \frac{f(x) f''(x)}{f'(x)^2} \]
+  and thus $F'(s) = 0$ by $f(s) = 0$. Because $F'$ is continuous, there exists some $\delta > 0$,
+  such that $-1 < F'(s) < 1$ for all $x \in [s - \delta, s + \delta] = I$.
+
+  By Theorem~\ref{theorem:6-5} and the Banach's Fixed Point Theorem, the convergence of sequence $\Abs{x^{(k)}}$ to $s$ and the convergence order is at least $p = 2$.
+\end{proof}
+
+\begin{example}[for divergence]
+  Consider $f(x) = x^3 - 2x + 2$ with $x^{(0)} = 0$ and $f'(x) = 3x^2 - 2$.
+  \[ x^{(1)} = x^{(0)} - \frac{f(x^{(0)})}{f'(x^{(0)})} = 1 \]
+  \[ x^{(2)} = x^{(1)} - \frac{f(x^{(1)})}{f'(x^{(1)})} = 1 - \frac11 = 0 \]
+  The Newton's method obviously does not converge.
+  Furthermore we can shown that neighborhoods at 0 and 1 exist, that attract this cycle.
+
+  TODO drawing
+
+  Be aware that convergence is given only locally!
+\end{example}
+
+\begin{example}
+  \label{example:6-8}
+  The n-th root of a positive number $a$ is the solution of $f(x) = x^m - a$ with $a > 0$.
+  The Newton method with $f'(x) = mx^{m-1}$ the rule
+  \[ x^{(k+1)} = x^{(k)} - \frac{(x^{(k)})^m - a}{m(x^{(k)})^{m-1}} = \frac{a + (m - 1) (x^{(k)})^m}{m (x^{(k)})^{(m-1)}} \]
+  And accordingly,
+  \[ x^{(k + 1)} = \frac1m \left(\frac{a}{(x^{(k)})^{m-1}} + (m-1) x^{(k)}\right) \qquad k = 0, 1, 2, \dots \]
+  Thus we get the special cases,
+  \[ x^{(k+1)} = \frac12 \left(\frac{a}{x^{(k)}} + x^{(k)}\right) \qquad \text{\enquote{square root}} \]
+  \[ x^{(k+1)} = \frac13 \left(\frac{a}{(x^{(k)})^2} + 2x^{(k)}\right) \qquad \text{\enquote{cubic root}} \]
+  \[ x^{(k+1)} = (2 - ax^{(k)}) x^{(k)} \qquad \text{\enquote{reciprocal}} \]
+\end{example}
+
 \printindex
 
 \end{document}
