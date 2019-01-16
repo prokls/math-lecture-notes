@@ -6366,7 +6366,7 @@ Next step: decomposition for \emph{different} eigenvalues.
   \label{le1113}%
   \begin{enumerate} \hfill{}
     \item $\forall \lambda \neq \mu \in \operatorname{spec}(A) \forall k,l \geq 1: \ker(\lambda I - A)^k \cap \ker(\mu I - A)^l = \set{0}$
-    \item The sum $\ker(\lambda_i I - A)^{r_1} + \dots + \ker(\lambda_k I - A)^{r_k}$ is direct for arbitrary pairwise different $\lambda_1, \dots, \lambda_k$.
+    \item The sum $\ker(\lambda_1 I - A)^{r_1} + \dots + \ker(\lambda_k I - A)^{r_k}$ is direct for arbitrary pairwise different $\lambda_1, \dots, \lambda_k$.
   \end{enumerate}
 \end{lemma}
 
@@ -6381,7 +6381,7 @@ Next step: decomposition for \emph{different} eigenvalues.
       Consider $m \geq 3$. Without loss of generality: $k \geq 2$.
       Let $x \in \ker(\lambda I - A)^k \cap \ker(\mu I - A)^l$.
       Let $y = (\lambda I - A)x \in \ker(\lambda I - A)^{k-1} \cap \ker(\mu I - A)^l$. Then,
-      \[ (\mu I - A)^l \cdot y = (\mu I - A)^l (\lambda I - A) \cdot x = (\lambda I - A) \underbrace{(\mu I - A)^l}_{=0} \cdot x = 0 \]
+      \[ (\mu I - A)^l \cdot y = (\mu I - A)^l (\lambda I - A) \cdot x = (\lambda I - A) \underbrace{(\mu I - A)^l \cdot x}_{=0} = 0 \]
       Let $k - 1 + l = m - 1$.
       By induction hypothesis, $y = 0$.
       \[ \implies x \in \ker(\lambda I - A) \]
@@ -6404,7 +6404,7 @@ Next step: decomposition for \emph{different} eigenvalues.
       \[ \implies w_i \in \ker(\lambda_i I - A)^{r_i} \]
       \[ \xRightarrow{\text{induction hypothesis}} w_i = 0 \forall i \]
       \[ \implies v_i \in \ker(\lambda_{k+1} I - A)^{r_{k+1}} \]
-      \[ v_i \in \ker(\lambda_i - A)^{r_i} \]
+      \[ v_i \in \ker(\lambda_i I - A)^{r_i} \]
       \[ \implies v_i \in \ker(\lambda_{k+1} I - A)^{r_{k+1}} \cap \ker(\lambda_i I - A)^{r_i} = \set{0} \]
       \[ \implies v_i = 0 \qquad \forall i = 1, \dots, k \]
       \[ \implies 0 + \dots + 0 + v_{k+1} = 0 \implies v_{k+1} = 0 \]
@@ -7456,7 +7456,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
       \begin{align*}
         A A^* &= U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \cdot \underbrace{U^* \cdot U}_{I} \begin{bmatrix} \overline{\lambda}_1 & & \\ & \ddots & \\ & & \overline{\lambda}_n \end{bmatrix} U^* \\
           &= U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \begin{bmatrix} \overline\lambda_1 & & \\ & \ddots & \\ & & \overline\lambda_n \end{bmatrix} U^* \\
-          &= U \begin{bmatrix} \lambda_1 \overline\lambda_1 & & \\ & \ddots & \\ & & \lambda_n \overline\lambda_n \end{bmatrix} \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} U^* \\
+          &= U \begin{bmatrix} \lambda_1 \overline\lambda_1 & & \\ & \ddots & \\ & & \lambda_n \overline\lambda_n \end{bmatrix} U^* \\
           &= U \begin{bmatrix} \overline\lambda_1 & & \\ & \ddots & \\ & & \overline\lambda_n \end{bmatrix} U^* \cdot U \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} U^* \\
           &= A^* A
       \end{align*}
@@ -7495,7 +7495,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
       \[ U_1^* AU_1 = \begin{bmatrix} u^* & \dots & \dots \\ & & \\ & W^* & \\ & & \end{bmatrix} A \begin{bmatrix} u & & & \\ \vdots & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} \]
       \[ = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} \lambda u & & & \\ \vdots & & AW & \\ \vdots & & & \end{bmatrix} \text{ where } AW \in \mathbb C^{n \times (n-1)} = \begin{bmatrix} \lambda & u^* AW \\ 0 & \\ \vdots & [W^* AW] \\ 0 & \end{bmatrix} \]
       \[ \text{ where } W^* AW \in \mathbb C^{(n - 1) \times (n-1)} \]
-      \[ I = U^* U = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} u & & & \\ \vdots & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} = \begin{bmatrix} 1 & u^* W \\ 0 & \\ \vdots & W^* w \\ 0 & \end{bmatrix} \]
+      \[ I = U_1^* U_1 = \begin{bmatrix} u^* & \dots & \dots & \dots \\ & & & \\ & & W^* & \\ & & & \end{bmatrix} \begin{bmatrix} u & & & \\ \vdots & & & \\ \vdots & & W & \\ \vdots & & & \end{bmatrix} = \begin{bmatrix} 1 & u^* W \\ 0 & \\ \vdots & W^* w \\ 0 & \end{bmatrix} \]
       By induction hypothesis, there exists unitary $U_2 \in \mathcal U(n-1): U_2^* W^* AW = R_2$.
       \[
         U_2^* W^* AW U_2 = 
@@ -7570,8 +7570,8 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
 \begin{theorem} % Satz 12.11
   Let $A \in \mathbb C^{n \times n}$ self-adjoint.
   \begin{enumerate}
-    \item $A > 0 \iff \operatorname{spec}(A) \subseteq ]0,\infty[$, hence eigenvalues are $> 0$.
-    \item $A \geq 0 \iff \operatorname{spec}(A) \subseteq ]0, \infty[$, hence eigenvalues $\geq 0$.
+    \item $A > 0 \iff \operatorname{spec}(A) \subseteq (0,\infty)$, hence eigenvalues are $> 0$.
+    \item $A \geq 0 \iff \operatorname{spec}(A) \subseteq [0, \infty)$, hence eigenvalues $\geq 0$.
     \item Analogously for negatively (semi)definite.
     \item $A$ is indefinite $\iff \exists$ at least one positive and one negative eigenvalue.
       \[ \operatorname{spec}(A) \:\cap\: (-\infty,0) \neq \emptyset \operatorname{ and } \operatorname{spec}(A) \cap (0,\infty) \neq \emptyset \]
@@ -7580,24 +7580,27 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
 
 \begin{proof}
   \begin{enumerate}
-    \item Direction $\implies$.
-      \[ A > 0 \implies A \text{ is self-adjoint } \implies \operatorname{spec}(A) \subseteq \mathbb R \]
-      \[ \text{ and } Ax = \lambda x \implies \lambda > 0 \quad (\text{self-adjoint}) \]
-      Direction $\impliedby$.
-      $A$ is self-adjoint, $\operatorname{spec}(A) \subseteq (0, \infty)$.
-      Show that $\angel{Ax, x} > 0 \forall x \neq 0$.
+    \item
+      \begin{description}
+        \item[Direction $\implies$]
+          $A > 0 \implies A$ is self-adjoint $\implies \operatorname{spec}(A) \subseteq \mathbb R$
+          \[ \text{ and } Ax = \lambda x \implies \lambda > 0 \quad (\text{self-adjoint}) \]
+        \item[Direction $\impliedby$]
+          $A$ is self-adjoint, $\operatorname{spec}(A) \subseteq (0, \infty)$.
+          Show that $\angel{Ax, x} > 0 \forall x \neq 0$.
 
-      $A$ is self-adjoint $\implies$ there exists an orthonormal basis of eigenvectors $(u_1, \dots, u_n)$.
-      Let $x \in \mathbb C^n \setminus \set{0} \implies x = \sum_{i=1}^n \alpha_i u_i$ and $A \cdot u_i = \lambda_i \cdot u_i$.
-      \begin{align*}
-        \implies \angel{Ax,x} &= \angel{A \sum_{i=1}^n \alpha_i u_i, \sum_{j=1}^n \alpha_j u_j} \\
-          &= \angel{\sum_{i=1}^n \alpha_i \lambda_i u_i, \sum_{j=1}^n \alpha_j u_j} \\
-          &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \lambda_i \overline{\alpha_j} \underbrace{\angel{u_i,u_j}}_{\delta_{ij}} \\
-          &= \sum_{i=1}^n \card{\alpha_i}^2 \lambda_i > 0 \text{ (if all $\lambda_i > 0$)} \\
-          &= \sum_{i=1}^n \card{\alpha_i}^2 \lambda_i \geq 0 \text{ (if all $\lambda_i \geq 0$)}
-      \end{align*}
-      This proves (1.) and (2.)
-  \end{enumerate}
+          $A$ is self-adjoint $\implies$ there exists an orthonormal basis of eigenvectors $(u_1, \dots, u_n)$.
+          Let $x \in \mathbb C^n \setminus \set{0} \implies x = \sum_{i=1}^n \alpha_i u_i$ and $A \cdot u_i = \lambda_i \cdot u_i$.
+          \begin{align*}
+            \implies \angel{Ax,x} &= \angel{A \sum_{i=1}^n \alpha_i u_i, \sum_{j=1}^n \alpha_j u_j} \\
+              &= \angel{\sum_{i=1}^n \alpha_i \lambda_i u_i, \sum_{j=1}^n \alpha_j u_j} \\
+              &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \lambda_i \overline{\alpha_j} \underbrace{\angel{u_i,u_j}}_{\delta_{ij}} \\
+              &= \sum_{i=1}^n \card{\alpha_i}^2 \lambda_i > 0 \text{ (if all $\lambda_i > 0$)} \\
+              &= \sum_{i=1}^n \card{\alpha_i}^2 \lambda_i \geq 0 \text{ (if all $\lambda_i \geq 0$)}
+          \end{align*}
+          This proves (1.) and (2.)
+      \end{description}
+    \end{enumerate}
 \end{proof}
 
 \begin{remark}[Application: Taylor expansion]

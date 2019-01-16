@@ -3086,6 +3086,71 @@ where $X$ is a uniform random variable distributed among $B$.
 
 \dateref{2018/01/08}
 
+\section{Non-linear equation systems}
+
+\subsection{Theoretical preliminaries}
+
+\emph{Problem setting:} Let $f: \mathbb R^n \to \mathbb R^n$ continuous. Find its roots $s$ such that $f(s) = 0$.
+
+We consider a system of $n$ unknown variables:
+\[ f_1(s_1, \dots, s_n) = 0 \qquad f_n(s_1, \dots, s_n) = 0 \]
+
+\emph{Idea:} Formulate the system as (equivalent) fixed point problem of form $f(s) = 0 \iff s = F(s) \implies$ s is a fixed point of $F$.
+
+\index{Fixed point iteration}
+\index{Single-level, stationary iteration process}
+This immediately gives an iteration process to solve the equation system:
+$x^{(k + 1)} = F(x^{(k)}), k \in \mathbb N_0$ with $x^{(k)} \in \mathbb R^n$.
+This iterative equation is called \emph{Fixed point iteration}.
+Because for computation of $x^{(k+1)}$ only $x^{(k)}$ is required,
+this process is also called \emph{single-level, stationary iteration process}\footnote{stationary here means independence of $k$}.
+
+\begin{example}
+  \label{ex:6-1}
+  \[ f\begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = \begin{pmatrix} x_1^2 + x_2 - 4 \\ x_2 e^{x_1} - 2 \end{pmatrix} \]
+  \[
+    \implies \begin{array}{cc}
+      f_1(x) &= x_1^2 + x_2 - 4 \\
+      f_2(x) &= x_2 e^{x_1} - 2
+    \end{array}
+  \]
+  Resolve by $x_2$:
+  \begin{align*}
+    x_2 &= 4 - x_1^2 \eqqcolon g_1(x_1) \\
+    x_2 &= 2 \cdot e^{-x_1} \eqqcolon g_2(x_1) \\
+  \end{align*}
+  Visualized in Figure~\ref{img:intersection}.
+  
+  \begin{figure}[!ht]
+    \begin{center}
+      \includegraphics{img/intersection.pdf}
+      \caption{We look for intersection points of $g_1$ and $g_2$}
+      \label{img:intersection}
+    \end{center}
+  \end{figure}
+
+  We retrieve a fixed point equation, for example, by resolving the first equation by $x_1$, the second by $x_2$, \dots.
+  \[ F_1(x_1, x_2) \coloneqq \sqrt{4 - x_2} \qquad F_2(x_1, x_2) \coloneqq 2 \cdot e^{-x_1} \]
+  Resolving it the other way around is, of course, also okay.
+  \[ x_1 = \ln(\frac2{x_2}) \eqqcolon \tilde F_1(x_1, x_2) \]
+  \[ x_2 = 4 - x_1^2 \eqqcolon \tilde F_2(x_1, x_2) \]
+
+  TODO image
+
+  Our conclusion is: even though we have the same initial value, $F$ and $\tilde F$ converge towards different solutions.
+  Thus, convergence and uniqueness is not given in general.
+\end{example}
+
+\paragraph{Convergence theory}
+
+\begin{definition}[Convergence]
+  \label{definition:6-2}
+  The sequence $(x^{(k)})_{k \in \mathbb N_0}$ has \emph{convergence order} of at least $p \geq 1$ if $\exists K > 0$ (where $K$ is independent of $k$):
+  $\Norm{x^{(k+1)} - s} \leq K \cdot \Norm{x^{(k)} - s}^p \forall k \geq 0, k < 1 \text{ if } p = 1$
+
+  Then $K$ is called \emph{convergence rate} or \emph{error rate}.
+\end{definition}
+
 TODO
 
 \dateref{2018/01/10}
@@ -3139,6 +3204,175 @@ and for the fixed point $s = F(s)$ we have $f(s) = 0$.
   \[ x^{(k+1)} = \frac13 \left(\frac{a}{(x^{(k)})^2} + 2x^{(k)}\right) \qquad \text{\enquote{cubic root}} \]
   \[ x^{(k+1)} = (2 - ax^{(k)}) x^{(k)} \qquad \text{\enquote{reciprocal}} \]
 \end{example}
+
+\dateref{2019/01/15}
+
+\paragraph{Two variants of the Newton process}
+
+\index{Stabilized Newton process}
+
+\begin{itemize}
+  \item The simplified Newton process
+    \[ x^{(k+1)} = x^{(k)} = \frac{f(x^{(k)})}{f'(x^{(0)})} \qquad k = 0, 1, 2, \dots \]
+    Because the first derivatives do not change in the last iteration steps, this process is usefuv for \enquote{good} initial values $x^{(0)}$.
+
+    The disadvantage is that the convergence order is only $p = 1$,
+    but often with small error constant $k$.
+  \item The \emph{stabilized} Newton process
+    \[ x^{(k+1)} = x^{(k)} - \lambda_k \frac{f(x^{(k)})}{f'(x^{(k)})} \qquad k = 0, 1, 2, \dots \]
+    avoids convergence issues by division by 2 of $\lambda_k$ until $\Abs{f(x^{(k+1)})} < \Abs{f(x^{(k)})}$.
+\end{itemize}
+
+\paragraph{Secant method}
+
+\emph{Idea:}
+  Avoid computation of the derivative and use the secant:
+  we need two initial values $x^{(0)} \neq x^{(1)}$
+  (no restriction on $x^{(0)}$ and $x^{(1)}$ as in the bisection process)
+
+We get the following iteration step:
+\[ x^{(k+1)} = x^{(k)} - f(x^{(k)}) \frac{x^{(k)} - x^{(k-1)}}{f(x^{(k)}) - f(x^{(k-1)})} \]
+The secant method is a two-level iteration process.
+For well-definiteness of the iteration we require $f(x^{(k)}) \neq f(x^{(k-1)})$.
+
+\begin{theorem}
+  \label{theorem:6-9}
+  If $f'(s) \neq 0$ and $f''(s) \neq 0$,
+  the convergence order of the secant method is $p = \frac 12 (1 + \sqrt{5}) \dot= 1.618$.
+\end{theorem}
+
+\begin{proof}
+  Refer to the book by Schwarz
+\end{proof}
+
+\subsection{The Newton process in $\mathbb R^n$}
+
+Again, we consider systems of non-linear equations $f(x) = 0$,
+where $f: \mathbb R^n \to \mathbb R^n$ is a continuously differentiable function with specific, additional properties.
+Like before, we substitute the function $f$ locally by an affine-linear function.
+The Taylor expansion of $f$ at some initial value $x^{(0)}$ gives
+\[ 0 = f(x) = \underbrace{f(x^{(0)}) + f'(x^{(0)}) (x - x^{(0)})}_{\eqqcolon \overline{f}(x)} + \mathcal o(\Norm{x - x^{(0)}}) \text{ for } x \to x_0 \]
+
+Thus, the root $x^{(1)}$ of the map $\overline f$ is
+\[ x^{(1)} = x^{(0)} - f'(x^{(0)})^{-1} f(x^{0}) \]
+assuming that the Jacobian matrix $f'(x^{(0)})$ is invertible at $x^{(0)}$.
+This leads to the following Newton iteration:
+\[ f'(x^{(k)}) \triangle x^{(k)} = -f(x^{(k)}) \]
+
+\index{Newton correction}
+Recognize: Avoid explicit computation of inverse $f'(x^{(k)})^{-1}$ and instead solve the linear equation system for the so-called \emph{Newton correction} $\triangle x^{(k)}$.
+
+\emph{Observation:} numeric solution of a non-linear equation system corresponds to numerical solution of a sequence of a linear equation system.
+
+\index{Convex set}
+\begin{definition}
+  \label{definition:6-10}
+  A set $M \subset \mathbb R^n$ is called \emph{convex} if for $x, y \in M$ it is true that $z = \lambda x + (1 - \lambda) y \in M$ for all $\lambda \in [0, 1]$.
+\end{definition}
+
+\paragraph{Convergence of the Newton process}
+
+\begin{theorem}[Newton-Kantorovic]
+  \label{theorem:6-11}
+    Let $D \subset \mathbb R^n$ be an open and convex set. Furthermore let $f: D \subset \mathbb R^n \to \mathbb R^n$ continuously differentiable.
+    \begin{itemize}
+      \item Let the Jacobian matrix be uniformly Lipschitz-continuous for all $x, y \in D$.
+        \[ \Norm{f'(x) - f'(y)} \leq \gamma \Norm{x - y} \qquad x, y \in D \]
+      \item Furthermore the Jacobian matrix on $D$ has a uniform bounded inverse
+        \[ \Norm{f'(x)^{-1}} \leq \beta \qquad x \in D \]
+      \item For initial value $x^{(0)} \in D$, let:
+        \[ q \coloneqq \alpha \beta \gamma < \frac 12, \alpha \coloneqq \Norm{f'(x^{(0)})^{-1} f(x^{(0)})} \]
+      \item For $r = 2\alpha$ let the bounded sphere
+        \[ B_r(x^{(0)}) \coloneqq \SetDef{x \in \mathbb R^n}{\Norm{x - x^{(0)}} \leq r} \]
+        be contained in $D$.
+    \end{itemize}
+\end{theorem}
+
+Then the function $f$ has a root $z \in B_r(x^{(0)})$ and the Newton iteration
+\[ f'(x^{(k)}) \triangle x^{(k)} = -f(x^{(k)}) \qquad x^{(k+1)} = x^{(k)} + \triangle x^{(k)} \qquad k = 0, 1, 2, \dots \]
+converges quadratically towards root $z$.
+Furthermore the following a-priori error estimate is true,
+\[ \Norm{x^{(k)} - z} \leq 2\alpha q^{2^k - 1} \qquad k = 0, 1, 2, \dots \]
+
+\begin{proof}
+  The proof consists of the following steps:
+  \begin{enumerate}
+    \item Deduction of an auxiliary estimate
+    \item All iterands are in $B_r(x_{(0)})$
+      and some a-priori error estimate for $\Norm{x^{(k)} - x^{(0)}}$ is true (\dots induction)
+    \item Show $\Set{x^{(k)}}$ is a Cauchy sequence and thus has a unique limit $z$ in $\mathbb R^n$
+    \item Show existence of a root, $z$ is a root
+    \item Uniqueness of a root $z$
+  \end{enumerate}
+
+  So, we begin
+  \begin{enumerate}
+    \item Let $x, y, z \in D$. Because $D$ is convex, for all $x, y \in D$ we have
+      \[ f_j(x) - f_j(y) = \int_0^1 \frac{d}{ds} f_j(sx + (1 - s) y) \, ds \qquad j = 1, \dots, n \]
+      By the chain rule, we get
+      \[ \frac{d}{ds} f_j(sx + (1 - s)y) = \sum_{k=1}^n \frac{\partial f_j}{\partial x_k} (sx + (1 - s) y) (x_k - y_k) \]
+      and therefore
+      \[ f_j(x) - f_j(y) = \int_0^1 \sum_{k=1}^n \frac{\partial f_j}{\partial x_k} (sx + (1 - s) y) (x_k - y_k) \, ds \]
+      We can also denote it as,
+      \[ f(x) - f(y) = \int_0^1 f'(sx + (1 - s)y)(x - y) \, ds \]
+      By insertion of $f'(z)(x - y)$ we conclude
+      \[ f(x) - f(y) - f'(z)(x - y) = \int_0^1 (f'(s x + (1 - s)y) - f'(z)) (x - y) \, ds \]
+      By the Lipschitz continuity of $f'$, we get
+      \[ \Norm{f(y) - f(x) - f'(z) (y - x)} \leq \gamma \Norm{y - x} \int_0^1 \Norm{s (x - z) + (1 - s) (y - z)} \, ds \]
+      \[ \leq \frac \gamma2 \Norm{y - x} (\Norm{x - z} + \Norm{y - z}) \]
+      For $z = x$, this gives,
+      \[ \Norm{f(y) - f(x) - f'(x) (y - x)} \leq \frac{\gamma}2 \Norm{y - x}^2 \qquad \forall x, y \in D \label{eqq1} \]
+      In contrast, for $z = x^{(0)}$ we get
+      \[ \Norm{f(y) - f(x) - f'(x^{(0)}) (y - x)} \leq \tau \gamma \Norm{y - x} \qquad \forall x, y \in B_r(x^{(0)}) \label{eqq2} \]
+    \item We use complete induction and show:
+      \[ \Norm{x^{(k)} - x^{(0)}} \leq r \qquad \Norm{x^{(k)} - x^{(k-1)}} \leq \alpha q^{2^{k-1} - 1} \qquad k = 1, 2, \dots \]
+      We begin with $k = 1$. By the preconditions, we have
+      \[ \Norm{x^{(1)} - x^{(0)}} = \Norm{f'(x^{(0)})^{-1} f(x^{(0)})} = \alpha = \frac r2 < r \]
+      Now we assume that both inequalities are true for $k \geq 1$.
+      Because of the second statement and because $x^{(k)} \in B_r(x^{(0)}) \subset D$, the iterand $x^{(k+1)}$ is well-defined.
+      We get
+      \[ \Norm{x^{(k+1)} - x^{(k)}} = \Norm{f'(x^{(k)})^{-1}  f(x^{(k)})} \leq \beta \Norm{f(x^{(k)})} = \beta \Norm{f(x^{(k)}) - \underbrace{f(x^{(k - 1)}) - f'(x^{(k - 1)}) (x^{(k)} - x^{(k - 1)})}_{= 0}} \]
+      \[ \leq \frac{\beta \gamma}{2} \Norm{x^{(k)} - x^{(k - 1)}}^2 \overset{\substack{\text{induction} \\ \text{hypothesis}}}{\leq} \frac{\beta \gamma}{2} \left(\alpha q^{2^{k - 1} - 1}\right) = \frac{\alpha}{2} q^{2^k - 1} < \alpha q^{2^k - 1} \]
+      by using $q \coloneqq \alpha p \gamma$.
+      This (still) implies
+      \[ \Norm{x^{(k+1)} + x^{(0)}} \leq \Norm{x^{(k+1)} - x^{(k)}} + \dots + \Norm{x^{(1)} - x^{(0)}} \leq 2 (1 + q + q^3 + q^7 + \dots + q^{2^k - 1}) \leq \frac{\alpha}{1 - q} \leq 2\alpha = r \]
+    \item Let $m > 0$. Because $q < \frac12$, we have
+      \begin{align*}
+        \Norm{x^{(k)} - x^{(k + m)}} &= \Norm{x^{(k)} - x^{(k+1)}} + \dots + \Norm{x^{(k+m-1)} - x^{(k+m)}} \\
+          &\leq \alpha(q^{2^k - 1} + \dots + q^{2^{m + k - 1} - 1}) \\
+          &\leq \alpha q^{2^k - 1} (1 + q^{2^k} + \dots + q^{(2^k)^{2^{m-1} - 1}}) \\
+          &\leq 2 \alpha q^{2^k - 1}
+      \end{align*}
+      Therefore $\Set{x^{(k)}}$ is a Cauchy sequence and there exists some limes $z = \lim_{k \to \infty} x^{(k)}$. For $k \to \infty$ we have the estimate
+      \[ x^{(k)} - x^{(0)} \leq r \implies \Norm{z - x^{(0)}} \leq r \]
+      such that $z \in B_r(x^{(0)})$. For $m \to \infty$ we get TODO
+    \item The Newton iteration and the first precondition provide:
+      \begin{align*}
+        \Norm{f(x^{(k)})} &= \Norm{f'(x^{(k)})(x^{(k + 1)}  - x^{(k)})} \\
+          &\leq \Norm{f'(x^{(k)}) - f'(x^{(0)}) + f'(x^{(0)})} \Norm{x^{(k+1)} - x^{(k)}} \\
+          &\leq \left(\gamma \Norm{x^{(k)} - x^{(0)}} + \Norm{f'(x^{(0)})}\right) \Norm{x^{(k+1)} - x^{(k)}} \to 0 \text{ if } k \to \infty
+      \end{align*}
+      Thus, $f(x^{(k)}) \to 0, k \to \infty$ and because of continuity of $f$ also $f(z) = 0$.
+    \item The root $z$ of $f$ is also a fixed point of the simplified iteration
+      \[ \overline{g}(x) = x - f'(x^{(0)})^{-1} f(x) \]
+      The function $\overline{g}$ is a contraction, because
+      \[ \overline{g}(x) - \overline{g}(y) = x - y - f'(x^{(0)})^{-1} (f(x) - f(y)) = f'(x^{(0)})^{-1} (f(y) - f(x) - f(x^{(0)}) (y - x)) \]
+      implies the estimate
+      \[ \Norm{\overline g(x) - \overline g(y)} \overset{Ineq.~\ref{eqq2}}{=} \beta \gamma r \Norm{y - x} \leq \underbrace{2q}_{= \alpha \beta \gamma} \Norm{y - x} \forall x, y \in B_1(x^{(0)}) \]
+      Because $x < \frac12$, $\overline g$ is a contraction and it can have at most one fixed point.
+  \end{enumerate}
+\end{proof}
+
+The main difference to the scalar case is that didn't require $f \in \mathcal C^2$.
+Furthermore the existence of a root follows from the following theorem:
+
+\begin{corollary}
+  \label{corollary:6-12}
+  Let $D \subset \mathbb R^n$ be open, convex and at most two times differentiable.
+  Let $z \in D$ be a root with regular Jacobian matrix $f'(z)$. Then the Newton process is locally convergent, hence there exists some neighborhood $B$ at $z$ such that the Newton process converges to $z \forall x^{(0)} \in B$.
+\end{corollary}
+
+
 
 \printindex
 
