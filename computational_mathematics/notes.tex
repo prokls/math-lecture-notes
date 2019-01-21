@@ -2589,7 +2589,6 @@ For orders $1$ to $7$, the weights are positive. For $n = 8$ and higher, negativ
 \end{proof}
 
 \begin{Lemma}
-  \label{lemma:5-6}
   Let $f \in \mathcal C^2[a, b]$.
   For the approximation error the trapezoidal rule $T = \frac{b-a}{2} (f(a) + f(b))$ with $h = b - a$ we have:
   \[ T = \int f = \frac{h^3}{12} f''(\tau) \]
@@ -3135,8 +3134,15 @@ this process is also called \emph{single-level, stationary iteration process}\fo
   \[ x_1 = \ln(\frac2{x_2}) \eqqcolon \tilde F_1(x_1, x_2) \]
   \[ x_2 = 4 - x_1^2 \eqqcolon \tilde F_2(x_1, x_2) \]
 
-  TODO image
+  \begin{figure}[!ht]
+    \begin{center}
+      \includegraphics{img/fixed_point_iteration.pdf}
+      \caption{Fixed point iteration}
+      \label{fig:fpi}
+    \end{center}
+  \end{figure}
 
+  Compare with Figure~\ref{fig:fpi}.
   Our conclusion is: even though we have the same initial value, $F$ and $\tilde F$ converge towards different solutions.
   Thus, convergence and uniqueness is not given in general.
 \end{example}
@@ -3151,7 +3157,129 @@ this process is also called \emph{single-level, stationary iteration process}\fo
   Then $K$ is called \emph{convergence rate} or \emph{error rate}.
 \end{definition}
 
-TODO
+\begin{Remark}
+  The convergence rate is called linear/quadratic/cubic if $p = 1$, $2$ or $3$ respectively.
+
+  (In practice it is $p \leq 3$)
+\end{Remark}
+
+\index{Lipschitz-continuity}
+\index{Contraction}
+\begin{definition}
+  For a closed subset $A \subseteq B$ and Banach space $B$,
+  let $f: A \to A$ be a map.
+  $f$ is called \emph{Lipschitz-continuous} on $A$ with constant $0 < L < \infty$
+  if \[ \Norm{f(y) - f(x)} \leq \Norm{x - y} \cdot L \qquad \forall x, y \in A \]
+  $f$ is called \emph{contraction} (or \emph{contracting}) on $A$ if $L < 1$.
+\end{definition}
+
+\begin{theorem}[Banach Fixed Point]
+  \label{theorem:6-4}
+  Let $A \subseteq B$ be a non-empty, closed subset of a Banach space $B$.
+  $F: A \to A$ is a contraction. Then:
+  \begin{enumerate}
+    \item $F$ has exactly one fixed point $s \in A$
+    \item For every $x^{(0)} \in A$ with $x^{(k)} \coloneqq F(x^{(k-1)})$, $(x^{(k)})$ converges to $s$.
+    \item $\Norm{x^{(k)} - s} \leq L^k \cdot \Norm{x^{(0)} - s}$
+    \item A-priori error estimate: $\Norm{x^{(k)} - s} \leq \Norm{x^{(1)} - x^{(0)}} \cdot \frac{L^k}{1 - L}$
+    \item A-posteriori error estimate: $\Norm{x^{(k)} - s} \leq \frac{L}{1 - L} \cdot \Norm{x^{(k)} - x^{(k - 1)}}$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  For the difference of two consecutive iterands, we get:
+  \begin{align*}
+    \Norm{x^{(k+1)} - x^{(k)}} &= \Norm{F(x^{(k)}) - F(x^{(k-1)})} \cdot L \\
+      &\leq L \cdot \Norm{x^{(k)} - x^{(k-1)}} \\
+      &= \dots \\
+      &\leq L^{k - l} \cdot \Norm{x^{(l+1)} - x^{(l)}} \quad \text{ for } 0 \leq l \leq k
+  \end{align*}
+  \[ f: A \to A \qquad \text{ thus } x^{(0)} \in A \implies x^{(k)} \in A \forall k \]
+  By this we conclude that $\Set{x^{(k)}}$ is a Cauchy sequence:
+  \begin{align*}
+    \Norm{x^{(k+m)} - x^{(k)}}
+      &= \Norm{x^{(k+m)} - x^{(k+m-1)} + x^{(k+m-1)} \dots + x^{(k)}} \\
+      &\leq \sum_{u = k}^{k + m - 1} \Norm{x^{(u+1)} - x^{(u)}} \\
+      &\leq L^k \cdot (L^{m-1} + L^{m-2} + \dots + L + 1) \\
+      &= L^k \cdot \frac{1 - L^m}{L} \cdot \Norm{x^{(1)} - x^{(0)}}
+  \end{align*}
+  Because $L < 1$, the last equation is a zero sequence. Hence $\Set{x^{(k)}}$ is a Cauchy sequence.
+
+  $A$ is complete, so $\exists s: s = \lim x^{(k)}, s \in A$.
+
+  By continuity of $F$, we have
+  \[ F(s) = F(\lim{x^{(k)}}) = \lim F(x^{(k)}) = \lim x^{(k+1)} = s \]
+  Hence, $\Set{x^{(k)}}$ converges to a fixed point.
+
+  Uniqueness: Let $s_1$ and $s_2$ be fixed points of $F$.
+  \[ \implies \Norm{s_1 - s_2} = \Norm{F(s_1) - F(s_2)} \leq L \cdot \Norm{s_1 - s_2} \]
+  \[ L < 1 \implies \Norm{s_1 - s_2} = 0 \]
+
+  For fixed $k$ and $m$, $\Norm{x^{(k+m)} - x^{(k)}} \leq L^k \cdot \frac{1 - L^m}{L} \cdot \Norm{x^{(1)} - x^{(0)}}$ gives the a-priori error estimate.
+
+  The third claim results from
+  \[ \Norm{x^{(k)} - s} = \Norm{F(x^{(k-1)}) - s} \leq L \cdot \Norm{x^{(k-1)} - s} \leq \dots \leq L^k \cdot \Norm{x^{(0)} - s} \]
+  The a-posteriori error estimate follows by the a-priori error estimate by rearrangement of $x^{(k-1)}$ as $\tilde x^{(0)}$.
+\end{proof}
+
+\begin{Remark}
+  Determination of $A$ is difficult for practical problems.
+\end{Remark}
+
+\begin{theorem}
+  \label{theorem:6-5}
+  Let $n=1$. In the closed neighborhood $A$ of fixed point $s$, let the iteration function $F$ satisfy $F \in \mathcal C^1(A)$.
+  Then the process is at least linear convergent, if $\Abs{F'(s)} < 1$.
+
+  The process is of $p$-th order if $F^{(k)}(s) = 0$ for $k \in \Set{1, \dots, p-1}$.
+\end{theorem}
+
+\begin{proof}
+  The proof will be given in the practicals.
+\end{proof}
+
+\paragraph{Condition, Stability}
+
+Cases (compare with Figure~\ref{fig:three-cases}):
+\begin{enumerate}
+  \item $f$ has only complex roots and some algorithm capable of handling complex numbers must be used.
+  \item $f$ has only once root with multiplicity 2. This is considered ill-conditioned, because an arbitrary small deviation can lead to two or zero roots.
+  \item We have two well-distinguishable roots. This is considered a stable situation.
+\end{enumerate}
+
+\begin{figure}[!ht]
+  \begin{center}
+    \includegraphics{img/three_cases.pdf}
+    \caption{Three cases for roots of $f$}
+    \label{fig:three-cases}
+  \end{center}
+\end{figure}
+
+If we consider some interval $[x_-, x^+]$ around each root such that $\Abs{f(x)} < \varepsilon \forall x \in [x_-, x_+]$.
+This gives either case 3 or case 2 (if only one).
+
+\subsection{Equation in one unknown}
+\label{ch:6-2}
+
+In the following, we consider the task for continuous, non-linear functions $f: \mathbb R \to \mathbb R$ restricted to real solutions.
+
+\begin{algorithm}
+  \emph{Idea:} We decrease the intervals to consecutively approximate the real solution.
+
+  \emph{Assumption:} $I = [a, b]$, $f(a) \cdot f(b) < 0$. Because $f$ is continuous there exist roots in $I$.
+
+  \begin{itemize}
+    \item Compute the function value $f(\mu)$ with $\mu \coloneqq \frac{a + b}{2}$. If $\operatorname{sign}(f_\mu) = \sign{f(a)}$, we get a new interval $I = [\mu, b]$. $\sign{f(\mu)} = \sign{f(b)} \implies I = [a, \mu]$. $\sign{f(\mu)} = 0$ gives the result.
+    \item Nested intervals: $\Abs{I^{(n)}} = \frac{b - a}{2^n} = $ zero sequence.
+    \item We can find a unique $s$.
+      The midpoint $x^{(k)}$ of $I^{(k)}$ satisfies the a-priori estimate $\Abs{x^{(k)} - s} \leq \frac{b - a}{2^{k+1}}$.
+    \item This corresponds to an average linear convergence ($p = 1$).
+  \end{itemize}
+\end{algorithm}
+
+\paragraph{Newton method}
+
+\emph{Idea:} Consider the linear function through $x^{(0)}$. Choose $x^{(1)} \coloneqq$ roots.
 
 \dateref{2018/01/10}
 
@@ -3372,7 +3500,66 @@ Furthermore the existence of a root follows from the following theorem:
   Let $z \in D$ be a root with regular Jacobian matrix $f'(z)$. Then the Newton process is locally convergent, hence there exists some neighborhood $B$ at $z$ such that the Newton process converges to $z \forall x^{(0)} \in B$.
 \end{corollary}
 
+\dateref{2019/01/17}
 
+\begin{example}[Newton process to compute the inverse]
+  To determine the inverse $Z = A^{-1}$ of an invertible matrix $A \in \mathbb R^{n \times n}$ we consider:
+  \[ f(x) \coloneqq X^{-1} - A \]
+  for $X$ regular. First, determine a neighborhood $A$ such that $f(\cdot)$ is well-defined and differentiable.
+  For this, assume $X \in B_r(A)$ with $r < \Norm{A^{-1}}^{-1}$.
+  Then, by $X = A - A + X = A(I - A^{-1}(A - X))$ it follows that,
+  \[ \Norm{A^{-1}(A - X)} \leq \Norm{A^{-1}} \cdot \Norm{A - X} \leq r \Norm{A^{-1}} < 1 \]
+  In the practicals, we are going to discuss the Neumann series.
+  From this, it will follow that $I - A^{-1}(A - X)$ is invertible.
+  Then also $A^{-1} X$, and therefore $X$, is invertible.
+
+  We determine $f'(\cdot)$ of $f(\cdot)$ as map of $\mathbb R^{n \times n}$ to $\mathbb R^{n \times n}$.
+  By Lemma~\ref{lemma:2-10}, we know that $f'(X) Y = -X^{-1} YX^{-1}$ and $Y \in \mathbb R^{n \times n}$.
+  By the Newton process the following iteration follows:
+  \[ f'(x^{(k)}) X^{(k + 1)} = f'(X^{(k)}) X^{(k)} - f(X^{(k)}) \]
+  and therefore
+  \[ -(X^{(k)})^{-1} X^{(k+1)} (X^{(k)})^{-1} = -(X^{(k)})^{-1} X^{(k)} (X^{(k)})^{-1} - (X^{(k)})^{-1} + A \]
+  and accordingly,
+  \[ X^{(k+1)} = 2X^{(k)} - X^{(k)} AX^{(k)} = X^{(k)}\left(2I - AX^{(k)}\right) \]
+  Compare with the scalar case for the reciprocal $x^{(k+1)} = x^{(k)}(2 - ax^{(k)})$.
+  By identity
+  \[ x^{(k+1)} - z = 2x^{(k)} - X^{(k)} AX^{(k)} - Z = -(X^{(k)} - Z) A (X^{(k)} - Z) \]
+  we get the error estimate
+  \[ \Norm{X^{(k+1)} - Z} \leq \Norm{A} \cdot \Norm{x^{(k)} - Z}^2 \]
+  Then we can define the domain of convergence for quadratic convergence:
+  \[ \SetDef{X \in \mathbb R^{n \times n}}{\Norm{X - Z} < 1} \]
+\end{example}
+
+\paragraph{Simplified and stabilized Newton process}
+
+Stabilized Newton process is usually implemented by Line Search and thus Line Search might be a better keyword for it.
+
+Analogous to the scalar case.
+Motivation: By defining $(f'(c))^{-1}$ in a point $c \in \mathbb R^n$ we can solve a linear equation system with the same matrix in every Newton step.
+
+By inserting of a stabilization parameter, we can enhance the domain of convergence (\enquote{globalization}).
+In the simplified Newton process, we choose $c \approx z$ and iterate $f'(c)(x^{(k+1)} - x^{(k)}) = -f(x^{(k)})$ and $k = 0, 1, 2$.
+For example, $c = x^{(0)}$.
+\begin{description}
+  \item[Advantage] We only need to compute the LU decomposition of $f'(c) = LU$
+    and solve the resulting linear equation system by forward/backward substitution.
+  \item[Disadvantage] The process can only converge linearly. The convergence can be analyzed as $x^{(k+1)} = x^{(k)} - f'(c)^{-1} f(x^{(k)})$ by application of Banach's Fixed Point Theorem.
+\end{description}
+In practice, we compute the contraction factor by
+\[ q^{(k)} = \frac{x^{(k+1)} - x^{(k)}}{\Norm{x^{(k)} - x^{(k-1)}}} \qquad k = 1, 2, \dots \]
+
+If $q^{(k)} \approx 1$, and accordingly $q^{(k)} \geq 1$, then no convergence is given.
+\begin{itemize}
+  \item Choose a better initial value $x^{(0)}$
+  \item Choose a better approximation $f'(c)$ for $f'(z)$
+  \item Modify the simplified Newton process such that for all $l$ steps a new computation of $f'(c)$ happens
+\end{itemize}
+
+In the stabilized Newton process we modify the Newton iteration according $x^{(k+1)} = x^{(k)} - \lambda_k f'(x^{(k)})^{-1} f(x^{(k)})$ with a stabilization factor $\lambda \in (0, 1]$.
+
+Strategy for the beginning of iteration $\lambda \ll 1$ to enhance the convergence domain.
+Thus the process only converges with linear order.
+If for $k \to \infty$ also $\lambda_k \to 1$, we can achieve quadratic convergence.
 
 \printindex
 

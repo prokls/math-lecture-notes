@@ -2245,7 +2245,7 @@ $\mu(A) = 0 \implies A \text{ is a } \nu\text{-zero set}$.
 \end{remark}
 
 \begin{definition}
-  $\nu \ll \mu$ ($\nu$ absolutely continuous w.r.t. $\mu$) if every $\mu$-zero set is alse a $\nu$-zero set.
+  $\nu \ll \mu$ ($\nu$ absolutely continuous w.r.t. $\mu$) if every $\mu$-zero set is also a $\nu$-zero set.
 \end{definition}
 
 \begin{theorem}[Radon-Nikodyn]
@@ -2444,6 +2444,150 @@ $L^p$ convergence:
   \[ f \sim g \iff \mu[f \neq g] = 0, \text{ so } f = g \, \mu\text{-almost-everywhere} \]
 \end{definition}
 
+\dateref{2019/01/17}
+
+\begin{definition}
+  Let $(X, \mathcal A, \mu)$. Consider $f, g: (X, \mathcal A) \to (\overline R, \mathcal B_{\overline R})$.
+  $f \sim g :\iff \mu[f \neq g] = 0$. $f = g$ $\mu$-almost-everywhere.
+\end{definition}
+
+\[ 1 \leq p < \infty: L^p(X, \mu) = \SetDef{f: X \to \overline{\mathbb R}}{\int \Abs{f}^p \, d\mu < \infty} / \sim \]
+Equivalence classes: $\mu$-almost-everywhere equal functions.
+
+\[ \Norm{f}_\infty = \operatorname{ess\,sup} \Abs{f} = \inf\SetDef{\sup_A \Abs{f}}{\mu(A^C) = 0} \]
+\[ L^\infty(X, \mu) = \SetDef{f: X \to \overline{\mathbb R} \text{ measurable}}{\Norm{f}_\infty < \infty}/\sim \]
+
+Side remark: $\Norm{f}_p = 0 \iff f \equiv 0 \qquad \mu\text{-almost everywhere } (1 \leq p \leq \infty)$
+\[ \Norm{f}_p = \left(\int_X \Abs{f}^p \, d\mu\right)^{\frac1p} \]
+
+Immediate: $\Norm{f + g}_\infty \leq \Norm{f}_\infty + \Norm{g}_\infty$.
+
+\begin{theorem}[H\"older's inequality]
+  $1 < p < \infty$. $q: \frac1p + \frac1q = 1$ (conjugated exponent).
+  $f, g: X \to \mathbb R$ measurable, $f, g$ integrable.
+  \[ \Abs{\int f\cdot g \, d\mu} \leq \int \Abs{f \cdot g} \, d\mu \leq \Norm{f}_p \Norm{g}_q \]
+\end{theorem}
+
+\begin{Remark}
+  For $a, b > 0$, $a^{\frac1p} b^{\frac1q} \leq \frac1p a + \frac1q b$.
+  Why? $\frac1p = t \in (0, 1)$. $\frac1q = 1 - t$
+  \[ a = e^x \qquad b = e^y \]
+  \[ a^{\frac1p} b^{\frac1q} = e^{tx + (1 - t)y} \]
+  $e^x$ is convex.
+
+  $X = \Set{1, \dots, d}$. $\mu(\Set{k}) = 1$. $f: X \to \mathbb R \iff (f(1), f(2), \dots, f(d))$.
+  \[ \Norm{f}_p = \left(\sum_{k=1}^d f(k)^p\right)^{\frac1p} \]
+  \[ \Norm{f}_\infty = \max\Set{\Abs{f(1)}, \dots, \Abs{f(d)}} \]
+  \[ L^p(X, \mu) = (\mathbb R^d, \Norm{\cdot}_p) \]
+\end{Remark}
+
+\begin{proof}
+  If $\Norm{f}_p \in \Set{0, \infty}$ or $\Norm{g}_q \in \Set{0, \infty}$, then immediate.
+
+  Without loss of generality: $0 < \Norm{f}_p, \Norm{g}_q < \infty$.
+  Let $F = \frac{\Abs{f}}{\Norm{f}_p}$ and $G = \frac{\Abs{g}}{\Abs{g}_q}$.
+  $\Norm{F}_p = \Norm{G}_q = 1$.
+
+  \[ FG = (F^p)^{\frac1p} (G^q)^{\frac1q} \leq \frac1p F^p + \frac1q G^q \]
+  \[ \int FG \, d\mu \leq \frac1p \underbrace{\int F^p \, d\mu}_{= 1} + \frac1q \underbrace{\int G^q \, d\mu}_{= 1} = 1 \]
+  \[ \implies \int \frac{\Abs{f}}{\Norm{f}_p} \cdot \frac{\Abs{g}}{\Norm{g}_q} \, d\mu \leq 1 \]
+\end{proof}
+
+\begin{theorem}[Minkowski inequality]
+  $1 < p < \infty$, $\frac1p + \frac1q = 1$.
+  \[ \Norm{f + g}_p \leq \Norm{f}_p + \Norm{g}_p \]
+\end{theorem}
+\begin{proof}
+  \[ \Norm{f + g}_p^p = \int \Abs{f + g}^p \, d\mu \leq \int \Abs{f} \cdot \Abs{f + g}^{p - 1} \, d\mu + \int \Abs{g} \Abs{f + g}^{p - 1} \, d\mu \]
+  \[ \overset{\text{H\"older ineq.}}{\leq} \left(\Norm{f}_p + \Norm{g}_p\right) \left(\int \Abs{f + g}^{(p - 1)q} \, d\mu\right)^{\frac1q} \]
+\end{proof}
+
+\begin{Remark}
+  \[ \frac pq + 1 = p \qquad (p - 1) q = p \qquad p - \frac pq = 1 \]
+  \[ \left(\dots\right)^{\frac1q} = \left(\int \Abs{f + g}^p \, d\mu\right)^{\frac1p \frac pq} = \Norm{f + g}_p^{\frac pq} \]
+  Without loss of generality $\notin \Set{0, \infty}$.
+  \[ \Norm{f + g}_p^{p - \frac pq} \leq \Norm{f}_p + \Norm{g}_p \]
+\end{Remark}
+
+
+
+
+
+
+
+\begin{definition}[Convergence in the $p$-th mean]
+  $f_n \to f$ in $L^p$ (in p-th mean) if $\Norm{f_n - f}_p \to 0$.
+\end{definition}
+
+\begin{lemma}
+  $1 \leq p < \infty$. If $f_n \geq 0$,
+  \[ \Norm{\sum_{n=0}^\infty f_n}_p \leq \sum_{n=0}^\infty \Norm{f_n}_p \]
+\end{lemma}
+
+\begin{proof}
+  \[ \Norm{\sum_{n=0}^N f_n}_p \leq \sum_{n=0}^N \Norm{f_n}_p \leq \sum_{n=0}^N \Norm{f_n}_p \]
+  \[ \Norm{\sum_{n=0}^N f_n}_p^A = \int\left(\sum_{n=0}^N f_n \right) \, d\mu \nearrow_{N \to \infty} \int \left(\sum_{n=0}^\infty f_n\right)^p \, d\mu \]
+\end{proof}
+
+\begin{theorem}
+  \begin{enumerate}
+    \item $\sum_{n=0}^\infty \Norm{g_n}^p < \infty \implies \exists g \in L_p(X, \mu): \sum_{n=0}^N g_n \xrightarrow{N \to \infty} g \: \mu$-almost everywhere and in $L^p$.
+    \item $(f_n)_{n \geq 0}$ Cauchy sequence in $L^p(X, \mu)$ then $\exists f \in L^p(X, \mu)$ is a subsequence $f_{n_k}$ such that $f_n \to f$ is $\mu$-almost everywhere and $f_n \to f$ in $L^p(X, \mu)$. $\Norm{f_n - f}_p \to 0$.
+    \item $f_n \to f$ in $L^p \implies \exists f_{n_k} \to f \: \mu$-almost everywhere.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  $1 \leq p < \infty$
+  \begin{enumerate}
+    \item $\sum_{n=0}^N \Abs{g_n} \nearrow \varphi: X \to [0, \infty]$ measurable.
+      \[ \Norm{q}_p \leq \sum_{n=0}^\infty \Norm{g_n}_p < \infty \]
+      \[ \implies \varphi = \sum_{n=0}^\infty \Abs{g_n} < \infty \: \mu\text{-almost everywhere} \]
+      so, $\sum_{n=0}^\infty g_n$ $\mu$-almost everywhere (pointwise) absolute convergent; thus convergent.
+      \[ \exists g: \sum_{n=0}^N g_n \to_{N \to \infty} g \: \mu-\text{almost everywhere} \]
+      \[ \Abs{\sum_{n=0}^{\infty} g_n} \leq \sum_{n = 0}^\infty \Abs{g_n} = \varphi \]
+      \[ \Norm{g}_p \leq \Norm{\varphi}_p < \infty \]
+      $g \in L_p$. If you think this through,
+      \[ \Norm{\sum_{n=0}^N g_n - g}_p \to 0 \]
+    \item $k \in \mathbb N_0$:
+      \[ \exists n_k: \forall m, n \geq n_k: \Norm{f_n - f_m}_p < \frac{1}{2^k} \]
+      Without loss of generality: $n_{k+1} > n_k$
+      \[ \sum_{k=0}^{\infty} \underbrace{\Abs{f_{n_{k+1}} - f_{n_k}}}_{g_k} < 2 < \infty \]
+      \[ \exists g \in L^p \implies \underbrace{\sum_{k=0}^{K-1} g_k}_{f_{n_k} - f_0} \to_{k \to \infty} g \: \mu\text{-almost everywhere and in } L^p \]
+      \[ \implies f_{n_k} \to f = g + f_{n_0} \: \mu\text{-almost-everywhere and in } L^p \]
+      \[ \Norm{f_n - f}_p < \underbrace{\Norm{f_n - f_{n_k}}_p}_{< \varepsilon} + \underbrace{\Norm{f_{n_k} - f}_p}_{< \varepsilon} < \varepsilon \]
+      For $n$ sufficiently large.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  \[ S(X, \mu) = \Set{s: X \to \mathbb R \text{ simple, measurable and } \mu[s \neq 0] < \infty} \subset L^p(X, \mu) \text{, dense} \]
+\end{theorem}
+\begin{proof}
+  \[ s \in S: s = \sum_{k = 1}^n c_k \overbrace{\mathbf 1_{A_k}}^{\in L^p}, c_k \neq 0, \mu(A_k) < \infty \]
+  \[ \Norm{\mathbf 1_A}_p = \mu(A)^{\frac1p} < \infty \implies s \in L^p \]
+  \[ f \in L^p, f \geq 0 \qquad \infty > \Norm{f}_p^p \geq \int_{[f \geq \frac1n] = A_n} f^p \, d\mu \geq \frac 1n \mu(A_n) \]
+  \[ \mu(A_n) < \infty \qquad A_n \subset A_{n+1} \nearrow [f > 0] = A \]
+  \[ \exists (t_n) \text{ simple functions: } t_n \nearrow f \]
+  \[ s_n = t_n \cdot \mathbf{1}_{A_n} \nearrow f \cdot \mathbf{1_A} = f \qquad s_1 \in S(X, \mu) \]
+  \[ 0 \leq f - s_n \leq f \qquad \Norm{f - s_1}^p_p \leq \Norm{f}^p_p < \infty \]
+  We can apply dominated convergence: $\Norm{f - s_n}_p \to 0$.
+\end{proof}
+
+\begin{theorem}
+  $L^\infty(X, \mu)$ is complete.
+\end{theorem}
+\begin{proof}
+  Let $(f_n)$ be a Cauchy sequence in $L^\infty$.
+  \[ \forall k \in \mathbb N \exists N_k: \forall m, n \geq N_k: \Norm{f_n - f_m}_\infty < \frac1k \]
+  \[ \implies \exists A_{n,m,k}: \mu(A^C_{n, m, k}) = 0 \text{ and } \Abs{f_n - f_m} < \frac{1}{k} \text{ on } A_{n,m,k} \]
+  \[ A^C = \bigcup_k \bigcup_{m,n\geq N_k} A_{m,n,k} \qquad \mu(A^C) = 0 \]
+  for $x \in A = \bigcap_k \bigcap_{m,n \geq N(k)} A_{m, n, k}$:
+  \[ \forall k \forall m,n \geq N(k): \Abs{f_n(k) - f_m(x)} < \frac1k \]
+  \[ (f_n(x))_{n \in \mathbb N} \text{ Cauchy sequence } \implies f(x) = \lim_{n \to \infty} f_n(x) \]
+  \[ f(x) \coloneqq 0 \qquad x \in A^C: f_n \to f \: \mu\text{-almost everywhere } (\text{on } A^C) \]
+  Think about: $\Norm{f_n - f}_\infty \to 0$
+\end{proof}
 
 \printindex
 \end{document}
