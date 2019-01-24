@@ -3335,18 +3335,18 @@ and for the fixed point $s = F(s)$ we have $f(s) = 0$.
 
 \dateref{2019/01/15}
 
-\paragraph{Two variants of the Newton process}
+\paragraph{Two variants of the Newton method}
 
-\index{Stabilized Newton process}
+\index{Stabilized Newton method}
 
 \begin{itemize}
-  \item The simplified Newton process
+  \item The simplified Newton method
     \[ x^{(k+1)} = x^{(k)} = \frac{f(x^{(k)})}{f'(x^{(0)})} \qquad k = 0, 1, 2, \dots \]
     Because the first derivatives do not change in the last iteration steps, this process is usefuv for \enquote{good} initial values $x^{(0)}$.
 
     The disadvantage is that the convergence order is only $p = 1$,
     but often with small error constant $k$.
-  \item The \emph{stabilized} Newton process
+  \item The \emph{stabilized} Newton method
     \[ x^{(k+1)} = x^{(k)} - \lambda_k \frac{f(x^{(k)})}{f'(x^{(k)})} \qquad k = 0, 1, 2, \dots \]
     avoids convergence issues by division by 2 of $\lambda_k$ until $\Abs{f(x^{(k+1)})} < \Abs{f(x^{(k)})}$.
 \end{itemize}
@@ -3373,7 +3373,7 @@ For well-definiteness of the iteration we require $f(x^{(k)}) \neq f(x^{(k-1)})$
   Refer to the book by Schwarz
 \end{proof}
 
-\subsection{The Newton process in $\mathbb R^n$}
+\subsection{The Newton method in $\mathbb R^n$}
 
 Again, we consider systems of non-linear equations $f(x) = 0$,
 where $f: \mathbb R^n \to \mathbb R^n$ is a continuously differentiable function with specific, additional properties.
@@ -3398,7 +3398,7 @@ Recognize: Avoid explicit computation of inverse $f'(x^{(k)})^{-1}$ and instead 
   A set $M \subset \mathbb R^n$ is called \emph{convex} if for $x, y \in M$ it is true that $z = \lambda x + (1 - \lambda) y \in M$ for all $\lambda \in [0, 1]$.
 \end{definition}
 
-\paragraph{Convergence of the Newton process}
+\paragraph{Convergence of the Newton method}
 
 \begin{theorem}[Newton-Kantorovic]
   \label{theorem:6-11}
@@ -3497,12 +3497,12 @@ Furthermore the existence of a root follows from the following theorem:
 \begin{corollary}
   \label{corollary:6-12}
   Let $D \subset \mathbb R^n$ be open, convex and at most two times differentiable.
-  Let $z \in D$ be a root with regular Jacobian matrix $f'(z)$. Then the Newton process is locally convergent, hence there exists some neighborhood $B$ at $z$ such that the Newton process converges to $z \forall x^{(0)} \in B$.
+  Let $z \in D$ be a root with regular Jacobian matrix $f'(z)$. Then the Newton method is locally convergent, hence there exists some neighborhood $B$ at $z$ such that the Newton method converges to $z \forall x^{(0)} \in B$.
 \end{corollary}
 
 \dateref{2019/01/17}
 
-\begin{example}[Newton process to compute the inverse]
+\begin{example}[Newton method to compute the inverse]
   To determine the inverse $Z = A^{-1}$ of an invertible matrix $A \in \mathbb R^{n \times n}$ we consider:
   \[ f(x) \coloneqq X^{-1} - A \]
   for $X$ regular. First, determine a neighborhood $A$ such that $f(\cdot)$ is well-defined and differentiable.
@@ -3515,7 +3515,7 @@ Furthermore the existence of a root follows from the following theorem:
 
   We determine $f'(\cdot)$ of $f(\cdot)$ as map of $\mathbb R^{n \times n}$ to $\mathbb R^{n \times n}$.
   By Lemma~\ref{lemma:2-10}, we know that $f'(X) Y = -X^{-1} YX^{-1}$ and $Y \in \mathbb R^{n \times n}$.
-  By the Newton process the following iteration follows:
+  By the Newton method the following iteration follows:
   \[ f'(x^{(k)}) X^{(k + 1)} = f'(X^{(k)}) X^{(k)} - f(X^{(k)}) \]
   and therefore
   \[ -(X^{(k)})^{-1} X^{(k+1)} (X^{(k)})^{-1} = -(X^{(k)})^{-1} X^{(k)} (X^{(k)})^{-1} - (X^{(k)})^{-1} + A \]
@@ -3530,15 +3530,15 @@ Furthermore the existence of a root follows from the following theorem:
   \[ \SetDef{X \in \mathbb R^{n \times n}}{\Norm{X - Z} < 1} \]
 \end{example}
 
-\paragraph{Simplified and stabilized Newton process}
+\paragraph{Simplified and stabilized Newton method}
 
-Stabilized Newton process is usually implemented by Line Search and thus Line Search might be a better keyword for it.
+Stabilized Newton method is usually implemented by Line Search and thus Line Search might be a better keyword for it.
 
 Analogous to the scalar case.
 Motivation: By defining $(f'(c))^{-1}$ in a point $c \in \mathbb R^n$ we can solve a linear equation system with the same matrix in every Newton step.
 
 By inserting of a stabilization parameter, we can enhance the domain of convergence (\enquote{globalization}).
-In the simplified Newton process, we choose $c \approx z$ and iterate $f'(c)(x^{(k+1)} - x^{(k)}) = -f(x^{(k)})$ and $k = 0, 1, 2$.
+In the simplified Newton method, we choose $c \approx z$ and iterate $f'(c)(x^{(k+1)} - x^{(k)}) = -f(x^{(k)})$ and $k = 0, 1, 2$.
 For example, $c = x^{(0)}$.
 \begin{description}
   \item[Advantage] We only need to compute the LU decomposition of $f'(c) = LU$
@@ -3552,14 +3552,159 @@ If $q^{(k)} \approx 1$, and accordingly $q^{(k)} \geq 1$, then no convergence is
 \begin{itemize}
   \item Choose a better initial value $x^{(0)}$
   \item Choose a better approximation $f'(c)$ for $f'(z)$
-  \item Modify the simplified Newton process such that for all $l$ steps a new computation of $f'(c)$ happens
+  \item Modify the simplified Newton method such that for all $l$ steps a new computation of $f'(c)$ happens
 \end{itemize}
 
-In the stabilized Newton process we modify the Newton iteration according $x^{(k+1)} = x^{(k)} - \lambda_k f'(x^{(k)})^{-1} f(x^{(k)})$ with a stabilization factor $\lambda \in (0, 1]$.
+In the stabilized Newton method we modify the Newton iteration according $x^{(k+1)} = x^{(k)} - \lambda_k f'(x^{(k)})^{-1} f(x^{(k)})$ with a stabilization factor $\lambda \in (0, 1]$.
 
 Strategy for the beginning of iteration $\lambda \ll 1$ to enhance the convergence domain.
 Thus the process only converges with linear order.
 If for $k \to \infty$ also $\lambda_k \to 1$, we can achieve quadratic convergence.
+
+\dateref{2019/01/22}
+
+\[ \Norm{X^{(k+1)} - Z} \leq \Norm{A} \Norm{X^{(k)} - Z}^2 \]
+\[ \SetDef{X \in \mathbb R^{n \times n}}{\Norm{X - Z} < \Norm{A}^{-1}} \]
+\[ x^{(k+1)} = a (x^{(k)})^2, \qquad a = 2, x^{(0)} = \frac12 \to x^{(k)} = \frac12 \forall k \]
+\begin{align*}
+  \Norm{X^{(k+1)} - Z} &\leq \Norm{A} \Norm{X^{(k)} - Z}^2 \leq \Norm{A} \left(\Norm{A} \Norm{X^{(k-1)} - Z}^2\right)^2 \\
+    &= \Norm{A}^3 \Norm{X^{(k-1)} - Z}^4 \leq \dots \leq \Norm{A}^{2^{k+1} - 1} \Norm{x^{(0)} - z}^{2^{k+1}} \\
+    &= \Norm{X^{(0)} - Z} \left(\underbrace{\Norm{A} \Norm{X^{(0)} - Z}}_{< 1}\right)^{2^{(k+1)} - 1}
+\end{align*}
+
+In practice, the stabilization factor is determined by the so-called Line-Search strategy.
+
+\begin{algorithm}[Newton method with Line Search]
+  \emph{Input:} initial value $x^{(0)} \in \mathbb R^n$, $\sigma \in (0, 1)$
+  \begin{enumerate}
+    \item for $k = 0, 1, 2, \dots$
+    \begin{enumerate}
+      \item Solve $f'(x^{(k)}) w^{(k)} = -f(x^{(k)})$
+      \item Let $\lambda = 1$
+      \item Determine $x^{(k+1)} = x^{(k)} + \lambda w^{(k)}$
+      \item while $\Norm{f(x^{(k+1)})} \geq \Norm{f(x^{(k)})}$ (\enquote{standard monotonicity test})
+        \begin{enumerate}
+          \item $\lambda \coloneqq \sigma \lambda$
+          \item $x^{(k+1)} = x^{(k)} + \lambda w^{(k)}$
+        \end{enumerate}
+    \end{enumerate}
+  \end{enumerate}
+\end{algorithm}
+
+The Newton method has the following invariance property:
+Let $A \in \mathbb R^{n \times n}$ be an arbitrary, but invertible matrix.
+Then the problem of the solution of $f(x) = 0$ equal to the problem of $g(x) \coloneqq Af(x) = 0$.
+Furthermore the Newton sequence $\Set{x^{(k)}}$ with given $x^{(0)}$ is independent of $A$,
+because
+\[ (g'(x))^{-1} g(x) = (A f'(x))^{-1} A f(x) = f'(x)^{-1} f(x) \]
+Problem $f(x) = 0$ as well as the Newton method are affine-invariant.
+But the previous standard monotonicity test is not affine invariant.
+By multiplication with $A$, the result can be modified.
+
+Instead, use the \emph{natural monotonicity test}:
+\[ \Norm{f'(x^{(k)})^{-1} f(x^{(k+1)})} < \Norm{f'(x^{(k)})^{-1} f(x^{(k)})} \]
+Right-hand side: Newton correction $\triangle x^{(k)}$ \\
+Left-hand side: simplified Newton correction $\overline{\triangle x^{(k+1)}}$
+as solution of the linear equation system $f'(x^{(k)}) \overline{x^{(k+1)}} = -f(^{(k+1)})$.
+
+In shorthand notation we get the natural monotonicity test \dots
+\[ \Norm{\overline{\triangle x^{(k+1)}}} < \Norm{\triangle x^{(k)}} \]
+$\implies$ only an additional linear equation system needs to be solved.
+
+\subsection{Non-linear Least Squares problem and the Newton method}
+
+\dt{Nichtlineare Ausgleichsprobleme und das Gauss-Newton Verfahren}
+
+Consider the non-linear least squares problem $g(x) \coloneqq \Norm{f(x)}_2^2 \to \min$.
+
+We assume that $f: D \subset \mathbb R^n \to \mathbb R^m$ is a two times differentiable function $f \in \mathcal C^2(D)$ on an open set $D$ in $\mathbb R^n$.
+Furthermore let $m \geq n$.
+
+We look for a local minimum $x^* \in D$ of $g$, that suffices for the sufficient conditions $g'(x^*) = 0$ and $g''(x^*)$ positive definite.
+Because $g'(x) = 2f'(x)^T f(x)$, we need to solve the system $G(x) \coloneqq f'(x)^T f(x) = 0$ of $n$ non-linear equations.
+The Newton iteration of this equation system is
+\[ G'(x^{k}) \triangle x^{(k)} = -G(x^{(k)}) \qquad k = 0, 1, 2, \dots \]
+where the Jacobian matrix
+\[ G'(x) = f'(x)^T f'(x) \qquad (''+ (f''(x))^T f(x) '') \]
+under the previous assumptions in a neighborhood of $x^*$ positive definite and thus invertible.
+If $f(x^*) = 0$ (compatible), it follows that $G'(x^*) = f'(x^*)^T f'(x^*)$ and \enquote{$G'(x^*)$ positive definite} is equivalent to \enquote{$f'(x^*)$ has full rank $n$}.
+For (almost) compatible nonlinear least squares problems, we want to avoid computation and evaluation of tensor $f''(x)$.
+
+Hence, replace the Jacobian matrix $G'(x)$ in the Newton iteration by $f'(x)^T f'(x)$ and we get the iteration $f'(x^{(k)})^T f'(x^{(k)}) \triangle x^{(k)} = -f'(x^{(k)})^T f(x^{(k)})$.
+These are the normal equations for the least squares problem
+\[ \Norm{f'(x^{(k)}) \triangle x + f(x^{(k)})}_2 \to \min \]
+By using the pseudo inverse, we get the formal representation of the Gauss-Newton process
+\[ \triangle x^{(k)} = -f'(x^{(k)})^T f(x^{(k)}) = -(f'(x^{(k)})^T f'(x^{(k)}))^{-1} f'(x^{(k)})^T f(x^{(k)}) \]
+with $x^{(k+1)} = x^{(k)} + \triangle x^{(k)}$.
+This is a numeric solution of a non-linear Gaussian least squares problems by numeric solution of a sequence of linear Gaussian least squares problems.
+
+\begin{theorem}
+  \label{theorem:6-14}
+  Let $D \subset \mathbb R^n$ open, convex and let $f: D \to \mathbb R^m$ with $m \geq n$ be a continuously differentiable map.
+  Assume the Jacobian matrix $f'(x)$ for all $x \in D$ has full rank $n$. Let $x^* \in D$ be a solution of the corresponding nonlinear least squares problem $\Norm{f(x)}_2 \to \min$.
+  Furthermore let $w > 0$ and $0 \leq k_* < 1$ be constants such that
+  \[ \Norm{f'(x)^T (f'(x + sv) - f'(x))_v} \leq sw \Norm{v}^2 \]
+  for all $s \in [0, 1], x \in D$ and $v \in \mathbb R^n$ with $x + v \in D$ and
+  \[ \Norm{f'(x)^T f(x^*)} \leq k_* \Norm{x - x^*} \]
+  for all $x \in D$. If a given inital value $x^{(0)} \in D$ satisfies
+  \[ g = \Norm{x^(0) - x^*} < \frac{2 (1 - kx)}{w} \]
+  and $B_g(x^*) \subseteq D$, then the sequence $\Set{x^{(k)}}$ resulting by the Gauss-Newton method retains within an open sphere $B^g(x^*)$ and converges to $x^*$, thus
+  \[ \Norm{x^{(k)} - x^*} < \rho \text{ for } k > 0 \text{ and } \lim_{k \to \infty} x^{(k)} = x^* \]
+  For the convergence speed, we have
+  \[ \Norm{x^{(k+1)} - x^*} \leq \frac w2 \Norm{x^{(k)} - x^*}^2 + k_* \Norm{x^{(k)} - x^*} \]
+  Especially we retrieve quadratic convergence for compatible least squares problems.
+\end{theorem}
+
+\begin{proof}
+  As in proof~\ref{theorem:6-11} (Newton-Kantorovic), we can show that for all $x, y \in D$, we have
+  \[ f(y) - f(x) - f'(x) (y - x) = \inf_{s=0}^1 (f'(x + s(y - x)) - f'(x)) (y - x) \, ds \]
+  By the marginal value condition at $f'(x)$ for all $x \in D$, it follows that
+  \[ f'(x)^T f'(x) = I_n \]
+  Therefore, we first get
+  \begin{align*}
+    \Norm{f'(x)^T (f(y) - f(x) - f'(x) (y - x))}
+      &= \Norm{\int_0^1 f'(x)^T (f'(x + s(y - x)) - f'(x))(y - x) \, ds} \\
+      &\leq \int_0^1 sw \Norm{y - x}^2 \, ds = \frac w2 \Norm{y - x}^2
+  \end{align*}
+  for all $x, y \in D$. Thus, we get
+  \begin{align*}
+    x^{(k+1)} - x^*
+      &\overbrace{=}^{\text{Gauss-Newton}} x^{(k)} - x^* - f'(x^{(k)})^T f(x^{(k)}) \\
+      &= f'(x^{(k)})^T \left(f(x^*) - f(x^{(k)}) - f'(x^{(k)}) (x^* TODO\right) - f'(x^{(k)})^T f(x^*)
+  \end{align*}
+
+  With the given prerequisites, we have
+  \[ \Norm{x^{(k+1)} - x^*} \leq \left(\frac w2 \Norm{x^{(k)} - x*} + k_*\right) \Norm{x^{(k)} - x^*} \]
+  In combination with the initial value $x^{(0)}$ and induction over $k$, we have
+  \[ \Norm{x^{(k+1)} - x^*} < \Norm{x^{(k)} - x^*} \leq \rho \]
+  The sequence of iterands thus retains inside of $B_\rho(x^*)$ and converges to solution $x^*$.
+  For compatible linear squares problems with $f(x^*) = 0$, we can especially choose $k_* = 0$ and get quadratic convergence.
+\end{proof}
+
+\begin{Remark}
+  The quantity $k_*$ results by neglection of the tensor $f''(x)$ in the derivation of the Gauss-Newton iteration.
+\end{Remark}
+
+\section{Iterative solution of linear equation system}
+\label{ch:7}
+\subsection{Splitting method}
+\label{sec:7-1}
+
+\emph{Motivation:} Consider the linear equation system
+\[ \begin{bmatrix} 15 & 0 & -1 \\ 13 & 16 & 1 \\ 1 & 0 & 24 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 44 \\ 34 \\ 27 \end{bmatrix} \]
+By pivot steps, we get
+\[ \begin{bmatrix} 15 & 0 & -1 \\ 0 & 16 & 1 + \frac{1}{45} \\ 0 & 0 & 24 + \frac{1}{15} \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 44 \\ 34 - \frac{44}{45} \\ 27 - \frac{44}{15} \end{bmatrix} \]
+By backwards substitution we get the exact solution $x_1 = 3, x_2 = 2$ and $x_3 = 1$.
+
+\emph{Idea:} Consider the simplified linear equation system
+\[ \begin{bmatrix} 15 & 0 & 0 \\ 0 & 16 & 0 \\ 0 & 0 & 24 \end{bmatrix} \begin{bmatrix} \tilde x_1 & \tilde x_2 & \tilde x_3 \end{bmatrix} = \begin{bmatrix} 44 \\ 34 \\ 27 \end{bmatrix} \]
+Thus we get the solution $\tilde x_1 = \frac{44}{15}, \tilde x_2 = \frac{34}{16}$ and $\tilde x_3 = \frac{27}{24}$.
+\[ A(\tilde x + \triangle x) = b \implies A \triangle x = b - A \tilde x = r \qquad \text{ (residue)} \]
+By repeated simplification of $A$ we can evaluate an approximation at $\triangle x$ by
+\[ \begin{bmatrix} 15 & 0 & 0 \\ 0 & 16 & 0 \\ 0 & 0 & 24 \end{bmatrix} \begin{bmatrix} \triangle \tilde x_1 \\ \triangle x_2 \\ \triangle x_3 \end{bmatrix} = r = b - A \cdot \triangle x \dots = \begin{bmatrix} \frac{27}{24} \\ -\frac{44}{43} - \frac{27}{34} \\ -\frac{44}{15} \end{bmatrix} \]
+\[ \implies \tilde x + \triangle \triangle x \approx [3.0083, 1.9936, 1.0028]^T \]
+
+Question: Why/when does it converge?
 
 \printindex
 
