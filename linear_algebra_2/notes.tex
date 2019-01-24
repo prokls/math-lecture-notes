@@ -8324,7 +8324,7 @@ This is used by the Courant--Fischer--Weyl min--max principle.
 
     Choose initial vector $x_0$ with $\norm{x_0} = 1$.
     \[ w_{k+1} = Ax_k \qquad x_{k+1} = \frac{w_{k+1}}{\norm{w_{k+1}}} \qquad \implies \forall n: \norm{x_n} = 1 \]
-    Thus we bounded all the points lie inside the unit sphere.
+    Thus we achieved that all the points lie inside the unit sphere.
     By the Heine-Borel Theorem, a sequence in a bounded and closed (thus compact) space has a convergent subsequence.
 
     \begin{claim}
@@ -8345,10 +8345,10 @@ This is used by the Courant--Fischer--Weyl min--max principle.
     \end{align*}
   \end{description}
 
-  \[ \card{\lambda_i} > \card{\lambda_i} \forall i \geq 2 \]
+  \[ \card{\lambda_i} > \card{\lambda_1} \forall i \geq 2 \]
   \[ \to \frac{\card{\lambda_i}}{\card{\lambda_1}} < 1 \]
   The smaller $\frac{\card{\lambda_2}}{\card{\lambda_1}}$ is, the faster it converges.
-  \[ \left(\frac{\card{\lambda_i}}{\card{\lambda_i}}\right)^k \xrightarrow{k \to \infty} 0 \]
+  \[ \left(\frac{\card{\lambda_1}}{\card{\lambda_i}}\right)^k \xrightarrow{k \to \infty} 0 \]
 
   \index{Spectral gap}
   $\card{\lambda_1} - \card{\lambda_2}$ is called \emph{spectral gap}.
