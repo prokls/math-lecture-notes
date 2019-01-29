@@ -3706,6 +3706,330 @@ By repeated simplification of $A$ we can evaluate an approximation at $\triangle
 
 Question: Why/when does it converge?
 
+\dateref{2019/01/24}
+
+Direct approaches like LU decomposition compute after finitely many steps an \enquote{exact} solution of the problem (up to rounding errors).
+
+Iterative approaches build a sequence $\Set{x^{(k)}}$ of approximations converging to an exact solution.
+
+\emph{Motivation:} Let $A \in \mathbb R^{n\times n}$ and $n \sim 10^6, 10^7, \dots$.
+In the following, we consider a decomposition like $A = M - N$.
+Instead of $Ax = b$ we can also consider $Mx = Nx + b$.
+
+If we are given some initial approximation $x^{(0)}$, we immediately get an iteration $M x^{(k+1)} = N x^{(k)} + b$ with $k = 0, 1, \dots$.
+Especially for invertible $M$, we get $x^{(k+1)} = M^{-1} N x^{(k)} + M^{-1} b$.
+
+A generic stationary iteration process has the form $x^{(k+1)} = G x^{(k)} + c$ mit $G \in \mathbb C^{n \times n}$ and $c \in \mathbb C^{n}$ and some freely chosen $x^{(0)} \in \mathbb C^{n}$. For some fixed point $x^*$ we have:
+\[ x^* = G x^* + c \xRightarrow{\text{in the case above}} x^* = M^{-1} N x^* + M^{-1} b \implies (M - N) x^* = b \]
+
+\emph{Goal:} Investigate the convergence of $\Set{x^{(k)}}$ with respect to the exact solution $x^*$. Consider:
+\begin{align*}
+  x^{(k+1)} - x^* &= Gx^{(k)} + c - (G x^* + c) \\
+    &= G (x^{(k)} - x^*) \\
+    &= \dots = G^{(k+1)} (x^{(0)} - x^*)
+\end{align*}
+Thus,
+\begin{align*}
+  \Norm{x^{(k+1)} - x^*} &= \Norm{G^{k+1}(x^{(0)} - x^*)} \overset{\substack{\text{compatible} \\ \text{matrix norm}}}\leq \Norm{G^{k+1}} \Norm{x^{(0)} - x^*}
+\end{align*}
+
+\begin{lemma}
+  \label{lemma:7-1}
+  Let $G \in \mathbb C^{n \times n}$ be given. The sequence $G^k$ with $k = 0, 1, \dots$ converges to zero if and only if the spectral radius satisfies $\rho(G) < 1$.
+\end{lemma}
+
+\begin{proof}
+  \begin{description}
+    \item[Direction $\implies$]
+      Let $\lim_{k \to \infty} G^k = 0$.
+      Let $\lambda$ be the largest eigenvalue (wrt. absolute value) of $G$ and $v$ is the corresponding eigenvector.
+      Then \[ \Norm{G^k v} = \Norm{\lambda^k v} = \Abs{\lambda}^k \Norm{v} \xrightarrow{k \to \infty} 0 \]
+      \[ \implies \Abs{\lambda} < 1 \text{ and hence } \rho(G) < 1 \]
+    \item[Direction $\impliedby$]
+      Let $\rho(G) < 1$ and consider the Jordan-Normalform $G = X J X^{-1}$ with $J = \operatorname(J_1, \dots, J_r)$.
+      Exponentiation gives $G^k = X J^k X^{-1}$ where $J^k = \operatorname{diag}(J_1^k, \dots, J_r^k)$ and every block $J_i$ has the following form
+      \[ J_i = \lambda_i I + N_i \]
+      with the following nilpotent matrix $N_i$ of index $l_i$, hence $N_i^{l_i} = 0$.
+      For the powers of $J_i$ we get,
+      \begin{align*}
+        J_i^k &= (\lambda_i I + N_i)^k = \sum_{i=0}^k \frac{k!}{j! (k - j)!} \lambda_i^{k-j} N_i^j \\
+          &= \sum_{j=0}^{l_i-1} \frac{k!}{j! (k - j)!} \lambda_i^{k-j} N_i^j & \text{ if } k \geq l_i - 1
+      \end{align*}
+      Using the triangle inequality, we get
+      \[ \Norm{J_i^k} \leq \sum_{j=0}^{l_i-1} \frac{k!}{j! (k - j)!} \Abs{\lambda_i}^{k-j} \Norm{N_i^j} \]
+      For fixed $j$, we have ${k \choose j} = \mathcal O(k^j)$ and because $\Abs{\lambda_i} < 1$, ${k \choose j} \Abs{\lambda_i}^{k - j} \to 0$ follows.
+  \end{description}
+\end{proof}
+
+\begin{Remark}
+  For every compatible matrix norm it holds true that $\rho(G) \leq \Norm{G}$. Thus, $\Norm{G} < 1$ implies convergence of this iteration.
+\end{Remark}
+
+\begin{theorem}
+  \label{theorem:7-2}
+  Let $G \in \mathbb C^{n \times n}$ with $\rho(g) < 1$.
+  Then $(I - G)$ is regular and the iteration $x^{(k+1)} = Gx^{(k)} + c$ converges for all $c, x^{(0)} \in \mathbb C^n$.
+  If $\rho(G) \geq 1$, there exists at least one initial value $x^{(0)}$ for which the iteration does not converge
+  (for example, choose $x^{(0)} = x^* - v$ with $Gv = \lambda v$ and $\Abs{\lambda} \geq 1$).
+\end{theorem}
+
+By using the decomposition $N = M - A$, we also get
+\begin{align*}
+  x^{(k+1)} &= (M^{-1} N) x^{(k)} + M^{-1} b = \underbrace{(I - M^{-1} A)}_{G} x^{(k)} + M^{-1} b
+\end{align*}
+\[ \Norm{G} < 1 \qquad \Norm{M^{-1}} < \frac{1}{\Norm{M - A}} \]
+\[ \Norm{G} \approx 0 \]
+
+We conclude that $M$ can be chosen such that $\Norm{I - M^{-1} A} < 1$ and thus
+\begin{itemize}
+  \item $M^{-1}$ should be an approximation to $A^{-1}$
+  \item the computation of $M^{-1}$ should be comparably \enquote{simple}
+\end{itemize}
+\index{Richardson process}
+The resulting edge cases are $M = I$ and $M = A$.
+The choice $M = I$ leads to the so-called \emph{Richardson process}:
+\[ x^{(k+1)} = (I - A) x^{(k)} + b = x^{(k)} + \underbrace{r^{(k)}}_{b - Ax^{(k)} \text{ residue}} \]
+
+For convergence the matrix must be already \enquote{close to the identity}.
+By choice of an optimal parameter $\alpha$ we get the relaxed Richardson process
+\[ x^{(k+1)} = x^{(k)} + \alpha r^{(k)} \]
+
+Jacobi-process:
+\[ M = D = \operatorname{diag}(a_{11}, \dots, a_{nn}) \qquad N = -(L + R) \]
+where $R$ is an upper right and $L$ a left lower triangular matrix
+
+\dateref{2019/01/29}
+
+\begin{Remark}[Revision]
+  \[ A = M - N \qquad Mx^{(k+1)} = Nx^{(k)} + b \qquad x^{(k+1)} = \underbrace{M^{-1} N}_{G} x^{(k)} + M^{-1} b \]
+  $N = I - A, M = I$: Richardson process
+  \begin{align*}
+    x^{(k+1)} &= I (I - A) x^{(k)} + b = x^{(k)} + (\underbrace{b - Ax^{(k)}}_{r^{(k)}})
+  \end{align*}
+\end{Remark}
+
+\paragraph{Relaxed Richardson process}
+
+For some given parameter $\alpha \in \mathbb C$ we get the relaxed Richardson process:
+\[ x^{(k+1)} = x^{(k)} + \alpha r^{(k)} = (\underbrace{I - \alpha A}_{G_\alpha}) x^{(k)} + \alpha b \]
+
+\begin{lemma}
+  \label{lemma:7-3}
+  Let $A \in \mathbb C^{n \times n}$ with $\sigma(A) \subset \mathbb R$ be given
+  and let $\lambda_{\min} = \min_{\lambda \in \sigma(A)} \lambda$ and $\lambda_{\max} = \max_{\lambda \in \sigma(A)} \lambda$,
+  then $\forall \alpha \in \mathbb R: \sigma(G_\alpha) \subset \mathbb R$ and for all $\alpha \in \mathbb C$
+  \[ \rho(G_\alpha) = \max\Set{\Abs{1 - \alpha \lambda_{\max}}, \Abs{1 - \alpha \lambda_{\min}}} \]
+\end{lemma}
+
+\begin{proof}
+  Because $G_\alpha = I - \alpha A$ all eigenvalues have the form $u = 1 - \alpha \lambda$ with $\lambda \in \sigma(A)$.
+  With $\alpha \in \mathbb R$ and $\sigma(A) \subset \mathbb R$ all eigenvalues $\mu$ of $G_\alpha$ are real.
+  For some given $\alpha \in \mathbb C$ and $a, b \in \mathbb R$ we consider function defined by:
+  \[ p: [a, b] \to \mathbb R \qquad \lambda \mapsto p(\lambda) = \Abs{1 - \alpha \lambda} \]
+  We have
+  \[ \max_{\lambda \in [a, b]} = \max\Set{\Abs{1 - \alpha a}, \Abs{1 - \alpha b}} \]
+  and thus
+  \[ \rho(G_\alpha) = \max_{\lambda \in \sigma(A)} p(\lambda) = \max\Set{\Abs{1 - \alpha \lambda_{\min}}, \Abs{1 - \alpha \lambda_{\max}}} \]
+\end{proof}
+
+\begin{theorem}
+  \label{theorem:7-4}
+  Let $A \in \mathbb C^{n \times n}$ with $\sigma(A) \subset \mathbb R^+$ and $\lambda_{\max} = \max_{\lambda \in \sigma(A)} \lambda$,
+  $\lambda_{\min} = \min_{\lambda \in \sigma(A)} \lambda$, then the Richardson process converges for $\alpha \in \mathbb R$ iff $0 < \alpha < \frac{2}{\lambda_{\max}}$.
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[$\implies$]
+      Let the Richardson process be convergent. Then Lemma~\ref{lemma:7-1} and \ref{lemma:7-3} give
+      \[ 1 > \rho(G_\alpha) \geq \Abs{1 - \alpha \lambda_{\max}} \geq 1 - \alpha \lambda_{\max} \]
+      and therefore $\alpha \lambda_{\max} > 0$. Because $\sigma(A) \subset \mathbb R^+$, we have $\alpha > 0$.
+      Furthermore,
+      \[ -1 < -\rho(G_\alpha) \leq -\Abs{1 - \alpha \lambda_{\max}} \leq 1 - \alpha \lambda_{\max} \]
+      and hence $\alpha \lambda_{\max} < 2$ and $\alpha < \frac{2}{\lambda_{\max}}$ (because $\lambda_{\max} > 0$).
+    \item[$\impliedby$]
+      Let $0 < \alpha < \frac{2}{\lambda_{\max}}$.
+      Because $\sigma(A) \subset \mathbb R^+$ we get
+      \[ -1 < 1 - \alpha \lambda_{\max} \leq 1 - \alpha \lambda_{\min} < 1 \]
+      such that Lemma~\ref{lemma:7-3} follows. $\rho(G_\alpha) < 1$.
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  \label{theorem:7-5}
+  Let $A \in \mathbb C^{n \times n}$ with $\sigma(A) \subset \mathbb R^+$, then the spectral radius will become minimal for
+  \[ \alpha_{\operatorname{opt}} = \frac{2}{\lambda_{\min} + \lambda_{\max}} \]
+  and thus
+  \[ \rho(G_\alpha) = \frac{\lambda_{\max} - \lambda_{\min}}{\lambda_{\max} + \lambda_{\min}} \]
+\end{theorem}
+
+\paragraph{Jacobi process}
+
+In the following $A = L + D + R$ where $L$ is a lower triangular matrix, $R$ an upper triangular matrix and $D$ is a diagonal matrix.
+The aforementioned Jacobi process results from $A = M - N$, $M = D$ and $N = -(L + R)$.
+The corresponding iteration is of form
+\[ D x^{(k + 1)} = b - (L + R)x^{(k)} \]
+This is executable if none of the diagonal entries in $A$ and $D$ disappear.
+
+\begin{algorithm}[Jacobi process]
+  \label{algorithm:7}
+  \emph{Input:} $A, b, x^{(0)}, \varepsilon > 0, k = 0$
+  \begin{enumerate}
+    \item while $\Norm{b - A x^{(k)}}_2 > \varepsilon \Norm{b - Ax^{(0)}}_2$
+      \begin{enumerate}
+        \item for $i = 1, \dots, n$,
+          \[ x^{(k+1)} = \frac{\left(b_i - \sum_{j = 1}^{i - 1} a_{ij} x_j^{(k)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}\right)}{a_{ij}} \]
+        \item $k = k + 1$
+      \end{enumerate}
+    \item Return $x^{(k)}$
+  \end{enumerate}
+\end{algorithm}
+
+\begin{theorem}
+  \label{theorem:7-6}
+  Let $A \in \mathbb C^{n \times n}$ be strictly diagonally dominant.
+  Then the Jacobi process converges.
+\end{theorem}
+
+\begin{proof}
+  Will be done in the practicals.
+\end{proof}
+
+\paragraph{Gauss-Seidel process}
+
+\emph{Idea:} in Algorithm~\ref{algorithm:7} use the updated values $x_j^{(k+1)}$ for $j = 1, \dots, i - 1$ instead of $x_j^{(k)}$.
+Thus this corresponds to the decomposition $A = M - N$, $M = L + D$ and $N = -R$.
+Thus we get $(L + D) x^{(k+1)} = b - Rx^{(k)}$.
+
+\begin{algorithm}[Jacobi process]
+  \emph{Input:} $A, b, x^{(0)}, \varepsilon > 0, k = 0$
+  \begin{enumerate}
+    \item while $\Norm{b - A x^{(k)}}_2 > \varepsilon \Norm{b - Ax^{(0)}}_2$
+      \begin{enumerate}
+        \item for $i = 1, \dots, n$,
+          \[ x^{(k+1)} = \frac{\left(b_i - \sum_{j = 1}^{i - 1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}\right)}{a_{ij}} \]
+        \item $k = k + 1$
+      \end{enumerate}
+    \item Return $x^{(k)}$
+  \end{enumerate}
+  Recognize that $x_j$ has exponent $k+1$.
+\end{algorithm}
+
+\begin{theorem}
+  \label{theorem:7-7}
+  Let $A \in \mathbb C^{n \times n}$ is strictly diagonally dominant.
+  Then the Gauss-Seidel process converges.
+\end{theorem}
+
+\begin{proof}
+  We show, that the spectral radius $\rho(G)$ of the iteration matrix $G = M^{-1} N = -(L + D)^{-1} R$ satisfies $\rho(G) < 1$.
+  Let $(\lambda_i v)$ be an eigenpair of $G$.
+  By scaling, we can assume that $\Abs{v_i} = 1$ and $\Abs{v_j} \leq 1 \forall j \neq i$.
+  With $Gv = \lambda v$ we also have $Gv = -\lambda (L + D) v$.
+  Especially for the i-th row, we have
+  \[ \sum_{j = i + 1}^n a_{ij} v_j = -\lambda (a_{ii} v_i + \sum_{j=1}^{i-1} a_{ij} v_j) \]
+  Thus we get the estimates
+  \begin{align*}
+    \Abs{\lambda} &\leq \frac{\Abs{\sum_{j=i+1}^n a_{ij} v_j}}{\Abs{a_{ii} v_i + \sum_{j=1}^{l-1} a_{ij} v_j}} \\
+      &\leq \frac{\sum_{j=i+1}^n \Abs{a_{ij}} \Abs{v_j}}{\Abs{a_{ii}} - \sum_{j=1}^{i-1} \Abs{a_{ij}} \Abs{v_j}} \\
+    \intertext{because $\Abs{v_j} < 1$ we still have} \\
+    \Abs{\lambda} &\leq \frac{\sum_{j=i+1}^n \Abs{a_{ij}}}{\Abs{a_{ii}} - \sum_{j=1}^{i-1} \Abs{a_{ij}}} \\
+      &= \frac{\sum_{j=i+1}^n \Abs{a_{ij}}}{\sum_{j=i+1}^n \Abs{a_{ij}} + \left(\Abs{a_{ij}} - \sum_{j=1}^{i-1} \Abs{a_{ij}} - \sum_{j=i+1}^n \Abs{a_{ij}}\right)}
+    \intertext{where the parenthesis in the denominator is greater 0 (diagonal dominant)} \\
+      &< 1
+  \end{align*}
+\end{proof}
+
+\paragraph{SOR process}
+
+\enquote{successive over relaxation} process.
+
+The row notation of the Gauss Seidel process can be interpreted as
+\[ x_i^{(k+1)} = x_i^{(k)} + \frac{\left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i}^n a_{ij} x_j^{(k)}\right)}{a_{ii}} \]
+\begin{itemize}
+  \item[$\implies$] We retrieve the new iterand by addition of a correction term.
+  \item[$\implies$] For some given parameter $\omega$, we get the SOR process
+    \[ x_i^{(k+1)} = x_i^{(k)} + \omega \frac{\left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k + 1)} - \sum_{j=i}^n a_{ij} x_j^{(k)}\right)}{a_{ii}} \]
+\end{itemize}
+
+In matrix notation this process corresponds to
+\[ A = M - N \qquad M = \frac{1}{\omega} (D + \omega L) \qquad N = \frac{1}{\omega} D - R - D \]
+
+\emph{Motivation:}
+Under certain conditions the choice of $\omega$ speeds up the Gauss-Seidel process ($\omega = 1$).
+
+\begin{theorem}
+  \label{theorem:7-8}
+  Let $G = \omega(D + \omega L)^{-1} \left(\frac1\omega D - D - R\right)$ be the iteration matrix of the SOR process.
+  Then for all $\omega \in \mathbb R$, we have
+  \[ \rho(G) \geq \Abs{\omega - 1} \]
+\end{theorem}
+
+\begin{proof}
+  Let $\lambda_i$ be the eigenvalues of $G$. Then
+  \begin{align*}
+    \prod_{i=1}^n \lambda_i &= \det(G) \\
+        &= \det((D + \omega L)^{-1} (D - \omega D - \omega R)) \\
+        &= \det((D + \omega L)^{-1} ((1 - \omega) D - \omega R) \\
+  \intertext{determinants of lower/upper triangular matrices}
+        &= \det((D + \omega L)^{-1}) \det((1 - \omega) D - \omega R) \\
+        &= \det(D)^{-1} \det((1 - \omega) D) \\
+        &= \det(D)^{-1} (1 - \omega)^n \det(D) = (1 - \omega)^n
+  \end{align*}
+  Hence,
+  \[ \rho(G) = \max_i \Abs{\lambda i} \geq \Abs{1 - \omega} \]
+\end{proof}
+
+\begin{theorem}
+  \label{theorem:7-9}
+  Let $A \in \mathbb C^{n \times n}$ be Hermitian ($A = A^*$) and positive definite,
+  then the SOR process converges iff $\omega \in (0, 2)$.
+\end{theorem}
+
+\begin{proof}
+  \begin{description}
+    \item[$\implies$] follows by Theorem~\ref{theorem:7-8}
+    \item[$\impliedby$] let $\omega \in (0, 2)$.
+      Let $\lambda$ be an eigenvalue of $G$ corresponding to eigenvector $v \in \mathbb C^n$.
+      Because $A = A^*$ we have $L^* = R$ and therefore (because $Gv = \lambda v$)
+      \[ ((1 - \omega) D - \omega L^*) v = \lambda (D + \omega L) v \]
+      With
+      \[ 2 ((1 - \omega) D - \omega L^*) = (2 - \omega) D + \omega (-D - 2L^*) = (2 - \omega) D - \omega A + \omega (L - L^*) \]
+      and
+      \[ 2 (D + \omega L) = (2 - \omega) D + \omega (D + 2L) = (2 - \omega) D + \omega A + \omega (L - L^*) \]
+      for the eigenvector $v$, we get
+      \begin{align*}
+        \lambda ((2 - \omega) v^* Dv + \omega v^* Av + \omega v^* (L - L^*) v)
+          &= 2 \lambda v^* (D + \omega L) v \\
+          &= 2 v^* ((1 - \omega) D - \omega L^*) v \\
+      \intertext{because $\prod_{i = 1}^n \lambda_i$}
+          &= (2 - \omega) v^* Dv - \omega v^* Av + \omega v^* (L - L^*) v
+      \intertext{because $2 ((1 - \omega) D - \omega L^*) = (2 - \omega) D - \omega A + \omega (L - L^*)$}
+      \end{align*}
+      Furthermore,
+      \[ v^* (L - L^*) v = v^* L v - v^* L^* v = v^* L v - \overline{v^* Lv} = is \qquad s \in \mathbb R \]
+      Because $A$ and $P$ are positive definite,
+      \[ d = v^* D v > 0 \qquad a \coloneqq v^* A v > 0 \]
+      such that
+      \[ \lambda ((2 \omega) d + \omega a + i\omega s) = (2 - \omega) d - \omega a + i\omega s \]
+      by our previous result for eigenvector $v$.
+      Division by $\omega$ and insertion of $\mu = \frac{2 - \omega}{\omega}$ gives
+      \[ \lambda (\mu d + a + is) = \mu d - a + is \]
+      By the assumption $\omega \in (0, 2)$ we get $\mu > 0$, such that the inequality
+      \[ \Abs{\mu d + is - a} < \Abs{\mu d + is + a} \]
+      (because $a_i d > 0$) and the estimate
+      \[ \Abs{\lambda} = \frac{\Abs{\mu d + is - a}}{\Abs{\mu d + is + a}} < 1 \]
+      follow.
+      Because $\lambda$ was arbitrary, $\rho(G) < 1$ follows. This implies convergence.
+  \end{description}
+\end{proof}
+
+\begin{theorem}
+  \label{theorem:7-10}
+  Let $A \in \mathbb C^{n \times n}$ strictly diagonally dominant and $\omega \in (0, 1]$.
+  Then the SOR process converges.
+\end{theorem}
+
 \printindex
 
 \end{document}
