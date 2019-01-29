@@ -1,0 +1,566 @@
+\documentclass{article}
+%\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
+\usepackage[german,english]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{fontspec}
+\usepackage{mdframed}
+\usepackage{pxfonts}
+\usepackage{wasysym}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{makeidx}
+\usepackage{csquotes}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{stmaryrd}
+\usepackage{titlesec}
+\titleformat{\paragraph}{\normalfont\itshape}{}{}{}
+
+\newcounter{lecref}[section]
+\numberwithin{lecref}{section}
+
+\newtheorem{theorem}[lecref]{Theorem}
+\newtheorem*{Theorem}{Theorem}
+\newtheorem{example}[lecref]{Example}
+\newtheorem*{Example}{Example}
+\newtheorem{definition}[lecref]{Definition}
+\newtheorem*{Definition}{Definition}
+\newtheorem{lemma}[lecref]{Lemma}
+\newtheorem*{Lemma}{Lemma}
+\newtheorem{claim}[lecref]{Claim}
+\newtheorem*{Claim}{Claim}
+\newtheorem{remark}[lecref]{Remark}
+\newtheorem*{Remark}{Remark}
+\newtheorem{algorithm}[lecref]{Algorithm}
+\newtheorem*{Algorithm}{Algorithm}
+\newtheorem{corollary}[lecref]{Corollary}
+\newtheorem*{Corollary}{Corollary}
+\newtheorem{proposition}[lecref]{Proposition}
+\newtheorem*{Proposition}{Proposition}
+
+\def\ifempty#1{\def\temp{#1} \ifx\temp\empty }
+
+% useful control sequences for mathematical notation
+\newcommand{\Abs}[1]{\left|#1\right|}
+\newcommand{\Set}[1]{\left\{#1\right\}}
+\newcommand{\SetDef}[2]{\left\{#1\,\mid\,#2\right\}}
+\newcommand{\IP}[2]{\left\langle#1, #2\right\rangle}
+\newcommand{\Norm}[1]{\left\|{\ifempty{#1}\cdot\else#1\fi}\right\|}
+\newcommand{\Max}[1]{\max{\Set{#1}}}
+\newcommand{\Min}[1]{\min{\Set{#1}}}
+\newcommand{\Sup}[1]{\sup{\Set{#1}}}
+\newcommand{\Powerset}[1]{{\mathbb P}(#1)}
+\newcommand{\IntRange}[2]{#1, \dots\ifempty{#2}\else, #2\fi}
+
+\def\vec2#1#2{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\def\vec3#1#2#3{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
+\newcommand{\dotted}[1]{\:\dot{#1}\:}  % dot has too little margin
+
+% German translation
+\newcommand{\dt}[1]{(dt. \enquote{\foreignlanguage{german}{#1}})}
+
+% essential control sequences
+%% \xRightarrow: \xrightarrow for \rightarrow like \xRightarrow for \Rightarrow
+\makeatletter
+\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+\makeatother
+
+% typesetting settings
+\parindent0pt
+\setlength{\parskip}{.6em}
+
+% TODO: span?
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\detm}{det}
+\DeclareMathOperator{\perm}{perm}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\degree}{deg}
+\DeclareMathOperator{\im}{image}
+\DeclareMathOperator{\ke}{kernel}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\prop}{probability}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\vol}{vol}  % volume
+\DeclareMathOperator*{\bigtimes}{\vartimes}
+
+
+
+
+
+\newcommand{\dateref}[1]{%
+  \begin{mdframed}[backgroundcolor=gray!10,innerbottommargin=0pt,innertopmargin=0pt]
+    \paragraph{\textit{$\downarrow$ This lecture took place on #1.}}%
+  \end{mdframed}%
+}
+
+
+% metadata
+\title{
+  Analysis 3: Index of topics \\
+  \large{Lecture notes, University of Graz} \\
+  based on the lecture by Wolfgang Ring
+}
+\date{\today}
+\author{Lukas Prokop}
+
+\begin{document}
+
+\maketitle
+%\tableofcontents
+
+\section*{Chapter 0: Connectedness in topological spaces}
+
+\dateref{2018/10/02}
+
+
+\begin{itemize}
+  \item Define a topology
+  \item Define an open set
+  \item Define connectedness of topological spaces [Definition~1]
+  \item Define a trace (= relative) topology
+  \item Prove: Let $X, Y$ be topological spaces. Let $f$ be a continuous map. $f: X \to Y$. Let $X$ be connected. Then $f(X)$ is connected [Theorem~1]
+  \item Prove: Let $A \subseteq \mathbb R$ such that $\forall a \leq b \in A$ and $\forall x: a \leq x \leq b: x \in A$. Then $A$ must be an interval [Lemma~1]
+  \item Prove: Connected $A \subseteq \mathbb R$ is necessarily an interval [Lemma~2]
+  \item Prove: Interval $I \subseteq \mathbb R$ is necessarily connected [Lemma~3]
+\end{itemize}
+
+\dateref{2018/10/03}
+
+\begin{itemize}
+  \item Recognize: The connected subsets of $\mathbb R$ are exactly the intervals in $\mathbb R$
+  \item Define continuous paths in a topological space [Definition~2]
+  \item Define connectedness of two points in topological spaces [Definition~2]
+  \item Define pathwise connectedness [Definition~2]
+  \item Prove: Any pathwise connected topological space is also connected [Theorem~2]
+\end{itemize}
+
+\section*{Chapter 1: $k$-dimensional surfaces in $\mathbb R^n$}
+
+\begin{itemize}
+  \item Define a regular parameterization of a $k$-dimensional surface in $\mathbb R^n$ [Definition~1]
+  \item Define immersions [Definition~1]
+\end{itemize}
+
+\dateref{2018/10/09}
+
+\begin{itemize}
+  \item Define reparameterization [Definition~2]
+  \item Define embeddings, ie. embedded manifolds [Definition~3]
+\end{itemize}
+
+\section*{Chapter 0: Connectedness in topological spaces}
+
+\begin{itemize}
+  \item Path connectedness is a transitive property [Definition~3]
+  \item Prove: Every connected and open set $O \subseteq \mathbb R^n$ is pathwise connected [Theorem~3]
+\end{itemize}
+
+\dateref{2018/10/10}
+
+\section*{Chapter 1: $k$-dimensional surfaces in $\mathbb R^n$}
+
+\begin{itemize}
+  \item Define homeomorphisms and the homeomorphic property [Definition~4]
+  \item Define localization and locally parametrized embedded surfaces [Definition~5]
+  \item Define local charts [Definition~5]
+  \item Define embedded manifolds in $\mathbb R^n$ [Definition~5]
+  \item Define implicit surfaces [Theorem~1]
+  \item Prove: Let $U \subseteq \mathbb R^n$ be an open domain, continuous differentiable $h: U \to \mathbb R^{n-k}$. $\operatorname{rank}(Dh(x)) = n - k \forall x \in U$. $\bar{x} \in U$ and $p = h(\bar{x})$. $S = \SetDef{x \in U}{h(x) = p}$ is a k-Lpes [Theorem~1]
+\end{itemize}
+
+\dateref{2018/10/16}
+
+\begin{itemize}
+  \item Define the orthogonal group
+  \item Give an example of a differentiable manifold
+  \item Prove: Let $S$ be a Lpes of dimension $k$. Let $x \in S$ be given and appropriately ordered.
+    \[ x = \begin{bmatrix} x_1 & x_2 & \dots & x_k & x_{k+1} & \dots & x_{n} \end{bmatrix}^T = \begin{bmatrix} \tilde x & \hat x \end{bmatrix} \qquad \tilde x \in \mathbb R^n, \hat x \in \mathbb R^{n - k} \]
+    Then there exists neighborhood $\tilde D$ of $\tilde x \in \mathbb R^k$ and neighborhood $U$ of $x$ in $\mathbb R^n$ and $\mathcal C^1$-function $\varphi: \tilde D \to \mathbb R^{n - k}$ such that
+    \[ y = \begin{bmatrix} \tilde y \\ \hat y \end{bmatrix} \in S \cap U \iff \tilde y \in \tilde D \land \hat y = \varphi(\tilde y) \]
+    locally $S$ is the graph of the function $\varphi$ [Theorem~2]
+  \item Prove [kind of local extension]: Let $S \subseteq \mathbb R^n$ be a Lpes of dimension $k$. Let $x \in S$ and $f: D \subseteq \mathbb R^k \to \mathbb R^n$ be a local chart for $S$ with $x = f(u)$. Then there exists neighborhoods $\hat U$ of $\begin{bmatrix} U \\ 0 \end{bmatrix} \in \mathbb R^n$ and $U$ of $x \in \mathbb R^n$ and a diffeomorphism $F: \hat U \to U$ such that $F\left(\begin{bmatrix} V \\ 0 \end{bmatrix}\right) = f(v) \in S \forall \begin{bmatrix} V \\ 0 \end{bmatrix} \in \hat{U}$ [Theorem~3]
+\end{itemize}
+
+\dateref{2018/10/17}
+
+\subsection*{Tangent vectors and tangent space}
+
+\begin{itemize}
+  \item Define tangent vectors and the tangent space in a k-Lpes [Definition~6]
+  \item Let $S$ be a k-Lpes, $x \in S$ and $f: D \to S$ be a local chart $f(u) = x$.
+    Then $T_x S = \im(Df(u))$ is a linear subspace of $\mathbb R^n$
+    and $(X_j)_{j=1,\dots,k}$ is a basis in $T_xS$ with $X_j \coloneqq Df(u) \cdot e_j$.
+    Furthermore $Df(u): \mathbb R^k \to T_xS$ is a linear isomorphism [Lemma~2]
+  \item Define the tangent to $S$ at $x$ [Definition~7]
+  \item Define the orthogonal complement [Definition~7]
+  \item Define the normal space to $S$ at $x$ [Definition~7]
+  \item Prove: Let $S$ be a k-Lpes. $x = f(u) \in S$. $f: D \to S$ is a local chart. Then $W \in N_xS \iff (Df(u))^t \cdot W = 0 \iff W \in \ke(Df(u))^t$. $(Df(u))^t \in \mathbb R^{k \times n}$ [Lemma~3]
+  \item Prove: Let $S$ be a k-Lpes. $x = f(u) \in S$ and $F: \hat U \to U$ is an extension of $f$ as in Theorem~3. Then $(W_{k+j})_{j=1}^{n-k}$ is a basis in $N_x S$ where $W_l$ is the $l$-th column of $(DF(\begin{bmatrix} u \\ 0 \end{bmatrix}))^{-t}$ [Lemma~4].
+  \item Define the wedge product of $n-1$ vectors in $\mathbb R^n$ [Definition~8]
+  \item Prove: Let $w = v_1 \wedge \dots \wedge v_{n-1}$. Then [Lemma~5]
+    \begin{enumerate}
+      \item For any $b \in \mathbb R^n$, $\IP bw = \det([b, V])$
+      \item $\IP w{v_{j}} = 0$ for $j = 1, \dots, n-1$
+    \end{enumerate}
+\end{itemize}
+
+\dateref{2018/10/23}
+
+\begin{itemize}
+  \item Define orientability of $(n-1)$-Lpes [Definition~9]
+  \item Give an example of a non-orientable surface
+  \item Define the Gauss map of an $(n-1)$-Lpes [Definition~9a]
+  \item Prove: Let $U \subseteq \mathbb R^n$ be a domain. $h: U \to \mathbb R^{n - k}$ be $\mathcal C^1$.
+    Let $\rank(Dh(x)) = n - k \forall x \in U$. Let $S \coloneqq \SetDef{x \in U}{h(x) = 0} \neq \emptyset$ is a $k$-Lpes. Then the tangent space of implicitly defined surfaces is given by $T_x S = \ke(Dh(x))$ with $Dh(x) \in \mathbb R^{(n-k) \times n}$ [Theorem~4]
+\end{itemize}
+
+\subsection*{Maps into surfaces}
+
+\begin{itemize}
+  \item Prove: Let $S \subseteq \mathbb R^n$ be a $k$-Lpes. Let $f: D \to V \subseteq S$ be a local chart $f(u) = x$ ($V = f(D)$). Let $\varphi: W \subseteq \mathbb R^m \to V \subseteq S$ be given ($\varphi$ is a map into $S$). Then the following statements are equivalent [Theorem~5]:
+    \begin{itemize}
+      \item $\varphi: W \to \mathbb R^n$ is $\mathcal C^1$
+      \item $f^{-1} \circ \varphi: W \to D \subseteq \mathbb R^k$ is $\mathcal C^1$
+    \end{itemize}
+  \item Let $S$ be a $k$-Lpes and let $\varphi: S \to \mathbb R^m$ be continuous.
+    Then the following statements are equivalent:
+    \begin{itemize}
+      \item For any $x \in S$, there exists some neighborhood $U$ of $x$ in $\mathbb R^n$ and a $\mathcal C^1$ function $\hat{\varphi}: U \to \mathbb R^m$ such that $\left.\tilde \varphi\right|_{U \cap S} = \varphi$ ($\tilde\varphi$ is an extension of $\varphi$)
+      \item For any $x \in S$, there exists some local chart $f: D \to S$ with $f(u) = x$ such that $\varphi \circ f: D \to \mathbb R^m$ is $\mathcal C^1$
+      \item For any $x \in S$ and any local chart $f: D \to S$ with $f(u) = x$ the composition $\varphi \circ f: D \to \mathbb R^m$ is $\mathcal C^1$ [Theorem~6]
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Maps on surfaces}
+
+\begin{itemize}
+  \item Define \emph{continuously} differentiable on $k$-Lpes $S$ [Definition~10]
+\end{itemize}
+
+\subsection*{Maps between surfaces}
+
+\begin{itemize}
+  \item Define a map \emph{on} $S_1$ and a map \emph{into} $S_2$ [Definition~11]
+  \item When is a map on a $k$-Lpes $\mathcal C^1$ [Definition~11]
+\end{itemize}
+
+\dateref{2018/10/24}
+
+\subsection*{Derivative of a map $\varphi: S_1 \to S_2$}
+
+\begin{itemize}
+  \item Let $\varphi: S_1 \to S_2$ with $\varphi \in \mathcal C^1$ and $S_1$ as $k$-Lpes in $\mathbb R^n$ and $S_2$ as $l$-Lpes in $\mathbb R^m$. Define the derivative $D\varphi(x)$ [Definition~12]
+  \item Recognize that we calculate $D\varphi$ be choosing bases in $T_x S_1$ and in $T_{\varphi(x)} S_2$ and calculate the matrix representation of $D\varphi(x)$ wrt. these chosen bases.
+  \item The matrix representation of $D\varphi(x)$ wrt. $(\partial_{u_i})_{i=1}^k$ is the basis in $T_x S_1$ and $(\partial_{v_j})_{j=1}^l$ is the basis in $T_{\varphi(x)} S_2$ is given by $D(f_2^{-1} \circ \varphi \circ f_1)(u)$.
+  \item Let $D \subseteq \mathbb R^k$ be a domain. Then we can interpret $D$ as a $k$-dimensional Lpes in $\mathbb R^k$. Local parameterization is given by $f: D \to D$, $f(x) = x$ ($f = \operatorname{id}$).
+  \item What is central projection?
+  \item What does concentric mean?
+  \item What are spherical coordinates?
+\end{itemize}
+
+\dateref{2018/10/30}
+
+\subsection*{Two-dimensional surfaces in $\mathbb R^3$}
+
+\begin{itemize}
+  \item Define the scalar product on tangent space $T_x S$ of $S \subseteq \mathbb R^3$ as 2-Lpes with $x \in S$ [Definition~13]
+  \item Define the first fundamental form of $S$ at $x$ [Definition~13]
+  \item Give the length of the tangent vector $X$ [Definition~14]
+  \item Define the angle between two tangent vectors $X$ and $Y$ [Definition~14]
+  \item Define an angle-preserving/conformal map $g$ [Definition~15]
+  \item Prove: Let $g: S_1 \to S_2$ be a $\mathcal C^1$ map. $S_i$ are 2-Lpes in $\mathbb R^3$. $g$ is conformal if one of the following equivalent conditions are met [Lemma~6]:
+    \begin{itemize}
+      \item $\frac{I_{S_1}(X, Y)}{I_{S_1(X) \cdot I_{S_1}(Y)}} = \frac{I_{S_2}(D_{g(x)} X, D_{g(x)} Y)}{I_{S_2}(D_{g(x)} X) I_{S_2}(D_{g(x)} Y)}$
+      \item There exists a linear isometry $O: T_x S_1 \to T_{y(x)} S_2$, i.e. $\Norm{OX} = \Norm{X} \forall X \in T_x S_1$ and a real number $s > 0$ such that $Dg(x) = s \cdot O$
+      \item Let $G_1$ be the metric tensor to $S_1$ at $x$ wrt. the basis $\Set{\partial_{u_1}, \partial_{u_2}}$ and $G_2$ the metric tensor for $S_2$ at $y = g(x)$ wrt. the basis $\Set{\partial_{v_1}, \partial_{v_2}}$. Let moreover $M_u^v$ be the matrix representation of $Dg(x)$ wrt. $\Set{\partial_{u_1}, \partial_{u_2}}$ ars basis in $T_x S_1$ and $\Set{\partial_{v_1}, \partial_{v_2}}$ as basis in $T_{g(x)} S_2$. Then $\exists s > 0: s^2 \cdot G_1 = (M_u^v)^t \cdot G_2 \cdot M_u^v$.
+    \end{itemize}
+\end{itemize}
+
+\dateref{2018/10/31}
+
+\begin{itemize}
+  \item Let $g: S_1 \to S_2$ be $\mathcal C^1$. Give three equivalent conditions when $g$ is an isometry [Definition~16]
+  \item Define the Weingarten map/shape operator of $S$ in $x$
+  \item Prove: Consider Weingarten map $W_x: T_x S \to T_x S$. Suppose $S$ is $\mathcal C^2$. $I_x(X, Y) = \langle X, Y\rangle$ defines a scalar product on $T_x S$. $W_x$ is symmetric/self-adjoint on $T_x S$ wrt. $I_x$. This means $\forall X, Y \in T_x S: I_x(W_x X, Y) = I_x(X, W_x Y)$ [Theorem~7]
+  \item Give the Rayleigh quotient
+  \item Define $II_x(X, Y)$ (second fundamental form of $S$ at $x$) [Definition~18]
+  \item Which properties does $II_x(X, Y)$ have? [Definition~18]
+  \item What do you call the eigenvalues $\kappa_1$ and $\kappa_2$? [Definition~18]
+  \item What do you call the eigenvectors $V_1$ and $V_2$? [Definition~18]
+  \item What do we call the mean curvature of $S$ in $x$? [Definition~18]
+  \item Define the Gauss curvature of $S$ in $x$? [Definition~18]
+\end{itemize}
+
+\dateref{2018/11/06}
+
+\begin{itemize}
+  \item Give Meusnier's formula
+  \item Define the minimal/maximal normal curvature
+  \item Which quantities are defined without reference to a local chart $f: D \to S$?
+  \item What is the metric tensor of $S$ in $x$? What does it depend on?
+  \item Prove: Let $\Set{\partial_{u_1}, \partial_{u_2}}$ be a local basis in $T_x S$.
+    $X = x_{u_1} \cdot \partial_{u_1} + x_{u_2} \partial_{u_2}; Y = y_{u_1} \partial_{u_1} + y_{u_2} \partial_{u_2}$,
+    ie. $\begin{bmatrix} x_{u_1} \\ x_{u_2} \end{bmatrix}$ and $\begin{bmatrix} y_{u_1} \\ y_{u_2} \end{bmatrix}$ are coordinate vectors of $X$ and $Y$ wrt. $\Set{\partial_{u_1}, \partial_{u_2}}$.
+    \begin{itemize}
+      \item We set $h_{ij} = II_x(\partial_{u_i}, \partial_{u_j}) = \langle \partial_{u_i}, W_x \partial_{u_j}\rangle$. $\kappa = \begin{bmatrix} h_{11} & h_{12} \\ h_{21} & h_{22} \end{bmatrix}$. Then $II_x(X, Y) = \begin{bmatrix} x_{u_1} & x_{u_2} \end{bmatrix} \cdot \kappa \cdot \begin{bmatrix} y_{u_1} \\ y_{u_2} \end{bmatrix}$.
+      \item Let $W$ be the matrix representation of $W_p$, ie. $X = x_{u_1} \partial_{u_1} + x_{u_2} \partial_{u_2}$. Then $W_x X = x_{u_1} W_x \partial_{u_1} + x_{u_2} W_x \partial_{u_2}$. $W_x \partial_{u_i} = w_i^1 \partial_{u_1} + w_i^2 \partial_{u_2}$.
+      \item The matrix representation of $W_x$ has the form $W = \begin{bmatrix} W_1^1 & W_2^1 \\ W_1^2 & W_2^2 \end{bmatrix}$ and $W \cdot \begin{bmatrix} x_{u_1} \\ x_{u_2} \end{bmatrix}$ is a coordinate vector of $W_x \cdot X$ wrt. $\Set{\partial_{u_1}, \partial_{u_2}}$.
+      \item $G$ is metric tensor with $g_{ij} = I_x (\partial_{u_i}, \partial_{u_j})$.
+    \end{itemize}
+    Then $\kappa = W \cdot G$, and accordingly $W = \kappa \cdot G^{-1}$ and $G^{-1} = (g^{ij})_{i,j=1}^2$.
+\end{itemize}
+
+\dateref{2018/11/06}
+
+\section*{Chapter 2: Integration on surfaces}
+
+\begin{itemize}
+  \item Define a generalized parallelogram in $\mathbb R^n$
+  \item What properties is a volume supposed to satisfy?
+  \item Define the volume $\operatorname{vol}(P(v_1, \dots, v_n))$
+  \item Define the $k$-dimensional volume in $\mathbb R^n$ [Definition~1]
+  \item Prove: $\operatorname{vol}_k(v_1, \dots, v_k) = \sqrt{\det(V^t V)}$ with $V = \begin{bmatrix} v_1 & \dots & v_k \end{bmatrix} \in \mathbb R^{n \times k}$ [Lemma~1]
+  \item Define integration on one signal chart [Definition~2]
+  \item Define the Gram determinant [Definition~2]
+  \item Prove: The definition of the integral (by Definition~1) is independent of the chosen parametrization [Lemma~2]
+  \item Prove: Let $v_1, \dots, v_{n-1} \in \mathbb R^n$ with $V \coloneqq \begin{bmatrix} v_1 & \dots & v_{n-1} \end{bmatrix}$. Then $\det(V^t \cdot V) = \operatorname{vol}_{n-1}(v_1, \dots, v_{n-1})^2 = \Norm{v_1 \wedge v_2 \wedge \dots \wedge v_{n-1}}^2$
+\end{itemize}
+
+\dateref{2018/11/13}
+
+\begin{itemize}
+  \item Define the base of a topology [Definition~3]
+  \item Give the base for the standard topology in $\mathbb R^n$
+  \item Define: second countable topological space [Definition~4]
+  \item Define: $Q \subseteq X$ is dense in $X$ [Definition~4]
+  \item Define separability of topologies [Definition~4]
+  \item Define the interior of $M$
+  \item Show: $Q^n$ is dense in $\mathbb R^n$
+  \item Prove: Every separable metric space is second countable
+  \item Prove: Every second countable space is separable
+  \item Define neighborhood filters of $x$ [Definition~5]
+  \item Define the base for neighborhood filters [Definition~5]
+  \item Define: first countable topological space [Definition~5]
+  \item Define: locally compact [Definition~6]
+  \item Show: $\mathbb R^n$ is locally compact
+  \item Define: Banach space
+  \item Show: Let $S \subseteq \mathbb R^n$ be a k-Lpes. Then $S$ is locally compact [Lemma~4]
+  \item Prove: For every $S \subseteq \mathbb R^n$ as $k$-Lpes, there exists a countable base for the topology on $S$: $\Set{V_i}_{i \in \mathbb N}$ with the property that $\overline{V_i}$ is compact $\forall i$ [Lemma~5]
+\end{itemize}
+
+\dateref{2018/11/14}
+
+\begin{itemize}
+  \item Prove: Let $S \subseteq \mathbb R^n$ be a $k$-Lpes. Then there exists an exhaustion of $S$ with compact sets $\Set{K_i}_{i \in \mathbb N}$ [Lemma~6]
+  \item Prove: Let $S$ be a $k$-Lpes in $\mathbb R^n$. Then there exist at most countably many charts $f_i: D_i \to f_i(D_i) \eqqcolon V_i \subseteq S$ such that $S = \bigcup_{i=1}^\infty V_i$ [Corollary~1]
+  \item Define: partition of unity [Definition~7]
+  \item Prove: Let $S \subseteq \mathbb R^n$ be a $k$-Lpes. Let $\Set{U_s}_{s \in I}$ be a given open cover of $S$. Then there exists a partition of unity $\Set{\varepsilon_i}_{i \in \mathbb N}$ subordinate to $\Set{U_s}_{s \in I}$ [Theorem~1]
+  \item Define: Let $S \subseteq \mathbb R^n$ be a $k$-Lpes. Let $h: S \to \mathbb R$ be continuous. Define $\int_S h \, dS$ [Definition~8]
+\end{itemize}
+
+\dateref{2018/11/20+21}
+
+\begin{itemize}
+  \item Prove: Let $S$ be a $k$-Lpes. $f: D \to V = f(D)$ be a local chart. Let $h: S \to \mathbb R$ be a such that $\operatorname{supp}(h) \subseteq V$. Let $(\varepsilon_i)_{i \in \mathbb N}$ be a partition of unity on $S$. Then $h$ is integrable on $S$ iff the following two conditions are satisfied:
+  \begin{itemize}
+    \item $\forall i \in \mathbb N$ the product $\varepsilon_i h$ is integrable on $S$
+    \item $\sum_{i \in \mathbb N} \int_S \Abs{\varepsilon_i \cdot h} \, ds < \infty$
+  \end{itemize}
+  If true, then $\int_S h \,ds = \sum_{i \in \mathbb N} \int_S \varepsilon_i h \, dS$ [Lemma~7].
+  \item Define: atlas of a topology
+  \item Define the integral over some $k$-Lpes $S$ [Definition~8]
+  \item Let $S$ be a $k$-Lpes, $h: S \to \mathbb R$. Let $(f_j, D_j, V_j)$ be an atlas for $S$; $f_j: D_j \to V_j = f(D_j) \subseteq S$ and let $(\varepsilon_i)_{i \in \mathbb N}$ be a partition of unity subordinate to $(V_j)_{j \in \mathbb N}$. We suppose
+    \begin{itemize}
+      \item $\forall i \in \mathbb N$ ($\exists j \in \mathbb N$ such that $\operatorname{supp}(\varepsilon_i h) \subseteq \operatorname{supp}(\varepsilon_i) \subseteq V_j$): $\varepsilon_i h$ is integrable on $S$
+      \item $\sum_{i \in \mathbb N} \int_S \Abs{h} \varepsilon_i \, ds < \infty$
+    \end{itemize}
+    Then for any other atlas ($g_l, E_l, W_l$) and any partition of unity $(\eta_m)_{m \in \mathbb N}$ subordinate to $(W_l)_{l \in \mathbb N}$ the same two conditions hold. Moreover the value $\sum_{i \in \mathbb N} \int_S \varepsilon_i \cdot h \, ds$ does not depend on the specific choice of the Atlas or on the choice of the partition of unity $(\varepsilon_i)_{i \in \mathbb N}$. We define $\sum_{i \in \mathbb N} \int_S \varepsilon_i \cdot h \, ds \coloneqq \int_S h \, dS$. If both conditions hold, we say that $h$ is integrable on $S$ [Theorem~2]
+  \item Define: $k$-dimensional zero set [Definition~9]
+\end{itemize}
+
+\subsection*{Polar coordinates and the unit ball in $\mathbb R^n$}
+
+\begin{itemize}
+  \item Prove: $\det(DP_n) = r^{n-1} \prod_{k=1}^{n-1} \cos^{k-1}(\varphi_k)$ [Lemma~8]
+  \item Define spherical shells
+  \item Give the transformation theorem for integrals
+\end{itemize}
+
+\dateref{2018/11/27}
+
+\begin{itemize}
+  \item Define: Euler's Gamma function
+  \item Euler's Gamma function is the only function satisfying which 3 properties?
+  \item Give Fubini's Theorem
+  \item Give the volume of the $n$-dimensional unit sphere
+\end{itemize}
+
+\subsection*{The Divergence Theorem of C.F. Gauss}
+
+\begin{itemize}
+  \item (Give Gauss' Divergence theorem?) (occurs later in other form?!)
+  \item Define $\mathcal C^1$-smooth boundaries $\partial \Omega$ where $\Omega \subseteq \mathbb R^n$ is a bounded domain [Definition~10]
+\end{itemize}
+
+\dateref{2018/11/28}
+
+\begin{itemize}
+  \item Define vector fields [Definition~11]
+  \item Define $\mathcal C^1$ vector fields [Definition~11]
+  \item Define tangential vector fields
+  \item Define: Continuous vector field $F$ is integrable on ($n-1$)-Lpes $S$ [Definition~12]
+  \item Define: Divergence of $F: \Omega \to \mathbb R^n$ as $\mathcal C^1$ vector field on open domain $\Omega \subset \mathbb R^n$ [Definition~13]
+  \item Give Gauss' Divergence theorem [Theorem~3]
+  \item Recognize: Gauss' Divergence theorem is a generalization of the fundamental theorem of calculus into $n$ dimensions
+  \item Prove: Let $\Omega \subseteq \mathbb R^n$ be an open domain $f \in \mathcal C_0^1(\Omega)$, ie. $\operatorname{supp}(f) \subset \Omega$ where $\operatorname{supp}(f)$ is compact. Let $\mathcal C_0^k(\Omega) = \SetDef{g \in \mathcal C^k(\Omega)}{\operatorname{supp}(g) \subseteq \Omega \text{ is compact}}$. Then we have $\forall i \in \Set{1, \dots, n}: \int_\Omega f_{x_i}(x) \, dx = 0$ [Lemma~9]
+  \item Give Cramer's rule
+  \item What can Cramer's rule be used for (besides solving a linear equation system)?
+  \item Define the cofactor matrix [Definition~14]
+  \item Define the adjunct matrix [Definition~14]
+\end{itemize}
+
+\dateref{2018/12/04}
+
+\begin{itemize}
+  \item Define the whole group in $\mathbb R^{n \times n}$ [Lemma~10]
+  \item Is $\operatorname{GL}(n) \subseteq \mathbb R^{n \times n}$ open in $\mathbb R^{n \times n}$?
+  \item Prove: Jacobi Formula [Lemma~11]
+  \item Give the Jacobi Formula in the special case $A \in \operatorname{GL}(n)$ [Lemma~11]
+  \item Prove: Let $A = \begin{bmatrix} a_1 & a_2 & \dots & a_n \end{bmatrix}$ (column vectors) and $A \in \operatorname{GL}(n)$. Let $\hat{A} = \begin{bmatrix} a_1 & a_2 & \dots & a_{n-1} \end{bmatrix} \in \mathbb R^{n \times n-1}$. $\hat{A}^t \hat{A} \in \mathbb R^{(n-1)\times(n-1)}$. Then $\det(\hat{A}^t \hat{A}) = \Norm{A^{-t} e_n}^2 \det(A^t A)$ [Lemma~12]
+  \item Prove: Let $\Omega \subseteq \mathbb R^n$ be a bounded open domain with $\mathcal C^2$-smooth boundaries. Let $\Psi: U \to V$ be a local diffeomorphism with the properties in Definition~10. Let $f: U \to \mathbb R$ be contiuously differentiable with $\operatorname{supp} \Subset U$. Then
+  \[ \int_{U^+} f_{x_i} \, dx = \int_{U \cap \Omega} f_{x_i} \, dx = \int_{U \cap \partial \Omega} f \cdot \nu_i \, ds \]
+  where $\nu_i$ is the i-th component of $\nu(x)$ und $\nu(x)$ is the normalized exterior normal vector field to $\partial \Omega$ [Lemma~13]
+\end{itemize}
+
+\dateref{2018/12/05}
+
+Apparently, we only did proofs.
+
+\dateref{2018/12/11}
+
+\begin{itemize}
+  \item Assume $\partial \Omega$ is only $\mathcal C^1$. Does Gauss' divergence theorem still hold?
+  \item Define a regular boundary point [Definition~15]
+  \item Define a singular boundary point [Definition~15]
+  \item Define a regular $\mathbb C^{1}$ polyhedron [Definition~15]
+  \item Define the Laplace operator [Definition~16]
+  \item Define harmonic functions [Definition~16]
+  \item Give and prove Greens formula [Theorem~4]
+  \item Give and prove the mean value theorem of harmonic functions [Theorem~5]
+  \item Define radially symmetric functions.
+\end{itemize}
+
+\dateref{2018/12/12}
+
+\begin{itemize}
+  \item Define the Maximum Principle for Harmonic Functions [Corollary]
+\end{itemize}
+
+\subsection*{Surfaces (manifolds) with boundary}
+
+\begin{itemize}
+  \item Define a $k$-dimensional locally parameterized embedded surface with boundary ($k$-Lpesb) [Definition~17]
+  \item Define a interior point [Definition~17]
+  \item Define a boundary point [Definition~17]
+  \item Define boundary $\partial S$ [Definition~17]
+  \item When does $\partial S$ correspond to the topological boundary?
+  \item Define the curl of F [Definition~18]
+  \item Give Stokes' Theorem [Theorem~6]
+\end{itemize}
+
+\dateref{2019/01/08}
+
+\begin{itemize}
+  \item Define the exterior unit normal vector field to $\partial \Omega$ [Lemma~14]
+  \item Let $\Omega \subseteq \mathbb R^n$ be bounded, connected, $\mathcal C^1$-smooth boundary, $f, g \in \mathcal C^1(\overline \Omega)$. Let $[v_1, \dots, v_n]^T$ be the exterior unit normal vector field. Show [Lemma~14]:
+    \[ \int_\Omega f_{x_i} \cdot g \, dx = -\int_{\Omega} f \cdot g_{x_i} \, dx + \int_{\partial \Omega} f \cdot g \cdot \nu_i \, dS \]
+  \item Prove Stokes' Theorem
+\end{itemize}
+
+\dateref{2019/01/09}
+
+\section*{Classical Theory of surfaces}
+
+\begin{itemize}
+  \item What is Einstein's summation convention?
+  \item Define a metric tensor.
+  \item Define the second fundamental form on $S$ at $x$.
+  \item Define the principal curvatures of $S$ in $x$.
+  \item Define the Christoffel symbol of second kind.
+  \item Derive the Gauss-Weingarten equations.
+\end{itemize}
+
+\dateref{2019/01/15}
+
+\enquote{Vector fields and the covariant derivative}
+
+\begin{itemize}
+  \item Give the Riesz representation theorem
+  \item Define the Gradient (also called \enquote{contravariant}) representation of $D \varphi$.
+  \item Define the directional derivative of $\varphi$ in direction $V$ [Definition~1].
+  \item Prove: Let $X, Y$ be smooth tangential vector fields on $S$.
+    Let $\varphi: S \to \mathbb R$ be an arbitrary smooth scalar function.
+    Then $\partial_X (\partial_y \varphi) - \partial_Y (\partial_X \varphi)$ is a smooth scalar function on $S$ and
+    there exists a unique, tangential vector field $Z: S \to \mathbb R^n$ such that $\partial_X (\partial_y \varphi) - \partial_Y (\partial_X \varphi) = \partial_Z \varphi$ ($\forall \varphi: S \to \mathbb R$ smooth). If $X = \xi^i X_{u_i}$ and $Y = \eta^i X_{u_i}$, then $Z = \alpha^j X_{u_j}$ with $\alpha^j = \xi^i \eta_{u_i}^j - \eta^i \cdot \xi^j_{u_i}$ [Lemma~1].
+  \item Define the Lie bracket [Definition~2]
+\end{itemize}
+
+\dateref{2019/01/16}
+
+\begin{itemize}
+  \item Define the vector field on $S$ along $\gamma$ [Definition~3].
+  \item Define the covariant derivative of $V$ along $\gamma$: $\frac{\nabla}{dt} V(t)$ [Definition~4]
+  \item Let $S$ be a 2-Lpes in $\mathbb R^3$, $\gamma: I \to S$ be a regular curve. Let $V, W: I \to \mathbb R^3$ be vector fields along $\gamma$. Let $\gamma$ be smooth and let $\varphi: J \to I$ be a diffeomorphism, i.e. $\tilde\gamma: J \to S$. Let $\tilde\gamma = \gamma \circ \varphi$ be a reparametrization of $\gamma$. Give the 4 laws of covariant derivatives. [Lemma~2]
+\end{itemize}
+
+\dateref{2019/01/22}
+
+\begin{itemize}
+  \item Define the covariant derivative of the vector field $V$ in direction $X$ [Definition~5]
+  \item Give a characterization of $\nabla_x V$
+  \item Define the tangential vector field [Definition~6]
+  \item Rules for covariant derivatives [Lemma~3]
+  \item Define the second covariant derivative of smooth vector field $Z$ [Definition~7]
+  \item Prove: Let $V, W$ and $Z$ be smooth vector fields on $S$. Then with $V = v^i X_i$, $W = w^i X_i$, $Z = z^i X_i$ [Lemma~4].
+    \begin{align*}
+      \nabla_{v,w}^2 Z &= \big[z_{u_i u_j}^m v^i w^j + \Gamma_{ij}^m z_{u_k}^i (v^i w^k + v^k w^i) - \Gamma_{ij}^k z_{u_k}^m v^i w^j \\
+        &+ \left((\Gamma_{kj}^m)_{u_i} + (\Gamma_{li}^m \Gamma_{kj}^l - \Gamma_{kl}^l \Gamma_{ij}^l)\right) \cdot v^i w^j z^k \big]
+    \end{align*}
+  \item Define the second covariant derivative of the vector field $Z$ on $S$ [Definition~8]
+\end{itemize}
+
+\dateref{2019/01/23}
+
+\begin{itemize}
+  \item Define the Riemann curvature tensor on a surface [Definition~9] \\
+\end{itemize}
+
+\subsection*{Inner geometry of surfaces}
+
+\begin{itemize}
+  \item Define geometric quantities [Definition~10]
+  \item Define geometric quantities of an inner geometry on $S$ [Definition~10]
+  \item Prove: $R(V, W) Z = I_2(W, Z) \cdot S_x V - I_2(V, Z) \cdot S_x W$ [Theorem~1]
+\end{itemize}
+
+\dateref{2019/01/29}
+
+\begin{itemize}
+  \item Give and prove the Theorema Egregium by Gauss [Theorem~2]
+  \item Give a consequence of the Theorema Egregium
+  \item Give and prove the symmetries of the Riemannian curvatures [Lemma~5]
+  \item What is the result for local coordinates? [Lemma~6]
+  \item Give $R(V, W) X$ in matrix and coordinate form. What does it determine? Prove it [Lemma~7]
+\end{itemize}
+
+
+
+\end{document}
