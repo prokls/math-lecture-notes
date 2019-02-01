@@ -7082,7 +7082,7 @@ $\leadsto$ basis $B_i$ such that
   \[ A = B^{-1} \underbrace{J}_{JNF} B \qquad e^{At} = B^{-1} e^{Jt} B = B^{-1} \begin{bmatrix} e^{J_it} & & & \\ & e^{J_2 t} & & \\ & & \ddots & \\ & & & e^{J_k t} \end{bmatrix} \cdot B \]
   \[ J = \begin{bmatrix} J_1 & & & \\ & J_2 & & \\ & & \ddots & \\ & & & J_k \end{bmatrix} \text{ Jordan blocks} \]
   \[ J_k = \begin{bmatrix} \lambda & 1 & & & \\ & \ddots & \ddots & & \\ & & \ddots & \ddots & \\ & & & \ddots & 1 \\ & & & & \lambda \end{bmatrix} \]
-  \[ e^{J_k t} = e^{\lambda t} \cdot \left(e^{\overbrace{\begin{bmatrix} 0 & 1 & & \\ & \ddots & \ddots & \\ & & \ddots & 1 \\ & & & 0 \end{bmatrix}}^{\text{polynomial}} t}\right) \]
+  \[ e^{J_k t} = e^{\lambda t} \cdot e^{\overbrace{\begin{bmatrix} 0 & 1 & & \\ & \ddots & \ddots & \\ & & \ddots & 1 \\ & & & 0 \end{bmatrix}}^{\text{polynomial}} t} \]
 
   \[ e^{\lambda t} = e^{(\xi + i \eta) \beta} \xrightarrow{t \to \infty} \begin{cases} \infty & \text{ if } \xi > 0 \\ 0 & \text{ if } \xi < 0 \end{cases} \]
   \[ e^{(\xi + i \eta) \beta} = e^{\xi t} \cdot e^{i \eta t} \]

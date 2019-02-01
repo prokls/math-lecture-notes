@@ -3152,7 +3152,7 @@ this process is also called \emph{single-level, stationary iteration process}\fo
 \begin{definition}[Convergence]
   \label{definition:6-2}
   The sequence $(x^{(k)})_{k \in \mathbb N_0}$ has \emph{convergence order} of at least $p \geq 1$ if $\exists K > 0$ (where $K$ is independent of $k$):
-  $\Norm{x^{(k+1)} - s} \leq K \cdot \Norm{x^{(k)} - s}^p \forall k \geq 0, k < 1 \text{ if } p = 1$
+  $\Norm{x^{(k+1)} - s} \leq K \cdot \Norm{x^{(k)} - s}^p \forall k \geq 0, K < 1 \text{ if } p = 1$
 
   Then $K$ is called \emph{convergence rate} or \emph{error rate}.
 \end{definition}
@@ -3414,13 +3414,12 @@ Recognize: Avoid explicit computation of inverse $f'(x^{(k)})^{-1}$ and instead 
         \[ B_r(x^{(0)}) \coloneqq \SetDef{x \in \mathbb R^n}{\Norm{x - x^{(0)}} \leq r} \]
         be contained in $D$.
     \end{itemize}
+  Then the function $f$ has a root $z \in B_r(x^{(0)})$ and the Newton iteration
+  \[ f'(x^{(k)}) \triangle x^{(k)} = -f(x^{(k)}) \qquad x^{(k+1)} = x^{(k)} + \triangle x^{(k)} \qquad k = 0, 1, 2, \dots \]
+  converges quadratically towards root $z$.
+  Furthermore the following a-priori error estimate is true,
+  \[ \Norm{x^{(k)} - z} \leq 2\alpha q^{2^k - 1} \qquad k = 0, 1, 2, \dots \]
 \end{theorem}
-
-Then the function $f$ has a root $z \in B_r(x^{(0)})$ and the Newton iteration
-\[ f'(x^{(k)}) \triangle x^{(k)} = -f(x^{(k)}) \qquad x^{(k+1)} = x^{(k)} + \triangle x^{(k)} \qquad k = 0, 1, 2, \dots \]
-converges quadratically towards root $z$.
-Furthermore the following a-priori error estimate is true,
-\[ \Norm{x^{(k)} - z} \leq 2\alpha q^{2^k - 1} \qquad k = 0, 1, 2, \dots \]
 
 \begin{proof}
   The proof consists of the following steps:
