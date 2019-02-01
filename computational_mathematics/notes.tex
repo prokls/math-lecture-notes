@@ -4030,6 +4030,78 @@ Under certain conditions the choice of $\omega$ speeds up the Gauss-Seidel proce
   Then the SOR process converges.
 \end{theorem}
 
+\section{Overview on topics of Computational Mathematics 2}
+
+Linear equation systems $Ax = b$.
+\[ A \in \mathbb R^{n \times n}, b \in \mathbb R^n, n \gg 1 \]
+for sparse matrices $A$. $A$ has only few non-zero entries.
+Special property: for arbitrary $x \in \mathbb R^n$, $Ax$ can be computed in $\mathcal O(n)$ instead of $\mathcal O(n^2)$.
+
+Goal: avoid computation of dense matrices (for example: factors of the LU decomposition).
+
+Idea of the \emph{projection process}: choose two subspaces $\mathcal K, \mathcal L \subset \mathbb R^n$ and construct an approximation $\tilde x$ at $x^* = A^{-1} b$,
+such that $\tilde x \in \mathcal K$ and $b - A \tilde x \bot \mathcal L$ (\enquote{Petrov-Galerkin} conditions).
+We require that $\dim{\mathcal K} = \dim{\mathcal L} = k \ll n$.
+
+Choice of $\mathcal K, \mathcal L$: e.g. $A = A^T$ is symmetric and positive definite.
+\[ \mathcal K = \mathcal L \implies \tilde x \in \mathcal K, b - A \tilde x \bot \mathcal K \]
+\[ b - A \tilde x \bot \mathcal K \qquad x^* - \tilde x \bot_A \mathcal K \]
+Properties of the orthogonal projection:
+\[ \Norm{x^* - \tilde x}_A = \min_{z \in \mathcal K} \Norm{x^* - z}_A \]
+
+Recall the topic of projections:
+Given $x \in \mathbb R^n$ and subspace $M \subset \mathbb R^n$. Find $y^* \in M$ such that $\Norm{x - y^*} \to \min$.
+Orthogonal projection: $y^* \in M, x - y^* \bot M$.
+
+\begin{align*}
+  \IP{b - A \tilde x}{v} &= 0 \forall v \in \mathcal K \\
+  \iff \IP{Ax^* - A \tilde x}{v} &= 0 \forall v \in \mathcal K \\
+  \iff \IP{x^* - \tilde x}{v}_A &= 0 \forall v \in \mathcal K
+\end{align*}
+
+If $A$ is not symmetric: we choose $\mathcal K, \mathcal L = A \mathcal K$ gives such that $\tilde x$ such that
+\[ \Norm{b - A \tilde x}_2 = \min_{z \in \mathcal K} \Norm{b - Az}_2 \]
+
+How can we choose $\mathcal K, \mathcal L$ exactly?
+Kryrov spaces of form $\mathcal K_k(A, r) = \operatorname{span}(r, Ar, A^2, r, \dots, A^{k-1} r)$ \dots $A = A^T$ leads to the \emph{CG process}.
+
+\subsection{Computation of eigenvalues and eigenvectors}
+
+QR algorithm for computation of all eigenvalues of a matrix $A$:
+\[ A = QR \qquad \text{(compute QR decomposition)} \]
+Let $\tilde A = RQ$.
+\[ \tilde A = \tilde Q \tilde R \qquad \text{(compute QR decomposition)} \]
+\[ \tilde{\tilde A} = \tilde R \tilde Q \]
+
+Vector iteration for computation of the largest eigenvalue with respect to absolute value of a matrix $A$.
+Base algorithm: choose an arbitrary $x \in \mathbb R^n$. Compute
+\[ \frac{A^k x}{\Norm{A^k x}} \xRightarrow{k \to \infty} v_1 \]
+where $v_1$ is the eigenvector corresponding to the largest eigenvalue with respect to absolute value.
+
+\emph{Idea:} write $x = \sum_{i = i}^n \alpha_i v_i$ and $v_i$ are eigenvectors.
+\begin{align*}
+  A^k x &= A^k \sum_{i = 1}^n \alpha_i v_i = \sum_{i = 1}^n \alpha_i \lambda_i^k v_i \\
+    &= \Norm{\lambda_1}^k \sum_{i=1}^n \alpha_i \frac{\lambda_i^k}{\Abs{\lambda_i}^k} v_i
+\end{align*}
+
+\subsection{Google Page Rank}
+
+Given a digraph with edges between linking pages, we represent the problem as matrix. In the i-th row and j-th column we have a $1$ if page $j$ links to page $i$.
+We retrieve a sparse matrix (\enquote{Google matrix}). Then the largest eigenvalue wrt. absolute values gives the most important page (where important is defined as most visited page in case of random browing behavior).
+
+
+\subsection{Numerical solutions for ordinary differential equations}
+
+\[ x'(t) = f(t, x(t)) \qquad x(t_0) = x_0 \]
+for some small step size $h > 0$, approximate $x'(c) = \frac{x(t + h) - x(t)}{h}$
+\[ x(t + h) = x(t) + h f(t, x(t)) \qquad \text{\enquote{explicit Euler process}} \]
+\[ x(t + h) = x(t) + hf(t + h, x(t + h)) \qquad \text{\enquote{implicit Euler process}} \]
+to retrieve $x(t + h)$, we need to solve a non-linear equation system.
+
+
+\[ \xRightarrow{\text{integration}} x(t) = x(t_0) + \int_{t_0}^t f(s, x(s)) \, ds \]
+use quadrature formulas.
+
 \printindex
 
 \end{document}
