@@ -500,7 +500,7 @@ where $e_j$ denotes the $j$-th unit vector in $\mathbb R^n$. Row and column exch
         & 1          &   &        & \\
         & -l_{k+1,k} & 1 &        & \\
       0 & \vdots     &   & \ddots & \\
-        & l_{n,k}    &   & 0      & 1
+        & -l_{n,k}    &   & 0      & 1
     \end{bmatrix},
     \hat{L}_k = P_{\pi} L_k P_{\pi}^{-1}
     = \begin{bmatrix}
@@ -508,7 +508,7 @@ where $e_j$ denotes the $j$-th unit vector in $\mathbb R^n$. Row and column exch
         & 1          &   &        & \\
         & -l_{\pi(k+1),k} & 1 &        & \\
       0 & \vdots     &   & \ddots & \\
-        & l_{\pi(n),k}    &   & 0      & 1
+        & ⁻l_{\pi(n),k}    &   & 0      & 1
     \end{bmatrix}
   \]
   By insertion of the identities $P_{\tau_k}^{-1} P_{\tau_k}$ we get,
@@ -610,7 +610,7 @@ Because all diagonal elements $d_{ii}$ are positive definite, there exists
 
 \begin{corollary}
   \label{corollary-1-8}
-  There exists some $\overline{L} \coloneqq LD^{\frac12}$ (lower triangular matrix) such that $A = \overline{L} \overline{L}^T$.
+  There exists some $\overline{L} \coloneqq LD^{\frac12}$ (lower triangular matrix) such that $A = \overline{L} \, \overline{L}^T$.
 \end{corollary}
 
 \index{Cholesky decomposition}
@@ -2094,7 +2094,7 @@ For the enumerator, we have:
 \end{align*}
 
 The unique solution of the interpolation problem is given by
-\[ c = \frac1n \cdot M^* \cdot f \qquad \text{or} \qquad c_k = \sum_{j=0}^{n-1} f_j \cdot e^{-2 \pi i \frac{j-k}{n} \frac 1n} \]
+\[ c = \frac1n \cdot M^* \cdot f \qquad \text{or} \qquad c_k = \frac 1n \sum_{j=0}^{n-1} f_j \cdot e^{-2 \pi i \frac{j \cdot k}{n}} \]
 This process is called discrete Fourier Transform (dFT)
 
 The inverse Fourier transform corresponds to the polynomial evaluation $f_i = \sum \dots$.
@@ -2334,6 +2334,7 @@ This is an extended spline concept of arbitrary order $k$.
 \end{Definition}
 
 \begin{Remark}
+  \label{plus-notation}
   $S_{k,\Delta}$ is a real vector space and it is true that $\mathcal P_{k-1} \subset S_{k,\Delta}$.
   Furthermore the aborted powers of degree $k-1$
   \[
@@ -2418,7 +2419,9 @@ Alternatively we can write B-splines as divided differences for the aborted powe
 
 \begin{lemma}
   \label{lemma:b-spline}
-  If $\tau_i < \tau_{i+k}$, then B-spline $N_{i,k}$ satisfies $N_{i,k} = (\tau_{i+k} - \tau_i) \cdot \begin{bmatrix} \tau_i & \dots & \tau_{i+k} \end{bmatrix} (-t)_t^{k-1}$.
+  If $\tau_i < \tau_{i+k}$, then B-spline $N_{i,k}$ satisfies
+  \[ N_{i,k}(t) = (\tau_{i+k} - \tau_i) \cdot \begin{bmatrix} \tau_i & \dots & \tau_{i+k} \end{bmatrix} (\cdot -t)_{+}^{k-1} \]
+  where $\cdot$ in $(\cdot -t)_{+}^{k-1}$ denotes a parameter (yielding a function as defined in Remark~\ref{plus-notation}). The specific value of $\,\cdot$\, becomes irrelevant.
 
   If $\tau_j$ is a point with multiplicity $M$, hence $\tau_j = \tau_{j+M-1}$, then $N_{i,k}$ at point $\tau_j$ is a least $(k-1-n)$ times differentiable. For $M < k-1$. For $N_{i,k}$, it is true that
   \[ N_{i,k}'(t) = (k-1)\left(\frac{N_{i,k-1}(t)}{\tau_{i+k-1} - \tau_i} - \frac{N_{i+1,k}(t)}{\tau_{i+k} - \tau_{i+1}}\right) \]
