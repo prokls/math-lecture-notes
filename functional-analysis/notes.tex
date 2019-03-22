@@ -1,0 +1,928 @@
+\documentclass{article}
+%\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
+\usepackage[german,english]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{fontspec}
+\usepackage{mdframed}
+\usepackage{pxfonts}
+\usepackage{wasysym}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{makeidx}
+\usepackage{csquotes}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{stmaryrd}
+\usepackage{titlesec}
+\titleformat{\paragraph}{\normalfont\itshape}{}{}{}
+
+\newcounter{lecref}[section]
+\numberwithin{lecref}{section}
+%\setcounter{lecref}{4}
+\setcounter{section}{-1}
+
+\newtheorem{theorem}[lecref]{Theorem}
+\newtheorem*{Theorem}{Theorem}
+\newtheorem{example}[lecref]{Example}
+\newtheorem*{Example}{Example}
+\newtheorem{definition}[lecref]{Definition}
+\newtheorem*{Definition}{Definition}
+\newtheorem{lemma}[lecref]{Lemma}
+\newtheorem*{Lemma}{Lemma}
+\newtheorem{claim}[lecref]{Claim}
+\newtheorem*{Claim}{Claim}
+\newtheorem{remark}[lecref]{Remark}
+\newtheorem*{Remark}{Remark}
+\newtheorem{algorithm}[lecref]{Algorithm}
+\newtheorem*{Algorithm}{Algorithm}
+\newtheorem{corollary}[lecref]{Corollary}
+\newtheorem*{Corollary}{Corollary}
+\newtheorem{proposition}[lecref]{Proposition}
+\newtheorem*{Proposition}{Proposition}
+\newtheorem{revision}[lecref]{Revision}
+\newtheorem*{Revision}{Revision}
+
+\def\ifempty#1{\def\temp{#1} \ifx\temp\empty }
+
+% useful control sequences for mathematical notation
+\newcommand{\Abs}[1]{\left|#1\right|}
+\newcommand{\Set}[1]{\left\{#1\right\}}
+\newcommand{\SetDef}[2]{\left\{#1\,\mid\,#2\right\}}
+\newcommand{\IP}[2]{\left\langle#1, #2\right\rangle}
+\newcommand{\Norm}[1]{\left\|{\ifempty{#1}\cdot\else#1\fi}\right\|}
+\newcommand{\Max}[1]{\max{\Set{#1}}}
+\newcommand{\Min}[1]{\min{\Set{#1}}}
+\newcommand{\Sup}[1]{\sup{\Set{#1}}}
+\newcommand{\Powerset}[1]{{\mathbb P}(#1)}
+\newcommand{\IntRange}[2]{#1, \dots\ifempty{#2}\else, #2\fi}
+
+\def\vec2#1#2{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\def\vec3#1#2#3{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
+\newcommand{\dotted}[1]{\:\dot{#1}\:}  % dot has too little margin
+
+% German translation
+\newcommand{\dt}[1]{(dt. \enquote{\foreignlanguage{german}{#1}})}
+
+% essential control sequences
+%% \xRightarrow: \xrightarrow for \rightarrow like \xRightarrow for \Rightarrow
+\makeatletter
+\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+\makeatother
+
+% typesetting settings
+\parindent0pt
+\setlength{\parskip}{.6em}
+\setmainfont{CMU Serif}
+
+% TODO: span?
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\detm}{det}
+\DeclareMathOperator{\perm}{perm}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\degree}{deg}
+\DeclareMathOperator{\im}{image}
+\DeclareMathOperator{\ke}{kernel}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\prop}{probability}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\vol}{vol}  % volume
+\DeclareMathOperator*{\bigtimes}{\vartimes}
+
+
+
+
+
+\newcommand{\dateref}[1]{%
+  \begin{mdframed}[backgroundcolor=gray!10,innerbottommargin=0pt,innertopmargin=0pt]
+    \paragraph{\textit{$\downarrow$ This lecture took place on #1.}}%
+  \end{mdframed}%
+}
+
+% metadata
+\title{
+  Introduction to Functional Analysis \\
+  \large{Lecture notes, University of Technology, Graz} \\
+  based on the lecture by Martin Holler
+}
+\date{\today}
+\author{Lukas Prokop}
+
+\makeindex
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+\dateref{2019/03/05}
+
+\begin{itemize}
+	\item Function Analysis, mostly Linear Functional Analysis
+	\item Goal: Transfer objects and results for linear algebra and analysis to infinite-dimensional function spaces
+	\item e.g. $\mathbb R^n, \mathbb C^n \mapsto$ vector spaces $U, V$ \\
+		matrices $A \in \mathcal M^{n \times m} \mapsto$ operators $A \in \mathcal L(U, V)$ \\
+		functions $f: \mathbb R^n \to \mathbb R \mapsto$ functionals $f: U \to \mathbb R$
+	\item Furthermore we discuss inner products, orthogonality, connectedness, eigenvalues
+	\item Fields of application
+	  \begin{itemize}
+	  	\item basis of Applied Mathematics
+	  	\item partial differential equations
+	  	\item physical modelling
+	  	\item inverse problems (operator $A$ models some physical measurement process)
+	  	\item Optimization and optimal control
+	  \end{itemize}
+\end{itemize}
+
+A motivating example was presented with slides.
+
+\subsection{Application examples}
+
+Let $K: U \to \mathbb R^m$ with $U$ as vector space describe a physical model.
+For example, $K$ is a Fourier/Radon/X-ray transform (MR/CT/PET imaging) or
+$K u = y(1)$ where $y: [0, 1] \to \mathbb R^m$ solves $y'(t) = y(t) + u(t)$ and $y(0) = 0$.
+
+\index{Inverse problems}
+Another example is the class of so-called \emph{inverse problems}.
+Given $d = ku$, find $u$.
+Typically inversion of $K$ is ill-constrained. Solution is typically non-unique.
+
+Approach: Solve $\min_{u \in U} \lambda \Norm{Ku - d}_2 + \Norm{u}_k$ where $\Norm{z}_2 \coloneqq \sqrt{\sum_{i=1}^n z_i^2}$ and $\Norm{\cdot}_u$ is a norm on $U$.
+Or alternatively, let $U = \mathcal C^1([0,1]^2)$ and solve $\min_{u \in U} \lambda \Norm{ku - d}_2 + \sqrt{\int_{[0,1]^2} \Abs{\nabla u(x)}^2 \, dx}$.
+
+Other examples are JPEG compression and upsampling of images.
+
+\subsection{Our first problem}
+
+Let $U \coloneqq \mathcal C^1([0,1]^2)$ be a normed space, $K: U \to \mathbb R^m$ linear.
+Solve $\min_{u \in U} \lambda \Norm{Ku - d} + \sqrt{\int_{[0,1]^2} \Abs{\nabla u(x)}^2 \, dx}$.
+The question is: does such a solution exist?
+
+We have a background in finite-dimensional vector spaces.
+We consider a special case to apply the theories we already know.
+
+So we consider a discrete setting. Let $U: \mathbb R^n$ and $\nabla: \mathbb R^n \to \mathbb R^k$ is a discrete gradient.
+In 1D, we have $u = (u_i)_{i} \in \mathbb R^m$ and $u_i = u(x_i) \implies u' \approx u(x_{i+1}) - u(x_i) = u_{i+1} - u_i$.
+Consider $\min_{u \in \mathbb R^n} \Norm{\nabla u}_2 + \lambda \Norm{Ku - d}_2$ as problem.
+
+Does there exist a solution to this problem assuming $\lambda > 0$, $K: \mathbb R^n \to \mathbb R^m$ linear and $\nabla: \mathbb R^n \to \mathbb R^k$ linear.
+
+\begin{proof}
+  \begin{description}
+  	\item[Case 1 (trivial model)]
+  	  Let $m = n$. $K_n = u$
+  	  \begin{align} \min_{u \in \mathbb R^n} \Norm{\nabla u}_2 + \lambda \Norm{u - d}_2 \label{p1} \end{align}
+  	  Take $(u_n)_{n \in \mathbb N}$ in $\mathbb R^n$ such that $\lim _{n \to \infty} \Norm{\nabla u_1}_2 +  \lambda \Norm{u_n - d}_2 = \inf_{u \in \mathbb R} \Norm{\nabla u}_2 + \lambda \Norm{u - d}_2$.
+  	  It holds that $C = \lambda \Norm{d}_2 \geq \inf_{u \in \mathbb R} \Norm{\nabla u}_2 + \lambda \Norm{d}_2$.
+  	  Without loss of generality, we can assume that $2C \geq \Norm{\nabla u_n}_2 + \lambda \Norm{u_n - d}_2 \forall n \in \mathbb N$
+  	  \[ \implies \lambda \Norm{u_1}_2 \leq \lambda \Norm{u_n - d}_2 + \lambda \Norm{d}_2 \leq \Norm{\nabla u_k}_2 + \lambda \Norm{u_n - d}_2 - \lambda \Norm{d}_2 \leq 2C + \lambda \Norm{d}_2  \]
+  	  $(\Norm{u_n}_2)_n$ is bounded. So the Bolzano-Weierstrass theorem applies and $(u_n)_{n \in \mathbb N}$ admits a convergent subsequence $(u_{n_i})_{i \in \mathbb N}$.
+  	  Take $u \in \mathbb R^n$. $u_{n_i} \to u$ as $i \to \infty$.
+
+  	  Now: Show that $u$ solves Problem~\eqref{p1}. $\nabla$ is continuous. $\Norm{\cdot}_2$ is continuous.
+  	  \[ \inf_{u \in U} \Norm{\nabla u}_2 + \lambda \Norm{u - d}_2 = \lim_{i \to \infty} \Norm{\nabla u_{n_i}} + \lambda \Norm{u_{n_i} - d}_2 = \Norm{\nabla \hat{u}}_2 + \lambda \Norm{\hat{u} - d}_2 \]
+  	  This implies that $\hat u$ is the solution to the problem of this first case.
+
+  	  Ingredients of this proof where:
+  	  \begin{itemize}
+  	  	\item boundedness
+  	  	\item compactness
+  	  	\item continuity of $\nabla$, $\Norm{\cdot}_2$
+  	  \end{itemize}
+  	\item[Case 2 ($K$ arbitrary)]
+  	  \begin{enumerate}
+  	  	\item
+	  	  $K$ arbitrary does not provide boundedness anymore.
+	  	  Define $X \coloneqq \ke(\nabla) \cap \ke(k)$ and
+	  	  \[ X^\bot \coloneqq \SetDef{x \in \mathbb R^n}{(x, y) \coloneqq \sum_{i=1}^n x_i y_i = 0 \forall y \in X} \]
+	  	  Then we apply results from linear algebra:
+	  	  \[ \mathbb R^n: X \oplus X^\bot \qquad \text{ i.e. } \forall u \in \mathbb R^n: \exists! u_1 \in X, u_2 \in X^\bot: u = u_1 + u_2 \]
+	  	  \index{Orthogonal complement}
+	  	  Recall, that $X^\bot$ is called \emph{orthogonal complement}.
+
+	  	  \begin{claim}
+	  	    If $\hat u$ solves $\min_{u \in X^\bot} \Norm{\nabla u}_2 + \lambda \Norm{Ku - d}_2$. Then $\hat{u}$ solves Problem~\eqref{p1}.
+	  	  \end{claim}
+	  	  \begin{proof}
+	  	  	Let $\hat u$ be a solution on $X^\bot$.
+	  	  	Take $u \in \mathbb R^n$ arbitrary. We write $u = u_1 + u_2 \in X \times X^\bot$. Now we have:
+	  	  	\begin{align*}
+	  	  	  \Norm{\nabla u}_2 + \lambda \Norm{ku - d}_2
+	  	  	  	&= \Norm{\nabla (u_1 + u_2)}_2 + \lambda \Norm{k (u_1 + u_2) - d}_2 \\
+	  	  	  	&= \Norm{\nabla u_2}_2 + \lambda \Norm{ku_2 - d}_2 \\
+	  	  	  	&\geq \Norm{\nabla \hat u}_2 + \lambda \Norm{K\hat u - d}_2
+	  	  	\end{align*}
+	  	  	Thus $\hat u$ solves our problem~\eqref{p1}.
+	  	  \end{proof}
+
+	  	  Take again $(u_n)_{n \in \mathbb N}$ be such that $u_n \in X^\bot \forall n$ and
+	  	  \[ \lim_{n \to \infty} \Norm{\nabla u_n}_2 + \lambda \Norm{k u_n - d}_2 = \inf_{u \in X^\bot} \Norm{\nabla_u}_2 + \lambda \Norm{ku - d}_2 \]
+	  	  Write $u_1 = u_n^1 + u_n^2 \in \ke(\nabla) + \ke(\nabla)^\bot$.
+	  	  $\nabla: \ke(\nabla)^\bot \to \im(\nabla)$ is bijective.
+	  	  Since $\nabla v = 0$ for $v \in \ke(\nabla)^\bot \implies v \in \ke(\nabla) \implies \Norm{v_2} = (v, v) = 0$.
+	  	  Thus, $\nabla^{-1}: \im(\nabla) \to \ke(\nabla)^\bot$ exists and is continuous.
+	  	  \begin{align*}
+	  	  	\implies \Norm{u_n^2}_2 &= \Norm{\nabla^{-1} \nabla u_n^2}_2 = \Norm{\nabla^{-1}} \cdot \Norm{\nabla u_n^2}_2 \leq \Norm{\nabla^{-1}} \\
+	  	  		&\leq \Norm{\nabla^{-1}} \left(\Norm{\nabla u_n^2}_2 + \lambda \Norm{K u_n - d}_2\right) \\
+	  	  		&= \Norm{\nabla^{-1}} \left(\underbrace{\Norm{\nabla u_n}_2}_{= \Norm{\nabla u_n}_2} + \lambda \Norm{K u_n - d}_2\right) \\
+	  	  		&< C \text{ for some } C > 0
+	  	  \end{align*}
+	  	  Than $\Norm{u_n^2}_2$ bounded.
+	  	\item Show $(u_n^1)_n$ is bounded. $K: X^\bot \cap \ker(\nabla) \to \im(K)$ is bijective.
+	      Since $Kv = 0$ for $v \in X^\bot \cap \ke(\nabla) \implies v \in \ke(K)$. Hence $v \in \ke(K) \cap \ke(\nabla) = X \implies v \in X \cap X^\bot \implies v = 0$.
+	      Hence $K^{-1}: \im(K) \to X^\bot \cap \ke(\nabla)$ exists and is continuous.
+	      \begin{align*}
+	      	\implies \Norm{u_n^n}_2 &= \Norm{K^{-1} K u_n^n}_2 \leq \Norm{K^{-1}} \Norm{K u_{n}^n}_2 \\
+	      		&= \frac{\Norm{K}}{\lambda} \left(\lambda \Norm{K (u_1^n + u_2^n) - K u_n^n}_2 + \Norm{\nabla u_n}_2\right) \\
+	      		&\leq \frac{\Norm{K}}{\lambda} \left(\underbrace{\lambda \Norm{K u_1 - d}_2}_{\text{bounded}} + \underbrace{\Norm{\nabla u_n}_2 + \lambda \Norm{d - K u_1^2}}_{\text{bounded because $u_n^2$ is bounded}}\right) \\
+	      		&< D \text{ for some } D > 0 \\
+	      	\implies (u_n^n)_n \text{bounded} &\implies (u_n) = (u_n^n + u_n^n)_n \text{ is bounded}
+	      \end{align*}
+	      $\implies (u_n)_n$ admits a subsequence converging to some $\hat u$.
+	      As in Case 1, $\hat u$ is a solution to Problem~\eqref{p1}.
+	  \end{enumerate}
+  \end{description}
+  In summary,
+  \begin{enumerate}
+  	\item $\min_{u \in U} \lambda \Norm{Ku - d}_2 + \sqrt{\int_{[0,1]^2} \Abs{\nabla n}^2\, dx}$ with $U = \mathcal C^1([0, 1]^2)$ relevant for application.
+  	\item Discrete version: $\min_{u \in \mathbb R^n} \lambda \Norm{Ku - d} + \Norm{\nabla u}_2$. We have shown existence by using:
+  		\begin{enumerate}
+  			\item complementary subspaces $X^\bot$
+  			\item boundedness and compactness
+  			\item continuity
+  			\item Next time: How does FA help to transfer the proof of the infinite dimensional setting?
+  		\end{enumerate}
+  \end{enumerate}
+\end{proof}
+
+
+\paragraph{About the existence of infinitely many dimensions}
+\dateref{2019/03/07}
+
+Define $U = \mathcal C^1([0,1]^2)$. Let $Y$ is some Banach space and $K: U \to Y$ is linear and continuous.
+
+Consider the problem $(P_\infty)$ given by $\min_{u \in U} \Norm{\nabla u}_2 + \lambda \Norm{K u - d}_Y$ where $d \in Y$ and $\Norm{\nabla u}_2 \coloneqq \sqrt{\int_{[0,1]^2} \Abs{\nabla u(x)}^2}$.
+
+\begin{proposition}
+	\label{proposition:0.2}
+	There exists a solution of $(P_\infty)$.
+\end{proposition}
+
+\begin{proof}
+	Take $(u_n)_{n \in \mathbb N}$ as a sequence in $U$ such that $\lim_{n \to \infty} \Norm{\nabla u_1}_2 + \lambda \Norm{K u_n - d}_n \to \inf_{u \in U} (\dots)$.
+	Now we want to show that $(u_n)_{n \in \mathbb N}$ is bounded.
+	\begin{description}
+		\item[Case 1]
+		Assume that $Ku = u$, $Y = U$ and $\Norm{\cdot}_Y = \Norm{\cdot}_2$.
+		\[ \implies \lambda \Norm{u_n}_2 = \lambda \Norm{u_n - d}_2 + \lambda \Norm{d} \leq \Norm{\nabla u_n}_2 + \lambda \Norm{u_n - d}_2 + \lambda \Norm{d} < C \text{ for } C > 0 \]
+		\[ \implies (u_n)_{n \in \mathbb N} \text{ is bounded} \]
+		So does $(u_n)_{n \in \mathbb N}$ admit a convergent subsequence? No.
+		It requires the notion of \emph{weak convergence}\index{Weak convergence} and particular spaces called \emph{reflexive spaces}\index{Reflexive space}.
+
+		So we change $U$ to $U = \SetDef{u: [0,1]^2 \to \mathbb R}{\sqrt{\int_{[0,1]^2}} < \infty}$.
+		Define, instead of $\Norm{\nabla u}_2$,
+		\[ R(u) = \begin{cases} \Norm{\nabla u}_2 & \text{if } v \in \mathcal C^2 \\ \infty & \text{else} \end{cases} \]
+		and consider $\min_{u \in U} R(u) + \lambda \Norm{K_{u - d}}_2$ instead.
+
+		In this setting, $(u_n)_{n \in \mathbb N}$ admits a weakly convergent subsequence converging to some $\hat u \in U$ (denoted by $(u_{n_i})_{i \in \mathbb N}$).
+
+		Our next step is to use continuity to show that $\hat u$ is a solution.
+
+		Problem: $u \mapsto \Norm{u - d}_2$ is, in general, not continuous with respect to weak convergence.
+
+		\emph{But} it is always true that $\Norm{\hat u - d}_2 \leq \liminf_{i \to \infty} \Norm{u_{n_i} - d}_L$. Yes.
+		We consider that as first property.
+
+		Is it also true that $R(\hat u) \leq \liminf_{i \to \infty} R(u_{n_i})$? No.
+		So we apply some kind of adaption. Recall that
+		\[ \int_0^1 \partial_x u \varphi = -\int_0^1 u \partial_x \varphi \forall \varphi \in \mathcal C^\infty([0, 1]^2) \]
+		$\varphi = 0$ in $K \setminus [0, 1]^2$ for some $K \Subset (0, 1)^2$.  % \Subset == \subset\subset
+		\begin{align*}
+			\implies \int_{[0,1]^2} \nabla u \varphi &= -\int_{[0,1]^2} u \cdot (\partial_{x_i} \varphi_1 + \partial_{x_2} \varphi_2) \\
+				&\forall \varphi: (\varphi_1, \varphi_2) = \mathcal C^\infty([0, 1]^2, \mathbb R^2) + \text{ zero on boundary}
+		\end{align*}
+		We define $w: [0, 1]^2 \to \mathbb R^2$ is called \emph{weak derivative}\index{Weak derivative} of $u \in U$.
+		\[ \iff \int_{[0,1]^2} w \varphi = -\int_{[0,1]^2} u(\partial_{x_1} \varphi_1 + \partial_{x_2} \varphi_2) \text{ holds } \forall \varphi \]
+
+		Then $w$ is called \emph{weak gradient}\index{Weak gradient} of $u$. We adjust:
+		\[ R(u) = \begin{cases} \Norm{\nabla u}_2 & \text{ if } u \text{ is weakly differentiable} \\ \infty & \text{else} \end{cases} \]
+		Then $R(\hat u) \leq \liminf_{i \to \infty} R(u_{n_i})$. We consider this as second property.
+
+		By the two properties,
+		\begin{align*}
+			R(\hat u) + \Norm{\hat u - d}
+				&\leq \liminf_{i \to \infty} R(u_{n_i}) + \liminf_{i \to \infty} \lambda \Norm{u_{n_i} - d}_2 \\
+				&\leq \liminf_{i \to \infty} \left(R(u_{n_i}) + \lambda \Norm{u_{n_i} - d}_2\right) \\
+				&= \inf R(u) + \lambda \Norm{u - d}_2
+		\end{align*}
+
+		\item[Case 2]
+		Works as in the finite-dimensional setting using
+		\begin{itemize}
+			\item $X \coloneqq \ke(A) \cap \ke(\nabla) \implies U = X \oplus X^\bot$ requires so-called \emph{Hilbert spaces}\index{Hilbert spaces}
+			\item $\Norm{u}_2 \leq C \Norm{\nabla u}_2 \forall u \in \ke(\nabla)^\bot$ is called \emph{Poincare inequality}.
+		\end{itemize}
+	\end{description}
+\end{proof}
+
+
+So this content so far was a motivation.
+Now, which topics are we going to cover in this course:
+
+\begin{enumerate}
+	\item Topological and metric spaces
+	\item Normal spaces
+	\item Linear operator
+	\item The Hahn-Banach Theorem and consequences
+	\item Fundamental theorems for linear operators
+	\item Dual spaces and reflexivity
+	\item Contemplementary subspaces
+	\item Hilbert spaces
+\end{enumerate}
+
+\dateref{2019/03/12}
+
+\begin{Remark}
+	\begin{enumerate}
+		\item Literature: UGU, in particular: Biezis, Werner
+		\item In this lecture: always $\mathcal K \in \Set{\mathbb R, \mathbb C}$ if not further specified
+	\end{enumerate}
+\end{Remark}
+
+\section{Topological and metric spaces}
+
+\begin{Remark}[Motivation]
+	Some concepts in Functional Analysis (e.g. weak convergence) cannot be associated with norms but rather with topologies
+\end{Remark}
+
+\begin{definition}[Topology]
+	\label{definition:1.1}
+	Let $X$ be a set and $\tau \subset \mathcal P(X) = \Set{\text{\enquote{set of subsets of $X$}}}$.
+	We say that $\tau$ is a \emph{topology}\index{Topology} on $X$ if
+	\begin{enumerate}
+		\item $X, \emptyset \in \tau$
+		\item $U, V \in \tau \implies U \cap V \in \tau$
+		\item For any collection of sets $(U_i)_{i \in I}$ with $I$ as some index set. We have $U_i \in \tau \forall i \in I \implies \bigcup_{i \in I} U_i \in \tau$.
+	\end{enumerate}
+	$(X, \tau)$ is called \emph{topological space}\index{Topological space}.
+
+	A set $U \subset X$ is called \emph{open} if $U \in \tau$ and is called closed if $U^C \in \tau$.
+\end{definition}
+
+\begin{Remark}
+	By the third property of topologies, $\bigcap_{i \in I} V_i$ is closed for any collection $(V_i)_{i \in I}$ of closed sets.
+\end{Remark}
+
+\begin{definition}[Metric]
+	\label{definition:1.2}
+	Let $X$ be a set, $d: X \times X \to \mathbb R$ be such that $\forall x, y, z \in X$
+	\begin{enumerate}
+		\item $d(x, y) \geq 0, d(x, y) = 0 \iff x = y$
+		\item $d(x, y) = d(y, x)$
+		\item $d(x, z) \leq d(x, y) + d(y, z)$
+	\end{enumerate}
+	Then $d$ is called a \emph{metric on $X$}\index{Metric} and $(X, d)$ is called \emph{metric space}\index{Metric space}.
+\end{definition}
+
+\begin{definition}[Norm]
+	\label{definition:1.3}
+	Let $X$ be a vector space. A function $\Norm{\cdot}: X \to \mathbb R$ is called \emph{norm}\index{Norm} if $\forall x, y \in X, \lambda \in \mathbb K$
+	\begin{enumerate}
+		\item $\Norm{x} \geq 0, \Norm{x} = 0 \iff x = 0$
+		\item $\Norm{\lambda \cdot x} = \Abs{\lambda} \cdot \Norm{x}$
+		\item $\Norm{x + y} \leq \Norm{x} + \Norm{y}$
+	\end{enumerate}
+	Then $(X, \Norm{\cdot})$ is called \emph{normed space}\index{Normed space}.
+\end{definition}
+
+\begin{Remark}
+	If $\dim(x) < \infty$, all norms on $X$ are equivalent.
+\end{Remark}
+
+\begin{Example}
+	\begin{enumerate}
+		\item Let $X$ be a set then $\tau = \Set{\emptyset, X}$ is a topology.
+		\item $(X, \mathcal P(X))$ is a topological space.
+		\item Define $S^{d-1} \coloneqq \SetDef{x \in \mathbb R^d}{\sum_{i=1}^d x_i^2 = 1}$ and $d(x, y) \coloneqq r$ where $r$ is the length of the shortest connection between $x$ and $y$ on $S^{d-1}$. Then $d$ is a metric on $S^{d-1}$
+		\item $X \coloneqq \SetDef{u: [0, 1] \to \mathbb R}{u \text{ is continuous}}$ then $\Norm{u}_\infty \coloneqq \sup_{x \in [0,1]} \Abs{u(x)}$ is a norm on $X$
+		\item $l^p \coloneqq \SetDef{(X_i)_{i \in \mathbb N}}{x_i \in \mathbb K \forall u \text{ and } \sum_{i=1}^{\infty} \Abs{x_i}^p < \infty}$ with $p \in [1,\infty)$ and $\Norm{(x_i)_{i \in \mathbb N}}_p \coloneqq \left(\sum_{i=1}^\infty \Abs{x_i}^p\right)^{\frac1p}$. Then $(l^p, \Norm{\cdot}_p)$ is a normed space (the proof will be done later).
+	\end{enumerate}
+\end{Example}
+\begin{Remark}
+	\[ l^\infty \coloneqq \SetDef{(X_i)_{i \in \mathbb N}}{\sup_{i \in \mathbb N} \Abs{x_i} < \infty} \]
+	\[ \Norm{(X_i)_{i \in \mathbb N}} = \sup_i \Abs{X_i} \]
+\end{Remark}
+
+\begin{proposition}
+	\label{proposition:1.4}
+	Let $X$ be a set.
+	\begin{enumerate}
+		\item If $(X, d)$ is a metric space, define for $\varepsilon > 0, x \in X$. $B_{\varepsilon}(x) = \SetDef{y \in X}{d(x, y) < \varepsilon}$ and $\tau = \SetDef{U \in \mathcal P(x)}{\forall x \in U \exists \varepsilon > 0: B_\varepsilon(x) \in U}$.
+		Then $(X, \tau)$ is a \emph{topological space}\index{Topological space}. We say that $\tau$ is the topology induced by $d$ and we have that $B_\varepsilon(x) \in \tau \forall \varepsilon > 0, x \in X$
+		\item If $(X, \Norm{\cdot})$ is a normed space, define $d: X \times X \to \mathbb R$ with $(x, y) \mapsto \Norm{x - y}$. Then $(X, d)$ is a metric space and $d$ is called the metric induced by $\Norm{\cdot}$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{Remark}[Consequence]
+	Every concept introduced for topological and metric spaces transfers to metric and normed spaces, respectively. The proof is left as an exercise to the reader.
+\end{Remark}
+
+\begin{definition}
+	\label{definition:1.5}
+	Let $(X, \tau)$ be a topological space. $U \subset X$. $x \in X$.
+	\begin{enumerate}
+		\item $U$ is called a neighborhood of $x$ if $\exists V \in \tau- x \in X \subset U: \mathcal U(x)$ is defined as the set of all neighborhoods of $x$
+		\item
+			\begin{itemize}
+				\item $x$ is called \emph{interior point}\index{Interior point} of $U$ if $U \in \mathcal U$
+				\item $x$ is called \emph{adjacent point}\index{Adjacent point} of $U$ if $\forall V \in \tau$ such that $x \in V: V \cap U \neq \emptyset$
+				\item $x$ is called \emph{cluster point}\index{Cluster point} of $U$ if it is an adjacent point of $U \setminus \Set{x}$.
+			\end{itemize}
+			The third property is stronger.
+		\item Notational conventions:
+			\[ \mathring{U} \coloneqq \SetDef{x \in U}{x \text{ is an interior point of } U} \]
+			\[ \overline{U} \coloneqq \SetDef{x \in U}{x \text{ is an adjacent point of } U} \]
+			\[ \partial U \coloneqq \overline{U} \setminus \mathring{U} \]
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:1.6}
+	Let $(X, \tau)$ be a topological space, $U \in X$. Then
+	\begin{enumerate}
+		\item $U$ is open $\iff \mathring U = U$
+		\item $U$ is closed $\iff \overline U = U$
+		\item $\mathring U = \bigcup_{\substack{V \in \tau \\ V \subset U}} V$ and $\mathring U$ is open [\enquote{$\mathring U$ is the largest open set in $U$}]
+		\item $\overline U = \bigcap_{\substack{V \text{closed} \\ U \subset V}} V$ and $\overline U$ is closed [\enquote{$\overline U$ is the smallest closed set containing $U$}]
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item[3.]
+		  \begin{description}
+		  	\item[$\subset$] Let $x \in \mathring U \implies \exists \hat V \in \tau$ s.t. $x \in \hat V \subset U \implies x \in \bigcup_{\substack{V \in \tau \\ V \subset U}} V$
+		  	\item[$\supset$] Let $x \in \bigcup_{\substack{V \in \tau \\ V \in U}} V \implies x \in \hat V$ for some $\hat V \in \tau, \hat V \in U \implies x \in \mathring U$
+		  \end{description}
+		  $\mathring U$ is open because it is the union of open sets.
+		\item[1.]
+			\begin{description}
+				\item[$\implies$]
+					$\mathring U \subset U$ by definition.
+					$U$ is open, so $U \subset \bigcup_{\substack{V \subset \tau \\ V \subset U}} V \overset{(3)}{=} \mathring U$
+			\end{description}
+		\item[2.]
+			\begin{description}
+				\item[$\implies$]
+					$V \subset \overline{U}$ by definition.
+					Take $x_0 \in \overline U$. If $x \not\in U \implies x \in U^C \in \tau$ and $U \cap U^C = \emptyset$. This contradicts to $x \in \overline U$.
+				\item[$\impliedby$]
+					Take $x \in U^C = \overline U^C$.
+					\begin{itemize}
+						\item[$\overset{(4)}{\implies}$] $\exists V \in \tau: x \in V \land V \cap \overline U = \emptyset$
+						\item[$\implies$] $V \cap U = \emptyset \implies V \subset U^C$
+						\item[$\implies$] $U^C$ open $\implies U$ closed
+					\end{itemize}
+			\end{description}
+		\item[4.]
+			We prove the fourth property without the second.
+			\begin{description}
+				\item[$\subset$]
+					Take $x \in \overline{U}$. Take closed $V$ such that $U \subset V$ if $x \not\in V \implies x \in V^C$ which is open and $V^C \cap U = \emptyset$. This contradicts to $x \in \overline U$.
+				\item[$\supset$]
+					Take $x \in \bigcap_{\substack{V \text{ closed} \\ U \subset V}}$. Suppose $x \not\in \overline U$.
+					\begin{itemize}
+						\item[$\implies$] $\exists Z$ open such that $x \in Z$ and $Z \cap U = \emptyset$
+						\item[$\implies$] $U \subset Z^C$, $Z^C$ closed, $x \not\in Z^C$. This contradicts to $x \in \bigcap_{\substack{V \text{ closed} \\ U \subset V}} V$
+					\end{itemize}
+					$\overline U$ closed follows since the intersection of closed sets is closed.
+			\end{description}
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}[Limit]\index{Limit}
+	\label{definition:1.7}
+	Let $(X, \tau)$ be a topological space, $(X_n)_{n \in \mathbb N}$ be a sequence in $X$. Henceforth, we write $(X_n)_{n}$ for $(X_n)_{n \in \mathbb N}$ and $\hat x \in X$. We say $x_n \to x$ in $\tau$ as $n \to \infty$ (\enquote{$x_n$ converges to $x$}, \enquote{$x$ is limit of $x_n$})\index{Convergent sequence}\index{Limit} if
+	\[ \forall U \in \tau \text{ such that } \hat x \in U \exists n_0 \geq 0 \forall n \geq n_0: x_n \in U \]
+\end{definition}
+
+\begin{definition}[Proposition and definition]
+	\label{definition:1.8}
+	Let $(X, \tau)$ be a topological space. We say that $(X, \tau)$ is $T_2$ (or Hausdorff)\index{Hausdorff space}\index{T${}_2$ space} if 
+	\[ \forall x, y \in X \text{ with } x \neq y \: \exists U, V \in \tau: x \in U, v \in V \text{ and } U \cap V = \emptyset \]
+	\begin{itemize}
+		\item In a $T_2$-sphere, the limit of any sequence is unique.
+		\item If $\tau$ is induced by a metric, then $(X, \tau)$ is $T_2$.
+	\end{itemize}
+\end{definition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item
+			Take $(x_n)_n$ to be a sequence and assume $x_n$ converges to $\hat x$ and $\hat y$ with $\hat x \neq \hat y$. By $T_2$, $\exists U, V \in \tau: \hat x \in U, \hat y \in V: U \cap V = \emptyset$.
+			By convergenc, $\exists n_x, n_y$ such that $\forall n \geq n_x: x_n \in U$ and $\forall n \geq n_y: x_n \in V$.
+			\[ \forall n \geq \max\Set{n_x, n_y}: x_i \in U \cap V \]
+			This gives a contradiction.
+		\item
+			Take $x, y \in X: x \neq y$. Define $\varepsilon \coloneqq d(x, y)$ and consider $B_{\frac{\varepsilon}{2}}(x)$ and $B_{\frac r2}(y)$ which are open in the induced topology $\tau$. Also $x \in B_{\frac\varepsilon2}(x)$ and $y \in B_{\frac\varepsilon2}(y)$. Assume that $z \in B_{\frac\varepsilon2}(x) \cap B_{\frac r2}(y)$.
+			\[ \varepsilon = d(x, y) \leq d(x, z) + d(z, y) > \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon \]
+			This gives a contradiction.
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	\label{definition:1.9}
+	Let $(X, \tau)$ be a topological space, $U \subset V \subset X$.
+	We say that $U$ is \emph{dense}\index{Dense space} in $V$, if $V \subset \overline U$.
+	We say that $X$ is \emph{separable}\index{Separable space} if there exists a countable, dense subset.
+\end{definition}
+
+\begin{definition}
+	\label{definition:1.10}
+	Let $(X, \tau_X), (Y, \tau_Y)$ be topological spaces and $f: X \to Y$ a function. We say $f$ is \emph{continuous}\index{Continuity}\index{Continuous function} at $x \in X$ if $\forall V \in \mathcal U(f(x)) \exists U \in \mathcal U(x): f(U) \subset V$.
+	$f$ is called \emph{continuous} if it is continous at any $x \in X$.
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:1.11}
+	With $(X, \tau_X), (Y, \tau_Y)$ and $f$ as above,
+	$f$ is continuous $\iff f^{-1}(V) \in \tau_X \forall V \in \tau_Y$
+\end{proposition}
+\begin{proof}
+	Left as an exercise to the reader.
+\end{proof}
+
+\begin{definition}
+	\label{definition:1.12}
+	Let $(X, \tau)$ be a $T_2$ topological space, $M \subset X$ called \emph{compact}\index{Compactness} if for any family $(U_i)_{i \in I}$ with $U_i \in \tau$ s.t. $M \subset \bigcup_{i \in I} U_i$ (\enquote{$(U_i)_{i \in I}$ is an open covering of $M$}), there exists $U_{i_1}, \dots, U_{i_n}$ such that $M \subset \bigcup_{k=1}^n U_{i_k}$ (\enquote{there exists a finite subcover}).
+\end{definition}
+
+\begin{Remark}
+	Compactness can also be defined without $T_2$, this is also referred to as \emph{quasi-compact}\index{Quasicompactness}.
+\end{Remark}
+
+\begin{Remark}[Exercise]
+	Reconsider the previous results for metric and normed spaces.
+\end{Remark}
+
+\dateref{2019/03/14}
+
+\begin{definition}
+	\label{definition:1.13}
+	Let $(X, d)$ be a metric space, $V \subset X$ and $(x_n)_n$ a sequence in $X$. Then we say,
+	\begin{enumerate}
+		\item $V$ is \emph{bounded}\index{Bounded sequence} if $\exists x \in X, r > 0$ such that $U \in B_r(x)$
+		\item $(x_n)_n$ is a \emph{Cauchy sequence}\index{Cauchy sequence} if $\forall \varepsilon > 0 \exists n_0 \in \mathbb N$ such that $\forall n, m \geq n_0: d(x_n, x_m) < \varepsilon$
+		\item $X$ is \emph{complete}\index{Complete space} if any Cauchy sequence in $X$ admits a limit point
+		\item $X$ is a \emph{Banach space}\index{Banach space} if it is a normed space and complete
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:1.14}
+	Let $(X, d)$ be a metric space. $(x_n)_n$ be a sequence in $X$. Then
+	\begin{enumerate}
+		\item $x_n \to x$ in the induced topology $\iff \forall \varepsilon > 0 \exists n_0 \geq 0 \forall n \geq n_0: d(x_n, x) < \varepsilon$
+		\item If $x_n \to x$, then $(x_n)_n$ is bounded as subset of $X$ and $(x_n)_n$ is Cauchy.
+		\item If $U \subset X$ is closed and $X$ is complete. Then $(U, d)$ is a complete metric space.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item We prove both directions:
+			\begin{description}
+				\item[$\implies$]
+					True, since $B_\varepsilon(x)$ is open $\forall \varepsilon 0$
+				\item[$\impliedby$]
+					Let $x \in V$ with $V$ open. Show that $\exists n_0 \geq 0 \forall n \geq n_0: x_n \in V$ \\
+					$V$ open, then $\exists \varepsilon > 0: B_{\varepsilon}(x) \subset V$ \\
+					$\implies \exists n_0 \forall n \geq n_0: x_n \in B_{\varepsilon}(x) \subset V$
+			\end{description}
+		\item Using the first property, we get $\exists n_0 \forall n \geq n_0: d(x_n, x) < 1$.
+			Let $r \coloneqq \max_{i=1,\dots,n_0} d(x, x_i) + 1$. Then
+			\[ \forall n \in \mathbb N: d(x, x_n) < \begin{cases} 1 & \text{if } n \geq n_0 \\ r & \text{if } n < n_0 \end{cases} \leq r \]
+			\[ \implies y_n \in B_r(x) \forall n \in \mathbb N \]
+		\item
+			Take $(y_n)_n$ to be a Cauchy sequence in $U$, then $(y_n)_n$ is a Cauchy sequence in $X \implies \exists x \in X: y_n \to x$ as $n \to x$ if $x \not\in U \implies x \in U^C \implies \exists n_0 \in N$ such that $y_{n_0} \in U^C$ due to $U^C$ open. This is a contradiction to $(y_n)_n$ in $U$
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:1.15}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces. $f: X \to Y$. The following are equivalent (TFAE):
+	\begin{itemize}
+		\item $f$ is continuous (with respect to the induced topology)
+		\item $\forall (X_n)_n$ such that $x_n \to x \implies f(x_n) \to f(x)$
+	\end{itemize}
+\end{proposition}
+\begin{proof}
+	Firstly, we prove that the first statement implies the second statement.
+
+	Take $(x_n)_n$ converging to $x$. Take $V \in \tau_y$ such that $f(x) \in V \implies V \in \mathcal U(f(x))$
+	\begin{enumerate}
+		\item[$\implies$] $\exists U \in \mathcal U: f(U) \subset V \implies \exists \hat U \in \tau_X$ such that $x \in \hat U \subset U$
+		\item[$\implies$] $\exists n_0 \geq 0 \forall n \geq n_0: x_n \in \hat U \implies \forall n > n_0: f(x_n) \in V \implies f(x_0) \to f(x)$
+	\end{enumerate}
+
+	\begin{Remark}
+		\begin{description}
+			\item[$1. \implies 2.$] holds true in any topological space
+			\item[$2. \implies 1.$] Not.
+		\end{description}
+	\end{Remark}
+
+	Secondly, we prove that the second statement implies the first statement.
+
+	Suppose $f$ is not continuous, find $x_n \to x$ such that $f(x_n) \to f(x)$ is wrong.
+	If $f$ is not contiuous, then $\exists x \in X: \exists V \in \mathcal U(f(x))$ such that $f(u) \not\subset V \forall U \in \mathcal U(x)$
+	\[ \implies \exists \hat V \in \tau_Y \text{ such that } f(u) \not\subset \hat V \forall U \in U(x), f(x) \in \hat V \]
+	\[ \implies \forall n \in \mathbb N \exists x_n \in B_{\frac1n}(x): f(x_n) \not\in \hat V \]
+	$\implies (x_n)_n$ converges to $x$ but $f(x_n) \not\in \hat V \implies f(x_n) \not\to f(x)$. This gives a contradiction.
+\end{proof}
+
+\begin{definition}
+	\label{definition:1.16}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces. Let $f: X \to Y$.
+
+	$f$ is \emph{uniformly continuous}\index{Uniform continuity} iff
+	\[ \forall \varepsilon > 0 \exists \delta > 0 \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(f(x), f(y)) < \varepsilon \]
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:1.17}
+	Let $(X, d_X), (Y, d_Y)$ be metric spaces. $M \subset X$, $f: M \to Y$.
+	If $M$ is dense in $X$, $Y$ is complete and $f$ is uniformly continuous.
+	\[ \implies \exists! \hat f: X \to Y \text{ such that } \hat f \text{ continuous and } \hat f |_M = f \]
+\end{proposition}
+
+\begin{proof}
+	Take $x \in X$. By the practicals (and since $\overline M = X$), $\exists (x_n)_n$ such that $x_n \to x$ and $x_n \in M$.
+
+	We show: $(f(x_n))_n$ is Cauchy. Take $\varepsilon > 0 \implies \exists \delta > 0$ such that
+	\[ \forall x_1, x_2 \in X: d_X(x_1, x_2) < \delta \implies d_Y(f(y_1), f(y_2)) < \varepsilon \]
+	Now, $(x_n)_n$ is Cauchy (why?) $\implies \exists n_0 \forall n, m \geq n_0: d_X(x_n, x_m) < \delta$
+	\[ \implies d_Y(f(y_n), f(x_n)) < \varepsilon \implies (f(x_n))_n \text{ is Cauchy implies convergence} \]
+	Now we observe: $\forall \hat x \in X$, there exists $(\hat x_n)_n$ in $M, \hat y \in Y$ such that $f(\hat x_n) \to \hat y$.
+
+	Now: for any $\varepsilon > 0 \exists \delta > 0: d_Y(x_n, \hat x_n) < \delta \implies d_Y(f(x_n), f(\hat x_n)) < \varepsilon$
+	with $x \in X, (x_n)_n$ is a sequence in $M$ such that $x_n \to x, f(x_n) \to y$.
+	Now if $d(x, \hat x) < \delta \implies \exists n_0 \forall n \geq n_0$:
+	\[ d(x_n, \hat x_n) < \delta \implies d(f(x_n), f(\hat x_n)) < \varepsilon \forall n \geq n_0 \]
+	\[ \implies d_Y(\hat y, y) < d_Y(\hat y, f(\hat x_n)) + d_Y(f(\hat x_n), f(x_n)) + d(f(x_n), f(x)) < 3 \varepsilon \]
+	\begin{enumerate}
+		\item If $x = \hat x \implies y = \hat y \implies \hat f(x) \coloneqq y$ is well-defined.
+		\item $\hat f$ is uniformly continuous.
+	\end{enumerate}
+\end{proof}
+
+\dateref{2019/03/19}
+
+\begin{proposition}
+	\label{prop:1.18}
+	Let $(X, d)$ be a metric space, $M \subset X$.
+	\begin{enumerate}
+		\item $M$ is compact, so $\forall (X_i)_{i \in I}$ with $X_i$ a closed set $\forall i$ such that $\bigcap_{i \in I} X_i \cap M = \emptyset$.
+			\[ \implies \exists X_{i_1}, \dots, X_{i_n} \text{ such that } \bigcap_{i=1}^n X_{ij} \cap M = \emptyset \]
+		\item $M$ is compact, so $M$ is closed and bounded.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item We note that $\forall (X_i)_{i \in I}$ is a family of closed sets.
+			$(X_i^C)_{i \in I}$ is a family of open sets and $\bigcap_{i \in I} X_i \cap M = \emptyset \iff M \subset \bigcup_{i \in I} X_i^C$
+		\item Is a special case of the next proposition.
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:1.19}
+	Let $(X, d)$ be a metric space, $M \subset X$. TFAE:
+	\begin{enumerate}
+		\item $M$ is compact.
+		\item Every infinite subset of $M$ admits a cluster point.
+		\item Every sequence of $M$ admits a convergent subsequence.
+		\item $M$ is complete and totally bounded, where totally bounded is defined as
+			\[ \forall \varepsilon > 0: \exists (x_1, \dots, x_n) \text{ in } M: M \subset \bigcup_{i=1}^n B_\varepsilon(x_i) \]
+	\end{enumerate}
+\end{proposition}
+
+\begin{Remark}
+	\begin{enumerate}
+		\item totally bounded $\implies$ bounded (proof is left as an exercise)
+		\item If $\dim(x) < \infty$, then compact $\iff$ complete and bounded (see course Analysis I)
+		\item $\dim(x) < \infty \iff \overline{B_1}(0)$ is compact
+	\end{enumerate}
+	where the last two items imply that $X$ is a normed space.
+\end{Remark}
+
+\begin{proof}
+	\begin{description}
+		\item[$1 \to 2$]
+			If $M$ is finite, (2) always holds true.
+			So assume that $M$ is infinite. Now assume that (2) does not hold.
+			Then there is $C \subset M$ infinite which does not admit a cluster point.
+			[$\forall x \in C \exists \varepsilon_x > 0: B_{\varepsilon_x}(x)$ contains at most one element of $C$].
+			If not, $\exists x in C$ such that $\forall n \in \mathbb N \exists x_n \in B_{\frac1n}(x) \cap C$ such that $(X_n)_n$ is a sequence of distinct points and $x_n \to x$.
+			This implies that $x$ is a cluster point of $C$. This gives a contradiction.
+
+			Now $M \subset \bigcup_{x \in M} B_{\varepsilon_x}(x)$. If $M$ is compact, then
+			\begin{enumerate}
+				\item[$\implies$] $\exists x_1, \dots, x_n: M \subset \bigcup_{i=1}^n B_{\varepsilon_{x_i}}(x_i)$
+				\item[$\implies$] $C \subset M \subset \bigcup_{i=1}^n B_{\varepsilon_{x_i}}(x_i)$
+				\item[$\implies$] $C$ is finite
+			\end{enumerate}
+			This is a contradiction.
+		\item[$2 \to 3$]
+			Let $(x_n)_n$ be a sequence in $M$.
+			\begin{description}
+				\item[Case 1]
+					$\SetDef{x_n}{n \in \mathbb N}$ is finite $\implies (x_n)_n$ admits a convergent sequence.
+				\item[Case 2]
+					$\SetDef{x_n}{n \in \mathbb N}$ is infinite.
+					By the second property, there is a cluster point of $\SetDef{x_n}{x \in \mathbb N}$.
+					Thus $(x_n)_n$ is a convergent subsequence to some $x \in M$.
+			\end{description}
+		\item[$3 \to 4$]
+			Suppose that $M$ is not totally bounded. $\exists \varepsilon > 0 \forall x_1, \dots, x_n \in M \exists y \in M: y \not\in \bigcup_{i = 1}^n B_{\varepsilon}(x_i)$.
+			Construct a sequence $(x_n)_n$ in $M$ as follows:
+			Given $x_1, \dots, x_n$, choose $x_1 \in M$ arbitrary and $x_{i+1} \in M \setminus \bigcup_{j=1}^i B_{\varepsilon}(x_j)$ arbitrary.
+			Then $(x_i)_i$ is a sequence in $M$ and $d(x_i, x_j) > \frac\varepsilon2$ for $i \neq j$.
+			Hence, $(x_i)_i$ cannot admit a convenient subsequence. $G \implies M$ totally bounded.
+
+			Completeness can be shown the following way:
+			Let $(x_n)_n$ be Cauchy in $M$, then there exists a subsequence $(x_{n_i})_i$ and $x \in M$ such that $x_{n_i} \to x$ as $i \to \infty$.
+			Since $(x_n)_n$ is Cauchy, $x_n \to x$ as $n \to \infty$ [left as an exercise]. Thus $M$ is complete.
+		\item[$4 \to 1$]
+			Let $(U_i)_{i \in I}$ be an open covering of $M$ and assume that $(U_i)_{i \in I}$ does \emph{not} admit a finite subsequence.
+			For $n \in \mathbb N$ let $E_n \subset M$ be a finite set such that $M \subset \bigcup_{a \in E_n} B_{\frac1{2^n}(a)}$.
+			Define $\Omega \coloneqq \SetDef{\tilde M \subset M}{\tilde M \text{ is not covered by finitely many } (U_i)_i}$.
+			We recursively define a sequence $(a_n)_n$ in $M$ such that 
+			\[ \forall n \in \mathbb N: a_n \subset E_n, M \cap B_{\frac1{2^n}}(a_n) \in \Omega, B_{\frac{1}{2^n} \cap B_{\frac{1}{2^{n-1}}}}(a_{n-1}) \neq \emptyset \]
+
+			\textbf{Goal:} Show $(a_n)_n \to a$ and then $B_{\frac{1}{2^{n_0}}}(a_{n_0}) \subset U_{i_0}$.
+
+			\begin{description}
+				\item[Step 1]
+					$(a_n)_n$ is well defined.
+					\begin{description}
+						\item[$n=1$] Since $M \in \Omega$ and $M \subset \bigcup_{a \in C_1} B_{\frac12}(a)$, we can pick $a_1 \in E_1$ such that $M \cap B_{\frac12}(a_1) \in \Omega$.
+						\item[$n \to n+1$]
+							Let $a_n \in E_n$ such that $M \cap B_{\frac1{2^n}}(a_n) \in \Omega$ be given.
+							Let $\tilde E_{n+1} = \SetDef{a \in E_{n+1}}{B_{\frac1{2^n}}(a_n) \cap B_{\frac1{2^{n+1}}}(a) \neq \emptyset}$.
+					\end{description}
+
+					Since $M \cap B_{\frac1{2^n}}(a_n) \subset \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{2^{n+1}}}(a)$.
+					[Take $x \in M \cap B_{\frac1{2^n}}(a_n) \implies x \in B_{\frac{1}{2^{n+1}}}(\hat a)$, but if $B_{\frac1{2^{n-1}}}(\hat a) \cap B_{\frac1{2^n}}(a_n) = \emptyset$
+					\[ \implies \hat a \in \tilde E_{n+1} \implies x \in \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{a^{n+1}}}(a) \]
+					Hence there exists $a_{n+1}$ such that $M \cap B_{\frac{1}{2^{n+1}}}(a_{n+1}) \in \Omega$ and $B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n-1}}}(a_{n+1}) \neq \emptyset$.
+					Thus $(a_n)_n$ is well-defined.
+
+				\item[Step 2] Show that $(a_n)_n$ converges. Take $n \in \mathbb N$ and $z \in B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n+1}}}(a_{n+1})$.
+					\[ \implies d(a_n, a_{n+1}) \leq d(a_n, z) + d(z, a_{n+1}) \leq \frac{1}{2^n} + \frac{1}{2^{n+1}} = \frac{3}{2^{n+1}} \]
+					\[ \forall k \geq n: d(a_k, a_n) \leq \sum_{i=n}^{k-1} d(a_{i+1}, a_i) < \sum_{i=n}^{k-1} \frac{3}{2^{i+1}} = \frac{3}{2^{n+1}} \sum_{i=0}^{k-n-1} \frac{1}{2^i} \leq \frac{3}{2^n} \]
+					thus, $(a_n)_n$ is Cauchy. $M$ is complete, so $\exists a \in M: a_n \xrightarrow{n \to \infty} a$
+					\[ \implies \exists U_{i_0}: a \in U_{i_0} and \exists i > 0: B_r(a) \subset U_{i_0} \]
+					Hence, for $n$ sufficiently large such that $d(a, a_n) < \frac r2$ and $\frac1{2^n} < \frac r2$.
+					We take $x \in B_{\frac1{2^n}}(a_n)$ and estimate 
+					\[ d(x, a) \leq d(x, a_n) + d(a_n, a) < \frac r2 + \frac r2 = r \]
+					\[ \implies B_{\frac{1}{2^n}}(a_n) \subset U_{i_0} \]
+					is a contradiction to $M \cap B_{\frac1{2^n}}(a_n) \in \Omega$.
+			\end{description}
+	\end{description}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:1.20}
+	Let $(X, d_X), (Y, d_Y)$ be metric spaces. $M \subset X$ compact. Let $f: X \to Y$ be continuous. Then
+	\begin{enumerate}
+		\item $f(M)$ is compact
+		\item $f|_M: M \to Y$ is uniformly continuous.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Let $(U_i)_{i \in I}$ be an open covering of $f(M)$
+			\begin{enumerate}
+				\item[$\implies$] $(f^{-1}(U_i))_{i \in I}$ is an open covering of $M$ [why!]
+				\item[$\implies$] $\exists c_1, \dots, c_n$ such that $M \subset \bigcup_{i=1}^n f^{-1}(U_{i_j}) \implies f(M) \subset \bigcup_{i=1}^n U_{i_j}$
+			\end{enumerate}
+		\item If $f|_M$ is not uniformly continuous, then $\exists \varepsilon \in \mathbb N \exists x, y \in M: d(x, y) < \frac1n$ and $d(f(x), f(y)) > \varepsilon$ (*).
+			Now take $(x_n)_n, (y_n)_n$ sequences in $M$ satisfying condition (*).
+			$M$ is compact, so $\exists (x_{n_i})_{i}$ subsequence converging to some $x \in M$.
+			\[ d(y_{n_i}, x) < d(y_{n_i}, x_{n_i}) + d(x_{n_i}, x) \leq \frac{1}{n_i} + d(x_{n_i}, x) \xrightarrow{i \to \infty} 0 \]
+	\end{enumerate}
+\end{proof}
+
+\dateref{2019/03/21}
+
+\begin{proposition}[Proposition and definition]
+	\label{proposition:1.21}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces.
+	$g: X \to Y$ is a function. $g$ is called \emph{Lipschitz continuous}\index{Lipschitz continuity}
+	if $\exists L > 0$ such that $d_Y(\varphi(x), \varphi(y)) \leq L d_X(x, y) \forall x, y \in X$.
+	Any Lipschitz continuous function is uniformly continuous.
+\end{proposition}
+
+\begin{proof}
+	Left as an exercise to the reader.
+\end{proof}
+
+\begin{theorem}[Arzelà-Ascoli theorem]
+	\label{theorem:1.22}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and assume that $X$ is compact.
+	Define $C(X, Y) \coloneqq \SetDef{f: X \to Y}{f \text{ continuous}}$ and $d_C(f, g) = \sup_{x \in X} d_Y(f(x), g(x))$.
+	Then
+	\begin{enumerate}
+		\item $d_C$ is well-defined and $(C(X, Y), d_C)$ is a complete metric space
+		\item A set $M \subset C(X, Y)$ is compact iff
+			\begin{enumerate}
+				\item $\forall x \in X$ the set $M_X \coloneqq \SetDef{f(x)}{f \in M}$ is compact
+				\item $M$ is \emph{equicontinuous}\index{Equicontinuous set}, i.e. $\forall \varepsilon > 0 \exists \delta > 0$
+					\[ \forall x, y \in X \forall f \in M: d_X(x, y) < \delta \implies d_Y(f(x), f(y)) < \varepsilon \]
+			\end{enumerate}
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Show that: $d_C(f, g) < \infty$.
+
+			Pick $f, g \in \mathcal C(X, Y)$. Because $X$ is compact, $f(X), g(X) \text{ compact} \implies f(X), g(X) \text{ bounded}$.
+			Thus, $\exists x_1, x_2, D_1, D_2: f(X) \subset B_{D_1}(x_1), g(X) \subset B_{D_2}(x_2)$.
+			Now for $x \in X$,
+			\begin{align*}
+				d(f(X), g(x)) &\leq d(f(x), x_1) + d(x_1, x_2) + d(x_2, g(x)) \\
+					&\leq D_1 + d(x_1, x_2) + D_2 < \infty \\
+					&\implies \sup_{x \in X} d(f(x), g(x))
+			\end{align*}
+			Showing that $d_C$ is a metric is left as an exercise.
+
+			Show that $(C(X, Y), d_C)$ is a complete metric space.
+
+			Take $(f_n)_n$ be Cauchy in $C(X, Y) \implies (f_n(x))_n$ is Cauchy in $Y \forall x \in X$.
+			Because $Y$ is complete, $(f_n(x))_n$ is convergent and we can define $f(x) \coloneqq \lim_{n \to \infty} f_n(x)$.
+			Convergence of $(f_n)_n$ with respect to $d_C$:
+			Take $\varepsilon > 0$, show
+			\[ \exists n_0 \forall n \geq n_0: \sup_x d(f(x), f_n(x)) < \varepsilon \]
+			Because it is Cauchy, $\exists n_0 \forall n, m \geq n_0: d_C(f_n, f_m) < \varepsilon$.
+			Consider $x \in X, n \geq n_0: d(f(x), f_n(x)) = \lim_{m \to \infty} d(f_m(x), f_n(x)) \leq \lim_{m\to\infty} d(f_m, f_n) < \infty$ (the proof follows below)
+			\[ \implies \sup_{x \in X} d(f(x), f_n(x)) < \varepsilon \]
+			Thus, if $f \in \mathcal C(X, Y) \implies f_n \to f$ with respect to $d_C$.
+			Show that $f \in C(X, Y)$. Take $\varepsilon > 0$. Let $n_0$ such that $\sup_{x \in X} d(f(x), f_{n_0}(x)) < \frac{\varepsilon}{3}$.
+			Take $\delta > 0$ such that $d(x, y) < \delta \implies d(f_{n_0}(x), f_{n_0}(y)) < \frac\varepsilon3 \forall x, y$.
+			Then $\forall x, y: d(x, y) < \delta$
+			\begin{align*}
+				d(f(x), f(y))
+					&\leq  d(f(x), f_{n_0}(x)) + d(f_{n_0}(x), f_{n_0}(y)) + d(f_{n_0}(y), f(y)) \\
+					&\leq \frac\varepsilon3 + \frac\varepsilon3 + \frac\varepsilon3 = \varepsilon
+			\end{align*}
+
+			It remains to show: $\forall x \in X, n \geq n_0: d(f(x), f_n(x)) = \lim_{m \to \infty} d(f_m(x), f_n(x))$.
+
+			In general, we have $\forall x, y, z \in (Z, d_Z)$ with $d_Z$ as a metric.
+			\[ \Abs{d(x, z) - d(y, z)} \leq d(x, y) \]
+			\begin{proof}
+				\begin{align}
+					d(x, z) &\leq d(x, y) + d(y, z) \implies d(x, z) - d(y, z) \leq d(x, y) \label{a} \\
+					d(y, z) &\leq d(y, x) + d(x, z) \implies d(y, z) - d(x, z) \leq d(x, y) \label{b} \\
+					\eqref{a} \text{ and } \eqref{b} &\implies \Abs{d(x, z) - d(y, z)} \leq d(x, y)
+				\end{align}
+			\end{proof}
+			Consequently, $\forall z \in Z$, $x_n \to x$ in $Z$: $d(x_n, z) \to d(x, z)$
+			since $\Abs{d(x_n, z) - d(x, z)} \leq d(x_n, x) \to 0$.
+
+		\item We need to prove both directions.
+
+			\begin{description}
+				\item[$\implies$]
+					\begin{enumerate}
+						\item For $x \in X$ fixed, define $g_X: M \to Y$ with $f \mapsto f(x)$.
+							Then $d_Y(g(f_1), g(f_2)) = d_Y(f_1(x), f_2(x)) \leq d_C(f_1, f_2)$
+							\begin{itemize}
+								\item[$\implies$] $g_X$ is Lipschitz continuous, in particular continuous
+								\item[$\implies$] $M_X = g_X(M)$ compact
+							\end{itemize}
+
+						\item Take $\varepsilon > 0$. $M$ is totally bounded, so $\exists f_1, \dots, f_n \in M: M \subset \bigcup_{i=1}^n B_{\frac\varepsilon3}(f_i)$.
+							$\forall i \in \Set{1, \dots, n} \exists \delta_i: \forall x, y \in X: d(x, y) < \delta_i \implies d_Y(f_i(x), f_i(y)) < \frac\varepsilon3$.
+							Define $\delta \coloneqq \min_i \delta_i > 0$. Then $\forall x, y \in X: d(x, y) < \delta$ and $\forall f \in M \exists f_{i_0}: f \in B_{\frac c3}(f_{i_0})$
+							\[ \implies d(f(x), f(y)) \leq \underbrace{d(f(x), f_{i_0}(x))}_{\leq d_C(f, f_{i_0}) \leq \frac\varepsilon3} + \underbrace{d(f_{i_0}(x), f_{i_0}(y))}_{\leq \frac\varepsilon3} + \underbrace{d(f_{i_0}(y), f(y))}_{\leq d_C(f_{i_0}, f) \leq \frac\varepsilon3} < \varepsilon \]
+					\end{enumerate}
+				\item[$\impliedby$]
+			\end{description}
+	\end{enumerate}
+\end{proof}
+
+\printindex
+\end{document}
