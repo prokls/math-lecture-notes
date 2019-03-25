@@ -1499,6 +1499,220 @@ In literature the following rules are recommended:
 		\end{itemize}
 \end{description}
 
+\dateref{2019/03/25}
+
+\subsection{Extensions to the Simplex method}
+
+\emph{Ideas:} Direct handling of equations, no sign-restricted variables, upper bounds.
+
+Basically this is not required, because every linear program can be transformed to canonical form.
+This happens to the disadvantage on the number of restrictions or the number of variables. 
+
+\begin{description}
+	\item[1st case: no sign-restricted variables] 
+		Adjustment of the optimality criterion, adjustments to determine the pivot row.
+		The details are given in the practicals.
+	\item[2nd case: equations]
+		The approach is similar to the 2-phases method. Introduce one auxiliary variable for each equation and auxiliary target function.
+		The minimum number of auxiliary variables corresponds to the maximum minus the sum of auxiliary variables.
+		Compare this with the practicals.
+	\item[3rd case: lower bound]
+		\[ l_j \leq x_j \]
+		Transformation to $\tilde x_j \geq 0$ by $\tilde x_j = x_j - l_j$. Compare this with the practicals.
+	\item[4th case: upper bound]
+		\[ x_j \leq u_j \qquad (0, \dots, 0, 1, 0, \overbrace{\dots}^{x_j}, 0) \]
+		\emph{Goal:} implicit handling of such residue classes without maintaining them in the tableau.
+
+		\emph{Idea:} $x_j + \overline{x_j} = u_j$.
+		We call $\overline{x_j}$ \emph{complementary variables}\index{Complementary variables} to $x_j$ and $x_j$ complementary to $\overline{x_j}$.
+		The value of $x_j$ results from value $\overline{x_j}$; vice versa with $\overline{x_j}$ and $x_j$.
+		It suffice to maintain one of the two variables; the value of the other can be easily determined.
+ 
+		Determine $K$, the index set of the variables bounded by above. We have $0 \leq x_j \leq u_j$ for $j \in K$ and $0 < u_j < \infty$.
+		$N$ denotes the index vector of the current non-basis and $B$ is the index vector of the current basis.
+		$S$ is the index of the pivot column.
+
+		We need to distinguish three cases:
+		\begin{description}
+			\item[Case 1] $x_{N(s)}$ is bounded, so $x_{N(s)} \leq u_{N(s)}$
+			\item[Case 2] $x_{B(i)} \leq 0 \to x_{B(i)} = \tilde b_i - \tilde a_{is} x_{N(s)} \geq 0 \implies x_{N(s)} \leq \frac{\tilde b_i}{\tilde a_{is}}$ for $\tilde a_{is} > 0$
+			\item[Case 3] $x_{B(i)}$ is bounded by $u_{B(i)}$
+				\[ x_{B(i)} = \tilde b_i - \tilde a_{is} x_{N(s)} \leq u_{B(i)} \implies x_{N(s)} \leq \frac{\tilde b_i - u_{B(i)}}{\tilde a_{is}} \text{ for } \tilde a_{is} < 0 \]
+		\end{description}
+
+		By the choice of the pivot row, we need to determine the following minimum.
+		\[
+			\min\Set{
+				\underbrace{U_{N(s)}}_{\text{Case 1}},
+				\underbrace{\min\SetDef{\frac{\tilde b_i}{\tilde a_{is}}}{\tilde a_{is} > 0}}_{\text{Case 2}},
+				\underbrace{\min\SetDef{\frac{\tilde b_i - u_{B(i)}}{\tilde a_{is}}}{\tilde a_{is} < 0 \text{ and } B(i) \in K \text{ i.e. $x_{B(i)}$ is bounded by above}}}_{\text{Case 3}}
+			}
+		\]
+		It remains to discuss what happens if the minimum results from the expression in case 1 or 3.
+
+		If it results from \dots
+		\begin{description}
+			\item[Case 1, then] 
+				\begin{itemize}
+					\item $x_{N(s)}$ turns from $0$ to $\tilde U_{N(s)}$
+					\item $\overline{x_{N(s)}}$ becomes zero
+					\item We replace $x_{N(s)}$ by $\overline x_{N(s)}$
+					\item So a new non-basis variable is introduced, the basis retains unchanged
+				\end{itemize}
+
+				\[ \overline{x_{N(s)}} = u_{N(s)} - x_{N(s)} \qquad \text{ insertion into tableau representation} \]
+				\[ \tilde a_{i1} x_{N(1)} + \dots + \tilde a_{is} \underbrace{x_{N(s)}}_{(u_{N(s)} - \tilde x_{N(s)})} + \dots + \tilde a_{in} x_{N(n)} + x_{B(i)} = \tilde b_i \]
+				Transformation $T(s)$ s-th column with $-1$ and substitute the right hand side $\tilde b_i$ by $\tilde b_i - \tilde a_{is} u_{N(s)}$.
+			\item[Case 2, then]
+				classical pivot operation with $\tilde a_{rc} > 0$.
+			\item[Case 3, then]
+				combination of exchange of basis variables with non-basis variables and transition to complementary variables
+		\end{description}
+
+		Computational implementation:
+		\begin{itemize}
+			\item first, make a pivot step with $\tilde a_{rs}$ (consider $\tilde a_{rs} = 0$)
+			\item second, apply transformation $T(s)$
+		\end{itemize}
+
+		\begin{Remark}[Compact representation]
+			Use negative indices for complementary variables $\overline{x_3}$ in basis, so use $-3$ instead of $3$ as index in $B$.
+		\end{Remark}
+
+		\begin{example}
+			\[ \max -x_1 + 4x_2 \]
+			subject to
+			\begin{align*}
+				x_1 - x_2 &\leq 2 \\
+				-x_1 + x_2 &\leq 3 \\
+				x_2 &\leq 4
+				x_1, x_2 &\geq 0
+			\end{align*}
+			\dots becomes \dots
+			\[ \max -x_1 + 4x_2 \]
+			subject to
+			\begin{align*}
+				x_1 - x_2 + x_3 &= 2 \\
+				x_2 &\leq 4 \\
+				x_3 &\leq 5
+				x_1, x_2, x_3 &\geq 0
+			\end{align*}
+			where $x_2 \leq 4$ and $x_3 \leq 5$ are two variables with upper bounds.
+		\end{example}
+
+		% TODO layouting
+		% TODO review with Chris' notes
+		\begin{center}
+			\[\begin{array}{c|ccc}
+				  & x_1 & x_2^* & \\
+				0 & -1 & 4 & \\
+			\hline
+				2 & 1 & -1 & x_3 \\
+			\end{array}\]
+			\[ s = 2 \qquad \min\Set{\underbrace{4}_{\text{Case 1}}, \underbrace{\frac{2 - 5}{-1}}_{\text{Case 3}}} = 3 \]
+			(a):
+			\[\begin{array}{c|ccc}
+				  & x_1 & x_3 \\
+				8 & 3 & 4 & \\
+			\hline
+				-2 & -1 & -1 & x_2 \\
+			\end{array}\]
+			(b): $T(2)$
+			\[\begin{array}{c|ccc}
+				  & x_1 & \overline x_3 \\
+				-12 & 3 & -4 & \\
+			\hline
+				-3 & -1 & 1 & x_2 \\
+			\end{array}\]
+			$-1 \implies$ admissible tableau.
+
+			Now $s = 1$.
+			\[ \min\Set{\underbrace{\frac{3-4}{-1}}_{\text{Case 3}}} \]
+
+			\[\begin{array}{c|ccc}
+				   & x_2 & \overline{x_3} & \\
+				-3 & 3 & -1 & \\
+			\hline
+				-3 & -1 & -1 & x_1
+			\end{array}\]
+
+			$T(1)$
+			\[\begin{array}{c|ccc}
+				    & \overline x_2 & \overline{x_3} & \\
+				-15 & 3 & -1 & \\
+			\hline
+				1 & 1 & -1 & x_1
+			\end{array}\]
+			\[ \implies x_1 = 1 \qquad \overline{x_2} = 0 \implies x_2 = 4 \qquad \overline{x_3} = 0 \implies x_3 = 5 \]
+		\end{center}
+\end{description}
+
+\subsection{The revised Simplex method}
+\label{section:3.3}
+
+Recall:
+\begin{itemize}
+	\item $x_B = A_B^{-1} b$
+	\item $\tilde C^t_n = C_N^t - C_B^t A_B^{-1} A_N$
+	\item $\tilde A_N = A_B^{-1} A_N$
+\end{itemize}
+
+One interpretation of the steps in the context of pivot operations of the Simplex method is, that 3 linear equation systems are solved.
+
+\begin{itemize}
+	\item $A_B x_B = b$ to retrieve the current basis solution, $x_B = \tilde b$
+	\item $A_B^t \Pi = c_B$, $\to \tilde c_N^t = c_N^t - \Pi_t A_n$
+	\item $A_B \tilde a_s = a_s$ where $a_s$ is the $s$-th column of $A$ and $\tilde a_s$ is the $s$-th column of $\tilde A$
+\end{itemize}
+
+Regarding dimensions:
+\[ A_B, A_B^t \dots m \times n \text{ matrices} \qquad \text{tableau size } \mathcal{O}(mn) \]
+
+If we solve the 3 equation systems in every step manually, we need $\mathcal O(m^3)$ computational resources (independent of $n$).
+In the tableau $\mathcal O(nm)$, so only useful for $n$ at least $\mathcal O(m^2)$.
+
+In practice, we use the fact that $A_B$ changes in every step only marginally (1 column!). The update formulas can be given explicitly (also for corresponding basis inverse).
+From a numerical perspective, it is advantageous to combine the process with known methods of linear algebra (for example, LU decomposition).
+
+\emph{Conclusion:} There exists numerically stable implementations of the Simplex method.
+Without proper prerequisites the rounding errors accumulate, cancellation effects occur such that results for larger ill-conditioned problems become unuseful.
+
+\subsection{Brief consideration of the runtime of the Simplex process}
+\label{section:3.4}
+
+Obviously, the application of one pivot step can be done in polynomial time.
+The essential question is, does a polynomial boundary exist for the maximum number of pivot steps?
+A partial answer can be given: No such boundary is known and for all known column selection rules pathological examples have been found such that exponentially many pivot steps are required.
+
+By current research, the simplex method does not provide a polynomial solution for the linear program.
+We are going to cover one such method in the section about the inner point method.
+But in practice, the simplex method works very good.
+Empirically, $\mathcal O(n)$ pivot steps suffice.
+
+Further analysis was done:
+\begin{itemize}
+	\item Average case analysis by Borgwardt
+	\item Smoothed analysis by Spielman, et al.
+\end{itemize}
+
+\section{Duality for linear optimization}
+\label{section:4}
+
+We will cover the definition of duality, duality theorems and alternative theorems.
+
+\subsection{A motivational example}
+\label{section:4.1}
+
+\begin{example}[Transportation example]
+	Linear transportation problem: transportation costs $c_{ij}$, $m$ firms, offer $a_i$, $n$ customers and demand $b_j$.
+	\[ \min \sum_{i=1}^n \sum_{j=1}^n c_{ij} x_{ij} \]
+	subject to
+	\begin{align*}
+		\sum_{j=1}^n x_{ij} &= a_i \text{ for } i = 1, \dots, m \\
+		\sum_{i=1}^m x_{ij} &= b_j \text{ for } i = 1, \dots, m; j = 1, \dots, n
+		x_{ij} &\geq 0 \text{ for } i = 1, \dots, m; j = 1, \dots, n
+	\end{align*}
+\end{example}
 
 \printindex
 \end{document}
