@@ -920,9 +920,280 @@ Now, which topics are we going to cover in this course:
 							\[ \implies d(f(x), f(y)) \leq \underbrace{d(f(x), f_{i_0}(x))}_{\leq d_C(f, f_{i_0}) \leq \frac\varepsilon3} + \underbrace{d(f_{i_0}(x), f_{i_0}(y))}_{\leq \frac\varepsilon3} + \underbrace{d(f_{i_0}(y), f(y))}_{\leq d_C(f_{i_0}, f) \leq \frac\varepsilon3} < \varepsilon \]
 					\end{enumerate}
 				\item[$\impliedby$]
+					We prove the other direction.
+
+					\dateref{2019/03/26}
+					$B$ is complete since it is a closed subset of a Banach space.
+
+					Show: $M$ is totally bounded.
+
+					Consider $\varepsilon > 0$. Show: $\exists f_1, \dots, f_n$ such that $M \subset \bigcup_{i=1}^n B_\varepsilon(f_i)$.
+
+					\begin{itemize}
+						\item Because $M$ is equicontinuous, $\exists \delta > 0 \forall f \in M \forall x, y \in X: d(x, y) < \delta \implies d(f(x), f(y)) < \frac\varepsilon4$.
+						\item By compactness of $X$, $\exists x_1, \dots, x_n: X \subset \bigcup_{i=1}^n B_\delta(x_i)$
+						\item $\forall i: M_{x_i} \text{ compact } \implies \exists (y_{i_1}, \dots, y_{i_{k_i}}): M_{x_i} \subset \bigcup_{i=1}^{k_i} B_{\frac\varepsilon4}(y_{i_i})$
+					\end{itemize}
+
+					Compare with Figure~\ref{img:cov}.
+
+					\begin{figure}[t]
+						\begin{center}
+							\includegraphics{img/covering.pdf}
+							\caption{Covering of a function graph}
+							\label{img:cov}
+						\end{center}
+					\end{figure}
+
+					Now, for each tuple of indices $(y_{1,j_1}, \dots, y_{n,j_n})$ define $f_{y_{1,j_1}, \dots, y_{n,j_n}} \in \mathcal C(x, y)$ to be such that $f_{y_{1,j_1},\dots,y_{n,j_n}}(x_i) \in B_{\frac\varepsilon4}(y_{i,j_i})$ if such an $f$ exists. The set $F$ of all such functions is finite. We show that $M \subset \bigcup_{q \in F} B_{\varepsilon}(q)$.
+
+					Take $f \in M$ arbitrary. Now choose $\alpha = (y_{1,j_1}, \dots, y_{n,j_n})$ such that $f(x_i) \in B_{\frac\varepsilon4}(y_{i,j_i})$ and pick $f_\alpha \in F$ accordingly.
+
+					Take $x \in X$ arbitrary and $x_i$ such that $x \in B_\delta(x_i)$
+					\begin{align*}
+						\implies d(f(x), f_\alpha(x)) &\leq d(f(x), f(x_i)) + d(f(x_i), f_\alpha(x_i)) + d(f_\alpha(x_i), f_\alpha(x)) \\
+							&< \frac\varepsilon4 + \frac\varepsilon2 + \frac\varepsilon4 = \varepsilon \\
+						\implies d_C(f, f_\alpha) &= \sup_{x \in X} d(f(y), f_\alpha(x)) < \varepsilon
+					\end{align*}
 			\end{description}
 	\end{enumerate}
 \end{proof}
+
+\begin{Remark}
+	Compare this to the fact that $B_1(0)$ in $C(X, Y)$ is \emph{not} compact.
+\end{Remark}
+
+To complete this chapter, we discuss an important topological assertion; the Baire category theorem.
+
+\begin{Remark}[Motivation]
+	In general, let $(X, d)$ be a metric space. Let $A$ and $B$ be open and dense, then also $A \cap B$ is dense.
+\end{Remark}
+
+\begin{proof}
+	Show $\forall x \in X \forall \varepsilon: B_\varepsilon(x) \cap [A \cap B] = \emptyset$.
+	Take $x \in Y, \varepsilon > 0 \implies \exists x_1 \in B_{\varepsilon}(x) \cap A$. $A$ is dense.
+	$A$ is open, so $\exists \varepsilon > 0: B_{\varepsilon_1}(x_1) \subset B(x) \cap A$.
+	$B$ is dense, so $B_{\varepsilon_1}(x_1) \cap X \neq \emptyset$.
+	\[ \implies \exists z \in B_{\varepsilon}(x_1) \cap B \]
+	\[ B_{\varepsilon_1}(x_1) \subset B(x) \cap A \implies z \in B_\varepsilon(x) \cap (A \cap B) \]
+\end{proof}
+
+More generally, $\forall A_1, \dots, A_n$ open, dense $\implies \bigcap_{i=1}^n A_i$ is dense (this is left as an exercise).
+Does this also hold true for countably many $A_i$?
+
+\begin{theorem}[Blaire theorem]
+	Let $(X, d)$ be a complete metric space.
+	Let $\left(O_n\right)_{n \in \mathbb N}$ be a sequence of dense sets.
+	Then $\bigcap O_n$ is dense.
+\end{theorem}
+\begin{proof}
+	Let $D \coloneqq \bigcap_{n \in \mathbb N} O_n$. Show that for $x \in X$, $\varepsilon > 0$ arbitrary we have $B_{\varepsilon}(x) \cap D \neq \emptyset$.
+	We define iteratively a sequence $(x_n)_{n \in \mathbb N}$.
+
+	\begin{description}
+		\item[$\mathbf{n = 1}$] Take $x_1, \varepsilon_1$ such that
+			\[ \overline{B_{\varepsilon_1}(x_1)} \subset O_1 \cap B_{\varepsilon}(x) \text{ with } \varepsilon_1 < \frac\varepsilon2 \]
+		\item[$\mathbf{n-1\to n}$] Given $x_{n-1}, \varepsilon_{n-1}$, take $x_n, \varepsilon_n$ such that
+			\[ \overline{B_{C_n}(x_n)} \subset O_n \cap B_{\varepsilon_{n-1}}(x_{n-1}) \quad \text{ and} \quad \varepsilon_n < \frac{\varepsilon_{n-1}}{2} \]
+	\end{description}
+
+	This provides sequences $(x_n)_n, (\varepsilon_n)_n$ such that $\varepsilon_n < \frac\varepsilon{2^n}$ and $x_n \in B_{\varepsilon_N}(x_N) \forall n \geq N$
+	\[ \implies (x_n)_n \text{ is Cauchy, } X \text{ complete } \implies \exists x \in X: x_n \to x \]
+	\[ \text{ since } x_n \in \overline{B_{\varepsilon_N}}(x_N) \forall n \geq N \implies x \in \overline{B_{\varepsilon_N}(x_n)} \implies x \in D \cap B_{\varepsilon}(x) \]
+\end{proof}
+
+We consider a common, but less useful reformulation:
+
+\begin{definition}
+	\label{defintion:1.24}
+	Let $(X, d)$ be a metric space, $M \subset X$. We say
+	\begin{itemize}
+		\item $M$ is \emph{nowhere dense}\index{Nowhere dense}\dt{Nirgends dicht}, if $\mathring{\overline M} = \emptyset$
+		\item $M$ is of \emph{first category}\index{Set of first category}\index{First category} $\iff M$ is the countable union of nowhere dense sets
+		\item $M$ is of \emph{second category}\index{Set of second category}\index{Second category} $\iff M$ is not of first category
+	\end{itemize}
+\end{definition}
+
+\begin{theorem}[Blaire category theorem (weaker version)]
+	Let $(X, d)$ be a complete metric space. Then $(X, d)$ is of second category.
+
+	In otheor words (which is a useful formulation):
+	If $X = \bigcup_{n \in \mathbb N} C_n \implies \exists n_0: \mathring{\overline C} \neq \emptyset$.
+	In particular, if
+	\[ X = \bigcup_{n \in \mathbb N} C_n \text{ with } C_n \text{ closed } \implies \exists n_0: \mathring{C_{n_0}} \neq \emptyset \]
+\end{theorem}
+
+\begin{proof}
+	Suppose that $X = \bigcup_{n \in \mathbb N} O_n = \bigcup_{n \in \mathbb N} \overline{O_n}$ with $\mathring{\overline O_n} = \emptyset \forall n$
+	\[ \mathring{\overline O}_n = \emptyset \implies \overline{\overline{O}_n^C} = X \]
+	Why does this implication hold? Because consider $x \in X, \varepsilon > 0$.
+	\[ B_\varepsilon(x) \cap \overline O_n^C = \emptyset \implies B_{\varepsilon}(x) \subset \overline{O}_n \implies \mathring{\overline O_n} \neq \emptyset \text{ hence } B_\varepsilon(x) \cap {\overline O}_n^C \neq \emptyset \]
+	Okay, then we continue by the conclusion \dots
+	\[ \implies \overline{O_n}^C \text{ is open and dense } \forall n \xrightarrow{\text{Theorem~\ref{theorem:1.23}}} \bigcap_{n \in \mathbb N} \overline{O}_n^C \text{ is dense} \]
+	\[ \bigcap_{n \in \mathbb N} \overline{O}_n^C = \left(\bigcup_{n \in \mathbb N} \overline{O}_n\right)^C = X^C = \emptyset \]
+	gives a contradiction
+\end{proof}
+
+\begin{Remark}
+	\begin{enumerate}
+		\item This is a fundamental theorem in Functional Analysis
+		\item This can be used to show that continuous, nowhere differentiable functions exist (construction is left as an exercise)
+	\end{enumerate}
+\end{Remark}
+
+\section{Normed space}
+\label{section:2}
+\subsection{Fundamentals}
+\label{section:2.1}
+
+\begin{definition}
+	\label{definition:2.1}
+	Let $X$ be a vector space. A function $\Norm{\cdot}: X \to [0, \infty)$ is called \emph{seminorm}\index{Seminorm} if
+	\begin{itemize}
+		\item $x = 0 \implies \Norm{x} = 0$
+		\item $\Norm{\lambda x} = \Abs{\lambda} \Norm{x} \forall x \in X, \lambda \in \mathbb K$
+		\item $\Norm{x + y} \leq \Norm x + \Norm y \forall x, y in X$
+	\end{itemize}
+	The first property differs between a norm and a seminorm.
+
+	The tuple $(X, \Norm{\cdot})$ is called a \emph{semi-normed space}\index{Semi-normed space}.
+	We transfer the notions of convergence of sequences, Cauchy sequences and completeness verbatim to semi-normed spaces.
+\end{definition}
+
+\begin{definition}[Definition and proposition]
+	\label{definition:2.2}
+	Let $(X, \Norm{\cdot})$ be a semi-normed space and $(x_n)_n$ be a sequence in $X$. We say thet
+	\begin{itemize}
+		\item $\sum_{n=1}^\infty x_n$ \emph{converges}\index{Convergence in semi-normed spaces} to $x \in X$ and write $x = \sum_{n=1}^\infty x_n$ if $\lim_{m\to\infty} \sum_{n=1}^m x_n = x$
+		\itme $\sum_{n=1}^\infty x_n$ is \emph{absolutely convergent}\index{Absolutely convergent} if $\sum_{n=1}^\infty \Norm{x_n}$ converges [$\iff \left(\sum_{n=1}^m \Norm{x_n}\right)_m$ is bounded]
+	\end{itemize}
+	It holds that $X$ is complete iff any absolutely converging series converges.
+\end{definition}
+
+\begin{proof}
+	\begin{description}
+		\item[$\implies$]
+			Take $m_1 < m_2$ arbitrary, then
+			\[ \Norm{\sum_{n=1}^{m_1} x_n - \sum_{n=1}^{m_2} x_n} \leq \sum_{n=m_1+1}^{m_2} \Norm{x_1} = \sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_1} \leq \Norm{\sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_1}} \]
+			\[ \implies \left(\sum_{n=1}^m x_n\right)_m \text{ is Cauchy } \implies \text{ convergent} \]
+		\item[$\impliedby$]
+			Let $(x_n)_n$ be Cauchy. Show that $(x_n)_n$ converges. For $\varepsilon_k = 2^{-k}$, pick $N_k$ such that $\Norm{x_n - x_m} \leq 2^{-k} \forall n, m \geq N_k$
+			\[ \implies \exists (x_{n_k})_k \text{ a subsequence such that } \Norm{x_{n_{k+1}} - x_{n_k}} \leq 2^{-k} \]
+			Define $y_k \coloneqq x_{n_{k-1}} - x_{n_k} \implies \sum_k \Norm{y_{n_w}} \leq \sum_k 2^{-k} < \infty$
+			\[ \implies \exists y \in X: \sum_{k=1}^n y_k \to y \text{ as } n \to \infty \]
+			\[ \sum_{k=1}^n y_k = x_{n_{m+1}} - x_{n_1} \implies x_n_{m+1} \to y - x_{n_1} \text{ as } n \to \infty \]
+			So $(x_n)_n$ has a convergent subsequence and $(x_n)_n$ is Cauchy, then $(x_n)_n$ is convergent.
+	\end{description}
+\end{proof}
+
+\begin{Remark}
+	In $\mathbb R^n$, $\sum_n x_n$ is absolutely convergent iff every permutation converges.
+	In general Banach spaces, only the direction $\implies$ is true.
+\end{Remark}
+
+\dateref{2019/03/28}
+
+\begin{proposition}[Proposition and definition]
+	\label{proposition:2.3}
+	Let $X$ be a vector space and $\Norm{\cdot}_1$ and $\Norm{\cdot}_2$ be two norms on $X$.
+	We say $\Norm{\cdot}_1$ and $\Norm{\cdot}_2$ are equivalent if
+	\[ \exists m, M > 0 \forall x \in X: m \Norm{x}_1 \leq \Norm{x}_2 \leq M \Norm{x}_1 \]
+	TFAE:
+	\begin{enumerate}
+		\item $\Norm{\cdot}_1$ and $\Norm{\cdot}_2$ are equivalent.
+		\item For any sequence $(x_n)_n$ and $x \in X, x_n \to x$ with respect to $\Norm{\cdot}_1 \iff x_n \to x$ with respect to $\Norm{\cdot}_2$
+		\item For any sequence $(x_n)_n$ we have,
+			\[ x_n \to 0 \text{ with respect to } \Norm{\cdot}_1 \iff x_n \to 0 \text{ with respect to } \Norm{\cdot}_2 \]
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	$(1) \implies (2) \implies (3)$ is immediate.
+
+	It remains to show that:
+	\begin{description}
+		\item[$(3) \implies (1)$] 
+			Suppose no $M > 0$ exists such that $\Norm{x}_2 \leq M \cdot \Norm{x}_1 \forall x \in X$.
+			\[ \implies \forall n \in \mathbb N \exists x_n \in X: \Norm{x_n}_2 > n \Norm{x_n}_1 \]
+			Let $y_n \coloneqq \frac{x_n}{\Norm{x_n}_1 n}$. Then $\Norm{y_n}_1 = \frac1n \to 0$ hence $y_n \to 0$,
+			but $\Norm{y_n}_2 > n \Norm{y_n}_1 = 1$.
+			\[ \implies y_n \not\to 0 \text{ with } \Norm{\cdot}_2 \]
+			This gives a contradiction.
+
+			The second estimate is left as an exercise.
+	\end{description}
+\end{proof}
+
+\begin{Remark}
+	If $\dim(X) < \infty$, then any two norms on $X$ are equivalent.
+\end{Remark}
+
+\begin{definition}[Quotient spaces]
+	\label{definition:2.4}
+	Let $(X, \Norm{\cdot})$ be a normed space and $Y \subset X$ a subspace.
+	Define a relation \enquote{\sim} on $X$ with $x \sim y :\iff x - y \in Y$.
+
+	Then \sim defines an equivalence relation on $X$.
+	We define
+	\begin{itemize}
+		\item $[X]_\sim = \SetDef{y \in X}{x \sim y}$ \dots the equivalence class of $x \in X$
+		\item $X/Y \coloneqq \SetDef{[x]_\sim}{x \in X}$ \dots the quotient space
+		\item $\pi: \begin{cases} X \to X / y \\ x \mapsto [x]_\sim \end{cases}$
+	\end{itemize}
+
+	Defining $[x] + [y] \coloneqq [x + y]$
+	\[ \lambda [x] \coloneqq [\lambda x] \qquad \hat 0 \coloneqq [0] \]
+	We get that:
+	\begin{enumerate}
+		\item $X/Y$ is a vector space
+		\item $\Norm{[x]}_{X/Y} \coloneqq \inf_{y \in [x]} \Norm{y}_X$ is a semi-norm.
+		\item If $Y$ is closed, then $\Norm{\cdot}_{X/Y}$ is a norm.
+		\item If $X$ is complete and $Y$ closed, then $(X/Y, \Norm{\cdot}_{X/Y})$ is a Banach space.
+	\end{enumerate}
+\end{definition}
+
+\begin{proof}
+	\begin{itemize}
+		\item Equivalence relation
+		\item Vector space with \enquote{+} and \enquote{$\lambda[x]$} are well-defined
+	\end{itemize}
+	This is left as an exercise to the reader.
+
+	\begin{itemize}
+		\item[2.]
+			\begin{itemize}
+				\item 
+					First of all, $\Norm{\cdot}_{X/Y} \geq 0$ is trivial.
+					\[ \Norm{[0]}_{X/Y} \underbrace{=}_{\text{since } [0] = Y} \inf_{y \in Y} \Norm{Y} \leq \Norm{0} = 0 \]
+				\item
+					Secondly, consider $\lambda \in \mathbb K$, $[x] \in X/Y$.
+
+					Show that: $\Norm{\lambda [x]}_{X/Y} = \Abs{\lambda} \Norm{[x]}_{X/Y}$.
+
+					Trivial, if $\lambda = 0$. Assume $\lambda \neq 0$,
+					\[ \Norm{\lambda [x]}_{X/Y} = \Norm{[\lambda x]}_{X/Y} = \inf_{y \in [\lambda x]} \Norm{y} = \inf_{y \in X, \frac y\lambda \in [x]} \Norm{y} = \inf_{w \in [x]} \Norm{\lambda w} = \Abs{\lambda} \overbrace{\inf_{u \in [x]} \Norm{u}}^{\Norm{[x]}_{X/Y}} \]
+
+				\item Take $[x_1], [x_2] \in X/Y, \varepsilon > 0$.
+					We note that
+					\[ \Norm{[x]}_{X/Y} = \inf_{\substack{y \in X \\ w \in Y \\ w \coloneqq x \cdot y}} \Norm{y} = \inf_{w \in Y} \Norm{x - w} \]
+					Hence we can take $y_1, y_2 \in Y$ such that $\Norm{x_1 - y_i} < \Norm{[x_i]}_{X/Y} + \varepsilon \qquad \varepsilon \in [1, 2)$.
+					\begin{align*}
+						\implies \Norm{[x_1] + [x_2]}_{X/Y} &= \Norm{[x_1 + x_2]}_{X/Y} \leq \Norm{x_1 + x_2 - (y_1 + y_2)} \\
+							&\leq \Norm{x_1 - y_1} + \Norm{x_2 - y_2} \leq \Norm{[x_1]}_{X/Y} + \Norm{[x_2]}_{X/Y} + 2 \varepsilon
+					\end{align*}
+					Since $\varepsilon$ was arbitrary, the assertion follows.
+			\end{itemize}
+		\item[3.] Suppose $Y$ is closed if $\Norm{[x]}_{X/Y} = 0$, then
+			\[ \inf_{y \in Y} \Norm{x - y} = 0 \implies \exists (y_n)_n \text{ in } Y \text{ s.t. } \lim_{n \to \infty} \Norm{x - y_n} = 0 \]
+			\[ Y \text{ closed } \implies x \in Y \implies [x] = [0] = \hat 0 \]
+		\item[4.] Take $([x_n])_n$ to be a sequence in $X/Y$ and suppose that $\sum_{i=1}^\infty \Norm{[x_n]}_{X/Y} < \infty$. If we can show that $\exists [x] \in X/Y$ such that $\sum_{i=1}^\infty [x_n] = [x]$, then by Proposition~\ref{proposition:2.2}, $X/Y$ is complete.
+
+			Choose $\forall n \in \mathbb N: \tilde x_n \in [x_n]$ such that $\Norm{\tilde x_n} \leq \Norm{[x_n]}_{X/Y} + 2^{-n}$
+			\[ \implies \sum_{n=1}^\infty \Norm{\tilde x_n} \leq \sum_{n=1}^\infty \left(\Norm{[x_n]}_{X/Y} + 2^{-n}\right) < c < \infty \]
+			\[ X \text{ complete} \implies \exists x \in X: \sum_{n=1}^\infty \tilde x_n = x \qquad \Norm{[x] - \sum_{n=1}^m [x_n]} \]
+	\end{itemize}
+\end{proof}
+
 
 \printindex
 \end{document}

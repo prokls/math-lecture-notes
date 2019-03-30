@@ -1146,8 +1146,8 @@ Thus the algorithm looks as follows:
 \begin{enumerate}
 	\item Continue until the first auxiliary problem is solved.
 		\begin{description}
-			\item[Case 1] The auxiliary problem hat optimal value 0, then second phase
-			\item[Case 2] The auxiliary problem hat optimal value $\neq 0$, then stop because the original problem does not have an admissible solution
+			\item[Case 1] The auxiliary problem has optimal value 0, then second phase
+			\item[Case 2] The auxiliary problem has optimal value $\neq 0$, then stop because the original problem does not have an admissible solution
 		\end{description}
 	\item Continue until the original problem is optimally solved.
 \end{enumerate}
@@ -1156,9 +1156,16 @@ Thus the algorithm looks as follows:
 	Once variable $u_i$ end up in the non-basis, the corresponding column in tableau can be removed. At the end of the first phase, the auxiliary row can be removed. Attention! If some $u_i$ is a basis variable at the end of the first phase by degeneration, this variable must not be removed for the second phase.
 \end{Remark}
 
-We consider the now problem
+\subsection{M-method}
+%\label{subsection:}
+% TODO \paragraph are too small
+% TODO double hats look ugly
+
+% TODO there is something missing here
+
+We consider the new problem
 \[ \tilde e_i = \begin{cases}  & b_i < 0 \\ 0 & b_i \geq 0 \end{cases} \]
-thus the now variable $\tilde x$ is substracted with $b_i < 0$ in the constraints.
+thus the new variable $\tilde x$ is substracted with $b_i < 0$ in the constraints.
 \[ \max c^t x - M \tilde x \]
 subject to
 \begin{align*}
@@ -1703,16 +1710,283 @@ We will cover the definition of duality, duality theorems and alternative theore
 \subsection{A motivational example}
 \label{section:4.1}
 
-\begin{example}[Transportation example]
+\begin{Example}[Transportation example]
 	Linear transportation problem: transportation costs $c_{ij}$, $m$ firms, offer $a_i$, $n$ customers and demand $b_j$.
 	\[ \min \sum_{i=1}^n \sum_{j=1}^n c_{ij} x_{ij} \]
 	subject to
 	\begin{align*}
 		\sum_{j=1}^n x_{ij} &= a_i \text{ for } i = 1, \dots, m \\
-		\sum_{i=1}^m x_{ij} &= b_j \text{ for } i = 1, \dots, m; j = 1, \dots, n
+		\sum_{i=1}^m x_{ij} &= b_j \text{ for } j = 1, \dots, n \\
 		x_{ij} &\geq 0 \text{ for } i = 1, \dots, m; j = 1, \dots, n
 	\end{align*}
+
+	\dateref{2019/03/26}
+
+	External transportation service:
+	Purchase at firm with price $u_i$, sale at customer $j$ with price $v_j$.
+
+	\[ \max \left(\sum_{i=1}^n b_j v_j - \sum_{i=1}^m a_i u_i\right) \qquad \text{models the profit} \]
+	\[ v_j - u_i \leq c_{ij} \qquad i = 1, \dots, m; j = 1, \dots, n \]
+	\[ v_j + \overline{u_i} \leq c_{ij} \qquad i = 1, \dots, m; j = 1, \dots, n \]
+	or correspondingly with $\overline{u}_i = -u_i$.
+	More examples in an economical context can be found.
+\end{Example}
+
+\subsection{Definition of a dual linear program}
+
+\begin{Definition}
+	Let (P) be a linear problem $\max\SetDef{c^tx}{Ax \leq b, x \geq 0}$.
+	The dual linear problem (D) has form $\min\SetDef{b^t y}{A^ty \geq c, y \geq 0}$.
+\end{Definition}
+
+\begin{Remark}
+	The problem (P) is also called \emph{primal problem}\index{Primal problem}.
+\end{Remark}
+
+\begin{example}
+	\label{example:4.1}
+	We compare the models side-by-side.
+
+	\begin{minipage}{0.49\textwidth}
+		\[ \max x_1 + 2x_2 \qquad (P) \]
+		subject to
+		\begin{align*}
+			x_1 &\leq 4          & y_1 \\
+			2x_1 + x_2 &\leq 10  & y_2 \\
+			-x_1 + x_2 &\leq 5   & y_3 \\
+			x_1, x_2 &\geq 0
+		\end{align*}
+	\end{minipage}
+	\begin{minipage}{0.49\textwidth}
+		\[ \min 4y_1 + 10y_2 + 5y_3 \qquad (D) \]
+		subject to
+		\begin{align*}
+			y_1  + y_2 - y_3 &\geq 1 \\
+			y_2 + y_3 &\geq 2 \\
+			y_1, y_2, y_3 &\geq 0
+		\end{align*}
+	\end{minipage}
 \end{example}
+
+\begin{example}
+	\label{example:4.2}
+	\[ \min 4x_1 + 3x_2 \]
+	subject to
+	\begin{align}
+		x_1 + 2x_2 &\geq 7 \label{u1} \\
+		2x_1 - x_2 &\geq 5 \label{u2} \\
+		3x_1 + x_2 &\geq -2 \label{u3}
+	\end{align}
+
+	First, we model it canonically:
+	\[ \max -4x_1 - 3x_2 \]
+	\begin{align*}
+		-x_1 - 2x_2 &\leq -7 \\
+		-2x_1 + x_2 &\leq -5 \\
+		-3x_1 - x_2 &\leq 2
+	\end{align*}
+
+	Secondly, we create sign constraints with $x_1 = x_1^+ - x_1^-$ and $x_2 = x_2^+ - x_2^-$.
+	\[ \max -4x_1^+ + 4x_1^- - 3x_2^+ + 3x_1^- \]
+	subject to
+	\begin{align*}
+		-x_1^+ + x_1^- - 2x_2^+ + 2x_2^- &\leq -7 & y_1 \\
+		-2x_1^+ + 2x_1^- + x_2^+ - x_2^- &\leq -5 & y_2 \\
+		-3x_1^+ + 3x_1^- - x_2^+ + x_2^- &\leq 2 & y_3 \\
+		x_i^{\pm} &\geq 0
+	\end{align*}
+
+	Thus we get the dual problem:
+	\[ \min -7y_1 - 5y_2 + 2y_3 \]
+	subject to
+	\begin{align*}
+		-y_1 - 2y_2 - 3y_3 &\geq -4 \\
+		y_1 + 2y_2 + 3y_3 &\geq 4 \\
+		-2y_1 + y_2 - y_3 &\geq -3 \\
+		2y_1 - y_2 + y_3 &\geq 3 \\
+		y_1, y_2, y_3 &\geq 0
+	\end{align*}
+	\[ \iff \min -7y_1 - 5y_2 + 2y_3 \]
+	subject to
+	\begin{align*}
+		y_1 + 2y_2 + 3y_3 = 4 \\
+		2y_1 - y_2 + y_3 = 3 \\
+		y_1, y_2, y_3 &\geq 0
+	\end{align*}
+\end{example}
+
+\begin{example}
+	Take the resulting dual problem in Example~\ref{example:2} and determine its dual problem.
+\end{example}
+
+\begin{Remark}[Observation]
+	The dual problem of the primal problem is the dual problem.
+	The dual problem of the dual problem is the primal problem.
+\end{Remark}
+
+In general:
+\begin{enumerate}
+	\item An equation in the primal problem corresponds to one unbounded (non-sign-restricted) variable in the dual problem
+	\item A non-sign-restricted variable in the primal problem corresponds to one equation in the dual problem
+	\item The dual problem of the dual problem is the primal problem
+\end{enumerate}
+
+\begin{table}[!ht]
+	\begin{center}
+		\begin{tabular}{cc}
+			Primal problem      & Dual problem \\
+		\hline
+			Maximization of the target function & Minimization of the target function \\
+			target function coefficients (c) & RHS vector \\
+			RHS vector (b) & target function vector \\
+			coefficients matrix (A) & transposed coefficients matrix \\
+			$i$-th constraint is $\leq$ constraint & $i$-th dual variable $y_i \geq 0$ \\
+			$i$-th constraint is $=$ constraint & $i$-th dual variable $y_i$ is not sign-restricted \\
+			$x_j \geq 0$ & $j$-th constraint $\geq$ constraint \\
+			$x_j$ is not sign-restricted & $j$-th constraint $=$ constrtaint (equation)
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{example}
+	Consider the transportation problem.
+	Begin with the minimization problem (the dual maximization problem).
+	\[ \max \sum_{i=1}^m a_i \cdot \alpha_i + \sum_{j=1}^n b_j \beta_j \]
+	subject to
+	\[ \alpha_i + \beta_j \leq c_{ij} \]
+	\begin{Remark}
+		$\alpha_i$ and $\beta_j$ are not sign-restricted, because in the primal problem we have equations.
+		Compare with the transportation problem.
+	\end{Remark}
+
+	Original constraints:
+	\[
+		(D) \leftarrow (P)
+		\begin{pmatrix}	
+			1 & \dots & 1 & 0 & \dots &   &   & \dots & 0 \\
+			0 & \dots & 0 & 1 & \dots & 1 & 0 & \dots & 0 \\
+			  &       &   &   & \vdots &  &   &       & \\
+			0 & \dots &   &   &       & 0 & 1 & \dots & 1 \\
+		\hline
+			1 & \ddots & 0& 1 & \ddots& 0 & 0 & \ddots& 0 \\
+			0 &       & 1 & 0 &       & 1 & 1 &       & 1
+		\end{pmatrix}
+	\]
+	The horizontal separates the firms model (top $m$ rows) from the customers model (bottom $n$ rows) giving $m+n$ rows in total.
+\end{example}
+
+\begin{Remark}[Semantics of dual variables]
+	\begin{itemize}
+		\item $\beta_j$ correponds to $v_j$ in the introductory transportation problem (where $v_j$ represents the price to be paid for transportation at customer $j$).
+		\item $\alpha_i$ corresponds to $u_i$ (where $u_i$ represents the price to be paid at firm $i$)
+	\end{itemize}
+\end{Remark}
+
+\begin{Remark}
+	Do \emph{not} mix models!
+	So either model a linear program
+	\begin{itemize}
+		\item as maximization problem with constraints $\leq$ or $=$
+		\item as minimization problem with constraints $\geq$ or $=$
+	\end{itemize}
+	Then apply the rules.
+\end{Remark}
+
+\begin{Remark}
+	Consider Example~\ref{example:2}.
+	Every point satisfying \eqref{u1}--\eqref{u3} also satisfies the corresponding linear combinations. e.g. 2 times \eqref{u1} + \eqref{u2}.
+	Searching for the best boundaries exactly leads to the dual linear program.
+\end{Remark}
+
+\subsection{Duality- and alternative theorems}
+\label{section:4.3}
+
+2 central duality theorems:
+\begin{itemize}
+	\item strong duality theorem
+		\[ c^t x^* = b^t y^* \qquad x^* \text{ optimal for primal problem}, y^* \text{ optimal for dual problem} \]
+	\item weak duality theorem
+		\[ c^t x \leq b^t y \qquad \text{ for } x \in M_P = \SetDef{x}{Ax \leq b, x \geq 0}, y \in M_D = \SetDef{y}{A^t y \geq c, y \geq 0} \]
+\end{itemize}
+and the theorem of the complementary slackness (optimality check).
+
+\begin{Remark}
+	In the following, let $M_D$ denote the admissible set of the dual problem.
+	Let $M_P$ denote the admissible set of the primal problem.
+\end{Remark}
+
+\begin{theorem}[Weak duality theorem]
+	\label{theorem:4.1}
+	\begin{enumerate}
+		\item $x \in M_P, y \in M_D$. Then $c^t x \leq b^t y$
+		\item Let $M_P \neq \emptyset$ (hence the primal problem has an admissible solution) ($c^t x$ over $M_P$).
+		Then $M_P$ is empty, if the primal theorem is unbounded.
+		\item Let $M_D \neq \emptyset$ (hence the dual problem has an admissible solution). Then $M_P$ is empty iff the dual problem is unbounded.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item $x \in M_P$, so $Ax \leq b$ with $x \geq 0$. $y \in M_D$, so $A^t y \geq c$, $y \geq 0$.
+			\[ c^t x \leq (A^t y)^t x = y^t Ax \leq y^t b = (b^t y) \]
+		\item It suffices to prove (2) or (3).
+
+			We will prove (3) und for this purpose, we are going to prove an auxiliary result first. And we are going to show this later.
+	\end{enumerate}
+\end{proof}
+
+We are going to briefly cover the topic of alternative theorems.
+The following is an introductory example:
+
+\begin{theorem}
+	\label{theorem:4.2}
+	$A$ is an $m \times n$ matrix over $\mathbb R$. Let $b \in \mathbb R^m$.
+	Exactly one of the following alternatives holds true:
+	\begin{enumerate}
+		\item $\exists x \in \mathbb R^n: Ax = b$
+		\item $\exists y \in \mathbb R^m: y^t A = 0, y^tb= 1$
+	\end{enumerate}
+
+	Hence, either the linear equation system $Ax = b$ has a linear solution or the linear equation system $y^t A = 0$ and $y^t b = 1$ has a linear solution.
+\end{theorem}
+
+\begin{proof}
+	Assume both alternatives are simultaneously true. This immediately gives a contradiction because $0 = g^t Ax = y^t b = 1$.
+
+	The first case has no solution iff $b$ is not in the space spanned by columns of $A$, hence $\rank([A|b]) = \rank(A) + 1$
+	\[ \to \rank\left(\begin{pmatrix} A & b \\ 0 & 1 \end{pmatrix}\right) = \rank(A) + 1 \]
+	if and only if the last row of the matrix above is linear dependent on the rows of $\begin{pmatrix} A & b \end{pmatrix}$, hence
+	\[ y^t A = 0, y^t b = 1 \]
+	has a solution.
+\end{proof}
+
+\begin{theorem}
+	\label{theorem:4.3}
+	Exactly one of the following alternatives holds true:
+	\begin{enumerate}
+		\item $\exists x \in \mathbb R^n: Ax = b, x \geq 0$
+		\item $\exists y \in \mathbb R^m: y^t A \geq 0, y^t b < 0$
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	If both alternatives hold true, then $0 \leq y^tAx = y^tb < 0$. This gives a contradiction
+
+	Without loss of generality, we can assume that $b \geq 0$. Otherwise, we change the signs in the $i$-th row of $Ax = b$ and $y_i$ simultaneously.
+
+	If the first alternative is not solvable, then the linear optimization problem 
+	\begin{align*}
+		\gamma &\coloneqq \max\SetDef{-e^tu}{Ax + u = b, x \geq 0, u \geq 0} \text{ where $e$ is the zero-vector} \\
+			   &\coloneqq \max\SetDef{-\sum u_i}{Hz = b, z \geq 0, u \geq 0}
+	\end{align*}
+	has only solutions with negative target function value (because no solution with $u = 0$ exists).
+
+	TODO (o)
+
+	So $\gamma < 0$. Now we apply the fundamental theorem of linear optimization.
+	Thus there exists an optimal (finite) basis solution for (o) with target function value $\gamma$.
+\end{proof}
+
 
 \printindex
 \end{document}
