@@ -384,7 +384,7 @@ This approach provides a graphical solution method for linear programs with 2 va
 The generic geometric consideration of a polyhedron is
 \[ P = \SetDef{x \in \mathbb R^n}{Ax \leq b} \qquad A \in \mathbb R^{m \times n} \]
 Without loss of generality, we assume all row vectors $a_i$ of $A$ are non-zero.
-\[ H_i \coloneqq \SetDef{x \in \mathbb R^n}{a_i^t x = b_i} \qquad \text{i-th halfplane} \quad i = 1, \dots, m \]
+\[ H_i \coloneqq \SetDef{x \in \mathbb R^n}{a_i^t x = b_i} \qquad \text{$i$-th halfplane} \quad i = 1, \dots, m \]
 
 Let $I \subseteq \Set{1, \dots, m}$. Consider
 \[ \hat H_I \coloneqq \bigcap_{i \in I} H_i = \SetDef{x \in \mathbb R^n}{a_i^t x = b_i \text{ for } i \in I} \qquad \text{ affine subspace of } \mathbb R^n \]
@@ -1422,7 +1422,7 @@ It remains to show that the lexicographical row selection rule satisfies its pur
 		\item For $t_{is} > 0$, due to choice of $r$,
 			\[ \frac{1}{t_{is}} t_i \succ \frac{1}{t_{rs}} t_r \]
 			\[ \implies \overline{t_i} = t_i - \frac{t_{is}}{t_{rs}} \cdot t_r \succ 0 \]
-			where $\overline{t_i}$ is the i-th row. For $t_{is} \leq 0$ due to $t_{rs} > 0$, we have
+			where $\overline{t_i}$ is the $i$-th row. For $t_{is} \leq 0$ due to $t_{rs} > 0$, we have
 			\[ \overline{t_i} = t_i - \frac{t_{is}}{t_{rs}} \cdot t_r \succ t_i \]
 			Thus all vectors retain lexicographically positive.
 	\end{enumerate}
@@ -1987,6 +1987,210 @@ The following is an introductory example:
 	Thus there exists an optimal (finite) basis solution for (o) with target function value $\gamma$.
 \end{proof}
 
+\dateref{2019/04/01}
+
+\begin{revision}[Theorem~\ref{theorem:4.3}]
+	\begin{enumerate}
+		\item either $Ax = b$ with $x \geq 0$ has a solution
+		\item or $y^t A \geq 0, y^tb <0$ has a solution
+	\end{enumerate}
+\end{revision}
+
+\begin{corollary}[Farkas Lemma, 1894]
+	\label{corollary:4.4}
+	TFAE:
+	\begin{itemize}
+		\item $\exists x \in \mathbb R^n: Ax = b, x \geq 0$
+		\item $\forall y \in \mathbb R^m: y^t A \geq 0 \implies y^t b \geq 0$
+	\end{itemize}
+\end{corollary}
+
+Also has a geometric interpretation:
+The halfspace $\SetDef{y}{y^t b \geq 0}$ contains a polyedric cone $\SetDef{y}{y^t A \geq 0}$ % TODO "polyedrischer Kegel"
+iff $b \in \SetDef{Ax}{x \geq 0}$ where $\SetDef{Ax}{x \geq 0}$ is the cone $K(A)$.
+
+Now we can complete the proof of Theorem~\ref{theorem:4.1}.
+Thus we need to show statement (3) of Theorem~\ref{theorem:4.1}.
+
+\begin{revision}
+	Let $M_D \neq \emptyset$. Then $M_P$ is empty iff $y^t b$ is unbounded by below.
+\end{revision}
+
+\begin{proof}
+	\begin{itemize}
+		\item
+			Let $M_p \neq \emptyset$. By (1), we have that $c^t x \leq b^t y \forall x \in M_p$, $y \in M_D$,
+			thus every $x \in M_p$ provides a lower bound for the target function values of the primal problem.
+		\item
+			Let $M_p = \emptyset$, thus $Ax = b$ with $x \geq 0$ has no solution.
+			$P$ has no admissible solution, so $y^t A \geq 0, y^t b < 0, y \geq 0$ has a solution (why? we will discuss it later).
+			Let $\hat y$ be such a solution. Let $\overline y \in M_D$. Consider $\overline y + \lambda \hat y \in M_D$ for $\lambda \geq 0$ (half-line).
+	\end{itemize}
+
+	Target function value: $(\overline y + \lambda \hat y)^t b = \overline y^t b + \lambda \hat y^t b$ is unbounded by below.
+\end{proof}
+
+\[ (P) \qquad z_P = \max\SetDef{c^t x}{Ax \leq b, x \geq 0} \qquad M_p = \SetDef{x}{Ax \leq b, x \geq 0}  \]
+\[ (D) \qquad p_D = \min\SetDef{b^t y}{A^t y \geq c, y \geq 0} \qquad M_D = \SetDef{y}{A^t y \geq c, y \geq 0} \]
+
+If $M_P \neq \emptyset$ and $M_D \neq \emptyset$, then $z_P \leq z_D$ by Theorem~\ref{theorem:4.1}.
+
+
+\emph{Question:} In this case, can $z_P < z_D$? \\
+\emph{Answer:} No, see Theorem~\ref{theorem:4.5}.
+
+\begin{lemma}
+	\label{lemma:4.6}
+	$P_z = \SetDef{x}{z \leq c^t x, Ax \leq b, x \geq 0}$.
+	Let $M_p \neq \emptyset$. Then $P_z = \emptyset \iff y^t b < z, A^t y \geq c, y \geq 0$ solvable.
+\end{lemma}
+
+\begin{theorem}[Strong duality theorem]
+	\label{theorem:4.5}
+	If one of the linear problems, dual to each other, has a finite optimal solution, then also the other and the optimal target function values correspond (thus, $z_P = z_D$).
+\end{theorem}
+
+\begin{proof}
+	There are various, different proofs, including one directly over the Simplex method.
+	It suffices to prove one of the two statements.
+
+	Let (D) have a finite optimal solution $y^*$, so $b^t y^* = z_D$.
+	By Theorem~\ref{theorem:4.1}~(3), we have $M_p \neq \emptyset$ ($b^t y$ is bounded by below).
+	Because there is no admissible solution for (D) with target function value $< z_D$, the system $y^t b < z_D$, $A^t y \geq c, y > \geq 0$ is not solvable.
+	Now consider $P_{z_D}$ with $P_z = \SetDef{x}{x \leq c^t x, Ax \leq b, x \geq 0}$.
+	We can conclude $P_{z_D} \neq \emptyset$ (represented in Lemma~\ref{lemma:4.6}), thus $\exists x^*$ with $z_D \leq c^t x^*$, $Ax^* \leq b, x^* \geq 0$ with $x^* \in M_P$.
+	Now we apply the weak duality theorem (Theorem~\ref{theorem:4.1}), so $c^t x^* \leq b^t y^*$ where $b^t y^* = z_D$
+	\[ \implies c^t x^* = b^t y^* = z_D \]
+	hence $x^*$ is optimal for the primal problem and $y^*$ is optimal for the dual problem.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lemma:4.6}]
+	$M_P \neq \emptyset$ (equivalently $\exists x: Ax = b, x \geq 0$) iff $y^t b < 0, A^t y \geq 0, y \geq 0$ has no solution (remember this as \enquote{the criterion}).
+	\[ P_z = \emptyset \iff \begin{array}{c} (y_0, y^t) {-z \choose y} < 0 \\ (y_0, y)^t {-c^t \choose A} \geq 0 \end{array} \text{ is solvable} \]
+
+	A solution with $y_0 = 0$ is not possible due to \enquote{the criterion}.
+	So $y_0 > 0$. We can substitute $y_0 \geq 0$ by $y_0 = 1$ (because the set of solutions creates a cone) without restricting the set of solutions.
+	Thus
+	\[ P_z = \emptyset \iff y^t b < z, y^t A \geq c^t, y \geq 0 (A^t y \geq c) \text{ solvable} \]
+\end{proof}
+
+\begin{Remark}[$P$ has no admissible solution, so $y^t A \geq 0$ has a solution]
+	It is trivial to see that the alternative theorem~\ref{theorem:4.3} can be generalized to a combination of equations and inequalities.
+\end{Remark}
+
+\begin{theorem}[Theorem of complementary slackness]
+	\label{theorem:4.7}
+	Let $x \in M_p$ and $y \in M_D$. Then $x$ is optimal for the primal problem and $y$ is optimal for the dual problem
+	if and only if (1) $x^t (A^t y - c) = 0$ and (2) $y^t (Ax - b) = 0$. Then $(x, y)$ is called \emph{optimal pair}\index{Optimal pair}.
+\end{theorem}
+
+\begin{Remark}[Interpretation of $x^t (A^t y - c) = 0$ and $y^t (Ax - b) = 0$]
+	\begin{itemize}
+		\item $x_i = 0$ ($i$-th primal variable is 0) or $(A^t y - c)_i = 0$ (the $i$-th restriction of the dual problem is fulfilled with equality) (corresponds to the $i$-th slack variable in the dual problem).
+		\item $y_i = 0$ ($i$-th primal variable is 0) or $(Ax - b)_i = 0$ (the $i$-th primal restriction is fulfilled with equality).
+	\end{itemize}
+	This follows because
+	\[ x \geq 0 \qquad (A^t y - c) \geq 0 \text{ because } A^t y \geq c \]
+	hence every summand must be contained in $x^t (A^ty - c) \geq 0$ and thus equals zero.
+
+	$y \geq 0$ $(A^t x - b) \leq 0$, thus every summand is in $y^t (Ax - b) \leq 0$ und thus equals zero.
+\end{Remark}
+
+\begin{Remark}
+	The interpretation above plays a vital role in optimality tests (examples will be provided in the practicals).
+	Also they can be used to derive an optimal solution of the primal problem given the solution of the dual problem; vice versa.
+\end{Remark}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:4.7}]
+	\begin{itemize}
+		\item 
+			Let $(x, y)$ be an optimal pair, thus $Ax \leq b$, $x \geq 0$, $A^t y \geq c$, $y \geq 0$, $c^t x = b^t y$.
+			\[ (Ax)^t y \leq b^t y = c^t x \implies \underbrace{x^t}_{\geq 0} \underbrace{(A^ty - c)}_{\geq 0} \leq 0 \implies x^t (A^t y - c) = 0 \]
+			Analogously, $(A^t y)^t x \geq c^t x = b^t y$,
+			\[ \underbrace{y^t}_{\geq 0} \underbrace{(Ax - b)}_{\leq 0} \geq 0 \qquad \to \qquad y^t (Ax - b) = 0 \]
+		\item
+			If $x \in M_P$ and $y \in M_D$ satisfy $x^t (A^t y - c) = 0$ and $y^t (Ax - b) = 0$,
+			then
+			\[ x^t (A^t y - c) = y^t (Ax - b) = 0 \implies x^t A^t y - \underbrace{x^t c}_{c^t x} = y^t Ax - \underbrace{y^t b}_{b^t y} \]
+			hence $c^t x = b^t y$ so $(x, y)$ is an optimal pair.
+	\end{itemize}
+\end{proof}
+
+\begin{Remark}
+	We can even show sometimes more restrictive:
+	There always exists an optimal pair $(x^*, y^*)$ that is strictly complementary, thus
+	\begin{align*}
+		x^*_j = 0 &\iff (A^t y^* - c)_j > 0 \qquad j = 1, \dots, n \\
+		y^*_i = 0 &\iff (Ax - b)_i < 0 \qquad i = 1, \dots, m
+	\end{align*}
+	\emph{Attention!} Not all optimal pairs ($x, y$) are strictly complementary. (A proof is not given at this point)
+\end{Remark}
+
+\subsection{The dual Simplex method}
+\label{section:4.4}
+
+In contrast to the primal problem, we now consider \dots
+\[ (P) \, \max\SetDef{c^t x}{Ax \leq b, x \geq 0} \qquad (D) \, \min\SetDef{b^t y}{A^t y \geq c, y \geq 0} \]
+\[ (D') \, \max\SetDef{-b^t y}{-A^t y \leq -c, y \geq 0} \]
+This gives an equivalent problem to (D) in canonical form.
+
+\emph{Idea:} Solve (D') with the primal Simplex method and we consider this as a method to solve the original problem (\emph{dual Simplex method}, Lemke, 1954)
+
+Again, we use the tableau form.
+Let $s = -c$ be the left-most column (the set of basis variable values) and $z = -b^t$ be the top row (cost coefficients) in the tableau.
+A Simplex tableau $T$ is called
+\begin{tabular}{lr}
+  \emph{dually admissible}\index{Dually admissible Simplex tableau} & if $c \leq 0$ (i.e. $-c > 0$) \\
+  \emph{primally admissible}\index{Primally admissible Simplex tableau} & if $b \geq 0$ (i.e. $s \geq 0$) \\
+  \emph{dually optimal}\index{Dually optimal Simplex tableau} & if $-b \leq 0$ (i.e. $b \geq 0$) \\
+  \emph{primally optimal}\index{Primally optimal Simplex tableau} & if $z \leq 0$
+\end{tabular}
+
+\begin{example}
+	\[ \max -x_1 - 2x_2 \]
+	subject to
+	\begin{align*}
+		x_1 + x_2 &\geq 3 \\
+		-x_2 &\leq -2 \\
+		x_1, x_2 &\geq 0
+	\end{align*}
+
+	In canoncial form, we have
+	\[ \max -x_1 - 2x_2 \]
+	subject to
+	\begin{align*}
+		-x_1 - x_2 & \leq -3 \\
+		-x_2 & \leq -2 \\
+		x_1, x_2 & \geq 0
+	\end{align*}
+
+	TODO?
+
+	\begin{center}
+		\begin{tabular}{c|ccr}
+			0 & -1 & -2  & \\
+		\hline
+			-3 & -1 & -1 & x_3 \\
+			-2 & 0 & -1  & x_4
+		\end{tabular}
+	\end{center}
+	The initial tableau is dually admissible.
+\end{example}
+
+\begin{Remark}
+	The tableau has at least one of the following states:
+	\begin{itemize}
+		\item primally admissible + primally optimal
+		\item dually admissible + dually optimal
+		\item primally admissible + dually admissible
+	\end{itemize}
+\end{Remark}
+
+The dual Simplex method begins with a dually admissible tableaus and we consecutively apply pivot steps until a dually optimal tableau is given.
+
+What do pivot steps in the dual method look like?
+
+TODO
 
 \printindex
 \end{document}

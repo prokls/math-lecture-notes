@@ -982,6 +982,7 @@ More generally, $\forall A_1, \dots, A_n$ open, dense $\implies \bigcap_{i=1}^n 
 Does this also hold true for countably many $A_i$?
 
 \begin{theorem}[Blaire theorem]
+	\label{theorem:1.23}
 	Let $(X, d)$ be a complete metric space.
 	Let $\left(O_n\right)_{n \in \mathbb N}$ be a sequence of dense sets.
 	Then $\bigcap O_n$ is dense.
@@ -1065,7 +1066,7 @@ We consider a common, but less useful reformulation:
 	Let $(X, \Norm{\cdot})$ be a semi-normed space and $(x_n)_n$ be a sequence in $X$. We say thet
 	\begin{itemize}
 		\item $\sum_{n=1}^\infty x_n$ \emph{converges}\index{Convergence in semi-normed spaces} to $x \in X$ and write $x = \sum_{n=1}^\infty x_n$ if $\lim_{m\to\infty} \sum_{n=1}^m x_n = x$
-		\itme $\sum_{n=1}^\infty x_n$ is \emph{absolutely convergent}\index{Absolutely convergent} if $\sum_{n=1}^\infty \Norm{x_n}$ converges [$\iff \left(\sum_{n=1}^m \Norm{x_n}\right)_m$ is bounded]
+		\item $\sum_{n=1}^\infty x_n$ is \emph{absolutely convergent}\index{Absolutely convergent} if $\sum_{n=1}^\infty \Norm{x_n}$ converges [$\iff \left(\sum_{n=1}^m \Norm{x_n}\right)_m$ is bounded]
 	\end{itemize}
 	It holds that $X$ is complete iff any absolutely converging series converges.
 \end{definition}
@@ -1081,7 +1082,7 @@ We consider a common, but less useful reformulation:
 			\[ \implies \exists (x_{n_k})_k \text{ a subsequence such that } \Norm{x_{n_{k+1}} - x_{n_k}} \leq 2^{-k} \]
 			Define $y_k \coloneqq x_{n_{k-1}} - x_{n_k} \implies \sum_k \Norm{y_{n_w}} \leq \sum_k 2^{-k} < \infty$
 			\[ \implies \exists y \in X: \sum_{k=1}^n y_k \to y \text{ as } n \to \infty \]
-			\[ \sum_{k=1}^n y_k = x_{n_{m+1}} - x_{n_1} \implies x_n_{m+1} \to y - x_{n_1} \text{ as } n \to \infty \]
+			\[ \sum_{k=1}^n y_k = x_{n_{m+1}} - x_{n_1} \implies x_{n_{m+1}} \to y - x_{n_1} \text{ as } n \to \infty \]
 			So $(x_n)_n$ has a convergent subsequence and $(x_n)_n$ is Cauchy, then $(x_n)_n$ is convergent.
 	\end{description}
 \end{proof}
@@ -1131,9 +1132,9 @@ We consider a common, but less useful reformulation:
 \begin{definition}[Quotient spaces]
 	\label{definition:2.4}
 	Let $(X, \Norm{\cdot})$ be a normed space and $Y \subset X$ a subspace.
-	Define a relation \enquote{\sim} on $X$ with $x \sim y :\iff x - y \in Y$.
+	Define a relation \enquote{$\sim$} on $X$ with $x \sim y :\iff x - y \in Y$.
 
-	Then \sim defines an equivalence relation on $X$.
+	Then $\sim$ defines an equivalence relation on $X$.
 	We define
 	\begin{itemize}
 		\item $[X]_\sim = \SetDef{y \in X}{x \sim y}$ \dots the equivalence class of $x \in X$
@@ -1186,7 +1187,7 @@ We consider a common, but less useful reformulation:
 		\item[3.] Suppose $Y$ is closed if $\Norm{[x]}_{X/Y} = 0$, then
 			\[ \inf_{y \in Y} \Norm{x - y} = 0 \implies \exists (y_n)_n \text{ in } Y \text{ s.t. } \lim_{n \to \infty} \Norm{x - y_n} = 0 \]
 			\[ Y \text{ closed } \implies x \in Y \implies [x] = [0] = \hat 0 \]
-		\item[4.] Take $([x_n])_n$ to be a sequence in $X/Y$ and suppose that $\sum_{i=1}^\infty \Norm{[x_n]}_{X/Y} < \infty$. If we can show that $\exists [x] \in X/Y$ such that $\sum_{i=1}^\infty [x_n] = [x]$, then by Proposition~\ref{proposition:2.2}, $X/Y$ is complete.
+		\item[4.] Take $([x_n])_n$ to be a sequence in $X/Y$ and suppose that $\sum_{i=1}^\infty \Norm{[x_n]}_{X/Y} < \infty$. If we can show that $\exists [x] \in X/Y$ such that $\sum_{i=1}^\infty [x_n] = [x]$, then by Proposition~\ref{definition:2.2}, $X/Y$ is complete.
 
 			Choose $\forall n \in \mathbb N: \tilde x_n \in [x_n]$ such that $\Norm{\tilde x_n} \leq \Norm{[x_n]}_{X/Y} + 2^{-n}$
 			\[ \implies \sum_{n=1}^\infty \Norm{\tilde x_n} \leq \sum_{n=1}^\infty \left(\Norm{[x_n]}_{X/Y} + 2^{-n}\right) < c < \infty \]
@@ -1194,6 +1195,156 @@ We consider a common, but less useful reformulation:
 	\end{itemize}
 \end{proof}
 
+\dateref{2019/04/02}
+
+\begin{corollary}
+	\label{corollary:2.5}
+	Let $X$ be a vector space with semi-norm $\Norm{\cdot}_X: X \to [0, \infty)$. Then
+	\begin{itemize}
+		\item $N = \SetDef{x \in X}{\Norm{x}_X = 0}$ is a subspace at $X$
+		\item $\Norm{[X]} \coloneqq \Norm{X}_p$ is a norm on $X/N$
+		\item If $X$ is complete, then $(X/N, \Norm{\cdot})$ is a Banach space.
+	\end{itemize}
+\end{corollary}
+
+\begin{proof}
+	The proof is left as an exercise.
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:2.6}
+	Let $(X, \Norm{\cdot})$ be a normed space, $U \subset X$ is a subspace. Then
+	\begin{itemize}
+		\item $\overline{U}$ is also a subspace.
+		\item $X$ is separable iff $\exists A \subset X$ complete such that $X = \overline{\mathcal L(A)}$ where $L(A) = \SetDef{\sum_{i = 1}^n \lambda_i x_i}{x_i \in A, \lambda_i \in \mathcal K, n \in \mathbb N}$
+	\end{itemize}
+\end{proposition}
+
+\begin{proof}
+	\begin{itemize}
+		\item Left as an exercise
+		\item
+			\begin{description}
+				\item[$\implies$] True since $\exists A \subset X$ countable such that $\overline{A} = X \implies \underline{X} = \overline{A} \subset \overline{L(A)} \subset X$
+				\item[$\impliedby$] Let $A \subset X$ countable such that $\overline{\mathcal L(A)} = X$. Define
+					\[ B = \SetDef{\sum_{i = 1}^n (\lambda_i + i \mu_i) x_i}{\lambda_i, \mu_i \in \mathbb X, x \in A, n \in \mathbb N} \]
+					where $i$ is the imaginary unit if $\mathbb K = \mathbb C$ or $i = 0$ if $\mathbb K = \mathbb R$.
+					Then $B$ is countable.
+
+					Show: $\forall x \in X \forall \varepsilon \exists x \in B: \Norm{x - y} < \varepsilon$.
+
+					Take $x \in X, \varepsilon > 0 \implies \exists x_0 \in \mathcal L(A): \Norm{x - x_i} < \frac\varepsilon2$ when $x_0 = \sum_{i = 0}^n (\lambda_i + i \mu_i) x_i$ with $\lambda_i, \mu_i \in \mathbb R, x_i \in A$.
+					Choose $\lambda', \mu_i' \in \mathbb Q$ such that
+					\[ \sqrt{(\lambda_i - \lambda_i')^2 + (\mu_i - \mu_i')^2} \leq \frac{\varepsilon}{L \cdot \sum_{i = 1}^n \Norm{x_i}} \forall i \in \Set{1, \dots, n} \]
+					Let $y \coloneqq \sum_{j=1}^n (\lambda_i' + \mu_i')x_i \subset B$.
+					\begin{align*}
+						\implies \Norm{x - y} &\leq \Norm{x - x_0} + \Norm{x_0 - y}
+							&\leq \frac{\varepsilon}{2} \\
+							&\leq \sum_{i=1}^n \Abs{(\lambda_i + i \varepsilon_i) - (\lambda_i' + i \mu_i')} \Norm{x_i} \\
+							&\leq \frac{\varepsilon}{2} + \sum_{i = 1}^n \Norm{x_i} \cdot \frac{\varepsilon}{2 \sum_{i=1}^n \Norm{x_i}} = \varepsilon
+					\end{align*}
+			\end{description}
+	\end{itemize}
+\end{proof}
+
+\begin{proposition}[Proposition and definition]
+	\label{proposition:2.7}
+	Let $(X, \Norm{\cdot}_{x_i})$ for $i = 1, \dots, n$ be a normed space. Denote by
+	\[ X_1 \otimes X_1 \otimes \ldots \otimes X_n = \bigotimes_{i=1}^n X_i = X_1 \times \dots \times X_n = \SetDef{(x_1, \dots, x_n)}{x_i \in X_i, i = 1, \dots, n} \]
+	For $p \in [1, \infty]$, define
+	\[
+		\Norm{(x_1, \dots, x_n)}_{\otimes_i X_i, p}
+		= \begin{cases}
+			\left(\sum_{i=1}^n \Norm{x_i}_{x_i}^p\right)^{\frac1p} & \text{if } p \in [1, \infty] \\
+			\max_{i=1,\dots,n} \Norm{x_i}_{x_i} & \text{if } p = \infty
+		\end{cases}
+	\]
+	Then
+	\begin{itemize}
+		\item $(\bigotimes_{i} X_i, \Norm{\cdot}_{\bigotimes_i X_i, p})$ is a normed space with respect to componentwise addition and multiplication.
+		\item If all $X_i$ are complete, then $\bigotimes_{i=1}^n X_i$ is complete.
+		\item All norms $\Norm{\cdot}_{\bigotimes_{i} X_i, p}$ are equivalent.
+	\end{itemize}
+\end{proposition}
+
+\begin{proof}
+	\begin{itemize}
+		\item Vector space properties: Left as an exercise
+		\item Norm: $\Norm{x}_{\bigotimes_{i} X_i, n} = 0 \iff x = 0$ \\
+			$\Norm{\lambda x}_{\bigotimes_{i} X_i, p} = \Abs{\lambda} \Norm{x}_{\bigotimes_{i} X_i, p}$
+		\item Triangle inequality: $p = 1$, $p = \infty$ \\
+			$p \in (1, \infty)$. Take $x, y \in \bigotimes_{i=1}^n X_i$ and we write $\Norm{\cdot}_p = \Norm{\cdot}_{\bigotimes_i X_i,p}$.
+			\begin{align*}
+				\implies \Norm{x + y}_p^p
+					&= \sum_{i=1}^n \Norm{x_i + y_i}_{X_i} \Norm{x_i + y_i}_{x_i}^{p-1} \\
+					&\leq \sum_{i=1}^n \Norm{x_i}_{X_i} \Norm{x_i + y_i}_{X_i}^{p-1} + \sum_{i=1}^n \Norm{y_i}_{X_i} \Norm{x_i + y_i}^{p-1}_{X_i} \\
+					&\underbrace{\leq}_{\text{Hölder ineq.}} \left(\sum_{i=1}^n \Norm{X_i}_{X_i}^p\right)^{\frac1p} \cdot \left(\sum_{i=1}^n \Norm{x_i + y_i}_{X_i}^{(p-1)q}\right)^{\frac1q}
+						+ \left(\sum_{i=1}^n \Norm{y_i}_{x_i}^p\right)^{\frac1p} \left(\sum_{i=1}^n \Norm{x_i + y_i}^{(p-1)q}\right)^{\frac1q} \\
+					&= \Norm{x}_p \Norm{x + y}_p^{p-1} + \Norm{y}_p \Norm{x + y}_p^{p-1} \\
+					&= \left(\Norm{x}_p + \Norm{y}_p\right) \cdot \Norm{x + y}_p^{p-1} \\
+					&= \left(\Norm{x}_p + \Norm{y}_p\right)\left(\Norm{x + y}_n^{n-1}\right)
+			\end{align*}
+
+			%+ \left(\sum_{i=1}^n \Norm{y_i}_{X_i}^p)^{\frac1p} \left(\Norm{x_i + y_i}^{(p-1)q}\right)^{\frac1q}
+			%= \Norm{x}_p \Norm{x + y}_p^{p+1} + \Norm{y}_p \Norm{x + y}_p^{p-1}
+
+			\[ \implies \Norm{x + y}_p \leq \Norm{x}_p + \Norm{y}_p \text{ if } x + y \neq 0 (\text{trivial otherwise}) \]
+
+			Completeness, equivalence is trivial to show (left as an exercise) (use norm equivalence in $\mathbb R^n$)
+	\end{itemize}
+\end{proof}
+
+\begin{definition}
+	\label{definition:2.8}
+	Let $(X, \Norm{\cdot}_X)$ and $(Y, \Norm{\cdot}_Y)$ be normed spaces. If $j: X \to Y$ is linear such that $\Norm{j(x)}_Y = \Norm{x}_X$ (hence $j$ is injective) then $j$ is called isometric embedding from $X$ to $Y$. If $j$ is bijective, then $j$ is called \emph{isometric isomorphism}\index{Isometric isomorphism} and we say $X = Y$ up to isomorphism.
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:2.9}
+	Let $(X, \Norm{\cdot}_X)$ be a normed space. Then $\exists (\hat X, \Norm{\cdot}_X)$ a Banach space such that
+	\begin{enumerate}
+		\item $\exists$ isometric embedding, $i: X \to \hat X$ such that $\overline{j(X)} = \hat X$ [$\hat X$ can be regarded as completion of $X$]
+		\item If $j_x: X \to Y$ is an isometric embedding on $Y$, a Banach space
+			\[ \implies \exists i_2: \hat X \to Y \]
+			an isometric embedding such that $j_2 \circ j = j_1$ and if $\overline{j_1(x)} = y$ then $j_2$ is an isometric isomorphism.
+			Thus \enquote{the completion is essentially unique}.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Set $\hat X = \SetDef{(x_n)_n}{x_n \in X \forall n, (x_n)_n \text{ is } Cauchy}$. $\hat X$ is a vector space by
+	\[ (x_n)_n + (y_n)_n \coloneqq (x_n + y_n)_n \qquad \lambda (x_n)_n \coloneqq (\lambda x_n)_n \quad \hat 0 \coloneqq (0)_n \]
+	Define $\Norm{(x_n)_n}_{\tilde X} \coloneqq \lim_{n \to \infty} \Norm{x_n}$ [well-defined since $(\Norm{x_n})_n$ is Cauchy in $\mathbb R$].
+	Then $\Norm{\cdot}_{\tilde X}$ is a semi-norm (proof is left as an exercise).
+	Setting $N = \SetDef{(X_n)_n}{\Norm{(X_n)_n}_{\hat X} = 0}$. By Corollary~\ref{corollary:2.5}, $\hat X \coloneqq \hat X \setminus N$ with $\Norm{[(X_n)_n]}_{\hat X} = \Norm{(X_n)_n}_{\hat X}$ is a normed space. Define
+	\[ j: X \to \hat X \qquad x \mapsto [(x)_n] \]
+	then $j$ is linear and $\Norm{j(x)}_{\hat x} = \Norm{[(x)_n]}_{\hat x} = \lim_{n \to \infty} \Norm{x} = \Norm{x}$.
+	So $j$ is an isometric embedding.
+
+	Show: $\overline{j(X)} = \hat{X}$.
+
+	Take $\hat x = [(X_n)_n] \in \hat X$. Define $y_n \coloneqq j(x_n) \in \hat X$.
+	\begin{align*}
+		\implies \Norm{y_m - [(x_n)_n]}_{\hat X}
+			&= \Norm{(x_m)_n - (x_n)_n}_{\hat X} = \lim_{n \to \infty} \Norm{x_m - x_n} \\
+			&= \lim_{n \geq n_0} \Norm{x_m - x_n} < \varepsilon
+	\end{align*}
+	Now, $\forall \varepsilon > 0 \exists n \forall n, m \geq n_0: \Norm{x_n - x_m} < \varepsilon$.
+
+	Show: $\hat X$ is complete.
+
+	Let $(y_n)_n$ be Cauchy in $\hat X$. Pick $X_n \in X$ such that $\Norm{j(x_n) - y_n}_{\hat X} \leq \frac 1n$ ($\overline{j(x)} = \hat x$)
+	\begin{align*}
+		\implies \Norm{x_n - x_m}_X = \Norm{j(x_n) - j(x_m)}_{\hat X} \\
+			&\leq \Norm{j(x_n) - y_n}_{\hat X} + \Norm{y_n - y_m}_{\hat X} + \Norm{y_n - j(x_n)}_{\hat X}
+	\end{align*}
+	Take $\varepsilon > 0$. Then $\exists n_0 \forall n, m \geq n_0: \Norm{y_n - y_m}_{\hat X} < \frac\varepsilon3$.
+	Pick $n_1$ such that $\forall n \geq n_1: \frac1n < \frac{\varepsilon}{100}$.
+	\[ \implies \forall n, m > \max(n_0, n_0): \Norm{x_n - x_m} \leq \frac{\varepsilon}{100} + \frac{\varepsilon}{3} + \frac{\varepsilon}{100} < \varepsilon \]
+	$\implies (x_n)_n$ is Cauchy. Let $y \coloneqq (X_n)_n \in \tilde X$.
+	Then
+	\[ \Norm{y_n - [y]}_{\hat X} \leq \Norm{y_n - j(x_n)}_{\hat X} + \Norm{j(x_n) - [y]}_{\hat X} \leq \frac1n + \lim_{n \to \infty} \Norm{x_n - x_m}_X \xrightarrow{n \to \infty} 0 \]
+\end{proof}
 
 \printindex
 \end{document}
