@@ -1592,7 +1592,7 @@ This happens to the disadvantage on the number of restrictions or the number of 
 			\begin{align*}
 				x_1 - x_2 &\leq 2 \\
 				-x_1 + x_2 &\leq 3 \\
-				x_2 &\leq 4
+				x_2 &\leq 4 \\
 				x_1, x_2 &\geq 0
 			\end{align*}
 			\dots becomes \dots
@@ -1601,7 +1601,7 @@ This happens to the disadvantage on the number of restrictions or the number of 
 			\begin{align*}
 				x_1 - x_2 + x_3 &= 2 \\
 				x_2 &\leq 4 \\
-				x_3 &\leq 5
+				x_3 &\leq 5 \\
 				x_1, x_2, x_3 &\geq 0
 			\end{align*}
 			where $x_2 \leq 4$ and $x_3 \leq 5$ are two variables with upper bounds.
@@ -2168,10 +2168,10 @@ A Simplex tableau $T$ is called
 
 	\begin{center}
 		\begin{tabular}{c|ccr}
-			0 & -1 & -2  & \\
+			$0$ & $-1$ & $-2$ & \\
 		\hline
-			-3 & -1 & -1 & x_3 \\
-			-2 & 0 & -1  & x_4
+			$-3$ & $-1$ & $-1$ & $x_3$ \\
+			$-2$ & $0$ & $-1$  & $x_4$
 		\end{tabular}
 	\end{center}
 	The initial tableau is dually admissible.
@@ -2191,6 +2191,227 @@ The dual Simplex method begins with a dually admissible tableaus and we consecut
 What do pivot steps in the dual method look like?
 
 TODO
+
+\dateref{2019/04/02}
+
+Dual Simplex process:
+\begin{itemize}
+	\item Choice of a pivot row. Choice of a row with entry $< 0$ in 0-th column or if none exists, the optimal solution was reached. \\
+		  Analogously to the choice of the pivot column in the primal process.
+	\item Choice of the pivot column (ensures that the tableau stays dually admissible). \\
+		  Analogously to the choice of TODO
+	\item Application of the pivot step
+		  \[ \overline{t}'_{rs} = \frac{1}{t'_{rs}} \qquad \overline{t}'_{rj} = \frac{t'_{rj}}{t'_{rs}} \text{ for } j \neq s \]
+		  \[ \overline{t}'_{is} = -\frac{t'_{is}}{t'_{rs}} \text{ for } i \neq r \qquad \overline{t}'_{ij} = t'_{ij} - \frac{t'_{is} \cdot t'_{rj}}{t'_{rs}} \]
+\end{itemize}
+
+Choose a column $s$ with [column selection rule]
+\[ \frac{t_{0s}}{t_{rs}} = \min\SetDef{\frac{-t_{0j}}{-t_{rj}}}{t_{rj} < 0} = \min\SetDef{\frac{t'_{0j}}{t'_{rj}}}{t_{rj}' < 0} \]
+
+\begin{Remark}
+	We can generalize this to the lexicographical column selection rule (this way we can avoid circles)
+\end{Remark}
+
+\begin{example}
+	\[ \max -x_1 - 2x_2 \]
+	subject to
+	\begin{align*}
+		-x_1 - x_2 + x_3 &= -3 \\
+		-x_2 + x_4 &= -2 \\
+		-x_1 + x_2 + x_5 &= 3 \\
+		x_1 - x_2 + x_6 &= 3 \\
+		x_1, x_2 &\geq 0
+	\end{align*}
+	This gives the following tableau:
+	\[\begin{array}{c|ccc}
+		   & x_1 & x_2 & \\
+		   & -1 & -2 & \\
+		\hline
+		-3 & -1 & -1 & x_3 \\
+		-2 & 0 & -1 & x_4 \\
+		3  & -1 & 1 & x_5 \\
+		3  & 1 & -1 & x_6
+	\end{array}\]
+	where the row of coefficients is dually admissible (hence not primally optimal) and the non-basis is not primally admissible and not dually optimal.
+
+	We choose pivot element $r = 1$ and $s = 1$.
+	\[\begin{array}{c|ccc}
+		   & x_3 & x_2 & \\
+		3  & -1 & -1 & \\
+		\hline
+		3 & -1 & 1 & x_1 \\
+		-2 & 0 & -1 & x_4 \\
+		6  & -1 & 2 & x_5 \\
+		0  & 1 & -2 & x_6
+	\end{array}\]
+	The coefficient row is still dually admissible. The non-basis column is not yet dually optimal.
+
+	We choose pivot element $r = 2$ and $s = 2$.
+	\[\begin{array}{c|ccc}
+		   & x_3 & x_4 & \\
+		5  & -1 & -1 & \\
+		\hline
+		1 & -1 & 1 & x_1 \\
+		2 & 0 & -1 & x_2 \\
+		2 & -1 & 2 & x_5 \\
+		4 & 1 & -2 & x_6
+	\end{array}\]
+	The non-basis column is dually optimal and thus dually admissible.
+
+	The optimal solution is given with $x_1 = 1$ and $x_2 = 2$. The optimal target function value is $-5$.
+\end{example}
+
+\begin{Remark}[Advantages of the dual Simplex method]
+	\begin{itemize}
+		\item Assume the initial tableau is dually admissible (as in the example before) and the right-hand side is not greater-equal zero.
+			Then we can begin immediately with the dual process whereas the primal process requires an initial solution first.
+		\item The main field of application is given by the following property:
+			Assume some linear program is already optimally solved and we attach additional restrictions.
+			The dual Simplex method enables us to continue directly with the given/previous solution basis solution. This solution stays dually admissible.
+			If the solution is not yet dually optimal, we apply dual Simplex steps until we get a dually optimal solution.
+
+			Typically the processing time is reduced due to the reoptimization strategy (a so-called \enquote{warm start}\index{Warm start}) compared to a restart.
+
+			\begin{Remark}[Cutting planes method]
+				The dual Simplex method has an important role in the cutting planes method.
+				This method solves integral (or mixed) linear programs.
+
+				Cutting planes discard undesirable (non-integral) optimal solutions of linear relaxation (problem of non-integrability) without loss of admissible integer solutions.
+				The quality of relaxation is improved step by step.
+			\end{Remark}
+		\item Handling variables with upper bounds
+			\[ \max -x_1 + 4 x_2 \]
+			subject to
+			\begin{align*}
+				x_1 - x_2 &\leq 2 \\
+				-x_1 + x_2 &\leq 3 \\
+				x_1 + x_2 &\geq 3 \\
+				x_2 &\leq 4 \\
+				x_1, x_2 &\geq 0
+			\end{align*}
+			This leads to an initial tableau, that is neither primally nor dually admissible.
+
+			The fourth restriction is transformed to $x_2 + \overline{x}_2 = 4$ with
+			\[ \max 16 - x_1 - 4\overline{x}_2 \]
+			subject to
+			\begin{align*}
+				x_1 + \overline{x}_2 &\leq 6 \\
+				-x_1 - \overline{x}_2 &\leq -1 \\
+				-x_1 + \overline{x}_2 &\leq 1 \\
+				x_1 &\geq 0 \\
+				\overline x_2 &\geq 0 \\
+				\overline x_2 &\leq 4
+			\end{align*}
+
+			This results in the following tableau:
+			\[\begin{array}{c|ccc}
+				& x_1 & \overline x_2 & \\
+				-16 & -1 & -4 & \\
+				\hline
+				6 & 1 & 1 & x_3 \\
+				-1 & -1 & -1 & x_4 \\
+				1 & -1 & 1 & x_5
+			\end{array}\]
+			This is a dually admissible tableau. The pivot element is $r=2$ and $s=1$.
+
+			\[\begin{array}{c|ccc}
+				& x_4 & \overline x_2 & \\
+				-15 & -1 & -3 & \\
+				\hline
+				5 & 1 & 0 & x_3 \\
+				1 & -1 & 1 & x_1 \\
+				2 & -1 & 2 & x_5
+			\end{array}\]
+			\[ \implies \text{ optimal (dually admissible and optimal) with } x_1 = 1, x_2 = 4 \text{ (because $\overline x_2 = 0$)} \]
+	\end{itemize}
+\end{Remark}
+
+\subsection{Final remarks on dual solutions}
+\label{section:4.5}
+
+\emph{Question:} How can we determine an optimal solution of the dual problem if the primal problem was solved by the Simplex method?
+
+Consider the normal form $\max c^t x$ with $Ax = b$ and $x \geq 0$ (with slack variables) and the optimal basis solution ($x_B, x_N$ where $N$ is the non-basis and $B$ is the basis).
+We can determine vector $\tilde y$ as $\tilde y^t \coloneqq c_B^t A_B^{-1}$.
+
+\begin{Claim}
+	$\tilde y$ represents an optimal basis for the primal problem.
+\end{Claim}
+
+\begin{proof}
+	$B$ is an optimal basis for our primal problem, so the reduced cost coefficients satisfy $c \leq 0$, thus $\tilde c^t \leq 0$.
+	\[ c^t - \tilde y^t A \leq 0 \]
+	This gives $0$ for the basis variables and the reduced cost coefficients for non-basis variables.
+	Thus $\tilde y$ is admissible for the primal problem.
+
+	Furthermore it is trivial to see that $(\tilde x, \tilde y)$ is an optimal pair, because $\tilde x_i$ is admissible for the primal problem and $\tilde y$ is admissible for the dual problem and have the same target function value.
+	\[ c^t \tilde x = c_B^t \tilde x_B = c_B^t A_B^{-1} b \text{ (because $\tilde x$ is a basis solution)} \]
+	\[ b^t \tilde y = \tilde y^t b \underbrace{=}_{\text{definition of } \tilde y} c_B^t A_B^{-1} b \]
+\end{proof}
+
+\begin{Remark}
+	\begin{itemize}
+		\item
+			Due to the property above, another proof of the strong law of duality follows intuitively (original proof by Dantzig).
+			Above we have seen it for the case that primal and dual problems have a finite optimal solution.
+		\item
+			A second method for determining a solution of
+			\begin{itemize}
+				\item the dual problem if the primal optimal solution is given
+				\item the primal problem if the dual optimal solution is given
+			\end{itemize}
+			is the application of the Theorem of complementary slackness~\ref{theorem:4.7}.
+	\end{itemize}
+\end{Remark}
+
+\emph{Question:} What are other examples for the economical interpretation of the dual problem?
+
+\begin{example}
+	Consider Stigler's diet problem introduced after Example~\ref{example:3}.
+
+	Let $n$ be the number of food products and $m$ be the total number of ingredients.
+	Let $x_j$ be the quantity of food product $j$.
+	Let $a_{ij}$ be the ratio of the $i$-th ingredient in food product $j$.
+	And $b_i$ denotes the minimal demand of ingredient $i$.
+	Finally $c_j$ are the costs per unit for ingredient $j$.
+
+	Our goal is to design an admissible diet plan minimizing costs.
+
+	Assume pharmaceutical company offers pills per ingredient.
+	Now let $y_i$ denote the price of pill type $i$.
+
+	The goal of the pharmaceutical company is to maximize the profit.
+
+	The primal problem is given by
+	\[ \min\SetDef{c^t x}{Ax \geq b, x \geq 0} \]
+
+	\[ A^t y \leq c \qquad y^t A \leq c^t \]
+
+	The dual problem is given by
+	\[ \max b^t y \]
+	subject to
+	\begin{align*}
+		A^t y &\leq c \\
+		y &\geq 0
+	\end{align*}
+
+	The duality theorem states that the minimal costs of the end consumer match the maximum profit of the pharmaceutical company.
+
+	About the optimal prices of the pharmaceutical company:
+	Transformation of the primal problem to the normal form (for the minimization problem):
+	\[ \min\SetDef{c^tx + 0^t z}{Ax - z = b, x \geq 0, z \geq 0} \]
+	\[ \iff \min\SetDef{d^t u}{Hu = b, u \geq 0} \]
+	is the alternate problem denoted by $(\tilde D)$ (where $z$ are the slack variables).
+	\[ \begin{pmatrix} x \\ z \end{pmatrix} = u \qquad d = \begin{pmatrix} c \\ 0 \end{pmatrix} \qquad H = (A \,|\, -I) \]
+
+	If $B$ is the optimal basis for problem $(\tilde P)$, then we get an optimal solution for the dual problem $(\tilde D)$ $\max\SetDef{b^ty}{H^t y \leq d}$ given by $\tilde y^t = d_B^t H_B^{-1}$ is given by $\tilde y^t = d_B^t H_B^{-1}$ (compare with the first question in this section~\ref{section:4.5}). The dually admissible solution $\tilde y^t H \leq d^t$ implies $\tilde y \geq 0$ ($H$ contains the negated unit matrix).
+
+	Assume the end consumer only wants to cover a specific ratio of the demand $\triangle b$ by pills.
+	For simplification assume $H_B^{-1}(b - \triangle b) \geq 0$. Then the basis $b$ stays optimal.
+	The costs of the ingredients get reduced by $\triangle z = \sum_i \triangle z_i$.
+	The relative reduction
+	TODO
+\end{example}
 
 \printindex
 \end{document}
