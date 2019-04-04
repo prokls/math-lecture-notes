@@ -981,8 +981,9 @@ To complete this chapter, we discuss an important topological assertion; the Bai
 More generally, $\forall A_1, \dots, A_n$ open, dense $\implies \bigcap_{i=1}^n A_i$ is dense (this is left as an exercise).
 Does this also hold true for countably many $A_i$?
 
-\begin{theorem}[Blaire theorem]
+\begin{theorem}[Baire theorem]
 	\label{theorem:1.23}
+	\index{Baire theorem}
 	Let $(X, d)$ be a complete metric space.
 	Let $\left(O_n\right)_{n \in \mathbb N}$ be a sequence of dense sets.
 	Then $\bigcap O_n$ is dense.
@@ -1015,7 +1016,8 @@ We consider a common, but less useful reformulation:
 	\end{itemize}
 \end{definition}
 
-\begin{theorem}[Blaire category theorem (weaker version)]
+\begin{theorem}[Baire category theorem (weaker version)]
+	\index{Baire theorem}
 	Let $(X, d)$ be a complete metric space. Then $(X, d)$ is of second category.
 
 	In otheor words (which is a useful formulation):
@@ -1063,7 +1065,7 @@ We consider a common, but less useful reformulation:
 
 \begin{definition}[Definition and proposition]
 	\label{definition:2.2}
-	Let $(X, \Norm{\cdot})$ be a semi-normed space and $(x_n)_n$ be a sequence in $X$. We say thet
+	Let $(X, \Norm{\cdot})$ be a semi-normed space and $(x_n)_n$ be a sequence in $X$. We say that
 	\begin{itemize}
 		\item $\sum_{n=1}^\infty x_n$ \emph{converges}\index{Convergence in semi-normed spaces} to $x \in X$ and write $x = \sum_{n=1}^\infty x_n$ if $\lim_{m\to\infty} \sum_{n=1}^m x_n = x$
 		\item $\sum_{n=1}^\infty x_n$ is \emph{absolutely convergent}\index{Absolutely convergent} if $\sum_{n=1}^\infty \Norm{x_n}$ converges [$\iff \left(\sum_{n=1}^m \Norm{x_n}\right)_m$ is bounded]
@@ -1282,13 +1284,12 @@ We consider a common, but less useful reformulation:
 						+ \left(\sum_{i=1}^n \Norm{y_i}_{x_i}^p\right)^{\frac1p} \left(\sum_{i=1}^n \Norm{x_i + y_i}^{(p-1)q}\right)^{\frac1q} \\
 					&= \Norm{x}_p \Norm{x + y}_p^{p-1} + \Norm{y}_p \Norm{x + y}_p^{p-1} \\
 					&= \left(\Norm{x}_p + \Norm{y}_p\right) \cdot \Norm{x + y}_p^{p-1} \\
-					&= \left(\Norm{x}_p + \Norm{y}_p\right)\left(\Norm{x + y}_n^{n-1}\right)
-			\end{align*}
-
+			\end{align*}%
+			%
 			%+ \left(\sum_{i=1}^n \Norm{y_i}_{X_i}^p)^{\frac1p} \left(\Norm{x_i + y_i}^{(p-1)q}\right)^{\frac1q}
 			%= \Norm{x}_p \Norm{x + y}_p^{p+1} + \Norm{y}_p \Norm{x + y}_p^{p-1}
-
-			\[ \implies \Norm{x + y}_p \leq \Norm{x}_p + \Norm{y}_p \text{ if } x + y \neq 0 (\text{trivial otherwise}) \]
+			%
+			\[ \implies \Norm{x + y}_p \leq \Norm{x}_p + \Norm{y}_p \text{ if } x + y \neq 0 \: (\text{trivial otherwise}) \]
 
 			Completeness, equivalence is trivial to show (left as an exercise) (use norm equivalence in $\mathbb R^n$)
 	\end{itemize}
@@ -1335,7 +1336,7 @@ We consider a common, but less useful reformulation:
 
 	Let $(y_n)_n$ be Cauchy in $\hat X$. Pick $X_n \in X$ such that $\Norm{j(x_n) - y_n}_{\hat X} \leq \frac 1n$ ($\overline{j(x)} = \hat x$)
 	\begin{align*}
-		\implies \Norm{x_n - x_m}_X = \Norm{j(x_n) - j(x_m)}_{\hat X} \\
+		\implies \Norm{x_n - x_m}_X = \Norm{j(x_n) - j(x_m)}_{\hat X}
 			&\leq \Norm{j(x_n) - y_n}_{\hat X} + \Norm{y_n - y_m}_{\hat X} + \Norm{y_n - j(x_n)}_{\hat X}
 	\end{align*}
 	Take $\varepsilon > 0$. Then $\exists n_0 \forall n, m \geq n_0: \Norm{y_n - y_m}_{\hat X} < \frac\varepsilon3$.
