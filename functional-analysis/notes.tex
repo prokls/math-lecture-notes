@@ -1305,47 +1305,111 @@ We consider a common, but less useful reformulation:
 	Let $(X, \Norm{\cdot}_X)$ be a normed space. Then $\exists (\hat X, \Norm{\cdot}_X)$ a Banach space such that
 	\begin{enumerate}
 		\item $\exists$ isometric embedding, $i: X \to \hat X$ such that $\overline{j(X)} = \hat X$ [$\hat X$ can be regarded as completion of $X$]
-		\item If $j_x: X \to Y$ is an isometric embedding on $Y$, a Banach space
+		\item If $j_1: X \to Y$ is an isometric embedding on $Y$, a Banach space
 			\[ \implies \exists i_2: \hat X \to Y \]
-			an isometric embedding such that $j_2 \circ j = j_1$ and if $\overline{j_1(x)} = y$ then $j_2$ is an isometric isomorphism.
+			an isometric embedding such that $j_2 \circ j = j_1$ and if $\overline{j_1(x)} = Y$ then $j_2$ is an isometric isomorphism.
 			Thus \enquote{the completion is essentially unique}.
 	\end{enumerate}
 \end{proposition}
 
 \begin{proof}
-	Set $\hat X = \SetDef{(x_n)_n}{x_n \in X \forall n, (x_n)_n \text{ is } Cauchy}$. $\hat X$ is a vector space by
-	\[ (x_n)_n + (y_n)_n \coloneqq (x_n + y_n)_n \qquad \lambda (x_n)_n \coloneqq (\lambda x_n)_n \quad \hat 0 \coloneqq (0)_n \]
-	Define $\Norm{(x_n)_n}_{\tilde X} \coloneqq \lim_{n \to \infty} \Norm{x_n}$ [well-defined since $(\Norm{x_n})_n$ is Cauchy in $\mathbb R$].
-	Then $\Norm{\cdot}_{\tilde X}$ is a semi-norm (proof is left as an exercise).
-	Setting $N = \SetDef{(X_n)_n}{\Norm{(X_n)_n}_{\hat X} = 0}$. By Corollary~\ref{corollary:2.5}, $\hat X \coloneqq \hat X \setminus N$ with $\Norm{[(X_n)_n]}_{\hat X} = \Norm{(X_n)_n}_{\hat X}$ is a normed space. Define
-	\[ j: X \to \hat X \qquad x \mapsto [(x)_n] \]
-	then $j$ is linear and $\Norm{j(x)}_{\hat x} = \Norm{[(x)_n]}_{\hat x} = \lim_{n \to \infty} \Norm{x} = \Norm{x}$.
-	So $j$ is an isometric embedding.
+	\begin{enumerate}
+		\item 
+			Set $\hat X = \SetDef{(x_n)_n}{x_n \in X \forall n, (x_n)_n \text{ is } Cauchy}$. $\hat X$ is a vector space by
+			\[ (x_n)_n + (y_n)_n \coloneqq (x_n + y_n)_n \qquad \lambda (x_n)_n \coloneqq (\lambda x_n)_n \quad \hat 0 \coloneqq (0)_n \]
+			Define $\Norm{(x_n)_n}_{\tilde X} \coloneqq \lim_{n \to \infty} \Norm{x_n}$ [well-defined since $(\Norm{x_n})_n$ is Cauchy in $\mathbb R$].
+			Then $\Norm{\cdot}_{\tilde X}$ is a semi-norm (proof is left as an exercise).
+			Setting $N = \SetDef{(X_n)_n}{\Norm{(X_n)_n}_{\hat X} = 0}$. By Corollary~\ref{corollary:2.5}, $\hat X \coloneqq \hat X \setminus N$ with $\Norm{[(X_n)_n]}_{\hat X} = \Norm{(X_n)_n}_{\hat X}$ is a normed space. Define
+			\[ j: X \to \hat X \qquad x \mapsto [(x)_n] \]
+			then $j$ is linear and $\Norm{j(x)}_{\hat x} = \Norm{[(x)_n]}_{\hat x} = \lim_{n \to \infty} \Norm{x} = \Norm{x}$.
+			So $j$ is an isometric embedding.
 
-	Show: $\overline{j(X)} = \hat{X}$.
+			Show: $\overline{j(X)} = \hat{X}$.
 
-	Take $\hat x = [(X_n)_n] \in \hat X$. Define $y_n \coloneqq j(x_n) \in \hat X$.
-	\begin{align*}
-		\implies \Norm{y_m - [(x_n)_n]}_{\hat X}
-			&= \Norm{(x_m)_n - (x_n)_n}_{\hat X} = \lim_{n \to \infty} \Norm{x_m - x_n} \\
-			&= \lim_{n \geq n_0} \Norm{x_m - x_n} < \varepsilon
-	\end{align*}
-	Now, $\forall \varepsilon > 0 \exists n \forall n, m \geq n_0: \Norm{x_n - x_m} < \varepsilon$.
+			Take $\hat x = [(X_n)_n] \in \hat X$. Define $y_n \coloneqq j(x_n) \in \hat X$.
+			\begin{align*}
+				\implies \Norm{y_m - [(x_n)_n]}_{\hat X}
+					&= \Norm{(x_m)_n - (x_n)_n}_{\hat X} = \lim_{n \to \infty} \Norm{x_m - x_n} \\
+					&= \lim_{n \geq n_0} \Norm{x_m - x_n} < \varepsilon
+			\end{align*}
+			Now, $\forall \varepsilon > 0 \exists n \forall n, m \geq n_0: \Norm{x_n - x_m} < \varepsilon$.
 
-	Show: $\hat X$ is complete.
+			Show: $\hat X$ is complete.
 
-	Let $(y_n)_n$ be Cauchy in $\hat X$. Pick $X_n \in X$ such that $\Norm{j(x_n) - y_n}_{\hat X} \leq \frac 1n$ ($\overline{j(x)} = \hat x$)
-	\begin{align*}
-		\implies \Norm{x_n - x_m}_X = \Norm{j(x_n) - j(x_m)}_{\hat X}
-			&\leq \Norm{j(x_n) - y_n}_{\hat X} + \Norm{y_n - y_m}_{\hat X} + \Norm{y_n - j(x_n)}_{\hat X}
-	\end{align*}
-	Take $\varepsilon > 0$. Then $\exists n_0 \forall n, m \geq n_0: \Norm{y_n - y_m}_{\hat X} < \frac\varepsilon3$.
-	Pick $n_1$ such that $\forall n \geq n_1: \frac1n < \frac{\varepsilon}{100}$.
-	\[ \implies \forall n, m > \max(n_0, n_0): \Norm{x_n - x_m} \leq \frac{\varepsilon}{100} + \frac{\varepsilon}{3} + \frac{\varepsilon}{100} < \varepsilon \]
-	$\implies (x_n)_n$ is Cauchy. Let $y \coloneqq (X_n)_n \in \tilde X$.
-	Then
-	\[ \Norm{y_n - [y]}_{\hat X} \leq \Norm{y_n - j(x_n)}_{\hat X} + \Norm{j(x_n) - [y]}_{\hat X} \leq \frac1n + \lim_{n \to \infty} \Norm{x_n - x_m}_X \xrightarrow{n \to \infty} 0 \]
+			Let $(y_n)_n$ be Cauchy in $\hat X$. Pick $X_n \in X$ such that $\Norm{j(x_n) - y_n}_{\hat X} \leq \frac 1n$ ($\overline{j(x)} = \hat x$)
+			\begin{align*}
+				\implies \Norm{x_n - x_m}_X = \Norm{j(x_n) - j(x_m)}_{\hat X}
+					&\leq \Norm{j(x_n) - y_n}_{\hat X} + \Norm{y_n - y_m}_{\hat X} + \Norm{y_n - j(x_n)}_{\hat X}
+			\end{align*}
+			Take $\varepsilon > 0$. Then $\exists n_0 \forall n, m \geq n_0: \Norm{y_n - y_m}_{\hat X} < \frac\varepsilon3$.
+			Pick $n_1$ such that $\forall n \geq n_1: \frac1n < \frac{\varepsilon}{100}$.
+			\[ \implies \forall n, m > \max(n_0, n_0): \Norm{x_n - x_m} \leq \frac{\varepsilon}{100} + \frac{\varepsilon}{3} + \frac{\varepsilon}{100} < \varepsilon \]
+			$\implies (x_n)_n$ is Cauchy. Let $y \coloneqq (X_n)_n \in \tilde X$.
+			Then
+			\[ \Norm{y_n - [y]}_{\hat X} \leq \Norm{y_n - j(x_n)}_{\hat X} + \Norm{j(x_n) - [y]}_{\hat X} \leq \frac1n + \lim_{n \to \infty} \Norm{x_n - x_m}_X \xrightarrow{n \to \infty} 0 \]
+
+		\item
+			\dateref{2019/04/04}
+			Let $\hat x \in \hat X \implies \exists (x_n)_n \in X$ such that $j(x_n) \to \hat x \implies \Norm{x_n - x_m}_X = \Norm{j(x_n) - j(x_m)}_{\hat X}$.
+			\begin{itemize}
+				\item[$\implies$] $(x_n)_n$ is a Cauchy sequence.
+				\item[$\implies$] $j_1(x_n)$ is a Cauchy sequence in $Y$.
+				\item[$\implies$] $\exists \lim_{n \to \infty} j_1(x_n) \coloneqq y$
+			\end{itemize}
+			Using this, we define $j_2: \hat X \to Y$ with $\hat x \mapsto \lim_{n \to \infty} j_1(x_1)$ where $j(x_1) \to \hat x$.
+
+			Well-defined? Take $\hat x \in \hat X$ and $j(x_n) \to \hat x$, $j(y_n) \to \hat x$.
+			\[ \implies \Norm{i_1(x_n) - j_1(y_n)} = \Norm{x_n - y_n} = \Norm{j(x_n) - j(y_n)} \to 0 \text{ as } n \to \infty \]
+			\[ \implies \lim_{n \to \infty} j_1(x_n) = \lim_{n \to \infty} j_1(y_n) \implies j_1 \text{ well-defined} \]
+
+			Show linearity is left as an exercise. By isometry, take $\hat x \in \hat X$,
+			\[ \Abs{i_2(\hat x)} \underbrace{=}_{j(x_n) \to \hat x} \lim_{n \to \infty} \Norm{j_1(x_1)} = \lim_{n \to \infty} \Norm{x_n} = \lim_{n \to \infty} \Norm{i(x_n)} = \Norm{\hat x} \]
+
+			Show: $j_2 \circ j = j_1$. Take $x \in X \implies (x_n)$ is such that $j(x) \to j(x) \implies j_2(j(x)) = \lim_{n \to \infty} j_1(x) = j_1(x)$.
+
+			Assume that $\overline{j_1(x)} = Y$. Take $y \in Y$. Find $\hat x \in \hat X$ such that $i_2(\hat x) = y$.
+			By $\overline{j_1(x)} = Y \implies \exists (x_n)_n \text{ in } X$ such that $i_1(x_n) \to Y \implies (j_1(x_n))_n$ is Cauchy.
+			\[ \implies (x_n)_n \text{ Cauchy } \implies (j(x_n))_n \text{ is Cauchy} \]
+			\[ \xRightarrow{\hat X \text{ complete}} \exists \hat x \text{ such that } \lim_{n \to \infty} j(x_n) = \hat x \implies j_2(\hat x) = \lim_{n \to \infty} j_2(x_n) = Y \]
+	\end{enumerate}
 \end{proof}
+
+\subsection{Important examples of normed spaces}
+\label{section:2.2}
+
+\begin{definition}[Basic notation]
+	\label{definition:2.10}
+	Let $\Omega \subset \mathbb R^N$, $f: \Omega \to \mathbb K^M$ with $N, M \subset \mathbb N$.
+	\begin{itemize}
+		\item We call $\Omega$ a \emph{domain}\index{Domain}\dt{Gebiet} if $\Omega$ is open and connected, where connected means that $\forall x, y \in \Omega$ there is a curve in $\Omega$ connecting $X$ and $Y$.
+		\item For $\alpha = (\alpha_1, \dots, \alpha_N) \in \mathbb N_0^N$ define $\Abs{\alpha} = \alpha_1 + \alpha_2 + \dots + \alpha_N$. If $f$ is $r$-times continuously differentiable, we set for $\alpha \in \mathbb N_0^N$, $\Set{\alpha} \leq r$.
+		\[ D^\infty f \coloneqq \frac{\partial^{\alpha_1} \dots \partial^{\alpha_n}}{\partial_{x_1}^{\alpha_1} \dots \partial_{x_n}^{\alpha_n} x_n} f \]
+		where $\frac{\partial^{\alpha_1}}{\partial^{\alpha_i} x_i}$ is the partial derivative of $f$ with respect to $x_i$ of order $\alpha_i$.
+
+		\begin{example}
+			Let $N=2$ and $\alpha = (1, 1)$.
+			\[ D^\infty f = \frac{\partial^{\alpha_1}}{\partial x_1} \frac{\partial^{\alpha_2}}{\partial x_2} f \]
+			Let $\alpha = (2, 0)$.
+			\[ D^\infty f = \frac{\partial^{\alpha_1}}{\partial^2 x_1} f \]
+		\end{example}
+	\end{itemize}
+
+	\begin{itemize}
+		\item For $z \in \mathbb K^N$ we denote $\Abs{z} \coloneqq \sqrt{\sum_{i=1}^N \Abs{z_i}^2}$.\footnote{This is an abuse of notation with $\Abs{\alpha}$ for $\alpha \in \mathbb N_0^N$}
+		\item We say $E \subset \Omega$ is compact in $\Omega$ and we write $E \Subset \Omega$ if $E$ is compact.
+			\begin{Remark}
+				If $E \Subset \Omega$, then $\exists \delta > 0: \inf\SetDef{\Norm{x - y}}{x \in E, y \in \partial \Omega} > 0$.
+			\end{Remark}
+			\begin{proof}
+				Left as an exercise (use compactness)
+			\end{proof}
+		\item TODO
+		\item TODO
+	\end{itemize}
+\end{definition}
+
+
+
 
 \printindex
 \end{document}

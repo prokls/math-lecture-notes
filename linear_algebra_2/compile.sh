@@ -3,5 +3,8 @@
 set -e
 
 #rm -f notes.aux
-makeindex notes
-xelatex -synctex=1 -interaction errorstopmode notes
+if [ -f "notes.idx" ] ; then
+  makeindex notes
+fi
+xelatex -synctex=1 -interaction nonstopmode notes
+xelatex -synctex=1 -interaction nonstopmode questions

@@ -1,0 +1,502 @@
+\documentclass[a4paper]{article}
+\usepackage[top=30pt,left=30pt,right=30pt]{geometry}
+\usepackage[german,english]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{fontspec}
+\usepackage{mdframed}
+\usepackage{pxfonts}
+\usepackage{wasysym}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{makeidx}
+\usepackage{csquotes}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{stmaryrd}
+\usepackage{titlesec}
+\titleformat{\paragraph}{\normalfont\itshape}{}{}{}
+
+\setmainfont{Alegreya}
+
+% definitions
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setdef}[2]{\left\{\left.#1\,\right|\,#2\right\}}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle} % inner product
+\newcommand{\angel}[1]{\left\langle#1\right\rangle}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\given}[1]{\textbf{Given.} #1\par}
+\newcommand{\find}[1]{\textbf{Find.} #1\par}
+\newcommand{\dateref}[1]{%
+  \begin{mdframed}[backgroundcolor=gray!10,innerbottommargin=0pt,innertopmargin=0pt]
+    \paragraph{\textit{$\downarrow$ This lecture took place on #1.}}%
+  \end{mdframed}%
+}
+\newcommand{\exist}{\;\exists\,}
+\newcommand{\fall}{\;\forall\,}
+\newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
+\newcommand{\vectwo}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\vecthree}[3]{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}}
+\makeatletter
+\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+\makeatother
+\newcommand{\rh}[1]{\vec{#1}}
+\newcommand{\sout}[1]{#1} % TODO define a strike-through for math mode
+\newcommand{\mtn}{(\mu\times\nu)} % mu times nu
+\newcommand{\divides}{\,\big|\,} % mu times nu
+\def\braket#1{\mathinner{\langle{#1}\rangle}}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\detm}{det}
+\DeclareMathOperator{\perm}{perm}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\degree}{deg}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\ke}{kern}
+\DeclareMathOperator{\prop}{probability}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\vol}{vol}  % volume
+\DeclareMathOperator*{\bigtimes}{\vartimes}
+
+\makeatletter
+\providecommand*{\dotcup}{%
+  \mathbin{%
+    \mathpalette\@dotcup{}%
+  }%
+}
+\newcommand*{\@dotcup}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \hidewidth$\m@th#1\cdot$\hidewidth
+  }%
+}
+\makeatother
+
+
+% metadata
+\title{
+  Linear Algebra 2 \\
+  List of potential exam questions
+}
+\date{\today}
+\author{Lukas Prokop}
+
+% settings
+\parindent0pt
+\setlength{\parskip}{0.4\baselineskip}
+
+\setcounter{section}{5}
+\makeindex
+
+\begin{document}
+\maketitle
+
+\section{Determinants}
+
+\begin{itemize}
+  \item Give the three determinant properties
+  \item Give the definition of determinant forms and multilinearity
+  \item Prove $\triangle(a_1, \dots, a_k + \lambda a_i, \dots, a_n) = \triangle(a_1, \dots, a_k, \dots, a_n) \forall \lambda \in \mathbb K, \forall i \neq k$
+  \item Prove $\triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) = -\triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n)$
+  \item Define permutations
+  \item Define transpositions
+  \item Is the decomposition of a permutation as transpositions unique?
+  \item Define and determine the signature of a permutation
+  \item Prove $\sign(\pi) = \prod_{\substack{i,j \\ i < j}} \frac{\pi(j) - \pi(i)}{j-i}$
+  \item Prove: every transposition has sign $-1$
+  \item Prove: $\sign(\pi \circ \sigma) = \sign(\pi) \cdot \sign(\sigma)$
+  \item Prove: $\forall \sigma \in \sigma_n: \triangle(a_{\sigma(1)}, \dots, a_{\sigma(n)}) = \sign(a) \cdot \triangle(a_1, \dots, a_n)$
+  \item Define Leibniz' formula for determinants
+  \item Prove Leibniz' formula
+  \item Prove: Let $B$ and $C$ be two bases of a vector space. The determinant of $B$ is non-trivial iff the determinant of $C$ is non-trivial.
+  \item Prove: $\triangle \text{ non-trivial } \iff \triangle(b_1, \dots, b_n) \neq 0 \text{ for every basis}$
+  \item Prove: Let $\triangle$ be a non-trivial determinant form $\triangle(v_1, \dots, v_n) \neq 0 \iff v_1, \dots, v_n$ is linearly independent.
+  \item Prove: Two determinant forms are different only by some factor
+  \item Prove: $f: V \to V$ is invertible $\iff \det(f) \neq 0$.
+  \item Prove: For a matrix $A \in \mathbb K^{n\times n}$ it holds that $\det{A} \neq 0 \iff$ A has full rank.
+  \item Prove: $f, g: V \to V$ linear. $\implies \det(f \circ g) = \det(f) \cdot \det(g)$
+  \item Prove $\det(A \cdot B) = \det(A) \cdot \det(B)$ directly
+  \item Prove: $\det(A^{-1}) = \frac{1}{\det(A)}$ if invertible
+  \item Prove: $\det(A) = 0 \iff \rank(A) < n$
+  \item Prove: $\det(A^t) = \det(A)$
+  \item Define $\operatorname{perm}(A)$
+  \item Prove: Let $A$ be an upper triangular matrix, hence $a_{ij} = 0$ if $i > j$. $\implies \det(A) = a_{11} a_{22} \dots a_{nn}$.
+  \item Prove: $\begin{vmatrix} &   &   &   & 0 \\ &   & B &   & 0 \\ &   &   &   & 0 \\ & * & * & * & a_{nn} \end{vmatrix} = \det(B) \cdot a_{nn}$
+  \item Define Laplace Expansion
+  \item Define the cofactor of a matrix
+  \item Define the complementary matrix
+  \item Prove: $A^{-1} = \frac{1}{\det{A}} \hat{A}$
+  \item Give and prove Cramer's rule
+\end{itemize}
+
+\section{Inner products}
+
+\begin{itemize}
+  \item Give a geometrical proof of the Pythagorean theorem
+  \item Define the scalar product in $\mathbb R^2$ and $\mathbb R^3$
+  \item Prove $\langle a, b\rangle = \langle b, a\rangle$, $\langle \lambda a, b\rangle = \lambda \langle a, b\rangle = \langle a, \lambda b\rangle$ and $\langle a + b, c \rangle = \langle a, c \rangle + \langle b, c \rangle$ in $\mathbb R^2$
+  \item Prove that the scalar product in $\mathbb R^3$ is the dot product.
+  \item Give the law of Cosines
+  \item Define an outer product (in $\mathbb R^3$)
+  \item Prove $b \times a = -a \times b$, $(\lambda a) \times b = \lambda (a \times b) = a \times (\lambda b)$ and $(a + b) \times c = a \times c + b \times c$
+  \item Define bilinearity
+  \item Define antisymmetry
+  \item Define an inner product
+  \item The function value of an inner product is an element of which domain?
+  \item Define positive-semidefinite and positive-definite inner products (in terms of inner products and in terms of matrices).
+  \item Define a scalar product in terms of inner products.
+  \item What is a positive definite inner product in Hermitian form?
+  \item What is a unitary product?
+  \item Define norms
+  \item Every $\square{}$ induces a $\square{}$. How?
+  \item Define $l$-norms
+  \item Prove: $\norm{x} \coloneqq \sqrt{\angel{x, x}}$ is a norm on $V$
+  \item Give and prove: CBS inequality
+  \item Prove: Let $V$ be a vector space over $\mathbb K = \mathbb R$ or $\mathbb C$. Let $B = \set{b_1, \dots, b_n}$ be a basis. $\angel{,}$ is an inner product.
+    There exists a unique matrix $A$ in Hermitian form such that $\forall x,y \in V: \angel{x,y} = \Phi_B(x)^T \cdot A \cdot \overline{\Phi_B(y)}$.
+  	Additionally show: If $\angel{,}$ is positive definite, $A$ is regular.
+  \item Define the conjugate transpose of a matrix.
+  \item Define self-adjoint matrices.
+  \item Define symmetrical matrices.
+  \item Define Hermitian matrices.
+  \item Give one simple example each for a (positive/negative) (semi)definite matrix and indefinite matrix.
+  \item Define congruent matrices.
+  \item Prove: Every Hermitian matrix is congruent to a diagonal matrix $D$ of form $\operatorname{diag}(D) = (1, \dots, 1, -1, \dots, -1, 0, \dots, 0)$.
+  \item Give and prove Sylvester's law of inertia.
+  \item Define the index and signature of a matrix.
+  \item Prove: $A > 0 \iff A \hat={} I \iff \operatorname{ind}(A) = n$
+  \item Prove: $A \geq 0 \iff \operatorname{ind}(A) = \operatorname{sign}(A) = \operatorname{rank}(A)$
+  \item Prove: $A \hat={} B \iff \operatorname{ind}(A) = \operatorname{ind}(B) \land \operatorname{sign}(A) = \operatorname{sign}(B)$
+  \item Prove: $\det(C^*) = \overline{\det(C)}$
+  \item Prove: $A = A^* \implies \det(A) \in \mathbb R$
+  \item Prove: $A = A^*, B = B^*, A \hat B \implies \sign{\det(A)} = \sign{\det(B)}$
+  \item Prove: $A > 0 \implies \det(A) > 0$
+  \item Define the minor of a matrix.
+  \item Let $A = A^*$. Prove: $A > 0 \iff$ all first minors $A_r$ satisfy $\det(A_r) > 0$
+  \item Let $A = A^*$. Prove: $A < 0 \iff (-1)^r \det(A_r) > 0 \forall r \in \set{1, \dots, n}$
+  \item What is an Euclidean space? What is a unitary space?
+  \item What is a Hilbert space?
+  \item Give the parallelogram law.
+  \item Define orthogonal and orthonormal families of vectors.
+  \item Define orthonormal bases of vectors.
+  \item Let $(v_i)_{i \in I} \subseteq V$, $v_i \neq 0 \forall i$. Prove: $(v_i)_{i \in I}$ is orthogonal, then $(v_i)_{i \in I}$ is linear independent.
+  \item Let $B = (b_1, \ldots, b_n)$ is an orthonormalbasis of an finite-dimensional vector space over $\mathbb K$.
+    For $v \in V$, let $\Phi_B(v) = \begin{pmatrix} \lambda_1 & \dots & \lambda_n \end{pmatrix}^T$.
+    For $w \in V$, let $\Phi_B(w) = \begin{pmatrix} \mu_1 & \vdots & \mu_n \end{pmatrix}^T$. Prove:
+    \begin{enumerate}
+      \item $\lambda_i = \ip{v}{b_i}$
+      \item $\ip vw = \sum_{i=1}^n \lambda_i \overline{\mu_i}$
+    \end{enumerate}
+  \item Let $V$ be a vector space with scalar product. $M, N \subseteq V$ are partitions.
+    \begin{enumerate}
+      \item $M^\bot$ is a subspace.
+      \item $M \subseteq N \implies N^\bot \subseteq M^\bot$ \\
+        $(M_1 \cup M_2)^\bot = M_1^\bot \cap M_2^\bot$
+      \item $\set{0}^\bot = V$
+      \item $V^\bot = \set{0}$
+      \item $M \cap M^\bot \subseteq \set{0}$
+      \item $M^\bot = \mathcal L(M)^\bot$
+      \item $M \subseteq (M^\bot)^\bot$
+    \end{enumerate}
+  \item Prove: Let $U \subseteq V$ be a subspace. $U + U^\bot$ is direct sum in $\mathbb R^n: U + U^\bot = \mathbb R^n$.
+  \item Define convexity of functions.
+  \item Let $V = U \dot+ U^{\bot}$. Prove: $\forall x, y \in V: \ip{x}{\pi_{U}(y)} = \ip{\pi_U(x)}{y} = \ip{\pi_U(x)}{\pi_U(y)}$
+  \item Let $V = U \dot+ U^{\bot}$. Prove: $\norm{\pi_U(x)} \leq \norm{x} \land \norm{\pi_U(x)} = \norm{x} \iff x \in U$
+  \item Define the Gram matrix.
+  \item Let $v_1, \ldots, v_m \in V$. $G = \operatorname{Gram}(v_1, \ldots, v_m)$. Prove: $G = G^*$ is Hermitian, positive \emph{semi}definite.
+  \item Let $v_1, \ldots, v_m \in V$. $G = \operatorname{Gram}(v_1, \ldots, v_m)$. Prove: $\xi \in \ker{G} \iff \sum_{i=1}^m \overline{\xi_i} v_i = 0$
+  \item Let $v_1, \ldots, v_m \in V$. $G = \operatorname{Gram}(v_1, \ldots, v_m)$. Prove: $G$ is positive definite iff $(v_1, \ldots, v_m)$ are linear independent.
+  % \item Theorem 8.54
+  \item Give Bessel's inequality. Give an intuition what the inequality says/when it can be useful.
+  \item Give Parseval's identity. Give an intuition what the inequality says/when it can be useful.
+  \item Give and prove the Gram--Schmidt process for orthogonalization
+  \item Define Laguerre polynomials
+  \item Define Hermite polynomials
+  \item How are Laguerre and Hermite polynomials related to the Gram--Schmidt process?
+  \item Give Riesz representation theorem
+  \item Prove Riesz representation theorem
+  \item Does Riesz representation theorem hold for infinite-dimensional spaces?
+  \item Prove: $v = 0 \iff \forall w \in V: \ip vw = 0$
+  \item Prove: $\norm{v} = \sup\setdef{\card{\ip vw}}{\norm{w} \leq 1}$
+  \item Define adjoint maps
+  \item Prove: Let $(V, \ip{\cdot}{\cdot}_V)$ and $(W, \ip{\cdot}{\cdot}_W)$ be spaces with a scalar product. $\dim{V}, \dim{W} < \infty$.
+    $T: W \to V$ linear. Prove: For every $v \in V$ the map $w \mapsto \ip{T(w)}{v}_V$ is linear.
+  \item Prove: Let $(V, \ip{\cdot}{\cdot}_V)$ and $(W, \ip{\cdot}{\cdot}_W)$ be spaces with a scalar product. $\dim{V}, \dim{W} < \infty$.
+    $T: W \to V$ linear. Prove: $\forall v \in V \exists! u \in W \forall w \in W: \ip{T(w)}{v}_V = \ip{w}{u}_W$ and $T^*(v) = u$.
+  \item Prove: Let $(V, \ip{\cdot}{\cdot}_V)$ and $(W, \ip{\cdot}{\cdot}_W)$ be spaces with a scalar product. $\dim{V}, \dim{W} < \infty$.
+    $T: W \to V$ linear. Show: $T^* \in \operatorname{Hom}(V, W)$
+  \item Prove: Let $(V, \ip{\cdot}{\cdot}_V)$ and $(W, \ip{\cdot}{\cdot}_W)$ be spaces with a scalar product. $\dim{V}, \dim{W} < \infty$.
+    $T: W \to V$ linear. Prove: the map $\operatorname{Hom}(W, V) \mapsto \operatorname{Hom}(V, W)$ with $T \mapsto T^*$ is antilinear and $T^{**} = T$.
+  \item Does every linear map have an adjoint map?
+  \item Define involutions
+  \item Prove: Let $B \subseteq V, C \subseteq W$ be orthonormal bases. $f \in \operatorname{Hom}(V, W)$.
+    \[ \Phi_B^C(f^*) = \Phi_C^B(f)^* = \overline{\Phi_C^B(f)^T} \]
+  \item Let $U, V, W$ be finite-dimensional. $U \xrightarrow f V \xrightarrow g W$. Prove: $(g \circ f)^* = f^* \circ g^*$
+  \item Let $U, V, W$ be finite-dimensional. $U \xrightarrow f V \xrightarrow g W$. Prove: $f^{**} = f$
+  \item Let $U, V, W$ be finite-dimensional. $U \xrightarrow f V \xrightarrow g W$. Prove: $\ker{f} = (\im{f^*})^\bot$
+  \item Let $U, V, W$ be finite-dimensional. $U \xrightarrow f V \xrightarrow g W$. Prove: $\im{f} = (\ke{f^*})^\bot$
+  \item Let $U, V, W$ be finite-dimensional. $U \xrightarrow f V \xrightarrow g W$. Prove: $f$ injective $\iff f^*$ surjective
+  \item Let $U, V, W$ be finite-dimensional. $U \xrightarrow f V \xrightarrow g W$. Prove: $f$ surjective $\iff f^*$ injective
+  \item Define self-adjoint matrices
+  \item Define linear isometries (= unitary transformations)
+  \item Prove: unitary transformations are injective
+  \item If $\dim{V} = \dim{W} < \infty$ and $f: V \to W$ is linear and unitary, then $f$ is regular and $f^{-1} = f^*$.
+  \item If $\dim{V} = \infty$, $f: V \to V$ is isometry, it does not imply that $f$ is invertible.
+  \item Define unitary matrices
+  \item Define orthogonal matrices
+  \item Eigenspaces are always $\square{}$
+  \item Prove: $T \in \mathbb C^{n \times n}$ is unitary $\implies T$ is unitary
+  \item Prove: $T \in \mathbb C^{n \times n}$. $\forall x,y \in \mathbb C^n: \ip{Tx}{Ty} = \ip xy \iff$ the columns of $T$ define an orthonormal basis of $\mathbb C^n$
+  \item Define isometries in metric spaces.
+  \item Is translation an isometry?
+  \item Is translation unitary?
+  \item What does the counterclockwise transformation matrix in $\mathbb R^2$ look like?
+  \item Define the orthogonal group
+  \item Define the unitary group
+  \item Define the special orthogonal group
+  \item Define the special unitary group
+  \item Define the general linear group
+  \item Define the special linear group
+  \item Prove: $U \in \mathcal U(n) \implies \card{\det(U)} = 1$
+  \item Give the general layout of a quaternion
+  \item What is the multiplicative identity element of quaternions?
+\end{itemize}
+
+\section{Polynomials}
+
+\begin{itemize}
+  \item Define algebras
+  \item Does an algebra satisfy associativity?
+  \item Does an algebra satisfy commutativity?
+  \item Define Jordan algebras
+  \item Define the polynomial algebra
+  \item Define the algebra of formal power series
+  \item Define the degree of polynomials. Give the degree of polynomials $0, 1, x$ and $x^2$.
+  \item Prove: Let $p(x)$ and $q(x)$ be polynomials. $\deg(p(x)) + \deg(q(x)) = \deg(g(x) \cdot q(x))$
+  \item Define zero division freedom for polynmomials
+  \item Prove: Every polynomial induces a polynomial function and the map $p(x) \mapsto p_f(x)$ is linear and multiplicative.
+  \item Define algebra homomorphisms
+  \item Give and prove the insertion theorem for polynomials
+  \item Define the root of a polynomial
+  \item There is a formula to find roots of any quadratic equation. What is the highest polynomial degree such that a formula exists?
+  \item What is the idea of Cardanos cubic formula?
+  \item Prove polynomial division with remainder: $p(x), q(x) \in \mathbb K[x]$, $q(x) \neq 0$. Then there exists exactly one polynomial $s(x), r(x) \in \mathbb K[x]$, $p(x) = s(x) \cdot q(x) + r(x)$.
+  with $\deg{r(x)} < \deg{q(x)}$.
+  \item Give Ruffini-Horner's method
+  \item Define reducibility of polynomials
+  \item Give the Fundamental Theorem of Algebra
+  \item Define the greatest common divisor for polynomials
+  \item Prove Bezout's identity for polynomials
+\end{itemize}
+
+\section{Eigenvalues and eigenvectors}
+
+\begin{itemize}
+  \item Define eigenvalues and eigenvectors
+  \item Give an intuitive notion of eigenvalues and eigenvectors
+  \item Can 0 be an eigenvalue? Can $\vec 0$ be an eigenvector?
+  \item Does every matrix have eigenvalues and eigenvectors?
+  \item Give simple examples in $\mathbb R^{2 \times 2}$ and $\mathbb Q^{2 \times 2}$ without eigenvectors and eigenvalues.
+  \item Define spectrums of linear maps
+  \item What kind of linear map do you need to consider eigenspaces (necessary, but not sufficient condition)?
+  \item Define eigenspaces of linear maps
+  \item What is the eigenvalue of the matrix $\lambda \cdot \operatorname{id}$?
+  \item Let $b_1, \dots, b_n$ be a basis of $V$. Let $\lambda_1, \dots, \lambda_n \in \mathbb K$. Then there exists a linear map $f$ such that $f(b_i) = \lambda_i \cdot b_i$ and this map is $\square{}$.
+  \item Prove: Left-sided eigenvalue $\iff$ right-sided eigenvalue
+  \item Write it down formally: The spectrum does not depend on the choice of the basis
+  \item Prove: The spectrum does not depend on the choice of the basis
+  \item Define characteristic polynomials of matrices
+  \item Let $A \in \mathbb K^{n \times n}$. What is the degree of the characteristic polynomial of $A$?
+  \item Complete and prove: $\lambda$ is eigenvalue $\iff \chi_A(\lambda) = \square{}$
+  \item Prove: A square matrix $A$ is invertible if and only if $0$ is not an eigenvalue of $A$
+  \item Define symmetrical minors
+  \item Prove: $\chi_{T^{-1} AT}(x) = \chi_A(x)$
+  \item Define diagonalizable matrices
+  \item Define equivalent matrices
+  \item Define similar matrices
+  \item Prove: $A$ is diagonalizable $\iff \exists$ basis of eigenvectors.
+  \item Define exponentiation of matrices
+  \item Define Fibonacci sequences
+  \item Give an explanation of the relationship of rabbit populations and the Fibonacci sequence
+  \item Give the iteration matrix of the Fibonacci sequence
+  \item The golden ratio is the root of which polynomial?
+  \item Give the golden ratio
+  \item Prove: eigenvectors corresponding to different eigenvalues are linear independent.
+  \item Prove: an $n\times n$ matrix with $n$ different eigenvalues is diagonalizable.
+  \item Define the geometric and algebraic multiplicity of an eigenvalue
+  \item Prove: A matrix is diagonalizable iff for different eigenvalues $\lambda_1, \dots, \lambda_r$ it holds that $\sum_{i=1}^r d(\lambda_i) = n$
+  \item Give an argument why there are at most $n$ eigenvalues for a matrix in $\mathbb K^{n \times n}$
+  \item Prove: For every eigenvalue $\lambda$, it holds that $d(\lambda) \leq k(\lambda)$
+  \item Define nilpotent matrices
+\end{itemize}
+
+\section{Jordan normal form}
+
+\begin{itemize}
+  \item Define invariant subspaces
+  \item Show: Eigenspaces are invariant subspaces
+  \item Prove: Let $A \in \mathbb K^{n\times n}, V = \mathbb K^n$. If $U \subseteq V$ is invariant and $p(x) \in \mathbb K[x]$, then $U$ is invariant under $p(A)$.
+  \item Prove: Let $A \in \mathbb K^{n\times n}, V = \mathbb K^n$. $U_1, \dots, U_k$ are invariant subspaces. Then $\bigcap_{i=1}^k U_i$ and ${\text{\huge +}}_{i=1}^k U_i$ are invariant with respect to $A$.
+  \item Prove: Let $f: V \to V$ and let $U \subseteq V$ be an invariant subspace. Then $f|_U: U \to U$ is a homomorphism
+  \item Prove: Let $f: V \to V$. If $V$ can be decomposed into a direct sum of invariant subspaces, then $A$ can be transformed into block diagonal form.
+  \item Let $\dim{V} = n, f \in \operatorname{End}(V)$. Prove: $\set{0} \subseteq \ker{f} \subseteq \ker{f^2} \subseteq \ker{f^3} \subseteq \dots$ and $\im{f} \supseteq \im{f^2} \supseteq \im{f^3} \supseteq \dots$
+  \item Let $\dim{V} = n, f \in \operatorname{End}(V)$. Prove: $\exists m \leq n: \ker{f^m} = \ker{f^{m+1}}$
+  \item Let $\dim{V} = n, f \in \operatorname{End}(V)$. Prove:
+    \[ \ker{f^m} = \ker{f^{m+1}} \iff \im{f^m} = \im{f^{m+1}} \iff \ker{f^m} = \ker{f^{m+k}} \forall k \geq 1 \iff \]
+    \[ \im{f^m} = \im{f^{m+k}} \forall k \geq 1 \iff \ker{f^m} \cap \im{f^m} = \set{0} \iff V = \ker{f^m} \dot{+} \im{f^m} \]
+  \item Explain Fitting's Lemma in a few words.
+  \item Define generalized spaces. Define generalized eigenvectors. How do generalized eigenvectors differ from eigenvectors?
+  \item Prove: Let $\lambda_1, \dots, \lambda_k$ be different eigenvalues of $A$ and $\ker(\lambda I - A)^{r_i}$ the corresponding generalized spaces where
+    \[ \ker(\lambda_i I - A)^{r_{i-1}} \subsetneq \ker(\lambda_i I - A)^{r_i} = \ker(\lambda_i \cdot I - A)^{r_i + 1} \]
+    \[ \implies \bigcap_{i=1}^k \im(\lambda_i - A)^{r_i} \cap \ker((\lambda_1 I - A)^{r_1} (\lambda_2 I - A)^{r_2} \dots (\lambda_k I - A)^{r_k}) = \set{0} \]
+  \item Prove: $\forall \lambda \neq \mu \in \operatorname{spec}(A) \forall k,l \geq 1: \ker(\lambda I - A)^k \cap \ker(\mu I - A)^l = \set{0}$
+  \item Prove: The sum $\sum_{i=1}^k \ker(\lambda_i I - A)^{r_i}$ is direct for arbitrary pairwise different $\lambda_1, \dots, \lambda_k$.
+  \item Prove: Let $\lambda_1, \dots, \lambda_k$ be pairwise different eigenvalues of $A \in \mathbb K^{n\times n}$. Let $W \coloneqq \bigcap_{i=1}^k \im(\lambda_i I - A)^n$. $V = \ker(\lambda_1 I - A)^{n} \oplus \dots \oplus \ker(\lambda_k I - A)^n \oplus \bigcap_{i=1}^k \im(\lambda_i I - A)^n$
+  \item Prove: $W$ is invariant under $A$ and $\lambda_i \not\in \operatorname{spec}(A|_W) \forall i \in \set{1, \dots, k}$
+  \item Prove: Let $\mathbb K$ be algebraically closed and let $\lambda_1, \dots, \lambda_k$ be all eigenvalues of a matrix $A \in \mathbb K^{n\times n}$. Then $\mathbb K^{n} = \ker(\lambda_1 I - A)^n \oplus \dots \oplus \ker(\lambda_k I - A)^n$.
+  \item What is the index of a linear map?
+  \item Define nilpotent matrices.
+  \item The sum of nilpotent matrices is $\square{}$
+  \item The product of nilpotent matrices is $\square{}$
+  \item Asumme all generalized spaces are eigenspaces. What about diagonizability?
+  \item Prove: Let $\ker(f^m) \subseteq \ker(f^{m+1}) \subseteq \ker(f^{m+2})$
+    \begin{align*}
+      u_1 \dots u_p & \dots \text{ basis of } \ker{f^n} \\
+      u_1 \dots u_p v_1 \dots v_k & \dots \text{ basis of } \ker{f^{m+1}} \\
+      u_1 \dots u_p v_1 \dots v_k w_1 \dots w_r & \dots \text{ basis of } \ker{f^{m+2}}
+    \end{align*}
+    Then $(u_1 \dots u_p, f(w_1), \dots, f(w_r))$ is linear independent.
+  \item What kind of matrix is the Jordan normal form of a matrix?
+  \item Prove: Let $\dim{V} = n$. $f: V \to V$ is nilpotent of index $p$ ($f^p = 0$). $d = \dim\ker{f}$. Then there exists a basis $B$ of $V$ such that
+    \[ \operatorname{diag}\left(\Phi_B^B(f)\right) = ([N_1], [N_2], \dots, [N_d]) \]
+    where
+    \[
+      N_i = \begin{bmatrix} 0 & 1 & \ddots & 0 \\  & 0 & 1 & \\ & & \ddots & 1 \\ 0 & & \ddots & 0 \end{bmatrix}_{n_i \times n_i}
+      \qquad p = n_1 \geq n_2 \geq \dots \geq n_d \geq 1
+      \qquad n_1 + \dots + n_d = n
+    \]
+  \item Define Jordan blocks of length $k$ of a given eigenvalue $\lambda$.
+  \item Prove: Let $\mathbb K$ be an algebraically closed field. Then every matrix $A \in \mathbb K^{n+m}$ is similar to a matrix of Jordan normal form.
+  \item Let $B^{-1} AB = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \in \mathbb K^{n + m}$ be a Jordan normal form with $J_i = J_{k_i}(\lambda_i)$. Prove: $\sum_{i=1}^q k_i = n$
+  \item Let $B^{-1} AB = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \in \mathbb K^{n + m}$ be a Jordan normal form with $J_i = J_{k_i}(\lambda_i)$. Prove: Geometric multiplicity of $\lambda$ equals the number of corresponding Jordan blocks. Algebraic multiplicity of $\lambda$ equals the num of sizes of corresponding Jordan blocks.
+  \item Let $B^{-1} AB = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \in \mathbb K^{n + m}$ be a Jordan normal form with $J_i = J_{k_i}(\lambda_i)$. Show: The smallest exponent $r$ such that $\ker((\lambda I - A)^r) = \ker((\lambda I - A)^{r+1})$ is the largest length of a corresponding Jordan block.
+  \item Let $B^{-1} AB = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \in \mathbb K^{n + m}$ be a Jordan normal form with $J_i = J_{k_i}(\lambda_i)$. Prove: Let $k \in \mathbb N$. $\#\set{i: \lambda_i = \lambda \land k_i \geq k + 1} = \rank(\lambda I - A)^k - \rank(\lambda I - A)^{k+1}$
+  \item Let $B^{-1} AB = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix} \in \mathbb K^{n + m}$ be a Jordan normal form with $J_i = J_{k_i}(\lambda_i)$. Prove: The Jordan blocks are uniquely determined (except for the order)
+  \item Let $A \in \mathbb K^{n + n}$ matrix. $\Psi_A: \substack{\mathbb K[x] \to \mathbb K^{n + n} \\ p(x) \mapsto p(A)}$ and $a_0 + a_1 x + \dots + a_k x^k \mapsto a_0 \cdot I + a_1 A + \dots + a_k A^k$. Prove: $p\left(\begin{bmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_n \end{bmatrix}\right)$.
+  \item Let $A \in \mathbb K^{n + n}$ matrix. $\Psi_A: \substack{\mathbb K[x] \to \mathbb K^{n + n} \\ p(x) \mapsto p(A)}$ and $a_0 + a_1 x + \dots + a_k x^k \mapsto a_0 \cdot I + a_1 A + \dots + a_k A^k$. Prove: $p\left(\begin{bmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_n \end{bmatrix}\right) = \begin{bmatrix} p(\lambda_1) & & \\ & \ddots & \\ & & p(\lambda_n) \end{bmatrix}$.
+  \item Let $A \in \mathbb K^{n + n}$ matrix. $\Psi_A: \substack{\mathbb K[x] \to \mathbb K^{n + n} \\ p(x) \mapsto p(A)}$ and $a_0 + a_1 x + \dots + a_k x^k \mapsto a_0 \cdot I + a_1 A + \dots + a_k A^k$. Prove: $p\left(\begin{bmatrix} A_1 & & \\ & \ddots & \\ & & A_n \end{bmatrix}\right) = \begin{bmatrix} p(A_1) & & \\ & \ddots & \\ & & p(A_n) \end{bmatrix}$
+  \item Let $A \in \mathbb K^{n + n}$ matrix. $\Psi_A: \substack{\mathbb K[x] \to \mathbb K^{n + n} \\ p(x) \mapsto p(A)}$ and $a_0 + a_1 x + \dots + a_k x^k \mapsto a_0 \cdot I + a_1 A + \dots + a_k A^k$. Prove: $A = T^{-1} BT \implies p(A) = T^{-1} p(B) T$
+  \item For some Jordan block $J_k(\lambda)$ it holds that,
+    \[
+      p(J_k(\lambda))_{i,j} = \begin{cases}
+        \frac{p^{(j - i)}(\lambda)}{(j - i)} & j > i \\
+        p(\lambda) & j = i \\
+        0 & j < i \text{ (below the diagonal)}
+      \end{cases}
+    \]
+  \item Let $A \in \mathbb K^{N \times N}$. Prove: $\exists p(x) \in \mathbb K[x]: p(A) = 0$
+  \item Let $A \in \mathbb K^{N \times N}$. Prove: $\exists$ a unique polynomial $m_A(x) \in \mathbb K[x]$ with minimal degree and leading coefficients $1$ and $p(x) \in \operatorname{Ann}(A) \iff m_A(x) \divides{} p(x)$
+  \item Let $A \in \mathbb K^{N \times N}$. Prove: $m_A(\lambda) = 0 \forall \lambda \in \operatorname{spec}(A)$
+  \item Give and prove the Cayley-Hamilton Theorem
+  \item Prove: $m_A(x) \divides{} \chi_A(x)$
+  \item Conclude: the roots of $m_A(x)$ are the eigenvalues of $A$
+  \item Recognize: The minimal polynomial has the structure $m_A(x) = \prod (\lambda - \lambda_i)^{m_i}$ where $m_i$ is the smallest exponent for $\ker(\lambda_i - A)^m = \ker(\lambda_i - A)^{m+1}$, hence this equals the largest length of a Jordan block for eigenvalue $\lambda_i$.
+  \item Recognize: $A$ is diagonalizable $\iff$ all $m_i = 1 \iff m_A(x) = \prod_{i=1}^k (\lambda - \lambda_i) \iff m_A(x)$ has only simple roots.
+  \item $p(A) \cdot x = p(\lambda) \cdot x \qquad \text{ if } \lambda \in \operatorname{spec}(A) \implies p(\lambda) \in \operatorname{spec}(p(A))$
+  \item Give and prove the spectral mapping theorem
+\end{itemize}
+
+\section{Normal matrices}
+
+\begin{itemize}
+  \item Define normal matrices
+  \item If a matrix is self-adjoint, then is it necessarily $\square{}$
+  \item A real-valued self-adjoint matrix is called $\square{}$
+  \item Are unitary matrices normal?
+  \item The sum of normal matrices is $\square{}$
+  \item The product of normal matrices is $\square{}$
+  \item $A \in \mathbb C^{n \times n}$ is normal. Prove: $\ker{A} = \ker{A^*}$
+  \item $A \in \mathbb C^{n \times n}$ is normal. Prove: $\ker{A} = \ker{A^2}$
+  \item Let $A \in \mathbb C^{n \times n}$ is normal. Prove: $\ker(\lambda I - A) = \ker(\overline{\lambda} I - A^*)$
+  \item Let $A \in \mathbb C^{n \times n}$ is normal. Prove: $\ker(\lambda I - A)^2 = \ker(\lambda I - A)$
+  \item Let $A$ be normal. Prove: $\lambda \neq \mu \in \operatorname{spec}{A} \implies \ker(\lambda I - A) \bot \ker(\mu I - A)$
+  \item Matrix $A$ is normal. What can you say about generalized eigenspaces?
+  \item Let $A \in \mathbb C^{n \times n}$. Prove: $A$ is normal $\implies$ $\exists$ orthonormal basis of eigenvectors
+  \item Let $A \in \mathbb C^{n \times n}$. Prove: $\exists$ orthonormal basis of eigenvectors $\implies$ $\exists$ unitary matrix $U$ such that $U^* AU = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$.
+  \item Let $A \in \mathbb C^{n \times n}$. Prove: $\exists$ unitary matrix $U$ such that $U^* AU = \operatorname{diag}(\lambda_1, \dots, \lambda_n) \implies A$ is normal.
+  \item Define Schur's decomposition
+  \item If $A \in \mathbb R^{n \times n}$ and $\chi_A(\lambda)$ decomposes into linear factors. $\exists U \in \mathcal U(n): U^* AU = R$ is an upper triangular matrix. Then $U$ $\square{}$
+  \item Prove: A matrix is normal $\iff$ Schur normal form = diagonal matrix.
+  \item Prove: Let $A \in \mathbb C^{n \times n}, A = A^* \implies \operatorname{spec}(A) \subseteq \mathbb R$.
+  \item Let a matrix be complex-valued. Then the eigenvalues are $\square{}$-valued.
+  \item Let a matrix be real-valued. Then the eigenvalues are $\square{}$-valued.
+  \item Let $A \in \mathbb C^{n \times n}$ self-adjoint. Prove: $A \geq 0 \iff \operatorname{spec}(A) \subseteq [0, \infty)$.
+  \item For which matrices is the square root of a matrix defined?
+  \item Prove: The square root of a positive definite matrix is exists and is unique.
+  \item Define Cholesky decompositions
+  \item Define Schur complements of $D$ in $M$. Give the dimensions of $D$ and $M$.
+  \item Let $A \in \mathbb C^{n \times n}$. $A > 0$, $b \in \mathbb C^n$, $\gamma > 0$.
+    \[ \det\left[\begin{array}{c|c}A & B \\ \hline b^* & \gamma \end{array}\right] = \det A \cdot (\gamma - b^* A^{-1} b)  \]
+  \item Cholesky decomposition is a $\square{}$ decomposition
+  \item Prove: The lower triangular matrix in the Cholesky decomposition is unique
+  \item Prove: If $A > 0$, then $\det{A} \leq a_{11} a_{22} \dots a_{nn}$.
+  \item Give and prove Hadamard's inequality
+  \item Which matrices have polar decompositions?
+  \item Define the polar decomposition of a matrix $A$.
+  \item Prove: Let $A \in \mathbb C^{n \times n}$. $\card{A} \coloneqq (A^* A)^{\frac12}$. Then $\exists U \in \mathcal U(n)$ such that $A = U \cdot \card{A}$.
+  \item Which matrices have singular values?
+  \item Define singular value decompositions of matrices.
+  \item Define the numerical range of a matrix $A$
+  \item Define the numerical radius of matrix $A$
+  \item Prove: $\operatorname{spec}(A) \subseteq W(A)$
+  \item Give and prove the Theorem by Toeplitz--Hausdorff
+  \item Define Rayleigh quotients.
+  \item Which requirements are given for matrix $A$ in the Rayleigh-Ritz Theorem and the Courant--Fischer--Weyl min--max principle?
+  \item Give and prove the Rayleigh-Ritz Theorem.
+  \item Give and prove the Courant--Fischer--Weyl min--max principle.
+  \item Which one is more generic: Rayleigh-Ritz Theorem or Courant--Fischer--Weyl min--max principle?
+  \item Give and prove the Cauchy interlacing theorem
+  \item Prove: $A, B$ are self-adjoint $\in \mathbb C^{n \times n}$. $\lambda_{k}(A) + \lambda_1(B) \leq \lambda_k(A + B) \leq \lambda_k(A) + \lambda_n(B)$
+  \item Define Ger\v{s}gorin discs
+  \item Give and prove the Ger\v{s}gorin theorem
+  \item What is the spectral gap of a matrix?
+\end{itemize}
+
+\section{Matrix norms}
+
+\begin{itemize}
+  \item Give one scalar product for matrices in $\mathbb C^{m \times n}$.
+  \item Define Frobenius norms (= Schur norms) (= Hilbert-Schmidt norms)
+  \item Let $V, W$ be normed vectorspaces. $f \in \operatorname{Hom}(V, W)$. Defined the so-called induced norm.
+  \item Define optimal norms
+  \item Define the spectral radius of a matrix
+  \item What does every compatible matrix norm satisfy with respect to the spectral radius.
+  \item Prove: The spectral radius is not a norm.
+  \item Prove: $\forall A \in \mathbb C^{n \times n} \: \forall \varepsilon > 0 \:\exists \text{ norm on } \mathbb C^n:$ the induced matrix norm satisfies $\norm{A} \leq \rho(A) + \varepsilon$
+  \item Define condition numbers of matrices
+\end{itemize}
+
+\section{Non-negative matrices}
+
+\begin{itemize}
+  \item Define non-negative matrices
+  \item Give the Perron--Frobenius theorem
+\end{itemize}
+
+\section{Generic/recall question}
+
+\begin{itemize}
+  \item Which matrices satisfy $A^{-1} = A$?
+  \item Which matrices satisfy $A^{T} = A$?
+  \item Which matrices satisfy $AA^* = I$?
+  \item Which matrices satisfy $AA^* = A^*A$?
+\end{itemize}
+
+\end{document}
