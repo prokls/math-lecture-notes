@@ -92,7 +92,7 @@
 \parindent0pt
 \setlength{\parskip}{0.4\baselineskip}
 
-\setcounter{section}{5}
+\setcounter{section}{6}
 \makeindex
 
 \begin{document}
@@ -107,6 +107,7 @@
   \item Prove $\triangle(a_1, \dots, a_i, \dots, a_j, \dots, a_n) = -\triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n)$
   \item Define permutations
   \item Define transpositions
+  \item Prove: Every permutation can be represented as product of transpositions
   \item Is the decomposition of a permutation as transpositions unique?
   \item Define and determine the signature of a permutation
   \item Prove $\sign(\pi) = \prod_{\substack{i,j \\ i < j}} \frac{\pi(j) - \pi(i)}{j-i}$
@@ -150,7 +151,7 @@
   \item Define antisymmetry
   \item Define an inner product
   \item The function value of an inner product is an element of which domain?
-  \item Define positive-semidefinite and positive-definite inner products (in terms of inner products and in terms of matrices).
+  \item Define positive/negative-(semi)definite and indefinite inner products (in terms of inner products and in terms of matrices).
   \item Define a scalar product in terms of inner products.
   \item What is a positive definite inner product in Hermitian form?
   \item What is a unitary product?
@@ -161,7 +162,7 @@
   \item Give and prove: CBS inequality
   \item Prove: Let $V$ be a vector space over $\mathbb K = \mathbb R$ or $\mathbb C$. Let $B = \set{b_1, \dots, b_n}$ be a basis. $\angel{,}$ is an inner product.
     There exists a unique matrix $A$ in Hermitian form such that $\forall x,y \in V: \angel{x,y} = \Phi_B(x)^T \cdot A \cdot \overline{\Phi_B(y)}$.
-  	Additionally show: If $\angel{,}$ is positive definite, $A$ is regular.
+  	Additionally show: If $\angel{,}$ is positive definite, $A$ is invertible.
   \item Define the conjugate transpose of a matrix.
   \item Define self-adjoint matrices.
   \item Define symmetrical matrices.
@@ -180,6 +181,7 @@
   \item Prove: $A > 0 \implies \det(A) > 0$
   \item Define the minor of a matrix.
   \item Let $A = A^*$. Prove: $A > 0 \iff$ all first minors $A_r$ satisfy $\det(A_r) > 0$
+  \item All submatrices of a positive definite matrix are $\square$
   \item Let $A = A^*$. Prove: $A < 0 \iff (-1)^r \det(A_r) > 0 \forall r \in \set{1, \dots, n}$
   \item What is an Euclidean space? What is a unitary space?
   \item What is a Hilbert space?
@@ -187,9 +189,9 @@
   \item Define orthogonal and orthonormal families of vectors.
   \item Define orthonormal bases of vectors.
   \item Let $(v_i)_{i \in I} \subseteq V$, $v_i \neq 0 \forall i$. Prove: $(v_i)_{i \in I}$ is orthogonal, then $(v_i)_{i \in I}$ is linear independent.
-  \item Let $B = (b_1, \ldots, b_n)$ is an orthonormalbasis of an finite-dimensional vector space over $\mathbb K$.
+  \item Let $B = (b_1, \ldots, b_n)$ is an orthonormal basis of an finite-dimensional vector space over $\mathbb K$.
     For $v \in V$, let $\Phi_B(v) = \begin{pmatrix} \lambda_1 & \dots & \lambda_n \end{pmatrix}^T$.
-    For $w \in V$, let $\Phi_B(w) = \begin{pmatrix} \mu_1 & \vdots & \mu_n \end{pmatrix}^T$. Prove:
+    For $w \in V$, let $\Phi_B(w) = \begin{pmatrix} \mu_1 & \dots & \mu_n \end{pmatrix}^T$. Prove:
     \begin{enumerate}
       \item $\lambda_i = \ip{v}{b_i}$
       \item $\ip vw = \sum_{i=1}^n \lambda_i \overline{\mu_i}$
@@ -205,8 +207,8 @@
       \item $M^\bot = \mathcal L(M)^\bot$
       \item $M \subseteq (M^\bot)^\bot$
     \end{enumerate}
-  \item Prove: Let $U \subseteq V$ be a subspace. $U + U^\bot$ is direct sum in $\mathbb R^n: U + U^\bot = \mathbb R^n$.
-  \item Define convexity of functions.
+  \item Prove: Let $U \subseteq V$ be a subspace. $U + U^\bot$ is a direct sum in $\mathbb R^n$ such that $U + U^\bot = \mathbb R^n$.
+  \item Define convexity of functions and sets.
   \item Let $V = U \dot+ U^{\bot}$. Prove: $\forall x, y \in V: \ip{x}{\pi_{U}(y)} = \ip{\pi_U(x)}{y} = \ip{\pi_U(x)}{\pi_U(y)}$
   \item Let $V = U \dot+ U^{\bot}$. Prove: $\norm{\pi_U(x)} \leq \norm{x} \land \norm{\pi_U(x)} = \norm{x} \iff x \in U$
   \item Define the Gram matrix.
@@ -224,6 +226,7 @@
   \item Prove Riesz representation theorem
   \item Does Riesz representation theorem hold for infinite-dimensional spaces?
   \item Prove: $v = 0 \iff \forall w \in V: \ip vw = 0$
+  \item Prove: $\ip xy = \ip xz \forall x \implies y = z$
   \item Prove: $\norm{v} = \sup\setdef{\card{\ip vw}}{\norm{w} \leq 1}$
   \item Define adjoint maps
   \item Prove: Let $(V, \ip{\cdot}{\cdot}_V)$ and $(W, \ip{\cdot}{\cdot}_W)$ be spaces with a scalar product. $\dim{V}, \dim{W} < \infty$.
@@ -247,9 +250,10 @@
   \item Define self-adjoint matrices
   \item Define linear isometries (= unitary transformations)
   \item Prove: unitary transformations are injective
-  \item If $\dim{V} = \dim{W} < \infty$ and $f: V \to W$ is linear and unitary, then $f$ is regular and $f^{-1} = f^*$.
+  \item If $\dim{V} = \dim{W} < \infty$ and $f: V \to W$ is linear and unitary, then $f$ is invertible and $f^{-1} = f^*$.
   \item If $\dim{V} = \infty$, $f: V \to V$ is isometry, it does not imply that $f$ is invertible.
   \item Define unitary matrices
+  \item Let $U$ be a unitary matrix. Prove: $UU^* = I \iff U^* U = I$.
   \item Define orthogonal matrices
   \item Eigenspaces are always $\square{}$
   \item Prove: $T \in \mathbb C^{n \times n}$ is unitary $\implies T$ is unitary
@@ -280,7 +284,7 @@
   \item Define the algebra of formal power series
   \item Define the degree of polynomials. Give the degree of polynomials $0, 1, x$ and $x^2$.
   \item Prove: Let $p(x)$ and $q(x)$ be polynomials. $\deg(p(x)) + \deg(q(x)) = \deg(g(x) \cdot q(x))$
-  \item Define zero division freedom for polynmomials
+  \item Define zero division freedom for polynomials
   \item Prove: Every polynomial induces a polynomial function and the map $p(x) \mapsto p_f(x)$ is linear and multiplicative.
   \item Define algebra homomorphisms
   \item Give and prove the insertion theorem for polynomials
@@ -305,6 +309,7 @@
   \item Does every matrix have eigenvalues and eigenvectors?
   \item Give simple examples in $\mathbb R^{2 \times 2}$ and $\mathbb Q^{2 \times 2}$ without eigenvectors and eigenvalues.
   \item Define spectrums of linear maps
+  \item Let $A, B \in \mathbb C^{n \times n}$. Prove: $\operatorname{spec}(AB) = \operatorname{spec}(BA)$
   \item What kind of linear map do you need to consider eigenspaces (necessary, but not sufficient condition)?
   \item Define eigenspaces of linear maps
   \item What is the eigenvalue of the matrix $\lambda \cdot \operatorname{id}$?
@@ -365,7 +370,7 @@
   \item Define nilpotent matrices.
   \item The sum of nilpotent matrices is $\square{}$
   \item The product of nilpotent matrices is $\square{}$
-  \item Asumme all generalized spaces are eigenspaces. What about diagonizability?
+  \item Assume all generalized spaces are eigenspaces. What about diagonizability?
   \item Prove: Let $\ker(f^m) \subseteq \ker(f^{m+1}) \subseteq \ker(f^{m+2})$
     \begin{align*}
       u_1 \dots u_p & \dots \text{ basis of } \ker{f^n} \\
@@ -402,6 +407,7 @@
       \end{cases}
     \]
   \item Let $A \in \mathbb K^{N \times N}$. Prove: $\exists p(x) \in \mathbb K[x]: p(A) = 0$
+  \item Define the annihilator of a matrix.
   \item Let $A \in \mathbb K^{N \times N}$. Prove: $\exists$ a unique polynomial $m_A(x) \in \mathbb K[x]$ with minimal degree and leading coefficients $1$ and $p(x) \in \operatorname{Ann}(A) \iff m_A(x) \divides{} p(x)$
   \item Let $A \in \mathbb K^{N \times N}$. Prove: $m_A(\lambda) = 0 \forall \lambda \in \operatorname{spec}(A)$
   \item Give and prove the Cayley-Hamilton Theorem
@@ -410,6 +416,7 @@
   \item Recognize: The minimal polynomial has the structure $m_A(x) = \prod (\lambda - \lambda_i)^{m_i}$ where $m_i$ is the smallest exponent for $\ker(\lambda_i - A)^m = \ker(\lambda_i - A)^{m+1}$, hence this equals the largest length of a Jordan block for eigenvalue $\lambda_i$.
   \item Recognize: $A$ is diagonalizable $\iff$ all $m_i = 1 \iff m_A(x) = \prod_{i=1}^k (\lambda - \lambda_i) \iff m_A(x)$ has only simple roots.
   \item $p(A) \cdot x = p(\lambda) \cdot x \qquad \text{ if } \lambda \in \operatorname{spec}(A) \implies p(\lambda) \in \operatorname{spec}(p(A))$
+  \item What is an important precondition for the spectral mapping theorem?
   \item Give and prove the spectral mapping theorem
 \end{itemize}
 
@@ -420,6 +427,7 @@
   \item If a matrix is self-adjoint, then is it necessarily $\square{}$
   \item A real-valued self-adjoint matrix is called $\square{}$
   \item Are unitary matrices normal?
+  \item Prove: $A$ is normal $\iff$ $A$ is unitarily diagonalizable.
   \item The sum of normal matrices is $\square{}$
   \item The product of normal matrices is $\square{}$
   \item $A \in \mathbb C^{n \times n}$ is normal. Prove: $\ker{A} = \ker{A^*}$
@@ -428,6 +436,7 @@
   \item Let $A \in \mathbb C^{n \times n}$ is normal. Prove: $\ker(\lambda I - A)^2 = \ker(\lambda I - A)$
   \item Let $A$ be normal. Prove: $\lambda \neq \mu \in \operatorname{spec}{A} \implies \ker(\lambda I - A) \bot \ker(\mu I - A)$
   \item Matrix $A$ is normal. What can you say about generalized eigenspaces?
+  \item Let $A \in \mathbb C^{n \times n}$ be normal. Prove: Eigenvectors of different eigenvalues are orthogonal to each other.
   \item Let $A \in \mathbb C^{n \times n}$. Prove: $A$ is normal $\implies$ $\exists$ orthonormal basis of eigenvectors
   \item Let $A \in \mathbb C^{n \times n}$. Prove: $\exists$ orthonormal basis of eigenvectors $\implies$ $\exists$ unitary matrix $U$ such that $U^* AU = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$.
   \item Let $A \in \mathbb C^{n \times n}$. Prove: $\exists$ unitary matrix $U$ such that $U^* AU = \operatorname{diag}(\lambda_1, \dots, \lambda_n) \implies A$ is normal.
@@ -435,8 +444,6 @@
   \item If $A \in \mathbb R^{n \times n}$ and $\chi_A(\lambda)$ decomposes into linear factors. $\exists U \in \mathcal U(n): U^* AU = R$ is an upper triangular matrix. Then $U$ $\square{}$
   \item Prove: A matrix is normal $\iff$ Schur normal form = diagonal matrix.
   \item Prove: Let $A \in \mathbb C^{n \times n}, A = A^* \implies \operatorname{spec}(A) \subseteq \mathbb R$.
-  \item Let a matrix be complex-valued. Then the eigenvalues are $\square{}$-valued.
-  \item Let a matrix be real-valued. Then the eigenvalues are $\square{}$-valued.
   \item Let $A \in \mathbb C^{n \times n}$ self-adjoint. Prove: $A \geq 0 \iff \operatorname{spec}(A) \subseteq [0, \infty)$.
   \item For which matrices is the square root of a matrix defined?
   \item Prove: The square root of a positive definite matrix is exists and is unique.
@@ -493,10 +500,14 @@
 \section{Generic/recall question}
 
 \begin{itemize}
+  \item Which matrices satisfy $A B = B A$?
   \item Which matrices satisfy $A^{-1} = A$?
   \item Which matrices satisfy $A^{T} = A$?
   \item Which matrices satisfy $AA^* = I$?
   \item Which matrices satisfy $AA^* = A^*A$?
+  \item Which matrices satisfy $A^* = A^*$?
 \end{itemize}
 
+
+Orthogonal complements
 \end{document}

@@ -1744,7 +1744,7 @@ for fixed $k=1$:
 \begin{theorem}[Cramer's Rule]
   Show by Cramer in 1750, by McLaurin 1748 for $n \leq 3$.
 
-  Let $A$ be a regular matrix with column vectors $a_1, \dots, a_n$.
+  Let $A$ be a invertible matrix with column vectors $a_1, \dots, a_n$.
   Then the solution $Ax = b$ ($\implies x = A^{-1} b$ has a unique solution) is given by
   \begin{align*}
     x_i &= \frac{\triangle (a_1, \dots, a_{i-1}, b, a_{i+1}, \dots, a_n)}{\triangle (a_1, \dots, a_n)} \\
@@ -2333,7 +2333,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
 
   There exists a unique matrix $A$ in Hermitian form (hence, $a_{ij} = \overline{a_{ji}}, A = \overline{A^T}$)
   such that $\forall x,y \in V: \angel{x,y} = \Phi_B(x)^T \cdot A \cdot \overline{\Phi_B(y)}$.
-  If $\angel{\cdot,\cdot}$ is positive definite, $A$ is regular.
+  If $\angel{\cdot,\cdot}$ is positive definite, $A$ is invertible.
 \end{theorem}
 
 \begin{Remark}
@@ -2357,7 +2357,7 @@ From now on $\mathbb K$ will be $\mathbb R$ or $\mathbb C$.
     a_{ji} &= \angel{b_j, b_i} = \overline{\angel{b_i, b_j}} = \overline{a_{ij}}
   \end{align*}
 
-  Show: If $\angel{\cdot,\cdot}$ is positive definite, then $A$ is regular.
+  Show: If $\angel{\cdot,\cdot}$ is positive definite, then $A$ is invertible.
   It suffices to show that $\operatorname{ker}{A} = \set{0}$.
 
   Assume: $A \cdot \xi = 0 \implies \xi^T \cdot A \cdot \xi = 0$.
@@ -3068,7 +3068,7 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
   \[ \det(\lambda A) = \lambda^* \det(A) \]
 \end{definition}
 
-\begin{theorem} % Satz 8.32
+\begin{theorem}[dt.~\foreignlanguage{german}{Hauptminorenkriterium}] % Satz 8.32
   Let $A = A^*$, then it holds that
   \begin{enumerate}
     \item $A > 0 \iff$ all first minors satisfy $\det(A_r) > 0$
@@ -3371,7 +3371,7 @@ Back to the scalar product:
 \end{proof}
 
 \begin{theorem} % 8.39
-  Let $B = (b_1, \ldots, b_n)$ be an orthonormal basis of an finite dimensional vector space over $\mathbb K$.
+  Let $B = (b_1, \ldots, b_n)$ be an orthonormal basis of a finite dimensional vector space over $\mathbb K$.
   For $v \in V$, let $\Phi_B(v) = \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix}$.
   For $w \in V$, let $\Phi_B(w) = \begin{pmatrix} \mu_1 \\ \vdots \\ \mu_n \end{pmatrix}$.
   \begin{enumerate}
@@ -3465,9 +3465,9 @@ In $\mathbb R^n$:
       \begin{align*}
         \forall v \in M: \ip wv &= 0 \\
         w \in M \implies \ip ww &= 0 \\
-        \implies w &= 0 \\
-        \text{or } M \cap M^\bot &= \varphi
+        \implies w &= 0
       \end{align*}
+      If $0 \not\in M$, then $M \cap M^\bot = \emptyset$.
     \item
       \[ M \subseteq \mathcal L(M) \underbrace{\implies}_{\text{by point (2.)}} \mathcal L(M)^\bot \subseteq M^\bot \]
       Show that: $M^\bot \subseteq \mathcal L(M)^\bot$.
@@ -3492,7 +3492,7 @@ In $\mathbb R^n$:
 \begin{corollary} % Folgerung 8.42
   Let $U \subseteq V$ be a subspace.
   By Theorem~\ref{thm841} (1), $U^\bot$ is a subspace and $U \cap U^\bot = \set{0}$
-  because of Theorem~\ref{thm841} (5), $U + U^\bot$ is direct sum in $\mathbb R^n: U + U^\bot = \mathbb R^n$.
+  because of Theorem~\ref{thm841} (5), $U + U^\bot$ is a direct sum in $\mathbb R^n$ such that $U + U^\bot = \mathbb R^n$.
 \end{corollary}
 
 \begin{remark} % Bemerkung 8.43
@@ -3818,7 +3818,7 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
         &\iff \forall \xi \neq 0: \sum_{i=1}^m \xi_i v_i \neq 0 \\
         &\iff (v_1, \ldots, v_m) \text{ is linear independent} \\
         &\iff \ker{G} = \set{0} \\
-        &\iff G \text{ is regular}
+        &\iff G \text{ is invertible}
       \end{align*}
   \end{enumerate}
 \end{proof}
@@ -4063,7 +4063,8 @@ Take $1, x, x^2, \ldots$ and apply Gram-Schmidt process to retrieve the Chebyshe
   $V^*$ is the dual space, namely $\operatorname{Hom}(V, \mathbb K)$ which is the space of linear functionals.
   For some fixed $y \in V$, the map $T_y(x) = \ip{x}{y}$ is linear in $x$ (and therefore $T_y \in V^*$).
 
-  Then the map $V \to V^*$ defined by $Ty: V \to \mathbb K$ is an antilinear isomorphism (antiisomorphism).
+  Then the map $V \to V^*$ (where an element of $V^*$ is a map $V \to \mathbb K$ with $x \mapsto \ip xy$)
+  is an antilinear isomorphism (antiisomorphism).
 \end{theorem}
 
 This is trivial in $\mathbb R$, but in $\mathbb C$ it is much more complex (pun intended).
@@ -4157,13 +4158,11 @@ Hence,
   \[ T \in \operatorname{Hom}(W, V) \text{ hence, } T: W \to V \text{ linear} \]
   \begin{enumerate}
     \item For every $v \in V$ the map $w \mapsto \ip{T(w)}{v}_V$ is linear.
-    \item $\forall v \in V \exists! u \in W \forall w \in W: \ip{T(w)}{v}_V = \ip{w}{u}_W$ and $T^*(v) = u$.
-  \end{enumerate}
-  Hence,
-  \[ \ip{T(w)}{v}_V = \ip{w}{T^*(v)}_W \qquad \forall w \in W \quad \forall v \in V \]
-  \begin{enumerate}
-    \item[3.] The map $T^*: V \to W$ with $v \mapsto u$ is linear, hence $T^* \in \operatorname{Hom}(V, W)$ and is called \emph{adjoint map}.
-    \item[4.] The map $\operatorname{Hom}(W, V) \mapsto \operatorname{Hom}(V, W)$ with $T \mapsto T^*$ is antilinear and $T^{**} = T$.
+    \item $\forall v \in V \exists! u \in W \forall w \in W: \ip{T(w)}{v}_V = \ip{w}{u}_W$ and $T^*(v) = u$. \\
+      Hence,
+      \[ \ip{T(w)}{v}_V = \ip{w}{T^*(v)}_W \qquad \forall w \in W \quad \forall v \in V \]
+    \item The map $T^*: V \to W$ with $v \mapsto u$ is linear, hence $T^* \in \operatorname{Hom}(V, W)$ and is called \emph{adjoint map}.
+    \item The map $\operatorname{Hom}(W, V) \mapsto \operatorname{Hom}(V, W)$ with $T \mapsto T^*$ is antilinear and $T^{**} = T$.
   \end{enumerate}
 \end{definition}
 
@@ -4171,7 +4170,7 @@ Hence,
   \begin{enumerate}
     \item $\ip{T(w)}{v} = T_V(T(w)) = T_v \circ T(w)$ \\
       Composition of linear maps is linear.
-    \item $T_V \circ T \in W^*$. By Riesz representation theorem, $\exists! u \in W: T_V \circ T(w) = \ip{w}{u} \forall w \in W = \ip{T(w)}{v} = \ip wu$
+    \item $T_V \circ T \in W^*$. By Riesz representation theorem, $\exists! u \in W: T_V \circ T(w) = \ip{w}{u} \forall w \in W \implies \ip{T(w)}{v} = \ip wu$
     \item Show that,
       \[ \forall v_1, v_2 \in V \forall \lambda, \mu: T^*(\lambda v_1 + \mu v_2) = \lambda T^*(v_1) + \mu T^*(v_2) \]
       It suffices to show that
@@ -4337,7 +4336,7 @@ is an antilinear \emph{involution}.
   \begin{enumerate}
     \item Unitary transformations are injective.
     \item If $\dim{V} = \dim{W} < \infty$ and $f: V \to W$ is linear and unitary,
-    then $f$ is regular and $f^{-1} = f^*$.
+    then $f$ is invertible and $f^{-1} = f^*$.
     \item If $\dim{V} = \infty$, $f: V \to V$ is isometry, it does not imply that $f$ is invertible.
   \end{enumerate}
 \end{remark}
@@ -5609,9 +5608,9 @@ Eigenvector: $e_1, \dots, e_n$.
   \begin{description}
     {\leftskip=15pt
     \item[Equivalence] $A = PBQ$ with invertible $P,Q \iff \rank(A) = \rank(B)$.
-    \item[Congruence] $\exists \text{ regular } C: A = C^* BC$ \\
+    \item[Congruence] $\exists \text{ invertible } C: A = C^* BC$ \\
       For $A = A^*, B = B^*$, $\leadsto$ index and Sylvester's law of inertia.
-    \item[Similarity] $A = TBT^{-1}$ with regular $T$. This is related to eigenvalues.
+    \item[Similarity] $A = TBT^{-1}$ with invertible $T$. This is related to eigenvalues.
     \item[Later on] $\exists T$ such that $T^* = T^{-1}$ unitary. $T^{*} T = I$.
 
     }
@@ -5623,7 +5622,7 @@ Eigenvector: $e_1, \dots, e_n$.
 \end{lemma}
 
 \begin{proof}
-  $B$ is regular such that
+  $B$ is invertible such that
   \[
     B^{-1} AB = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix}
     \iff \begin{cases}
@@ -6306,9 +6305,9 @@ Next step: decomposition for \emph{different} eigenvalues.
         &    & 0 &    &    &    &    & \\
         &    &   & -1 & -1 &    &    & \\ % )^2
         &    &   &    & -1 & -1 &    & \\ % )
-        &    &   &    &    & -1 &    & \\ % )   is regular
+        &    &   &    &    & -1 &    & \\ % )   is invertible
         &    &   &    &    &    & 1  & 1 \\ %  )^2
-        &    &   &    &    &    & -1 & 1    %  )   is regular
+        &    &   &    &    &    & -1 & 1    %  )   is invertible
     \end{bmatrix}
   \]
   \[ \ker(I - A)^2 = \mathcal L(e_1, e_2, e_3) \]
@@ -6330,12 +6329,12 @@ Next step: decomposition for \emph{different} eigenvalues.
   \] \[
     \ker(2I - A)^2 = \ker\begin{bmatrix}
       1 & 1  &   &    &    &    &     \\   % }^2
-        & 1  &   &    &    &    &     \\   % }   is regular
+        & 1  &   &    &    &    &     \\   % }   is invertible
         &    & 1 &    &    &    &     \\
         &    &   & 0  & 0  & 1  &     \\
         &    &   &    & 0  & 0  &     \\
         &    &   &    &    & 0  &     \\
-        &    &   &    &    &    & [\text{regular}]
+        &    &   &    &    &    & [\text{invertible}]
     \end{bmatrix}
   \] \[
     \ker(2I - A)^2 = \mathcal L(e_4, e_5)
@@ -6351,15 +6350,15 @@ Next step: decomposition for \emph{different} eigenvalues.
       0 & 0 &   & & \\
       0 & 0 &   & & \\
         &   & 0 & & \\
-        &   &   & [\text{regular } 3 \times 3] & \\
-        &   &   &       & [\text{regular } 2 \times 2]
+        &   &   & [\text{invertible } 3 \times 3] & \\
+        &   &   &       & [\text{invertible } 2 \times 2]
     \end{bmatrix} \\ &\cdot \begin{bmatrix}
-      [\text{regular } 2 \times 2] & & & & & \\
+      [\text{invertible } 2 \times 2] & & & & & \\
         & 1 &   &   &   & \\
         &   & 0 & 0 & 0 & \\
         &   & 0 & 0 & 0 & \\
         &   & 0 & 0 & 0 & \\
-        &   &   &   &   & [\text{regular } 2 \times 2]
+        &   &   &   &   & [\text{invertible } 2 \times 2]
     \end{bmatrix} \\ &= \begin{bmatrix}
       0 & 0 &   &   &   &   & \\
       0 & 0 &   &   &   &   & \\
@@ -6367,7 +6366,7 @@ Next step: decomposition for \emph{different} eigenvalues.
         &   &   & 0 & 0 & 0 & \\
         &   &   & 0 & 0 & 0 & \\
         &   &   & 0 & 0 & 0 & \\
-        &   &   &   &   &   & [\text{regular } 2\times 2]
+        &   &   &   &   &   & [\text{invertible } 2\times 2]
     \end{bmatrix}
   \end{align*} \[
     \ker{(I - A)^2 \cdot (2I - A)^3} = \mathcal L(e_1, \dots, e_6) = \left(\bigcap (\lambda_i I - A)^{r_i}\right)^c
@@ -6981,7 +6980,7 @@ $\leadsto$ basis $B_i$ such that
       \[ \implies \chi_A(x) = \prod_{i=1}^q \chi_{J_{k_i}(\lambda_i)}(x) = \prod_{i=1}^q (x - \lambda_i)^{k_i} \]
     \item Let $A = \begin{bmatrix} J_1 & & \\ & \ddots & \\ & & J_q \end{bmatrix}$.
       \[ (\lambda I - A)^k = \begin{bmatrix} (\lambda - J_1)^k & & \\ & \ddots & \\ & & (\lambda - J_q)^k \end{bmatrix} \]
-      If $\lambda \neq \lambda_i$, then $\lambda - J_k(\lambda_i)$ is regular (triangular matrix with all entries on the main diagonal $\neq 0$).
+      If $\lambda \neq \lambda_i$, then $\lambda - J_k(\lambda_i)$ is invertible (triangular matrix with all entries on the main diagonal $\neq 0$).
       If $\lambda = \lambda_i$, then $\lambda - J_{k_i}(\lambda_i)$ is nilpotent.
       \[
         \rank((\lambda - J_{k_i}(\lambda_i))^k) = \begin{cases}
@@ -7212,7 +7211,7 @@ $\leadsto$ basis $B_i$ such that
         & \implies r(A) = 0 \\
         \deg(r(x)) < n & \overset{\text{minimality $n$}}\implies r(x) \equiv 0 \\
         \implies p(x) &= q(x) \cdot m_A(x) \\
-          & \implies m_A(x) | p(x) \implies (c)
+          & \implies m_A(x) \divides{} p(x) \implies (c)
       \end{align*}
       Especially, if $\deg(p(x)) = n = \deg(m_A(x)) \implies \deg(q(x)) = 0 \implies p(x) = c \cdot m_A(x)$.
     \item[4.] Will be shown in the practicals.
@@ -7251,11 +7250,12 @@ $\leadsto$ basis $B_i$ such that
       \[ \widehat{xI - A} \in \mathbb K[x]^{n \times n} = [b_{ij}(x)]_{i,j=1,\dots,n} \]
       \[ b_{ij}(x) = (-1)^{i+j} \det(xI - A)_{ji} \in \mathbb K[x] \text{ with degree } \leq n-1 \]
       \[ b_{ij}(x) = \sum_{k=0}^{n-1} b_{ijk} x^k \]
-      \begin{align*}
-        \widehat{xI - A} &= \left[\sum_{k=0}^{n-1} b_{ijk} x^k\right]_{i,j=1,\dots,n} \\
-          &= \sum_{k=0}^{n-1} [b_{ijk}]_{i,j=1,\dots,n} \cdot x^k \\
-          &= \sum_{k=0}^{n-1} B_k \cdot x^k
-      \end{align*}
+      \[
+        \widehat{xI - A}
+          = \left[\sum_{k=0}^{n-1} b_{ijk} x^k\right]_{i,j=1,\dots,n}
+          = \sum_{k=0}^{n-1} [b_{ijk}]_{i,j=1,\dots,n} \cdot x^k
+          = \sum_{k=0}^{n-1} B_k \cdot x^k
+      \]
 
       \begin{Example}
         \[ A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \]
@@ -7594,10 +7594,6 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   \[ \ker(\lambda I - A) = \ker(\lambda I - A)^* = \ker(\overline{\lambda} I - A^*) = \ker(\overline{\lambda} I - A) \]
   hence if $x \neq 0$ and $Ax = \lambda x \implies Ax = \overline{\lambda} x \implies \lambda = \overline\lambda$.
 \end{proof}
-
-\begin{Remark}
-  Matrix is real-valued $\implies$ eigenvalues are real-valued.
-\end{Remark}
 
 \begin{corollary}
   If $A \in \mathbb R^{n \times n}$ is symmetrical.
@@ -8012,7 +8008,7 @@ Cholesky decomposition:
 \begin{proof}
   \begin{description}
     \item[Case 1:] $A$ is singular, thus trivial ($\det(A) = 0$).
-    \item[Case 2:] $A$ is regular $\implies B = A^* A$ is regular $\implies$ positive definite.
+    \item[Case 2:] $A$ is invertible $\implies B = A^* A$ is invertible $\implies$ positive definite.
   \end{description}%
   \begin{align*}
     \det{B} &\leq \prod_{i=1}^n b_{ii} = \det(A^* A) = \card{\det{A}}^2 \\
@@ -8051,7 +8047,7 @@ where $\cdot$ is a placeholder. It represents the map $\angel{\cdot, x_i}: \math
 
 \begin{proof}
   \begin{description}
-    \item[Case 1: $A$ is regular]
+    \item[Case 1: $A$ is invertible]
       $A A^*$ is positive definite.
       \[ \leadsto A^* A = V \begin{bmatrix} \lambda_1 & &  \\ & \ddots & \\ & & \lambda_n \end{bmatrix} V^* \qquad \lambda_i > 0 \]
       \[ \card{A} \coloneqq (A^* A)^{\frac12} = V \begin{bmatrix} \sqrt{\lambda_1} & &  \\ & \ddots & \\ & & \sqrt{\lambda_n} \end{bmatrix} V^* \]
@@ -8319,8 +8315,6 @@ This is used by the Courant--Fischer--Weyl min--max principle.
 \index{Ger\v{s}gorin Theorem}
 \begin{theorem}[Ger\v{s}gorin Theorem] % 13.10
   Let $A \in \mathbb C^{n \times n}$.
-  \[ r_i = \sum_{\substack{j=1 \\ j\neq i}}^n \card{a_{ij}} \]
-
   \[
     \begin{bmatrix}
       \card{a_{11}} & \card{a_{12}} & \dots  & \card{a_{1n}} \\
@@ -8328,9 +8322,9 @@ This is used by the Courant--Fischer--Weyl min--max principle.
       \vdots        &               & \ddots & \vdots \\
       \card{a_{n1}} & \card{a_{n2}} & \dots  & \card{a_{nn}}
     \end{bmatrix}
-  \]
-  we remove the diagonal elements. The rows become:
-  \[
+    \quad \to \quad
+    r_i = \sum_{\substack{j=1 \\ j\neq i}}^n \card{a_{ij}}
+    \quad \to \quad
     \begin{bmatrix}
       \sum_{j\neq 1} \card{a_{1j}} \\
       \sum_{j\neq 2} \card{a_{2j}} \\
@@ -8338,18 +8332,22 @@ This is used by the Courant--Fischer--Weyl min--max principle.
       \sum_{j\neq n} \card{a_{nj}}
     \end{bmatrix}
   \]
-  \[ \operatorname{spec}(A) \subseteq \bigcup_{k=1}^n \setdef{z \in \mathbb C}{\card{z - a_{ii}} \leq r_{i}} \]
+  So, we remove the diagonal elements and consider the row sum norm.
   This yields the so-called \emph{Ger\v{s}gorin discs}.
+  The theorem claims:
+  \[
+    \operatorname{spec}(A) \subseteq \bigcup_{k=1}^n \setdef{z \in \mathbb C}{\card{z - a_{ii}} \leq r_{i}}
+  \]
 \end{theorem}
 
 \begin{proof}
-  Show that $\forall \lambda \in \operatorname{spec}(A) \exists i$ such that $\card{\lambda - a_{ii}} \leq r_i$
+  Show that $\forall \lambda \in \operatorname{spec}(A) \exists i: \card{\lambda - a_{ii}} \leq r_i$.
   Let $x$ be an eigenvector: $Ax = \lambda x$.
   Without loss of generality: $\max_i \card{x_i} = 1$.
   Hence $\forall j: \card{x_j} \leq 1$ and $\exists i: \card{x_i} = 1$.
   \[ \underbrace{(Ax)_i}_{\sum_j a_{ij} x_j} = \lambda \cdot x_i \text{ because it is an eigenvector} \]
-  \[ \implies \sum_{\substack{j = 1 \\ j \neq i}}^n a_{ij} x_j = \lambda x_i - a_{ii} x_i \]
-  \[ \implies \underbrace{\card{\lambda x_i - a_{ii} x_i}}_{= \card{\lambda - a_{ii}} \cdot \card{x_i}} = \card{\sum_{j \neq i} a_{ij} x_j} \]
+  \[ \implies \sum_{\substack{j = 1 \\ j \neq i}}^n a_{ij} x_j = \lambda x_i - a_{ii} x_i \qquad
+     \implies \underbrace{\card{\lambda x_i - a_{ii} x_i}}_{= \card{\lambda - a_{ii}} \cdot \card{x_i}} = \card{\sum_{j \neq i} a_{ij} x_j} \]
   \[ \card{\lambda - a_{ii}} \cdot \underbrace{\card{x_i}}_{=1} \leq \sum_{j \neq i} \card{a_{ij}} \underbrace{\card{x_j}}_{\leq 1} \]
   \[ \card{\lambda - a_{ii}} \leq \sum_{j \neq i} \card{a_{ij}} = r_i \]
 \end{proof}
@@ -8550,7 +8548,7 @@ Exercise for the practicals:
 \end{lemma}
 
 \begin{proof}[Proof of point 3.]
-  \[ \exists \text{ regular } T \in \mathbb C^{n \times n}: T^{-1} AT = J = \begin{bmatrix} \lambda_1 & \eta_k & & & 0 \\ & \ddots & \eta_{23} & & \\ & & \ddots & \ddots & \\ & & & \ddots & \eta_{n-1,n} \\ 0 & & & & \lambda_n \end{bmatrix} \qquad \eta_{ij} \in \set{0,1} \]
+  \[ \exists \text{ invertible } T \in \mathbb C^{n \times n}: T^{-1} AT = J = \begin{bmatrix} \lambda_1 & \eta_k & & & 0 \\ & \ddots & \eta_{23} & & \\ & & \ddots & \ddots & \\ & & & \ddots & \eta_{n-1,n} \\ 0 & & & & \lambda_n \end{bmatrix} \qquad \eta_{ij} \in \set{0,1} \]
   \[ D_{\varepsilon} = \operatorname{diag}(1, \varepsilon, \varepsilon^2, \dots, \varepsilon^{n-1}) \]
   \[
     D_{\varepsilon}^{-1} J D_{\varepsilon}
@@ -8576,7 +8574,7 @@ Exercise for the practicals:
     \item $\norm{x + y}_{\varepsilon} = \norm{D_{\varepsilon}^{-1} T^{-1} (x + y)}_{\varepsilon} \leq \norm{D_{\varepsilon}^{-1} T^{-1} x}_{\infty} + \norm{D^{-1}_{\varepsilon} T^{-1} y}_{\infty} = \norm{x}_{\varepsilon} + \norm{y}_{\varepsilon}$
   \end{enumerate}
   \[ \norm{A}_{\varepsilon\to\varepsilon} = \sup_{x \neq 0} \frac{\norm{Ax}_{\varepsilon}}{\norm{x}_{\varepsilon}} \]
-  \[ x = \underbrace{TD_{\varepsilon}}_{\text{regular}} y = \sup_{y \neq 0} \frac{\norm{AT D_{\varepsilon} y}_{\varepsilon}}{\norm{TD_{\varepsilon} y}_{\varepsilon}} = \sup_{y \neq 0} \frac{\norm{D_{\varepsilon}^{-1} T^{-1} \left(ATD_{\varepsilon} y\right)}_{\infty}}{\norm{D_{\varepsilon}^{-1} T^{-1} \left(TD_{\varepsilon} y\right)}_{\infty}} = \sup_{y \neq 0} \frac{\norm{J_{\varepsilon} \cdot y}_{\infty}} = \sup_{y \neq 0} \frac{\norm{J_{\varepsilon} y}_{\infty}}{\norm{y}_{\infty}} \]
+  \[ x = \underbrace{TD_{\varepsilon}}_{\text{invertible}} y = \sup_{y \neq 0} \frac{\norm{AT D_{\varepsilon} y}_{\varepsilon}}{\norm{TD_{\varepsilon} y}_{\varepsilon}} = \sup_{y \neq 0} \frac{\norm{D_{\varepsilon}^{-1} T^{-1} \left(ATD_{\varepsilon} y\right)}_{\infty}}{\norm{D_{\varepsilon}^{-1} T^{-1} \left(TD_{\varepsilon} y\right)}_{\infty}} = \sup_{y \neq 0} \frac{\norm{J_{\varepsilon} \cdot y}_{\infty}} = \sup_{y \neq 0} \frac{\norm{J_{\varepsilon} y}_{\infty}}{\norm{y}_{\infty}} \]
   \[ \leq \norm{J_{\varepsilon}}_{\infty \to \infty} = \max_i \sum_j \card{(J_{\varepsilon})_{ij}} \leq \underbrace{\max \card{\lambda_i} + \varepsilon}_{= \rho(A) + \varepsilon} \]
 \end{proof}
 
@@ -8701,7 +8699,7 @@ $A_0$ is invertible, $\norm{A} < \norm{A_0^{-1}}^{-1}$.
   with $\norm{A - \tilde A}$ and $\norm{b - \tilde b}$ as \enquote{small} values.
   Does this imply $\norm{x - \tilde x}$ is small?
 
-  Let $A$ be a regular matrix and $\norm{\cdot}$ is a compatible matrix norm.
+  Let $A$ be a invertible matrix and $\norm{\cdot}$ is a compatible matrix norm.
   Let $x$ be the unique solution of $Ax = b$.
   Let $\tilde x$ be the unique solution of $A \tilde x = \tilde b$.
   \[ \implies \tilde b = b + \underbrace{\triangle b}_{\text{error}} \]
@@ -8795,7 +8793,7 @@ $A_0$ is invertible, $\norm{A} < \norm{A_0^{-1}}^{-1}$.
 \begin{proof}
   \begin{enumerate}
     \item If $\lambda \in \operatorname{spec}(A)$, then nothing to show.
-    \item If $\lambda \not\in \operatorname{spec}(A)$, then $A - \lambda I$ is regular, $\tilde A - \lambda I$ is non-regular.
+    \item If $\lambda \not\in \operatorname{spec}(A)$, then $A - \lambda I$ is invertible, $\tilde A - \lambda I$ is non-invertible.
   \end{enumerate}
   \begin{align*}
     \underbrace{\tilde A - \lambda I}_{\text{not invertible}}
