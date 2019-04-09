@@ -2413,5 +2413,199 @@ We can determine vector $\tilde y$ as $\tilde y^t \coloneqq c_B^t A_B^{-1}$.
 	TODO
 \end{example}
 
+\dateref{2019/04/08}
+
+TODO
+
+\dateref{2019/04/09}
+
+\begin{theorem}
+	The barrier problem has a finite solution if and only if $(\overline P)$ and $(\overline D)$ have strictly admissible solutions.
+\end{theorem}
+
+\begin{proof}
+	\[ f(x, w) = c^t x + \mu \sum_j \log x_j + \mu \sum_i \log w_i \]
+	\[ S \coloneqq \SetDef{(x, w) \in \mathbb R^{n + m}}{f(x, w) \geq c} \text{ bounded} \]
+	Let $\overline f = f(\overline x, \overline w)$. $(\overline x, \overline w)$ is strictly admissible for $(\overline P$, $\overline x > 0$, $\overline w > 0$).
+	Consider
+	\[ \overline Q \coloneqq \SetDef{(x, w)}{Ax + w = b, x \geq 0, w \geq 0, f(x, w) \geq \overline f} \]
+	Then $\overline Q \neq \emptyset$ because $(\overline x, \overline w) \in \overline Q$. Because $S$ is bounded, $\overline Q$ is bounded.
+	Moreover, $\overline Q$ is closed. We show this the following way:
+	\[ \overline Q = \SetDef{(x, w)}{Ax + w = b} \cap \SetDef{(x, w)}{x \geq 0, w \geq 0} \cap \SetDef{(x, w)}{f(x, w) \geq F} \]
+	$\Set{f(x, w) \geq f}$ is the inverse image of $[\overline f, \infty)$ for the continuous function $f$, thus also closed.
+	$\overline Q$ is the intersection of three closed set, thus closed itself.
+
+	Thus, $\overline Q \subseteq R^{n + m}$ is compact.
+	Hence, continuous functions on non-empty compact sets $\overline Q$ take up a maximum.
+
+	$f$ takes up the maximum on $\SetDef{(x, w)}{x > 0, w > 0}$ because by definition of $\overline Q$, the maximum is taken up in a region with values $\geq \overline f$.
+
+	Thus, the existence of a solution for the barrier problem is guaranteed.
+	In the following, we will show uniqueness:
+	\[ f(x, w) = c^t x + \mu \sum_j \log(x_j) + \mu \sum_i \log(w_i) \]
+	\[ \frac{\partial f}{\partial x_j} = c_j + \frac{\mu}{x_j}  \qquad  \frac{\partial^2 f}{\partial x_j^2} = -\frac{\mu}{x_j^2} \qquad \frac{\partial f}{\partial x_j w_i} = 0 \]
+	\[ \frac{\partial f}{\partial w_i} = \frac{\mu}{w_i} \qquad \frac{\partial^2 f}{\partial w_i^2} = -\frac{\mu}{w_i^2} \]
+	\begin{itemize}
+		\item[$\implies$] The Hessian matrix of $f$ is a diagonal matrix full of negative values on the diagonal ($f$ is strictly concave). Every critical point of $f$ is a maximum.
+		\item[$\implies$] Furthermore here there can be at most one single critical point and if it exists, it represents a global maximum.
+	\end{itemize}
+	Thus uniqueness is given.
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:5.2}
+	If the admissible set of $(\overline P)$ (and accordingly $(\overline D)$) contains a strictly admissible set (thus has a non-empty interior) and is bounded, then the system (we call it $S$)
+	\[ Ax + w = b \qquad A^t y - z = c \qquad XZe = \mu e \quad (x_j z_j = \mu \forall j) \qquad YWe = \mu e \quad (y_i w_i = \mu \forall i) \]
+	For all $\varepsilon > 0$ there exists a unique solution ($x_\mu, w_\mu, y_mu, z_\mu)$.
+\end{corollary}
+
+\begin{proof}
+	Follows from the previous theorem and Lemma~\ref{lemma:5.3}, which will be proven in the practicals.
+\end{proof}
+
+\begin{Definition}[Null variable]
+	\index{Null variable}
+	A variable that takes up value $0$ in all admissible solutions of the linear program.
+\end{Definition}
+
+\begin{lemma}
+	\label{lemma:5.2}
+	If a linear program has admissible solutions and the set of admissible solutions is bounded,
+	then the corresponding dual program has strictly admissible solutions.
+
+	More specifically,
+	\[ M_{\overline P} = \SetDef{(x, w)}{Ax + w = b, x \geq 0, w \geq 0} \qquad M_{\overline P} \neq \emptyset \text{ bounded} \]
+	\[ M_{\overline D} = \SetDef{(y, z)}{A^t y - z = c, y, z \geq 0} \]
+	$\exists (z, w) \in M_{\overline D}$ with $z, w > 0$.
+\end{lemma}
+
+\begin{Remark}[Equivalently and easier to prove]
+	If a linear program has admissible solution and the dual problem has null variables,
+	then the admissible set of the linear problem is unbounded.
+\end{Remark}
+
+\begin{Definition}
+	\[ \SetDef{(x_\mu, w_\mu, y_\mu, z_\mu)}{(x_\mu, w_\mu, y_\mu, z_\mu) \text{ is solution of the system $S$ from above}, \mu > 0} \]
+	is called \emph{central path}\index{Central path}.
+\end{Definition}
+
+\begin{Remark}
+	Assuming that $(\overline P)$ and $(\overline D)$ has strictly admissible solutions (in the following, this is assumed), the central path is well-defined.
+\end{Remark}
+
+\begin{Remark}
+	Fundamentals finished. Now we want to achieve algorithmic implementation.
+	These are the basic steps of a primal-dual path traversal method.
+
+	The method discussed here is a one-phase method.
+	We begin with $(x, w) > 0$, but $(x, w)$ must not be admissible for $(\overline P)$.
+	$(y, z) > 0$, \dots, $(y, z)$ for $(\overline D)$.
+
+	Our goal is to solve $(\overline P)$ and $(\overline D)$ optimally.
+	The method is a non-finite iteration process requiring a termination condition.
+\end{Remark}
+
+\begin{enumerate}
+	\item[0.] Begin with an arbitrary $(x, w, y, z) > 0$
+	\item[1.] Determine an appropriate value for $\mu$
+	\item[2.] Determine the direction $(\triangle x, \triangle w, \triangle y, \triangle z)$ (here we use path point $(x_\mu, w_\mu, y_\mu, z_\mu)$ as guide)
+	\item[3.] Determine the step size $\vartheta$ such that $(\tilde x, \tilde w, \tilde y, \tilde z) > 0$ with
+		\begin{align*}
+			\tilde x &\coloneqq x + \vartheta \cdot \triangle x \\
+			\tilde w &\coloneqq w + \vartheta \cdot \triangle w \\
+			\tilde y &\coloneqq y + \vartheta \cdot \triangle y \\
+			\tilde z &\coloneqq z + \vartheta \cdot \triangle z
+		\end{align*}
+	\item[4.] Substitute $(x, w, y, z)$ by $(\tilde x, \tilde w, \tilde y, \tilde z)$.
+\end{enumerate}
+
+As long as the termination condition is not met, repeat steps 1--4.
+But many details require further discussion.
+
+\begin{Remark}[Direction determination (step 2)]
+	Our goal is to determine $(\triangle x, \triangle w, \triangle y, \triangle z)$ such that $(x + \triangle x, w + \triangle w, y + \triangle y, z + \triangle z)$ lies in the neighborhood of point $(x_\mu, w_\mu, y_\mu, z_\mu)$ (point at the central path at this $\mu$).
+
+	Insert $(x + \triangle x, w + \triangle w, y + \triangle y, z + \triangle z)$ into the central path system.
+
+	\begin{align}
+		A(x + \triangle x) + (w + \triangle w) &= b \label{eq1}\\
+		A^t(y + \triangle y) - (z + \triangle z) &= c \label{eq2}\\
+		(X + \triangle X)(Z + \triangle Z) e &= \mu e \label{eq3}\\
+		(Y + \triangle Y)(W + \triangle W) e &= \mu e \nonumber
+	\end{align}
+	where the fourth equation belongs to \ref{eq3} and unknown variables are $\triangle x, \triangle y, \triangle X, \triangle Y, \triangle w, \triangle z, \triangle W$ and $\triangle Z$.
+	Equations \ref{eq1} and \ref{eq2} are linear equation systems.
+
+	Recall that,
+	\[
+		\triangle X = \begin{pmatrix}
+			\triangle x_1 & & 0 \\
+			& \ddots & \\
+			0 & & \triangle x_n
+		\end{pmatrix}
+	\]
+	\[ (x_j + \triangle x_j) (z_j + \triangle z_j) = \mu \forall j \]
+	\[ (y_i + \triangle y_i) (w_i + \triangle w_i) = \mu \forall i \]
+	\[ (x_j + \triangle x_j) (z_j + \triangle z_j) = x_j z_j + z_j \triangle x_j + x_j \triangle z_j + \triangle x_j \triangle z_j \]
+	This is a non-linear term. To handle the non-linearity of the third expression, we apply the Newton method.
+
+	The generic problem statement is:
+
+	\emph{Given:} function $F: \mathbb R^n \to \mathbb R^n$ \\
+	\emph{Find:} $\xi^* \in \mathbb R^n$ with $F(\xi^*) = 0$
+	\[ F(\xi) = \begin{pmatrix} F_1(\xi) \\ \vdots \\ F_N(\xi) \end{pmatrix} \qquad \xi = \begin{pmatrix} \xi_1 \\ \vdots \\ \xi_N \end{pmatrix} \]
+
+	The application looks as follows:
+	Starting with $\xi \in \mathbb R^N$ with $F(\xi) \neq 0$, we determine $\triangle \xi$ and $\tilde\xi = \xi + \triangle \xi$ substitutes $\xi$.
+
+	In the perfect setting, we have $F(\xi + \triangle \xi) = 0$ but for non-linear functions this is is a non-realistic goal in one step.
+	Taylor approximation of $F$ up to terms of order $1$.
+	\[ F(\xi + \triangle \xi) \approx F(\xi) + F'(\xi) \triangle \]
+	Solve $F'(\xi) \triangle \xi = -F(\xi)$ and so on for the next point $\xi + \triangle \xi$ etc.
+	\[
+		F'(\xi) = \begin{bmatrix}
+			\frac{\partial F_1}{\partial \xi_1} & \frac{\partial F_1}{\partial \xi_2} & \dots & \frac{\partial F_1}{\partial \xi_N} \\
+			\frac{\partial F_2}{\partial \xi_1} & \dots & \dots & \vdots \\
+			\vdots &  & \ddots & \\
+			\frac{\partial F_N}{\partial \xi_1} & \frac{\partial F_N}{\partial \xi_2} & \dots & \frac{\partial F_N}{\partial \xi_N} \\
+		\end{bmatrix}
+	\]
+	In our case:
+	\[ \xi = \begin{pmatrix} x \\ y \\ w \\ z \end{pmatrix} \qquad F(\xi) = \begin{pmatrix} Ax + w - b \\ A^t y - z - c \\ XZ e - \mu e \\ YW e - \mu e \end{pmatrix} \]
+	$I$ is the corresponding unit matrix. $0$ is the corresponding zero matrix.
+	\[ F'(\xi) = \begin{pmatrix} A & 0 & I & 0 \\ 0 & A^t & 0 & -I \\ Z & 0 & 0 & X \\ 0 & W & Y & 0 \end{pmatrix} \]
+	in block matrix notation.
+	\[ \triangle \xi = \begin{pmatrix} \triangle x \\ \triangle y \\ \triangle w \\ \triangle z \end{pmatrix} \]
+	As solution for $\triangle \xi$, we get the solution of
+	\begin{align*}
+		A \triangle x + \triangle w &= \rho \\
+		A^t \triangle y - \triangle z &= \sigma \\
+		Z \triangle x + X \triangle z &= \mu e - XZe \\
+		W \triangle y + Y \triangle w &= \mu e - YWe
+	\end{align*}
+
+	\begin{align*}
+		A \triangle x + \triangle w &= b - Ax - w \eqqcolon \rho & \text{primal residue} \\
+		A^t \triangle y - \triangle z &= c - A^t y + z \eqqcolon \sigma & \text{dual residue}
+		Z \triangle x + X \triangle z + \triangle X \triangle Z e &= \mu e - XZe \\
+		W \triangle y + Y \triangle w + \triangle Y \triangle W e &= \mu e - YWe
+	\end{align*}
+	We want to apply linearization to the third and fourth equation.
+	The omission of non-linear expressions and solving the linear equation system corresponds to the Newton step.
+\end{Remark}
+
+\begin{Remark}[About the choice of $\mathbf \mu$]
+	If $\mu$ is chosen too large, then the danger is convergence to the analytical center of admissible sets, which is undesirable.
+	If $\mu$ is chosen too small, the deviation from the central path can become too large (thus we are pushed to non-optimal marginal solutions).
+
+	At the beginning, in general $(x, w, y, z)$ does not lie on the central path.
+	There are various possibilities for the choice of $\mu$.
+	For example, we could compute $x_j, z_j$ for some fixed $j$ and $w_i, y_i$ for some fixed $i$. Or
+	\[ \mu = \frac{x^t z + y^t w}{n + m} \qquad \text{\enquote{Average value}} \]
+	which gives the exact value if $(X, W, Y, Z)$ is on the central path. Also
+	\[ \mu = \delta \cdot \frac{x^t z+ y^t w}{n + m} \qquad \delta \in (0, 1) \]
+	In particular, $\delta = \frac1{10}$ was established as practical parameter.
+\end{Remark}
+
 \printindex
 \end{document}
