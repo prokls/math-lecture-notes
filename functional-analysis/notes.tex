@@ -177,7 +177,7 @@ Does there exist a solution to this problem assuming $\lambda > 0$, $K: \mathbb 
 
 \begin{proof}
   \begin{description}
-  	\item[Case 1 (trivial model)]
+  	\item[Case 1 (trivial model):]
   	  Let $m = n$. $K_n = u$
   	  \begin{align} \min_{u \in \mathbb R^n} \Norm{\nabla u}_2 + \lambda \Norm{u - d}_2 \label{p1} \end{align}
   	  Take $(u_n)_{n \in \mathbb N}$ in $\mathbb R^n$ such that $\lim _{n \to \infty} \Norm{\nabla u_1}_2 +  \lambda \Norm{u_n - d}_2 = \inf_{u \in \mathbb R} \Norm{\nabla u}_2 + \lambda \Norm{u - d}_2$.
@@ -197,7 +197,7 @@ Does there exist a solution to this problem assuming $\lambda > 0$, $K: \mathbb 
   	  	\item compactness
   	  	\item continuity of $\nabla$, $\Norm{\cdot}_2$
   	  \end{itemize}
-  	\item[Case 2 ($K$ arbitrary)]
+  	\item[Case 2 ($K$ arbitrary):]
   	  \begin{enumerate}
   	  	\item
 	  	  $K$ arbitrary does not provide boundedness anymore.
@@ -280,7 +280,7 @@ Consider the problem $(P_\infty)$ given by $\min_{u \in U} \Norm{\nabla u}_2 + \
 	Take $(u_n)_{n \in \mathbb N}$ as a sequence in $U$ such that $\lim_{n \to \infty} \Norm{\nabla u_1}_2 + \lambda \Norm{K u_n - d}_n \to \inf_{u \in U} (\dots)$.
 	Now we want to show that $(u_n)_{n \in \mathbb N}$ is bounded.
 	\begin{description}
-		\item[Case 1]
+		\item[Case 1:]
 		Assume that $Ku = u$, $Y = U$ and $\Norm{\cdot}_Y = \Norm{\cdot}_2$.
 		\[ \implies \lambda \Norm{u_n}_2 = \lambda \Norm{u_n - d}_2 + \lambda \Norm{d} \leq \Norm{\nabla u_n}_2 + \lambda \Norm{u_n - d}_2 + \lambda \Norm{d} < C \text{ for } C > 0 \]
 		\[ \implies (u_n)_{n \in \mathbb N} \text{ is bounded} \]
@@ -324,7 +324,7 @@ Consider the problem $(P_\infty)$ given by $\min_{u \in U} \Norm{\nabla u}_2 + \
 				&= \inf R(u) + \lambda \Norm{u - d}_2
 		\end{align*}
 
-		\item[Case 2]
+		\item[Case 2:]
 		Works as in the finite-dimensional setting using
 		\begin{itemize}
 			\item $X \coloneqq \ke(A) \cap \ke(\nabla) \implies U = X \oplus X^\bot$ requires so-called \emph{Hilbert spaces}\index{Hilbert spaces}
@@ -745,9 +745,9 @@ Now, which topics are we going to cover in this course:
 		\item[$2 \to 3$]
 			Let $(x_n)_n$ be a sequence in $M$.
 			\begin{description}
-				\item[Case 1]
+				\item[Case 1:]
 					$\SetDef{x_n}{n \in \mathbb N}$ is finite $\implies (x_n)_n$ admits a convergent sequence.
-				\item[Case 2]
+				\item[Case 2:]
 					$\SetDef{x_n}{n \in \mathbb N}$ is infinite.
 					By the second property, there is a cluster point of $\SetDef{x_n}{x \in \mathbb N}$.
 					Thus $(x_n)_n$ is a convergent subsequence to some $x \in M$.
@@ -1403,13 +1403,150 @@ We consider a common, but less useful reformulation:
 			\begin{proof}
 				Left as an exercise (use compactness)
 			\end{proof}
-		\item TODO
-		\item TODO
+		\item $f$ is \emph{compactly supported}\index{Compactly supported} in $\Omega$ if $\operatorname{supp}(f) \ll \Omega$.
+		\item $\operatorname{supp}(f) \coloneqq \overline{\SetDef{x \in \Omega}{\Norm{f(x)} > 0}}$
 	\end{itemize}
 \end{definition}
 
+\dateref{2019/04/09}
 
+\begin{definition}[Definition and proposition, Spaces of continuous functions]
+	\label{definition:2.11}
+	Let $\Omega \subset \mathbb R^N$ be a domair. We define
+	\begin{align*}
+	  C_b(\Omega, \mathbb K^M) &= \SetDef{\varphi: \Omega \to \mathbb K^M}{\varphi \text{ bounded}} \text{ with } \Norm{\varphi}_{C_b} = \Norm{\varphi}_\infty = \sup_{x \in \Omega} \Abs{\varphi(x)} \\
+	  C(\overline\Omega, \mathbb K^M) &= \SetDef{\varphi: \Omega \to \mathbb K^M}{\varphi \text{ can be continuously extended to } \overline\Omega}, \Norm{\varphi}_C \coloneqq \Norm{\varphi}_\infty \\
+	  C^r(\overline\Omega, \mathbb K^M) &= \SetDef{\varphi: \Omega \to \mathbb K^M}{D^\alpha \varphi \in C(\overline\Omega, \mathbb K^M) \forall \alpha \in \mathbb N_0^N: \Abs{\alpha} \leq r} \text{ and} \Norm{\varphi}_{C^r} = \sum_{\substack{\alpha \in \mathbb N_0^N \\ \Abs{\alpha} \leq r}} \Norm{D^\infty \varphi}_{\infty} \\
+	  C^r_C(\Omega, \mathbb K^M) &= \SetDef{\varphi: \Omega \to \mathbb K^M}{\operatorname{supp}(\varphi) \ll \Omega, \varphi \in C^r(\overline\Omega, \mathbb K^M)} \text{ and } \Norm{\varphi}_{C^r_C} = \Norm{\varphi}_{C^r} \\
+	  C^\infty(\overline \Omega, \mathbb K^M) &= \bigcap_{r \in \mathbb N} C^r(\overline \Omega, \mathbb K^M) \\
+	  D(\Omega, \mathbb K^M) &= C_C^\infty(\Omega, \mathbb K^M) \coloneqq \bigcap_{r \in \mathbb N} C_C^r(\Omega, \mathbb K^M), C_0^r(\Omega, \mathbb K^M) = \overline{C_C^r(\Omega, \mathbb K^M)} \text{ in } C^r(\overline{\Omega}, \mathbb K^M)
+	\end{align*}
+	Then for any bounded $\Omega$, $C^r, C_0^r, C_b$ are Banach spaces and $C^r_C$ is a normed space.
+	
+	Recall: $z \in \mathbb K^M \implies \Abs{z} \coloneqq \sqrt{\sum_{i=1}^M \Abs{z_i}^2}$
+\end{definition}
 
+\begin{proof}
+	The functions $\Norm{\cdot}_{C_b}, \Norm{\cdot}_{C^r}$ are norms (proof is left as an exercise).
+
+	Show that $C_b$ is complete: Take $(\varphi_n)_n$ in $C_b$ to be Cauchy.
+	\[ \implies \forall x \in \Omega: (\varphi_n(x))_n \text{ is Cauchy in } \mathbb K^n \]
+	because $\Abs{\varphi_n(x) - \varphi_m(x)} \leq \Norm{\varphi_n - \varphi_m}_\infty$.
+	Hence we can define $\varphi(x) \coloneqq \lim_{n \to \infty} \varphi_n(x)$.
+
+	Show: $\varphi_n \to \varphi$ in $\Norm{\cdot}_\infty$. Take $\varepsilon > 0$.
+	Show that $\exists n_0 \forall n \geq n_0: \Norm{\varphi - \varphi_n}_\infty < \varepsilon$.
+	Take $n_0$ such that $\forall n, m \geq n_0: \Norm{\varphi_n - \varphi_m}_\infty < \varepsilon$. Take $m \geq n_0$.
+	\[ \implies \forall x \in \Omega: \Abs{\varphi(x) - \varphi_m(x)} = \lim_{\substack{n \to \infty \\ n \geq n_0}} \Abs{\varphi_n(x) - \varphi_m(x)} < \Norm{\varphi_n - \varphi_m}_\infty \]
+
+	Show: $\varphi$ is bounded, i.e. $\exists C > 0: \Abs{\varphi(x)} \leq C < \Norm{\varphi_n - \varphi_m}_\varepsilon < \infty$.
+	Take $n$ suchthat $\Norm{\varphi - \varphi_n}_\infty < 1$
+	\[ \implies \forall x \in \Omega: \Abs{\varphi(x)} > \Abs{\varphi(x) - \varphi_n(x)} + \Abs{\varphi_n(x)} \leq 1 + \underbrace{\Norm{\varphi_n}}_{= C} \]
+
+	Now $C^r(\overline\Omega, \mathbb K^n)$ is a subspace of $C^b(\Omega, \mathbb K^n)$.
+	Also $C^r(\overline\Omega, \mathbb K^n)$ is closed, since the uniform limit of $\varphi \in C^r(\overline\Omega, \mathbb K^n)$
+	with respect to $\Norm{\cdot}_{C^r}$ is again in $C^r(\overline\Omega, \mathbb K^M)$ [a result from Analysis].
+	\[ \implies C^r(\overline \Omega, \mathbb K^M) \text{ is a Banach space} \]
+	$C_C^r(\overline\Omega, \mathbb K^M)$ is closed by definition, hence Banach.
+
+	$C_C^r(\Omega, \mathbb K^M)$ is a vector space, since $\forall \lambda \in \mathbb K: \varphi \in C_0^r(\Omega, \mathbb K^M): \operatorname{supp}(\lambda \varphi) = \operatorname{supp}(\varphi)$ and for $\varphi, \Psi \in C_0^r(\Omega, \mathbb K^M): \operatorname{supp}(\varphi + \Psi) \ll \Omega$.
+\end{proof}
+
+\begin{definition}[Definition and proposition]
+	\label{definition:2.12}
+	Let $(\Omega, \Sigma, \mu)$ with $\Omega \subset \mathbb R^N$ be a measure space (i.e. $\Sigma$ is a sigma algebra and $\mu$ is a measure).
+	For $p \in [1, \infty)$, we define
+	\begin{align*}
+		\mathcal L^p(\Omega, \mathbb K^M, \mu)
+			&= \SetDef{f: \Omega \to \mathbb K^M}{f \: \mu-\text{ measurable and } \int_\Omega \Abs{f(x)}^p d \mu(x) < \infty} \\
+		\Norm{f}_p^* &= \left(\int_\Omega \Norm{f(x)}^p \, d\mu(x)\right)^{\frac1p} \\
+		\mathcal L^\infty(\Omega, \mathbb K^M, \mu) &\coloneqq \SetDef{f: \Omega \to \mathbb K^M}{\exists N \in \Sigma: \mu(N) = 0 \land \sup_{x \in \Omega \setminus N} \Abs{f(x)} < \infty} \\
+		\Norm{f}^*_\infty &= \inf_{\substack{N \in \Sigma \\ \mu(N) = 0}} \sup_{x \in \Omega \setminus N} \Abs{f(x)}
+	\end{align*}
+	Our proposition is that these are semi-norms.
+\end{definition}
+
+\begin{proof}
+	Show that $\Norm{\cdot}_p^*$ for $p \in [1, \infty]$ are seminorms.
+	
+	They cannot be norms since $\Norm{f}_p^* = 0$ for
+	\[ f(x) = \begin{cases} 1 & x \in N \\ 0 & x \not\in N \end{cases} \]
+	$0 \neq N \in \Sigma, \mu(N) = 0$.
+\end{proof}
+
+\begin{proposition}[Hölder inequality]
+	\label{proposition:2.13}
+	Let $p \in [1, \infty]$ and
+	\[ a = p^* = \begin{cases} \frac{p}{p-1} & \text{ if }  \in (1, \infty) \\ 1 & \text{ if } p = \infty \\ \infty & \text{ if } p = 1 \end{cases} \]
+	\[ \frac1p + \frac1{p^*} = 1 \]
+	If $f \in \mathcal L^p(\Omega, \mathbb K^M, \mu)$ and $q \in \mathcal L^q(\Omega, \mathbb K^M, \mu)$ then for both
+	\begin{align*}
+	  f\cdot g: \: & \Omega \to \mathbb K \text{ with } x \mapsto (f(x), g(x)) = \sum_{i=1}^M f_i(x) = \overline{g_i(x)} \\
+	  f \otimes g: \: & \Omega \to \mathbb K^M \text{ with } x \mapsto (f_i(x), \varphi_i(x))_{i=1}^M
+	\end{align*}
+	we have that $fg \in \mathcal L^1(\Omega, \mathbb K, \mu)$ and $f \otimes g \in L^1(\Omega, \mathbb K^M, \mu)$ and $\Norm{f \otimes g}_1^* \leq \Norm{fg}_1^* \leq \Norm{f}_p^* \cdot \Norm{q}_q^*$.
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[Case $p \in (1, \infty)$:]
+			Intermediate result: $\forall \sigma, \tau \geq 0, r \in (0, 1]: \sigma^r \tau^{1-r} \leq r \sigma + (1 - r) \tau$ [AGM-inequality].
+			\begin{proof}
+				\item[Case $\sigma = 0$ or $\tau = 0$:] immediate
+				\item[Case $\sigma, \tau > 0$:]
+					\begin{align*}
+						\log(\sigma^r \tau^{1-r}) &= r \log(\sigma) + (1 - r) \log(\tau) \leq \log(r\sigma + (1 - r) \tau) \\
+							& \text{ since } \log''(x) \leq 0 \text{ implies that log is concave} \\
+						\log \text{ is monotonic } & \implies \sigma^r \tau^{1-r} \leq r \sigma + (1 - r) \tau
+					\end{align*}
+			\end{proof}
+
+			Let $A \coloneqq \left(\Norm{f}_p^*\right)^p$ and $B \coloneqq \left(\Norm{\varphi}_1^*\right)^q$ with $r = \frac1p \in (0, 1]$
+			we get
+			\[ \forall x \in \Omega: \left(\frac{\Abs{f(x)}^p}{A}\right)^{\frac1p} \left(\frac{\varphi(x)}{B}\right)^{\frac1q} = \frac1p \frac{\Abs{f(x)}^p}{A} + \frac1q \frac{\Abs{q(x)}^q}{B} \]
+			\[ \implies \frac{\int_\Omega \Abs{f(x)} \Abs{q(x)} \, d\mu(x)}{A^{\frac1p} B^{\frac1q}} \leq \frac1p \frac{\int_\Omega \Abs{f(x)}^p \, d\mu(x)}{A} + \frac1q \frac{\int_\Omega \Abs{q(x)}^q \, d\mu(x)}{B} \]
+			\[ \implies \int_\Omega \Abs{f(x)} \Abs{g(x)} \, d\mu(x) \leq \Norm{f}_p^* \Norm{g}_q^* = \frac1p + \frac1q = 1 \]
+
+			Now: $\Norm{f \cdot g}_x^* \leq \Norm{f}_p^* \cdot \Norm{g}_q^*$ follows since $\Abs{\IP xy} \leq \Abs x \Abs y \forall x, y \in \mathbb K^M$.
+
+			Also:
+			\[ \forall x \in \Omega: \Abs{f \otimes g(x)} = \sum_{i=1}^M \Abs{f_i(x)} \Abs{g_i(x)} = \begin{pmatrix} \Abs{f_1(x)} & \Abs{g_1(x)} \\ \vdots & \vdots \\ \Abs{f_n(x)} & \Abs{g_n(x)} \end{pmatrix}  \leq \Abs{f(x)} \Abs{g(x)} \]
+			\[ \implies \int_\Omega \Abs{f \otimes g(x)} \, d \mu(x) \leq \Norm{f}_p^* \cdot \Norm{g}_q^* \]
+		\item[Case $p \in \Set{1, \infty}$:]
+			Without loss of generality assume that $p = 1, q = \infty$.
+			$\forall N \in \Sigma \text{ with } \mu(N) = 0$ we get
+			\begin{align*}
+				\int_\Omega \Abs{f(x)} \Abs{g(x)} \, d\mu(x) &= \int_{\Omega \setminus N} \Abs{f(x)} \Abs{q(x)} \, \mu(x) \\
+					&\leq \int_{\Omega \setminus N} \Abs{f(x)} \, d\mu(x) \cdot \sup_{x \in \Omega \setminus N} \Abs{q(x)}
+					&= \int_{\Omega} \Abs{f(x)} \, d\mu(x) \cdot \sup_{x \in \Omega \setminus N} \Abs{q(x)}
+			\end{align*}
+			Taking the infimum over all such $N$, then
+			\[ \int_\Omega \Abs{f(x)} \Abs{g(x)} \, d\mu(x) \leq \Norm{f}^*_1 \cdot \Norm{g}^*_\infty \]
+			And the result follows again from $\Abs{\IP xy} \leq \Abs x \cdot \Abs y$ and componentwise $\Abs{\IP{x_i}{y_i}_i} \leq \Abs{x} \Abs{y} \forall x, y \in \mathbb K^M$
+	\end{description}
+\end{proof}
+
+\begin{proposition}[Minkowski inequality]
+	\label{proposition:2.14}
+	For $p \in [1, \infty], f, g \in \mathcal L^p(\Omega, \mathbb K^M, \mu)$, we have that $\Norm{f + g}_p^* \leq \Norm{f}_p^* + \Norm{g}_p^*$.
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[Case $p = 1$:] trivial
+		\item[Case $p \in (1, \infty)$:]
+			\begin{align*}
+				\left(\Norm{f + g}_p^*\right)^p
+					&= \int_\Omega \Abs{f(x) + g(x)} \, d\mu(x) \\
+					&= \int_\Omega \Abs{f(x)} \cdot \Abs{f(x) + g(x)}^{p-1} \, d\mu(x) \\
+					&+ \int_\Omega \Abs{g(x)} \Abs{f(x) + g(x)}^{p-1} \, d\mu(x) \\
+					&\leq \Norm{f}_p^* \cdot \Norm{\Abs{f + g}^{p-1}}_q^* + \Norm{g}_p^* \cdot \Norm{\Abs{f + g}^{p-1}}_q^* \\
+				\intertext{Recognize that $\left(\int \Abs{f + g}^p\right)^{\frac1q} = \left(\int \Abs{f + g}^{(p-1)q}\right)^{\frac1q}$ because $p = q \cdot (p - 1)$}
+					&= \left(\Norm{f}_p^* + \Norm{q}_p^*\right) \Norm{\Abs{f + g}}_p^* \\
+				\implies \Norm{f + g}_p^* &\leq \Norm{f}_p^* + \Norm{g}_p^*
+			\end{align*}
+	\end{description}
+\end{proof}
 
 \printindex
 \end{document}
