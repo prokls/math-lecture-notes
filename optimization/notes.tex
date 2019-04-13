@@ -2415,41 +2415,228 @@ We can determine vector $\tilde y$ as $\tilde y^t \coloneqq c_B^t A_B^{-1}$.
 
 \dateref{2019/04/08}
 
-TODO
+\section{Inner point methods}
 
-\dateref{2019/04/09}
+\emph{Goal:} Method to solve linear programs with polynomial runtime (in the worst case) and is practical.
+
+\begin{Remark}
+	The Simplex method does not provide these runtime guarantees.
+	There are examples with an exponential number of pivot steps.
+	The Ellipsoid method has a polynomial runtime, but is impractical and not covered in this lecture.
+\end{Remark}
+
+There are 3 kinds of inner point methods:
+\begin{itemize}
+	\item primal
+	\item dual
+	\item primal-dual
+\end{itemize}
+
+In this course, we will cover the basics of the primal-dual path following method.
+Reminder of the basics of the Simplex algorithm: only vertices are considered.
+
+In case of inner point methods, the interior plays a major role.
+Essential basis for primal-dual methods (esp. path following method) is the theorem of complementary slackness.
+
+\begin{minipage}{0.5\textwidth}
+  \begin{align*}
+  	(P) \max \:&c^t x \\
+  		\text{s.t. } &Ax \leq b \\
+  		x &\geq 0
+  \end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+	\begin{align*}
+		(D) \min \:&b^t y \\
+		\text{s.t. } &A^t y \geq c \\
+		y &\geq 0
+	\end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+	\begin{align*}
+		(\overline P) \max \:& c^t x \\
+		\text{s.t. } Ax + w &= b \\
+		x, w &\geq 0
+	\end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+	\begin{align*}
+		(\overline D) \min \:& b^t y \\
+		\text{s.t. } & A^t y - z = c \\
+		y, z &\geq 0
+	\end{align*}
+\end{minipage}
+
+\begin{Definition}
+	$(x, w, y, z)$ is an optimal pair for $(\overline P)$ and $(\overline D)$ if
+	\begin{description}
+		\item[OPT] $Ax + w = b; A^t y - z = c; x, w, y, z \geq 0$
+		\item[Complementary condition] $y^t (Ax - b) = y^t w = w^t y = 0; x^t (A^t y - c) = x^t z = z^t x = 0$ and accordingly $w_i y_i = 0 \forall i, z_j \cdot x_j = 0 \forall j$
+	\end{description}
+	We define the interior of primal-dual problems
+	\[ F = \SetDef{(x, w, y, z)}{Ax + w = b; A^t y - z = c; w^t y = z^t x = 0; x, y, w, z \geq 0} \]
+	\[ F^0 = \SetDef{(x, w, y, z) \in F}{x, y, w, z > 0} \]
+\end{Definition}
+
+\begin{Remark}
+	In Analysis: Lagrange method is used to handle equations as constraints.
+
+	Here, we have $(P)$ and $(D)$ and also sign-restricted constraints in the primal-dual system.
+	One approach to handle such constraints are so-called \emph{barrier functions}\index{Barrier functions}.
+	These are special penalty expressions or penalty functions. Those penalize negative values of sign-restricted variables. Such a function is the logarithm.
+\end{Remark}
+
+\subsection{Primal barrier problem}
+
+\begin{align*}
+	(BP\mu) \: &\max c^t x + \mu \left(\sum_{j=1}^n \log x_j + \sum_{i=1}^b \log w_i\right) & \mu > 0 \\
+    &\text{s. t. } Ax + w = b
+\end{align*}
+
+$(BP\mu)$ is closely related with $(P)$, or equivalently, $(\overline P)$. 
+
+\begin{align*}
+	(BD\mu) \: &\min b^t y - \mu \left(\sum_{j=1}^m \log y_j + \sum_i \log z_i\right) & \mu > 0 \\
+	&\text{s. t. } A^t y - z = c
+\end{align*}
+
+We can apply the Lagrange method to $(BP\mu)$ and $(BD\mu)$.
+
+\begin{Remark}
+	$y$ and $z$ is newly defined. It turns out, that $y$ and $z$ are equal to the original $y$ and $z$.
+\end{Remark}
+
+By $BP\mu$:
+
+\[
+	\begin{array}{rlcl}
+		\overline L(x, w, y) &= c^t x + \mu \sum_j \log x_j & & \\
+			&+ \mu \sum_i \log w_i + y^t (b - Ax - w) & \multicolumn{2}{c}{y \text{ is a Lagrange multiplier}} \\
+		\frac{\partial \overline L}{\partial x_j} &= c_j + \mu \frac{1}{x_j} - \sum_i y_i a_{ij} \overset!= 0 & j = 1, \dots, n & A^t y - z = c \\
+		\frac{\partial \overline L}{\partial w_i} &= \mu \frac{1}{w_i} - y_i \overset!= 0 & i = 1, \dots, m & w_i y_i = \mu \\
+		\frac{\partial \overline L}{\partial y_i} &= b_i - \sum_j a_{ij} x_j - w_i \overset!= 0 & i = 1, \dots, m & Ax + w = b
+	\end{array}
+\]
+
+\[ \implies w_i y_i = \mu \qquad i = 1, \dots, n \]
+\[ Ax + w = b \qquad A^t y - z = c \]
+
+Let $z_j = \mu \frac1{x_j}$ and accordingly in matrix form $z = \mu X^{-1} e$ with the following conventions (in this section):
+\begin{itemize}
+	\item $e$ is always the vector full of ones
+	\item $x$ vector $\to$
+		\[ X = \operatorname{diag}(x) \cdot \begin{pmatrix} x_1 & & 0 \\ & \ddots & \\ 0 & & x_n \end{pmatrix} \qquad X^{-1} = \begin{pmatrix} \frac{1}{x_1} & & \\ & \ddots & \\ & & \frac{1}{x_n} \end{pmatrix} \qquad x_i \neq 0 \]
+\end{itemize}
+The same applies to the dual problem:
+\[ \implies A^t y - z = c \qquad Ax + w = b \qquad x_j - z_j = \mu \]
+
+We can also create the primal-dual barrier problem.
+In total we get (let's denote the problem as $(0)$):
+\begin{align*}
+	A^t y - z &= c \\
+	Ax + w &= b \\
+	x_j \cdot z_j &= \mu \quad \forall j \\
+	w_i \cdot y_i &= \mu \quad \forall i \\
+	(w_i x_i y_i z &\geq 0 \quad \text{implicit})
+\end{align*}
+for $\mu \to 0$ against constraints from (OPT) (page 58).
+3rd and 4th constraints are generalized complementary constraints.
+
+A graphical illustration is given in Figure~\ref{img:graphical}.
+An analogous construction can be made for the dual problem and the primal-dual variant.
+\begin{figure}[!ht]
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{img/10_inner_point_method_graphical_illustration.pdf}
+		\caption{Graphical illustration}
+		\label{img:graphical}
+	\end{center}
+\end{figure}
+
+$(0)$ in vector notation:
+\begin{align*}
+	A^t y - z &= c \\
+	Ax + w &= b \\
+	XZ e &= \mu e \\
+	YW e &= \mu e
+\end{align*}
+
+\emph{Question:} Is there always a solution of the corresponding barrier problem? \\
+\emph{Answer:} No.
+
+We consider two examples:
+\begin{Example}
+	\[ \max 0 \xrightarrow{\text{barrier function}} \max \mu \log x \qquad \mu > 0 \]
+	subject to $x \geq 0$ does not have a finite optimum.
+\end{Example}
+\begin{Example}
+	\[ \max -x \xrightarrow{\text{barrier function}} \max -x + \mu \log x \]
+	(takes maximum with $x = \mu$) subject to $x \geq 0$ has a unique solution $x = 0$.
+\end{Example}
 
 \begin{theorem}
-	The barrier problem has a finite solution if and only if $(\overline P)$ and $(\overline D)$ have strictly admissible solutions.
+	\label{theorem:5.1}
+	There exists a (finite) solution for the barriere problem if and only if the admissible set for the primal as well as the dual problem has a non-empty interior.
 \end{theorem}
 
 \begin{proof}
-	\[ f(x, w) = c^t x + \mu \sum_j \log x_j + \mu \sum_i \log w_i \]
-	\[ S \coloneqq \SetDef{(x, w) \in \mathbb R^{n + m}}{f(x, w) \geq c} \text{ bounded} \]
-	Let $\overline f = f(\overline x, \overline w)$. $(\overline x, \overline w)$ is strictly admissible for $(\overline P$, $\overline x > 0$, $\overline w > 0$).
-	Consider
-	\[ \overline Q \coloneqq \SetDef{(x, w)}{Ax + w = b, x \geq 0, w \geq 0, f(x, w) \geq \overline f} \]
-	Then $\overline Q \neq \emptyset$ because $(\overline x, \overline w) \in \overline Q$. Because $S$ is bounded, $\overline Q$ is bounded.
-	Moreover, $\overline Q$ is closed. We show this the following way:
-	\[ \overline Q = \SetDef{(x, w)}{Ax + w = b} \cap \SetDef{(x, w)}{x \geq 0, w \geq 0} \cap \SetDef{(x, w)}{f(x, w) \geq F} \]
-	$\Set{f(x, w) \geq f}$ is the inverse image of $[\overline f, \infty)$ for the continuous function $f$, thus also closed.
-	$\overline Q$ is the intersection of three closed set, thus closed itself.
+	\begin{description}
+		\item[$\mathbf \implies$] trivial
+		\item[$\mathbf \impliedby$] Assume there are inner points for $(P)$ and $(D)$, thus
+			\begin{itemize}
+				\item there exists $(\overline x, \overline w)$ an admissible solution for $(\overline P)$ with $\overline x > 0, \overline w > 0$ and
+				\item there exists $(\overline y, \overline z)$ an admissible solution for $(\overline D)$ with $\overline y > 0, \overline z > 0$
+			\end{itemize}
+			so $(\overline x, \overline w, \overline y, \overline z) \in F^0$.
+			Now consider $\overline z^t x + \overline y^t w$ for arbitrary admissible $(x, w)$ for $(\overline P)$.
+			Insert slack variables:
+			\[ \iff (A^t \overline y - c)^t x + \overline y^t (b - Ax) = b^t \overline y - c^t x \]
+			Hence our target function is given as $c^t x = \overline z^t x - \overline y^t w + b^t \overline y$.
 
-	Thus, $\overline Q \subseteq R^{n + m}$ is compact.
-	Hence, continuous functions on non-empty compact sets $\overline Q$ take up a maximum.
+			$\to$ barrier problem of primal program
 
-	$f$ takes up the maximum on $\SetDef{(x, w)}{x > 0, w > 0}$ because by definition of $\overline Q$, the maximum is taken up in a region with values $\geq \overline f$.
+			\begin{align*}
+				f(x, w) &= c^t x + \mu \sum_j \log x_j + \mu \sum_i \log w_i \\
+					&= \sum_j \left(- \overline z_j x_j + \mu \log x_j\right) + \sum_i \left(-\overline y_i w_i + \mu \log w_i\right) + \underbrace{b^t \overline y}_{\text{constant}}
+			\end{align*}
+			Every summand in both sums is a function in only one variable.
+			Those functions are all of form
+			\[ \rho(\xi) = -\alpha \xi + \mu \cdot \log \xi \qquad \xi \in (0, \infty), \alpha > 0 \]
+			Takes up a unique maximum for $\frac \mu\alpha$. Limit for $\xi \to \infty$ and $\to -\infty$
+			\[ \SetDef{(x, w) \in \mathbb R^{n + m}}{f(x, w) \geq c} \]
+			is bounded for constant $c$.
 
-	Thus, the existence of a solution for the barrier problem is guaranteed.
-	In the following, we will show uniqueness:
-	\[ f(x, w) = c^t x + \mu \sum_j \log(x_j) + \mu \sum_i \log(w_i) \]
-	\[ \frac{\partial f}{\partial x_j} = c_j + \frac{\mu}{x_j}  \qquad  \frac{\partial^2 f}{\partial x_j^2} = -\frac{\mu}{x_j^2} \qquad \frac{\partial f}{\partial x_j w_i} = 0 \]
-	\[ \frac{\partial f}{\partial w_i} = \frac{\mu}{w_i} \qquad \frac{\partial^2 f}{\partial w_i^2} = -\frac{\mu}{w_i^2} \]
-	\begin{itemize}
-		\item[$\implies$] The Hessian matrix of $f$ is a diagonal matrix full of negative values on the diagonal ($f$ is strictly concave). Every critical point of $f$ is a maximum.
-		\item[$\implies$] Furthermore here there can be at most one single critical point and if it exists, it represents a global maximum.
-	\end{itemize}
-	Thus uniqueness is given.
+			\dateref{2019/04/09}
+			% \begin{theorem}
+			% 	The barrier problem has a finite solution if and only if $(\overline P)$ and $(\overline D)$ have strictly admissible solutions.
+			% \end{theorem}
+
+			\[ f(x, w) = c^t x + \mu \sum_j \log x_j + \mu \sum_i \log w_i \]
+			\[ S \coloneqq \SetDef{(x, w) \in \mathbb R^{n + m}}{f(x, w) \geq c} \text{ bounded} \]
+			Let $\overline f = f(\overline x, \overline w)$. $(\overline x, \overline w)$ is strictly admissible for $(\overline P$, $\overline x > 0$, $\overline w > 0$).
+			Consider
+			\[ \overline Q \coloneqq \SetDef{(x, w)}{Ax + w = b, x \geq 0, w \geq 0, f(x, w) \geq \overline f} \]
+			Then $\overline Q \neq \emptyset$ because $(\overline x, \overline w) \in \overline Q$. Because $S$ is bounded, $\overline Q$ is bounded.
+			Moreover, $\overline Q$ is closed. We show this the following way:
+			\[ \overline Q = \SetDef{(x, w)}{Ax + w = b} \cap \SetDef{(x, w)}{x \geq 0, w \geq 0} \cap \SetDef{(x, w)}{f(x, w) \geq F} \]
+			$\Set{f(x, w) \geq f}$ is the inverse image of $[\overline f, \infty)$ for the continuous function $f$, thus also closed.
+			$\overline Q$ is the intersection of three closed set, thus closed itself.
+
+			Thus, $\overline Q \subseteq R^{n + m}$ is compact.
+			Hence, continuous functions on non-empty compact sets $\overline Q$ take up a maximum.
+
+			$f$ takes up the maximum on $\SetDef{(x, w)}{x > 0, w > 0}$ because by definition of $\overline Q$, the maximum is taken up in a region with values $\geq \overline f$.
+
+			Thus, the existence of a solution for the barrier problem is guaranteed.
+			In the following, we will show uniqueness:
+			\[ f(x, w) = c^t x + \mu \sum_j \log(x_j) + \mu \sum_i \log(w_i) \]
+			\[ \frac{\partial f}{\partial x_j} = c_j + \frac{\mu}{x_j}  \qquad  \frac{\partial^2 f}{\partial x_j^2} = -\frac{\mu}{x_j^2} \qquad \frac{\partial f}{\partial x_j w_i} = 0 \]
+			\[ \frac{\partial f}{\partial w_i} = \frac{\mu}{w_i} \qquad \frac{\partial^2 f}{\partial w_i^2} = -\frac{\mu}{w_i^2} \]
+			\begin{itemize}
+				\item[$\implies$] The Hessian matrix of $f$ is a diagonal matrix full of negative values on the diagonal ($f$ is strictly concave). Every critical point of $f$ is a maximum.
+				\item[$\implies$] Furthermore here there can be at most one single critical point and if it exists, it represents a global maximum.
+			\end{itemize}
+			Thus uniqueness is given.
+	\end{description}
 \end{proof}
 
 \begin{corollary}
@@ -2521,7 +2708,7 @@ TODO
 
 As long as the termination condition is not met, repeat steps 1--4.
 But many details require further discussion.
-
+l
 \begin{Remark}[Direction determination (step 2)]
 	Our goal is to determine $(\triangle x, \triangle w, \triangle y, \triangle z)$ such that $(x + \triangle x, w + \triangle w, y + \triangle y, z + \triangle z)$ lies in the neighborhood of point $(x_\mu, w_\mu, y_\mu, z_\mu)$ (point at the central path at this $\mu$).
 

@@ -916,7 +916,7 @@ Now, which topics are we going to cover in this course:
 
 						\item Take $\varepsilon > 0$. $M$ is totally bounded, so $\exists f_1, \dots, f_n \in M: M \subset \bigcup_{i=1}^n B_{\frac\varepsilon3}(f_i)$.
 							$\forall i \in \Set{1, \dots, n} \exists \delta_i: \forall x, y \in X: d(x, y) < \delta_i \implies d_Y(f_i(x), f_i(y)) < \frac\varepsilon3$.
-							Define $\delta \coloneqq \min_i \delta_i > 0$. Then $\forall x, y \in X: d(x, y) < \delta$ and $\forall f \in M \exists f_{i_0}: f \in B_{\frac c3}(f_{i_0})$
+							Define $\delta \coloneqq \min_i \delta_i > 0$. Then $\forall x, y \in X: d(x, y) < \delta$ and $\forall f \in M \exists f_{i_0}: f \in B_{\frac\varepsilon3}(f_{i_0})$
 							\[ \implies d(f(x), f(y)) \leq \underbrace{d(f(x), f_{i_0}(x))}_{\leq d_C(f, f_{i_0}) \leq \frac\varepsilon3} + \underbrace{d(f_{i_0}(x), f_{i_0}(y))}_{\leq \frac\varepsilon3} + \underbrace{d(f_{i_0}(y), f(y))}_{\leq d_C(f_{i_0}, f) \leq \frac\varepsilon3} < \varepsilon \]
 					\end{enumerate}
 				\item[$\impliedby$]
@@ -1193,7 +1193,7 @@ We consider a common, but less useful reformulation:
 
 			Choose $\forall n \in \mathbb N: \tilde x_n \in [x_n]$ such that $\Norm{\tilde x_n} \leq \Norm{[x_n]}_{X/Y} + 2^{-n}$
 			\[ \implies \sum_{n=1}^\infty \Norm{\tilde x_n} \leq \sum_{n=1}^\infty \left(\Norm{[x_n]}_{X/Y} + 2^{-n}\right) < c < \infty \]
-			\[ X \text{ complete} \implies \exists x \in X: \sum_{n=1}^\infty \tilde x_n = x \qquad \Norm{[x] - \sum_{n=1}^m [x_n]} \]
+			\[ X \text{ complete} \implies \exists x \in X: \sum_{n=1}^\infty \tilde x_n = x \qquad \Norm{[x] - \sum_{n=1}^m \underbrace{[x_n]}_{[\tilde x_n]}}_{X/Y} \leq \Norm{x - \underbrace{\sum_{k=0}^n \tilde x_k}_{\to 0}} \]
 	\end{itemize}
 \end{proof}
 
@@ -1528,7 +1528,8 @@ We consider a common, but less useful reformulation:
 
 \begin{proposition}[Minkowski inequality]
 	\label{proposition:2.14}
-	For $p \in [1, \infty], f, g \in \mathcal L^p(\Omega, \mathbb K^M, \mu)$, we have that $\Norm{f + g}_p^* \leq \Norm{f}_p^* + \Norm{g}_p^*$.
+	For $p \in [1, \infty], f, g \in \mathcal L^p(\Omega, \mathbb K^M, \mu)$, we have that $\Norm{f + g}_p^* \leq \Norm{f}_p^* + \Norm{g}_p^*$
+	with $\Norm{f}_\infty \coloneqq \inf_{\mu(N) \to 0} \sup_{x \in \Omega \setminus N} \Abs{f(x)}$.
 \end{proposition}
 
 \begin{proof}
@@ -1545,7 +1546,69 @@ We consider a common, but less useful reformulation:
 					&= \left(\Norm{f}_p^* + \Norm{q}_p^*\right) \Norm{\Abs{f + g}}_p^* \\
 				\implies \Norm{f + g}_p^* &\leq \Norm{f}_p^* + \Norm{g}_p^*
 			\end{align*}
+			\dateref{2019/04/11}
+
+		\item[Case $p = \infty$:]
+			First, note that $\forall f \in \mathcal L^\infty(\Omega, \mathbb K^M, \mu) \exists N \in \Sigma$ such that $\mu(N) = 0$ and $\Norm{f}_{\infty}^* = \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty} \coloneqq \sup_{x \in \Omega \setminus N} \Abs{f(x)}$.
+
+			\begin{claim}
+				\[ \Norm{f}_{\infty}^* = \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty} \coloneqq \sup_{x \in \Omega \setminus N} \Abs{f(x)} = \sup_{x \in \Omega \setminus \hat N} \Abs{f(x)} \text{ for } \mu(\hat N) = 0  \]
+			\end{claim}
+			\begin{proof}
+				For all $n \in \mathbb N$, define $N_n \in \Sigma$ such that $\mu(N_n) = 0$ and $\Norm{\left.f\right|_{\Omega \setminus N_n}}_\infty \leq \Norm{f}_\infty^* + \frac1n$.
+				Thus with $N \coloneqq \bigcup_{n \in \mathbb N^n} N_n \implies \mu(N) = 0$ and $\Norm{f}_\infty^* \leq \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty} \leq \Norm{f}_{\infty}^* + \frac1n$. $n \to \infty \implies \Norm{f}_\infty^* = \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty}$.
+			\end{proof}
+
+			For $f, g \in \mathcal L^\infty(\Omega, \mathbb K^M, \mu)$, pick $N_{f}, N_G$ such that $\mu(N_C) = \mu(N_g) = 0$ and $\Norm{f}_\infty^* = \Norm{\left.f\right|_{\Omega \setminus N_\varepsilon}}_\infty$ and $\Norm{g}_{\infty}^* = \Norm{\left.g\right|_{\Omega \setminus N_g}}_{\infty}$.
+			\begin{align*}
+				\implies \Norm{f + g}^*_\infty
+					&\leq \Norm{(f + g)_{\Omega \setminus (N_f \cup N_g)}}_\infty \\
+					&\leq \Norm{\left.f\right|_{f \setminus (N_f \cup N_g)}}_\infty + \Norm{\left.g\right|_{\Omega \setminus (N_f \cup N_g)}}_{\infty} \\
+					&\leq \Norm{\left.f\right|_{\Omega \setminus N_f}}_{\infty} + \Norm{\left.g\right|_{\Omega \setminus N_g}}_{\infty} = \Norm{f}_{\infty}^* + \Norm{g}^*_\infty
+			\end{align*}
 	\end{description}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:2.15}
+	Let $p \in [1, \infty]$. Then $\Norm{\cdot}_p^*$ is a seminorm on $\mathcal L^p(\Omega, \mathcal K^M, \mu)$ and $\mathcal L^n(\Omega, \mathcal K^M, \mu)$ is complete with the seminorm.
+	With $M \coloneqq \lfloor \in \mathcal L^p(\cdot): \Norm{f}_p^m = 0\rfloor$, we get that
+	$L^p(\Omega, \mathbb K^M, \mu) \coloneqq \mathcal L^p(\Omega, \mathbb K^M, \mu) / M$ is a Banach space with respect to $\Norm{[f]}_p \coloneqq \Norm{f}_p^*$.
+\end{proposition}
+
+\begin{proof}
+	Seminorm is clear by Minkowski's inequality.
+	Give completeness of $f^p(\cdot)$, the rest follows from Corollary~\ref{corollary:2.5}.
+
+	Hence, show that $\mathcal L^p(\Omega, \mathbb K^M, \mu)$ is complete.
+
+	Assume $p < \infty$.
+	By Proposition~TODO, it suffices to show that for $f_n(t_n)_n$ in $\mathcal L^p(\cdot)$ such that $a \coloneqq \sum_{n=1}^\infty \Norm{f_n}_p^* < \infty$.
+	\[ \implies \exists f \in \mathcal L^p(\cdot): f = \sum_{n=1}^\infty f_n \]
+
+	Define $\hat q(x) \coloneqq \sum_{n=1}^\infty \Abs{f_n(x)} \in [0, \infty]$.
+	Define $\hat q_n(x) \coloneqq \sum_{i=1}^n \Abs{f_i(x)}$. Then $q_n$ is measurable and by Minkowski's inequality,
+	\[ \Norm{q_n}_p^* \leq \sum_{i=1}^n \Norm{f_i}_p^* \leq \sum_{i=1}^\infty \Norm{f_i}_p^* = a < \infty \]
+
+	Also $\hat q_n^p: x \to \hat q_n(x)^n$ is a sequence of positive functions and it is monotonically increasing and converging to $\hat g^p$.
+
+	By Beppo-Levi (from measure theory):
+	\[ \infty_\Omega {\hat g}^p = \lim_{n\to\infty} \int_\Omega \hat g_n = \lim_{n\to\infty} (\Norm{q^n}_p^*)^p = a^p < \infty \]
+	$\implies \hat g^p < \infty$ almost everywhere (except for a $\mu$ zero-set).
+	Define $g: \Omega \to \mathbb R$,
+	\[ x \mapsto \begin{cases} \hat g(x) & \text{ if } \hat g(x) < \infty \\ 0 & \text{else} \end{cases} \]
+	We get that $g \in \mathcal L^n(\Omega, \mathbb R, \mu)$ and $g(x) = \lim_{n \to \infty} \sum_{i = 1}^n \Abs{f_i(x)}$ $\mu$-almost everywhere.
+	Furthermore, by completeness of $\mathbb K^M$, $f(x) \coloneqq \sum_{i=1}^\infty f_i(x)$ exists for $\mu$-almost everywhere. $x \in \Omega$.
+
+	Show: $f = \sum_{i=1}^\infty f_i$ in $\mathcal L^n(\cdot)$, i.e. show that $\lim_{n \to \infty} \int_{\Omega} \Abs{\sum_{i=1}^\infty f_i}^p_{d_N} = \sigma$.
+	\[ \Norm{\sum_{i=1}^{n-1} f_i - \sum_{i=1}^\infty f_i}_p^* = \Norm{\sum_{i=n}^\infty f_i}_p^* \xrightarrow{!} 0 \]
+	By contruction, $\Abs{f} \leq q$ almost everywhere $\implies \int_{\Omega} \Abs{f}^p \leq \int_\Omega g^p < \infty$.
+	Set $h_n(x) = \Abs{\sum_{i=n}^\infty f_i(x)}^p$. Then $h_n(x) \to 0$ for $\mu$-almost everywhere $x \in \Omega$ and $h_n(x) \geq 0$ and
+	\[ 0 \leq h_n(x) \leq \left(\sum_{i=n}^\infty \Abs{f_i(x)}\right)^p \leq q(x)^p \]
+	Hence, by the dominated convergence theorem,
+	\[ \lim_{n \to \infty} \int_{\Omega} h_n(x) = \int_{\Omega} \lim_{n \to \infty} h_n(x) = 0 \]
+	This completes the assertion since
+	\[ \int_\Omega h_n(x) = \int_\Omega \Abs{\sum_{i=n}^\infty f_i(x)}^p = \int_\Omega \Abs{\sum_{i=1}^{n-1} f_i(x) - f(x)}^p = \left(\Norm{\sum_{i=1}^{n-1} f_i - f}_p^*\right)^p \]
 \end{proof}
 
 \printindex
