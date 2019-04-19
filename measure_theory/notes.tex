@@ -1069,7 +1069,7 @@ It is obvious if $s$ is simple, then $\int s \, d\mu = \max\SetDef{\int t \, d\m
 \end{Theorem}
 
 \index{Fatou's Lemma}
-\begin{Lemma}[Lemma by Fatou]
+\begin{Lemma}[Fatou's Lemma]
   Let $f_n: (X, \mathcal A) \to [0, \infty]$ be measurable.
   \[ \implies \int \left(\lim_{n\to\infty} \inf{f_n}\right) \, d\mu \leq \liminf_{n\to\infty} \int f_n \, d\mu \]
 \end{Lemma}
@@ -1377,15 +1377,15 @@ where $g$ and $\mathbf{1}_C$ is Borel-measurable and thus $f \cdot \mathbf{1}_C$
 
 \begin{proof}
   \begin{enumerate}
-    \item[1a.] $f = \mathbf{1}_A$, $A' \in \mathcal A' \implies f \circ \varphi = \mathbf{1}_{\varphi^{-1} A'}$
+    \item[1a.] $f = \mathbf{1}_A$, $A' \in \mathcal A' \implies f \circ \varphi = \mathbf{1}_{\varphi^{-1}(A')}$
       \[ \int_{X} f\circ \varphi \, d\mu = \mu(\varphi^{-1} A') = \mu_{\varphi}(A') = \int_{X'} f \, d\mu_{\varphi} \]
     \item[1b.] $f = \sum_{k=1}^n c_k \cdot \mathbf{1}_{A'_k}$
-      \[ (c_k \geq 0) \implies f \circ \varphi = \sum_{k=1}^n c_k \cdot \mathbf{1}_{\varphi^{-1} A'_k} \]
+      \[ (c_k \geq 0) \implies f \circ \varphi = \sum_{k=1}^n c_k \cdot \mathbf{1}_{\varphi^{-1}(A'_k)} \]
       \[ A'_k = [f = c_k] \implies \text{ statement is correct} \]
     \item[2.]
-      $f \geq 0$ then $0 \leq f_n \nearrow f$ and $f_n$ is simple.
-      Also $f_n \circ \varphi \nearrow f \circ \varphi$, $f_n \circ \varphi$ is simple.
-      \[ \int_X f \circ \varphi \, d\mu = \lim \int_X f_n \circ \varphi \, d\mu = \lim \int_{X'} f_n \, d\mu_{\varphi} = \int_{X'} f \, d\mu_{\varphi} \]
+      $f \geq 0$ then choose $0 \leq f_n \nearrow f$ such that $f_n$ is simple.
+      Then also $f_n \circ \varphi \nearrow f \circ \varphi$ such that $f_n \circ \varphi$ is simple.
+      \[ \int_X f \circ \varphi \, d\mu = \lim \int_X f_n \circ \varphi \, d\mu \overset{(1b)}{=} \lim \int_{X'} f_n \, d\mu_{\varphi} = \int_{X'} f \, d\mu_{\varphi} \]
     \item[3.]
       \[ f = f^+ - f^- \qquad f \circ \varphi = f^+ \circ \varphi - f^- \circ \varphi \]
       \[ (f \circ \varphi)^{\pm} = f^{\pm} \circ \varphi \]
@@ -1396,24 +1396,35 @@ where $g$ and $\mathbf{1}_C$ is Borel-measurable and thus $f \cdot \mathbf{1}_C$
 \begin{example}
   \[ \varphi: (\mathbb R, \mathcal B) \to (\mathbb R, \mathcal B) \qquad f: (\mathbb R, \mathcal B) \to (\mathbb R, \mathcal B) \text{ $\lambda$-integrable} \]
   \[ \lambda_{\varphi}(A) = \lambda(\varphi^{-1}(A)) \]
-  \[ \int_{\mathbb R} (A) = \lambda(\varphi^{-1}(A)) \]
+  \[ \lambda \xrightarrow{\varphi} \lambda_\varphi \xrightarrow{f} f(t) \]
   \[ \int_{\mathbb R} f(\varphi(x)) \, \underbrace{d\lambda(x)}_{\lambda(dx)} = \int_{\mathbb R} f(t) \, d\lambda_{\varphi}(t) \]
   by substitution $\varphi(x) = t$.
 \end{example}
 
 \begin{Remark}
-  $\varphi$ is strictly monotonic. $\varphi' \neq 0$, $\varphi(\mathbb R)$.
+  $\varphi$ is strictly monotonic. $\varphi' \neq 0$, $\varphi(\mathbb R)$ (differentiable and thus measurable).
   \[ \psi = \varphi^{-1}: \varphi(\mathbb R) \to \mathbb R \qquad \psi' \neq 0 \]
+  $x = \psi(t)$.
 
-  $x = \psi(t)$
   Riemann: $dx = \psi'(t) \, dt$
-  \[ \int_{-\infty}^{\infty} f(\varphi(x)) \, dx = \left.\int_c^d f(t)\right|_{\psi'(t)} \]
+  \[ \int_{-\infty}^{\infty} f(\varphi(x)) \, dx = \int_c^d f(t) \psi'(t) \, dt \]
+\end{Remark}
 
-  \[ \lim \frac{\varphi(x + h) - \varphi(\lambda)}{x} \]
+\begin{Remark}
+  Monotonically increasing or decreasing:
+  \[ \int_{-\infty}^{\infty} f(\varphi(x)) \, dx = \int_c^d f(t) \Abs{\varphi'(t)} \, dt \]
+\end{Remark}
 
-  TODO
-
-
+\begin{Remark}[Lebesgue]
+  \[ \nu_1([a, b]) = \int_{\mathbb R} f(t) \, d\lambda_\varphi(t) \overset?= \int_{\varphi(\mathbb R)} f(t) \Abs{\psi'(t)} \, d\lambda(t) = \nu_2([a, b]) \qquad (\psi([a, b]) = [a', b']) \]
+  \begin{align*}
+    f = \mathbf 1_{[a, b]}: \int_{\mathbb R} \mathbf 1_{[a, b]} \, d \lambda_\varphi(t)
+      &= \int_{\mathbb R} \mathbf 1_{[a, b]} (\varphi(x)) \, d \lambda(x)
+      = \int \underbrace{\mathbf 1_{[a, b]}}_{\text{Riemann}} (\varphi(x)) \, dx \\
+      &= \int \mathbf 1_{[a, b]} (t) \Abs{\psi'(t)} \, dt
+      = \int_{\varphi(\mathbb R)} \underbrace{\mathbf 1_{[a, b]}}_{\text{Lebesgue}} \Abs{\psi'(t)} \, d\lambda(t)
+  \end{align*}
+  $\nu_1$ and $\nu_2$ are measures and equal on the intervals. By the uniqueness theorem, $\nu_1 = \nu_2$.
 \end{Remark}
 
 % previously: Sigma algebras and measures
@@ -1457,7 +1468,7 @@ The intersection of Dynkin systems is a Dynkin system
 \end{proof}
 
 \begin{lemma}
-  \label{lamme:3-2}
+  \label{lemma:3-2}
   Let $\varepsilon \subset \mathcal P(X)$ is closed under intersection $\implies \mathcal D(\varepsilon) = \sigma(\varepsilon)$
 \end{lemma}
 
@@ -1848,7 +1859,7 @@ $\mu \otimes \nu (A \times B) = \mu(A) \nu(B)$.
   From now on: $g \longleftrightarrow \mu \otimes \nu$
 \end{Remark}
 
-\begin{theorem}[Fubini-Tonelli Theorem]
+\begin{theorem}[Fubini--Tonelli Theorem]
   Let $f: X \times Y \to [0, \infty]$ be measurable. Then
   \[ \int_{X \times Y} f \, d\mu \times \nu = \int_X \left[\int_Y f_X \, d\nu\right] \, d\mu(x) = \int_Y \left[\int_X f^Y \, d\mu \right] \, d\nu(x) \]
 \end{theorem}
@@ -2200,7 +2211,7 @@ one of them is finite.
   Is trivial to show.
 \end{Remark}
 
-\section{Theorem of Radon-Nikodym}
+\section{Theorem of Radon--Nikodym}
 
 Related to Johann Radon: \url{https://en.wikipedia.org/wiki/Radon_transform}
 
@@ -2407,7 +2418,7 @@ Also $\mu[\Abs{f - g} \geq a] = 0 \forall a = \frac 1r > 0$ with $r \in \mathbb 
 
 \paragraph{Excursion}
 
-\begin{lemma}[Borel-Cantelli Lemma]
+\begin{lemma}[Borel--Cantelli Lemma]
   \[ \sum_{k=1}^\infty \mu(A_k) < \infty \implies \mu\left(\lim\sup{A_k} = 0\right) \]
   \[ \mu\left(\bigcap_{n=1}^{\infty} \underbrace{\bigcup_{k=m}^{\infty} A_k}_{B_m \supset B_{m+1}} \right) = 0 \]
   \[ \mu(B_1) \leq \sum_{k} \mu(A_k) < \infty \qquad B_m \searrow \lim\sup A_k \]
