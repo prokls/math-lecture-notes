@@ -178,7 +178,7 @@ In practice, linear models occur rarely. But they often provide a sufficient heu
 
 	\emph{Decision variable:} $X_j$ is the quantity of good $j$
 
-	\[ \text{target function: } \max \sum_{j=1}^n C_j X_j \]
+	\[ \text{target function: } \max \sum_{j=1}^n c_j x_j \]
 	\[ \text{ subject to (constraints) } \sum_{j=1}^n a_{ij} x_j \leq b_i \qquad i \in \Set{1, \dots, m} \]
 	\[ \text{ with } x_j \geq 0 \qquad \text{ sign condition} \]
 
@@ -193,7 +193,7 @@ In practice, linear models occur rarely. But they often provide a sufficient heu
 		Consider $n$ different base alloys $L_1, \dots, L_n$.
 		For each material we have the lead content in percent ($a_1, \dots, a_n$) and the costs per unit of weight ($c_1, \dots, c_n)$.
 		We have to produce alloys with lead content $b \%$.
-		The decision variable $X_j$ is given by the ratio of $L_j$.
+		The decision variable $x_j$ is given by the ratio of $L_j$.
 
 		Formally, the problem can be defined as
 		\[ \min{\sum_{j=1}^n c_j x_j} \text{ s.t. } \sum_{j=1}^n x_j = 1, \sum_{j=1}^n a_j x_j = b, x_j \geq 0 \]
@@ -207,10 +207,10 @@ In practice, linear models occur rarely. But they often provide a sufficient heu
   $c_{ij}$ are the transportation costs from firm $i$ to customer $j$.
 
   Find an admissible transportation plan with minimal costs.
-  The decision variable $X_{ij}$ is the quantity of goods transported from firm $i$ to customer $j$.
+  The decision variable $x_{ij}$ is the quantity of goods transported from firm $i$ to customer $j$.
 
   Formally,
-  \[ \min{\sum_{i=1}^m \sum_{j=1}^n c_{ij} X_{ij}} \text{ s.t. } \sum_{i=1}^m X_{ij} = b_j, \sum_{j=1}^n X_{ij} = a_i, X_{ij} \geq 0 \quad j \in \Set{1, \dots, n}, i \in \Set{1, \dots, m} \]
+  \[ \min{\sum_{i=1}^m \sum_{j=1}^n c_{ij} x_{ij}} \text{ s.t. } \sum_{i=1}^m x_{ij} = b_j, \sum_{j=1}^n x_{ij} = a_i, x_{ij} \geq 0 \quad j \in \Set{1, \dots, n}, i \in \Set{1, \dots, m} \]
 \end{example}
 
 \begin{Example}[Diet problem]
@@ -242,7 +242,7 @@ In the following lectures, our goal will be:
 
 \begin{Definition}
   Standard form of a linear program (canonical representation)
-  \[ \max{z(x)} = z_0 + \sum_{j=1}^n c_j x_j \text{ such that } \sum_{j=1}^n a_{ij} x_j \leq b_i, X_j \geq 0 \qquad i \in \Set{1, \dots, m} \]
+  \[ \max{z(x)} = z_0 + \sum_{j=1}^n c_j x_j \text{ such that } \sum_{j=1}^n a_{ij} x_j \leq b_i, x_j \geq 0 \qquad i \in \Set{1, \dots, m} \]
   In compact notation:
   \[ \max{z_0 + c^t x} \text{ s.t. } Ax \leq b, x \geq 0 \]
   typically $\max c^t x$.
@@ -273,7 +273,7 @@ In the following lectures, our goal will be:
   	\item Let $x_j$ not be restricted w.r.t. the sign. Write $x_j$ as $x_j = x_j^+ - x_j^-$ with $x_j^+ \geq 0$ and $x_j^- \geq 0$.
   		$x_j$ will be replaced by $x_j^+ - x_j^-$ with $x_j^+ \geq 0$ and $x_j^- \geq 0$.
   		\begin{Remark}
-  			Disadvantage: Number of variables in increased.
+  			Disadvantage: Number of variables is increased.
   		\end{Remark}
   \end{enumerate}
 \end{Remark}
@@ -2575,7 +2575,7 @@ We consider two examples:
 
 \begin{theorem}
 	\label{theorem:5.1}
-	There exists a (finite) solution for the barriere problem if and only if the admissible set for the primal as well as the dual problem has a non-empty interior.
+	There exists a (finite) solution for the barrier problem if and only if the admissible set for the primal as well as the dual problem has a non-empty interior.
 \end{theorem}
 
 \begin{proof}
@@ -2647,7 +2647,7 @@ We consider two examples:
 \end{corollary}
 
 \begin{proof}
-	Follows from the previous theorem and Lemma~\ref{lemma:5.3}, which will be proven in the practicals.
+	Follows from Theorem~\ref{theorem:5.1} and Lemma~\ref{lemma:5.3}, which will be proven in the practicals.
 \end{proof}
 
 \begin{Definition}[Null variable]
