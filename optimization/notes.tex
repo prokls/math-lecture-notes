@@ -2656,7 +2656,7 @@ We consider two examples:
 \end{Definition}
 
 \begin{lemma}
-	\label{lemma:5.2}
+	\label{lemma:5.3}
 	If a linear program has admissible solutions and the set of admissible solutions is bounded,
 	then the corresponding dual program has strictly admissible solutions.
 
@@ -2793,6 +2793,190 @@ l
 	\[ \mu = \delta \cdot \frac{x^t z+ y^t w}{n + m} \qquad \delta \in (0, 1) \]
 	In particular, $\delta = \frac1{10}$ was established as practical parameter.
 \end{Remark}
+
+\dateref{2019/04/29}
+
+\begin{Revision}
+	\[ \max c^t x \]
+	\[ \text{s.t. } Ax + w = b; x, w \geq 0 \]
+
+	\[ \min b^t y \]
+	\[ \text{s.t. } A^t y - z = c; y, z \geq 0 \]
+
+	\begin{align*}
+		Ax + w &= b \\
+		A^t y - z &= c \\
+		XZe &= \mu e \\
+		YWe &= \mu e \\
+		X, W, Y, Z &\geq 0
+	\end{align*}
+	\[ X_j Z_j = \mu \forall j \qquad Y_i W_i = \mu \forall i \]
+
+	\[ x, w, y, z \to (x + \theta \triangle x, w + \theta \triangle w, y + \theta \triangle y, z + \theta \triangle z) \]
+	all components should stay positive (hence admissible and not on the boundary).
+
+	Choice of $\mu$:
+	\[ \mu = \triangle \frac{x^tz + y^tw}{n + m} \qquad \triangle \in (0, 1), \text{ e.g. } \triangle = \frac{1}{10} \]
+\end{Revision}
+
+By the choice of $\theta$ (step size),
+\begin{align*}
+	x_j + \theta \triangle x_j &> 0 \to \frac1\theta > -\frac{\triangle x_j}{x_j} \forall j \\
+	z_j + \theta \triangle z_j &> 0 \\
+	w_i + \theta \triangle w_i &> 0 \\
+	y_i + \theta \triangle y_i &> 0 \\
+\end{align*}
+\[ \frac{1}{\theta^*} = \max_{i,j} \Set{-\frac{\triangle x_j}{x_j}, -\frac{\triangle z_j}{z_j}, \frac{\triangle w_i}{w_i}, \frac{\triangle y_i}{y_i}} \]
+To avoid contact with boundary, we choose $\theta$ such that
+\[ \theta = \min\Set{r \Set{\max_{i, j} \Set{-\frac{\triangle x_j}{x_j}, -\frac{\triangle z_j}{z_j}, \frac{\triangle w_i}{w_i}, \frac{\triangle y_i}{y_i}}}^{-1}, 1} \]
+Thus $r < 1$, but close to $1$.
+
+\begin{Revision}[Linear Newton system]
+	$\triangle x, \triangle y, \triangle z, \triangle w$ as solution of
+	\begin{align*}
+		A \triangle x + \triangle w &= \triangle \\
+		A^t \triangle y - \triangle z &= \sigma \\
+		Z \triangle x + X \triangle z &= \mu e - XZe \\
+		W \triangle y + Y \triangle w &= \mu e - ZWe \\
+	\intertext{with}
+		\rho &= b - Ax - w \\
+		\sigma &= c - A^t y + z
+	\end{align*}
+\end{Revision}
+
+The algorithm is completely specified.
+The analysis remains to be done.
+
+Measuring progress:
+\begin{enumerate}
+	\item Measuring primal admissibility
+	\item Measuring dual admissibility
+	\item Performance (size of duality gap) and accordingly complement notion
+\end{enumerate}
+Use $\rho = b - Ax - w$, $\rho = c - A^t y + z$ and $\gamma = z^t x + y^t w$.
+
+\subsubsection{Progress in one iteration}
+\begin{enumerate}
+	\item Measuring primal admissibility
+		\[ \hat g = b - A \hat x - \hat w = \underbrace{b - Ax - w}_{\rho} - \theta (A\triangle x + \triangle w) \]
+		where $A\triangle x + \triangle w = \rho$ according to the Linear Newton system. Hence,
+		\[ \hat g = b - A \hat x - \hat w = (1 - \theta) \rho \]
+	\item Analogously, we get,
+		\[ \hat \sigma = c - A^t \hat y + \hat z = \dots = (1 - \theta) \sigma \]
+	\item
+		\begin{align}
+			\hat y &= \hat z^t + \hat x + \hat y^t \hat w \label{num}\\
+				&= (z + \theta \triangle z)^t (x + \theta \triangle x) + (y + \theta \triangle y)^t + (w + \theta \triangle w) \nonumber\\
+				&= \underbrace{z^t x + y^t w}_{\gamma} + \theta (z^t \triangle x + \triangle z^t x + y^t \triangle w + \triangle y^t w)
+				+ \theta^2 (\triangle z^t \triangle x + \triangle y^t \triangle w) \nonumber
+		\end{align}
+		where $\triangle z^t \triangle x + \triangle y^t \triangle w = (A^t \triangle y - \sigma)^t \triangle x + \triangle y^t (\rho - A \triangle x) = \triangle y^t \rho - \sigma^t \triangle x$.
+		By the Linear Newton system, we have,
+		\begin{align*}
+			z^t \triangle x + \triangle z^t x &= e^t \left(Z \triangle x + X \triangle z\right) \\
+				&= e^t \left(\mu e - ZXe\right) = \mu n - z^t x
+		\end{align*}
+		Analogously,
+		\begin{align*}
+			y^t \triangle w + \triangle y^t w &= e^t \left(Y \triangle w + W \triangle y\right) + e^t \left(\mu e - YWe\right) = \mu m - y^t w
+		\end{align*}
+		\begin{align*}
+			\triangle z^t \triangle x + \triangle y^t \triangle w
+				&= (A^t \triangle y - \sigma)^t \triangle x + \triangle y^t (\rho - A \triangle x) \\
+				&= \triangle y^t \rho - \sigma^t \triangle x
+		\end{align*}
+		Thus, by \eqref{num},
+		\[ \hat y = \underbrace{z^t x + y^t w}_{\gamma} + \theta\underbrace{\left(\mu(n + m) - (z^t x + y^t w)\right)}_{\delta \gamma} + \theta^2 \left(\triangle y^t \rho - \sigma^t \triangle x\right) \]
+		So, $\hat\gamma = (1 - (1 - \delta) \theta) \gamma + \theta^2 \left(\triangle y^t \rho - \sigma^t \triangle x\right)$.
+		We continue using estimates.
+
+		The following special case of Hölder's inequality is helpful:
+		\[ \Abs{v^t u} = \Abs{\sum_j v_j u_j} \leq \sum_j \Abs{v_j} \Abs{u_j} \leq \left(\max_{j} \Abs{v_j}\right) \cdot \sum_j \Abs{u_j} = \Norm{v}_\infty \cdot \Norm{u}_1 \]
+
+		In our case, we get:
+		\begin{align*}
+			\Abs{\triangle y^t \rho} &\leq \Norm{\rho}_1 \Norm{\triangle y}_\infty \\
+			\Abs{\sigma^t \triangle x} &\leq \Norm{\sigma}_1 \cdot \Norm{\triangle x}_{\infty} \\
+		\intertext{Hence,}
+			\hat y &\leq (1 - (1 - \delta) \theta) \gamma + \theta \left(\Norm{\rho}_1 \cdot \Norm{\theta \triangle y}_\infty + \Norm{\sigma}_1 \cdot \Norm{\theta \triangle x}_\infty\right)
+		\end{align*}
+		By choice of $\theta$, 
+		\[ \theta \leq \frac{x_j}{\Abs{\triangle x_j}} \text{ for all } j \]
+		\[ \to \Norm{\theta \triangle x}_{\infty} \leq \Norm{x}_{\infty} \]
+		Analogously, $\Norm{\theta \triangle g}_{\infty} \leq \Norm{y}_\infty$.
+		Assume $\Norm{x}_{\infty}$ and $\Norm{y}_\infty$ are bounded by above, then $\exists M \in \mathbb R: \Norm{x}_{\infty} \leq M$ and $\Norm{y}_\infty \leq M$ ($M$ can be very large). Thus,
+		\[ \hat y \leq (1 - (1 - \delta) \theta) \gamma + \theta (M \Norm{\rho}_1 + M \cdot \Norm{\sigma}_1) \]
+\end{enumerate}
+
+\subsubsection{About the termination condition}
+
+Let $\varepsilon > 0$ be a small tolerance parameter and $0 < M < \infty$ a large tolerance parameter.
+\begin{itemize}
+	\item If $\Norm{x}_{\infty} > M$ is true at some point, then STOP with error \enquote{(P) is unbounded} ($M$ must be chosen sufficiently large!)
+	\item If $\Norm{y}_{\infty} > M$ is true at some point, then STOP with error \enquote{(D) is unbounded}
+	\item If $\Norm{\rho}_1 < \varepsilon$ (sufficiently primaly admissible), $\Norm{\sigma}_1 < \varepsilon$ (sufficiently dually admissible) and $\gamma < \varepsilon$ (suffienciently optimal), then STOP and return current $x$ (i.e. $(x, z)$) and current $y$ (i.e. $(y, w)$) as optimal solution of (P) and accordingly (D).
+\end{itemize}
+
+\subsubsection{Relation of $\gamma$ and the performance of the duality gap}
+
+\begin{align*}
+	\gamma &= z^t x + y^t w
+		= (\sigma + A^t y - c)^t x + y^t (b - Ax - \rho) \\
+		&= \underbrace{b^t y - c^t x}_{\text{duality gap}} - \sigma^t x - \rho^t y \\
+	\Abs{b^t y - c^t x} &\leq \gamma + \Abs{\sigma^t x} + \Abs{y^t \rho} \\
+		&\leq \gamma + \Norm{\rho}_1 \cdot \Norm{x}_{\infty} + \Norm{\rho}_1 \Norm{y}_\infty
+\end{align*}
+So, if $\gamma, \Norm{\sigma}_1, \Norm{\rho}_1$ are sufficiently small (and $\Norm{x}_\infty$ and $\Norm{y}_{\infty}$ are sufficiently large), then the duality gap is sufficiently small.
+
+You should not expect that the duality gap becomes sufficiently small before $x$ and $y$ are almost admissible ($\Norm{\sigma_1}$ and $\Norm{\rho}_1$ sufficiently small) (this is also confirmed in numerical experiments).
+
+\subsubsection{Analysis of progress over multiple iterations}
+
+Denote $\rho^{(k)}, \sigma^{(k)}, x^{(k)}, y^{(k)}, z^{(k)}, w^{(k)}, \gamma^{(k)}, \theta^{(k)}$, et cetera denote the corresponding value in iteration $k$ (iteration 0 defines the initial values).
+
+\begin{theorem}
+	\label{theorem:5.4}
+	Assume $\exists t \in \mathbb R, t > 0, M \in \mathbb R, M < \infty$ and $K \in \mathbb N$ such that
+	\[ \theta^{(k)} \geq t \qquad \Norm{x^{(k)}} \leq M \qquad \Norm{y^{(k)}} \leq M \]
+	is true for all $k \leq K$. Then $\exists \hat M < \infty$ such that
+	\begin{align*}
+		\Norm{\rho^{(k)}}_1 &\leq (1 - t)^k \Norm{\rho^{(0)}}_1 \\
+		\Norm{\sigma^{(k)}}_1 &\leq (1 - t)^k \Norm{\sigma^{(0)}}_1 \\
+		\gamma^{(k)} &\leq (1 - \tilde t)^k \cdot \hat M
+	\end{align*}
+	for all $k \in K$ with $\tilde t \coloneqq (1 - \delta)$.
+\end{theorem}
+
+\begin{proof}
+	By analysis of the progress in one iteration, we get:
+	\begin{align*}
+		\Norm{g^{(k)}}_1 &\leq (1 - t) \cdot \Norm{g^{(k-1)}}_1 \leq \dots \leq (1 - t)^k \cdot \Norm{\rho^{(0)}}_1 \\
+		\Norm{\sigma^{(k)}}_1 &\leq (1 - t) \Norm{\sigma^{(k-1)}}_1 \leq \dots \leq (1 - t)^k \Norm{\sigma^{(0)}}_1
+	\end{align*}
+	More difficult for $\gamma(k)$, we get
+	\[ \gamma(k) \leq (1 - t(1 - \delta)) \gamma^{(k - 1)} + M (1 - t)^{k-1} \left(\Norm{\rho^{(0)}}_1 + \Norm{\rho^{(0)}}_1\right) \]
+	\[ = (1 - \tilde t) \gamma^{(k-1)} + \tilde M (1 - t)^{(k - 1)} \text{ with } \tilde M = M(\Norm{\rho^{(0)}}_1 + \Norm{\sigma^{(0)}}_1) \]
+	\[ \leq (1 - \tilde t)\left((1 - \tilde t) \gamma^{(k-2)} + \tilde M (1 - t)^{k-2}\right) \]
+	\[ = (1 - \tilde t)^2 \gamma^{k-2} + \tilde M (1 - t)^{k-1} \cdot \left(\frac{1 - \tilde t}{1 - t} + 1\right) \]
+	\[ \vdots \]
+	\[ \leq (1 - \tilde t)^k \gamma^{(0)} + \tilde M (1 - t)^{k-1} \left[\left(\frac{1 - \tilde t}{1 - t}\right)^{k-1} + \dots + \frac{1 - \tilde t}{1 - t} + 1\right] \]
+	gives a geometrical sum. Hence,
+	\[ = (1 - \tilde t)^k \gamma^{(0)} + \tilde M \cdot (1 - t)^{k-1} \cdot \left(1 - \left(\frac{1 - \tilde t}{1 - t}\right)^k\right) \left(1 - \frac{1 - \tilde t}{1 - t}\right)^{-1} \]
+	\[ = (1 - \tilde t)^k \cdot \gamma^{(0)} + \tilde M \left((1 - \tilde t)^k - (1 - t)^k\right)(t - \tilde t)^{-1} \]
+	\[ \leq (1 - \tilde t)^k \cdot \gamma^{(0)} + \tilde M \left(1 - \tilde t\right)^k \cdot (\delta t)^{-1} \]
+	\[ = (1 - \tilde t)^k \cdot (\gamma^{(0)} + \tilde M \cdot (\delta t)^{-1}) \]
+\end{proof}
+
+\begin{Remark}[Remark about Theorem~\ref{theorem:5.4}]
+	Theorem~\ref{theorem:5.4} is a constrained convergence result, because the assumption $\theta^{(n)} \geq t \forall k \leq K$ was made such that the step size of $\teta$ is path bounded. The latter can be achieved by a modification of the algorithm and a proper choice of an initial solution. Details can be looked up in literature.
+\end{Remark}
+
+\begin{Remark}
+	Consider that factor $(1 - t)$ per iteration for $\rho$ and $\sigma$ and factor $(1 - \tilde t)$ for $\gamma$.
+	In practice, it can be shown that the dual gap converges slower than primal and dual inadmissibility
+\end{Remark}
+
+TODO
 
 \printindex
 \end{document}

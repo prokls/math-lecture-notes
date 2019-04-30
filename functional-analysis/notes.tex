@@ -417,7 +417,7 @@ Now, which topics are we going to cover in this course:
 	\end{enumerate}
 \end{Example}
 \begin{Remark}
-	\[ l^\infty \coloneqq \SetDef{(X_i)_{i \in \mathbb N}}{\sup_{i \in \mathbb N} \Abs{x_i} < \infty} \]
+	\[ L^\infty \coloneqq \SetDef{(X_i)_{i \in \mathbb N}}{\sup_{i \in \mathbb N} \Abs{x_i} < \infty} \]
 	\[ \Norm{(X_i)_{i \in \mathbb N}} = \sup_i \Abs{X_i} \]
 \end{Remark}
 
@@ -1572,7 +1572,7 @@ We consider a common, but less useful reformulation:
 \begin{proposition}
 	\label{proposition:2.15}
 	Let $p \in [1, \infty]$. Then $\Norm{\cdot}_p^*$ is a seminorm on $\mathcal L^p(\Omega, \mathcal K^M, \mu)$ and $\mathcal L^n(\Omega, \mathcal K^M, \mu)$ is complete with the seminorm.
-	With $M \coloneqq \lfloor \in \mathcal L^p(\cdot): \Norm{f}_p^m = 0\rfloor$, we get that
+	With $M \coloneqq \SetDef{f \in \mathcal L^\infty}{\Norm{f}_p^* = 0}$, we get that
 	$L^p(\Omega, \mathbb K^M, \mu) \coloneqq \mathcal L^p(\Omega, \mathbb K^M, \mu) / M$ is a Banach space with respect to $\Norm{[f]}_p \coloneqq \Norm{f}_p^*$.
 \end{proposition}
 
@@ -1583,7 +1583,7 @@ We consider a common, but less useful reformulation:
 	Hence, show that $\mathcal L^p(\Omega, \mathbb K^M, \mu)$ is complete.
 
 	Assume $p < \infty$.
-	By Proposition~TODO, it suffices to show that for $f_n(t_n)_n$ in $\mathcal L^p(\cdot)$ such that $a \coloneqq \sum_{n=1}^\infty \Norm{f_n}_p^* < \infty$.
+	By Proposition~\ref{definition:2.2}, it suffices to show that for $f_n(t_n)_n$ in $\mathcal L^p(\cdot)$ such that $a \coloneqq \sum_{n=1}^\infty \Norm{f_n}_p^* < \infty$.
 	\[ \implies \exists f \in \mathcal L^p(\cdot): f = \sum_{n=1}^\infty f_n \]
 
 	Define $\hat q(x) \coloneqq \sum_{n=1}^\infty \Abs{f_n(x)} \in [0, \infty]$.
@@ -1609,6 +1609,128 @@ We consider a common, but less useful reformulation:
 	\[ \lim_{n \to \infty} \int_{\Omega} h_n(x) = \int_{\Omega} \lim_{n \to \infty} h_n(x) = 0 \]
 	This completes the assertion since
 	\[ \int_\Omega h_n(x) = \int_\Omega \Abs{\sum_{i=n}^\infty f_i(x)}^p = \int_\Omega \Abs{\sum_{i=1}^{n-1} f_i(x) - f(x)}^p = \left(\Norm{\sum_{i=1}^{n-1} f_i - f}_p^*\right)^p \]
+\end{proof}
+
+\dateref{2019/04/30}
+
+\begin{Proposition}[Proposition 2.15 again]
+	Let $p \in [1, \infty]$. Then $\Norm{\cdot}_{L^p}$ is a seminorm, $\mathcal L^p(\Omega, \mathbb K^n, \mu)$ is complete and $L^p(\Omega, \mathbb K^M, \mu) \coloneqq \mathcal L^p(\cdot)/N$ where $N = \SetDef{f}{\Norm{f}_{L^p} = 0}$ is a Banach space.
+\end{Proposition}
+
+\begin{proof}
+	Assume $p \in [1, \infty]$, then the proof of the last lecture is given.
+
+	Assume $p = \infty$. Let $(f_n)_n$ be Cauchy in $\mathcal L^\infty$. Remember: $\Norm{f}_{L^\infty} \coloneqq \inf_{\mu(N) = 0} \sup_{x \in \Omega\setminus N} \Abs{f(x)}$.
+	Pick $N_{n,m}$ such that $\mu(N_{n,m}) = 0$ and $\Abs{f_n - f_m}_\infty = \Norm{\left.(f_n - f_m)\right|_{\Omega \setminus N_{n,m}}}_{\infty}$. Set $N = \bigcup_{n,m} N_{n,m} \implies \mu(N) = 0$.
+
+	Then $\tilde f$ is the uniform limit of $f_n \cdot \mathbf 1_{\Omega \setminus N}$. Hence $\tilde f$ is measurable.
+	Also $\Norm{\hat f}_{L^\infty} \coloneqq \inf_{\mu(M) = 0} \sup_{X \subset \Omega\setminus M} \Abs{f(x)} \leq \Norm{f}_{\infty} \implies \hat f \in L^{\infty}(\Omega, \mathbb K^n, \mu)$. Also $\Norm{f_n - \tilde f}_{L^\infty} = \Norm{\left.(f_n - f)\right|_{\Omega \setminus N}}_{\infty} = \Norm{\left.f_n\right|_{\Omega\setminus N} - f}_\infty \to 0$ as $n \to \infty$.
+\end{proof}
+
+Now $(\left.f_n\right|_N)_n$ is Cauchy with respect to $\Norm{\cdot}_\infty$. Since $\forall n, m$:
+\begin{align*}
+	\Norm{\left.f_n\right|_{N^C} - \left.f_M\right|_{N^C}}_{\infty}
+		&= \Norm{\left.(f_n - f_M)\right|_{N^C}}_{\infty} \\
+		&\leq \Norm{(f_n - f_m)_{N_{m,n}^C}}_{\infty} \\
+		&= \Norm{f_n - f_m}_{L^\infty}
+\end{align*}
+As in the proof of $C_b$ being a Banach space:
+\[ \implies \exists f: \Omega \setminus N \to \mathbb K^M: \Norm{f}_{\infty} < \infty \text{ and } \left.f_n\right|_{N^C} \to f \text{ w.r.t. } \Norm{}_\infty \]
+
+\begin{Remark}[Important special cases]
+	\begin{description}
+		\item[Case 1] 
+			$\mu = \mathcal L^N$ is the Lebesgue measure on $\Omega \subset \mathbb R^N$ (a domain).
+			In this case we write $L^p(\Omega, \mathbb K^M) \coloneqq L^p(\Omega, \mathbb K^M, \lambda^M)$ and $L^p(\Omega) \coloneqq L^p(\Omega, \mathbb K)$.
+			Here the space $L^p(\Omega, \mathbb K)$ is considered as functions which are defined almost everywhere.
+		\item[Case 2]
+			Set $\Omega = \mathbb N, \sigma = \mathbb P(\mathbb N), \mu_c(A) = \Abs{A}$.
+	\end{description}
+	Then
+	\begin{itemize}
+		\item $f: \Omega \to \mathbb K^m$ is identified with a sequence $(x_n)_n$ with $x_n \in \mathbb K^M$.
+		\item $\int_{\Omega} f(x) \, d\mu(x) \sim \sum_{i \in \mathbb N} x_i \in \mathbb K^M$
+		\item $\mu_c(A) = 0 \iff A = \emptyset$ and the equivalence class construction becomes obsolete.
+	\end{itemize}
+	And we denote,
+	\[ l^p(\mathbb N, \mathbb K^M) = \mathcal L^p(\mathbb N, \mathbb K^M, \mu_c) \qquad l^p \coloneqq l^p(\mathbb N) = l^p(\mathbb N, \mathbb K) \]
+\end{Remark}
+
+\subsubsection{Basic properties of Lebesgue spaces}
+
+\begin{proposition}
+	\label{proposition:2.16}
+	The space $l^p(\mathbb N, \mathbb K^M)$ is separable for $p \in [1, \infty]$ and \emph{not} separable for $p = \infty$.
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[$p < \infty$] 
+			Define $l_{i,j} \in l^p(\mathbb N, \mathbb K^M)$ as
+			\[ (l_{ij})_k \coloneqq \begin{cases} 0 & \text{if } i \neq k \\ \begin{pmatrix} 0 & \ldots & 0 & 1 & 0 & \ldots & 0 \end{pmatrix}^T & \text{if } i = k \end{cases} \]
+			Then $A \coloneqq \SetDef{e_{ij}}{i \in \mathbb N, j \in \Set{1, \dots, M}}$ is countable.
+
+			It suffices to show that $\overline{\operatorname{span}(A)} = l^p(\mathbb N, \mathbb K^M)$.
+
+			This is true since $\forall x \in l^p(\mathbb N, \mathbb K^M): \forall \varepsilon > 0 \exists n_0: \sum_{n_0=1}^\infty \Abs{x_i}^p < \varepsilon$ and hence $\Norm{x - \sum_{i=1}^{n_0} \sum_{j=1}^M x_{ij} e_{ij}}^p = \left(\sum_{i=n_0 + 1} \Abs{x_i}^n\right)^{\frac1n} < \varepsilon^{\frac1p}$
+		\item[$p = \infty$]
+			It suffices to show that $L^\infty(\mathbb N)$ is not separable (why?).
+			For $M \subset \mathbb N$ define $\mathbf 1_M \in L^\infty$. Then $\triangle \coloneqq \SetDef{\mathbf 1_M}{M \subset \mathbb N}$ is uncountable.
+
+			For $A \subset L^\infty$ countable and $x \in A$ set $M_X = \SetDef{y \in L^\infty}{\Norm{x - y}_\infty < \frac13} = B_{\frac13}(x)$. Then each $M_X$ contains at most one element of $\triangle$ since if $\mathbf 1_M \neq \mathbf 1_{M'}$ are such that $\mathbf 1_M, \mathbf 1_{M'} \in M_X$.
+			\[ \implies 1 = \Norm{\mathbf 1_M - \mathbf 1_{M'}}_\infty \leq \Norm{\mathbf 1_M - x} + \Norm{\mathbf 1_{X'} - x} < \frac23 \]
+			This gives a contradiction.
+
+			$\triangle$ is uncountable, $\SetDef{M_X}{x \in A}$ is countable.
+			\[ \implies \exists \hat M \in \mathbb N: \mathbf 1_{\hat M} \not\in M_x \forall x \in A \]
+			\[ \implies \Norm{\mathbf 1_{\hat M} - x}_{\infty} \geq \frac13 \forall x \in A \]
+			Hence, $A$ is not dense. Since $A$ was arbitrary countable.
+			Thus $L^\infty$ is not separable.
+	\end{description}
+\end{proof}
+
+\subsubsection{Separability of $L^p$ requires a density result}
+
+\begin{proposition}
+	\label{proposition:2.17}
+	Let $f \in L^p(\mathbb R^N, \mathbb K^M)$. Let $p < \infty$. Then $\exists (f_n)_n \in \dots$
+	$C_C(\mathbb R^N, \mathbb R^M)$ such that $\Norm{f_n - f}_{L^n} \to 0$ as $n \to \infty$.
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[Step 1] 
+			Reduction to step functions with $E \in \Sigma$.
+			\[ \xi_E(x) \coloneqq \begin{cases} 1 & x \in E \\ 0 & \text{else} \end{cases} \]
+			Take $f \in L^p(\dots)$. For $\varepsilon > 0$, define
+			\[ E_C = \lceil x : \varepsilon \leq \Abs{f} \leq \frac1\varepsilon \rceil \]
+			Then $E_\varepsilon \in \Sigma$ and $\int_{\mathbb R^N} \Abs{f}^p \geq \varepsilon^p \Abs{E_\varepsilon}$ where $\Abs{E_\varepsilon} \coloneqq L^N(E_\varepsilon)$.
+			\[ \Abs{E_\varepsilon} < \infty \text{ and } \int_{\mathbb R^N} \Abs{\mathbf 1_{E_\varepsilon} f} \leq \frac1\varepsilon \cdot \Abs{E_\varepsilon} < \infty \]
+			\[ \implies \mathbf 1_{E_\varepsilon} f \text{ is integrable } \implies \exists (q_{n,\varepsilon})_n \text{ step functions} \]
+			such that $\int_{\mathbb R^N} \Abs{\mathbf 1_{E_\varepsilon} f - q_{n, \varepsilon}} \to 0$ as $n \to \infty$. Define
+			\[ f_{n, \varepsilon}(x) \coloneqq \begin{cases} q_{N,\varepsilon}(x) & \text{if } x \in E_\varepsilon, \Abs{q_{n,\varepsilon}(x)} \leq \frac2\varepsilon \\ \frac{2}{\varepsilon} \frac{q_{n,\varepsilon}(x)}{\Abs{q_{n,\varepsilon(x)}}} & \text{if } x \in E_\varepsilon, \Abs{q_{n, \varepsilon}(x)} > \frac2\varepsilon \\ 0 & \text{else} \end{cases} \]
+			Hence $(f_{n,\varepsilon})_n$ is a sequence of step functions. For $x \in E_\varepsilon$ such that $\Abs{q_{n,\varepsilon}(x)} > \frac2\varepsilon$.
+			\[ \implies \Abs{f_{n,\varepsilon}(x) - f(x)} \leq \frac{2}{\varepsilon} + \frac{1}{\varepsilon} = \frac{3}{\varepsilon} \leq 3 \underbrace{\left(\Abs{q_{n,\varepsilon}(x)} - \Abs{f(x)}\right)}_{\geq \frac1\varepsilon} \leq 3 \Abs{q_{n,\varepsilon}(x) - f(x)} \]
+			\[ \int_{\mathbb R^n} \Abs{f_{n,\varepsilon}(x) - X_{E_\varepsilon}(x) f(x)} \, dx \leq 3 \int_{\mathbb R^N} \Abs{g_{n,\varepsilon}(x) - \mathbf 1_{E_{\varepsilon}}(x) f(x)} \, dx \to 0 \text{ as } n \to \infty \]
+			\[ \int_{\mathbb R^N} \Abs{f - f_{n,\varepsilon}}^p \leq \int_{\mathbb R^N \setminus E_\varepsilon} \Abs{f}^p + \left(\frac3\varepsilon\right)^{p-1} \underbrace{\int_{\mathbb R^N} \Abs{f \mathbf 1_{E_{\varepsilon}} - f_{n,\varepsilon}}}_{(*)} \eqqcolon (X) \]
+			\[ (*) = \int_{E_{\varepsilon}} \Abs{R - f_{n,\varepsilon}}^p = \int_{\mathbb R^N} \Abs{f \cdot \mathbf 1_{E_\varepsilon} - f_{n,\varepsilon}}^p  = \int_{\mathbb R^N} \Abs{f \mathbf 1_{E_\varepsilon} - f_{n,\varepsilon}} \left(
+				\underbrace{\Abs{f \mathbf 1_{E_\varepsilon}}}_{\leq \frac13} +
+				\underbrace{\Abs{f_{n,\varepsilon}}^{p-1}}_{\leq \frac23}\right) \]
+			Now given $\delta > 0$, we first fix $\varepsilon > 0$ such that $\int_{\mathbb R^N \setminus E_\varepsilon} \Abs{f}^p < \frac\delta2$. Then we find $n_0$ such that $\left(\frac{3}\varepsilon\right)^{n-1} \int_{\mathbb R^N} \Abs{f \mathbf 1_{E_\varepsilon} - f_{n,\varepsilon}} < \frac\delta2$. This is possible since $\mathbb R^N = \bigcup_{\varepsilon > 0} E_\varepsilon \text{ and } \int_{\mathbb R^N} \Abs{f}^n < \infty$.
+			\[ \implies (X) < \delta \]
+
+			Now suppose $\forall \varepsilon > 0 \forall E \in \Sigma: \exists \varphi \in C_C(\mathbb R^N, \mathbb K^M)$ such that $\Norm{\mathbf 1_E - \varphi} < \varepsilon$. We need to show that this is true.
+			Then for $f \in L^p(\mathbb R^N, \mathbb K), \varepsilon > 0$, we pick
+			\[ g = \sum_{i=1}^n \underbrace{c_i}_{\in \mathbb K^M} \cdot \underbrace{\mathbf 1_{E_i}}_{\in \Sigma} \]
+			such that $\Norm{f - g}_p < \frac\varepsilon2$ (possible by what we just showed).
+			For $i \in \mathbb N$, pick $\varphi_i \in C_C(\mathbb R^N, \mathbb R)$ such that $\Norm{\mathbf 1_{E_i} - \varphi_i}_p \leq \frac{2^{-i} \varepsilon}{\Abs{C_i} 2}$
+			\begin{align*}
+				\implies \bigg\|f - \underbrace{\sum_{i=1}^n c_i \cdot \varphi_i}_{\in C_C(\mathbb R^n, \mathbb K^n)}\bigg\|_p
+					&\leq \frac\varepsilon2 + \sum_{i=1}^n \Norm{c_i \mathbf 1_{E_i} - c_i \varphi_i}_p \\
+					&\leq \frac\varepsilon2 + \sum_{i=1}^n \Abs{c_i} \cdot \Norm{\mathbf 1_{E_i} - \varphi_i}_p \\
+					&\leq \frac\varepsilon2 + \sum_{i=1}^n 2^{-i} \cdot \frac\varepsilon2 \leq \varepsilon
+			\end{align*}
+	\end{description}
 \end{proof}
 
 \printindex
