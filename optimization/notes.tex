@@ -2968,12 +2968,179 @@ Denote $\rho^{(k)}, \sigma^{(k)}, x^{(k)}, y^{(k)}, z^{(k)}, w^{(k)}, \gamma^{(k
 \end{proof}
 
 \begin{Remark}[Remark about Theorem~\ref{theorem:5.4}]
-	Theorem~\ref{theorem:5.4} is a constrained convergence result, because the assumption $\theta^{(n)} \geq t \forall k \leq K$ was made such that the step size of $\teta$ is path bounded. The latter can be achieved by a modification of the algorithm and a proper choice of an initial solution. Details can be looked up in literature.
+	Theorem~\ref{theorem:5.4} is a constrained convergence result, because the assumption $\theta^{(n)} \geq t \forall k \leq K$ was made such that the step size of $\theta$ is path bounded. The latter can be achieved by a modification of the algorithm and a proper choice of an initial solution. Details can be looked up in literature.
 \end{Remark}
 
 \begin{Remark}
 	Consider that factor $(1 - t)$ per iteration for $\rho$ and $\sigma$ and factor $(1 - \tilde t)$ for $\gamma$.
 	In practice, it can be shown that the dual gap converges slower than primal and dual inadmissibility
+\end{Remark}
+
+TODO
+
+\dateref{2019/04/30}
+
+\section{Nonlinear optimization without constraints}
+\subsection{Basic terminology}
+
+We consider functions of $\mathbb R^n \to \mathbb R$.
+
+\begin{definition}[minimum, maximum]
+	\index{Global minimum}
+	\index{Local minimum}
+	\index{Strict global minimum}
+	\index{Strict local minimum}
+	Function $f: \mathbb R^n \to \mathbb R$ has a
+	\begin{description}
+		\item[global minimum] in $x^* \in \mathbb R$ if $f(x^*) \leq f(x) \forall x \in \mathbb R^n$
+		\item[strict global minimum] in $x^* \in \mathbb R$ if $f(x^*) < f(x) \forall x \in \mathbb R^n \setminus \Set{x^*}$
+		\item[local minimum] in $x^* \in \mathbb R$ if $\exists \varepsilon > 0$ such that $f(x^*) \leq f(x) \forall x \in \mathcal U_\varepsilon(x^*)$
+		\item[strict local minimum] if $\exists \varepsilon > 0$ such that $f(x^*) < f(x) \forall x \in U_\varepsilon(x^*) \setminus \Set{x^*}$
+	\end{description}
+	Analogously for maximum/maxima.
+
+	\index{Minimizer}
+	The minimum/maximum $x^*$ satisfying the (strict/weak local/global) criteria, is also called (local/global) \emph{minimizer}.
+\end{definition}
+
+\begin{Remark}
+	Every global minimum is also a local minimum, but not vice versa. \\
+	For convex functions, the two definitions collapse. \\
+	For simplicity, we always consider minimization problems.
+\end{Remark}
+
+\begin{Remark}
+	The typical goal in the field of non-linear optimization (and thus also what software on this field typically does), is determination of local optima (min or max) or potential candidates. Determination of global optima is significantly more difficult. Thus a separate field of global optimization was established.
+\end{Remark}
+
+\begin{Example}
+	A typical problem in non-linear unconstrained optimzation is: given $f$, find local minima of $f$.
+	\[ \min_{x \in \mathbb R^n} f(x) \]
+	This is different from non-linear optimzation \emph{with} constraints:
+	Given $f$, find $x \subset \mathbb R^n$
+	\[ \min f(x) \qquad \text{s.t. } x \in X \]
+\end{Example}
+
+One important aspect are optimality criteria (criteria for local optima).
+In the following, we assume that $f$ is differentiable.
+
+\begin{definition}
+	\index{Stationary point}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. Then we call $x^* \in \mathbb R^n$ \emph{stationary point} of $f$ if $\nabla f(x^*) = 0$.
+\end{definition}
+
+\begin{theorem}
+	\label{theorem:2.1.1}
+	Let $f: X \to \mathbb R$ be a continously differentiable function and let $X \subseteq \mathbb R^k$ be an open set. If $x^* \in X$ is a local minimum of $f$ (on $X$), then $\nabla f(x^*) = 0$, thus $x^*$ is a stationary point on $f$.
+\end{theorem}
+
+\begin{proof}
+	Suppose $x^*$ is a local minimum of $f$ with $\nabla f(x^*) \neq 0$.
+	Then there exists $d \in \mathbb R^n$ with $(\nabla f(x^*))^t d < 0$ (e.g. choose $d = -\nabla f(x^*) \neq 0$).
+	Because $f$ is continuously differentiable by assumption, the directional derivative of $f$ in $x^*$ in direction $d$ satisfies:
+	\[ f'(x^*, d) = \lim_{t \to 0} \frac{f(x^* + td) - f(x^*)}{t} = \left(\nabla f(x^*)\right)^t d < 0 \]
+	\[ \exists \overline{t} > 0: x^* + td \in X \text{ and } \frac{f(x^* + td) - f(x^*)}{t} < 0 \forall t \in (0, \overline{t}] \]
+	\[ f(x^* + td) < f(x^*) \forall t \in (0, \overline t] \]
+	This is a contradiction to $x^*$ as a local minimum.
+\end{proof}
+
+\begin{Remark}
+	\begin{enumerate}
+		\item The approach within the proof and the relevance of the directional derivative will reoccur in our algorithmic considerations. Keyword \enquote{line search algorithms}.
+		\item The condition $\nabla f(x^*) = 0$ is not sufficient for existence of a local minimum (e.g. such a $x^*$ can also be local maximum of $f$ or neither nor).
+	\end{enumerate}
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:2.1.2}
+	Let $X \subseteq \mathbb R^n$ be an open set and let $f: X \to \mathbb R^n$ be two times differentiable.
+	If $x^*$ is a local minimum of $f$ (on $X$), then the Hessian matrix $\nabla^2 f(x^*)$ of $f$ in $x^*$ is positive definite.
+
+	This is a necessary condition of second order.
+\end{theorem}
+
+\begin{proof}
+	Assume $x^*$ is a local minimum, but $\nabla^2 f(x^*)$ is not positive semi-definite, thus $\exists d \in \mathbb R^n$ with $d^t \nabla^2 f(x^*) d < 0$.
+
+	By Theorem~\ref{theorem:2.1.1} ($\to \nabla f(x^*) = 0$) together with Taylor's theorem, we get that for all sufficiently small $t > 0$,
+	\[ f(x^* + td) = f(x^*) + \frac12 t^2 d^t \nabla^2 f(\xi_t) d \text{ where } \xi_t = x^* + \vartheta _t td \text{ for some } \vartheta_t \in (0, 1) \]
+	Using continuity, we can conclude that $\exists \overline{t} > 0$ such that $f(x^* + td) < f(x^*) \forall t \in (0, \overline{t}]$. This is a contradiction to $x^*$ being a local minimum.
+\end{proof}
+
+\begin{Remark}
+	Also these two criteria are insufficient for the existence of a local minimum.
+	\begin{Example}
+		$n = 2$. $f(x) = x_1^2 - x_2^4$, $x^* = (0, 0)$.
+	\end{Example}
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:2.1.3}
+	Let $X \subseteq \mathbb R^n$ be open and let $f: X \to \mathbb R$ be two times differentiable. If
+	\begin{enumerate}
+		\item $\nabla f(x^*) = 0$
+		\item $\nabla^2 f(x^*)$ positive definite
+	\end{enumerate}
+	then $x^*$ is a strict local minimum of $f$ (on $X$).
+
+	This is a sufficient optimality criterion of second order.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+	It can be shown that the second condition yields,
+	\[ \exists \mu > 0: d^t \nabla^2 f(x^*) d \geq \mu d^t d \forall d \in \mathbb R^n \]
+	By Taylor's theorem, $\forall d \in \mathbb R^n$, that are sufficiently close to the zero-vector, that
+	\[ f(x^* + td) = f(x^*) + \nabla f(x^*)^t d + \frac12 d^t \nabla^2 f(\xi_d) d \]
+	with $\xi_d = x^* + \vartheta_d$ and $\vartheta_d \in (0, 1)$.
+	By the first condition and the Cauchy-Schwarz inequality, we get
+	\begin{align*}
+		f(x^* + d) &= f(x^*) + \frac12 d^t \nabla^2 f(x^*) d + \frac12 d^t \left(\nabla^2 f(\xi_d) - \nabla^2 f(x^*)\right) d \\
+			&\geq f(x^*) + \frac12 \left(\mu - \Norm{\nabla^2 f(\xi_d) - \nabla^2 f(x^*)}\right) \Norm{d}^2
+	\end{align*}
+	\[ \implies f(x^* + d) > f(x^*) \forall d \neq 0 \text{ sufficiently close to } 0 \]
+	\[ \implies x^* \text{ is a strict local minimum} \]
+\end{proof}
+
+\begin{Remark}
+	The criterion above is not sufficient.
+	\begin{Example}
+		$n = 2$, $f(x) = x_1^2 + x_2^4$, $x^* = (0, 0)$
+	\end{Example}
+\end{Remark}
+
+\subsection{Convex functions}
+
+This is a brief, introductory section.
+\begin{Definition}
+	\index{Convexity}
+	$X \subseteq \mathbb R^n$ is called \emph{convex} if $\forall x, y \in X \forall \lambda \in [0, 1]: \lambda x + (1 - \lambda) y \in X$
+\end{Definition}
+
+\begin{Definition}
+	Let $X \subseteq \mathbb R^n$ be convex.
+	A function $f: X \to \mathbb R$ is called
+	\begin{description}
+		\item[convex on $X$] if $\forall x, y \in X \forall \lambda \in [0, 1]: f(\lambda x + (1 - \lambda) y) \leq \lambda f(x) + (1 - \lambda) f(y)$
+		\item[strictly convex on $X$] if $\forall x, y \in X \forall \lambda \in (0, 1): x \neq \implies f(\lambda x + (1 - \lambda) y) < \lambda f(x) + (1 - \lambda) f(y)$
+		\item[uniformly convex on $X$] if $\exists \mu > 0: f(\lambda x + (1 - \lambda) y) + \mu \lambda (1 - \lambda) \Norm{x - y}^2 \leq \lambda f(x) + (1 - \lambda) f(y) \forall x, y \in X \forall \lambda \in (0, 1)$.
+			$\mu$ is also called \emph{modulo}.\index{Modulo of uniform convexity}
+	\end{description}
+\end{Definition}
+
+\begin{figure}[t]
+	\begin{center}
+		\includegraphics{img/20_strict_convexity.pdf}
+		\caption{Convexity versus strict convexity}
+		\label{img:convexity}
+	\end{center}
+\end{figure}
+
+In case of a convex function, no point of a segment between two points $(x, f(x)), (y, f(y)) \in \mathbb R^{n+1}$ lies below the graph of $f$.
+
+\begin{Remark}
+	Every strict convex function is convex.
+	Every uniform convex function is strict convex.
+	The other directions do not hold in general.
 \end{Remark}
 
 TODO
