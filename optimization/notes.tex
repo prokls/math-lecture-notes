@@ -1981,7 +1981,8 @@ The following is an introductory example:
 	\end{align*}
 	has only solutions with negative target function value (because no solution with $u = 0$ exists).
 
-	TODO (o)
+	\[ \max\SetDef{-e^t u}{Ax + u = b, x, u \geq 0} \text{ with } -e^t u = \begin{pmatrix} 0 & -e \end{pmatrix} \begin{pmatrix} x \\ u \end{pmatrix} \text{ and } -e^tu = -\sum u_i \qquad (o) \]
+	has only solutions with negative target function values (but exists, call it $\gamma$).
 
 	So $\gamma < 0$. Now we apply the fundamental theorem of linear optimization.
 	Thus there exists an optimal (finite) basis solution for (o) with target function value $\gamma$.
@@ -2178,7 +2179,7 @@ A Simplex tableau $T$ is called
 \end{example}
 
 \begin{Remark}
-	The tableau has at least one of the following states:
+	The tableau is optimal if it has at least one of the following states:
 	\begin{itemize}
 		\item primally admissible + primally optimal
 		\item dually admissible + dually optimal
@@ -2188,9 +2189,9 @@ A Simplex tableau $T$ is called
 
 The dual Simplex method begins with a dually admissible tableaus and we consecutively apply pivot steps until a dually optimal tableau is given.
 
-What do pivot steps in the dual method look like?
+\emph{Question:} What do pivot steps in the dual method look like?
 
-TODO
+Optionally, we need an approach to determine a dually admissible initial solution.
 
 \dateref{2019/04/02}
 
@@ -2199,7 +2200,8 @@ Dual Simplex process:
 	\item Choice of a pivot row. Choice of a row with entry $< 0$ in 0-th column or if none exists, the optimal solution was reached. \\
 		  Analogously to the choice of the pivot column in the primal process.
 	\item Choice of the pivot column (ensures that the tableau stays dually admissible). \\
-		  Analogously to the choice of TODO
+		  Choose column $s$ with $\frac{t'_{os}}{t'_{rs}} = \min\SetDef{\frac{t'_{os}}{t'_{rj}}}{t'_{rj} < 0}$.
+		  %Analogously to the choice of TODO
 	\item Application of the pivot step
 		  \[ \overline{t}'_{rs} = \frac{1}{t'_{rs}} \qquad \overline{t}'_{rj} = \frac{t'_{rj}}{t'_{rs}} \text{ for } j \neq s \]
 		  \[ \overline{t}'_{is} = -\frac{t'_{is}}{t'_{rs}} \text{ for } i \neq r \qquad \overline{t}'_{ij} = t'_{ij} - \frac{t'_{is} \cdot t'_{rj}}{t'_{rs}} \]
@@ -2409,14 +2411,18 @@ We can determine vector $\tilde y$ as $\tilde y^t \coloneqq c_B^t A_B^{-1}$.
 	Assume the end consumer only wants to cover a specific ratio of the demand $\triangle b$ by pills.
 	For simplification assume $H_B^{-1}(b - \triangle b) \geq 0$. Then the basis $b$ stays optimal.
 	The costs of the ingredients get reduced by $\triangle z = \sum_i \triangle z_i$.
-	The relative reduction
-	TODO
+	The relative reduction $\frac{\triangle z_i}{\triangle b_i}$ is also called marginal price of $b_i$
+	\[ \triangle z = z_p - d_B^t H_B^{-1} (b - \triangle b) = d_B^t H_B^{-1} \triangle b = \overline{y} \triangle b \]
+	The marginal costs are now market prices $\overline{y}_i$.
+
+	If $a_i^t \overline{x} > b_i$ is true for some optimal solution $\overline{x}$ of the primal problem,
+	then the demand is more than expected. By the Theorem of complementary slackness,
+	$\overline{y}_i = 0$ and thus the pill $i$ is unsellable.
 \end{example}
 
-\dateref{2019/04/08}
-
+\clearpage
 \section{Inner point methods}
-
+\dateref{2019/04/08}
 \emph{Goal:} Method to solve linear programs with polynomial runtime (in the worst case) and is practical.
 
 \begin{Remark}
@@ -2973,10 +2979,12 @@ Denote $\rho^{(k)}, \sigma^{(k)}, x^{(k)}, y^{(k)}, z^{(k)}, w^{(k)}, \gamma^{(k
 
 \begin{Remark}
 	Consider that factor $(1 - t)$ per iteration for $\rho$ and $\sigma$ and factor $(1 - \tilde t)$ for $\gamma$.
-	In practice, it can be shown that the dual gap converges slower than primal and dual inadmissibility
+	Recognize that in practice, it can be shown that the dual gap converges slower than primal and dual inadmissibility.
 \end{Remark}
 
-TODO
+For practice, a lot of implementation details need to be discussed, but we won't do it in class.
+
+By convergence analysis we get that the primal-dual path traversal method leads to a method that can determine an almost-optimal pair $(x, y)$ in polynomial time. The termination condition is left to be discussed.
 
 \dateref{2019/04/30}
 
@@ -3143,7 +3151,409 @@ In case of a convex function, no point of a segment between two points $(x, f(x)
 	The other directions do not hold in general.
 \end{Remark}
 
+\begin{Example}
+	\begin{itemize}
+		\item $f(x) = x$ is convex
+		\item $f(x) = e^x$ is strictly convex, not uniform
+		\item $f(x) = x^2$ is uniformly convex
+	\end{itemize}
+	On the opposite side, $x^4$ is strictly convex, but not uniformly convex.
+	For the special case of quadratic functions, the following result can be shown easily:
+
+	Let $f: \mathbb R^n \to \mathbb R$ with $f(x) = \frac12 x^t Qx + c^t x + \gamma$ with $Q$ as symmetric $n \times n$ matrix over $\mathbb R$, $c \in \mathbb R^n$, $\gamma \in \mathbb R$. Then,
+	\begin{enumerate}
+		\item $f$ is convex iff $Q$ is positive semidefinite
+		\item $f$ is strictly convex iff $f$ is uniformly convex iff $Q$ is positive definite
+	\end{enumerate}
+\end{Example}
+
 TODO
+
+\dateref{2019/05/06}
+
+Our next goal are characterizations (of first or second order) for
+\begin{itemize}
+	\item convex
+	\item strict convex
+	\item uniform convexity
+\end{itemize}
+
+\begin{theorem}
+	\label{theorem:5.2.1}
+	Let $X \subseteq \mathbb R^n$ open and convex and $f: X \to \mathbb R$ is continuously differentiable.
+	Then
+	\begin{enumerate}
+		\item $f$ is convex (on $X$) iff $f(x) - f(y) \geq (\triangle f(y))^t (x - y) \forall x, y \in X$
+		\item $f$ is strictly convex (on $X$) iff $f(x) - f(y) > (\triangle f(y))^t (x - y) \forall x, y \in X$
+		\item $f$ is uniformly convex (on $X$) iff $f(x) - f(y) \geq (\nabla f(y))^t (x - y) + \mu \Norm{x - y}^2 \forall x, y \in X$
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{description}
+		\item[(1) and (2)] are left as an exercise for the reader
+		\item[(3)] Let $f$ be uniformly convex.
+			$\forall x, y \in X \forall \lambda \in (0, 1)$ for some $\mu > 0$,
+			\[ f(y + \lambda (x - y)) \leq \lambda f(x) + (1 - \lambda) f(y) - \mu \lambda (1 - \lambda) \Norm{x - y}^2 \]
+			\[ \frac{f(y + \lambda(x - y)) - f(y)}{\lambda} \leq f(x) - f(y) - \mu(1 - \lambda) \Norm{x - y}^2 \]
+			For $\lambda \to 0^+$, we get (by continuous differentiability of $f$)
+			\[ (\nabla f(y))^t (x - y) = \lim_{\lambda \to 0^+} \frac{f(y + \lambda(x - y)) - f(y)}{\lambda} \leq f(x) - f(y) - \mu\Norm{x - y}^2 \]
+			Thus, the third property follows.
+	\end{description}
+	The rest of the proof is left as an exercise to the reader.
+\end{proof}
+
+\begin{Definition}
+	Let $X \subseteq \mathbb R^n$. Consider $F: X \to \mathbb R^n$. Then $F$ is called
+	\begin{enumerate}
+		\item monotonous (on $X$) if $(X - y)^t (F(x) - F(y)) \geq 0 \forall x, y \in X$
+		\item strictly monotonous (on $X$) if $(X - y)^t (F(x) - F(y)) > 0 \forall x, y \in X$
+		\item uniformly monotonous (on $X$) if $(x - y)^t (F(x) - F(y)) \geq \mu \Norm{x - y}^2 \forall x, y \in X$
+	\end{enumerate}
+\end{Definition}
+
+\begin{Remark}
+	For $n = 1$, this corresponds to scalar functions and the usual notion of monotonicity.
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:5.2.2}
+	Let $X \subseteq \mathbb R^n$ be open and convex and let $f: X \to \mathbb R$ be continuously differentiable. Then
+	\begin{enumerate}
+		\item $f$ is convex (on $X$) iff $\nabla f$ is monotonous
+		\item $f$ is strictly convex (on $X$) iff $\nabla f$ is strictly monotonous
+		\item $f$ is uniformly convex (on $X$) iff $\nabla f$ is uniformly monotonous
+	\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+	\label{theorem:5.2.3}
+	Let $X \subseteq \mathbb R^n$ be open and convex and let $f: X \to \mathbb R$ be two times differentiable ($\to \nabla f$ is continuously differentiable). Then
+	\begin{enumerate}
+		\item $f$ is convex (on $X$) iff $\nabla^2 f(x)$ is positive semidefinite $\forall x \in X$
+		\item $f$ is strictly convex (on $X$) \emph{if} $\nabla^2 f(x)$ is positive definite $\forall x \in X$
+		\item $f$ is uniformly convex (on $X$) iff $\nabla^2 f(x)$ is uniformly positive definite on $X$, thus
+			\[ \exists \mu > 0: d^t \nabla^2 f(x) d \geq \mu \Norm{d}^2 \forall x \in X \forall d \in \mathbb R^n \]
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Properties (1) and (2) are left as an exercise to the reader. We prove (3):
+	\begin{description}
+		\item[Direction $\implies$] 
+			Only property 3 is new to us. Let $f$ be uniformly convex. Use Theorem~\ref{theorem:5.2.2}~(3). So $\nabla f$ is uniformly monotonous. By appropriately chosen $\mu > 0$, we get
+			\begin{align*}
+			  d^t \nabla^2 f(x) d &= d^t \lim_{t\to0} \frac{\nabla f(x + td) - \nabla f(x)}{t}
+			  	= \lim_{t\to0} \frac{td^t(\nabla f(x + td) - \nabla f(x))}{t^2} \\
+			  	&\geq \lim_{t\to0} \frac{1}{t^2} \mu \Norm{td}^2 
+			  	= \mu \Norm{d}^2 \qquad\forall x \in X, d \in \mathbb R^n
+			\end{align*}
+			So, $\nabla^2 f(x)$ is uniformly positive definite.
+		\item[Direction $\impliedby$]
+			Let the third property be true. By the mean value theorem of differential calculus (in integral form),
+			we get
+			\begin{align*}
+				(x - y)^t (\nabla f(x) - \nabla f(y)) &= \int_0^1 (x - y)^t \nabla^2 f(y + \alpha(x - y)) (x - y) \, d\alpha \\
+					&\geq \mu \int_0^1 \Norm{x - y}^2 \, d\alpha = \mu \Norm{x - y}^2 \\
+					&\implies \nabla f \text{ is uniformly monotonous on } X \\
+					&\xRightarrow{\text{Theorem~\ref{theorem:5.2.2}~(3)}} f \text{ is uniformly convex on } X
+			\end{align*}
+	\end{description}
+\end{proof}
+
+\begin{Remark}
+	To verify that $\nabla^2 f(x)$ is 
+	\begin{description}
+		\item[positive semidefinite] use $\forall \lambda \in \operatorname{spec}(\nabla^2 f(x)): \lambda \geq 0$
+		\item[positive definite] use $\forall \lambda \in \operatorname{spec}(\nabla^2 f(x)): \lambda > 0$
+		\item[uniformly positive definite] use $\forall \lambda \in \operatorname{spec}(\nabla^2 f(x) - \mu I): \lambda \geq 0$
+	\end{description}
+	Thus all eigenvalues of $\nabla^2 f(x)$ are greater-equal to $\mu$.
+	Recognize that constant $\mu$ is independent of $x$.
+	Thus the eigenvalue of $0$ is negatively bounded.
+\end{Remark}
+
+\begin{Remark}[Remark about (2)]
+	$f(x) = x^4$ is strictly convex but $\nabla^2 f(x) = f''(x) = 12x^2$.
+	$f''(0) = 0$, so $f$ is only positive semidefinite.
+	There is only one direction in (2).
+\end{Remark}
+
+Our goal is to establish a result about the existence of a minimum.
+
+\begin{Definition}
+	Let $f: \mathbb R^n \to \mathbb R$
+	\[ \mathcal L(\tilde x) = \SetDef{x \in \mathbb R^n}{f(x) \leq f(\tilde x)} \]
+	defines a \emph{level set}\index{Level set}\dt{Niveaumenge}.
+\end{Definition}
+
+\begin{lemma}
+	\label{lemma:5.2.4}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable.
+	Let $\tilde x \in \mathbb R^n$ with $\mathcal L(\tilde x)$ is convex and let $f$ be uniformly convex on $\mathcal L(\tilde x)$.
+
+	Then $\mathcal L(\tilde x)$ is compact.
+\end{lemma}
+
+\begin{proof}
+	$\mathcal L(\tilde x) \neq \emptyset \implies \exists x \in \mathcal L(\tilde x)$.
+	Because $f$ is uniformly convex on $\mathcal L(\tilde x)$, we get (by $X = \frac12$ and appropriate $\mu > 0$)
+	\begin{align*}
+		\frac14 \mu \Norm{x - \tilde x}^2
+			&\leq \frac12 \left(\frac12 f(x) - f(\tilde x)\right) - \left(f(\frac12(x + \tilde x)) - f(\tilde x)\right) \\
+			&\leq -\left(f(\frac12(x + \tilde x)) - f(\tilde x)\right) \\
+			&\leq -\frac12 \nabla f(\tilde x)^t (x - \tilde x) \\
+			&\leq \frac12 \Norm{\nabla f(\tilde x)} \Norm{x - \tilde x}
+	\end{align*}
+	Thus $\Norm{x - \tilde x} \leq c$ with $c = \frac{2 \Norm{\nabla f(\tilde x)}}{\mu}$ (a constant independent of $x$) for all $x \in \mathcal L(\tilde x)$.
+
+	Thus $\mathcal L(\tilde x)$ is bounded. Because $f$ is continuous, $\mathcal L(\tilde x)$ is closed.
+	So $\mathcal L(\tilde x)$ is compact.
+\end{proof}
+
+\begin{Remark}
+	Assume $f$ to be uniformly convex on entire $\mathbb R^n$ or only on a convex set $X$, that contains $\mathcal L(\tilde x)$.
+	Then the convexity of $\mathcal L(\tilde x)$ follows immediately and we can omit the explicit precondition $\mathcal L(\tilde x)$.
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:5.2.5}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable and let $X \subseteq \mathbb R^n$ be convex.
+	We consider the optimization problem (P) $\min_{x \in X} f(x)$. Then
+	\begin{enumerate}
+		\item If $f$ is convex on $X$, then the solution set of (P) is convex (potentially empty)
+		\item If $f$ is strictly convex on $X$, then (P) has at most one solution.
+		\item If $f$ is uniformly convex on $X$ and $X \neq \emptyset$ and $X$ is closed (e.g. for $X = \mathbb R^n$), then (P) has exactly \emph{one} solution
+	\end{enumerate}
+\end{theorem}
+
+\begin{Remark}
+	The third property illustrates the particular significance of the class of convex, strictly convex and uniformly convex functions in non-linear optimization.
+\end{Remark}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Let $\bar x$ and $\bar{\bar x}$ be solutions of (P) with $\bar x, \bar{\bar x} \in X$.
+		\[ f(\bar x) = f(\bar{\bar x}) = \min_{x \in X} f(x) \]
+		For $\lambda \in (0, 1)$, we have $\lambda \bar{x} + (1 - \lambda) \bar{\bar x} \in X$, because $X$ is convex.
+
+		Because $f$ is convex,
+		\begin{align*}
+			f(\lambda \bar{x} + (1 - \lambda) \bar{\bar x})
+				&\leq \lambda f(\bar x) + (1 - \lambda) f(\bar{\bar x}) \\
+				&= f(\bar{x}) = \min_{x \in X} f(x) \\
+				&\implies \text{ also } \lambda \bar{x} + (1 - \lambda) \bar{\bar x} \text{ is solution of } (P)
+		\end{align*}
+		\item Assume there are 2 different solutions $\bar x$ and $\bar{\bar x}$ with $\bar x \neq \bar{\bar x}$.
+			For $\lambda \in (0, 1)$,
+			\[ f(\lambda \bar x + (1 - \lambda) \bar{\bar x}) < \lambda f(\bar{x}) + (1 - \lambda) f(\bar{\bar x}) = f(\bar x) = \min_{x \in X} f(x) \]
+			as $f$ is strictly convex.
+			This is a contradiction to $\bar{x}$ and $\bar{\bar x}$ as solutions of (P).
+		\item Let $\tilde x \in X$ be arbitrary. By Lemma~\ref{lemma:5.2.4}, $\mathcal L(\tilde x)$ is compact.
+			Thus $X \cap \mathcal L(\tilde x)$ with $X \neq \emptyset$ and $\mathcal L(\tilde x)$ is compact and non-empty.
+
+			Hence, the continuous function $f$ has a global minimum over $X \cap \mathcal L(\tilde x)$.
+			It has to be a solution of (P).
+	\end{enumerate}
+\end{proof}
+
+\begin{Remark}
+	Consider $f(x) = e^x$ over $X = \mathbb R$.
+	$f$ in strictly convex, but the solution set of $(P)$ is empty.
+
+	Strict convexity does not generally suffice to ensure the existence of (P). Remember that $e^x$ is not uniformly convex.
+
+	\begin{itemize}
+		\item If $f$ is uniformly convex and $X = \emptyset$, then there obviously does not exist a solution of (P)
+		\item If $f$ is uniformly convex and $X \neq \emptyset$, but $X$ is not closed, (P) might not have a solution.
+			\[ f(x) = x^2 \qquad X = (0, 1] \qquad \not\exists \text{ solution} \]
+	\end{itemize}
+\end{Remark}
+
+\begin{lemma}
+	\label{lemma:5.2.6}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. Let $\tilde x \in \mathbb R^k$ with $\mathcal L(\tilde x)$ convex.
+	$f$ is uniformly convex on $\mathcal L(\tilde x)$ and let $x^* \in \mathbb R^n$ be the unique solution of $\min_{x \in \mathbb R^n} f(x)$. Then there exists $\mu > 0$ such that
+	\[ \mu \Norm{x - x^*}^2 \subseteq f(x) - f(x^*) \qquad \forall x \in \mathcal L(\tilde x) \]
+\end{lemma}
+
+\begin{proof}
+	Use Theorem~\ref{theorem:5.2.2}~(3).
+	Observation $x^*$ as global minimum of $f$ is a stationary point of $f$.
+\end{proof}
+
+\dateref{2019/05/07}
+
+\begin{theorem}
+	\label{theorem:5.2.7}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable and convex.
+	Let $x^*$ be a stationary point of $f$.
+	Then $x^*$ is a global minimum of $f$ (on $\mathbb R^n$).
+\end{theorem}
+
+\begin{proof}
+	Follows by Theorem~\ref{theorem:5.2.2}.
+	\[ f(x) - f(x^*) \geq \underbrace{\left(\nabla f(x^*)\right)}_{=0}^t (x - x^*) = 0 \]
+	\[ \implies f(x) \geq f(x^*) \qquad \forall x \in \mathbb R^n \implies x^* \text{ is global minimum} \]
+\end{proof}
+
+\begin{Remark}
+	The result above can be generalized.
+
+	\[ f: X \to \mathbb R \text{ such that } \left(\nabla f(y)\right)^t (x - y) \geq 0 \implies f(x) \geq f(y) \forall x, y \in X \]
+	defines \emph{pseudoconvex functions}\index{Pseudoconvex functions} and thus the class of pseudoconvex functions which is a more generic class than the class of convex functions.
+\end{Remark}
+
+\subsection{Generic descent methods}
+
+The generic setup gives a function $f: \mathbb R^n \to \mathbb R$ continuously differentiable.
+\[ \min_{x \in \mathbb R^n} f(x) \]
+
+We look for local minima (or candidates for such).
+Consider $f$ as mountain range and local minima as valleys.
+
+The abstract idea of the descent method.
+Begin with $x^{(0)}$. Let $k \coloneqq 0$. Verify whether $x^*$ is a local minimum and test whether there is any direction $d^{(k)}$ such that beginning from $x^{(k)}$ a smaller target function value can be achieved.
+If not, a local minimum has been reached. If yes, take a small step in direction $d^{(k)}$ such that $x^{(k+1)} = x^{(k)} + t_k \cdot d^{(k)}$ with $t > 0$ as step size.
+
+Thus establishes the notion of direction of descent.
+\begin{definition}
+	Let $f: \mathbb R^n \to \mathbb R, x \in \mathbb R^n$.
+	A vector $d \in \mathbb R^n$ is called \emph{direction of descent}\index{direction of descent} for $f$ in $x$ if $\exists \hat t > 0$ such that $f(x + td) < f(x) \forall t \in (0, \hat t]$.
+\end{definition}
+
+However, this notion is difficult to verify algorithmically. We need an alternative approach.
+
+\begin{lemma}
+	\label{lemma:5.3.1}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable, $x \in \mathbb R^n$ and $d \in \mathbb R^n$.
+	Let $(\nabla f(x))^t d < 0$ (thus a negative direction of descent is given).
+	Then $d$ is the direction of descent of $f$ in $x$.
+\end{lemma}
+
+\begin{proof}
+	Because $f$ is continuously differentiable, we consider the directional derivative of $f$ in $x$:
+	\[ f'(x, d) = \lim_{t \to 0^+} \frac{f(x + td) - f(x)}{t} = \left(\nabla f(x)\right)^t d < 0 \]
+	$\implies f(x + td) - f(x) < 0$ for all $t > 0$ sufficiently small, thus we get value $\hat t$.
+\end{proof}
+
+\begin{Remark}
+	Does Lemma~\ref{lemma:5.3.1} provide a sufficient criterion for the existence of a direction of descent?
+\end{Remark}
+\begin{Remark}
+	But it is not sufficient. $x$ can be a strict local maximum.
+	All directions $d \neq 0$ are directions of descent, but $\not\exists d$ such that $\left(\nabla f(x)\right)^t d < 0$ (because $x$ is a stationary point).
+\end{Remark}
+\begin{Remark}[Geometrical interpretation of $\left(\nabla f(x)\right)^t d < 0$]
+	\[ \to \left(- \nabla f(x)\right)^t d > 0 \implies \text{ the angle between $-\nabla f(x)$ and $d$ is } < \frac\pi2 \]
+	\begin{figure}[t]
+		\begin{center}
+			\includegraphics{img/25_descent.pdf}
+			\caption{Geometrical interpretation of the descent}
+		\end{center}
+	\end{figure}
+\end{Remark}
+\begin{Remark}
+	Colloquially the condition $(\nabla f(x))^t d < 0$ is used as definition of direction of descent.
+\end{Remark}
+
+We are going to use this condition in our algorithms.
+
+\begin{Remark}[Observation]
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable and $x \in \mathbb R^n$. $x$ is not a stationary point of $f$.
+	Let $B$ be a symmetric, positive definite $n\times n$ matrix. Then $d = -B \nabla f(x)$ is a direction of descent.
+
+	\emph{Special case:} $d = -\nabla f(x)$ is a direction of descent. In particular, the direction of \emph{steepest descent}\index{Steepest descent}.
+\end{Remark}
+
+\begin{algorithm}[Generic descent method]\hfill{}
+	\begin{enumerate}
+		\item Choose $x^{(0)} \in \mathbb R^n$ and let $k \coloneqq 0$
+		\item If $x^{(k)}$ suffices the chosen termination condition, then STOP.
+		\item Determine a direction of descent $d^{(k)}$ of $f$ in $x^{(k)}$
+		\item Determine a step size $t_k > 0$ with $f(x^{(k)} + t_k d^{(k)}) < f(x^{(k)})$
+		\item Let $x^{(k+1)} \coloneqq x^{(k)} + t_k d^{(k)}$. Let $k \coloneqq k + 1$. Go to (1).
+	\end{enumerate}
+	Step size, direction of descent and termination condition are left to be discussed.
+\end{algorithm}
+
+For analysis of convergence, we consider the infinite sequence $\Set{x^{(k)}}, \Set{d^{(k)}}$ and $\Set{t_k}$ without satisfied termination condition. The central question for us is under which conditions of $d^{(k)}$ and $t_k$ we achieve convergence. With arbitrary chosen $d^{(k)}$ and $t_k$ we don't get a useful generic approach. We need to establish some conditions on $t_k$ and $d^{(k)}$.
+
+\emph{Our goal:} Every cluster point of sequence $\Set{x^{(k)}}$ should be at least one stationary point of $f$.
+
+\begin{Remark}[Find appropriate step size]
+	Given $(x, d)$ with $x \in \mathbb R^n$ and $d \in \mathbb R^n$, find step size $t > 0$.
+
+	Consider map $T$, that associates a subset $T(x, d)$ of $R^{++} = \SetDef{t \in R}{t > 0}$ to every $(x, d) \in \mathbb R^n \times \mathbb R^n$. We call $T$ a \emph{step size strategy}\index{Step size strategy} (or \emph{Step size rule}\index{Step size rule}).
+
+	\index{Well-defined step size strategy}
+	$T$ is called \emph{well-defined} if---under some particular conditions---the set $T(x, d)$ for every pair $(x, d) \in \mathbb R^n \times \mathbb R^n$ with $\left(\nabla f(x)\right)^t d < 0$ is non-empty.
+\end{Remark}
+
+\begin{definition}[Efficient step size strategy]
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable, $x \in \mathbb R^n$ and $d \in \mathbb R^n$ be a direction of descent of $f$ in $x$.
+	A step size strategy $T$ is called \emph{efficient}\index{Efficient step size strategy}, if $\exists \theta > 0$ (of $x$ and $d$) such that
+	\[ \forall t \in T(x, d): f(x + td) \leq f(x) - \theta \left(\frac{(\nabla f(x))^t d}{\Norm{d}}\right)^2 \]
+\end{definition}
+
+\begin{Remark}
+	One motivating case for this definition is the special case of quadratic functions (compare with practicals).
+\end{Remark}
+
+In the next subchapter, we are going to discuss specific (efficient) step size strategies.
+
+\begin{Definition}
+	$t \in T(x, d)$ with efficient $T$ is called \emph{efficient step size}\index{Efficient step size}.
+\end{Definition}
+
+\begin{theorem}
+	\label{theorem:5.3.2}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable and let sequence $\Set{x^{(k)}}$ be generated by the generic descent method. If $\Set{x^{(k)}}$ is satisfies the two conditions (E1) and (E2), then every cluster point of $\Set{x^{(k)}}$ is a stationary point of $f$.
+
+	Condition (E1) is called \enquote{angle condition}:
+	\[ \exists c > 0 \forall k \in \mathbb N: \frac{-\left(\nabla f(x^{(k)})\right)^t d^{(k)}}{\Norm{\nabla f(x^{(k)})}\Norm{d^{(k)}}} \geq c \]
+	Condition (E2) requires step sizes $t_k > 0$ are efficient for all $k \in \mathbb N$.
+\end{theorem}
+
+\begin{Remark}
+	The direction of the steepest descent $d^{(k)} = -\nabla f(x^{(k)})$ satisfies the angle condition.
+	More examples will be provided in the upcoming classes.
+\end{Remark}
+
+\begin{Remark}[About the angle condition E1]
+	Let $\varphi_k$ be an angle between $d^{(k)}$ and $-\nabla f(x^{(k)})$. Then
+	\[ \cos\varphi_k = -\frac{\left(\nabla f(x^{k})\right)^t d^{(k)}}{\Norm{\nabla f(x^k)}\Norm{d^{(k)}}} \]
+	If this angle is smaller than $\frac\pi2$, then the direction of descent is $d^{(k)}$ by Lemma~\ref{lemma:5.3.1}.
+	The condition (E1) states that the angle between $-\nabla f(x^{(k)})$ and $d^{(k)}$ is uniformly bounded (sufficiently far away from $\frac\pi2$).
+\end{Remark}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:5.3.2}]
+	For every efficient $t_k > 0$,
+	\[ \exists \theta > 0: f(x^{(k+1)}) > f(x^{(k)} + t_k \cdot d^{(k)}) \leq f(x^{(k)}) - \theta \left(\frac{(\nabla f(x^{(k)}))^t d^{(k)}}{\Norm{d^{(k)}}}\right)^2 \forall k \in \mathbb N \]
+	By E1, we get
+	\[ (*): \quad f(x^{(k+1)}) \leq f(x^{(k)}) - \kappa \cdot \Norm{\nabla f(x^{(k)})}^2 \text{ with } \kappa \coloneqq \theta c^2 \]
+	Now let $x^*$ be a cluster point of $\Set{x^{(k)}}$.
+
+	The sequence $\Set{f(x^{(k)})}$ is monotonically decreasing and converges on a subsequence towards $f(x^*)$.
+	Thus $\Set{f(x^{(k)})}$ converges towards $f(x^*)$.
+	\[ \implies f(x^{(k+1)}) - f(x^{(k)}) \to 0 \qquad \xRightarrow{(*)} \Norm{\nabla f(x^{(k)})} \to 0 \]
+	Thus every accumulation point of $\Set{x^{(k)}}$ is a stationary point of $f$.
+\end{proof}
+
+A second convergence result requires a weakening of the angle condition.
+(E1) forbids sequence $\frac\pi2$ to approach $\Set{\varphi_k}$. In this case, we discard this requirement, but it must not happen too fast.
+
+\begin{theorem}
+	\label{theorem:5.3.3}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. The level set $\mathcal L(x^{(0)}) = \SetDef{x \in \mathbb R^n}{f(x) \leq f(x^{(k)})}$ is convex and $f$ is uniformly convex on $\mathcal L(x^{(0)})$.
+	Let $\Set{x^{(k)}}$ be the iteration sequence generated by the descent method satisfying
+	\begin{description}
+		\item[$\overline{E1}$ (\enquote{Zouten dijk condition})] $\sum_{k=0}^\infty \delta_k = \infty$ with
+			\[ \delta_k = \left(\frac{\left(\nabla f(x^{(k)})\right)^t d^{(k)}}{\Norm{\nabla f(x^{(k)})}}\right) \]
+		\item[$\overline{E2}$] as before
+	\end{description}
+	In this case, $\Set{x^{(k)}}$ converges towards the uniquely determined global minimum of $f$
+\end{theorem}
 
 \printindex
 \end{document}
