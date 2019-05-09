@@ -98,6 +98,7 @@
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\vol}{vol}  % volume
 \DeclareMathOperator*{\bigtimes}{\vartimes}
+\DeclareMathOperator{\dom}{dom}
 
 
 
@@ -513,7 +514,7 @@ Now, which topics are we going to cover in this course:
 
 \begin{definition}[Limit]\index{Limit}
 	\label{definition:1.7}
-	Let $(X, \tau)$ be a topological space, $(X_n)_{n \in \mathbb N}$ be a sequence in $X$. Henceforth, we write $(X_n)_{n}$ for $(X_n)_{n \in \mathbb N}$ and $\hat x \in X$. We say $x_n \to x$ in $\tau$ as $n \to \infty$ (\enquote{$x_n$ converges to $x$}, \enquote{$x$ is limit of $x_n$})\index{Convergent sequence}\index{Limit} if
+	Let $(X, \tau)$ be a topological space, $(x_n)_{n \in \mathbb N}$ be a sequence in $X$. Henceforth, we write $(x_n)_{n}$ for $(x_n)_{n \in \mathbb N}$ and $\hat x \in X$. We say $x_n \to \hat x$ in $\tau$ as $n \to \infty$ (\enquote{$x_n$ converges to $x$}, \enquote{$x$ is limit of $x_n$})\index{Convergent sequence}\index{Limit} if
 	\[ \forall U \in \tau \text{ such that } \hat x \in U \exists n_0 \geq 0 \forall n \geq n_0: x_n \in U \]
 \end{definition}
 
@@ -691,7 +692,7 @@ Now, which topics are we going to cover in this course:
 
 \begin{proposition}
 	\label{prop:1.18}
-	Let $(X, d)$ be a metric space, $M \subset X$.
+	Let $(X, d)$ be a metric space, $M \subset X$.  % TODO: captial X? "a" closed set? "as" closed set?
 	\begin{enumerate}
 		\item $M$ is compact, so $\forall (X_i)_{i \in I}$ with $X_i$ a closed set $\forall i$ such that $\left(\bigcap_{i \in I} X_i\right) \cap M = \emptyset$.
 			\[ \implies \exists X_{i_1}, \dots, X_{i_n} \text{ such that } \left(\bigcap_{i=1}^n X_{ij}\right) \cap M = \emptyset \]
@@ -722,7 +723,7 @@ Now, which topics are we going to cover in this course:
 \begin{Remark}
 	\begin{enumerate}
 		\item totally bounded $\implies$ bounded (proof is left as an exercise)
-		\item If $\dim(x) < \infty$, then compact $\iff$ complete and bounded (see course Analysis I)
+		\item Assume $\dim(x) < \infty$. Compact $\iff$ complete and bounded (see course Analysis I)
 		\item $\dim(x) < \infty \iff \overline{B_1}(0)$ is compact
 	\end{enumerate}
 	where the last two items imply that $X$ is a normed space.
@@ -1014,7 +1015,7 @@ We consider a common, but less useful reformulation:
 	Let $(X, d)$ be a metric space, $M \subset X$. We say
 	\begin{itemize}
 		\item $M$ is \emph{nowhere dense}\index{Nowhere dense}\dt{nirgends dicht}, if $\mathring{\overline M} = \emptyset$
-		\item $M$ is of \emph{first category}\index{Set of first category}\index{First category} $\iff M$ is the countable union of nowhere dense sets
+		\item $M$ is of \emph{first category}\index{Set of first category}\index{First category} $\iff M$ is a countable union of nowhere dense sets
 		\item $M$ is of \emph{second category}\index{Set of second category}\index{Second category} $\iff M$ is not of first category
 	\end{itemize}
 \end{definition}
@@ -1043,7 +1044,7 @@ We consider a common, but less useful reformulation:
 \begin{Remark}
 	\begin{enumerate}
 		\item This is a fundamental theorem in Functional Analysis
-		\item This can be used to show that continuous, nowhere differentiable functions exist (construction is left as an exercise)
+		\item This can be used to show that continuous, nowhere differentiable functions exist (construction is left as an exercise, e.g. Weierstrass function)
 	\end{enumerate}
 \end{Remark}
 
@@ -1147,8 +1148,8 @@ We consider a common, but less useful reformulation:
 	Then $\sim$ defines an equivalence relation on $X$.
 	We define
 	\begin{itemize}
-		\item $[X]_\sim = \SetDef{y \in X}{x \sim y}$ \dots the equivalence class of $x \in X$
-		\item $X/Y \coloneqq \SetDef{[x]_\sim}{x \in X}$ \dots the quotient space
+		\item $[X]_\sim = \SetDef{y \in X}{x \sim y}$ is the \emph{equivalence class}\index{Equivalence class} of $x \in X$
+		\item $X/Y \coloneqq \SetDef{[x]_\sim}{x \in X}$ is the \emph{quotient space}\index{Quotient space}
 		\item $\pi: \begin{cases} X \to X / y \\ x \mapsto [x]_\sim \end{cases}$
 	\end{itemize}
 
@@ -1420,7 +1421,7 @@ We consider a common, but less useful reformulation:
 
 \begin{definition}[Definition and proposition, Spaces of continuous functions]
 	\label{definition:2.11}
-	Let $\Omega \subset \mathbb R^N$ be a domair. We define
+	Let $\Omega \subset \mathbb R^N$ be a domain. We define
 	\begin{align*}
 	  C_b(\Omega, \mathbb K^M) &= \SetDef{\varphi: \Omega \to \mathbb K^M}{\varphi \text{ bounded}} \text{ with } \Norm{\varphi}_{C_b} = \Norm{\varphi}_\infty = \sup_{x \in \Omega} \Abs{\varphi(x)} \\
 	  C(\overline\Omega, \mathbb K^M) &= \SetDef{\varphi: \Omega \to \mathbb K^M}{\varphi \text{ can be continuously extended to } \overline\Omega}, \Norm{\varphi}_C \coloneqq \Norm{\varphi}_\infty \\
@@ -1795,6 +1796,131 @@ As in the proof of $C_b$ being a Banach space:
 			Choose $\delta \coloneqq \frac{\varepsilon}{2 \cdot \Abs{M}^\frac1p}$, then the result follows.
 	\end{description}
 \end{proof}
+
+\dateref{2019/05/09}
+
+\begin{proposition}
+	\label{proposition:2.19}
+	Let $p \in [1, \infty]$, $(f_n)_n$, $f \in L^p(\Omega, \mathbb K^M)$ with $\Omega \subset \mathbb R^N$ a domain such that $f_n \to f$ in $L^p$.
+
+	Then there exists a subsequence $(f_{n_k})_k$ such that
+	\begin{enumerate}
+		\item $f_{n_k}(x) \to f(x)$ for almost every $x \in \Omega$
+		\item $\exists h \in L^p(\Omega)$ such that $(f_{n_k}(x)) \leq \Abs{h(x)}$ for almost every $x \in \Omega$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[Case $p = \infty$] Is left as an exercise to the reader.
+		\item[Case $p \in [1, \infty)$]
+			Pick $(n_k)_k$ such that $\Norm{f_{n_{k+1}} - f_{n_k}}_p \leq \frac1{2^k}$.
+			Define $g_n \coloneqq \sum_{k=1}^n \Abs{f_{n_{k+1}}(x) - f_{n_k}(x)}$.
+			Then $g_n(x)$ is increasing, $g_n(x) \geq 0 \forall n$.
+			%$\forall n \in \mathbb N: g_n(x) \leq 1$.
+
+			$\implies g_n(x)$ is convergent for almost every $x \in \Omega$.
+			Hence we can define $g(x) \coloneqq \lim_{n \to \infty} g_n(x) \in [0, \infty]$.
+
+			Also, $\Norm{g_n}_p \leq \sum_{i=1}^n \Norm{f_{n_{k+1}} - f_{n_k}} \leq 1$.
+			By Beppo-Levi,
+			\[ \int_\Omega \Abs{q(x)}^n \, dx = \lim_{n\to\infty} \int_\Omega \Abs{q_n(x)}^n = \lim_{n\to\infty} \Norm{g_n}_p^p \leq 1 \implies g \in L^p(\Omega) \]
+			especially $g(x) < \infty$ for almost every $x \in \Omega$.
+			\[ \forall l \geq k \geq 1:
+				\Abs{f_{n_l}(x) - f_{n_k}(x)} \leq
+				\sum_{i=k}^{l-1} \Abs{f_{n_{j+1}}(x) - g_{k-1}(x)}
+				g_{l-1}(x) - g_{k-1}(x)
+				\overset{\text{monot.}}{\leq} g(x) - g_{k-1}(x) \]
+			$\implies (f_{n_k}(x))_k$ is Cauchy for almost every $x \in \Omega$ such that we can define $\hat f(x) \coloneqq \lim_{k\to\infty} f_{n_k}(x)$.
+			\[ \Abs{\tilde f(x) - f_{n_k}(x)} \leq g(x) \text{ for almost every } x \in \Omega \]
+
+			By the Dominated convergence theorem, $\Norm{f_{n_k} - \tilde f}_n \to 0$ for $k \to \infty$.
+			$\implies f = \tilde f$ almost every and hence $f_{n_k}(x) \to f(x)$ for almost every $x \in \Omega \implies (1)$.
+			Also
+			\[ \Abs{f_{n_k}(x)} \leq \Abs{f_{n_k}(x) - f(x)} + \Abs{f(x)} \leq q(x) + \Abs{f(x)} \eqqcolon h(x) \]
+	\end{description}
+\end{proof}
+
+\section{Linear Operators}
+\label{section:3}
+
+\begin{definition}
+	\label{definition:3.1}
+	Let $X, Y$ be normed spaces and $D \subset X$ is a subspace.
+	A linear operator with domain $\operatorname{dom}(T) = D$ is a linear mapping $T: D \to Y$.
+	We define: $\operatorname{range}(T) = \operatorname{rg}(T) \coloneqq T(D)$.
+	Graph of $T$, $\operatorname{gr}(T) \coloneqq \SetDef{(x, y)}{x \in \operatorname{dom}(T), y = Tx} \subset X \times Y$.
+
+	We say that $T$ is decently define, if $\overline{\operatorname{dom}(T)} = X$.
+\end{definition}
+
+\begin{example}
+	\begin{enumerate}
+		\item $X = Y = C([0, 1], \mathbb R)$ and $\operatorname{dom}(T) \coloneqq C^1([0, 1], \mathbb R)$
+			$T: \operatorname{dom}(T) \to Y$ with $u \mapsto u'$.
+		\item $X = Y = \mathbb R^N, T: \mathbb R^n \to \mathbb R^n$ with $x \mapsto Ax$ with $A \in \mathbb R^{n \times n}$
+		\item Fixed $u \in L^p(\Omega)$ and $p \in [1, \infty)$.
+			\[ q \coloneqq \begin{cases} \frac{p}{p - 1} & p = 1 \\ \infty & \text{else} \end{cases} \]
+			\[ T: L^q(\Omega) \to \mathbb R \qquad v \mapsto \int_\Omega u \cdot v \]
+		\item $X = L^2(\Omega), Y = \mathbb R, \operatorname{dom}(T) = C(\overline \Omega)$ with $x \in \Omega$ fixed, $T: \operatorname{dom}(T) \to Y$ with $u \mapsto u(x_0)$
+	\end{enumerate}
+\end{example}
+
+\begin{definition}
+	\label{definition:3.2}
+	Let $X, Y$ be normed spaces and $T: X \to Y$ a linear operator ($\operatorname{dom}(T) = X$).
+	We say that $T$ is bounded $\iff \exists M > 0 \forall x \in X: \Norm{Tx}_y \leq M \Norm{x}_X$.
+	In this case, we define $\Norm{T} = \Norm{T}_{\mathcal L(X, Y)} \coloneqq \inf\SetDef{M > 0}{\Norm{Tx} \leq M\Norm{x} \forall x}$.
+
+	\[ \mathcal L(X, Y) \coloneqq \SetDef{T: X \to Y}{T \text{ bounded, linear operator}} \]
+	\[ \mathcal L(X) \coloneqq \mathcal L(X, X) \]
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:3.3}
+	Let $X, Y$ be normed spaces, $T: X \to Y$ be linear.
+	The following are equivalent:
+	\begin{enumerate}
+		\item $T$ is continuous
+		\item $T$ is continuous at $0$
+		\item $\exists M > 0$ such that $\Norm{Tx} \leq M \Norm{x} \forall x \in X$ ($T$ bounded)
+		\item $T$ is uniformly continuous
+	\end{enumerate}
+	Also:
+	\[ \Norm{T} = \sup_{\Norm{x} = 1} \Norm{Tx} = \sup_{\Norm{x}\leq 1} \Norm{T(x)} \text{ and } \Norm{Tx} \leq \Norm{T} \Norm{x} \forall x \in X \]
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[$(3) \to (4)$] 
+			Is true since $\forall x, y \in X: \Norm{Tx - Ty} = \Norm{T(x - y)} \leq M\Norm{x - y}$
+		\item[$(4) \to (1) \to (2)$] trivial
+		\item[$(2) \to (3)$]
+			Assume (3) is not true, then
+			\[ \exists (x_n)_n \text{ in } X: \forall n \in \mathbb N: \Norm{Tx_n} > n \Norm{x_n} \]
+			Define $y_n \coloneqq \frac{x_n}{\Norm{x_n} n} \implies \Norm{y_n} = \frac1n \implies y_n \to 0$
+			but $\Norm{T y_n} = \frac{\Norm{Tx_n}}{\Norm{x_n} n} > 1$. This gives a contradiction to continuity at $0$ since $T0 = 0$.
+	\end{description}
+\end{proof}
+
+Additionally,
+\[
+	M \coloneqq \sup_{x \neq 0} \frac{\Norm{Tx}{\Norm{x}}}
+		= \sup_{x \neq 0} \Norm{T \left(\frac{x}{\Norm{x}}\right)}
+		\leq \sup_{\Norm{x} = 1} \Norm{Tx}
+		\leq \sup_{\Norm{x} \leq 1} \Norm{Tx} 
+\]
+But also,
+\[ \sup_{\Norm{x} \leq 1} \Norm{Tx} = \sup_{\lambda \in [0,1]} \sup_{\Norm{x} = 1} \Norm{T(\lambda x)} = \sup_{\lambda \in [0, 1]} \lambda \left(\sup_{\Norm{x} = 1} \Norm{Tx}\right) = \sup_{\Norm{x} = 1} \Norm{Tx} = \sup_{x \neq 0} \Norm{\frac{Tx}{\Norm{x}}} \]
+
+We also get that
+\[ M_0 \geq \frac{\Norm{Tx}}{\Norm{x}} \forall x \in X, x \neq 0 \]
+\[ \implies \Norm{Tx} \leq M_0 \Norm{x} \forall x \in X: x \neq 0 \text{ and also for } x = 0 \implies \Norm{T} \leq M_0 \]
+\[ M_0(1 - \varepsilon) \leq \frac{\Norm{Tx_{\varepsilon}}}{\Norm{x_\varepsilon}} \]
+For $\varepsilon > 0$ pick $x_{\varepsilon} \neq 0$ such that
+\[ \Norm{Tx_\varepsilon} \geq M_0 (1 - \varepsilon) \Norm{x_\varepsilon} \]
+\[ \implies \Norm{T} \geq M_0(1 - \varepsilon) \]
+since $\varepsilon > 0$ was arbitrary $\implies \Norm{T} \geq M_0$.
 
 \printindex
 \end{document}
