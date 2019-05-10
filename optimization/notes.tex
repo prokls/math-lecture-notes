@@ -693,7 +693,7 @@ The following compact notations are practical: \\
 	$c_N$ & \dots & vector of cost-coefficients $c_j$ for $j \in N$ (non-basis variable)
 \end{tabular}
 \[ \max c^t x \qquad Ax = b, x \geq 0 \]
-\[ \implies \max c_B^t x_B + c_N^t x_N \qquad A_B x_B + A_N x_N = b; x_B, x_N \geq 0 \]
+\[ \implies \max c_B^t x_B + c_N^t x_N \qquad A_B x_B + A_N x_N = b \qquad x_B, x_N \geq 0 \]
 We can write it as,
 \[ c = (c_B, c_N) \quad x = (x_B, x_N) \quad A = (A_B, A_N) \]
 
@@ -786,7 +786,7 @@ Now let $B$ be a fixed basis and $N$ is the corresponding non-basis.
 Polyhedron P:
 \[ x_B = \tilde b - A_N x_N \qquad x_B, x_N \geq 0 \]
 where the basis variables are represented by the non-basis variables.
-This is the reduced representation wrt. $(BN)$.
+This is the reduced representation with respect to $(B, N)$.
 
 Representation of form:
 \[ x_{B(i)} = t_{i_0} + \sum_{j=1}^n t_{ij} x_{N(j)} \qquad i = 1, \dots, m \]
@@ -813,7 +813,7 @@ We want to insert this new representation into the target function.
 		&= \underbrace{(z_0 + \underbrace{c_B^t A_B^{-1} b}_{\text{constant}})}_{\tilde z_0} - \underbrace{(c_B^t A_B^{-1} A_N X_N + C_N^t x_N)}_{+ (c_N^t - c_B^t A_B^{-1} A_N) x_N} \\
 		&= \tilde z_0 + \tilde c_N^t x_N
 \end{align*}
-with $\tilde c_N^t = c_N^t - c_B^t \underbrace{A_B^{-1} A_N}{\tilde A_N}$. $\tilde c_N$ is called \emph{reduced cost coefficients}\index{Reduced cost coefficients}. Later, $\tilde z_0$ and $\tilde c_N$ will become the 0-th row of the coefficient tableau.
+with $\tilde c_N^t = c_N^t - c_B^t \underbrace{A_B^{-1} A_N}_{\tilde A_N}$. $\tilde c_N$ is called \emph{reduced cost coefficients}\index{Reduced cost coefficients}. Later, $\tilde z_0$ and $\tilde c_N$ will become the 0-th row of the coefficient tableau.
 
 \dateref{2019/03/12}
 
@@ -837,7 +837,7 @@ if $\tilde c_n \leq 0$ where $\tilde c_n$ is the vector of reduced cost coeffici
 
 \begin{mdframed}
 	Reduced form
-	\[ \max\Set{\tilde c_N^t x_n / \tilde A_N x_N \leq \tilde b_n, x_n \geq 0} \]
+	\[ \max\SetDef{\tilde c_N^t x_n}{\tilde A_N x_N \leq \tilde b_n, x_n \geq 0} \]
 	with $\tilde c_N, \tilde A_N, \tilde b$ as established in the last lecture.
 \end{mdframed}
 

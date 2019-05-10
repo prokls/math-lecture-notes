@@ -1922,5 +1922,205 @@ For $\varepsilon > 0$ pick $x_{\varepsilon} \neq 0$ such that
 \[ \implies \Norm{T} \geq M_0(1 - \varepsilon) \]
 since $\varepsilon > 0$ was arbitrary $\implies \Norm{T} \geq M_0$.
 
+\dateref{2019/05/10}
+
+\begin{proposition}
+	\label{proposition:3.4}
+	Let $X$ and $Y$ be normed spaces. Then
+	\begin{enumerate}
+		\item $\mathcal L(X, Y)$ is a vectorspace with
+			\[ (T + S)(x) \coloneqq T(x) + S(x) \qquad (\lambda T)(x) \coloneqq \lambda T(x) \qquad 0(x) \coloneqq 0 \]
+		\item $T \mapsto \Norm{T}$ is a norm on $\mathcal L(X, Y)$ (the operator norm)
+		\item If $Y$ is complete, then $\mathcal L(X, Y)$ is complete.
+			In particular, $\mathcal L(X, \mathbb K)$ is complete for any $X$ and is also called the \emph{space of bounded linear functionals}\index{Space of bounded linear functionals}
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Left as an exercise to the reader
+		\item
+			\begin{description}
+				\item[(N1)]
+					$\Norm{0} = \sup_{\Norm{x} \leq 1} \Norm{0(x)} = 0$. \\
+					Also $\Norm T = 0 \implies \Norm{Tx} \leq 0 \Norm x = 0 \forall x \implies T = 0$
+				\item[(N2)]
+					\[ \Norm{\lambda T} = \sup_{\Norm{x} \leq 1} \Norm{\lambda T(x)} = \sup_{\Norm x \leq 1} \underbrace{\Abs{\lambda}}_{\geq 0} \Norm{Tx} = \Abs \lambda \cdot \Norm{Tx} \]
+				\item[(N3)]
+					\[ \forall x: \Norm{(T + S)(x)} = \Norm{Tx + Sx} \leq \Norm{Tx} + \Norm{Sx} \leq (\Norm T + \Norm S) \Norm x \]
+					\[ \implies \Norm{T + S} \leq \Norm T + \Norm S \]
+			\end{description}
+		\item Let $(T_n)_n$ be Cauchy in $\mathcal L(X, Y)$ and $Y$ a Banach space.
+			Since $\Norm{(T_n - T_m)(x)} \leq \Norm{T_n - T_m}\Norm x \implies (T_n x)_n$ is Cauchy in $Y \forall x \in X \implies Tx \coloneqq \lim_{n \to \infty} T_n x$ is well defined.
+	\end{enumerate}
+	Furthermore, we want to show
+	\begin{description}
+		\item[Linearity:]
+			\[ \forall x, y \in X, \lambda \in \mathbb K: T(\lambda x + y) = \lim_{n \to \infty} T_n(\lambda x + y) = \lim_{n \to \infty} \lambda T_n x + \lim_{n\to\infty} T_n y = \lambda Tx + Ty \]
+		\item[$\mathbf{\Norm{T_n - T} \to 0}$:]
+			Take $\varepsilon > 0$, $n_0 \in \mathbb N: \Norm{T_n - T_m} \leq \varepsilon \forall n, m \geq n_0$
+
+			Show: $\exists n_1 \forall n \geq n_1: \Norm{T_n - T} \leq 2 \varepsilon$.
+			For $x \in X: \Norm{x} \leq 1$ fix $m_x \geq n_0: \Norm{T_{m_x} x - Tx} \leq \varepsilon \implies \forall n \geq n_1 \eqqcolon n_0:$
+			\begin{align*}
+				\Norm{T_n x - Tx} &\leq \Norm{T_n x - T_{m_x}x} + \Norm{T_{m_x}x - Tx} \\
+					&\leq \Norm{T_n - T_{m_x}} + \varepsilon \leq 2 \varepsilon \\
+				\implies \Norm{T_n - T} &= \sup_{\Norm{x} \leq 1} \Norm{T_n x - Tx} < 2\varepsilon
+			\end{align*}
+			\[ \implies \forall x \in X: \Norm{Tx} \leq \Norm{T_n x - Tx} + \Norm{T_n x} \leq \Norm{T_n - T} + \Norm{T_n} \forall n \text{ fixed} \]
+	\end{description}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:3.5}
+	Let $X, Y$ be normed spaces. $D \subset X$ is a subspace such that $\overline D = X$, $T \in \mathcal L(D, Y)$.
+	\[ \exists! \hat T \in \mathcal L(X, Y): \hat T|_{D} = T \]
+	In addition: $\Norm{\hat T} = \Norm{T}$.
+\end{proposition}
+
+\begin{proof}
+	Unique extension is clear for $T$ is uniformly continuous.
+
+	Also:
+	\[ \Norm{\hat T} = \sup_{\substack{x \in X \\ \Norm{x} \neq 0}} \frac{\Norm{\hat Tx}}{\Norm x} \overset{\text{by density}}= \sup_{\substack{x \in D \\ \Norm{x} \neq 0}} \frac{\Norm{\hat T x}}{\Norm{x}} = \Norm{T} \]
+	To show the density equality is left as an exercise to the reader.
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:3.6}
+	Let $X, Y, Z$ be normed spaces. $S \in \mathcal L(X, Y)$.
+	$T \in \mathcal L(Y, Z)$. Then $T_0 S \in \mathcal L(X, Z)$ and $\Norm{N_0 S} \leq \Norm T \Norm S$.
+\end{proposition}
+
+\begin{proof}
+	$T_0 S$ is linear (show as an exercise).
+
+	Take $x \in X$. $\Norm{T_0 S(x)} = \Norm{T(Sx)} = \Norm T \Norm{Sx} \leq \Norm T \Norm{Sx} \leq \Norm{T} \Norm S \Norm x$.
+	$\implies \Norm{T_0 S} \leq \Norm T \Norm S$
+\end{proof}
+
+\begin{Remark}
+	If $\dim(X) < \infty$, $T: X \to Y$ is linear, then $T_C \mathcal L(X, Y)$ (left as an exercise).
+\end{Remark}
+
+\begin{proposition}[Neumann series]
+	\label{proposition:3.7}
+	Let $X$ be a normed space. $T \in \mathcal L(X)$. If $\sum_{n=0}^\infty T^n$ is convergent in $\mathcal L(X)$, then $(I - T)$ is invertible and $(I - T)^{-1} = \sum_{n=0}^\infty T^n$.
+
+	Here: $T^n \coloneqq T_0 \cdot T_0 \cdot T_0 \cdot \dots$ n times
+
+	In particular, if $X$ is Banach and $\limsup_{n \to \infty} \Norm{T^n}^{\frac1n} \eqqcolon a < 1$ then $\sum_{i = 0}^\infty T^n$ is convergent. Also if $\Norm{T} < 1$, then $a < 1$ holds true. In case of $a < 1$, then $\Norm{(I - T)^{-1}} \leq \frac{1}{1 - a}$.
+\end{proposition}
+
+\begin{proof}
+	Let $S_m \coloneqq \sum_{n=0}^m T^n$ and $S \coloneqq \lim_{m \to \infty} S_m$.
+	Then $(I - T) S_m = I - T^{m+1} = S_m (I - T)$ (compute!).
+	\[ \Norm{T^m} = \Norm{\sum_{n=0}^m T^n - \sum_{n=0}^{m-1} T^n} = \Norm{S_m - S_{m-1}} \to 0 \]
+	for $m \to \infty$ since $(S_m)_n$ is Cauchy. ($RS \coloneqq R_0 S$)
+
+	Now note that for fixed $R \subset \mathcal L(X)$ the mappings
+	\[ S \mapsto RS \qquad S \mapsto SR \]
+	are continuous since $\Norm{S_n R - S R} \leq \Norm{S_n S} \Norm{R} \to 0$ for $S_n \to S$.
+	Continuity implies that
+	\[ I = \lim_{m \to \infty} I - T^{m+1} = \begin{cases} \lim_{m \to \infty} (I - T) S_m = (I - T) S \\ \lim_{m \to \infty} S_m (I - T) = S(I - T) \end{cases} \]
+	\[ \implies (I - T)^{-1} = S \]
+	Now if $\limsup_{n\to\infty} \Norm{T^n}^{\frac1n} \leq a < 1 \forall \varepsilon > 0 \implies \exists n_0 \forall n \geq n_0: \Norm{T^n} \leq (a + \varepsilon)^n$
+	\[ \implies \sum_{n=0}^\infty \Norm{T^n} \leq c + \sum_{n=0}^\infty (a + \varepsilon)^n = \frac{1}{1 - (a + \varepsilon)} + c < \infty \text{ for } c > 0 \]
+	$X$ is Banach, so $\sum_{n=0}^\infty T^n$ is convergent and
+	\[ \Norm{(I - T)^{-1}} = \Norm{\sum_{n=0}^\infty T^n} \leq \frac{1}{1 - (a + \varepsilon)} \]
+	Since $\varepsilon$ was arbitrary, $\Norm{(I - T)^{-1}} \leq \frac1{1 - a}$.
+
+	If $\Norm T < 1$, then
+	\begin{align*}
+		\limsup_{m \to \infty} \Norm{T^n}^{\frac1n}
+			&\leq \limsup(\Norm T \cdot \Norm T \dots \Norm T)^{\frac1n} \\
+			&\leq \limsup\left(\Norm{T}^n\right)^{\frac1n} \\
+			&= \limsup{\Norm{T}} \\
+			&= \Norm{T}  % TODO compare conclusion with Susi
+	\end{align*}
+\end{proof}
+
+\begin{Remark}
+	$(I - T)^{-1}$ is linear (left as an exercise). However: $(I - T)^{-1} \not\in \mathcal L(X)$ \emph{in general}!
+\end{Remark}
+
+\section{The Hahn-Banach Theorem and its consequences}
+
+Apparently the Hahn-Banach Theorem of this chapter is very central to Functional Analysis.
+This section deals with an extension of linear functionals and separation of sets.
+
+First, consider $\mathbb K = \mathbb R$.
+
+\begin{definition}
+	\label{definition:4.1}
+	Let $X$ be a vector space. $p: X \to \mathbb R$ is called \emph{sublinear}\index{Sublinearity} iff
+	\begin{enumerate}
+		\item $p(\lambda x) = \lambda p(x) \forall \lambda \geq 0, x \in X$
+		\item $p(x + y) \leq p(x) + p(y) \forall x, y \in X$
+	\end{enumerate}
+\end{definition}
+
+\begin{example}
+	$p(x) = \Norm{x}$, $p$ linear and $p$ is a seminorm.
+\end{example}
+
+\begin{theorem}[Hahn-Banach Theorem, real version]
+	\label{theorem:4.2}
+	Let $X$ be a vector space over $\mathbb R$, $U \subset X$, a subspace.
+	$p: X \to \mathbb R$ be sublinear and $l: U \to \mathbb R$ is linear such that $l(x) \leq p(x) \forall x \in U$
+
+	Then $\exists L: X \to \mathbb R$ is linear such that
+	\[ L|_U = l \qquad L(x) \leq p(x) \forall x \in X \]
+\end{theorem}
+
+\begin{proof}
+	This proof consists of two steps:
+	\begin{enumerate}
+	 	\item Method to extend $l$ from $U$ to $U + \operatorname{span}(x_0)$, $x_0 \not\in U$
+	 	\item Iterate this step and get maximal extension (Zorn)
+	 \end{enumerate}
+	\begin{description}
+		\item[Step 1]
+			For $x_0 \in X \setminus U$, let $V = U + \operatorname{span}(x_0) = \SetDef{u + \lambda x_0}{u \in U, \lambda \in \mathbb R}$.
+			Any $v \in V$ can be written uniquely as $v = u + \lambda x_0$ for $u \in U, x \in \mathbb R$ (why? left as an exercise).
+			Thus for any $r \in \mathbb R$, we can define $L_p: V \to \mathbb R$. $v = u + \lambda x_0 \mapsto l(u) + \lambda r$.
+			$L_p$ is linear (why? left as an exercise).
+
+			Also: $L_r(x) \leq p(x) \forall x \in V \iff l(u) + \lambda r \leq p(u + \lambda x_0) \forall \lambda, u$ (let this statement be (*)).
+
+			\begin{description}
+				\item[$\lambda = 0$] (*) holds true
+				\item[$\lambda > 0$] (*)
+					\begin{align*}
+						&\iff r \leq p\left(\frac u\lambda + x_0\right) - l\left(\frac u\lambda\right) \forall u \in U \\
+						&\iff r \leq \inf_{u \in U} p(u + x_0) - l(u)
+					\end{align*}
+				\item[$\lambda < 0$]
+					\begin{align*}
+						&\iff -r \leq p\left(\frac{u}{-\lambda} - x_0\right) - l\left(\frac{u}{-\lambda}\right) \forall u \in U
+						&\iff r \geq -p(u - x_0) + l(u) \forall u \in U \\
+						&\iff r \geq \sup_{u \in U} l(u) - p(u - x_0)
+					\end{align*}
+					Thus, (*) holds for $r = \sup_{u \in U} l(u) - p(u - x_0)$ if $\sup_{u \in U} l(u) - p(u - x_0) \leq \inf_{u \in U} p(u + x_0) - l(u) \iff l(w) - p(w - x) \leq p(u + x_0) - l(u) \forall w, u \in U \iff l(w) + l(u) \leq p(u + x_0) + p(w - x_0)$.
+
+					But this holds since:
+					\[ l(w) + l(u) = l(w + u) \leq p(w + u) = p(w - x_0 + x_0 + u) \leq p(w - x_0) + p(u + x_0) \]
+			\end{description}
+
+		\item[Step 2]
+			\begin{revision}[Zorn's Lemma]
+				Let $(A, \leq)$ be a partially ordered set such that every chain (every subset $R$ of $A \forall a, b \in R: a \leq b \lor b \leq a)$ admits an upper bound (i.e. $\exists c \in A: b \leq c \forall b \in R$), then $A$ has a maximal element, i.e. $\exists z \in A$ such that $\forall a \in A: z_0 \leq a \implies a = z_0$
+			\end{revision}
+
+			Let $A$ be a set of $(V, L_V)$ tuples where $V \subset X$ is a subspace with $U \subset V$ and $L_V: V \to \mathbb R$ such that $L_V \leq p$ on $V$ and $L_V|_U = l$.
+
+			For $(V_1, L_{v_1})$ and $(V_2, L_{v_2}) \in A$, we say that $(V_1, L_{v_1}) \leq (V_2, L_{v_2})$ if $V_1 \subset V_2$ and $L_{v_2}|_{v_1} = L_{v_1}$. Now $A \neq \emptyset$ since $(U, l) \in A$. If $(V_i, L_{v_i})_{i \in I} \coloneqq R$ is a chain, define $V \coloneqq \bigcup_{i \in I} V_i$, $L_V(x) \coloneqq L_{V_i}(x)$ if $x \in V_i$.
+
+			This is well-defined.
+
+			$\implies (V, L_V)$ is an upper bound for $R$.
+	\end{description}
+\end{proof}
+
 \printindex
 \end{document}
