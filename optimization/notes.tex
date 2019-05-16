@@ -158,6 +158,7 @@
 		\end{itemize}
 \end{itemize}
 
+\section{Introduction}
 \subsection{Linear optimization}
 
 We have already seen optimization problems in high school or previous semesters.
@@ -238,7 +239,7 @@ In the following lectures, our goal will be:
 		\end{itemize}
 \end{itemize}
 
-\section{Geometrical considerations of linear optimization}
+\subsection{Geometrical considerations of linear optimization}
 
 \begin{Definition}
   Standard form of a linear program (canonical representation)
@@ -1184,7 +1185,7 @@ with $M$ sufficiently large such that $\tilde x$ takes up value 0 in an optimal 
 	\begin{align}
 		\label{mat}
 		(a_{11} - a_{m1}) x_1 &+ \dots &+ (a_{11} - a_{mn}) x_n &+ y_1  &       &        &          & -y_m &= b_1 - b_m \\
-		(a_{21} - a_{m1}) x_1 &+ \dots &+ (a_{21} - a_{mn}) x_n &       &+ y_1  &        &          & -y_m &= b_2 - b_m \nonumber\\
+		(a_{21} - a_{m1}) x_1 &+ \dots &+ (a_{21} - a_{mn}) x_n &       &+ y_2  &        &          & -y_m &= b_2 - b_m \nonumber\\
 		\vdots                &        &                        &       &       & \ddots &          &      &\vdots \nonumber\\
 		(a_{m-1,1} - a_{m1}) x_1 &+ \dots &+ (a_{m-1,r} - a_{mn}) x_n & &       &        & -y_{m-1} & -y_m &= b_{m-1} - b_m \nonumber\\
 		-a_{m,1} x_1 &+ \dots &+ -a_{mn} x_n & + \tilde x &       &        &  & -y_m &= \underbrace{-b_{m}}_{>0} \nonumber\\
@@ -3415,7 +3416,7 @@ If not, a local minimum has been reached. If yes, take a small step in direction
 Thus establishes the notion of direction of descent.
 \begin{definition}
 	Let $f: \mathbb R^n \to \mathbb R, x \in \mathbb R^n$.
-	A vector $d \in \mathbb R^n$ is called \emph{direction of descent}\index{direction of descent} for $f$ in $x$ if $\exists \hat t > 0$ such that $f(x + td) < f(x) \forall t \in (0, \hat t]$.
+	A vector $d \in \mathbb R^n$ is called \emph{direction of descent}\index{Direction of descent} for $f$ in $x$ if $\exists \hat t > 0$ such that $f(x + td) < f(x) \forall t \in (0, \hat t]$.
 \end{definition}
 
 However, this notion is difficult to verify algorithmically. We need an alternative approach.
@@ -3676,7 +3677,7 @@ To determine the Armijo step size, the relevant region is where the graph of $\v
 	Theorem~\ref{theorem:5.4.1} can be mapped as well.
 \end{Remark}
 
-\subsection{Wolfe-Powell step size}
+\subsubsection{Wolfe-Powell step size}
 \label{section:5.4.2}
 
 Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. Let $\sigma \in (0, \frac12)$ and $\rho \in [\sigma, 1)$ be fixed.
@@ -3713,6 +3714,365 @@ Our next goal will be to show that WP step sizes are well-defined and efficient.
 
 \dateref{2019/05/14}
 
+\begin{theorem}
+	\label{theorem:5.4.2}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. Let $\sigma \in \left(0, \frac12\right)$ and $\rho \in (\sigma, 1)$. Let $x^{(0)} \in \mathbb R^n$ be fixed. For $x \in \mathcal L(x^{(0)})$ and $d \in \mathbb R^n$ with $(\nabla f(x))^t d < 0$, let
+	\[ T_{WP}(x, d) \coloneqq \SetDef{t > 0}{f(x + td) \leq f(x) + \sigma t (\nabla f(x))^t d, (\nabla f(x + td))^t d \geq \rho (\nabla f(x))^t d} \]
+	be the set of Wolfe-Powell step sizes in $x$ in direction $d$. Then
+	\begin{itemize}
+		\item If $f$ is bounded by below, then $T_{WP}(x, d) \neq \emptyset$, hence the WP rule is well-defined.
+		\item If $\nabla f$ is Lipschitz continuous on $\mathcal L(x^{(0)})$, then there exists $\theta > 0$ such that
+			\[ f(x + td) \leq f(x) - \theta \left(\frac{(\nabla f(x))^t d}{\Norm{d}}\right)^2 \]
+			For all $t \in T_{WP}(x, d)$, hence the WP rule is efficient, which is an important result for convergence.
+	\end{itemize}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Compare with proof of strict WP rule.
+		\item Let $t \in T_{WP}(x, d)$. We know,
+			\[ f(x + td) \leq f(x) \implies x + td \in \mathcal L(x^{(0)}) \]
+			By the WP rule, we get,
+			\[ (\rho - 1)(\nabla f(x))^t d \leq (\nabla f(x + td) - \nabla f(x))^t d \]
+			Now we use the Cauchy-Schwarz inequality and use Lipschitz continuity of $\nabla f$ on $\mathcal L(x^{(0)})$.
+			Let $L$ be the corresponding Lipschitz constant.
+			\[ (\rho - 1)(\nabla f(x))^t d \leq \Norm{\nabla f(x + td) - \nabla f(x)} \Norm d \leq Lt \Norm{d}^2 \]
+			\[ \implies t \geq \frac{(\rho - 1)(\nabla f(x))^t d}{L \Norm{d}^2} \]
+
+			Thus,
+			\[ \underbrace{f(x + td) \leq f(x) + \sigma t(\nabla f(x))^t d}_{\text{first WP condition}} \leq f(x) - \theta \left(\frac{(\nabla f(x))^t d}{\Norm{d}}\right)^2 \]
+			with $\theta = \frac{(1 - \rho) \sigma}{L}$.
+	\end{enumerate}
+\end{proof}
+
+\begin{Remark}[Simple sufficient condition for Lipschitz continuity of $\nabla f$ on $\mathcal L(x^{(0)})$]
+	Let $f: \mathbb R^n \to \mathbb R$ be 2 times continuously differentiable and $x^{(0)} \in \mathbb R^n$.
+	Assume one of the two following conditions is satisfied:
+	\begin{description}
+		\item[(B1)] $\Norm{\nabla^2 f(x)}$ is bounded on a convex superset of $\mathcal L(x^{(0)})$
+		\item[(B2)] The level set $\mathcal L(x^{(0)})$ is compact.
+	\end{description}
+	Then $\nabla f(x)$ is Lipschitz continuous on $\mathcal L(x^{(0)})$.
+\end{Remark}
+
+\begin{proof}
+	Left as an exercise to the reader.
+\end{proof}
+
+One variation of the WP rule is the strict WP rule.
+
+$f: \mathbb R^n \to \mathbb R$ is continuously differentiable.
+Let $\sigma \in (0, \frac12)$, $\rho \in [\sigma, 1)$ be fixed.
+For $x \in \mathbb R^n$, $d \in \mathbb R^n$ with $(\nabla f(x))^t d < 0$, determine some $t > 0$ with
+\[ f(x + td) \leq f(x) + \sigma t(\nabla f(x))^t d \]
+\[ \Abs{(\nabla f(x + td))^t d} \leq -\rho \cdot (\nabla f(x))^t d \]
+
+Geometrical illustration:
+\begin{align*}
+	\varphi(t) &\coloneqq f(x + td) \\
+	\varphi(t) &\leq \varphi(0) + \sigma t \varphi'(0) \\
+	\Abs{\varphi'(t)} &\leq -\rho \varphi'(0)
+\end{align*}
+Refinement of WP rule: The slope must not be too steep.
+
+TODO drawing
+
+\begin{theorem}
+	\label{theorem:5.4.3}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. Let $\sigma \in \left(0, \frac12\right)$, $\rho \in [\sigma, 1)$. Let $x^{(0)} \in \mathbb R^n$ be fixed.
+	For $x \in \mathcal L(x^{(0)})$ and $d \in \mathbb R^n$ with $(\nabla f(x))^t d < 0$, let
+	\[ T_{SWP} \coloneqq \SetDef{t > 0}{\text{(SWP1) and (SWP2) are satisfied}} \]
+	be the set of strict WP step sizes in $x$ in direction of $d$. Then
+	\begin{itemize}
+		\item If $f$ is bounded by below, then $T_{\text{SWP}} \neq \emptyset$, hence the strict WP rule is well-defined.
+		\item If $\nabla f$ is Lipschitz continuous on $\mathcal L(x^{(0)})$, then the strict WP rule is efficient. (This is an analogous formulation to Theorem~\ref{theorem:5.4.2}~(2))
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	\begin{itemize}
+		\item This also proves Theorem~\ref{theorem:5.4.2}~(1). Let
+			\begin{align*}
+				\varphi(t) &\coloneqq f(x + td) \\
+				\psi(t) &\coloneqq f(x) + \sigma t\left(\nabla f(x)\right)^t d
+			\end{align*}
+			Show that there exists $t > 0$ such that
+			\begin{description}
+				\item[(SWP1)] $\varphi(t) \leq \psi(t)$
+				\item[(SWP2)] $\Abs{\varphi'(t)} \leq -\rho \cdot \varphi'(0)$
+			\end{description}
+
+			Because $\varphi'(0) < \psi'(0)$, the graph of $\varphi$ lies underneath the graph of $\psi$ for sufficiently small $t > 0$. Let $\hat t$ be the smallest value $t > 0$ such that $\varphi(t) = \psi(t)$ (hence $\varphi(\hat t) = \psi(\hat t)$).
+			Recognize that $\hat t$ exists because $\psi(t) \to -\infty$ with $t \to \infty$ and $f$ is bounded by below.
+			Thus, $\varphi'(\hat t) \geq \psi'(\hat t)$.
+
+			Now we distinguish between two cases:
+			\begin{description}
+				\item[$\varphi'(\hat t) < 0$:]
+					For $t = \hat t$, $\varphi(t) = \psi(t)$ and
+					\[ \Abs{\varphi'(\hat t)} = -\varphi'(\hat t) \leq -\psi'(\hat t) = -\sigma(\nabla f(x))^t d = -\sigma \varphi'(0) \leq -\rho \varphi'(0) \]
+					because $\sigma \leq \rho$. So $\hat t \in T_{SWP}(x, d)$.
+				\item[$\varphi'(\hat t) \geq 0$:]
+					Because $\varphi'(0) < 0$, $\exists \hat{\hat t}$ also $\Abs{\varphi'(t)} \leq -\rho \varphi'(0)$.
+					Thus $\hat{\hat t} \in T_{SWP}(x, d)$.
+			\end{description}
+		\item We have $T_{SWP}(x, d) \subseteq T_{WP}(x, d)$.
+			Thus the result follows by Theorem~\ref{theorem:5.4.2}~(2), Theorem~\ref{theorem:5.4.2}~(1) and \ref{theorem:5.4.3}~(1).
+	\end{itemize}
+\end{proof}
+
+So far, we have discussed Armijo in a scaled variation.
+With certain requirements Wolfe-Powell and the strict Wolfe-Powell method are efficient.
+All of them are well-defined.
+
+Armijo is not efficient; not even under requirements of Wolfe-Powell.
+But there exists an corresponding result for the proper choice of the scaling factor.
+
+Furthermore there exists a bunch of further results, for example the Curry conditions or Goldstein conditions.
+
+\begin{Remark}[In terms of algorithmic implementation]
+	For WP and SWP, this is non-trivial and it must be handled (in contrast to Armijo).
+\end{Remark}
+
+The following 2-phase approach provides a WP step size.
+\[ \varphi(t) \coloneqq f(x + td) \qquad \tilde\psi(t) \coloneqq \varphi(t) - \varphi(0) - \sigma t \varphi'(0) \]
+
+\begin{description}
+	\item[Phase 1:] Determine an interval $[a, b]$ that contains an interval of points which satisfy $\tilde\psi(t) \leq 0$ (WP1) and $\varphi'(t) \geq \rho \varphi'(0)$ (WP2).
+	\item[Phase 2:] The interval $[a, b]$ is successively reduced until we can find some $t > 0$ with $t \in T_{WP}(x, d)$.
+\end{description}
+
+\begin{lemma}[Fundamental auxiliary result]
+	\label{lemma:5.4.4}
+	Let $\sigma < \rho$ and $\varphi'(0) < 0$.
+	If $[a, b]$ is an interval with $0 \leq a < b$ with $\tilde\psi(a) \leq 0$, $\tilde\psi(b) \geq 0$ and $\tilde \psi(a) < 0$, then $[a, b]$ contains a point $\overline t$ with $\tilde \psi(\overline t) < 0$ and $\tilde\psi'(\overline t) = 0$.
+	$\overline t$ is an inner point of the interval $I$ such that for all $z \in I$:
+	\[ \tilde \psi(t) \leq 0 \qquad \varphi'(t) \geq \rho \cdot \varphi'(0) \]
+	Hence $I \subseteq T_{WP}(x, d)$.
+\end{lemma}
+
+\begin{proof}
+	Let $\overline t$ be a global minimum of $\tilde \psi$ on interval $[a, b]$.
+	Because $\tilde\psi(a) \leq 0$, $\tilde\psi(b) \geq 0$ and $\tilde \psi(a) < 0$, $\overline t$ is an inner point of $[a, b]$. Thus $\tilde \varphi'(\overline t) = 0$.
+
+	Furthermore $\tilde \psi(\overline t) < \tilde \psi(a) \leq 0$.
+	By $\tilde \psi(\overline t) < 0$, $\tilde \psi'(\overline t) = 0$ and $\sigma < \rho$, the existence of interval $I$ with inner point $\overline t$ follows such that $\forall t \in I: \tilde \psi(t) \leq 0$, $\tilde \varphi'(t) \geq (\rho - \sigma) \cdot \varphi'(0) \iff \tilde \psi(t) \leq 0, \varphi'(t) \geq \rho \varphi'(0) \forall t \in I$.
+\end{proof}
+
+\begin{Remark}
+	In the lemma, we required $\sigma < \rho$. So far, we allowed $\sigma = \rho$.
+	In practice, this is not a relevant constraint, because $\sigma$ is commonly chosen much smaller than $\rho$.
+\end{Remark}
+
+\begin{Algorithm}[Algorithm to determine WP step size]
+	Given $x, d \in \mathbb R^n$ with $(\nabla f(x))^t d < 0$.
+
+	\emph{Phase 1}:
+	\begin{enumerate}
+		\item[1.0.] Choose $t_0 > 0$, $\gamma > 1$ and let $i \coloneqq 0$
+		\item[1.1.]
+			If $\tilde \psi(t_i) \geq 0$, then $a \coloneqq 0$, $b \coloneqq t_i$. Go to phase 2. \\
+			If $\tilde \psi(t_i) < 0$ and $\varphi'(t_i) \geq \rho \varphi'(0)$, then let $t \coloneqq t_i$ and abort (STOP 1) \\
+			If $\tilde \psi(t_i) < 0$ and $\varphi'(t_i) < \rho \varphi'(0)$, then let $t_{i+1} \coloneqq \gamma t_i$, $i \coloneqq i + 1$ and go to (1.1)
+	\end{enumerate}
+
+	\emph{Phase 2}:
+	\begin{enumerate}
+		\item[2.0.] Choose $\tau_1$, $\tau_2 \in \left(0, \frac12\right]$. Let $j \coloneqq 0$ and let $a_0 \coloneqq a$, $b_0 \coloneqq b$ (of phase 1)
+		\item[2.1.] Choose $\tilde t_j \in [a_j + \tau_1 (b_j - a_j), b_j - \tau_2(b_j - a_j)]$
+		\item[2.2.] If $\tilde \psi(\tilde t_j) \geq 0$, then let $a_{j+1} \coloneqq a_j$, $b_{j+1} \coloneqq \tilde t_j$, $j \coloneqq j+1$ and go to (2.1). \\
+		If $\tilde\psi(\tilde t_j) < 0$ and $\varphi'(\tilde t_j) \geq \rho \cdot \varphi'(0)$. Then let $t \coloneqq \tilde t_j$ and abort (STOP 2) \\
+		If $\tilde\psi(\tilde t_j) < 0$ and $\varphi'(\tilde t_j) < \rho \cdot \varphi'(0)$. Then let $a_{j+1} \coloneqq \tilde t_j$, $b_{j+1} \coloneqq b_j$, $j \coloneqq j+1$ and go to step (2.1)
+	\end{enumerate}
+\end{Algorithm}
+
+\begin{Remark}
+	In case of abortion, provided $t$ is the WP step size (remains to be shown).
+\end{Remark}
+
+\begin{Remark}[About the choice of $t_0$ in $(1.0)$]
+	With step 2 and following in any descent method, $t_0$ can be chosen as the step size in the step before.
+	If we know some lower bound $\underline f$ of $f$ in $\mathbb R^n$, then
+	\[ t \leq \frac{\underline f - \varphi(0)}{\sigma \varphi'(0)} \coloneqq t^* \]
+	follows from $\tilde \psi(t) \leq 0$. Then it makes sense to choose $t_0 \in (0, t^*]$.
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:5.4.5}
+	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable and bounded by below.
+	Let $\sigma \in (0, \frac12)$, $\rho \in (\sigma, 1)$. Then the algorithm above aborts after finitely many steps with STOP 1 or STOP 2 with some WP step size.
+\end{theorem}
+
+\dateref{2019/05/16}
+
+\begin{proof}
+	\textbf{About phase 1}
+
+	If the abortion occurs in phase 1, then with STOP 1.
+	\[ \tilde \psi(t_i) < 0 \qquad \varphi'(t_i) \geq \rho \varphi'(0) \implies t \coloneqq t_i \text{ satisfies (WP1) and (WP2)} \]
+
+	If no abortion occurs in phase 1, then phase 2 is entered with an interval $[a, b]$.
+	By construction of the algorithm, we have that
+	\[ \varphi'(a) < \rho \varphi'(0) \]
+	Assume phase 1 neither aborts with STOP 1 nor a transition to phase 2 happens (step 2.0),
+	then $t_i = \gamma^i \cdot t_0$ for $i \in \mathbb N$ with $\tilde \psi(t_i) < 0$.
+	\[ \implies \varphi(t_i) < \varphi(0) + \sigma t_i \varphi'(0) \]
+	Because $\gamma > 1$, $\varphi'(0) < 0$ and $f$ bounded by below, we get a contradiction such that $\varphi(t_i) < \varphi(0) + \sigma t_i \varphi'(0)$ cannot be satisfied.
+
+	\textbf{About phase 2}
+
+	You can immediately verify that $t \coloneqq t_j$ is an admissible WP step size, when abortion STOP 2 is triggered.
+
+	First, we are going to show that for all $j$ of the interval $[a_j, b_j]$ the following properties are satisfied:
+	\[ \tilde\psi(a_j) \leq 0, \tilde\psi(b_j) \geq 0, \tilde\psi(a_j) < 0 \qquad \text{(compare with Lemma~\ref{lemma:5.4.4})} \]
+	and $\varphi'(a_j) < \rho \varphi'(0)$.
+
+	We are going to prove this statement by induction over $j$.
+
+	\begin{description}
+		\item[Induction base $j=0$:]
+			Results from considerations of phase 1.
+		\item[Induction step $j \to j+1$]
+			Assume $[a_j, b_j]$ has desired properties.
+			Show that $[a_{j+1}, b_{j+1}]$ has desired properties.
+
+			\begin{description}
+				\item[Case $\tilde\psi(t_j) < 0$] 
+					$\varphi'(t_j) < \rho \varphi'(0)$.
+					$\to a_{j+1} = t_j$ and $b_{j+1} = b_j$.
+
+					We have
+					\begin{align*}
+						\tilde\psi(a_{j+1}) &= \tilde\psi(t_j) < 0 \\
+						\tilde\psi(b_{j+1}) &= \tilde\psi(b_j) \geq 0 \\
+						\tilde\psi'(a_{j+1}) &= \tilde\psi'(t_j) \overset{\substack{\text{induction} \\ \text{hypothesis}}}< \rho \varphi'(0) < 0
+					\end{align*}
+				\item[Case $\tilde\psi(t_j) \geq 0$]
+					\begin{align*}
+						a_{j+1} &= a_j \\
+						b_{j+1} &= t_j \\
+						\tilde\psi(a_{j+1}) &= \tilde\psi(a_j) \leq 0 \\
+						\tilde\psi(b_{j+1}) &= \tilde\psi(t_j) \overset{\substack{\text{induction} \\ \text{hypothesis}}}\geq 0 \\
+						\tilde\psi'(a_{j+1}) &= \tilde\psi'(a_j) \overset{\substack{\text{induction} \\ \text{hypothesis}}}\leq 0
+					\end{align*}
+			\end{description}
+	\end{description}
+
+	Now, we want to show that phase 2 aborts after a finite number of steps.
+	Assume there is no abortion.
+
+	The interval length $\Abs{b_j - a_j}$ decreases step by step at least by factor $\max\Set{1 - \tau_1, 1 - \tau_2} < 1$.
+	This results in a contraction in one point $\hat t$.
+
+	Now apply Lemma~\ref{lemma:5.4.4} on $[a_j, b_j] \forall j \in \mathbb N$.
+	For all $j \in \mathbb N \exists t_j \in (a_j, b_j)$ with $\tilde\psi(t_j) < 0$ and $\tilde\psi'(t_j) = 0$.
+	For $j \to \infty$, we have $\lim_{j\to\infty} t_j = \hat t$ and thus $\tilde\psi'(\hat t) = 0$.
+	\[ \implies \varphi'(\hat t) = \sigma \varphi'(0) \]
+	Because $\sigma < \rho$ and $\varphi'(0) < 0$, we get a contradiction to $\varphi'(t) \leq \rho \varphi'(0)$ (this results from $\varphi'(a_j) < \rho \varphi'(0)$).
+\end{proof}
+
+\begin{Remark}[About the choice of $t_j$ in phase 2]
+	One possibility is the use of interpolation polynomials.
+	For example, we can uniquely determine the cubic (Hermitian) interpolation polynomial $p_j$ such that
+	\[ p_j(a_j) = \varphi(a_j) \qquad p_j'(a_j) = \varphi'(a_j) \qquad p_j(b_j) = \varphi(b_j) \qquad p_j'(b_j) = \varphi'(b_j) \]
+
+	The local minimum $t_j^*$ of $p_j$ (if it exists), can be determined explicitly and if $t_j^*$ lies within the desired interval, then choose $t_j = t_j^*$. Otherwise e.g. as midpoint of the interval.
+
+	If you now use only a quadratic interpolation polynomial $q_j$, the number of gradient evaluations is smaller.
+	\[ q_0(a_j) = \varphi(a_j) \qquad q_j'(a_j) = \varphi'(a_j) \qquad q_j(b_j) = \varphi(b_j) \]
+\end{Remark}
+
+In the same manner, an algorithm for determining strict WP step sizes can be devised.
+
+\subsection{Convergence speed}
+\label{section:5}
+
+Conventions in this chapter:
+\[ \text{sequence } \Set{x^{(k)}} \to \underbrace{x^*}_{\in \mathbb R^n} \text{ with } x^{(k)} \in \mathbb R^n \]
+
+\begin{Definition}[Q-convergence]
+	\begin{enumerate}
+		\item 
+			Let $p \in [1, \infty)$. 
+			\[
+				Q_p\left(\Set{x^{(k)}}\right) = \begin{cases}
+					\limsup_{k \to \infty} \frac{\Abs{x^{(k+1)} - x^*}}{\Abs{x^{(k)} - x^*}^p} & \text{if } x^{(k)} \neq x^* \text{ for } k \geq k_0 \\
+					0 & \text{if } x^{(k)} = x^* \text{ for } k \geq k_0 \\
+					\infty &
+				\end{cases}
+			\]
+			is called \emph{quotient factor} or \emph{Q-factor} of $\Set{x^{(k)}}$.\index{Quotient factor}\index{Q-factor}
+		\item The value $\inf\SetDef{p \in [1, \infty)}{Q_p(\Set{x^{(k)}}) = \infty}$ is called Q-convergence order of $\Set{x^{(k)}}$.
+	\end{enumerate}
+\end{Definition}
+
+\begin{Remark}
+	\begin{itemize}
+		\item The Q-factor depends on the choice of the norm. Convergence order does not. (The proof is left as an exercise to the reader)
+		\item There exists some value $p_0 \in [1, \infty)$ with
+			\[ Q_p(\Set{x^{(k)}}) = \begin{cases} 0 & p \in [1, p_0) \\ \infty & p \in (p_0, \infty) \end{cases} \]
+		\item We consider the following special cases:
+
+			\begin{center}
+				\begin{tabular}{ll}
+					$Q_1\left(\Set{x^{(k)}}\right) = 0$ & Q-superlinear convergence \\
+					$Q_1\left(\Set{x^{(k)}}\right) < 1$ & Q-linear convergence \\
+					$Q_2\left(\Set{x^{(k)}}\right) = 0$ & Q-superquadratic convergence \\
+					$0 < Q_2\left(\Set{x^{(k)}}\right) < \infty$ & Q-quadratic convergence
+				\end{tabular}
+			\end{center}
+	\end{itemize}
+\end{Remark}
+
+\begin{example}
+	\begin{itemize}
+		\item $x^{(k)} = a^k$ with $a \in (0, 1)$. $\lim_{k \to \infty} x^{(k)} = 0 = x^*$.
+			\[ \frac{\Abs{x^{(k+1)} - x^*}}{\Abs{x^{(k)} - x^*}} = \frac{a^{k+1}}{a^k} = a \]
+			\[ \limsup_{k\to\infty} \dots = a \qquad \text{ linear Q-convergence} \]
+			Consider $p > 1$.
+			\[ \limsup_{k \to \infty} \frac{a^{k+1}}{a^{kp}} = \limsup_{k \to \infty} a^{k(1 - p) + 1} = \infty \text{ for } k \to \infty \]
+			Q-order of $\Set{x^{(k)}}$ is 1.
+		\item $x^{(k)} = a^{2^k}$ and $a \in (0, 1)$. $x^* = 0$.
+			Consider $p = 2$.
+			\[ Q_2(\Set{x^{(k)}}) = \limsup_{k \to \infty} \frac{\Abs{a^{2^{k+1}} - 0}}{\Abs{a^{2^k} - 0}} = \limsup_{k \to \infty} \frac{a^{2^{k+1}}}{\left(a^{2^k}\right)^2} = 1 \]
+			Left as an exercise to the reader: Consider $p > 2$, then the Q-convergence of $\Set{x^{(k)}}$ is 2.
+	\end{itemize}
+\end{example}
+
+\begin{definition}[R-convergence]
+	\begin{itemize}
+		\item Let $p \in [1, \infty)$. Then
+			\[
+				R_p\left(\Set{x^{(k)}}\right) \coloneqq \begin{cases}
+					\limsup_{k \to \infty} \Norm{x^{(k)} - x^*}^{\frac1k} & p = 1 \\
+					\limsup_{k \to \infty} \Norm{x^{(k)} - x^*}^{\frac1{p^k}} & p > 1
+				\end{cases}
+			\]
+			is called \emph{root factor} or \emph{R-factor} of $\Set{x^{(k)}}$.\index{Root factor}\index{R-factor}
+		\item The value $\inf\SetDef{p \in [1, \infty)}{R_p\left(\Set{x^{(k)}}\right) = 1}$ is called R-convergence order of $\Set{x^{(k)}}$.\index{R-convergence order}.
+	\end{itemize}
+\end{definition}
+
+\begin{example}
+	\begin{itemize}
+		\item Consider $x^{(k)} = ca^k$ with $a \in (0, 1), c \in \mathbb R \setminus \Set{0}$. $x^* = 0$. Let $p = 1$.
+			\[ R_1\left(\Set{x^{(k)}}\right) = \limsup_{k\to\infty} \Abs{x^{(k)} - x^*}^{\frac1k} = \limsup_{k\to\infty} (\Abs{ca^k})^{\frac1k} = \limsup_{k\to\infty} \Abs{c}^{\frac1k} a = a \]
+			Let $p > 1$.
+			\[ \Abs{x^{(k)} - x^*}^{\frac1{p^k}} = \Abs{c}^{\frac1{p^k}} a^{k \frac{1}{p^k}} \to 1 \]
+			The R-convergence order of $\Set{x^{(k)}}$ is thus $1$.
+		\item $x^{(k)} = a^{2k}$ with $a \in (0, 1)$. Consider $p = 2$.
+			\[ \limsup_{k \to \infty} \left(a^{2^k}\right)^{\frac{1}{2^k}} = a \qquad R_2\left(\Set{x^{(k)}}\right) = a < 1 \]
+			Consider $p > 2$.
+			\[ \left(a^{2^k}\right)^{\frac1{p^k}} = a^{\left(\frac{2}{p}\right)^k} \to 1 \]
+			Its R-convergence order is 2.
+	\end{itemize}
+\end{example}
+
+\begin{Remark}
+	In general, the notions of $Q$ and $R$ convergence do not match.
+	But we have the generic result that $Q$-convergence order of $\Set{x^{(k)}} \leq R$-convergence order of $\Set{x^{(k)}}$ and $R_1\left(\Set{x^{(k)}}\right) \leq Q_1\left(\Set{x^{(k)}}\right)$.
+\end{Remark}
+
+\dateref{2019/05/20}
 
 \printindex
 \end{document}

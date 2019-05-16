@@ -2122,5 +2122,307 @@ First, consider $\mathbb K = \mathbb R$.
 	\end{description}
 \end{proof}
 
+\dateref{2019/05/14}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:4.2}]
+	Let $U \subset X$, $x_0 \not\in U$, $V = U + \operatorname{span}(x_0)$.
+	\[ \implies \exists L_V: V \to \mathbb R: L_V|_U = l, L_V(v) = p(v) \forall v \in V \]
+	\[ R = \SetDef{(V, L_V)}{U \subset V, L_V|_U = l, L_V = p \text{ on } V} \]
+	\[ (V_1, L_{V_1}) \leq (V_2, L_{V_2}) :\iff V_1 \subset V_2, L_{V_2}|_{V_1} = L_{V_1} \]
+	\begin{Remark} Any chain has an upper bound. \end{Remark}
+	Let $(V_i, L_{V_i})_{i \in I}$ be a chain in $R$. Then we define $V = \bigcup_{i \in V} V_i$.
+	$L_V: V \to \mathbb R$ with $v \mapsto L_{V_i}(v)$ if $v^* \in V_i$. Thus we showed well-definedness.
+
+	Then $(V, L_V)$ is an upper bound of $(V_i, L_{V_i})_{i \in I}$ since $V_i \subset V$, $L_V|_{V_i} = L_{V_i} \forall i \in I$.
+	By Zorn, there exists $(V_0, L_{V_0})$ a maximal element of $R$. It is left to show that $V_0 = X$.
+	If not: Take some $x_0 \in X \setminus V_0$, define $\tilde V \coloneqq V_0 + \operatorname{span}(x_0)$ and $L_{\tilde V}$ as an extension of $L_{V_0}$ as in step 1.
+	\[ \implies (V_0, L_{V_0}) \leq (\tilde V, L_{\tilde V}) \]
+	This contradicts the maximality of $(V_0, L_{V_0})$.
+\end{proof}
+
+\begin{Remark} If $U$ is not dense, then the extension is unique. \end{Remark}
+
+%\begin{itemize}
+%	\item 
+%	\item If $h: X \to \mathbb C$ is $\mathbb C$-linear and we set $l \coloneqq \Re(h)$ and $\tilde l$ as in (1) then $l$ is $\mathbb R$-linear and $\tilde l = h$ [$l \to \tilde l$ is surjective]
+%	\item If $p: X \to \mathbb R$ is a semi-norm and $l: X \to \mathbb C$ is $\mathbb C$-linear. Then
+%		\[ (l(x)) \leq p(x) \forall x \iff (\Re(P(x))) < p(x) \forall x \]
+%	\item If $X$ is normed, then $l \in \mathcal L(X, \mathbb C)$ then $\Norm{l} = \Norm{\Re(x)}$.
+%\end{itemize}
+
+\emph{Next:} Hahn-Banach Theorem for $\mathbb K = \mathbb C$. \\
+\emph{Approach:} Establish bijection between $\mathbb R$ vector space and $\mathbb C$ vector space.
+
+\begin{proposition}
+	\label{proposition:4.3}
+	 Let $X$ be a $\mathbb C$ vector space (vector space over the complex numbers).
+	 \begin{enumerate}
+	 	\item If $l: X \to \mathbb R$ is $\mathbb R$-linear (i.e. $l(x + y) = l(x) + l(y)$ and $l(\lambda x) = \lambda l(x) \forall \lambda \in \mathbb R$). We set $\hat l: X \to \mathbb C$ with $x \mapsto l(x) - i \cdot l(ix)$. Then $\hat l$ is $\mathbb C$-linear and $\Re(\hat l) = l$.
+	 	\item If $h: X \to \mathbb C$ is $\mathbb C$-linear and we let $l \coloneqq \Re(h)$ and $\hat l$ as in (1), then $l$ is $\mathbb R$-linear and $\hat l = h$ [$l \to \hat l$ is surjective]
+	 	\item If $p: X \to \mathbb R$ is a seminorm and $l: X \to \mathbb C$ is $\mathbb C$-linear. Then
+	 		\[ \Abs{l(x)} \leq p(x) \forall x \iff \Abs{\Re(l(x))} \leq p(x) \forall x \]
+	 	\item If $x$ is normed, $l \in \mathcal L(X, \mathbb C)$, then $\Norm{L} = \Norm{\Re(x)}$
+	 \end{enumerate}
+\end{proposition}
+
+\begin{Remark}
+	This means that $l \mapsto [x \mapsto l(x) - il(ix)]$ is bijective and an isometry if $X$ is normed.
+\end{Remark}
+\begin{proof}
+	\begin{enumerate}
+		\item By construction $\hat l$ is $\mathbb R$-linear and $\Re(\hat l) = l$ is obvious.
+
+			Show: $\tilde l(ix) = i \tilde l(x)$.
+			\begin{align*}
+				\tilde l(ix) &= l(ix) - i l(iix) = l(ix) - il(-x) \\
+					&= i (l(x) - i l(ix)) = i \tilde l(x)
+			\end{align*}
+		\item Define $l \coloneqq \Re(h)$. Show: $\tilde l = h$.
+
+			Note: $\forall z \in \mathbb C: \Im(z) = -\Re(iz)$.
+
+			\begin{align*}
+				h(x) &= \Re(h(x)) + i \cdot \Im(h(x)) = \Re(h(x)) - i \cdot \Re(i \cdot h(x)) \\
+					&= \Re(h(x)) - i \cdot \Re(h(ix)) = l(x) - i \cdot l(ix) = \tilde l(x)
+			\end{align*}
+
+			Hence $l \mapsto \tilde l$ is bijective.
+		\item Since $\Abs{Re(z)} \leq \Abs{z}$,
+			\begin{description}
+			 	\item[$\implies$] holds trivially
+			 	\item[$\impliedby$] Write $l(x) = \lambda_X \Abs{l(x)}$ with $\Abs{\lambda_X} = 1$.
+			 		Then $\forall x \in X: \Abs{l(x)} = \lambda_X^{-1} l(x) = l(\lambda_X^{-1} x) = \Abs{\Re{l(\lambda_X^{-1} x)}} \leq p(\lambda^{-1}_X x) = \Abs{\lambda_X^{-1}} p(x) = p(x)$
+			 \end{description} 
+		\item Consequence of (3) with $p(x) \coloneqq \Norm l \Norm x$
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Hahn-Banach Theorem, complex version]
+	\label{theorem:4.4}
+	Let $X$ be a $\mathbb C$ vector space. $U \subset X$. $p: X \to \mathbb R$ sublinear and $l: U \to \mathbb C$ be linear such that $\Re{l(u)} < p(u) \forall u \in U$.
+	\[ \exists L: X \to \mathbb C \text{ linear such that } L|_U = l, \Re{L(x)} \leq p(x) \forall x \]
+\end{theorem}
+
+\begin{proof}
+	Applying Theorem~\ref{theorem:4.2} to $\Re{l} \implies \exists F: X \to \mathbb R$ $r$-linear such that $F|_U = \Re(l)$ and $F(x) \leq p(x) \forall x \in X$
+
+	Proposition~\ref{proposition:4.3} implies there exists some $L: X \to \mathbb C$ that io $\mathbb C$-linear such that $F = \Re(L)$.
+	Now $\Re(L)|_U = F|_U = \Re(l) \implies L = l$ by Proposition~\ref{proposition:4.3}~(2) and also $\Re{L(x)} = F(x) = p(x) \forall x \in X$.
+\end{proof}
+
+\begin{proposition}[Consequence]
+	\label{proposition:4.5}
+	If $X$ is a normed space, $U \subset X$ be a subspace, $u' \in \mathcal L(U, \mathbb K)$,
+	then $\exists x' \in \mathcal L(X, \mathbb K)$ such that $x'|_U = u'$ with $\Norm{x'} = \Norm{u'}$.
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[Case $\mathbb K = \mathbb R$:]
+			Let $p(x) \coloneqq \Norm{u'} \Norm{x}$. Then $p$ is sublinear and $u'(x) \leq \Abs{u'(x)} \leq p(x) \forall x \in U$.
+			By Theorem~\ref{theorem:4.2}, there exists $x': X \to \mathbb R$ linear such that $x'|_U = u'$ and $x'(x) \leq p(x) \forall x \in X$.
+			\[ \implies -x'(x) = x'(-x) \leq p(-x) = p(x) \implies \Abs{x'(x)} \leq p(x) = \Norm{u'} \Norm x \implies \Norm{x'} \leq \Norm{u} \]
+			Also:
+			\[ \Norm{u'} = \sup_{\substack{u \in U \\ \Norm{u} \leq 1}} \Abs{u'(u)} = \sup_{\substack{u \in U \\ \Norm{u} \leq 1}} \Abs{x'(u)} \leq \sup_{\substack{x \in X \\ \Norm{x} \leq 1}} \Norm{x'(x)} = \Norm{x'} \implies \Norm{x'} = \Norm{u'} \]
+		\item[Case $\mathbb K = \mathbb C$:]
+			As before, $\exists x': X \to \mathbb C: x'|_u = u'$ and $\Norm{\Re{x'}} \leq \Norm{u'}$. By proposition~\ref{proposition:4.3}, $\Norm{x'} = \Norm{\Re(x')}$
+	\end{description}
+\end{proof}
+
+\begin{Remark}[Next application: Separation of convex sets]
+	\emph{Motivation:} Given two (convex) sets $A, B \subset \mathbb R^2$. When can we find a line $L$ separating these sets
+
+	Compare with Figure~\ref{img:conv}.
+	\begin{figure}[t]
+		\begin{center}
+			\includegraphics{img/convex_sets.pdf}
+			\caption{Inseparable convex sets (left) and separable convex sets (right)}
+			\label{img:conv}
+		\end{center}
+	\end{figure}
+\end{Remark}
+
+\begin{Remark}
+	In $\mathbb R^2$, any line $L$ can be separable as $L = \SetDef{x \in \mathbb R^2: (x, n) = \alpha}{\alpha \in \mathbb R, n \in \mathbb R^2, \Norm{n} = 1}$.
+\end{Remark}
+
+\begin{Definition}
+	\label{definition:4.6}
+	\index{Hyperplane}
+	Let $X$ be a vector space $H \subset X$ is called a \emph{hyperplane} if it is of the form $H = \SetDef{x \in X}{\Re(f(x)) = \alpha}$ with $\alpha \in \mathbb R$, $f: X \to \mathbb K$ linear.
+\end{Definition}
+
+\begin{lemma}
+	\label{lemma:4.7}
+	Let $X$ be a normed space, $H \subset X$ be a hyperplane of the form $H = \SetDef{x \in X}{\Re(f(x)) = \alpha}$ with $\alpha \in \mathbb R$, $f: X \to \mathbb K$ linear.
+
+	Then $H$ is closed iff $f \in \mathcal L(X, \mathbb K)$.
+\end{lemma}
+
+\begin{proof}
+	Compare with the practicals.
+\end{proof}
+
+\begin{Remark}[Goal]
+	Given $X$ as a normed vector space. $A, B \subset X$ where does some closed hyperplane $H$ exist represented by $f \in \mathcal L(X, \mathbb K)$ and $\alpha$ separating $A$ and $B$, e.g. $\Re(f(a)) \leq \alpha \leq \Re(f(b)) \forall a \in A, b \in B$.
+
+	To this aim associate a set $U \subset X$ to a sublinear functional $p: X \to \mathbb R$.
+\end{Remark}
+
+\begin{definition}
+	\label{definition:4.8}
+	\index{Absorbing subspace}
+	Let $X$ be a vector space. $A \subset X$. The Minkovsky functional $p_A: X \to [0, \infty]$ is defined as $p_A(x) = \inf\SetDef{\lambda > 0}{\frac{x}{\lambda} \in A}$. $A$ is called \emph{absorbing} if $p_A(x) < \infty \forall x \in X$.
+\end{definition}
+
+\begin{theorem}
+	\label{theorem:4.9}
+	Let $X$ be a normed space. $U \subset X$ convex such that $0 \in \operatorname{interior}(U) = \mathring U$.
+	Then,
+	\begin{enumerate}
+		\item $U$ is absorbing and $\forall \varepsilon > 0: B_{\varepsilon}(0) \subseteq U \implies p_U(x) \leq \frac{1}\varepsilon \Norm{x}$ [no convexity needed]
+		\item $p_U$ is sublinear
+		\item If $U$ is open, then $U = p_u^{-1}([0, 1))$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Trivial
+		\item
+			\begin{itemize}
+				\item $p_u(\lambda x) = \lambda p_u(x)$ for $\lambda > 0$. Compare with the practicals.
+				\item Take $x, y \in X$. Show: $p_u(x + y) \leq p_u(x) + p_u(y)$.
+			\end{itemize}
+			Take $\varepsilon > 0$ and choose $\lambda, \mu$:
+			\begin{align*}
+				\lambda &\leq p_u(x) + \varepsilon  \qquad \frac x\lambda \in U \\
+				\mu &\leq p_u(y) + \varepsilon  \qquad \frac y\mu \in U
+			\end{align*}
+			Since $U$ is convex,
+			\[ \frac{x + y}{\lambda + \mu} = \frac\lambda{\lambda + \mu} \left(\frac x\lambda\right) + \frac\mu{\lambda + \mu} \left(\frac y\mu\right) \in U \]
+			\[ \implies p_u(x + y) \leq \lambda + \mu = p_u(x) + p_u(\mu) + 2\varepsilon \]
+			$\varepsilon$ can be arbitrary, thus the proof is complete.
+		\item Direction $\supset$. If $p_u(x) < 1 \implies \exists \lambda > 0: \lambda < 1$ and $\frac x\lambda \in U$. Since $0 \in U$,
+			\[ \implies x = \lambda \left(\frac x\lambda\right) + (1 - x) 0 \in U \]
+			\[ \implies p_u^{-1}([0, 1)) \subset U \]
+			Direction $\subset$. If $p_u(x) \geq 1$, then $\frac x\lambda \not\in U \forall \lambda < 1$
+			\[ \implies x = \lim_{\substack{\lambda \to 1 \\ \lambda < 1}} \frac{x}{\lambda} \in U^C \]
+	\end{enumerate}
+\end{proof}
+
+\begin{Lemma}[Fundamental lemma]
+	\label{lemma:4.10}
+	Let $X$ be a normed vector space. $V \subset X$ be convex and open. $O \not\in V$.
+	\[ \implies \exists x': X \to \mathbb K \text{ continuous} \]
+	linear such that $\Re{x'(x)} < 0 \forall x \in V$.
+\end{Lemma}
+
+\begin{proof}
+	Define $A \mp B = \SetDef{a + b}{a \in A, b \in B}$.
+
+	\begin{description}
+		\item[Case $\mathbb K = \mathbb R$:] 
+			Take $x_0 \in V \setminus \Set{0}$, define $y_0 \coloneqq -x_0$ and $U \coloneqq V - \Set{x_0}$.
+			\[ \implies U \text{ is open, convex, } 0 \in U, y_0 \not\in U \]
+			We consider $p_u: X \to \mathbb R$ which is sublinear, finite and $p_u(y_0) \geq 1$.
+			On $Y \coloneqq \operatorname{span}(y_0)$ we define $y': Y \to \mathbb R$ with $ty_0 \mapsto t p_u(y_0)$ and $t \in \mathbb R$.
+			\[ \implies y'(y) \leq p_u(y) \forall y \in Y \]
+			since
+			\[ y'(y) = y'(ty_0) = tp_u(y_0) \]
+			\begin{itemize}
+				\item $t \leq 0$: $\leq 0 \leq p_u(y)$
+				\item $t > 0$: $= p_u(ty_0) = p_u(y)$
+			\end{itemize}
+
+			\dateref{2019/05/16}
+
+			Now by Hahn-Banach Theorem, $\exists x': X \to \mathbb R$ linear such that $x'|_y = y'$ and $x'(x) \leq p_u(x) \forall x \in X$
+
+			\[ \forall x \in X: \Abs{x'(x)} = \max\Set{x'(x), \underbrace{-x'(x)}_{= x'(-x)}} \leq \min(p_u(x), -p_u(-x)) \leq \frac{1}{2} \Norm x \qquad \text{ for } \varepsilon > 0: B_{\varepsilon}(0) \subseteq U \]
+			\[ \implies x' \in \mathcal L(X, \mathbb R) \]
+			Also $x'(y_0) = y'(y_0) = p_u(y_0) \geq 1$.
+			\begin{itemize}
+				\item[$\implies$] $\forall v \in V$ we can write $v = u - y_0$ with $u \in U$
+				\item[$\implies$] $x'(v) = x'(u) - x'(y_0) \leq p_u(u) - 1 < 0$
+			\end{itemize}
+
+		\item[Case $\mathbb K = \mathbb C$]
+			Lemma~\ref{proposition:4.3}. Left as an exercise.
+	\end{description}
+\end{proof}
+
+\begin{theorem}[Separation 1]
+	\label{theorem:4.11}
+	Let $X$ be normed. Let $V_1, V_2 \subset X$ be convex and $V_1$ open. $V_1 \cap V_2 = \emptyset$
+	\[ \implies \exists x' \in \mathcal L(X, \mathbb K) \text{ s.t. } \Re(x'(u_1)) \leq \Re(x'(x_2)) \forall v_1 \in V_1, v_2 \in V_2 \]
+\end{theorem}
+
+\begin{proof}
+	Define $V \coloneqq V_1 - V_2$. Then $V$ is convex (why?) and open since $V = \bigcup_{x \in V_2} V1 - \Set{x}$ since $V_1 \cap V_2 = \emptyset$. Thus $0 \in V$. By Lemma~\ref{lemma:4.10},
+	\[ \exists x' \in \mathcal L(X, \mathbb K): \Re{x'(v_1 - v_2)} < 0 \forall v_1 \in V_1, v_2 \in V_2 \]
+	\[ \implies \Re{x'(v_1)} < \Re{x'(v_2)} \]
+\end{proof}
+
+\begin{Remark}
+	$V$ being open is sufficient.
+\end{Remark}
+
+\begin{theorem}[Separation 2]
+	\label{theorem:4.12}
+	Let $X$ be a normed spaces. $V \subset X$ is closed and convex.
+	\[ \hat x \not\in V \implies \exists x' \in \mathcal L(X, \mathbb K) \]
+	\[ \Re(x'(\hat x)) < \inf_{v \in V} \Re(x'(v)) \]
+	i.e. $\exists \varepsilon > 0: \Re{(x'(\hat x))} < \Re{(x'(\hat x))} + \varepsilon \leq \inf_{v \in V} \Re(x'(v))$
+\end{theorem}
+
+\begin{proof}
+	\[ V \text{ closed } \iff \exists \varepsilon > 0: \underline{B_{\varepsilon}(\hat x) \cap V}_{V_1} = \emptyset \]
+	By Theorem~\ref{theorem:4.11}, $\exists x' \in \mathcal L(X, \mathbb K)$:
+	\[ \Re(x'(\hat x + u)) < \Re(x'(v)) \forall v \in V, u \in X: \Norm u < \varepsilon \]
+	\[ \Re(x'(\hat x)) + \Re(x'(u)) < \Re(x'(v)) \forall v \in V, u \in X, \Norm{u} \leq \frac\varepsilon2 \]
+	Taking the sum over $u$.
+	\[ \Re(x'(\hat x)) + \Norm{\Re(x')} \frac\varepsilon2 \leq \Re(x'(v)) \forall v \in V \]
+	since
+	\[ \Norm{\Re(x')} = \sup_{\Norm{\lambda} \leq 1} \Abs{\Re(x'(x))} \frac\varepsilon2 = \sup_{\Norm{x}\leq\frac\varepsilon2} \Abs{\Re(x'(x))} = \sup_{\Norm{x}\leq\frac\varepsilon2} \Re(x'(x)) \]
+	\[ \implies \Re(x'(\hat x)) < \Re(x'(\hat x)) + \Norm{x'} \frac\varepsilon2 \leq \inf_{v \in V} \Re(x'(v)) \]
+\end{proof}
+
+\section{Fundamental theorems for operators in Banach spaces}
+\label{section:5}
+In this chapter we are going to discuss the Baire theorem.
+
+\begin{theorem}[Banach-Steinhaus, uniform boundedness principle]
+	\label{theorem:5.1}
+	Let $X$ be a Banach space, $Y$ normed. Let $I$ be an index set.
+	For all $i \in I$, let $T_i \in \mathcal L(X, Y)$.
+
+	Then if $\forall x \in X: \sup_{i \in I}\Norm{T_i x} < \infty \implies \sup_{i \in I} \Norm{T_i} < \infty$
+\end{theorem}
+
+\begin{proof}
+	Define $E_n \coloneqq \SetDef{x \in X}{\sup_{i \in I} \Norm{T_i x} \leq n}$ since all $T_i$ are continuous
+	\[ \implies E_n = \bigcap_{i \in I} \Norm{T_i(\cdot)}^{-1}([0, n]) \]
+	since $x \mapsto \Norm{T_i x}$ is continuous $\to$ closed.
+
+	$\implies E_n$ is closed as the intersection of closed sets
+
+	Also: $X = \bigcup_{n \in \mathbb N} E_n$
+
+	By Baire's theorem, $\exists E_n: \mathring E_{n_0} \neq \emptyset$.
+
+	\[ \implies \exists \varepsilon > 0, y \in E_{n_0} \text{ fixed such that } \forall x \in X: \Norm{x - y} \leq \varepsilon \implies x \in E_{n_0} \]
+	Now take $x \in X: \Norm{x + y} \leq \varepsilon$.
+	\[ \Norm{x + y} = \Norm{x - (-y)} = \Norm{-x - y} \implies -x \in E_n \implies x \in E_n \]
+	Also, $\forall x_1, x_2 \in X, \lambda \in [0, 1], x_1, x_2 \in E_{n_0}$.
+	\[ \implies \lambda x_1 + (1 - \lambda) x_2 \in E_{n_0} \]
+	since $\forall i: \Norm{T_i(\lambda x_i + (1 - \lambda) x_2)} \leq \lambda \Norm{Tx_1} + (1 - \lambda) \Norm{Tx_2} < n_0$.
+	\[ \forall x \in X: \Norm{x} \leq \varepsilon \implies x = \frac12 (x + y) + \frac12 (x - y) \in E_{n_0} \]
+	since $x + y \in E_{n_0}$ and $x - y \in E_{n_0}$.
+
+	\[ \implies \forall i \in I: \Norm{T_i x} \leq n_0 \forall \Norm{x} \leq \varepsilon \]
+	\[ \implies \Norm{T_i} = \frac1\varepsilon \sup_{\Norm{x} \leq 1} \Norm{T_i(\varepsilon x)} \leq \frac1\varepsilon n_0 \]
+	\[ \implies \sup_{i \in I} \Norm{T_i} \leq \frac\varepsilon{n_0} \]
+\end{proof}
 \printindex
 \end{document}
