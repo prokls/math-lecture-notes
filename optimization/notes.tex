@@ -3978,7 +3978,7 @@ The following 2-phase approach provides a WP step size.
 	The local minimum $t_j^*$ of $p_j$ (if it exists), can be determined explicitly and if $t_j^*$ lies within the desired interval, then choose $t_j = t_j^*$. Otherwise e.g. as midpoint of the interval.
 
 	If you now use only a quadratic interpolation polynomial $q_j$, the number of gradient evaluations is smaller.
-	\[ q_0(a_j) = \varphi(a_j) \qquad q_j'(a_j) = \varphi'(a_j) \qquad q_j(b_j) = \varphi(b_j) \]
+	\[ q_j(a_j) = \varphi(a_j) \qquad q_j'(a_j) = \varphi'(a_j) \qquad q_j(b_j) = \varphi(b_j) \]
 \end{Remark}
 
 In the same manner, an algorithm for determining strict WP step sizes can be devised.
@@ -4059,7 +4059,7 @@ Conventions in this chapter:
 			Let $p > 1$.
 			\[ \Abs{x^{(k)} - x^*}^{\frac1{p^k}} = \Abs{c}^{\frac1{p^k}} a^{k \frac{1}{p^k}} \to 1 \]
 			The R-convergence order of $\Set{x^{(k)}}$ is thus $1$.
-		\item $x^{(k)} = a^{2k}$ with $a \in (0, 1)$. Consider $p = 2$.
+		\item $x^{(k)} = a^{2^k}$ with $a \in (0, 1)$. Consider $p = 2$.
 			\[ \limsup_{k \to \infty} \left(a^{2^k}\right)^{\frac{1}{2^k}} = a \qquad R_2\left(\Set{x^{(k)}}\right) = a < 1 \]
 			Consider $p > 2$.
 			\[ \left(a^{2^k}\right)^{\frac1{p^k}} = a^{\left(\frac{2}{p}\right)^k} \to 1 \]
