@@ -443,7 +443,7 @@ Now, which topics are we going to cover in this course:
 	\label{definition:1.5}
 	Let $(X, \tau)$ be a topological space. $U \subset X$. $x \in X$.
 	\begin{enumerate}
-		\item $U$ is called a neighborhood of $x$ if $\exists V \in \tau- x \in X \subset U: \mathcal U(x)$ is defined as the set of all neighborhoods of $x$
+		\item $U$ is called a neighborhood of $x$ if $\exists V \in \tau- x \in V \subset U: \mathcal U(x)$ is defined as the set of all neighborhoods of $x$ % TODO: What does the "-" after \tau stand for? Just a typo?
 		\item
 			\begin{itemize}
 				\item $x$ is called \emph{interior point}\index{Interior point} of $U$ if $U \in \mathcal U$
@@ -520,7 +520,7 @@ Now, which topics are we going to cover in this course:
 
 \begin{definition}[Proposition and definition]
 	\label{definition:1.8}
-	Let $(X, \tau)$ be a topological space. We say that $(X, \tau)$ is $T_2$ (or Hausdorff)\index{Hausdorff space}\index{T${}_2$ space} if 
+	Let $(X, \tau)$ be a topological space. We say that $(X, \tau)$ is $T_2$ (or Hausdorff)\index{Hausdorff space}\index{T${}_2$ space} if
 	\[ \forall x, y \in X \text{ with } x \neq y \: \exists U, V \in \tau: x \in U, v \in V \text{ and } U \cap V = \emptyset \]
 	\begin{itemize}
 		\item In a $T_2$-sphere, the limit of any sequence is unique.
@@ -761,7 +761,7 @@ Now, which topics are we going to cover in this course:
 			Construct a sequence $(x_n)_n$ in $M$ as follows:
 			Given $x_1, \dots, x_n$, choose $x_1 \in M$ arbitrary and $x_{i+1} \in M \setminus \bigcup_{j=1}^i B_{\varepsilon}(x_j)$ arbitrary.
 			Then $(x_i)_i$ is a sequence in $M$ and $d(x_i, x_j) > \frac\varepsilon2$ for $i \neq j$.
-			Hence, $(x_i)_i$ cannot admit a convenient subsequence. $G \implies M$ totally bounded.
+			Hence, $(x_i)_i$ cannot admit a convenient subsequence. $G \implies M$ totally bounded. % TODO: "G"?
 
 			Completeness can be shown the following way:
 			Let $(x_n)_n$ be Cauchy in $M$, then there exists a subsequence $(x_{n_i})_i$ and $x \in M$ such that $x_{n_i} \to x$ as $i \to \infty$.
@@ -769,9 +769,9 @@ Now, which topics are we going to cover in this course:
 		\item[$4 \to 1$]
 			Let $(U_i)_{i \in I}$ be an open covering of $M$ and assume that $(U_i)_{i \in I}$ does \emph{not} admit a finite subsequence.
 			For $n \in \mathbb N$ let $E_n \subset M$ be a finite set such that $M \subset \bigcup_{a \in E_n} B_{\frac1{2^n}(a)}$.
-			Define $\Omega \coloneqq \SetDef{\tilde M \subset M}{\tilde M \text{ is not covered by finitely many } (U_i)_i}$.
-			We recursively define a sequence $(a_n)_n$ in $M$ such that 
-			\[ \forall n \in \mathbb N: a_n \subset E_n, M \cap B_{\frac1{2^n}}(a_n) \in \Omega, B_{\frac{1}{2^n} \cap B_{\frac{1}{2^{n-1}}}}(a_{n-1}) \neq \emptyset \]
+			Define $\Omega \coloneqq \SetDef{\tilde M \subset M}{\tilde M \text{ is not covered by finitely many } U_i}$.
+			We recursively define a sequence $(a_n)_n$ in $M$ such that
+			\[ \forall n \in \mathbb N: a_n \in E_n, M \cap B_{\frac1{2^n}}(a_n) \in \Omega, B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n-1}}}(a_{n-1}) \neq \emptyset \]
 
 			\textbf{Goal:} Show $(a_n)_n \to a$ and then $B_{\frac{1}{2^{n_0}}}(a_{n_0}) \subset U_{i_0}$.
 
@@ -779,7 +779,7 @@ Now, which topics are we going to cover in this course:
 				\item[Step 1]
 					$(a_n)_n$ is well defined.
 					\begin{description}
-						\item[$n=1$] Since $M \in \Omega$ and $M \subset \bigcup_{a \in C_1} B_{\frac12}(a)$, we can pick $a_1 \in E_1$ such that $M \cap B_{\frac12}(a_1) \in \Omega$.
+						\item[$n=1$] Since $M \in \Omega$ and $M \subset \bigcup_{a \in E_1} B_{\frac12}(a)$, we can pick $a_1 \in E_1$ such that $M \cap B_{\frac12}(a_1) \in \Omega$.
 						\item[$n \to n+1$]
 							Let $a_n \in E_n$ such that $M \cap B_{\frac1{2^n}}(a_n) \in \Omega$ be given.
 							Let $\tilde E_{n+1} = \SetDef{a \in E_{n+1}}{B_{\frac1{2^n}}(a_n) \cap B_{\frac1{2^{n+1}}}(a) \neq \emptyset}$.
@@ -792,12 +792,12 @@ Now, which topics are we going to cover in this course:
 					Thus $(a_n)_n$ is well-defined.
 
 				\item[Step 2] Show that $(a_n)_n$ converges. Take $n \in \mathbb N$ and $z \in B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n+1}}}(a_{n+1})$.
-					\[ \implies d(a_n, a_{n+1}) \leq d(a_n, z) + d(z, a_{n+1}) \leq \frac{1}{2^n} + \frac{1}{2^{n+1}} = \frac{3}{2^{n+1}} \]
+					\[ \implies d(a_n, a_{n+1}) < d(a_n, z) + d(z, a_{n+1}) \leq \frac{1}{2^n} + \frac{1}{2^{n+1}} = \frac{3}{2^{n+1}} \]
 					\[ \forall k \geq n: d(a_k, a_n) \leq \sum_{i=n}^{k-1} d(a_{i+1}, a_i) < \sum_{i=n}^{k-1} \frac{3}{2^{i+1}} = \frac{3}{2^{n+1}} \sum_{i=0}^{k-n-1} \frac{1}{2^i} \leq \frac{3}{2^n} \]
 					thus, $(a_n)_n$ is Cauchy. $M$ is complete, so $\exists a \in M: a_n \xrightarrow{n \to \infty} a$
 					\[ \implies \exists U_{i_0}: a \in U_{i_0} and \exists i > 0: B_r(a) \subset U_{i_0} \]
 					Hence, for $n$ sufficiently large such that $d(a, a_n) < \frac r2$ and $\frac1{2^n} < \frac r2$.
-					We take $x \in B_{\frac1{2^n}}(a_n)$ and estimate 
+					We take $x \in B_{\frac1{2^n}}(a_n)$ and estimate
 					\[ d(x, a) \leq d(x, a_n) + d(a_n, a) < \frac r2 + \frac r2 = r \]
 					\[ \implies B_{\frac{1}{2^n}}(a_n) \subset U_{i_0} \]
 					is a contradiction to $M \cap B_{\frac1{2^n}}(a_n) \in \Omega$.
@@ -819,9 +819,9 @@ Now, which topics are we going to cover in this course:
 		\item Let $(U_i)_{i \in I}$ be an open covering of $f(M)$
 			\begin{enumerate}
 				\item[$\implies$] $(f^{-1}(U_i))_{i \in I}$ is an open covering of $M$ [why!]
-				\item[$\implies$] $\exists c_1, \dots, c_n$ such that $M \subset \bigcup_{i=1}^n f^{-1}(U_{i_j}) \implies f(M) \subset \bigcup_{i=1}^n U_{i_j}$
+				\item[$\implies$] $\exists c_1, \dots, c_n$ such that $M \subset \bigcup_{j=1}^n f^{-1}(U_{i_j}) \implies f(M) \subset \bigcup_{j=1}^n U_{i_j}$
 			\end{enumerate}
-		\item If $f|_M$ is not uniformly continuous, then $\exists \varepsilon \in \mathbb N \exists x, y \in M: d(x, y) < \frac1n$ and $d(f(x), f(y)) > \varepsilon$ (*).
+		\item If $f|_M$ is not uniformly continuous, then $\exists \varepsilon > 0 \forall n \in \mathbb N \exists x, y \in M: d(x, y) < \frac1n$ and $d(f(x), f(y)) > \varepsilon$ (*).
 			Now take $(x_n)_n, (y_n)_n$ sequences in $M$ satisfying condition (*).
 			$M$ is compact, so $\exists (x_{n_i})_{i}$ subsequence converging to some $x \in M$.
 			\[ d(y_{n_i}, x) < d(y_{n_i}, x_{n_i}) + d(x_{n_i}, x) \leq \frac{1}{n_i} + d(x_{n_i}, x) \xrightarrow{i \to \infty} 0 \]
@@ -1124,7 +1124,7 @@ We consider a common, but less useful reformulation:
 
 	It remains to show that:
 	\begin{description}
-		\item[$(3) \implies (1)$] 
+		\item[$(3) \implies (1)$]
 			Suppose no $M > 0$ exists such that $\Norm{x}_2 \leq M \cdot \Norm{x}_1 \forall x \in X$.
 			\[ \implies \forall n \in \mathbb N \exists x_n \in X: \Norm{x_n}_2 > n \Norm{x_n}_1 \]
 			Let $y_n \coloneqq \frac{x_n}{\Norm{x_n}_1 n}$. Then $\Norm{y_n}_1 = \frac1n \to 0$ hence $y_n \to 0$,
@@ -1174,7 +1174,7 @@ We consider a common, but less useful reformulation:
 	\begin{itemize}
 		\item[2.]
 			\begin{itemize}
-				\item 
+				\item
 					First of all, $\Norm{\cdot}_{X/Y} \geq 0$ is trivial.
 					\[ \Norm{[0]}_{X/Y} \underbrace{=}_{\text{since } [0] = Y} \inf_{y \in Y} \Norm{Y} \leq \Norm{0} = 0 \]
 				\item
@@ -1323,7 +1323,7 @@ We consider a common, but less useful reformulation:
 
 \begin{proof}
 	\begin{enumerate}
-		\item 
+		\item
 			Set $\hat X = \SetDef{(x_n)_n}{x_n \in X \forall n, (x_n)_n \text{ is } Cauchy}$. $\hat X$ is a vector space by
 			\[ (x_n)_n + (y_n)_n \coloneqq (x_n + y_n)_n \qquad \lambda (x_n)_n \coloneqq (\lambda x_n)_n \quad \hat 0 \coloneqq (0)_n \]
 			Define $\Norm{(x_n)_n}_{\tilde X} \coloneqq \lim_{n \to \infty} \Norm{x_n}$ [well-defined since $(\Norm{x_n})_n$ is Cauchy in $\mathbb R$].
@@ -1431,7 +1431,7 @@ We consider a common, but less useful reformulation:
 	  D(\Omega, \mathbb K^M) &= C_C^\infty(\Omega, \mathbb K^M) \coloneqq \bigcap_{r \in \mathbb N} C_C^r(\Omega, \mathbb K^M), C_0^r(\Omega, \mathbb K^M) = \overline{C_C^r(\Omega, \mathbb K^M)} \text{ in } C^r(\overline{\Omega}, \mathbb K^M)
 	\end{align*}
 	Then for any bounded $\Omega$, $C^r, C_0^r, C_b$ are Banach spaces and $C^r_C$ is a normed space.
-	
+
 	Recall: $z \in \mathbb K^M \implies \Abs{z} \coloneqq \sqrt{\sum_{i=1}^M \Abs{z_i}^2}$
 \end{definition}
 
@@ -1477,7 +1477,7 @@ We consider a common, but less useful reformulation:
 
 \begin{proof}
 	Show that $\Norm{\cdot}_p^*$ for $p \in [1, \infty]$ are seminorms.
-	
+
 	They cannot be norms since $\Norm{f}_p^* = 0$ for
 	\[ f(x) = \begin{cases} 1 & x \in N \\ 0 & x \not\in N \end{cases} \]
 	$0 \neq N \in \Sigma, \mu(N) = 0$.
@@ -1648,7 +1648,7 @@ As in the proof of $C_b$ being a Banach space:
 
 \begin{Remark}[Important special cases]
 	\begin{description}
-		\item[Case 1] 
+		\item[Case 1]
 			$\mu = \mathcal L^N$ is the Lebesgue measure on $\Omega \subset \mathbb R^N$ (a domain).
 			In this case we write $L^p(\Omega, \mathbb K^M) \coloneqq L^p(\Omega, \mathbb K^M, \lambda^M)$ and $L^p(\Omega) \coloneqq L^p(\Omega, \mathbb K)$.
 			Here the space $L^p(\Omega, \mathbb K)$ is considered as functions which are defined almost everywhere.
@@ -1674,7 +1674,7 @@ As in the proof of $C_b$ being a Banach space:
 
 \begin{proof}
 	\begin{description}
-		\item[$p < \infty$] 
+		\item[$p < \infty$]
 			Define $l_{i,j} \in l^p(\mathbb N, \mathbb K^M)$ as
 			\[ (l_{ij})_k \coloneqq \begin{cases} 0 & \text{if } i \neq k \\ \begin{pmatrix} 0 & \ldots & 0 & 1 & 0 & \ldots & 0 \end{pmatrix}^T & \text{if } i = k \end{cases} \]
 			Then $A \coloneqq \SetDef{e_{ij}}{i \in \mathbb N, j \in \Set{1, \dots, M}}$ is countable.
@@ -1708,7 +1708,7 @@ As in the proof of $C_b$ being a Banach space:
 
 \begin{proof}
 	\begin{description}
-		\item[Step 1] 
+		\item[Step 1]
 			Reduction to step functions with $E \in \Sigma$.
 			\[ \xi_E(x) \coloneqq \begin{cases} 1 & x \in E \\ 0 & \text{else} \end{cases} \]
 			Take $f \in L^p(\dots)$. For $\varepsilon > 0$, define
@@ -1781,7 +1781,7 @@ As in the proof of $C_b$ being a Banach space:
 
 \begin{proof}
 	\begin{description}
-		\item[Case $p = \infty$] 
+		\item[Case $p = \infty$]
 			Similar to $l^\infty$, will be done in the Exercises.
 		\item[Case $1 \leq p < \infty$]
 			We show the result for $L^p(\mathbb R^N, \mathbb K)$, the general case is a direct consequence.
@@ -1892,7 +1892,7 @@ As in the proof of $C_b$ being a Banach space:
 
 \begin{proof}
 	\begin{description}
-		\item[$(3) \to (4)$] 
+		\item[$(3) \to (4)$]
 			Is true since $\forall x, y \in X: \Norm{Tx - Ty} = \Norm{T(x - y)} \leq M\Norm{x - y}$
 		\item[$(4) \to (1) \to (2)$] trivial
 		\item[$(2) \to (3)$]
@@ -1908,7 +1908,7 @@ Additionally,
 	M \coloneqq \sup_{x \neq 0} \frac{\Norm{Tx}{\Norm{x}}}
 		= \sup_{x \neq 0} \Norm{T \left(\frac{x}{\Norm{x}}\right)}
 		\leq \sup_{\Norm{x} = 1} \Norm{Tx}
-		\leq \sup_{\Norm{x} \leq 1} \Norm{Tx} 
+		\leq \sup_{\Norm{x} \leq 1} \Norm{Tx}
 \]
 But also,
 \[ \sup_{\Norm{x} \leq 1} \Norm{Tx} = \sup_{\lambda \in [0,1]} \sup_{\Norm{x} = 1} \Norm{T(\lambda x)} = \sup_{\lambda \in [0, 1]} \lambda \left(\sup_{\Norm{x} = 1} \Norm{Tx}\right) = \sup_{\Norm{x} = 1} \Norm{Tx} = \sup_{x \neq 0} \Norm{\frac{Tx}{\Norm{x}}} \]
@@ -2143,7 +2143,7 @@ First, consider $\mathbb K = \mathbb R$.
 \begin{Remark} If $U$ is not dense, then the extension is unique. \end{Remark}
 
 %\begin{itemize}
-%	\item 
+%	\item
 %	\item If $h: X \to \mathbb C$ is $\mathbb C$-linear and we set $l \coloneqq \Re(h)$ and $\tilde l$ as in (1) then $l$ is $\mathbb R$-linear and $\tilde l = h$ [$l \to \tilde l$ is surjective]
 %	\item If $p: X \to \mathbb R$ is a semi-norm and $l: X \to \mathbb C$ is $\mathbb C$-linear. Then
 %		\[ (l(x)) \leq p(x) \forall x \iff (\Re(P(x))) < p(x) \forall x \]
@@ -2192,7 +2192,7 @@ First, consider $\mathbb K = \mathbb R$.
 			 	\item[$\implies$] holds trivially
 			 	\item[$\impliedby$] Write $l(x) = \lambda_X \Abs{l(x)}$ with $\Abs{\lambda_X} = 1$.
 			 		Then $\forall x \in X: \Abs{l(x)} = \lambda_X^{-1} l(x) = l(\lambda_X^{-1} x) = \Abs{\Re{l(\lambda_X^{-1} x)}} \leq p(\lambda^{-1}_X x) = \Abs{\lambda_X^{-1}} p(x) = p(x)$
-			 \end{description} 
+			 \end{description}
 		\item Consequence of (3) with $p(x) \coloneqq \Norm l \Norm x$
 	\end{enumerate}
 \end{proof}
@@ -2322,7 +2322,7 @@ First, consider $\mathbb K = \mathbb R$.
 	Define $A \mp B = \SetDef{a + b}{a \in A, b \in B}$.
 
 	\begin{description}
-		\item[Case $\mathbb K = \mathbb R$:] 
+		\item[Case $\mathbb K = \mathbb R$:]
 			Take $x_0 \in V \setminus \Set{0}$, define $y_0 \coloneqq -x_0$ and $U \coloneqq V - \Set{x_0}$.
 			\[ \implies U \text{ is open, convex, } 0 \in U, y_0 \not\in U \]
 			We consider $p_u: X \to \mathbb R$ which is sublinear, finite and $p_u(y_0) \geq 1$.
