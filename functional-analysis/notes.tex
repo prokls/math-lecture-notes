@@ -2426,5 +2426,263 @@ In this chapter we are going to discuss the Baire theorem.
 	\[ \implies \Norm{T_i} = \frac1\varepsilon \sup_{\Norm{x} \leq 1} \Norm{T_i(\varepsilon x)} \leq \frac1\varepsilon n_0 \]
 	\[ \implies \sup_{i \in I} \Norm{T_i} \leq \frac\varepsilon{n_0} \]
 \end{proof}
+
+\dateref{2019/05/20}
+
+\[ \forall \sup_{i \in I} \Norm{T_i x} < \infty \implies \sup_{i \in I} \Norm{T_i} < \infty \]
+
+\begin{Remark}
+	With $d = \SetDef{(x_i)_i}{x_i = 0 \text{ for all but finitely many } i, x_i \in \mathbb R}$, $(d, \Norm{}_\infty)$ is a normed space. Define $T_n: d \to \mathbb R$, $(x_i)_i \mapsto n \cdot x_n$ for given $n$.
+
+	Then $\forall x \in d: \sup_{n \in \mathbb N} \Abs{T_n x} = \sup_{n \in \mathbb N} \Abs{n x_n} \leq \Abs{n_0 x_{n_0}}$ for some $n_0 \in \mathbb N$.
+	However $\forall n: \Norm{T_n} > \Abs{T_n e_n} = n \implies \sup_{n \in \mathbb N} \Norm{T_n} = \infty$. Thus, $X$ is Banach space is necessary for Theorem~\ref{theorem:5.1} (also $(d, \Norm{}_\infty)$ is not Banach).
+\end{Remark}
+
+\begin{corollary}
+	\label{theorem:5.2}
+	Let $X$ be Banach, $Y$ normed $\forall n \in \mathbb N: T_n \in \mathcal L(X, Y)$ and suppose that $\lim_{n \to \infty} T_n x = T_x$ exists and is finite for all $x \in X$. Then $T \in \mathcal L(X, Y)$.
+\end{corollary}
+
+\begin{proof}
+	Left as an exercise to the reader.
+\end{proof}
+
+Now: Continuous invertibility of linear operators, or, if $T \in \mathcal L(X, Y)$ bijective such that $T^{-1}: Y \to X$ exists and is linear. When does $T^{-1} \in \mathcal L(Y, X)$ hold?
+
+\begin{definition}[f maps open sets to open sets]
+	\label{definition:5.3}
+	Let $(X, \tau_X)$ and $(Y, \tau_Y)$ be two spaces and $f: X \to Y$. $f$ is called \emph{open}\index{Open map} if $f(A) \in \tau_Y \forall A \in \tau_Y$.
+\end{definition}
+
+\begin{Remark}
+	$f$ is continuous $\iff f^{-1}(A) \in \tau_X \forall A \in \tau_Y$. If $f$ is open and invertible, then $(f)^{-1}(A) = f(A) \in \tau_Y \forall A \in \tau_X \implies f^{-1}$ is continuous.
+\end{Remark}
+
+\begin{lemma}
+	\label{lemma:5.4}
+	Let $T: X \to Y$ be linear. $X, Y$ be normed. TFAE:
+	\begin{enumerate}
+		\item $T$ is open
+		\item $\forall r > 0 \exists \varepsilon > 0: B_\varepsilon(0) \subset T(B_X(0))$
+		\item $\exists \varepsilon > 0: B_{\varepsilon} \subset T(B_1(0))$
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\begin{description}
+		\item[$1 \to 2$]
+			True since $0 \in T(B_r(0))$ and $T(B_r(0))$ is open.
+		\item[$2 \to 1$]
+			Let $O \subset X$ be open, $y \in T(O) \implies x \in O$. $Tx = y$. $\exists r > 0: x + B_r(0) \subset O$.
+			\begin{itemize}
+				\item[$\implies$] $T(x) + T(B_r(0)) \subset T(O)$. By (2), $\exists \varepsilon > 0: B_r(0) \subset T(B_r(0))$
+				\item[$\implies$] $Tx + T_\varepsilon(0) \subset Tx + T(B_r(0)) \subset O$
+				\item[$\implies$] $B_\varepsilon(Tx) = B_\varepsilon(y) \in O$ since $y$ was arbitrary, thus $O$ is open.
+			\end{itemize}
+		\item[$2 \to 3$] Left as an exercise to the reader
+	\end{description}
+\end{proof}
+
+\begin{Remark}
+	If $X, Y$ is normed and $T: X \to Y$ linear, then $T$ is injective.
+\end{Remark}
+
+\begin{proof}
+	Take $y \in Y \setminus \Set{0}$, $\varepsilon > 0$ such that $B_\varepsilon(0) \subset T(B_1(0))$.
+	\[
+	  \implies \frac{\varepsilon y}{2 \Norm{y}} \in B_\varepsilon(0)
+	  \implies \exists x: Tx = \frac{\varepsilon y}{2 \Norm{y}}
+	  \implies T\left(\frac{2x \Norm{y}}{\varepsilon}\right) = y
+	\]
+\end{proof}
+
+\begin{theorem}[Open mapping theorem]
+	\label{theorem:5.5}
+	Let $X$ and $Y$ be Banach. $T \in \mathcal L(X, Y)$ injective
+	$\implies T$ open.
+\end{theorem}
+
+\begin{proof}
+	Here $B_r$ denotes $B_r(0)$.
+
+	Show $\exists \varepsilon > 0: B_\varepsilon(0) \subset T(B_\varepsilon(0))$.
+	\begin{description}
+		\item[Part 1]
+			Show $\exists \varepsilon > 0: B_\varepsilon \subset T(B_1)$.
+
+			We have $Y = \bigcup_{n \in \mathbb N} T(B_n)$ since $T$ is surjective. By Baire's category theorem, $\exists N \in \mathbb N: \mathring{\overline{T(B_n)}} \neq \emptyset$.
+			\[ \implies \exists y_0 \in \overline{T(B_N)}, \varepsilon > 0 \forall z \in Y: \Norm{z - y_0} < \varepsilon \implies z \in \overline{T(B_n)} \]
+			As in the proof of Theorem~\ref{theorem:5.1}, $B_\varepsilon \subset \overline{T(B_N)}$ is implied.
+		\item[Part 2]
+			Show: If $B_\varepsilon \subset \overline{T(B_1)} \implies B_\varepsilon \subset T(B_1)$.
+
+			Let $\Norm{y} < \varepsilon$. Show: $y \in T(B_1)$.
+			Choose $\tilde\varepsilon > 0: \Norm{y} < \tilde\varepsilon < \varepsilon$ define $\tilde y \coloneqq \frac\varepsilon{\tilde\varepsilon} y$. $\Norm{\tilde y} < \varepsilon \implies \exists y_0 \in Y, x_0 \in X: y_0 = Tx_0$ and $\Norm{\hat y - y_0} < \alpha \tilde\varepsilon$ where $0 < \alpha < 1$ is
+			\[ \implies \frac{\tilde y - (y_0 + \alpha y_1)}{\alpha^2} \in B_\varepsilon \implies \exists y_2 \in Y, x_2 \in B_1: Tx_2 = y_2 \]
+			\[ \text{ and } \Norm{\tilde y - (y_0 + \alpha y + \alpha^2 y_2)} < \alpha^3 \varepsilon \text{ by } \Norm{\frac{\tilde y - (y_0 + \alpha y_1)}{\alpha^2} - y_2} < \alpha \varepsilon \]
+			We can construct a sequence (by induction) $(x_n)_n$ such that $\Norm{x_n} < 1 \forall n$ and $\Norm{\tilde y - T(\sum_{i=0}^n \alpha^i x_i)} < \alpha^{n+1} \varepsilon$. Since $\alpha < 1$, $\Norm{\sum_{i=1}^n \alpha^i x_i} \leq \sum_{i=0}^n \alpha^i < (1 - \alpha)^{-1} < \infty \implies \sum_{i=0}^\infty \alpha_i^i x_i$ is absolutely convergent. $X$ is Banach space, thus $\exists \hat x \coloneqq \lim_{n \to \infty} \sum_{i=0}^n \alpha^i x_i \in X$. $\Norm{\tilde y - T(\sum_{i=0}^n \alpha^i x_i)} < \alpha^{n+1} \varepsilon \implies T(\sum_{i=0}^n \alpha^i x_i) \to \tilde y \implies T\hat x = \tilde y$. With $x \coloneqq \frac{\tilde \varepsilon}{\varepsilon} \hat x \implies Tx = \frac{\tilde \varepsilon}{\varepsilon} T \hat x = \frac{\tilde\varepsilon}\varepsilon \tilde y = y$. Also,
+			\[ \Norm x = \frac{\tilde\varepsilon}{\varepsilon} \Norm{\hat x} \leq \frac{\tilde\varepsilon}{\varepsilon} \sum_{i=0}^{\infty} \alpha^i \Norm{x_i} \leq \frac{\tilde \varepsilon}{\varepsilon} \frac{1}{1 - \alpha} < 1 \]
+	\end{description}
+\end{proof}
+
+\begin{corollary}[Consequence 1]
+	\label{corollary:5.6}
+	Let $X, Y$ be Banach. $T \in \mathcal L(X, Y)$. $T$ is bijective, then $T^{-1} \in \mathcal L(Y, X)$.
+\end{corollary}
+
+\begin{corollary}[Consequence 2]
+	Let $X, Y$ be Banach. $T \in \mathcal L(X, Y)$. $T$ injective. $\operatorname{range}(T)$ closed $\iff T^{-1}: \operatorname{range}(T) \to X$ is linear and bounded.
+\end{corollary}
+
+\begin{proof}
+	\begin{description}
+		\item[$\implies$] 
+		  Immediate since $T \in \mathcal L(X, \operatorname{range}(T))$ and $\operatorname{range}(T)$ is Banach.
+		\item[$\impliedby$]
+		  Assume that $T^{-1}: \operatorname{range}(T) \to X$ is continuous. Let $(x_n)_n$ in $\operatorname{range}(T)$ be Cauchy. Then $(T^{-1}(x_n))_n$ is Cauchy. Let $X$ be Banach, then $\exists y \in X: T^{-1}(x_n) \to y$. Let $T$ be continuous, then $x_n = T(T^{-1}x_n) \to Ty \implies x \in \operatorname{range}(T)$ ($x \in Y$ since $Y$ is Banach).
+	\end{description}
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:5.8}
+	Let $X$ and $Y$ be Banach. $T \in \mathcal L(X, Y)$. $\operatorname{range}(T)$ closed. Define $\tilde X \coloneqq X \setminus \ke(T)$.
+	$\tilde T: \tilde X \to Y$ with $[x] \mapsto Tx$. Then $\tilde T$ is well-defined. $\tilde T \in \mathcal L(\tilde X, Y)$ injective.
+	$\operatorname{range}(\tilde T) = \operatorname{range}(T), \Norm{\tilde T} = \Norm T$ and $\tilde T^{-1}: \operatorname{range}(T) \to \tilde X$ is continuous and linear.
+\end{corollary}
+
+\begin{proof}
+	The proof is left as an exercise to the reader.
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:5.9}
+	Let $X$ be a vector space and $\Norm{}_1$ and $\Norm{}_2$ be norms on $X$ such that $(X, \Norm{}_1)$ and $(X, \Norm{}_2)$ are Banach and $\exists M > 0: \Norm{x}_1 \leq M \Norm{x}_2 \forall x \in X$. Thus $\Norm{}_1$ and $\Norm{}_2$ are equivalent.
+\end{corollary}
+
+\begin{proof}
+	Apply Corollary~\ref{corollary:5.6} to $\operatorname{id}: (X, \Norm{}_2) \to (X, \Norm{}_1)$ with $x \mapsto x$.
+\end{proof}
+
+A second class of consequencs: When is $T: X \to Y$ linear already bounded?
+
+\begin{definition}
+	\label{definition:5.10}
+	Let $X$ and $Y$ be normed. $D \subset X$ be a subspace. $T: D \to X$ be linear. $T$ is called \emph{closed}\index{Closed operator} if $\forall (x_n)_n \in D: x_n \to x$ and $Tx_n \to y$ it follows that $x \in D, Tx = y$.
+\end{definition}
+
+\begin{Remark}
+	This is weaker than continuity:
+	Let $T: X \to Y$ be linear. Continuity means that $x_n \to x \implies Tx_n \to y$ and $Tx = y$. Closed means that $x_n \to x$ and $Tx_n \to y \implies Tx = y$.
+\end{Remark}
+
+\begin{Remark}
+	Differential operators are often closed but not continuous.
+
+	e.g. $D \coloneqq C_1([0,1]) \subset L^\infty([0,1])$.
+	\[ T: \substack{D \to L^\infty([0, 1]) \\ f \mapsto f'} \]
+	%If $(f_n)_n \subset D: f_n \to f \not\implies f \in D = C^1([0, 1]) \implies T$ is not continuous. \emph{But} if $f_n \to f$ and $Tf_n = f'_n \to h \implies f \in \mathcal C^1([0, 1]) = D$ and $Tf = f' = h$.
+	% The following is the correction made on 2019/05/23
+	Then $T$ is not closed but not continuous.
+
+	Not continuous: Define $f_n(x) = \frac1n \cos(2 \pi nx)$. Then $\Norm{f_n}_\infty = \frac1n \to 0$, hence $f_n \to 0 \in D$, but
+	\[ \Norm{T f_n}_\infty = \Norm{Tf'_n}_\infty = \Norm{f'_n}_\infty \geq \Abs{f'_n \frac{1}{8n}} = \Abs{2\pi \sin\left(\frac\pi2\right)} = 2\pi \]
+	and hence $Tf_n \not\to Tf = 0$.
+\end{Remark}
+
+\begin{Remark}
+	$T: D \subset X \to Y$ linear, $\operatorname{graph}(T) \coloneqq \SetDef{(x, Tx)}{x \in D} \subset X \times Y$.
+\end{Remark}
+
+\dateref{2019/05/23}
+
+\begin{lemma}
+	\label{lemma:5.11}
+	Let $X$ and $Y$ be normed and $D \subset X$ be a subspace.
+	Let $T: D \to Y$ be linear. Then
+	\begin{itemize}
+		\item $\operatorname{graph}(T) \subset X \times Y$ is a subspace.
+		\item $T$ closed iff $\operatorname{graph}(T)$ is closed
+	\end{itemize}
+\end{lemma}
+
+\begin{proof}
+	\begin{itemize}
+		\item Immediate.
+		\item $T$ closed $\iff \forall (x_n)_n \in D, x \in X, z \in Y: x_n \to x$. $Tx_n \to y \implies x \in D \land Tx = y$.
+		\[ \iff \forall (x_n, y_n) \in \operatorname{graph}(T), (x, y) \in X \times Y: (x_n, y_n) \to (x, y) \implies (x, y) \in \operatorname{graph}(T) \iff \operatorname{graph}(T) \text{ is closed} \]
+	\end{itemize}
+\end{proof}
+
+Closed operators are continuous in the right topology.
+
+\begin{lemma}
+	\label{lemma:5.12}
+	Let $X$ and $Y$ be Banach spaces. $D \subset X$ be subspaces and $T: D \to Y$ be closed and linear. Then:
+	\begin{enumerate}
+		\item $(D, \Norm{}_T)$ where $\Norm{}_T \coloneqq \Norm{x}_X + \Norm{Tx}_Y$ is Banach (graph norm)
+		\item $T: (D, \Norm{}_T) \to Y$ is continuous.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\begin{enumerate}
+		\item $\Norm{}_T$ is indeed a norm.
+
+		Let $(x_n)_n$ be Cauchy in $D$ w.r.t. $\Norm{}_T$.
+		\[ \implies (x_n)_n \text{ and } (Tx_n)_n \text{ are Cauchy sequences in $X$ and $Y$ respectively} \]
+		Thus $\exists x \coloneqq \lim_{n \to \infty} x_n$ and $y \coloneqq \lim_{n \to \infty} Tx_n$. $T$ closed implies $x \in D$ and $Tx = y$.
+		Hence $(x_n)_n \to x \in D$ for $n \to \infty$ w.r.t. $\Norm{}_T$.
+	\item $\forall x \in D: \Norm{Tx} \leq \Norm x + \Norm{Tx} \leq \Norm{x}_T$
+	\end{enumerate}
+	Extension of the open mapping theorem for closed operators.
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:5.13}
+	Let $X$ and $Y$ be a Banach space. $D \subset X$ be a subspace.
+	$T: D \to Y$ be linear, closed and surjective.
+	$\implies T$ is open, in particular if $T$ is injective, $T^{-1}: Y \to D$ is continuous.
+\end{lemma}
+
+\begin{proof}
+	By Lemma~\ref{lemma:5.12}, $T: D \to Y$ is continuous wrt. $\Norm{}_T$ in $D$ and $D, Y$ are Banach.
+
+	By Theorem~\ref{theorem:5.5}, $T$ is open from $D$ to $Y$.
+	Show that $T$ is open wrt. $\Norm{}_X$ and $\Norm{}_Y$. Take $0 \subseteq D$ to be open wrt. $\Norm{}_X$. Because $\Norm{}_X \subset \Norm{}_T \implies 0$ is open wrt. $\Norm{}_T \implies T(0)$ is open in $Y$.
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:5.14}
+	Let $X, Y$ be Banach. $D \subseteq X$ be a subspace. $T: D \to Y$ closed, linear and has closed range. Then with $\tilde D \coloneqq D \setminus \ke(T)$. $\tilde T: \tilde D \to Y$ with $[x] \mapsto Tx$. We get that $\tilde T$ is bijective from $\tilde D$ to $\operatorname{range}(T)$ and $\exists \tilde T^{-1}: \operatorname{range}(T) \to \tilde D$ and is continuous. In particular, if $T$ is injective
+	\[ \implies T^{-1}: \operatorname{range}(T) \to D \text{ is continuous} \]
+\end{corollary}
+
+\begin{proof}
+	Similar to the proof above. Thus this is left as an exercise to the reader.
+\end{proof}
+
+\begin{theorem}
+	Let $X$ and $Y$ be Banach spaces. $T: X \to Y$ be linear and closed.
+	[e.g. $X \subset \hat X$ with $X$ closed, $\hat X$ Banach, $T: D \coloneqq X \to Y$] $\implies T$ is continuous
+\end{theorem}
+
+\begin{proof}
+	By Lemma~\ref{lemma:5.12}, $T: (X, \Norm{}_T) \to (Y, \Norm{}_Y)$ is continuous and $(X, \Norm{}_T)$ is Banach. Also $\Norm{x}_X \leq \Norm{x}_T \forall x \in X$. By Corollary~\ref{corollary:5.9}, $\Norm{}_X$ and $\Norm{}_Y$ are equivalent, thus $\exists M > 0: \Norm{x}_T \leq \Norm{x}_X \forall x \in X$.
+	\begin{itemize}
+		\item[$\implies$] $\forall x \in X: \Norm{Tx}_Y < C \Norm{x}_T \leq CM \Norm{x}_X$
+		\item[$\implies$] $T$ is continuous wrt. $\Norm{}_X$
+	\end{itemize}
+\end{proof}
+
+\begin{Remark}
+	For differential operators, the domain is usually not closed.
+	($\mathcal C^1$ is not closed in the $\mathcal C^0$-norm)
+\end{Remark}
+
+
+\dateref{2019/05/28}
+
+
+
 \printindex
 \end{document}
