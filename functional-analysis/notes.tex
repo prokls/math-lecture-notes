@@ -783,19 +783,21 @@ Now, which topics are we going to cover in this course:
 						\item[$n \to n+1$]
 							Let $a_n \in E_n$ such that $M \cap B_{\frac1{2^n}}(a_n) \in \Omega$ be given.
 							Let $\tilde E_{n+1} = \SetDef{a \in E_{n+1}}{B_{\frac1{2^n}}(a_n) \cap B_{\frac1{2^{n+1}}}(a) \neq \emptyset}$.
-					\end{description}
 
-					Since $M \cap B_{\frac1{2^n}}(a_n) \subset \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{2^{n+1}}}(a)$.
-					[Take $x \in M \cap B_{\frac1{2^n}}(a_n) \implies x \in B_{\frac{1}{2^{n+1}}}(\hat a)$, but if $B_{\frac1{2^{n-1}}}(\hat a) \cap B_{\frac1{2^n}}(a_n) = \emptyset$
-					\[ \implies \hat a \in \tilde E_{n+1} \implies x \in \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{a^{n+1}}}(a) \]
-					Hence there exists $a_{n+1}$ such that $M \cap B_{\frac{1}{2^{n+1}}}(a_{n+1}) \in \Omega$ and $B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n-1}}}(a_{n+1}) \neq \emptyset$.
-					Thus $(a_n)_n$ is well-defined.
+						It holds that $M \cap B_{\frac1{2^n}}(a_n) \subset \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{2^{n+1}}}(a)$:
+            \[
+              x \in M \cap B_{\frac1{2^n}}(a_n) \implies \exists \hat a \in E_{n + 1} : x \in B_{\frac{1}{2^{n + 1}}}(\hat a) \\
+              \implies B_{\frac1{2^n}}(a_n) \cap B_{\frac{1}{2^{n + 1}}}(\hat a) \neq \emptyset \implies \hat a \in \tilde E_{n + 1} \implies x \in \bigcup_{a \in \tilde E_{n + 1}} B_{\frac1{2^{n + 1}}}(a)
+            \]
+						Hence there exists $a_{n+1} \in E_{n + 1}$ such that $M \cap B_{\frac{1}{2^{n+1}}}(a_{n+1}) \in \Omega$ and \\ $B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n-1}}}(a_{n+1}) \neq \emptyset$.
+						Thus $(a_n)_n$ is well-defined.
+					\end{description}
 
 				\item[Step 2] Show that $(a_n)_n$ converges. Take $n \in \mathbb N$ and $z \in B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n+1}}}(a_{n+1})$.
 					\[ \implies d(a_n, a_{n+1}) < d(a_n, z) + d(z, a_{n+1}) \leq \frac{1}{2^n} + \frac{1}{2^{n+1}} = \frac{3}{2^{n+1}} \]
 					\[ \forall k \geq n: d(a_k, a_n) \leq \sum_{i=n}^{k-1} d(a_{i+1}, a_i) < \sum_{i=n}^{k-1} \frac{3}{2^{i+1}} = \frac{3}{2^{n+1}} \sum_{i=0}^{k-n-1} \frac{1}{2^i} \leq \frac{3}{2^n} \]
 					thus, $(a_n)_n$ is Cauchy. $M$ is complete, so $\exists a \in M: a_n \xrightarrow{n \to \infty} a$
-					\[ \implies \exists U_{i_0}: a \in U_{i_0} and \exists i > 0: B_r(a) \subset U_{i_0} \]
+					\[ \implies \exists U_{i_0}: a \in U_{i_0}$ and $\exists r > 0: B_r(a) \subset U_{i_0} \]
 					Hence, for $n$ sufficiently large such that $d(a, a_n) < \frac r2$ and $\frac1{2^n} < \frac r2$.
 					We take $x \in B_{\frac1{2^n}}(a_n)$ and estimate
 					\[ d(x, a) \leq d(x, a_n) + d(a_n, a) < \frac r2 + \frac r2 = r \]
@@ -824,7 +826,7 @@ Now, which topics are we going to cover in this course:
 		\item If $f|_M$ is not uniformly continuous, then $\exists \varepsilon > 0 \forall n \in \mathbb N \exists x, y \in M: d(x, y) < \frac1n$ and $d(f(x), f(y)) > \varepsilon$ (*).
 			Now take $(x_n)_n, (y_n)_n$ sequences in $M$ satisfying condition (*).
 			$M$ is compact, so $\exists (x_{n_i})_{i}$ subsequence converging to some $x \in M$.
-			\[ d(y_{n_i}, x) < d(y_{n_i}, x_{n_i}) + d(x_{n_i}, x) \leq \frac{1}{n_i} + d(x_{n_i}, x) \xrightarrow{i \to \infty} 0 \]
+			\[ d(y_{n_i}, x) < d(y_{n_i}, x_{n_i}) + d(x_{n_i}, x) < \frac{1}{n_i} + d(x_{n_i}, x) \xrightarrow{i \to \infty} 0 \]
 	\end{enumerate}
 \end{proof}
 
@@ -927,7 +929,7 @@ Now, which topics are we going to cover in this course:
 					We prove the other direction.
 
 					\dateref{2019/03/26}
-					$B$ is complete since it is a closed subset of a Banach space.
+					$M$ is complete since it is a closed subset of a Banach space.
 
 					Show: $M$ is totally bounded.
 
@@ -1086,15 +1088,15 @@ We consider a common, but less useful reformulation:
 	\begin{description}
 		\item[$\implies$]
 			Take $m_1 < m_2$ arbitrary, then
-			\[ \Norm{\sum_{n=1}^{m_1} x_n - \sum_{n=1}^{m_2} x_n} \leq \sum_{n=m_1+1}^{m_2} \Norm{x_1} = \sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_1} \leq \Norm{\sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_1}} \]
+			\[ \Norm{\sum_{n=1}^{m_1} x_n - \sum_{n=1}^{m_2} x_n} \leq \sum_{n=m_1+1}^{m_2} \Norm{x_n} = \sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_n} \leq \Abs{\sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_n}} \]
 			\[ \implies \left(\sum_{n=1}^m x_n\right)_m \text{ is Cauchy } \implies \text{ convergent} \]
 		\item[$\impliedby$]
 			Let $(x_n)_n$ be Cauchy. Show that $(x_n)_n$ converges. For $\varepsilon_k = 2^{-k}$, pick $N_k$ such that $\Norm{x_n - x_m} \leq 2^{-k} \forall n, m \geq N_k$
 			\[ \implies \exists (x_{n_k})_k \text{ a subsequence such that } \Norm{x_{n_{k+1}} - x_{n_k}} \leq 2^{-k} \]
-			Define $y_k \coloneqq x_{n_{k-1}} - x_{n_k} \implies \sum_k \Norm{y_{n_w}} \leq \sum_k 2^{-k} < \infty$
+			Define $y_k \coloneqq x_{n_{k+1}} - x_{n_k} \implies \sum_k \Norm{y_{n_k}} \leq \sum_k 2^{-k} < \infty$
 			\[ \implies \exists y \in X: \sum_{k=1}^n y_k \to y \text{ as } n \to \infty \]
 			\[ \sum_{k=1}^n y_k = x_{n_{m+1}} - x_{n_1} \implies x_{n_{m+1}} \to y - x_{n_1} \text{ as } n \to \infty \]
-			So $(x_n)_n$ has a convergent subsequence and $(x_n)_n$ is Cauchy, then $(x_n)_n$ is convergent.
+			So $(x_n)_n$ has a convergent subsequence and $(x_n)_n$ is Cauchy, hence $(x_n)_n$ is convergent.
 	\end{description}
 \end{proof}
 
