@@ -2679,10 +2679,181 @@ Closed operators are continuous in the right topology.
 	($\mathcal C^1$ is not closed in the $\mathcal C^0$-norm)
 \end{Remark}
 
-
 \dateref{2019/05/28}
 
+\section{Dual spaces, reflexivity and weak convergence}
+\label{section:6}
 
+\begin{Remark}
+	Obtain \enquote{Bolzano-Weierstrass} in infinite-dimensional spaces
+\end{Remark}
+
+\begin{definition}
+	\label{definition:6.1}
+	Let $X$ be a normed space. Then $X^* \coloneqq \mathcal L(X, \mathbb K)$ is called the \emph{dual space of $X$}\index{Dual space}. We denote $\Norm{x^*}_{X^*} \coloneqq \Norm{x^*}_{\mathcal L(X, \mathbb K)}$.
+\end{definition}
+
+\begin{corollary}
+	Let $X$ be a normed space. Then $X^*$ is complete.
+\end{corollary}
+
+\begin{lemma}
+	\label{lemma:6.3}
+	Let $X$ be normed. Then $\forall x \in X \setminus \Set{0} \exists x^* \in X^*: \Norm{x^*}_X = 1 \lor x^*(x) = \Norm{x}$.
+	In particular,
+	\[ \forall x_1, x_2 \in X: x_1 \neq x_2 \implies \exists x^* \in X^*: x^*(x_1) \neq x^*(x_2) \]
+\end{lemma}
+
+\begin{proof}
+	Take $x \in X, x \neq 0$ fixed. Define $u^*: \operatorname{span}(x) \to \mathbb K$ with $\lambda x \mapsto u^*(\lambda x) \coloneqq \lambda \Norm{x}$.
+	Then,
+	\[ \Norm{u^*} = \sup_{\Norm{\lambda x} \leq 1} \Abs{u^*(\lambda x)} = \sup_{\Norm{\lambda x} \leq 1} \Abs{\lambda \Norm{x}} = \sup_{\Norm{\lambda x} \leq 1} \Norm{\lambda x} = 1 \]
+	Also $u^*(x) = \Norm{x}$. By the Hahn-Banach Theorem, existence of $x^*$, as claimed, follows.
+
+	In particular, if $x_1 \neq x_2$ we define $x^* = x^*(x_1 - x_2) = \Norm{x_1 - x_2} \implies x^*(x_1) - x^*(x_2) \neq 0$.
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:6.4}
+	Let $X$ be normed. Then
+	\[ \forall x \in X: \Norm{x} = \sup_{\substack{x^* \in X^* \\ \Norm{x^*} \leq 1}} \Abs{x^*(x)} \]
+\end{lemma}
+
+\begin{proof}
+	Let $x \in X$. If $x = 0$, then trivial. If $x \neq 0$, then
+	\[ \sup_{\Norm{x^*} \leq 1} \Norm{x^*(x)} \leq \sup_{\Norm{x^*} \leq 1} \Norm{x^*} \Norm{x} \leq \Norm{x} \]
+	Also, $\exists \hat x \in X: \Norm{\hat x} = 1 \implies \hat x^*(x) = \Norm{x} \implies \sup_{\Norm{x^*} \leq 1} \Abs{x^*(x)} \geq \Abs{x^*(x)} = \Norm{x}$
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:6.5}
+	Let $X$ be normed. $U \subset X$ be a closed subspace. $x \not\in U \implies \exists \hat x \in X^*: \left.x^*\right|_u = 0$ with $x^*(x) \neq 0$.
+\end{lemma}
+
+\begin{proof}
+	Define $w: X \to X / U$ with $x \mapsto [x] = \SetDef{y \in X}{x - y \in U}$
+	\[ w(u) = 0 \forall u \in U, w(x) \neq 0 \]
+	Choose $l \in (X / U)^*$ such that $l^*(w(x)) \neq 0$ and define $x^* \coloneqq l \circ w$. Thus $x^*(x) = l^*(w(x)) \neq 0$. $x^*(u) = l^*(0) = 0$.
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:6.6}
+	Let $X^*$ be normed. $U \subset X$ be a subspace. TFAE:
+	\begin{itemize}
+		\item $U$ is dense in $X$
+		\item $\forall x^* \in X: \left. x^* \right|_U = 0 \implies x^* = 0$
+	\end{itemize}
+\end{lemma}
+
+\begin{proof}
+	\begin{itemize}
+		\item[$(1) \to (2)$]
+			Obvious by continuity.
+		\item[$(2) \to (1)$]
+			$\overline{U}$ is closed. If $\overline U \neq X \implies \exists x^* \in X: \left. x^* \right|_{\overline U} = 0$ and $x^* \neq 0$. This gives a contradiction.
+	\end{itemize}
+\end{proof}
+
+\begin{Remark}
+	$(2) \to (1)$ is often useful to show density
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:6.7}
+	Let $1 \leq p \leq \infty$. $a \in [1, \infty]$: $\frac1p + \frac1a = 1$ and $(\Omega, \Sigma, \mu)$ be a $\sigma$-finite measure space. Define $T: L^a(\Omega, \mathbb K^M, \mu) \to L^*p(\Omega, \mathbb K^M, \mu)^*$ with $g \mapsto T_g$ with $T^g(f) \coloneqq \int_{\Omega} (f, g) \, d\mu$
+
+	Then $T$ is well-defined, linear and isometric ($\implies$ injective). If $p < \infty$, then $T$ is surjective and $L^p(\dots)^* \cong L^q$.
+\end{theorem}
+
+\begin{proof}
+	\begin{description}
+		\item[Well-defined]
+			Linear is obvious. By Hölder: $\Abs{T_g(f)} = \Abs{\int_{\Omega} (f \cdot g) \, d\mu} \leq \Norm{g}_q \Norm{f}_p \implies T_g$ bounded and $\Norm{T_g} \leq \Norm{g}_q$.
+
+			Next, assume $p < \infty$. Show: $T_g$ is surjective. Here we show the result only for $L^p(\Omega, \mu)$ and $\Abs{\mu(\Omega)} < \infty$ (the rest is left as an exercise to the reader).
+			Take $y^* \in (L^p)^*$. Construct $q \in L^q: T_q = y^*$. We consider $\nu: \Sigma \to \mathbb K: \nu(E) \coloneqq y^*(\chi_E)$. Then $\nu(\emptyset) = y^*(0) = 0$. Furthermore, for $(E_i)_i$ in $\Sigma$ pairwise-disjoint, we get that
+			\[ \sum_{i=1}^n \chi_{E_i} = \chi_{\bigcup_{i=1}^n E_i} \to \chi_{\bigcup_{i=1}^\infty E_i} \text{ pointwise }, E \coloneqq \bigcup_{i=1}^\infty E_i \]
+			Furthermore,
+			\[ \int_{\Omega} \Norm{X_{\bigcup_{i=1}^n E_i} - X_E}^p \, d\mu \leq \int_{\Omega} \Abs{\chi_E}^p \, d\mu \]
+			Lebesgue dominated convergence theorem implies
+			\[ X_{\bigcup_{i=1}^n E_i} \to \chi_{E} \text{ in } L^p \]
+			\[ \implies \sum_{i=1}^\infty u(E_i) = \lim_{n \to \infty} \sum_{i=1}^n v(E_i) = \lim_{n \to \infty} y^*\left(\chi_{\bigcup_{i=1}^n E_i}\right) = y^*(X_E) = v(E) \]
+
+			Thus $\nu$ is a complex measure. Also $\mu(E) = 0 \implies \nu(E) = 0$. The Radon-Nikodyn Theorem (compare with Werner, Prop. A 4.6) implies $\exists q \in L^*(\Omega, \mu)$ such that
+			\[ u(E) = \int_E q \, d\mu = \int_{\Omega} \IP{\chi_E}{g} \, d\mu \]
+			Hence: $y^*(\chi_E) = \int_{\Omega} \IP{x}{g^*} \, d\mu \forall E \in \Sigma$.
+
+			By linearity, $y^*(f) = \int_{n} \IP{f}{g} \, d\mu \forall f$ as step functions.
+
+			Now since $\mu(\Omega) < \infty$, $L^\infty(\Omega, \mu) \subset L^p(\Omega, \mu)$ (by Hölder).
+
+			Since $\forall h \in L^\infty: \int_{\Omega} \Abs{h}^p = \int_{\Omega} \Abs{h} \Abs{h}^{p-1} = \Norm{h}_\infty \int_{\Omega} \Abs{h}^{p-1}$.
+
+			\[ \implies \Abs{y^*(f)} \leq \Norm{y^*} \cdot \Norm{f}_p \leq \Norm{y^*} \cdot c \cdot \Norm{f}_\infty \forall f \in L^\infty \]
+			Hence, $y^* \in \mathcal L^(L^\infty, \mathbb K)$. Also $f \mapsto \int_\Omega \IP{f}{g} \, d\mu$ for $f \in L^\infty$ is continuous wrt. $L^\infty$-convergence since $\forall f \in L^\infty: \int_{\Omega} \IP{f}{g} \, d\mu \leq \Norm{f}_\infty \cdot \Norm{g}_1$ with $\Norm{g}_1 < \infty$.
+			\[ \implies \forall f \in L^\infty: y^*(f) = \int_{\Omega} \IP{f}{g} \, d\mu \]
+			by density of step functions, we know that from measure theory.
+
+			Now, show that $g \in L^q$.
+			\begin{description}
+				\item[Case $q < \infty$:] Define 
+					\[ f(x) = \begin{cases} \frac{\Abs{g(x)}^\infty}{g(x)} & \text{if } g(x) \neq 0 \\ 0 & \text{else} \end{cases} \]
+					\[ E_n \coloneqq \SetDef{x \in \Omega}{\Abs{q(x)} \leq n} \implies X_{E_n} f \in L^\infty \]
+					Further:
+					\[ \int_{E_n} \Abs{g}^q \, d\mu = \int_{\Omega} X_{E_n} \IP{f}{g} \, d\mu = y^*(\chi_{E_n} f) \leq \Norm{y^*} \Norm{\chi_{E_n} \cdot f}_p = \Norm{y^*} \left(\int_{E_n} \Abs{f}^p \, d\mu\right)^{\frac1p} = \Abs{y^*} \left(\int_{E_n} \Abs{g}^{(q - 1)p}\right)^{\frac1p} \]
+					with $(q - 1)p = g$ because $p = \frac{q}{q - 1}$.
+					\[ \implies \left(\int_{E_n} \Abs{g}^{q} \, d\mu\right)^{\frac1q} = \left(\int_{E_n} \Abs{g}^q \, d\mu\right)^{1 - \frac1p} \leq \Norm{y^*} \]
+					By the Beppo-Levi Theorem,
+					\[ \left(\int_{\Omega} \Abs{g}^q \, d\mu\right)^{\frac1q} \leq \Norm{y^*} \]
+					Hence, $g \in L^q$ and $\Norm{g}_q \leq \Norm{y^*}$.
+				\item[Case $q \coloneqq \infty$:]
+					Define $E \coloneqq \SetDef{x \in \Omega}{\Abs{q(x)} > \Norm{y^*}}$. $f \coloneqq \chi_E \cdot \frac{\Abs g}{\overline g} \in L^\infty$.
+					If $\mu(E) > 0$, then
+					\[ \mu(E) \Norm{y^*} < \int_E \Abs{g} \, d\mu = \int_{\Omega} (fg) \, d\mu = y^*(f) \leq \Norm{y^*} \Norm{f}_1 = \Norm{y^*} \mu(E) \]
+					Gives a contradiction.
+					$\implies \mu(E) = 0$,
+					\[ \implies \Abs{q(x)} \leq \Norm{y^*} \text{ almost everywhere} \]
+					\[ \implies \Norm{g}_{\infty} \leq \Norm{y^*} \text{ and } q \in L^\infty \]
+
+					\[ \int_{\Omega} \IP{f}{g} \, d\mu = y^*(f) \forall f \in L^\infty \text{ and } g \in L^q \]
+					hence $f \mapsto \int_{\Omega} \IP fg \, d\mu$ is continuous on $L^p$ (Hölder).
+
+					Hence,
+					\[ \int_{\Omega} \IP fg \, d\mu = y^*(f) \forall f \in \overline{C_C(\Omega)}^{L^p} = L^p(\Omega, \mu) \]
+					since $C_C \subset L^\infty$.
+
+					We know $\Norm{Tg} \leq \Norm{g}_q$ and $\Norm{g}_q \leq \Norm{y^*}$ with $\Norm{Tg} = \Norm{y^*}$
+					\[ \implies \Norm{y^*} = \Norm{g}_q \]
+
+					Final open point: Show that $\Norm{g}_q \leq \Norm{Tg}$ for $p = \infty$.
+
+					\begin{align*}
+						\Norm{Tg} &= \sup_{\substack{f \in L^\infty \\ \Norm{f}_\infty \leq 1}} \Abs{T_g(f)} = \sup_{\Norm{f}_\infty = 1} \int_{\Omega} \IP fg \, d\mu \\
+							&\geq \int_{\Omega} \Abs{g} \, d\mu = \Norm{g}_q = \Norm{g}_1
+					\end{align*}
+			\end{description}
+	\end{description}
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:6.8}
+	Let $p, q \in [1, \infty]: \frac1p + \frac1q = 1$. Then
+	\[ T_1: l^q \to (l^p)^* \qquad y \mapsto T_y(x) \coloneqq \sum_{i=1}^\infty x_i \overline{y_i} \]
+	\[ T_2: L^q(\Omega) \to L^p(\Omega)^* \qquad g \mapsto Tg(f) \coloneqq \int_{\Omega} \IP fg \, d\mu \]
+	are well-defined, isometric, linear and surjective if $p < \infty$.
+\end{corollary}
+
+% L^1 is not a dual space
+
+\begin{theorem}[Riesz-Representation Theorem]
+	\label{theorem:6.9}
+	Let $K$ be a compact metric space. Then
+	$C(K)^* \cong M(K)$ where $M(K)$ is the set of Radon measures, is regular, finite. Borel measures on K and $T: M(K) \to C(K)^*$.
+\end{theorem}
+
+\begin{proof}
+	Radin 1986, see the book in the literature list
+\end{proof}
 
 \printindex
 \end{document}
