@@ -77,6 +77,11 @@
 % double \tilde
 \newcommand{\ttilde}[1]{\tilde{\raisebox{0pt}[0.85\height]{$\tilde{#1}$}}}
 
+% equality symbol with hat
+\usepackage{scalerel,stackengine}
+\newcommand\correspondsto{\mathrel{\stackon[1.5pt]{=}{\stretchto{%
+    \scalerel*[\widthof{=}]{\wedge}{\rule{1ex}{3ex}}}{0.5ex}}}}
+
 % typesetting settings
 \parindent0pt
 \setlength{\parskip}{.6em}
@@ -2854,6 +2859,243 @@ Closed operators are continuous in the right topology.
 \begin{proof}
 	Radin 1986, see the book in the literature list
 \end{proof}
+
+\dateref{2019/06/04}
+
+\begin{revision}
+	$p, q \in (1, \infty)$, $\frac1p + \frac1q = 1 \implies (L^p)^* = (L^q)$
+
+	For which spaces does this hold true?
+	\[ (L^q)^* \correspondsto L^p \implies ((L^p)^{*})^* \correspondsto L^p \]
+\end{revision}
+
+\begin{definition}[Proposition and definition]
+	\label{definition:6.10}
+	Let $X$ be a normed space. We call $X^{**} = (X^*)^*$ to the \emph{bidual space}\index{Bidual space} of $X$. Define
+	\[ i = i_X: X \to X^{**} \qquad x \mapsto i_X(x): X^* \to \mathbb K \]
+	Then $i_X$ is linear and isometric. $x^* \mapsto i_X(x)(x^*) \coloneqq x^*(x)$.
+	We call $i_X$ to be the \emph{canonical embedding}\index{Canonical embedding} of $X$ into its bidual space.
+\end{definition}
+
+\begin{proof}
+	\begin{description}
+		\item[Linearity]
+			Show: $i(\lambda x + z) = \lambda i(x) + i(z) \forall x, z \in X, \lambda \in \mathbb K$
+
+			$x^* \in X^*$.
+			\begin{align*}
+				i(\lambda x + z) &= x^*(\lambda x + z) \\
+					&= \lambda x^*(x) + x^*(z) \\
+					&= \lambda i(x) + i(z)
+			\end{align*}
+			Recall that $x^* \in X^*$ and thus linear.
+		\item[Isometric]
+			\[ \forall x \in X, x^* \in X: \Abs{i(x)(x^*)} = \Abs{x^*(x)} = \Norm{x^*}\Norm{x} \implies \Norm{i(x)} \leq \Norm x \]
+			Lemma~\ref{lemma:6.4}: If $x = 0$, then $\Norm{i(x)} = \Norm{x} = 0$.
+			If $x \neq 0$, then $\exists \hat x^* \in X^*: \hat x^* \in X^*: \hat x^*(x) = \Norm{x}$, $\Norm{\hat x} = 1$.
+			\[ \implies \Norm{i(x)} = \sup_{\Norm{x^*} \leq 1} \Norm{i(x)(x^*)} \geq \Abs{i(x)(\hat x^*)} = \Abs{\hat x^*(x)} = \Norm{x} \]
+	\end{description}
+\end{proof}
+
+\begin{Remark}
+	Hence $X$ can be identified with a subspace of $X^{**}$.
+	In particular, if $X$ is a Banach space $i(X)$ is a closed subspace.
+\end{Remark}
+
+\begin{definition}
+	\label{definition:6.11}
+	A Banach space $X$ is called \emph{reflexive}\index{Reflexive space} if $i_X: X \to X^{**}$ is surjective.
+\end{definition}
+
+\begin{Remark}
+	\begin{itemize}
+		\item Dual spaces are always complete, hence only Banach spaces can be reflexive.
+		\item We already know: $L^p$ is reflexive for $p \in (1, \infty)$
+		\item Alternative definition: $X \,\overline{\text{reflexive}}$ iff $X \,\correspondsto X^{**}$.
+			\begin{description}
+				\item[$\implies$]
+				  Reflexive $\implies \,\overline{\text{reflexive}}$ (requires a \emph{particular} isomorphism).
+				\item[$\impliedby$] Is not true.
+					Our definition is far more common since it is useful to have the isometry explicitly. 
+			\end{description}
+	\end{itemize}
+\end{Remark}
+
+\begin{corollary}
+	\label{corollary:6.12}
+	Let $(\Omega, \Sigma, \mu)$ be a sigma-finite measure space. $p \in (1, \infty)$.
+	Hence $L^p(\Omega, \mathbb K^M, \mu)$ is reflexive, in particular $L^p(\Omega)$, $l^p$ are reflexive.
+\end{corollary}
+
+\begin{proposition}
+	\label{proposition:6.13}
+	Let $X$ be normed. Then
+	\begin{enumerate}
+		\item If $X$ is reflexive, $U \subset X$ a closed subspace $\implies U$ is reflexive.
+		\item If $X$ is Banach: $X$ reflexive $\iff X^*$ is reflexive.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Take $u^{**} \in U^{**}$. Show: $\exists u \in U: i_U(u) = u^{**}$.
+			The mapping $x^* \mapsto u^{**}(\left.x^*\right|_U)$ is in $X^**$ since
+			\[ \Abs{u^{**}(\left.x^*\right|_U)} \leq \Norm{u^{**}}_{U^{**}} \Norm{\left.x^*\right|_U}_{V^*} \leq \Norm{u^{**}}_{V^*} \Norm{x^*}_{X^*} \]
+			$X$ reflexive $\implies \exists x \in X: i_X(x) = f$
+			\[ \implies x^*(x) = u^{**}(\left. x^* \right|_U) \forall x^* \in X^* \]
+			Show: $x \in U$. If $x \not\in U$, then $x^* \in X^*: x^*(x) = 1, \left.x^*\right|_X = 0 \implies 1 = u^{**}(\left. x^* \right|_U) = u^{**}(0) = 0$ gives a contradiction. Hence $x \in U$. Define $u = x$.
+
+			Show: $u^*(u) = u^{**}(\left. u^* \right|_U) \forall u^* \in U^*$. Take $u^* \in U^*$. Take $x^*$ to be an extension of $u^*$ by Hahn-Banach.
+			\[ \implies u^{**}(u^*) = u^{**}(\left. x^* \right|_U) = x^*(u) = u^*(u) = i_U(u)(u^*) \implies u^{**} = i_U(u) \]
+		\item Assume that $X$ is reflexive.
+
+			Show: $i_{X^*}: X^* \to X^{***}$ is surjective.
+
+			Take $x^{***} \in X^{***}$. Define $x^*: X \to \mathbb K$ and $x \mapsto x^{***}(i_X(x))$. Then $x^* \in X^*$.
+
+			Show: $i_{X^*}(x^*) = x^{***}$.
+
+			Since X is reflexive, any $x^{**}$ can be written as $x^{**} = i_X(x)$.
+			\begin{align*}
+				\implies &\forall x^{**} \in X^{**}: x^{***}(x^{**}) = x^{***}(i_X(x)) = \\
+					& x^*(x) = i_X(x)(x^*) = x^{**}(x^*) = i_{X^*}(x^*)(x^{**}) \\
+				\implies &x^{***} = i_{X^*}(x^*)
+			\end{align*}
+			Now if $X^*$ is reflexive, then $X^{**}$ is reflexive.
+			$i(X) \subset X^{**}$ is reflexive as closed subspace of $X^{**}$.
+			Hence $X$ is reflexive.
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:6.14}
+	Let $X$ be normed.
+	\begin{itemize}
+		\item If $X^*$ is separable, then $X$ is separable.
+		\item If $X$ is reflexive, then ($X$ reflexive $\iff X^*$ is separable)
+	\end{itemize}
+\end{proposition}
+
+\begin{Remark}
+	\begin{enumerate}
+		\item \enquote{$\impliedby$} in the first item is not true since $L^1$ is separable, but $L^\infty = (L^1)^*$ is not separable.
+		\item By the second item, $L^1$ is not reflexive, since otherwise $L^\infty$ would be separable.
+	\end{enumerate}
+\end{Remark}
+
+\begin{proof}
+	\begin{itemize}
+		\item follows from item 1
+		\item Assume $X^*$ is separable.
+			\[ S_1^{X^*} = \SetDef{x^* \in X^*}{\Norm{x^*} = 1} \]
+			is separable as being a subset. Every subset of a separable set is separable (left as an exercise).
+			Take $(x^*_n)_n$ to be dense in $S_1$. For all $n \in \mathbb N$ pick $x_n \in X: \Norm{x_n} = 1$ and $\Abs{x^*_n(x_n)} > \frac12$.
+			Set $U = \operatorname{span}((x_n)_{n \in \mathbb N})$.
+
+			Show: $U$ is dense in $X$.
+
+			Let $x^* \in X^*$ such that $\left. x^* \right|_U = 0$.
+
+			Show: $x^* = 0$ ($\implies \overline U = X$)
+
+			If not, wlog. assume $\Norm{x^*} = 1$.
+			\[ \implies \exists x^*_{n_0} = S_1^{x^*}: \Norm{x^* - x_{n_0}^*} < \frac14 \]
+			\[ \implies \frac12 < \Abs{x^*_{n_0}(x_{n_0})} = \Abs{x^*_{n_0}(x_{n_0}) - x^*(x_{n_0})} \leq \Norm{x_{n_0}^* - x^*} \Norm{x_{n_0}} < \frac14 \cdot 1 \]
+			Contradiction.
+	\end{itemize}
+\end{proof}
+
+Fundamental difficulty in $\infty$-dimensional spaces.
+Closed and bounded does not imply sequentially compact.
+In particular, bounded sequences do not admit convergent subsequences in general.
+
+\emph{Solution:} A weaker notion of convergence.
+
+\begin{definition}
+	\label{definition:6.15}
+	Let $X$ be normed, $(X_n)_n$ in $X$, $x \in X$.
+	We say $x_n$ \emph{converges weakly}\index{Weak convergence} to $x$ (denoted $(x_n) \rightharpoonup x$) iff
+	\[ x^*(x_n) \to x^*(x) \forall x^* \in X^* \]
+\end{definition}
+
+\begin{Remark}
+	\begin{itemize}
+		\item This is obviously weaker than norm-convergence (also called \emph{strong convergence}\index{Strong convergence})
+		\item All $x^* \in X^*$ are still sequentially continuous wrt. weak convergence.
+			i.e. $x^*(x_n)_n \to x^*(x) \qquad \forall x_n \to x$
+	\end{itemize}
+\end{Remark}
+
+\begin{proposition}
+	\label{proposition:6.16}
+	Let $X$ be normed, $(x_n)_n$ in $X$, $x \in X$. Then
+	\begin{enumerate}
+		\item $(x_n)_n \rightharpoonup x \implies (x_n)_n \rightharpoonup x$
+		\item If $(x_n)_n \rightharpoonup x$ then $(x_n)_n$ is bounded
+		\item Weak limits are unique. i.e. if $(x_n)_n \rightharpoonup x$ and $(x_n)_n \rightharpoonup y \implies x = y$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Immediate
+		\item follows from Lemma~\ref{lemma:6.17} below
+		\item Assume $x_n \rightharpoonup x$, $x_n \rightharpoonup y$
+			\[ \implies \forall x^* \in X: x^*(x) = \lim_{n \to \infty} x^*(x_n) = x^*(y) \]
+			\[ \implies x^*(x - y) = 0 \forall x^* \in X^* \implies x - y = 0 \implies x = y \]
+	\end{enumerate}
+\end{proof}
+
+\begin{Remark}
+	\begin{description}
+		\item[$\impliedby$] in item 1 does not hold true, e.g. with $e_i = (0, \dots, 0, 1, 0, \dots)$ (the $1$ is at the $i$-th position).
+			We have that $(e_n)_n \rightharpoonup 0$ in $l^p$ for $p \in (1, \infty)$.
+			Since $\forall (u_n)_n \in l^q = (l^p)^*$ with $\frac1p + \frac1q = 1$.
+			\[ (u_n)_n(e_m) = \sum_{n=1}^\infty u_n(e_m)_n = u_m \to 0 \text{ as } m \to \infty \]
+			since $(u_m)_m \in l^q$.
+
+			Hence $(e_n)_n \rightharpoonup 0$ in $l^p$.
+
+			But $\Norm{e_n}_{l^*} = 1 \forall n \implies (e_n)_n \not\rightharpoonup 0$
+
+			Remember that $\forall v \in l^p$ and $u \in (l^p)^*$ we write $v = (v_n)_n$ and $u = (u_n)_n \in l^q$.
+			Then $u(v) = \sum_{n=0}^\infty v_n u_n$
+	\end{description}
+\end{Remark}
+
+\begin{Lemma}
+	\label{lemma:6.17}
+	Let $X$ be normed. $M \subset X$. TFAE
+	\begin{itemize}
+		\item[1.] $M$ is bounded
+		\item[2.] $\forall x^* \in X^*: x^*(M) \subset \mathbb K$ is bounded
+	\end{itemize}
+	Also if $X$ is Banach, $M^* \subset X^*$. TFAE:
+	\begin{itemize}
+		\item[1'.] $M^*$ is bounded
+		\item[2'.] $\forall x \in X: \SetDef{x^*(x)}{x^* \in M^*}$ is bounded
+	\end{itemize}
+\end{Lemma}
+
+\begin{proof}
+	\begin{description}
+		\item[$1 \to 2$:] 
+			Let $c > 0: \Norm{x} \leq c \forall x \in M$.
+			\[ \implies \Abs{x^*(x)} \leq \Norm{x^*} \cdot c \]
+			$\implies x^*(M)$ bounded for $x^*$ fixed.
+		\item[$2 \to 1$:] 
+			Consider $i_X(x) \in X^{**}$ for $x \in X$.
+			We have that $\sup_{x \in M} \Abs{x^*(x)} = \sup_{x \in M} \Abs{i_X(x)(x^*)} < \infty \forall x^* \in X^*$
+			by assumption. By uniform boundedness principle,
+			\[ \Norm{x} = \Norm{i_X(x)} < c < \infty \qquad \forall x \in M \]
+			$\implies M$ bounded
+		\item[$1' \to 2'$:]
+			True since $\Abs{x^*(x)} \leq \Norm{x^*} \Norm{x} \leq C \Norm{x} \forall x^* \in M^*, x \in X$
+		\item[$2' \to 1'$:]
+			Direct application of uniform boundedness principle.
+	\end{description}
+\end{proof}
+
 
 \printindex
 \end{document}
