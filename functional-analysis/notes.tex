@@ -1160,9 +1160,11 @@ We consider a common, but less useful reformulation:
 		\item $\pi: \begin{cases} X \to X / y \\ x \mapsto [x]_\sim \end{cases}$
 	\end{itemize}
 
-	Defining $[x] + [y] \coloneqq [x + y]$
-	\[ \lambda [x] \coloneqq [\lambda x] \qquad \hat 0 \coloneqq [0] \]
-	We get that:
+	Defining
+	\[ [x] + [y] \coloneqq [x + y], \\
+		 \lambda [x] \coloneqq [\lambda x] \qquad \hat 0 \coloneqq [0],
+	\]
+	we get that:
 	\begin{enumerate}
 		\item $X/Y$ is a vector space
 		\item $\Norm{[x]}_{X/Y} \coloneqq \inf_{y \in [x]} \Norm{y}_X$ is a semi-norm.
@@ -1172,11 +1174,7 @@ We consider a common, but less useful reformulation:
 \end{definition}
 
 \begin{proof}
-	\begin{itemize}
-		\item Equivalence relation
-		\item Vector space with \enquote{+} and \enquote{$\lambda[x]$} are well-defined
-	\end{itemize}
-	This is left as an exercise to the reader.
+	We need to show that the given relation is an equivalence relation and that the vector space with \enquote{$+$} is well-defined. This is left to the reader as an exercise.
 
 	\begin{itemize}
 		\item[2.]
@@ -1190,12 +1188,12 @@ We consider a common, but less useful reformulation:
 					Show that: $\Norm{\lambda [x]}_{X/Y} = \Abs{\lambda} \Norm{[x]}_{X/Y}$.
 
 					Trivial, if $\lambda = 0$. Assume $\lambda \neq 0$,
-					\[ \Norm{\lambda [x]}_{X/Y} = \Norm{[\lambda x]}_{X/Y} = \inf_{y \in [\lambda x]} \Norm{y} = \inf_{y \in X, \frac y\lambda \in [x]} \Norm{y} = \inf_{w \in [x]} \Norm{\lambda w} = \Abs{\lambda} \overbrace{\inf_{u \in [x]} \Norm{u}}^{\Norm{[x]}_{X/Y}} \]
+					\[ \Norm{\lambda [x]}_{X/Y} = \Norm{[\lambda x]}_{X/Y} = \inf_{y \in [\lambda x]} \Norm{y} = \inf_{y \in X, \frac y\lambda \in [x]} \Norm{y} = \inf_{w \in [x], w = \frac y\lambda} \Norm{\lambda w} = \Abs{\lambda} \overbrace{\inf_{u \in [x]} \Norm{u}}^{\Norm{[x]}_{X/Y}} \]
 
 				\item Take $[x_1], [x_2] \in X/Y, \varepsilon > 0$.
 					We note that
-					\[ \Norm{[x]}_{X/Y} = \inf_{\substack{y \in X \\ w \in Y \\ w \coloneqq x \cdot y}} \Norm{y} = \inf_{w \in Y} \Norm{x - w} \]
-					Hence we can take $y_1, y_2 \in Y$ such that $\Norm{x_1 - y_i} < \Norm{[x_i]}_{X/Y} + \varepsilon \qquad \varepsilon \in [1, 2)$.
+					\[ \Norm{[x]}_{X/Y} = \inf_{y \in [x]} \Norm{y} = \inf_{\substack{y \in [x] \\ w = x - y}} \Norm{x - y} = \inf_{w \in Y} \Norm{x - w} \]
+					Hence we can take $y_1, y_2 \in Y$ such that $\Norm{x_1 - y_i} < \Norm{[x_i]}_{X/Y} + \varepsilon, \quad i \in [1, 2)$.
 					\begin{align*}
 						\implies \Norm{[x_1] + [x_2]}_{X/Y} &= \Norm{[x_1 + x_2]}_{X/Y} \leq \Norm{x_1 + x_2 - (y_1 + y_2)} \\
 							&\leq \Norm{x_1 - y_1} + \Norm{x_2 - y_2} \leq \Norm{[x_1]}_{X/Y} + \Norm{[x_2]}_{X/Y} + 2 \varepsilon
@@ -2541,7 +2539,7 @@ Now: Continuous invertibility of linear operators, or, if $T \in \mathcal L(X, Y
 
 \begin{proof}
 	\begin{description}
-		\item[$\implies$] 
+		\item[$\implies$]
 		  Immediate since $T \in \mathcal L(X, \operatorname{range}(T))$ and $\operatorname{range}(T)$ is Banach.
 		\item[$\impliedby$]
 		  Assume that $T^{-1}: \operatorname{range}(T) \to X$ is continuous. Let $(x_n)_n$ in $\operatorname{range}(T)$ be Cauchy. Then $(T^{-1}(x_n))_n$ is Cauchy. Let $X$ be Banach, then $\exists y \in X: T^{-1}(x_n) \to y$. Let $T$ be continuous, then $x_n = T(T^{-1}x_n) \to Ty \implies x \in \operatorname{range}(T)$ ($x \in Y$ since $Y$ is Banach).
@@ -2801,7 +2799,7 @@ Closed operators are continuous in the right topology.
 
 			Now, show that $g \in L^q$.
 			\begin{description}
-				\item[Case $q < \infty$:] Define 
+				\item[Case $q < \infty$:] Define
 					\[ f(x) = \begin{cases} \frac{\Abs{g(x)}^\infty}{g(x)} & \text{if } g(x) \neq 0 \\ 0 & \text{else} \end{cases} \]
 					\[ E_n \coloneqq \SetDef{x \in \Omega}{\Abs{q(x)} \leq n} \implies X_{E_n} f \in L^\infty \]
 					Further:
@@ -2916,7 +2914,7 @@ Closed operators are continuous in the right topology.
 				\item[$\implies$]
 				  Reflexive $\implies \,\overline{\text{reflexive}}$ (requires a \emph{particular} isomorphism).
 				\item[$\impliedby$] Is not true.
-					Our definition is far more common since it is useful to have the isometry explicitly. 
+					Our definition is far more common since it is useful to have the isometry explicitly.
 			\end{description}
 	\end{itemize}
 \end{Remark}
@@ -3079,11 +3077,11 @@ In particular, bounded sequences do not admit convergent subsequences in general
 
 \begin{proof}
 	\begin{description}
-		\item[$1 \to 2$:] 
+		\item[$1 \to 2$:]
 			Let $c > 0: \Norm{x} \leq c \forall x \in M$.
 			\[ \implies \Abs{x^*(x)} \leq \Norm{x^*} \cdot c \]
 			$\implies x^*(M)$ bounded for $x^*$ fixed.
-		\item[$2 \to 1$:] 
+		\item[$2 \to 1$:]
 			Consider $i_X(x) \in X^{**}$ for $x \in X$.
 			We have that $\sup_{x \in M} \Abs{x^*(x)} = \sup_{x \in M} \Abs{i_X(x)(x^*)} < \infty \forall x^* \in X^*$
 			by assumption. By uniform boundedness principle,
