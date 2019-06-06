@@ -3094,6 +3094,98 @@ In particular, bounded sequences do not admit convergent subsequences in general
 	\end{description}
 \end{proof}
 
+\begin{theorem}
+	\label{theorem:6.18}
+	Let $X$ be reflexive. Then every bounded sequence in $X$ admits a weakly-convergent subsequence.
+\end{theorem}
+
+\begin{proof}
+	Take $(x_n)_n$ be a bounded sequence in $X$.
+	Assume first that $X$ is separable. Hence $X^*$ is separable, e.g. $\exists (x_n^*)_n$ such that $X^* = \overline{\SetDef{x_n^*}{n \in \mathbb N}}$
+
+	\emph{Idea:} Construct subsequence $(y_m)_m$ of $(x_n)_n$ such that $(x_i^*(y_m))_m$ converges $\forall i \in \mathbb N$.
+	\begin{Claim}
+		$\forall i \in \mathbb N \exists (x_{n_j})_j$ subsequence of $(x_n)_n$ such that
+		\begin{enumerate}
+			\item $(x_{n_j^i})_j$ is a subsequence of $(x_{n_j^k})_j \forall k \leq i$
+			\item $(x_k^*(x_{n_j^i}))_j$ is convergent $\forall k \leq i$
+		\end{enumerate}
+	\end{Claim}
+
+	\begin{proof}[Proof by induction]
+		\begin{description}
+			\item[Case $i = 1$:]
+				\[ \Abs{x_1^*(x_n)} \leq \Norm{x_1^*} \cdot \Norm{x_1} \leq \Norm{x_1^*} C \qquad \text{for } C > 0: \Norm{x_n} \leq C \forall n \] 
+				\[ \implies (x_1^*(x_n))_n \text{ is bounded by } \mathbb K \implies \exists \text{ convergent subsequence } (x_{n_j^1})_j \]
+			\item[Case $i \to i+1$:]
+				Let $(x_{n_j^i})_j$ be given as claimed. Again $\Abs{x^*_{i+1}(x_{n_j^i})} \leq \Norm{x^*_{i+1}} C \implies \exists$ subsequence $(x_{n_j^{i+1}})_j$ such that $(x^*_{i+1}(x_{n_j^{i+1}}))_j$ is convergent. Subsequence implies that both assertions are true.
+		\end{description}
+	\end{proof}
+
+	Now, we define $y_j = x_{n_j^j} \forall j \in \mathbb N \implies (y_j)_j$ is a subsequence of $(x_n)_n$.
+	Also, for $k \in \mathbb N$, $\lim_{i \to \infty} x_k^*(y_i) = \lim_{\substack{j\to\infty \\ j \geq k}} x_k^*(y_j)$ exists.
+
+	Next: $\forall x^* \in X^*: \lim_{j \to \infty} x^*(y_j)$ exists.
+	Take $\varepsilon > 0, x^* \in X^*$ pick $i: \Norm{x_i^* - x^*} < \varepsilon$
+	\begin{align*}
+		\implies & \forall n, m \in \mathbb N: \Norm{x^*(y_n) - x^*(y_m)} \\
+		  &\leq \Norm{x^*(y_n) - x_i^*(y_n)} + \Norm{x^*_i(y_n) - x^*_i(y_n)} + \Norm{x_i^*(y_m) - x^*(y_m)} \\
+		  &\leq \Norm{x^* - x^*_i} \Norm{y_n} + \Norm{x_i^*(y_n) - x_i^*(y_m)} + \Norm{x_i^* - x^*} \Norm{y_m} \\
+		  &\leq 2 \varepsilon c + \Norm{x_i^*(y_n) - x_i^*(y_m)} \leq 3 \varepsilon c \to 0 \text{ for } n, m \to \infty
+	\end{align*}
+	$\implies (x^*(y_n))_n$ is Cauchy, thus convergent.
+
+	Show: $\exists y \in X: x^*(y_m) \to x^*(y) \forall x^* \in X^*$
+
+	Define $l: X^* \to \mathbb K$ well-defined and linear with $x^* \mapsto \lim_{n \to \infty} x^*(y_n)$.
+	Furthermore $\Abs{l(x^*)} = \lim_{n \to \infty} \Abs{x^*(y_n)} \leq \Norm{x^*} c \implies l \in (X^*)^*$.
+	$\implies \exists y \in X: i_X(y) = l$. This means that $\forall x^* \in X^*: x^*(y) = i_X(y)(x) = l(x^*) = \lim_{n \to \infty} x(y_n)$
+	\[ \implies y_n \to y \]
+
+	Now without separability: Take again $(x_n)_n$ to be bounded. Define $Y \coloneqq \operatorname{span}((x_n)_n)$.
+
+	Hence $Y$ is separable, reflexive as closed subset of $X$ (reflexive). $x_n$ is a sequence in $Y$.
+	Thus use the previous case.
+
+	$\implies \exists (y_n)_n$ subsequence of $(x_n)_n, y \in Y$ such that $x^*(y_n) \to x^*(y) \forall x^* \in Y^*$.
+
+	For $x^* \in X^*, x^*|_Y \in Y^* \implies x^*(y) \to x^*(y)$.
+\end{proof}
+
+\begin{Remark}
+	Further importang question: When are closed sets also closed wrt. weak convergence?
+
+	Not always true! Remember that $(l_n)_n$ in $l^p: \Norm{e_n} = 1 \implies e_n = \SetDef{x}{\Abs{x} = 1}$ but $e_n \rightharpoonup 0$
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:6.19}
+	Let $X$ be normed, $V \subset X$ closed and convex. Then $\forall (x_n)_n$ in $V$ such that $x_n \rightharpoonup x \in X \implies x \in V$ (\enquote{$V$ is weakly closed}).
+
+	In particular, any closed subspace is also weakly closed.
+\end{theorem}
+
+\begin{proof}
+	Assume $x \not\in V \implies \exists x^* \in X^*: x^*|_V = 0$. $x^*(x) \neq 0 \implies 0 = \lim_{n \to \infty} x^*(x_n) = x^*(x)$ gives a contradiction.
+\end{proof}
+
+\begin{Remark}[Consequence]
+	$B_1(0)$ in $X$ reflexive is weakly sequentially \emph{compact} but \emph{not} strongly sequentially compact if $\operatorname{dim}(X) = \infty$.
+\end{Remark}
+
+\begin{corollary}
+	\label{corollary:6.20}
+	Let $X$ be normed. $(x_n)_n$ in $X$ such that $x_n \rightharpoonup x \in X$. Then there exists a sequence $(y_n)_n$ where each $y_n$ is a convex combination of the $(x_n)_n$ s.t. $y_n \to x$.
+\end{corollary}
+
+\begin{Remark}[i.e.]
+	\[ \exists N^n, (\lambda_i^n)_{i=1}^{N^n}: \lambda_i^n \geq 0, \sum_{i=1}^{N^n} \lambda_i^n = 1 \text{ such that } y_n \coloneqq \sum_{i=1}^{N^n} \lambda_i^n x_i  \to x \text{ as } n \to \infty \]
+\end{Remark}
+
+\begin{proof}
+	Apply Theorem~\ref{theorem:6.19} to the closed, convex hull of $\SetDef{x_n}{n \in \mathbb N}$.
+\end{proof}
+
 
 \printindex
 \end{document}
