@@ -405,14 +405,13 @@ Furthermore, it satisfies the following property:
 \end{corollary}
 \begin{proof}
   \begin{enumerate}
-    \item
+    \item[4.]
       \begin{align*}
         \triangle(a_1, \dots, a_k + \lambda a_i, \dots, a_n)
           &= \triangle (a_1, \dots, a_k, \dots, a_n) + \triangle (a_1, \dots, a_{k-1}, \lambda a_i, a_{k+1}, \dots, a_n) \\
-          &= \triangle (a_1, \dots, a_n) + \lambda \triangle (a_1, \dots, a_{k-1}, a_i, a_{k+1}, \dots, a_n) \\
-          &= 0 \qquad \text{because $a_i$ occurs twice}
+          &= \triangle (a_1, \dots, a_n) + \underbrace{\lambda \triangle (a_1, \dots, a_{k-1}, a_i, a_{k+1}, \dots, a_n)}_{= 0 \qquad \text{because $a_i$ occurs twice}}
       \end{align*}
-    \item
+    \item[5.]
       \begin{align*}
         0 &= \triangle(a_1, \dots, a_i + a_j, \dots, a_i + a_j, \dots, a_n) \\
           &= \triangle(a_1, \dots, a_i, \dots, a_i, \dots, a_n) \\
@@ -420,7 +419,7 @@ Furthermore, it satisfies the following property:
           &+ \triangle(a_1, \dots, a_j, \dots, a_i, \dots, a_n) \\
           &+ \triangle(a_1, \dots, a_j, \dots, a_j, \dots, a_n)
       \end{align*}
-      The first and last term are zero. Multilinearity is given:
+      The first and last summands are zero. Multilinearity is given:
       \[ \lambda(a_1, \dots, \lambda a_k, \dots, a_n) = \lambda \triangle (a_1, \dots, a_n) \]
       \[ \lambda(a_1, \dots, \lambda a_k + v, \dots, a_n) = \lambda \triangle (a_1, \dots, a_n) + \triangle (a_1, \dots, a_{k-1}, v, a_{k+1}, \dots, a_n) \]
   \end{enumerate}
@@ -491,9 +490,9 @@ Then the fourth property follows:
   \]
 \end{definition}
 
-\begin{Remark}
+\begin{Lemma}
   Every permutation $\sigma \in \sigma_n$ with $\sigma \neq \operatorname{id}$ can be denoted as product of transpositions.
-\end{Remark}
+\end{Lemma}
 
 \begin{Example}
   \[ \sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 1 & 3 & 5 & 4 & 7 & 6 & 2 \end{pmatrix} \]
@@ -676,7 +675,7 @@ Then the fourth property follows:
 \end{proof}
 
 \begin{Remark}
-  Recall that the kernel of a homormophism defines a subgroup.
+  Recall that the kernel of a homomorphism defines a subgroup.
 \end{Remark}
 
 \index{Alternating group}
@@ -692,7 +691,7 @@ Then the fourth property follows:
 \begin{corollary} % 7.19
   \label{cor:719}
   \[ \dim V = n \qquad \triangle: V^n \to \mathbb K \qquad \text{ determinant form} \]
-  then it holds that $\forall \sigma \in \sigma_n: \triangle(a_{\sigma(1)}, \dots, a_{\sigma(n)}) = \sign(a) \cdot \triangle(a_1, \dots, a_n)$
+  then it holds that $\forall \sigma \in \sigma_n: \triangle(a_{\sigma(1)}, \dots, a_{\sigma(n)}) = \sign(\sigma) \cdot \triangle(a_1, \dots, a_n)$
 \end{corollary}
 
 \begin{proof}
@@ -767,10 +766,12 @@ Then the fourth property follows:
 \begin{corollary}
   A determinant form is uniquely defined by the value $\triangle(b_1, \dots, b_n)$ on a basis.
   Especially, $\triangle(b_1, \dots, b_n) \not\equiv 0 \iff \triangle(b_1,\dots,b_n) \neq 0$ [for any basis] $\iff \triangle(b_1,\dots,b_n) \neq 0$ [for every basis].
+\end{corollary}
 
+\begin{proof}
   Assume $\triangle(b_1,\dots,b_n) = 0$ for any basis.
   Every other basis can be expressed by $b_1, \dots ,b_n$ and the formula gives $\triangle(a_1, \dots, a_n) = 0 \quad \forall a_1,\dots,a_n$.
-\end{corollary}
+\end{proof}
 
 \dateref{2018/03/12}
 
@@ -900,6 +901,7 @@ Basis $b_1,\dots,b_n$.
 \[ \det(A) = \sum_{\pi \in \sigma_n} (-1)^\pi  a_{1\pi(1)} \dots a_{n\pi(n)} = \sum_{\pi \in \sigma_n} (-1)^\pi a_{\pi(1) 1} \dots a_{\pi(n) n} \]
 
 \begin{lemma} % 7.25
+  \label{lemma725}
   Let $V, W$ be vector spaces over $\mathbb K$ with $\dim{V} = \dim{W} = n$.
   Let $\triangle: W^n \to \mathbb K$ be a determinant form and $f: V \to W$ linear.
   \[ V \xrightarrow{f} W \]
@@ -927,8 +929,7 @@ Basis $b_1,\dots,b_n$.
 \begin{corollary} % Folgerung 7.26
   \label{cor726}
   Let $V = W$, $\triangle: V^n \to \mathbb K$ determinant form.
-  \[ f: V \to V \text{ linear} \]
-  \[ \implies \triangle^f \text{ is determinant form} \]
+  \[ f: V \to V \text{ linear} \implies \triangle^f \text{ is determinant form (Lemma~\ref{lemma725})} \]
   Because there is (except for one factor) only one determinant form:
   \[ \exists c_f \in \mathbb K: \triangle^f(v_1, \dots, v_n) = c_f \cdot \triangle(v_1, \dots, v_n) \forall v_1,\dots,v_n \in V \]
   \[ \det(f) \coloneqq c_f \text{ is called \emph{determinant} on } f \]
@@ -973,18 +974,18 @@ Basis $b_1,\dots,b_n$.
       \[ \det(f) = \frac{\triangle(f(b_1), \dots, f(b_n))}{\triangle(b_1, \dots, b_n)} \]
     \item[$\impliedby$]
       $\det(f) \neq 0 \implies (f(b_1), \dots, f(b_n))$ is basis $\iff f$ is invertible.
-      If $f$ is invertible, then $(f(b_1), \dots, f(b_n))$ is basis.
-      \[ \implies \triangle (f(b_1), \dots, f(b_n)) \neq 0 \implies \det(f) \neq 0 \]
-
-      If $f$ is not invertible, then
-      \[ \implies f(b_1) \dots f(b_n) \text{ is linear dependent} \]
-      \[ \exists k: f(b_k) = \sum_{i\neq k} \lambda_i f(b_i) \]
-      Without loss of generality: $k = n$
-      \begin{align*}
-        \triangle(f(b_1), \dots, f(b_n)) &= \triangle(f(b_1), \dots, f(b_{n-1}), \sum_{i=1}^{n-1} \lambda_i f(b_i)) \\
-          &= \sum_{i=1}^n \lambda_i \triangle(\underbrace{f(b_1), \dots, f(b_{n-1})}_{=0 \forall i \in \set{1,\dots,n-1}}, f(b_i)) \\
-          &= 0
-      \end{align*}
+      \begin{description}
+        \item[If $f$ is invertible] then $(f(b_1), \dots, f(b_n))$ is basis.
+          \[ \implies \triangle (f(b_1), \dots, f(b_n)) \neq 0 \implies \det(f) \neq 0 \]
+        \item[If $f$ is not invertible] then $f(b_1) \dots f(b_n)$ is linear dependent
+          \[ \exists k: f(b_k) = \sum_{i\neq k} \lambda_i f(b_i) \]
+          Without loss of generality: $k = n$
+          \begin{align*}
+            \triangle(f(b_1), \dots, f(b_n)) &= \triangle(f(b_1), \dots, f(b_{n-1}), \sum_{i=1}^{n-1} \lambda_i f(b_i)) \\
+              &= \sum_{i=1}^n \lambda_i \triangle(\underbrace{f(b_1), \dots, f(b_{n-1})}_{=0 \forall i \in \set{1,\dots,n-1}}, f(b_i)) \\
+              &= 0
+          \end{align*}
+      \end{description}
   \end{description}
 \end{proof}
 
@@ -995,7 +996,7 @@ Basis $b_1,\dots,b_n$.
 \begin{proof}
   \begin{description}
     \item[$\implies$]
-      If $A$ is invertible $\ker(A) = \emptyset$, so A has full rank.
+      If $A$ is invertible $\ker(A) = \set{0}$, so A has full rank.
     \item[$\impliedby$] 
       If $A$ does not have full rank, consider $x \neq 0$ with $x \in \operatorname{ker}(A)$ then $Ax = 0$ and $A(2x) = 0$. Thus it is not injective and therefore not invertible.
   \end{description}
@@ -1020,7 +1021,7 @@ Basis $b_1,\dots,b_n$.
         \det(f \circ g) &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\triangle(b_1, \dots, b_n)} \cdot \frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(g(b_1), \dots, g(b_n))} \\
           &= \frac{\triangle(f(g(b_1)), \dots, f(g(b_n)))}{\underbrace{\triangle(g(b_1), \dots, g(b_n))}_{\det(f) \neq 0}} \cdot \underbrace{\frac{\triangle(g(b_1), \dots, g(b_n))}{\triangle(b_1, \dots, b_n)}}_{\det(g) \neq 0}
       \end{align*}
-    \item[If $f$ or $g$ are not invertible]
+    \item[If $f$ or $g$ is not invertible]
       \[ f \text{ is not invertible} \implies \det(f) = 0 \]
       Same for $g$.
 
@@ -1090,7 +1091,7 @@ Basis $b_1,\dots,b_n$.
 \end{proof}
 
 \begin{proof}[Proof of Corollary~\ref{cor730} (3)]
-  $A$ is invertible $\iff$ $f_A$ is invertible.
+  $A$ is not invertible $\iff$ $f_A$ is not invertible.
   $\implies \det(A) = 0 \iff \det(f_A) = 0 \iff f_A$ is not bijective $\iff$ $\operatorname{rank}(A) < n$.
 \end{proof}
 
@@ -1222,14 +1223,16 @@ Basis $b_1,\dots,b_n$.
       \[ \det\begin{pmatrix} S_1 & \ldots & S_n \\ \vdots & & \vdots \end{pmatrix} = \det\begin{pmatrix} S_1 & \ldots & S_i + \lambda S_j & \ldots & S_j & \ldots & S_n \\ \vdots & & \vdots & & \vdots & & \vdots \end{pmatrix} \]
   \end{enumerate}
 \end{theorem}
-\begin{proof}[Proof for column $i$]
-  \[ \triangle(s_1, \dots, s_n)= \triangle(s_1, \dots, s_i + \lambda s_j, \dots, s_n) \]
-  \[ \left( = \triangle(s_1, \dots, s_i, \dots, s_n) + \lambda \underbrace{\triangle(s_1, \dots, s_j, \dots, s_j, \dots, s_n)}_{=0} \right) \]
-\end{proof}
-\begin{proof}[Second proof]
-  Row form is multiplication from left with matrix of structure
-  \[ I + \lambda E_{ij} \]
-  \[ \det((I + \lambda E_{ij}) A) = \underbrace{\det(I + \lambda E_{ij})}_{\text{triangular matrix} = 1} \cdot \det(A) \]
+\begin{proof}
+  \begin{enumerate}
+    \item[2.] Proof for column $i$:
+      \[ \triangle(s_1, \dots, s_n)= \triangle(s_1, \dots, s_i + \lambda s_j, \dots, s_n) \]
+      \[ \left( = \triangle(s_1, \dots, s_i, \dots, s_n) + \lambda \underbrace{\triangle(s_1, \dots, s_j, \dots, s_j, \dots, s_n)}_{=0} \right) \]
+    \item[1.] Second proof
+      Row form is multiplication from left with matrix of structure
+      \[ I + \lambda E_{ij} \qquad i \neq j \]
+      \[ \det((I + \lambda E_{ij}) A) = \underbrace{\det(I + \lambda E_{ij})}_{\text{triangular matrix} = 1} \cdot \det(A) \]
+  \end{enumerate}
 \end{proof}
 \begin{example} % Beispiel 7.34
   \[
@@ -1874,12 +1877,13 @@ The norm is given by
 
 \begin{proof}
   \begin{enumerate}
-    \item[2.]
+    \item $\angel{a, b} = \norm a \norm b \cdot \cos\theta = \norm b \norm a \cdot \cos\theta = \angel{b, a}$
+    \item
       Assume $\lambda > 0$. Angle stays the same.
       \[ \angel{\lambda a, b} = \norm{\lambda a} \cdot \norm{b} \cdot \cos\theta = \lambda \cdot \norm{a} \cdot \norm{b} \cdot \cos\theta \]
       Assume $\lambda < 0$. $\theta$ becomes $\pi - \theta$.
       \[ \angel{\lambda a, b} = \norm{\lambda a} \cdot \norm{b} \cdot \cos(\pi - \theta) = \card{\lambda} \cdot \norm{a} \cdot \norm{b} \cdot (-\cos(\theta)) = \lambda \cdot \norm a \cdot \norm b \]
-    \item[3.]
+    \item
       Let $\norm{c} = 1$. $\angel{a,c} = \norm a \cdot \cos\theta$.
       \[ \angel{a+b, c} = \angel{a,c} + \angel{b,c} \]
       Projections will add up.
@@ -3099,8 +3103,8 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
           $A = [a_{11}]$ and $\det(A_1) = a_{11}$.
           $A > 0 \iff a_{11} > 0$.
         \item[Consider $n \to n+1$:]
-          Assume all first minors are greater 0.
-          Then all first minors of matrix $A_{n-1}$ are greater 0 by induction hypothesis.
+          Assume all first minors are greater $0$.
+          Then all first minors of matrix $A_{n-1}$ are greater $0$ by induction hypothesis.
           \[ \text{Theorem~\ref{thm:Herm}} \implies \exists C: C^* A_{n - 1} C = I_{n-1} \]
 
           \begin{align*}
@@ -3841,33 +3845,35 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
   \end{center}
 \end{figure}
 
-Let $u = \sum_{j=1}^m \eta_j u_j$. Compare with Figure~\ref{img:projection}.
-Show that $x - u \in U^{\bot} = \mathcal L(u_1, \ldots, u_m)^\bot = \set{u_1, \ldots, u_m}^\bot = \bigcap_{i=1}^m u_i^\bot$.
-Hence, show that $x - u \bot u_i \forall i \in \set{1, \ldots, m}$.
+\begin{proof}
+  Let $u = \sum_{j=1}^m \eta_j u_j$. Compare with Figure~\ref{img:projection}.
+  Show that $x - u \in U^{\bot} = \mathcal L(u_1, \ldots, u_m)^\bot = \set{u_1, \ldots, u_m}^\bot = \bigcap_{i=1}^m u_i^\bot$.
+  Hence, show that $x - u \bot u_i \forall i \in \set{1, \ldots, m}$.
 
-\begin{align*}
-  \ip{u_i}{u} &= \ip{u_i}{\sum_{j=1}^m \eta_j u_j}
-    = \sum_{j=1}^m \ip{u_i}{u_j} \cdot \overline{\eta_j}
-    = \sum_{j=1}^m g_{ij} \overline{\eta_j} \\
-    &= (G \overline{\eta})_i
-    = \ip{u_i}{x}
-\end{align*}
-because
-\[
-  \overline G \cdot \eta = \begin{pmatrix} \ip{x}{u_1} \\ \vdots \\ \ip{x}{u_m} \end{pmatrix}  \qquad
-  G \cdot \overline \eta = \begin{pmatrix}
-    \overline{\ip{x}{u_1}} \\
-    \vdots \\
-    \overline{\ip{x}{u_m}}
-  \end{pmatrix} =
-  \begin{pmatrix}
-    \ip{u_1}{x} \\
-    \vdots \\ 
-    \ip{u_m}{x}
-  \end{pmatrix}
-\]
-Hence, $\forall i \in \set{1, \ldots, m}$:
-\[ \ip{u_i}{u} = \ip{u_i}{x} \implies \forall i \in \set{1, \ldots, m}: \ip{u_i}{x - u} = 0 \implies x - u \in \set{u_1, \ldots, u_m}^\bot \]
+  \begin{align*}
+    \ip{u_i}{u} &= \ip{u_i}{\sum_{j=1}^m \eta_j u_j}
+      = \sum_{j=1}^m \ip{u_i}{u_j} \cdot \overline{\eta_j}
+      = \sum_{j=1}^m g_{ij} \overline{\eta_j} \\
+      &= (G \overline{\eta})_i
+      = \ip{u_i}{x}
+  \end{align*}
+  because
+  \[
+    \overline G \cdot \eta = \begin{pmatrix} \ip{x}{u_1} \\ \vdots \\ \ip{x}{u_m} \end{pmatrix}  \qquad
+    G \cdot \overline \eta = \begin{pmatrix}
+      \overline{\ip{x}{u_1}} \\
+      \vdots \\
+      \overline{\ip{x}{u_m}}
+    \end{pmatrix} =
+    \begin{pmatrix}
+      \ip{u_1}{x} \\
+      \vdots \\ 
+      \ip{u_m}{x}
+    \end{pmatrix}
+  \]
+  Hence, $\forall i \in \set{1, \ldots, m}$:
+  \[ \ip{u_i}{u} = \ip{u_i}{x} \implies \forall i \in \set{1, \ldots, m}: \ip{u_i}{x - u} = 0 \implies x - u \in \set{u_1, \ldots, u_m}^\bot \]
+\end{proof}
 
 \begin{example} % Beispiel 8.55
   \label{ex855}
@@ -4839,7 +4845,7 @@ Linear isometries:
 \index{Algebra homomorphism}
 \begin{definition} % Definition 9.10
   An algebra homomorphism is a linear map between $\psi$ and two $\mathbb K$-algebras $\mathcal A$ and $\mathcal B$ such that
-  $\forall a,b \in \mathcal A: \psi(a * b) = \psi(a) * \psi(b)$.
+  $\forall a,b \in \mathcal A: \psi(a *_A b) = \psi(a) *_B \psi(b)$.
 \end{definition}
 
 \begin{example} % Beispiel 9.11
@@ -5244,8 +5250,9 @@ An application: Find all multiple roots (i.e. roots with multiplicity greater 1)
 Given $f: V \to V$. Find a basis of $V$ such that $\Phi_B^B(f)$ has the simplest possible representation.
 Hence,
 \[ \Phi_B^B(f) = A = \begin{bmatrix} a_{11} &  & 0 \\ & \ddots & \\ 0 &  & a_{nn} \end{bmatrix} \qquad A \cdot e_i = \lambda_i \cdot e_i \]
-Find vector $v \in V$ such that $f(v) = \lambda \cdot v$.
-$0$ can be an eigenvalue, but not an eigenvector. Not every $A$ has $\lambda$ satisfying $\forall v: A \cdot v = \lambda \cdot v$.
+Find vector $v \in V$ such that $f(v) = \lambda \cdot v$. \\
+$0$ can be an eigenvalue, but not an eigenvector. \\
+Not every $A$ has $\lambda$ satisfying $\forall v: A \cdot v = \lambda \cdot v$.
 
 \begin{figure}[t]
   \begin{center}
@@ -5338,6 +5345,8 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
 
 \begin{lemma} % Lemma 10.5
   Left-sided eigenvalue $\iff$ right-sided eigenvalue.
+\end{lemma}
+\begin{proof}
   Let $\lambda$ be a right-sided eigenvalue.
   \begin{align*}
     Ax = \lambda x &\iff (A - \lambda \cdot I) \cdot x = 0 \\
@@ -5349,7 +5358,7 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
       &\iff \exists x \neq 0: A^T x = \lambda \cdot x \\
       &\iff \lambda \text{ is a left-sided } eigenvalue
   \end{align*}
-\end{lemma}
+\end{proof}
 
 \begin{example} % Beispiel 10.6
   For $\dim = \infty$, this must not hold.
@@ -5432,10 +5441,10 @@ In 1925 in quantum mechanisms, it was discovered that the spectrum of light is g
 
 \index{Characteristic polynomial}
 \begin{theorem}[Theorem and definition] \hfill{} % Satz & Definition 10.10
-  \begin{enumerate}
-    \item $\chi_A(\lambda) \coloneqq \det(\lambda \cdot I - A)$ is a polynomial function and is called \emph{characteristic polynomial of $A$}.
-    \item $\lambda$ is eigenvalue $\iff \chi_A(\lambda) = 0$
-  \end{enumerate}
+  \begin{description}
+    \item[Definition] $\chi_A(\lambda) \coloneqq \det(\lambda \cdot I - A)$ is a polynomial function and is called \emph{characteristic polynomial of $A$}.
+    \item[Theorem] $\lambda$ is eigenvalue $\iff \chi_A(\lambda) = 0$
+  \end{description}
 \end{theorem}
 
 \begin{example} % Beispiel 10.11
@@ -5805,7 +5814,7 @@ Eigenvector: $e_1, \dots, e_n$.
 \end{theorem}
 
 \begin{proof}
-  Let $\lambda_1, \dots, \lambda_r$ be different eigenvalues. Let $v_1, \dots, v_r$ be their respective eigenvectors. Proof by induction over $r$.
+  Let $\lambda_1, \dots, \lambda_r$ be different eigenvalues of $A$. Let $v_1, \dots, v_r$ be their respective eigenvectors. Proof by induction over $r$.
   \begin{description}
     \item[Case $r=1$]  immediate, $v_1 \neq 0$.
     \item[Case $r-1 \to r$]
@@ -6002,7 +6011,7 @@ Numerically unstable:
   \label{s113}
   Let $A \in \mathbb K^{n\times n}, V = \mathbb K^n$.
   \begin{enumerate}
-    \item If $U \subseteq V$ is invariant and $p(x) \in \mathbb K[x]$, then $U$ is invariant under $p(A)$.
+    \item If $U \subseteq V$ is invariant under $A$ and $p(x) \in \mathbb K[x]$, then $U$ is invariant under $p(A)$.
       \[
         p(x) \coloneqq \sum_{k=0}^n a_k x^k 
         \qquad p(A) = \sum_{k=0}^n a_k A^k
@@ -6160,12 +6169,12 @@ Numerically unstable:
               \[ \implies y = f^k(f^{m_0 + 1}(z)) = f^{m_0 + k + 1}(z) \in \im{f^{m_0 + k + 1}} \]
           \end{description}
         \item We prove $\set{(a), (b), (c), (d)} \iff$ (e).
-          Let $w = \im{f^m}$ be invariant under $f^m$.
+          Let $W = \im{f^m}$ be invariant under $f^m$.
           \[ g \coloneqq f^m|_W \in \operatorname{Hom(W, W)} \]
           \[ \ker{g} = \ker(f^m) \cap W = \ker{f^m} \cap \im{f^m} \]
           \[ \ker{f^m} \cap \im{f^m} = \set{0} \iff \ker{g} = \set{0} \]
           \[ \iff g \text{ linear} \land g \text{ injective } \land g \text{ surjective } \iff \im{g} = W \]
-          \[ \iff f^m(f^m(V)) = f^m(V) \iff f^{2m}(w) = f^m(w) \]
+          \[ \iff f^m(f^m(V)) = f^m(V) \iff f^{2m}(W) = f^m(W) \]
           \[ f^{m+m}(v) = f^m(v) \]
           \[ \im{f^{m+m}} = \im{f^m} \]
           This is equivalent to statements 1 and 3, thus rendering our assumption $\ker{f^m} \cap \im{f^m} = \set{0}$ valid.
@@ -7580,7 +7589,7 @@ $f^*$ is linear: $W \to V$. $f \mapsto f^*$ is antilinear.
   \[ U^* AU = R \implies A = URU^* \]
   \[ A^* = UR^* U^* \]
   \[ A^* A = AA^* \iff R^* R = RR^* \iff R \text{ is diagonal matrix} \]
-  The proof is left to the reader as an exercise.
+  The proof is left as an exercise to the reader.
 \end{corollary}
 
 \begin{theorem} % Satz 12.9
@@ -7979,10 +7988,7 @@ Cholesky decomposition:
 
 \begin{proof}
   $A = CC^*$ is a Cholesky decomposition.
-  \[ c_{ii} = \sqrt{a_{ii} - \sum_{k=1}^{j-1} \card{c_{jk}}^2} \leq \sqrt{a_{ii}} \]
-\end{proof}
-
-\begin{Remark}
+  \[ c_{ii} = \sqrt{a_{ii} - \sum_{k=1}^{j-1} \card{c_{ik}}^2} \leq \sqrt{a_{ii}} \]
   We apply the product law.
   \begin{align*}
     \det(A) &= \det(C C^*) \\
@@ -7990,7 +7996,7 @@ Cholesky decomposition:
       &= \card{\det(C)}^2 \\
       &= \card{\prod_{i=1}^n c_{ii}}^2 = \prod c_{ii}^2 \leq \prod a_{ii}
   \end{align*}
-\end{Remark}
+\end{proof}
 
 \begin{Person}
   J. S. Hadamard (1865--1963)
@@ -8412,7 +8418,7 @@ Norm on a vector space is a map $\norm{\cdot}: V \to [0, \infty[$:
   Let $V, W$ be vector spaces with norms $\norm{\cdot}_V$ and $\norm{\cdot}_W$.
   A norm on $\operatorname{Hom}(V, W)$ is \emph{compatible} with $\norm{\cdot}_V$ and $\norm{\cdot}_W$ if
   \[ \forall v \in V \forall f \in \operatorname{Hom}(V, W): \norm{f(v)}_W \leq \norm{f} \cdot \norm{v}_V \]
-  \[ \implies \norm{f(x) - f(g)}_W = \norm{f(x - y)}_W \leq \norm{f} \cdot \norm{x - y}_V \]
+  \[ v = x - y \implies \norm{f(x) - f(y)}_W = \norm{f(x - y)}_W \leq \norm{f} \cdot \norm{x - y}_V \]
   Hence $f$ is Lipschitz continuous with constant $\leq \norm{f}$.
   Specifically, we define the Lipschitz constant uniquely with
   \[ \inf\setdef{C}{\norm{f(v)}_W \leq C \cdot \norm{v}_W \forall v \in V} \]
@@ -8496,7 +8502,7 @@ Exercise for the practicals:
     \item
       $\norm{A}_{\infty\to\infty}$ on $\mathbb K^n: \norm{x}_{\infty} = \max \card{x_i}$ and $\norm{x}_1 = \sum \card{x_i}$.
       \[ \norm{x}_p = \left(\sum_{i=1}^n \card{x_i}^p\right)^{\frac1p} \xrightarrow{p \to \infty} \max \card{x_i} \qquad (1 \leq p \leq \infty) \]
-      This convergence is left to the reader as an exercise.
+      This convergence is left as an exercise to the reader.
       \[ \norm{A}_{\infty\to\infty} = \sup\setdef{\norm{Ax}_{\infty}}{\norm{x}_\infty \leq 1} \]
       \begin{align*}
         \norm{Ax}_{\infty} &= \max_i \card{(Ax) i} = \max_i \card{\sum_{j=1}^n a_{ij} x_j} \\
