@@ -1666,20 +1666,23 @@ for fixed $k=1$:
     \item[Case $\mathbf{k \neq l}$] Without loss of generality: $k < l$.
       \begin{align*}
         b_{kl} &= \sum_{i=1}^n \det(A_{ik}) (-1)^{k+i} a_{il} \\
+        \intertext{unlike Laplace expansion along $k$-th column, this expression uses column $l$. So column $k$ is omitted and column $l$ is used twice.}
                &= \det\begin{bmatrix}
                  a_{11} & \dots & a_{1l} & \dots & a_{1l} & \dots & a_{1n} \\
                  \vdots &       & \vdots &       & \vdots &       & \vdots \\
                  a_{n1} & \dots & a_{nl} & \dots & a_{nl} & \dots & a_{nn}
                \end{bmatrix} \\
-               &\underbrace{=}_{\substack{\text{two equal} \\ \text{columns}}} 0 \\
-        \intertext{
-          (i.e. matrix $A$ with $k$-th column replaced by $l$-th column)
-          expanded by $k$-th row.
-        }
-        \det{A} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{ik} \\
-        \tilde{A} &= \text{ (matrix $A$ replacing $k$-th column with $l$-th column)} \\
-        \det{\tilde{A}} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{il}
+        \intertext{where the left $l$-column is column $k$ replaced with values of column $l$ and the right $l$-column is the original column $l$}
+               &\underbrace{=}_{\substack{\text{two equal} \\ \text{columns}}} 0
+        %\intertext{
+        %  (i.e. matrix $A$ with $k$-th column replaced by $l$-th column)
+        %  expanded by $k$-th row.
+        %}
+        %\det{A} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{ik} \\
+        %\tilde{A} &= \text{ (matrix $A$ replacing $k$-th column with $l$-th column)} \\
+        %\det{\tilde{A}} &= \sum_{i=1}^n (-1)^{k+i} \det(A_{ik}) \cdot a_{il}
       \end{align*}
+      Thus, the sum of both cases is $b_{kl} = \det(A) + 0$. Thus $B = \hat A \cdot A = I \cdot \det(A)$.
   \end{description}
 \end{proof}
 
@@ -3941,8 +3944,8 @@ The maps $x \mapsto u$ and $x \mapsto v$ are linear.
 
 \subsection{Gram-Schmidt process}
 
-Given: finite, linear independent vectors $v_1, \dots, v_m$ \\
-Find: orthonormal basis of $(v_1, \dots, v_m)$.
+\textbf{Given:} finite, linear independent vectors $v_1, \dots, v_m$ \\
+\textbf{Find:} orthonormal basis of $(v_1, \dots, v_m)$.
 
 \index{Gram-Schmidt process}
 \begin{theorem}[Gram–Schmidt process for orthogonalization] % 8.57
@@ -5816,12 +5819,12 @@ Eigenvector: $e_1, \dots, e_n$.
 \begin{proof}
   Let $\lambda_1, \dots, \lambda_r$ be different eigenvalues of $A$. Let $v_1, \dots, v_r$ be their respective eigenvectors. Proof by induction over $r$.
   \begin{description}
-    \item[Case $r=1$]  immediate, $v_1 \neq 0$.
-    \item[Case $r-1 \to r$]
+    \item[Case $r=1$:]  immediate, $v_1 \neq 0$.
+    \item[Case $r-1 \to r$:]
       Let $\alpha_1 v_1 + \dots + \alpha_r v_r = 0$.
-      \[ \implies A (\alpha_1 v_1 + \dots + \alpha_r v_r) = 0 \]
-      \[ \alpha_1 \cdot A v_1 + \dots + \alpha_r A v_r = 0 \]
-      \[ \alpha_1 \lambda_1 v_1 + \dots + \alpha_r \lambda_r v_r = 0 \]
+      \[ \implies A \sum_{i=1}^r \alpha_i v_i = 0 \qquad
+         \sum_{i=1}^r \alpha_i A v_i = 0 \qquad
+         \sum_{i=1}^r \alpha_i \lambda_i v_i = 0 \]
   \end{description}
 
   \[ \begin{array}{rrl}
