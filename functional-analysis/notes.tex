@@ -82,6 +82,11 @@
 \newcommand\correspondsto{\mathrel{\stackon[1.5pt]{=}{\stretchto{%
     \scalerel*[\widthof{=}]{\wedge}{\rule{1ex}{3ex}}}{0.5ex}}}}
 
+% weak* convergence
+\newcommand{\weaksc}{\overset*\rightharpoonup}  % dot has too little margin
+
+
+
 % typesetting settings
 \parindent0pt
 \setlength{\parskip}{.6em}
@@ -3094,6 +3099,298 @@ In particular, bounded sequences do not admit convergent subsequences in general
 	\end{description}
 \end{proof}
 
+\begin{theorem}
+	\label{theorem:6.18}
+	Let $X$ be reflexive. Then every bounded sequence in $X$ admits a weakly-convergent subsequence.
+\end{theorem}
+
+\begin{proof}
+	Take $(x_n)_n$ be a bounded sequence in $X$.
+	Assume first that $X$ is separable. Hence $X^*$ is separable, e.g. $\exists (x_n^*)_n$ such that $X^* = \overline{\SetDef{x_n^*}{n \in \mathbb N}}$
+
+	\emph{Idea:} Construct subsequence $(y_m)_m$ of $(x_n)_n$ such that $(x_i^*(y_m))_m$ converges $\forall i \in \mathbb N$.
+	\begin{Claim}
+		$\forall i \in \mathbb N \exists (x_{n_j})_j$ subsequence of $(x_n)_n$ such that
+		\begin{enumerate}
+			\item $(x_{n_j^i})_j$ is a subsequence of $(x_{n_j^k})_j \forall k \leq i$
+			\item $(x_k^*(x_{n_j^i}))_j$ is convergent $\forall k \leq i$
+		\end{enumerate}
+	\end{Claim}
+
+	\begin{proof}[Proof by induction]
+		\begin{description}
+			\item[Case $i = 1$:]
+				\[ \Abs{x_1^*(x_n)} \leq \Norm{x_1^*} \cdot \Norm{x_1} \leq \Norm{x_1^*} C \qquad \text{for } C > 0: \Norm{x_n} \leq C \forall n \] 
+				\[ \implies (x_1^*(x_n))_n \text{ is bounded by } \mathbb K \implies \exists \text{ convergent subsequence } (x_{n_j^1})_j \]
+			\item[Case $i \to i+1$:]
+				Let $(x_{n_j^i})_j$ be given as claimed. Again $\Abs{x^*_{i+1}(x_{n_j^i})} \leq \Norm{x^*_{i+1}} C \implies \exists$ subsequence $(x_{n_j^{i+1}})_j$ such that $(x^*_{i+1}(x_{n_j^{i+1}}))_j$ is convergent. Subsequence implies that both assertions are true.
+		\end{description}
+	\end{proof}
+
+	Now, we define $y_j = x_{n_j^j} \forall j \in \mathbb N \implies (y_j)_j$ is a subsequence of $(x_n)_n$.
+	Also, for $k \in \mathbb N$, $\lim_{i \to \infty} x_k^*(y_i) = \lim_{\substack{j\to\infty \\ j \geq k}} x_k^*(y_j)$ exists.
+
+	Next: $\forall x^* \in X^*: \lim_{j \to \infty} x^*(y_j)$ exists.
+	Take $\varepsilon > 0, x^* \in X^*$ pick $i: \Norm{x_i^* - x^*} < \varepsilon$
+	\begin{align*}
+		\implies & \forall n, m \in \mathbb N: \Norm{x^*(y_n) - x^*(y_m)} \\
+		  &\leq \Norm{x^*(y_n) - x_i^*(y_n)} + \Norm{x^*_i(y_n) - x^*_i(y_n)} + \Norm{x_i^*(y_m) - x^*(y_m)} \\
+		  &\leq \Norm{x^* - x^*_i} \Norm{y_n} + \Norm{x_i^*(y_n) - x_i^*(y_m)} + \Norm{x_i^* - x^*} \Norm{y_m} \\
+		  &\leq 2 \varepsilon c + \Norm{x_i^*(y_n) - x_i^*(y_m)} \leq 3 \varepsilon c \to 0 \text{ for } n, m \to \infty
+	\end{align*}
+	$\implies (x^*(y_n))_n$ is Cauchy, thus convergent.
+
+	Show: $\exists y \in X: x^*(y_m) \to x^*(y) \forall x^* \in X^*$
+
+	Define $l: X^* \to \mathbb K$ well-defined and linear with $x^* \mapsto \lim_{n \to \infty} x^*(y_n)$.
+	Furthermore $\Abs{l(x^*)} = \lim_{n \to \infty} \Abs{x^*(y_n)} \leq \Norm{x^*} c \implies l \in (X^*)^*$.
+	$\implies \exists y \in X: i_X(y) = l$. This means that $\forall x^* \in X^*: x^*(y) = i_X(y)(x) = l(x^*) = \lim_{n \to \infty} x(y_n)$
+	\[ \implies y_n \to y \]
+
+	Now without separability: Take again $(x_n)_n$ to be bounded. Define $Y \coloneqq \operatorname{span}((x_n)_n)$.
+
+	Hence $Y$ is separable, reflexive as closed subset of $X$ (reflexive). $x_n$ is a sequence in $Y$.
+	Thus use the previous case.
+
+	$\implies \exists (y_n)_n$ subsequence of $(x_n)_n, y \in Y$ such that $x^*(y_n) \to x^*(y) \forall x^* \in Y^*$.
+
+	For $x^* \in X^*, x^*|_Y \in Y^* \implies x^*(y) \to x^*(y)$.
+\end{proof}
+
+\begin{Remark}
+	Further importang question: When are closed sets also closed wrt. weak convergence?
+
+	Not always true! Remember that $(l_n)_n$ in $l^p: \Norm{e_n} = 1 \implies e_n = \SetDef{x}{\Abs{x} = 1}$ but $e_n \rightharpoonup 0$
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:6.19}
+	Let $X$ be normed, $V \subset X$ closed and convex. Then $\forall (x_n)_n$ in $V$ such that $x_n \rightharpoonup x \in X \implies x \in V$ (\enquote{$V$ is weakly closed}).
+
+	In particular, any closed subspace is also weakly closed.
+\end{theorem}
+
+\begin{proof}
+	Assume $x \not\in V \implies \exists x^* \in X^*: x^*|_V = 0$. $x^*(x) \neq 0 \implies 0 = \lim_{n \to \infty} x^*(x_n) = x^*(x)$ gives a contradiction.
+\end{proof}
+
+\begin{Remark}[Consequence]
+	$B_1(0)$ in $X$ reflexive is weakly sequentially \emph{compact} but \emph{not} strongly sequentially compact if $\operatorname{dim}(X) = \infty$.
+\end{Remark}
+
+\begin{corollary}
+	\label{corollary:6.20}
+	Let $X$ be normed. $(x_n)_n$ in $X$ such that $x_n \rightharpoonup x \in X$. Then there exists a sequence $(y_n)_n$ where each $y_n$ is a convex combination of the $(x_n)_n$ s.t. $y_n \to x$.
+\end{corollary}
+
+\begin{Remark}[i.e.]
+	\[ \exists N^n, (\lambda_i^n)_{i=1}^{N^n}: \lambda_i^n \geq 0, \sum_{i=1}^{N^n} \lambda_i^n = 1 \text{ such that } y_n \coloneqq \sum_{i=1}^{N^n} \lambda_i^n x_i  \to x \text{ as } n \to \infty \]
+\end{Remark}
+
+\begin{proof}
+	Apply Theorem~\ref{theorem:6.19} to the closed, convex hull of $\SetDef{x_n}{n \in \mathbb N}$.
+\end{proof}
+
+\dateref{2019/06/07}
+
+\begin{theorem}
+	\label{theorem:6.21}
+	Let $X, Y$ be Banach spaces. Let $T: X \to Y$ be a linear operator.
+	$T$ is sequentially continuous wrt. norm convergence in $X, Y$
+	$\iff$ $T$ is sequentially continuous wrt. weak norm convergence in $X, Y$
+\end{theorem}
+
+\begin{proof}
+	\begin{description}
+		\item[$\implies$] 
+			Let $x_n \rightharpoonup x$. Show: $\forall y \in Y^*: y^*(Tx_n) \to y(Tx)$. But the mapping $f: X \to \mathbb K$ with $x \mapsto y^*(Tx)$ [$\Abs{f(x)} \leq \Norm{y^*} \Norm{T} \Norm{x}$] $\implies f(x_n) \to f(x)$.
+		\item[$\impliedby$]
+			Consider $\operatorname{graph}(t)$. Show: $\operatorname{gr}(T)$ is closed $\implies T \subseteq \mathcal L(X, Y)$.
+
+			Assume $(x_n, Tx_n) \to (x, y)$.
+
+			\[
+				\implies
+				\left.\begin{array}{c}
+				  x_n \to x \\
+				  Tx_n \to y
+				\end{array}\right\} \implies
+				\left\{\begin{array}{c}
+				  x_n \rightharpoonup x \implies Tx_n \rightharpoonup Tx \\
+				  Tx_n \rightharpoonup y
+				\end{array}\right.
+			\]
+	\end{description}
+\end{proof}
+
+What about non-reflexive spaces?
+
+\begin{Example}
+	Consider $(e_j)_j$ in $l^1$ when $l_j$ is a zero row vector with $1$ at position $j$. Then $\Norm{e_j} = 1 \implies (e_j)_j$ is bounded in $l^1$.
+	Assume there exists a subsequence $(e_{j_k})_k: e_{j_k} \rightharpoonup x \in l^1$. Define $e^*_n$ as zero vector with $1$ at position $n$ in $l^\infty$.
+
+	Weak convergence
+	\[ \implies e^*_k(e_{n_j}) \to e_k(x) = x_n \forall k \in \mathbb N \]
+	Recall that $x^*(x) = \sum x^*_k x_k$ for $x^* \in l^\infty, x \in l^1$.
+
+	Now $e^*_k(e_{n_j}) = 0 \forall n_j > k \implies x = 0$ (by convergence: $x_k = 0 \forall k$).
+
+	But $z^* \coloneqq (1, 1, \dots) \in l^1 \implies 1 = \lim_{j \to \infty} z^*(l_{n_j}) = z^*(x) = 0$ giving a contradiction.
+\end{Example}
+
+We need an ever weaker notion of convergence.
+
+\begin{definition}
+	\label{definition:6.22}
+	Let $X$ be a normed space. $(x^*_n)_n$ in $X^*$ with $x^* \in X^*$.
+	We say $(x^*_n)_n$ \emph{weak*-converges}\index{Weak* convergence} to $x^*$ and write $x^*_n \weaksc x^*$ if $x^*_n(x) \to x^*(x) \forall x \in X$
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:6.23}
+	Let $X$ be a normed space. $(x_n^*)_n, x^* \in X^*$. Then
+	\begin{enumerate}
+		\item $x_n^* \to x^* \implies x_n^* \weaksc x^*$
+		\item If $X$ is reflexive, $x^*_n \rightharpoonup x^* \iff x_n^* \weaksc x^*$
+		\item If $X$ is a Banach space, $x_n^* \weaksc x^* \implies \left(\Norm{x^*_n}\right)_n$ is bounded.
+		\item If $x_n^* \weaksc x^*$ and $x^*_n \weaksc y^* \implies x^* = y^*$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Left as an exercise.
+\end{proof}
+
+\begin{Remark}[Remark with huge consequences]
+	In general: closed, convex $\not\implies$ weak* closed.
+\end{Remark}
+
+\begin{theorem}
+	\label{theorem:6.24}
+	Let $X$ be separable, $(x^*_n)_n$ in $X^*$ bounded. Then $(x^*_n)_n$ has a weak* convergent subsequence.
+\end{theorem}
+
+\begin{Remark}
+	Applies to sequences in $L^\infty$, $l^\infty, M(\Omega)$. Not to $L^1, l^1 \to $ no duals.
+\end{Remark}
+
+\begin{proof}
+	Consider $(x_n^*)_n$ in $X^*$ bounded. $(x_n)_n$ in $X$ such that $\overline{\SetDef{x_n}{n \in \mathbb N}} = X \implies \Abs{x_n^*(x_k)} \leq \Norm{x_n^*} \Norm{x_n}$ is bounded $\forall k$ fixed. As in the proof with weak convergence $\implies \exists (y_n^*)_n$ a subsequence of $(x_n^*)_n$ s.t. $y_n^*(x)$ converges $\forall x \in X$.
+	Define $l: X \to \mathbb K$ with $x \mapsto \lim_{n \to \infty} y_n(x)$. Hence $l$ is well-defined, linear and bounded. Thus $l \in X^*$. By definition, $l(x) = \lim_{n \to \infty} y_n(x) \implies y_n \weaksc l$.
+\end{proof}
+
+\begin{Remark}
+	Why not continue for non-separable spaces?
+\end{Remark}
+
+\section{Complementary subspace and adjoint operators}
+\label{section:7}
+
+\begin{enumerate}
+	\item Let $X$ be normed, $U \subset X$ subspace. When can we project on $U$?
+	\item $\implies$ characterization of closed-range operators
+\end{enumerate}
+
+\begin{definition}
+	\label{definition:7.1}
+	Let $X$ be normed, $U \subset X$, $V \subset X^*$. Define
+	\[
+		U^\bot = \SetDef{x^* \in X^*}{x^*(x) = 0 \forall x \in U} \qquad
+		V_\bot = \SetDef{x \in X}{x^*(x) = 0 \forall x^* \in V}
+	\]
+	$U^\bot, V_\bot$ are called \emph{annihilators}\index{Annihilators} of $U$ and $V$.
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:7.2}
+	Let $X$ be a Banach space. $G, L \subset X$ be two closed subspaces such that $G + L$ is closed $[G + L = \SetDef{g + l: g \in G, l \in L}] \implies \exists c > 0: z \in G + L \exists x \in G, y \in L: z = x + y$ and $\Norm{x} \leq c \Norm{z}, \Norm{y} \leq C \Norm{z}$.
+\end{proposition}
+
+\begin{proof}
+	Consider $G \times L$ with $\Norm{(x, y)}_{G \times L} \coloneqq \Norm x + \Norm y$. Define $T: G \times L \to G + L$ with $(x, y) \mapsto x + y$.
+	Thus $T$ is linear, surjective. By the open mapping theorem, $\exists \varepsilon > 0: B_\varepsilon(0) \subset T(B_1(0))$.
+	\begin{align*}
+		\implies \forall z \in G + L: &\Norm z < \varepsilon \implies z = x + y \text{ with } \Norm x + \Norm y \leq 1 \\
+		\implies \forall z \in G + L: & \frac{\varepsilon z}{2 \Norm{z}} \in B_\varepsilon(0) \implies \frac{\varepsilon z}{2 \Norm z} = x + y \text{ with } \Norm x + \Norm y \leq 1 \\
+		\implies z &= \frac{x \Norm z 2}{\varepsilon} + \frac{y \Norm z 2}{\varepsilon} = \hat x + \hat y & \text{ with } \Norm x + \Norm y \leq 1
+	\end{align*}
+	and 
+	\[ \Norm{\hat x} = \frac{\Norm x \Norm z 2}{\varepsilon} \leq \frac2\varepsilon \Norm z \qquad \Norm{\hat y} = \frac{\Norm y \Norm z 2}{\varepsilon} \leq \frac2\varepsilon \Norm z \]
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:7.3}
+	Let $X$ be normed, $P: X \to X$ is called \emph{projection}\index{Projection} if $P \circ P = P$. $P$ is called linear and continuous projection if it is linear and continuous. $P$ is called projection to $U \subset X$ if $P(X) \subset U$. Also, we write $X = A \oplus B$ for $A, B \subset X$ subspaces if $X = A + B$ and $A \cap B = \Set{0}$.
+	\[ \implies \forall x \in X \exists! a \in A, b \in B: x = a + b \]
+	If P is a continuous, linear projection, then
+	\begin{enumerate}
+		\item $P = 0$ on $\Norm P \geq 1$
+		\item $\ke(P)$ and $\operatorname{range}(P)$ are closed
+		\item $X = \ke(P) \oplus \operatorname{range}(P)$ [\enquote{projection yields decomposition of $X$}]
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item $\Norm{P} = \Norm{P \circ P} \leq \Norm{P} \Norm P$.
+		\item $\ke(P)$ TODO
+			Also if $\operatorname{range}(P) = \ke(I - P) \implies \operatorname{range}(P)$ closed since $I - P$ is continuous.
+			Since:
+			\begin{description}
+				\item[$\subset$:] If $x = Py \implies (I - P)(x) = x - Px = Py - PPy = 0$
+				\item[$\supset$:] If $0 = (I - P)(x) \implies Px = x$
+			\end{description}
+		\item $\forall x \in X: x = P(x) + x - P(x) \in \operatorname{range}(P) + \ke(P) \implies$ \enquote{$+$}.
+			If $x \in \ke(P) \cap \operatorname{range}(P) \implies x = Py \implies 0 = Px = PPy = Py = x$
+	\end{enumerate}
+\end{proof}
+
+\begin{Remark}
+	If $x_n = a_n + b_n \in \ke(P) + \operatorname{range}(P)$ and $x = a + b$.
+	Then $x_n \to x \iff a_n \to a$ and $b_n \to b$.
+\end{Remark}
+
+\begin{proof}
+	\begin{description}
+		\item[$\implies$] Immediate
+		\item[$\impliedby$] $\Norm{b_n - b} = \Norm{P(x_n - x)} \leq C \Norm{x_n - x}$ and the same for $\Norm{a_n - a}$
+	\end{description}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:7.4}
+	Let $X$ be Banach. $X = G \oplus L$ with $G, L$ closed. Then $\exists P: X \to X$ as a continuous, linear projection such that $\ke(P) = G$ and $\operatorname{range}(P) = L$.
+\end{proposition}
+
+\begin{proof}
+	Define $P: X \to X$ with $x \mapsto a$ when $x = a + b \in G \oplus L$.
+	Hence $P$ is well-defined and $PPx = Px$.
+	Linear $\lambda x + y = \lambda (a_1 + b_1) + (a_2 + b_2)$ with $x = a_1 + b_1$ and $y = a_2 + b_2$
+	\[ \implies P(\lambda x + y) = \lambda a_1 + a_2 = \lambda P(x) + P(y) \]
+	Continuity: By Proposition~\ref{proposition:7.2}, $\exists C > 0$
+	\[ \Norm{Px} = \Norm a \leq C \Norm{x} \forall x \in X \]
+	Hence $P$ is continuous, $\operatorname{range}(P) = G$ since $P a = a \forall a \in G$.
+
+	Show: $\ke(P) = L$.
+	\begin{description}
+		\item[$\supset$:] If $x \in L \implies x = 0 + x \in G + L \implies Px = 0$
+		\item[$\subset$:] If $Px = 0$, then $x = 0 + b \in G + L \implies x \in L$
+	\end{description}
+\end{proof}
+
+In finite dimensions, given $G \subset X \implies \exists L: X = G + L$ ($L = G^\bot$) $\implies \exists P: X \to X$ continuous linear projection such that $\operatorname{range}(P) = G$.
+
+\begin{definition}
+	\label{definition:7.5}
+	Let $X$ be normed, $G \subset X$ a closed subspace. We say \enquote{G admits a complement in $X$} (denoted by $G^C$) if $\exists L \subset X$ closed subspace such that $X = G \oplus L$.
+\end{definition}
+
+\begin{Remark}
+	\begin{itemize}
+		\item G admits a complement $\iff \exists P: X \to X, \operatorname{P} = G$ a continuous, linear projection.
+		\item In finite dimensions: By Linear Algebra, $\forall G \subset X$ subspace, $G$ admits a complement.
+	\end{itemize}
+\end{Remark}
 
 \printindex
 \end{document}

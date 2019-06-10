@@ -142,13 +142,13 @@
 	\item Two large topics in this lecture
 		\begin{itemize}
 			\item Linear optimization (linear target function, linear side conditions)
-			\item Non-linear optimization without sub conditions (unconstrained non-linear optimization) \\
+			\item Unconstrained, non-linear optimization \\
 				where non-linear optimization denotes that the target function is non-linear
 		\end{itemize}
 	\item Be aware, that this class might be the lecture requiring previous results of classes the most.
 	\item Advanced lecture in masters
 		\begin{itemize}
-			\item Lecture \enquote{Non-linear optimization} (includes nonlinear optimization with sub conditions)
+			\item Lecture \enquote{Non-linear optimization} (includes non-linear optimization with sub conditions)
 		\end{itemize}
 	\item Exam
 		\begin{itemize}
@@ -158,15 +158,18 @@
 		\end{itemize}
 \end{itemize}
 
-\section{Introduction}
-\subsection{Linear optimization}
+\section{Linear optimization}
+\label{chapter:1}
+\setcounter{subsection}{-1}
+\subsection{Introduction}
+\label{section:1.1}
 
 We have already seen optimization problems in high school or previous semesters.
 But, for example, handling constraints consisting of inequalities was tedious or trivial.
 We consider more sophisticated techiques here.
 In practice, linear models occur rarely. But they often provide a sufficient heuristic.
 
-\subsection{Introduction and some examples for linear optimization models}
+\subsubsection{Examples for linear optimization models}
 
 \begin{example}[Production planning model]
 	\label{example:1}
@@ -230,7 +233,7 @@ In the following lectures, our goal will be:
 	\item Theory of linear optimization (Knowledge about fundamentals and background)
 	\item Algorithmic solutions procedures: in the lecture we will discuss two procedures:
 		\begin{itemize}
-			\item Simplex process (G. Dantzig, 1947, in practice useful, no polynomial runtime)
+			\item Simplex method (G. Dantzig, 1947, in practice useful, no polynomial runtime)
 			\item Inner point method (in practice useful, polynomial runtime)
 		\end{itemize}
 		Outside this lecture:
@@ -299,7 +302,7 @@ In the following lectures, our goal will be:
 	Left as an exercise to the reader (use parameter representation and insert it into the function)
 \end{proof}
 
-\subsection{Hyperplane and Halfspaces}
+\subsubsection{Hyperplane and Halfspaces}
 
 By the linear inequality $\alpha^t x \leq \beta$ ($\alpha \in \mathbb R^n, \beta \in \mathbb R$) with $\alpha \neq 0$ (zero vector) we define a \emph{closed halfspace}\index{Closed halfspace}.
 \[ H_{\leq} \coloneqq \SetDef{x \in \mathbb R^n}{\alpha^t x \leq \beta} \]
@@ -565,10 +568,10 @@ Determine all vertices and filter the vertex optimizing the target function.
 	there is no practically useful method of this idea.
 \end{Remark}
 
-\section{The generic Simplex Method}
-\label{section:2}
+\subsection{The generic Simplex method}
+\label{section:1.2}
 
-The Simplex Method goes back to George Dantzig (1947).
+The Simplex method goes back to George Dantzig (1947).
 The method relies on the Fundamental theorem of Linear Optimization and tries to find an optimal vertex.
 It utilizes convexity to claim a local minimum as global one. Thus for a given vertex $x^*$, any adjacent vertex (reachable by one edge) has a worse target function value.
 
@@ -829,7 +832,7 @@ with $\tilde c_N^t = c_N^t - c_B^t \underbrace{A_B^{-1} A_N}_{\tilde A_N}$. $\ti
 	\end{Example}
 \end{Revision}
 
-\subsection{Sufficient optimality criterion for basis solutions}
+\subsubsection{Sufficient optimality criterion for basis solutions}
 
 Basis solutions correspond to vertices.
 
@@ -1157,7 +1160,7 @@ Thus the algorithm looks as follows:
 	Once variable $u_i$ end up in the non-basis, the corresponding column in tableau can be removed. At the end of the first phase, the auxiliary row can be removed. Attention! If some $u_i$ is a basis variable at the end of the first phase by degeneration, this variable must not be removed for the second phase.
 \end{Remark}
 
-\subsection{M-method}
+\subsubsection{M-method}
 %\label{subsection:}
 % TODO \paragraph are too small
 % TODO double hats look ugly
@@ -1275,7 +1278,7 @@ with $M$ sufficiently large such that $\tilde x$ takes up value 0 in an optimal 
 
 \begin{Remark}[Obvious observation]
 	If no degenerated basis solutions occur,
-	the simplex process is finite (in every iteration the target function value increases, because $\tilde c_{N(s)} > 0$, $a_{rs} > 0$ and $\tilde b_{B(r)} > 0$).
+	the Simplex method is finite (in every iteration the target function value increases, because $\tilde c_{N(s)} > 0$, $a_{rs} > 0$ and $\tilde b_{B(r)} > 0$).
 \end{Remark}
 
 \emph{Question:} Can it happen that, in the case of degenerated basis solutions, we traverse a cycle? \\
@@ -1310,7 +1313,7 @@ In the following, there are two approaches:
 
 \dateref{2019/03/19}
 
-\subsection{Rules to avoid cycles}
+\subsubsection{Rules to avoid cycles}
 
 Today, we will discuss the lexicographical row selection rule.
 
@@ -1431,7 +1434,7 @@ It remains to show that the lexicographical row selection rule satisfies its pur
 
 \begin{theorem}
 	\label{theorem:2.3}
-	The simplex method with lexicographical row selection rule is finite.
+	The Simplex method with lexicographical row selection rule is finite.
 \end{theorem}
 
 \begin{proof}
@@ -1460,7 +1463,7 @@ It remains to show that the lexicographical row selection rule satisfies its pur
 
 \begin{theorem}
 	\label{theorem:2.4}
-	The simplex method enforced with the Rule by Bland is finite.
+	The Simplex method enforced with the Rule by Bland is finite.
 \end{theorem}
 
 \begin{proof}
@@ -1470,14 +1473,13 @@ It remains to show that the lexicographical row selection rule satisfies its pur
 In the previous example, we need to choose $s = 1$ (due to the lexicographical rule, $s = 3$ would be possible as well).
 $r = 1$ ($x_5$ is the smallest index).
 
-This conclude the generic simplex method.
+This conclude the generic Simplex method.
 
-\section{Three extensions to the simplex method}
-subtitled \enquote{algorithmic aspects of the simplex method}.
+\subsection{Extensions and Algorithmic Aspects of the Simplex method}
 
-In this chapter, we are going to discuss extensions as well as efficiency in the algorithmic implementation of the simplex method.
+In this chapter, we are going to discuss extensions as well as efficiency in the algorithmic implementation of the Simplex method.
 
-\subsection{Possible rule for choice of the pivot column}
+\subsubsection{Possible rule for choice of the pivot column}
 
 If we do not use the rule by Bland, we can choose every column that violates the optimality condition (thus $t_{0j} > 0$ with $t_{0j} = \tilde c_{N(j)}$).
 In literature the following rules are recommended:
@@ -1509,7 +1511,7 @@ In literature the following rules are recommended:
 
 \dateref{2019/03/25}
 
-\subsection{Extensions to the Simplex method}
+\subsubsection{Extensions to the Simplex method}
 
 \emph{Ideas:} Direct handling of equations, no sign-restricted variables, upper bounds.
 
@@ -1655,7 +1657,7 @@ This happens to the disadvantage on the number of restrictions or the number of 
 		\end{center}
 \end{description}
 
-\subsection{The revised Simplex method}
+\subsubsection{The revised Simplex method}
 \label{section:3.3}
 
 Recall:
@@ -1685,16 +1687,16 @@ From a numerical perspective, it is advantageous to combine the process with kno
 \emph{Conclusion:} There exists numerically stable implementations of the Simplex method.
 Without proper prerequisites the rounding errors accumulate, cancellation effects occur such that results for larger ill-conditioned problems become unuseful.
 
-\subsection{Brief consideration of the runtime of the Simplex process}
+\subsubsection{Brief consideration of the runtime of the Simplex method}
 \label{section:3.4}
 
 Obviously, the application of one pivot step can be done in polynomial time.
 The essential question is, does a polynomial boundary exist for the maximum number of pivot steps?
 A partial answer can be given: No such boundary is known and for all known column selection rules pathological examples have been found such that exponentially many pivot steps are required.
 
-By current research, the simplex method does not provide a polynomial solution for the linear program.
+By current research, the Simplex method does not provide a polynomial solution for the linear program.
 We are going to cover one such method in the section about the inner point method.
-But in practice, the simplex method works very good.
+But in practice, the Simplex method works very good.
 Empirically, $\mathcal O(n)$ pivot steps suffice.
 
 Further analysis was done:
@@ -1703,13 +1705,13 @@ Further analysis was done:
 	\item Smoothed analysis by Spielman, et al.
 \end{itemize}
 
-\section{Duality for linear optimization}
-\label{section:4}
+\subsection{Duality for linear optimization}
+\label{section:1.4}
 
 We will cover the definition of duality, duality theorems and alternative theorems.
 
-\subsection{A motivational example}
-\label{section:4.1}
+\subsubsection{Example for motivation}
+\label{section:1.4.1}
 
 \begin{Example}[Transportation example]
 	Linear transportation problem: transportation costs $c_{ij}$, $m$ firms, offer $a_i$, $n$ customers and demand $b_j$.
@@ -1733,7 +1735,7 @@ We will cover the definition of duality, duality theorems and alternative theore
 	More examples in an economical context can be found.
 \end{Example}
 
-\subsection{Definition of a dual linear program}
+\subsubsection{Definition of a dual linear program}
 
 \begin{Definition}
 	Let (P) be a linear problem $\max\SetDef{c^tx}{Ax \leq b, x \geq 0}$.
@@ -1899,8 +1901,8 @@ In general:
 	Searching for the best boundaries exactly leads to the dual linear program.
 \end{Remark}
 
-\subsection{Duality- and alternative theorems}
-\label{section:4.3}
+\subsubsection{Duality- and alternative theorems}
+\label{section:1.4.3}
 
 2 central duality theorems:
 \begin{itemize}
@@ -2128,8 +2130,8 @@ If $M_P \neq \emptyset$ and $M_D \neq \emptyset$, then $z_P \leq z_D$ by Theorem
 	\emph{Attention!} Not all optimal pairs ($x, y$) are strictly complementary. (A proof is not given at this point)
 \end{Remark}
 
-\subsection{The dual Simplex method}
-\label{section:4.4}
+\subsubsection{The dual Simplex method}
+\label{section:1.4.4}
 
 In contrast to the primal problem, we now consider \dots
 \[ (P) \, \max\SetDef{c^t x}{Ax \leq b, x \geq 0} \qquad (D) \, \min\SetDef{b^t y}{A^t y \geq c, y \geq 0} \]
@@ -2194,7 +2196,7 @@ Optionally, we need an approach to determine a dually admissible initial solutio
 
 \dateref{2019/04/02}
 
-Dual Simplex process:
+Dual Simplex method:
 \begin{itemize}
 	\item Choice of a pivot row. Choice of a row with entry $< 0$ in 0-th column or if none exists, the optimal solution was reached. \\
 		  Analogously to the choice of the pivot column in the primal process.
@@ -2327,8 +2329,8 @@ Choose a column $s$ with [column selection rule]
 	\end{itemize}
 \end{Remark}
 
-\subsection{Final remarks on dual solutions}
-\label{section:4.5}
+\subsubsection{Final remarks on dual solutions}
+\label{section:1.4.5}
 
 \emph{Question:} How can we determine an optimal solution of the dual problem if the primal problem was solved by the Simplex method?
 
@@ -2405,7 +2407,7 @@ We can determine vector $\tilde y$ as $\tilde y^t \coloneqq c_B^t A_B^{-1}$.
 	is the alternate problem denoted by $(\tilde D)$ (where $z$ are the slack variables).
 	\[ \begin{pmatrix} x \\ z \end{pmatrix} = u \qquad d = \begin{pmatrix} c \\ 0 \end{pmatrix} \qquad H = (A \,|\, -I) \]
 
-	If $B$ is the optimal basis for problem $(\tilde P)$, then we get an optimal solution for the dual problem $(\tilde D)$ $\max\SetDef{b^ty}{H^t y \leq d}$ given by $\tilde y^t = d_B^t H_B^{-1}$ is given by $\tilde y^t = d_B^t H_B^{-1}$ (compare with the first question in this section~\ref{section:4.5}). The dually admissible solution $\tilde y^t H \leq d^t$ implies $\tilde y \geq 0$ ($H$ contains the negated unit matrix).
+	If $B$ is the optimal basis for problem $(\tilde P)$, then we get an optimal solution for the dual problem $(\tilde D)$ $\max\SetDef{b^ty}{H^t y \leq d}$ given by $\tilde y^t = d_B^t H_B^{-1}$ is given by $\tilde y^t = d_B^t H_B^{-1}$ (compare with the first question in this section~\ref{section:1.4.5}). The dually admissible solution $\tilde y^t H \leq d^t$ implies $\tilde y \geq 0$ ($H$ contains the negated unit matrix).
 
 	Assume the end consumer only wants to cover a specific ratio of the demand $\triangle b$ by pills.
 	For simplification assume $H_B^{-1}(b - \triangle b) \geq 0$. Then the basis $b$ stays optimal.
@@ -2420,7 +2422,8 @@ We can determine vector $\tilde y$ as $\tilde y^t \coloneqq c_B^t A_B^{-1}$.
 \end{example}
 
 \clearpage
-\section{Inner point methods}
+\subsection{Inner point methods}
+\label{section:1.5}
 \dateref{2019/04/08}
 \emph{Goal:} Method to solve linear programs with polynomial runtime (in the worst case) and is practical.
 
@@ -2491,7 +2494,8 @@ Essential basis for primal-dual methods (esp. path following method) is the theo
 	These are special penalty expressions or penalty functions. Those penalize negative values of sign-restricted variables. Such a function is the logarithm.
 \end{Remark}
 
-\subsection{Primal barrier problem}
+\subsubsection{Primal barrier problem}
+% TODO is this really a subsubsection for all the linear opt content that follows?
 
 \begin{align*}
 	(BP\mu) \: &\max c^t x + \mu \left(\sum_{j=1}^n \log x_j + \sum_{i=1}^b \log w_i\right) & \mu > 0 \\
@@ -2652,7 +2656,7 @@ We consider two examples:
 \end{corollary}
 
 \begin{proof}
-	Follows from Theorem~\ref{theorem:5.1} and Lemma~\ref{lemma:5.3}, which will be proven in the practicals.
+	Follows from Theorem~\ref{theorem:5.1} and Lemma~\ref{lemma:1.5.3}, which will be proven in the practicals.
 \end{proof}
 
 \begin{Definition}[Null variable]
@@ -2661,7 +2665,7 @@ We consider two examples:
 \end{Definition}
 
 \begin{lemma}
-	\label{lemma:5.3}
+	\label{lemma:1.5.3}
 	If a linear program has admissible solutions and the set of admissible solutions is bounded,
 	then the corresponding dual program has strictly admissible solutions.
 
@@ -2739,7 +2743,7 @@ l
 	\[ (x_j + \triangle x_j) (z_j + \triangle z_j) = \mu \forall j \]
 	\[ (y_i + \triangle y_i) (w_i + \triangle w_i) = \mu \forall i \]
 	\[ (x_j + \triangle x_j) (z_j + \triangle z_j) = x_j z_j + z_j \triangle x_j + x_j \triangle z_j + \triangle x_j \triangle z_j \]
-	This is a non-linear term. To handle the non-linearity of the third expression, we apply the Newton method.
+	This is a non-linear term. To handle the non-linearity of the third expression, we apply the Newton's method.
 
 	The generic problem statement is:
 
@@ -2860,7 +2864,7 @@ Measuring progress:
 \end{enumerate}
 Use $\rho = b - Ax - w$, $\rho = c - A^t y + z$ and $\gamma = z^t x + y^t w$.
 
-\subsubsection{Progress in one iteration}
+\paragraph{Progress in one iteration}
 \begin{enumerate}
 	\item Measuring primal admissibility
 		\[ \hat g = b - A \hat x - \hat w = \underbrace{b - Ax - w}_{\rho} - \theta (A\triangle x + \triangle w) \]
@@ -2913,7 +2917,7 @@ Use $\rho = b - Ax - w$, $\rho = c - A^t y + z$ and $\gamma = z^t x + y^t w$.
 		\[ \hat y \leq (1 - (1 - \delta) \theta) \gamma + \theta (M \Norm{\rho}_1 + M \cdot \Norm{\sigma}_1) \]
 \end{enumerate}
 
-\subsubsection{About the termination condition}
+\paragraph{About the termination condition}
 
 Let $\varepsilon > 0$ be a small tolerance parameter and $0 < M < \infty$ a large tolerance parameter.
 \begin{itemize}
@@ -2922,7 +2926,7 @@ Let $\varepsilon > 0$ be a small tolerance parameter and $0 < M < \infty$ a larg
 	\item If $\Norm{\rho}_1 < \varepsilon$ (sufficiently primaly admissible), $\Norm{\sigma}_1 < \varepsilon$ (sufficiently dually admissible) and $\gamma < \varepsilon$ (suffienciently optimal), then STOP and return current $x$ (i.e. $(x, z)$) and current $y$ (i.e. $(y, w)$) as optimal solution of (P) and accordingly (D).
 \end{itemize}
 
-\subsubsection{Relation of $\gamma$ and the performance of the duality gap}
+\paragraph{Relation of $\gamma$ and the performance of the duality gap}
 
 \begin{align*}
 	\gamma &= z^t x + y^t w
@@ -2935,7 +2939,7 @@ So, if $\gamma, \Norm{\sigma}_1, \Norm{\rho}_1$ are sufficiently small (and $\No
 
 You should not expect that the duality gap becomes sufficiently small before $x$ and $y$ are almost admissible ($\Norm{\sigma_1}$ and $\Norm{\rho}_1$ sufficiently small) (this is also confirmed in numerical experiments).
 
-\subsubsection{Analysis of progress over multiple iterations}
+\paragraph{Analysis of progress over multiple iterations}
 
 Denote $\rho^{(k)}, \sigma^{(k)}, x^{(k)}, y^{(k)}, z^{(k)}, w^{(k)}, \gamma^{(k)}, \theta^{(k)}$, et cetera denote the corresponding value in iteration $k$ (iteration 0 defines the initial values).
 
@@ -2987,7 +2991,7 @@ By convergence analysis we get that the primal-dual path traversal method leads 
 
 \dateref{2019/04/30}
 
-\section{Nonlinear optimization without constraints}
+\section{Unconstrained, non-linear optimization}
 \subsection{Basic terminology}
 
 We consider functions of $\mathbb R^n \to \mathbb R$.
@@ -4182,7 +4186,7 @@ In the following, we are going to focus on sequences $\Set{x^{(k)}}$ that minimi
 \end{proof}
 
 \begin{lemma}
-	\label{lemma:5.3}
+	\label{lemma:2.5.3}
 	Let $A$ and $B$ be $n \times n$ matrices over $\mathbb R$.
 	Let $I$ be the unit matrix.
 	\[ \Norm{I - BA} < 1 \implies A \text{ and } B \text{ regular and } \Norm{B^{-1}} \leq \frac{\Norm{A}}{1 - \Norm{I - BA}} \]
@@ -4261,7 +4265,7 @@ Also $x^{(k)} \to x^*$ $Q$-superlinear converges, if
 
 Analogous results hold for quadratic and superquadratic converges if $o\left(\Norm{x^{(k)} - x^*}\right)$ is substituted by $\mathcal O\left(\Norm{x^{(k)} - x^*}^2\right)$.
 
-\subsection{Gradient methods, Steepest Descent method}
+\subsection[Gradient methods]{Gradient methods, Method of steepest Descent}
 \label{section:6}
 
 In the generic descent method, we have large freedom in the choice of $d^{(k)}$.
@@ -4437,7 +4441,7 @@ In the quadratic special case, we can show that $H$ can be chosen such that
 \[ \frac{\lambda_{\text{max}}(H^{-1} Q)}{\lambda_{\text{min}} (H^{-1} Q)} \text{ is smaller than } \frac{\lambda_{\text{max}}(Q)}{\lambda_{\text{min}}(Q)} \]
 and $Hd^{(k)} = -\nabla f(x^{(k)})$ shall be easier to solve than $Qx + c = 0$
 
-\subsection{Gradient-like methods/directions: Generalization of the gradient method}
+\subsubsection{Gradient-like methods/directions: Generalization of the gradient method}
 
 \begin{algorithm} \hfill{}
 	\begin{enumerate}
@@ -4518,7 +4522,7 @@ and $Hd^{(k)} = -\nabla f(x^{(k)})$ shall be easier to solve than $Qx + c = 0$
 	Left as an exercise.
 \end{proof}
 
-\subsection{Newton-process}
+\subsection{Newton's method}
 \label{section:7}
 
 \textbf{Goal:} Process with better convergence properties than the gradient method \\
@@ -4526,7 +4530,7 @@ and $Hd^{(k)} = -\nabla f(x^{(k)})$ shall be easier to solve than $Qx + c = 0$
 
 In this section, we assume $f$ is two times differentiable.
 
-\subsubsection{Local Newton process}
+\subsubsection{Local Newton's method}
 
 \emph{Idea:} We approximate $f$ by a quadratic function and refine this approximation step-by-step.
 We minimize the approximation function (\enquote{Modelling function}\index{Modelling function}).
@@ -4564,19 +4568,19 @@ Special case $n = 1$:
 
 This algorithm only works if $d^{(k)}$ exists. But what about the convergence property?
 
-\begin{theorem}[Convergence behavior of the local Newton process]
+\begin{theorem}[Convergence behavior of the local Newton's method]
 	\label{theorem:7.1}
 	Let $f: \mathbb R^n \to \mathbb R$ be two-times continuously differentiable.
 	Let $x^* \in \mathbb R^n$ be a stationary point of $f$ and $\nabla^2 f(x^*)$ be regular.
 
 	Then there exists $\varepsilon > 0$ such that for all $x^{(0)} \in U_{\varepsilon}(x^*)$, the following properties are true:
 	\begin{enumerate}
-		\item The local Newton method is well-defined and $\Set{x^{(k)}} \to x^*$.
+		\item The local Newton's method is well-defined and $\Set{x^{(k)}} \to x^*$.
 		\item The convergence rate is superlinear (wrt. $Q$-convergence).
 		\item If $\;\nabla^2 f$ is locally Lipschitz-continuous, then the convergence rate is quadratic (wrt. $Q$-convergence).
 	\end{enumerate}
 
-	Then neighborhood of $x^*$ can be very small, thus the name \emph{local} Newton process was chosen. 
+	Then neighborhood of $x^*$ can be very small, thus the name \emph{local} Newton's method was chosen. 
 \end{theorem}
 
 \begin{Revision}[via chapter 5]
@@ -4621,21 +4625,21 @@ This algorithm only works if $d^{(k)}$ exists. But what about the convergence pr
 \begin{Remark}
 	For the local convergence result the assumption $\nabla^2 f(x^*)$ regular (not positive-definite) sufficed..
 
-	Thus a case might occur such that $x^*$ represents a local maximum. In the global Newton process, this (undesired) effect must not occur.
+	Thus a case might occur such that $x^*$ represents a local maximum. In the global Newton's method, this (undesired) effect must not occur.
 \end{Remark}
 
-\subsection{Global Newton method}
+\subsubsection{Global Newton's method}
 \label{section:7.2}
 
-Already well-definedness of the local Newton method is just a local property.
+Already well-definedness of the local Newton's method is just a local property.
 
-\begin{Algorithm}[Global Newton method]\hfill{}
+\begin{Algorithm}[Global Newton's method]\hfill{}
 	\begin{enumerate}
 		\item Choose $x^{(0)} \in \mathbb R^n, \rho > 0, p > 2, \beta \in (0, 1), \sigma \in \left(0, \frac12\right), \varepsilon \geq 0$. Let $k \coloneqq 0$.
 		\item If $\Norm{\nabla f(x^{(k)})} \leq \varepsilon$, then stop.
 		\item Determine (if possible) some solution $d^{(k)}$ of
 			\[ \nabla^2 f(x^{(k)}) d^{(k)} = -\nabla f(x^{(k)}) \]
-			If this system is not solvable or condition $\left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq -\rho \Norm{d^{(k)}}^p$ (\enquote{descent of the Newton method is insufficient for us}) is not satisfied, then
+			If this system is not solvable or condition $\left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq -\rho \Norm{d^{(k)}}^p$ (\enquote{descent of the Newton's method is insufficient for us}) is not satisfied, then
 			\[ d^{(k)} \coloneqq -\nabla f(x^{(k)}) \]
 		\item Determine $t_k = \max\SetDef{\beta^l}{l = 0, 1, 2, \dots}$ with (Armijo step size strategy)
 			\[ f(x^{(k)} + t_k d^{(k)}) \leq f(x^{(k)}) + \sigma \cdot t_k \cdot \left(\nabla f(x^{(k)})\right)^t d^{(k)} \]
@@ -4651,7 +4655,152 @@ Already well-definedness of the local Newton method is just a local property.
 
 \begin{theorem}
 	\label{theorem:7.2}
-	If $f$ is two-times continuously differentiable. Every cluster point, resulting from sequence $\Set{x^{(k)}}$ of the global Newton method, is a stationary point of $f$.
+	If $f$ is two-times continuously differentiable. Every cluster point, resulting from sequence $\Set{x^{(k)}}$ of the global Newton's method, is a stationary point of $f$.
+\end{theorem}
+
+\dateref{2019/06/06}
+
+\begin{Revision}
+	Local Newton's method:
+	\begin{itemize}
+		\item Useful only in theory
+		\item Always uses Newton direction with step size 1
+	\end{itemize}
+	Global Newton's method:
+	\begin{itemize}
+		\item Uses the Newton direction if it exists and is satisfactory
+		\item otherwise direction of steepest descent with step size choice by Armijo's rule
+	\end{itemize}
+\end{Revision}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:7.2}]
+	Let $\tilde x \in \mathbb R^n$ be a cluster point of $\Set{x^{(k)}}$. Let $\Set{x^{(k)}}_k$ be a converging subsequence of $\Set{x^{(k)}}$ towards $\tilde x$. If $d^{(k)} = -\nabla f(x^{(k)})$ for infinitely many $k \in K$, then the claim immediately follows from previous conclusions.
+
+	Assume that wlog. $d^{(k)}$ is the solution of the Newton equation $\nabla^2 f(x^{(k)}) d^{(k)} = -\nabla f(x^{(k)}) \forall k \in K$.
+
+	\begin{Remark}
+		$\tilde x$ is not a stationary point. Thus $\nabla f(\tilde x) \neq 0$.
+	\end{Remark}
+
+	We have $\Norm{\nabla f(x^{(k)})} = \Norm{\nabla^2 f(x^{(k)}) d^{(k)}} \leq \Norm{\nabla^2 f(x^{(k)})} \Norm{d^{(k)}} \forall k \in K$.
+	\[ \implies \Norm{d^{(k)}} \geq \frac{\Norm{\nabla f(x^{(k)})}}{\Norm{\nabla^2 f(x^{(k)})}} \]
+
+	\begin{Remark}
+		$\Norm{\nabla^2 f(x^{(k)})} \neq 0$. Otherwise %$\nabla^2 f(x^{(k)}) = 0$ which 
+		it does not fit our requirements.
+	\end{Remark}
+
+	Now we can consider that constants $d_1, d_2 > 0$ exist
+	\[ 0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \qquad \forall k \in K \]
+	Assume there exists a subsequence of $K$ with $\Norm{d^{(k)}} \to 0$ for this subsequence.
+	Thus as a consequence $\Norm{\nabla f(x^{(k)})} \to 0$ for this subsequence (consider that $\Norm{\nabla^2 f(x^{(k)})}$ is bounded).
+	Then $\tilde x$ would be a stationary point of $f$ opposing our assumption.
+	By the Cauchy-Schwarz inequality, $\Norm{d^{(k)}}$ cannot be unbounded by above.
+
+	Furthermore, we have that:
+	\begin{itemize}
+		\item $\Set{f(x^{(k)})}$ is monotonically decreasing
+		\item $\Set{f(x^{(k)})}_K \to f(\tilde x)$
+	\end{itemize}
+	By these two properties, $\Set{f(x^{(k)})} \to f(\tilde x)$. Thus $\Set{f(x^{(k+1)}) - f(x^{(k)})} \to 0$.
+	\[ \Set{t_k\left(\nabla f(x^{(k)})\right)^t d^{(k)}} \to 0 \]
+	Requirements of the global Newton's method (incl. step size choice):
+	\[ \nabla f(x^{(k)}) d^{(k)} \leq -\rho \Norm{d^{(k)}}^p \]
+
+	Now we show that $\Set{t_k}_K$ is bounded from $0$ (i.e. $\exists c: t_k \leq c < 0$).
+	Assume there exists some subsequence $\tilde k$ of $K$ with $\Set{t_k}_K \to 0$.
+	By Armijo's rule $t_k = \beta^{l_k}$ with $l_k \in \mathbb N$ uniquely determined.
+	For $\beta^{l_k - 1}$, the Armijo condition is not yet satisfied. Let $k$ be sufficiently large,
+	\begin{align} \frac{f(x^{(k)} - \beta^{l_k - 1} d^{(k)}) - f(x^{(k)})}{\beta^{l_k-1}} > \sigma \left(\nabla f(x^{(k)})\right)^t d^{(k)} \label{xvl} \end{align}
+	By $(0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \forall k \in K)$, we can assume that $\Set{d^{(k)}}_K \to \tilde d$ with $\tilde d \neq 0$.
+	By \eqref{xvl} and the Lemma from section~\ref{section:6}, we can conclude that $(\nabla f(\tilde x))^t \tilde d \geq \sigma \left(\nabla f(\tilde x)\right)^t \tilde d$ for $k \to \infty$, $k \in K$. By $\sigma \in \left(0, \frac12\right)$, we can conclude
+	\[ \left(\nabla f(\tilde x)\right)^t \tilde d \geq 0 \]
+	Direction as in Newton's method is chosen only if
+	\[ \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq \underbrace{-\rho \Norm{d^{(k)}}^p}_{< 0} \]
+	\[ \implies \left(\nabla f(\tilde x)\right)^t \tilde d < 0 \]
+	This gives a contradiction with our assumption regarding $\Set{t_k}$:
+	\[ \exists \tau > 0: t_k \geq \tau \qquad \text{ for } k \in K \]
+	Because
+	\[ \Set{t_k \left(\nabla f(x^{(k)})\right)^t d^{(k)}}_K \to 0 \implies \Set{\left(\nabla f(x^{(k)})\right)^t d^{(k)}}_K \to 0 \]
+	By our assumption, we get $\Set{d^{(k)}} \to 0$ which contradicts with above.
+\end{proof}
+
+\begin{Remark}[Question 1]
+	Does sequence $\Set{x^{(k)}}$ converge or only its subsequence?
+\end{Remark}
+\begin{Remark}[Question 2]
+	What about convergence speed?
+\end{Remark}
+
+\begin{lemma}
+	\label{lemma:7.3}
+	Let $\tilde x \in \mathbb R^n$ be an isolated cluster point of sequence $\Set{x^{(k)}}$, $x^{(k)} \in \mathbb R^n$ ($x^{(k)}$ must not originate from Newton's method) with $\Set{\Norm{x^{(k+1)} - x^{(k)}}}_K \to 0$ for every subsequence $\Set{x^{(k)}}_K$ converging to $\tilde x$. Then $\Set{x^k}$ converges to $\tilde x$.
+
+	This lemma goes back to Mor\'e and S\'oren.
+\end{lemma}
+
+\begin{proof}
+	Left as an exercise.
+\end{proof}
+
+\begin{theorem}
+	\label{theorem:7.4}
+	Let $\Set{x^{(k)}}$ be generated from the global Newton's method and let $\tilde x$ be an isolated cluster point of $\Set{x^{(k)}}$. Then $\Set{x^{(k)}}$ converges to $\tilde x$.
+\end{theorem}
+
+\begin{proof}
+	Let $\Set{x^{(k)}}_K$ be a subsequence converging to an isolated cluster point $\tilde x$.
+	By Theorem~\ref{theorem:7.2}, $\tilde x$ is a stationary point. By continuity of f,
+	\begin{align} \Set{\nabla f(x^{(k)})}_K \to \nabla f(\tilde x) \underbrace{=}_{\tilde x \text{ is stationary point}} 0 \label{gsn}\end{align}
+	Because $t_k \in (0, 1]$, we have
+	\begin{align} \Norm{x^{(k+1)} - x^{(k)}} = t_k \Norm{dx^{(k)}} \leq \Norm{d^{(k)}} \forall k \in \mathbb N \label{bla}\end{align}
+	By the algorithm, we have
+	\begin{align} \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq -\rho \Norm{d^{(k)}}^p \label{qfg}\end{align}
+	By the application of the Cauchy-Schwarz inequality,
+	\[ \rho \Norm{d^{(k)}}^p \leq -\nabla f(x^{(k)}) d^{(k)} \leq \Norm{\nabla f(x^{(k)})} \Norm{d^{(k)}} \]
+	If all search directions $d^{(k)}$ with $k \in K$ satisfy condition \eqref{qfg}, then immediately
+	\[ \Set{\Norm{d^{(k)}}}_K \to 0 \]
+	This remains true even if $d^{(k)} = -\nabla f(x^{(k)})$ for individual $k \in K$ (or all of them) by \eqref{gsn}. By \eqref{bla},
+	\[ \implies \Set{\Norm{x^{(k+1)} - x^{(k)}}}_K \to 0 \]
+	If we apply Lemma~\ref{lemma:7.3}, the claim is proven.
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:7.5}
+	Let $f: \mathbb R^n \to \mathbb R$ be two times differentiable and $\tilde x \in \mathbb R^n$ with $\nabla^2 f(\tilde x)$ positive-definite.
+	Then there exists some constant $\delta_1 > 0$ and $\delta_2 > 0$ with $\delta_2 \Norm{d}^2 \leq d^t \nabla^2 f(x) d \: \forall x \in \mathbb R^n$ with $\Norm{x - \tilde x} \leq \delta_1$ and $\forall d \in \mathbb R^n$.
+
+	Some kind of \enquote{uniform positive definiteness of $\nabla^2 f$}
+\end{lemma}
+
+\begin{Remark}
+	Especially, Lemma~\ref{lemma:7.5} ensures that $\nabla^2 f$ in an appropriate neighborhood of $\tilde x$ is positive definite (even uniform!).
+	The proof of this property is left as an exercise to the reader.
+\end{Remark}
+
+\begin{lemma}
+	\label{lemma:7.6}
+	Let $f$ be two times continuously differentiable. Let $\tilde x \in \mathbb R^n$ with $\nabla f(\tilde x) = 0$ and $\nabla^2 f(\tilde x)$ positive-definite.
+	Let $\Set{x^{(k)}}$ with $x^{(k)} \in \mathbb R^n$, $\Set{x^{(k)}} \to \tilde x$ and $\Set{d^{(k)}}$ be the sequence of the Newton directions, thus satisfying
+	\[ \nabla^2 f(x^{(k)}) d^{(k)} = -\nabla f(x^{(k)}) \qquad d^{(k)} = -\left(\nabla^2 f(x^{(k)})\right)^{-1} \nabla f(x^{(k)}) \]
+	Then, there exists $k_0 \in \mathbb N$ with
+	\[ f(x^{(k)} + d^{(k)}) \leq f(x^{(k)}) + \sigma \left(\nabla f(x^{(k)})\right)^t d^{(k)} \]
+	for all $k \geq k_0$ for fixed $\sigma \in \left(0, \frac12\right)$.
+\end{lemma}
+
+Thus, beginning with index $k_0$, the complete step size $1$ is chosen if Armijo's rule is applied.
+The restriction $\sigma \in \left(0, \frac12\right)$ is necessary for this kind of result.
+
+\begin{theorem}[Central convergence theorem for global Newton's method]
+	\label{theorem:7.7}
+	Let $f$ be two-times differentiable. Let $\Set{x^{(k)}}$ be a sequence generated by the global Newton's method. Let $\tilde x$ be a cluster point of $\Set{x^{(k)}}$ and let $\nabla^2 f(\tilde x)$. Then
+	\begin{enumerate}
+		\item The sequence $\Set{x^{(k)}}$ converges to $\tilde x$ and $\tilde x$ is a strict local minimum of $f$.
+		\item For all sufficiently large $k \in \mathbb N$, $d^{(k)}$ is the Newton direction (above a certain $k_0$, the direction of steepest descent will never be chosen)
+		\item For all sufficiently large $k \in \mathbb N$, $t_k = 1$ (complete step size) is chosen.
+		\item $\Set{x^{(k)}}$ converges superlinear to $\tilde x$.
+		\item If $\nabla^2 f$ is locally Lipschitz cont., then $\Set{x^{(k)}}$ converges quadratically to $\tilde x$.
+	\end{enumerate}
 \end{theorem}
 
 \printindex
