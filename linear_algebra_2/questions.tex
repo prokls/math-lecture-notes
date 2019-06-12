@@ -183,7 +183,7 @@
   \item Prove: $A > 0 \implies \det(A) > 0$
   \item Define the minor of a matrix.
   \item Let $A = A^*$. Prove: $A > 0 \iff$ all first minors $A_r$ satisfy $\det(A_r) > 0$
-  \item All submatrices of a positive definite matrix are $\square$
+  \item All minors of a positive definite matrix are $\square$
   \item Let $A = A^*$. Prove: $A < 0 \iff (-1)^r \det(A_r) > 0 \forall r \in \set{1, \dots, n}$
   \item What is an Euclidean space? What is a unitary space?
   \item What is a Hilbert space?
@@ -449,7 +449,7 @@
   \item Prove: Let $A \in \mathbb C^{n \times n}, A = A^* \implies \operatorname{spec}(A) \subseteq \mathbb R$.
   \item Let $A \in \mathbb C^{n \times n}$ self-adjoint. Prove: $A \geq 0 \iff \operatorname{spec}(A) \subseteq [0, \infty)$.
   \item For which matrices is the square root of a matrix defined?
-  \item Prove: The square root of a positive definite matrix is exists and is unique.
+  \item Prove: The square root of a positive definite matrix exists and is unique.
   \item Define Cholesky decompositions
   \item Define Schur complements of $D$ in $M$. Give the dimensions of $D$ and $M$.
   \item Let $A \in \mathbb C^{n \times n}$. $A > 0$, $b \in \mathbb C^n$, $\gamma > 0$.
@@ -463,6 +463,11 @@
   \item Prove: Let $A \in \mathbb C^{n \times n}$. $\card{A} \coloneqq (A^* A)^{\frac12}$. Then $\exists U \in \mathcal U(n)$ such that $A = U \cdot \card{A}$.
   \item Which matrices have singular values?
   \item Define singular value decompositions of matrices.
+\end{itemize}
+
+\section{Eigenvalue estimates}
+
+\begin{itemize}
   \item Define the numerical range of a matrix $A$
   \item Define the numerical radius of matrix $A$
   \item Prove: $\operatorname{spec}(A) \subseteq W(A)$
