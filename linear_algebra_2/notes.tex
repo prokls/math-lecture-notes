@@ -2793,14 +2793,16 @@ with respect to basis $b_1, \dots, b_n$.
       \begin{corollary}
         If we apply the example~\ref{ex825} to $A>0$,
         \[
-          C^* AC = \begin{bmatrix}
-            \pm 1 &        &       &        &   & \\
-                  & \ddots &       &        &   & \\
-                  &        & \pm 1 &        &   & \\
-                  &        &       & \ddots &   & \\
-                  &        &       &        & 0 & \\
-                  &        &       &        &   & \ddots
-          \end{bmatrix}
+          C^* AC = 
+          %\begin{bmatrix}
+          %  \pm 1 &        &       &        &   & \\
+          %        & \ddots &       &        &   & \\
+          %        &        & \pm 1 &        &   & \\
+          %        &        &       & \ddots &   & \\
+          %        &        &       &        & 0 & \\
+          %        &        &       &        &   & \ddots
+          %\end{bmatrix}
+          \operatorname{diag}(\pm 1, \dots, \pm 1, \dots, 0, \dots)
           \text{ is still positive definite }
           \implies C^* AC = I
         \]
@@ -2816,17 +2818,18 @@ with respect to basis $b_1, \dots, b_n$.
   Let $A \in \mathbb C^{n\times n}$ be Hermitian.
   $C \in \operatorname{GL}(n, \mathbb C)$ by the algorithm
   such that
-  \[ C^* AC = \begin{bmatrix}
-    \pm 1 &        &       &    &        &    &   &        & \\
-          & \ddots &       &    &        &    &   &        & \\
-          &        & \pm 1 &    &        &    &   &        & \\
-          &        &       & -1 &        &    &   &        & \\
-          &        &       &    & \ddots &    &   &        & \\
-          &        &       &    &        & -1 &   &        & \\
-          &        &       &    &        &    & 0 &        & \\
-          &        &       &    &        &    &   & \ddots & \\
-          &        &       &    &        &    &   &        & 0
-    \end{bmatrix}
+  \[ C^* AC = %\begin{bmatrix}
+    %\pm 1 &        &       &    &        &    &   &        & \\
+    %      & \ddots &       &    &        &    &   &        & \\
+    %      &        & \pm 1 &    &        &    &   &        & \\
+    %      &        &       & -1 &        &    &   &        & \\
+    %      &        &       &    & \ddots &    &   &        & \\
+    %      &        &       &    &        & -1 &   &        & \\
+    %      &        &       &    &        &    & 0 &        & \\
+    %      &        &       &    &        &    &   & \ddots & \\
+    %      &        &       &    &        &    &   &        & 0
+    %\end{bmatrix}
+    \operatorname{diag}(\pm 1, \dots, \pm 1, -1, \dots, -1, 0, \dots, 0)
   \]
   Then the number of $+1$, $-1$ and zeros is uniquely determined
   (it does not depend on the order to the operands).
@@ -2836,17 +2839,18 @@ with respect to basis $b_1, \dots, b_n$.
   $C$ is invertible, hence
   \[
     \rank(A) =
-    \rank \begin{bmatrix}
-       +1 &        &       &    &        &    &   &        & \\
-          & \ddots &       &    &        &    &   &        & \\
-          &        &    +1 &    &        &    &   &        & \\
-          &        &       & -1 &        &    &   &        & \\
-          &        &       &    & \ddots &    &   &        & \\
-          &        &       &    &        & -1 &   &        & \\
-          &        &       &    &        &    & 0 &        & \\
-          &        &       &    &        &    &   & \ddots & \\
-          &        &       &    &        &    &   &        & 0
-    \end{bmatrix}
+    \rank %\begin{bmatrix}
+    %   +1 &        &       &    &        &    &   &        & \\
+    %      & \ddots &       &    &        &    &   &        & \\
+    %      &        &    +1 &    &        &    &   &        & \\
+    %      &        &       & -1 &        &    &   &        & \\
+    %      &        &       &    & \ddots &    &   &        & \\
+    %      &        &       &    &        & -1 &   &        & \\
+    %      &        &       &    &        &    & 0 &        & \\
+    %      &        &       &    &        &    &   & \ddots & \\
+    %      &        &       &    &        &    &   &        & 0
+    %\end{bmatrix}
+    \operatorname{diag}(+1, \dots, +1, -1, \dots, -1, 0, \dots, 0)
   \]
   Let $r$ be the number of $+1$ and $s$ be the number of $-1$.
   The number of $+1$ and $-1$ is uniquely determined.
@@ -2854,17 +2858,18 @@ with respect to basis $b_1, \dots, b_n$.
   Hence, it suffices to show that the number $r$ of $+1$ is uniquely defined.
 
   Let $\tilde{C}$ be another matrix such that
-  \[ \tilde C^* A \tilde C = \begin{bmatrix}
-    \pm 1 &        &       &    &        &    &   &        & \\
-          & \ddots &       &    &        &    &   &        & \\
-          &        & \pm 1 &    &        &    &   &        & \\
-          &        &       & -1 &        &    &   &        & \\
-          &        &       &    & \ddots &    &   &        & \\
-          &        &       &    &        & -1 &   &        & \\
-          &        &       &    &        &    & 0 &        & \\
-          &        &       &    &        &    &   & \ddots & \\
-          &        &       &    &        &    &   &        & 0
-    \end{bmatrix}
+  \[ \tilde C^* A \tilde C = %\begin{bmatrix}
+    %\pm 1 &        &       &    &        &    &   &        & \\
+    %      & \ddots &       &    &        &    &   &        & \\
+    %      &        & \pm 1 &    &        &    &   &        & \\
+    %      &        &       & -1 &        &    &   &        & \\
+    %      &        &       &    & \ddots &    &   &        & \\
+    %      &        &       &    &        & -1 &   &        & \\
+    %      &        &       &    &        &    & 0 &        & \\
+    %      &        &       &    &        &    &   & \ddots & \\
+    %      &        &       &    &        &    &   &        & 0
+    %\end{bmatrix}
+    \operatorname{diag}(\pm 1, \dots, \pm 1, -1, \dots, -1, 0, \dots, 0)
   \]
   with $\tilde r$ ones and $\tilde s$ minus ones.
 
@@ -2884,17 +2889,19 @@ with respect to basis $b_1, \dots, b_n$.
   \[ \implies x^* A x = \Phi_B(x)^* D \Phi_B(x) \]
   \[
     = (\overline{\xi}_1, \dots, \overline{\xi}_r, 0, \dots, 0)
-    \begin{bmatrix}
-       +1 &        &       &    &        &    &   &        & \\
-          & \ddots &       &    &        &    &   &        & \\
-          &        &    +1 &    &        &    &   &        & \\
-          &        &       & -1 &        &    &   &        & \\
-          &        &       &    & \ddots &    &   &        & \\
-          &        &       &    &        & -1 &   &        & \\
-          &        &       &    &        &    & 0 &        & \\
-          &        &       &    &        &    &   & \ddots & \\
-          &        &       &    &        &    &   &        & 0
-    \end{bmatrix} \cdot
+    %\begin{bmatrix}
+    %   +1 &        &       &    &        &    &   &        & \\
+    %      & \ddots &       &    &        &    &   &        & \\
+    %      &        &    +1 &    &        &    &   &        & \\
+    %      &        &       & -1 &        &    &   &        & \\
+    %      &        &       &    & \ddots &    &   &        & \\
+    %      &        &       &    &        & -1 &   &        & \\
+    %      &        &       &    &        &    & 0 &        & \\
+    %      &        &       &    &        &    &   & \ddots & \\
+    %      &        &       &    &        &    &   &        & 0
+    %\end{bmatrix}
+    \operatorname{diag}(+1, \dots, +1, -1, \dots, -1, 0, \dots, 0)
+    \cdot
     \begin{pmatrix}
       \xi_1 \\ \vdots \\ \xi_r \\ 0 \\ \vdots \\ 0
     \end{pmatrix}
@@ -2912,17 +2919,19 @@ with respect to basis $b_1, \dots, b_n$.
     x^* Ax = \Phi_{\tilde B}(x)^* \tilde D \Phi_{\tilde B}(x)
   \] \[
     = (0, \dots, 0, \tilde \xi_{\tilde r + 1}, \dots, \tilde \xi_n)
-    \begin{bmatrix}
-       +1 &        &       &    &        &    &   &        & \\
-          & \ddots &       &    &        &    &   &        & \\
-          &        &    +1 &    &        &    &   &        & \\
-          &        &       & -1 &        &    &   &        & \\
-          &        &       &    & \ddots &    &   &        & \\
-          &        &       &    &        & -1 &   &        & \\
-          &        &       &    &        &    & 0 &        & \\
-          &        &       &    &        &    &   & \ddots & \\
-          &        &       &    &        &    &   &        & 0
-    \end{bmatrix} \cdot \begin{bmatrix}
+    %\begin{bmatrix}
+    %   +1 &        &       &    &        &    &   &        & \\
+    %      & \ddots &       &    &        &    &   &        & \\
+    %      &        &    +1 &    &        &    &   &        & \\
+    %      &        &       & -1 &        &    &   &        & \\
+    %      &        &       &    & \ddots &    &   &        & \\
+    %      &        &       &    &        & -1 &   &        & \\
+    %      &        &       &    &        &    & 0 &        & \\
+    %      &        &       &    &        &    &   & \ddots & \\
+    %      &        &       &    &        &    &   &        & 0
+    %\end{bmatrix}
+    \operatorname{diag}(+1, \dots, +1, -1, \dots, -1, 0, \dots, 0)
+    \cdot \begin{bmatrix}
       0 \\ \vdots \\ 0 \\ \tilde \xi_{\tilde r+1} \\ \vdots \\ \tilde \xi_n
     \end{bmatrix} \leq 0
   \] \[
@@ -2942,36 +2951,38 @@ Hence
 \[ A > 0 \text{ if } x^* A x > 0 \forall x \neq 0 \]
 \[ (x^*)_i = \overline{x}_i \]
 \[ \exists C \in \operatorname{GL}(n, \mathbb C) \text{ such that } \]
-\[ C^* AC \underbrace{=}_{\text{congruence}} \begin{bmatrix}
-     +1 &        &       &    &        &    &   &        & \\
-        & \ddots &       &    &        &    &   &        & \\
-        &        &    +1 &    &        &    &   &        & \\
-        &        &       & -1 &        &    &   &        & \\
-        &        &       &    & \ddots &    &   &        & \\
-        &        &       &    &        & -1 &   &        & \\
-        &        &       &    &        &    & 0 &        & \\
-        &        &       &    &        &    &   & \ddots & \\
-        &        &       &    &        &    &   &        & 0
-  \end{bmatrix}
+\[ C^* AC \underbrace{=}_{\text{congruence}} %\begin{bmatrix}
+  %   +1 &        &       &    &        &    &   &        & \\
+  %      & \ddots &       &    &        &    &   &        & \\
+  %      &        &    +1 &    &        &    &   &        & \\
+  %      &        &       & -1 &        &    &   &        & \\
+  %      &        &       &    & \ddots &    &   &        & \\
+  %      &        &       &    &        & -1 &   &        & \\
+  %      &        &       &    &        &    & 0 &        & \\
+  %      &        &       &    &        &    &   & \ddots & \\
+  %      &        &       &    &        &    &   &        & 0
+  %\end{bmatrix}
+  \operatorname{diag}(+1, \dots, +1, -1, \dots, -1, 0, \dots, 0)
 \]
 where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
 
 \begin{definition} % Definition 8.28
   If $A = A*$ is congruent to
-  \[
-    \begin{bmatrix}
-     +1 &        &       &    &        &    &   &        & \\
-        & \ddots &       &    &        &    &   &        & \\
-        &        &    +1 &    &        &    &   &        & \\
-        &        &       & -1 &        &    &   &        & \\
-        &        &       &    & \ddots &    &   &        & \\
-        &        &       &    &        & -1 &   &        & \\
-        &        &       &    &        &    & 0 &        & \\
-        &        &       &    &        &    &   & \ddots & \\
-        &        &       &    &        &    &   &        & 0
-    \end{bmatrix}
-  \]
-  with $r$ occuring $+1$s and $s$ occuring $-1$s.
+  $
+    %\begin{bmatrix}
+    % +1 &        &       &    &        &    &   &        & \\
+    %    & \ddots &       &    &        &    &   &        & \\
+    %    &        &    +1 &    &        &    &   &        & \\
+    %    &        &       & -1 &        &    &   &        & \\
+    %    &        &       &    & \ddots &    &   &        & \\
+    %    &        &       &    &        & -1 &   &        & \\
+    %    &        &       &    &        &    & 0 &        & \\
+    %    &        &       &    &        &    &   & \ddots & \\
+    %    &        &       &    &        &    &   &        & 0
+    %\end{bmatrix}
+    \operatorname{diag}(+1, \dots, +1, -1, \dots, -1, 0, \dots, 0)
+  $
+  with $+1$ occuring $r$ times and $-1$ occuring $s$ times.
 
   Then $\operatorname{ind}(A) \coloneqq r$ is called \emph{index of A}.
   $\sign(A) \coloneqq r - s$ is called \emph{signature of A}.
@@ -2995,17 +3006,18 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
 
 \begin{Remark}[Idea]
   \[
-    \det(C^* A C) = \det\begin{bmatrix}
-     +1 &        &       &    &        &    &   &        & \\
-        & \ddots &       &    &        &    &   &        & \\
-        &        &    +1 &    &        &    &   &        & \\
-        &        &       & -1 &        &    &   &        & \\
-        &        &       &    & \ddots &    &   &        & \\
-        &        &       &    &        & -1 &   &        & \\
-        &        &       &    &        &    & 0 &        & \\
-        &        &       &    &        &    &   & \ddots & \\
-        &        &       &    &        &    &   &        & 0
-    \end{bmatrix}
+    \det(C^* A C) = \det%\begin{bmatrix}
+    % +1 &        &       &    &        &    &   &        & \\
+    %    & \ddots &       &    &        &    &   &        & \\
+    %    &        &    +1 &    &        &    &   &        & \\
+    %    &        &       & -1 &        &    &   &        & \\
+    %    &        &       &    & \ddots &    &   &        & \\
+    %    &        &       &    &        & -1 &   &        & \\
+    %    &        &       &    &        &    & 0 &        & \\
+    %    &        &       &    &        &    &   & \ddots & \\
+    %    &        &       &    &        &    &   &        & 0
+    %\end{bmatrix}
+    \operatorname{diag}(+1, \dots, +1, -1, \dots, -1, 0, \dots, 0)
   \] \[
     \det(C^*) \det(A) \det(C) = \begin{cases}
       0 & \text{ if } \rank(A) < n \\
@@ -3088,15 +3100,16 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
     \item[Direction $\implies$:] 
       For $r = n$: $\det(A_r) = \det(A) > 0$.
       It suffices to show: submatrices
-      \[ A_r = \begin{bmatrix} a_{11} & a_{12} & \ldots & a_{1r} \\ \vdots & & & \\ a_{r1} &  & & a_{rr} \end{bmatrix} \]
+      \[ A_r = \begin{bmatrix} a_{11} & a_{12} & \ldots & a_{1r} \\ \vdots & \ddots & & \\ a_{r1} & \dots & & a_{rr} \end{bmatrix} \]
       are positive definite.
       Hence, $\forall x \in \mathbb C^r$ with $x \neq 0: x^* A_r x > 0$.
-
-      \[ x \in \mathbb C^r \setminus \set{0}: x^* A_r x = \left[x^* \underbrace{0}_{n - r}\right] \cdot A \cdot \begin{bmatrix} x \\ 0 \end{bmatrix} > 0 \]
-      \[ = [x^* 0] \begin{bmatrix} A_r & & & * \\ & & & \vdots \\ & & & * \\ * & \ldots & * & * \end{bmatrix} \begin{bmatrix} x \\ 0\end{bmatrix} \]
+      \begin{align*}
+        x \in \mathbb C^r \setminus \set{0}: x^* A_r x &= \left[x^* \underbrace{0}_{n - r}\right] \cdot A \cdot \begin{bmatrix} x \\ 0 \end{bmatrix} > 0 \\
+          &= \begin{bmatrix} x^* & 0 \end{bmatrix} \begin{bmatrix} A_r & & & * \\ & & & \vdots \\ & & & * \\ * & \ldots & * & * \end{bmatrix} \begin{bmatrix} x \\ 0\end{bmatrix}
+      \end{align*}
       Remark: \emph{every submatrix}
       $\begin{bmatrix} a_{i_1 i_1} & \ldots & a_{i_1 i_r} \\ \vdots & \ddots & \vdots \\ a_{i_r i_1} & \ldots & a_{i_r i_r} \end{bmatrix}$
-      of a positive definite matrix is positive definite.
+      of a pos. def. matrix is pos. definite.
     \item[Direction $\impliedby$:]
       Assume all first minors $\det(A_r) > 0$.
 
@@ -3105,11 +3118,10 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
         \item[Let $n=1$ and $r=1$:]
           $A = [a_{11}]$ and $\det(A_1) = a_{11}$.
           $A > 0 \iff a_{11} > 0$.
-        \item[Consider $n \to n+1$:]
+        \item[Consider $n-1 \to n$:]
           Assume all first minors are greater $0$.
           Then all first minors of matrix $A_{n-1}$ are greater $0$ by induction hypothesis.
           \[ \text{Theorem~\ref{thm:Herm}} \implies \exists C: C^* A_{n - 1} C = I_{n-1} \]
-
           \begin{align*}
             A' &= \begin{bmatrix}
                       &       &   & 0 \\
@@ -3133,7 +3145,7 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
                       & & & a_{1, n} \\
                       & A_{n-1} & & \vdots \\
                       & & & a_{n-1,n} \\ \\
-                    \overline{a_{1,n}} & \ldots & \overline{a_{n,n-1}} & a_{n,n}
+                    \overline{a_{1,n}} & \ldots & \overline{a_{n-1,n}} & a_{n,n}
                   \end{bmatrix} \begin{bmatrix}
                       &       &   & 0 \\
                       & C     &   & \vdots \\
@@ -3144,7 +3156,7 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
                       & & & a_{1, n} \\
                       & I & & \vdots \\
                       & & & a_{n-1,n} \\ \\
-                    \overline{a_{1,n}} & \ldots & \overline{a_{n,n-1}} & a_{n,n}
+                    \overline{a_{1,n}} & \ldots & \overline{a_{n-1,n}} & a_{n,n}
                   \end{bmatrix} \\
             C' &= \begin{bmatrix}
                     1 &        & 0 & -a_{1,n} \\
@@ -3160,7 +3172,7 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
                     \end{array}
                   \right]
                   \text{ with }
-                  b = \begin{bmatrix} a_{11} \\ a_{21} \\ \vdots \\ a_{n-1,n} \end{bmatrix} \\
+                  b \coloneqq \begin{bmatrix} a_{1,1} \\ a_{2,1} \\ \vdots \\ a_{n-1,n} \end{bmatrix} \\
             (C')^* A'C' &= \left[
                     \begin{array}{c|c}
                       I & 0 \\
@@ -3184,7 +3196,7 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
                     \begin{array}{c|c}
                       I & b \\
                       \hline
-                      -b^* & -b^* b + a_{nn}
+                      0 & -b^* b + a_{nn}
                     \end{array}
                   \right] \left[
                     \begin{array}{c|c}
@@ -3201,7 +3213,6 @@ where the number of $+1$ is $r$ (see Sylvester's Law of inertia).
                     \end{array}
                   \right] \\
           \end{align*}
-
           Hence
           \begin{itemize}
             \item $A \hat= A' \hat= \begin{bmatrix} I & 0 \\ 0 & -b^* b + a_n \end{bmatrix}$
@@ -3475,23 +3486,22 @@ In $\mathbb R^n$:
         \implies w &= 0
       \end{align*}
       If $0 \not\in M$, then $M \cap M^\bot = \emptyset$.
-    \item
+    \item It is immediate that $\mathcal L(M)^\bot \subseteq M^\bot$ because
       \[ M \subseteq \mathcal L(M) \underbrace{\implies}_{\text{by point (2.)}} \mathcal L(M)^\bot \subseteq M^\bot \]
       Show that: $M^\bot \subseteq \mathcal L(M)^\bot$.
-      Hence, $\forall v \in M^\bot \implies v \in \mathcal L(M)^\bot$.
+      Hence, $\forall v \in M^\bot \implies v \in \mathcal L(M)^\bot$. \\
       Let $v \in M^\bot$, $w \in \mathcal L(M)$.
       \[
-        \exists w_1, \ldots, w_n \in M: \exists \lambda_1, \ldots, \lambda_n \in \mathbb K:
+        \exists w_1, \ldots, w_n \in M \: \exists \lambda_1, \ldots, \lambda_n \in \mathbb K:
         w = \sum_{i=1}^n \lambda_i w_i
       \]
       \begin{align*}
-        \ip wv &= \ip{\sum_{i=1}^n \lambda_i w_i}{v} \\
-               &\underbrace{=}_{\text{by linearity in 1st argument}} \sum_{i=1}^n \lambda_i \underbrace{\ip{\underbrace{w_i}_{\in M}}{\underbrace{v}_{\in M^\bot}}}_{= 0} = 0 \\
+        \ip wv &= \ip{\sum_{i=1}^n \lambda_i w_i}{v} \underbrace{=}_{\substack{\text{by linearity in} \\ \text{1st argument}}} \sum_{i=1}^n \lambda_i \underbrace{\ip{\underbrace{w_i}_{\in M}}{\underbrace{v}_{\in M^\bot}}}_{= 0} = 0 \\
                & \implies v \bot w \quad \forall w \in \mathcal L(M)
       \end{align*}
     \item Show that $\forall v \in M: v \in (M^\bot)^\bot$. Hence, $\forall w \in M^\bot: v \bot w$
       \[ M^\bot = \setdef{w}{\forall v \in M: v \bot w} \]
-      \[ \implies \forall v \in M \forall w \in M^\bot: v \bot w \implies \forall w \in M^\bot \forall v \in M, v \in W^\bot \]
+      \[ \implies \forall v \in M \forall w \in M^\bot: v \bot w \]%\implies \forall w \in M^\bot \forall v \in M, v \in M^\bot \]
       \[ \implies \forall v \in M: v \in \bigcap_{w \in M^\bot} w^\bot = (M^\bot)^\bot \]
   \end{enumerate}
 \end{proof}
@@ -4302,10 +4312,10 @@ is an antilinear \emph{involution}.
         \item Let $u \in \ke{f}$. Show that $\forall y \in \im{f^*}: \ip uy = 0$
           \[ y \in \im{f^*} \implies \exists v \in V: y = f^*(v) \]
           \[ {\ip uy}_U = \ip{u}{f^*(v)}_U = \ip{\underbrace{f(u)}_{=0}}{v}_V = 0 \]
-        \item Let $u \in (\im{f^*})^\bot$, hence $\forall v \in V: u \bot f^*(v)$.
-          Hence $\forall v in V: \ip{u}{f^*(v)}_U = 0$.
+        \item Let $u \in (\im{f^*})^\bot \implies \forall v \in V: u \bot f^*(v) \implies
+          \forall v \in V: \ip{u}{f^*(v)}_U = 0$.
           \[ \forall v \in V: \ip{f(u)}{v}_V = 0 \]
-          \[ \implies f(u) \ in V^\bot = \set{0} \]
+          \[ \implies f(u) \in V^\bot = \set{0} \]
           \[ \implies u \in \ke{f} \]
       \end{itemize}
     \item[4.]
@@ -6502,7 +6512,7 @@ Next step: decomposition for \emph{different} eigenvalues.
     \item Induction over $k$
       \begin{description}
         \item[Induction base $k=1$:] 
-          \[ V = \ker(\lambda_i - I - A)^n \oplus \im(\lambda_i I - A)^n \qquad (\text{Fitting}) \]
+          \[ V = \ker(\lambda_i I - A)^n \oplus \im(\lambda_i I - A)^n \qquad (\text{Fitting}) \]
         \item[Induction step $k \to k+1$:]
           We assume:
           \[ V = \ker(\lambda_i I - A)^n \oplus \dots \oplus \ker(\lambda_k I - A)^k \oplus W_k \]
