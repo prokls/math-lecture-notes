@@ -219,7 +219,7 @@ In practice, linear models occur rarely. But they often provide a sufficient heu
 
 \begin{Example}[Diet problem]
   The following problem has a strong historical background in optimization sciences:
-  Stigler diet problem (in the year 1939) by Georg Stigler. 
+  Stigler diet problem (in the year 1939) by Georg Stigler.
 
   Given a list of 77 ingredients. Per ingredient we are given features such as calories and proteins.
   Find an optimal combination to minimize costs.
@@ -351,7 +351,7 @@ Possible cases for the position of lines $G(u, v)$ w.r.t. to the hyperplane $H =
   A \emph{polyhedron}\index{Polyhedron}\dt{Polyeder} is the intersection of finitely many halfspaces.
   A bounded polyhedron is also called \emph{polytope}\index{Polytope}.
 
-  % TODO Boundaries of a polyhedron in $\mathbb R^2$, A polytope in $\mathbb R^2$ 
+  % TODO Boundaries of a polyhedron in $\mathbb R^2$, A polytope in $\mathbb R^2$
 \end{Definition}
 
 \begin{Remark}[Observation]
@@ -1179,7 +1179,7 @@ subject to
 with $M$ sufficiently large such that $\tilde x$ takes up value 0 in an optimal solution ($\exists$ a solution with $\tilde x = 0 \iff$ original problem has an admissible solution).
 
 \begin{Remark}
-	Or we can consider 
+	Or we can consider
 	\[ Ax + y - e^t \tilde x = b \qquad x, y, \tilde x \geq 0 \]
 	$\tilde x$ occurs in all constraints.
 
@@ -1516,10 +1516,10 @@ In literature the following rules are recommended:
 \emph{Ideas:} Direct handling of equations, no sign-restricted variables, upper bounds.
 
 Basically this is not required, because every linear program can be transformed to canonical form.
-This happens to the disadvantage on the number of restrictions or the number of variables. 
+This happens to the disadvantage on the number of restrictions or the number of variables.
 
 \begin{description}
-	\item[1st case: no sign-restricted variables] 
+	\item[1st case: no sign-restricted variables]
 		Adjustment of the optimality criterion, adjustments to determine the pivot row.
 		The details are given in the practicals.
 	\item[2nd case: equations]
@@ -1537,7 +1537,7 @@ This happens to the disadvantage on the number of restrictions or the number of 
 		We call $\overline{x_j}$ \emph{complementary variables}\index{Complementary variables} to $x_j$ and $x_j$ complementary to $\overline{x_j}$.
 		The value of $x_j$ results from value $\overline{x_j}$; vice versa with $\overline{x_j}$ and $x_j$.
 		It suffice to maintain one of the two variables; the value of the other can be easily determined.
- 
+
 		Determine $K$, the index set of the variables bounded by above. We have $0 \leq x_j \leq u_j$ for $j \in K$ and $0 < u_j < \infty$.
 		$N$ denotes the index vector of the current non-basis and $B$ is the index vector of the current basis.
 		$S$ is the index of the pivot column.
@@ -1562,7 +1562,7 @@ This happens to the disadvantage on the number of restrictions or the number of 
 
 		If it results from \dots
 		\begin{description}
-			\item[Case 1, then] 
+			\item[Case 1, then]
 				\begin{itemize}
 					\item $x_{N(s)}$ turns from $0$ to $\tilde U_{N(s)}$
 					\item $\overline{x_{N(s)}}$ becomes zero
@@ -1865,7 +1865,7 @@ In general:
 	Original constraints:
 	\[
 		(D) \leftarrow (P)
-		\begin{pmatrix}	
+		\begin{pmatrix}
 			1 & \dots & 1 & 0 & \dots &   &   & \dots & 0 \\
 			0 & \dots & 0 & 1 & \dots & 1 & 0 & \dots & 0 \\
 			  &       &   &   & \vdots &  &   &       & \\
@@ -1977,7 +1977,7 @@ The following is an introductory example:
 
 	Without loss of generality, we can assume that $b \geq 0$. Otherwise, we change the signs in the $i$-th row of $Ax = b$ and $y_i$ simultaneously.
 
-	If the first alternative is not solvable, then the linear optimization problem 
+	If the first alternative is not solvable, then the linear optimization problem
 	\begin{align*}
 		\gamma &\coloneqq \max\SetDef{-e^tu}{Ax + u = b, x \geq 0, u \geq 0} \text{ where $e$ is the zero-vector} \\
 			   &\coloneqq \max\SetDef{-\sum u_i}{Hz = b, z \geq 0, u \geq 0}
@@ -2107,7 +2107,7 @@ If $M_P \neq \emptyset$ and $M_D \neq \emptyset$, then $z_P \leq z_D$ by Theorem
 
 \begin{proof}[Proof of Theorem~\ref{theorem:4.7}]
 	\begin{itemize}
-		\item 
+		\item
 			Let $(x, y)$ be an optimal pair, thus $Ax \leq b$, $x \geq 0$, $A^t y \geq c$, $y \geq 0$, $c^t x = b^t y$.
 			\[ (Ax)^t y \leq b^t y = c^t x \implies \underbrace{x^t}_{\geq 0} \underbrace{(A^ty - c)}_{\geq 0} \leq 0 \implies x^t (A^t y - c) = 0 \]
 			Analogously, $(A^t y)^t x \geq c^t x = b^t y$,
@@ -2502,7 +2502,7 @@ Essential basis for primal-dual methods (esp. path following method) is the theo
     &\text{s. t. } Ax + w = b
 \end{align*}
 
-$(BP\mu)$ is closely related with $(P)$, or equivalently, $(\overline P)$. 
+$(BP\mu)$ is closely related with $(P)$, or equivalently, $(\overline P)$.
 
 \begin{align*}
 	(BD\mu) \: &\min b^t y - \mu \left(\sum_{j=1}^m \log y_j + \sum_i \log z_i\right) & \mu > 0 \\
@@ -2909,7 +2909,7 @@ Use $\rho = b - Ax - w$, $\rho = c - A^t y + z$ and $\gamma = z^t x + y^t w$.
 		\intertext{Hence,}
 			\hat y &\leq (1 - (1 - \delta) \theta) \gamma + \theta \left(\Norm{\rho}_1 \cdot \Norm{\theta \triangle y}_\infty + \Norm{\sigma}_1 \cdot \Norm{\theta \triangle x}_\infty\right)
 		\end{align*}
-		By choice of $\theta$, 
+		By choice of $\theta$,
 		\[ \theta \leq \frac{x_j}{\Abs{\triangle x_j}} \text{ for all } j \]
 		\[ \to \Norm{\theta \triangle x}_{\infty} \leq \Norm{x}_{\infty} \]
 		Analogously, $\Norm{\theta \triangle g}_{\infty} \leq \Norm{y}_\infty$.
@@ -3241,12 +3241,12 @@ Our next goal are characterizations (of first or second order) for
 \begin{proof}
 	Properties (1) and (2) are left as an exercise to the reader. We prove (3):
 	\begin{description}
-		\item[Direction $\implies$] 
+		\item[Direction $\implies$]
 			Only property 3 is new to us. Let $f$ be uniformly convex. Use Theorem~\ref{theorem:5.2.2}~(3). So $\nabla f$ is uniformly monotonous. By appropriately chosen $\mu > 0$, we get
 			\begin{align*}
 			  d^t \nabla^2 f(x) d &= d^t \lim_{t\to0} \frac{\nabla f(x + td) - \nabla f(x)}{t}
 			  	= \lim_{t\to0} \frac{td^t(\nabla f(x + td) - \nabla f(x))}{t^2} \\
-			  	&\geq \lim_{t\to0} \frac{1}{t^2} \mu \Norm{td}^2 
+			  	&\geq \lim_{t\to0} \frac{1}{t^2} \mu \Norm{td}^2
 			  	= \mu \Norm{d}^2 \qquad\forall x \in X, d \in \mathbb R^n
 			\end{align*}
 			So, $\nabla^2 f(x)$ is uniformly positive definite.
@@ -3263,7 +3263,7 @@ Our next goal are characterizations (of first or second order) for
 \end{proof}
 
 \begin{Remark}
-	To verify that $\nabla^2 f(x)$ is 
+	To verify that $\nabla^2 f(x)$ is
 	\begin{description}
 		\item[positive semidefinite] use $\forall \lambda \in \operatorname{spec}(\nabla^2 f(x)): \lambda \geq 0$
 		\item[positive definite] use $\forall \lambda \in \operatorname{spec}(\nabla^2 f(x)): \lambda > 0$
@@ -3940,7 +3940,7 @@ The following 2-phase approach provides a WP step size.
 			Show that $[a_{j+1}, b_{j+1}]$ has desired properties.
 
 			\begin{description}
-				\item[Case $\tilde\psi(t_j) < 0$] 
+				\item[Case $\tilde\psi(t_j) < 0$]
 					$\varphi'(t_j) < \rho \varphi'(0)$.
 					$\to a_{j+1} = t_j$ and $b_{j+1} = b_j$.
 
@@ -3995,8 +3995,8 @@ Conventions in this chapter:
 
 \begin{Definition}[Q-convergence]
 	\begin{enumerate}
-		\item 
-			Let $p \in [1, \infty)$. 
+		\item
+			Let $p \in [1, \infty)$.
 			\[
 				Q_p\left(\Set{x^{(k)}}\right) = \begin{cases}
 					\limsup_{k \to \infty} \frac{\Abs{x^{(k+1)} - x^*}}{\Abs{x^{(k)} - x^*}^p} & \text{if } x^{(k)} \neq x^* \text{ for } k \geq k_0 \\
@@ -4099,7 +4099,7 @@ Termination if $\Norm{x^{(k)} - x^*} \leq \varepsilon$. Direct question is unrea
 	\begin{align*}
 		\Abs{\Norm{x^* - x^{(k)}} - \Norm{x^* - x^{(k+1)}}}
 			&\leq \Norm{x^{(k+1)} - x^{(k)}} \\
-			&\leq \Norm{x^{(k)} - x^*} + \Norm{x^* - x^{(k+1)}} 
+			&\leq \Norm{x^{(k)} - x^*} + \Norm{x^* - x^{(k+1)}}
 	\end{align*}
 	If $x^{(k)} \neq x^*$, then
 	\[
@@ -4269,7 +4269,7 @@ Analogous results hold for quadratic and superquadratic converges if $o\left(\No
 \label{section:6}
 
 In the generic descent method, we have large freedom in the choice of $d^{(k)}$.
-One possible choice is $d^{(k)} = -\nabla f(x^{(k)})$ pointing in direction of the steepest descent. 
+One possible choice is $d^{(k)} = -\nabla f(x^{(k)})$ pointing in direction of the steepest descent.
 This is a result from Analysis, but can also be proven directly with the following idea:
 \[ \min \left(\nabla f(x)\right)^t d \qquad \text{s. t. } \Norm{d} = 1 \]
 $x \in \mathbb R^n$ is fixed. Find the direction fo the steepest descent in $x$.
@@ -4308,6 +4308,7 @@ For this approach, our generic convergence result (efficient step size required)
 
 \begin{theorem}
 	\label{theorem:6.1}
+	% TODO: That's a lemma
 	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. If
 	\[ \Set{x^{(k)}} \to x, x^{(k)}, x \in \mathbb R^n \qquad \Set{d^{(k)}} \to d, d^{(k)}, d \in \mathbb R^n \]
 	\[ \Set{t_k} \to 0, t_k > 0 \quad t_k \in \mathbb R \]
@@ -4348,7 +4349,7 @@ For this approach, our generic convergence result (efficient step size required)
 \begin{Remark}
 	The proof above shows that a stronger result holds true:
 
-	It suffices if $\Set{x^{(k)}}$, $\Set{d^{(k)}}$ and $t_k > 0$ can be chosen such that 
+	It suffices if $\Set{x^{(k)}}$, $\Set{d^{(k)}}$ and $t_k > 0$ can be chosen such that
 	\[ x^{(k+1)} = x^{(k)} + t_k \cdot d^{(k)} \qquad \forall k \in \mathbb N \]
 	\[ f(x^{(k+1)}) \leq f(x^{(k)}) \qquad \forall k \in \mathbb N \]
 	Let $\tilde x$ be a limit of subsequence $\Set{x^{(k)}}_k$ such that $d^{(k)} = -\nabla f(x^{(k)}) \forall k \in K$
@@ -4580,7 +4581,7 @@ This algorithm only works if $d^{(k)}$ exists. But what about the convergence pr
 		\item If $\;\nabla^2 f$ is locally Lipschitz-continuous, then the convergence rate is quadratic (wrt. $Q$-convergence).
 	\end{enumerate}
 
-	Then neighborhood of $x^*$ can be very small, thus the name \emph{local} Newton's method was chosen. 
+	Then neighborhood of $x^*$ can be very small, thus the name \emph{local} Newton's method was chosen.
 \end{theorem}
 
 \begin{Revision}[via chapter 5]
@@ -4668,8 +4669,9 @@ Already well-definedness of the local Newton's method is just a local property.
 	\end{itemize}
 	Global Newton's method:
 	\begin{itemize}
-		\item Uses the Newton direction if it exists and is satisfactory
-		\item otherwise direction of steepest descent with step size choice by Armijo's rule
+		\item Uses the Newton direction if it exists and is satisfactory,
+		\item otherwise direction of steepest descent.
+		\item Step size choice by Armijo's rule (in every case)
 	\end{itemize}
 \end{Revision}
 
@@ -4678,23 +4680,24 @@ Already well-definedness of the local Newton's method is just a local property.
 
 	Assume that wlog. $d^{(k)}$ is the solution of the Newton equation $\nabla^2 f(x^{(k)}) d^{(k)} = -\nabla f(x^{(k)}) \forall k \in K$.
 
-	\begin{Remark}
-		$\tilde x$ is not a stationary point. Thus $\nabla f(\tilde x) \neq 0$.
-	\end{Remark}
+	Assume that $\tilde x$ is not a stationary point. Thus $\nabla f(\tilde x) \neq 0$.
 
 	We have $\Norm{\nabla f(x^{(k)})} = \Norm{\nabla^2 f(x^{(k)}) d^{(k)}} \leq \Norm{\nabla^2 f(x^{(k)})} \Norm{d^{(k)}} \forall k \in K$.
 	\[ \implies \Norm{d^{(k)}} \geq \frac{\Norm{\nabla f(x^{(k)})}}{\Norm{\nabla^2 f(x^{(k)})}} \]
 
 	\begin{Remark}
-		$\Norm{\nabla^2 f(x^{(k)})} \neq 0$. Otherwise %$\nabla^2 f(x^{(k)}) = 0$ which 
+		$\Norm{\nabla^2 f(x^{(k)})} \neq 0$. Otherwise %$\nabla^2 f(x^{(k)}) = 0$ which
 		it does not fit our requirements.
 	\end{Remark}
 
-	Now we can consider that constants $d_1, d_2 > 0$ exist
-	\[ 0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \qquad \forall k \in K \]
+	Now we can consider that constants $d_1, d_2 > 0$ exist such that
+	\begin{align} 0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \qquad \forall k \in K \label{somelabel} \end{align}
+	% TODO: Label name?
+	% TODO: The following paragraph should be an explanation for the existence of d_1. Mark it as such?
 	Assume there exists a subsequence of $K$ with $\Norm{d^{(k)}} \to 0$ for this subsequence.
 	Thus as a consequence $\Norm{\nabla f(x^{(k)})} \to 0$ for this subsequence (consider that $\Norm{\nabla^2 f(x^{(k)})}$ is bounded).
 	Then $\tilde x$ would be a stationary point of $f$ opposing our assumption.
+	% TODO: Explanation for existence of d_2 - same as above
 	By the Cauchy-Schwarz inequality, $\Norm{d^{(k)}}$ cannot be unbounded by above.
 
 	Furthermore, we have that:
@@ -4703,22 +4706,25 @@ Already well-definedness of the local Newton's method is just a local property.
 		\item $\Set{f(x^{(k)})}_K \to f(\tilde x)$
 	\end{itemize}
 	By these two properties, $\Set{f(x^{(k)})} \to f(\tilde x)$. Thus $\Set{f(x^{(k+1)}) - f(x^{(k)})} \to 0$.
+	We consider the requirement of the global Newton's method:
+	\[ \nabla f(x^{(k)}) d^{(k)} \leq -\rho \Norm{d^{(k)}}^p. \]
+	Using this and the step size choice (Armijo), we get that
 	\[ \Set{t_k\left(\nabla f(x^{(k)})\right)^t d^{(k)}} \to 0 \]
-	Requirements of the global Newton's method (incl. step size choice):
-	\[ \nabla f(x^{(k)}) d^{(k)} \leq -\rho \Norm{d^{(k)}}^p \]
 
 	Now we show that $\Set{t_k}_K$ is bounded from $0$ (i.e. $\exists c: t_k \leq c < 0$).
-	Assume there exists some subsequence $\tilde k$ of $K$ with $\Set{t_k}_K \to 0$.
+	Assume there exists some subsequence $\tilde K$ of $K$ with $\Set{t_k}_{\tilde K} \to 0$.
 	By Armijo's rule $t_k = \beta^{l_k}$ with $l_k \in \mathbb N$ uniquely determined.
 	For $\beta^{l_k - 1}$, the Armijo condition is not yet satisfied. Let $k$ be sufficiently large,
 	\begin{align} \frac{f(x^{(k)} - \beta^{l_k - 1} d^{(k)}) - f(x^{(k)})}{\beta^{l_k-1}} > \sigma \left(\nabla f(x^{(k)})\right)^t d^{(k)} \label{xvl} \end{align}
-	By $(0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \forall k \in K)$, we can assume that $\Set{d^{(k)}}_K \to \tilde d$ with $\tilde d \neq 0$.
-	By \eqref{xvl} and the Lemma from section~\ref{section:6}, we can conclude that $(\nabla f(\tilde x))^t \tilde d \geq \sigma \left(\nabla f(\tilde x)\right)^t \tilde d$ for $k \to \infty$, $k \in K$. By $\sigma \in \left(0, \frac12\right)$, we can conclude
+	By \eqref{somelabel}, we can assume that $\Set{d^{(k)}}_K \to \tilde d$ with $\tilde d \neq 0$.
+	By \eqref{xvl} and the Lemma~\ref{theorem:6.1} from section~\ref{section:6}, we can conclude that $(\nabla f(\tilde x))^t \tilde d \geq \sigma \left(\nabla f(\tilde x)\right)^t \tilde d$ for $k \to \infty$, $k \in K$. By $\sigma \in \left(0, \frac12\right)$, we can conclude
 	\[ \left(\nabla f(\tilde x)\right)^t \tilde d \geq 0 \]
 	Direction as in Newton's method is chosen only if
 	\[ \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq \underbrace{-\rho \Norm{d^{(k)}}^p}_{< 0} \]
 	\[ \implies \left(\nabla f(\tilde x)\right)^t \tilde d < 0 \]
-	This gives a contradiction with our assumption regarding $\Set{t_k}$:
+	This gives a contradiction with our assumption regarding $\Set{t_k}$.
+
+	Hence,
 	\[ \exists \tau > 0: t_k \geq \tau \qquad \text{ for } k \in K \]
 	Because
 	\[ \Set{t_k \left(\nabla f(x^{(k)})\right)^t d^{(k)}}_K \to 0 \implies \Set{\left(\nabla f(x^{(k)})\right)^t d^{(k)}}_K \to 0 \]
@@ -4753,7 +4759,7 @@ Already well-definedness of the local Newton's method is just a local property.
 	By Theorem~\ref{theorem:7.2}, $\tilde x$ is a stationary point. By continuity of f,
 	\begin{align} \Set{\nabla f(x^{(k)})}_K \to \nabla f(\tilde x) \underbrace{=}_{\tilde x \text{ is stationary point}} 0 \label{gsn}\end{align}
 	Because $t_k \in (0, 1]$, we have
-	\begin{align} \Norm{x^{(k+1)} - x^{(k)}} = t_k \Norm{dx^{(k)}} \leq \Norm{d^{(k)}} \forall k \in \mathbb N \label{bla}\end{align}
+	\begin{align} \Norm{x^{(k+1)} - x^{(k)}} = t_k \Norm{d^{(k)}} \leq \Norm{d^{(k)}} \forall k \in \mathbb N \label{bla}\end{align}
 	By the algorithm, we have
 	\begin{align} \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq -\rho \Norm{d^{(k)}}^p \label{qfg}\end{align}
 	By the application of the Cauchy-Schwarz inequality,
@@ -4793,7 +4799,9 @@ The restriction $\sigma \in \left(0, \frac12\right)$ is necessary for this kind 
 
 \begin{theorem}[Central convergence theorem for global Newton's method]
 	\label{theorem:7.7}
-	Let $f$ be two-times differentiable. Let $\Set{x^{(k)}}$ be a sequence generated by the global Newton's method. Let $\tilde x$ be a cluster point of $\Set{x^{(k)}}$ and let $\nabla^2 f(\tilde x)$. Then
+	Let $f$ be two-times differentiable. Let $\Set{x^{(k)}}$ be a sequence generated by the global Newton's method. Let $\tilde x$ be a cluster point of $\Set{x^{(k)}}$ and let $\nabla^2 f(\tilde x)$.
+	% TODO: Let \nabla^2 f(\tilde x)... what?
+	Then
 	\begin{enumerate}
 		\item The sequence $\Set{x^{(k)}}$ converges to $\tilde x$ and $\tilde x$ is a strict local minimum of $f$.
 		\item For all sufficiently large $k \in \mathbb N$, $d^{(k)}$ is the Newton direction (above a certain $k_0$, the direction of steepest descent will never be chosen)
