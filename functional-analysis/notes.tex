@@ -1212,7 +1212,7 @@ We consider a common, but less useful reformulation:
 
 			Choose $\forall n \in \mathbb N: \tilde x_n \in [x_n]$ such that $\Norm{\tilde x_n} \leq \Norm{[x_n]}_{X/Y} + 2^{-n}$
 			\[ \implies \sum_{n=1}^\infty \Norm{\tilde x_n} \leq \sum_{n=1}^\infty \left(\Norm{[x_n]}_{X/Y} + 2^{-n}\right) < c < \infty \]
-			\[ X \text{ complete} \implies \exists x \in X: \sum_{n=1}^\infty \tilde x_n = x \qquad \Norm{[x] - \sum_{n=1}^m \underbrace{[x_n]}_{[\tilde x_n]}}_{X/Y} \leq \Norm{x - \underbrace{\sum_{k=0}^n \tilde x_k}_{\to 0}} \]
+			\[ X \text{ complete} \implies \exists x \in X: \sum_{n=1}^\infty \tilde x_n = x \qquad \Norm{[x] - \sum_{n=1}^m \underbrace{[x_n]}_{[\tilde x_n]}}_{X/Y} \leq \Norm{x - \sum_{k = 0}^n \tilde x_k} \to 0 \]
 	\end{itemize}
 \end{proof}
 
@@ -2808,13 +2808,19 @@ Closed operators are continuous in the right topology.
 					\[ f(x) = \begin{cases} \frac{\Abs{g(x)}^\infty}{g(x)} & \text{if } g(x) \neq 0 \\ 0 & \text{else} \end{cases} \]
 					\[ E_n \coloneqq \SetDef{x \in \Omega}{\Abs{q(x)} \leq n} \implies X_{E_n} f \in L^\infty \]
 					Further:
-					\[ \int_{E_n} \Abs{g}^q \, d\mu = \int_{\Omega} X_{E_n} \IP{f}{g} \, d\mu = y^*(\chi_{E_n} f) \leq \Norm{y^*} \Norm{\chi_{E_n} \cdot f}_p = \Norm{y^*} \left(\int_{E_n} \Abs{f}^p \, d\mu\right)^{\frac1p} = \Abs{y^*} \left(\int_{E_n} \Abs{g}^{(q - 1)p}\right)^{\frac1p} \]
+					\begin{align} % Slightly overful hbox
+						\int_{E_n} \Abs{g}^q \, d\mu &= \int_{\Omega} X_{E_n} \IP{f}{g} \, d\mu \\
+						&= y^*(\chi_{E_n} f) \\
+						&\leq \Norm{y^*} \Norm{\chi_{E_n} \cdot f}_p \\
+						&= \Norm{y^*} \left(\int_{E_n} \Abs{f}^p \, d\mu\right)^{\frac1p} \\
+						&= \Abs{y^*} \left(\int_{E_n} \Abs{g}^{(q - 1)p}\right)^{\frac1p}
+					\end{align}
 					with $(q - 1)p = g$ because $p = \frac{q}{q - 1}$.
 					\[ \implies \left(\int_{E_n} \Abs{g}^{q} \, d\mu\right)^{\frac1q} = \left(\int_{E_n} \Abs{g}^q \, d\mu\right)^{1 - \frac1p} \leq \Norm{y^*} \]
 					By the Beppo-Levi Theorem,
 					\[ \left(\int_{\Omega} \Abs{g}^q \, d\mu\right)^{\frac1q} \leq \Norm{y^*} \]
 					Hence, $g \in L^q$ and $\Norm{g}_q \leq \Norm{y^*}$.
-				\item[Case $q \coloneqq \infty$:]
+				\item[Case $q = \infty$:]
 					Define $E \coloneqq \SetDef{x \in \Omega}{\Abs{q(x)} > \Norm{y^*}}$. $f \coloneqq \chi_E \cdot \frac{\Abs g}{\overline g} \in L^\infty$.
 					If $\mu(E) > 0$, then
 					\[ \mu(E) \Norm{y^*} < \int_E \Abs{g} \, d\mu = \int_{\Omega} (fg) \, d\mu = y^*(f) \leq \Norm{y^*} \Norm{f}_1 = \Norm{y^*} \mu(E) \]
@@ -3120,7 +3126,7 @@ In particular, bounded sequences do not admit convergent subsequences in general
 	\begin{proof}[Proof by induction]
 		\begin{description}
 			\item[Case $i = 1$:]
-				\[ \Abs{x_1^*(x_n)} \leq \Norm{x_1^*} \cdot \Norm{x_1} \leq \Norm{x_1^*} C \qquad \text{for } C > 0: \Norm{x_n} \leq C \forall n \] 
+				\[ \Abs{x_1^*(x_n)} \leq \Norm{x_1^*} \cdot \Norm{x_1} \leq \Norm{x_1^*} C \qquad \text{for } C > 0: \Norm{x_n} \leq C \forall n \]
 				\[ \implies (x_1^*(x_n))_n \text{ is bounded by } \mathbb K \implies \exists \text{ convergent subsequence } (x_{n_j^1})_j \]
 			\item[Case $i \to i+1$:]
 				Let $(x_{n_j^i})_j$ be given as claimed. Again $\Abs{x^*_{i+1}(x_{n_j^i})} \leq \Norm{x^*_{i+1}} C \implies \exists$ subsequence $(x_{n_j^{i+1}})_j$ such that $(x^*_{i+1}(x_{n_j^{i+1}}))_j$ is convergent. Subsequence implies that both assertions are true.
@@ -3202,7 +3208,7 @@ In particular, bounded sequences do not admit convergent subsequences in general
 
 \begin{proof}
 	\begin{description}
-		\item[$\implies$] 
+		\item[$\implies$]
 			Let $x_n \rightharpoonup x$. Show: $\forall y \in Y^*: y^*(Tx_n) \to y(Tx)$. But the mapping $f: X \to \mathbb K$ with $x \mapsto y^*(Tx)$ [$\Abs{f(x)} \leq \Norm{y^*} \Norm{T} \Norm{x}$] $\implies f(x_n) \to f(x)$.
 		\item[$\impliedby$]
 			Consider $\operatorname{graph}(t)$. Show: $\operatorname{gr}(T)$ is closed $\implies T \subseteq \mathcal L(X, Y)$.
@@ -3314,7 +3320,7 @@ We need an ever weaker notion of convergence.
 		\implies \forall z \in G + L: & \frac{\varepsilon z}{2 \Norm{z}} \in B_\varepsilon(0) \implies \frac{\varepsilon z}{2 \Norm z} = x + y \text{ with } \Norm x + \Norm y \leq 1 \\
 		\implies z &= \frac{x \Norm z 2}{\varepsilon} + \frac{y \Norm z 2}{\varepsilon} = \hat x + \hat y & \text{ with } \Norm x + \Norm y \leq 1
 	\end{align*}
-	and 
+	and
 	\[ \Norm{\hat x} = \frac{\Norm x \Norm z 2}{\varepsilon} \leq \frac2\varepsilon \Norm z \qquad \Norm{\hat y} = \frac{\Norm y \Norm z 2}{\varepsilon} \leq \frac2\varepsilon \Norm z \]
 \end{proof}
 
