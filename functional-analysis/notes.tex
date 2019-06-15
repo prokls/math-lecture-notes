@@ -3392,5 +3392,234 @@ In finite dimensions, given $G \subset X \implies \exists L: X = G + L$ ($L = G^
 	\end{itemize}
 \end{Remark}
 
+\dateref{2019/06/14}
+
+\begin{theorem}
+	\label{theorem:7.12}
+	Let $X, Y, Z$ be normed spaces.
+	\begin{enumerate}
+		\item $T: \mathcal L(X, Y) \to \mathcal L(Y^*, X^*)$ with $T \to T^*$ is linear and isometric.
+		\item $T \in \mathcal L(X, Y), S \in \mathcal L(Y, Z) \implies (S \circ T)^* = T^* \circ S^*$
+		\item $T \in \mathcal L(X, Y) \implies T^{**} \circ i_X = i_Y \circ T$
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Isometric property: We already know that $\Norm{T^*} \leq \Norm{T}$.
+	\begin{align*}
+		\Norm T &= \sup_{\Norm{x} \leq 1} \Norm{Tx} \\
+				&= \sup_{\Norm{x} \leq 1} \sup_{\Norm{y^*} \leq 1} \Abs{y^* Tx} \\
+				&= \sup_{\Norm{y^*} \leq 1} \sup_{\Norm{x} \leq 1} \Abs{y^* Tx} \\
+				&= \sup_{\Norm{y^*} \leq 1} \sup_{\Norm{x} \leq 1} \Abs{T^* y^*(x)} \\
+				&= \sup_{\Norm{y^*} \leq 1} \Norm{T^* y^*} \\
+				&= \Norm{T^*}
+	\end{align*}
+	The remaining parts are left as an exercise.
+\end{proof}
+
+TODO
+
+\begin{theorem}
+	\label{theorem:7.13}
+	Let $X, Y$ be Banach. $T \in \mathcal L(X, Y)$. TFAE:
+	\begin{enumerate}
+		\item $\ke(T) = (\operatorname{range}(T^*))_\bot$
+		\item $\ke(T^*) = (\operatorname{range}(T))^\bot$
+		\item $(\ke(T))^\bot \supseteq \overline{\operatorname{range}(T^*)}$
+		\item $(\ke(T^*))_\bot = \overline{\operatorname{range}(T)}$
+	\end{enumerate}
+	(1) and (2) relates injectivity and surjectivity of $T$ and $T^*$.
+\end{theorem}
+
+TODO
+
+\begin{proof}
+	TODO
+	It suffices to show that $B_C^y(0) \subset T(B_1^x(0))$ for which it suffices to show that $B_C^y \subset \overline{T(B_1^x)} \coloneqq D$ [as in the proof of the open mapping theorem].
+	Take $y_0 \in B_C^y$ such that $\Norm{y_0} < c$. If $y_0 \not\in D \implies \exists y^* \in Y^*$, then
+	\[ \exists y^* \in Y^*: \Re(y^*(y)) \leq x < \Re(y^*(y_0)) \leq \Abs{y^*(y_0)} \qquad \forall y \in D \]
+	Since $0 \in D$ and $\pm iy \in D$ for $y \in D$ ($\tilde y^* = \frac y\alpha$, we know that $\Abs{y^*(y)} \leq 1 < \Abs{y^*(y_0)}$.
+	\[ \implies \forall x \in X: \Norm x \leq 1 \qquad \Abs{T^* y^*(x)} = \Abs{y^*(Tx)} \leq 1 \]
+	\[ \implies \Norm{Ty^*} \leq 1 \]
+	but on the other hand, $1 < \Abs{y^*(y_0)} \leq \Norm{y^*} \Norm{y_0} < c \Norm{y^*}$ contradicts $c \Norm{y^*} \leq \Norm{T^* y^*}$.
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:7.16}
+	Let $X, Y$ be Banach and $T \in \mathcal L(X, Y)$ such that $\operatorname{range}(T)$ is closed. Thus
+	\[ \exists c > 0 \forall y \in \operatorname{range}(T) \exists x \in X: Tx = y \text{ and } \Norm{x} \leq c \Norm{y} \]
+	Informally, $\Norm{T^{-1} y} \leq c \Norm{y}$.
+\end{lemma}
+
+\begin{proof}
+	True by corollary of the open mapping theorem. Consider $\tilde T: X \setminus \ke(T) \to \operatorname{range}(T)$ bijective between Banach spaces.
+\end{proof}
+
+\begin{proof}[Proof of theorem~\ref{7.14}]
+	Statement (1) equals statement (3).
+	TODO
+	\begin{description}
+		\item[$\supset$] 
+			Take $x^* \in \ke(T)^\bot$. Find $y^*: T^* y^* = x^*$. Consider $z^*: \operatorname{range}(T) \to \mathbb K$ with $y \mapsto x^*(x)$ with $Tx = y$.
+		\item[Well-defined]
+			Assume $Tx_1 = Tx_2 \implies x_1 - x_2 \in \ke(T)$. Hence
+			\[ \implies x^*(x_1) = x^*(x_1 - (x_1 - x_2)) = x^*(x_2) \]
+		\item[Linear] Continuous.
+			Take $y \in \operatorname{range}(T)$. $\Abs{z^*(y)} = \Abs{x^*(x)}$ with $x$ as in Lemma~\ref{lemma:7.16}
+			\[ \implies \Abs{x^*(x)} < \Norm{x^*} \Norm{x} \leq \Norm{x^*} c \Norm{Tx} = c \Norm{x^*} \Norm{y} \]
+			Take $y^*$ to be a Hahn-Banach extension at $z^*$
+			\[ \implies \forall x \in X: x^*(x) = z^*(Tx) = y^*(Tx) = T^* y^*(x) \]
+			\[ \implies x^* = T^* y^* \]
+			Proof statement (2) using (4), trivial since $U^\bot$ is closed.
+			To prove statement (1) using (2), assume $\operatorname{range}(T^*)$ is closed. Define $Z = \overline{\operatorname{range}(T)}$ and $S \in \mathcal L(X, Z)$, $Sx \coloneqq Tx$.
+
+			Idea: Show $S$ is surjective.
+
+			To this aim, show that $\operatorname{range}(S^*)$ is closed.
+			For $y^* \in Y^*, x \in X$, we have that $T^* y^*(x) = y^*(Tx) = \left.y^*\right|_Z(Tx) = [S^*(\left.y^*\right|_Z)](x)$.
+			So, $T^* y^* = S^*(\left.y^*\right|_Z) \implies \operatorname{range}(T^*) \subset \operatorname{range}(S^*)$ (why?).
+			But also conversely, for $S^* z^* \in \operatorname{range}(S^*)$ and $y^*$ is a Hahn-Banach extension of $z^*$.
+			\[ \implies T^* y^* = S^*(\left.y^*\right|_Z) = S^* z^* \implies \operatorname{range}(T^*) = \operatorname{range}(S^*) \]
+			By assumption, $\operatorname{range}(S^*)$ is closed. Also, $S^*$ is injective. Since $\ke(S^*) = \operatorname{range}(S)^\bot = \Set{0}$ by Proposition~\ref{proposition:7.13}.
+			Hence, $S^*$ is bijective from $z^*$ to $\operatorname{range}(S^*)$, i.e. between B-spaces.
+
+			Open mapping implies
+			\[ \exists c > 0: \Norm{z^*} \leq c \Norm{S^* z^*} \qquad \forall z^* \in Z^* \]
+			By Lemma~\ref{lemma:7.15}, $S$ is surjective, thus $\operatorname{range}(T) = \operatorname{range}(S) = z = \overline{\operatorname{range}(T)}$.
+	\end{description}
+\end{proof}
+
+Refer to the book by Brezis to study consequences of this Lemma.
+
+\begin{corollary}
+	\label{corollary:7.17}
+	Let $X, Y$ be Banach spaces. Let $T \in \mathcal L(X, Y)$.
+	Then
+	\begin{itemize}
+		\item $T$ is bijective if and only if $T^*$ is bijective and
+		\item $T$ is isometry if and only if $T^*$ is isometry.
+	\end{itemize}
+\end{corollary}
+
+\begin{proof}
+	This is a consequence of Theorem~\ref{theorem:7.14} and Proposition~\ref{proposition:7.13} and of the fact that $\Norm{T} = \Norm{T^*}$ and $\Norm{T} = 1 \iff T$ is an isometry (proof is left as an exercise to the reader).
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:7.18}
+	Let $X, Y$ be Banach spaces. $T \in \mathcal L(X, Y)$ an isomorphism.
+	Then $X$ is reflexive iff $Y$ is reflexive.
+
+	In particular, $i_X(X)$ is reflexive iff $X$ is reflexive.
+\end{corollary}
+
+\begin{proof}
+	Without loss of generality, assume that $X$ is reflexive.
+	$T$ is isomorphic, thus $T^*$ is isomorphic, thus $T^{**}$ is isomorphic.
+	Also, $T^{**} \circ i_X = i_Y \circ T$.
+	Hence $i_Y$ is bijective if $i_X$ is bijective. Thus $Y$ is reflexive.
+\end{proof}
+
+\section{Hilbert spaces}
+
+\begin{definition}
+	\label{definition:8.1}
+	Let $X$ be a vector space. A mapping $\IP\cdot\cdot: X \times X \to \mathbb K$ is called inner (or scalar) product if
+	\begin{enumerate}
+		\item $\IP{x_1 + x_2}{y} = \IP{x_1}{y} + \IP{x_2}{y} \forall x_1, x_2, y \in X$
+		\item $\IP{\lambda x}{y} = \lambda\IP{x}{y} \forall x, y \in X, \lambda \in \mathbb K$
+		\item $\IP{x}{y} = \overline{\IP{y}{x}} \forall x, y \in X$ ($\IP xx \in \mathbb R$)
+		\item $\IP xx \geq 0$
+		\item $\IP xx = 0 \iff x = 0$
+	\end{enumerate}
+\end{definition}
+
+\begin{Remark}
+	Consequences:
+	\begin{itemize}
+		\item $\IP x{y_1 + y_2} = \IP x{y_1} + \IP x{y_2} \forall x, y_1, y_2 \in X$
+		\item $\IP x{\lambda y} = \overline\lambda \IP{x}{y} \forall x, y \in X, \lambda \in \mathbb K$
+	\end{itemize}
+\end{Remark}
+
+\begin{proposition}
+	\label{proposition:8.2}
+	Let $X$ be a inner product space. Then
+	\begin{enumerate}
+		\item $\Abs{\IP xy}^2 \leq \IP xx \IP xy \forall x, y \in X$ [Cauchy-Schwarz inequality] \\
+			Equality is given iff $\exists \lambda \in \mathbb K: x = \lambda y$ or $y = \lambda x$
+		\item The mapping $x \mapsto \Norm x \coloneqq \sqrt{\IP xx}$ is a norm and $\Abs{\IP xy} \leq \Norm x \Norm y \forall x, y \in X$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Compare with Linear Algebra
+\end{proof}
+
+\begin{definition}
+	\label{definition:8.3}
+	A normed space $(X, \Norm{\cdot}_X)$ is called inner product space if $\exists$ an inner product $\IP \cdot\cdot$ such that $\Norm{x}_X = \sqrt{\IP xx}$. A Hilbert space is a complete inner product space.
+\end{definition}
+
+\begin{Remark}[Example]
+	Consider $L^2(\Omega, \mathbb K^m, \mu)$ with $(f, g) \coloneqq \int_\Omega f \cdot \overline g \, d\mu$.
+	\[ \sqrt{\IP ff} = \sqrt{\int_\Omega \Abs{f}^2 \, d\mu} = \Norm{f}_{L^2} \]
+	$L^2$ is a typical example of an inner product space.
+	TODO
+\end{Remark}
+
+\begin{Remark}[Note]
+	$x \mapsto \IP xy \in X^*$ (see later).
+\end{Remark}
+
+\begin{lemma}
+	\label{lemma:8.4}
+	Let $X$ be an inner product space, $U \subset X$ is a dense subspace such that $\IP xy = 0 \forall y \in U$ implies that $x = 0$
+\end{lemma}
+
+\begin{proof}
+	Define $Y = \SetDef{y \in X}{\IP xy = 0}$ for $x$ fixed such that $\IP xu = 0 \forall u \in U$.
+	$U \subset Y$ and $Y$ is closed $\implies X = \overline{U} \subset X \to Y = X$.
+	\[ \implies x \in Y \implies \IP xx = 0 \implies x = 0 \]
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:8.5}
+	If $X$ is an inner product space, then
+	\[ \IP xy = \frac14 \left(\Norm{x + y}^2 - \Norm{x - y}^2\right) \text{ if } \mathbb K = \mathbb R \]
+	\[ \IP xy = \frac14 \left(\Norm{x + y}^2 - \Norm{x - y}^2 + i \Norm{x + iy}^2 - i \Norm{x - iy}^2\right) \]
+	i.e. The inner product space can be expressed via the norm.
+\end{lemma}
+
+\begin{proof}
+	Compare with the book by Werner (direct computation)
+\end{proof}
+
+\begin{proposition}[Parallelogram law]
+	\label{proposition:8.6}
+	Let $(X, \Norm{\cdot})$ is an inner product space iff $\Norm{x + y}^2 + \Norm{x - y}^2 = 2 \Norm{x}^2 + 2\Norm{y}^2$.
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[$\implies$] direct computation
+		\item[$\impliedby$] Define $\IP{\cdot}{\cdot}$ as in Proposition~\ref{proposition:8.5} + computation (compare with the book by Werner)
+	\end{description}
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:8.7}
+	Let $(X, \IP \cdot\cdot)$ be an inner product space. Then $\IP \cdot\cdot: X \times X \to \mathbb K$ is continuous.
+\end{lemma}
+
+\begin{proof}
+	\begin{align*}
+		\forall (x_1, y_1), (x_2, y_2) \in X \times X:
+		\Abs{\IP{x_1}{y_1} - \IP{x_2}{y_2}}
+			&= \Abs{\IP{x_1 - x_2}{y_1} + \IP{x_2}{y_1 - y_2}} \\
+			&\leq \Norm{x_1 - x_2} \Norm{y_1} + \Norm{x_2} \Norm{y_1 - y_2}
+	\end{align*}
+\end{proof}
+
 \printindex
 \end{document}
