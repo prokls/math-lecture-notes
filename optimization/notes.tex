@@ -159,7 +159,7 @@
 \end{itemize}
 
 \section{Linear optimization}
-\label{chapter:1}
+\label{section:1} % == chapter
 \setcounter{subsection}{-1}
 \subsection{Introduction}
 \label{section:1.1}
@@ -2992,6 +2992,7 @@ By convergence analysis we get that the primal-dual path traversal method leads 
 \dateref{2019/04/30}
 
 \section{Unconstrained, non-linear optimization}
+\label{section:2} % == chapter
 \subsection{Basic terminology}
 
 We consider functions of $\mathbb R^n \to \mathbb R$.
@@ -4810,6 +4811,94 @@ The restriction $\sigma \in \left(0, \frac12\right)$ is necessary for this kind 
 		\item If $\nabla^2 f$ is locally Lipschitz cont., then $\Set{x^{(k)}}$ converges quadratically to $\tilde x$.
 	\end{enumerate}
 \end{theorem}
+
+\dateref{2019/06/13}
+
+\begin{proof}
+	\begin{description}
+		\item[Ad (1)]
+			By previous results, $\tilde x$ is a stationary point of $f$.
+			Because $\Set{f(x^{(k)})}$ is monotonically decreasing and $\Set{f(x^{(k)})}_k \to f(\tilde x) \implies \Set{f(x^{(k)})} \to f(\tilde x)$. Thus every cluster point of $\Set{x^{(k)}}$ provides the same function value $\tilde x$.
+			Because $\nabla^2 f(\tilde x)$ is positive definite, $\tilde x$ is a strict local minimum of $f$ (compare with the introductory section).
+			As a consequence, $\tilde x$ is an isolated cluster point of $\Set{x^{(k)}}$. By Theorem~\ref{theorem:7.4}, $\Set{x^{(k)}} \to \tilde x$.
+		\item[Ad (2)]
+			Because $\Set{x^{(k)}} \to \tilde x$, $\nabla^2 f(x^{(k)})$ $\forall k$ sufficiently large. So $\exists \kappa \in \mathbb N$ with $\nabla^2 f(x^{(k)})$ positive definite $\forall k \geq \kappa$, hence Newton's direction is well-defined for all $k \geq \kappa$.
+
+			It remains to show that there exists a constant $\tilde \rho > 0$ such that $\left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq -\tilde\rho \Norm{d^{(k)}}^2$ for all sufficiently large $k$. Because $\nabla^2 f(\tilde x)$ is positive definite and thus regular, a previous result gives $\exists \tilde c > 0$ constant such that
+			\[ \Norm{\left(\nabla^2 f(x^{(k)})^{-1}\right)} \leq \tilde c \quad \forall k \text{ sufficiently large k} \]
+			\[ \Norm{d^{(k)}} = \Norm{\left(\nabla^2 f(x^{(k)})\right)^{-1} \nabla f(x^{(k)})} \leq \tilde c \Norm{\nabla f(x^{(k)})} \]
+			By Theorem~\ref{theorem:7.4}, for some constant $\alpha \geq 0$
+			\begin{align*}
+				-\left(\nabla f(x^{(k)})\right)^t d^{(k)}
+					&= + \left(\nabla f(x^{(k)})\right)^t \left(\nabla^2 f(x^{(k)})\right)^{-1} \nabla f(x^{(k)}) \\
+					&\geq \alpha \Norm{\nabla f(x^{(k)})}^2 \geq \frac\alpha{\tilde c^2} \Norm{d^{(k)}}^2
+			\end{align*}
+			for all $k$ sufficiently large. Let $\tilde \rho = \frac\alpha{\tilde c^2}$. Thus, the existence of $\tilde \rho$ has been shown.
+
+			Furthermore, $\Norm{d^{(k)}} \to 0$ and from the existence of $\tilde\rho$, we get $p > 2$.
+			\[ \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq -\tilde\rho \Norm{d^{(k)}}^p \qquad \forall k \text{ sufficiently large} \]
+			Thus for all $k$ sufficiently large, the Newton direction is chosen.
+		\item[Ad (3)] Proven by (1) and (2) and Lemma~\ref{lemma:7.6}
+		\item[Ad (4) and (5)]
+			We have shown that for sufficiently large $k$ (i.e. in a corresponding neighborhood of $\tilde x$), the global method behaves just like the local one. Thus the local results apply and show these properties.
+	\end{description}
+\end{proof}
+
+\begin{Remark}[Concluding remarks]
+	\begin{enumerate}
+		\item For implementation of Newton's method (in particular computation of Newton's direction), Cholesky decomposition and some adapted variant play an important role.
+		\item In numerical experiments, it can be shown that (from $\tilde x$) farther distant initial points $x^{(0)}$ can even give faster convergence for local settings than global ones (with Armijo). There are variants of the global method trying to allow larger step sizes $t_k$ (non-monotonic Armijo rule)
+		\item As generalization of the Newton's method, so-called \emph{inexact} Newton's methods were proposed and researched. Instead of satisfying the Newton equation $\nabla^2 f(x^{(k)}) d^{(k)} = -\nabla f(x^{(k)})$ accurately in every Newton step [difficult anyways, because of precision and computational requirements], approximation solutions are considered acceptable. To measure inaccuracy, the \emph{relative error}\index{Relative error in Newton's method}
+		\[ \frac{\Norm{\nabla^2 f(x^{(k)}) d + \nabla f(x^{(k)})}}{\Norm{\nabla f(x^{(k)})}} \]
+		\emph{Goal}: For given $\varepsilon_k \geq 0$, we want to determine $d^{(k)}$ such that
+		\[ \frac{\Norm{\nabla^2 f(x^{(k)}) d^{(k)} + \nabla f(x^{(k)})}}{\Norm{\nabla f(x^{(k)})}} \leq \varepsilon_k \]
+		This is a computationally easier task than the exact solution.
+	\end{enumerate}
+\end{Remark}
+
+\subsection{Quasi-Newton methods}
+\label{section:2.8}
+
+Instead of the Hessian matrix (might be difficult to determine or function is not given explicitly),
+an appropriate [to be discussed] approximation of the Hessian (or its inverse) is used.
+The sequence of approximations is generated by simple update rules (e.g. rank-1-updates, rank-2-updates).
+Every iteration of the Quasi-Newton process is computationally easier than an iteration of Newton's method.
+
+The central question is \enquote{Can we transfer the nice properties of Newton's method}? If so, under which assumptions.
+
+\begin{align} x^{(k+1)} \coloneqq x^{(k)} - \left(H^{(k)}\right)^{-1} \nabla f(x^{(k)}) \label{iqafe}\end{align}
+
+\textbf{Idea:} $H^{(k)}$ should approximate $\nabla f(x^{(k)})$ sufficiently good [to be quantified]. \\
+\textbf{Question:} Which requirements shall be satisfied by $H^{(k)}$?
+
+\begin{align} \Norm{\left(\nabla^2 f(x^{(k)}) - H^{(k)}\right)\left(x^{(k+1)} - x^{(k)}\right)} = o\left(\Norm{x^{(k+1)} - x^{(k)}}\right) \label{condiefag}\end{align}
+The condition~\eqref{condiefag} is necessary and sufficient for superlinear convergence of sequence $\Set{x^{(k)}}$ resulting from \eqref{iqafe} under requirements
+\begin{itemize}
+	\item $f: \mathbb R^n \to \mathbb R$ two-times differentiable
+	\item $\Set{H^{(k)}}$ is a sequence of regular $n \times n$ matrices
+	\item $\Set{x^{(k)}} \to x^*$ with $x^{(k)} \neq x^*$ for all $k \in \mathbb N$
+	\item $\nabla^2 f(x^*)$ regular
+\end{itemize}
+Because superlinear convergence is our minimal goal, \eqref{condiefag} is our goal for $(H^{(k)})$
+
+\textbf{Goal:} Rewrite \eqref{condiefag} such that $\nabla^2 f$ does not occur anymore.
+\begin{align*}
+	&\Norm{\nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) - \nabla^2 f(x^{(k)}) \left(x^{(k+1)} - x^{(k)}\right)} \\
+		&\leq \Norm{\nabla f(x^{(k+1)}) - \nabla f(x^*) - \nabla^2 f(x^*) (x^{(k+1)} - x^*)} \\
+		&+ \Norm{\nabla f(x^{(k)}) - \nabla f(x^*) - \nabla^2 f(x^*) \left(x^{(k)} - x^*\right)} \\
+		&+ \Norm{\left(\nabla^2 f(x^*) - \nabla^2 f(x^{(k)}) \left(x^{(k+1)} - x^{(k)}\right)\right)}
+\end{align*}
+Thus $\Norm{\nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) - \nabla^2 f(x^{(k)}) \left(x^{(k+1)} - x^{(k)}\right)} = o\left(\Norm{x^{(k+1)} - x^{(k)}}\right)$
+
+Equation~\ref{condiefag} is equivalent to
+\begin{align} \Norm{\nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) - H^{(k)}\left(x^{(k+1)} - x^{(k)}\right)} = o\left(\nabla f(x^{(k)})\right)^t d^{(k)} \label{iqancd}\end{align}
+The details will be discussed in the practicals. This is motivating requiring the following condition:
+\[ \nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) = K^{(k+1)} \left(x^{(k+1)} - x^{(k)}\right) \]
+\begin{Remark}
+	Because $x^{(k+1)}$ occurs, $H^{(k+1)}$ must have influence in the condition and not $H^{(k)}$.
+\end{Remark}
+
+This define the Quasi-Newton condition (sometimes called \emph{secant method}\index{Secant method}).
 
 \printindex
 \end{document}
