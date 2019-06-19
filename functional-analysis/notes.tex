@@ -3326,8 +3326,9 @@ We need an ever weaker notion of convergence.
 
 \begin{proof}
 	\begin{enumerate}
-		\item $\Norm{P} = \Norm{P \circ P} \leq \Norm{P} \Norm P$.
-		\item $\ke(P)$ TODO
+		\item $\Norm{P} = \Norm{P \circ P} \leq \Norm{P} \Norm{P}$.
+		\item $\ke(P)$ closed since $P$ is continuous. Also $(\operatorname{id} - P)$ is a projection. Linear and continuous since
+			\[ (\operatorname{id} - P) \circ (\operatorname{id} - P) = \operatorname{id} - P - P(\operatorname{id} - P) = \operatorname{id} - P - P \circ \operatorname{id} + P \circ P = \operatorname{id} - P \]
 			Also if $\operatorname{range}(P) = \ke(I - P) \implies \operatorname{range}(P)$ closed since $I - P$ is continuous.
 			Since:
 			\begin{description}
@@ -3724,8 +3725,7 @@ Refer to the book by Brezis to study consequences of this Lemma.
 \begin{Remark}[Example]
 	Consider $L^2(\Omega, \mathbb K^m, \mu)$ with $(f, g) \coloneqq \int_\Omega f \cdot \overline g \, d\mu$.
 	\[ \sqrt{\IP ff} = \sqrt{\int_\Omega \Abs{f}^2 \, d\mu} = \Norm{f}_{L^2} \]
-	$L^2$ is a typical example of an inner product space.
-	TODO
+	$L^2$ is a typical example of an inner product space. $L^2$ admits $H^m$ for $m \in \mathbb N$ (by definition of an inner product) discussed in courses like Advanced Functional Analysis.
 \end{Remark}
 
 \begin{Remark}[Note]

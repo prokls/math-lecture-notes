@@ -1165,18 +1165,20 @@ Thus the algorithm looks as follows:
 % TODO \paragraph are too small
 % TODO double hats look ugly
 
-% TODO there is something missing here
+Consider the following problem:
+\[ \max{c^t x} \text{ s.t. } Ax + y = b \text{ with } x, y \geq 0, \exists i: b_i < 0 \]
 
-We consider the new problem
-\[ \tilde e_i = \begin{cases}  & b_i < 0 \\ 0 & b_i \geq 0 \end{cases} \]
+Now, we consider the modified problem
+\[ \max{c^tx - M\tilde x} \text{ s.t. } Ax + y - \tilde e^t \tilde x = b \qquad x, y, \tilde x \geq 0 \]
+\[ \tilde e_i \coloneqq \begin{cases} 1 & b_i < 0 \\ 0 & b_i \geq 0 \end{cases} \]
 thus the new variable $\tilde x$ is substracted with $b_i < 0$ in the constraints.
-\[ \max c^t x - M \tilde x \]
-subject to
-\begin{align*}
-	Ax + y - \tilde e^t \tilde x &= b \\
-	x, y, \tilde x &\geq 0
-\end{align*}
-with $M$ sufficiently large such that $\tilde x$ takes up value 0 in an optimal solution ($\exists$ a solution with $\tilde x = 0 \iff$ original problem has an admissible solution).
+%\[ \max c^t x - M \tilde x \]
+%subject to
+%\begin{align*}
+%	Ax + y - \tilde e^t \tilde x &= b \\
+%	x, y, \tilde x &\geq 0
+%\end{align*}
+$M$ is sufficiently large such that $\tilde x$ takes up value 0 in an optimal solution ($\exists$ a solution with $\tilde x = 0 \iff$ original problem has an admissible solution).
 
 \begin{Remark}
 	Or we can consider 
@@ -1610,8 +1612,6 @@ This happens to the disadvantage on the number of restrictions or the number of 
 			where $x_2 \leq 4$ and $x_3 \leq 5$ are two variables with upper bounds.
 		\end{example}
 
-		% TODO layouting
-		% TODO review with Chris' notes
 		\begin{center}
 			\[\begin{array}{c|ccc}
 				  & x_1 & x_2^* & \\
@@ -1622,12 +1622,12 @@ This happens to the disadvantage on the number of restrictions or the number of 
 			\[ s = 2 \qquad \min\Set{\underbrace{4}_{\text{Case 1}}, \underbrace{\frac{2 - 5}{-1}}_{\text{Case 3}}} = 3 \]
 			(a):
 			\[\begin{array}{c|ccc}
-				  & x_1 & x_3 \\
+				  & x_1 & x_3 & \\
 				8 & 3 & 4 & \\
 			\hline
 				-2 & -1 & -1 & x_2 \\
 			\end{array}\]
-			(b): $T(2)$
+			(b): Transformation $T(2)$:
 			\[\begin{array}{c|ccc}
 				  & x_1 & \overline x_3 \\
 				-12 & 3 & -4 & \\
@@ -1637,7 +1637,7 @@ This happens to the disadvantage on the number of restrictions or the number of 
 			$-1 \implies$ admissible tableau.
 
 			Now $s = 1$.
-			\[ \min\Set{\underbrace{\frac{3-4}{-1}}_{\text{Case 3}}} \]
+			\[ \min\Set{\underbrace{\frac{3-4}{-1}}_{\text{Case 3}}} = 1 \]
 
 			\[\begin{array}{c|ccc}
 				   & x_2 & \overline{x_3} & \\
@@ -1646,7 +1646,7 @@ This happens to the disadvantage on the number of restrictions or the number of 
 				-3 & -1 & -1 & x_1
 			\end{array}\]
 
-			$T(1)$
+			Transformation $T(1)$
 			\[\begin{array}{c|ccc}
 				    & \overline x_2 & \overline{x_3} & \\
 				-15 & 3 & -1 & \\
@@ -2010,7 +2010,7 @@ The following is an introductory example:
 \end{corollary}
 
 Also has a geometric interpretation:
-The halfspace $\SetDef{y}{y^t b \geq 0}$ contains a polyedric cone $\SetDef{y}{y^t A \geq 0}$ % TODO "polyedrischer Kegel"
+The halfspace $\SetDef{y}{y^t b \geq 0}$ contains a \emph{polyhedral cone}\index{Polyhedral cone} $\SetDef{y}{y^t A \geq 0}$
 iff $b \in \SetDef{Ax}{x \geq 0}$ where $\SetDef{Ax}{x \geq 0}$ is the cone $K(A)$.
 
 Now we can complete the proof of Theorem~\ref{theorem:4.1}.
@@ -3764,9 +3764,9 @@ Our next goal will be to show that WP step sizes are well-defined and efficient.
 	Left as an exercise to the reader.
 \end{proof}
 
-One variation of the WP rule is the strict WP rule.
+One variation of the WP rule is the \emph{strict WP rule}\index{Strict Wolfe-Powell rule}.
 
-$f: \mathbb R^n \to \mathbb R$ is continuously differentiable.
+Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable.
 Let $\sigma \in (0, \frac12)$, $\rho \in [\sigma, 1)$ be fixed.
 For $x \in \mathbb R^n$, $d \in \mathbb R^n$ with $(\nabla f(x))^t d < 0$, determine some $t > 0$ with
 \[ f(x + td) \leq f(x) + \sigma t(\nabla f(x))^t d \]
@@ -3780,7 +3780,7 @@ Geometrical illustration:
 \end{align*}
 Refinement of WP rule: The slope must not be too steep.
 
-TODO drawing
+% TODO drawing, Chris does not have it
 
 \begin{theorem}
 	\label{theorem:5.4.3}
