@@ -1179,8 +1179,12 @@ We consider a common, but less useful reformulation:
 \end{definition}
 
 \begin{proof}
+<<<<<<< HEAD
 	We need to show that the given relation is an equivalence relation and that the vector space with \enquote{$+$} is well-defined. This is left to the reader as an exercise.
 
+=======
+	Proving the equivalence relation properties and well-definedness of the vector space with \enquote{+} and \enquote{$\lambda[x]$} is left as an exercise to the reader.
+>>>>>>> 08e8a1edb3cb6bc4f917f0d9cb9789da07151a8c
 	\begin{itemize}
 		\item[2.]
 			\begin{itemize}
@@ -1189,7 +1193,6 @@ We consider a common, but less useful reformulation:
 					\[ \Norm{[0]}_{X/Y} \underbrace{=}_{\text{since } [0] = Y} \inf_{y \in Y} \Norm{Y} \leq \Norm{0} = 0 \]
 				\item
 					Secondly, consider $\lambda \in \mathbb K$, $[x] \in X/Y$.
-
 					Show that: $\Norm{\lambda [x]}_{X/Y} = \Abs{\lambda} \Norm{[x]}_{X/Y}$.
 
 					Trivial, if $\lambda = 0$. Assume $\lambda \neq 0$,
@@ -1197,8 +1200,13 @@ We consider a common, but less useful reformulation:
 
 				\item Take $[x_1], [x_2] \in X/Y, \varepsilon > 0$.
 					We note that
+<<<<<<< HEAD
 					\[ \Norm{[x]}_{X/Y} = \inf_{y \in [x]} \Norm{y} = \inf_{\substack{y \in [x] \\ w = x - y}} \Norm{x - y} = \inf_{w \in Y} \Norm{x - w} \]
 					Hence we can take $y_1, y_2 \in Y$ such that $\Norm{x_1 - y_i} < \Norm{[x_i]}_{X/Y} + \varepsilon, \quad i \in [1, 2)$.
+=======
+					\[ \Norm{[x]}_{X/Y} = \inf_{\substack{y \in X \\ w \in Y \\ w \coloneqq x \cdot y}} \Norm{y} = \inf_{w \in Y} \Norm{x - w} \]
+					Hence we can take $y_1, y_2 \in Y$ such that $\Norm{x_1 - y_i} < \Norm{[x_i]}_{X/Y} + \varepsilon$ ($\varepsilon \in [1, 2)$).
+>>>>>>> 08e8a1edb3cb6bc4f917f0d9cb9789da07151a8c
 					\begin{align*}
 						\implies \Norm{[x_1] + [x_2]}_{X/Y} &= \Norm{[x_1 + x_2]}_{X/Y} \leq \Norm{x_1 + x_2 - (y_1 + y_2)} \\
 							&\leq \Norm{x_1 - y_1} + \Norm{x_2 - y_2} \leq \Norm{[x_1]}_{X/Y} + \Norm{[x_2]}_{X/Y} + 2 \varepsilon
@@ -3338,8 +3346,9 @@ We need an ever weaker notion of convergence.
 
 \begin{proof}
 	\begin{enumerate}
-		\item $\Norm{P} = \Norm{P \circ P} \leq \Norm{P} \Norm P$.
-		\item $\ke(P)$ TODO
+		\item $\Norm{P} = \Norm{P \circ P} \leq \Norm{P} \Norm{P}$.
+		\item $\ke(P)$ closed since $P$ is continuous. Also $(\operatorname{id} - P)$ is a projection. Linear and continuous since
+			\[ (\operatorname{id} - P) \circ (\operatorname{id} - P) = \operatorname{id} - P - P(\operatorname{id} - P) = \operatorname{id} - P - P \circ \operatorname{id} + P \circ P = \operatorname{id} - P \]
 			Also if $\operatorname{range}(P) = \ke(I - P) \implies \operatorname{range}(P)$ closed since $I - P$ is continuous.
 			Since:
 			\begin{description}
@@ -3398,6 +3407,147 @@ In finite dimensions, given $G \subset X \implies \exists L: X = G + L$ ($L = G^
 	\end{itemize}
 \end{Remark}
 
+\dateref{2019/06/13}
+
+\begin{lemma}
+	\label{lemma:7.6}
+	Let $X$ be normed. $U \subseteq X$ a subspace. $\dim{U} < \infty$.
+	Thus $U$ admits a complement in $X$.
+\end{lemma}
+
+\begin{proof}
+	Let $(e_1)_{i=1}^n$ be a basis of $U$, $\Norm{e_i} = 1$. Define $\varphi_i: U \to \mathbb K$. $u = \sum \lambda_i e_i \mapsto \lambda_i$ with $i = 1, \dots, n$.
+
+	$\varphi_i$ is linear and bounded ($\Abs{\varphi_i(u)} = \lambda_i \leq \Norm{u}_2 \leq c_i \cdot \Norm{u} b_i$, equivalence of norms on $U$).
+	Each $\varphi_i$ can be extended to $\varphi_i \in \mathcal L(x, \mathbb K)$ by Hahn-Banach.
+
+	Define $P: X \to U$ with $x \mapsto \sum_{i=1}^n \varphi_i(x) e_i$.
+
+	Then $P$ is linear. $P(x) \in U \forall u \in U$ and $P(u) = u \forall u \in U$.
+	Thus $P$ is linear projection.
+	\begin{align*}
+		\Norm{P(x)} &\leq \sum \Norm{\varphi_i(x) \cdot e_i} \leq \sum \Norm{\varphi_i} \Norm{x} \Norm{e_i} \leq n \cdot \Norm x \cdot c
+	\end{align*}
+	Hence $U$ admits a complement (and $\Norm{P} \leq n$, but not true in our setting. We know that $\Abs{\varphi_i(x) \leq c_i \cdot \Norm{x}}$) (left as an exercise: when is $\Norm{P} = n$ true?).
+\end{proof}
+
+\begin{definition}
+	\label{definition:7.7}
+	Let $X$ be normed and $U \subseteq X$ be a subspace.
+	We say, $U$ has finite \emph{co-dimension}\index{Co-dimension} if $\exists V \subseteq X: \dim(V) < \infty$ and $U + V = X$.
+\end{definition}
+
+\begin{proposition}
+	\label{proposition:7.8}
+	Let $X$ be normed and $U \subseteq X$ be subspace of finite co-dimension. Then $U$ admits a complement.
+\end{proposition}
+
+\begin{proof}
+	Left to the reader as an exercise.
+\end{proof}
+
+Now: Further results on $U^\bot$, $V_\bot$ as key to characterize closed range operators.
+
+\begin{proposition}
+	\label{proposition:7.9}
+	Let $X$ be normed. $U \subseteq X$ and $V \subseteq X^*$. Then:
+	\begin{enumerate}
+		\item $U^\bot$ and $V_\bot$ are closed subspaces.
+		\item $\left(U_\bot\right)_\bot = \overline U$ and $(V_\bot)^\bot \supset \overline V$ and equality if $X$ is reflexive.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Left as an exercise
+		\item \begin{description}
+			\item[$\subseteq$] Let $u \in \overline U$. Take $u^* \in U^\bot$.
+				By definition, $u^*(u) = 0$ and $u \in u^\bot$. Thus $U \subseteq U^\bot$ and $\overline U \subseteq U^\bot_\bot$.
+			\item[$\supseteq$] Let $\hat u \in U^\bot_\bot$ (since $U^\bot_\bot$) is closed.
+				Assume that $\hat u \not\in \overline U$.
+				By Hahn-Banach,
+				\[ \exists x^* \in X^*: \Re(x^*(u)) < \alpha < \Re(x^*(\hat u)) \forall u \in U \] % TODO or \forall u \in \overline U
+				$U$ is a subspace, thus $x^*(u) = 0$ and hence $x^* \in U^\bot$ and $x^*(\hat u) \neq 0$.
+		\end{description}
+	\end{enumerate}
+	The remaining parts are left as an exercise.
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:7.10}
+	Let $X$ be normed. Let $G$ and $L$ be closed subspaces.
+	\begin{enumerate}
+		\item $G \cap L = (G^\bot + L^\bot)_\bot$
+		\item $G^\bot \cap L^\bot = (G + L)^\bot$
+		\item $(G \cap L)^\bot \supseteq G^\bot + L^\bot$
+		\item $(G^\bot + L^\bot)_\bot = \overline{G + L}$
+	\end{enumerate}
+\end{proposition}
+
+Those results will be important later.
+
+\begin{proof}
+	\begin{enumerate}
+		\item First statement is proven in two directions:
+			\begin{description}
+				\item[$\subseteq$] 
+					$x \in G \cap L$. Let $x^* \in G^\bot + L^\bot$. Show: $x^*(x) = 0$.
+					\begin{align*}
+						&\implies x^* = x_1^* + x_2^*, x_1^* \in G^\bot, x_2^* \in L^* \\
+						&\implies x^*(x) = x_1^*(x) + x_2^*(x) = 0 + 0 \\
+						&\implies x \in (G^\bot + L^\bot)_\bot
+					\end{align*}
+				\item[$\supseteq$]
+					$G^\bot \subseteq G^\bot + L^\bot \implies (G^\bot + L^\bot)_\bot \subseteq G^\bot_\bot$.
+					(In general: $A, B \in X^\bot$ and $A \subseteq B$ then $B_\bot \leq A^\bot$.)
+					Similar: $(G^\bot + L^\bot)_\bot \subseteq L^\bot$
+					\[ \implies (G^\bot + L^\bot) \subseteq L^\bot_\bot \cap G^\bot_\bot = L \cap G \]
+			\end{description}
+		\item Left as an exercise.
+		\item $(G \cap L)^\bot \overset{(1.)}{=} ((G^\bot + L^\bot)_\bot)^\bot \overset{\ref{proposition:7.10}}{\supseteq} \overline{G^\bot + L^\bot}$
+		\item $(G^\bot \cap L^\bot)_\bot \overset{(2.)}{=} (G + L)^\bot_\bot \overset{\ref{proposition:7.9}}{=} \overline{G + L}$
+	\end{enumerate}
+\end{proof}
+
+\section{Adjoint operators}
+
+\textbf{Motivation:} Consider $T: X \to Y$ linear and bounded. Can we associate a dual operator to $T$ as we can associate $X$ with $X^*$ and $Y$ with $Y^*$?
+
+\begin{definition}[Definition and proposition]
+	\label{definition:7.11}
+	Let $X, Y$ be normed and $T \in \mathcal L(X, Y)$.
+	We define a \emph{dual operator}\index{Dual operator} or \emph{adjoint operator}\index{Adjoint operator} to $T$ as $T^*: Y^* \to X^*$
+	\[ y^* \mapsto T^* y^*: X \to \mathbb K \text{ with } x \mapsto y^*(Tx) \]
+	Then $T^* \in \mathcal L(Y^*, X^*)$.
+\end{definition}
+
+\begin{proof}
+	\begin{description}
+		\item[Linear] Immediate.
+		\item[Bounded]
+			\begin{align*}
+				\Abs{(T^* y^*)(x)} &= \Abs{y^*(Tx)} \leq \Norm{y^*} \Norm{T} \Norm{x} = c \Norm{x} \\
+					&\implies \Norm{T^* y^*} \leq \Norm T \Norm{y^*} \\
+					&\implies \Norm{T^*} \leq \Norm{T}
+			\end{align*}
+	\end{description}
+\end{proof}
+
+\begin{Example}
+	$T: l^p \to l^p$. $x = (x_i)_{i=1}^\infty \mapsto (x_{i+1})_{i=1}^\infty$. $p \in (1, \infty)$.
+	\[ \implies T \in \mathcal L(l^p, l^p) \]
+	$T^* = \text{?}$.
+
+	Let $y^* \in {l^p}^* = l^*$ and $\frac1q + \frac1p = 1$. Take $x \in l^p$.
+	\begin{align*}
+		\implies (T^* y^*)(x) &= y^*(Tx) = y^*((x_{i+1})_i) \\
+			&= \sum_{i=1}^\infty y_i^*(x_{i+1}) = \sum_{i=1}^\infty \tilde y_{i} x_i \text{ where } \tilde y_i = y_{i-1}^* \text{ or } 0
+	\end{align*}
+	\[ \implies \tilde y^* \coloneqq (\tilde y_i) \] % TODO: verify, chris' notes unreadable
+	$Ty^* = \tilde y^*$
+	\[ \implies T^*(y_1, y_2, \dots) = (0, y_1, y_2, \dots) \]
+\end{Example}
+
 \dateref{2019/06/14}
 
 \begin{theorem}
@@ -3423,8 +3573,6 @@ In finite dimensions, given $G \subset X \implies \exists L: X = G + L$ ($L = G^
 	The remaining parts are left as an exercise.
 \end{proof}
 
-TODO
-
 \begin{theorem}
 	\label{theorem:7.13}
 	Let $X, Y$ be Banach. $T \in \mathcal L(X, Y)$. TFAE:
@@ -3437,10 +3585,32 @@ TODO
 	(1) and (2) relates injectivity and surjectivity of $T$ and $T^*$.
 \end{theorem}
 
-TODO
+\begin{proof}
+	Corollary of a previous results on $(G + L)^\bot$ etc.
+	See book by Brezis (Corollary~7.18)
+\end{proof}
+
+\begin{theorem}
+	\label{theorem:7.14}
+	Let $X, Y$ be Banach. Let $T \in \mathcal L(X, Y)$. TFAE:
+	\begin{enumerate}
+		\item $\operatorname{range}(T)$ closed
+		\item $\operatorname{range}(T^*)$ closed
+		\item $\operatorname{range}(T) = \ke(T^*)_\bot$
+		\item $\operatorname{range}(T^*) = \ke(T)^\bot$
+	\end{enumerate}
+\end{theorem}
+
+First, we need two lemmas.
+
+\begin{lemma}
+	\label{lemma:7.15}
+	Let $X$ and $Y$ be Banach. $T \in \mathcal L(X, Y)$
+	such that $\exists c > 0: c \Norm{y^*} \leq \Norm{T^* y^*} \forall y^* \in Y^*$.
+	Then $T$ is open, in particular surjective (see Remark before the Open Mapping Theorem).
+\end{lemma}
 
 \begin{proof}
-	TODO
 	It suffices to show that $B_C^y(0) \subset T(B_1^x(0))$ for which it suffices to show that $B_C^y \subset \overline{T(B_1^x)} \coloneqq D$ [as in the proof of the open mapping theorem].
 	Take $y_0 \in B_C^y$ such that $\Norm{y_0} < c$. If $y_0 \not\in D \implies \exists y^* \in Y^*$, then
 	\[ \exists y^* \in Y^*: \Re(y^*(y)) \leq x < \Re(y^*(y_0)) \leq \Abs{y^*(y_0)} \qquad \forall y \in D \]
@@ -3461,9 +3631,14 @@ TODO
 	True by corollary of the open mapping theorem. Consider $\tilde T: X \setminus \ke(T) \to \operatorname{range}(T)$ bijective between Banach spaces.
 \end{proof}
 
-\begin{proof}[Proof of theorem~\ref{7.14}]
-	Statement (1) equals statement (3).
-	TODO
+\begin{proof}[Proof of theorem~\ref{theorem:7.14}]
+	The equivalence of statement (1) and statement (3) follows from Theorem~\ref{theorem:7.13} (4).
+
+	We prove that (4) follows from (1).
+	\begin{align*}
+		\operatorname{range}(T^*) &\subseteq \overline{\operatorname{range}(T^*)} \overset{\text{Theorem~\ref{theorem:7.13}}}{\subseteq} (\ke(T))^\bot
+	\end{align*}
+
 	\begin{description}
 		\item[$\supset$] 
 			Take $x^* \in \ke(T)^\bot$. Find $y^*: T^* y^* = x^*$. Consider $z^*: \operatorname{range}(T) \to \mathbb K$ with $y \mapsto x^*(x)$ with $Tx = y$.
@@ -3486,7 +3661,7 @@ TODO
 			So, $T^* y^* = S^*(\left.y^*\right|_Z) \implies \operatorname{range}(T^*) \subset \operatorname{range}(S^*)$ (why?).
 			But also conversely, for $S^* z^* \in \operatorname{range}(S^*)$ and $y^*$ is a Hahn-Banach extension of $z^*$.
 			\[ \implies T^* y^* = S^*(\left.y^*\right|_Z) = S^* z^* \implies \operatorname{range}(T^*) = \operatorname{range}(S^*) \]
-			By assumption, $\operatorname{range}(S^*)$ is closed. Also, $S^*$ is injective. Since $\ke(S^*) = \operatorname{range}(S)^\bot = \Set{0}$ by Proposition~\ref{proposition:7.13}.
+			By assumption, $\operatorname{range}(S^*)$ is closed. Also, $S^*$ is injective. Since $\ke(S^*) = \operatorname{range}(S)^\bot = \Set{0}$ by Proposition~\ref{theorem:7.13}.
 			Hence, $S^*$ is bijective from $z^*$ to $\operatorname{range}(S^*)$, i.e. between B-spaces.
 
 			Open mapping implies
@@ -3508,7 +3683,7 @@ Refer to the book by Brezis to study consequences of this Lemma.
 \end{corollary}
 
 \begin{proof}
-	This is a consequence of Theorem~\ref{theorem:7.14} and Proposition~\ref{proposition:7.13} and of the fact that $\Norm{T} = \Norm{T^*}$ and $\Norm{T} = 1 \iff T$ is an isometry (proof is left as an exercise to the reader).
+	This is a consequence of Theorem~\ref{theorem:7.14} and Theorem~\ref{theorem:7.13} and of the fact that $\Norm{T} = \Norm{T^*}$ and $\Norm{T} = 1 \iff T$ is an isometry (proof is left as an exercise to the reader).
 \end{proof}
 
 \begin{corollary}
@@ -3570,8 +3745,7 @@ Refer to the book by Brezis to study consequences of this Lemma.
 \begin{Remark}[Example]
 	Consider $L^2(\Omega, \mathbb K^m, \mu)$ with $(f, g) \coloneqq \int_\Omega f \cdot \overline g \, d\mu$.
 	\[ \sqrt{\IP ff} = \sqrt{\int_\Omega \Abs{f}^2 \, d\mu} = \Norm{f}_{L^2} \]
-	$L^2$ is a typical example of an inner product space.
-	TODO
+	$L^2$ is a typical example of an inner product space. $L^2$ admits $H^m$ for $m \in \mathbb N$ (by definition of an inner product) discussed in courses like Advanced Functional Analysis.
 \end{Remark}
 
 \begin{Remark}[Note]
@@ -3609,7 +3783,7 @@ Refer to the book by Brezis to study consequences of this Lemma.
 \begin{proof}
 	\begin{description}
 		\item[$\implies$] direct computation
-		\item[$\impliedby$] Define $\IP{\cdot}{\cdot}$ as in Proposition~\ref{proposition:8.5} + computation (compare with the book by Werner)
+		\item[$\impliedby$] Define $\IP{\cdot}{\cdot}$ as in Proposition~\ref{lemma:8.5} + computation (compare with the book by Werner)
 	\end{description}
 \end{proof}
 
