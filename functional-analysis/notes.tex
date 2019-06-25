@@ -3781,5 +3781,212 @@ Refer to the book by Brezis to study consequences of this Lemma.
 	\end{align*}
 \end{proof}
 
+\dateref{2019/06/25}
+
+\begin{Revision}
+	$(X, \Norm{})$ is inner product space iff $\forall x, y \in X: \Norm{x + y}^2 + \Norm{x - y}^2 = 2 ({\Norm x}^2 + {\Norm y}^2)$
+\end{Revision}
+
+\begin{proposition}
+	\label{proposition:8.8}
+	Let $X$ be a normed space. Then
+	\begin{enumerate}
+		\item $X$ is an inner product space iff every $2$-dimensional subspace of $X$ is an inner product space
+		\item Subspaces of inner product spaces are inner product spaces with the same inner product
+		\item The completion of an inner product space is a Hilbert space.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Proposition~\ref{proposition:8.7}
+		\item Restrict inner product
+		\item Follows from continuity of inner product.
+	\end{enumerate}
+\end{proof}
+
+\subsection{Orthogonality}
+
+\begin{definition}
+	\label{definition:8.9}
+	Let $X$ be an inner product space.
+	\begin{itemize}
+		\item For $x, y \in X$, we write $x \bot y$ (\enquote{$x$ is orthogonal to $y$}) $\iff \IP xy = 0$
+		\item For $A, B \in X$, we write $A \bot B$ (\enquote{$A$ is orthogonal to $B$}) $\iff x \bot y \forall x \in A, y \in B$
+		\item For $A \subset X$, we define the orthogonal complement of $A$.
+			\[ A^\bot = \SetDef{y \in X}{x \bot y \forall x \in A} \]
+	\end{itemize}
+\end{definition}
+
+\begin{Remark}
+	We will see later that this is consistent with $A^\bot \subset X^*$
+\end{Remark}
+
+\begin{proposition}
+	\label{proposition:8.10}
+	Let $X$ be an inner product space. Then
+	\begin{enumerate}
+		\item If $x, y \in X: x \bot y \implies \Norm{x}^2 + \Norm{y}^2 = \Norm{x + y}^2$
+		\item $\forall A \subset X: A^\bot$ is a closed subspace of $X$
+		\item $\overline A \subset (A^\bot)^\bot$ for any $A \subset X$
+		\item $A^\bot = \overline{\mathcal L(A)}^\bot$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Just some calculations. Left as an exercise.
+\end{proof}
+
+\begin{theorem}[Major result]
+	\label{theorem:8.11}
+	Let $H$ be a Hilbert spaces. $K \subset H$ be closed and convex.
+	Then $\forall x_0 \in H \exists! x \in K: \Norm{x - x_0} = \inf_{y \in K} \Norm{y - x_0}$
+\end{theorem}
+
+\begin{proof}
+	Take $x_0 \in H$. If $x_0 \in K$.
+
+	Now without loss of generality assume $x_0 = 0$. This is valid, because otherwise apply the result to $0$ and $k - \Set{x_0}$.
+	\begin{align*}
+		&\implies \exists! z \in K - \Set{x_0}: \Norm{z - 0} = \inf_{y \in K - \Abs{x_0}} \Norm{y} \\
+		&\implies \exists! \hat z \in K: \Norm{\hat z - x_0} = \inf_{y \in K} \Norm{y - x_0}
+	\end{align*}
+	Let $d \coloneqq \inf\SetDef{\Norm{y}}{y \in K}$. Show $\exists y: \Norm{y} = y$.
+
+	Let $(y_n) \in K$. $d = \lim{\Set{y_n}}$ is possible.
+
+	Show $(y_n)_n$ is Cauchy. We have (by Proposition~\ref{proposition:8.6}):
+	\[ \forall n, m \in \mathbb N: \Norm{\frac{y_n + y_n}{2}}^2 + \Norm{\frac{y_n - y_m}{2}}^2 = \frac12 \left(\Norm{y_n}^2 + \Norm{y_m}^2\right) \xrightarrow{d^2 \text{ as } n, m \to \infty} d^2 \]
+	\[ \frac{y_n + y_m}{2} \in K \text{ (since $K$ is convex)} \]
+	\[ \implies \Norm{\frac{y_n + y_m}{2}}^n \geq d^2 \]
+
+	\[ \implies 0 \leq \Norm{\frac{y_n + y_m}{2}}^2 + \Norm{\frac{y_n - y_m}{2}}^2 - d^2 \to 0 \text{ as } n,m \to \infty \]
+	\[ = \Norm{\frac{y_n - y_m}{2}}^2 \to 0 \text{ as } n,m \to \infty \implies (y_n)_n \text{ is Cauchy} \]
+	$K$ closed, $\implies \exists y \in K: y = \lim_{n \to \infty} y_k \implies \Norm{y} = \lim_{n \to \infty} \Norm{y_n} = d$
+
+	What about uniqueness?
+	Let $x, \hat x \in K$ be such that $\Norm{x} = \Norm{\hat x} = d$ and assume $x \neq \hat x$.
+	\[ \implies \Norm{\frac{x + \tilde x}{2}}^2 < \Norm{\frac{x + \tilde x}{2}}^2 + \Norm{\frac{x - \tilde x}{2}}^2 = \frac12 (d^2 + d^2) = d^2 \]
+	gives as contradiction and thus uniqueness is given.
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:8.12}
+	Let $A$ be Hilbert and $K \subset H$ be closed and convex. $x_0 \in H$. TFAE:
+	\begin{enumerate}
+		\item $\Norm{x_0 - x} = \inf_{y \in K} \Norm{x_0 - y}$
+		\item $\Re(x_0 - x, y - x) \leq 0 \forall y \in K$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[$(2) \to (1)$] Take $y \in K$.
+			\begin{align*}
+				\implies \Norm{x_0 - y}^2 &= \Norm{x_0 - x + (x - y)}^2 \\
+					&=\Norm{x_0 - x}^2 + 2 \Re(x_0 - x, x - y) + \underbrace{\Norm{x - y}}_{\geq 0}^2 \\
+					&\geq \Norm{x_0 - x}^2
+			\end{align*}
+		\item[$(1) \to (2)$] Take $y \in K$ and for $t \in (0, 1]$, let $y_t \coloneqq (1 - t) x + ty$ with $x \in K$ such that (1) holds.
+			\[ y_t \in K \forall t \in (0, 1] \implies \Norm{x_0 - x}^2 < \Norm{x_0 - y_t}^2 \]
+
+			\begin{align*}
+				\Norm{x_0 - y_t}^2 &= \IP{x_0 - x + t(x - y)}{x_0 - x + t(x - y)} \\
+					&= \Norm{x_0 - x}^2 + 2\Re\IP{x_0 - x}{t(x - y)} + \Norm{t(x - y)}^2 \\
+					& \implies \Re\IP{x_0 - x}{y - x} \leq \frac t2 \Norm{x - y}^2 \forall t \in (0, 1]
+			\end{align*}
+			Taking $t \to 0 \implies \Re\IP{x_0 - x}{y - x} \leq 0$
+	\end{description}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:8.13}
+	Let $H$ be Hilbert, $K \subset H$ be closed and convex.
+	Define $P_K: H \to H$ with $x \mapsto \argmin_{y \in K} \Norm{x - y}$.
+	Then $P_K$ is well-defined, a projection and Lipschitz continuous with Lipschitz constant $1$.
+\end{proposition}
+\begin{proof}
+	Well-definedness property and projection are trivial. To prove Lipschitz continuity, take $x_1, x_2 \in H$ and let $y_1 = P_K x_1$ and $y_2 = P_K x_2$.
+	\begin{align*}
+		\implies \Re\IP{x_1 - y_1}{z - y_1} &\leq 0 \forall z \in K \\
+		\Re\IP{x_2 - y_2}{z - y_2} &\leq 0 \forall z \in K \\
+		z = y_2 \implies \Re\IP{x_1 - y_1}{y_2 - y_1} &\leq 0 \\
+		z = y_1 \implies \Re\IP{x_2 - y_2}{y_1 - y_2} &\leq 0 \\
+		\Norm{y_1 - y_2}^2 &= \IP{y_1 - y_2}{y_1 - y_2} = \IP{y_1}{y_1 - y_2} - \IP{y_2}{y_1 - y_2} \\
+			&= \IP{y_1 - x_1}{y_1 - y_2} + \IP{x_1}{y_1 - y_2} + \IP{x_2 - y_2}{x_1 - y_1} - \IP{x_2}{y_1 - y_2} \\
+			&= \IP{x_1 - y_1}{y_2 - y_1} + \IP{x_2 - y_2}{y_1 - y_2} + \IP{x_1 - x_2}{y_1 - y_2} \\
+			&= \Re(\dots) + \Re\IP{x_1 - x_2}{y_1 - y_2} \\
+			&\leq \Re\IP{x_1 - x_2}{y_1 - y_2} \leq \Norm{x_1 - x_2} \Norm{y_1 - y_2}
+	\end{align*}
+	If $y_1 = y_2$ then done. Else $\Norm{y_1 - y_2} \leq \Norm{x_1 - x_2}$ then done.
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:8.14}
+	Let $H$ be a Hilbert space. Let $U \subset H$ be a closed subspace and $P_K$ as in Proposition~\ref{proposition:8.13}. Then:
+	\begin{enumerate}
+		\item $y = P_K(x) \iff y-x \in U^\bot$
+		\item $P_U$ is continuous, linear projection with $\Norm{P_U} = 1$
+		\item $\ke(P_K) = U^\bot$, $\operatorname{range}(P_U) = U$. In particular $U \oplus U^\bot = H$.
+		\item $I - P_U$ is a continuous, linear projection on $U^\bot$ and $\Norm{I - P_U} = 1$
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				y = P_U x &\overset{\ref{proposition:8.12}}{\iff} \Re\IP{x - y}{z - y} \leq 0 \forall z \in U \\
+					&\overset{\substack{\hat z = z - y \\ \hat z = -z}} \Re\IP{x - y}{z} = 0 \forall z \in U \\
+					&\overset{\hat z = iz} \Re\IP{x - y}{z} = 0 \forall z \in U \\
+					&\iff x - y \in U^\bot
+			\end{align*}
+		\item It is only left to show linearity.
+			Note that $U^\bot$ is a subspace. Take $x_1, x_2 \in H$ and $\lambda \in \mathbb K$.
+
+			Show: $P_U(\lambda x_1 + x_2) = \lambda P_U(x_1) + P_U(x_2)$.
+			\[ (\lambda x_1 - x_2) - (\lambda P_U(x_1) - P_U(x_2)) \in U^\bot \]
+			Then the equality to show follows from (1).
+			\[ (\lambda x_1 - x_2) - (\lambda P_U(x_1) - P_U(x_2)) = \lambda \underbrace{(x_1 - P_U(x_1))}_{\in U^\bot} + \underbrace{(x_2 - P_U(x_2))}_{\in U^\bot} \in U^\bot \]
+		\item
+			\begin{align*}
+				\operatorname{range}(P_U) &= U \text{ clear since } P_U(x) = x \forall x \in U \\
+				\ke(P_U) &= U^\bot \text{ is true since by (1) } P_U(x) = 0 \iff 0 - x \in U^\bot
+			\end{align*}
+			TODO
+	\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:8.15}
+	Let $H$ be a Hilbert space. $U \subset H$ is a subspace. Then $\overline U = (U^\bot)^\bot$.
+\end{corollary}
+
+\begin{proof}
+	Consider $P_{\overline U}: H \to H$.
+	Then $I - P_{\overline U} = P_{\overline U^\bot}$.
+	Also
+	\[ \overline{U}^\bot = U^\bot = \underbrace{I}_{= P_{\overline U}} - P_{\overline U^\bot} = P_{(\overline U^\bot)^\bot} \]
+	\[ \implies P_{\overline U} = P_{(\overline U^\bot)^\bot} \]
+	since $\forall x \in (\overline U^\bot)^\bot \implies x = P_{(\overline U^\bot)^\bot} x = P_{\overline U} x \subset \overline U$
+	\[ \implies \overline U = \left(\overline U^\bot\right)^\bot = \left(U^\bot\right)^\bot \]
+\end{proof}
+
+\begin{theorem}
+	\label{theorem:8.16}
+	Let $H$ be Hilbert. Then the mapping $T: H \to H^\bot$ with $y \mapsto \IP{\cdot}{y}: H \to \mathbb K$ such that $x \mapsto \IP xy$ is well-defined, conjugate linear
+	(i.e. $T(\lambda y_1 + y_2) = \overline\lambda Ty_1 + Ty_2$), isometric and bijective.
+
+	In other words: $\forall x^* \in H^* \exists! \hat x \in H:  x^*(y) = \IP{y}{\hat x} \forall u \in H$.
+	In particular, the notation $H^\bot$ is consistent (assuming that $H = H^\bot$).
+\end{theorem}
+
+\begin{proof}
+	Conjugate linearity and well-definedness are trivial.
+	\begin{description}
+		\item[Isometric] TODO
+	\end{description}
+\end{proof}
+
 \printindex
 \end{document}

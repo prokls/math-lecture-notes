@@ -5055,5 +5055,174 @@ A possible approach to derive further update formulas is given by a generalizati
 	Results directly from the results before.
 \end{proof}
 
+\dateref{2019/06/24}
+
+% Inspection, 1st exam: 2019/06/25 18:00
+% Questions? 2019/06/25 16:15–18:00
+
+Today, we want to close the topic of Quasi-Newton methods.
+Last time, we derived the DFP-formula with a generalized result (is based on ideas by Davidson $\sim$1950, journal version published in 1991).
+
+\[ H_{\text{DFP}}^+ = H + \frac{(y - Hs)y^t + y(y - Hs)^t}{y^t s} - \frac{(y - Hs)^t s}{(y^t s)^2} yy^t \]
+with $H^+$ for $H^{(k+1)}$, $H$ for $H^{(k)}$, $s$ for $s^{(k)}$ and $y$ for $y^{(k)}$.
+
+Now we consider the BFGS formula (Broyden, Fletcher, Goldfarb, Shanno):
+
+Also here, we have different approaches for derivation (one approach is the interpretation as rank-2 updates, compare with the practicals).
+\[ H^+ = H + \alpha uu^t + \beta vv^t \]
+
+
+Here we take an approach similar to the DFP-formula.
+
+Actually, two variants of the BFGS formula are in use.
+Sometimes the second variant is called \emph{inverse BFGS formula}\index{Inverse BFGS formula}.
+One approach uses the approximation of the Hessian matrix. In the other, the approximation of the inverse of the Hessian matrix (also possible for the other Quasi-Newton formulas).
+In the following, we use $B$ instead of $H$ (and accordingly, $\Set{B^{(k)}}$ instead of $\Set{H^{(k)}}$ and accordingly $B^+$ instead of $H^+$) in the context of approximation of the inverse Hessian matrix.
+
+Quasi-Newton equation (in the H-variant):
+\[ H^+ s = y \]
+B-variant:
+\[ B^+ s = y \]
+
+The following lemma results from Lemma~\ref{lemma:8.5} and exchanging $s$ and $y$:
+\begin{lemma}
+	\label{lemma:8.8}
+	Let $s, y \in \mathbb R^n$ with $y \neq 0$ and let $B$ be a symmetric $n \times n$ matrix over $\mathbb R$.
+	Let $W$ be a symmetric positive-definite matrix over $\mathbb R$.
+	Then the uniquely determined solution
+	\[ \min{\Norm{W(B^+ - B) W}}_F \text{ such that } \]
+	\begin{itemize}
+		\item $B^+ y = s$ (inverse form of QNB)
+		\item $(B^+)^t = B^+$ (symmetric)
+	\end{itemize}
+	be given by
+	\[ B_W^+ = B + \frac{(s - By)(W^{-2} y)^t + W^{-2} y (s - By)^t}{(W^{-2} y)^t y} - \frac{y^t (s - By) W^{-2} y (W^{-2} y)^t}{((W^{-2} y)^t y)^2} \]
+\end{lemma}
+\begin{proof}
+	Analogous to Lemma~\ref{lemma:8.5}.
+\end{proof}
+
+By proper choice of $W$, we get
+\begin{theorem}
+	\label{theorem:8.9}
+	Let $B$ be a symmetric, positive-definite $n \times n$ matrix over $\mathbb R$ and $s, y \in \mathbb R^n$ with $s^t y > 0$.
+	There exists a symmetric, positive-definite matrix $Q$ with $Qs = y$ and $W \coloneqq Q^{\frac12}$.
+	The unique solution of the minimization problem of Lemma~\ref{lemma:8.8} is given by
+	\[ B^+_{\text{BFGS}} = B + \frac{(s - By)s^t + s (s - By)^t}{y^t s} - \frac{(s - By)^t yss^t}{(y^t s)^2} \]
+	so-called \emph{inverse form of the BFGS-formula}\index{BFGS-formula}.
+\end{theorem}
+
+\begin{Remark}
+	\begin{enumerate}
+		\item The condition $s^t y > 0$ ensures that if $B$ is positive definite then $B^+$ is positive definite (thus direction $d^{(k)}$ is the direction of descent).
+		\item Direct form of the BFGS-update formula is given by
+			\[ H^+_{\text{BFGS}} = H + \frac{yy^t}{s^ty} - \frac{Hss^t H}{s^t Hs} \]
+			with $H$ as $n \times n$ symmetric, positive-definite $s, y \in \mathbb R^n$ with $s^t y > 0$.
+			$H^+_{\text{BFGS}}$ is the inverse of the matrix $B^+_{\text{BFGS}}$ if $H$ is the inverse of $B$.
+		\item As inverse form of the DFP update formula, we get
+			\[ B^+_{\text{DFP}} = B + \frac{ss^t}{s^t y} - \frac{Byy^t B}{y^t By} \]
+			with $B$ as $n \times n$ symmetric, positive-definite $s, y \in \mathbb R^n$ with $s^t y > 0$.
+		\item Sometimes BFGS is used as the name for the inverse variant.
+	\end{enumerate}
+\end{Remark}
+
+\paragraph{Other update formulas}
+
+\begin{itemize}
+	\item symmetric rank-1 update (SR1) (compare with the practicals)
+	\item asymmetric rank-1 update formula (here $H$ is not a symmetric matrix)
+\end{itemize}
+
+The approach for SR1 is $H^+ = H + \alpha \cdot uu^t$ with $\alpha \in \mathbb R, u \in \mathbb R^n$ leads to (to some extent) unique solution for given $\alpha$ and $u$ (compare with the practicals).
+Disadvantage: $H^+$ is, in general, not positive definite (but is not necessarily a direction of descent). This gives a problem if $y - Hs = 0$ or close to $0$ (as a numerical problem).
+
+The asymmetric variant considers
+\[ H^+ = H + \alpha u v^t \qquad \alpha \in \mathbb R^n, u, v \in \mathbb R \]
+With $v = s$ this results in a solution for $u, \alpha$ from the remaining parts. Similar disadvantages like SR1.
+
+For each update formula, we get one corresponding variant of the local Quasi-Newton method (for SR1-updates compare with the practicals).
+
+\begin{enumerate}
+	\setcounter{enumi}{-1}
+	\item Choose $x^{(0)} \in \mathbb R^n$. $H^{(0)}$ (or $B^{(0)}$ in the inverse variant) $m \times n$ (in general symmetric) over $\mathbb R$.
+		$\varepsilon \geq 0$. Let $k \coloneqq 0$.
+	\item If $\Norm{\nabla f(x^{(k)})} \leq \varepsilon$, then stop.
+	\item Determine $d^{(k)} \coloneqq -\left(H^{(k)}\right)^{-1} \nabla f(x^{(k)})$ (analogously for $B^{(k)}$) (solve with equation system)
+	\item Let $x^{(k+1)} \coloneqq x^{(k)} + d^{(k)}$ and $s^{(k)} \coloneqq x^{(k+1)} - x^{(k)}$ and $y^{(k)} \coloneqq \nabla f(x^{(k+1)}) - \nabla f(x^{(k)})$ and $H^{(k+1)}$ or $B^{(k+1)}$ dependending on the formula.
+\end{enumerate}
+
+\begin{Remark}
+	Always choose step size $1$, no step size method. In this sense, we discuss local Quasi-Newton methods.
+\end{Remark}
+
+\begin{Remark}[Major questions]
+	\begin{enumerate}
+		\item Depending on the update formula, what can be said about convergence behavior in theory?
+		\item What is the behavior in practice?
+	\end{enumerate}
+\end{Remark}
+
+Results for the first question are more difficult to show than results for the gradient method and Newton's method.
+We won't discuss details here. Only for illustration, we are going to mention results without proof. For example, for PSB.
+
+\begin{Theorem}
+	Let $f: \mathbb R^n \to \mathbb R$ be two times differentiable.
+	Let $\nabla^2 f$ be locally Lipschitz continuous and $x^* \in \mathbb R^n$ with $\nabla f(x^*) = 0$ and $\nabla^2 f(x^*)$ regular.
+	Then $\exists \hat\varepsilon > 0$, $\hat\delta > 0$ such that the local PSB algorithm (local QN-algorithm with PSB update formula)
+	for every initial vector $x^{(0)} \in \mathbb R^n$ with $\Norm{x^{(0)} - x^*} < \hat\varepsilon$ and every symmetric $n \times n$ initial matrix $H^{(0)}$ over $\mathbb R$ with $\Norm{H^{(0)} - \nabla^2 f(x^*)}_F < \hat\delta$ is well-defined and some sequence $\Set{x^{(k)}}$ is generated, that converges superlinearly to $x^*$.
+
+	The first two sentences specify the same prerequisites like local Newton's method.
+\end{Theorem}
+
+\begin{Remark}[Analogous result for inverse BFGS variant]
+	Let $f$ be two-times differentiable and $\nabla^2 f$ be locally Lipschitz continuous.
+	Let $x^*$ with $\nabla f(x^*) = 0$ and $\nabla^2 f(x^*)$ be positive-definite.
+	There exist $\hat\varepsilon, \hat\delta > 0$ with $\forall x^{(0)}$ with $\Norm{x^{(0)} - x^*} < \hat\varepsilon$ and $\forall B^{(0)}$ with $\Norm{B^{(0)} - (\nabla^2 f(x^*))^{-1}}_F < \hat\delta$.
+	Thus we get superlinear convergence of $\Set{x^{(k)}}$.
+
+	BFGS is a well-defined method.
+	An analogous result for direct BFGS exists.
+\end{Remark}
+
+\begin{Remark}[Remark about the global Quasi-Newton method]
+	Here the topic of step size strategies arises again.
+
+	\textbf{Goal:} Less dependence on the choice of $x^{(0)}, H^{(0)}$ and $B^{(0)}$.
+\end{Remark}
+
+\begin{Remark}[Illustrative global BFGS method]
+	\begin{enumerate}
+		\setcounter{enumi}{-1}
+		\item Choose $x^{(0)} \in \mathbb R^n$, $H^{(0)}$ as $n \times n$ symmetric positive-definite matrix over $\mathbb R$. $\sigma \in \left(0, \frac12\right), \rho \in (\sigma, 1)$ (for Wolfe-Powell). $\varepsilon \geq 0$. Let $k \coloneqq 0$
+		\item If $\Norm{\nabla f(x^{(k)})} \leq \varepsilon$, then stop
+		\item Determine $d^{(k)} \coloneqq -\left(H^{(k)}\right)^{-1} \nabla f(x^{(k)})$
+		\item Determine $t_k > 0$ such that
+			\begin{align*}
+				f(x^{(k)} + t_k \cdot d^{(k)}) &\leq f(x^{(k)}) + \sigma t_k \left(\nabla f(x^{(k)})\right)^t d^{(k)} & \text{(WP1)} \\
+				\nabla f(x^{(k)} + t_k d^{(k)})^t d^{(k)} &\geq \rho\left(\nabla f(x^{(k)})\right)^t d^{(k)} & \text{(WP2)}
+			\end{align*}
+		\item
+			\begin{align*}
+				x^{(k+1)} &\coloneqq x^{(k)} + t_k d^{(k)} \\
+				s^{(k)} &\coloneqq x^{(k+1)} - x^{(k)} \\
+				y^{(k)} &\coloneqq \nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) \\
+				H^{(k+1)} &\coloneqq H^{(k)} + \frac{y^{(k)}\left(y^{(k)}\right)^t}{\left(y^{(k)}\right)^t s^{(k)}} - \frac{H^{(k)} s^{(k)} \left(s^{(k)}\right)^t H^{(k)}}{(s^{(k)})^t H^{(k)} s^{(k)}} \\
+				k &\coloneqq k + 1
+			\end{align*}
+			Go to (1).
+	\end{enumerate}
+	For the implementation, detailed considerations are required to get an efficient, stable implementation.
+\end{Remark}
+
+\begin{Remark}
+	In practice, global variants are recommended (sometimes with different step size strategies).
+	Experiences show that BFGS shall be preferred over DFP (because dependence on step size strategies is higher).
+	BFGS with Wolfe-Powell is usually a proper choice for practice.
+\end{Remark}
+
+
+
+
+
 \printindex
 \end{document}
