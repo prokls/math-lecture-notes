@@ -3951,9 +3951,16 @@ Refer to the book by Brezis to study consequences of this Lemma.
 		\item
 			\begin{align*}
 				\operatorname{range}(P_U) &= U \text{ clear since } P_U(x) = x \forall x \in U \\
-				\ke(P_U) &= U^\bot \text{ is true since by (1) } P_U(x) = 0 \iff 0 - x \in U^\bot
+				\ke(P_U) &= U^\bot \text{ is true since by (1) } P_U(x) = 0 \iff 0 - x \in U^\bot \\
+					&\implies x \in U^\bot \\
+					&\implies U \oplus U^\bot = K \text{ by previous results}
 			\end{align*}
-			TODO
+		\item $I - P_U$ is continuous and linear.
+			\[ (I - P_U)(x) = x - P_U(x) \in U^\bot \text{ by (1)} \]
+			\[ x \in U^\bot \implies (I - P_U)(x) = x - 0 = x \]
+			\[ x_0 \in H, \Norm{x_0}^2 = \Norm{x_0 \pm P_U(x_0)}^2 = \Norm{x_0 - P_U(x_0)}^2 + \Norm{P_U(x_0)}^2 \geq \Norm{(I - P_U)(x_0)}^2 \]
+			\[ \implies \Norm{I - P_U} \leq 1 \]
+			is an equality since it is a projection.
 	\end{enumerate}
 \end{proof}
 
@@ -3984,9 +3991,21 @@ Refer to the book by Brezis to study consequences of this Lemma.
 \begin{proof}
 	Conjugate linearity and well-definedness are trivial.
 	\begin{description}
-		\item[Isometric] TODO
+		\item[Isometry] For $x, y \in K$,
+			\begin{align*}
+				\Abs{(Ty)(x)} &= \Abs{\IP xy} \leq \Norm x \Norm y \\
+					&\implies \Norm{Ty} \leq \Norm{y} \\
+				y \neq 0 &\implies \Norm{Ty} \geq \Abs{Ty \left(\frac{y}{\Norm{y}}\right)} = \frac{1}{\Norm{y}} \Norm{y}^2 = \Norm y \\
+					&\implies \Norm{Ty} \geq \Norm{y} \\
+					&\implies \Norm{Ty} = \Norm y \\
+					&\implies T \text{ is injective}
+			\end{align*}
 	\end{description}
 \end{proof}
+
+\dateref{2019/06/27}
+
+TODO
 
 \printindex
 \end{document}

@@ -2997,7 +2997,7 @@ By convergence analysis we get that the primal-dual path traversal method leads 
 
 We consider functions of $\mathbb R^n \to \mathbb R$.
 
-\begin{definition}[minimum, maximum]
+\begin{Definition}[minimum, maximum]
 	\index{Global minimum}
 	\index{Local minimum}
 	\index{Strict global minimum}
@@ -3013,7 +3013,7 @@ We consider functions of $\mathbb R^n \to \mathbb R$.
 
 	\index{Minimizer}
 	The minimum/maximum $x^*$ satisfying the (strict/weak local/global) criteria, is also called (local/global) \emph{minimizer}.
-\end{definition}
+\end{Definition}
 
 \begin{Remark}
 	Every global minimum is also a local minimum, but not vice versa. \\
@@ -3029,17 +3029,16 @@ We consider functions of $\mathbb R^n \to \mathbb R$.
 	A typical problem in non-linear unconstrained optimzation is: given $f$, find local minima of $f$.
 	\[ \min_{x \in \mathbb R^n} f(x) \]
 	This is different from non-linear optimzation \emph{with} constraints:
-	Given $f$, find $x \subset \mathbb R^n$
-	\[ \min f(x) \qquad \text{s.t. } x \in X \]
+	Given $f$ and $X \subset \mathbb R^n$, find $\min f(x)$ such that $\forall x \in X$.
 \end{Example}
 
 One important aspect are optimality criteria (criteria for local optima).
 In the following, we assume that $f$ is differentiable.
 
-\begin{definition}
+\begin{Definition}
 	\index{Stationary point}
 	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. Then we call $x^* \in \mathbb R^n$ \emph{stationary point} of $f$ if $\nabla f(x^*) = 0$.
-\end{definition}
+\end{Definition}
 
 \begin{theorem}
 	\label{theorem:2.1.1}
@@ -3065,7 +3064,7 @@ In the following, we assume that $f$ is differentiable.
 
 \begin{theorem}
 	\label{theorem:2.1.2}
-	Let $X \subseteq \mathbb R^n$ be an open set and let $f: X \to \mathbb R^n$ be two times differentiable.
+	Let $X \subseteq \mathbb R^n$ be an open set and let $f: X \to \mathbb R$ be two times differentiable.
 	If $x^*$ is a local minimum of $f$ (on $X$), then the Hessian matrix $\nabla^2 f(x^*)$ of $f$ in $x^*$ is positive definite.
 
 	This is a necessary condition of second order.
@@ -3090,7 +3089,7 @@ In the following, we assume that $f$ is differentiable.
 	\label{theorem:2.1.3}
 	Let $X \subseteq \mathbb R^n$ be open and let $f: X \to \mathbb R$ be two times differentiable. If
 	\begin{enumerate}
-		\item $\nabla f(x^*) = 0$
+		\item $\nabla f(x^*) = 0$ and
 		\item $\nabla^2 f(x^*)$ positive definite
 	\end{enumerate}
 	then $x^*$ is a strict local minimum of $f$ (on $X$).
@@ -3133,7 +3132,7 @@ This is a brief, introductory section.
 	A function $f: X \to \mathbb R$ is called
 	\begin{description}
 		\item[convex on $X$] if $\forall x, y \in X \forall \lambda \in [0, 1]: f(\lambda x + (1 - \lambda) y) \leq \lambda f(x) + (1 - \lambda) f(y)$
-		\item[strictly convex on $X$] if $\forall x, y \in X \forall \lambda \in (0, 1): x \neq \implies f(\lambda x + (1 - \lambda) y) < \lambda f(x) + (1 - \lambda) f(y)$
+		\item[strictly convex on $X$] if $\forall x, y \in X \forall \lambda \in (0, 1): x \neq y \implies f(\lambda x + (1 - \lambda) y) < \lambda f(x) + (1 - \lambda) f(y)$
 		\item[uniformly convex on $X$] if $\exists \mu > 0: f(\lambda x + (1 - \lambda) y) + \mu \lambda (1 - \lambda) \Norm{x - y}^2 \leq \lambda f(x) + (1 - \lambda) f(y) \forall x, y \in X \forall \lambda \in (0, 1)$.
 			$\mu$ is also called \emph{modulo}.\index{Modulo of uniform convexity}
 	\end{description}
@@ -3158,37 +3157,34 @@ In case of a convex function, no point of a segment between two points $(x, f(x)
 \begin{Example}
 	\begin{itemize}
 		\item $f(x) = x$ is convex
-		\item $f(x) = e^x$ is strictly convex, not uniform
+		\item $f(x) = e^x$ is strictly convex, but not uniform
 		\item $f(x) = x^2$ is uniformly convex
 	\end{itemize}
 	On the opposite side, $x^4$ is strictly convex, but not uniformly convex.
 	For the special case of quadratic functions, the following result can be shown easily:
+\end{Example}
 
+\begin{Remark}
 	Let $f: \mathbb R^n \to \mathbb R$ with $f(x) = \frac12 x^t Qx + c^t x + \gamma$ with $Q$ as symmetric $n \times n$ matrix over $\mathbb R$, $c \in \mathbb R^n$, $\gamma \in \mathbb R$. Then,
 	\begin{enumerate}
 		\item $f$ is convex iff $Q$ is positive semidefinite
 		\item $f$ is strictly convex iff $f$ is uniformly convex iff $Q$ is positive definite
 	\end{enumerate}
-\end{Example}
+\end{Remark}
 
 \dateref{2019/05/06}
 
-Our next goal are characterizations (of first or second order) for
-\begin{itemize}
-	\item convex
-	\item strict convex
-	\item uniform convexity
-\end{itemize}
+Our next goal are characterizations (of first or second order) for convexity, strict convexity and uniform convexity.
 
 \begin{theorem}
 	\label{theorem:5.2.1}
 	Let $X \subseteq \mathbb R^n$ open and convex and $f: X \to \mathbb R$ is continuously differentiable.
-	Then
-	\begin{enumerate}
-		\item $f$ is convex (on $X$) iff $f(x) - f(y) \geq (\triangle f(y))^t (x - y) \forall x, y \in X$
-		\item $f$ is strictly convex (on $X$) iff $f(x) - f(y) > (\triangle f(y))^t (x - y) \forall x, y \in X$
-		\item $f$ is uniformly convex (on $X$) iff $f(x) - f(y) \geq (\nabla f(y))^t (x - y) + \mu \Norm{x - y}^2 \forall x, y \in X$
-	\end{enumerate}
+	Then f is \dots{} (on $X$)
+	\begin{description}
+		\item[convex] iff $f(x) - f(y) \geq (\nabla f(y))^t (x - y) \forall x, y \in X$
+		\item[strictly convex] iff $f(x) - f(y) > (\nabla f(y))^t (x - y) \forall x, y \in X$
+		\item[uniformly convex] iff $f(x) - f(y) \geq (\nabla f(y))^t (x - y) + \mu \Norm{x - y}^2 \forall x, y \in X$
+	\end{description}
 \end{theorem}
 
 \begin{proof}
@@ -3208,9 +3204,9 @@ Our next goal are characterizations (of first or second order) for
 \begin{Definition}
 	Let $X \subseteq \mathbb R^n$. Consider $F: X \to \mathbb R^n$. Then $F$ is called
 	\begin{enumerate}
-		\item monotonous (on $X$) if $(X - y)^t (F(x) - F(y)) \geq 0 \forall x, y \in X$
-		\item strictly monotonous (on $X$) if $(X - y)^t (F(x) - F(y)) > 0 \forall x, y \in X$
-		\item uniformly monotonous (on $X$) if $(x - y)^t (F(x) - F(y)) \geq \mu \Norm{x - y}^2 \forall x, y \in X$
+		\item monotonous (on $X$) if $(x - y)^t (F(x) - F(y)) \geq 0 \forall x \neq y \in X$
+		\item strictly monotonous (on $X$) if $(x - y)^t (F(x) - F(y)) > 0 \forall x \neq y \in X$
+		\item uniformly mon. (on $X$) if $(x - y)^t (F(x) - F(y)) \geq \mu \Norm{x - y}^2 \forall x \neq y \in X$
 	\end{enumerate}
 \end{Definition}
 
@@ -3278,22 +3274,20 @@ Our next goal are characterizations (of first or second order) for
 \begin{Remark}[Remark about (2)]
 	$f(x) = x^4$ is strictly convex but $\nabla^2 f(x) = f''(x) = 12x^2$.
 	$f''(0) = 0$, so $f$ is only positive semidefinite.
-	There is only one direction in (2).
+	There is only one direction in (2). % TODO what is this supposed to mean?
 \end{Remark}
 
 Our goal is to establish a result about the existence of a minimum.
 
 \begin{Definition}
-	Let $f: \mathbb R^n \to \mathbb R$
+	Let $f: \mathbb R^n \to \mathbb R$. A \emph{level set}\index{Level set}\dt{Niveaumenge} is defined by
 	\[ \mathcal L(\tilde x) = \SetDef{x \in \mathbb R^n}{f(x) \leq f(\tilde x)} \]
-	defines a \emph{level set}\index{Level set}\dt{Niveaumenge}.
 \end{Definition}
 
 \begin{lemma}
 	\label{lemma:5.2.4}
 	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable.
-	Let $\tilde x \in \mathbb R^n$ with $\mathcal L(\tilde x)$ is convex and let $f$ be uniformly convex on $\mathcal L(\tilde x)$.
-
+	Let $\tilde x \in \mathbb R^n$ with $\mathcal L(\tilde x)$ be convex and let $f$ be uniformly convex on $\mathcal L(\tilde x)$.
 	Then $\mathcal L(\tilde x)$ is compact.
 \end{lemma}
 
@@ -3401,7 +3395,6 @@ Our goal is to establish a result about the existence of a minimum.
 
 \begin{Remark}
 	The result above can be generalized.
-
 	\[ f: X \to \mathbb R \text{ such that } \left(\nabla f(y)\right)^t (x - y) \geq 0 \implies f(x) \geq f(y) \forall x, y \in X \]
 	defines \emph{pseudoconvex functions}\index{Pseudoconvex functions} and thus the class of pseudoconvex functions which is a more generic class than the class of convex functions.
 \end{Remark}
@@ -3414,11 +3407,10 @@ The generic setup gives a function $f: \mathbb R^n \to \mathbb R$ continuously d
 We look for local minima (or candidates for such).
 Consider $f$ as mountain range and local minima as valleys.
 
-The abstract idea of the descent method.
-Begin with $x^{(0)}$. Let $k \coloneqq 0$. Verify whether $x^*$ is a local minimum and test whether there is any direction $d^{(k)}$ such that beginning from $x^{(k)}$ a smaller target function value can be achieved.
-If not, a local minimum has been reached. If yes, take a small step in direction $d^{(k)}$ such that $x^{(k+1)} = x^{(k)} + t_k \cdot d^{(k)}$ with $t > 0$ as step size.
+The abstract idea of the descent method:
+Begin with $x^{(0)}$. Let $k \coloneqq 0$. Verify whether $x^*$ is a local minimum and test whether there is any direction $d^{(k)}$ such that beginning from $x^{(k)}$ a smaller target function value can be achieved. If not, a local minimum has been reached. If yes, take a small step in direction $d^{(k)}$ such that $x^{(k+1)} = x^{(k)} + t_k \cdot d^{(k)}$ with $t_k > 0$ as step size.
 
-Thus establishes the notion of direction of descent.
+This establishes the notion of direction of descent.
 \begin{definition}
 	Let $f: \mathbb R^n \to \mathbb R, x \in \mathbb R^n$.
 	A vector $d \in \mathbb R^n$ is called \emph{direction of descent}\index{Direction of descent} for $f$ in $x$ if $\exists \hat t > 0$ such that $f(x + td) < f(x) \forall t \in (0, \hat t]$.
@@ -3430,7 +3422,7 @@ However, this notion is difficult to verify algorithmically. We need an alternat
 	\label{lemma:5.3.1}
 	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable, $x \in \mathbb R^n$ and $d \in \mathbb R^n$.
 	Let $(\nabla f(x))^t d < 0$ (thus a negative direction of descent is given).
-	Then $d$ is the direction of descent of $f$ in $x$.
+	Then $d$ is the \emph{direction of descent}\index{Direction of descent} of $f$ in $x$.
 \end{lemma}
 
 \begin{proof}
@@ -3440,14 +3432,12 @@ However, this notion is difficult to verify algorithmically. We need an alternat
 \end{proof}
 
 \begin{Remark}
-	Does Lemma~\ref{lemma:5.3.1} provide a sufficient criterion for the existence of a direction of descent?
-\end{Remark}
-\begin{Remark}
+	Does Lemma~\ref{lemma:5.3.1} provide a necessary criterion for the existence of a direction of descent? Yes.
 	But it is not sufficient. $x$ can be a strict local maximum.
 	All directions $d \neq 0$ are directions of descent, but $\not\exists d$ such that $\left(\nabla f(x)\right)^t d < 0$ (because $x$ is a stationary point).
 \end{Remark}
 \begin{Remark}[Geometrical interpretation of $\left(\nabla f(x)\right)^t d < 0$]
-	\[ \to \left(- \nabla f(x)\right)^t d > 0 \implies \text{ the angle between $-\nabla f(x)$ and $d$ is } < \frac\pi2 \]
+	\[ \IP{\left(- \nabla f(x)\right)^t}{d} > 0 \implies \text{ the angle between $-\nabla f(x)$ and $d$ is } < \frac\pi2 \]
 	\begin{figure}[t]
 		\begin{center}
 			\includegraphics{img/25_descent.pdf}
@@ -3479,7 +3469,7 @@ We are going to use this condition in our algorithms.
 	Step size, direction of descent and termination condition are left to be discussed.
 \end{algorithm}
 
-For analysis of convergence, we consider the infinite sequence $\Set{x^{(k)}}, \Set{d^{(k)}}$ and $\Set{t_k}$ without satisfied termination condition. The central question for us is under which conditions of $d^{(k)}$ and $t_k$ we achieve convergence. With arbitrary chosen $d^{(k)}$ and $t_k$ we don't get a useful generic approach. We need to establish some conditions on $t_k$ and $d^{(k)}$.
+For analysis of convergence, we consider the infinite sequence $\Set{x^{(k)}}, \Set{d^{(k)}}$ and $\Set{t_k}$ without satisfied termination condition. The central question for us is under which conditions of $d^{(k)}$ and $t_k$, convergence is achieved. With arbitrary chosen $d^{(k)}$ and $t_k$ we don't get a useful generic approach. We need to establish some conditions on $t_k$ and $d^{(k)}$.
 
 \emph{Our goal:} Every cluster point of sequence $\Set{x^{(k)}}$ should be at least one stationary point of $f$.
 
@@ -3649,14 +3639,13 @@ Consider $\varphi'(t)$
 \[ \varphi'(0) = \left(\nabla f(x)\right)^t d \]
 Condition $(\triangle)$ can be written as,
 \[ \varphi(t) \leq \varphi(0) + \sigma t \varphi'(0)  \]
-This actually gives a line, the Armijo-Goldstein line.
+This actually gives a line, the \emph{Armijo-Goldstein line}\index{Armijo-Goldstein line}.
 
 \begin{Remark}
-	Discrete candidate set for the Armijo step size
+	The candidate set $\beta^l$ for the Armijo step size is discrete.
 \end{Remark}
-% \beta^l is in the candidate set
 
-To determine the Armijo step size, the relevant region is where the graph of $\varphi$ is below the Armijo-Goldstein line.
+To determine the Armijo step size, the relevant region is wherever the graph of $\varphi$ is below the Armijo-Goldstein line.
 
 \begin{theorem}
 	\label{theorem:5.4.1}
@@ -3694,9 +3683,7 @@ For interpretation $\varphi(t) = f(x + td)$,
 \[ \varphi(t) \leq \varphi(0) + \sigma t \varphi'(0) \qquad \text{(WP1)} \]
 \[ \varphi'(t) \geq \rho \varphi'(0) \qquad \text{(WP2)} \]
 The WP step size is chosen from the area where
-\begin{itemize}
-	\item the graph of $\varphi$ lies below the Armijo line and also the graph of $\varphi$ is not so steeply decreasing as in point $0$ (or already increases).
-\end{itemize}
+the graph of $\varphi$ lies below the Armijo line and also the graph of $\varphi$ is not so steeply decreasing as in point $0$ (or already increases).
 
 \begin{figure}[t]
 	\begin{center}
@@ -4014,9 +4001,8 @@ Conventions in this chapter:
 	\begin{itemize}
 		\item The Q-factor depends on the choice of the norm. Convergence order does not. (The proof is left as an exercise to the reader)
 		\item There exists some value $p_0 \in [1, \infty)$ with
-			\[ Q_p(\Set{x^{(k)}}) = \begin{cases} 0 & p \in [1, p_0) \\ \infty & p \in (p_0, \infty) \end{cases} \]
+			\[ Q_p\left(\Set{x^{(k)}}\right) = \begin{cases} 0 & p \in [1, p_0) \\ \infty & p \in (p_0, \infty) \end{cases} \]
 		\item We consider the following special cases:
-
 			\begin{center}
 				\begin{tabular}{ll}
 					$Q_1\left(\Set{x^{(k)}}\right) = 0$ & Q-superlinear convergence \\
@@ -4626,13 +4612,13 @@ This algorithm only works if $d^{(k)}$ exists. But what about the convergence pr
 \begin{Remark}
 	For the local convergence result the assumption $\nabla^2 f(x^*)$ regular (not positive-definite) sufficed..
 
-	Thus a case might occur such that $x^*$ represents a local maximum. In the global Newton's method, this (undesired) effect must not occur.
+	Thus a case might occur such that $x^*$ represents a local maximum. In the Global Newton's method, this (undesired) effect must not occur.
 \end{Remark}
 
 \subsubsection{Global Newton's method}
 \label{section:7.2}
 
-Already well-definedness of the local Newton's method is just a local property.
+Well-definedness of the local Newton's method is just a local property.
 
 \begin{Algorithm}[Global Newton's method]\hfill{}
 	\begin{enumerate}
@@ -4656,7 +4642,7 @@ Already well-definedness of the local Newton's method is just a local property.
 
 \begin{theorem}
 	\label{theorem:7.2}
-	If $f$ is two-times continuously differentiable. Every cluster point, resulting from sequence $\Set{x^{(k)}}$ of the global Newton's method, is a stationary point of $f$.
+	If $f$ is two-times continuously differentiable. Every cluster point, resulting from sequence $\Set{x^{(k)}}$ of the Global Newton's method, is a stationary point of $f$.
 \end{theorem}
 
 \dateref{2019/06/06}
@@ -4705,7 +4691,7 @@ Already well-definedness of the local Newton's method is just a local property.
 	\end{itemize}
 	By these two properties, $\Set{f(x^{(k)})} \to f(\tilde x)$. Thus $\Set{f(x^{(k+1)}) - f(x^{(k)})} \to 0$.
 	\[ \Set{t_k\left(\nabla f(x^{(k)})\right)^t d^{(k)}} \to 0 \]
-	Requirements of the global Newton's method (incl. step size choice):
+	Requirements of Global Newton's method (incl. step size choice):
 	\[ \nabla f(x^{(k)}) d^{(k)} \leq -\rho \Norm{d^{(k)}}^p \]
 
 	Now we show that $\Set{t_k}_K$ is bounded from $0$ (i.e. $\exists c: t_k \leq c < 0$).
@@ -4746,7 +4732,7 @@ Already well-definedness of the local Newton's method is just a local property.
 
 \begin{theorem}
 	\label{theorem:7.4}
-	Let $\Set{x^{(k)}}$ be generated from the global Newton's method and let $\tilde x$ be an isolated cluster point of $\Set{x^{(k)}}$. Then $\Set{x^{(k)}}$ converges to $\tilde x$.
+	Let $\Set{x^{(k)}}$ be generated from Global Newton's method and let $\tilde x$ be an isolated cluster point of $\Set{x^{(k)}}$. Then $\Set{x^{(k)}}$ converges to $\tilde x$.
 \end{theorem}
 
 \begin{proof}
@@ -4792,9 +4778,9 @@ Already well-definedness of the local Newton's method is just a local property.
 Thus, beginning with index $k_0$, the complete step size $1$ is chosen if Armijo's rule is applied.
 The restriction $\sigma \in \left(0, \frac12\right)$ is necessary for this kind of result.
 
-\begin{theorem}[Central convergence theorem for global Newton's method]
+\begin{theorem}[Central convergence theorem for Global Newton's method]
 	\label{theorem:7.7}
-	Let $f$ be two-times differentiable. Let $\Set{x^{(k)}}$ be a sequence generated by the global Newton's method. Let $\tilde x$ be a cluster point of $\Set{x^{(k)}}$ and let $\nabla^2 f(\tilde x)$. Then
+	Let $f$ be two-times differentiable. Let $\Set{x^{(k)}}$ be a sequence generated by the Global Newton's method. Let $\tilde x$ be a cluster point of $\Set{x^{(k)}}$ and let $\nabla^2 f(\tilde x)$. Then
 	\begin{enumerate}
 		\item The sequence $\Set{x^{(k)}}$ converges to $\tilde x$ and $\tilde x$ is a strict local minimum of $f$.
 		\item For all sufficiently large $k \in \mathbb N$, $d^{(k)}$ is the Newton direction (above a certain $k_0$, the direction of steepest descent will never be chosen)
@@ -5028,7 +5014,8 @@ A possible approach to derive further update formulas is given by a generalizati
 
 	Substitution gives
 	\begin{align*}
-		WH^+W &= WHW - \frac{(WY - WHs)(W^{-1} s)^t + W^{-1} s (Wy - WHs)^t}{\left(W^{-1} s\right)^t \left(W^{-1} s\right)} - \frac{(Wy - WHs)^t (W^{-1} s)}{\left((W{-1}s)^t \left(W^{-1} s\right)\right)^2} (W^{-1} s)(W^{-1} s)^t
+		WH^+W &= WHW - \frac{(WY - WHs)(W^{-1} s)^t + W^{-1} s (Wy - WHs)^t}{\left(W^{-1} s\right)^t \left(W^{-1} s\right)} \\
+			  &- \frac{(Wy - WHs)^t (W^{-1} s)}{\left((W{-1}s)^t \left(W^{-1} s\right)\right)^2} (W^{-1} s)(W^{-1} s)^t
 	\end{align*}
 	from left and right we multiply with $W^{-1}$. This gives us the claimed result.
 \end{proof}
