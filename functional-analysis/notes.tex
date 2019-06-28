@@ -3799,7 +3799,7 @@ Refer to the book by Brezis to study consequences of this Lemma.
 
 \begin{proof}
 	\begin{enumerate}
-		\item Proposition~\ref{proposition:8.7}
+		\item Lemma~\ref{lemma:8.7}
 		\item Restrict inner product
 		\item Follows from continuity of inner product.
 	\end{enumerate}
@@ -4006,6 +4006,221 @@ Refer to the book by Brezis to study consequences of this Lemma.
 \dateref{2019/06/27}
 
 TODO
+
+\subsection{Orthogonal bases}
+
+\begin{definition}
+	\label{definition:8.18}
+	Let $H$ be Hilbert. $S \subset H$ is called \emph{orthonormal system}\index{Orthonormal system} if
+	\begin{enumerate}
+		\item $\forall e \in S: \Norm e = 1$
+		\item $\forall e, f \in S: \IP{e}{f}_H = 0$
+	\end{enumerate}
+	An orthonormal system $T$ is called \emph{orthonormal basis}\index{Orthonormal basis} [or complete \emph{orthonormal system}]
+	if $\forall S \subset T$ and $T$ is orthonormal system. Thus $T = S$ is the \enquote{maximal element} (equivalent to unexpandable, linear system in Linear Algebra terminology).
+\end{definition}
+
+\begin{Example}
+	\begin{itemize}
+		\item $H = l^2$. $S = (e_n)_n$ where $e_n = (0, \dots, 0, 1, 0, \dots, 0)$ is $1$ at index $n$.
+		\item $H = L^2([0, 2\pi])$. Then
+			\[ S = \Set{x \mapsto \frac{1}{\sqrt{2\pi}}} \cup \SetDef{x \mapsto \frac{1}{\sqrt{\pi}} \cos(nx)}{n \in \mathbb N} \cup \SetDef{x \mapsto \frac{1}{\sqrt{\pi}} \sin(nx)}{n \in \mathbb N} \]
+			is a (complete) orthonormal system.
+	\end{itemize}
+\end{Example}
+
+\dateref{2019/06/28}
+
+\begin{proposition}[Gram-Schmid method]
+	\label{proposition:8.19}
+	Let $(x_n)_{n=1}^\infty$ be linearly independent in $H$, a Hilbert space.
+	Then $\exists S \subset H$ is an orthonormal system such that $\overline{\operatorname{span}{S}} = \overline{\operatorname{span}(x_n: n \in \mathbb N)}$.
+\end{proposition}
+
+\begin{proof}
+	Define $e_1 = \frac{x_1}{\Norm{x_1}}$ and for $n \in \mathbb N$:
+	\[ \left\{\begin{cases} f_{n+1} \coloneqq x_{n+1} - \sum_{i=1}^n x_{n+1} - \sum_{i=1}^n \IP{x_{n+1},e_i} e_i \\ e_{n+1} = \frac{f_{n+1}}{\Norm{f_{n+1}}} \end{cases}\right. \]
+	Proof by induction is left as an exercise.
+\end{proof}
+
+\begin{proposition}[Bessel inequality]\index{Bessel inequality}
+	\label{proposition:8.20}
+	Let $H$ be Hilbert. Let $(e_n)_n$ be an ortho. system in $H$, $x \in H$. Then $\sum_{n=1}^\infty \Abs{\IP x{e_n}}^2 \leq \Norm x$.
+\end{proposition}
+
+\begin{proof}
+	Let $x_N \coloneqq x - \sum_{i=1}^N \IP{x}{e_i} e_i \implies x_N \bot e_k \forall k \in \Set{1, \dots, N}$.
+	\[ \implies \Norm{x}^2 = \Norm{x_N}^2 + \Norm{\sum_{i=1}^N \IP{x}{e_i} e_i}^2 = \Norm{x_N}^2 + \sum_{i=1}^N \Abs{\IP{x}{e_i}}^2 \geq \sum_{i=1}^N \Abs{\IP{x}{e_i}}^2 \]
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:8.21}
+	Let $(e_n)_n$ be an orthonormal system in Hilbert space $H$.
+	Then $\forall x, y \in H: \sum_{n=1}^\infty \Abs{\IP{x}{e_n} \IP{e_n}{y}} < \infty$.
+\end{lemma}
+
+\begin{proof}
+	Hölder's inequality for $p = 2$,
+	\[ \sum_{n=1}^\infty \Abs{\IP{x}{e_n} \IP{e_n}{y}} \leq \sqrt{\sum_{n=1}^\infty \Abs{\IP{x}{e_n}}^2} \sqrt{\sum_{n=1}^\infty \Abs{\IP{e_n}{y}}^2} \leq \Norm x \Norm y < \infty \]
+\end{proof}
+
+\begin{lemma}
+	\label{lemma:8.22}
+	Let $H$ be a Hilbert space. Let $S \subset H$ be an orth. system. Let $x \in H$.
+	Then $S_X = \SetDef{e \in S}{\IP xe \neq 0}$ is at most countable.
+\end{lemma}
+
+\begin{proof}
+	For $n \in \mathbb N$, define $S_{x,n} = \SetDef{l \in S}{\Abs{\IP xl} \geq \frac1n}$.
+	Then $S_{X,n}$ is finite due to Bessel's inequalty.
+	\[ \implies S_X = \bigcup_{n \in \mathbb N} S_{X,n} \text{ is at most countable} \]
+\end{proof}
+
+\begin{definition}[Basis representation with uncountable systems]
+	\label{definition:8.23}
+	Let $X$ be a normed space. Let $I$ be an index set and $x_i \in X \forall i \in I$.
+	We say that $\sum_{i \in I} x_i$ converges unconditionally to $x \in X$ if
+	\begin{itemize}
+		\item $I_0 \coloneqq \SetDef{i \in I}{x_i \neq 0}$ is countable
+		\item For each numbering $(n_i)_{i=1}^\infty$ of $I_0$
+			\[ \implies \sum_{i=1}^\infty x_{n_i} = x \]
+	\end{itemize}
+\end{definition}
+
+In this case, we write $\sum_{i \in I} x_i = x$.
+
+\begin{Remark}
+	\begin{itemize}
+		\item \emph{Motivation:} Give meaning to 
+			\[ \sum_{i \in I} \IP{x_i}{e_i} e_i = x \text{ for } (e_i)_{i \in I} \]
+			any orthonormal system.
+		\item \emph{Point here:} Convergence does not depend on ordering
+		\item \emph{Remember:} $\dim(X) < \infty$ and $(x_i)_{i \in I} = (x_i)_{i \in \mathbb N}$
+			Then unconditional convergence $\iff$ absolute convergence (in general, absolute convergence implies only convergence).
+		\item \emph{Note:} In this chapter: Difference between $\sum_{i=1}^\infty x_i$ and $\sum_{i \in \mathbb N} x_i$.
+	\end{itemize}
+\end{Remark}
+
+\begin{corollary}[Generalized Bessel inequality]
+	\label{corollary:8.24}
+	Let $H$ be a Hilbert space $S \subset H$ on orth. system. Let $x \in H$. Then
+	\[ \sum_{e \in S} \Abs{\IP{x}{l}}^2 \leq \Norm{x} \]
+	In particular, $\sum_{l \in S} \Abs{\IP{x}{e}}^2$ is absolutely convergent.
+\end{corollary}
+
+\begin{proof}
+	Only countably many $\IP xe$ are non-zero.
+	For any counting $(n_i)_{i=1}^\infty$ of the non-zero coefficients,
+	Bessel implies $\sum_{i=1} \Abs{\IP{x}{e_i}}^2 \leq \Norm{x}^2$.
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:8.25}
+	Let $H$ be a Hilbert space. Let $S \subset H$ be an orth. system. Then
+	\begin{enumerate}
+		\item $\forall x \in H: \sum_{e \in S} \IP xe e$ is unconditionally convenient.
+		\item With $P: X \mapsto \sum_{l \in S} \IP xe e$ we have that $Px = \argmin_{y \in \operatorname{span}(S)} \Norm{x - y}$ is $P = P_{\overline{\operatorname{span}(S)}}$..
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Write $\SetDef{e \in S}{\IP xe \neq 0}$ as $(e_{n_i})_{i \in \mathbb N}$ with $(n_i)_{i \in \mathbb N}$ some numbering.
+
+			First, show that $\sum_{i=1}^\infty \IP{x}{e_{n_i}} e_{n_i}$ is Cauchy.
+			Consider for $M, N \in \mathbb N$:
+			\[ \Norm{\sum_{i=N+1}^M \IP{x}{e_{n_i}} e_{n_i}}^2 = \sum_{i=N+1}^M \Abs{\IP{x}{e_{n_i}}}^2 \to 0 \text{ as } N,M \to \infty \]
+			\[ \implies \exists y \coloneqq \lim_{N \to \infty} \sum_{i=1}^N \IP{x}{e_{n_i}} e_{n_i} \]
+			Now for $\pi: \mathbb N \to \mathbb N$ TODO
+			define $y_\pi \coloneqq \lim_{N \to \infty} \IP{x}{e_{\pi(n_i)}} e_{\pi(n_i)}$.
+
+			\emph{Show:} $y_\pi = y$
+
+			Take $z \in H$. Then,
+			\begin{align*}
+				\IP yz &\coloneqq \sum_{i=1}^\infty \IP{x}{e_{n_i}} \IP{e_{n_i}}{z} = \sum_{i=1}^\infty \IP{x}{e_{\pi(n_i)}} \IP{e_{\pi(n_i)}}{z} \\
+					&= (y_pi, z)
+			\end{align*}
+			\[ \implies y = y_\pi \]
+		\item It suffices to show:
+			\[ \left(x - \sum_{i=1}^\infty \IP{x}{e_{n_i}} e_{n_i}, e\right) = 0 \qquad \forall e \in S \]
+			Because then $x - \sum_{i=1}^\infty (x, e_{n_i}) e_{n_i} \in \overline{\operatorname{span}(S)}^\bot \iff \sum_{i=1}^\infty \IP{x}{e_{n_i}} e_{n_i} = P_{\overline{span}(S)}(x)$.
+			This true for both $e \not\in \Set{e_{n_i}: i \in \mathbb N}$ and also for $e = e_{n_{i_0}}$.
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:8.26}
+	Let $H$ be a Hilbert space. Let $S \subset H$ be an ortho. system. Then:
+	\begin{enumerate}
+		\item there exists a orth. basis $\tilde S \subset H$ such that $S \subset \tilde S$ (in particular, any $H \neq \Set{0}$ has orth. basis)
+		\item TFAE:
+			\begin{enumerate}
+				\item $S$ is orth. basis
+				\item $\forall x \in H: x \bot S \implies x = 0$
+				\item $H = \overline{\operatorname{span}(S)}$
+				\item $\forall x \in H: x = \sum_{e \in S} \IP xe e$
+				\item $\IP xy = \sum_{e \in S} \IP xe \IP ey$
+				\item $\Norm{x}^2 = \sum_{e \in S} \Abs{\IP xe}^2$ (Parseval's identity)\index{Parseval's identity}
+			\end{enumerate}
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Application of Lemma of Zorn ($S_1 \subset S_2$ as ordering of bases)
+		\item We make a cyclic proof:
+			\begin{description}
+				\item[(1) $\to$ (2)]
+					If not, i.e. $\exists x \neq 0$ such that $S \bot x \implies S \cup \left(\frac{x}{\Norm x}\right) \coloneqq \overline S$ is an orth. basis $S \subsetneq \overline S$. This gives a condradiction.
+				\item[(2) $\to$ (3)] $\operatorname{span}(S) = \left(S^\bot\right)^\bot$ but by (2): $S^\bot = \Set{0}$. Hence $(S^\bot)^\bot = H$.
+				\item[(3) $\to$ (4)] Proposition~\ref{proposition:8.25} since by (3) $Px = x \forall x \in X$
+				\item[(4) $\to$ (5)] Follows from testing with $y$
+				\item[(5) $\to$ (6)] Let $y = x$
+				\item[(6) $\to$ (1)] If (1) is not true, $\exists x \in H: \Norm x = 1$ and $x \bot S$.
+					\[ \implies 1 = \Norm{x} \overset{(6)}{=} \sum_{e \in S} \underbrace{\Abs{\IP xe}}_{= 0}^2 = 0 \]
+					gives a contradiction.
+			\end{description}
+	\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+	\label{corollary:8.27}
+	Let $H$ be a Hilbert space. TFAE:
+	\begin{enumerate}
+		\item $H$ is separable
+		\item All orthonormal basis of $H$ are countable
+		\item There exists a countable orth. basis
+	\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+	\begin{description}
+		\item[(1) $\to$ (2)] 
+			Let $S$ be an orth. basis of $H \implies \forall e, f \in S: e \neq f$
+			\[ \Norm{e - f}^2 = \Norm{e}^2 + \Norm{f}^2 = 2 \]
+			\[ \Norm{e - f} = \sqrt{2} \]
+			As in the proof of non-separability $l^\infty$,
+			$L^\infty \implies S$ is countable.
+		\item[(2) $\to$ (3)] immediate.
+		\item[(3) $\to$ (1)] immediate, because if $U$ is countable such that $\overline{\operatorname{U}} = H \implies H$ is separable.
+	\end{description}
+\end{proof}
+
+\begin{proposition}
+	\label{proposition:8.28}
+	Let $H$ be a separable Hilbert space, $\dim(H) = \infty$.
+	Then $H \hat= l^2$ [\enquote{$H$ is isometrically equivalent to $l^2$}]
+\end{proposition}
+
+\begin{proof}
+	Define $T: H \to l^2$ with $x \mapsto (\IP{x}{e_n})_{n \in \mathbb N}$ when $(e_n)_n$ is an orthonormal basis of $H$.
+	Then $\Norm{Tx}^2 = \sum_{n=1}^\infty \Abs{\IP{x}{e_n}}^2 = \Norm{x}^2 \implies T$ is isometric and injective.
+	Thus $T$ is linear.
+
+	For surjectivity, tahe $(\lambda_i)_{i \in \mathbb N}$ in $l^1$.
+	For $M, N \in \mathbb N: M > N: \Norm{\sum_{i=N+1}^M \lambda_i e_i}^2 = \sum_{i=N+1}^M \Abs{\lambda_i}^2 \to 0$ for $N, M \to \infty \implies \left(\sum_{i=1}^N \lambda_i e_i\right)_{N \in \mathbb N}$ is Cauchy and thus converges and hence $T\left(\sum_{i=1}^\infty \lambda_i e_i\right) = (\lambda_i)_{i \in \mathbb N}$.
+\end{proof}
 
 \printindex
 \end{document}
