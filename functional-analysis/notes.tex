@@ -1400,12 +1400,12 @@ We consider a common, but less useful reformulation:
 		\[ D^\infty f \coloneqq \frac{\partial^{\alpha_1} \dots \partial^{\alpha_n}}{\partial_{x_1}^{\alpha_1} \dots \partial_{x_n}^{\alpha_n} x_n} f \]
 		where $\frac{\partial^{\alpha_1}}{\partial^{\alpha_i} x_i}$ is the partial derivative of $f$ with respect to $x_i$ of order $\alpha_i$.
 
-		\begin{example}
+		\begin{Example}
 			Let $N=2$ and $\alpha = (1, 1)$.
 			\[ D^\infty f = \frac{\partial^{\alpha_1}}{\partial x_1} \frac{\partial^{\alpha_2}}{\partial x_2} f \]
 			Let $\alpha = (2, 0)$.
 			\[ D^\infty f = \frac{\partial^{\alpha_1}}{\partial^2 x_1} f \]
-		\end{example}
+		\end{Example}
 	\end{itemize}
 
 	\begin{itemize}
@@ -1565,9 +1565,9 @@ We consider a common, but less useful reformulation:
 		\item[Case $p = \infty$:]
 			First, note that $\forall f \in \mathcal L^\infty(\Omega, \mathbb K^M, \mu) \exists N \in \Sigma$ such that $\mu(N) = 0$ and $\Norm{f}_{\infty}^* = \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty} \coloneqq \sup_{x \in \Omega \setminus N} \Abs{f(x)}$.
 
-			\begin{claim}
+			\begin{Claim}
 				\[ \Norm{f}_{\infty}^* = \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty} \coloneqq \sup_{x \in \Omega \setminus N} \Abs{f(x)} = \sup_{x \in \Omega \setminus \hat N} \Abs{f(x)} \text{ for } \mu(\hat N) = 0  \]
-			\end{claim}
+			\end{Claim}
 			\begin{proof}
 				For all $n \in \mathbb N$, define $N_n \in \Sigma$ such that $\mu(N_n) = 0$ and $\Norm{\left.f\right|_{\Omega \setminus N_n}}_\infty \leq \Norm{f}_\infty^* + \frac1n$.
 				Thus with $N \coloneqq \bigcup_{n \in \mathbb N^n} N_n \implies \mu(N) = 0$ and $\Norm{f}_\infty^* \leq \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty} \leq \Norm{f}_{\infty}^* + \frac1n$. $n \to \infty \implies \Norm{f}_\infty^* = \Norm{\left.f\right|_{\Omega \setminus N}}_{\infty}$.
@@ -1859,7 +1859,7 @@ As in the proof of $C_b$ being a Banach space:
 	We say that $T$ is decently define, if $\overline{\operatorname{dom}(T)} = X$.
 \end{definition}
 
-\begin{example}
+\begin{Example}
 	\begin{enumerate}
 		\item $X = Y = C([0, 1], \mathbb R)$ and $\operatorname{dom}(T) \coloneqq C^1([0, 1], \mathbb R)$
 			$T: \operatorname{dom}(T) \to Y$ with $u \mapsto u'$.
@@ -1869,7 +1869,7 @@ As in the proof of $C_b$ being a Banach space:
 			\[ T: L^q(\Omega) \to \mathbb R \qquad v \mapsto \int_\Omega u \cdot v \]
 		\item $X = L^2(\Omega), Y = \mathbb R, \operatorname{dom}(T) = C(\overline \Omega)$ with $x \in \Omega$ fixed, $T: \operatorname{dom}(T) \to Y$ with $u \mapsto u(x_0)$
 	\end{enumerate}
-\end{example}
+\end{Example}
 
 \begin{definition}
 	\label{definition:3.2}
@@ -2065,9 +2065,9 @@ First, consider $\mathbb K = \mathbb R$.
 	\end{enumerate}
 \end{definition}
 
-\begin{example}
+\begin{Example}
 	$p(x) = \Norm{x}$, $p$ linear and $p$ is a seminorm.
-\end{example}
+\end{Example}
 
 \begin{theorem}[Hahn-Banach Theorem, real version]
 	\label{theorem:4.2}
@@ -2113,9 +2113,9 @@ First, consider $\mathbb K = \mathbb R$.
 			\end{description}
 
 		\item[Step 2]
-			\begin{revision}[Zorn's Lemma]
+			\begin{Revision}[Zorn's Lemma]
 				Let $(A, \leq)$ be a partially ordered set such that every chain (every subset $R$ of $A \forall a, b \in R: a \leq b \lor b \leq a)$ admits an upper bound (i.e. $\exists c \in A: b \leq c \forall b \in R$), then $A$ has a maximal element, i.e. $\exists z \in A$ such that $\forall a \in A: z_0 \leq a \implies a = z_0$
-			\end{revision}
+			\end{Revision}
 
 			Let $A$ be a set of $(V, L_V)$ tuples where $V \subset X$ is a subspace with $U \subset V$ and $L_V: V \to \mathbb R$ such that $L_V \leq p$ on $V$ and $L_V|_U = l$.
 
@@ -2251,11 +2251,11 @@ First, consider $\mathbb K = \mathbb R$.
 	In $\mathbb R^2$, any line $L$ can be separable as $L = \SetDef{x \in \mathbb R^2: (x, n) = \alpha}{\alpha \in \mathbb R, n \in \mathbb R^2, \Norm{n} = 1}$.
 \end{Remark}
 
-\begin{Definition}
+\begin{definition}
 	\label{definition:4.6}
 	\index{Hyperplane}
 	Let $X$ be a vector space $H \subset X$ is called a \emph{hyperplane} if it is of the form $H = \SetDef{x \in X}{\Re(f(x)) = \alpha}$ with $\alpha \in \mathbb R$, $f: X \to \mathbb K$ linear.
-\end{Definition}
+\end{definition}
 
 \begin{lemma}
 	\label{lemma:4.7}
@@ -2316,12 +2316,12 @@ First, consider $\mathbb K = \mathbb R$.
 	\end{enumerate}
 \end{proof}
 
-\begin{Lemma}[Fundamental lemma]
+\begin{lemma}[Fundamental lemma]
 	\label{lemma:4.10}
 	Let $X$ be a normed vector space. $V \subset X$ be convex and open. $O \not\in V$.
 	\[ \implies \exists x': X \to \mathbb K \text{ continuous} \]
 	linear such that $\Re{x'(x)} < 0 \forall x \in V$.
-\end{Lemma}
+\end{lemma}
 
 \begin{proof}
 	Define $A \mp B = \SetDef{a + b}{a \in A, b \in B}$.
@@ -2342,9 +2342,10 @@ First, consider $\mathbb K = \mathbb R$.
 
 			\dateref{2019/05/16}
 
-			Now by Hahn-Banach Theorem, $\exists x': X \to \mathbb R$ linear such that $x'|_y = y'$ and $x'(x) \leq p_u(x) \forall x \in X$
+			Now by Hahn-Banach Theorem, $\exists x': X \to \mathbb R$ linear such that $x'|_y = y'$ and $x'(x) \leq p_u(x) \forall x \in X$.
+			For $\varepsilon > 0: B_{\varepsilon}(0) \subseteq U$:
 
-			\[ \forall x \in X: \Abs{x'(x)} = \max\Set{x'(x), \underbrace{-x'(x)}_{= x'(-x)}} \leq \min(p_u(x), -p_u(-x)) \leq \frac{1}{2} \Norm x \qquad \text{ for } \varepsilon > 0: B_{\varepsilon}(0) \subseteq U \]
+			\[ \forall x \in X: \Abs{x'(x)} = \max\Set{x'(x), \underbrace{-x'(x)}_{= x'(-x)}} \leq \min(p_u(x), -p_u(-x)) \leq \frac{1}{2} \Norm x \]
 			\[ \implies x' \in \mathcal L(X, \mathbb R) \]
 			Also $x'(y_0) = y'(y_0) = p_u(y_0) \geq 1$.
 			\begin{itemize}
@@ -2664,9 +2665,10 @@ Closed operators are continuous in the right topology.
 	Similar to the proof above. Thus this is left as an exercise to the reader.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[Closed graph theorem]
+	\label{theorem:5.15}
 	Let $X$ and $Y$ be Banach spaces. $T: X \to Y$ be linear and closed.
-	[e.g. $X \subset \hat X$ with $X$ closed, $\hat X$ Banach, $T: D \coloneqq X \to Y$] $\implies T$ is continuous
+	[e.g. $X \subset \hat X$ with $X$ closed, $\hat X$ Banach, $T: D \coloneqq X \to Y$] $\implies T$ is continuous.
 \end{theorem}
 
 \begin{proof}
@@ -3321,7 +3323,7 @@ We need an ever weaker notion of convergence.
 
 \begin{proposition}
 	\label{proposition:7.3}
-	Let $X$ be normed, $P: X \to X$ is called \emph{projection}\index{Projection} if $P \circ P = P$. $P$ is called linear and continuous projection if it is linear and continuous. $P$ is called projection to $U \subset X$ if $P(X) \subset U$. Also, we write $X = A \oplus B$ for $A, B \subset X$ subspaces if $X = A + B$ and $A \cap B = \Set{0}$.
+	Let $X$ be normed, $P: X \to X$ is called \emph{projection}\index{Projection} if $P \circ P = P$. $P$ is called linear and continuous projection if it is linear and continuous. $P$ is called \emph{projection}\index{Projection} to $U \subset X$ if $P(X) \subset U$. Also, we write $X = A \oplus B$ for $A, B \subset X$ subspaces if $X = A + B$ and $A \cap B = \Set{0}$.
 	\[ \implies \forall x \in X \exists! a \in A, b \in B: x = a + b \]
 	If P is a continuous, linear projection, then
 	\begin{enumerate}
@@ -3496,7 +3498,7 @@ Those results will be important later.
 	\end{enumerate}
 \end{proof}
 
-\section{Adjoint operators}
+\subsection{Adjoint operators}
 
 \textbf{Motivation:} Consider $T: X \to Y$ linear and bounded. Can we associate a dual operator to $T$ as we can associate $X$ with $X^*$ and $Y$ with $Y^*$?
 
@@ -4011,6 +4013,12 @@ Refer to the book by Brezis to study consequences of this Lemma.
 \end{proof}
 
 \dateref{2019/06/27}
+
+TODO
+
+\begin{corollary}
+	TODO
+\end{corollary}
 
 TODO
 
