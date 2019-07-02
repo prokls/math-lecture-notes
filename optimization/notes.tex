@@ -4700,7 +4700,7 @@ Well-definedness of the local Newton's method is just a local property.
 	For $\beta^{l_k - 1}$, the Armijo condition is not yet satisfied. Let $k$ be sufficiently large,
 	\begin{align} \frac{f(x^{(k)} - \beta^{l_k - 1} d^{(k)}) - f(x^{(k)})}{\beta^{l_k-1}} > \sigma \left(\nabla f(x^{(k)})\right)^t d^{(k)} \label{xvl} \end{align}
 	By \eqref{somelabel}, we can assume that $\Set{d^{(k)}}_K \to \tilde d$ with $\tilde d \neq 0$.
-	By \eqref{xvl} and the Lemma~\ref{theorem:6.1} from section~\ref{section:6}, we can conclude that $(\nabla f(\tilde x))^t \tilde d \geq \sigma \left(\nabla f(\tilde x)\right)^t \tilde d$ for $k \to \infty$, $k \in K$. By $\sigma \in \left(0, \frac12\right)$, we can conclude
+	By \eqref{xvl} and the Lemma~\ref{lemma:6.1} from section~\ref{section:6}, we can conclude that $(\nabla f(\tilde x))^t \tilde d \geq \sigma \left(\nabla f(\tilde x)\right)^t \tilde d$ for $k \to \infty$, $k \in K$. By $\sigma \in \left(0, \frac12\right)$, we can conclude
 	\[ \left(\nabla f(\tilde x)\right)^t \tilde d \geq 0 \]
 	Direction as in Newton's method is chosen only if
 	\[ \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq \underbrace{-\rho \Norm{d^{(k)}}^p}_{< 0} \]
