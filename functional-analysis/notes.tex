@@ -793,19 +793,20 @@ Now, which topics are we going to cover in this course:
 						\item[$n \to n+1$]
 							Let $a_n \in E_n$ such that $M \cap B_{\frac1{2^n}}(a_n) \in \Omega$ be given.
 							Let $\tilde E_{n+1} = \SetDef{a \in E_{n+1}}{B_{\frac1{2^n}}(a_n) \cap B_{\frac1{2^{n+1}}}(a) \neq \emptyset}$.
+							It holds that $M \cap B_{\frac1{2^n}}(a_n) \subset \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{2^{n+1}}}(a)$:
+							\[
+								x \in M \cap B_{\frac1{2^n}}(a_n) \implies \exists \hat a \in E_{n + 1} : x \in B_{\frac{1}{2^{n + 1}}}(\hat a) \\
+								\implies B_{\frac1{2^n}}(a_n) \cap B_{\frac{1}{2^{n + 1}}}(\hat a) \neq \emptyset \implies \hat a \in \tilde E_{n + 1} \implies x \in \bigcup_{a \in \tilde E_{n + 1}} B_{\frac1{2^{n + 1}}}(a)
+							\]
+							Hence there exists $a_{n+1} \in E_{n + 1}$ such that $M \cap B_{\frac{1}{2^{n+1}}}(a_{n+1}) \in \Omega$ and \\ $B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n-1}}}(a_{n+1}) \neq \emptyset$.
+							Thus $(a_n)_n$ is well-defined.
 					\end{description}
-
-					Since $M \cap B_{\frac1{2^n}}(a_n) \subset \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{2^{n+1}}}(a)$.
-					[Take $x \in M \cap B_{\frac1{2^n}}(a_n) \implies x \in B_{\frac{1}{2^{n+1}}}(\hat a)$, but if $B_{\frac1{2^{n-1}}}(\hat a) \cap B_{\frac1{2^n}}(a_n) = \emptyset$
-					\[ \implies \hat a \in \tilde E_{n+1} \implies x \in \bigcup_{a \in \tilde E_{n+1}} B_{\frac{1}{a^{n+1}}}(a) \]
-					Hence there exists $a_{n+1}$ such that $M \cap B_{\frac{1}{2^{n+1}}}(a_{n+1}) \in \Omega$ and $B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n-1}}}(a_{n+1}) \neq \emptyset$.
-					Thus $(a_n)_n$ is well-defined.
 
 				\item[Step 2] Show that $(a_n)_n$ converges. Take $n \in \mathbb N$ and $z \in B_{\frac{1}{2^n}}(a_n) \cap B_{\frac{1}{2^{n+1}}}(a_{n+1})$.
 					\[ \implies d(a_n, a_{n+1}) < d(a_n, z) + d(z, a_{n+1}) \leq \frac{1}{2^n} + \frac{1}{2^{n+1}} = \frac{3}{2^{n+1}} \]
 					\[ \forall k \geq n: d(a_k, a_n) \leq \sum_{i=n}^{k-1} d(a_{i+1}, a_i) < \sum_{i=n}^{k-1} \frac{3}{2^{i+1}} = \frac{3}{2^{n+1}} \sum_{i=0}^{k-n-1} \frac{1}{2^i} \leq \frac{3}{2^n} \]
 					thus, $(a_n)_n$ is Cauchy. $M$ is complete, so $\exists a \in M: a_n \xrightarrow{n \to \infty} a$
-					\[ \implies \exists U_{i_0}: a \in U_{i_0} and \exists i > 0: B_r(a) \subset U_{i_0} \]
+					\[ \implies \exists U_{i_0}: a \in U_{i_0} \text{ and } \exists r > 0: B_r(a) \subset U_{i_0} \]
 					Hence, for $n$ sufficiently large such that $d(a, a_n) < \frac r2$ and $\frac1{2^n} < \frac r2$.
 					We take $x \in B_{\frac1{2^n}}(a_n)$ and estimate
 					\[ d(x, a) \leq d(x, a_n) + d(a_n, a) < \frac r2 + \frac r2 = r \]
@@ -834,7 +835,7 @@ Now, which topics are we going to cover in this course:
 		\item If $f|_M$ is not uniformly continuous, then $\exists \varepsilon > 0 \forall n \in \mathbb N \exists x, y \in M: d(x, y) < \frac1n$ and $d(f(x), f(y)) > \varepsilon$ (*).
 			Now take $(x_n)_n, (y_n)_n$ sequences in $M$ satisfying condition (*).
 			$M$ is compact, so $\exists (x_{n_i})_{i}$ subsequence converging to some $x \in M$.
-			\[ d(y_{n_i}, x) < d(y_{n_i}, x_{n_i}) + d(x_{n_i}, x) \leq \frac{1}{n_i} + d(x_{n_i}, x) \xrightarrow{i \to \infty} 0 \]
+			\[ d(y_{n_i}, x) < d(y_{n_i}, x_{n_i}) + d(x_{n_i}, x) < \frac{1}{n_i} + d(x_{n_i}, x) \xrightarrow{i \to \infty} 0 \]
 	\end{enumerate}
 \end{proof}
 
@@ -937,7 +938,7 @@ Now, which topics are we going to cover in this course:
 					We prove the other direction.
 
 					\dateref{2019/03/26}
-					$B$ is complete since it is a closed subset of a Banach space.
+					$M$ is complete since it is a closed subset of a Banach space.
 
 					Show: $M$ is totally bounded.
 
@@ -1096,15 +1097,15 @@ We consider a common, but less useful reformulation:
 	\begin{description}
 		\item[$\implies$]
 			Take $m_1 < m_2$ arbitrary, then
-			\[ \Norm{\sum_{n=1}^{m_1} x_n - \sum_{n=1}^{m_2} x_n} \leq \sum_{n=m_1+1}^{m_2} \Norm{x_1} = \sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_1} \leq \Norm{\sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_1}} \]
+			\[ \Norm{\sum_{n=1}^{m_1} x_n - \sum_{n=1}^{m_2} x_n} \leq \sum_{n=m_1+1}^{m_2} \Norm{x_n} = \sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_n} \leq \Abs{\sum_{n=1}^{m_1} \Norm{x_n} - \sum_{n=1}^{m_2} \Norm{x_n}} \]
 			\[ \implies \left(\sum_{n=1}^m x_n\right)_m \text{ is Cauchy } \implies \text{ convergent} \]
 		\item[$\impliedby$]
 			Let $(x_n)_n$ be Cauchy. Show that $(x_n)_n$ converges. For $\varepsilon_k = 2^{-k}$, pick $N_k$ such that $\Norm{x_n - x_m} \leq 2^{-k} \forall n, m \geq N_k$
 			\[ \implies \exists (x_{n_k})_k \text{ a subsequence such that } \Norm{x_{n_{k+1}} - x_{n_k}} \leq 2^{-k} \]
-			Define $y_k \coloneqq x_{n_{k-1}} - x_{n_k} \implies \sum_k \Norm{y_{n_w}} \leq \sum_k 2^{-k} < \infty$
+			Define $y_k \coloneqq x_{n_{k+1}} - x_{n_k} \implies \sum_k \Norm{y_{n_k}} \leq \sum_k 2^{-k} < \infty$
 			\[ \implies \exists y \in X: \sum_{k=1}^n y_k \to y \text{ as } n \to \infty \]
 			\[ \sum_{k=1}^n y_k = x_{n_{m+1}} - x_{n_1} \implies x_{n_{m+1}} \to y - x_{n_1} \text{ as } n \to \infty \]
-			So $(x_n)_n$ has a convergent subsequence and $(x_n)_n$ is Cauchy, then $(x_n)_n$ is convergent.
+			So $(x_n)_n$ has a convergent subsequence and $(x_n)_n$ is Cauchy, hence $(x_n)_n$ is convergent.
 	\end{description}
 \end{proof}
 
@@ -1175,7 +1176,7 @@ We consider a common, but less useful reformulation:
 \end{definition}
 
 \begin{proof}
-	Proving the equivalence relation properties and well-definedness of the vector space with \enquote{+} and \enquote{$\lambda[x]$} is left as an exercise to the reader.
+	We need to show that the given relation is an equivalence relation and that the vector space with \enquote{$+$} is well-defined. This is left to the reader as an exercise.
 	\begin{itemize}
 		\item[2.]
 			\begin{itemize}
@@ -1187,12 +1188,12 @@ We consider a common, but less useful reformulation:
 					Show that: $\Norm{\lambda [x]}_{X/Y} = \Abs{\lambda} \Norm{[x]}_{X/Y}$.
 
 					Trivial, if $\lambda = 0$. Assume $\lambda \neq 0$,
-					\[ \Norm{\lambda [x]}_{X/Y} = \Norm{[\lambda x]}_{X/Y} = \inf_{y \in [\lambda x]} \Norm{y} = \inf_{y \in X, \frac y\lambda \in [x]} \Norm{y} = \inf_{w \in [x]} \Norm{\lambda w} = \Abs{\lambda} \overbrace{\inf_{u \in [x]} \Norm{u}}^{\Norm{[x]}_{X/Y}} \]
+					\[ \Norm{\lambda [x]}_{X/Y} = \Norm{[\lambda x]}_{X/Y} = \inf_{y \in [\lambda x]} \Norm{y} = \inf_{y \in X, \frac y\lambda \in [x]} \Norm{y} = \inf_{w \in [x], w = \frac y\lambda} \Norm{\lambda w} = \Abs{\lambda} \overbrace{\inf_{u \in [x]} \Norm{u}}^{\Norm{[x]}_{X/Y}} \]
 
 				\item Take $[x_1], [x_2] \in X/Y, \varepsilon > 0$.
 					We note that
-					\[ \Norm{[x]}_{X/Y} = \inf_{\substack{y \in X \\ w \in Y \\ w \coloneqq x \cdot y}} \Norm{y} = \inf_{w \in Y} \Norm{x - w} \]
-					Hence we can take $y_1, y_2 \in Y$ such that $\Norm{x_1 - y_i} < \Norm{[x_i]}_{X/Y} + \varepsilon$ ($\varepsilon \in [1, 2)$).
+					\[ \Norm{[x]}_{X/Y} = \inf_{y \in [x]} \Norm{y} = \inf_{\substack{y \in [x] \\ w = x - y}} \Norm{x - y} = \inf_{w \in Y} \Norm{x - w} \]
+					Hence we can take $y_1, y_2 \in Y$ such that $\Norm{x_1 - y_i} < \Norm{[x_i]}_{X/Y} + \varepsilon, \quad i \in [1, 2)$.
 					\begin{align*}
 						\implies \Norm{[x_1] + [x_2]}_{X/Y} &= \Norm{[x_1 + x_2]}_{X/Y} \leq \Norm{x_1 + x_2 - (y_1 + y_2)} \\
 							&\leq \Norm{x_1 - y_1} + \Norm{x_2 - y_2} \leq \Norm{[x_1]}_{X/Y} + \Norm{[x_2]}_{X/Y} + 2 \varepsilon
@@ -1206,7 +1207,7 @@ We consider a common, but less useful reformulation:
 
 			Choose $\forall n \in \mathbb N: \tilde x_n \in [x_n]$ such that $\Norm{\tilde x_n} \leq \Norm{[x_n]}_{X/Y} + 2^{-n}$
 			\[ \implies \sum_{n=1}^\infty \Norm{\tilde x_n} \leq \sum_{n=1}^\infty \left(\Norm{[x_n]}_{X/Y} + 2^{-n}\right) < c < \infty \]
-			\[ X \text{ complete} \implies \exists x \in X: \sum_{n=1}^\infty \tilde x_n = x \qquad \Norm{[x] - \sum_{n=1}^m \underbrace{[x_n]}_{[\tilde x_n]}}_{X/Y} \leq \Norm{x - \underbrace{\sum_{k=0}^n \tilde x_k}_{\to 0}} \]
+			\[ X \text{ complete} \implies \exists x \in X: \sum_{n=1}^\infty \tilde x_n = x \qquad \Norm{[x] - \sum_{n=1}^m \underbrace{[x_n]}_{[\tilde x_n]}}_{X/Y} \leq \Norm{x - \sum_{k = 0}^n \tilde x_k} \to 0 \]
 	\end{itemize}
 \end{proof}
 
@@ -2802,13 +2803,19 @@ Closed operators are continuous in the right topology.
 					\[ f(x) = \begin{cases} \frac{\Abs{g(x)}^\infty}{g(x)} & \text{if } g(x) \neq 0 \\ 0 & \text{else} \end{cases} \]
 					\[ E_n \coloneqq \SetDef{x \in \Omega}{\Abs{q(x)} \leq n} \implies X_{E_n} f \in L^\infty \]
 					Further:
-					\[ \int_{E_n} \Abs{g}^q \, d\mu = \int_{\Omega} X_{E_n} \IP{f}{g} \, d\mu = y^*(\chi_{E_n} f) \leq \Norm{y^*} \Norm{\chi_{E_n} \cdot f}_p = \Norm{y^*} \left(\int_{E_n} \Abs{f}^p \, d\mu\right)^{\frac1p} = \Abs{y^*} \left(\int_{E_n} \Abs{g}^{(q - 1)p}\right)^{\frac1p} \]
+					\begin{align} % Slightly overful hbox
+						\int_{E_n} \Abs{g}^q \, d\mu &= \int_{\Omega} X_{E_n} \IP{f}{g} \, d\mu \\
+						&= y^*(\chi_{E_n} f) \\
+						&\leq \Norm{y^*} \Norm{\chi_{E_n} \cdot f}_p \\
+						&= \Norm{y^*} \left(\int_{E_n} \Abs{f}^p \, d\mu\right)^{\frac1p} \\
+						&= \Abs{y^*} \left(\int_{E_n} \Abs{g}^{(q - 1)p}\right)^{\frac1p}
+					\end{align}
 					with $(q - 1)p = g$ because $p = \frac{q}{q - 1}$.
 					\[ \implies \left(\int_{E_n} \Abs{g}^{q} \, d\mu\right)^{\frac1q} = \left(\int_{E_n} \Abs{g}^q \, d\mu\right)^{1 - \frac1p} \leq \Norm{y^*} \]
 					By the Beppo-Levi Theorem,
 					\[ \left(\int_{\Omega} \Abs{g}^q \, d\mu\right)^{\frac1q} \leq \Norm{y^*} \]
 					Hence, $g \in L^q$ and $\Norm{g}_q \leq \Norm{y^*}$.
-				\item[Case $q \coloneqq \infty$:]
+				\item[Case $q = \infty$:]
 					Define $E \coloneqq \SetDef{x \in \Omega}{\Abs{q(x)} > \Norm{y^*}}$. $f \coloneqq \chi_E \cdot \frac{\Abs g}{\overline g} \in L^\infty$.
 					If $\mu(E) > 0$, then
 					\[ \mu(E) \Norm{y^*} < \int_E \Abs{g} \, d\mu = \int_{\Omega} (fg) \, d\mu = y^*(f) \leq \Norm{y^*} \Norm{f}_1 = \Norm{y^*} \mu(E) \]
