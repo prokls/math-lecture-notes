@@ -5870,7 +5870,7 @@ Eigenvector: $e_1, \dots, e_n$.
   is not a basis of eigenvectors.
 
   \[ A^2 = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}^2 = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix} \]
-  $A$ is nilpotent, hence a square matrix $M$ such that $M^k = 0$ for any $k \in \mathbb N_{\geq1}$.
+  $A$ is nilpotent, hence a square matrix $M$ such that $\exists k \in \mathbb N_{\geq1}: M^k = 0$.
 \end{example}
 
 \subsection{Multiplicities of eigenvalues}
@@ -5945,13 +5945,13 @@ Eigenvector: $e_1, \dots, e_n$.
 
 \dateref{2018/05/23}
 
-\begin{Remark}[Revision]
+\begin{corollary}
   $A$ is diagonalizable iff $\exists T$:
   \[ T^{-1} AT = \begin{bmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{bmatrix} \]
   where $T$ is basis of eigenvectors.
   \[ \iff d(\lambda) = \text{ geometric multiplicity } = \dim{\eta_{\lambda}} \]
   \[ \overset!= k(\lambda) = \text{ algebraic multiplicity} \]
-\end{Remark}
+\end{corollary}
 
 \begin{Example}
   \[ A = \begin{bmatrix} \lambda & 1 & 0 \\ 0 & \lambda & 1 \\ 0 & 0 & \lambda \end{bmatrix} \]
@@ -7205,7 +7205,7 @@ $\leadsto$ basis $B_i$ such that
   Let $A \in \mathbb K^{N \times N}$.
   \begin{enumerate}
     \item $\exists p(x) \in \mathbb K[x]: p(A) = 0$
-    \item $\exists$ a unique polynomial $m_A(x) \in \mathbb K[x]$ with minimal degree and leading coefficients $1$.
+    \item $\exists$ a unique polynomial $m_A(x) \in \mathbb K[x]$ with minimal degree and leading coefficients $1$ such that $m_A(A) = 0$.
       $m_A(x)$ is called \emph{minimal polynomial of $A$}.
     \item $\operatorname{Ann}(A) = \setdef{p(x) \in \mathbb K[x]}{p(A) = 0}$ is called \emph{annihilator of $A$}
       and it holds that $p(x) \in \operatorname{Ann}(A) \iff m_A(x) \divides{} p(x)$
