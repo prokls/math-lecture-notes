@@ -4293,14 +4293,14 @@ In the following, we choose $d^{(k)} = -\nabla f(x^{(k)})$ and look at the resul
 
 For this approach, our generic convergence result (efficient step size required) is not applicable.
 
-\begin{theorem}
-	\label{theorem:6.1}
+\begin{lemma}
+	\label{lemma:6.1}
 	Let $f: \mathbb R^n \to \mathbb R$ be continuously differentiable. If
 	\[ \Set{x^{(k)}} \to x, x^{(k)}, x \in \mathbb R^n \qquad \Set{d^{(k)}} \to d, d^{(k)}, d \in \mathbb R^n \]
 	\[ \Set{t_k} \to 0, t_k > 0 \quad t_k \in \mathbb R \]
 	Then
 	\[ \lim_{k \to \infty} \frac{f(x^{(k)} + t_k d^{(k)} - f(x^{(k)}))}{t_k} = \left(\nabla f(x)\right)^t d \]
-\end{theorem}
+\end{lemma}
 
 \begin{proof}
 	Left as an exercise to the reader.
@@ -4327,7 +4327,7 @@ For this approach, our generic convergence result (efficient step size required)
 	\[ \implies f(x^{(k)} + \beta^{l_{k-1}} d^{(k)}) > f(x^{(\alpha)}) + \sigma \beta^{l_k - 1}(\nabla f(x^{(k)}))^t d^{(k)} \]
 	for all $k \in K$ with sufficiently large $k$ where $t_k = \beta^{l_k}$ ($l_k$ is uniquely determined) is the Armijo step size in step $k$.
 	\[ \implies \frac{f(x^{(k)} + \beta^{l_k - 1} d^{(k)} - f(x^{(k)}))}{\beta^{l_k - 1}} > \sigma \left(\nabla f(x^{(k)})\right)^t d^{(k)} \]
-	With $k \to \infty$, $k \in K$ we get $\beta^{l_k - 1} \to 0$ and with Theorem~\ref{theorem:6.1}.
+	With $k \to \infty$, $k \in K$ we get $\beta^{l_k - 1} \to 0$ and with Theorem~\ref{lemma:6.1}.
 	\[ -\Norm{\nabla f(\tilde x)}^2 \geq -\sigma \cdot \Norm{\nabla f(\tilde x)}^2 \]
 	This is a contradiction because $\nabla f(\tilde x) \neq 0, \sigma \in (0, 1)$.
 \end{proof}
@@ -4654,8 +4654,9 @@ Well-definedness of the local Newton's method is just a local property.
 	\end{itemize}
 	Global Newton's method:
 	\begin{itemize}
-		\item Uses the Newton direction if it exists and is satisfactory
-		\item otherwise direction of steepest descent with step size choice by Armijo's rule
+		\item Uses the Newton direction if it exists and is satisfactory,
+		\item otherwise direction of steepest descent.
+		\item Step size choice by Armijo's rule (in every case)
 	\end{itemize}
 \end{Revision}
 
@@ -4664,9 +4665,7 @@ Well-definedness of the local Newton's method is just a local property.
 
 	Assume that wlog. $d^{(k)}$ is the solution of the Newton equation $\nabla^2 f(x^{(k)}) d^{(k)} = -\nabla f(x^{(k)}) \forall k \in K$.
 
-	\begin{Remark}
-		$\tilde x$ is not a stationary point. Thus $\nabla f(\tilde x) \neq 0$.
-	\end{Remark}
+	Assume that $\tilde x$ is not a stationary point. Thus $\nabla f(\tilde x) \neq 0$.
 
 	We have $\Norm{\nabla f(x^{(k)})} = \Norm{\nabla^2 f(x^{(k)}) d^{(k)}} \leq \Norm{\nabla^2 f(x^{(k)})} \Norm{d^{(k)}} \forall k \in K$.
 	\[ \implies \Norm{d^{(k)}} \geq \frac{\Norm{\nabla f(x^{(k)})}}{\Norm{\nabla^2 f(x^{(k)})}} \]
@@ -4676,12 +4675,13 @@ Well-definedness of the local Newton's method is just a local property.
 		it does not fit our requirements.
 	\end{Remark}
 
-	Now we can consider that constants $d_1, d_2 > 0$ exist
-	\[ 0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \qquad \forall k \in K \]
-	Assume there exists a subsequence of $K$ with $\Norm{d^{(k)}} \to 0$ for this subsequence.
+	Now we can consider that constants $d_1, d_2 > 0$ exist such that
+	\begin{align} 0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \qquad \forall k \in K \label{somelabel} \end{align}
+	But do these constants exist? Regarding $d_1$, assume there exists a subsequence of $K$ with $\Norm{d^{(k)}} \to 0$ for this subsequence.
 	Thus as a consequence $\Norm{\nabla f(x^{(k)})} \to 0$ for this subsequence (consider that $\Norm{\nabla^2 f(x^{(k)})}$ is bounded).
 	Then $\tilde x$ would be a stationary point of $f$ opposing our assumption.
-	By the Cauchy-Schwarz inequality, $\Norm{d^{(k)}}$ cannot be unbounded by above.
+	Regarding $d_2$, we consider the Cauchy-Schwarz inequality. Thus $\Norm{d^{(k)}}$ cannot be unbounded by above.
+	Hence, the constants exist.
 
 	Furthermore, we have that:
 	\begin{itemize}
@@ -4689,22 +4689,25 @@ Well-definedness of the local Newton's method is just a local property.
 		\item $\Set{f(x^{(k)})}_K \to f(\tilde x)$
 	\end{itemize}
 	By these two properties, $\Set{f(x^{(k)})} \to f(\tilde x)$. Thus $\Set{f(x^{(k+1)}) - f(x^{(k)})} \to 0$.
+	We consider the requirement of the global Newton's method:
+	\[ \nabla f(x^{(k)}) d^{(k)} \leq -\rho \Norm{d^{(k)}}^p. \]
+	Using this and the step size choice (Armijo), we get that
 	\[ \Set{t_k\left(\nabla f(x^{(k)})\right)^t d^{(k)}} \to 0 \]
-	Requirements of Global Newton's method (incl. step size choice):
-	\[ \nabla f(x^{(k)}) d^{(k)} \leq -\rho \Norm{d^{(k)}}^p \]
 
 	Now we show that $\Set{t_k}_K$ is bounded from $0$ (i.e. $\exists c: t_k \leq c < 0$).
-	Assume there exists some subsequence $\tilde k$ of $K$ with $\Set{t_k}_K \to 0$.
+	Assume there exists some subsequence $\tilde k$ of $K$ with $\Set{t_k}_{\tilde K} \to 0$.
 	By Armijo's rule $t_k = \beta^{l_k}$ with $l_k \in \mathbb N$ uniquely determined.
 	For $\beta^{l_k - 1}$, the Armijo condition is not yet satisfied. Let $k$ be sufficiently large,
 	\begin{align} \frac{f(x^{(k)} - \beta^{l_k - 1} d^{(k)}) - f(x^{(k)})}{\beta^{l_k-1}} > \sigma \left(\nabla f(x^{(k)})\right)^t d^{(k)} \label{xvl} \end{align}
-	By $(0 < d_1 \leq \Norm{d^{(k)}} \leq d_2 \forall k \in K)$, we can assume that $\Set{d^{(k)}}_K \to \tilde d$ with $\tilde d \neq 0$.
-	By \eqref{xvl} and the Lemma from section~\ref{section:6}, we can conclude that $(\nabla f(\tilde x))^t \tilde d \geq \sigma \left(\nabla f(\tilde x)\right)^t \tilde d$ for $k \to \infty$, $k \in K$. By $\sigma \in \left(0, \frac12\right)$, we can conclude
+	By \eqref{somelabel}, we can assume that $\Set{d^{(k)}}_K \to \tilde d$ with $\tilde d \neq 0$.
+	By \eqref{xvl} and the Lemma~\ref{theorem:6.1} from section~\ref{section:6}, we can conclude that $(\nabla f(\tilde x))^t \tilde d \geq \sigma \left(\nabla f(\tilde x)\right)^t \tilde d$ for $k \to \infty$, $k \in K$. By $\sigma \in \left(0, \frac12\right)$, we can conclude
 	\[ \left(\nabla f(\tilde x)\right)^t \tilde d \geq 0 \]
 	Direction as in Newton's method is chosen only if
 	\[ \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq \underbrace{-\rho \Norm{d^{(k)}}^p}_{< 0} \]
 	\[ \implies \left(\nabla f(\tilde x)\right)^t \tilde d < 0 \]
-	This gives a contradiction with our assumption regarding $\Set{t_k}$:
+	This gives a contradiction with our assumption regarding $\Set{t_k}$.
+
+	Hence,
 	\[ \exists \tau > 0: t_k \geq \tau \qquad \text{ for } k \in K \]
 	Because
 	\[ \Set{t_k \left(\nabla f(x^{(k)})\right)^t d^{(k)}}_K \to 0 \implies \Set{\left(\nabla f(x^{(k)})\right)^t d^{(k)}}_K \to 0 \]
@@ -4739,7 +4742,7 @@ Well-definedness of the local Newton's method is just a local property.
 	By Theorem~\ref{theorem:7.2}, $\tilde x$ is a stationary point. By continuity of f,
 	\begin{align} \Set{\nabla f(x^{(k)})}_K \to \nabla f(\tilde x) \underbrace{=}_{\tilde x \text{ is stationary point}} 0 \label{gsn}\end{align}
 	Because $t_k \in (0, 1]$, we have
-	\begin{align} \Norm{x^{(k+1)} - x^{(k)}} = t_k \Norm{dx^{(k)}} \leq \Norm{d^{(k)}} \forall k \in \mathbb N \label{bla}\end{align}
+	\begin{align} \Norm{x^{(k+1)} - x^{(k)}} = t_k \Norm{d^{(k)}} \leq \Norm{d^{(k)}} \forall k \in \mathbb N \label{bla}\end{align}
 	By the algorithm, we have
 	\begin{align} \left(\nabla f(x^{(k)})\right)^t d^{(k)} \leq -\rho \Norm{d^{(k)}}^p \label{qfg}\end{align}
 	By the application of the Cauchy-Schwarz inequality,
@@ -4841,7 +4844,7 @@ an appropriate [to be discussed] approximation of the Hessian (or its inverse) i
 The sequence of approximations is generated by simple update rules (e.g. rank-1-updates, rank-2-updates).
 Every iteration of the Quasi-Newton process is computationally easier than an iteration of Newton's method.
 
-The central question is \enquote{Can we transfer the nice properties of Newton's method}? If so, under which assumptions.
+The central question is: Can we transfer the nice properties of Newton's method? If so, under which assumptions.
 
 \begin{align} x^{(k+1)} \coloneqq x^{(k)} - \left(H^{(k)}\right)^{-1} \nabla f(x^{(k)}) \label{iqafe}\end{align}
 
@@ -4867,15 +4870,15 @@ Because superlinear convergence is our minimal goal, \eqref{condiefag} is our go
 \end{align*}
 Thus $\Norm{\nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) - \nabla^2 f(x^{(k)}) \left(x^{(k+1)} - x^{(k)}\right)} = o\left(\Norm{x^{(k+1)} - x^{(k)}}\right)$
 
-Equation~\ref{condiefag} is equivalent to
-\begin{align} \Norm{\nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) - H^{(k)}\left(x^{(k+1)} - x^{(k)}\right)} = o\left(\nabla f(x^{(k)})\right)^t d^{(k)} \label{iqancd}\end{align}
+Equation~\eqref{condiefag} is equivalent to
+\begin{align} \Norm{\nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) - H^{(k)}\left(x^{(k+1)} - x^{(k)}\right)} = o\left(\left(\nabla f(x^{(k)})\right)^t d^{(k)}\right) \label{iqancd}\end{align}
 The details will be discussed in the practicals. This is motivating requiring the following condition:
 \[ \nabla f(x^{(k+1)}) - \nabla f(x^{(k)}) = H^{(k+1)} \left(x^{(k+1)} - x^{(k)}\right) \]
 \begin{Remark}
 	Because $x^{(k+1)}$ occurs, $H^{(k+1)}$ must have influence in the condition and not $H^{(k)}$.
 \end{Remark}
 
-This define the Quasi-Newton condition (sometimes called \emph{secant method}\index{Secant method}).
+This defines the Quasi-Newton condition (sometimes called \emph{secant method}\index{Secant method}).
 
 \dateref{2019/06/17}
 
