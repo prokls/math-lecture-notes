@@ -108,6 +108,26 @@
 }
 \makeatother
 
+% https://tex.stackexchange.com/a/215272
+\makeatletter
+  \DeclareSymbolFont{ntxletters}{OML}{ntxmi}{m}{it}
+  \SetSymbolFont{ntxletters}{bold}{OML}{ntxmi}{b}{it}
+  \re@DeclareMathSymbol{\leftharpoonup}{\mathrel}{ntxletters}{"28}
+  \re@DeclareMathSymbol{\leftharpoondown}{\mathrel}{ntxletters}{"29}
+  \re@DeclareMathSymbol{\rightharpoonup}{\mathrel}{ntxletters}{"2A}
+  \re@DeclareMathSymbol{\rightharpoondown}{\mathrel}{ntxletters}{"2B}
+  \re@DeclareMathSymbol{\triangleleft}{\mathbin}{ntxletters}{"2F}
+  \re@DeclareMathSymbol{\triangleright}{\mathbin}{ntxletters}{"2E}
+  \re@DeclareMathSymbol{\partial}{\mathord}{ntxletters}{"40}
+  \re@DeclareMathSymbol{\flat}{\mathord}{ntxletters}{"5B}
+  \re@DeclareMathSymbol{\natural}{\mathord}{ntxletters}{"5C}
+  \re@DeclareMathSymbol{\star}{\mathbin}{ntxletters}{"3F}
+  \re@DeclareMathSymbol{\smile}{\mathrel}{ntxletters}{"5E}
+  \re@DeclareMathSymbol{\frown}{\mathrel}{ntxletters}{"5F}
+  \re@DeclareMathSymbol{\sharp}{\mathord}{ntxletters}{"5D}
+  \re@DeclareMathAccent{\vec}{\mathord}{ntxletters}{"7E}
+\makeatother
+
 
 % metadata
 \title{
@@ -6247,8 +6267,9 @@ $\card{G_j} \geq \rho(E_j)$
     &= (\card{G_1} - \underbrace{\card{G_0}}_{=0}) c(e_1) + (\card{G_2} - \card{G_1}) c(e_2) + \ldots + (\card{G_n} - \card{G_{n-1}}) c(e_n) \\
     &= \card{G_1} \underbrace{\left(c(e_1) - c(e_2)\right)}_{d_1} + \card{G_2} \underbrace{\left(c(e_2) + c(e_3)\right)}_{d_2} + \ldots + \card{G_n} \underbrace{c(e_n)}_{d_n} \\
     &= \sum^n_{j=1} \card{G_j} d_j \geq \sum_{j=1}^n \rho(E_j) d_j \geq q(E, \mathcal{F}) \sum_{j=1}^n r(E_j) d_j \\
-    &\geq \card{O_1} (c(1) - c(2)) + \ldots + \card{O_n} c(e_n) = \card{O_1} c(e_1) + (\card{O_2} - \card{O_1}) c(e_2) + \ldots + (\card{O_n} - \card{O_{n-1}}) c(e_n) \\
-    &\geq q(E, \mathcal{F}) \sum_{j=1}^n \left(\card{O_j} - \card{O_{j-1}}\right) c(e_j)
+    &\geq \card{O_1} (c(1) - c(2)) + \ldots + \card{O_n} c(e_n) = \card{O_1} c(e_1) \\
+    &+ (\card{O_2} - \card{O_1}) c(e_2) + \ldots + (\card{O_n} - \card{O_{n-1}}) c(e_n) \\
+    &\geq q(E, \mathcal{F}) \sum_{j=1}^n \left(\card{O_j} - \card{O_{j-1}}\right) c(e_j) \\
     &= q(E, \mathcal{F}) c(O_n)
 \end{align*}
 
@@ -6304,7 +6325,9 @@ $\Rightarrow$ the smallest $q(E, \mathcal{F})$ is always achieved by at least on
 
 \textbf{Remark.}
   For matroids, minimization and maximization problems are equivalent.
-  Hence the maximization problem handled by the GREEDY-IN algorithm is equivalent to $\min\set{\overline{c}(B) = \sum_{e \in B}\overline{c}(e): B \text{ is base of } (E, \mathcal{F})}$ where $\overline{c}(e) = M - c(e)$ with $M = \max_{e \in E} \card{c(e)} + 1$.
+  Hence the maximization problem handled by the GREEDY-IN algorithm is equivalent to
+  \[ \min\set{\overline{c}(B) = \sum_{e \in B}\overline{c}(e): B \text{ is base of } (E, \mathcal{F})} \]
+  where $\overline{c}(e) = M - c(e)$ with $M = \max_{e \in E} \card{c(e)} + 1$.
 
 
 \begin{theorem}
@@ -6326,9 +6349,10 @@ $\Rightarrow$ the smallest $q(E, \mathcal{F})$ is always achieved by at least on
 
   \[
     P(M(G)) = \set{x \in \mathbb{R}^{\set{E(G)}}: x \geq 0,
-      \underbrace{\sum_{e \in A} x_e \leq n - 1}_{\text{independent of components of $M(G)$ are forests}} \fall A \subsetneqq E(G),
+      \sum_{e \in A} x_e \leq n - 1 \fall A \subsetneqq E(G),
       \sum_{e \in A} x_e = n - 1, A = E(G)}
   \]
+  where the first sum is independent of components of $M(G)$ are forests
 
 % TODO: list of runtimes
 % TODO: list of algorithms
