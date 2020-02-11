@@ -70,6 +70,7 @@
 }
 \newcommand{\exist}{\;\exists\,}
 \newcommand{\fall}{\;\forall\,}
+\newcommand\doubleoverline[1]{\overline{\overline{#1}}}
 \newcommand{\noproof}[1]{A proof for Theorem~\ref{#1} is not provided.}
 \newcommand{\vectwo}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \newcommand{\bectwo}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
@@ -104,7 +105,6 @@
   }%
 }
 \makeatother
-
 
 % metadata
 \title{
@@ -183,7 +183,7 @@
   \[ \card{\angel{x, y}} \leq \norm{x} \norm{y} \]
 \end{theorem}
 \begin{proof}
-  \[ 0 \leq \angel{x - \lambda y, x - \lambda y} = \norm{x}^2 - 2\lambda \angel{x, y} + \lambda^2 \norm{y}^2 \qquad \forall \lambda \in \mathbb R \]
+  \[ 0 \leq \norm{x - \lambda y}^2 = \angel{x - \lambda y, x - \lambda y} = \norm{x}^2 - 2\lambda \angel{x, y} + \lambda^2 \norm{y}^2 \qquad \forall \lambda \in \mathbb R \]
   \[
     \lambda \coloneqq \frac{\angel{x, y}}{\norm{y}^2}
     \implies 0 \leq \norm{x}^2 - 2 \frac{\card{\angel{x, y}}^2}{\norm{y}^2} + \frac{\card{\angel{x, y}}^2}{\norm{y}^4} \cdot \norm{y}^2
@@ -240,7 +240,7 @@ Let $X \subseteq \mathbb R^n$ ($V$ is a normed vector space), then $d(x, y) = \n
 \end{example}
 
 \begin{example}[French railway]
-  All connections between two cities pass through Paris except one city is Paris.
+  All connections between two cities pass through Paris except one of the cities is Paris.
 \end{example}
 
 \begin{example}
@@ -323,12 +323,11 @@ Let $V$ be a vector space. $\norm{\cdot}$ is called \emph{norm on $V$}.
 \[ \forall x,y,z \in V: \norm{x + y} \leq \norm{x} + \norm{y} \]
 
 Let $X \subseteq V$ be a subset of normed vector space $V$.
-Then $X$ is a metric space with $d(x,y) = \norm{x - y}$.
+Then $X$ is a metric space with induced metric $d(x,y) = \norm{x - y}$.
 
 \index{Euclidean norm}
-For $V = \mathbb R^n$. Then
-\[ \norm{x} = \left(\sum_{i=1}^n x_i^2\right)^{\frac12} \]
-is a norm on $\mathbb R^n$. $\norm{x}_2$ is called \emph{Euclidean norm on $\mathbb R^n$}.
+Consider $V = \mathbb R^n$. Then $\norm{x}_2 = \left(\sum_{i=1}^n x_i^2\right)^{\frac12}$ is a norm on $\mathbb R^n$.
+$\norm{x}_2$ is called \emph{Euclidean norm on $\mathbb R^n$}.
 
 Other norms in $\mathbb R^n$:
 \[ \norm{x}_{\infty} = \max\setdef{\card{x_i}}{i = 1,\dots,n} \]
@@ -339,7 +338,7 @@ e.g. $\norm{x}_1$ in $\mathbb R^2$
 
 \begin{figure}[!ht]
   \begin{center}
-    \includegraphics{img/02_1norm.pdf}
+    \includegraphics[width=200px]{img/02_1norm.pdf}
     \caption{Visualizing $\norm{x}_1$, the Manhattan norm. You can think of walking the distance along the x-axis combined with the distance along the y-axis.}
     \label{img:1norm}
   \end{center}
@@ -377,7 +376,7 @@ Let $B \subseteq X$ and $X$ is a metric space. Then $B$ with $d$ is a metric spa
   Let $B \subseteq X$ and $x \in X$. We say, $x$ is a \emph{contact point of $B$}
   if $\forall \varepsilon > 0: K_{\varepsilon}(x) \cap B \neq \emptyset$.
 
-  [ $y \in X$ is not a contact point of $B \iff \exists \varepsilon > 0: K_{\varepsilon}(y) \cap B = \emptyset$ ]
+  Equivalently, $y \in X$ is not a contact point of $B \iff \exists \varepsilon > 0: K_{\varepsilon}(y) \cap B = \emptyset$.
 
   See Figure~\ref{img:cp}.
 \end{definition}
@@ -409,7 +408,7 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 
   \begin{description}
     \item[Direction $\mathbf\Rightarrow$]
-      Because $K_{\frac1n}(x) \cap B \neq \emptyset$, choose $X_n \in K_{\frac1n}(x) \cap B$.
+      Because $K_{\frac1n}(x) \cap B \neq \emptyset$, choose $x_n \in K_{\frac1n}(x) \cap B$.
       The sequence $(x_n)_{n\in\mathbb N}$ has property $d(x_n, x) < \frac1n$.
       Let $\varepsilon > 0$ be arbitrary. Choose $N \in \mathbb N$ such that $N > \frac1\varepsilon$ (consider the Archimedean axiom).
       Then for $n \geq N$, $d(x_n, x) < \frac1n \leq \frac1N < \varepsilon$, hence $\lim_{n\to\infty} x_n = x$.
@@ -424,22 +423,20 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{proof}
 
 \begin{lemma}
-  $\forall B \subseteq X: \overline{B} = \overline{\overline{B}}$.
+  $\forall B \subseteq X: \overline{B} = \doubleoverline{B}$.
   So $\overline{B}$ is closed in itself.
 \end{lemma}
 \begin{proof}
-  Show that $x \in \overline{B}$.
+  $\overline B \subseteq \doubleoverline B$ is trivial. Show that $\doubleoverline B \subseteq \overline B$ and thus show $x \in \doubleoverline B \implies x \in \overline{B}$.
 
   Let $x \in \overline{\overline{B}}$
   $\iff \forall \varepsilon > 0: K_{\varepsilon}(x) \cap \overline{B} \neq \emptyset$.
   Therefore let $\varepsilon > 0$ be arbitrary and $x \in \overline{\overline{B}}$.
-
   Show that $K_{\varepsilon}(x) \cap B \neq \emptyset$.
-
-  Because $x \in \overline{\overline{B}}: \exists y \in \overline{B}: y \in K_{\frac\varepsilon2}(x)$.
-  Because $y \in \overline{B}: \exists z \in B: z \in K_{\frac\varepsilon2}(y)$. Hence,
+  $x \in \overline{\overline{B}} \implies \exists y \in \overline{B}: y \in K_{\frac\varepsilon2}(x)$.
+  $y \in \overline{B} \implies \exists z \in B: z \in K_{\frac\varepsilon2}(y)$. Hence,
   \[ d(z,x) \leq \underbrace{d(z,y)}_{<\frac\varepsilon2} + \underbrace{d(y,x)}_{<\frac\varepsilon2} < \varepsilon \]
-  so $z \in K(x,\varepsilon) \cap B$. So $x$ is contact point of $B \implies x \in \overline{B}$.
+  so $z \in K_\varepsilon(x) \cap B$. So $x$ is contact point of $B \implies x \in \overline{B}$.
 \end{proof}
 
 \begin{lemma}
@@ -559,26 +556,27 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   \[ A \subseteq X \text{ is closed in $X$ } \iff O = X \setminus A = A^C \text{ is open} \]
 \end{theorem}
 
-\begin{proof}
-  Let $A$ be closed and $O + A^C$. We choose $x \in O$ and show that $x$ is in the interior of $O$.
+\begin{proof}[Indirect proof]
+  Let $A$ be closed and $O \coloneqq A^C$. For any $x \in O$, we show $x \in \mathring O$.
 
-  Assume the opoosite.
+  Assume the opposite. With $O^C = A$,
   \[ \forall \varepsilon > 0: \underbrace{\neg \left(K_{\varepsilon}(x) \subseteq O\right)}_{\iff K_{\varepsilon}(x) \cap O^C \neq \emptyset} \]
-  where $O^C = A$.
 
-  Direction $\Leftarrow$.
-  So $x$ is contact point of $A$.
-  Because $A$ is closed, $x \in A$.
-  This contradicts with $x \in O = A^C$. Thus $O$ is open.
+  \begin{description}
+    \item[Direction $\mathbf\Leftarrow$:]
+      So $x$ is contact point of $A$.
+      Because $A$ is closed, $x \in A$.
+      This contradicts with $x \in O = A^C$. Thus $O$ is open.
 
-  Direction $\Rightarrow$.
-  Let $O = A^C$ be open and let $x$ be a contact point of $A$. Show that $x \in A$.
+    \item[Direction $\mathbf\Rightarrow$:]
+      Let $O = A^C$ be open and let $x$ be a contact point of $A$. Show that $x \in A$.
 
-  Assume the opposite, hence $x \in A^C = O$ and $O$ is open.
-  So $\exists r > 0: K_r(x) \subseteq O$, so $K_r(x) \cap A = \diameter$ where $A = O^C$.
-  Hence $x$ is not a contact point of $A$.
+      Assume the opposite, hence $x \in A^C = O$ and $O$ is open.
+      So $\exists r > 0: K_r(x) \subseteq O$, so $K_r(x) \cap A = \diameter$ where $A = O^C$.
+      Hence $x$ is not a contact point of $A$.
 
-  So every contact point of $A$ is also an element of $A$ and $A$ is closed.
+      So every contact point of $A$ is also an element of $A$ and $A$ is closed.
+  \end{description}
 \end{proof}
 
 \begin{theorem}
@@ -1126,11 +1124,11 @@ Regarding the equivalence of norms:
   Let $\norm{\cdot}_1$ and $\norm{\cdot}_2$ be equivalent norms on $V$. Then,
   \begin{enumerate}
     \item $\lim_{n\to\infty} \norm{x_n - x}_1 = 0 \iff \lim_{n\to\infty} \norm{x_n - x}_2 = 0$,
-      hence $(x_n)_{n\in\mathbb N}$ is convergent with limit $x$ in regards of $\norm{\cdot}_1$
-      $\iff$ $(x_n)_{n\in\mathbb N}$ is convergent with limit $x$ in regards of $\norm{\cdot}_2$.
-    \item $O \subseteq V$ is open in regards of $\norm{\cdot}_1 \iff O$ is open in regards of $\norm{\cdot}_2$,
+      hence $(x_n)_{n\in\mathbb N}$ is convergent with limit $x$ with respect to $\norm{\cdot}_1$
+      $\iff$ $(x_n)_{n\in\mathbb N}$ is convergent with limit $x$ with respect to $\norm{\cdot}_2$.
+    \item $O \subseteq V$ is open with respect to $\norm{\cdot}_1 \iff O$ is open with respect to $\norm{\cdot}_2$,
       hence $\tau_1 = \tau_2$ (topologies are equivalent).
-    \item $K \subseteq V$ is compact in regards of $\norm{\cdot}_1 \iff K$ is compact in regards of $\norm{\cdot}_2$.
+    \item $K \subseteq V$ is compact with respect to $\norm{\cdot}_1 \iff K$ is compact with respect to $\norm{\cdot}_2$.
   \end{enumerate}
 \end{lemma}
 
@@ -1149,13 +1147,13 @@ Regarding the equivalence of norms:
       Let $y \in K_{\frac rM}^1(x)$. Then,
       \[ \norm{y - x}_2 \leq M \norm{y - x}_1 < M \cdot \frac rM = r \]
       hence $y \in K_r^2(x)$. $\implies K_{\frac rM}^1(x) \subseteq K_r^2(x)$.
-      Now let $O$ be open in regards of $\norm{\cdot}_2$, hence
+      Now let $O$ be open with respect to $\norm{\cdot}_2$, hence
       \[ \forall x \in O \exists r > 0: K_r^2(x) \subseteq O \implies K_{\frac rM}^1(x) \subseteq K_r^2(x) \subseteq O \]
-      so $O$ is open in regards of $\norm{\cdot}_1 \implies O$ is open in regards of $\norm{\cdot}_2$ analogously.
+      so $O$ is open with respect to $\norm{\cdot}_1 \implies O$ is open with respect to $\norm{\cdot}_2$ analogously.
     \item
-      Let $K$ be compact in regards of $\norm{\cdot}_1$ and $(x_n)_{n \in \mathbb N}$ be a sequence in $K$.
+      Let $K$ be compact with respect to $\norm{\cdot}_1$ and $(x_n)_{n \in \mathbb N}$ be a sequence in $K$.
       Then there exists a subsequence $(x_{n_k})_{k \in \mathbb N}$ with $\norm{x_{n_k} - x}_1 \to 0$ for $k \to \infty$
-      $\xRightarrow{\text{by the first property}} \norm{x_{n_k} - x}_2 \to 0$. Hence $(x_{n_k})_{k \in \mathbb N}$ is also a convergent subsequence in regards of $\norm{\cdot}_2$.
+      $\xRightarrow{\text{by the first property}} \norm{x_{n_k} - x}_2 \to 0$. Hence $(x_{n_k})_{k \in \mathbb N}$ is also a convergent subsequence with respect to $\norm{\cdot}_2$.
   \end{enumerate}
 \end{proof}
 
@@ -1237,7 +1235,7 @@ Regarding the equivalence of norms:
   Let $a < b$ with $a, b \in \mathbb R$. We consider functions of $[a,b]$.
   We call $(x_j)_{j = 0}^n$ a \emph{partition of $[a,b]$} if $a = x_0 < x_1 < x_2 < \dots < x_n = b$.
   $x_j$ decomposes $[a,b]$ in subintervals $(x_{j-1}, x_j)$.
-  $\varphi: [a,b] \to \mathbb R$ is called \emph{step function} in $[a,b]$ in regards of partition $(x_j)_{j=0}^n$
+  $\varphi: [a,b] \to \mathbb R$ is called \emph{step function in $[a,b]$ with respect to partition $(x_j)_{j=0}^n$}
   if $\varphi|_{(x_{j-1}, x_j)} = c_j$, so constant for $j=1,\dots,n$.
 
   \begin{figure}
@@ -1248,25 +1246,25 @@ Regarding the equivalence of norms:
     \end{center}
   \end{figure}
 
-  $\varphi$ is called \emph{step function} in $[a,b]$ if there exists a partition such that $\varphi$ is a subsequence.
-  \[ \tau[a,b] = \set{\varphi: [a,b] \to \mathbb R: \varphi \text{ is subsequence}} \]
+  $\varphi$ is called \emph{step function in $[a,b]$} if there exists a partition such that $\varphi$ is a subsequence.
+  \[ \tau[a,b] \coloneqq \setdef{\varphi: [a,b] \to \mathbb R}{\varphi \text{ is subsequence}} \]
 
-  Let $(\xi_i)_{i=0}^m$ be a partition of $[a,b]$ and $(x_j)_{j=0}^n$ is a partition as well.
-  Then we call $(\xi_i)_{i=0}^m$ a \emph{refinement} of $[a,b]$ and $(x_j)_{j=1}^n$ as well.
-  Then $(\xi_i)_{i=0}^n$ is a refinement of $(x_j)_{j=0}^k$ if
-  $\set{x_0, x_1, \dots, x_n} \subseteq \set{\xi_0, \xi_1, \dots, \xi_m}$
+  Let $(\xi_i)_{i=0}^m$ be a partition of $[a,b]$ and $(x_j)_{j=0}^n$ as well.
+  Then we call $(\xi_i)_{i=0}^m$ a \emph{refinement} of $(x_j)_{j=1}^n$.
+  Thus $(\xi_i)_{i=0}^n$ is a refinement of $(x_j)_{j=0}^k$ if
+  $\set{x_0, x_1, \dots, x_n} \subseteq \set{\xi_0, \xi_1, \dots, \xi_m}$.
 
   \begin{figure}[h]
     \begin{center}
       \includegraphics{img/10_refinement.pdf}
-      \caption{(top) Refinement (middle) function values in points $x_j$ are unrestricted (bottom) step functions on a refinement}
+      \caption{(top) Refinement (middle) Function values in points $x_j$ are unrestricted (bottom) Step functions on a refinement}
       \label{img:refine}
     \end{center}
   \end{figure}
 
   Compare with Figure~\ref{img:refine}.
-  Functions values in boundaries $x_{j-1}$ and $x_j$ do not have any constraints and will be relevant for an integral.
-  A $\varphi$ can be a step function in terms of many, various partitions.
+  Functions values in boundaries $x_{j-1}$ and $x_j$ do not have any constraints and this will be relevant for integrals.
+  Some $\varphi$ can be a step function in terms of many, various partitions.
 \end{definition}
 
 \begin{lemma}
@@ -1290,11 +1288,11 @@ Regarding the equivalence of norms:
     \end{center}
   \end{figure}
 
-  Then $(\xi_{i-1}, \xi_i) \subseteq \underbrace{(\xi_{i_{j-1}})}_{= (x_{j-1}, x_j)}, \xi_{i_j})$ and $\varphi|_{(\xi_{i-1}, \xi_j)} = c_j = \text{const}$. So $\varphi$ is a subsequence in regards of $(\xi_i)_{i=0}^m$.
+  Then $(\xi_{i-1}, \xi_i) \subseteq \underbrace{(\xi_{i_{j-1}}}_{= (x_{j-1}, x_j)}, \xi_{i_j})$ and $\varphi|_{(\xi_{i-1}, \xi_j)} = c_j$ constant. So $\varphi$ is a subsequence with respect to $(\xi_i)_{i=0}^m$.
 \end{proof}
 
 \begin{definition}
-  Let $\varphi \in \tau[a,b]$ in terms of partition $(X_j)_{j=0}^n$ with $\varphi|_{(X_{j-1}, X_j)} = c_j$ and $\triangle X_j = X_j - X_{j-1} > 0$ for $g = 1,\dots,n$. Then we define \dots
+  Let $\varphi \in \tau[a,b]$ in terms of partition $(x_j)_{j=0}^n$ with $\varphi|_{(x_{j-1}, x_j)} = c_j$ and $\triangle x_j = x_j - x_{j-1} > 0$ for $g = 1,\dots,n$. Then we define \dots
   \[ \int_a^b \varphi \, dx = \sum_{j=1}^n c_j \triangle x_j \]
   is called \emph{integral of $\varphi$} in terms of partition $(x_j)_{j=0}^n$
 \end{definition}
@@ -1346,7 +1344,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 
 \begin{lemma} % Lemma 4
   \label{lem4}
-  Let $f,g$ be step functions on $[a,b]$. $f,g \in \tau[a,b]$.
+  Let $f,g$ be step functions on $[a,b]$, i.e. $f,g \in \tau[a,b]$.
   \begin{itemize}
     \item
       for $\alpha, \beta \in \mathbb R$, let $\alpha f + \beta g \in \tau[a,b]$ and
@@ -1365,12 +1363,12 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       Then
       \begin{align*}
         \int_a^b (\alpha f + \beta g) \, dx
-          &= \sum_{i=1}^m (\alpha c_i + \beta d_i) \delta \xi_i \\
-          &= \alpha \sum_{i=1}^m c_i \delta \xi_i + \beta \sum_{i=1}^m d_i \delta \xi_i
+          &= \sum_{i=1}^m (\alpha c_i + \beta d_i) \triangle \xi_i \\
+          &= \alpha \sum_{i=1}^m c_i \triangle \xi_i + \beta \sum_{i=1}^m d_i \triangle \xi_i
           = \alpha \int_a^b f \, dx + \beta \int_a^b g \, dx
       \end{align*}
       Furthermore,
-      \[ (\alpha f + \beta g)|_{(\xi_{i-1},\xi_i)} = \alpha c_i + \beta d_i = \text{ const.} \]
+      \[ (\alpha f + \beta g)|_{(\xi_{i-1},\xi_i)} = \alpha c_i + \beta d_i = \text{constant} \]
       Thus,
       \[ \alpha f + \beta g \in \tau[a,b] \]
     \item
@@ -1381,10 +1379,10 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       Therefore,
       \[ 0 \leq \int_a^b h \, dx = \int_a^b (g - f) \, dx = \int_a^b g \, dx - \int_a^b f \, dx \]
     \item
-      $f \leq \card{f}$, hence $\int_a^b f \, dx \leq \int_a^b \card{f} \, dx$ and also
+      In general $f \leq \card{f}$, hence $\int_a^b f \, dx \leq \int_a^b \card{f} \, dx$ and also
       $-f \leq \card{f}$, so
-      \[ \int_a^b (-f) \, dx = -\int_a^b f \, dx \leq \int_a^b \card{f} \, dx \]
-      \[ \implies \card{\int_a^b f \, dx} \leq \int_a^b \card{f} \, dx \]
+      \[ \int_a^b (-f) \, dx = -\int_a^b f \, dx \leq \int_a^b \card{f} \, dx
+         \implies \card{\int_a^b f \, dx} \leq \int_a^b \card{f} \, dx \]
       It is left to prove: $\card{f} \in \tau[a,b]$ (i.e. $\card{f}$ is a step function)
 
       \begin{remark}[Elaboration]
@@ -1635,8 +1633,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       \[ \card{\varphi(\xi) - c_j} = 0 \]
     \item[Case 2]
       Let $x = x_j$ for $j = 1, \dots, n-1$.
-      \[ \implies \lim_{\xi \to x_j^+} \varphi(\xi) = c_{j+1} \]
-      \[ \lim_{\xi \to x_j^-} \varphi(\xi) = c_j \]
+      \[ \implies \lim_{\xi \to x_j^+} \varphi(\xi) = c_{j+1} \qquad \lim_{\xi \to x_j^-} \varphi(\xi) = c_j \]
       Compare with Figure~\ref{img:regf}.
       \begin{figure}
         \begin{center}
@@ -1650,7 +1647,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       \[ x = x_n = b \implies \lim_{\xi \to b^-} \varphi(\xi) = c_n \]
   \end{description}
 
-  Let $f: [a,b] \to \mathbb R$ be monotonically increasing oder monotonically decreasing.
+  Let $f: [a,b] \to \mathbb R$ be monotonically increasing or monotonically decreasing.
   Then $f \in \mathcal R[a,b]$. The proof will be done in the practicals.
 \end{example}
 
@@ -3727,7 +3724,7 @@ Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
 \index{Matrix norm}
 \begin{example}
   Let $\mathcal L(\mathbb R^m, \mathbb R^n) \cong \mathbb R^{n \times n}$.
-  (identify linear maps with its matrix representation in regards of the canonical basis)
+  (identify linear maps with its matrix representation with respect to the canonical basis)
   \[ A \in \mathbb R^{n \times m} \qquad A = (a_{ij})_{\substack{i=1,\dots,n \\ j=1,\dots,m}} \]
   \[ \norm{A}_F = \left(\sum_{i=1}^n \sum_{j=1}^m \card{a_{ij}}^2\right)^{\frac12} \qquad \text{\enquote{Forbenius norm}} \]
   It basically works by appending the next column to the previous one. Hence, this gives a column vector. We square every entries, sum it up and take its square root (a common norm procedure).
@@ -3743,7 +3740,7 @@ Hence, $\norm{\cdot}: \mathcal L(V, W) \to [0, \infty)$ with
 
   The set $\mathcal L_b(V, W) = \set{\varphi: V \to W: \varphi \text{ is linear and bounded}}$ is a subvectorspace of $\mathcal L(V, W)$. We let
   \[ \norm{\varphi} = \inf\set{m \geq 0: \norm{\varphi(x)}_W \leq m \cdot \norm{x}_V \forall x \in V} \]
-  and call $\norm{\varphi}$ the \emph{operator norm} on $\varphi$ in regards of $\norm{\cdot}_V$ and $\norm{\cdot}_W$.
+  and call $\norm{\varphi}$ the \emph{operator norm} on $\varphi$ with respect to $\norm{\cdot}_V$ and $\norm{\cdot}_W$.
 \end{definition}
 
 Regarding the subvector space property:
@@ -3834,8 +3831,8 @@ $\mathcal L_b(V, W) \neq \emptyset$.
       &= m \cdot \norm{x}_\infty
   \end{align*}
   Hence the boundedness criterion is satisfied.
-  $A$ is bounded in regards of $\norm{\cdot}_\infty$ in the preimage and image space.
-  By the norm equivalence theorem, it follows that $A$ is bounded in regards of arbitrary norms on $\mathbb R^m$, and accordingly $\mathbb R^n$.
+  $A$ is bounded with respect to $\norm{\cdot}_\infty$ in the preimage and image space.
+  By the norm equivalence theorem, it follows that $A$ is bounded with respect to arbitrary norms on $\mathbb R^m$, and accordingly $\mathbb R^n$.
 \end{remark}
 
 \dateref{2018/05/17}
@@ -4292,8 +4289,8 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
   Let $\norm{\cdot}_{1,m}$ and $\norm{\cdot}_{2,m}$ be two equivalent norms on $\mathbb R^m$ (norm equivalence theorem)
   and $\norm{\cdot}_{1,n}$ and $\norm{\cdot}_{2,n}$ are equivalent norms on $\mathbb R^n$.
 
-  Let $f$ in $x_0 \in D$ be differentiable in regards of $\norm{\cdot}_{1,m}$ and $\norm{\cdot}_{1,n}$.
-  Then also $f$ is differentiable in $x_0$ in regards of $\norm{\cdot}_{2,m}$ and $\norm{\cdot}_{2,n}$.
+  Let $f$ in $x_0 \in D$ be differentiable with respect to $\norm{\cdot}_{1,m}$ and $\norm{\cdot}_{1,n}$.
+  Then also $f$ is differentiable in $x_0$ with respect to $\norm{\cdot}_{2,m}$ and $\norm{\cdot}_{2,n}$.
 
   \emph{Rationale:} Let $c \norm{x}_{2,m} \leq \norm{x}_{1,m} \leq C \norm{x}_{2,m}$ and
   $k \norm{y}_{2,n} \leq \norm{y}_{1,n} \leq K \norm{y}_{2,n}$, then
@@ -5368,7 +5365,7 @@ $\sigma: J \to I$ is bijective and continuous, hence $\sigma$ is either strictly
 
 \index{Geometrical quantity}
 \begin{definition}
-  Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ in regards of $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_r}$ but not on a specific representative $\gamma$ is called \emph{geometrical quantity}.
+  Let $[\gamma]_{\sim_r}$ be an equivalence class of $\gamma$ with respect to $\sim_r$. A size or property, which only depends on $[\gamma]_{\sim_r}$ but not on a specific representative $\gamma$ is called \emph{geometrical quantity}.
 \end{definition}
 
 \begin{example}
@@ -5539,7 +5536,7 @@ Compare with Figure~\ref{img:ori}.
 \begin{proof}
   Approximation by step functions: Let $\varphi: [a,b] \to \mathbb R^n$.
   $\gamma(t) = \left[\varphi_1(t), \dots, \varphi_n(t)\right]^T$.
-  $\gamma_i \in \tau[a,b]$. Without loss of generality all $\varphi_i$ are step functions in regards of the same partition $Z = (t_k)_{k=0}^N$\footnote{If not, take the union of two non-equal-sized intervals and apply the lemma to a refinement of this new interval again. Therefore without loss of generality.}.
+  $\gamma_i \in \tau[a,b]$. Without loss of generality all $\varphi_i$ are step functions with respect to the same partition $Z = (t_k)_{k=0}^N$\footnote{If not, take the union of two non-equal-sized intervals and apply the lemma to a refinement of this new interval again. Therefore without loss of generality.}.
   \[ \varphi_i(t) = C_i^k \text{ for } t \in (t_{k-1}, t_k) \]
   \[ \int_a^b \varphi_i \, dt = \sum_{k=1}^N c_i^k (t_k - t_{k-1}) \]
   $\varphi_i$ should approximate $\alpha_i$ uniformly, hence for $\varepsilon > 0$ arbitrarily chosen, choose $\varphi_i$ such that
