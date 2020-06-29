@@ -422,21 +422,25 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   \end{description}
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[\enquote{$\overline{B}$ is closed in itself}]
   $\forall B \subseteq X: \overline{B} = \doubleoverline{B}$.
-  So $\overline{B}$ is closed in itself.
 \end{lemma}
 \begin{proof}
-  $\overline B \subseteq \doubleoverline B$ is trivial. Show that $\doubleoverline B \subseteq \overline B$ and thus show $x \in \doubleoverline B \implies x \in \overline{B}$.
+  $\overline B \subseteq \doubleoverline B$ is trivial, since this holds for all closures. It remains to show that $\doubleoverline B \subseteq \overline B$. Let $x \in \doubleoverline B$, show that $x \in \overline{B}$.
 
-  Let $x \in \overline{\overline{B}}$
-  $\iff \forall \varepsilon > 0: K_{\varepsilon}(x) \cap \overline{B} \neq \emptyset$.
-  Therefore let $\varepsilon > 0$ be arbitrary and $x \in \overline{\overline{B}}$.
-  Show that $K_{\varepsilon}(x) \cap B \neq \emptyset$.
-  $x \in \overline{\overline{B}} \implies \exists y \in \overline{B}: y \in K_{\frac\varepsilon2}(x)$.
-  $y \in \overline{B} \implies \exists z \in B: z \in K_{\frac\varepsilon2}(y)$. Hence,
+
+  Since $x \in \doubleoverline{B}$, $x$ is a contact point. Thus, $\forall \gamma > 0: K_\gamma(x) \cap \overline{B} \neq \emptyset$.
+  Hence, for arbitrary $\gamma > 0$, there exists $y: y \in K_\gamma(x) \land y \in \overline{B}$.
+
+  Since $y \in \overline{B}$, $y$ is a contact point. Thus $\forall \delta > 0: B_\delta(y) \cap B \neq \emptyset$.
+  Hence, for arbitrary $\delta > 0$, there exists $z: z \in K_\delta(y) \land z \in B$.
+
+  Let $\varepsilon > 0$ and $\gamma \coloneqq \frac\varepsilon2$ and $\delta \coloneqq \frac\varepsilon2$. Then,
   \[ d(z,x) \leq \underbrace{d(z,y)}_{<\frac\varepsilon2} + \underbrace{d(y,x)}_{<\frac\varepsilon2} < \varepsilon \]
-  so $z \in K_\varepsilon(x) \cap B$. So $x$ is contact point of $B \implies x \in \overline{B}$.
+  Thus, $z \in K_\varepsilon(x)$. We already know that $z \in B$.
+  Since $z$ exists, we showed that $K_\varepsilon(x) \cap B \neq \emptyset$.
+  Since $\varepsilon$ was chosen arbitrarily, this is true for any $\varepsilon > 0$.
+  \[ \implies \forall \varepsilon > 0: B_\varepsilon(x) \cap B \neq \emptyset \qquad \implies x \in \overline{B} \]
 \end{proof}
 
 \begin{lemma}
