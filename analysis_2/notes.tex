@@ -793,8 +793,9 @@ Most often $X \subseteq V$, $Y \subseteq W$. $V$ and $W$ are normed vector space
       Therefore $\hat{x} = f(\hat{x})$ is a fixed point on $f$.
 
   \item[Prove uniqueness of point $\hat{x}$]
-    Let $\tilde{x} = f(\tilde{x})$. Then $d(\hat{x}, \tilde{x}) = d(f(\hat{x}), f(\tilde{x})) \leq L d(\hat{x}, \tilde{x})$ with $L < 1$.
-    If $d(\hat{x}, \tilde{x}) > 0$, then $1 \leq L$. This is a contradiction.
+    Proof by contradiction.
+    Let $\tilde{x} = f(\tilde{x})$. Given $L < 1$, $d(\hat{x}, \tilde{x}) = d(f(\hat{x}), f(\tilde{x})) \leq L d(\hat{x}, \tilde{x})$.
+    Since $\hat{x} \neq \tilde{x}$ by assumption, $d(\hat{x}, \tilde{x}) > 0$, so $L \geq 1$. This is a contradiction.
     Hence $d(\hat{x}, \tilde{x}) = 0$ must hold, hence $\hat{x} = \tilde{x}$.
   \end{description}
 \end{proof}
