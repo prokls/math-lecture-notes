@@ -239,7 +239,7 @@ Let $X \subseteq \mathbb R^n$ ($V$ is a normed vector space), then $d(x, y) = \n
   \end{figure}
 \end{example}
 
-\begin{example}[French railway]
+\begin{example}[French railway metric]
   All connections between two cities pass through Paris except one of the cities is Paris.
 \end{example}
 
@@ -274,7 +274,7 @@ $(X, d)$ is a metric space.
 \begin{definition}[Sequences in $X$]
   Let $(x_n)_{n\in\mathbb N}$ be a sequence in $X$ (hence, $\forall n \in \mathbb N: x_n \in X$)
   \begin{enumerate}
-    \item $(x_n)_{n\in\mathbb N}$ is called \emph{convergent} and limit $x \in X$ if
+    \item $(x_n)_{n\in\mathbb N}$ is called \emph{convergent} with limit $x \in X$ if
       \[ \forall \varepsilon > 0 \exists N \in \mathbb N: n \geq N \implies d(x_n, x) < \varepsilon \]
       Denoted as $\lim_{n\to\infty} x_n = x$.
     \item $(x_n)_{n\in\mathbb N}$ is a Cauchy sequence if
@@ -358,7 +358,7 @@ The concepts \enquote{subsequence}, \enquote{final element of a sequence}, \enqu
 
 \begin{lemma}
   $x \in X$ is accumulation point of sequence $(x_n)_{n\in\mathbb N}$
-  if and only iff there exists a subsequence $(x_{n_k})_{k \in \mathbb N}$ such that
+  iff there exists a subsequence $(x_{n_k})_{k \in \mathbb N}$ such that
   $x = \lim_{k\to\infty} x_{n_k}$.
 \end{lemma}
 
@@ -696,8 +696,8 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Let $f: X \to Y$ be given.
   We call \enquote{f uniformly continuous on $X$} if
   \[
-  	\forall \varepsilon > 0 \exists \delta > 0:
-  	\forall x, y \in X \land d_X(x,y) < \delta \implies d_Y(f(x), f(y)) < \varepsilon
+    \forall \varepsilon > 0 \exists \delta > 0 \forall x, y \in X:
+    d_X(x,y) < \delta \implies d_Y(f(x), f(y)) < \varepsilon
   \]
 \end{definition}
 
@@ -837,7 +837,7 @@ Most often $X \subseteq V$, $Y \subseteq W$. $V$ and $W$ are normed vector space
   A metric space $(X, d)$ is called \emph{compact} if every sequence $(x_n)_{n \in \mathbb N}$
   has a convergent subsequence.
 
-  Specifically, this definition is called sequence compactness. The other definition defines compactness as closed and bounded subset of an Euclidean space. The latter definition only works for a subset of branches in mathematics. Therefore the generalization is recommended to be remembered.
+  Specifically, this definition is called sequence compactness. The other definition defines compactness as closed and bounded subset of an Euclidean space. The latter definition only works for \emph{spaces with the Heine-Borel property} (counterexample: any incomplete metric space like the space of rational numbers is closed and bounded but not compact). Therefore the generalization is recommended to be remembered.
 \end{definition}
 
 \begin{lemma} % Lemma 8
@@ -847,7 +847,7 @@ Most often $X \subseteq V$, $Y \subseteq W$. $V$ and $W$ are normed vector space
   Let $(x_n)_{n\in\mathbb N}$ be a Cauchy sequence in $X$. By compactness, it follows that
   $\exists (x_{n_k})_{k \in \mathbb N}$ with $\lim_{k\to\infty} x_{n_k} = \hat{x}$.
   Choose $\varepsilon > 0$ arbitrary and $L$ large enough such that $k \geq L \implies d(x_{n_k}, \hat{x}) < \frac\varepsilon2$. Furthermore choose $N \in \mathbb N$ large enough such that $n,m \geq N \implies d(x_n, x_m) < \frac\varepsilon2$ (satisfied, because $(x_n)_{n \in \mathbb N}$ is a Cauchy sequence).
-  Choose $K \geq L$ and $n_k \geq N$. Let $n_k$ be fixed this way.
+  Choose $k \geq L$ and $n_k \geq N$. Let $n_k$ be fixed this way.
   Then it holds $\forall n \geq N: d(x_n, \hat{x}) \leq d(x_n, x_{n_k}) + d(x_{n_k}, \hat{x}) < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon$. The first summand $\frac\varepsilon2$ results from the Cauchy sequence property, the second summand $\frac\varepsilon2$ results by convergence of $(x_{n_k})$. Hence $(x_n)_{n\in\mathbb N}$ is convergent with limit $\hat{x}$.
 \end{proof}
 
@@ -1535,7 +1535,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
   Attention! We, therefore, use two different definitions of limits.
 \end{remark}
 
-\begin{lemma}[Cauchy criterion of limits of functions] % Lemma 6
+\begin{lemma}[Cauchy criterion for limits of functions] % Lemma 6
   \label{cauchy-crit}
   Let $f: A \subseteq X \to \mathbb R$. Let $x$ be an accumulation point of $A$.
   Let $X$ be a metric space.
@@ -1569,7 +1569,7 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
       We prove (1.)
 
       Let $(\xi_n)_{n\in\mathbb N}$ be as above. Let $\varepsilon > 0$ be arbitrary.
-      and $N_{\varepsilon}$ large enough such that $\forall n \in N_{\varepsilon}: d(\xi_n, x) < \delta$
+      and $N_{\varepsilon}$ large enough such that $\forall n \geq N_{\varepsilon}: d(\xi_n, x) < \delta$
       ($\delta$ chosen appropriately to $\varepsilon$ according to the Cauchy criterion).
 
       By the Cauchy criterion, $\card{f(\xi_n) - f(\xi_m)} < \varepsilon$ for all $m,n \geq N_{\varepsilon}$.
@@ -2956,7 +2956,7 @@ Some important inequalities in integration theory follow.
 
 \begin{figure}[t]
   \begin{center}
-    \includegraphics{img/23_young.pdf}
+    \includegraphics[width=.6\textwidth]{img/23_young.pdf}
     \caption{Young's inequality visualized. The blue area denotes $\int_0^\alpha f \, dx$ and $\int_0^b f^{-1}(y) \, dy$ is the green area.}
     \label{img:young}
   \end{center}
@@ -2990,7 +2990,7 @@ Some important inequalities in integration theory follow.
 
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/24_setup_delta.pdf}
+      \includegraphics[width=.5\textwidth]{img/24_setup_delta.pdf}
       \caption{$\delta$, $y$, $y_1$ and $y_2$}
       \label{img:dyyy}
     \end{center}
@@ -3162,7 +3162,7 @@ such that $\forall x \in X$ and $\forall n \geq N$
 
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/25_uniform_convergence_of_fN_to_f.pdf}
+      \includegraphics[width=.4\textwidth]{img/25_uniform_convergence_of_fN_to_f.pdf}
       \caption{Uniform convergence of $f_N$ to $f$}
       \label{img:uniconv}
     \end{center}
@@ -3190,14 +3190,16 @@ such that $\forall x \in X$ and $\forall n \geq N$
   Then $P_n \to P$ uniformly on $\overline{K_r(0)}$.
 \end{theorem}
 
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{img/26_uniform_convergence.pdf}
+    \caption{We cannot make a general statement about convergence/divergence. But on every small closed sphere $P$ converges absolutely for every $z$}
+    \label{img:uconv}
+  \end{center}
+\end{figure}
+
 \begin{remark}
-  \begin{figure}[t]
-    \begin{center}
-      \includegraphics{img/26_uniform_convergence.pdf}
-      \caption{We cannot make a general statement about convergence/divergence. But on every small closed sphere $P$ converges absolutely for every $z$}
-      \label{img:uconv}
-    \end{center}
-  \end{figure}
+  See Figure~\ref{img:uconv}.
 \end{remark}
 
 \begin{proof}
@@ -3639,7 +3641,7 @@ Compare with Figure~\ref{img:tay}.
 
 \begin{figure}[t]
   \begin{center}
-    \includegraphics{img/28_Taylor_series.pdf}
+    \includegraphics[width=.5\textwidth]{img/28_Taylor_series.pdf}
     \caption{Taylor series}
     \label{img:tay}
   \end{center}
@@ -3695,7 +3697,7 @@ Compare with Figure~\ref{img:tay}.
 
 \begin{figure}[t]
   \begin{center}
-    \includegraphics{img/29_expansion_on_a_different_point.pdf}
+    \includegraphics[width=.4\textwidth]{img/29_expansion_on_a_different_point.pdf}
     \caption{Expansion on a different point}
     \label{img:expan}
   \end{center}
@@ -4032,7 +4034,7 @@ The considerations above hold for arbitrary finite-dimensional normed vector spa
 
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/30_fg.pdf}
+      \includegraphics[width=.6\textwidth]{img/30_fg.pdf}
       \caption{Chain rule in multiple dimensions}
       \label{chainrule}
     \end{center}
@@ -4361,7 +4363,7 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
 
   \begin{figure}[!h]
     \begin{center}
-      \includegraphics{img/32_niveau.pdf}
+      \includegraphics[width=.7\textwidth]{img/32_niveau.pdf}
       \caption{$\Gamma_S$ is the niveau level of $f$}
       \label{img:niveau}
     \end{center}
@@ -4409,7 +4411,7 @@ Of course, in $\mathbb R$ itself, all norms are equivalent.
 
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/34_axes.pdf}
+      \includegraphics[width=.8\textwidth]{img/34_axes.pdf}
       \caption{$x_0$ approximates $x$ along lines parallel to the coordinate system axes}
       \label{img:x0xcoord}
     \end{center}
@@ -4609,7 +4611,7 @@ Necessary (but not sufficient) optimality criteria:
   
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/35_x1x2.pdf}
+      \includegraphics[width=.6\textwidth]{img/35_x1x2.pdf}
       \caption{We consider a sphere with radius $2r$. The blue line denotes $l_{x_1, x_2}(t)$. $l_{x_1, x_2}(t) \in \overline{K_{2r}(0)}$ because $\overline{K_{2r}(0)}$ is convex}
       \label{img:x1x2}
     \end{center}
@@ -4618,12 +4620,12 @@ Necessary (but not sufficient) optimality criteria:
   Compare with Figure~\ref{img:x1x2}.
   \[ l_{x_1 x_2}(0) = x_1 \qquad l_{x_1 x_2}(1) = x_2 \]
   \begin{align*}
-	\norm{\varphi_y(x_2) - \varphi_y(x_1)}
-	  &= \norm{\varphi_y \circ l_{x_1 x_2}(1) - \varphi_y \circ l_{x_1 x_2}(0)} \\
-	  &= \norm{\int_0^1 \frac{d}{dt} [\varphi_Y \circ l_{x_1 x_2}(t)] \, dt} \\
-	  &= \norm{\int_0^1 D\varphi_Y(l_{x_1 x_2}(t)) \cdot \underbrace{\left(x_2 - x_1\right)}_{\substack{\text{inner derivative} \\ l_{x_1 x_2}(t)} \, dt}} \\
-	  &\leq \int_0^1 \norm{D\varphi_Y(\underbrace{l_{x_1 x_2}(t)}_{\in \overline{K_{2r}(0)}})} \cdot \underbrace{\norm{(x_2 - x_1)}}_{\text{constant}} \, dt \\
-	  &\leq (*)
+    \norm{\varphi_y(x_2) - \varphi_y(x_1)}
+      &= \norm{\varphi_y \circ l_{x_1 x_2}(1) - \varphi_y \circ l_{x_1 x_2}(0)} \\
+      &= \norm{\int_0^1 \frac{d}{dt} [\varphi_Y \circ l_{x_1 x_2}(t)] \, dt} \\
+      &= \norm{\int_0^1 D\varphi_Y(l_{x_1 x_2}(t)) \cdot \underbrace{\left(x_2 - x_1\right)}_{\substack{\text{inner derivative} \\ l_{x_1 x_2}(t)} \, dt}} \\
+      &\leq \int_0^1 \norm{D\varphi_Y(\underbrace{l_{x_1 x_2}(t)}_{\in \overline{K_{2r}(0)}})} \cdot \underbrace{\norm{(x_2 - x_1)}}_{\text{constant}} \, dt \\
+      &\leq (*)
   \end{align*}
   \[ D \varphi_Y(x) = I - DF(x) \]
   hence $\forall x \in \overline{K_{2r}(0)}$, $\norm{D\varphi_Y(x)} = \norm{I - DF(x)} \leq \frac12$.
@@ -5311,7 +5313,7 @@ We consider:
 
   \begin{figure}[t]
     \begin{center}
-      \includegraphics{img/40_reparameterization.pdf}
+      \includegraphics[width=.7\textwidth]{img/40_reparameterization.pdf}
       \caption{Reparameterization}
       \label{img:reparam}
     \end{center}
@@ -5498,7 +5500,13 @@ Compare with Figure~\ref{img:ori}.
   $S_\gamma(Z)$ is the length of the polygonial line through points $(x_k)_{k=0}^N$ with $x_k = \gamma(t_k)$.
   We let $S_\gamma = \sup\set{S_\gamma(Z): Z \text{ is partition of } [a,b]}$.
 
-  \pic{img/46_polygonial_line.pdf}{Polygonial line}
+  \begin{figure}[t]
+    \begin{center}
+      \includegraphics[width=.6\textwidth]{img/46_polygonial_line.pdf}
+      \caption{Polygonial line}
+      \label{fig:polygonial-line}
+    \end{center}
+  \end{figure}
 
   If $S_{\gamma} < \infty$, then $\gamma$ is called \emph{rectifiable}
   and $S_{\gamma}$ is the \emph{arc length of the curve}.
@@ -5652,7 +5660,7 @@ Idea: Define $s = l(t) = \int_{t_0}^t \norm{\gamma'(\tau)}_2 \, d\tau$. Compare 
 
 \begin{figure}[t]
   \begin{center}
-    \includegraphics{img/47_traversed_path.pdf}
+    \includegraphics[width=.6\textwidth]{img/47_traversed_path.pdf}
     \caption{Traversed path}
     \label{img:traversedpath}
   \end{center}
@@ -5750,7 +5758,7 @@ Hence $\gamma''(t)$ is orthogonal to $\gamma'(t)$. Compare with Figure~\ref{img:
 
 \begin{figure}[t]
   \begin{center}
-    \includegraphics{img/49_orthogonal.pdf}
+    \includegraphics[width=.5\textwidth]{img/49_orthogonal.pdf}
     \caption{Orthogonal $\gamma'(t)$ and $\gamma''(t)$}
     \label{img:orthott}
   \end{center}
