@@ -587,13 +587,13 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   \label{satz2}
   Let $X$ be a metric space. Then,
   \begin{itemize}
-  	\item
-  	  If $O_i \subseteq X$ is open in $X$ $\forall i \in I$,
-  	  then also $O = \bigcup_{i \in I} O_i$ is open in $X$.
-  	\item
-  	  If $O_1, O_2, \dots, O_n$ is open in $X$, then $\bigcap_{k=1}^n O_k$ is open in $X$.
-  	\item
-  	  $X$ is open and $\emptyset$ is open.
+    \item
+      If $O_i \subseteq X$ is open in $X$ $\forall i \in I$,
+      then also $O = \bigcup_{i \in I} O_i$ is open in $X$.
+    \item
+      If $O_1, O_2, \dots, O_n$ is open in $X$, then $\bigcap_{k=1}^n O_k$ is open in $X$.
+    \item
+      $X$ is open and $\emptyset$ is open.
   \end{itemize}
 \end{theorem}
 
@@ -674,18 +674,18 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
 \end{remark}
 
 \begin{proof}
-  Direction $\Rightarrow$.
+  \begin{description}
+    \item[Direction $\Rightarrow$:]
+    Let $f$ be continuous in $X$ and let $O \subseteq Y$ be open. Let $U = f^{-1}(O)$ and choose $x_0 \in U$. Then $f(x_0) \in O$, hence $O$ is a neighborhood of $f(x_0)$. By Theorem~\ref{satz3t}~(b), it follows that $U = f^{-1}(O)$ is a neighborhood of $x_0$.
 
-  Let $f$ be continuous in $X$ and let $O \subseteq Y$ be open. Let $U = f^{-1}(O)$ and choose $x_0 \in U$. Then $f(x_0) \in O$, hence $O$ is a neighborhood of $f(x_0)$. By Theorem~\ref{satz3t}~(b), it follows that $U = f^{-1}(O)$ is a neighborhood of $x_0$.
+    Hence, $U$ is neighborhood of each of its points, hence open in $X$.
 
-  Hence, $U$ is neighborhood of every of its points, hence open in $X$.
+    \item[Direction $\Leftarrow$:]
+    Let the preimages of open sets be open and $x_0 \in X$ and $y_0 = f(x_0)$.
+    Let $V$ be a neighborhood of $y_0 = f(x_0)$, hence $\exists \varepsilon > 0: K_{\varepsilon}(f(x_0)) \subseteq V$. Because $K_{\varepsilon}(f(x_0))$ is an open set, $f^{-1}(K_{\varepsilon}(f(x_0))) \in x_0$ is open in $X$.
 
-  Direction $\Leftarrow$.
-
-  Let the preimages of open sets be open and $x_0 \in X$ and $y_0 = f(x_0)$.
-  Let $V$ be a neighborhood of $y_0 = f(x_0)$, hence $\exists \varepsilon > 0: K_{\varepsilon}(f(x_0)) \subseteq V$. Because $K_{\varepsilon}(f(x_0))$ is an open set, $f^{-1}(K_{\varepsilon}(f(x_0))) \in x_0$ is open in $X$.
-
-  Therefore, there exists $\delta > 0$ such that $K_{\delta}(x_0) \subseteq f^{-1}(K_{\varepsilon}(f(x_0))) \subseteq f^{-1}(V)$. Hence, $f^{-1}(V)$ is a neighborhood of $x_0$. Then by Theorem~\ref{satz3t}~(b), it follows that $f$ is continuous in $x_0$ (chosen arbitrarily). Hence $f$ is continuous on $X$.
+    Therefore, there exists $\delta > 0$ such that $K_{\delta}(x_0) \subseteq f^{-1}(K_{\varepsilon}(f(x_0))) \subseteq f^{-1}(V)$. Hence, $f^{-1}(V)$ is a neighborhood of $x_0$. Then by Theorem~\ref{satz3t}~(b), it follows that $f$ is continuous in $x_0$ (chosen arbitrarily). Hence $f$ is continuous on $X$.
+  \end{description}
 \end{proof}
 
 \subsection{Variations of continuity notions}
@@ -1552,48 +1552,50 @@ Step function $\varphi$. $\varphi|_{x_{j-1},x_j} = c_j$
 
 \begin{proof}
   \begin{description}
-    \item[$\implies$] 
+    \item[Direction $\implies$:]
       Let $c = \lim_{\xi\to x} f(\xi)$ and let $\varepsilon > 0$ be chosen arbitrarily.
       Then there exists $\delta > 0$ such that $d(\xi,x) < \delta$ and $\xi \neq x$
       \[ \implies \card{f(\xi) - c} < \frac\varepsilon2 \]
       For $\xi, \eta$: $d(\xi, x) < \delta$ and $d(\eta, x) < \delta$ with $\xi, \eta \neq x$
       is therefore
       \[ \card{f(\xi) - f(\eta)} = \card{f(\xi) - c + c - f(\eta)} \leq \card{f(\xi) - c} + \card{f(\eta) - c} < \frac\varepsilon2 + \frac\varepsilon2 = \varepsilon \]
-    \item[$\impliedby$]
+    \item[Direction $\impliedby$:]
       Assume the Cauchy criterion holds. We show that
       \begin{enumerate}
         \item for every sequence $(\xi_n)_{n\in\mathbb N}$, $\xi_n \in A \setminus \set{x}$ with $\lim_{n\to\infty} \xi_n = x$ it holds that
         $(f(\xi_n))_{n\in\mathbb N}$ is a Cauchy sequence in $\mathbb R$ and therefore convergent in $\mathbb R$.
         \item all Cauchy sequences have the \emph{same} limit $c$.
       \end{enumerate}
-      We prove (1.)
 
-      Let $(\xi_n)_{n\in\mathbb N}$ be as above. Let $\varepsilon > 0$ be arbitrary.
-      and $N_{\varepsilon}$ large enough such that $\forall n \geq N_{\varepsilon}: d(\xi_n, x) < \delta$
-      ($\delta$ chosen appropriately to $\varepsilon$ according to the Cauchy criterion).
+      \begin{description}
+        \item[We prove (1):]
 
-      By the Cauchy criterion, $\card{f(\xi_n) - f(\xi_m)} < \varepsilon$ for all $m,n \geq N_{\varepsilon}$.
-      Therefore $(f(\xi_n))_{n\in\mathbb N}$ is a Cauchy sequence in $\mathbb R$.
-      If $\mathbb R$ is complete, then there exists $c = \lim_{n\to\infty} f(\xi_n)$. QED.
+        Let $(\xi_n)_{n\in\mathbb N}$ be as above. Let $\varepsilon > 0$ be arbitrary.
+        and $N_{\varepsilon}$ large enough such that $\forall n \geq N_{\varepsilon}: d(\xi_n, x) < \delta$
+        ($\delta$ chosen appropriately to $\varepsilon$ according to the Cauchy criterion).
 
-      We prove (2.)
+        By the Cauchy criterion, $\card{f(\xi_n) - f(\xi_m)} < \varepsilon$ for all $m,n \geq N_{\varepsilon}$.
+        Therefore $(f(\xi_n))_{n\in\mathbb N}$ is a Cauchy sequence in $\mathbb R$.
+        If $\mathbb R$ is complete, then there exists $c = \lim_{n\to\infty} f(\xi_n)$. QED.
 
-      Let $\xi_n \to x$ as above and $\xi_n' \to x$ as above and $c = \lim_{n\to\infty} f(\xi_n)$ as well as $c' = \lim_{n\to\infty} f(\xi_n')$. Let $\varepsilon > 0$ be arbitrary, $N_{\varepsilon}$ such that $n \geq N_{\varepsilon} \implies \card{f(\xi_n) - c} < \frac{\varepsilon}{3}$ and $N_{\varepsilon}' \in \mathbb N$ such that $n \geq N_{\varepsilon}' \implies \card{f(\xi_n') - c'} < \frac\varepsilon3$.
+        \item[We prove (2):]
+        Let $\xi_n \to x$ as above and $\xi_n' \to x$ as above and $c = \lim_{n\to\infty} f(\xi_n)$ as well as $c' = \lim_{n\to\infty} f(\xi_n')$. Let $\varepsilon > 0$ be arbitrary, $N_{\varepsilon}$ such that $n \geq N_{\varepsilon} \implies \card{f(\xi_n) - c} < \frac{\varepsilon}{3}$ and $N_{\varepsilon}' \in \mathbb N$ such that $n \geq N_{\varepsilon}' \implies \card{f(\xi_n') - c'} < \frac\varepsilon3$.
 
-      Furthermore choose $\delta > 0$ such that
-      \[ d(\xi, x) < \delta \land d(\eta, x) < \delta \implies \card{f(\xi) - f(\eta)} < \frac{\varepsilon}{3} \]
-      (because of the Cauchy criterion).
-      $M_{\varepsilon}$ such that 
-      \[ n \geq M_{\varepsilon} \implies d(\xi_n, x) < \delta \land M_{\varepsilon}': n \geq M_{\varepsilon}' \implies d(\xi_n', x) < \delta \]
-      Let $n \geq \max\set{N_{\varepsilon}, N_{\varepsilon}', M_{\varepsilon}, M'_{\varepsilon}}$.
+        Furthermore choose $\delta > 0$ such that
+        \[ d(\xi, x) < \delta \land d(\eta, x) < \delta \implies \card{f(\xi) - f(\eta)} < \frac{\varepsilon}{3} \]
+        (because of the Cauchy criterion).
+        $M_{\varepsilon}$ such that 
+        \[ n \geq M_{\varepsilon} \implies d(\xi_n, x) < \delta \land M_{\varepsilon}': n \geq M_{\varepsilon}' \implies d(\xi_n', x) < \delta \]
+        Let $n \geq \max\set{N_{\varepsilon}, N_{\varepsilon}', M_{\varepsilon}, M'_{\varepsilon}}$.
 
-      \dateref{2018/04/10}
+        \dateref{2018/04/10}
 
-      Then
-      \[ \card{c - c'} \leq \underbrace{\card{c - f(\xi_n)}}_{< \frac\varepsilon3} + \underbrace{\card{f(\xi_n) - f(\xi'_n)}}_{< \frac\varepsilon3} + \underbrace{\card{f(\xi'_n) - c'}}_{< \frac\varepsilon3} \qquad \forall \varepsilon > 0 \]
-      Hence, $c = c'$.
-      We have shown that $\exists c \in \mathbb R: \forall (\xi_n)_{n \in \mathbb N}$ with $\lim_{n\to\infty} \xi_n = x$ it holds that
-      $\lim_{n\to\infty} f(\xi_n) = c$. So $\lim_{\xi\to\infty} f(\xi) = c$ because of Lemma~\ref{lemma5}. QED.
+        Then
+        \[ \card{c - c'} \leq \underbrace{\card{c - f(\xi_n)}}_{< \frac\varepsilon3} + \underbrace{\card{f(\xi_n) - f(\xi'_n)}}_{< \frac\varepsilon3} + \underbrace{\card{f(\xi'_n) - c'}}_{< \frac\varepsilon3} \qquad \forall \varepsilon > 0 \]
+        Hence, $c = c'$.
+        We have shown that $\exists c \in \mathbb R: \forall (\xi_n)_{n \in \mathbb N}$ with $\lim_{n\to\infty} \xi_n = x$ it holds that
+        $\lim_{n\to\infty} f(\xi_n) = c$. So $\lim_{\xi\to\infty} f(\xi) = c$ because of Lemma~\ref{lemma5}. QED.
+      \end{description}
   \end{description}
 \end{proof}
 
