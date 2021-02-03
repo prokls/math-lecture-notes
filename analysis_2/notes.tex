@@ -6136,7 +6136,16 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
 
 \textbf{Potential exam questions:}
 
-TODO
+\begin{enumerate}
+  \item Prove the Cauchy-Schwarz inequality
+  \item Prove: $x$ is a contact point of $B$ iff $\exists (x_n)_{n \in \mathbb N}$ with $x_n \in B$ and $\lim_{n \to \infty} x_n = x$.
+  \item Prove Banach's Fixed Point Theorem
+  \item Prove: $X$ is a compact metric space. Then $X$ is complete.
+  \item Prove: Every compact, metric space is bounded.
+  \item Prove: Let $f: X \to Y$ be continuous. Let $X$ be compact. Then $\operatorname{image}(f(X)) \subseteq Y$ is compact.
+  \item Prove: Let $f: X \to Y$ is continuous on $X$. $X$ is compact. Then $f$ is uniformly continuous on $X$.
+  \item Prove norm equivalence (for limits, open sets, and compactness)
+\end{enumerate}
 
 \subsection{Integration}
 
@@ -6162,7 +6171,25 @@ TODO
 
 \textbf{Potential exam questions:}
 
-TODO
+\begin{enumerate}
+  \item Prove linearity, monotonicity, and boundedness of integrals
+  \item Prove the Cauchy criterion of limits of functions
+  \item Prove the approximation theorem for regulated functions
+  \item Prove: $f \in \mathcal R[a, b] \iff f = \sum_{j=0}^\infty \psi_j$ with $\psi_j \in \tau[a, b]$ and the series converges uniformly on $[a, b]$
+  \item Prove: $f \in \mathcal R[a, b]$. $\varphi_n \in \tau[a, b]$. $f = \lim_{n\to\infty} \varphi_n$ is uniform on $[a, b]$. Let $\int_a^b f \, dx \coloneqq \lim_{n \to \infty} \int_a^b \varphi_n \, dx$ always exists and is indepedent of the choice of the approximating sequence.
+  \item Prove the Mean Value Theorem of integration calculus.
+  \item Prove: $f \in \mathcal R[a, b]$. There exists some at most countable set $A \subseteq [a, b]$. $f$ is continuous in $x \forall x \in [a, b] \setminus A$.
+  \item Prove the fundamental theorem of differential/integral calculus, variant 1
+  \item Let $A \subseteq [a, b]$ countable. $f: [a, b] \to \mathbb R$ continuous. Let $f$ be differentiable in $x \forall x \in [a, b] \setminus A$.
+    Let $\card{f'(x)} \leq L \forall x \in [a, b] \setminus A$. Then $f$ is Lipschitz continuous on $[a, b]$ with constant $L$
+  \item Determine $\int x^a \cdot \ln{x} \, dx$ for $a \neq -1$ and $x > 0$ using integration by parts
+  \item Give the Wallis product (product?)
+  \item Determine $\int_0^1 2x \sqrt{1 - x^2} \, dx$ using integration by substitution
+  \item Prove: $f, f \in \mathcal R[a, b]$, $A \subseteq [a, b]$ countable. $f(x) = \tilde f(x) \forall x \in [a, b] \setminus A$. Then $\int_a^b \card{f - \tilde f} \, dx = 0$ and $\int_a^b f \, dx = \int_a^b \tilde f \, dx$
+  \item Prove the direct comparison test for improper integrals
+  \item Prove Young's inequality
+  \item Prove Hölder's inequality
+\end{enumerate}
 
 \subsection{Elaboration on differential calculus}
 
@@ -6183,7 +6210,12 @@ TODO
 
 \textbf{Potential exam questions:}
 
-TODO
+\begin{enumerate}
+  \item Prove: Let $P(z) = \sum_{k=0}^\infty a_k z^k$ be a power series in $\mathcal C$ with convergence radius $\rho > 0$. Furthermore let $0 < r < \rho$. Let $P_n(z) = \sum_{k=0}^n a_k z^k$. Then $P_k \to P$ uniformly on $\overline{K_r(0)}$.
+  \item Prove: Let $(f_n)_{n \in \mathbb N}$ be a sequence of regulated functions on $[a, b]$ and $f_n \to f$ uniformly on $[a, b]$. Then $\int_a^b \card{f_n - f} \, dx \to 0$ as $n \to \infty$ and especially $\int_a^b f_n \, dx \to \int_a^b f \, dx$
+  \item Prove: Let $P(x) = \sum_{l=0}^n a_l x^l$ with $a_n \neq 0$. Let $1 \leq k \leq n$. Then it holds that $x_0 \in \mathbb R$ is a $k$-times root of polynomial $P \iff P^{(j)}(x_0) = 0$ for $j = 0, \dots, k-1$ and $P^{(k)}(x_0) \neq 0$.
+  \item Prove that the Taylor polynomial is the only polynomial satisfying $(T_f^n)^{(k)}(x_0) = f^{(k)}(x_0)$ for $k = 0, \dots, n$.
+\end{enumerate}
 
 \subsection{Multidimensional differential calculus}
 
@@ -6220,7 +6252,18 @@ TODO
 
 \textbf{Potential exam questions:}
 
-TODO
+\begin{enumerate}
+  \item Prove $\norm{\varphi} = \sup\set{\frac{\norm{\varphi(x)}_V}{\norm{x}_V} \: : \: x \in V \setminus \set{0}} = \sup\set{\norm{\varphi(x)}_W \: : \: x \in V \text{ with } \norm{x}_V = 1}$
+  \item Why is every linear map $A: \mathbb R^m \to \mathbb R$ bounded?
+  \item Define the Frechét derivative. Prove: The linear approximation $A$ is uniquely determined by the differentiability criterion.
+  \item Give and prove the chain rule of multivariate calculus.
+  \item Let $f: D \to \mathbb R$. Let $D \subseteq \mathbb R^m$ be open. Assume all partial derivatives exist and the functions $x \mapsto \partial_j f(x)$ on $D \to \mathbb R$ are continuous for $j = 1, \dots, m$. Prove that $f$ is differentiable $\forall x_0 \in D$ with $D f(x_0) = [\partial_1 f(x_0), \dots, \partial_m f(x_0)]$ and $f$ is continuouly differentiable.
+  \item Prove the Local Inversion Theorem.
+  \item Let $g: D \subseteq \mathbb R^n$ and $D$ is open. $g$ is continuously differentiable on $D$. Let $g: D \to g(D)$ be bijective. $g^{-1}: g(D) \to D$ and let $D g(x)$ be regular $\forall x \in D$. Prove: $g(D) \to D$ is continuously differentiable with $D g^{-1}(y) = D g^{-1}(g(x)) = [Dg(x)]^{-1}$.
+  \item Give the implicit function theorem and prove 
+  \item Give and prove Schwarz' theorem
+  \item Prove: Let $D_2 f(x_0)$ be positive definite. Then $f$ has a strict local minimum in $x_0$.
+\end{enumerate}
 
 \subsection{Differential geometry of curves}
 
@@ -6250,7 +6293,10 @@ TODO
 
 \textbf{Potential exam questions:}
 
-TODO
+\begin{enumerate}
+  \item Prove: Let $\gamma: [a, b] \to \mathbb R^n$ be Lipschitz continuous. Then $\gamma$ is rectifiable.
+  \item TODO
+\end{enumerate}
 
 \section{Study hints by students}
 
