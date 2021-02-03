@@ -125,6 +125,7 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\clearpage
 
 \dateref{2018/03/06}
 
@@ -588,10 +589,10 @@ $B$ is called closed if $B = \overline{B}$, hence, every contact point is also e
   Let $X$ be a metric space. Then,
   \begin{itemize}
     \item
-      If $O_i \subseteq X$ is open in $X$ $\forall i \in I$,
+      If $O_i \subseteq X$ is open in $X$ $\forall i \in I$ (up to countable infinite),
       then also $O = \bigcup_{i \in I} O_i$ is open in $X$.
     \item
-      If $O_1, O_2, \dots, O_n$ is open in $X$, then $\bigcap_{k=1}^n O_k$ is open in $X$.
+      If $O_1, O_2, \dots, O_n$ (finite) is open in $X$, then $\bigcap_{k=1}^n O_k$ is open in $X$.
     \item
       $X$ is open and $\emptyset$ is open.
   \end{itemize}
@@ -842,7 +843,7 @@ Most often $X \subseteq V$, $Y \subseteq W$. $V$ and $W$ are normed vector space
 \end{definition}
 
 \begin{lemma} % Lemma 8
-  Let $X$ be a compact, metric space. Then $X$ is complete.
+  Let $X$ be a compact metric space. Then $X$ is complete.
 \end{lemma}
 \begin{proof}
   Let $(x_n)_{n\in\mathbb N}$ be a Cauchy sequence in $X$. By compactness, it follows that
@@ -864,7 +865,7 @@ On the contrary, let $X \subseteq \overline{K_M(x)}$ and let $y \in X$ and $z \i
 So, $X$ is bounded $\iff \exists x \in X \land M \geq 0: X \subseteq \overline{K_M(x)}$.
 
 \begin{lemma} % Lemma 9
-  Every compact, metric space is also bounded.
+  Every compact metric space is also bounded.
 \end{lemma}
 
 \begin{proof}
@@ -905,9 +906,9 @@ In the last proof, we have shown: If a sequence $(x_n)_{n \in \mathbb N}$ with $
 
 \index{Total boundedness}
 \begin{definition}
-  $X$ is called totally bounded, if for every $\varepsilon > 0$, finitely many points $X_1^\varepsilon$, $X_2^\varepsilon$, \dots, $X_{N(\varepsilon)}^\varepsilon$ such that $X \subseteq \bigcup_{i=1}^{N(\varepsilon)} K_{\varepsilon}(X_i^\varepsilon)$.
+  $X$ is called totally bounded, if for every $\varepsilon > 0$, finitely many points $x_1^\varepsilon$, $x_2^\varepsilon$, \dots, $x_{N(\varepsilon)}^\varepsilon$ such that $X \subseteq \bigcup_{i=1}^{N(\varepsilon)} K_{\varepsilon}(x_i^\varepsilon)$.
 
-  Hence, for every $x \in X$, there exists some $X_j^\varepsilon$ such that $d(X, X_j^\varepsilon) < \varepsilon$.
+  Hence, for every $x \in X$, there exists some $x_j^\varepsilon$ such that $d(x, x_j^\varepsilon) < \varepsilon$.
 \end{definition}
 
 \begin{remark}[For the practicals]
@@ -1164,8 +1165,7 @@ Regarding the equivalence of norms:
 
 \begin{remark}[Proven in the practicals]
   Let $(x_n)_{n\in\mathbb N}$ be a sequence in $\mathbb R^k$
-  \[ \norm{x}_{\infty} = \max\setdef{\card{x^i}}{i = 1, \dots, n} \]
-  \[ x = \begin{bmatrix} x^1 \\ x^2 \\ \vdots \\ x^k \end{bmatrix} \]
+  \[ \norm{x}_{\infty} = \max\setdef{\card{x^i}}{i = 1, \dots, n} \qquad x = \begin{bmatrix} x^1 & x^2 & \cdots & x^k \end{bmatrix}^T \]
   Then $\lim_{n\to\infty} \norm{x_n - x}_{\infty} = 0 \iff \lim_{n\to\infty} \card{x_n^i - x^i} = 0$ for all $i \in \set{1, \dots, k}$.
 \end{remark}
 
@@ -1181,11 +1181,11 @@ Regarding the equivalence of norms:
   \[ \lim_{l_1 \to \infty} x_{n_{l_1}}^1 = x^1 \]
   Consider $(x_{n_{l_1}}^2)_{l_1 \in \mathbb N}$, a subsequence of a bounded sequence, hence bounded itself.
   By the Bolzano-Weierstrass theorem in $\mathbb R$, there exists a convergent subsequence $(x_{n_{{l_1}_{l_2}}}^2)_{l_2 \in \mathbb N}$ with $\lim_{l_2 \to \infty} x_{n_{{l_1}_{l_2}}}^2 = x^2$.
-  Consider $x_{n_{{l_1}_{l_2}}}^1$ as subsequence of $x_{n_{l_1}}^1$ is already convergent, hence $\lim_{l_2 \to \infty} x_{n_{{l_1}_{l_2}}}^1 = x^1$. Furthermore, for indices up to $i$:
-  \[ \lim_{l_k \to \infty} x_{n_{{{{l_1}_{l_2}}_{\ldots}}_{l_k}}} = x^i \qquad \text{ for } i = 1, \dots, k \]
-  Hence, with $\tilde{x_{l_k}} = x_{n_{{{{l_1}_{l_2}}_{\ldots}}_{l_k}}}$ gives a subsequence of $x_n$, converging by each coordinate. Thus,
+  Consider $x_{n_{{l_1}_{l_2}}}^1$ as subsequence of $x_{n_{l_1}}^1$ is already convergent, hence $\lim_{l_2 \to \infty} x_{n_{{l_1}_{l_2}}}^1 = x^1$. Furthermore, for indices up to $k$:
+  \[ \lim_{l_k \to \infty} x^i_{n_{{{{l_1}_{l_2}}_{\ldots}}_{l_k}}} = x^i \qquad \text{ for } i = 1, \dots, k \]
+  Hence, with $\tilde{x}_{l_k} = x_{n_{{{{l_1}_{l_2}}_{\ldots}}_{l_k}}}$ gives a subsequence of $x_n$, converging by each coordinate. Thus,
   \[ \lim_{l_k \to \infty} \norm{\tilde{x}_{l_k} - x}_{\infty} = 0 \]
-  Because $\tilde{x}_{l_n} \in K$ and $K$ is closed, $x \in K$.
+  Because $\tilde{x}_{l_k} \in K$ and $K$ is closed, $x \in K$.
   Hence $K$ is compact.
 \end{proof}
 
@@ -6110,9 +6110,151 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
   \[ \mu'(t) = 0 \text{ for } t = 0 \qquad (\kappa' = 0 \text{ hence } \kappa \text{ has maximum}) \]
 \end{example}
 
-\section*{Study hints by students}
 
-\subsection*{Exam questions 2018/07/06}
+\appendix
+
+\section{Study and exam questions}
+
+\subsection{Topoloy}
+
+\textbf{Study questions:}
+
+\begin{enumerate}
+  \item What is a metric? What is a norm? Define supremum norm, p-norm, and Manhattan norm
+  \item Define an open sphere, convergence, Cauchy sequence, complete metric space, and accumulation point
+  \item Define contact point, an inner point, and convexity
+  \item Prove: $X$ as metric space. $A \in X$ closed in $X$ iff 0 $\coloneqq X \setminus A = A^c$ is open
+  \item Define topology
+  \item Prove: given $f: X \to Y$ continuous on $X$ iff $\forall X$ open $O \subseteq Y: U = f^{-1}(O)$ open in $X$
+  \item Define uniform continuity and Lipschitz continuity
+  \item Give Banach's Fixed Point Theorem
+  \item Define compactness
+  \item Define total boundedness
+  \item Define norm equivalence, equivalence relations, and the reversed triangle inequality
+  \item Define: Bolzano-Weierstrass theorem in $\mathbb R^k$
+\end{enumerate}
+
+\textbf{Potential exam questions:}
+
+TODO
+
+\subsection{Integration}
+
+\textbf{Study questions:}
+
+\begin{enumerate}
+  \item Define partition, refinement, step functions, and integrals
+  \item Define characteristic functions, limit points, the sequence criterion for limits of functions
+  \item Define Cauchy criterion for limits of functions
+  \item Define regulated functions
+  \item Define the Mean Value Theorem of integration calculus
+  \item Define the fundamental theorem of differential/integration calculus, variant 1
+  \item Define the indefinite integral. Which theorem allows us to evaluate definite integrals as indefinite integrals
+  \item Give anti-derivatives of $x^\alpha$, $x^{-1}$, $e^x$, $\sin{x}$, $\cos{x}$, $\sinh{x}$, $\cosh{x}$, $\frac{1}{1 + x^2}$, $\frac{1}{\sqrt{1 - x^2}}$, $-\frac{1}{\sqrt{1 - x^2}}$
+  \item Give the partial integration law (IBP) and define integration by substitution (IBS)
+  \item Give the Wallis product
+  \item Define improper integrals
+  \item Give a direct comparison test for improper integrals
+  \item Give Euler's gamma function
+  \item Define conjugate exponents. Give Young's inequality.
+  \item Give Hölder's inequality.
+\end{enumerate}
+
+\textbf{Potential exam questions:}
+
+TODO
+
+\subsection{Elaboration on differential calculus}
+
+\textbf{Study questions:}
+
+\begin{enumerate}
+  \item Define uniform convergence of functions
+  \item Define $\mathcal C^n(I)$
+  \item Define Taylor series.
+  \item Give the Taylor polynomial in $x$ with degree $\leq n$ and remainder term of order $n+1$
+  \item Prove that the Lagrange form is a remainder term.
+  \item Prove that the integral form is a remainder term.
+  \item What are sufficient conditions for the existence of extreme values?
+  \item What is the Qualitative Taylor equation?
+  \item Does the function value ($f \in \mathcal C^\infty$) equal the Taylor series value?
+  \item What is an analytical function?
+\end{enumerate}
+
+\textbf{Potential exam questions:}
+
+TODO
+
+\subsection{Multidimensional differential calculus}
+
+\textbf{Study questions:}
+
+\begin{enumerate}
+  \item Define the Frobenius norm. What is a matrix norm?
+  \item What is a bounded linear map?
+  \item What is an operator norm?
+  \item Define $\mathcal{O}(g(x))$ and $\mathcal{o}(g(x))$.
+  \item Why does the differential quotient not work in the multivariate case?
+  \item When is $f$ differentiable on $D \subseteq \mathbb R^m$ and continuously differentiable on $D \subseteq \mathbb R^m$?
+  \item Define the Gateaux derivative?
+  \item Does Frech\'et derivative imply the Gateaux derivative? % Yes
+  \item Is the Gâteaux derivative linear? % No
+  \item Does the existence of partial derivatives in higher dimensions guarantee differentiability? % No
+  \item Does the existence of all directional derivatives in higher dimensions guarantee differentiability? % No
+  \item Give the definition of partial derivatives. Define the Jacobi matrix.
+  \item The Jacobi matrix exists. Does the derivative exist? % No
+  \item The derivative exists. Does the Jacobi matrix exist? % Yes
+  \item All partial derivatives of $f$ exist. Is $f$ Frech\'et differentiable? % Yes
+  \item Let $f: D \subseteq \mathbb R^m \to \mathbb R^n$ be given. Does differentiability depend on the choice of the norm? No
+  \item Define the total differential of $f: D \subseteq R^m \to \mathbb R$. Define the nabla operator.
+  \item What is a niveau level of a function?
+  \item Define a local maximum in $\mathbb R^n$ and a struct local maximum in $\mathbb R^n$.
+  \item What is a diffeomorphism? What is a local diffeomorphism?
+  \item Define the Hesse matrix.
+  \item Give a generalization of the Schwarz' theorem.
+  \item Explain the multidimension Taylor theorem with multiindex notation.
+  \item Give the qualitative Taylor theorem.
+  \item Give the three sufficient optimality criteria.
+  \item When is a matrix positive definite?
+\end{enumerate}
+
+\textbf{Potential exam questions:}
+
+TODO
+
+\subsection{Differential geometry of curves}
+
+\textbf{Study questions:}
+
+\begin{enumerate}
+  \item Define parameterized curve and the trace of a curve. What is a regular curve parameterization?
+  \item What is a unit tangential vector? Define a tangent.
+  \item Define a reparametrization of a parametrized curve. What is a parameter exchange?
+  \item How does one compute the arc length reparameterization of a curve?
+  \item When is a reparametrization orientation preserving?
+  \item What is a geometric quantity of a parameterized curve?
+  \item What is a closed curve?
+  \item Do reparametrized curves have the same trace?
+  \item Give the definition and plot of Neil's parabola.
+  \item What is a rectifiable curve? Define the arc length of a curve.
+  \item Define a cycloid.
+  \item What is the purpose of reparametrization by arc length? % Uniform traversal speed
+  \item Define the curvature of the main orthogonal vector of a parametrized curve. What/Where is the curvature center?
+  \item Give the three Frenet formulas.
+  \item What is an osculating plane of a curve in a point?
+  \item What is a binormal vector of a curve?
+  \item What is the torsion of a curve?
+  \item Define the pitch of a curve.
+  \item What is a signed curvature? What is an evolute of a curve? What is an envelope of the family of curves?
+\end{enumerate}
+
+\textbf{Potential exam questions:}
+
+TODO
+
+\section{Study hints by students}
+
+\subsection{Exam questions 2018/07/06}
 
 \begin{enumerate}
   \item Let $f: X \to Y$ be continuous. Let $X$ be compact. Prove that $f(X)$ is compact. Give any corollary of this proof.
@@ -6128,7 +6270,7 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
   \item Let $\gamma: I \to \mathbb R^3$ be regular, smooth and $\norm{\gamma'(t)} = 1$ $\forall t \in I$. Define its curvature, circle of curvature, osculating plane and principal normal vector. Show $\angel{T, N} = 0$. Give the approximating behavior of curvature and the circle of curvature.
 \end{enumerate}
 
-\subsection*{Example questions 2018/07/31}
+\subsection{Example questions 2018/07/31}
 
 \begin{enumerate}
   \item Give and prove Banach Fixed Point Theorem. Give another important theorem, which can be proved using Banach Fixed Point Theorem.
@@ -6140,7 +6282,21 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
   holds for operator norms.
 \end{enumerate}
 
-\subsection*{List of 12 major theorems}
+\subsection{Exam questions 2020/07/27}
+
+\begin{enumerate}
+  \item Prove: The differentiable function $f: L \to \mathbb R$ is convex on interval $I$. Then $\forall x_0, x \in I: f(x) \geq f(x_0) + f'(x_0)(x - x_0)$.
+  \item Let $f \in \mathcal R[a, b]$ be a regulated function on interval $[a, b]$. Let $\varepsilon > 0$. Prove: There exists some step function $\varphi \in \tau[a, b]$ such that $\forall x \in [a, b]$ the approximation relation $\card{\varphi(x) - f(x)} < \varepsilon$ holds true. (Thus you need to show one direction of the proof of the approximation theorem for regulated functions).
+  \item Formulate and prove the Minkowsky-inequality for regulated functions on the compact interval $I = [a, b]$.
+  \item Let $\varphi \in \mathcal L_b(V, W)$ be a bounded, linear operator between normed vector spaces $V$ and $W$. Give the definition of operator norm $\norm{\varphi}$ and prove the following relations:
+    \begin{enumerate}
+      \item $\norm{\varphi(v)} \leq \norm{\varphi} \norm{v}$ for all $v \in V$,
+      \item $\norm{\varphi} = \sup\Big\{\frac{\norm{\varphi(v)}}{\norm{v}} \: : \: v \in V, v \neq 0\Big\}$.
+    \end{enumerate}
+  \item Let $U \subseteq \mathbb R^m$ be open and $f \in \mathcal C^{k+1}(U)$. Formulate and prove Taylor's theorem for such $f$.
+\end{enumerate}
+
+\subsection{List of 12 major theorems}
 
 \begin{enumerate}
   \item Bolzano-Weierstrass Theorem in $\mathbb R^n$
@@ -6157,7 +6313,7 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
   \item Schwarz' Theorem
 \end{enumerate}
 
-\subsection*{Sample exam by a student}
+\subsection{Sample exam by a student, \textnumero. 1}
 
 \begin{enumerate}
   \item Give and prove the Implicit Function Theorem
@@ -6167,7 +6323,7 @@ $\mu$ is the \emph{envelope of the family of curves} of $\gamma$ (dt. \foreignla
     Which corollary can be made regarding intersection and union of open sets?
 \end{enumerate}
 
-\subsection*{Another sample exam by a student}
+\subsection{Sample exam by a student, \textnumero. 2}
 
 \begin{enumerate}
   \item Prove that all norms are equivalent in $\mathbb R^n$ and show that norm equivalence is an equivalence relation.
